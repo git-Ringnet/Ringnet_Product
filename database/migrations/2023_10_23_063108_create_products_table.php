@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('product_code');
             $table->string('product_name');
             $table->string('product_unit');
-            $table->string('product_type');
-            $table->string('product_');
-            $table->string('product_origin');
+            $table->string('product_type')->nullable();
+            $table->string('product_manufacturer')->nullable();
+            $table->string('product_origin')->nullable();
             $table->string('product_guarantee');
             $table->decimal('product_price_import');
             $table->decimal('product_price_export');
