@@ -24,9 +24,9 @@ return new class extends Migration
             $table->decimal('product_price_export');
             $table->string('product_ratio');
             $table->integer('product_tax');
-            $table->decimal('product_inventory');
-            $table->decimal('product_trade');
-            $table->decimal('product_available');
+            $table->decimal('product_inventory')->nullable();
+            $table->decimal('product_trade')->nullable();
+            $table->decimal('product_available')->nullable();
             $table->unsignedBigInteger('warehouse_id');
             $table->timestamps();
         });
