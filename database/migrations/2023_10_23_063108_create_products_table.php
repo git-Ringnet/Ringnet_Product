@@ -20,13 +20,13 @@ return new class extends Migration
             $table->string('product_manufacturer')->nullable();
             $table->string('product_origin')->nullable();
             $table->string('product_guarantee');
-            $table->decimal('product_price_import');
-            $table->decimal('product_price_export');
+            $table->decimal('product_price_import',20,4);
+            $table->decimal('product_price_export',20,4);
             $table->string('product_ratio');
             $table->integer('product_tax');
-            $table->decimal('product_inventory')->nullable();
-            $table->decimal('product_trade')->nullable();
-            $table->decimal('product_available')->nullable();
+            $table->decimal('product_inventory',20,4)->nullable();
+            $table->decimal('product_trade',20,4)->nullable();
+            $table->decimal('product_available',20,4)->nullable();
             $table->unsignedBigInteger('warehouse_id');
             $table->timestamps();
         });

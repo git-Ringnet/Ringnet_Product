@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('provide_represent')->nullable();
             $table->string('provide_email')->nullable();
             $table->string('provide_phone')->nullable();
-            $table->decimal('provide_debt');
+            $table->decimal('provide_debt',20,4);
             $table->string('provide_address_delivery')->nullable();
             $table->timestamps();
         });
