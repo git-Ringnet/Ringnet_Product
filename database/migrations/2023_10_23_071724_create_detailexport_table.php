@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('detailexport', function (Blueprint $table) {
             $table->id();
-            $table->integer('guest_id');
-            $table->integer('project_id');
-            $table->integer('product_id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('guest_id');
+            $table->unsignedBigInteger('project_id');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('quotation_number');
             $table->string('reference_number')->nullable();
             $table->date('price_effect');

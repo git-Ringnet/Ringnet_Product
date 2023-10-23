@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('quoteimport', function (Blueprint $table) {
             $table->id();
-            $table->integer('detailimport_id');
-            $table->integer('product_id');
+            $table->unsignedBigInteger('detailimport_id');
+            $table->unsignedBigInteger('product_id');
             $table->timestamps();
         });
     }

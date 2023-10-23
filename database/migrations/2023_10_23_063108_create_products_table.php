@@ -27,12 +27,9 @@ return new class extends Migration
             $table->decimal('product_inventory');
             $table->decimal('product_trade');
             $table->decimal('product_available');
-            $table->integer('warehouse_id');
+            $table->unsignedBigInteger('warehouse_id');
             $table->timestamps();
         });
-        // Schema::create('products', function (Blueprint $table) {
-        //     $table->foreign('id_warehouse')->references('id')->on('warehouse');
-        // });
     }
 
     /**
