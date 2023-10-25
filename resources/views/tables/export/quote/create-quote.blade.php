@@ -69,43 +69,43 @@
                                 <div class="title-info py-2 border border-left-0">
                                     <p class="p-0 m-0 px-3 required-label text-danger">Khách hàng</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" class="border w-100 py-2 border-right-0 px-3">
+                                <input type="text" placeholder="Nhập thông tin" class="border w-100 py-2 border-left-0 border-right-0 px-3">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
+                                <div class="title-info py-2 border border-top-0 border-left-0">
                                     <p class="p-0 m-0 px-3">Số báo giá#</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" class="border w-100 py-2 border-right-0 px-3">
+                                <input type="text" placeholder="Nhập thông tin" class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
+                                <div class="title-info py-2 border border-top-0 border-left-0">
                                     <p class="p-0 m-0 px-3">Số tham chiếu#</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" class="border w-100 py-2 border-right-0 px-3">
+                                <input type="text" placeholder="Nhập thông tin" class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
+                                <div class="title-info py-2 border border-top-0 border-left-0">
                                     <p class="p-0 m-0 px-3">Ngày báo giá</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" class="border w-100 py-2 border-right-0 px-3">
+                                <input type="text" placeholder="Nhập thông tin" class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
+                                <div class="title-info py-2 border border-top-0 border-left-0">
                                     <p class="p-0 m-0 px-3">Hiệu lực báo giá</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" class="border w-100 py-2 border-right-0 px-3">
+                                <input type="text" placeholder="Nhập thông tin" class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
+                                <div class="title-info py-2 border-top-0 border border-left-0">
                                     <p class="p-0 m-0 px-3">Điều khoản thanh toán</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" class="border w-100 py-2 border-right-0 px-3">
+                                <input type="text" placeholder="Nhập thông tin" class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
+                                <div class="title-info py-2 border-top-0 border border-left-0">
                                     <p class="p-0 m-0 px-3">Dự án</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" class="border w-100 py-2 border-right-0 px-3">
+                                <input type="text" placeholder="Nhập thông tin" class="border border-top-0 w-100 py-2 border-right-0 border-left-0 px-3">
                             </div>
                         </div>
                     </div>

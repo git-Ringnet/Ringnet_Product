@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\quoteExportController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvidesController;
-use App\Http\Controllers\QuoteExportController as ControllersQuoteExportController;
+use App\Http\Controllers\QuoteExportController;
 use Illuminate\Support\Facades\Route;
 
 /*
