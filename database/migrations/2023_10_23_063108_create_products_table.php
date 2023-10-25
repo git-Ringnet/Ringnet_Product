@@ -27,7 +27,8 @@ return new class extends Migration
             $table->decimal('product_inventory',20,4)->nullable();
             $table->decimal('product_trade',20,4)->nullable();
             $table->decimal('product_available',20,4)->nullable();
-            $table->unsignedBigInteger('warehouse_id');
+            // $table->unsignedBigInteger('warehouse_id');
+            $table->integer('check_seri')->nullable();
             $table->timestamps();
         });
     }

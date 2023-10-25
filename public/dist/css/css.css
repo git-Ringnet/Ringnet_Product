@@ -651,7 +651,7 @@ td p {
     display: none;
 }
 
-#list_modal .modal-dialog {
+#exampleModal .modal-dialog {
     max-width: 85% !important;
 }
 
@@ -1471,3 +1471,5 @@ input[type="checkbox"] {
         width: 30% !important;
     }
 }
+
+
