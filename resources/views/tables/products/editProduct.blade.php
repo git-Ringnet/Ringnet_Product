@@ -8,7 +8,7 @@
             <span>Kho hàng / Tồn kho / {{ $title }}</span>
         </div><!-- /.container-fluided -->
     </section>
-    <form action="{{ route('kho-hang.update', $product->id) }}" method="POST">
+    <form action="{{ route('inventory.update', $product->id) }}" method="POST">
         @method('PUT')
         @csrf
         <section class="content-header">
@@ -220,7 +220,8 @@
                         Tên kho hàng
                     </div>
                     <div class="col-md-2">
-                        <input type="text" class="product_inventory" name="product_inventory" value=" {{ $product->product_inventory }}">
+                        <input type="text" class="product_inventory" name="product_inventory"
+                            value=" {{ $product->product_inventory }}">
                     </div>
                     <div class="col-md-2">
                         <input type="text" readonly value="{{ $product->product_trade }}">

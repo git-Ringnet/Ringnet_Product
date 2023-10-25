@@ -269,7 +269,6 @@ table {
 
 td,
 th {
-    box-shadow: inset 0px -1px 0px #dde0e5;
     vertical-align: middle !important;
 }
 
@@ -314,7 +313,7 @@ th {
 }
 
 tbody tr {
-    background-color: #e9ecef;
+    border-bottom:1px solid #e9ecef;
 }
 
 .product-details {

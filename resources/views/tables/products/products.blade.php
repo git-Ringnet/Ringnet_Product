@@ -5,12 +5,12 @@
     <section class="content-header p-0">
         <div class="container-fluided">
             <div class="mb-3">
-                <span>Bán hàng</span>
+                <span>Tồn kho</span>
                 <span>/</span>
-                <span class="font-weight-bold">Đơn báo giá</span>
+                <span class="font-weight-bold">Sản phẩm</span>
             </div>
             <div class="row m-0 mb-1">
-                <a href="{{route('kho-hang.create') }}">
+                <a href="{{ route('inventory.create') }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -122,7 +122,7 @@
                                             <td>{{ $item->product_name }}</td>
                                             <td>{{ $item->product_inventory }}</td>
                                             <td>
-                                                <a href="{{ route('kho-hang.edit', $item->id) }}">
+                                                <a href="{{ route('inventory.edit', $item->id) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                         height="24" viewBox="0 0 24 24" fill="none">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"

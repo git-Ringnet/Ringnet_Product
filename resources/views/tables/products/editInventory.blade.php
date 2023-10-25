@@ -1,17 +1,19 @@
 <x-navbar :title="$title"></x-navbar>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <section class="content-header p-0">
         <div class="container-fluided">
-            <div class="row mb-2">
+            <div class="mb-3">
+                <span>Tồn kho</span>
+                <span>/</span>
+                <span class="font-weight-bold">{{ $title }}</span>
             </div>
-            <span>Kho hàng / {{ $title }}</span>
         </div><!-- /.container-fluided -->
     </section>
     <section class="content-header">
         <div class="container-fluided">
             <div class="d-flex">
-                <a href="{{ route('kho-hang.create') }}">
+                <a href="{{ route('inventory.create') }}">
                     <button class="btn btn-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
                             fill="none" style="&#10;">
@@ -63,7 +65,7 @@
                         <td>{{ $item->product_name }}</td>
                         <td>{{ $item->product_inventory }}</td>
                         <td>
-                            <a href="{{ route('kho-hang.showProductInventory', $item->id) }}">
+                            <a href="{{ route('inventory.showProductInventory', $item->id) }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"

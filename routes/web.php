@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Kho hàng
-Route::resource('kho-hang', ProductController::class);
+Route::resource('inventory', ProductController::class);
 Route::get('/editProduct', [ProductController::class, 'editProduct'])->name('editProduct');
-Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProductInventory'])->name('kho-hang.showProductInventory');
+Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProductInventory'])->name('inventory.showProductInventory');
 
 // Nhà cung cấp
 Route::resource('provides', ProvidesController::class);

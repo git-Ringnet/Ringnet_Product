@@ -8,15 +8,13 @@
             <span>Kho hàng / Tồn kho / {{ $title }}</span>
         </div><!-- /.container-fluided -->
     </section>
-    <form action="{{ route('kho-hang.store') }}" method="POST">
+    <form action="{{ route('inventory.store') }}" method="POST">
         @csrf
-
         <section class="content-header">
             <div class="container-fluided">
                 <button type="submit" class="btn btn-primary">Thêm</button>
             </div>
         </section>
-
         <section class="content-header">
             <div class="container-fluided">
                 <h4>Thông tin chung</h4>
@@ -134,7 +132,7 @@
                         <select name="product_tax" id="" class="form-control w-25">
                             <option value="0">0%</option>
                             <option value="8">8%</option>
-                            <option value="10">10%</option> 
+                            <option value="10">10%</option>
                             <option value="99">NOVAT</option>
                         </select>
                     </div>
