@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('reference_number')->nullable();
             $table->date('price_effect');
             $table->integer('status');
+            $table->unsignedBigInteger('warehouse_id');
             $table->timestamps();
         });
     }
