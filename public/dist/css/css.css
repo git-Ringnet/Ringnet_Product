@@ -881,10 +881,30 @@ input[type="number"] {
 }
 
 .custom-btn {
-    padding: 8px 16px;
+    padding: 7px 16px;
     background-color: #0052CC;
+    border: 1px solid #0052CC;
     color: white;
-    border: none;
+}
+
+.custom-btn:hover{
+    color: #0052CC;
+    background-color: white;
+    border: 1px solid #0052CC;
+}
+
+.custom-btn:hover path{
+    fill: #0052CC;
+}
+
+.btn-save-print{
+    border: 1px solid #D6D6D6;
+    color: #42526e;
+    background-color: #ecedf0;
+}
+
+.btn-save-print path{
+    fill: #42526e;
 }
 
 .btn-option {

@@ -28,7 +28,9 @@ class quoteExportController extends Controller
      */
     public function create()
     {
-        //
+        $title = "Tạo báo giá";
+        $createQuoteExport = $this->quoteExport->CreateQuoteExport();
+        return view('tables.ban_hang.bao_gia.tao-bao-gia', compact('title', 'createQuoteExport'));
     }
 
     /**
