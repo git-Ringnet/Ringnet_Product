@@ -877,23 +877,27 @@ input[type="number"] {
     color: white;
 }
 
-.custom-btn:hover{
+.custom-btn:hover {
     color: #0052CC;
     background-color: white;
     border: 1px solid #0052CC;
 }
 
-.custom-btn:hover path{
+.custom-btn:hover path {
     fill: #0052CC;
 }
 
-.btn-save-print{
+.btn-save-print {
     border: 1px solid #D6D6D6;
     color: #42526e;
     background-color: #ecedf0;
 }
 
-.btn-save-print path{
+.title-info {
+    width: 30%;
+}
+
+.btn-save-print path {
     fill: #42526e;
 }
 
@@ -902,14 +906,15 @@ input[type="number"] {
     padding: 0px 5px;
     background-color: #ecedf0;
 }
-.filter-btn{
+
+.filter-btn {
     border-radius: 5px;
     padding: 4px 14px;
     color: white;
     background-color: #253858;
 }
 
-.input-search{
+.input-search {
     padding: 5px 10px;
     border: 1px solid #d6d6d6;
     border-radius: 5px;
@@ -1512,12 +1517,14 @@ input[type="checkbox"] {
     /* Căn giữa theo trục dọc */
 }
 
-.navbar-nav{
-    flex:1;
+.navbar-nav {
+    flex: 1;
 }
-.main-sidebar{
+
+.main-sidebar {
     background-color: #FAFBFC !important;
 }
-.card-body>.table>thead>tr>th{
-    border-bottom-width:0 !important;
+
+.card-body>.table>thead>tr>th {
+    border-bottom-width: 0 !important;
 }

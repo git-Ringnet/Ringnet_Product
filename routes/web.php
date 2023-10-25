@@ -3,6 +3,7 @@
 use App\Http\Controllers\quoteExportController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvidesController;
+use App\Http\Controllers\QuoteExportController as ControllersQuoteExportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,7 @@ Route::get('/', function () {
 
 //Bán hàng
 //Báo giá
-Route::resource('quoteExport', quoteExportController::class);
+Route::resource('quoteExport', QuoteExportController::class);
 
 Route::middleware([
     'auth:sanctum',

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\QuoteExport;
 use Illuminate\Http\Request;
 
-class quoteExportController extends Controller
+class QuoteExportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class quoteExportController extends Controller
     {
         $title = "Báo giá";
         $quoteExport = $this->quoteExport->getAllQuoteExport();
-        return view('tables.ban_hang.bao_gia.ds-bao-gia', compact('title', 'quoteExport'));
+        return view('tables.export.quote.list-quote', compact('title', 'quoteExport'));
     }
 
     /**
@@ -30,7 +30,7 @@ class quoteExportController extends Controller
     {
         $title = "Tạo báo giá";
         $createQuoteExport = $this->quoteExport->CreateQuoteExport();
-        return view('tables.ban_hang.bao_gia.tao-bao-gia', compact('title', 'createQuoteExport'));
+        return view('tables.export.quote.create-quote', compact('title', 'createQuoteExport'));
     }
 
     /**
