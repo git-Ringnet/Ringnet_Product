@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\quoteExportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Bán hàng
+//Báo giá
+Route::resource('quoteExport', quoteExportController::class);
 
 Route::middleware([
     'auth:sanctum',

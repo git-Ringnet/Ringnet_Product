@@ -87,7 +87,6 @@ li {
 #myInput-trademark,
 #myInput-category,
 .input-quantity,
-.input-search,
 .input-so,
 .input-operator {
     padding: 5px 10px;
@@ -580,9 +579,9 @@ td p {
     left: -10px !important;
 }
 
-.content-header {
+/* .content-header {
     padding: 15px 0 0 0;
-}
+} */
 
 .content {
     padding: 0 !important;
@@ -656,7 +655,7 @@ td p {
     max-width: 85% !important;
 }
 
-#list_modal .modal.fade.show{
+#list_modal .modal.fade.show {
     z-index: 9999;
 }
 
@@ -883,6 +882,27 @@ input[type="number"] {
 
 .custom-btn {
     padding: 8px 16px;
+    background-color: #0052CC;
+    color: white;
+    border: none;
+}
+
+.btn-option {
+    border: 1px solid #D6D6D6;
+    padding: 0px 5px;
+    background-color: #ecedf0;
+}
+.filter-btn{
+    border-radius: 5px;
+    padding: 4px 14px;
+    color: white;
+    background-color: #253858;
+}
+
+.input-search{
+    padding: 5px 10px;
+    border: 1px solid #d6d6d6;
+    border-radius: 5px;
 }
 
 /* input[type="text"],
@@ -1097,9 +1117,10 @@ input[type="checkbox"] {
     box-shadow: 0px 0px 24px 0px rgba(96, 93, 93, 0.24);
 }
 
-.block-optionss{
+.block-optionss {
     width: 300px;
 }
+
 @media (max-width: 576px) {
     .block-optionss {
         width: 100%;
