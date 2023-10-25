@@ -8,7 +8,7 @@
             <span>Mua hàng / Nhà cung cấp / {{ $title }}</span>
         </div><!-- /.container-fluided -->
     </section>
-    <form action="{{ route('nha-cung-cap.update',$provide->id) }}" method="POST">
+    <form action="{{ route('provides.update', $provide->id) }}" method="POST">
         @csrf
         <section class="content-header">
             <div class="container-fluided">

@@ -19,7 +19,7 @@ class ProvidesController extends Controller
     {
         $title = "Nhà cung cấp";
         $provides = $this->provides->getAllProvide();
-        return view('tables.provides.provides', compact('title','provides'));
+        return view('tables.provides.provides', compact('title', 'provides'));
     }
 
     /**
@@ -37,10 +37,10 @@ class ProvidesController extends Controller
     public function store(Request $request)
     {
         $resuilt = $this->provides->addProvide($request->all());
-        if($resuilt == true){
+        if ($resuilt == true) {
             $msg = redirect()->back()->with('msg', 'Mã số thuế đã tồn tại');
-        }else{
-            $msg = redirect()->route('nha-cung-cap.index')->with('msg', 'Thêm mới nhà cung cấp thành công');
+        } else {
+            $msg = redirect()->route('provides.index')->with('msg', 'Thêm mới nhà cung cấp thành công');
         }
         return $msg;
         // dd($resuilt);
@@ -60,10 +60,10 @@ class ProvidesController extends Controller
     public function edit(string $id)
     {
         $provide = Provides::findOrFail($id);
-        if($provide){
+        if ($provide) {
             $title = $provide->provide_name_display;
         }
-        return view('tables.provides.editProvides',compact('title','provide'));
+        return view('tables.provides.editProvides', compact('title', 'provide'));
     }
 
     /**

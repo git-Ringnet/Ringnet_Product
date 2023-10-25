@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('guest_receiver')->nullable();
             $table->string('guest_email_personal')->nullable();
             $table->string('guest_phone_receiver')->nullable();
-            $table->decimal('guest_debt',20,4);
+            $table->decimal('guest_debt', 20, 4)->default(0);
             $table->string('guest_note')->nullable();
             $table->timestamps();
         });

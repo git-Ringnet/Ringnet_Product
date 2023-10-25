@@ -1,14 +1,18 @@
 <x-navbar :title="$title"></x-navbar>
 <div class="content-wrapper" style="background: none;">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <section class="content-header p-0">
         <div class="container-fluided">
-            <div class="row mb-2">
+            <div class="mb-3">
+                <span>Mua hàng</span>
+                <span>/</span>
+                <span><a class="text-dark" href="{{ route('provides.index') }}">Nhà cung cấp</a></span>
+                <span>/</span>
+                <span class="font-weight-bold">{{ $title }}</span>
             </div>
-            <span>Mua hàng / Nhà cung cấp / {{ $title }}</span>
         </div><!-- /.container-fluided -->
     </section>
-    <form action="{{ route('nha-cung-cap.store') }}" method="POST">
+    <form action="{{ route('provides.store') }}" method="POST">
         @csrf
         <section class="content-header">
             <div class="container-fluided">

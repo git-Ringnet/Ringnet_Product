@@ -121,10 +121,6 @@ li {
     color: #888;
 }
 
-.input-group .title {
-    width: 100%;
-}
-
 .block-options .input-group input {
     border-radius: 8px;
     border-top-left-radius: 8px !important;
@@ -246,7 +242,7 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
 }
 
 .content-wrapper {
-    background-color: #e9ecef;
+    background-color: #fff;
     padding: 52px 24px 0 24px;
     height: 100%;
     max-height: auto;
@@ -359,12 +355,6 @@ td p {
 * {
     font-family: "Inter", sans-serif;
     font-style: normal;
-}
-
-.navbar-nav .title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333333;
 }
 
 .nav-item p {
@@ -1472,4 +1462,62 @@ input[type="checkbox"] {
     }
 }
 
+/* Css navbar by nqv */
+.nav-title a {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--gray-5, #555);
+}
 
+.nav-title li {
+    position: relative;
+    list-style: none;
+}
+
+.nav-title li::before {
+    content: "";
+    position: absolute;
+    bottom: -17px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--primary-blue-6-primary, #0052CC);
+    color: transparent;
+    transition: width 0.3s, color 0.3s;
+}
+
+.nav-title li:hover::before {
+    width: 100%;
+    color: var(--primary-blue-6-primary, #0052CC);
+}
+
+.nav-title li a:hover {
+    color: var(--primary-blue-6-primary, #0052CC);
+}
+
+.nav-header {
+    display: flex;
+    /* Kích hoạt Flexbox cho nav-header */
+    justify-content: space-between;
+    /* Căn cách đều các thành phần bên trong */
+    align-items: center;
+    /* Căn giữa theo trục dọc */
+}
+
+.nav-title {
+    display: flex;
+    /* Kích hoạt Flexbox cho nav-title */
+    align-items: center;
+    /* Căn giữa theo trục dọc */
+}
+
+.navbar-nav{
+    flex:1;
+}
+.main-sidebar{
+    background-color: #FAFBFC !important;
+}
+.card-body>.table>thead>tr>th{
+    border-bottom-width:0 !important;
+}

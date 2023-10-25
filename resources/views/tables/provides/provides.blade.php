@@ -5,12 +5,12 @@
     <section class="content-header p-0">
         <div class="container-fluided">
             <div class="mb-3">
-                <span>Bán hàng</span>
+                <span>Mua hàng</span>
                 <span>/</span>
-                <span class="font-weight-bold">Đơn báo giá</span>
+                <span class="font-weight-bold">Nhà cung cấp</span>
             </div>
             <div class="row m-0 mb-1">
-                <a href="{{ route('nha-cung-cap.create') }}">
+                <a href="{{ route('provides.create') }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -75,7 +75,7 @@
                             <table id="example2" class="table table-hover">
                                 <thead class="sticky-head">
                                     <tr>
-                                        <th><input type="checkbox" name="all" id="checkall"></th>
+                                        <th style="width: 2%"><input type="checkbox" name="all" id="checkall"></th>
                                         <th scope="col">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="id"
@@ -138,7 +138,7 @@
                                             <td>{{ $item->provide_phone }}</td>
                                             <td>{{ $item->provide_debt }}</td>
                                             <td>
-                                                <a href="{{ route('nha-cung-cap.edit', $item->id) }}">
+                                                <a href="{{ route('provides.edit', $item->id) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32"
                                                         height="32" viewBox="0 0 32 32" fill="none">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
