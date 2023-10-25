@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\quoteExportController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProvidesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// Kho hàng
+Route::resource('kho-hang',ProductController::class);
+Route::get('/editProduct', [ProductController::class, 'editProduct'])->name('editProduct');
+Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProductInventory'])->name('kho-hang.showProductInventory');
+
+// Nhà cung cấp
+Route::resource('nha-cung-cap',ProvidesController::class);
 
 Route::get('/', function () {
     return view('welcome');
