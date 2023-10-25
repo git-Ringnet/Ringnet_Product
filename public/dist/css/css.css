@@ -858,6 +858,16 @@ input[type="number"] {
     padding: 8px 16px;
 }
 
+.btn-basic{
+    background-color: #ecedf0;
+    width: 120px;
+}
+
+.btn-add-product{
+    background-color: #D6D6D6;
+    cursor: pointer;
+}
+
 .btn-taodon .btn-light,
 .btn-xoahang .btn-light,
 .btn-nhanvien .btn-light {

@@ -24,7 +24,8 @@
                     </button>
                 </a>
                 <div class="dropdown">
-                    <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 dropdown-toggle"
+                    <button type="button" data-toggle="dropdown"
+                        class="btn-save-print d-flex align-items-center h-100 dropdown-toggle"
                         style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -63,50 +64,112 @@
             <div class="row">
                 <div class="col-12">
                     <div class="info-chung">
-                        <p class="font-weight-bold ml-2">Thông tin chung</p>
+                        <p class="font-weight-bold ml-2 px-3">Thông tin chung</p>
                         <div class="content-info">
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-left-0">
                                     <p class="p-0 m-0 px-3 required-label text-danger">Khách hàng</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" class="border w-100 py-2 border-left-0 border-right-0 px-3">
+                                <input type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="myInput"
+                                    autocomplete="off">
+                                <ul id="myUL"
+                                    class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                    style="z-index: 99;left: 24%;top: 20%;">
+                                    <li>
+                                        <a href="#"
+                                            class="text-dark d-flex justify-content-between p-2 search-info"
+                                            id="1" name="search-info">
+                                            <span class="w-50">Thai Hieu</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="text-white bg-dark d-flex justify-content-between p-2 search-info"
+                                            id="1" name="search-info">
+                                            <span class="w-50">Thêm mới</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-top-0 border-left-0">
                                     <p class="p-0 m-0 px-3">Số báo giá#</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                <input type="text" placeholder="Nhập thông tin"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-top-0 border-left-0">
                                     <p class="p-0 m-0 px-3">Số tham chiếu#</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                <input type="text" placeholder="Nhập thông tin"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-top-0 border-left-0">
                                     <p class="p-0 m-0 px-3">Ngày báo giá</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                <input type="text" placeholder="Nhập thông tin"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-top-0 border-left-0">
                                     <p class="p-0 m-0 px-3">Hiệu lực báo giá</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
+                                <input type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border-top-0 border border-left-0">
                                     <p class="p-0 m-0 px-3">Điều khoản thanh toán</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                <input type="text" placeholder="Nhập thông tin"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border-top-0 border border-left-0">
                                     <p class="p-0 m-0 px-3">Dự án</p>
                                 </div>
-                                <input type="text" placeholder="Nhập thông tin" class="border border-top-0 w-100 py-2 border-right-0 border-left-0 px-3">
+                                <input type="text" placeholder="Nhập thông tin"
+                                    class="border border-top-0 w-100 py-2 border-right-0 border-left-0 px-3">
                             </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-5">
+                        <div class="d-flex align-items-center btn-basic pb-3 px-2">
+                            <svg class="mr-1" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M14.25 15.75H3.75C3.35218 15.75 2.97064 15.592 2.68934 15.3107C2.40804 15.0294 2.25 14.6478 2.25 14.25V3.75C2.25 3.35218 2.40804 2.97064 2.68934 2.68934C2.97064 2.40804 3.35218 2.25 3.75 2.25H14.25C14.6478 2.25 15.0294 2.40804 15.3107 2.68934C15.592 2.97064 15.75 3.35218 15.75 3.75V14.25C15.75 14.6478 15.592 15.0294 15.3107 15.3107C15.0294 15.592 14.6478 15.75 14.25 15.75Z"
+                                    stroke="#42526E" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M4.5 4.5H13.5V11.25H4.5V4.5Z" stroke="#42526E" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M4.5 13.5H9.75" stroke="#42526E" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M12 13.5H13.5" stroke="#42526E" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <p class="p-0 m-0">Tối giản</p>
+                            <svg class="ml-1" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
+                                    fill="#42526E" />
+                            </svg>
+                        </div>
+                        <div class="btn-add-product m-0 pt-2 px-2 text-white">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M13.1221 7.74957H17.7085C17.7639 7.74959 17.8182 7.76654 17.8649 7.79842C17.9117 7.83031 17.949 7.87581 17.9725 7.92961C17.996 7.9834 18.0047 8.04326 17.9976 8.10218C17.9905 8.16109 17.9679 8.21662 17.9325 8.26226L15.6393 11.2133C15.6119 11.2485 15.5777 11.2768 15.539 11.2963C15.5003 11.3157 15.4581 11.3257 15.4153 11.3257C15.3726 11.3257 15.3304 11.3157 15.2917 11.2963C15.253 11.2768 15.2187 11.2485 15.1914 11.2133L12.8982 8.26226C12.8627 8.21662 12.8401 8.16109 12.833 8.10218C12.8259 8.04326 12.8347 7.9834 12.8582 7.92961C12.8817 7.87581 12.919 7.83031 12.9657 7.79842C13.0125 7.76654 13.0667 7.74959 13.1221 7.74957ZM0.291496 10.2505H4.87787C4.93328 10.2505 4.98753 10.2335 5.03428 10.2016C5.08103 10.1698 5.11834 10.1243 5.14184 10.0705C5.16534 10.0167 5.17405 9.9568 5.16697 9.89789C5.15988 9.83898 5.13728 9.78345 5.10182 9.7378L2.80863 6.78672C2.78127 6.75154 2.74702 6.72323 2.70832 6.70381C2.66962 6.68438 2.62741 6.67432 2.58468 6.67432C2.54195 6.67432 2.49974 6.68438 2.46104 6.70381C2.42234 6.72323 2.3881 6.75154 2.36073 6.78672L0.0675433 9.7378C0.0320814 9.78345 0.00948352 9.83898 0.00239575 9.89789C-0.00469202 9.9568 0.00402372 10.0167 0.0275224 10.0705C0.0510212 10.1243 0.0883301 10.1698 0.13508 10.2016C0.181831 10.2335 0.236087 10.2505 0.291496 10.2505Z"
+                                    fill="white" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M8.99998 2.7477C7.1897 2.7477 5.5707 3.63177 4.5011 5.02104C4.45333 5.0874 4.39361 5.14279 4.32548 5.18392C4.25735 5.22505 4.1822 5.25106 4.1045 5.26043C4.0268 5.26979 3.94814 5.26231 3.87319 5.23843C3.79824 5.21455 3.72854 5.17476 3.66822 5.12142C3.6079 5.06808 3.55821 5.00229 3.52209 4.92794C3.48597 4.8536 3.46416 4.77223 3.45796 4.68867C3.45177 4.60512 3.4613 4.52107 3.48601 4.44155C3.51072 4.36202 3.55009 4.28863 3.60178 4.22574C4.45583 3.11724 5.58889 2.29505 6.86621 1.85694C8.14352 1.41883 9.51134 1.38326 10.807 1.75444C12.1026 2.12563 13.2715 2.88795 14.1747 3.95075C15.0779 5.01355 15.6773 6.33208 15.9017 7.74954H14.7154C14.4461 6.33753 13.7303 5.06854 12.6888 4.15715C11.6474 3.24575 10.3443 2.74787 8.99998 2.7477ZM3.28452 10.2505C3.50533 11.4067 4.02677 12.4723 4.78859 13.3243C5.55041 14.1762 6.52152 14.7797 7.58974 15.0651C8.65795 15.3504 9.77967 15.306 10.8253 14.9368C11.8709 14.5677 12.7978 13.8889 13.4989 12.979C13.5466 12.9126 13.6064 12.8572 13.6745 12.8161C13.7426 12.775 13.8178 12.7489 13.8955 12.7396C13.9732 12.7302 14.0518 12.7377 14.1268 12.7616C14.2017 12.7854 14.2714 12.8252 14.3317 12.8786C14.3921 12.9319 14.4418 12.9977 14.4779 13.0721C14.514 13.1464 14.5358 13.2278 14.542 13.3113C14.5482 13.3949 14.5387 13.4789 14.514 13.5585C14.4892 13.638 14.4499 13.7114 14.3982 13.7743C13.5441 14.8828 12.4111 15.705 11.1338 16.1431C9.85644 16.5812 8.48862 16.6167 7.19299 16.2456C5.89736 15.8744 4.72844 15.112 3.82526 14.0492C2.92208 12.9865 2.32265 11.6679 2.09827 10.2505H3.28452Z"
+                                    fill="white" />
+                            </svg>
+                            Thêm sản phẩm mới
                         </div>
                     </div>
                 </div>
@@ -114,6 +177,19 @@
         </div>
     </section>
 </div>
+<script>
+    //hiện danh sách khách hàng khi click trường tìm kiếm
+    $("#myUL").hide();
+    $("#myInput").on("click", function() {
+        $("#myUL").show();
+    });
+    //ẩn danh sách khách hàng
+    $(document).click(function(event) {
+        if (!$(event.target).closest("#myInput").length) {
+            $("#myUL").hide();
+        }
+    });
+</script>
 </body>
 
 </html>
