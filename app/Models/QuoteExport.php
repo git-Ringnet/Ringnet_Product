@@ -18,9 +18,9 @@ class QuoteExport extends Model
         $quoteExport = QuoteExport::all();
         return $quoteExport;
     }
-    public function CreateQuoteExport()
+    public function getAllGuest()
     {
-        $createQuoteExport = QuoteExport::all();
-        return $createQuoteExport;
+        $guest = Guest::all();
+        return $guest;
     }
 }

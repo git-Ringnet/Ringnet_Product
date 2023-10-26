@@ -28,7 +28,6 @@ Route::resource('provides', ProvidesController::class);
 // Khách hàng
 Route::resource('guests', GuestController::class);
 
-
 // Mua hàng
 Route::resource('import',DetailImportController::class);
 Route::get('/show_provide',[DetailImportController::class,'show_provide'])->name('show_provide');
@@ -41,6 +40,10 @@ Route::get('/', function () {
 //Bán hàng
 //Báo giá
 Route::resource('quoteExport', QuoteExportController::class);
+//tìm kiếm tên khách hàng
+Route::get('/searchExport', [QuoteExportController::class, 'searchGuest'])->name('searchExport');
+//Thêm khách hàng
+Route::get('/addGuest', [QuoteExportController::class, 'addGuest'])->name('addGuest');
 
 Route::middleware([
     'auth:sanctum',

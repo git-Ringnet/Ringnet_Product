@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guest;
 use App\Models\QuoteExport;
 use Illuminate\Http\Request;
 
@@ -11,10 +12,12 @@ class QuoteExportController extends Controller
      * Display a listing of the resource.
      */
     private $quoteExport;
+    private $guest;
 
     public function __construct()
     {
         $this->quoteExport = new QuoteExport();
+        $this->guest = new Guest();
     }
     public function index()
     {
@@ -29,8 +32,8 @@ class QuoteExportController extends Controller
     public function create()
     {
         $title = "Tạo báo giá";
-        $createQuoteExport = $this->quoteExport->CreateQuoteExport();
-        return view('tables.export.quote.create-quote', compact('title', 'createQuoteExport'));
+        $guest = $this->guest->getAllGuest();
+        return view('tables.export.quote.create-quote', compact('title', 'guest'));
     }
 
     /**
@@ -71,5 +74,10 @@ class QuoteExportController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function searchGuest(Request $request) {
+        $data = $request->all();
+        $guest = Guest::where('id',$data['idGuest'])->first();
+        return $guest;
     }
 }

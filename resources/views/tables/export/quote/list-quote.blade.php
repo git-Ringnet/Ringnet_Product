@@ -169,15 +169,15 @@
                                 </thead>
                                 <tbody>
                                     <tr onclick="handleRowClick('checkbox', event);">
-                                        <td><input type="checkbox" class="cb-element" name="ids[]" id="checkbox"
+                                        <td class="border-top-0 bg-white"><input type="checkbox" class="cb-element" name="ids[]" id="checkbox"
                                                 value="" onclick="event.stopPropagation();"></td>
-                                        <td>17/10/2023</td>
-                                        <td>BGX001</td>
-                                        <td>PO4000048029</td>
-                                        <td>Công ty A</td>
-                                        <td><a href="#">Dự án A</a></td>
-                                        <td><a href="#">Approved</a></td>
-                                        <td class="text-center">
+                                        <td class="border-top-0 bg-white">17/10/2023</td>
+                                        <td class="border-top-0 bg-white">BGX001</td>
+                                        <td class="border-top-0 bg-white">PO4000048029</td>
+                                        <td class="border-top-0 bg-white">Công ty A</td>
+                                        <td class="border-top-0 bg-white"><a href="#">Dự án A</a></td>
+                                        <td class="border-top-0 bg-white"><a href="#">Approved</a></td>
+                                        <td class="text-center border-top-0 bg-white">
                                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -188,7 +188,7 @@
                                                     fill="#D6D6D6" />
                                             </svg>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center border-top-0 bg-white">
                                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -196,7 +196,7 @@
                                                     fill="#D6D6D6" />
                                             </svg>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center border-top-0 bg-white">
                                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -204,7 +204,7 @@
                                                     fill="#08AA36" />
                                             </svg>
                                         </td>
-                                        <td>
+                                        <td class="border-top-0 bg-white">
                                             2.090.000
                                         </td>
                                     </tr>

@@ -313,7 +313,7 @@ th {
 }
 
 tbody tr {
-    border-bottom:1px solid #e9ecef;
+    border-bottom: 1px solid #e9ecef;
 }
 
 .product-details {
@@ -648,6 +648,10 @@ td p {
     max-width: 65% !important;
 }
 
+#guestModal .modal-dialog {
+    max-width: 65% !important;
+}
+
 #list_modal .modal.fade.show {
     z-index: 9999;
 }
@@ -861,14 +865,28 @@ input[type="number"] {
     padding: 8px 16px;
 }
 
-.btn-basic{
+.btn-basic {
     background-color: #ecedf0;
     width: 120px;
 }
 
-.btn-add-product{
+.btn-add-product {
     background-color: #D6D6D6;
     cursor: pointer;
+}
+
+.content .container-fluided input:focus {
+    outline: none;
+}
+
+.content .container-fluided select:focus {
+    outline: none;
+}
+
+.custom-select {
+    min-width: 50px;
+    position: relative;
+    border: none;
 }
 
 .btn-taodon .btn-light,
