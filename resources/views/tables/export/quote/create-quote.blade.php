@@ -468,35 +468,36 @@
             );
             const soLuong = $(
                 "<td class='border border-top-0 border-bottom-0 position-relative'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-100'>" +
+                "<input type='text' class='border-0 px-2 py-1 w-100 quantity-input'>" +
                 "<p class='text-primary text-center position-absolute' style='top: 68%;'>Tồn kho: 35</p>" +
                 "</td>"
             );
             const donGia = $(
                 "<td class='border border-top-0 border-bottom-0 position-relative'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-100'>" +
+                "<input type='text' class='border-0 px-2 py-1 w-100' name='product_price'>" +
                 "<p class='text-primary text-right position-absolute' style='top: 68%;right: 5%;'>Giao dịch gần đây</p>" +
                 "</td>"
             );
             const thue = $(
                 "<td class='border border-top-0 border-bottom-0 px-4'>" +
-                "<select name='' class='border-0 text-center'>" +
+                "<select name='' class='border-0 text-center product_tax'>" +
                 "<option value='0'>0%</option>" +
                 "<option value='8'>8%</option>" +
-                "<option value='8'>10%</option>" +
+                "<option value='10'>10%</option>" +
                 "<option value='99'>NOVAT</option>" +
                 "</select>" +
                 "</td>"
             );
             const thanhTien = $(
-                "<td class='border border-top-0 border-bottom-0'><input type='text' class='border-0 px-2 py-1 w-100'></td>"
+                "<td class='border border-top-0 border-bottom-0'><input type='text' class='border-0 px-2 py-1 w-100 total-amount'></td>"
             );
             const option = $(
                 "<td class='border border-top-0 border-bottom-0 border-right-0 text-right'>" +
                 "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
                 "<path fill-rule='evenodd' clip-rule='evenodd' d='M10.5454 5C10.2442 5 9.99999 5.24421 9.99999 5.54545C9.99999 5.8467 10.2442 6.09091 10.5454 6.09091H13.4545C13.7558 6.09091 14 5.8467 14 5.54545C14 5.24421 13.7558 5 13.4545 5H10.5454ZM6 7.72726C6 7.42601 6.24421 7.18181 6.54545 7.18181H7.63637H16.3636H17.4545C17.7558 7.18181 18 7.42601 18 7.72726C18 8.02851 17.7558 8.27272 17.4545 8.27272H16.9091V17C16.9091 18.2113 15.9118 19.1818 14.7135 19.1818H9.25891C8.97278 19.1816 8.68906 19.1247 8.42499 19.0145C8.16092 18.9044 7.92126 18.7431 7.71979 18.5399C7.51833 18.3367 7.35905 18.0957 7.25112 17.8307C7.14347 17.5664 7.08903 17.2834 7.09091 16.9981V8.27272H6.54545C6.24421 8.27272 6 8.02851 6 7.72726ZM8.18182 17.0041V8.27272H15.8182V17C15.8182 17.5966 15.3216 18.0909 14.7135 18.0909H9.25938C9.11713 18.0908 8.97632 18.0625 8.84503 18.0077C8.71375 17.953 8.5946 17.8728 8.49444 17.7718C8.39429 17.6707 8.3151 17.5509 8.26144 17.4192C8.20779 17.2874 8.18074 17.1464 8.18182 17.0041ZM13.4545 10.0909C13.7558 10.0909 14 10.3351 14 10.6364V15.7273C14 16.0285 13.7558 16.2727 13.4545 16.2727C13.1533 16.2727 12.9091 16.0285 12.9091 15.7273V10.6364C12.9091 10.3351 13.1533 10.0909 13.4545 10.0909ZM11.0909 10.6364C11.0909 10.3351 10.8467 10.0909 10.5454 10.0909C10.2442 10.0909 9.99999 10.3351 9.99999 10.6364V15.7273C9.99999 16.0285 10.2442 16.2727 10.5454 16.2727C10.8467 16.2727 11.0909 16.0285 11.0909 15.7273V10.6364Z' fill='#42526E'/>" +
                 "</svg>" +
-                "</td>"
+                "</td>" +
+                "<td style='display:none;'><input type='text' class='product_tax1'></td>"
             );
             // Gắn các phần tử vào hàng mới
             newRow.append(maSanPham, tenSanPham, dvTinh,
@@ -514,6 +515,13 @@
             option.click(function() {
                 $(this).closest("tr").remove();
                 fieldCounter--;
+                calculateTotalAmount();
+                calculateGrandTotal();
+                var productTaxText = $('#product-tax').text();
+                var productTaxValue = parseFloat(productTaxText.replace(/,/g, ''));
+                var taxAmount = parseFloat(('.product_tax1').text());
+                var totalTax = productTaxValue - taxAmount;
+                $('#product-tax').text(totalTax);
             });
         });
     });
@@ -566,6 +574,105 @@
             }
         });
     });
+    //tính thành tiền của sản phẩm
+    $(document).on('input', '.quantity-input, [name^="product_price"]', function(e) {
+        var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;
+        var productPrice = parseFloat($(this).closest('tr').find('input[name^="product_price"]').val().replace(
+            /[^0-9.-]+/g, "")) || 0;
+        updateTaxAmount($(this).closest('tr'));
+
+        if (!isNaN(productQty) && !isNaN(productPrice)) {
+            var totalAmount = productQty * productPrice;
+            $(this).closest('tr').find('.total-amount').val(formatCurrency(totalAmount));
+            calculateTotalAmount();
+            calculateTotalTax();
+        }
+    });
+
+    $(document).on('change', '.product_tax', function() {
+        updateTaxAmount($(this).closest('tr'));
+        calculateTotalAmount();
+        calculateTotalTax();
+    });
+
+    function updateTaxAmount(row) {
+        var productQty = parseFloat(row.find('.quantity-input').val());
+        var productPrice = parseFloat(row.find('input[name^="product_price"]').val().replace(/[^0-9.-]+/g, ""));
+        var taxValue = parseFloat(row.find('.product_tax').val());
+        if (taxValue == 99) {
+            taxValue = 0;
+        }
+        if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
+            var totalAmount = productQty * productPrice;
+            var taxAmount = (totalAmount * taxValue) / 100;
+
+            row.find('.product_tax1').text(Math.round(taxAmount));
+        }
+    }
+
+    function calculateTotalAmount() {
+        var totalAmount = 0;
+        $('tr').each(function() {
+            var rowTotal = parseFloat(String($(this).find('.total-amount').val()).replace(/[^0-9.-]+/g, ""));
+            if (!isNaN(rowTotal)) {
+                totalAmount += rowTotal;
+            }
+        });
+        totalAmount = Math.round(totalAmount); // Làm tròn thành số nguyên
+        $('#total-amount-sum').text(formatCurrency(totalAmount));
+        calculateTotalTax();
+        calculateGrandTotal();
+    }
+
+    function calculateTotalTax() {
+        var totalTax = 0;
+        $('tr').each(function() {
+            var rowTax = parseFloat($(this).find('.product_tax1').text().replace(/[^0-9.-]+/g, ""));
+            if (!isNaN(rowTax)) {
+                totalTax += rowTax;
+            }
+        });
+        totalTax = Math.round(totalTax); // Làm tròn thành số nguyên
+        $('#product-tax').text(formatCurrency(totalTax));
+
+        calculateGrandTotal();
+    }
+
+    function calculateGrandTotal() {
+        var totalAmount = parseFloat($('#total-amount-sum').text().replace(/[^0-9.-]+/g, ""));
+        var totalTax = parseFloat($('#product-tax').text().replace(/[^0-9.-]+/g, ""));
+
+        var grandTotal = totalAmount + totalTax;
+        grandTotal = Math.round(grandTotal); // Làm tròn thành số nguyên
+        $('#grand-total').text(formatCurrency(grandTotal));
+
+        // Update data-value attribute
+        $('#grand-total').attr('data-value', grandTotal);
+        $('#total').val(totalAmount);
+    }
+
+    function formatCurrency(value) {
+        value = Math.round(value * 100) / 100;
+
+        var parts = value.toString().split(".");
+        var integerPart = parts[0];
+        var formattedValue = "";
+
+        var count = 0;
+        for (var i = integerPart.length - 1; i >= 0; i--) {
+            formattedValue = integerPart.charAt(i) + formattedValue;
+            count++;
+            if (count % 3 === 0 && i !== 0) {
+                formattedValue = "," + formattedValue;
+            }
+        }
+
+        if (parts.length > 1) {
+            formattedValue += "." + parts[1];
+        }
+
+        return formattedValue;
+    }
 </script>
 </body>
 
