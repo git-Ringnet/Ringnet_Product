@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('quotation_number');
             $table->string('reference_number')->nullable();
-            $table->date('price_effect');
+            $table->string('price_effect');
             $table->integer('status');
             $table->unsignedBigInteger('warehouse_id');
             $table->timestamps();

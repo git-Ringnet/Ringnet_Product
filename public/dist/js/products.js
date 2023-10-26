@@ -426,60 +426,7 @@ function validateQtyInput1(input) {
     }
 }
 
-$("#radio1").on("click", function () {
-    $('#infor_provide').empty();
-});
 
-$("#radio2").on("click", function () {
-    $('#provide_id').val("");
-    $('#infor_provide').html(
-        '<div class="border-bottom p-3 d-flex justify-content-between">' +
-        '<b>Thông tin nhà cung cấp</b>' +
-        '<button id="btn-addCustomer" class="btn btn-primary d-flex align-items-center">' +
-        '<img src="../../dist/img/icon/Union.png">' +
-        '<span class="ml-1">Lưu thông tin</span></button></div>' +
-        '<div class="row p-3">' +
-        '<div class="col-sm-6">' +
-        '<div class="form-group">' +
-        '<label for="congty" class="required-label">Công ty:</label>' +
-        '<input required type="text" class="form-control" id="provide_name_new" placeholder="Nhập thông tin" name="provide_name_new" value="">' +
-        '</div>' + '<div class="form-group">' +
-        '<label class="required-label">Địa chỉ xuất hóa đơn:</label>' +
-        '<input required type="text" class="form-control" id="provide_address_new" placeholder="Nhập thông tin" name="provide_address_new" value="">' +
-        '</div>' + '<div class="form-group">' +
-        '<label for="email" class="required-label">Mã số thuế:</label>' +
-        '<input required type="text" class="form-control" oninput="validateNumberInput(this)" id="provide_code_new" placeholder="Nhập thông tin" name="provide_code_new" value="">' +
-        '</div>' + '</div>' + '<div class="col-sm-6">' +
-        '<div class="form-group">' +
-        '<label for="email">Người đại diện:</label>' +
-        '<input type="text" class="form-control" id="provide_represent_new" placeholder="Nhập thông tin" name="provide_represent_new" value="">' +
-        '</div>' + '<div class="form-group">' +
-        '<label for="email">Email:</label>' +
-        '<input type="email" class="form-control" id="provide_email_new" placeholder="Nhập thông tin" name="provide_email_new" value="">' +
-        '</div>' + '<div class="form-group">' +
-        '<label for="email">Số điện thoại:</label>' +
-        '<input type="number" class="form-control" id="provide_phone_new" placeholder="Nhập thông tin" name="provide_phone_new" value="">' +
-        '</div>' +
-        '<div class="form-group">' +
-        '<label for="email">Công nợ:</label>' +
-        '<div class="d-flex align-items-center" style="width:101%;"> <input id="debtInput" class="form-control" type="text" name="provide_debt" style="width:15%;">' +
-        '<span class="ml-2" id="data-debt" style="color: rgb(29, 28, 32);">ngày</span>' +
-        '<input type="checkbox" id="debtCheckbox" value="0" style="margin-left:10%;" checked>' +
-        '<span class="ml-2">Thanh toán tiền mặt</span> </div>' +
-        '</div>' +
-        '</div></div>'
-    );
-    var isChecked = $('#debtCheckbox').is(':checked');
-    // Đặt trạng thái của input dựa trên checkbox
-    $('#debtInput').val(0);
-    $('#debtInput').prop('disabled', isChecked);
-    // Xử lý sự kiện khi checkbox thay đổi
-    $(document).on('change', '#debtCheckbox', function () {
-        var isChecked = $(this).is(':checked');
-        $('#debtInput').prop('disabled', isChecked);
-        $('#debtInput').val(0);
-    });
-})
 var rowCount = $('#inputContainer tbody tr').length;
 
 
@@ -488,40 +435,40 @@ createRowInput();
 function createRowInput() {
     var addRow = $('.addRow');
     $(addRow).off('click').on('click', function () {
-        var SLProduct,SLTr;
+        var SLProduct, SLTr;
         SLProduct = parseInt($('.product_inventory').val());
         SLTr = $(addRow).closest('.modal-dialog').find('#table_SNS tbody tr').length;
-        if(SLTr < SLProduct){
-        var modal_body = $(this).closest('.modal-content').find('.modal-body');
-        var newtr = document.createElement('tr');
-        var newtd1 = document.createElement('td');
-        var newtd2 = document.createElement('td');
-        var newtd3 = document.createElement('td');
-        var newtd4 = document.createElement('td');
-        var newDiv = document.createElement("input");
-        var checkbox = document.createElement("input");
-        var stt = document.createElement("span");
-        var checkboxes = modal_body[0].querySelectorAll('input[type="checkbox"]');
-        var checkboxCount = checkboxes.length;
-        checkbox.setAttribute("type", "checkbox");
-        newtd1.append(checkbox);
-        newDiv.setAttribute("type", "text");
-        newDiv.setAttribute("class", "form-control w-25");
-        newDiv.setAttribute("name", "seri" + "[]");
-        newtd3.append(newDiv);
-        newtd4.setAttribute('class', 'deleteRow1');
-        newtd4.innerHTML =
-            '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.0606 6.66675C13.6589 6.66675 13.3333 6.99236 13.3333 7.39402C13.3333 7.79568 13.6589 8.12129 14.0606 8.12129H17.9394C18.341 8.12129 18.6667 7.79568 18.6667 7.39402C18.6667 6.99236 18.341 6.66675 17.9394 6.66675H14.0606ZM8 10.3031C8 9.90143 8.32561 9.57582 8.72727 9.57582H10.1818H21.8182H23.2727C23.6744 9.57582 24 9.90143 24 10.3031C24 10.7048 23.6744 11.0304 23.2727 11.0304H22.5455V22.6667C22.5455 24.2819 21.2158 25.5758 19.6179 25.5758H12.3452C11.9637 25.5755 11.5854 25.4997 11.2333 25.3528C10.8812 25.2059 10.5617 24.9908 10.2931 24.7199C10.0244 24.449 9.81206 24.1276 9.66816 23.7743C9.52463 23.4219 9.45204 23.0447 9.45455 22.6642V11.0304H8.72727C8.32561 11.0304 8 10.7048 8 10.3031ZM10.9091 22.6723V11.0304H21.0909V22.6667C21.0909 23.4623 20.4288 24.1213 19.6179 24.1213H12.3458C12.1562 24.1211 11.9684 24.0834 11.7934 24.0104C11.6183 23.9374 11.4595 23.8304 11.3259 23.6958C11.1924 23.5611 11.0868 23.4013 11.0153 23.2257C10.9437 23.05 10.9076 22.8619 10.9091 22.6723ZM17.9394 13.4546C18.3411 13.4546 18.6667 13.7802 18.6667 14.1819V20.9698C18.6667 21.3714 18.3411 21.6971 17.9394 21.6971C17.5377 21.6971 17.2121 21.3714 17.2121 20.9698V14.1819C17.2121 13.7802 17.5377 13.4546 17.9394 13.4546ZM14.7879 14.1819C14.7879 13.7802 14.4623 13.4546 14.0606 13.4546C13.6589 13.4546 13.3333 13.7802 13.3333 14.1819V20.9698C13.3333 21.3714 13.6589 21.6971 14.0606 21.6971C14.4623 21.6971 14.7879 21.3714 14.7879 20.9698V14.1819Z" fill="#555555"/></svg>';
-        newtd2.appendChild(stt);
-        newtr.append(newtd1);
-        newtr.append(newtd2);
-        newtr.append(newtd3);
-        newtr.append(newtd4);
-        modal_body[0].querySelector('#table_SNS tbody').appendChild(newtr);
-        stt.innerHTML = checkboxCount;
-        checkbox.setAttribute("id", "checkbox_" + checkboxCount);
-        // modal_body[0].querySelector('.SNCount').textContent = checkboxCount;
-        }else{
+        if (SLTr < SLProduct) {
+            var modal_body = $(this).closest('.modal-content').find('.modal-body');
+            var newtr = document.createElement('tr');
+            var newtd1 = document.createElement('td');
+            var newtd2 = document.createElement('td');
+            var newtd3 = document.createElement('td');
+            var newtd4 = document.createElement('td');
+            var newDiv = document.createElement("input");
+            var checkbox = document.createElement("input");
+            var stt = document.createElement("span");
+            var checkboxes = modal_body[0].querySelectorAll('input[type="checkbox"]');
+            var checkboxCount = checkboxes.length;
+            checkbox.setAttribute("type", "checkbox");
+            newtd1.append(checkbox);
+            newDiv.setAttribute("type", "text");
+            newDiv.setAttribute("class", "form-control w-25");
+            newDiv.setAttribute("name", "seri" + "[]");
+            newtd3.append(newDiv);
+            newtd4.setAttribute('class', 'deleteRow1');
+            newtd4.innerHTML =
+                '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.0606 6.66675C13.6589 6.66675 13.3333 6.99236 13.3333 7.39402C13.3333 7.79568 13.6589 8.12129 14.0606 8.12129H17.9394C18.341 8.12129 18.6667 7.79568 18.6667 7.39402C18.6667 6.99236 18.341 6.66675 17.9394 6.66675H14.0606ZM8 10.3031C8 9.90143 8.32561 9.57582 8.72727 9.57582H10.1818H21.8182H23.2727C23.6744 9.57582 24 9.90143 24 10.3031C24 10.7048 23.6744 11.0304 23.2727 11.0304H22.5455V22.6667C22.5455 24.2819 21.2158 25.5758 19.6179 25.5758H12.3452C11.9637 25.5755 11.5854 25.4997 11.2333 25.3528C10.8812 25.2059 10.5617 24.9908 10.2931 24.7199C10.0244 24.449 9.81206 24.1276 9.66816 23.7743C9.52463 23.4219 9.45204 23.0447 9.45455 22.6642V11.0304H8.72727C8.32561 11.0304 8 10.7048 8 10.3031ZM10.9091 22.6723V11.0304H21.0909V22.6667C21.0909 23.4623 20.4288 24.1213 19.6179 24.1213H12.3458C12.1562 24.1211 11.9684 24.0834 11.7934 24.0104C11.6183 23.9374 11.4595 23.8304 11.3259 23.6958C11.1924 23.5611 11.0868 23.4013 11.0153 23.2257C10.9437 23.05 10.9076 22.8619 10.9091 22.6723ZM17.9394 13.4546C18.3411 13.4546 18.6667 13.7802 18.6667 14.1819V20.9698C18.6667 21.3714 18.3411 21.6971 17.9394 21.6971C17.5377 21.6971 17.2121 21.3714 17.2121 20.9698V14.1819C17.2121 13.7802 17.5377 13.4546 17.9394 13.4546ZM14.7879 14.1819C14.7879 13.7802 14.4623 13.4546 14.0606 13.4546C13.6589 13.4546 13.3333 13.7802 13.3333 14.1819V20.9698C13.3333 21.3714 13.6589 21.6971 14.0606 21.6971C14.4623 21.6971 14.7879 21.3714 14.7879 20.9698V14.1819Z" fill="#555555"/></svg>';
+            newtd2.appendChild(stt);
+            newtr.append(newtd1);
+            newtr.append(newtd2);
+            newtr.append(newtd3);
+            newtr.append(newtd4);
+            modal_body[0].querySelector('#table_SNS tbody').appendChild(newtr);
+            stt.innerHTML = checkboxCount;
+            checkbox.setAttribute("id", "checkbox_" + checkboxCount);
+            // modal_body[0].querySelector('.SNCount').textContent = checkboxCount;
+        } else {
             var $tableBody = $(addRow).closest('.modal-dialog').find('#table_SNS tbody');
             var rowsToRemove = SLTr - SLProduct;
             $tableBody.find('tr').slice(-rowsToRemove).remove();
@@ -533,109 +480,55 @@ function createRowInput() {
 }
 
 
-// // Xử lý tạo Tr, modal
-// $('.addRow').on('click', function () {
-//     var tr = '<tr>' +
-//         '<td class="STT"></td>' +
-//         '<td>' +
-//         '<input id="search" type="text" placeholder="Nhập tên sản phẩm" name="product_name[]" class="form-control name_product" onkeyup="filterFunction()"> ' +
-//         '</td>' +
-//         '<td><input required type="text" class="form-control text-center unit_product" name="product_unit[]"></td>' +
-//         '<td><input required type="text" oninput="validateQtyInput1(this)" name="product_qty[]" class="quantity-input form-control text-center"></td>' +
-//         '<td><input required type="text" class="form-control text-center product_price" name="product_price[]" ></td>' +
-//         '<td>' +
-//         '<input type="hidden" class="product_tax1">' +
-//         '<select name="product_tax[]" style="width:100px" class="product_tax form-control">' +
-//         '<option value="10">10%</option>' +
-//         '<option value="0">0%</option>' +
-//         '<option value="8">8%</option>' +
-//         '<option value="99">NOVAT</option> ' +
-//         '</select>' +
-//         '</td>' +
-//         '<td><input readonly type="text" class="form-control total-amount text-center" name="product_total[]"></td>' +
-//         '<td><input type="text" class="form-control product_trademark" name="product_trademark[]"></td>' +
-//         '<td>' +
-//         '<button class="exampleModal" name="btn_add_SN[]" type="button" data-toggle="modal" data-target="#exampleModal' +
-//         rowCount + '" style="background:transparent; border:none;">' +
-//         '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="4" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z" fill="#0095F6"/><path fill-rule="evenodd" clip-rule="evenodd" d="M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z" fill="#0095F6"/><path fill-rule="evenodd" clip-rule="evenodd" d="M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z" fill="#0095F6"/><path fill-rule="evenodd" clip-rule="evenodd" d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z" fill="#0095F6"/></svg>' +
-//         '</button>' +
-//         '</td>' +
-//         '<td><a href="javascript:;" class="deleteRow"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.0606 6.66675C13.6589 6.66675 13.3333 6.99236 13.3333 7.39402C13.3333 7.79568 13.6589 8.12129 14.0606 8.12129H17.9394C18.341 8.12129 18.6667 7.79568 18.6667 7.39402C18.6667 6.99236 18.341 6.66675 17.9394 6.66675H14.0606ZM8 10.3031C8 9.90143 8.32561 9.57582 8.72727 9.57582H10.1818H21.8182H23.2727C23.6744 9.57582 24 9.90143 24 10.3031C24 10.7048 23.6744 11.0304 23.2727 11.0304H22.5455V22.6667C22.5455 24.2819 21.2158 25.5758 19.6179 25.5758H12.3452C11.9637 25.5755 11.5854 25.4997 11.2333 25.3528C10.8812 25.2059 10.5617 24.9908 10.2931 24.7199C10.0244 24.449 9.81206 24.1276 9.66816 23.7743C9.52463 23.4219 9.45204 23.0447 9.45455 22.6642V11.0304H8.72727C8.32561 11.0304 8 10.7048 8 10.3031ZM10.9091 22.6723V11.0304H21.0909V22.6667C21.0909 23.4623 20.4288 24.1213 19.6179 24.1213H12.3458C12.1562 24.1211 11.9684 24.0834 11.7934 24.0104C11.6183 23.9374 11.4595 23.8304 11.3259 23.6958C11.1924 23.5611 11.0868 23.4013 11.0153 23.2257C10.9437 23.05 10.9076 22.8619 10.9091 22.6723ZM17.9394 13.4546C18.3411 13.4546 18.6667 13.7802 18.6667 14.1819V20.9698C18.6667 21.3714 18.3411 21.6971 17.9394 21.6971C17.5377 21.6971 17.2121 21.3714 17.2121 20.9698V14.1819C17.2121 13.7802 17.5377 13.4546 17.9394 13.4546ZM14.7879 14.1819C14.7879 13.7802 14.4623 13.4546 14.0606 13.4546C13.6589 13.4546 13.3333 13.7802 13.3333 14.1819V20.9698C13.3333 21.3714 13.6589 21.6971 14.0606 21.6971C14.4623 21.6971 14.7879 21.3714 14.7879 20.9698V14.1819Z" fill="#555555"/></svg></a></td>' +
-//         '</tr>';
-//     $('#inputContainer tbody').append(tr);
-//     checkRow();
-//     setSTT();
+$('#addRowTable').off('click').on('click', function () {
+    addRowTable();
+})
 
-
-//     var modal = '<div class="modal fade" id="exampleModal' + rowCount +
-//         '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">' +
-//         '<div class="modal-dialog" role="document">' +
-//         '<div class="modal-content">' +
-//         '<div class="modal-header align-items-center">' +
-//         '<div> ' +
-//         '<h5 class="modal-title" id="exampleModalLabel">Serial Number</h5>' +
-//         '<p>Thông tin chi tiết về số S/N của mỗi sản phẩm </p>' +
-//         '</div>' +
-//         '<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
-//         '<span aria-hidden="true" onclick="checkdata(event)">&times;</span>' +
-//         '</button>' +
-//         '</div>' +
-//         '<div class="modal-body">' +
-//         ' <table class="table table-hover"> ' +
-//         '<thead> ' +
-//         '<tr>' +
-//         '<th>Tên sản phẩm</th>' +
-//         '<th style="text-align:right;">Số lượng</th>' +
-//         '<th></th>' +
-//         '<th style="width:10%;">Số lượng S/N</th>' +
-//         '</tr>' +
-//         '</thead>' +
-//         '<tbody>' +
-//         '<tr>' +
-//         '<td class="name_product"></td>' +
-//         '<td class="qty_product text-right"></td>' +
-//         '<td></td>' +
-//         '<td class="SNCount text-right">1</td>' +
-//         '</tr>' +
-//         '</tbody>' +
-//         '</table>' +
-//         '<h3>Thông tin Serial Number </h3>' +
-//         '<div class="div_value' + rowCount + '" style="padding:10px;">' +
-//         '<table class="table" id="table_SNS">' +
-//         '<thead class="thead-light"><tr> ' +
-//         '<th style="width:2%"><input type="checkbox"></th> ' +
-//         '<th style="width:5%;">STT</th>' +
-//         '<th> <span>Serial Number</span></th> <th style="width:3%;"></th>' +
-//         '</tr> </thead>' +
-//         '<tbody> ' +
-//         '<tr>' +
-//         '<td><input type="checkbox" id="checkbox_1"> </td>' +
-//         '<td><span >1</span></td>' +
-//         '<td><input class="form-control w-25" type="text" name="product_SN' + rowCount +
-//         '[]" onpaste="handlePaste(this)"></td>' +
-//         '<td class="deleteRow1"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.0606 6.66675C13.6589 6.66675 13.3333 6.99236 13.3333 7.39402C13.3333 7.79568 13.6589 8.12129 14.0606 8.12129H17.9394C18.341 8.12129 18.6667 7.79568 18.6667 7.39402C18.6667 6.99236 18.341 6.66675 17.9394 6.66675H14.0606ZM8 10.3031C8 9.90143 8.32561 9.57582 8.72727 9.57582H10.1818H21.8182H23.2727C23.6744 9.57582 24 9.90143 24 10.3031C24 10.7048 23.6744 11.0304 23.2727 11.0304H22.5455V22.6667C22.5455 24.2819 21.2158 25.5758 19.6179 25.5758H12.3452C11.9637 25.5755 11.5854 25.4997 11.2333 25.3528C10.8812 25.2059 10.5617 24.9908 10.2931 24.7199C10.0244 24.449 9.81206 24.1276 9.66816 23.7743C9.52463 23.4219 9.45204 23.0447 9.45455 22.6642V11.0304H8.72727C8.32561 11.0304 8 10.7048 8 10.3031ZM10.9091 22.6723V11.0304H21.0909V22.6667C21.0909 23.4623 20.4288 24.1213 19.6179 24.1213H12.3458C12.1562 24.1211 11.9684 24.0834 11.7934 24.0104C11.6183 23.9374 11.4595 23.8304 11.3259 23.6958C11.1924 23.5611 11.0868 23.4013 11.0153 23.2257C10.9437 23.05 10.9076 22.8619 10.9091 22.6723ZM17.9394 13.4546C18.3411 13.4546 18.6667 13.7802 18.6667 14.1819V20.9698C18.6667 21.3714 18.3411 21.6971 17.9394 21.6971C17.5377 21.6971 17.2121 21.3714 17.2121 20.9698V14.1819C17.2121 13.7802 17.5377 13.4546 17.9394 13.4546ZM14.7879 14.1819C14.7879 13.7802 14.4623 13.4546 14.0606 13.4546C13.6589 13.4546 13.3333 13.7802 13.3333 14.1819V20.9698C13.3333 21.3714 13.6589 21.6971 14.0606 21.6971C14.4623 21.6971 14.7879 21.3714 14.7879 20.9698V14.1819Z" fill="#555555"/></svg></td>' +
-//         '</tr>' +
-//         '</tbody>' +
-//         '</table>' +
-//         '</div>' +
-//         '<div class="AddSN btn btn-secondary" style="border:1px solid gray;" >Thêm dòng</div>' +
-//         // '<div class="btn btn-danger ml-2" id="deleteSNS"> Xóa SN </div>' +
-//         '</div>' +
-//         '<div class="modal-footer">' +
-//         // '<button type="button" class="btn btn-secondary" onclick="checkData(event)" data-dismiss="modal">Lưu</button>' +
-//         '<div class="d-flex justify-content-center w-100"> <button type="button" class="btn btn-primary mr-2" data-dismiss="modal" onclick="checkdata(event)">Lưu</button>' +
-//         // '<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="deletedata(event)">Hủy</button> 
-//         '</div>' +
-//         '</div>' +
-//         '</div>' +
-//         '</div>' +
-//         '</div>'
-//     $('#list_modal').append(modal);
-//     rowCount++;
-//     createInput();
-//     updateProductSN();
-//     fillDataToModal();
-// });
+function addRowTable() {
+    var tr = '<tr class="bg-white">' +
+        '<td class="border border-left-0 border-top-0 border-bottom-0">' +
+        '<div class="d-flex w-100 justify-content-between align-items-center">' +
+        '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> ' +
+        '<path fill-rule="evenodd" clip-rule="evenodd" d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z" fill="#42526E"></path>' +
+        '<path fill-rule="evenodd" clip-rule="evenodd" d="M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z" fill="#42526E"></path> ' +
+        '<path fill-rule="evenodd" clip-rule="evenodd" d="M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z" fill="#42526E"></path>' +
+        '<path fill-rule="evenodd" clip-rule="evenodd" d="M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z" fill="#42526E"></path>' +
+        '<path fill-rule="evenodd" clip-rule="evenodd" d="M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z" fill="#42526E"></path> ' +
+        '<path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>' +
+        '</svg>' +
+        '<input type="checkbox">' +
+        '<input type="text" class="border-0 px-3 py-2 w-75" name="product_code[]">' +
+        '</div>' +
+        '</td>' +
+        '<td class="border border-top-0 border-bottom-0"> ' +
+        '<input type="text" class="border-0 px-3 py-2 w-100" name="product_name[]">' +
+        '</td>' +
+        '<td class="border border-top-0 border-bottom-0">'+
+        '<input type="text" class="border-0 px-3 py-2 w-100" name="product_unit[]">' +
+        '</td>'+
+        '<td class="border border-top-0 border-bottom-0">'+
+        '<input type="text" class="border-0 px-3 py-2 w-100" name="product_qty[]">' +
+        '</td>'+
+        '<td class="border border-top-0 border-bottom-0">'+
+        '<input type="text" class="border-0 px-3 py-2 w-100" name="price_import[]">' +
+        '</td>'+
+        '<td class="border border-top-0 border-bottom-0">'+
+        '<select name="product_tax[]"> ' +
+        '<option value="0">0%</option>'+
+        '<option value="8">8%</option>'+
+        '<option value="10">10%</option>'+
+        '<option value="99">NOVAT<option>'+
+        '</select>' +
+        '</td>'+
+        '<td class="border border-top-0 border-bottom-0">'+
+        '<input type="text" class="border-0 px-3 py-2 w-100" name="total_price[]">' +
+        '</td>'+
+        '<td class="border border-top-0 border-bottom-0">'+
+        '<input type="text" class="border-0 px-3 py-2 w-100" name="product_note[]">' +
+        '</td>'+
+        '</tr>';
+        $('#inputcontent tbody').append(tr);
+}
 
 function fillDataToModal() {
     var info = document.querySelectorAll('.exampleModal');

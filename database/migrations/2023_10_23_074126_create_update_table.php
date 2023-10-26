@@ -22,9 +22,9 @@ return new class extends Migration
         Schema::table('detailimport', function (Blueprint $table) {
             $table->foreign('project_id')->references('id')->on('project');
         });
-        Schema::table('detailimport', function (Blueprint $table) {
-            $table->foreign('product_id')->references('id')->on('products');
-        });
+        // Schema::table('detailimport', function (Blueprint $table) {
+        //     $table->foreign('product_id')->references('id')->on('products');
+        // });
         Schema::table('detailimport', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
         });
@@ -33,17 +33,16 @@ return new class extends Migration
         Schema::table('quoteimport', function (Blueprint $table) {
             $table->foreign('detailimport_id')->references('id')->on('detailimport');
         });
-        Schema::table('quoteimport', function (Blueprint $table) {
-            $table->foreign('product_id')->references('id')->on('products');
-        });
-
+        // Schema::table('quoteimport', function (Blueprint $table) {
+        //     $table->foreign('product_id')->references('id')->on('products');
+        // });
 
         Schema::table('quoteexport', function (Blueprint $table) {
             $table->foreign('detailexport_id')->references('id')->on('detailexport');
         });
-        Schema::table('quoteexport', function (Blueprint $table) {
-            $table->foreign('product_id')->references('id')->on('products');
-        });
+        // Schema::table('quoteexport', function (Blueprint $table) {
+        //     $table->foreign('product_id')->references('id')->on('products');
+        // });
 
 
         Schema::table('detailexport', function (Blueprint $table) {
@@ -52,9 +51,9 @@ return new class extends Migration
         Schema::table('detailexport', function (Blueprint $table) {
             $table->foreign('project_id')->references('id')->on('project');
         });
-        Schema::table('detailexport', function (Blueprint $table) {
-            $table->foreign('product_id')->references('id')->on('products');
-        });
+        // Schema::table('detailexport', function (Blueprint $table) {
+        //     $table->foreign('product_id')->references('id')->on('products');
+        // });
         Schema::table('detailexport', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
         });

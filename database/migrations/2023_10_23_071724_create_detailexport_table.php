@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('guest_id');
             $table->unsignedBigInteger('project_id');
-            $table->unsignedBigInteger('product_id');
+            $table->integer('product_id');
             $table->unsignedBigInteger('user_id');
             $table->string('quotation_number');
             $table->string('reference_number')->nullable();
-            $table->date('price_effect');
+            $table->string('price_effect');
             $table->integer('status');
             $table->timestamps();
         });
