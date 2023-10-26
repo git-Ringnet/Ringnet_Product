@@ -57,12 +57,14 @@ class ProvidesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id, Request $request)
     {
         $provide = Provides::findOrFail($id);
         if ($provide) {
             $title = $provide->provide_name_display;
         }
+        $getId = $id;
+        $request->session()->put('id', $id);
         return view('tables.provides.editProvides', compact('title', 'provide'));
     }
 
@@ -71,7 +73,21 @@ class ProvidesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $id = session('id');
+        $data = [
+            'provide_name_display' => $request->provide_name_display,
+            'provide_code' => $request->provide_code,
+            'provide_name' => $request->provide_name,
+            'provide_address' => $request->provide_address,
+            'provide_represent' => $request->provide_represent,
+            'provide_email' => $request->provide_email,
+            'provide_phone' => $request->provide_phone,
+            'provide_address_delivery' => $request->provide_address_delivery,
+            'provide_debt' => $request->provide_debt,
+        ];
+        $this->provides->updateProvide($data, $id);
+        session()->forget('id');
+        return redirect(route('provides.index'))->with('msg', 'Sửa nhà cung cấp thành công');
     }
 
     /**
@@ -79,6 +95,8 @@ class ProvidesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $provides = Provides::find($id);
+        $provides->delete();
+        return back()->with('msg', 'Xóa nhà cung cấp thành công');
     }
 }

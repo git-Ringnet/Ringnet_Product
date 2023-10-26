@@ -4,16 +4,16 @@
     <section class="content-header">
         <div class="container-fluided">
             <div class="mb-3">
-                <span>Mua hàng</span>
+                <span>Bán hàng</span>
                 <span>/</span>
-                <span><a class="text-dark" href="{{ route('provides.index') }}">Nhà cung cấp</a></span>
+                <span><a class="text-dark" href="{{ route('guests.index') }}">Khách hàng</a></span>
                 <span>/</span>
-                <span>Chỉnh sửa nhà cung cấp</span>
+                <span>Chỉnh sửa khách hàng</span>
                 <span class="font-weight-bold">{{ $title }}</span>
             </div>
         </div><!-- /.container-fluided -->
     </section>
-    <form action="{{ route('provides.update', $provide->id) }}" method="POST">
+    <form action="{{ route('guests.update', $guest->id) }}" method="POST">
         @csrf
         @method('PUT')
         <section class="content-header p-0">
@@ -45,72 +45,88 @@
                                         <p class="p-0 m-0 px-3 required-label text-danger">Tên hiển thị</p>
                                     </div>
                                     <input type="text" required placeholder="Nhập thông tin"
-                                        name="provide_name_display"
-                                        value="{{ old('provide_name_display') ?? $provide->provide_name_display }}"
+                                        name="guest_name_display"
+                                        value="{{ old('guest_name_display') ?? $guest->guest_name_display }}"
                                         class="border w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3 required-label text-danger">Mã số thuế</p>
                                     </div>
-                                    <input type="text" required placeholder="Nhập thông tin" name="provide_code"
-                                        value="{{ old('provide_code') ?? $provide->provide_code }}"
+                                    <input type="text" required placeholder="Nhập thông tin" name="guest_code"
+                                        value="{{ old('guest_code') ?? $guest->guest_code }}"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3 required-label text-danger">Địa chỉ</p>
                                     </div>
-                                    <input type="text" required placeholder="Nhập thông tin" name="provide_address"
-                                        value="{{ old('provide_address') ?? $provide->provide_address }}"
+                                    <input type="text" required placeholder="Nhập thông tin" name="guest_address"
+                                        value="{{ old('guest_address') ?? $guest->guest_address }}"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Tên nhà cung cấp</p>
+                                        <p class="p-0 m-0 px-3">Tên công ty</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="provide_name"
-                                        value="{{ old('provide_name') ?? $provide->provide_name }}"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                                </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Người đại diện</p>
-                                    </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="provide_represent"
-                                        value="{{ old('provide_represent') ?? $provide->provide_represent }}"
+                                    <input type="text" placeholder="Nhập thông tin" name="guest_name"
+                                        value="{{ old('guest_name') ?? $guest->guest_name }}"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Email</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="provide_email"
-                                        value="{{ old('provide_email') ?? $provide->provide_email }}"
+                                    <input type="text" placeholder="Nhập thông tin" name="guest_email"
+                                        value="{{ old('guest_email') ?? $guest->guest_email }}"
                                         class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Số diện thoại </p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="provide_phone"
-                                        value="{{ old('provide_phone') ?? $provide->provide_phone }}"
+                                    <input type="text" placeholder="Nhập thông tin" name="guest_phone"
+                                        value="{{ old('guest_phone') ?? $guest->guest_phone }}"
                                         class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Địa chỉ nhận hàng</p>
+                                        <p class="p-0 m-0 px-3">Người nhận hàng</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="provide_address_delivery"
-                                        value="{{ old('provide_address_delivery') ?? $provide->provide_address_delivery }}"
+                                    <input type="text" placeholder="Nhập thông tin" name="guest_receiver"
+                                        value="{{ old('guest_receiver') ?? $guest->guest_receiver }}"
+                                        class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Email người nhận hàng</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="guest_email_personal"
+                                        value="{{ old('guest_email_personal') ?? $guest->guest_email_personal }}"
+                                        class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Số điện thoại người nhận hàng</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="guest_phone_receiver"
+                                        value="{{ old('guest_phone_receiver') ?? $guest->guest_phone_receiver }}"
                                         class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Dư nợ</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="provide_debt"
-                                        value="{{ old('provide_debt') ?? $provide->provide_debt }}"
+                                    <input type="text" placeholder="Nhập thông tin" name="guest_debt"
+                                        value="{{ old('guest_debt') ?? $guest->guest_debt }}"
+                                        class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Ghi chú</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="guest_note"
+                                        value="{{ old('guest_note') ?? $guest->guest_note }}"
                                         class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                             </div>

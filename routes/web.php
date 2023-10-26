@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvidesController;
 use App\Http\Controllers\QuoteExportController;
@@ -23,6 +24,9 @@ Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProduc
 
 // Nhà cung cấp
 Route::resource('provides', ProvidesController::class);
+
+// Khách hàng
+Route::resource('guests', GuestController::class);
 
 Route::get('/', function () {
     return view('welcome');

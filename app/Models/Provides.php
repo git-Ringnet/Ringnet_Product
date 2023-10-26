@@ -21,15 +21,17 @@ class Provides extends Model
         'provide_debt',
         'provide_address_delivery',
     ];
-    public function getAllProvide(){
+    public function getAllProvide()
+    {
         return DB::table($this->table)->get();
     }
-    public function addProvide($data){
+    public function addProvide($data)
+    {
         $exist = false;
-        $provides = DB::table($this->table)->where('provide_code',$data['provide_code'])->first();
-        if($provides){
+        $provides = DB::table($this->table)->where('provide_code', $data['provide_code'])->first();
+        if ($provides) {
             $exist = true;
-        }else{
+        } else {
             $dataProvide = [
                 'provide_name_display' => $data['provide_name_display'],
                 'provide_name' => $data['provide_name'],
@@ -42,10 +44,14 @@ class Provides extends Model
                 'provide_address_delivery' => $data['provide_address_delivery']
             ];
             $provide_id =  DB::table($this->table)->insert($dataProvide);
-            if($provide_id){
+            if ($provide_id) {
                 $exist = false;
             }
         }
         return $exist;
+    }
+    public function updateProvide($data, $id)
+    {
+        return DB::table($this->table)->where('id', $id)->update($data);
     }
 }

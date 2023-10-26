@@ -5,12 +5,12 @@
     <section class="content-header p-0">
         <div class="container-fluided">
             <div class="mb-3">
-                <span>Mua hàng</span>
+                <span>Bán hàng</span>
                 <span>/</span>
-                <span class="font-weight-bold">Nhà cung cấp</span>
+                <span class="font-weight-bold">Khách hàng</span>
             </div>
             <div class="row m-0 mb-1">
-                <a href="{{ route('provides.create') }}">
+                <a href="{{ route('guests.create') }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -87,8 +87,7 @@
                                         <th scope="col">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="id"
-                                                    data-sort-type="#"><button class="btn-sort" type="submit">Mã số
-                                                        thuế
+                                                    data-sort-type="#"><button class="btn-sort" type="submit">Công ty
                                                     </button></a>
                                                 <div class="icon" id="icon-id"></div>
                                             </span>
@@ -130,16 +129,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($provides as $item)
+                                    @foreach ($guests as $item)
                                         <tr>
                                             <td><input type="checkbox"></td>
-                                            <td>{{ $item->provide_name_display }}</td>
-                                            <td>{{ $item->provide_code }}</td>
-                                            <td>{{ $item->provide_email }}</td>
-                                            <td>{{ $item->provide_phone }}</td>
-                                            <td>{{ $item->provide_debt }}</td>
+                                            <td>{{ $item->guest_name_display }}</td>
+                                            <td>{{ $item->guest_name }}</td>
+                                            <td>{{ $item->guest_email }}</td>
+                                            <td>{{ $item->guest_phone }}</td>
+                                            <td>{{ $item->guest_debt }}</td>
                                             <td>
-                                                <a href="{{ route('provides.edit', $item->id) }}">
+                                                <a href="{{ route('guests.edit', $item->id) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32"
                                                         height="32" viewBox="0 0 32 32" fill="none">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -151,7 +150,7 @@
                                             </td>
                                             <td>
                                                 <form onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                    action="{{ route('provides.destroy', $item->id) }}" method="POST"
+                                                    action="{{ route('guests.destroy', $item->id) }}" method="POST"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
