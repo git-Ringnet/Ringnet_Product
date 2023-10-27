@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DetailExportController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\DetailImportController;
 use App\Http\Controllers\ProductController;
@@ -39,11 +40,11 @@ Route::get('/', function () {
 
 //Bán hàng
 //Báo giá
-Route::resource('quoteExport', QuoteExportController::class);
+Route::resource('quoteExport', DetailExportController::class);
 //tìm kiếm tên khách hàng
-Route::get('/searchExport', [QuoteExportController::class, 'searchGuest'])->name('searchExport');
+Route::get('/searchExport', [DetailExportController::class, 'searchGuest'])->name('searchExport');
 //Thêm khách hàng
-Route::get('/addGuest', [QuoteExportController::class, 'addGuest'])->name('addGuest');
+Route::get('/addGuest', [DetailExportController::class, 'addGuest'])->name('addGuest');
 
 Route::middleware([
     'auth:sanctum',

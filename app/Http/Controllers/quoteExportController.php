@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Guest;
 use App\Models\QuoteExport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class QuoteExportController extends Controller
 {
@@ -21,9 +22,6 @@ class QuoteExportController extends Controller
     }
     public function index()
     {
-        $title = "Báo giá";
-        $quoteExport = $this->quoteExport->getAllQuoteExport();
-        return view('tables.export.quote.list-quote', compact('title', 'quoteExport'));
     }
 
     /**
@@ -31,9 +29,6 @@ class QuoteExportController extends Controller
      */
     public function create()
     {
-        $title = "Tạo báo giá";
-        $guest = $this->guest->getAllGuest();
-        return view('tables.export.quote.create-quote', compact('title', 'guest'));
     }
 
     /**
@@ -74,10 +69,5 @@ class QuoteExportController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-    public function searchGuest(Request $request) {
-        $data = $request->all();
-        $guest = Guest::where('id',$data['idGuest'])->first();
-        return $guest;
     }
 }

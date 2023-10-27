@@ -314,30 +314,43 @@
                     <div class="content-info">
                         <div class="d-flex ml-2 align-items-center">
                             <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3 required-label">
-                                    Công ty
+                                <p class="p-0 m-0 px-3 required-label text-danger">
+                                    Tên hiển thị
                                 </p>
                             </div>
-                            <input name="provide_name_display" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
+                            <input name="guest_name_display" type="text" placeholder="Nhập thông tin"
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_name_display"
+                                autocomplete="off">
                         </div>
                         <div class="d-flex ml-2 align-items-center">
                             <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3 required-label">
+                                <p class="p-0 m-0 px-3 required-label text-danger">
                                     Địa chỉ
                                 </p>
                             </div>
-                            <input name="provide_code" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
+                            <input name="guest_address" type="text" placeholder="Nhập thông tin"
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_address"
+                                autocomplete="off">
                         </div>
                         <div class="d-flex ml-2 align-items-center">
                             <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3 required-label">
+                                <p class="p-0 m-0 px-3 required-label text-danger">
                                     Mã số thuế
                                 </p>
                             </div>
-                            <input name="provide_address" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
+                            <input name="guest_code" type="text" placeholder="Nhập thông tin"
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_code"
+                                autocomplete="off">
+                        </div>
+                        <div class="d-flex ml-2 align-items-center">
+                            <div class="title-info py-2 border border-left-0">
+                                <p class="p-0 m-0 px-3">
+                                    Tên công ty
+                                </p>
+                            </div>
+                            <input name="guest_name" type="text" placeholder="Nhập thông tin"
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_name"
+                                autocomplete="off">
                         </div>
                         <div class="d-flex ml-2 align-items-center">
                             <div class="title-info py-2 border border-left-0">
@@ -345,8 +358,9 @@
                                     Email
                                 </p>
                             </div>
-                            <input name="provide_name" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
+                            <input name="guest_email" type="text" placeholder="Nhập thông tin"
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_email"
+                                autocomplete="off">
                         </div>
                         <div class="d-flex ml-2 align-items-center">
                             <div class="title-info py-2 border border-left-0">
@@ -354,8 +368,9 @@
                                     Số điện thoại
                                 </p>
                             </div>
-                            <input name="provide_represent" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
+                            <input name="guest_phone" type="text" placeholder="Nhập thông tin"
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_phone"
+                                autocomplete="off">
                         </div>
                         <div class="d-flex ml-2 align-items-center">
                             <div class="title-info py-2 border border-left-0">
@@ -363,8 +378,9 @@
                                     Người nhận hàng
                                 </p>
                             </div>
-                            <input name="provide_email" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
+                            <input name="guest_receiver" type="text" placeholder="Nhập thông tin"
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_receiver"
+                                autocomplete="off">
                         </div>
                         <div class="d-flex ml-2 align-items-center">
                             <div class="title-info py-2 border border-left-0">
@@ -372,8 +388,9 @@
                                     Email cá nhân
                                 </p>
                             </div>
-                            <input name="provide_phone" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
+                            <input name="guest_email_personal" type="text" placeholder="Nhập thông tin"
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_email_personal"
+                                autocomplete="off">
                         </div>
                         <div class="d-flex ml-2 align-items-center">
                             <div class="title-info py-2 border border-left-0">
@@ -381,8 +398,9 @@
                                     SĐT người nhận
                                 </p>
                             </div>
-                            <input name="provide_address_delivery" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
+                            <input name="guest_phone_receiver" type="text" placeholder="Nhập thông tin"
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_phone_receiver"
+                                autocomplete="off">
                         </div>
                         <div class="d-flex ml-2 align-items-center">
                             <div class="title-info py-2 border border-left-0">
@@ -390,8 +408,9 @@
                                     Ghi chú
                                 </p>
                             </div>
-                            <input name="provide_address_delivery" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
+                            <input name="guest_note" type="text" placeholder="Nhập thông tin"
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_note"
+                                autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -536,7 +555,7 @@
                     idGuest: idGuest
                 },
                 success: function(data) {
-                    $('.nameGuest').val(data.guest_name);
+                    $('.nameGuest').val(data.guest_name_display);
                     $('.idGuest').val(data.id);
                 }
             });
@@ -544,33 +563,38 @@
     });
     //Thêm thông tin khách hàng
     $(document).on('click', '#addGuest', function(e) {
+        var guest_name_display = $('#guest_name_display').val();
         var guest_name = $('#guest_name').val();
-        var guest_addressInvoice = $('#guest_addressInvoice').val();
+        var guest_address = $('#guest_address').val();
         var guest_code = $('#guest_code').val();
-        var guest_addressDeliver = $('#guest_addressDeliver').val();
-        var guest_receiver = $('#guest_receiver').val();
-        var guest_phoneReceiver = $('#guest_phoneReceiver').val();
         var guest_email = $('#guest_email').val();
         var guest_phone = $('#guest_phone').val();
-        var guest_pay = $('#guest_pay').val();
+        var guest_receiver = $('#guest_receiver').val();
+        var guest_email_personal = $('#guest_email_personal').val();
+        var guest_phone_receiver = $('#guest_phone_receiver').val();
         var guest_note = $('#guest_note').val();
         $.ajax({
             url: "{{ route('addGuest') }}",
             type: "get",
             data: {
+                guest_name_display,
                 guest_name,
-                guest_addressInvoice,
+                guest_address,
                 guest_code,
-                guest_addressDeliver,
-                guest_receiver,
-                guest_phoneReceiver,
                 guest_email,
                 guest_phone,
-                guest_pay,
+                guest_receiver,
+                guest_email_personal,
+                guest_phone_receiver,
                 guest_note,
             },
             success: function(data) {
-                console.log(data);
+                if (data.success) {
+                    alert(data.msg);
+                }
+                else{
+                    alert(data.msg);
+                }
             }
         });
     });
