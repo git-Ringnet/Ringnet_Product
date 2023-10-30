@@ -28,11 +28,12 @@ Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProduc
 Route::resource('provides', ProvidesController::class);
 // Khách hàng
 Route::resource('guests', GuestController::class);
+Route::get('/searchGuest', [GuestController::class, 'searchGuest'])->name('searchGuest');
 
 // Mua hàng
-Route::resource('import',DetailImportController::class);
-Route::get('/show_provide',[DetailImportController::class,'show_provide'])->name('show_provide');
-Route::get('/addNewProvide',[DetailImportController::class,'addNewProvide'])->name('addNewProvide');
+Route::resource('import', DetailImportController::class);
+Route::get('/show_provide', [DetailImportController::class, 'show_provide'])->name('show_provide');
+Route::get('/addNewProvide', [DetailImportController::class, 'addNewProvide'])->name('addNewProvide');
 
 Route::get('/', function () {
     return view('welcome');

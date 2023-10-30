@@ -184,19 +184,21 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
     fill: #EBEFFF !important;
 } */
 .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
-.sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
-    background-color: #ebefff;
-    color: #0095f6;
-    box-shadow: none;
+.sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active,
+.nav-treeview>.nav-item>.nav-link.active {
+    background-color: #ebefff !important;
+    color: #0095f6 !important;
+    box-shadow: none !important;
     border-left: 4px solid !important;
-    border-radius: 0;
+    border-radius: 0 !important;
 }
 
-.sidebar-light-primary .nav-sidebar>.nav-item>.nav-link:hover {
-    background-color: #ebefff;
-    border-radius: 0;
-    color: #0095f6;
-    box-shadow: none;
+.sidebar-light-primary .nav-sidebar>.nav-item>.nav-link:hover,
+.nav-treeview>.nav-item>.nav-link:hover{
+    background-color: #ebefff !important;
+    border-radius: 0 !important;
+    color: #0095f6 !important;
+    box-shadow: none !important;
     border-left: 4px solid !important;
     transition: border-left 0.2s ease-in-out;
 }
@@ -1532,6 +1534,14 @@ input[type="checkbox"] {
     color: var(--primary-blue-6-primary, #0052CC);
 }
 
+.nav-title>.active a{
+    color: var(--primary-blue-6-primary, #0052CC);
+}
+.nav-title>.active::before{
+    width: 100%;
+}
+
+
 .nav-header {
     display: flex;
     /* Kích hoạt Flexbox cho nav-header */
@@ -1559,3 +1569,4 @@ input[type="checkbox"] {
 .card-body>.table>thead>tr>th {
     border-bottom-width: 0 !important;
 }
+
