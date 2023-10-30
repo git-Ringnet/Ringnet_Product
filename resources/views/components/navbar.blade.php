@@ -188,7 +188,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-light-primary elevation-4" style="top:57px">
         <!-- Sidebar -->
-        <div class="sidebar">
+        <div class="sidebar p-0">
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
