@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailImport;
+use App\Models\ProductCode;
+use App\Models\Products;
 use App\Models\Provides;
 use App\Models\QuoteImport;
 use Illuminate\Http\Request;
@@ -36,6 +38,7 @@ class DetailImportController extends Controller
     {
         $title = "Tạo đơn mua hàng";
         $provides = Provides::all();
+        // $products = Products::all();
         return view('tables.import.insertImport', compact('title', 'provides'));
     }
 
@@ -64,7 +67,8 @@ class DetailImportController extends Controller
         $import = DetailImport::findOrFail($id);
         $provides = Provides::all();
         $title = $import->quotation_number;
-        return view('tables.import.editImport',compact('import','title','provides'));
+        $product = QuoteImport::where('detailimport_id',$import->id)->get();
+        return view('tables.import.editImport',compact('import','title','provides','product'));
     }
 
     /**
@@ -110,5 +114,16 @@ class DetailImportController extends Controller
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế đã tồn tại']);
         }
         return $msg;
+    }
+
+    public function getAllProducts(){
+        $data = ProductCode::all();
+        return $data;
+    }
+    public function showProductName(Request $request){
+        $dataId = $request->dataId;
+        return Products::where('product_code',$dataId)->get();
+        // $data = $request->all();
+        // return $dataId;
     }
 }

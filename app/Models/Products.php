@@ -35,27 +35,35 @@ class Products extends Model
     {
         $return  = 0;
         isset($data['check_seri']) ? $check = 1 : $check = 0;
-        $product  = [
-            'product_code' => $data['product_code'],
-            'product_name' => $data['product_name'],
-            'product_unit' => $data['product_unit'],
-            'product_type' => $data['product_type'],
-            'product_manufacturer' => $data['product_manufacturer'],
-            'product_origin' => $data['product_origin'],
-            'product_guarantee' => $data['product_guarantee'],
-            'product_price_import' => $data['product_price_import'],
-            'product_price_export' => $data['product_price_export'],
-            'product_ratio' => $data['product_ratio'],
-            'product_tax' => $data['product_tax'],
-            'check_seri' => $check,
-            'product_inventory' => 0,
-            'product_trade' => 0,
-            'product_available' => 0,
-            // 'warehouse_id' => 1
-        ];
-        $product_id =  DB::table($this->table)->insert($product);
-        if ($product_id) {
-            $return = 1;
+        $checkCode = ProductCode::where('product_code', $data['product_code'])->first();
+        if ($checkCode) {
+            $return  = 0;
+        } else {
+            $id = ProductCode::create([
+                'product_code' => $data['product_code'],
+            ]);
+            $product  = [
+                'product_code' => $id->id,
+                'product_name' => $data['product_name'],
+                'product_unit' => $data['product_unit'],
+                'product_type' => $data['product_type'],
+                'product_manufacturer' => $data['product_manufacturer'],
+                'product_origin' => $data['product_origin'],
+                'product_guarantee' => $data['product_guarantee'],
+                'product_price_import' => $data['product_price_import'],
+                'product_price_export' => $data['product_price_export'],
+                'product_ratio' => $data['product_ratio'],
+                'product_tax' => $data['product_tax'],
+                'check_seri' => $check,
+                'product_inventory' => 0,
+                'product_trade' => 0,
+                'product_available' => 0,
+                // 'warehouse_id' => 1
+            ];
+            $product_id =  DB::table($this->table)->insert($product);
+            if ($product_id) {
+                $return = 1;
+            }
         }
         return $return;
     }

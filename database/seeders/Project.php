@@ -15,7 +15,7 @@ class Project extends Seeder
     {
         DB::table('project')->insert([
             [
-                'id' => 1,
+                'id' => 0,
                 'project_name' => 'Dự án 1',
             ],
         ]);

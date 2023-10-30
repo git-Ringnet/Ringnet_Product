@@ -22,9 +22,18 @@ class QuoteImport extends Model
     public function addQuoteImport($data, $id)
     {
         for ($i = 0; $i < count($data['product_code']); $i++) {
+            $checkCode = ProductCode::where('product_code', $data['product_code'][$i])->first();
+            if ($checkCode) {
+                $idProductCode = $checkCode->id;
+            } else {
+                $newProductCode = ProductCode::create([
+                    'product_code' => $data['product_code'][$i]
+                ]);
+                $idProductCode = $newProductCode->id;
+            }
             $dataQuote = [
                 'detailimport_id' => $id,
-                'product_code' => $data['product_code'][$i],
+                'product_code' => $idProductCode,
                 'product_name' => $data['product_name'][$i],
                 'product_unit' => $data['product_unit'][$i],
                 'product_qty' => $data['product_qty'][$i],

@@ -84,7 +84,7 @@
                                         style="z-index: 99;left: 24%;top: 20%;">
                                         @foreach ($provides as $item)
                                             <li>
-                                                <a href="#"
+                                                <a href="javascript:void(0)"
                                                     class="text-dark d-flex justify-content-between p-2 search-info"
                                                     id="{{ $item->id }}" name="search-info">
                                                     <span class="w-50">{{ $item->provide_name_display }}</span>
@@ -160,7 +160,7 @@
                                     <path d="M12 13.5H13.5" stroke="#42526E" stroke-width="1.5"
                                         stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-                                <p class="p-0 m-0">Tối giản</p>
+                                <p class="p-0 m-0 change_colum">Đầy đủ</p>
                                 <svg class="ml-1" width="18" height="18" viewBox="0 0 18 18"
                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -296,69 +296,22 @@
                 <table class="table table-hover bg-white rounded" id="inputcontent">
                     <thead>
                         <tr>
-                            <th class="border-bottom-0 border-right"><input type="checkbox"> Mã sản phẩm
+                            <th class="border-right"><input type="checkbox"> Mã sản phẩm
                             </th>
-                            <th class="border-bottom-0 border-right">Tên sản phẩm</th>
-                            <th class="border-bottom-0 border-right">Đơn vị</th>
-                            <th class="border-bottom-0 border-right">Số lượng</th>
-                            <th class="border-bottom-0 border-right">Đơn giá</th>
-                            <th class="border-bottom-0 border-right">Thuế</th>
-                            <th class="border-bottom-0 border-right">Thành tiền</th>
-                            <th class="border-bottom-0"></th>
+                            <th class="border-right">Tên sản phẩm</th>
+                            <th class="border-right">Đơn vị</th>
+                            <th class="border-right">Số lượng</th>
+                            <th class="border-right">Đơn giá</th>
+                            <th class="border-right">Thuế</th>
+                            <th class="border-right">Thành tiền</th>
+                            <th class="p-0 bg-secondary" style="width:1%;"></th>
+                            <th class="border-right product_ratio">Hệ số nhân</th>
+                            <th class="border-right price_import">Giá nhập</th>
+                            <th class="border-right">Ghi chú</th>
+                            <th class=""></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-white">
-                            <td class="border border-left-0 border-top-0 border-bottom-0">
-                                <div class="d-flex w-100 justify-content-between align-items-center">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z"
-                                            fill="#42526E" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z"
-                                            fill="#42526E" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z"
-                                            fill="#42526E" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z"
-                                            fill="#42526E" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z"
-                                            fill="#42526E" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z"
-                                            fill="#42526E" />
-                                    </svg>
-                                    <input type="checkbox">
-                                    <input type="text" name="product_code[]" class="border-0 px-3 py-2 w-75">
-                                </div>
-                            </td>
-                            <td class="border border-top-0 border-bottom-0"><input type="text"
-                                    name="product_name[]" class="border-0 px-3 py-2 w-100">
-                            </td>
-                            <td class="border border-top-0 border-bottom-0"><input type="text"
-                                    name="product_unit[]" class="border-0 px-3 py-2 w-100">
-                            </td>
-                            <td class="border border-top-0 border-bottom-0 border-right-0"><input type="text"
-                                    name="product_qty[]" class="border-0 px-3 py-2 w-100"></td>
-                            <td class="border border-top-0 border-bottom-0 border-right-0"><input type="text"
-                                    name="price_import[]" class="border-0 px-3 py-2 w-100"></td>
-                            <td class="border border-top-0 border-bottom-0 border-right-0">
-                                <select name="product_tax[]" id="">
-                                    <option value="0">0%</option>
-                                    <option value="8">8%</option>
-                                    <option value="10">10%</option>
-                                    <option value="99">NOVAT</option>
-                                </select>
-                            </td>
-                            <td class="border border-top-0 border-bottom-0 border-right-0"><input type="text"
-                                    name="total_price[]" class="border-0 px-3 py-2 w-100"></td>
-                            <td class="border border-top-0 border-bottom-0 border-right-0"><input type="text"
-                                    name="product_note[]" class="border-0 px-3 py-2 w-100"></td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -409,12 +362,51 @@
         </div>
     </section>
 
+    <div class="content">
+        <div class="container-fluided">
+            <div class="row position-relative footer-total">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6">
+                    <div class="mt-4 w-50" style="float: right;">
+                        <div class="d-flex justify-content-between">
+                            <span><b>Giá trị trước thuế:</b></span>
+                            <span id="total-amount-sum">0đ</span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2 align-items-center">
+                            <span><b>Thuế VAT:</b></span>
+                            <span id="product-tax">0đ</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="text-primary">Giảm giá:</span>
+                            <div class="w-50">
+                                <input type="text" class="form-control text-right border-0" name="transport_fee"
+                                    id="voucher" value="0">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="text-primary">Phí vận chuyển:</span>
+                            <div class="w-50">
+                                <input type="text" class="form-control text-right border-0" name="transport_fee"
+                                    id="transport_fee" value="0">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <span class="text-lg"><b>Tổng cộng:</b></span>
+                            <span><b id="grand-total" data-value="0">0đ</b></span>
+                            <input type="text" hidden="" name="totalValue" value="0" id="total">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script>
     $('.search-info').click(function() {
         var provides_id = $(this).attr('id');
-        console.log(provides_id);
         $.ajax({
             url: "{{ route('show_provide') }}",
             type: "get",
@@ -427,7 +419,7 @@
             }
         });
     });
-    
+
     $('#addProvide').click(function() {
         var check = false;
         var provide_name_display = $("input[name='provide_name_display']").val().trim();
@@ -444,7 +436,7 @@
             return false;
         }
         if (provide_code == '') {
-            alert("Vui lòng nhập Mã só thuế");
+            alert("Vui lòng nhập Mã số thuế");
             check = true;
             return false;
         }
@@ -488,8 +480,171 @@
                 }
             });
         }
-    })
+    });
+
+    function addRowTable() {
+        var tr = '<tr class="bg-white">' +
+            '<td class="border border-left-0 border-top-0 border-bottom-0">' +
+            '<div class="d-flex w-100 justify-content-between align-items-center position-relative">' +
+            '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> ' +
+            '<path fill-rule="evenodd" clip-rule="evenodd" d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z" fill="#42526E"></path>' +
+            '<path fill-rule="evenodd" clip-rule="evenodd" d="M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z" fill="#42526E"></path> ' +
+            '<path fill-rule="evenodd" clip-rule="evenodd" d="M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z" fill="#42526E"></path>' +
+            '<path fill-rule="evenodd" clip-rule="evenodd" d="M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z" fill="#42526E"></path>' +
+            '<path fill-rule="evenodd" clip-rule="evenodd" d="M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z" fill="#42526E"></path> ' +
+            '<path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>' +
+            '</svg>' +
+            '<input type="checkbox">' +
+            '<input type="text" id="searchProduct" class="border-0 px-3 py-2 w-75 searchProduct" name="product_code[]" autocomplete="off">' +
+            '<ul id="listProductCode" class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 24%; top: 75%;"> ' +
+            '</ul>' +
+            '</div>' +
+            '</td>' +
+            '<td class="border border-top-0 border-bottom-0 position-relative"> ' +
+            '<input type="text" id="searchProductName" class="searchProductName border-0 px-3 py-2 w-100" name="product_name[]">' +
+            '<ul id="listProductName" class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 1%; top: 74%;"> ' +
+            '</ul>' +
+            '</td>' +
+            '<td class="border border-top-0 border-bottom-0">' +
+            '<input type="text" class="border-0 px-3 py-2 w-100 product_unit" name="product_unit[]">' +
+            '</td>' +
+            '<td class="border border-top-0 border-bottom-0">' +
+            '<input type="text" oninput="validateQtyInput1(this)" class="border-0 px-3 py-2 w-100 quantity-input" name="product_qty[]">' +
+            '</td>' +
+            '<td class="border border-top-0 border-bottom-0">' +
+            '<input type="text" class="border-0 px-3 py-2 w-100 price_export" name="price_export[]">' +
+            '</td>' +
+            '<td class="border border-top-0 border-bottom-0">' +
+            '<select class="product_tax" name="product_tax[]"> ' +
+            '<option value="0">0%</option>' +
+            '<option value="8">8%</option>' +
+            '<option value="10">10%</option>' +
+            '<option value="99">NOVAT</option>' +
+            '</select>' +
+            '</td>' +
+            '<input type="hidden" class="product_tax1">' +
+            '<td class="border border-top-0 border-bottom-0">' +
+            '<input type="text" class="border-0 px-3 py-2 w-100 total_price" name="total_price[]">' +
+            '</td>' +
+            '<td class="border border-bottom-0 p-0 bg-secondary"> </td>' +
+            '<td class="border border-top-0 border-bottom-0 product-ratio">' +
+            '<input type="text" class="border-0 px-3 py-2 w-100 product_ratio" name="product_ratio[]">' +
+            '</td>' +
+            '<td class="border border-top-0 border-bottom-0 price-import">' +
+            '<input type="text" class="border-0 px-3 py-2 w-100 price_import" name="price_import[]">' +
+            '</td>' +
+            '<td class="border border-top-0 border-bottom-0">' +
+            '<input type="text" class="border-0 px-3 py-2 w-100" name="product_note[]">' +
+            '</td>' +
+            '<td class="border border-top-0 border deleteRow">' +
+            '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.5454 5C10.2442 5 9.99999 5.24421 9.99999 5.54545C9.99999 5.8467 10.2442 6.09091 10.5454 6.09091H13.4545C13.7558 6.09091 14 5.8467 14 5.54545C14 5.24421 13.7558 5 13.4545 5H10.5454ZM6 7.72726C6 7.42601 6.24421 7.18181 6.54545 7.18181H7.63637H16.3636H17.4545C17.7558 7.18181 18 7.42601 18 7.72726C18 8.02851 17.7558 8.27272 17.4545 8.27272H16.9091V17C16.9091 18.2113 15.9118 19.1818 14.7135 19.1818H9.25891C8.97278 19.1816 8.68906 19.1247 8.42499 19.0145C8.16092 18.9044 7.92126 18.7431 7.71979 18.5399C7.51833 18.3367 7.35905 18.0957 7.25112 17.8307C7.14347 17.5664 7.08903 17.2834 7.09091 16.9981V8.27272H6.54545C6.24421 8.27272 6 8.02851 6 7.72726ZM8.18182 17.0041V8.27272H15.8182V17C15.8182 17.5966 15.3216 18.0909 14.7135 18.0909H9.25938C9.11713 18.0908 8.97632 18.0625 8.84503 18.0077C8.71375 17.953 8.5946 17.8728 8.49444 17.7718C8.39429 17.6707 8.3151 17.5509 8.26144 17.4192C8.20779 17.2874 8.18074 17.1464 8.18182 17.0041ZM13.4545 10.0909C13.7558 10.0909 14 10.3351 14 10.6364V15.7273C14 16.0285 13.7558 16.2727 13.4545 16.2727C13.1533 16.2727 12.9091 16.0285 12.9091 15.7273V10.6364C12.9091 10.3351 13.1533 10.0909 13.4545 10.0909ZM11.0909 10.6364C11.0909 10.3351 10.8467 10.0909 10.5454 10.0909C10.2442 10.0909 9.99999 10.3351 9.99999 10.6364V15.7273C9.99999 16.0285 10.2442 16.2727 10.5454 16.2727C10.8467 16.2727 11.0909 16.0285 11.0909 15.7273V10.6364Z" fill="#42526E"></path></svg>' +
+            '</td>' +
+            '</tr>';
+        $('#inputcontent tbody').append(tr);
+        getProduct('searchProduct');
+        showListProductCode();
+        showListProductName();
+        searchProductCode();
+        searchProductName();
+    }
+
+
+    function getProduct(name) {
+        $('#inputcontent tbody tr .' + name).on('click', function() {
+            listProductCode = $(this).closest('tr').find('#listProductCode');
+            listProductName = $(this).closest('tr').find('#listProductName');
+            inputCode = $(this).closest('tr').find('.searchProduct');
+            inputName = $(this).closest('tr').find('.searchProductName');
+            inputUnit = $(this).closest('tr').find('.product_unit');
+            inputPriceExprot = $(this).closest('tr').find('.price_export');
+            inputRatio = $(this).closest('tr').find('.product_ratio');
+            inputPriceImport = $(this).closest('tr').find('.price_import');
+            selectTax = $(this).closest('tr').find('.product_tax');
+            $.ajax({
+                url: "{{ route('getAllProducts') }}",
+                type: "get",
+                success: function(result) {
+                    listProductCode.empty()
+                    inputUnit.val('');
+                    inputPriceExprot.val('')
+                    inputRatio.val('')
+                    inputPriceImport.val('')
+                    var createLi =
+                        '<a class="bg-dark d-flex justify-content-between p-2 position-sticky">' +
+                        '<span class="w-100 text-white">Thêm mới</span>' +
+                        '</a>';
+                    result.forEach(element => {
+                        var UL = '<li>' +
+                            '<a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-product" id="' +
+                            element.id + '" name="search-product">' +
+                            '<span class="w-100" data-id="' + element.id + '">' + element
+                            .product_code + '</span>' +
+                            '</a>' +
+                            '</li>';
+                        listProductCode.append(UL);
+                    });
+                    listProductCode.append(createLi);
+                    $('.search-product').on('click', function() {
+                        inputName.val('');
+                        inputCode.val($(this).closest('li').find('span').text())
+                        var dataId = $(this).attr('id'); // Lấy giá trị data-id
+                        listProductCode.hide();
+                        // console.log(dataId);
+                        $.ajax({
+                            url: "{{ route('showProductName') }}",
+                            type: "get",
+                            data: {
+                                dataId: dataId
+                            },
+                            success: function(data) {
+                                listProductName.empty();
+                                data.forEach(element => {
+                                    var UL = '<li>' +
+                                        '<a data-unit="' + element
+                                        .product_unit +
+                                        '" data-priceExport= "' +
+                                        element.product_price_export +
+                                        '" data-ratio="' + element
+                                        .product_ratio +
+                                        '" data-priceImport="' + element
+                                        .product_price_import +
+                                        '" href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-name" id="' +
+                                        element.id +
+                                        '" data-tax="' + element
+                                        .product_tax +
+                                        '" name="search-product">' +
+                                        '<span class="w-100" data-id="' +
+                                        element.id + '">' + element
+                                        .product_name + '</span>' +
+                                        '</a>' +
+                                        '</li>';
+                                    listProductName.append(UL);
+                                })
+                                // console.log(data);
+                                $('.search-name').on('click', function() {
+                                    inputName.val($(this).closest('li')
+                                        .find('span')
+                                        .text());
+                                    inputUnit.val($(this).attr(
+                                        'data-unit'));
+                                    inputPriceExprot.val($(this).attr(
+                                        'data-priceExport'))
+                                    inputRatio.val($(this).attr(
+                                        'data-ratio'))
+                                    inputPriceImport.val($(this).attr(
+                                        'data-priceImport'))
+                                        selectTax.val($(this).attr('data-tax'))
+                                    listProductName.hide();
+                                })
+                            }
+                        })
+                    })
+                }
+            })
+        })
+    }
 </script>
+
 </body>
 
 </html>

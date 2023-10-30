@@ -45,8 +45,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $add = $this->products->addProduct($request->all());
-        // $msg = "";
-        return redirect()->route('ton-kho.index')->with('msg', 'Chỉnh sửa sản phẩm thành công !');;
+        if($add == 0){
+            $msg = redirect()->route('inventory.index')->with('warning', 'Mã sản phẩm đã tồn tại !');
+        }else{
+            $msg = redirect()->route('inventory.index')->with('msg', 'Thêm sản phẩm mới thành công !');
+        }
+
+        return $msg;
     }
 
     /**
