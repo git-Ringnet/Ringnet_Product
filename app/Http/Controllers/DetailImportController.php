@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DetailImport;
 use App\Models\ProductCode;
 use App\Models\Products;
+use App\Models\Project;
 use App\Models\Provides;
 use App\Models\QuoteImport;
 use Illuminate\Http\Request;
@@ -27,7 +28,8 @@ class DetailImportController extends Controller
     public function index()
     {
         $title = 'Đơn mua hàng';
-        $import = $this->import->getAllImport();
+        $import = DetailImport::all();
+        // $import = $this->import->getAllImport();
         return view('tables.import.import', compact('title', 'import'));
     }
 
@@ -38,8 +40,9 @@ class DetailImportController extends Controller
     {
         $title = "Tạo đơn mua hàng";
         $provides = Provides::all();
+        $project = Project::all();
         // $products = Products::all();
-        return view('tables.import.insertImport', compact('title', 'provides'));
+        return view('tables.import.insertImport', compact('title', 'provides', 'project'));
     }
 
     /**
@@ -48,7 +51,8 @@ class DetailImportController extends Controller
     public function store(Request $request)
     {
         $import_id = $this->import->addImport($request->all());
-        $this->quoteImport->addQuoteImport($request->all(),$import_id);
+        $this->quoteImport->addQuoteImport($request->all(), $import_id);
+        return redirect()->route('import.index')->with('msg', ' Taọ mới đợn nhập hàng thành công !');
     }
 
     /**
@@ -67,8 +71,9 @@ class DetailImportController extends Controller
         $import = DetailImport::findOrFail($id);
         $provides = Provides::all();
         $title = $import->quotation_number;
-        $product = QuoteImport::where('detailimport_id',$import->id)->get();
-        return view('tables.import.editImport',compact('import','title','provides','product'));
+        $product = QuoteImport::where('detailimport_id', $import->id)->get();
+        $project = Project::all();
+        return view('tables.import.editImport', compact('import', 'title', 'provides', 'product','project'));
     }
 
     /**
@@ -76,7 +81,16 @@ class DetailImportController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $title = "";
+        if ($request->action == 'action_1') {
+            $this->import->updateImport($request->all(), $id,1);
+            $this->quoteImport->updateImport($request->all(), $id);
+            return redirect()->route('import.index')->with('msg', 'Chỉnh sửa đơn mua hàng thành công !');
+        } else if ($request->action == 'action_2') {
+            $this->import->updateImport($request->all(), $id,2);
+            $this->quoteImport->updateImport($request->all(), $id);
+            return redirect()->route('import.index')->with('msg', 'Xác nhận đơn hàng thành công !');
+        }
     }
 
     /**
@@ -86,13 +100,14 @@ class DetailImportController extends Controller
     {
         //
     }
-
+    // Hiển thị thông tin nhà cung cấp theo id đã chọn
     public function show_provide(Request $request)
     {
         $data = $request->all();
         $provide = Provides::findOrFail($data['provides_id']);
         return $provide;
     }
+    // Thêm mới nhà cung cấp
     public function addNewProvide(Request $request)
     {
         $check = Provides::where('provide_code', $request->provide_code)->first();
@@ -109,21 +124,32 @@ class DetailImportController extends Controller
                 'provide_address_delivery' => $request->provide_address_delivery
             ];
             $new_provide = DB::table('provides')->insertGetId($data);
-            $msg = response()->json(['success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công','id' => $new_provide,'name' => $request->provide_name]);
+            $msg = response()->json(['success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công', 'id' => $new_provide, 'name' => $request->provide_name]);
         } else {
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế đã tồn tại']);
         }
         return $msg;
     }
 
-    public function getAllProducts(){
+    // Hiển thị tất cả Mã sản phẩm
+    public function getAllProducts()
+    {
         $data = ProductCode::all();
         return $data;
     }
-    public function showProductName(Request $request){
+    // Hiển thị tên sản phẩm theo id đã chọn
+    public function showProductName(Request $request)
+    {
         $dataId = $request->dataId;
-        return Products::where('product_code',$dataId)->get();
+        return Products::where('product_code', $dataId)->get();
         // $data = $request->all();
         // return $dataId;
+    }
+    // Hiển thị thông tin Dự án
+    function show_project(Request $request)
+    {
+        $data = $request->all();
+        $project = Project::findOrFail($data['project_id']);
+        return $project;
     }
 }

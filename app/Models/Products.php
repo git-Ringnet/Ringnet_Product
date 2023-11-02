@@ -35,13 +35,21 @@ class Products extends Model
     {
         $return  = 0;
         isset($data['check_seri']) ? $check = 1 : $check = 0;
-        $checkCode = ProductCode::where('product_code', $data['product_code'])->first();
-        if ($checkCode) {
-            $return  = 0;
+        $checkProductCode = ProductCode::where('product_code', $data['product_code'])->first();
+
+        if ($checkProductCode) {
+            $checkProductName = Products::where('product_code', $checkProductCode->id)->where('product_name', $data['product_name'])->first();
+            if ($checkProductName) {
+                return false;
+            } else {
+                $id = $checkProductCode;
+            }
         } else {
             $id = ProductCode::create([
                 'product_code' => $data['product_code'],
             ]);
+        }
+        if (!$checkProductName) {
             $product  = [
                 'product_code' => $id->id,
                 'product_name' => $data['product_name'],

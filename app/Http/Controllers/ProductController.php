@@ -46,7 +46,7 @@ class ProductController extends Controller
     {
         $add = $this->products->addProduct($request->all());
         if($add == 0){
-            $msg = redirect()->route('inventory.index')->with('warning', 'Mã sản phẩm đã tồn tại !');
+            $msg = redirect()->route('inventory.index')->with('warning', 'Sản phẩm đã tồn tại !');
         }else{
             $msg = redirect()->route('inventory.index')->with('msg', 'Thêm sản phẩm mới thành công !');
         }

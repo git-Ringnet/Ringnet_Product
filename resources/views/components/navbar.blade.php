@@ -319,7 +319,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{route('import.index')}}" class="nav-link" {!! $isActiveRouteGroup('import.index,import.edit') !!}>
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Nhập hàng</p>
                                 </a>
