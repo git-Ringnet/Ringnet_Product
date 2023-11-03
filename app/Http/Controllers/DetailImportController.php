@@ -124,7 +124,8 @@ class DetailImportController extends Controller
                 'provide_address_delivery' => $request->provide_address_delivery
             ];
             $new_provide = DB::table('provides')->insertGetId($data);
-            $msg = response()->json(['success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công', 'id' => $new_provide, 'name' => $request->provide_name]);
+            $provide = Provides::findOrFail($new_provide);
+            $msg = response()->json(['success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công', 'id' => $new_provide, 'name' => $provide->provide_name_display]);
         } else {
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế đã tồn tại']);
         }

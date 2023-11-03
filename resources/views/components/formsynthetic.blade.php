@@ -16,14 +16,14 @@
                         <div class="d-flex justify-content-between align-items-center mt-2">
                             <span class="text-primary">Giảm giá:</span>
                             <div class="w-50">
-                                <input type="text" class="form-control text-right border-0" name="transport_fee"
+                                <input type="text" class="form-control text-right border-0 p-0" name="transport_fee"
                                     id="voucher" value="0">
                             </div>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-2">
                             <span class="text-primary">Phí vận chuyển:</span>
                             <div class="w-50">
-                                <input type="text" class="form-control text-right border-0" name="transport_fee"
+                                <input type="text" class="form-control text-right border-0 p-0" name="transport_fee"
                                     id="transport_fee" value="0">
                             </div>
                         </div>

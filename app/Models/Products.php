@@ -36,11 +36,11 @@ class Products extends Model
         $return  = 0;
         isset($data['check_seri']) ? $check = 1 : $check = 0;
         $checkProductCode = ProductCode::where('product_code', $data['product_code'])->first();
-
+        $create = false;
         if ($checkProductCode) {
             $checkProductName = Products::where('product_code', $checkProductCode->id)->where('product_name', $data['product_name'])->first();
             if ($checkProductName) {
-                return false;
+                $create = true;
             } else {
                 $id = $checkProductCode;
             }
@@ -49,7 +49,7 @@ class Products extends Model
                 'product_code' => $data['product_code'],
             ]);
         }
-        if (!$checkProductName) {
+        if (!$create) {
             $product  = [
                 'product_code' => $id->id,
                 'product_name' => $data['product_name'],

@@ -274,6 +274,7 @@
     </section>
     <x-formsynthetic></x-formsynthetic>
 </div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script>
     $('.search-info').click(function() {
@@ -292,6 +293,7 @@
     });
 
     $('#addProvide').click(function() {
+        console.log(123);
         var check = false;
         var provide_name_display = $("input[name='provide_name_display']").val().trim();
         var provide_code = $("input[name='provide_code']").val().trim();
@@ -332,11 +334,10 @@
                 },
                 success: function(data) {
                     if (data.success == true) {
-                        console.log(data);
                         $('#myInput').val(data.name);
                         $('#provides_id').val(data.id);
+                        $('.modal [data-dismiss="modal"]').click();
                         alert(data.msg);
-                        $('#exampleModal1').modal('hide');
                         $("input[name='provide_name_display']").val('');
                         $("input[name='provide_code']").val('');
                         $("input[name='provide_address']").val('');
@@ -473,7 +474,6 @@
     $('form').on('submit', function(e){
         e.preventDefault();
         var formSubmit = true;
-        // console.log(());
         if($('#provides_id').val() == ''){
             formSubmit = false;
             alert('Vui lòng chọn nhà cung cấp');

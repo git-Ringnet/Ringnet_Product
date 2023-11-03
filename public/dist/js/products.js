@@ -617,7 +617,6 @@ function updateTaxAmount() {
         if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
             var totalAmount = productQty * productPrice;
             var taxAmount = (totalAmount * taxValue) / 100;
-            console.log(taxAmount);
             $(this).find('.product_tax1').text(Math.round(taxAmount));
         }
     })

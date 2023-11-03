@@ -194,7 +194,9 @@
                                                     {{ $item->getProjectName->project_name }}
                                                 @endif
                                             </td>
-                                            <td>{{ $item->status }}</td>
+                                            <td>
+                                                {{$item->status == 1 ? 'Draft' : 'Approved'}}
+                                            </td>
                                             <td></td>
                                             <td></td>
                                             <td></td>

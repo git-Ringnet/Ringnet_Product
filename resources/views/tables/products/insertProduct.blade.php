@@ -15,129 +15,129 @@
                 <button type="submit" class="btn btn-primary">Thêm</button>
             </div>
         </section>
-        <section class="content-header">
+        <section class="content">
             <div class="container-fluided">
-                <h4>Thông tin chung</h4>
-                {{-- Tên sản phẩm --}}
-                <div class="row mt-3">
-                    <div class="col-md-3">
-                        Tên sản phảm
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" name="product_name" class="w-100 form-control" required>
-                    </div>
-                </div>
-                {{-- Tên sản phẩm --}}
-                <div class="row mt-1">
-                    <div class="col-md-3">
-                        Mã sản phẩm
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" name="product_code" class="w-100 form-control" required>
-                    </div>
-                </div>
-                {{-- Đơn vị tính --}}
-                <div class="row mt-1">
-                    <div class="col-md-3">
-                        Đơn vị tính
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" name="product_unit" class="w-100 form-control" required>
-                    </div>
-                </div>
-                {{-- Loại sản phẩm --}}
-                <div class="row mt-1">
-                    <div class="col-md-3">
-                        Loại sản phẩm
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" name="product_type" class="w-100 form-control">
-                    </div>
-                </div>
-                {{-- Hãng --}}
-                <div class="row mt-1">
-                    <div class="col-md-3">
-                        Hãng
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" name="product_manufacturer" class="w-100 form-control">
-                    </div>
-                </div>
-                {{-- Xuất xứ --}}
-                <div class="row mt-1">
-                    <div class="col-md-3">
-                        Xuất xứ
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" name="product_origin" class="w-100 form-control">
-                    </div>
-                </div>
-                {{-- Bảo hành --}}
-                <div class="row mt-1">
-                    <div class="col-md-3">
-                        Bảo hành
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" name="product_guarantee" class="w-100 form-control" required>
-                    </div>
-                </div>
-                {{-- Quản lý Serial Number --}}
-                <div class="row mt-1">
-                    <div class="col-md-3">
-                        Quản lý Serial Number
-                    </div>
-                    <div class="col-md-9">
-                        <input type="checkbox" checked name="check_seri form-control">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="info-chung">
+                            <p class="font-weight-bold ml-2 px-3">Thông tin chung</p>
+                            <div class="content-info">
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-left-0">
+                                        <p class="p-0 m-0 px-3 required-label text-danger">Tên sản phẩm</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="product_name"
+                                        class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off"
+                                        required>
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3 required-label text-danger">Mã sản phẩm</p>
+                                    </div>
+                                    <input type="text" required="" placeholder="Nhập thông tin"
+                                        name="product_code"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Đơn vị tính</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="product_unit"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Loại sản phẩm</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="product_type"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Hãng</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="product_manufacturer"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Xuất xứ</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="product_origin"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Bảo hành</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="product_guarantee"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Quản lý Serial Number</p>
+                                    </div>
+                                    <div class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                        <input type="checkbox" checked name="check_seri" class="">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="content-header mt-5">
+        <section class="content">
             <div class="container-fluided">
-                <h4>Thông tin giá</h4>
-                {{-- Đơn giá bán --}}
-                <div class="row mt-3">
-                    <div class="col-md-3">
-                        Đơn giá bán
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" name="product_price_export" class="w-100 form-control" required>
-                    </div>
-                </div>
-                {{-- Đơn giá mua --}}
-                <div class="row mt-1">
-                    <div class="col-md-3">
-                        Đơn giá mua
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" name="product_price_import" class="w-100 form-control" required>
-                    </div>
-                </div>
-                {{-- Hệ số nhân --}}
-                <div class="row mt-1">
-                    <div class="col-md-3">
-                        Hệ số nhân
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" name="product_ratio" class="w-100 form-control" required>
-                    </div>
-                </div>
-                {{-- Thuế --}}
-                <div class="row mt-1">
-                    <div class="col-md-3">
-                        Thuế
-                    </div>
-                    <div class="col-md-9">
-                        <select name="product_tax" id="" class="form-control w-25">
-                            <option value="0">0%</option>
-                            <option value="8">8%</option>
-                            <option value="10">10%</option>
-                            <option value="99">NOVAT</option>
-                        </select>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="info-chung">
+                            <p class="font-weight-bold ml-2 px-3 pt-3">Thông tin giá</p>
+                            <div class="content-info">
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-left-0">
+                                        <p class="p-0 m-0 px-3">Đơn giá bán</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="product_price_export"
+                                        class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off"
+                                        required>
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Đơn giá nhập</p>
+                                    </div>
+                                    <input type="text" required="" placeholder="Nhập thông tin"
+                                        name="product_price_import"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Hệ số nhân</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="product_ratio"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Thuế</p>
+                                    </div>
+                                    <div class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                        <select name="product_tax" id="" class="form-control w-25">
+                                            <option value="0">0%</option>
+                                            <option value="8">8%</option>
+                                            <option value="10">10%</option>
+                                            <option value="99">NOVAT</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
     </form>
 </div>
