@@ -13,10 +13,16 @@ return new class extends Migration
     {
         Schema::table('detailimport', function (Blueprint $table) {
             $table->decimal('total_price',20,4)->nullable();
+            $table->decimal('total_tax',20,4)->nullable();
+            $table->decimal('discount',20,4)->nullable();
+            $table->decimal('transfer_fee',20,4)->nullable();
             $table->string('terms_pay')->nullable();
         });
         Schema::table('detailexport', function (Blueprint $table) {
             $table->decimal('total_price',20,4)->nullable();
+            $table->decimal('total_tax',20,4)->nullable();
+            $table->decimal('discount',20,4)->nullable();
+            $table->decimal('transfer_fee',20,4)->nullable();
             $table->string('terms_pay')->nullable();
         });
     }
