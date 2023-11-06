@@ -1247,6 +1247,12 @@ input[type="checkbox"] {
     position: relative;
 }
 
+.col-12 .content .multiple_action {
+    width: 100%;
+    height: auto;
+    bottom: 100%;
+}
+
 .multiple_action {
     position: absolute;
     width: 100%;
@@ -1570,3 +1576,9 @@ input[type="checkbox"] {
     border-bottom-width: 0 !important;
 }
 
+.content-wrapper .content .list_product li:hover{
+    background-color: #ECECEC;
+}
+.content-wrapper .content .list_code li:hover{
+    background-color: #ECECEC;
+}

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailExport;
 use App\Models\Guest;
+use App\Models\ProductCode;
+use App\Models\Products;
 use App\Models\QuoteExport;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,18 +16,25 @@ class DetailExportController extends Controller
     /**
      * Display a listing of the resource.
      */
-    private $quoteExport;
+    private $detailExport;
     private $guest;
+    private $product_code;
+    private $quoteExport;
+    private $project;
+    private $product;
 
     public function __construct()
     {
-        $this->quoteExport = new QuoteExport();
+        $this->detailExport = new DetailExport();
         $this->guest = new Guest();
+        $this->product_code = new ProductCode();
+        $this->quoteExport = new QuoteExport();
+        $this->product = new Products();
     }
     public function index()
     {
         $title = "Báo giá";
-        $quoteExport = $this->quoteExport->getAllQuoteExport();
+        $quoteExport = $this->detailExport->getAllDetailExport();
         return view('tables.export.quote.list-quote', compact('title', 'quoteExport'));
     }
 
@@ -34,7 +45,9 @@ class DetailExportController extends Controller
     {
         $title = "Tạo báo giá";
         $guest = $this->guest->getAllGuest();
-        return view('tables.export.quote.create-quote', compact('title', 'guest'));
+        $product_code = $this->product_code->getAllProductCode();
+        $product = $this->product->getAllProducts();
+        return view('tables.export.quote.create-quote', compact('title', 'guest','product_code','product'));
     }
 
     /**
@@ -42,7 +55,9 @@ class DetailExportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $export_id = $this->detailExport->addExport($request->all());
+        $this->quoteExport->addQuoteExport($request->all(), $export_id);
+        return redirect()->route('detailExport.index');
     }
 
     /**
@@ -100,12 +115,21 @@ class DetailExportController extends Controller
                 'guest_phone_receiver' => $request->guest_phone_receiver,
                 'guest_debt' => 0,
                 'guest_note' => $request->guest_note,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ];
             $new_guest = DB::table('guest')->insertGetId($data);
-            $msg = response()->json(['success' => true, 'msg' => 'Thêm mới khách hàng thành công', 'id' => $new_guest, 'name' => $request->guest_name]);
+            $msg = response()->json(['success' => true, 'msg' => 'Thêm mới khách hàng thành công', 'id' => $new_guest, 'guest_name_display' => $request->guest_name_display]);
         } else {
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế đã tồn tại']);
         }
         return $msg;
+    }
+    //Lấy thông tin sản phẩm
+    public function getProduct(Request $request)
+    {
+        $data = $request->all();
+        $product = Products::where('id', $data['idProduct'])->first();
+        return $product;
     }
 }

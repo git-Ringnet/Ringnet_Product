@@ -12,4 +12,9 @@ class Project extends Model
     protected $fillable = [
         'project_name',
     ];
+    public function getAllProject()
+    {
+        $project = Project::all();
+        return $project;
+    }
 }

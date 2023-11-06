@@ -22,6 +22,9 @@ class QuoteExportController extends Controller
     }
     public function index()
     {
+        $title = "Báo giá";
+        $quoteExport = $this->quoteExport->getAllQuoteExport();
+        return view('tables.export.quote.list-quote', compact('title', 'quoteExport'));
     }
 
     /**

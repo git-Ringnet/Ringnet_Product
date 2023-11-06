@@ -258,7 +258,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('quoteExport.index') }}" class="nav-link {!! $isActiveRouteGroup('quoteExport.index,quoteExport.create,quoteExport.edit') !!}">
+                                <a href="{{ route('detailExport.index') }}" class="nav-link {!! $isActiveRouteGroup('quoteExport.index,quoteExport.create,quoteExport.edit') !!}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Báo giá</p>
                                 </a>

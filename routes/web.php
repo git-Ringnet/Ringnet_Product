@@ -44,11 +44,13 @@ Route::get('/', function () {
 
 //Bán hàng
 //Báo giá
-Route::resource('quoteExport', DetailExportController::class);
+Route::resource('detailExport', DetailExportController::class);
 //tìm kiếm tên khách hàng
 Route::get('/searchExport', [DetailExportController::class, 'searchGuest'])->name('searchExport');
 //Thêm khách hàng
 Route::get('/addGuest', [DetailExportController::class, 'addGuest'])->name('addGuest');
+//Lấy thông tin sản phẩm
+Route::get('/getProduct', [DetailExportController::class, 'getProduct'])->name('getProduct');
 
 Route::middleware([
     'auth:sanctum',

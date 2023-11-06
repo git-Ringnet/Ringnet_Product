@@ -12,4 +12,9 @@ class ProductCode extends Model
     protected $fillable = [
         'product_code',
     ];
+    public function getAllProductCode()
+    {
+        $productCode = ProductCode::all();
+        return $productCode;
+    }
 }

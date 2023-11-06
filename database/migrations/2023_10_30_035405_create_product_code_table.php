@@ -22,6 +22,9 @@ return new class extends Migration
         Schema::table('quoteimport', function (Blueprint $table) {
             $table->integer('product_code')->change();
         });
+        Schema::table('quoteexport', function (Blueprint $table) {
+            $table->integer('product_code')->change();
+        });
     }
 
     /**

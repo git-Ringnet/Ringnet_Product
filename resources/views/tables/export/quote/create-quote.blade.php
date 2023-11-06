@@ -1,7 +1,7 @@
 <x-navbar :title="$title"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <form action="{{ route('quoteExport.store') }}" method="POST">
+    <form action="{{ route('detailExport.store') }}" method="POST">
         @csrf
         <!-- Content Header (Page header) -->
         <section class="content-header p-0">
@@ -74,7 +74,7 @@
                                         <input type="text" placeholder="Nhập thông tin"
                                             class="border w-100 py-2 border-left-0 border-right-0 px-3 nameGuest"
                                             id="myInput" autocomplete="off" required>
-                                        <input type="hidden" class="idGuest" autocomplete="off">
+                                        <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
                                         <ul id="myUL"
                                             class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
                                             style="z-index: 99;">
@@ -89,7 +89,7 @@
                                                 </li>
                                             @endforeach
                                             <a type="button"
-                                                class="bg-dark d-flex justify-content-between p-2 position-sticky"
+                                                class="bg-dark d-flex justify-content-between p-2 position-sticky addGuestNew"
                                                 data-toggle="modal" data-target="#guestModal" style="bottom: 0;">
                                                 <span class="w-50 text-white">Thêm mới</span>
                                             </a>
@@ -101,7 +101,7 @@
                                         <p class="p-0 m-0 px-3">Số báo giá#</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" placeholder="Nhập thông tin"
+                                        <input type="text" placeholder="Nhập thông tin" name="quotation_number"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@
                                         <p class="p-0 m-0 px-3">Số tham chiếu#</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" placeholder="Nhập thông tin"
+                                        <input type="text" placeholder="Nhập thông tin" name="reference_number"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -119,7 +119,7 @@
                                         <p class="p-0 m-0 px-3">Ngày báo giá</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="date" placeholder="Nhập thông tin"
+                                        <input type="date" placeholder="Nhập thông tin" name="date_quote"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -128,7 +128,7 @@
                                         <p class="p-0 m-0 px-3">Hiệu lực báo giá</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" placeholder="Nhập thông tin"
+                                        <input type="text" placeholder="Nhập thông tin" name="price_effect"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -137,7 +137,7 @@
                                         <p class="p-0 m-0 px-3">Điều khoản thanh toán</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" placeholder="Nhập thông tin"
+                                        <input type="text" placeholder="Nhập thông tin" name="terms_pay"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -167,7 +167,7 @@
                                     <path d="M12 13.5H13.5" stroke="#42526E" stroke-width="1.5"
                                         stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-                                <p class="p-0 m-0">Tối giản</p>
+                                <p class="p-0 m-0 change_colum">Tối giản</p>
                                 <svg class="ml-1" width="18" height="18" viewBox="0 0 18 18"
                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -189,12 +189,67 @@
                             </div>
                         </div>
                         <section class="content">
-                            <div class="container-fluided">
+                            <div class="container-fluided order_content">
+                                <section class="multiple_action" style="display: none;">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="count_checkbox mr-5">Đã chọn 1</span>
+                                        <div class="row action">
+                                            <div class="btn-chotdon my-2 ml-3">
+                                                <button type="button" id="btn-chot"
+                                                    class="btn-group btn-light d-flex align-items-center h-100">
+                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
+                                                            fill="#42526E" />
+                                                    </svg>
+                                                    <span class="px-1">Nhân hệ số</span>
+                                                </button>
+                                            </div>
+                                            <div class="btn-xoahang my-2 ml-1">
+                                                <button id="deleteExports" type="button"
+                                                    class="btn-group btn-light d-flex align-items-center h-100">
+                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
+                                                            fill="#42526E" />
+                                                    </svg>
+                                                    <span class="px-1">Thuế</span>
+                                                </button>
+                                            </div>
+                                            <div class="btn-huy my-2 ml-3">
+                                                <button id="cancelBillExport"
+                                                    class="btn-group btn-light d-flex align-items-center h-100">
+                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M15.75 15.75L2.25 2.25" stroke="#42526E"
+                                                            stroke-width="1.5" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                        <path d="M15.75 2.25L2.25 15.75" stroke="#42526E"
+                                                            stroke-width="1.5" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </svg>
+                                                    <span class="px-1">Xóa</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="btn ml-auto cancal_action">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <path d="M18 18L6 6" stroke="white" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                <path d="M18 6L6 18" stroke="white" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </section>
                                 <table class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr>
                                             <th class="border-right" style="width: 15%">
-                                                <input class="ml-4" type="checkbox"> Mã sản phẩm
+                                                <input class="ml-4" id="checkall" type="checkbox"> Mã sản phẩm
                                             </th>
                                             <th class="border-right" style="width: 20%">Tên sản phẩm</th>
                                             <th class="border-right" style="width: 8%">Đơn vị</th>
@@ -214,7 +269,7 @@
                         <section class="content">
                             <div class="container-fluided">
                                 <div class="d-flex">
-                                    <button type="button" data-toggle="dropdown"
+                                    <button type="button" data-toggle="dropdown" id="add-field-btn"
                                         class="btn-save-print d-flex align-items-center h-100 py-1 px-2"
                                         style="margin-right:10px">
                                         <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="18"
@@ -226,7 +281,7 @@
                                                 d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
                                                 fill="#42526E" />
                                         </svg>
-                                        <span id="add-field-btn">Thêm dòng</span>
+                                        <span>Thêm dòng</span>
                                     </button>
                                     <button type="button" data-toggle="dropdown"
                                         class="btn-save-print d-flex align-items-center h-100 py-1 px-2"
@@ -273,14 +328,14 @@
                                             <div class="d-flex justify-content-between align-items-center mt-2">
                                                 <span class="text-primary">Giảm giá:</span>
                                                 <div class="w-50">
-                                                    <input type="text" class="form-control text-right border-0"
-                                                        name="transport_fee" id="voucher" value="0">
+                                                    <input type="text" class="form-control text-right border-0 p-0"
+                                                        name="" id="voucher" value="0">
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-between align-items-center mt-2">
                                                 <span class="text-primary">Phí vận chuyển:</span>
                                                 <div class="w-50">
-                                                    <input type="text" class="form-control text-right border-0"
+                                                    <input type="text" class="form-control text-right border-0 p-0"
                                                         name="transport_fee" id="transport_fee" value="0">
                                                 </div>
                                             </div>
@@ -454,7 +509,8 @@
                 "id": `dynamic-row-${fieldCounter}`,
                 "class": `bg-white`,
             });
-            const maSanPham = $("<td class='border border-left-0 border-top-0 border-bottom-0'>" +
+            const maSanPham = $(
+                "<td class='border border-left-0 border-top-0 border-bottom-0 position-relative'>" +
                 "<div class='d-flex w-100 justify-content-between align-items-center'>" +
                 "<svg width='24' height='24' viewBox='0 0 24 24'" +
                 "fill='none' xmlns='http://www.w3.org/2000/svg'>" +
@@ -475,31 +531,52 @@
                 "d='M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z'" +
                 "fill='#42526E' />" +
                 "</svg>" +
-                "<input type='checkbox'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-75'>" +
-                "</div>" +
-                "</td>");
+                "<input type='checkbox' class='cb-element'>" +
+                "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-75 product_code' required name='product_code[]'>" +
+                "<ul class='list_code bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 75%;left: 9%;'>" +
+                "@foreach ($product_code as $productCode_value)" +
+                "<li>" +
+                "<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 maSP' id='{{ $productCode_value->id }}' name='maSP'>" +
+                "<span class='w-50'>{{ $productCode_value->product_code }}</span>" +
+                "</a>" +
+                "</li>" +
+                "@endforeach" +
+                "<a type='button' class='bg-dark d-flex justify-content-between p-2 position-sticky' data-toggle='modal' data-target='#' style='bottom: 0;'>" +
+                "<span class='w-50 text-white'>Thêm mới</span>" +
+                "</a></ul></div></td>");
             const tenSanPham = $(
-                "<td class='border border-top-0 border-bottom-0'><input type='text' class='border-0 px-2 py-1 w-100'></td>"
+                "<td class='border border-top-0 border-bottom-0 position-relative'>" +
+                "<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 75%;left: 10%;'>" +
+                "@foreach ($product as $product_value)" +
+                "<li>" +
+                "<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 idProduct' id='{{ $product_value->id }}' name='idProduct'>" +
+                "<span class='w-50'>{{ $product_value->product_name }}</span>" +
+                "</a>" +
+                "</li>" +
+                "@endforeach" +
+                "<a type='button' class='bg-dark d-flex justify-content-between p-2 position-sticky' data-toggle='modal' data-target='#' style='bottom: 0;'>" +
+                "<span class='w-50 text-white'>Thêm mới</span>" +
+                "</a></ul>" +
+                "<input type='text' class='border-0 px-2 py-1 w-100 product_name' autocomplete='off' required name='product_name[]'></td>"
             );
             const dvTinh = $(
-                "<td class='border border-top-0 border-bottom-0'><input type='text' class='border-0 px-2 py-1 w-100'></td>"
+                "<td class='border border-top-0 border-bottom-0'><input type='text' class='border-0 px-2 py-1 w-100 product_unit' required name='product_unit[]'></td>"
             );
             const soLuong = $(
                 "<td class='border border-top-0 border-bottom-0 position-relative'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-100 quantity-input'>" +
-                "<p class='text-primary text-center position-absolute' style='top: 68%;'>Tồn kho: 35</p>" +
+                "<input type='text' class='border-0 px-2 py-1 w-100 quantity-input' required name='product_qty[]'>" +
+                "<p class='text-primary text-center position-absolute inventory' style='top: 68%;'>Tồn kho: 35</p>" +
                 "</td>"
             );
             const donGia = $(
                 "<td class='border border-top-0 border-bottom-0 position-relative'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-100' name='product_price'>" +
-                "<p class='text-primary text-right position-absolute' style='top: 68%;right: 5%;'>Giao dịch gần đây</p>" +
+                "<input type='text' class='border-0 px-2 py-1 w-100 product_price' name='product_price[]' required>" +
+                "<p class='text-primary text-right position-absolute transaction' style='top: 68%;right: 5%;'>Giao dịch gần đây</p>" +
                 "</td>"
             );
             const thue = $(
                 "<td class='border border-top-0 border-bottom-0 px-4'>" +
-                "<select name='' class='border-0 text-center product_tax'>" +
+                "<select name='product_tax[]' class='border-0 text-center product_tax' required>" +
                 "<option value='0'>0%</option>" +
                 "<option value='8'>8%</option>" +
                 "<option value='10'>10%</option>" +
@@ -508,7 +585,7 @@
                 "</td>"
             );
             const thanhTien = $(
-                "<td class='border border-top-0 border-bottom-0'><input type='text' class='border-0 px-2 py-1 w-100 total-amount'></td>"
+                "<td class='border border-top-0 border-bottom-0'><input type='text' readonly class='border-0 px-2 py-1 w-100 total-amount'></td>"
             );
             const option = $(
                 "<td class='border border-top-0 border-bottom-0 border-right-0 text-right'>" +
@@ -517,6 +594,12 @@
                 "</svg>" +
                 "</td>" +
                 "<td style='display:none;'><input type='text' class='product_tax1'></td>"
+            );
+            const heSoNhan = $(
+                "<td class='border border-top-0 border-bottom-0 position-relative'>" +
+                "<input type='text' class='border-0 px-2 py-1 w-100 product_price' name='product_price[]' required>" +
+                "<p class='text-primary text-right position-absolute' style='top: 68%;right: 5%;'>Giao dịch gần đây</p>" +
+                "</td>"
             );
             // Gắn các phần tử vào hàng mới
             newRow.append(maSanPham, tenSanPham, dvTinh,
@@ -541,6 +624,104 @@
                 var taxAmount = parseFloat(('.product_tax1').text());
                 var totalTax = productTaxValue - taxAmount;
                 $('#product-tax').text(totalTax);
+            });
+            // Checkbox
+            $('#checkall').change(function() {
+                $('.cb-element').prop('checked', this.checked);
+                updateMultipleActionVisibility();
+            });
+
+            $('.cb-element').change(function() {
+                updateMultipleActionVisibility();
+                if ($('.cb-element:checked').length === $('.cb-element').length) {
+                    $('#checkall').prop('checked', true);
+                } else {
+                    $('#checkall').prop('checked', false);
+                }
+            });
+
+            $(document).on('click', '.cancal_action', function(e) {
+                e.preventDefault();
+                $('.cb-element:checked').prop('checked', false);
+                $('#checkall').prop('checked', false);
+                updateMultipleActionVisibility()
+            })
+
+            function updateMultipleActionVisibility() {
+                if ($('.cb-element:checked').length > 0) {
+                    $('.multiple_action').show();
+                    $('.count_checkbox').text('Đã chọn ' + $('.cb-element:checked').length);
+                } else {
+                    $('.multiple_action').hide();
+                }
+            }
+            //Hiển thị danh sách mã sản phẩm
+            $(".list_code").hide();
+            $('.product_code').on("click", function(e) {
+                e.stopPropagation();
+                $(this).closest('tr').find(".list_code").show();
+            });
+            $(document).on("click", function(e) {
+                if (!$(e.target).is(".product_code")) {
+                    $(".list_code").hide();
+                }
+            });
+            //Hiển thị danh sách tên sản phẩm
+            $(".list_product").hide();
+            $('.product_name').on("click", function(e) {
+                e.stopPropagation();
+                $(this).closest('tr').find(".list_product").show();
+            });
+            $(document).on("click", function(e) {
+                if (!$(e.target).is(".product_name")) {
+                    $(".list_product").hide();
+                }
+            });
+            //search mã sản phẩm
+            $(".product_code").on("keyup", function() {
+                var value = $(this).val().toUpperCase();
+                var $tr = $(this).closest("tr");
+                $tr.find(".list_code li").each(function() {
+                    var text = $(this).find("a").text().toUpperCase();
+                    $(this).toggle(text.indexOf(value) > -1);
+                });
+            });
+            //search tên sản phẩm
+            $(".product_name").on("keyup", function() {
+                var value = $(this).val().toUpperCase();
+                var $tr = $(this).closest("tr");
+                $tr.find(".list_product li").each(function() {
+                    var text = $(this).find("a").text().toUpperCase();
+                    $(this).toggle(text.indexOf(value) > -1);
+                });
+            });
+            //lấy thông tin sản phẩm
+            $('.inventory').hide();
+            $('.transaction').hide();
+            $(document).ready(function() {
+                $('.idProduct').click(function() {
+                    var idProduct = $(this).attr('id');
+                    $.ajax({
+                        url: '{{ route('getProduct') }}',
+                        type: 'GET',
+                        data: {
+                            idProduct: idProduct
+                        },
+                        success: function(data) {
+                            $('.product_name').val(data.product_name);
+                            $('.product_unit').val(data.product_unit);
+                            if(data.product_inventory == null)
+                            {
+                                $('.quantity-input').val();
+                            }
+                            else{
+                                $('.quantity-input').val(data.product_inventory);
+                                $('.inventory').show();
+                                $('.transaction').show();
+                            }
+                        }
+                    });
+                });
             });
         });
     });
@@ -573,6 +754,8 @@
         var guest_email_personal = $('#guest_email_personal').val();
         var guest_phone_receiver = $('#guest_phone_receiver').val();
         var guest_note = $('#guest_note').val();
+        $('.nameGuest').val(null);
+        $('.idGuest').val(null);
         $.ajax({
             url: "{{ route('addGuest') }}",
             type: "get",
@@ -591,13 +774,45 @@
             success: function(data) {
                 if (data.success) {
                     alert(data.msg);
-                }
-                else{
+                    $('.nameGuest').val(data.guest_name_display);
+                    $('.idGuest').val(data.id);
+                    $('.modal [data-dismiss="modal"]').click();
+                    // Nếu thành công, tạo một mục mới
+                    var newGuestInfo = data;
+                    var guestList = $('#myUL'); // Danh sách hiện có
+                    var newListItem =
+                        '<li><a href="#" class="text-dark d-flex justify-content-between p-2 search-info" id="' +
+                        newGuestInfo.id + '" name="search-info">' +
+                        '<span class="w-50">' + newGuestInfo.guest_name_display +
+                        '</span></a></li>';
+                    // Thêm mục mới vào danh sách
+                    var addButton = $(".addGuestNew");
+                    $(newListItem).insertBefore(addButton);
+                    //clear
+                    $('#guest_name_display').val(null);
+                    $('#guest_address').val(null);
+                    $('#guest_code').val(null);
+                    $('.search-info').click(function() {
+                        var idGuest = $(this).attr('id');
+                        $.ajax({
+                            url: '{{ route('searchExport') }}',
+                            type: 'GET',
+                            data: {
+                                idGuest: idGuest
+                            },
+                            success: function(data) {
+                                $('.nameGuest').val(data.guest_name_display);
+                                $('.idGuest').val(data.id);
+                            }
+                        });
+                    });
+                } else {
                     alert(data.msg);
                 }
             }
         });
     });
+
     //tính thành tiền của sản phẩm
     $(document).on('input', '.quantity-input, [name^="product_price"]', function(e) {
         var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;
@@ -694,9 +909,71 @@
         if (parts.length > 1) {
             formattedValue += "." + parts[1];
         }
-
         return formattedValue;
     }
+
+    //format giá
+    var inputElement = document.getElementById('product_price');
+    $('body').on('input', '.product_price,#transport_fee', function(event) {
+        // Lấy giá trị đã nhập
+        var value = event.target.value;
+
+        // Xóa các ký tự không phải số và dấu phân thập phân từ giá trị
+        var formattedValue = value.replace(/[^0-9.]/g, '');
+
+        // Định dạng số với dấu phân cách hàng nghìn và giữ nguyên số thập phân
+        var formattedNumber = numberWithCommas(formattedValue);
+
+        event.target.value = formattedNumber;
+    });
+
+    function numberWithCommas(number) {
+        // Chia số thành phần nguyên và phần thập phân
+        var parts = number.split('.');
+        var integerPart = parts[0];
+        var decimalPart = parts[1];
+
+        // Định dạng phần nguyên số với dấu phân cách hàng nghìn
+        var formattedIntegerPart = integerPart.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        // Kết hợp phần nguyên và phần thập phân (nếu có)
+        var formattedNumber = decimalPart !== undefined ? formattedIntegerPart + '.' + decimalPart :
+            formattedIntegerPart;
+
+        return formattedNumber;
+    }
+    //Mở rộng
+    var status_form = 0;
+    $('.change_colum').off('click').on('click', function() {
+        if (status_form == 0) {
+            $(this).text('Đầy đủ');
+            $('.price_export').attr('readonly', false);
+            // Xóa dữ liệu trường hệ số nhân, giá nhập
+            $('.product_ratio').val('')
+            $('.price_import').val('')
+            // Xóa required
+            $('#inputcontent tbody .product_ratio').removeAttr('required');
+            $('#inputcontent tbody .price_import').removeAttr('required');
+            $('.price-import').hide();
+            $('.product-ratio').hide();
+            $('.product_ratio').hide()
+            $('.price_import').hide();
+            status_form = 1;
+        } else {
+            $(this).text('Tối giản');
+            $('.price_export').attr('readonly', true);
+            // Xóa dữ liệu trương đơn giá
+            $('.price_export').val('')
+            // Thêm required
+            $('#inputcontent tbody .product_ratio').attr('required', true);
+            $('#inputcontent tbody .price_import').attr('required', true);
+            $('.price-import').show();
+            $('.product-ratio').show();
+            $('.product_ratio').show()
+            $('.price_import').show();
+            status_form = 0;
+        }
+    });
 </script>
 </body>
 
