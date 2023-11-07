@@ -26,19 +26,9 @@ class QuoteImport extends Model
 
     public function addQuoteImport($data, $id)
     {
-        for ($i = 0; $i < count($data['product_code']); $i++) {
+        for ($i = 0; $i < count($data['product_name']); $i++) {
             $product_ratio = 0;
             $price_import = 0;
-            $checkCode = ProductCode::where('product_code', $data['product_code'][$i])->first();
-
-            if ($checkCode) {
-                $idProductCode = $checkCode->id;
-            } else {
-                $newProductCode = ProductCode::create([
-                    'product_code' => $data['product_code'][$i]
-                ]);
-                $idProductCode = $newProductCode->id;
-            }
             isset($data['product_ratio']) ? $product_ratio = $data['product_ratio'][$i] : $product_ratio = 0;
             isset($data['price_import']) ? $price_import = str_replace(',', '', $data['price_import'][$i]) : $price_import = 0;
             if ($product_ratio > 0 && $price_import > 0) {
@@ -50,7 +40,7 @@ class QuoteImport extends Model
             }
             $dataQuote = [
                 'detailimport_id' => $id,
-                'product_code' => $idProductCode,
+                'product_code' => $data['product_code'][$i],
                 'product_name' => $data['product_name'][$i],
                 'product_unit' => $data['product_unit'][$i],
                 'product_qty' => $data['product_qty'][$i],
@@ -60,6 +50,7 @@ class QuoteImport extends Model
                 'product_ratio' => $product_ratio,
                 'price_import' => $price_import,
                 'product_note' => $data['product_note'][$i],
+                'receive_id' => 0
             ];
             DB::table($this->table)->insert($dataQuote);
         }
@@ -67,21 +58,17 @@ class QuoteImport extends Model
     }
 
 
-    public function updateImport($data, $id)
+    public function updateImport($data, $id, $id_receive)
     {
-        // dd($data);
-        for ($i = 0; $i < count($data['product_code']); $i++) {
+        // Xóa sản phẩm khi chỉnh sửa đơn hàng
+        if ($data['action'] == 'action_1') {
+            $id_detail = DB::table($this->table)->where('detailimport_id', $id)
+                ->whereNotIn('id', $data['listProduct'])
+                ->delete();
+        }
+        for ($i = 0; $i < count($data['product_name']); $i++) {
             // Lấy sản phẩm cần sửa
             $dataUpdate = QuoteImport::where('id', $data['listProduct'][$i])->first();
-            $checkCode = ProductCode::where('product_code', $data['product_code'][$i])->first();
-            if ($checkCode) {
-                $idProductCode = $checkCode->id;
-            } else {
-                $newProductCode = ProductCode::create([
-                    'product_code' => $data['product_code'][$i]
-                ]);
-                $idProductCode = $newProductCode->id;
-            }
             $product_ratio = 0;
             $price_import = 0;
             isset($data['product_ratio']) ? $product_ratio = $data['product_ratio'][$i] : $product_ratio = 0;
@@ -95,7 +82,7 @@ class QuoteImport extends Model
             }
             if ($dataUpdate) {
                 $dataQuoteUpdate = [
-                    'product_code' => $idProductCode,
+                    'product_code' => $data['product_code'][$i],
                     'product_name' => $data['product_name'][$i],
                     'product_unit' => $data['product_unit'][$i],
                     'product_qty' => $data['product_qty'][$i],
@@ -105,12 +92,13 @@ class QuoteImport extends Model
                     'product_ratio' => $product_ratio,
                     'price_import' => $price_import,
                     'product_note' => $data['product_note'][$i],
+                    'receive_id' => $id_receive == "" ? 0 : $id_receive
                 ];
-                DB::table($this->table)->where('id', $id)->update($dataQuoteUpdate);
+                DB::table($this->table)->where('id', $dataUpdate->id)->update($dataQuoteUpdate);
             } else {
                 $dataQuote = [
                     'detailimport_id' => $id,
-                    'product_code' => $idProductCode,
+                    'product_code' => $data['product_code'][$i],
                     'product_name' => $data['product_name'][$i],
                     'product_unit' => $data['product_unit'][$i],
                     'product_qty' => $data['product_qty'][$i],
@@ -120,6 +108,7 @@ class QuoteImport extends Model
                     'product_ratio' => $product_ratio,
                     'price_import' => $price_import,
                     'product_note' => $data['product_note'][$i],
+                    'receive_id' => $id_receive == "" ? 0 : $id_receive
                 ];
                 DB::table($this->table)->insert($dataQuote);
             }

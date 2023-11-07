@@ -3,7 +3,7 @@ $(document).on('input', '.quantity-input, [name^="price_export"],.price_import,.
     var price_import = parseFloat($(this).closest('tr').find('.price_import').val().replace(/[^0-9.-]+/g, "")) || 0
     var productPrice = 0;
     if (status_form == 1) {
-        productPrice = productPrice = parseFloat($(this).closest('tr').find('input[name^="price_export"]').val().replace(
+        productPrice = parseFloat($(this).closest('tr').find('input[name^="price_export"]').val().replace(
             /[^0-9.-]+/g, "")) || 0;
     } else {
         !isNaN(product_ratio) && !isNaN(price_import) ?
@@ -464,15 +464,6 @@ function checkAddForm() {
 }
 
 
-
-$("table tbody").sortable({
-    axis: "y",
-    handle: "td",
-});
-
-
-
-
 function addRowTable() {
     var tr = '<tr class="bg-white">' +
         '<td class="border border-left-0 border-top-0 border-bottom-0">' +
@@ -487,7 +478,7 @@ function addRowTable() {
         '<path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>' +
         '</svg>' +
         '<input type="checkbox">' +
-        '<input required type="text" id="searchProduct" class="border-0 px-3 py-2 w-75 searchProduct" name="product_code[]" autocomplete="off">' +
+        '<input type="text" id="searchProduct" class="border-0 px-3 py-2 w-75 searchProduct" name="product_code[]" autocomplete="off">' +
         '<ul id="listProductCode" class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 24%; top: 75%;"> ' +
         '</ul>' +
         '</div>' +
@@ -534,7 +525,7 @@ function addRowTable() {
         '</tr>';
     $('#inputcontent tbody').append(tr)
     checkAddForm()
-    getProduct('searchProduct')
+    getProduct('searchProductName')
     showListProductCode()
     showListProductName()
     searchProductCode()

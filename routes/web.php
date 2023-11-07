@@ -6,6 +6,8 @@ use App\Http\Controllers\DetailImportController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvidesController;
 use App\Http\Controllers\QuoteExportController;
+use App\Http\Controllers\ReceiveController;
+use App\Http\Controllers\RecieptController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +39,16 @@ Route::get('/show_project',[DetailImportController::class,'show_project'])->name
 Route::get('/addNewProvide',[DetailImportController::class,'addNewProvide'])->name('addNewProvide');
 Route::get('/getAllProducts',[DetailImportController::class,'getAllProducts'])->name('getAllProducts');
 Route::get('/showProductName',[DetailImportController::class,'showProductName'])->name('showProductName');
+
+// Đơn nhận hàng
+Route::resource('receive',ReceiveController::class);
+Route::get('/show_receive',[ReceiveController::class,'show_receive'])->name('show_receive');
+Route::get('/getProduct',[ReceiveController::class,'getProduct'])->name('getProduct');
+
+// Hóa đơn mua hàng
+Route::resource('reciept',RecieptController::class);
+Route::get('/show_reciept',[RecieptController::class,'show_reciept'])->name('show_reciept');
+Route::get('/getProduct_reciept',[RecieptController::class,'getProduct_reciept'])->name('getProduct_reciept');
 
 Route::get('/', function () {
     return view('welcome');

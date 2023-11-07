@@ -319,15 +319,15 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('import.index')}}" class="nav-link" {!! $isActiveRouteGroup('import.index,import.edit') !!}>
+                                <a href="{{route('receive.index')}}" class="nav-link" {!! $isActiveRouteGroup('receive.index,receive.edit') !!}>
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Đơn nhận hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav.html" class="nav-link">
+                                <a href="{{route('reciept.index')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
-                                    <p>Háo đơn mua hàng</p>
+                                    <p>Hóa đơn mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">

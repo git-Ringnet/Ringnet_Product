@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('quoteimport', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('detailimport_id');
-            $table->string('product_code');
+            $table->string('product_code')->nullable();
             $table->string('product_name');
             $table->string('product_unit');
             $table->decimal('product_qty', 20, 4);
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('product_ratio')->nullable();
             $table->decimal('price_import')->nullable();
             $table->string('product_note')->nullable();
-            // $table->unsignedBigInteger('product_id');
+            $table->integer('product_id')->nullable();
             $table->timestamps();
         });
     }

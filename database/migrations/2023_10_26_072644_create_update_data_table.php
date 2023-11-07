@@ -25,6 +25,13 @@ return new class extends Migration
             $table->decimal('transfer_fee',20,4)->nullable();
             $table->string('terms_pay')->nullable();
         });
+
+        Schema::table('quoteimport',function (Blueprint $table) {
+            $table->integer('receive_id')->nullable();
+        });
+        // Schema::table('quoteimport',function (Blueprint $table) {
+        //     $table->integer('receive_id')->nullable();
+        // });
     }
 
     /**

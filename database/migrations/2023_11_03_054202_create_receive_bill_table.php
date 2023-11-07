@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detailimport', function (Blueprint $table) {
+        Schema::create('receive_bill', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('provide_id');
-            $table->unsignedBigInteger('project_id');
-            // $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('user_id');
+            $table->integer('detailimport_id');
             $table->string('quotation_number');
-            $table->string('reference_number')->nullable();
-            $table->string('price_effect');
+            $table->integer('provide_id');
+            $table->string('shipping_unit')->nullable();
+            $table->decimal('delivery_charges',20,4)->nullable();
             $table->integer('status');
-            $table->unsignedBigInteger('warehouse_id');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detailimport');
+        Schema::dropIfExists('receive_bill');
     }
 };

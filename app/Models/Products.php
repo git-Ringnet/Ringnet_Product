@@ -35,23 +35,12 @@ class Products extends Model
     {
         $return  = 0;
         isset($data['check_seri']) ? $check = 1 : $check = 0;
-        $checkProductCode = ProductCode::where('product_code', $data['product_code'])->first();
-        $create = false;
-        if ($checkProductCode) {
-            $checkProductName = Products::where('product_code', $checkProductCode->id)->where('product_name', $data['product_name'])->first();
-            if ($checkProductName) {
-                $create = true;
-            } else {
-                $id = $checkProductCode;
-            }
+        $checkProductName = DB::table($this->table)->where('product_name', $data['product_name'])->first();
+        if ($checkProductName) {
+            $return = 0;
         } else {
-            $id = ProductCode::create([
-                'product_code' => $data['product_code'],
-            ]);
-        }
-        if (!$create) {
             $product  = [
-                'product_code' => $id->id,
+                'product_code' => $data['product_code'],
                 'product_name' => $data['product_name'],
                 'product_unit' => $data['product_unit'],
                 'product_type' => $data['product_type'],
@@ -69,9 +58,7 @@ class Products extends Model
                 // 'warehouse_id' => 1
             ];
             $product_id =  DB::table($this->table)->insert($product);
-            if ($product_id) {
-                $return = 1;
-            }
+            $return = 1;
         }
         return $return;
     }
@@ -99,5 +86,40 @@ class Products extends Model
             $return = 1;
         }
         return $return;
+    }
+    public function addProductTowarehouse($data,$id)
+    {
+        $array_id =[];
+        for($i =0;$i< count($data['listProduct']);$i++){
+           array_push($array_id,$data['listProduct'][$i]);
+        }
+        $product = QuoteImport::where('detailimport_id', $id)
+        ->whereIn('id',$array_id)
+        ->get();
+        $product_id = 0;
+        foreach ($product as $item) {
+            $checkProduct = Products::where('product_name', $item->product_name)->first();
+            if ($checkProduct) {
+                $checkProduct->product_inventory += $item->product_qty;
+                $checkProduct->save();
+                $product_id = $checkProduct->id;
+            } else {
+                $dataProduct = [
+                    'product_code' => $item->product_code,
+                    'product_name' => $item->product_name,
+                    'product_unit' => $item->product_unit,
+                    'product_price_import' => $item->price_import,
+                    'product_price_export' => $item->price_export,
+                    'product_ratio' => $item->product_ratio,
+                    'product_tax' => $item->product_tax,
+                    'product_inventory' => $item->product_qty,
+                    'check_seri' => 1
+                ];
+                $product_id = DB::table($this->table)->insertGetId($dataProduct);
+            }
+            $item->product_id = $product_id;
+            $item->save();
+        }
+        // dd($product);
     }
 }

@@ -14,7 +14,7 @@
                         <div class="content-info">
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3 required-label">
+                                    <p class="p-0 m-0 px-3 required-label text-danger">
                                         Tên hiển thị
                                     </p>
                                 </div>
@@ -24,7 +24,7 @@
                             </div>
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3 required-label">
+                                    <p class="p-0 m-0 px-3 required-label text-danger">
                                         Mã só thuế
                                     </p>
                                 </div>
@@ -34,7 +34,7 @@
                             </div>
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3 required-label">
+                                    <p class="p-0 m-0 px-3 required-label text-danger">
                                         Địa chỉ
                                     </p>
                                 </div>

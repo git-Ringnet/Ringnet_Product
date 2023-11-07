@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('product_code');
+            $table->string('product_code')->nullable();
             $table->string('product_name');
-            $table->string('product_unit');
+            $table->string('product_unit')->nullable();
             $table->string('product_type')->nullable();
             $table->string('product_manufacturer')->nullable();
             $table->string('product_origin')->nullable();
-            $table->string('product_guarantee');
-            $table->decimal('product_price_import',20,4);
-            $table->decimal('product_price_export',20,4);
-            $table->string('product_ratio');
-            $table->integer('product_tax');
+            $table->string('product_guarantee')->nullable();
+            $table->decimal('product_price_import',20,4)->nullable();
+            $table->decimal('product_price_export',20,4)->nullable();
+            $table->string('product_ratio')->nullable();
+            $table->integer('product_tax')->nullable();
             $table->decimal('product_inventory',20,4)->nullable();
             $table->decimal('product_trade',20,4)->nullable();
             $table->decimal('product_available',20,4)->nullable();

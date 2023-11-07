@@ -8,12 +8,13 @@ use Illuminate\View\Component;
 
 class formsynthetic extends Component
 {
+    public $import;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($import = "abc")
     {
-        //
+        $this->import = $import;
     }
 
     /**

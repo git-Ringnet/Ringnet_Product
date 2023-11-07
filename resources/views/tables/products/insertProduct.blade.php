@@ -32,9 +32,9 @@
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3 required-label text-danger">Mã sản phẩm</p>
+                                        <p class="p-0 m-0 px-3">Mã sản phẩm</p>
                                     </div>
-                                    <input type="text" required="" placeholder="Nhập thông tin"
+                                    <input type="text" placeholder="Nhập thông tin"
                                         name="product_code"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
@@ -102,13 +102,13 @@
                                     </div>
                                     <input type="text" placeholder="Nhập thông tin" name="product_price_export"
                                         class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off"
-                                        required>
+                                        >
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Đơn giá nhập</p>
                                     </div>
-                                    <input type="text" required="" placeholder="Nhập thông tin"
+                                    <input type="text" placeholder="Nhập thông tin"
                                         name="product_price_import"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>

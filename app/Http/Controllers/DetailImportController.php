@@ -8,6 +8,7 @@ use App\Models\Products;
 use App\Models\Project;
 use App\Models\Provides;
 use App\Models\QuoteImport;
+use App\Models\Receive_bill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,11 +17,15 @@ class DetailImportController extends Controller
     private $import;
     private $provide;
     private $quoteImport;
+    private $receiver_bill;
+    private $product;
     public function __construct()
     {
         $this->import = new DetailImport();
         $this->provide = new Provides();
         $this->quoteImport = new QuoteImport();
+        $this->receiver_bill = new Receive_bill();
+        $this->product = new Products();
     }
     /**
      * Display a listing of the resource.
@@ -52,7 +57,7 @@ class DetailImportController extends Controller
     {
         $import_id = $this->import->addImport($request->all());
         $this->quoteImport->addQuoteImport($request->all(), $import_id);
-        return redirect()->route('import.index')->with('msg', ' Taọ mới đợn nhập hàng thành công !');
+        return redirect()->route('import.index')->with('msg', ' Tạo mới đơn nhập hàng thành công !');
     }
 
     /**
@@ -73,7 +78,7 @@ class DetailImportController extends Controller
         $title = $import->quotation_number;
         $product = QuoteImport::where('detailimport_id', $import->id)->get();
         $project = Project::all();
-        return view('tables.import.editImport', compact('import', 'title', 'provides', 'product','project'));
+        return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project'));
     }
 
     /**
@@ -83,13 +88,21 @@ class DetailImportController extends Controller
     {
         $title = "";
         if ($request->action == 'action_1') {
-            $this->import->updateImport($request->all(), $id,1);
-            $this->quoteImport->updateImport($request->all(), $id);
+            $this->import->updateImport($request->all(), $id, 1);
+            $this->quoteImport->updateImport($request->all(), $id, '');
             return redirect()->route('import.index')->with('msg', 'Chỉnh sửa đơn mua hàng thành công !');
         } else if ($request->action == 'action_2') {
-            $this->import->updateImport($request->all(), $id,2);
-            $this->quoteImport->updateImport($request->all(), $id);
-            return redirect()->route('import.index')->with('msg', 'Xác nhận đơn hàng thành công !');
+            // Cập nhập sản phẩm theo receive
+            $receive_id = $this->receiver_bill->addReceiveBill($request->all(), $id);
+
+            // cập nhật sản phẩm
+            $this->quoteImport->updateImport($request->all(), $id, $receive_id);
+            // Cập nhật tình trạng
+            $this->import->updateImport($request->all(), $id, 2);
+
+            // Thêm sản phẩm vào kho hàng
+            $this->product->addProductTowarehouse($request->all(),$id);
+            return redirect()->route('import.index')->with('msg', 'Tạo đơn nhận hàng thành công !');
         }
     }
 
@@ -139,12 +152,9 @@ class DetailImportController extends Controller
         return $data;
     }
     // Hiển thị tên sản phẩm theo id đã chọn
-    public function showProductName(Request $request)
+    public function showProductName()
     {
-        $dataId = $request->dataId;
-        return Products::where('product_code', $dataId)->get();
-        // $data = $request->all();
-        // return $dataId;
+        return Products::all();
     }
     // Hiển thị thông tin Dự án
     function show_project(Request $request)
