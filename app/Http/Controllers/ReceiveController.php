@@ -89,7 +89,7 @@ class ReceiveController extends Controller
         $this->receive->updateReceive($request->all(),$id);
         // Thêm mới hóa đơn mua hàng
         $this->reciept->addReciept($request->all(),$id);
-        // return redirect()->route('receive.index')->with('msg', 'Tạo mới đơn nhận hàng thành công !');
+        return redirect()->route('receive.index')->with('msg', 'Tạo mới hóa đơn mua hàng thành công !');
     }
 
     /**

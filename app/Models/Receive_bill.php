@@ -27,13 +27,12 @@ class Receive_bill extends Model
 
     public function addReceiveBill($data, $id)
     {
-        // dd($data['listProduct']);
+        $check_status = true;
         $detail =  DetailImport::findOrFail($id);
         if ($detail) {
             $dataReceive = [
                 'detailimport_id' => $id,
                 'quotation_number' => $data['quotation_number'],
-                // 'provide_id' => $data['provides_id'],
                 'provide_id' => $detail->provide_id,
                 'status' => 1,
                 'created_at' => Carbon::now(),
@@ -45,13 +44,30 @@ class Receive_bill extends Model
                 ];
                 DB::table('quoteimport')->where('id', $data['listProduct'][$i])->update($dataupdate);
             }
+            // Cập nhật tình trạng
+            $product = QuoteImport::where('detailimport_id', $id)->get();
+            foreach ($product as $item) {
+                if ($item->receive_id == 0) {
+                    $check_status = false;
+                }
+            }
+            if ($check_status) {
+                $status_receive = 2;
+            } else {
+                $status_receive = 1;
+            }
+            DB::table('detailimport')->where('id', $id)->update([
+                'status_receive' => $status_receive
+            ]);
             return $receive_id;
         }
     }
-    public function updateReceive($data,$id){
-        $dataUpdate =[
+    public function updateReceive($data, $id)
+    {
+        $re = Receive_bill::findOrFail($id);
+        $dataUpdate = [
             'status' => 2,
         ];
-        DB::table($this->table)->where('id',$id)->update($dataUpdate);
+        DB::table($this->table)->where('id', $id)->update($dataUpdate);
     }
 }

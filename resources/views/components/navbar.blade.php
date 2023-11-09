@@ -292,6 +292,16 @@
                     <li class="nav-item @if (in_array(\Route::currentRouteName(), [
                             'import.index',
                             'import.edit',
+                            'import.create',
+                            'receive.index',
+                            'receive.create',
+                            'receive.edit',
+                            'reciept.index',
+                            'reciept.create',
+                            'reciept.edit',
+                            'paymentOrder.index',
+                            'paymentOrder.create',
+                            'paymentOrder.edit',
                             'provides.index',
                             'provides.edit',
                             'provides.create',
@@ -313,25 +323,26 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('import.index') }}" class="nav-link {!! $isActiveRouteGroup('import.index,import.edit') !!}">
+                                <a href="{{ route('import.index') }}" class="nav-link {!! $isActiveRouteGroup('import.index,import.edit,import.create') !!}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Đơn mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('receive.index')}}" class="nav-link" {!! $isActiveRouteGroup('receive.index,receive.edit') !!}>
+                                <a href="{{ route('receive.index') }}" class="nav-link {!! $isActiveRouteGroup('receive.index,receive.edit,receive.create') !!} ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Đơn nhận hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('reciept.index')}}" class="nav-link">
+                                <a href="{{ route('reciept.index') }}" class="nav-link {!! $isActiveRouteGroup('reciept.index,reciept.edit,reciept.create') !!} ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Hóa đơn mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav.html" class="nav-link">
+                                <a href="{{ route('paymentOrder.index') }}"
+                                    class="nav-link {!! $isActiveRouteGroup('paymentOrder.index,paymentOrder.edit,paymentOrder.create') !!} ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Thanh toán</p>
                                 </a>

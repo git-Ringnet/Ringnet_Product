@@ -106,6 +106,7 @@ class DetailImport extends Model
                 $total_tax += $data['product_tax'][$i] * $total;
             }
         } else {
+            // dd(DetailImport::findOrFail($id)->provide_id);
             $product = QuoteImport::where('detailimport_id', $id)->get();
             foreach ($product as $item) {
                 if ($item->product_ratio > 0 && $item->price_import) {
@@ -114,20 +115,23 @@ class DetailImport extends Model
                     $total += $item->product_qty * $item->price_export;
                 }
                 $total_tax += $item->product_tax * $total;
-                if($item->receive_id == 0){
+                if ($item->receive_id == 0) {
                     $check_status = false;
                 }
             }
+            if ($check_status) {
+                $status_receive = 2;
+            } else {
+                $status_receive = 1;
+            }
+            DB::table('provides')->where('id',DetailImport::findOrFail($id)->provide_id)->update([
+                'provide_debt' => $total,
+            ]);
         }
-        if($check_status){
-            $status_receive = 2;
-        }else{
-            $status_receive = 1;
-        }
+      
         $dataImport = [
             'provide_id' => $data['provides_id'],
             'project_id' => $data['project_id'],
-            // 'product_id' => 1,
             'user_id' => 1,
             'quotation_number' => $data['quotation_number'],
             'reference_number' => $data['reference_number'],
@@ -146,8 +150,4 @@ class DetailImport extends Model
         return $result;
     }
 
-
-    // public function accept($data, $id) {
-
-    // }
 }

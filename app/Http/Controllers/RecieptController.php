@@ -69,7 +69,8 @@ class RecieptController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // return redirect()->route('receive.index')->with('msg', 'Tạo mới đơn nhận hàng thành công !');
+        $this->reciept->updateReciept($request->all(),$id);
+        // return redirect()->route('receive.index')->with('msg', 'Tạo mới đơn mua hàng thành công !');
     }
 
     /**

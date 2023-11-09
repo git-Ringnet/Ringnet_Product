@@ -3,6 +3,7 @@
 use App\Http\Controllers\DetailExportController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\DetailImportController;
+use App\Http\Controllers\PayOrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvidesController;
 use App\Http\Controllers\QuoteExportController;
@@ -51,6 +52,10 @@ Route::get('/getProduct_receive',[ReceiveController::class,'getProduct_receive']
 Route::resource('reciept',RecieptController::class);
 Route::get('/show_reciept',[RecieptController::class,'show_reciept'])->name('show_reciept');
 Route::get('/getProduct_reciept',[RecieptController::class,'getProduct_reciept'])->name('getProduct_reciept');
+
+
+// Thanh toán nhập hàng
+Route::resource('paymentOrder',PayOrderController::class);
 
 Route::get('/', function () {
     return view('welcome');

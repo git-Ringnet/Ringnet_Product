@@ -2,10 +2,9 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <form action="{{ route('reciept.update', $reciept->id) }}" method="POST">
+    <form action="{{ route('paymentOrder.store') }}" method="POST">
         @csrf
-        @method('PUT')
-        <input type="hidden" name="detailimport_id" id="detailimport_id" value="{{$reciept->detailimport_id}}">
+        <input type="hidden" name="reciept_id" id="detailimport_id">
         <section class="content-header p-0">
             <div class="container-fluided">
                 <div class="mb-3">
@@ -24,9 +23,9 @@
                                 d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
                                 fill="white" />
                         </svg>
-                        <span>Tạo hóa đơn thanh toán</span>
+                        <span>Tạo mới</span>
                     </button>
-                    {{-- <button class="btn-option">
+                    <button class="btn-option">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -39,7 +38,7 @@
                                 d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
                                 fill="#42526E" />
                         </svg>
-                    </button> --}}
+                    </button>
                 </div>
             </div>
         </section>
@@ -53,45 +52,62 @@
                             <div class="content-info">
                                 <div class="d-flex ml-2 align-items-center position-relative">
                                     <div class="title-info py-2 border border-left-0">
-                                        <p class="p-0 m-0 px-3 required-label text-danger">Số báo giá</p>
+                                        <p class="p-0 m-0 px-3 required-label text-danger">Đơn nhận hàng</p>
                                     </div>
                                     <input id="search_quotation" type="text" placeholder="Nhập thông tin"
                                         name="quotation_number"
                                         class="border w-100 py-2 border-left-0 border-right-0 px-3 search_quotation"
-                                        autocomplete="off" required
-                                        value="{{ $reciept->getQuotation->quotation_number }}">
+                                        autocomplete="off" required>
+                                    <ul id="listReceive"
+                                        class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                        style="z-index: 99; left: 23%; top: 100%; display: block;">
+                                        @foreach ($reciept as $value)
+                                            <li>
+                                                <a href="javascript:void(0)"
+                                                    class="text-dark d-flex justify-content-between p-2 search-receive"
+                                                    id="{{ $value->id }}" name="search-info">
+                                                    <span class="w-50">{{ $value->getQuotation->quotation_number }} -
+                                                        {{ $value->id }}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Nhà cung cấp</p>
                                     </div>
                                     <input readonly type="text" id="provide_name" placeholder="Nhập thông tin"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="{{ $reciept->getProvideName->provide_name_display }}">
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Đơn vị vận chuyển</p>
+                                        <p class="p-0 m-0 px-3">Hạn thanh toán</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="shipping_unit"
+                                    <input type="date" placeholder="Nhập thông tin" name="payment_date"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="{{ $reciept->shipping_unit }}">
+                                        value="{{ date('Y-m-d') }}">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Phí giao hàng</p>
+                                        <p class="p-0 m-0 px-3">Tổng tiền</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="{{ $reciept->delivery_charges }}">
+                                    <input type="text" placeholder="Nhập thông tin" name="delivery_charges" id="total"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Ngày nhận hàng</p>
+                                        <p class="p-0 m-0 px-3">Đã thanh toán</p>
                                     </div>
-                                    <input type="date" placeholder="Nhập thông tin" name="received_date"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="{{ $reciept->created_at->toDateString() }}">
+                                    <input type="text" placeholder="Nhập thông tin" name="payment"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Dư nợ</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="" readonly
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                             </div>
                         </div>
@@ -117,32 +133,10 @@
                             <th class="border-right product_ratio">Hệ số nhân</th>
                             <th class="border-right price_import">Giá nhập</th>
                             <th class="border-right">Ghi chú</th>
-                            {{-- <th class="border-top"></th> --}}
+                            <th class="border-top"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($product as $item)
-                            <tr>
-                                <td class="border border-left-0 border-top-0 border-bottom-0"><input type="checkbox"
-                                        name="" id=""> {{ $item->product_code }}</td>
-                                <td class="border border-top-0 border-bottom-0 position-relative">
-                                    {{ $item->product_name }}</td>
-                                <td class="border border-top-0 border-bottom-0">{{ $item->product_unit }}</td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    {{ number_format($item->product_qty) }}</td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    {{ number_format($item->price_export) }}</td>
-                                <td>{{ $item->product_tax }}</td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    {{ number_format($item->product_total) }}</td>
-                                <td class="border border-bottom-0 p-0 bg-secondary"></td>
-                                <td class="border border-top-0 border-bottom-0 product-ratio">
-                                    {{ $item->product_ratio }}</td>
-                                <td class="border border-top-0 border-bottom-0 price_import">
-                                    {{ number_format($item->price_import) }}</td>
-                                <td class="border border-top-0 border-bottom-0">{{ $item->product_note }}</td>
-                            </tr>
-                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -183,7 +177,7 @@
     $('.search-receive').on('click', function() {
         detail_id = $(this).attr('id');
         $.ajax({
-            url: "{{ route('show_receive') }}",
+            url: "{{ route('show_reciept') }}",
             type: "get",
             data: {
                 detail_id: detail_id
@@ -194,19 +188,20 @@
                 $('#detailimport_id').val(data.id)
                 $('#listReceive').hide();
                 $.ajax({
-                    url: "{{ route('getProduct') }}",
+                    url: "{{ route('getProduct_reciept') }}",
                     type: "get",
                     data: {
                         id: data.id
                     },
                     success: function(product) {
+                        var total = 0;
                         $('#inputcontent tbody').empty();
                         product.forEach(function(element) {
                             var tr =
                                 `
                                 <tr class="bg-white">
                                     <td class="border border-left-0 border-top-0 border-bottom-0">
-                                    <input type="hidden" readonly= value="` + element.id +
+                                    <input type="hidden" readonly value="` + element.id +
                                 `" name="listProduct[]">
                                     <div class="d-flex w-100 justify-content-between align-items-center position-relative">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -279,7 +274,13 @@
                             `;
                             $('#inputcontent tbody').append(tr);
                             deleteRow()
+                            if(element.product_ratio > 0 && element.price_import > 0){
+                                total += ((element.product_ratio + 100) * element.price_import / 100) * element.product_qty;
+                            }else{
+                                total += element.price_export * element.product_qty
+                            }
                         })
+                        $('#total').val(formatCurrency(total))
                     }
                 })
             }

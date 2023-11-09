@@ -28,6 +28,7 @@ class Reciept extends Model
     }
     public function addReciept($data, $id)
     {
+        $check_status = true;
         $total = 0;
         $product_id = 0;
         if ($id == "") {
@@ -59,5 +60,64 @@ class Reciept extends Model
             'created_at' => Carbon::now(),
         ];
         DB::table($this->table)->insert($dataReciept);
+        $this->updateStatus($id,Receive_bill::class,'status_reciept');
+    }
+    public function updateReciept($data, $id)
+    {
+        if ($id == "") {
+            dd(1);
+        } else {
+            $reciept = Reciept::findOrFail($id);
+            if ($reciept) {
+                $detail = DetailImport::findOrFail($reciept->detailimport_id);
+                $startDate = Carbon::parse($data['payment_date'] === null ? Carbon::now() : $data['payment_date']);
+                $daysToAdd = intval($detail->price_effect);
+                $endDate = $startDate->copy()->addDays($daysToAdd);
+                $endDateFormatted = $endDate->format('Y-m-d');
+                // $endDate = Carbon::parse($endDate);
+
+                $dataPayment = [
+                    'detailimport_id' => $reciept->detailimport_id,
+                    'reciept_id' => $id,
+                    'provide_id' => $reciept->provide_id,
+                    'status' => 1,
+                    'payment_date' => $endDateFormatted,
+                    'total' => $reciept->price_total,
+                    'payment' => 0,
+                    'debt' => 0,
+                ];
+                DB::table('pay_order')->insert($dataPayment);
+                DB::table('reciept')->where('id', $id)->update([
+                    'status' => 2,
+                ]);
+            }
+        }
+        $this->updateStatus($id,Receive_bill::class,'status_pay');
+    }
+
+    public function updateStatus($id,$nameDB,$dataupdate){
+        $check_status = true;
+        $receive = $nameDB::findOrFail($id);
+        $allBill = $nameDB::where('detailimport_id',$receive->detailimport_id)->get();
+        $allProduct = QuoteImport::where('detailimport_id',$receive->detailimport_id)->get();
+        foreach($allProduct as $item){
+            if($item->receive_id == 0){
+                $check_status = false;
+            }
+        }
+        foreach($allBill as $value){
+            if($value->status == 1){
+                $check_status = false;
+            }
+        }
+        if($check_status){
+            DB::table('detailimport')->where('id',$receive->detailimport_id)->update([
+                $dataupdate => 2
+            ]);
+        }else{
+            DB::table('detailimport')->where('id',$receive->detailimport_id)->update([
+                $dataupdate => 1
+            ]);
+        }
     }
 }
