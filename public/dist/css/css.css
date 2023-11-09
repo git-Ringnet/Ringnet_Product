@@ -642,11 +642,11 @@ td p {
     display: none;
 }
 
-#exampleModal .modal-dialog {
+#list_modal .modal-dialog {
     max-width: 85% !important;
 }
 
-#exampleModal1 .modal-dialog {
+#provideModal .modal-dialog {
     max-width: 65% !important;
 }
 

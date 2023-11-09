@@ -16,6 +16,9 @@ return new class extends Migration
             $table->decimal('total_tax',20,4)->nullable();
             $table->decimal('discount',20,4)->nullable();
             $table->decimal('transfer_fee',20,4)->nullable();
+            $table->integer('status_receive')->nullable()->after('status');
+            $table->integer('status_reciept')->nullable()->after('status_receive');
+            $table->integer('status_pay')->nullable()->after('status_reciept');
             $table->string('terms_pay')->nullable();
         });
         Schema::table('detailexport', function (Blueprint $table) {
@@ -23,6 +26,9 @@ return new class extends Migration
             $table->decimal('total_tax',20,4)->nullable();
             $table->decimal('discount',20,4)->nullable();
             $table->decimal('transfer_fee',20,4)->nullable();
+            $table->integer('status_receive')->nullable()->after('status');
+            $table->integer('status_reciept')->nullable()->after('status_receive');
+            $table->integer('status_pay')->nullable()->after('status_reciept');
             $table->string('terms_pay')->nullable();
         });
 

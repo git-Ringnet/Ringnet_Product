@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('serialnumber', function (Blueprint $table) {
             $table->id();
             $table->string('serinumber');
-            $table->unsignedBigInteger('detailimport_id');
-            $table->unsignedBigInteger('detailexport_id');
+            $table->integer('detailimport_id');
+            $table->integer('detailexport_id');
             $table->unsignedBigInteger('product_id')->nullable();
             $table->integer('status');
-            $table->foreign('detailimport_id')->references('id')->on('detailimport');
-            $table->foreign('detailexport_id')->references('id')->on('detailexport');
+            // $table->foreign('detailimport_id')->references('id')->on('detailimport');
+            // $table->foreign('detailexport_id')->references('id')->on('detailexport');
             $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
         });

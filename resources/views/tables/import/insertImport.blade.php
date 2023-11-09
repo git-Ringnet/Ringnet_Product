@@ -95,7 +95,7 @@
                                         @endforeach
                                         <a type="button"
                                             class="bg-dark d-flex justify-content-between p-2 position-sticky"
-                                            data-toggle="modal" data-target="#exampleModal1" style="bottom: 0;">
+                                            data-toggle="modal" data-target="#provideModal" style="bottom: 0;">
                                             <span class="w-50 text-white">Thêm mới</span>
                                         </a>
                                     </ul>

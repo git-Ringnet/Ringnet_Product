@@ -19,7 +19,7 @@
 
                 <div class="row m-0 mb-1">
                     @if ($import->status == 1)
-                        <a href="#">
+                        <a href="#" onclick="getAction(this)">
                             <button name="action" value="action_1" type="submit"
                                 class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                                 <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
@@ -63,7 +63,7 @@
                                 fill="#42526E" />
                         </svg>
                     </button>
-                    <a href="#">
+                    <a href="#" onclick="getAction(this)">
                         <button name="action" value="action_2" type="submit"
                             class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                             <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
@@ -75,6 +75,7 @@
                             <span>Tạo đơn nhận hàng</span>
                         </button>
                     </a>
+                    <input type="hidden" value="action_1" name="action" id="getAction">
                 </div>
             </div>
         </section>
@@ -109,7 +110,7 @@
                                         @endforeach
                                         <a type="button"
                                             class="bg-dark d-flex justify-content-between p-2 position-sticky"
-                                            data-toggle="modal" data-target="#exampleModal1" style="bottom: 0;">
+                                            data-toggle="modal" data-target="#provideModal" style="bottom: 0;">
                                             <span class="w-50 text-white">Thêm mới</span>
                                         </a>
                                     </ul>
@@ -240,6 +241,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $st = 0; ?>
                         @foreach ($product as $item)
                             <tr class="bg-white">
                                 <td class="border border-left-0 border-top-0 border-bottom-0">
@@ -291,10 +293,33 @@
                                         class="border-0 px-3 py-2 w-100 product_unit"
                                         value="{{ $item->product_unit }}">
                                 </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input type="text" name="product_qty[]"
-                                        class="border-0 px-3 py-2 w-100 quantity-input"
-                                        value="{{ number_format($item->product_qty) }}">
+                                <td class="border border-top-0 border-bottom-0 border-right-0" style="width:12%;">
+                                    <div class="d-flex">
+                                        <input type="text" name="product_qty[]"
+                                            class="border-0 px-3 py-2 w-100 quantity-input"
+                                            value="{{ number_format($item->product_qty) }}">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#exampleModal{{ $st }}"
+                                            style="background:transparent; border:none;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                viewBox="0 0 32 32" fill="none">
+                                                <rect width="32" height="32" rx="4" fill="white">
+                                                </rect>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z"
+                                                    fill="#0095F6"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z"
+                                                    fill="#0095F6"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z"
+                                                    fill="#0095F6"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z"
+                                                    fill="#0095F6"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <input type="text" name="price_export[]"
@@ -325,7 +350,7 @@
                                         class="border-0 px-3 py-2 w-100 product_ratio"
                                         value="{{ $item->product_ratio }}">
                                 </td>
-                                <td class="border border-top-0 border-bottom-0 price_import">
+                                <td class="border border-top-0 border-bottom-0 price-import">
                                     <input required type="text" name="price_import[]"
                                         class="border-0 px-3 py-2 w-100 price_import"
                                         value="{{ number_format($item->price_import) }}">
@@ -342,6 +367,7 @@
                                     </svg>
                                 </td>
                             </tr>
+                            <?php $st++; ?>
                         @endforeach
                     </tbody>
                 </table>
@@ -392,11 +418,19 @@
                 </div>
             </div>
         </section>
+        <x-formmodalseri :product="$product"></x-formmodalseri>
         <x-formsynthetic :import="$import"></x-formsynthetic>
     </form>
 </div>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script>
+    $('#addRowTable').off('click').on('click', function() {
+        addRowTable(2);
+    })
+
+    function getAction(e) {
+        $('#getAction').val($(e).find('button').val());
+    }
     $('.search-info').click(function() {
         var provides_id = $(this).attr('id');
         console.log(provides_id);
@@ -457,7 +491,7 @@
                         $('#myInput').val(data.name);
                         $('#provides_id').val(data.id);
                         alert(data.msg);
-                        $('#exampleModal1').modal('hide');
+                        $('.modal [data-dismiss="modal"]').click();
                         $("input[name='provide_name_display']").val('');
                         $("input[name='provide_code']").val('');
                         $("input[name='provide_address']").val('');
@@ -590,6 +624,72 @@
                 $('#project_id').val(data.id);
             }
         })
+    })
+
+
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+        var data = {}
+        var formSubmit = false;
+        var listProductName = [];
+        var listQty = [];
+        var listSN = [];
+        $('.searchProductName').each(function() {
+            listProductName.push($(this).val());
+            listQty.push($(this).closest('tr').find('.quantity-input').val());
+            var count = $($(this).closest('tr').find('button').attr('data-target')).find(
+                'input[name^="seri"]').filter(
+                function() {
+                    return $(this).val() !== '';
+                }).length;
+            listSN.push(count);
+            var oldValue = $(this).val();
+            data[oldValue] = {
+                sn: []
+            };
+            SerialNumbers = $($(this).closest('tr').find('button').attr('data-target')).find(
+                'input[name^="seri"]').map(function() {
+                return $(this).val().trim();
+            }).get();
+            data[oldValue].sn.push(...SerialNumbers)
+        });
+
+        if ($('#getAction').val() == "action_1") {
+            this.submit();
+        } else {
+            // Kiểm tra số lượng sn và số lượng sản phẩm
+            $.ajax({
+                url: "{{ route('checkSN') }}",
+                type: "get",
+                data: {
+                    listProductName: listProductName,
+                    listQty: listQty,
+                    listSN: listSN
+                },
+                success: function(data) {
+                    if (data['status'] == 'false') {
+                        alert('Vui lòng nhập đủ số lượng seri sản phẩm ' + data['productName'])
+                    } else {
+                        // Kiểm tra sản phẩm đã tồn tại seri chưa
+                        $.ajax({
+                            url: "{{ route('checkduplicateSN') }}",
+                            type: "get",
+                            data: {
+                                value: data,
+                            },
+                            success: function(data) {
+                                if (data['success'] == false) {
+                                    alert('Sản phảm' + data['msg'] + 'đã tồn tại seri' +
+                                        data['data'])
+                                } else {
+                                    $('form')[0].submit();
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        }
     })
 </script>
 </body>

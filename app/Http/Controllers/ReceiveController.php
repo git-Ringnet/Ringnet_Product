@@ -57,6 +57,7 @@ class ReceiveController extends Controller
         $this->receive->addReceiveBill($request->all(),$id);
         // Thêm sản phẩm vào tồn kho
         $this->product->addProductTowarehouse($request->all(),$id);
+        
         return redirect()->route('receive.index')->with('msg', 'Tạo mới đơn nhận hàng thành công !');
     }
 
@@ -110,10 +111,10 @@ class ReceiveController extends Controller
         ];
         return $data;
     }
-    public function getProduct(Request $request)
+    public function getProduct_receive(Request $request)
     {
         return QuoteImport::where('detailimport_id', $request->id)->where('receive_id', 0)->get();
-        // return $request->id;
+        return $request->id;
     }
 
 

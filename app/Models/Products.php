@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -87,16 +88,19 @@ class Products extends Model
         }
         return $return;
     }
-    public function addProductTowarehouse($data,$id)
+    public function addProductTowarehouse($data, $id)
     {
-        $array_id =[];
-        for($i =0;$i< count($data['listProduct']);$i++){
-           array_push($array_id,$data['listProduct'][$i]);
+        $array_id = [];
+        $list_id = [];
+        for ($i = 0; $i < count($data['listProduct']); $i++) {
+            array_push($array_id, $data['listProduct'][$i]);
         }
         $product = QuoteImport::where('detailimport_id', $id)
-        ->whereIn('id',$array_id)
-        ->get();
+            ->whereIn('id', $array_id)
+            ->get();
         $product_id = 0;
+
+        // Thêm sản phẩm vào tồn kho
         foreach ($product as $item) {
             $checkProduct = Products::where('product_name', $item->product_name)->first();
             if ($checkProduct) {
@@ -117,9 +121,32 @@ class Products extends Model
                 ];
                 $product_id = DB::table($this->table)->insertGetId($dataProduct);
             }
+            array_push($list_id, $product_id);
             $item->product_id = $product_id;
             $item->save();
         }
+
+        // Thêm seri number theo sản phẩm
+        for ($i = 0; $i < count($data['listProduct']); $i++) {
+            $getProduct = Products::where('id',$list_id[$i])->first();
+            if($getProduct){
+                if(isset($data['seri' . $i]) && $getProduct->check_seri == 1){
+                    $productSN = $data['seri' . $i];
+                    for ($j = 0; $j < count($productSN); $j++) {
+                        $dataSN = [
+                            'serinumber' => $productSN[$j],
+                            'detailimport_id' => $id,
+                            'detailexport_id' => 0,
+                            'product_id' => $getProduct->id,
+                            'status' => 1,
+                            'created_at' => Carbon::now(),
+                        ];
+                        DB::table('serialnumber')->insert($dataSN);
+                    }
+                }
+            }
+        }
         // dd($product);
+        return $product_id;
     }
 }

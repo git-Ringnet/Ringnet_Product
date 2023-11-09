@@ -18,7 +18,10 @@ class QuoteImport extends Model
     {
         return $this->hasOne(ProductCode::class, 'id', 'product_code');
     }
-
+    public function getSerialNumber()
+    {
+        return $this->hasMany(Serialnumber::class, 'detailimport_id', 'detailimport_id');
+    }
     public function getAllQuote()
     {
         return DB::table($this->table)->get();

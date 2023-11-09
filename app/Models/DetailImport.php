@@ -19,6 +19,9 @@ class DetailImport extends Model
         'reference_number',
         'price_effect',
         'status',
+        'status_receive',
+        'status_reciept',
+        'status_pay',
         'warehouse_id',
         'total_tax',
         'discount',
@@ -60,7 +63,6 @@ class DetailImport extends Model
         $dataImport = [
             'provide_id' => $data['provides_id'],
             'project_id' => $data['project_id'],
-            // 'product_id' => 1,
             'user_id' => 1,
             'quotation_number' => $data['quotation_number'],
             'reference_number' => $data['reference_number'],
@@ -72,6 +74,9 @@ class DetailImport extends Model
             'total_tax' => $total_tax,
             'discount' =>   isset($data['discount']) ? str_replace(',', '', $data['discount']) : 0,
             'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
+            'status_receive' => 0,
+            'status_reciept' => 0,
+            'status_pay' => 0,
             'terms_pay' => $data['terms_pay']
         ];
         $result = DB::table($this->table)->insertGetId($dataImport);
@@ -82,6 +87,8 @@ class DetailImport extends Model
     {
         $total = 0;
         $total_tax = 0;
+        $status_receive = 0;
+        $check_status = true;
         if ($data['action'] == "action_1") {
             for ($i = 0; $i < count($data['product_name']); $i++) {
                 $product_ratio = 0;
@@ -107,7 +114,15 @@ class DetailImport extends Model
                     $total += $item->product_qty * $item->price_export;
                 }
                 $total_tax += $item->product_tax * $total;
+                if($item->receive_id == 0){
+                    $check_status = false;
+                }
             }
+        }
+        if($check_status){
+            $status_receive = 2;
+        }else{
+            $status_receive = 1;
         }
         $dataImport = [
             'provide_id' => $data['provides_id'],
@@ -124,6 +139,7 @@ class DetailImport extends Model
             'total_tax' => $total_tax,
             'discount' =>   isset($data['discount']) ? str_replace(',', '', $data['discount']) : 0,
             'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
+            'status_receive' => $status_receive,
             'terms_pay' => $data['terms_pay']
         ];
         $result = DB::table($this->table)->where('id', $id)->update($dataImport);

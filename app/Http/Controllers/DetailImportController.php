@@ -9,12 +9,14 @@ use App\Models\Project;
 use App\Models\Provides;
 use App\Models\QuoteImport;
 use App\Models\Receive_bill;
+use App\Models\Serialnumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DetailImportController extends Controller
 {
     private $import;
+    private $sn;
     private $provide;
     private $quoteImport;
     private $receiver_bill;
@@ -26,6 +28,7 @@ class DetailImportController extends Controller
         $this->quoteImport = new QuoteImport();
         $this->receiver_bill = new Receive_bill();
         $this->product = new Products();
+        $this->sn = new Serialnumber();
     }
     /**
      * Display a listing of the resource.
@@ -100,8 +103,8 @@ class DetailImportController extends Controller
             // Cập nhật tình trạng
             $this->import->updateImport($request->all(), $id, 2);
 
-            // Thêm sản phẩm vào kho hàng
-            $this->product->addProductTowarehouse($request->all(),$id);
+            // Thêm sản phẩm và seri number vào kho hàng
+            $this->product->addProductTowarehouse($request->all(), $id);
             return redirect()->route('import.index')->with('msg', 'Tạo đơn nhận hàng thành công !');
         }
     }
@@ -162,5 +165,37 @@ class DetailImportController extends Controller
         $data = $request->all();
         $project = Project::findOrFail($data['project_id']);
         return $project;
+    }
+
+    public function checkSN(Request $request)
+    {
+        $data = $request->all();
+        $result = [];
+        $status = "success";
+        $productName = "123";
+        for ($i = 0; $i < count($data['listProductName']); $i++) {
+            $check = Products::where('product_name', $data['listProductName'][$i])->first();
+            if ($check && $check->check_seri == 1) {
+                if ($data['listQty'][$i] != $data['listSN'][$i]) {
+                    $status = "false";
+                    $productName = $check->product_name;
+                }
+            }
+            if (!$check) {
+                if ($data['listQty'][$i] != $data['listSN'][$i]) {
+                    $status = "false";
+                    $productName = $data['listProductName'][$i];
+                }
+            }
+        }
+        $result = [
+            'status' => $status,
+            'productName' => $productName,
+        ];
+        return $result;
+    }
+    public function checkduplicateSN(Request $request) {
+        // return $request->all();
+        return $this->sn->checkSN($request->all());
     }
 }

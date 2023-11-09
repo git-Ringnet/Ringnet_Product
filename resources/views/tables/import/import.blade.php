@@ -132,7 +132,7 @@
                                             </span>
                                         </th>
                                         <th scope="col">
-                                            <span class="d-flex">
+                                            <span class="d-flex justify-content-center">
                                                 <a href="#" class="sort-link" data-sort-by="id"
                                                     data-sort-type="#"><button class="btn-sort" type="submit">Nhận
                                                         hàng
@@ -195,11 +195,89 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                {{$item->status == 1 ? 'Draft' : 'Approved'}}
+                                                {{ $item->status == 1 ? 'Draft' : 'Approved' }}
                                             </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td class="text-center">
+                                                @if ($item->status_receive == 0)
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                        height="18" viewBox="0 0 18 18" fill="none">
+                                                        <path
+                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                            fill="#D6D6D6" />
+                                                    </svg>
+                                                @elseif ($item->status_receive == 1)
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                        height="18" viewBox="0 0 18 18" fill="none">
+                                                        <path
+                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                            fill="#08AA36" />
+                                                        <path
+                                                            d="M9 -1.90735e-06C10.1819 -1.90735e-06 11.3522 0.23279 12.4442 0.685081C13.5361 1.13737 14.5282 1.80031 15.364 2.63604C16.1997 3.47176 16.8626 4.46392 17.3149 5.55585C17.7672 6.64778 18 7.8181 18 9C18 10.1819 17.7672 11.3522 17.3149 12.4442C16.8626 13.5361 16.1997 14.5282 15.364 15.364C14.5282 16.1997 13.5361 16.8626 12.4442 17.3149C11.3522 17.7672 10.1819 18 9 18L9 9V-1.90735e-06Z"
+                                                            fill="#D6D6D6" />
+                                                    </svg>
+                                                @else
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                        height="18" viewBox="0 0 18 18" fill="none">
+                                                        <path
+                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                            fill="#08AA36" />
+                                                    </svg>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($item->status_reciept == 0)
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                        height="18" viewBox="0 0 18 18" fill="none">
+                                                        <path
+                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                            fill="#D6D6D6" />
+                                                    </svg>
+                                                @elseif ($item->status_reciept == 1)
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                        height="18" viewBox="0 0 18 18" fill="none">
+                                                        <path
+                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                            fill="#08AA36" />
+                                                        <path
+                                                            d="M9 -1.90735e-06C10.1819 -1.90735e-06 11.3522 0.23279 12.4442 0.685081C13.5361 1.13737 14.5282 1.80031 15.364 2.63604C16.1997 3.47176 16.8626 4.46392 17.3149 5.55585C17.7672 6.64778 18 7.8181 18 9C18 10.1819 17.7672 11.3522 17.3149 12.4442C16.8626 13.5361 16.1997 14.5282 15.364 15.364C14.5282 16.1997 13.5361 16.8626 12.4442 17.3149C11.3522 17.7672 10.1819 18 9 18L9 9V-1.90735e-06Z"
+                                                            fill="#D6D6D6" />
+                                                    </svg>
+                                                @else
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                        height="18" viewBox="0 0 18 18" fill="none">
+                                                        <path
+                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                            fill="#08AA36" />
+                                                    </svg>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($item->status_pay == 0)
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                    height="18" viewBox="0 0 18 18" fill="none">
+                                                    <path
+                                                        d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                        fill="#D6D6D6" />
+                                                </svg>
+                                            @elseif ($item->status_pay == 1)
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                    height="18" viewBox="0 0 18 18" fill="none">
+                                                    <path
+                                                        d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                        fill="#08AA36" />
+                                                    <path
+                                                        d="M9 -1.90735e-06C10.1819 -1.90735e-06 11.3522 0.23279 12.4442 0.685081C13.5361 1.13737 14.5282 1.80031 15.364 2.63604C16.1997 3.47176 16.8626 4.46392 17.3149 5.55585C17.7672 6.64778 18 7.8181 18 9C18 10.1819 17.7672 11.3522 17.3149 12.4442C16.8626 13.5361 16.1997 14.5282 15.364 15.364C14.5282 16.1997 13.5361 16.8626 12.4442 17.3149C11.3522 17.7672 10.1819 18 9 18L9 9V-1.90735e-06Z"
+                                                        fill="#D6D6D6" />
+                                                </svg>
+                                            @else
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                    height="18" viewBox="0 0 18 18" fill="none">
+                                                    <path
+                                                        d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                        fill="#08AA36" />
+                                                </svg>
+                                            @endif
+                                            </td>
                                             <td>{{ number_format($item->total_price) }}</td>
                                             <td>
                                                 <a href="{{ route('import.edit', $item->id) }}">

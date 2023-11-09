@@ -39,11 +39,13 @@ Route::get('/show_project',[DetailImportController::class,'show_project'])->name
 Route::get('/addNewProvide',[DetailImportController::class,'addNewProvide'])->name('addNewProvide');
 Route::get('/getAllProducts',[DetailImportController::class,'getAllProducts'])->name('getAllProducts');
 Route::get('/showProductName',[DetailImportController::class,'showProductName'])->name('showProductName');
+Route::get('/checkSN',[DetailImportController::class,'checkSN'])->name('checkSN');
+Route::get('/checkduplicateSN',[DetailImportController::class,'checkduplicateSN'])->name('checkduplicateSN');
 
 // Đơn nhận hàng
 Route::resource('receive',ReceiveController::class);
 Route::get('/show_receive',[ReceiveController::class,'show_receive'])->name('show_receive');
-Route::get('/getProduct',[ReceiveController::class,'getProduct'])->name('getProduct');
+Route::get('/getProduct_receive',[ReceiveController::class,'getProduct_receive'])->name('getProduct_receive');
 
 // Hóa đơn mua hàng
 Route::resource('reciept',RecieptController::class);
