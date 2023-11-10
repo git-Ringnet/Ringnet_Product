@@ -40,6 +40,7 @@ class ReceiveController extends Controller
         $title = "Tạo đơn nhận hàng";
         $listDetail = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
             ->where('quoteimport.receive_id',0)
+            ->distinct()
             ->select('detailimport.quotation_number', 'detailimport.id')
             ->get();
         // $listDetail = DetailImport::all();

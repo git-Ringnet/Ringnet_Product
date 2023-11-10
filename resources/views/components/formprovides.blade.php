@@ -29,7 +29,7 @@
                                     </p>
                                 </div>
                                 <input name="provide_code" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" oninput="validateNumberInput(this)"
                                     autocomplete="off">
                             </div>
                             <div class="d-flex ml-2 align-items-center">

@@ -629,7 +629,7 @@
 
     $('form').on('submit', function(e) {
         e.preventDefault();
-        var data = {}
+        var productSN = {}
         var formSubmit = false;
         var listProductName = [];
         var listQty = [];
@@ -644,14 +644,14 @@
                 }).length;
             listSN.push(count);
             var oldValue = $(this).val();
-            data[oldValue] = {
+            productSN[oldValue] = {
                 sn: []
             };
             SerialNumbers = $($(this).closest('tr').find('button').attr('data-target')).find(
                 'input[name^="seri"]').map(function() {
                 return $(this).val().trim();
             }).get();
-            data[oldValue].sn.push(...SerialNumbers)
+            productSN[oldValue].sn.push(...SerialNumbers)
         });
 
         if ($('#getAction').val() == "action_1") {
@@ -675,13 +675,14 @@
                             url: "{{ route('checkduplicateSN') }}",
                             type: "get",
                             data: {
-                                value: data,
+                                value: productSN,
                             },
                             success: function(data) {
                                 if (data['success'] == false) {
                                     alert('Sản phảm' + data['msg'] + 'đã tồn tại seri' +
                                         data['data'])
                                 } else {
+                                    updateProductSN()
                                     $('form')[0].submit();
                                 }
                             }

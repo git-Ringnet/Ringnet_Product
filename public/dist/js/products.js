@@ -107,7 +107,7 @@ function formatCurrency(value) {
 }
 
 // Format giá tiền
-$('body').on('input', '.price_export , .price_import', function (event) {
+$('body').on('input', '.price_export , .price_import ,.payment_input', function (event) {
     // Lấy giá trị đã nhập
     var value = event.target.value;
 
@@ -601,6 +601,8 @@ function createModal(stt) {
 
 function deleteRow() {
     $('.deleteRow').off('click').on('click', function () {
+        id = $(this).closest('tr').find('button').attr('data-target');
+        $('#list_modal ' + id).remove();
         $(this).closest('tr').remove();
     })
 }
@@ -676,5 +678,21 @@ function updateTaxAmount() {
             $(this).find('.product_tax1').text(Math.round(taxAmount));
         }
     })
-
 }
+
+
+function updateProductSN() {
+    $('#list_modal .modal-body').each(function (index) {
+        var productSN = $(this).find('input[name^="seri"]');
+        // var div_value2 = $(this).find('div[class^="div_value"]');
+        var idSN = $(this).find('input[name^="seri"]');
+        productSN.attr('name', 'seri' + index + '[]');
+        idSN.attr('name', 'seri' + index + '[]');
+        // div_value2.attr('class', 'div_value' + index + '[]');
+        // div_value2.attr('class', 'div_value' + index);
+    });
+}
+
+
+
+

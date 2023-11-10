@@ -150,7 +150,13 @@
                                             <td>{{ $item->getQuotation->quotation_number }}</td>
                                             <td>{{ $item->receive_id }}</td>
                                             <td>{{ $item->getProvideName->provide_name_display }}</td>
-                                            <td>{{ $item->status }}</td>
+                                            <td>
+                                                @if($item->status == 1)
+                                                Bản nháp
+                                                @else
+                                                Chính thức
+                                                @endif
+                                            </td>
                                             <td>{{ number_format($item->price_total) }}</td>
                                             <td>
                                                 <a href="{{ route('reciept.edit', $item->id) }}">

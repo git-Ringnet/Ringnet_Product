@@ -2,6 +2,7 @@
     <div id="list_modal">
         <?php $stt = 0; ?>
         @foreach ($product as $pro)
+        {{-- @dd($product); --}}
             <div class="modal fade" id="exampleModal{{ $stt }}" tabindex="-1" aria-labelledby="exampleModalLabel"
                 style="display: none;" aria-hidden="true">
                 <div class="modal-dialog" role="document">

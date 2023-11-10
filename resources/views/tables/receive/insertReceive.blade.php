@@ -135,11 +135,24 @@
         </section>
         <?php $product = []; ?>
         <x-formmodalseri :product="$product" id="product"></x-formmodalseri>
+
     </form>
 </div>
 
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script>
+    function updateProductSN() {
+        $('#list_modal .modal-body').each(function(index) {
+            var productSN = $(this).find('input[name^="seri"]');
+            // var div_value2 = $(this).find('div[class^="div_value"]');
+            var idSN = $(this).find('input[name^="seri"]');
+            productSN.attr('name', 'seri' + index + '[]');
+            idSN.attr('name', 'seri' + index + '[]');
+            // div_value2.attr('class', 'div_value' + index + '[]');
+            // div_value2.attr('class', 'div_value' + index);
+        });
+    }
+
     function formatCurrency(value) {
         value = Math.round(value * 100) / 100;
 
@@ -293,6 +306,7 @@
                             $('#inputcontent tbody').append(tr);
                             deleteRow()
                             createModal(element.id)
+                            updateProductSN()
                         })
                     }
                 })
@@ -303,7 +317,75 @@
 
     function deleteRow() {
         $('.deleteRow').off('click').on('click', function() {
+            id = $(this).closest('tr').find('button').attr('data-target');
+            $('#list_modal ' + id).remove();
             $(this).closest('tr').remove();
+
         })
     }
+
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+        var productSN = {}
+        var formSubmit = false;
+        var listProductName = [];
+        var listQty = [];
+        var listSN = [];
+        $('.searchProductName').each(function() {
+            listProductName.push($(this).val());
+            listQty.push($(this).closest('tr').find('.quantity-input').val());
+            var count = $($(this).closest('tr').find('button').attr('data-target')).find(
+                'input[name^="seri"]').filter(
+                function() {
+                    return $(this).val() !== '';
+                }).length;
+            listSN.push(count);
+            var oldValue = $(this).val();
+            productSN[oldValue] = {
+                sn: []
+            };
+            SerialNumbers = $($(this).closest('tr').find('button').attr('data-target')).find(
+                'input[name^="seri"]').map(function() {
+                return $(this).val().trim();
+            }).get();
+            productSN[oldValue].sn.push(...SerialNumbers)
+        });
+        if ($('#getAction').val() == "action_1") {
+            this.submit();
+        } else {
+            // Kiểm tra số lượng sn và số lượng sản phẩm
+            $.ajax({
+                url: "{{ route('checkSN') }}",
+                type: "get",
+                data: {
+                    listProductName: listProductName,
+                    listQty: listQty,
+                    listSN: listSN
+                },
+                success: function(data) {
+                    if (data['status'] == 'false') {
+                        alert('Vui lòng nhập đủ số lượng seri sản phẩm ' + data['productName'])
+                    } else {
+                        // Kiểm tra sản phẩm đã tồn tại seri chưa
+                        $.ajax({
+                            url: "{{ route('checkduplicateSN') }}",
+                            type: "get",
+                            data: {
+                                value: productSN,
+                            },
+                            success: function(data) {
+                                if (data['success'] == false) {
+                                    alert('Sản phảm' + data['msg'] + 'đã tồn tại seri' +
+                                        data['data'])
+                                } else {
+                                    updateProductSN()
+                                    $('form')[0].submit();
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        }
+    })
 </script>

@@ -65,7 +65,7 @@ class Products extends Model
     }
     public function updateProduct($data)
     {
-        dd($data['action']);
+        // dd($data['action']);
         $return = 0;
         isset($data['check_seri']) ? $check = 1 : $check = 0;
         $dataUpdate = [
@@ -133,15 +133,17 @@ class Products extends Model
                 if(isset($data['seri' . $i]) && $getProduct->check_seri == 1){
                     $productSN = $data['seri' . $i];
                     for ($j = 0; $j < count($productSN); $j++) {
-                        $dataSN = [
-                            'serinumber' => $productSN[$j],
-                            'detailimport_id' => $id,
-                            'detailexport_id' => 0,
-                            'product_id' => $getProduct->id,
-                            'status' => 1,
-                            'created_at' => Carbon::now(),
-                        ];
-                        DB::table('serialnumber')->insert($dataSN);
+                        if(!empty($productSN[$j])){
+                            $dataSN = [
+                                'serinumber' => $productSN[$j],
+                                'detailimport_id' => $id,
+                                'detailexport_id' => 0,
+                                'product_id' => $getProduct->id,
+                                'status' => 1,
+                                'created_at' => Carbon::now(),
+                            ];
+                            DB::table('serialnumber')->insert($dataSN);
+                        }
                     }
                 }
             }

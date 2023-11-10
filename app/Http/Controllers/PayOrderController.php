@@ -40,6 +40,7 @@ class PayOrderController extends Controller
     public function store(Request $request)
     {
         $this->payment->addNewPayment($request->all());
+        return redirect()->route('paymentOrder.index')->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
     }
 
     /**
@@ -67,6 +68,7 @@ class PayOrderController extends Controller
     public function update(Request $request, string $id)
     {
         $this->payment->updatePayment($request->all(),$id);
+        return redirect()->route('paymentOrder.index')->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
     }
 
     /**

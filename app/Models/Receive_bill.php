@@ -59,6 +59,17 @@ class Receive_bill extends Model
             DB::table('detailimport')->where('id', $id)->update([
                 'status_receive' => $status_receive
             ]);
+
+
+            // Cập nhật trạng thái đơn hàng
+            $detail->status = 2;
+            $detail->save();
+
+            // Cập nhật dư nợ nhà cung cấp
+            DB::table('provides')->where('id',$detail->provide_id)->update([
+                'provide_debt' => $detail->total_price
+            ]);
+
             return $receive_id;
         }
     }

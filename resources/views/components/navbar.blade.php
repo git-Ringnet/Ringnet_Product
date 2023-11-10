@@ -344,7 +344,7 @@
                                 <a href="{{ route('paymentOrder.index') }}"
                                     class="nav-link {!! $isActiveRouteGroup('paymentOrder.index,paymentOrder.edit,paymentOrder.create') !!} ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
-                                    <p>Thanh toán</p>
+                                    <p>Thanh toán mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">

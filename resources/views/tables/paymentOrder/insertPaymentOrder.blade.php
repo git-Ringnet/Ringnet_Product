@@ -92,7 +92,8 @@
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Tổng tiền</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="delivery_charges" id="total"
+                                    <input type="text" placeholder="Nhập thông tin" name=""
+                                        id="total" readonly
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -100,7 +101,7 @@
                                         <p class="p-0 m-0 px-3">Đã thanh toán</p>
                                     </div>
                                     <input type="text" placeholder="Nhập thông tin" name="payment"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 payment_input">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
@@ -274,10 +275,14 @@
                             `;
                             $('#inputcontent tbody').append(tr);
                             deleteRow()
-                            if(element.product_ratio > 0 && element.price_import > 0){
-                                total += ((element.product_ratio + 100) * element.price_import / 100) * element.product_qty;
-                            }else{
-                                total += element.price_export * element.product_qty
+                            if (element.product_ratio > 0 && element
+                                .price_import > 0) {
+                                total += ((element.product_ratio + 100) *
+                                        element.price_import / 100) * element
+                                    .product_qty;
+                            } else {
+                                total += element.price_export * element
+                                    .product_qty
                             }
                         })
                         $('#total').val(formatCurrency(total))
@@ -293,4 +298,37 @@
             $(this).closest('tr').remove();
         })
     }
+
+    // Format giá tiền
+$('body').on('input', '.payment_input', function (event) {
+    // Lấy giá trị đã nhập
+    var value = event.target.value;
+
+    // Xóa các ký tự không phải số và dấu phân thập phân từ giá trị
+    var formattedValue = value.replace(/[^0-9.]/g, '');
+
+    // Định dạng số với dấu phân cách hàng nghìn và giữ nguyên số thập phân
+    var formattedNumber = numberWithCommas(formattedValue);
+
+    event.target.value = formattedNumber;
+});
+
+
+function numberWithCommas(number) {
+    // Chia số thành phần nguyên và phần thập phân
+    var parts = number.split('.');
+    var integerPart = parts[0];
+    var decimalPart = parts[1];
+
+    // Định dạng phần nguyên số với dấu phân cách hàng nghìn
+    var formattedIntegerPart = integerPart.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    // Kết hợp phần nguyên và phần thập phân (nếu có)
+    var formattedNumber = decimalPart !== undefined ? formattedIntegerPart + '.' + decimalPart :
+        formattedIntegerPart;
+
+    return formattedNumber;
+}
+
+
 </script>
