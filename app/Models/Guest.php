@@ -28,6 +28,55 @@ class Guest extends Model
     {
         return DB::table($this->table)->get();
     }
+    public function getGuestbyCompany($data)
+    {
+        $guests = DB::table($this->table);
+        if (isset($data['idCompany'])) {
+            $guests = $guests->whereIn('guest.id', $data['idCompany']);
+        }
+        $guests = $guests->pluck('guest_name')->all();
+        return $guests;
+    }
+    public function getGuestbyName($data)
+    {
+        $guests = DB::table($this->table);
+        if (isset($data['idName'])) {
+            $guests = $guests->whereIn('guest.id', $data['idName']);
+        }
+        $guests = $guests->pluck('guest_name_display')->all();
+        return $guests;
+    }
+    public function ajax($data)
+    {
+        $guests =  DB::table($this->table);
+        if (isset($data['search'])) {
+            $guests = $guests->where(function ($query) use ($data) {
+                $query->orWhere('guest_name', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['idName'])) {
+            $guests = $guests->whereIn('guest.id', $data['idName']);
+        }
+        if (isset($data['idCompany'])) {
+            $guests = $guests->whereIn('guest.id', $data['idCompany']);
+        }
+        if (isset($data['email'])) {
+            $guests = $guests->where('guest_email', 'like', '%' . $data['email'] . '%');
+        }
+        if (isset($data['phone'])) {
+            $guests = $guests->where('guest_phone', 'like', '%' . $data['phone'] . '%');
+        }
+        if (isset($data['debt'][0]) && isset($data['debt'][1])) {
+            $guests = $guests->where('guest_debt', $data['debt'][0], $data['debt'][1]);
+        }
+        if (isset($data['sort_by']) && $data['sort_type']) {
+            $guests = $guests->orderBy($data['sort_by'], $data['sort_type']);
+        }
+        $guests = $guests->get();
+        return $guests;
+    }
+
     public function addGuest($data)
     {
         $exist = false;

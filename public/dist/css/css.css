@@ -58,7 +58,7 @@ li {
     color: #EC212D;
 }
 
-.filter-options {
+.checkbox-options {
     position: relative;
 }
 
@@ -74,7 +74,7 @@ li {
 
 .input-group {
     display: flex;
-    align-items: center;
+    align-items: baseline;
 }
 
 .comparison_operator,
@@ -88,7 +88,7 @@ li {
 #myInput-category,
 .input-quantity,
 .input-so,
-.input-operator {
+.input-operator, .input-group>.operator,.input-group>.quantity {
     padding: 5px 10px;
     border: 1px solid #d6d6d6;
     border-radius: 5px;
@@ -566,7 +566,7 @@ td p {
 }
 
 /* Filter */
-.btn-filter #dropdown-menu {
+.filter-btn #dropdown-menu {
     left: -10px !important;
 }
 
@@ -671,7 +671,7 @@ td p {
     font-weight: 600;
 }
 
-.filter-options #dropdown-menu {
+.checkbox-options #dropdown-menu {
     left: -45px !important;
 }
 
@@ -775,12 +775,12 @@ input[type="number"] {
     background: none;
 }
 
-.filter-options li {
+.checkbox-options li {
     display: flex;
     padding: 5px;
 }
 
-.filter-options ul label,
+.checkbox-options ul label,
 .block-options-admin label {
     font-weight: 400 !important;
     color: #555555;
@@ -789,8 +789,8 @@ input[type="number"] {
     user-select: none;
 }
 
-.filter-options li:hover,
-.filter-options label:hover,
+.checkbox-options li:hover,
+.checkbox-options label:hover,
 .profile-li:hover,
 .logout-li:hover,
 .block-options-admin li:hover {
@@ -836,7 +836,7 @@ input[type="number"] {
     margin-bottom: 5px;
 }
 
-.btn-filter {
+.filter-btn {
     margin-bottom: 5px;
 }
 
@@ -942,13 +942,13 @@ input[type="number"] {
 
 .filter-btn {
     border-radius: 5px;
-    padding: 4px 14px;
+    padding: 4px 12px;
     color: white;
     background-color: #253858;
 }
 
 .input-search {
-    padding: 5px 10px;
+    padding: 4px 12px;
     border: 1px solid #d6d6d6;
     border-radius: 5px;
 }
@@ -1576,11 +1576,28 @@ input[type="checkbox"] {
 .card-body>.table>thead>tr>th {
     border-bottom-width: 0 !important;
 }
-
-.content-wrapper .content .list_product li:hover {
+.content-wrapper .content .list_product li:hover{
     background-color: #ECECEC;
 }
 
 .content-wrapper .content .list_code li:hover {
     background-color: #ECECEC;
+}
+.filter-item{
+    background: #dee2e6;
+        border-radius: 5px;
+        padding: 4px 12px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+}
+.btn-delete{
+    background: none;
+    border: 0;
+}
+.form-control{
+    padding: 5px 10px;
+    border: 1px solid #d6d6d6;
+    border-radius: 5px;
 }

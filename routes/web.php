@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 
 // Kho hàng
 Route::resource('inventory', ProductController::class);
+Route::get('/searchInventory', [ProductController::class, 'search'])->name('searchInventory');
+
 Route::get('/editProduct', [ProductController::class, 'editProduct'])->name('editProduct');
 Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProductInventory'])->name('inventory.showProductInventory');
 
@@ -34,31 +36,32 @@ Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProduc
 Route::resource('provides', ProvidesController::class);
 // Khách hàng
 Route::resource('guests', GuestController::class);
-Route::get('/searchGuest', [GuestController::class, 'searchGuest'])->name('searchGuest');
+Route::get('/search', [GuestController::class, 'search'])->name('search');
 
 // Mua hàng
-Route::resource('import',DetailImportController::class);
-Route::get('/show_provide',[DetailImportController::class,'show_provide'])->name('show_provide');
-Route::get('/show_project',[DetailImportController::class,'show_project'])->name('show_project');
-Route::get('/addNewProvide',[DetailImportController::class,'addNewProvide'])->name('addNewProvide');
-Route::get('/getAllProducts',[DetailImportController::class,'getAllProducts'])->name('getAllProducts');
-Route::get('/showProductName',[DetailImportController::class,'showProductName'])->name('showProductName');
-Route::get('/checkSN',[DetailImportController::class,'checkSN'])->name('checkSN');
-Route::get('/checkduplicateSN',[DetailImportController::class,'checkduplicateSN'])->name('checkduplicateSN');
+Route::resource('import', DetailImportController::class);
+Route::get('/show_provide', [DetailImportController::class, 'show_provide'])->name('show_provide');
+Route::get('/show_project', [DetailImportController::class, 'show_project'])->name('show_project');
+Route::get('/addNewProvide', [DetailImportController::class, 'addNewProvide'])->name('addNewProvide');
+Route::get('/getAllProducts', [DetailImportController::class, 'getAllProducts'])->name('getAllProducts');
+Route::get('/showProductName', [DetailImportController::class, 'showProductName'])->name('showProductName');
+Route::get('/checkSN', [DetailImportController::class, 'checkSN'])->name('checkSN');
+Route::get('/checkduplicateSN', [DetailImportController::class, 'checkduplicateSN'])->name('checkduplicateSN');
 
 // Đơn nhận hàng
-Route::resource('receive',ReceiveController::class);
-Route::get('/show_receive',[ReceiveController::class,'show_receive'])->name('show_receive');
-Route::get('/getProduct_receive',[ReceiveController::class,'getProduct_receive'])->name('getProduct_receive');
+Route::resource('receive', ReceiveController::class);
+Route::get('/show_receive', [ReceiveController::class, 'show_receive'])->name('show_receive');
+Route::get('/getProduct_receive', [ReceiveController::class, 'getProduct_receive'])->name('getProduct_receive');
+
 
 // Hóa đơn mua hàng
-Route::resource('reciept',RecieptController::class);
-Route::get('/show_reciept',[RecieptController::class,'show_reciept'])->name('show_reciept');
-Route::get('/getProduct_reciept',[RecieptController::class,'getProduct_reciept'])->name('getProduct_reciept');
+Route::resource('reciept', RecieptController::class);
+Route::get('/show_reciept', [RecieptController::class, 'show_reciept'])->name('show_reciept');
+Route::get('/getProduct_reciept', [RecieptController::class, 'getProduct_reciept'])->name('getProduct_reciept');
 
 
 // Thanh toán nhập hàng
-Route::resource('paymentOrder',PayOrderController::class);
+Route::resource('paymentOrder', PayOrderController::class);
 
 Route::get('/', function () {
     return view('welcome');

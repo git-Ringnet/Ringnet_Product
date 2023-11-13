@@ -104,7 +104,7 @@ class Products extends Model
     public function addProductTowarehouse($data, $id)
     {
         $receive = Receive_bill::findOrFail($id);
-        if($receive){
+        if ($receive) {
             $array_id = [];
             $list_id = [];
             for ($i = 0; $i < count($data['product_name']); $i++) {
@@ -115,7 +115,7 @@ class Products extends Model
                 ->whereIn('id', $array_id)
                 ->get();
             $product_id = 0;
-    
+
             // Thêm sản phẩm vào tồn kho
             foreach ($product as $item) {
                 $checkProduct = Products::where('product_name', $item->product_name)->first();
@@ -141,7 +141,7 @@ class Products extends Model
                 $item->product_id = $product_id;
                 $item->save();
             }
-    
+
             // Thêm seri number theo sản phẩm
             for ($i = 0; $i < count($data['product_name']); $i++) {
                 $getProduct = Products::where('product_name', $data['product_name'][$i])->first();
@@ -164,10 +164,52 @@ class Products extends Model
                     }
                 }
             }
-        }else{
+        } else {
             $product_id = "";
         }
         // dd($product);
         return $product_id;
+    }
+    public function ajax($data)
+    {
+        $products =  DB::table($this->table);
+        if (isset($data['search'])) {
+            $products = $products->where(function ($query) use ($data) {
+                $query->orWhere('product_code', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('product_name', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['idName'])) {
+            $products = $products->whereIn('products.id', $data['idName']);
+        }
+        if (isset($data['idCode'])) {
+            $products = $products->whereIn('products.id', $data['idCode']);
+        }
+        if (isset($data['inventory'][0]) && isset($data['inventory'][1])) {
+            $products = $products->where('product_inventory', $data['inventory'][0], $data['inventory'][1]);
+        }
+        if (isset($data['sort_by']) && $data['sort_type']) {
+            $products = $products->orderBy($data['sort_by'], $data['sort_type']);
+        }
+        $products = $products->get();
+        return $products;
+    }
+    public function getProductsbyCode($data)
+    {
+        $products = DB::table($this->table);
+        if (isset($data['idCode'])) {
+            $products = $products->whereIn('products.id', $data['idCode']);
+        }
+        $products = $products->pluck('product_code')->all();
+        return $products;
+    }
+    public function getProductsbyName($data)
+    {
+        $products = DB::table($this->table);
+        if (isset($data['idName'])) {
+            $products = $products->whereIn('products.id', $data['idName']);
+        }
+        $products = $products->pluck('product_name')->all();
+        return $products;
     }
 }
