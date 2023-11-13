@@ -32,6 +32,19 @@ class Products extends Model
     {
         return DB::table($this->table)->get();
     }
+    public function getSerialNumber()
+    {
+        return $this->hasMany(Serialnumber::class, 'product_id', 'id');
+    }
+    public function getWarehouse()
+    {
+        return $this->hasMany(Warehouse::class, 'warehouse_id', 'id');
+    }
+    public function getDetail()
+    {
+        return $this->hasMany(QuoteImport::class, 'product_id', 'id');
+    }
+
     public function addProduct($data)
     {
         $return  = 0;
@@ -90,63 +103,69 @@ class Products extends Model
     }
     public function addProductTowarehouse($data, $id)
     {
-        $array_id = [];
-        $list_id = [];
-        for ($i = 0; $i < count($data['listProduct']); $i++) {
-            array_push($array_id, $data['listProduct'][$i]);
-        }
-        $product = QuoteImport::where('detailimport_id', $id)
-            ->whereIn('id', $array_id)
-            ->get();
-        $product_id = 0;
-
-        // Thêm sản phẩm vào tồn kho
-        foreach ($product as $item) {
-            $checkProduct = Products::where('product_name', $item->product_name)->first();
-            if ($checkProduct) {
-                $checkProduct->product_inventory += $item->product_qty;
-                $checkProduct->save();
-                $product_id = $checkProduct->id;
-            } else {
-                $dataProduct = [
-                    'product_code' => $item->product_code,
-                    'product_name' => $item->product_name,
-                    'product_unit' => $item->product_unit,
-                    'product_price_import' => $item->price_import,
-                    'product_price_export' => $item->price_export,
-                    'product_ratio' => $item->product_ratio,
-                    'product_tax' => $item->product_tax,
-                    'product_inventory' => $item->product_qty,
-                    'check_seri' => 1
-                ];
-                $product_id = DB::table($this->table)->insertGetId($dataProduct);
+        $receive = Receive_bill::findOrFail($id);
+        if($receive){
+            $array_id = [];
+            $list_id = [];
+            for ($i = 0; $i < count($data['product_name']); $i++) {
+                $products = QuoteImport::where('product_name', $data['product_name'][$i])->first();
+                array_push($array_id, $products->id);
             }
-            array_push($list_id, $product_id);
-            $item->product_id = $product_id;
-            $item->save();
-        }
-
-        // Thêm seri number theo sản phẩm
-        for ($i = 0; $i < count($data['listProduct']); $i++) {
-            $getProduct = Products::where('id',$list_id[$i])->first();
-            if($getProduct){
-                if(isset($data['seri' . $i]) && $getProduct->check_seri == 1){
-                    $productSN = $data['seri' . $i];
-                    for ($j = 0; $j < count($productSN); $j++) {
-                        if(!empty($productSN[$j])){
-                            $dataSN = [
-                                'serinumber' => $productSN[$j],
-                                'detailimport_id' => $id,
-                                'detailexport_id' => 0,
-                                'product_id' => $getProduct->id,
-                                'status' => 1,
-                                'created_at' => Carbon::now(),
-                            ];
-                            DB::table('serialnumber')->insert($dataSN);
+            $product = QuoteImport::where('detailimport_id', $receive->detailimport_id)
+                ->whereIn('id', $array_id)
+                ->get();
+            $product_id = 0;
+    
+            // Thêm sản phẩm vào tồn kho
+            foreach ($product as $item) {
+                $checkProduct = Products::where('product_name', $item->product_name)->first();
+                if ($checkProduct) {
+                    $checkProduct->product_inventory += $item->product_qty;
+                    $checkProduct->save();
+                    $product_id = $checkProduct->id;
+                } else {
+                    $dataProduct = [
+                        'product_code' => $item->product_code,
+                        'product_name' => $item->product_name,
+                        'product_unit' => $item->product_unit,
+                        'product_price_import' => $item->price_import,
+                        'product_price_export' => $item->price_export,
+                        'product_ratio' => $item->product_ratio,
+                        'product_tax' => $item->product_tax,
+                        'product_inventory' => $item->product_qty,
+                        'check_seri' => 1
+                    ];
+                    $product_id = DB::table($this->table)->insertGetId($dataProduct);
+                }
+                array_push($list_id, $product_id);
+                $item->product_id = $product_id;
+                $item->save();
+            }
+    
+            // Thêm seri number theo sản phẩm
+            for ($i = 0; $i < count($data['product_name']); $i++) {
+                $getProduct = Products::where('product_name', $data['product_name'][$i])->first();
+                if ($getProduct) {
+                    if (isset($data['seri' . $i]) && $getProduct->check_seri == 1) {
+                        $productSN = $data['seri' . $i];
+                        for ($j = 0; $j < count($productSN); $j++) {
+                            if (!empty($productSN[$j])) {
+                                $dataSN = [
+                                    'serinumber' => $productSN[$j],
+                                    'detailimport_id' => $receive->detailimport_id,
+                                    'detailexport_id' => 0,
+                                    'product_id' => $getProduct->id,
+                                    'status' => 1,
+                                    'created_at' => Carbon::now(),
+                                ];
+                                DB::table('serialnumber')->insert($dataSN);
+                            }
                         }
                     }
                 }
             }
+        }else{
+            $product_id = "";
         }
         // dd($product);
         return $product_id;

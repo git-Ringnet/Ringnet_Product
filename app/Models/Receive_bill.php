@@ -39,15 +39,28 @@ class Receive_bill extends Model
             ];
             $receive_id = DB::table($this->table)->insertGetId($dataReceive);
             for ($i = 0; $i < count($data['listProduct']); $i++) {
+
                 $dataupdate = [
                     'receive_id' => $receive_id,
                 ];
-                DB::table('quoteimport')->where('id', $data['listProduct'][$i])->update($dataupdate);
+                $checkQuote = QuoteImport::where('product_name', $data['product_name'][$i])->first();
+                if ($checkQuote->receive_id != 0) {
+                    continue;
+                } elseif ($checkQuote) {
+                    DB::table('quoteimport')->where('id', $checkQuote->id)->update($dataupdate);
+                }
             }
+
             // Cập nhật tình trạng
             $product = QuoteImport::where('detailimport_id', $id)->get();
             foreach ($product as $item) {
                 if ($item->receive_id == 0) {
+                    $check_status = false;
+                }
+            }
+            $receive = Receive_bill::where('detailimport_id', $id)->get();
+            foreach ($receive as $value) {
+                if ($value->status == 1) {
                     $check_status = false;
                 }
             }
@@ -66,7 +79,7 @@ class Receive_bill extends Model
             $detail->save();
 
             // Cập nhật dư nợ nhà cung cấp
-            DB::table('provides')->where('id',$detail->provide_id)->update([
+            DB::table('provides')->where('id', $detail->provide_id)->update([
                 'provide_debt' => $detail->total_price
             ]);
 

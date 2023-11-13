@@ -77,7 +77,9 @@ class ReceiveController extends Controller
     {
         $receive = Receive_bill::findOrFail($id);
         $title = $receive->quotation_number;
-        $product = QuoteImport::where('receive_id',$id)->get();
+        $product = QuoteImport::where('receive_id',$id)
+        ->with('getSerialNumber')->get();
+        // dd($product->getSerialNumber);
         return view('tables.receive.editReceive',compact('receive', 'title','product'));
     }
 
@@ -88,6 +90,10 @@ class ReceiveController extends Controller
     {
         // Cập nhật trạng thái
         $this->receive->updateReceive($request->all(),$id);
+
+        // Thêm sản phẩm, seri vào tồn kho
+        $this->product->addProductTowarehouse($request->all(),$id);
+
         // Thêm mới hóa đơn mua hàng
         $this->reciept->addReciept($request->all(),$id);
         return redirect()->route('receive.index')->with('msg', 'Tạo mới hóa đơn mua hàng thành công !');

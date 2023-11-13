@@ -75,6 +75,19 @@
                             <span>Tạo đơn nhận hàng</span>
                         </button>
                     </a>
+                    {{-- @method('DELETE') --}}
+                    {{-- <a href="{{route('import.destroy',$import->id)}}">
+                        <button name="action" value="action_3" type="submit"
+                            class="d-flex align-items-center h-100 btn-danger" style="margin-right:10px">
+                            <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M3.75528 1.6875H5.99476H11.9948H12.123C12.3939 1.6875 12.6621 1.74088 12.9123 1.84459C13.1626 1.94829 13.3899 2.10029 13.5814 2.29189L15.7022 4.41269C16.089 4.79939 16.3064 5.32394 16.3065 5.87088V14.25C16.3065 14.797 16.0892 15.3216 15.7024 15.7084C15.3156 16.0952 14.791 16.3125 14.244 16.3125H12.75H5.25H3.83328C3.28894 16.3125 2.76666 16.0973 2.38031 15.7139C1.99396 15.3304 1.77486 14.8098 1.77078 14.2655L1.69278 3.76547C1.69074 3.49333 1.74258 3.22344 1.84531 2.97143C1.94805 2.71941 2.09965 2.49021 2.29137 2.29705C2.4831 2.10389 2.71115 1.95058 2.9624 1.84597C3.21364 1.74135 3.48312 1.68749 3.75528 1.6875ZM5.8125 15.1875H12.1875V9.9645C12.1875 9.74238 12.0071 9.5625 11.7862 9.5625H6.2145C5.99266 9.5625 5.8125 9.74266 5.8125 9.9645V15.1875ZM13.3125 15.1875V9.9645C13.3125 9.12163 12.6289 8.4375 11.7862 8.4375H6.2145C5.37134 8.4375 4.6875 9.12134 4.6875 9.9645V15.1875H3.83326C3.58582 15.1875 3.34842 15.0897 3.17281 14.9154C2.9972 14.7411 2.89761 14.5044 2.89574 14.257L2.81774 3.75703C2.81682 3.63333 2.84038 3.51066 2.88708 3.39611C2.93378 3.28155 3.00269 3.17737 3.08983 3.08957C3.17698 3.00177 3.28064 2.93208 3.39485 2.88453C3.50905 2.83698 3.63154 2.8125 3.75524 2.8125H5.43226V5.18175C5.43226 5.52985 5.57054 5.86369 5.81668 6.10983C6.06282 6.35597 6.39666 6.49425 6.74476 6.49425H11.2448C11.5929 6.49425 11.9267 6.35597 12.1728 6.10983C12.419 5.86369 12.5573 5.52985 12.5573 5.18175V2.91925C12.6414 2.96326 12.7185 3.01991 12.7858 3.08725L14.9068 5.20831C15.0826 5.38405 15.1814 5.62254 15.1815 5.87112V14.25C15.1815 14.4986 15.0827 14.7371 14.9069 14.9129C14.7311 15.0887 14.4926 15.1875 14.244 15.1875H13.3125ZM11.4323 5.18175V2.8125H6.55726V5.18175C6.55726 5.23148 6.57701 5.27917 6.61218 5.31433C6.64734 5.3495 6.69503 5.36925 6.74476 5.36925H11.2448C11.2945 5.36925 11.3422 5.3495 11.3773 5.31433C11.4125 5.27917 11.4323 5.23148 11.4323 5.18175Z"
+                                    fill="white" />
+                            </svg>
+                            <span>Xóa</span>
+                        </button>
+                    </a> --}}
                     <input type="hidden" value="action_1" name="action" id="getAction">
                 </div>
             </div>
@@ -241,7 +254,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $st = 0; ?>
                         @foreach ($product as $item)
                             <tr class="bg-white">
                                 <td class="border border-left-0 border-top-0 border-bottom-0">
@@ -293,33 +305,10 @@
                                         class="border-0 px-3 py-2 w-100 product_unit"
                                         value="{{ $item->product_unit }}">
                                 </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0" style="width:12%;">
-                                    <div class="d-flex">
-                                        <input type="text" name="product_qty[]"
-                                            class="border-0 px-3 py-2 w-100 quantity-input"
-                                            value="{{ number_format($item->product_qty) }}">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#exampleModal{{ $st }}"
-                                            style="background:transparent; border:none;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                viewBox="0 0 32 32" fill="none">
-                                                <rect width="32" height="32" rx="4" fill="white">
-                                                </rect>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z"
-                                                    fill="#0095F6"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z"
-                                                    fill="#0095F6"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z"
-                                                    fill="#0095F6"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z"
-                                                    fill="#0095F6"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
+                                <td class="border border-top-0 border-bottom-0 border-right-0">
+                                    <input type="text" name="product_qty[]"
+                                        class="border-0 px-3 py-2 w-100 quantity-input"
+                                        value="{{ number_format($item->product_qty) }}">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <input type="text" name="price_export[]"
@@ -367,7 +356,6 @@
                                     </svg>
                                 </td>
                             </tr>
-                            <?php $st++; ?>
                         @endforeach
                     </tbody>
                 </table>
@@ -418,7 +406,6 @@
                 </div>
             </div>
         </section>
-        <x-formmodalseri :product="$product"></x-formmodalseri>
         <x-formsynthetic :import="$import"></x-formsynthetic>
     </form>
 </div>
@@ -627,71 +614,71 @@
     })
 
 
-    $('form').on('submit', function(e) {
-        e.preventDefault();
-        var productSN = {}
-        var formSubmit = false;
-        var listProductName = [];
-        var listQty = [];
-        var listSN = [];
-        $('.searchProductName').each(function() {
-            listProductName.push($(this).val());
-            listQty.push($(this).closest('tr').find('.quantity-input').val());
-            var count = $($(this).closest('tr').find('button').attr('data-target')).find(
-                'input[name^="seri"]').filter(
-                function() {
-                    return $(this).val() !== '';
-                }).length;
-            listSN.push(count);
-            var oldValue = $(this).val();
-            productSN[oldValue] = {
-                sn: []
-            };
-            SerialNumbers = $($(this).closest('tr').find('button').attr('data-target')).find(
-                'input[name^="seri"]').map(function() {
-                return $(this).val().trim();
-            }).get();
-            productSN[oldValue].sn.push(...SerialNumbers)
-        });
+    // $('form').on('submit', function(e) {
+    //     e.preventDefault();
+    //     var productSN = {}
+    //     var formSubmit = false;
+    //     var listProductName = [];
+    //     var listQty = [];
+    //     var listSN = [];
+    //     $('.searchProductName').each(function() {
+    //         listProductName.push($(this).val());
+    //         listQty.push($(this).closest('tr').find('.quantity-input').val());
+    //         var count = $($(this).closest('tr').find('button').attr('data-target')).find(
+    //             'input[name^="seri"]').filter(
+    //             function() {
+    //                 return $(this).val() !== '';
+    //             }).length;
+    //         listSN.push(count);
+    //         var oldValue = $(this).val();
+    //         productSN[oldValue] = {
+    //             sn: []
+    //         };
+    //         SerialNumbers = $($(this).closest('tr').find('button').attr('data-target')).find(
+    //             'input[name^="seri"]').map(function() {
+    //             return $(this).val().trim();
+    //         }).get();
+    //         productSN[oldValue].sn.push(...SerialNumbers)
+    //     });
 
-        if ($('#getAction').val() == "action_1") {
-            this.submit();
-        } else {
-            // Kiểm tra số lượng sn và số lượng sản phẩm
-            $.ajax({
-                url: "{{ route('checkSN') }}",
-                type: "get",
-                data: {
-                    listProductName: listProductName,
-                    listQty: listQty,
-                    listSN: listSN
-                },
-                success: function(data) {
-                    if (data['status'] == 'false') {
-                        alert('Vui lòng nhập đủ số lượng seri sản phẩm ' + data['productName'])
-                    } else {
-                        // Kiểm tra sản phẩm đã tồn tại seri chưa
-                        $.ajax({
-                            url: "{{ route('checkduplicateSN') }}",
-                            type: "get",
-                            data: {
-                                value: productSN,
-                            },
-                            success: function(data) {
-                                if (data['success'] == false) {
-                                    alert('Sản phảm' + data['msg'] + 'đã tồn tại seri' +
-                                        data['data'])
-                                } else {
-                                    updateProductSN()
-                                    $('form')[0].submit();
-                                }
-                            }
-                        })
-                    }
-                }
-            })
-        }
-    })
+    //     if ($('#getAction').val() == "action_1") {
+    //         this.submit();
+    //     } else {
+    //         // Kiểm tra số lượng sn và số lượng sản phẩm
+    //         $.ajax({
+    //             url: "{{ route('checkSN') }}",
+    //             type: "get",
+    //             data: {
+    //                 listProductName: listProductName,
+    //                 listQty: listQty,
+    //                 listSN: listSN
+    //             },
+    //             success: function(data) {
+    //                 if (data['status'] == 'false') {
+    //                     alert('Vui lòng nhập đủ số lượng seri sản phẩm ' + data['productName'])
+    //                 } else {
+    //                     // Kiểm tra sản phẩm đã tồn tại seri chưa
+    //                     $.ajax({
+    //                         url: "{{ route('checkduplicateSN') }}",
+    //                         type: "get",
+    //                         data: {
+    //                             value: productSN,
+    //                         },
+    //                         success: function(data) {
+    //                             if (data['success'] == false) {
+    //                                 alert('Sản phảm' + data['msg'] + 'đã tồn tại seri' +
+    //                                     data['data'])
+    //                             } else {
+    //                                 updateProductSN()
+    //                                 $('form')[0].submit();
+    //                             }
+    //                         }
+    //                     })
+    //                 }
+    //             }
+    //         })
+    //     }
+    // })
 </script>
 </body>
 

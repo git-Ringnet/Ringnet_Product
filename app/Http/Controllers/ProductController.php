@@ -72,6 +72,7 @@ class ProductController extends Controller
         if($product){
             $title = $product->product_name;
         }
+      
         return view('tables.products.editProduct',compact('product','title','display'));
     }
 

@@ -130,7 +130,7 @@
                                 <td class="border border-top-0 border-bottom-0">{{ $item->product_unit }}</td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                     {{ number_format($item->product_qty) }}</td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
+                                <td class="border border-top-0 border-bottom-0">
                                     {{ number_format($item->price_export) }}</td>
                                 <td>{{ $item->product_tax }}</td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">

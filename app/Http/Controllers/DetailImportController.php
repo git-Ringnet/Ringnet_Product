@@ -95,16 +95,17 @@ class DetailImportController extends Controller
             $this->quoteImport->updateImport($request->all(), $id, '');
             return redirect()->route('import.index')->with('msg', 'Chỉnh sửa đơn mua hàng thành công !');
         } else if ($request->action == 'action_2') {
+            // cập nhật sản phẩm
+            $this->quoteImport->updateImport($request->all(), $id);
+
             // Cập nhập sản phẩm theo receive
             $receive_id = $this->receiver_bill->addReceiveBill($request->all(), $id);
 
-            // cập nhật sản phẩm
-            $this->quoteImport->updateImport($request->all(), $id, $receive_id);
             // Cập nhật tình trạng
             $this->import->updateImport($request->all(), $id, 2);
 
             // Thêm sản phẩm và seri number vào kho hàng
-            $this->product->addProductTowarehouse($request->all(), $id);
+            // $this->product->addProductTowarehouse($request->all(), $id);
             return redirect()->route('import.index')->with('msg', 'Tạo đơn nhận hàng thành công !');
         }
     }
@@ -114,7 +115,7 @@ class DetailImportController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        dd($id);
     }
     // Hiển thị thông tin nhà cung cấp theo id đã chọn
     public function show_provide(Request $request)
@@ -194,7 +195,8 @@ class DetailImportController extends Controller
         ];
         return $result;
     }
-    public function checkduplicateSN(Request $request) {
+    public function checkduplicateSN(Request $request)
+    {
         // return $request->all();
         return $this->sn->checkSN($request->all());
     }

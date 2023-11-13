@@ -152,9 +152,9 @@
                                             <td>{{ $item->getProvideName->provide_name_display }}</td>
                                             <td>
                                                 @if($item->status == 1)
-                                                Bản nháp
+                                                <span style="color: #858585">Bản nháp</span>
                                                 @else
-                                                Chính thức
+                                                <span style="color: #08AA36">Chính thức</span>
                                                 @endif
                                             </td>
                                             <td>{{ number_format($item->price_total) }}</td>

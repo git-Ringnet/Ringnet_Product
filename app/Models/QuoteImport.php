@@ -20,8 +20,9 @@ class QuoteImport extends Model
     }
     public function getSerialNumber()
     {
-        return $this->hasMany(Serialnumber::class, 'detailimport_id', 'detailimport_id');
+        return $this->hasMany(Serialnumber::class, 'product_id', 'product_id');
     }
+
     public function getAllQuote()
     {
         return DB::table($this->table)->get();
@@ -61,7 +62,7 @@ class QuoteImport extends Model
     }
 
 
-    public function updateImport($data, $id, $id_receive)
+    public function updateImport($data, $id)
     {
         // Xóa sản phẩm khi chỉnh sửa đơn hàng
         if ($data['action'] == 'action_1') {
@@ -95,7 +96,7 @@ class QuoteImport extends Model
                     'product_ratio' => $product_ratio,
                     'price_import' => $price_import,
                     'product_note' => $data['product_note'][$i],
-                    'receive_id' => $id_receive == "" ? 0 : $id_receive
+                    // 'receive_id' => $id_receive == "" ? 0 : $id_receive
                 ];
                 DB::table($this->table)->where('id', $dataUpdate->id)->update($dataQuoteUpdate);
             } else {
@@ -111,7 +112,7 @@ class QuoteImport extends Model
                     'product_ratio' => $product_ratio,
                     'price_import' => $price_import,
                     'product_note' => $data['product_note'][$i],
-                    'receive_id' => $id_receive == "" ? 0 : $id_receive
+                    'receive_id' => 0
                 ];
                 DB::table($this->table)->insert($dataQuote);
             }

@@ -108,7 +108,7 @@
                             </th>
                             <th class="border-right">Tên sản phẩm</th>
                             <th class="border-right">Đơn vị</th>
-                            <th class="border-right">Số lượng</th>
+                            <th class="border-right" style="width:12%;">Số lượng</th>
                             <th class="border-right">Đơn giá</th>
                             <th class="border-right">Thuế</th>
                             <th class="border-right">Thành tiền</th>
@@ -120,33 +120,80 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $st = 0; ?>
                         @foreach ($product as $item)
-                            <tr>
+                            <tr class="bg-white">
                                 <td class="border border-left-0 border-top-0 border-bottom-0"><input type="checkbox"
-                                        name="" id=""> {{ $item->product_code }}</td>
+                                        name="product_code[]" id=""> {{ $item->product_code }}</td>
                                 <td class="border border-top-0 border-bottom-0 position-relative">
-                                    {{ $item->product_name }}</td>
+                                    <input type="text" class="searchProductName border-0 px-3 py-2 w-100"
+                                        name="product_name[]" value="{{ $item->product_name }}" readonly>
+                                </td>
                                 <td class="border border-top-0 border-bottom-0">{{ $item->product_unit }}</td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    {{ number_format($item->product_qty) }}</td>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <input type="text" class="border-0 px-3 py-2 w-100 quantity-input"
+                                            name="product_qty[]" value="{{ number_format($item->product_qty) }}"
+                                            readonly>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#exampleModal{{ $st }}"
+                                            style="background:transparent; border:none;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                viewBox="0 0 32 32" fill="none">
+                                                <rect width="32" height="32" rx="4" fill="white">
+                                                </rect>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z"
+                                                    fill="#0095F6"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z"
+                                                    fill="#0095F6"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z"
+                                                    fill="#0095F6"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z"
+                                                    fill="#0095F6"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="border border-top-0 border-bottom-0">
+                                    <input type="text" class="border-0 px-3 py-2 w-100 price_export"
+                                        name="price_export[]" value="{{ number_format($item->price_export) }}"
+                                        readonly>
+                                </td>
+                                <td>
+                                    <input type="text" class="border-0 px-3 py-2 w-100 product_tax"
+                                        name="product_tax[]" value="{{ $item->product_tax }}" readonly>
+                                </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    {{ number_format($item->price_export) }}</td>
-                                <td>{{ $item->product_tax }}</td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    {{ number_format($item->product_total) }}</td>
+                                    <input type="text" class="border-0 px-3 py-2 w-100 total_price"
+                                        name="total_price[]" value="{{ number_format($item->product_total) }}"
+                                        readonly>
+                                </td>
                                 <td class="border border-bottom-0 p-0 bg-secondary"></td>
                                 <td class="border border-top-0 border-bottom-0 product-ratio">
-                                    {{ $item->product_ratio }}</td>
+                                    <input type="text" class="border-0 px-3 py-2 w-100 product_ratio"
+                                        name="product_ratio[]" value="{{ $item->product_ratio }}" readonly>
+                                </td>
                                 <td class="border border-top-0 border-bottom-0 price_import">
-                                    {{ number_format($item->price_import) }}</td>
-                                <td class="border border-top-0 border-bottom-0">{{ $item->product_note }}</td>
+                                    <input type="text" class="border-0 px-3 py-2 w-100 price_import"
+                                        name="price_import[]" value="{{ number_format($item->price_import) }}"
+                                        readonly>
+                                </td>
+                                <td class="border border-top-0 border-bottom-0">
+                                    <input type="text" class="border-0 px-3 py-2 w-100" name="product_note[]"
+                                        value="{{ $item->product_note }}" readonly>
+                                </td>
                             </tr>
+                            <?php $st++; ?>
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </section>
-
+        <x-formmodalseri :product="$product"></x-formmodalseri>
     </form>
 </div>
 
@@ -179,116 +226,127 @@
         $('#listReceive').show();
     })
 
-    $('.search-receive').on('click', function() {
-        detail_id = $(this).attr('id');
-        $.ajax({
-            url: "{{ route('show_receive') }}",
-            type: "get",
-            data: {
-                detail_id: detail_id
-            },
-            success: function(data) {
-                $('#search_quotation').val(data.quotation_number);
-                $('#provide_name').val(data.provide_name);
-                $('#detailimport_id').val(data.id)
-                $('#listReceive').hide();
-                $.ajax({
-                    url: "{{ route('getProduct') }}",
-                    type: "get",
-                    data: {
-                        id: data.id
-                    },
-                    success: function(product) {
-                        $('#inputcontent tbody').empty();
-                        product.forEach(function(element) {
-                            var tr =
-                                `
-                                <tr class="bg-white">
-                                    <td class="border border-left-0 border-top-0 border-bottom-0">
-                                    <input type="hidden" readonly= value="` + element.id +
-                                `" name="listProduct[]">
-                                    <div class="d-flex w-100 justify-content-between align-items-center position-relative">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z" fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z" fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z" fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z" fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z" fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>
-                                        </svg>
-                                        <input type="checkbox">
-                                        <input type="text" readonly name="product_code[]" class="border-0 px-3 py-2 w-75 searchProduct" value="">
-                                        <ul id="listProductCode" class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 24%; top: 75%;">
-                                        </ul>
-                                    </div>
-                                </td> 
-                                <td class="border border-top-0 border-bottom-0 position-relative">
-                                    <input readonly id="searchProductName" type="text" name="product_name[]" class="searchProductName border-0 px-3 py-2 w-100" value="` +
-                                element.product_name +
-                                `">
-                                </td>   
-                                <td> 
-                                    <input readonly type="text" name="product_unit[]" class="border-0 px-3 py-2 w-100 product_unit" value="` +
-                                element
-                                .product_unit +
-                                `">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input readonly type="text" name="product_qty[]" class="border-0 px-3 py-2 w-100 quantity-input" value="` +
-                                formatCurrency(element.product_qty) +
-                                `">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input readonly type="text" name="price_export[]" class="border-0 px-3 py-2 w-100 price_export" value="` +
-                                formatCurrency(element
-                                    .price_export) +
-                                `">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input readonly type="text" name="product_tax[]" class="border-0 px-3 py-2 w-100 product_tax" value="` +
-                                element.product_tax +
-                                `%">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input readonly type="text" name="total_price[]" class="border-0 px-3 py-2 w-100 total_price" readonly="" value="` +
-                                formatCurrency(element.product_total) +
-                                `">
-                                </td>
-                                <td class="border border-bottom-0 p-0 bg-secondary"></td>
-                                <td class="border border-top-0 border-bottom-0 product-ratio">
-                                    <input readonly required="" type="text" name="product_ratio[]" class="border-0 px-3 py-2 w-100 product_ratio" value="` +
-                                element.product_ratio +
-                                `">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 price_import">
-                                    <input readonly required="" type="text" name="price_import[]" class="border-0 px-3 py-2 w-100 price_import" value="` +
-                                formatCurrency(element.price_import) +
-                                `">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0">
-                                    <input readonly type="text" name="product_note[]" class="border-0 px-3 py-2 w-100" value="` +
-                                (element.product_note == null ? "" : element
-                                    .product_note) + `">
-                                </td>
-                                <td class="border border-top-0 border deleteRow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5454 5C10.2442 5 9.99999 5.24421 9.99999 5.54545C9.99999 5.8467 10.2442 6.09091 10.5454 6.09091H13.4545C13.7558 6.09091 14 5.8467 14 5.54545C14 5.24421 13.7558 5 13.4545 5H10.5454ZM6 7.72726C6 7.42601 6.24421 7.18181 6.54545 7.18181H7.63637H16.3636H17.4545C17.7558 7.18181 18 7.42601 18 7.72726C18 8.02851 17.7558 8.27272 17.4545 8.27272H16.9091V17C16.9091 18.2113 15.9118 19.1818 14.7135 19.1818H9.25891C8.97278 19.1816 8.68906 19.1247 8.42499 19.0145C8.16092 18.9044 7.92126 18.7431 7.71979 18.5399C7.51833 18.3367 7.35905 18.0957 7.25112 17.8307C7.14347 17.5664 7.08903 17.2834 7.09091 16.9981V8.27272H6.54545C6.24421 8.27272 6 8.02851 6 7.72726ZM8.18182 17.0041V8.27272H15.8182V17C15.8182 17.5966 15.3216 18.0909 14.7135 18.0909H9.25938C9.11713 18.0908 8.97632 18.0625 8.84503 18.0077C8.71375 17.953 8.5946 17.8728 8.49444 17.7718C8.39429 17.6707 8.3151 17.5509 8.26144 17.4192C8.20779 17.2874 8.18074 17.1464 8.18182 17.0041ZM13.4545 10.0909C13.7558 10.0909 14 10.3351 14 10.6364V15.7273C14 16.0285 13.7558 16.2727 13.4545 16.2727C13.1533 16.2727 12.9091 16.0285 12.9091 15.7273V10.6364C12.9091 10.3351 13.1533 10.0909 13.4545 10.0909ZM11.0909 10.6364C11.0909 10.3351 10.8467 10.0909 10.5454 10.0909C10.2442 10.0909 9.99999 10.3351 9.99999 10.6364V15.7273C9.99999 16.0285 10.2442 16.2727 10.5454 16.2727C10.8467 16.2727 11.0909 16.0285 11.0909 15.7273V10.6364Z" fill="#42526E"></path>
-                                    </svg>
-                                </td>
-                                </tr>
-                            `;
-                            $('#inputcontent tbody').append(tr);
-                            deleteRow()
-                        })
-                    }
-                })
-            }
-        })
-    })
-
 
     function deleteRow() {
         $('.deleteRow').off('click').on('click', function() {
             $(this).closest('tr').remove();
         })
+    }
+
+    function updateProductSN() {
+        $('#list_modal .modal-body').each(function(index) {
+            var productSN = $(this).find('input[name^="seri"]');
+            // var div_value2 = $(this).find('div[class^="div_value"]');
+            var idSN = $(this).find('input[name^="seri"]');
+            productSN.attr('name', 'seri' + index + '[]');
+            idSN.attr('name', 'seri' + index + '[]');
+            // div_value2.attr('class', 'div_value' + index + '[]');
+            // div_value2.attr('class', 'div_value' + index);
+        });
+    }
+
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+        var productSN = {}
+        var formSubmit = false;
+        var listProductName = [];
+        var listQty = [];
+        var listSN = [];
+        var status = {{ $receive->status }}
+        if (status == 1) {
+            $('.searchProductName').each(function() {
+                listProductName.push($(this).val().trim());
+                listQty.push($(this).closest('tr').find('.quantity-input').val().trim());
+                var count = $($(this).closest('tr').find('button').attr('data-target')).find(
+                    'input[name^="seri"]').filter(
+                    function() {
+                        return $(this).val() !== '';
+                    }).length;
+                listSN.push(count);
+                var oldValue = $(this).val().trim();
+                productSN[oldValue] = {
+                    sn: []
+                };
+                SerialNumbers = $($(this).closest('tr').find('button').attr('data-target')).find(
+                    'input[name^="seri"]').map(function() {
+                    return $(this).val().trim();
+                }).get();
+                productSN[oldValue].sn.push(...SerialNumbers)
+            });
+            // Kiểm tra số lượng sn và số lượng sản phẩm
+            $.ajax({
+                url: "{{ route('checkSN') }}",
+                type: "get",
+                data: {
+                    listProductName: listProductName,
+                    listQty: listQty,
+                    listSN: listSN
+                },
+                success: function(data) {
+                    if (data['status'] == 'false') {
+                        alert('Vui lòng nhập đủ số lượng seri sản phẩm ' + data['productName'])
+                    } else {
+                        // Kiểm tra sản phẩm đã tồn tại seri chưa
+                        $.ajax({
+                            url: "{{ route('checkduplicateSN') }}",
+                            type: "get",
+                            data: {
+                                value: productSN,
+                            },
+                            success: function(data) {
+                                if (data['success'] == false) {
+                                    alert('Sản phảm' + data['msg'] + 'đã tồn tại seri' +
+                                        data['data'])
+                                } else {
+                                    updateProductSN()
+                                    $('form')[0].submit();
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        }else{
+            $('form')[0].submit();
+        }
+    })
+
+    // Tạo INPUT SERI
+    createRowInput('seri');
+
+    function createRowInput(name) {
+        var addRow = $('.addRow');
+        for (let i = 0; i <= addRow.length; i++) {
+            $(addRow[i]).off('click').on('click', function() {
+                var modal_body = $(this).closest('.modal-content').find('.modal-body');
+                var newtr = document.createElement('tr');
+                var newtd1 = document.createElement('td');
+                var newtd2 = document.createElement('td');
+                var newtd3 = document.createElement('td');
+                var newtd4 = document.createElement('td');
+                var newDiv = document.createElement("input");
+                var checkbox = document.createElement("input");
+                var stt = document.createElement("span");
+                var checkboxes = modal_body[0].querySelectorAll('input[type="checkbox"]');
+                var checkboxCount = checkboxes.length;
+                checkbox.setAttribute("type", "checkbox");
+                newtd1.append(checkbox);
+                newDiv.setAttribute("type", "text");
+                newDiv.setAttribute("class", "form-control w-25");
+                newDiv.setAttribute("name", name + i + "[]");
+                newtd3.append(newDiv);
+                newtd4.setAttribute('class', 'deleteRow1');
+                newtd4.innerHTML =
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.0606 6.66675C13.6589 6.66675 13.3333 6.99236 13.3333 7.39402C13.3333 7.79568 13.6589 8.12129 14.0606 8.12129H17.9394C18.341 8.12129 18.6667 7.79568 18.6667 7.39402C18.6667 6.99236 18.341 6.66675 17.9394 6.66675H14.0606ZM8 10.3031C8 9.90143 8.32561 9.57582 8.72727 9.57582H10.1818H21.8182H23.2727C23.6744 9.57582 24 9.90143 24 10.3031C24 10.7048 23.6744 11.0304 23.2727 11.0304H22.5455V22.6667C22.5455 24.2819 21.2158 25.5758 19.6179 25.5758H12.3452C11.9637 25.5755 11.5854 25.4997 11.2333 25.3528C10.8812 25.2059 10.5617 24.9908 10.2931 24.7199C10.0244 24.449 9.81206 24.1276 9.66816 23.7743C9.52463 23.4219 9.45204 23.0447 9.45455 22.6642V11.0304H8.72727C8.32561 11.0304 8 10.7048 8 10.3031ZM10.9091 22.6723V11.0304H21.0909V22.6667C21.0909 23.4623 20.4288 24.1213 19.6179 24.1213H12.3458C12.1562 24.1211 11.9684 24.0834 11.7934 24.0104C11.6183 23.9374 11.4595 23.8304 11.3259 23.6958C11.1924 23.5611 11.0868 23.4013 11.0153 23.2257C10.9437 23.05 10.9076 22.8619 10.9091 22.6723ZM17.9394 13.4546C18.3411 13.4546 18.6667 13.7802 18.6667 14.1819V20.9698C18.6667 21.3714 18.3411 21.6971 17.9394 21.6971C17.5377 21.6971 17.2121 21.3714 17.2121 20.9698V14.1819C17.2121 13.7802 17.5377 13.4546 17.9394 13.4546ZM14.7879 14.1819C14.7879 13.7802 14.4623 13.4546 14.0606 13.4546C13.6589 13.4546 13.3333 13.7802 13.3333 14.1819V20.9698C13.3333 21.3714 13.6589 21.6971 14.0606 21.6971C14.4623 21.6971 14.7879 21.3714 14.7879 20.9698V14.1819Z" fill="#555555"/></svg>';
+                newtd2.appendChild(stt);
+                newtr.append(newtd1);
+                newtr.append(newtd2);
+                newtr.append(newtd3);
+                newtr.append(newtd4);
+                modal_body[0].querySelector('#table_SNS tbody').appendChild(newtr);
+                stt.innerHTML = checkboxCount;
+                checkbox.setAttribute("id", "checkbox_" + checkboxCount);
+            })
+        }
     }
 </script>

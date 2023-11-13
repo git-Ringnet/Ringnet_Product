@@ -89,8 +89,8 @@
                                         <th scope="col">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="id"
-                                                    data-sort-type="#"><button class="btn-sort" type="submit">Số báo
-                                                        giá#
+                                                    data-sort-type="#"><button class="btn-sort" type="submit">Đơn mua
+                                                        hàng#
                                                     </button></a>
                                                 <div class="icon" id="icon-id"></div>
                                             </span>
@@ -160,10 +160,16 @@
                                             <td>{{ $item->getNameProvide->provide_name_display }}</td>
                                             <td>{{ $item->shipping_unit }}</td>
                                             <td>{{ number_format($item->delivery_charges) }}</td>
-                                            <td>{{ $item->status == 1 ? 'Chưa giao' : 'Đã giao' }}</td>
+                                            <td>
+                                                @if ($item->status == 1)
+                                                    <span style="color: #858585">Chưa giao</span>
+                                                @else
+                                                    <span style="color: #08AA36">Đã giao</span>
+                                                @endif
+                                            </td>
                                             <td>{{ date_format(new DateTime($item->created_at), 'd/m/Y') }}</td>
                                             <td>
-                                                <a href="{{route('receive.edit',$item->id)}}">
+                                                <a href="{{ route('receive.edit', $item->id) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32"
                                                         height="32" viewBox="0 0 32 32" fill="none">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
