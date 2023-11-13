@@ -45,9 +45,9 @@ class DetailExportController extends Controller
     {
         $title = "Tạo báo giá";
         $guest = $this->guest->getAllGuest();
-        $product_code = $this->product_code->getAllProductCode();
+        // $product_code = $this->product_code->getAllProductCode();
         $product = $this->product->getAllProducts();
-        return view('tables.export.quote.create-quote', compact('title', 'guest','product_code','product'));
+        return view('tables.export.quote.create-quote', compact('title', 'guest','product'));
     }
 
     /**
@@ -57,7 +57,7 @@ class DetailExportController extends Controller
     {
         $export_id = $this->detailExport->addExport($request->all());
         $this->quoteExport->addQuoteExport($request->all(), $export_id);
-        return redirect()->route('detailExport.index');
+        return redirect()->route('detailExport.index')->with('msg', ' Tạo mới đơn báo giá thành công !');
     }
 
     /**
@@ -131,5 +131,12 @@ class DetailExportController extends Controller
         $data = $request->all();
         $product = Products::where('id', $data['idProduct'])->first();
         return $product;
+    }
+    //Lấy mã sản phẩm
+    public function getProductCode(Request $request)
+    {
+        $data = $request->all();
+        $productCode = ProductCode::where('id', $data['idCode'])->first();
+        return $productCode;
     }
 }

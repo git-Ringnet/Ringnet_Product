@@ -264,19 +264,19 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('delivery.index') }}" class="nav-link {!! $isActiveRouteGroup('delivery.index,delivery.create') !!}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Giao hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('billSale.index') }}" class="nav-link {!! $isActiveRouteGroup('billSale.index,billSale.create') !!}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Hóa đơn bán hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('payExport.index') }}" class="nav-link {!! $isActiveRouteGroup('payExport.index,payExport.create') !!}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Thanh toán</p>
                                 </a>

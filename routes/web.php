@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\BillSaleController;
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\DetailExportController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\DetailImportController;
+use App\Http\Controllers\PayExportController;
 use App\Http\Controllers\PayOrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvidesController;
@@ -70,6 +73,25 @@ Route::get('/searchExport', [DetailExportController::class, 'searchGuest'])->nam
 Route::get('/addGuest', [DetailExportController::class, 'addGuest'])->name('addGuest');
 //Lấy thông tin sản phẩm
 Route::get('/getProduct', [DetailExportController::class, 'getProduct'])->name('getProduct');
+//Lấy mã sản phẩm
+Route::get('/getProductCode', [DetailExportController::class, 'getProductCode'])->name('getProductCode');
+
+//Giao hàng
+Route::resource('delivery', DeliveryController::class);
+//Lấy thông tin từ số báo giá
+Route::get('/getInfoQuote', [DeliveryController::class, 'getInfoQuote'])->name('getInfoQuote');
+Route::get('/getProductQuote', [DeliveryController::class, 'getProductQuote'])->name('getProductQuote');
+Route::get('/getProductFromQuote', [DeliveryController::class, 'getProductFromQuote'])->name('getProductFromQuote');
+//Hóa đơn bán hàng
+Route::resource('billSale', BillSaleController::class);
+//lấy thông tin từ số báo giá trong hóa đơn
+Route::get('/getInfoDelivery', [BillSaleController::class, 'getInfoDelivery'])->name('getInfoDelivery');
+Route::get('/getProductDelivery', [BillSaleController::class, 'getProductDelivery'])->name('getProductDelivery');
+
+//thanh toán bán hàng
+Route::resource('payExport', PayExportController::class);
+Route::get('/getInfoPay', [PayExportController::class, 'getInfoPay'])->name('getInfoPay');
+Route::get('/getProductPay', [PayExportController::class, 'getProductPay'])->name('getProductPay');
 
 Route::middleware([
     'auth:sanctum',

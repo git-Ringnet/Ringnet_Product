@@ -20,22 +20,31 @@ class DetailExport extends Model
         'price_effect',
         'status',
         'total_price',
-        'terms_pay'
+        'terms_pay',
+        'total_tax',
+        'discount',
+        'transfer_fee'
     ];
     protected $table = 'detailexport';
 
     public function getAllDetailExport()
     {
-        $detailExport = DetailExport::all();
+        $detailExport = DetailExport::leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->orderBy('detailexport.id', 'desc')->get();
         return $detailExport;
     }
     public function addExport($data)
     {
         $totalBeforeTax = 0;
+        $totalTax = 0;
+        $transport = str_replace(',', '', $data['transport_fee']);
+        $discount = str_replace(',', '', $data['discount']);
         for ($i = 0; $i < count($data['product_code']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
             $subtotal = $data['product_qty'][$i] * (float) $price;
+            $subTax = ($subtotal * $data['product_tax'][$i]) / 100;
             $totalBeforeTax += $subtotal;
+            $totalTax += $subTax;
         }
         $dataExport = [
             'guest_id' => $data['guest_id'],
@@ -48,11 +57,13 @@ class DetailExport extends Model
             'status' => 1,
             'created_at' => $data['date_quote'],
             'total_price' => $totalBeforeTax,
-            'terms_pay' => $data['terms_pay']
+            'terms_pay' => $data['terms_pay'],
+            'total_tax' => $totalTax,
+            'discount' => $discount,
+            'transfer_fee' => $transport,
         ];
         $detailexport = new DetailExport($dataExport);
         $detailexport->save();
-
         return $detailexport->id;
     }
 }

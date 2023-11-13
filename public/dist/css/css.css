@@ -194,7 +194,7 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
 }
 
 .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link:hover,
-.nav-treeview>.nav-item>.nav-link:hover{
+.nav-treeview>.nav-item>.nav-link:hover {
     background-color: #ebefff !important;
     border-radius: 0 !important;
     color: #0095f6 !important;
@@ -1540,10 +1540,11 @@ input[type="checkbox"] {
     color: var(--primary-blue-6-primary, #0052CC);
 }
 
-.nav-title>.active a{
+.nav-title>.active a {
     color: var(--primary-blue-6-primary, #0052CC);
 }
-.nav-title>.active::before{
+
+.nav-title>.active::before {
     width: 100%;
 }
 
@@ -1576,9 +1577,10 @@ input[type="checkbox"] {
     border-bottom-width: 0 !important;
 }
 
-.content-wrapper .content .list_product li:hover{
+.content-wrapper .content .list_product li:hover {
     background-color: #ECECEC;
 }
-.content-wrapper .content .list_code li:hover{
+
+.content-wrapper .content .list_code li:hover {
     background-color: #ECECEC;
 }
