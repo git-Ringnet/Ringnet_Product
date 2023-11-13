@@ -35,7 +35,6 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
@@ -58,13 +57,6 @@
                             <path d="M16 29H32" stroke="#212529" stroke-width="1.5" stroke-linecap="round"
                                 stroke-linejoin="round" />
                         </svg>
-                    </a>
-                </li>
-                <li class="nav-item d-sm-inline-block">
-                    <a href="#" class="title">
-                        @if (!empty($title))
-                            {{ $title }}
-                        @endif
                     </a>
                 </li>
             </ul>
