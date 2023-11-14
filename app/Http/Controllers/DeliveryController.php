@@ -35,7 +35,7 @@ class DeliveryController extends Controller
     public function create()
     {
         $title = "Tạo đơn giao hàng";
-        $numberQuote = DetailExport::where('status', 1)->get();
+        $numberQuote = DetailExport::all();
         $product = $this->product->getAllProducts();
         return view('tables.export.delivery.create-delivery', compact('title', 'numberQuote', 'product'));
     }

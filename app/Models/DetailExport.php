@@ -39,6 +39,7 @@ class DetailExport extends Model
         $totalTax = 0;
         $transport = str_replace(',', '', $data['transport_fee']);
         $discount = str_replace(',', '', $data['discount']);
+        $submitValue = $data['submit'];
         for ($i = 0; $i < count($data['product_code']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
             $subtotal = $data['product_qty'][$i] * (float) $price;
@@ -64,6 +65,30 @@ class DetailExport extends Model
         ];
         $detailexport = new DetailExport($dataExport);
         $detailexport->save();
+        // if ($submitValue == '2') {
+        //     $dataDelivery = [
+        //         'guest_id' => $data['guest_id'],
+        //         'quotation_number' => $data['quotation_number'],
+        //         'detailexport_id' => $detailexport->id,
+        //         'status' => 1,
+        //         'created_at' => $data['date_quote'],
+        //     ];
+        //     $UpdatedetailExport = DetailExport::where('id', $detailexport->id)->first();
+        //     if ($UpdatedetailExport) {
+        //         $UpdatedetailExport->update([
+        //             'status' => 2,
+        //         ]);
+        //     }
+        //     $delivery = new Delivery($dataDelivery);
+        //     $delivery->save();
+        // }
         return $detailexport->id;
+    }
+    public function getDetailExportToId($id)
+    {
+        $detailExport = DetailExport::where('detailexport.id', $id)
+            ->leftJoin('guest', 'detailexport.guest_id', 'guest.id')
+            ->first();
+        return $detailExport;
     }
 }

@@ -47,7 +47,7 @@ class DetailExportController extends Controller
         $guest = $this->guest->getAllGuest();
         // $product_code = $this->product_code->getAllProductCode();
         $product = $this->product->getAllProducts();
-        return view('tables.export.quote.create-quote', compact('title', 'guest','product'));
+        return view('tables.export.quote.create-quote', compact('title', 'guest', 'product'));
     }
 
     /**
@@ -73,7 +73,11 @@ class DetailExportController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $title = 'Chỉnh sửa đơn báo giá';
+        $guest = $this->guest->getAllGuest();
+        $product = $this->product->getAllProducts();
+        $detailExport = $this->detailExport->getDetailExportToId($id);
+        return view('tables.export.quote.edit-quote', compact('title', 'guest', 'product', 'detailExport'));
     }
 
     /**
