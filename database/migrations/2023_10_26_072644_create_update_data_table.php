@@ -34,6 +34,7 @@ return new class extends Migration
 
         Schema::table('quoteimport',function (Blueprint $table) {
             $table->integer('receive_id')->nullable();
+            $table->integer('warehouse_id');
         });
         // Schema::table('quoteimport',function (Blueprint $table) {
         //     $table->integer('receive_id')->nullable();

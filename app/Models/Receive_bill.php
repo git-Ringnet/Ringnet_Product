@@ -27,6 +27,7 @@ class Receive_bill extends Model
 
     public function addReceiveBill($data, $id)
     {
+
         $check_status = true;
         $detail =  DetailImport::findOrFail($id);
         if ($detail) {
@@ -38,16 +39,13 @@ class Receive_bill extends Model
                 'created_at' => Carbon::now(),
             ];
             $receive_id = DB::table($this->table)->insertGetId($dataReceive);
-            for ($i = 0; $i < count($data['listProduct']); $i++) {
-
+            for ($i = 0; $i < count($data['product_name']); $i++) {
                 $dataupdate = [
                     'receive_id' => $receive_id,
                 ];
-                $checkQuote = QuoteImport::where('product_name', $data['product_name'][$i])->first();
-                if ($checkQuote->receive_id != 0) {
-                    continue;
-                } elseif ($checkQuote) {
-                    DB::table('quoteimport')->where('id', $checkQuote->id)->update($dataupdate);
+                $checkQuote = ProductImport::where('product_name', $data['product_name'][$i])->first();
+                if ($checkQuote) {
+                    DB::table('products_import')->where('id', $checkQuote->id)->update($dataupdate);
                 }
             }
 
@@ -88,10 +86,124 @@ class Receive_bill extends Model
     }
     public function updateReceive($data, $id)
     {
-        $re = Receive_bill::findOrFail($id);
-        $dataUpdate = [
-            'status' => 2,
-        ];
-        DB::table($this->table)->where('id', $id)->update($dataUpdate);
+        $result = true;
+        $checkStatus = Reciept::where('receive_id', $id)->first();
+        if ($checkStatus) {
+            $result = false;
+        } else {
+            // $re = Receive_bill::findOrFail($id);
+            $dataUpdate = [
+                'status' => 2,
+            ];
+            // DB::table($this->table)->where('id', $id)->update($dataUpdate);
+        }
+        return $result;
     }
+
+
+    // public function getQty($id)
+    // {
+    //     $data = [];
+    //     $productID = [];
+    //     $productCode = [];
+    //     $productName = [];
+    //     $productUnit = [];
+    //     $product_qty = [];
+    //     $product_tax = [];
+    //     $product_total = [];
+    //     $priceExport = [];
+    //     $product_ratio = [];
+    //     $price_import = [];
+    //     $product_note = [];
+    //     $qtyImport = ProductImport::where('detailimport_id', $id)->get();
+
+    //     $getQty = QuoteImport::where('detailimport_id', $id)->get();
+    //     if (count($qtyImport) == 0) {
+    //         foreach ($getQty as $index => $item) {
+    //             if ($item->product_ratio > 0 && $item->price_import > 0) {
+    //                 $price_export = (($item->product_ratio + 100) * $item->price_import / 100);
+    //                 $total =  $price_export * $item->product_qty;
+    //             } else {
+    //                 $price_export = $item->price_export;
+    //                 $total =  $price_export * $item->product_qty;
+    //             }
+    //             array_push($productID, $item->id);
+    //             array_push($productCode, $item->product_code);
+    //             array_push($productName, $item->product_name);
+    //             array_push($productUnit, $item->product_unit);
+    //             array_push($product_qty, $item->product_qty);
+    //             array_push($product_tax, $item->product_tax);
+    //             array_push($product_total, $total);
+    //             array_push($priceExport, $price_export);
+    //             array_push($product_ratio, $item->product_ratio);
+    //             array_push($price_import, $item->price_import);
+    //             array_push($product_note, $item->product_note);
+    //         }
+    //     } elseif (count($qtyImport) == count($getQty)) {
+    //         foreach ($getQty as $index => $item) {
+    //             if ($item->id == $qtyImport[$index]->quoteImport_id) {
+    //                 $qty = $item->product_qty - $qtyImport[$index]->product_qty;
+    //             }
+    //             if ($item->product_ratio > 0 && $item->price_import > 0) {
+    //                 $price_export = ($item->product_ratio + 100) * $item->price_import / 100;
+    //                 $total = isset($qty) ? $qty : $item->product_qty * $price_export;
+    //             } else {
+    //                 $price_export = $item->price_export * $qty;
+    //             }
+    //             array_push($productID, $item->id);
+    //             array_push($productCode, $item->product_code);
+    //             array_push($productName, $item->product_name);
+    //             array_push($productUnit, $item->product_unit);
+    //             array_push($product_qty, isset($qty) ? $qty : $item->product_qty);
+    //             array_push($product_tax, $item->product_tax);
+    //             array_push($product_total, $total);
+    //             array_push($priceExport, $price_export);
+    //             array_push($product_ratio, $item->product_ratio);
+    //             array_push($price_import, $item->price_import);
+    //             array_push($product_note, $item->product_note);
+    //         }
+    //     } else {
+    //         foreach ($getQty as $item) {
+    //             foreach ($qtyImport as $value) {
+    //                 if ($item->id != $value->quoteImport_id) {
+    //                     $qty = $item->product_qty;
+    //                 } else {
+    //                     $qty = $item->product_qty - $value->product_qty;
+    //                 }
+    //             }
+    //             if ($item->product_ratio > 0 && $item->price_import > 0) {
+    //                 $price_export = ($item->product_ratio + 100) * $item->price_import / 100;
+    //                 $total = isset($qty) ? $qty : $item->product_qty * $price_export;
+    //             } else {
+    //                 $price_export = $item->price_export * $qty;
+    //             }
+    //             array_push($productID, $item->id);
+    //             array_push($productCode, $item->product_code);
+    //             array_push($productName, $item->product_name);
+    //             array_push($productUnit, $item->product_unit);
+    //             array_push($product_qty, isset($qty) ? $qty : $item->product_qty);
+    //             array_push($product_tax, $item->product_tax);
+    //             array_push($product_total, $total);
+    //             array_push($priceExport, $price_export);
+    //             array_push($product_ratio, $item->product_ratio);
+    //             array_push($price_import, $item->price_import);
+    //             array_push($product_note, $item->product_note);
+    //         }
+    //     }
+
+    //     $data = [
+    //         'productID' => $productID,
+    //         'productCode' => $productCode,
+    //         'productName' => $productName,
+    //         'productUnit' => $productUnit,
+    //         'product_qty' => $product_qty,
+    //         'product_tax' => $product_tax,
+    //         'product_total' => $product_total,
+    //         'price_export' => $priceExport,
+    //         'product_ratio' => $product_ratio,
+    //         'price_import' => $price_import,
+    //         'product_note' => $product_note
+    //     ];
+    //     return $data;
+    // }
 }

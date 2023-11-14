@@ -126,7 +126,7 @@
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Hiệu lực báo giá</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="price_effect"
+                                    <input required type="text" placeholder="Nhập thông tin" name="price_effect"
                                         class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -140,7 +140,7 @@
                                     <div class="title-info py-2 border-top-0 border border-left-0">
                                         <p class="p-0 m-0 px-3">Dự án</p>
                                     </div>
-                                    <input required id="inputProject" type="text" placeholder="Nhập thông tin"
+                                    <input id="inputProject" type="text" placeholder="Nhập thông tin"
                                         class="border border-top-0 w-100 py-2 border-right-0 border-left-0 px-3">
                                     <ul id="listProject"
                                         class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
@@ -277,6 +277,7 @@
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
+<script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
     $('.search-info').click(function() {
         var provides_id = $(this).attr('id');
@@ -393,23 +394,16 @@
                         listProductName.append(UL);
                     })
                     $('.search-name').on('click', function() {
-                        inputName.val($(this).closest('li')
-                            .find('span')
-                            .text());
-                        inputUnit.val($(this).attr(
-                            'data-unit'));
-                        inputPriceExprot.val(formatCurrency(
-                            $(this).attr(
-                                'data-priceExport')
-                        ))
-                        inputRatio.val($(this).attr(
-                            'data-ratio'))
-                        inputPriceImport.val(formatCurrency(
-                            $(this).attr(
-                                'data-priceImport')
-                        ))
-                        selectTax.val($(this).attr(
-                            'data-tax'))
+                        inputName.val($(this).closest('li').find('span').text());
+                        inputUnit.val($(this).attr('data-unit') == "null" ? "" : $(this)
+                            .attr('data-unit'));
+                        inputPriceExprot.val($(this).attr('data-priceExport') == "null" ?
+                            "" : formatCurrency($(this).attr('data-priceExport')))
+                        inputRatio.val($(this).attr('data-ratio') == "null" ? "" : $(this)
+                            .attr('data-ratio'))
+                        inputPriceImport.val($(this).attr('data-priceImport') == "null" ?
+                            "" : formatCurrency($(this).attr('data-priceImport')))
+                        selectTax.val($(this).attr('data-tax'))
                         listProductName.hide();
                         checkDuplicateRows()
                     })

@@ -151,30 +151,8 @@
     </form>
 </div>
 
-
+<script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
-    function formatCurrency(value) {
-        value = Math.round(value * 100) / 100;
-
-        var parts = value.toString().split(".");
-        var integerPart = parts[0];
-        var formattedValue = "";
-
-        var count = 0;
-        for (var i = integerPart.length - 1; i >= 0; i--) {
-            formattedValue = integerPart.charAt(i) + formattedValue;
-            count++;
-            if (count % 3 === 0 && i !== 0) {
-                formattedValue = "," + formattedValue;
-            }
-        }
-
-        if (parts.length > 1) {
-            formattedValue += "." + parts[1];
-        }
-
-        return formattedValue;
-    }
     $('#listReceive').hide();
     $('.search_quotation').on('click', function() {
         $('#listReceive').show();
@@ -286,10 +264,4 @@
         })
     })
 
-
-    function deleteRow() {
-        $('.deleteRow').off('click').on('click', function() {
-            $(this).closest('tr').remove();
-        })
-    }
 </script>

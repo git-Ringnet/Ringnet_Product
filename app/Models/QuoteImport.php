@@ -37,24 +37,25 @@ class QuoteImport extends Model
             isset($data['price_import']) ? $price_import = str_replace(',', '', $data['price_import'][$i]) : $price_import = 0;
             if ($product_ratio > 0 && $price_import > 0) {
                 $price_export = (($product_ratio + 100) * $price_import) / 100;
-                $total_price = $price_export * $data['product_qty'][$i];
+                $total_price = $price_export * str_replace(',','',$data['product_qty'][$i]);
             } else {
                 $price_export = str_replace(',', '', $data['price_export'][$i]);
-                $total_price = $data['product_qty'][$i] * $price_export;
+                $total_price = str_replace(',','',$data['product_qty'][$i]) * $price_export;
             }
             $dataQuote = [
                 'detailimport_id' => $id,
                 'product_code' => $data['product_code'][$i],
                 'product_name' => $data['product_name'][$i],
                 'product_unit' => $data['product_unit'][$i],
-                'product_qty' => $data['product_qty'][$i],
+                'product_qty' => str_replace(',','',$data['product_qty'][$i]),
                 'product_tax' => $data['product_tax'][$i],
                 'product_total' => $total_price,
                 'price_export' => $price_export,
                 'product_ratio' => $product_ratio,
                 'price_import' => $price_import,
                 'product_note' => $data['product_note'][$i],
-                'receive_id' => 0
+                'receive_id' => 0,
+                'warehouse_id' => 1,
             ];
             DB::table($this->table)->insert($dataQuote);
         }
@@ -96,7 +97,6 @@ class QuoteImport extends Model
                     'product_ratio' => $product_ratio,
                     'price_import' => $price_import,
                     'product_note' => $data['product_note'][$i],
-                    // 'receive_id' => $id_receive == "" ? 0 : $id_receive
                 ];
                 DB::table($this->table)->where('id', $dataUpdate->id)->update($dataQuoteUpdate);
             } else {
@@ -112,7 +112,8 @@ class QuoteImport extends Model
                     'product_ratio' => $product_ratio,
                     'price_import' => $price_import,
                     'product_note' => $data['product_note'][$i],
-                    'receive_id' => 0
+                    'receive_id' => 0,
+                    'warehouse_id' => 1
                 ];
                 DB::table($this->table)->insert($dataQuote);
             }

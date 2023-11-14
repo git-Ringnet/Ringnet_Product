@@ -75,8 +75,8 @@
                             <span>Tạo đơn nhận hàng</span>
                         </button>
                     </a>
-                    {{-- @method('DELETE') --}}
-                    {{-- <a href="{{route('import.destroy',$import->id)}}">
+                    {{-- @method('DELETE')
+                    <a href="{{route('import.destroy',$import->id)}}">
                         <button name="action" value="action_3" type="submit"
                             class="d-flex align-items-center h-100 btn-danger" style="margin-right:10px">
                             <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
@@ -410,6 +410,7 @@
     </form>
 </div>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
+<script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
     $('#addRowTable').off('click').on('click', function() {
         addRowTable(2);
@@ -518,7 +519,6 @@
                     inputRatio.val('')
                     inputPriceImport.val('')
                     selectTax.val('0')
-
                     var createLi =
                         '<a class="bg-dark d-flex justify-content-between p-2 position-sticky">' +
                         '<span class="w-100 text-white">Thêm mới</span>' +
@@ -574,17 +574,23 @@
                                         .find('span')
                                         .text());
                                     inputUnit.val($(this).attr(
-                                        'data-unit'));
-                                    inputPriceExprot.val(formatCurrency(
-                                        $(this).attr(
-                                            'data-priceExport')
-                                    ))
+                                            'data-unit') == null ?
+                                        "" : $(this).attr(
+                                            'data-unit'));
+                                    inputPriceExprot.val($(this).attr(
+                                            'data-priceExport') ==
+                                        "null" ? "" :
+                                        formatCurrency($(this).attr(
+                                            'data-priceExport')))
                                     inputRatio.val($(this).attr(
-                                        'data-ratio'))
-                                    inputPriceImport.val(formatCurrency(
-                                        $(this).attr(
-                                            'data-priceImport')
-                                    ))
+                                            'data-ratio') ==
+                                        "null" ? "" : $(this).attr(
+                                            'data-ratio'))
+                                    inputPriceImport.val($(this).attr(
+                                            'data-priceImport') ==
+                                        "null" ? "" :
+                                        formatCurrency($(this).attr(
+                                            'data-priceImport')))
                                     selectTax.val($(this).attr(
                                         'data-tax'))
                                     listProductName.hide();
@@ -612,73 +618,6 @@
             }
         })
     })
-
-
-    // $('form').on('submit', function(e) {
-    //     e.preventDefault();
-    //     var productSN = {}
-    //     var formSubmit = false;
-    //     var listProductName = [];
-    //     var listQty = [];
-    //     var listSN = [];
-    //     $('.searchProductName').each(function() {
-    //         listProductName.push($(this).val());
-    //         listQty.push($(this).closest('tr').find('.quantity-input').val());
-    //         var count = $($(this).closest('tr').find('button').attr('data-target')).find(
-    //             'input[name^="seri"]').filter(
-    //             function() {
-    //                 return $(this).val() !== '';
-    //             }).length;
-    //         listSN.push(count);
-    //         var oldValue = $(this).val();
-    //         productSN[oldValue] = {
-    //             sn: []
-    //         };
-    //         SerialNumbers = $($(this).closest('tr').find('button').attr('data-target')).find(
-    //             'input[name^="seri"]').map(function() {
-    //             return $(this).val().trim();
-    //         }).get();
-    //         productSN[oldValue].sn.push(...SerialNumbers)
-    //     });
-
-    //     if ($('#getAction').val() == "action_1") {
-    //         this.submit();
-    //     } else {
-    //         // Kiểm tra số lượng sn và số lượng sản phẩm
-    //         $.ajax({
-    //             url: "{{ route('checkSN') }}",
-    //             type: "get",
-    //             data: {
-    //                 listProductName: listProductName,
-    //                 listQty: listQty,
-    //                 listSN: listSN
-    //             },
-    //             success: function(data) {
-    //                 if (data['status'] == 'false') {
-    //                     alert('Vui lòng nhập đủ số lượng seri sản phẩm ' + data['productName'])
-    //                 } else {
-    //                     // Kiểm tra sản phẩm đã tồn tại seri chưa
-    //                     $.ajax({
-    //                         url: "{{ route('checkduplicateSN') }}",
-    //                         type: "get",
-    //                         data: {
-    //                             value: productSN,
-    //                         },
-    //                         success: function(data) {
-    //                             if (data['success'] == false) {
-    //                                 alert('Sản phảm' + data['msg'] + 'đã tồn tại seri' +
-    //                                     data['data'])
-    //                             } else {
-    //                                 updateProductSN()
-    //                                 $('form')[0].submit();
-    //                             }
-    //                         }
-    //                     })
-    //                 }
-    //             }
-    //         })
-    //     }
-    // })
 </script>
 </body>
 

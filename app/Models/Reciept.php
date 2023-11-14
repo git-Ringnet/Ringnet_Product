@@ -27,9 +27,9 @@ class Reciept extends Model
         return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
     }
     public function addReciept($data, $id)
-    {
-
-        $check_status = true;
+    {  
+        dd($id);
+        // $check_status = true;
         $total = 0;
         $product_id = 0;
         if ($id == "") {

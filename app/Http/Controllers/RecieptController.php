@@ -31,7 +31,7 @@ class RecieptController extends Controller
     public function create()
     {
         $title = "Tạo mới hóa đơn mua hàng";
-        $reciept = Receive_bill::where('status', '=', 1)->get();
+        $reciept = Receive_bill::where('status', '=', 2)->get();
         return view('tables.reciept.insertReciept', compact('title', 'reciept'));
     }
 

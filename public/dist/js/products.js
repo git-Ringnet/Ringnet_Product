@@ -106,36 +106,7 @@ function formatCurrency(value) {
     return formattedValue;
 }
 
-// Format giá tiền
-$('body').on('input', '.price_export , .price_import ,.payment_input', function (event) {
-    // Lấy giá trị đã nhập
-    var value = event.target.value;
 
-    // Xóa các ký tự không phải số và dấu phân thập phân từ giá trị
-    var formattedValue = value.replace(/[^0-9.]/g, '');
-
-    // Định dạng số với dấu phân cách hàng nghìn và giữ nguyên số thập phân
-    var formattedNumber = numberWithCommas(formattedValue);
-
-    event.target.value = formattedNumber;
-});
-
-
-function numberWithCommas(number) {
-    // Chia số thành phần nguyên và phần thập phân
-    var parts = number.split('.');
-    var integerPart = parts[0];
-    var decimalPart = parts[1];
-
-    // Định dạng phần nguyên số với dấu phân cách hàng nghìn
-    var formattedIntegerPart = integerPart.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-    // Kết hợp phần nguyên và phần thập phân (nếu có)
-    var formattedNumber = decimalPart !== undefined ? formattedIntegerPart + '.' + decimalPart :
-        formattedIntegerPart;
-
-    return formattedNumber;
-}
 
 $(document).on('change', '.list_products', function (e) {
     if (checkAllValuesEntered()) {
@@ -206,27 +177,16 @@ $(document).click(function (event) {
 });
 
 
-
 // Tìm kiếm thông tin nhà cung cấp
-$(document).ready(function () {
-    $("#myInput").on("keyup", function () {
-        var value = $(this).val().toUpperCase();
-        $("#myUL li").each(function () {
-            var text = $(this).find("a").text().toUpperCase();
-            $(this).toggle(text.indexOf(value) > -1);
-        });
-    });
-});
-// search mã sản phẩm
-function searchProductCode() {
-    $(".searchProduct").on("keyup", function () {
-        var value = $(this).val().toUpperCase();
-        $(".listProductCode li").each(function () {
-            var text = $(this).find("a").text().toUpperCase();
-            $(this).toggle(text.indexOf(value) > -1);
-        });
-    });
-}
+// $(document).ready(function () {
+//     $("#myInput").on("keyup", function () {
+//         var value = $(this).val().toUpperCase();
+//         $("#myUL li").each(function () {
+//             var text = $(this).find("a").text().toUpperCase();
+//             $(this).toggle(text.indexOf(value) > -1);
+//         });
+//     });
+// });
 // search tên sản phẩm
 function searchProductName() {
     $(".searchProductName").on("keyup", function () {
@@ -542,7 +502,6 @@ function addRowTable(status) {
     getProduct('searchProductName')
     showListProductCode()
     showListProductName()
-    searchProductCode()
     searchProductName()
     deleteRow()
     checkInput()
@@ -607,7 +566,6 @@ function deleteRow() {
     })
 }
 
-searchProductCode()
 searchProductName()
 deleteRow()
 showListProductCode()
@@ -657,7 +615,6 @@ function emptyData(position, name, unit, price_export, tax, total_price, ratio, 
 
 
 
-
 // EDIT
 updateTaxAmount()
 calculateTotalAmount()
@@ -681,17 +638,15 @@ function updateTaxAmount() {
 }
 
 
-function updateProductSN() {
-    $('#list_modal .modal-body').each(function (index) {
-        var productSN = $(this).find('input[name^="seri"]');
-        // var div_value2 = $(this).find('div[class^="div_value"]');
-        var idSN = $(this).find('input[name^="seri"]');
-        productSN.attr('name', 'seri' + index + '[]');
-        idSN.attr('name', 'seri' + index + '[]');
-        // div_value2.attr('class', 'div_value' + index + '[]');
-        // div_value2.attr('class', 'div_value' + index);
-    });
-}
+// function updateProductSN() {
+//     $('#list_modal .modal-body').each(function (index) {
+//         var productSN = $(this).find('input[name^="seri"]');
+//         // var div_value2 = $(this).find('div[class^="div_value"]');
+//         var idSN = $(this).find('input[name^="seri"]');
+//         productSN.attr('name', 'seri' + index + '[]');
+//         idSN.attr('name', 'seri' + index + '[]');
+//     });
+// }
 
 
 

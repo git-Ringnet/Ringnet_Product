@@ -92,8 +92,8 @@
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Tổng tiền</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name=""
-                                        id="total" readonly
+                                    <input type="text" placeholder="Nhập thông tin" name="" id="total"
+                                        readonly
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -146,30 +146,8 @@
     </form>
 </div>
 
-
+<script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
-    function formatCurrency(value) {
-        value = Math.round(value * 100) / 100;
-
-        var parts = value.toString().split(".");
-        var integerPart = parts[0];
-        var formattedValue = "";
-
-        var count = 0;
-        for (var i = integerPart.length - 1; i >= 0; i--) {
-            formattedValue = integerPart.charAt(i) + formattedValue;
-            count++;
-            if (count % 3 === 0 && i !== 0) {
-                formattedValue = "," + formattedValue;
-            }
-        }
-
-        if (parts.length > 1) {
-            formattedValue += "." + parts[1];
-        }
-
-        return formattedValue;
-    }
     $('#listReceive').hide();
     $('.search_quotation').on('click', function() {
         $('#listReceive').show();
@@ -291,44 +269,4 @@
             }
         })
     })
-
-
-    function deleteRow() {
-        $('.deleteRow').off('click').on('click', function() {
-            $(this).closest('tr').remove();
-        })
-    }
-
-    // Format giá tiền
-$('body').on('input', '.payment_input', function (event) {
-    // Lấy giá trị đã nhập
-    var value = event.target.value;
-
-    // Xóa các ký tự không phải số và dấu phân thập phân từ giá trị
-    var formattedValue = value.replace(/[^0-9.]/g, '');
-
-    // Định dạng số với dấu phân cách hàng nghìn và giữ nguyên số thập phân
-    var formattedNumber = numberWithCommas(formattedValue);
-
-    event.target.value = formattedNumber;
-});
-
-
-function numberWithCommas(number) {
-    // Chia số thành phần nguyên và phần thập phân
-    var parts = number.split('.');
-    var integerPart = parts[0];
-    var decimalPart = parts[1];
-
-    // Định dạng phần nguyên số với dấu phân cách hàng nghìn
-    var formattedIntegerPart = integerPart.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-    // Kết hợp phần nguyên và phần thập phân (nếu có)
-    var formattedNumber = decimalPart !== undefined ? formattedIntegerPart + '.' + decimalPart :
-        formattedIntegerPart;
-
-    return formattedNumber;
-}
-
-
 </script>

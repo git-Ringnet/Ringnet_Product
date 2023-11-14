@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('detailimport', function (Blueprint $table) {
-            $table->foreign('warehouse_id')->references('id')->on('warehouse');
-        });
+        // Schema::table('detailimport', function (Blueprint $table) {
+        //     $table->foreign('warehouse_id')->references('id')->on('warehouse');
+        // });
 
 
         Schema::table('detailimport', function (Blueprint $table) {
@@ -32,6 +32,7 @@ return new class extends Migration
 
         Schema::table('quoteimport', function (Blueprint $table) {
             $table->foreign('detailimport_id')->references('id')->on('detailimport');
+            // $table->foreign('warehouse_id')->references('id')->on('detailimport');
         });
         // Schema::table('quoteimport', function (Blueprint $table) {
         //     $table->foreign('product_id')->references('id')->on('products');

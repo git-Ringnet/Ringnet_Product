@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DetailImport;
 use App\Models\ProductCode;
+use App\Models\ProductImport;
 use App\Models\Products;
 use App\Models\Project;
 use App\Models\Provides;
@@ -21,6 +22,7 @@ class DetailImportController extends Controller
     private $quoteImport;
     private $receiver_bill;
     private $product;
+    private $productImport;
     public function __construct()
     {
         $this->import = new DetailImport();
@@ -29,6 +31,7 @@ class DetailImportController extends Controller
         $this->receiver_bill = new Receive_bill();
         $this->product = new Products();
         $this->sn = new Serialnumber();
+        $this->productImport = new ProductImport();
     }
     /**
      * Display a listing of the resource.
@@ -95,18 +98,25 @@ class DetailImportController extends Controller
             $this->quoteImport->updateImport($request->all(), $id, '');
             return redirect()->route('import.index')->with('msg', 'Chỉnh sửa đơn mua hàng thành công !');
         } else if ($request->action == 'action_2') {
+            // Cập nhật tình trạng
+            // $this->import->updateImport($request->all(), $id, 2);
+
             // cập nhật sản phẩm
-            $this->quoteImport->updateImport($request->all(), $id);
+            // $this->quoteImport->updateImport($request->all(), $id);
+
+            // Tạo sản phẩm theo từng đơn
+            $this->productImport->addProductImport($request->all(), $id,'receive_id');
 
             // Cập nhập sản phẩm theo receive
             $receive_id = $this->receiver_bill->addReceiveBill($request->all(), $id);
 
-            // Cập nhật tình trạng
-            $this->import->updateImport($request->all(), $id, 2);
+
 
             // Thêm sản phẩm và seri number vào kho hàng
             // $this->product->addProductTowarehouse($request->all(), $id);
             return redirect()->route('import.index')->with('msg', 'Tạo đơn nhận hàng thành công !');
+            // return redirect()->route('import.index')->with('warning', 'Đơn nhận hàng đã được tạo !');
+
         }
     }
 
@@ -115,7 +125,7 @@ class DetailImportController extends Controller
      */
     public function destroy(string $id)
     {
-        dd($id);
+        $this->import->deleteDetail($id);
     }
     // Hiển thị thông tin nhà cung cấp theo id đã chọn
     public function show_provide(Request $request)
