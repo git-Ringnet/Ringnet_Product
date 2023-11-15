@@ -103,35 +103,37 @@ class Products extends Model
     }
     public function addProductTowarehouse($data, $id)
     {
+        $status = true;
         $receive = Receive_bill::findOrFail($id);
         if ($receive) {
             $array_id = [];
             $list_id = [];
+            // Lấy hết sản phẩm theo đơn mua hàng
             for ($i = 0; $i < count($data['product_name']); $i++) {
                 $products = QuoteImport::where('product_name', $data['product_name'][$i])->first();
                 array_push($array_id, $products->id);
             }
-            $product = QuoteImport::where('detailimport_id', $receive->detailimport_id)
+            $product = ProductImport::where('receive_id', $receive->id)
                 ->whereIn('id', $array_id)
                 ->get();
             $product_id = 0;
-
             // Thêm sản phẩm vào tồn kho
             foreach ($product as $item) {
-                $checkProduct = Products::where('product_name', $item->product_name)->first();
+                $getProductName = QuoteImport::where('id',$item->quoteImport_id)->first();
+                $checkProduct = Products::where('product_name', $getProductName->product_name)->first();
                 if ($checkProduct) {
                     $checkProduct->product_inventory += $item->product_qty;
                     $checkProduct->save();
                     $product_id = $checkProduct->id;
                 } else {
                     $dataProduct = [
-                        'product_code' => $item->product_code,
-                        'product_name' => $item->product_name,
-                        'product_unit' => $item->product_unit,
-                        'product_price_import' => $item->price_import,
-                        'product_price_export' => $item->price_export,
-                        'product_ratio' => $item->product_ratio,
-                        'product_tax' => $item->product_tax,
+                        'product_code' => $getProductName->product_code,
+                        'product_name' => $getProductName->product_name,
+                        'product_unit' => $getProductName->product_unit,
+                        'product_price_import' => $getProductName->price_import,
+                        'product_price_export' => $getProductName->price_export,
+                        'product_ratio' => $getProductName->product_ratio,
+                        'product_tax' => $getProductName->product_tax,
                         'product_inventory' => $item->product_qty,
                         'check_seri' => 1
                     ];
@@ -165,10 +167,9 @@ class Products extends Model
                 }
             }
         } else {
-            $product_id = "";
+            $status = false;
         }
-        // dd($product);
-        return $product_id;
+        return $status;
     }
     public function ajax($data)
     {

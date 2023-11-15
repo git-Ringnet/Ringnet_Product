@@ -197,18 +197,19 @@
                                 </td> 
                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                     <input readonly id="searchProductName" type="text" name="product_name[]" class="searchProductName border-0 px-3 py-2 w-100" value="` +
-                                    element.product_name +
+                                element.product_name +
                                 `">
                                 </td>   
                                 <td> 
                                     <input readonly type="text" name="product_unit[]" class="border-0 px-3 py-2 w-100 product_unit" value="` +
-                                    element.product_unit + `">
+                                element.product_unit + `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                 <div class="d-flex">
-                                    <input oninput="checkQty(this,` + element.product_qty +
+                                    <input oninput="checkQty(this,` + (element.product_qty - element.receive_qty) +
                                 `)" type="text" name="product_qty[]" class="border-0 px-3 py-2 w-100 quantity-input" value="` +
-                                formatCurrency(element.product_qty) +
+                                formatCurrency(element.product_qty - element
+                                    .receive_qty) +
                                 `">
                             </div>
                                 </td>
@@ -236,7 +237,7 @@
                                 <td class="border border-bottom-0 p-0 bg-secondary"></td>
                                 <td class="border border-top-0 border-bottom-0 product-ratio">
                                     <input readonly required="" type="text" name="product_ratio[]" class="border-0 px-3 py-2 w-100 product_ratio" value="` +
-                                    element.product_ratio +
+                                element.product_ratio +
                                 `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 price_import">

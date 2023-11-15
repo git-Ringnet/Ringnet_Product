@@ -99,24 +99,21 @@ class DetailImportController extends Controller
             return redirect()->route('import.index')->with('msg', 'Chỉnh sửa đơn mua hàng thành công !');
         } else if ($request->action == 'action_2') {
             // Cập nhật tình trạng
-            // $this->import->updateImport($request->all(), $id, 2);
+            $check = $this->import->updateImport($request->all(), $id, 2);
+            if ($check == true) {
+                // cập nhật sản phẩm
+                $this->quoteImport->updateImport($request->all(), $id);
 
-            // cập nhật sản phẩm
-            // $this->quoteImport->updateImport($request->all(), $id);
+                // Tạo sản phẩm theo từng đơn
+                $this->productImport->addProductImport($request->all(), $id, 'receive_id');
 
-            // Tạo sản phẩm theo từng đơn
-            $this->productImport->addProductImport($request->all(), $id,'receive_id');
+                // Cập nhập sản phẩm theo receive
+                $receive_id = $this->receiver_bill->addReceiveBill($request->all(), $id);
 
-            // Cập nhập sản phẩm theo receive
-            $receive_id = $this->receiver_bill->addReceiveBill($request->all(), $id);
-
-
-
-            // Thêm sản phẩm và seri number vào kho hàng
-            // $this->product->addProductTowarehouse($request->all(), $id);
-            return redirect()->route('import.index')->with('msg', 'Tạo đơn nhận hàng thành công !');
-            // return redirect()->route('import.index')->with('warning', 'Đơn nhận hàng đã được tạo !');
-
+                return redirect()->route('import.index')->with('msg', 'Tạo đơn nhận hàng thành công !');
+            } else {
+                return redirect()->route('import.index')->with('warning', 'Đã tạo hết đơn nhận hàng !');
+            }
         }
     }
 

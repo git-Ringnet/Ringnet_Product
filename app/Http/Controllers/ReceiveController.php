@@ -45,12 +45,11 @@ class ReceiveController extends Controller
         $id = 1;
         $title = "Tạo đơn nhận hàng";
         $listDetail = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
-            ->where('quoteimport.receive_id', 0)
+            ->where('quoteimport.product_qty','>','quoteimport.receive_qty')
             ->distinct()
             ->select('detailimport.quotation_number', 'detailimport.id')
             ->get();
         // $listDetail = DetailImport::all();
-
         return view('tables.receive.insertReceive', compact('title', 'listDetail'));
     }
 
@@ -89,7 +88,11 @@ class ReceiveController extends Controller
     {
         $receive = Receive_bill::findOrFail($id);
         $title = $receive->quotation_number;
-        $product = ProductImport::where('receive_id', $id)
+        $product = ProductImport::join('quoteimport','quoteimport.id','products_import.quoteImport_id')
+        ->where('products_import.detailimport_id', $receive->detailimport_id)
+        ->where('products_import.receive_id',$receive->id)
+        ->select('quoteimport.product_code','quoteimport.product_name','quoteimport.product_unit','products_import.product_qty',
+        'quoteimport.price_export','quoteimport.product_tax','quoteimport.product_total','quoteimport.product_ratio','quoteimport.price_import','quoteimport.product_note','products_import.product_id')
             ->with('getSerialNumber')->get();
         return view('tables.receive.editReceive', compact('receive', 'title', 'product'));
     }
@@ -101,16 +104,13 @@ class ReceiveController extends Controller
     {
         // Cập nhật trạng thái
         $result = $this->receive->updateReceive($request->all(), $id);
-
         if ($result) {
             // Thêm sản phẩm, seri vào tồn kho
             $this->product->addProductTowarehouse($request->all(), $id);
 
-            // Thêm mới hóa đơn mua hàng
-            $this->reciept->addReciept($request->all(), $id);
-            return redirect()->route('receive.index')->with('msg', 'Tạo mới hóa đơn mua hàng thành công !');
+            return redirect()->route('receive.index')->with('msg', 'Nhận hàng thành công !');
         } else {
-            return redirect()->route('receive.index')->with('warning', 'Hóa đơn mua hàng đã được tạo !');
+            return redirect()->route('receive.index')->with('warning', 'Đơn hàng đã được nhận trước đó !');
         }
     }
 
@@ -136,6 +136,5 @@ class ReceiveController extends Controller
     public function getProduct_receive(Request $request)
     {
         return QuoteImport::where('detailimport_id',$request->id)->get();
-        // return $this->receive->getQty($request->id);
     }
 }
