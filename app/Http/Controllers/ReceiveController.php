@@ -9,6 +9,7 @@ use App\Models\QuoteImport;
 use App\Models\Receive_bill;
 use App\Models\Reciept;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReceiveController extends Controller
 {
@@ -45,11 +46,12 @@ class ReceiveController extends Controller
         $id = 1;
         $title = "Tạo đơn nhận hàng";
         $listDetail = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
-            ->where('quoteimport.product_qty','>','quoteimport.receive_qty')
-            ->distinct()
+            ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
             ->select('detailimport.quotation_number', 'detailimport.id')
+            ->distinct()
             ->get();
         // $listDetail = DetailImport::all();
+        // dd($listDetail);
         return view('tables.receive.insertReceive', compact('title', 'listDetail'));
     }
 
@@ -61,16 +63,15 @@ class ReceiveController extends Controller
         $id = $request->detailimport_id;
 
         // Tạo sản phẩm theo đơn nhận hàng
-        $this->productImport->addProductImport($request->all(), $id, 'receive_id');
+        $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
+        if ($status) {
+            // Tạo đơn nhận hàng mới
+            $this->receive->addReceiveBill($request->all(), $id);
 
-
-        // Tạo đơn nhận hàng mới
-        $this->receive->addReceiveBill($request->all(), $id);
-
-        // Thêm sản phẩm vào tồn kho
-        // $this->product->addProductTowarehouse($request->all(), $id);
-
-        return redirect()->route('receive.index')->with('msg', 'Tạo mới đơn nhận hàng thành công !');
+            return redirect()->route('receive.index')->with('msg', 'Tạo mới đơn nhận hàng thành công !');
+        } else {
+            return redirect()->route('receive.index')->with('warning', 'Đơn nhận hàng đã tạo hết sản phẩm !');
+        }
     }
 
     /**
@@ -88,11 +89,23 @@ class ReceiveController extends Controller
     {
         $receive = Receive_bill::findOrFail($id);
         $title = $receive->quotation_number;
-        $product = ProductImport::join('quoteimport','quoteimport.id','products_import.quoteImport_id')
-        ->where('products_import.detailimport_id', $receive->detailimport_id)
-        ->where('products_import.receive_id',$receive->id)
-        ->select('quoteimport.product_code','quoteimport.product_name','quoteimport.product_unit','products_import.product_qty',
-        'quoteimport.price_export','quoteimport.product_tax','quoteimport.product_total','quoteimport.product_ratio','quoteimport.price_import','quoteimport.product_note','products_import.product_id')
+        $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
+            ->where('products_import.detailimport_id', $receive->detailimport_id)
+            ->where('products_import.receive_id', $receive->id)
+            ->select(
+                'quoteimport.product_code',
+                'quoteimport.product_name',
+                'quoteimport.product_unit',
+                'products_import.product_qty',
+                'quoteimport.price_export',
+                'quoteimport.product_tax',
+                // 'quoteimport.product_total',
+                'quoteimport.product_ratio',
+                'quoteimport.price_import',
+                'quoteimport.product_note',
+                'products_import.product_id',
+                DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
+            )
             ->with('getSerialNumber')->get();
         return view('tables.receive.editReceive', compact('receive', 'title', 'product'));
     }
@@ -135,6 +148,6 @@ class ReceiveController extends Controller
     }
     public function getProduct_receive(Request $request)
     {
-        return QuoteImport::where('detailimport_id',$request->id)->get();
+        return QuoteImport::where('detailimport_id', $request->id)->get();
     }
 }

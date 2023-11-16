@@ -163,8 +163,8 @@
                                     @foreach ($payment as $item)
                                         <tr>
                                             <td><input type="checkbox"></td>
-                                            <td>{{ $item->detailimport_id }}</td>
-                                            <td>{{ $item->reciept_id }}</td>
+                                            <td>{{ $item->id }}</td>
+                                            <td>{{ $item->getQuotation->quotation_number }}</td>
                                             <td>{{ $item->getProvideName->provide_name_display }}</td>
                                             <td>
                                                 @if($item->status == 1)

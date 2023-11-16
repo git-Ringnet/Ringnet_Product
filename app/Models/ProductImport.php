@@ -34,18 +34,15 @@ class ProductImport extends Model
     }
 
 
-    public function addProductImport($data, $id, $colum)
+    public function addProductImport($data, $id, $colum, $columQuote)
     {
+        $status = false;
         for ($i = 0; $i < count($data['product_name']); $i++) {
-            $product_ratio = 0;
-            $price_import = 0;
             $qty = 0;
-            isset($data['product_ratio']) ? $product_ratio = $data['product_ratio'][$i] : $product_ratio = 0;
-            isset($data['price_import']) ? $price_import = str_replace(',', '', $data['price_import'][$i]) : $price_import = 0;
             $product = QuoteImport::where('product_name', $data['product_name'][$i])->first();
             if ($product) {
-                if (str_replace(',', '', $data['product_qty'][$i]) > ($product->product_qty - $product->receive_qty)) {
-                    $qty = $product->product_qty - $product->receive_qty;
+                if (str_replace(',', '', $data['product_qty'][$i]) > ($product->product_qty - $product->$columQuote)) {
+                    $qty = $product->product_qty - $product->$columQuote;
                 } else {
                     $qty = str_replace(',', '', $data['product_qty'][$i]);
                 }
@@ -74,16 +71,27 @@ class ProductImport extends Model
                         // 'product_note' => $data['product_note'][$i],
                         $colum => 0
                     ];
-                    DB::table($this->table)->insert($dataProductImport);
 
+                    DB::table($this->table)->insert($dataProductImport);
                     // Thêm số lượng sản phẩm đã nhập
-                    $receive_qty = $product->receive_qty;
+                    if ($columQuote == "receive_qty") {
+                        $receive_qty = $product->receive_qty;
+                    } else if ($colum == "reciept_qty") {
+                        $receive_qty = $product->reciept_qty;
+                    } else {
+                        $receive_qty = $product->payment_qty;
+                    }
+
+
                     $dataQuote = [
-                        'receive_qty' => $receive_qty + $qty
+                        // $columQuote => $receive_qty + $qty
+                        $columQuote => $receive_qty + $qty
                     ];
                     QuoteImport::where('id', $product->id)->update($dataQuote);
+                    $status = true;
                 }
             }
         }
+        return $status;
     }
 }

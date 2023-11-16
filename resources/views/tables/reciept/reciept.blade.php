@@ -148,7 +148,7 @@
                                             <td><input type="checkbox"></td>
                                             <td>{{ date_format(new DateTime($item->created_at), 'd/m/Y') }}</td>
                                             <td>{{ $item->getQuotation->quotation_number }}</td>
-                                            <td>{{ $item->receive_id }}</td>
+                                            <td>{{ $item->id }}</td>
                                             <td>{{ $item->getProvideName->provide_name_display }}</td>
                                             <td>
                                                 @if($item->status == 1)

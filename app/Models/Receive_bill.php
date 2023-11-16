@@ -42,44 +42,24 @@ class Receive_bill extends Model
                 $dataupdate = [
                     'receive_id' => $receive_id,
                 ];
-                $checkQuote = ProductImport::where('quoteImport_id', $data['listProduct'][$i])
-                    ->where('receive_id', 0)->first();
+                // $checkQuote = ProductImport::where('quoteImport_id', $data['listProduct'][$i])
+                //     ->where('receive_id', 0)->first();
+                $checkQuote = QuoteImport::where('detailimport_id', $detail->id)->get();
                 if ($checkQuote) {
-                    DB::table('products_import')->where('id', $checkQuote->id)->update($dataupdate);
+                    foreach ($checkQuote as $value) {
+                        $productImport = ProductImport::where('quoteImport_id', $value->id)
+                            ->where('receive_id', 0)->first();
+                        if ($productImport) {
+                            DB::table('products_import')->where('id', $productImport->id)->update($dataupdate);
+                        }
+                    }
                 }
             }
-
-            // Cập nhật tình trạng
-            // $product = QuoteImport::where('detailimport_id', $id)->get();
-            // foreach ($product as $item) {
-            //     if ($item->receive_id == 0) {
-            //         $check_status = false;
-            //     }
-            // }
-            // $receive = Receive_bill::where('detailimport_id', $id)->get();
-            // foreach ($receive as $value) {
-            //     if ($value->status == 1) {
-            //         $check_status = false;
-            //     }
-            // }
-            // if ($check_status) {
-            //     $status_receive = 2;
-            // } else {
-            //     $status_receive = 1;
-            // }
-            // DB::table('detailimport')->where('id', $id)->update([
-            //     'status_receive' => $status_receive
-            // ]);
 
             // Cập nhật trạng thái đơn hàng
             if ($detail->status == 1) {
                 $detail->status = 2;
                 $detail->save();
-
-                // // Cập nhật dư nợ nhà cung cấp
-                // DB::table('provides')->where('id', $detail->provide_id)->update([
-                //     'provide_debt' => $detail->total_price
-                // ]);
             }
             return $receive_id;
         }
@@ -115,9 +95,9 @@ class Receive_bill extends Model
             DB::table('provides')->where('id', $detail->provide_id)->update([
                 'provide_debt' => $total
             ]);
-         
+
             // Cập nhật trạng thái nhận hàng
-            $this->updateStatus($detail->id,Receive_bill::class,'receive_qty','status_receive');
+            $this->updateStatus($detail->id, Receive_bill::class, 'receive_qty', 'status_receive');
 
             $result = true;
         } else {
@@ -126,7 +106,7 @@ class Receive_bill extends Model
         return $result;
     }
 
-    public function updateStatus($id,$table,$colum,$columStatus)
+    public function updateStatus($id, $table, $colum, $columStatus)
     {
         $check = false;
         $detail = DetailImport::where('id', $id)->first();
@@ -152,6 +132,6 @@ class Receive_bill extends Model
         $dataUpdate = [
             $columStatus => $status
         ];
-        DB::table('detailimport')->where('id',$detail->id)->update($dataUpdate);
+        DB::table('detailimport')->where('id', $detail->id)->update($dataUpdate);
     }
 }

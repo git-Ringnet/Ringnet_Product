@@ -88,6 +88,7 @@ class DetailImport extends Model
         $total_tax = 0;
         $check_status = false;
         if ($data['action'] == "action_1") {
+            $check_status = true;
             for ($i = 0; $i < count($data['product_name']); $i++) {
                 $product_ratio = 0;
                 $price_import = 0;
@@ -103,7 +104,7 @@ class DetailImport extends Model
                 }
                 $total_tax += $data['product_tax'][$i] * $total;
             }
-        } else {
+        } elseif ($data['action'] == "action_2") {
             $product = QuoteImport::where('detailimport_id', $id)->get();
             foreach ($product as $item) {
                 if ($item->product_qty != $item->receive_qty) {
@@ -117,7 +118,22 @@ class DetailImport extends Model
                 }
                 $total_tax += $item->product_tax * $total;
             }
+        } elseif($data['action'] == "action_3") {
+            $product = QuoteImport::where('detailimport_id', $id)->get();
+            foreach ($product as $item) {
+                if ($item->product_qty != $item->reciept_qty) {
+                    $check_status = true;
+                }
+            }
+        }else{
+            $product = QuoteImport::where('detailimport_id', $id)->get();
+            foreach ($product as $item) {
+                if ($item->product_qty != $item->payment_qty) {
+                    $check_status = true;
+                }
+            }
         }
+
         if ($check_status) {
             $dataImport = [
                 'provide_id' => $data['provides_id'],
@@ -136,6 +152,7 @@ class DetailImport extends Model
             ];
             $result = DB::table($this->table)->where('id', $id)->update($dataImport);
         }
+
         return $check_status;
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -29,9 +30,11 @@ class PayOder extends Model
     {
         return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
     }
+
     public function updatePayment($data, $id)
     {
-        $payment = PayOder::findOrFail($id);
+        $result = true;
+        $payment = PayOder::where('id', $id)->first();
         if ($payment && $payment->status == 1) {
             $dataPayment = [
                 'payment_date' => $data['payment_date'],
@@ -47,61 +50,90 @@ class PayOder extends Model
                 $total = $payment->payment + str_replace(',', '', $data['payment']);
             }
             $this->calculateDebt($payment->provide_id, $total);
-        }
-    }
-    public function addNewPayment($data)
-    {
-        $reciept = Reciept::findOrFail($data['reciept_id']);
-        $product = QuoteImport::where('receive_id', $data['reciept_id'])->get();
-        $total = 0;
-        foreach ($product as $item) {
-            if ($item->product_ratio > 0 && $item->price_import > 0) {
-                $total += (($item->product_ratio + 100) * $item->price_import / 100) * $item->product_qty;
-            } else {
-                $total += $item->price_export * $item->product_qty;
-            }
-        }
-        $dataPayment = [
-            'detailimport_id' => $reciept->detailimport_id,
-            'reciept_id' => $data['reciept_id'],
-            'provide_id' => $reciept->provide_id,
-            'status' => 1,
-            'payment_date' => $data['payment_date'],
-            'total' => $total,
-            'payment' => $data['payment'] == null ? 0 : str_replace(',','',$data['payment']),
-            'debt' => $total - ($data['payment'] == null ? 0 : str_replace(',','',$data['payment'])),
-        ];
-        DB::table($this->table)->insert($dataPayment);
-        DB::table('reciept')->where('id', $reciept->id)->update([
-            'status' => 2,
-        ]);
-        $this->updateStatus($reciept->detailimport_id, Reciept::class, 'status_pay');
-    }
-    public function updateStatus($id, $nameDB, $dataupdate)
-    {
-        $check_status = true;
-        $reciept = $nameDB::findOrFail($id);
-        $allBill = $nameDB::where('detailimport_id', $reciept->detailimport_id)->get();
-        $allProduct = QuoteImport::where('detailimport_id', $reciept->detailimport_id)->get();
-        foreach ($allProduct as $item) {
-            if ($item->receive_id == 0) {
-                $check_status = false;
-            }
-        }
-        foreach ($allBill as $value) {
-            if ($value->status == 1) {
-                $check_status = false;
-            }
-        }
-        if ($check_status) {
-            DB::table('detailimport')->where('id', $reciept->detailimport_id)->update([
-                $dataupdate => 2
-            ]);
+            $this->updateStatus($id, PayOder::class, 'payment_qty', 'status_pay');
         } else {
-            DB::table('detailimport')->where('id', $reciept->detailimport_id)->update([
-                $dataupdate => 1
-            ]);
+            $result = false;
         }
+        return $result;
+    }
+    public function addNewPayment($data, $id)
+    {
+        $total = 0;
+        $detail =  DetailImport::findOrFail($id);
+        if ($detail) {
+            $dataReciept = [
+                'detailimport_id' => $detail->id,
+                'provide_id' => $detail->provide_id,
+                'status' => 1,
+                'payment_date' => Carbon::now(),
+                'total' => 0,
+                'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
+                'debt' => 0,
+                'created_at' => Carbon::now(),
+            ];
+            $payment_id = DB::table($this->table)->insertGetId($dataReciept);
+            for ($i = 0; $i < count($data['product_name']); $i++) {
+                $dataupdate = [
+                    'payOrder_id' => $payment_id,
+                ];
+                $checkQuote = QuoteImport::where('detailimport_id', $detail->id)->get();
+                if ($checkQuote) {
+                    foreach ($checkQuote as $value) {
+                        $productImport = ProductImport::where('quoteImport_id', $value->id)
+                            ->where('payOrder_id', 0)->first();
+                        if ($productImport) {
+                            DB::table('products_import')->where('id', $productImport->id)->update($dataupdate);
+                            $product = QuoteImport::where('id', $productImport->quoteImport_id)->first();
+                            if ($product->product_ratio > 0 && $product->price_import > 0) {
+                                $price_export = ($product->product_ratio + 100) * $product->price_import / 100;
+                                $total += $price_export * $productImport->product_qty;
+                            } else {
+                                $price_export = $product->price_export;
+                                $total += $price_export * $productImport->product_qty;
+                            }
+                        }
+                    }
+                    DB::table($this->table)->where('id', $payment_id)->update([
+                        'total' => $total,
+                        'debt' => $total - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0),
+                    ]);
+                }
+            }
+            // Cập nhật trạng thái đơn hàng
+            if ($detail->status == 1) {
+                $detail->status = 2;
+                $detail->save();
+            }
+            return $payment_id;
+        }
+    }
+    public function updateStatus($id, $table, $colum, $columStatus)
+    {
+        $check = false;
+        $detail = DetailImport::where('id', $id)->first();
+        $product = QuoteImport::where('detailimport_id', $detail->id)->get();
+        foreach ($product as $item) {
+            if ($item->product_qty != $item->$colum) {
+                $check = true;
+                break;
+            }
+        }
+        $receive = $table::where('detailimport_id', $detail->id)->get();
+        foreach ($receive as $value) {
+            if ($value->status == 1) {
+                $check = true;
+                break;
+            }
+        }
+        if ($check) {
+            $status = 1;
+        } else {
+            $status = 2;
+        }
+        $dataUpdate = [
+            $columStatus => $status
+        ];
+        DB::table('detailimport')->where('id', $detail->id)->update($dataUpdate);
     }
 
 

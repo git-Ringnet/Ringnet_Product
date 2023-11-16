@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\DetailImport;
+use App\Models\ProductImport;
 use App\Models\QuoteImport;
 use App\Models\Receive_bill;
 use App\Models\Reciept;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RecieptController extends Controller
 {
     private $reciept;
+    private $productImport;
     public function __construct()
     {
         $this->reciept = new Reciept();
+        $this->productImport = new ProductImport();
     }
     /**
      * Display a listing of the resource.
@@ -31,7 +35,11 @@ class RecieptController extends Controller
     public function create()
     {
         $title = "Tạo mới hóa đơn mua hàng";
-        $reciept = Receive_bill::where('status', '=', 2)->get();
+        $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
+            ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
+            ->distinct()
+            ->select('detailimport.quotation_number', 'detailimport.id')
+            ->get();
         return view('tables.reciept.insertReciept', compact('title', 'reciept'));
     }
 
@@ -40,7 +48,11 @@ class RecieptController extends Controller
      */
     public function store(Request $request)
     {
-        $id = "";
+        $id = $request->detailimport_id;
+
+        // Tạo sản phẩm theo đơn nhận hàng
+        $this->productImport->addProductImport($request->all(), $id, 'reciept_id','reciept_qty');
+
         $this->reciept->addReciept($request->all(), $id);
         return redirect()->route('reciept.index')->with('msg', 'Tạo mới hóa đơn mua hàng thành công !');
     }
@@ -60,7 +72,26 @@ class RecieptController extends Controller
     {
         $reciept = Reciept::findOrFail($id);
         $title = $reciept->id;
-        $product = QuoteImport::where('receive_id', $reciept->receive_id)->get();
+
+        // $product = QuoteImport::where('receive_id', $reciept->receive_id)->get();
+        $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
+            ->where('products_import.detailimport_id', $reciept->detailimport_id)
+            ->where('products_import.reciept_id', $reciept->id)
+            ->select(
+                'quoteimport.product_code',
+                'quoteimport.product_name',
+                'quoteimport.product_unit',
+                'products_import.product_qty',
+                'quoteimport.price_export',
+                'quoteimport.product_tax',
+                // 'quoteimport.product_total',
+                'quoteimport.product_ratio',
+                'quoteimport.price_import',
+                'quoteimport.product_note',
+                'products_import.product_id',
+                DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
+            )
+            ->get();
         return view('tables.reciept.editReciept', compact('title', 'reciept', 'product'));
     }
 
@@ -69,8 +100,12 @@ class RecieptController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $this->reciept->updateReciept($request->all(),$id);
-        // return redirect()->route('receive.index')->with('msg', 'Tạo mới đơn mua hàng thành công !');
+        $result = $this->reciept->updateReciept($request->all(), $id);
+        if($result){
+              return redirect()->route('reciept.index')->with('msg', 'Xác nhận hóa đơn thành công !');
+        }else{
+            return redirect()->route('reciept.index')->with('warning', 'Hóa đơn đã được xác nhận !');
+        }
     }
 
     /**

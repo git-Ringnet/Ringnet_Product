@@ -52,7 +52,7 @@
                             <div class="content-info">
                                 <div class="d-flex ml-2 align-items-center position-relative">
                                     <div class="title-info py-2 border border-left-0">
-                                        <p class="p-0 m-0 px-3 required-label text-danger">Đơn nhận hàng</p>
+                                        <p class="p-0 m-0 px-3 required-label text-danger">Đơn mua hàng</p>
                                     </div>
                                     <input id="search_quotation" type="text" placeholder="Nhập thông tin"
                                         name="quotation_number"
@@ -79,20 +79,20 @@
                                     <input readonly type="text" id="provide_name" placeholder="Nhập thông tin"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
-                                <div class="d-flex ml-2 align-items-center">
+                                {{-- <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Đơn vị vận chuyển</p>
                                     </div>
                                     <input type="text" placeholder="Nhập thông tin" name="shipping_unit"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                                </div>
-                                <div class="d-flex ml-2 align-items-center">
+                                </div> --}}
+                                {{-- <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Phí giao hàng</p>
                                     </div>
                                     <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                                </div>
+                                </div> --}}
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Ngày nhận hàng</p>
@@ -133,7 +133,8 @@
                 </table>
             </div>
         </section>
-
+        <?php $import = '123'; ?>
+        <x-formsynthetic :import="$import"></x-formsynthetic>
     </form>
 </div>
 
@@ -147,7 +148,7 @@
     $('.search-receive').on('click', function() {
         detail_id = $(this).attr('id');
         $.ajax({
-            url: "{{ route('show_reciept') }}",
+            url: "{{ route('show_receive') }}",
             type: "get",
             data: {
                 detail_id: detail_id
@@ -158,7 +159,7 @@
                 $('#detailimport_id').val(data.id)
                 $('#listReceive').hide();
                 $.ajax({
-                    url: "{{ route('getProduct_reciept') }}",
+                    url: "{{ route('getProduct_receive') }}",
                     type: "get",
                     data: {
                         id: data.id
@@ -167,7 +168,8 @@
                         console.log(product);
                         $('#inputcontent tbody').empty();
                         product.forEach(function(element) {
-                            var tr =
+                            if((element.product_qty - element.reciept_qty) > 0){
+                                var tr =
                                 `
                                 <tr class="bg-white">
                                     <td class="border border-left-0 border-top-0 border-bottom-0">
@@ -183,7 +185,10 @@
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>
                                         </svg>
                                         <input type="checkbox">
-                                        <input type="text" readonly name="product_code[]" class="border-0 px-3 py-2 w-75 searchProduct" value="">
+                                        <input type="text" readonly name="product_code[]" class="border-0 px-3 py-2 w-75 searchProduct" value="` +
+                                (element.product_code == null ? "" : element
+                                    .product_code) +
+                                `">
                                         <ul id="listProductCode" class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 24%; top: 75%;">
                                         </ul>
                                     </div>
@@ -200,8 +205,9 @@
                                 `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input readonly type="text" name="product_qty[]" class="border-0 px-3 py-2 w-100 quantity-input" value="` +
-                                formatCurrency(element.product_qty) +
+                                    <input oninput="checkQty(this,` + (element.product_qty - element.reciept_qty) +
+                                `" type="text" name="product_qty[]" class="border-0 px-3 py-2 w-100 quantity-input" value="` +
+                                formatCurrency(element.product_qty - element.reciept_qty) +
                                 `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
@@ -243,7 +249,12 @@
                                 </tr>
                             `;
                             $('#inputcontent tbody').append(tr);
+                            }
                             deleteRow()
+                            updateTaxAmount()
+                            calculateTotalAmount()
+                            calculateTotalTax()
+                            calculateGrandTotal()
                         })
                     }
                 })

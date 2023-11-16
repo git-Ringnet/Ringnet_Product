@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('pay_order', function (Blueprint $table) {
             $table->id();
             $table->integer('detailimport_id');
-            $table->integer('reciept_id');
             $table->integer('provide_id');
             $table->integer('status');
             $table->date('payment_date');

@@ -66,8 +66,8 @@
                                         <p class="p-0 m-0 px-3">Nhà cung cấp</p>
                                     </div>
                                     <input readonly type="text" id="provide_name" placeholder="Nhập thông tin"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3" readonly
-                                        value="{{ $payment->getProvideName->provide_name_display }}">
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                        readonly value="{{ $payment->getProvideName->provide_name_display }}">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
@@ -82,14 +82,14 @@
                                         <p class="p-0 m-0 px-3">Tổng tiền</p>
                                     </div>
                                     <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3" readonly
-                                        value="{{ number_format($payment->total) }}">
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                        readonly value="{{ number_format($payment->total) }}">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Đã thanh toán</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="payment"
+                                    <input readonly type="text" placeholder="Nhập thông tin" name="payment"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
                                         value="{{ number_format($payment->payment) }}">
                                 </div>
@@ -100,6 +100,13 @@
                                     <input type="text" placeholder="Nhập thông tin" name="debt" readonly
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
                                         value="{{ number_format($payment->debt) }}">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Thanh toán trước</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="payment"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 payment_input">
                                 </div>
                             </div>
                         </div>
@@ -125,30 +132,70 @@
                             <th class="border-right product_ratio">Hệ số nhân</th>
                             <th class="border-right price_import">Giá nhập</th>
                             <th class="border-right">Ghi chú</th>
-                            {{-- <th class="border-top"></th> --}}
+                            {{-- <th class="border-top border-right"></th> --}}
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($product as $item)
-                            <tr>
-                                <td><input type="checkbox">{{ $item->product_code }}</td>
-                                <td>{{ $item->product_name }}</td>
-                                <td>{{ $item->product_unit }}</td>
-                                <td>{{ number_format($item->product_qty) }}</td>
-                                <td>{{ number_format($item->price_export)}}</td>
-                                <td>{{ $item->product_tax}}</td>
-                                <td>{{number_format($item->product_total)}}</td>
-                                <td></td>
-                                <td>{{ $item->product_ratio}}</td>
-                                <td>{{ number_format($item->price_import)}}</td>
-                                <td>{{ $item->product_note}}</td>
+                            <tr class="bg-white">
+                                <td class="border-right">
+                                    <input type="checkbox">
+                                    <input type="text" name="product_code[]" readonly
+                                        class="border-0 px-3 py-2 w-75 searchProduct">{{ $item->product_code }}
+                                </td>
+                                <td class="border border-top-0 border-bottom-0 position-relative">
+                                    <input readonly name="product_name[]" type="text"
+                                        class="searchProductName border-0 px-3 py-2 w-100"
+                                        value=" {{ $item->product_name }}">
+                                </td>
+                                <td class="border-right">
+                                    <input readonly type="text" name="product_unit[]"
+                                        class="border-0 px-3 py-2 w-100 product_unit"
+                                        value="  {{ $item->product_unit }}">
+                                </td>
+                                <td class="border border-top-0 border-bottom-0 border-right-0">
+                                    <input type="text" name="product_qty[]"
+                                        class="border-0 px-3 py-2 w-100 quantity-input"
+                                        value=" {{ number_format($item->product_qty) }}">
+                                </td>
+                                <td class="border border-top-0 border-bottom-0 border-right-0">
+                                    <input type="text" name="price_export[]"
+                                        class="border-0 px-3 py-2 w-100 price_export"
+                                        value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}">
+                                </td>
+                                <td class="border border-top-0 border-bottom-0 border-right-0">
+                                    <input type="text" class="border-0 px-3 py-2 w-100 product_tax"
+                                        name="product_tax[]" value=" {{ $item->product_tax }}">
+                                </td>
+                                <td class="border border-top-0 border-bottom-0 border-right-0">
+                                    <input type="text" name="total_price[]"
+                                        class="border-0 px-3 py-2 w-100 total_price"
+                                        value=" {{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
+                                </td>
+                                <td class="border border-bottom-0 p-0 bg-secondary"></td>
+                                <td class="border border-top-0 border-bottom-0 product-ratio">
+                                    <input type="text" name="product_ratio[]"
+                                        class="border-0 px-3 py-2 w-100 product_ratio"
+                                        value=" {{ $item->product_ratio }}">
+                                </td>
+                                <td class="border border-top-0 border-bottom-0 price_import">
+                                    <input type="text" name="price_import[]"
+                                        class="border-0 px-3 py-2 w-100 price_import"
+                                        value="{{ number_format($item->price_import) }}">
+                                </td>
+                                <td class="border border-top-0 border-bottom-0">
+                                    <input type="text" name="product_note[]" class="border-0 px-3 py-2 w-100"
+                                        value="{{ $item->product_note }}">
+                                </td>
+                                {{-- <td class="border border-top-0 border"></td> --}}
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </section>
-
+        <?php $import = '123'; ?>
+        <x-formsynthetic :import="$import"></x-formsynthetic>
     </form>
 </div>
 

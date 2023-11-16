@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailImport;
+use App\Models\PayOder;
 use App\Models\ProductCode;
 use App\Models\ProductImport;
 use App\Models\Products;
@@ -10,6 +11,7 @@ use App\Models\Project;
 use App\Models\Provides;
 use App\Models\QuoteImport;
 use App\Models\Receive_bill;
+use App\Models\Reciept;
 use App\Models\Serialnumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,6 +25,8 @@ class DetailImportController extends Controller
     private $receiver_bill;
     private $product;
     private $productImport;
+    private $reciept;
+    private $payment;
     public function __construct()
     {
         $this->import = new DetailImport();
@@ -32,6 +36,8 @@ class DetailImportController extends Controller
         $this->product = new Products();
         $this->sn = new Serialnumber();
         $this->productImport = new ProductImport();
+        $this->reciept = new Reciept();
+        $this->payment = new PayOder();
     }
     /**
      * Display a listing of the resource.
@@ -95,7 +101,7 @@ class DetailImportController extends Controller
         $title = "";
         if ($request->action == 'action_1') {
             $this->import->updateImport($request->all(), $id, 1);
-            $this->quoteImport->updateImport($request->all(), $id, '');
+            $this->quoteImport->updateImport($request->all(), $id);
             return redirect()->route('import.index')->with('msg', 'Chỉnh sửa đơn mua hàng thành công !');
         } else if ($request->action == 'action_2') {
             // Cập nhật tình trạng
@@ -105,7 +111,7 @@ class DetailImportController extends Controller
                 $this->quoteImport->updateImport($request->all(), $id);
 
                 // Tạo sản phẩm theo từng đơn
-                $this->productImport->addProductImport($request->all(), $id, 'receive_id');
+                $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
 
                 // Cập nhập sản phẩm theo receive
                 $receive_id = $this->receiver_bill->addReceiveBill($request->all(), $id);
@@ -113,6 +119,36 @@ class DetailImportController extends Controller
                 return redirect()->route('import.index')->with('msg', 'Tạo đơn nhận hàng thành công !');
             } else {
                 return redirect()->route('import.index')->with('warning', 'Đã tạo hết đơn nhận hàng !');
+            }
+        } elseif ($request->action == "action_3") {
+            $check = $this->import->updateImport($request->all(), $id, 2);
+            if ($check) {
+                // cập nhật sản phẩm
+                $this->quoteImport->updateImport($request->all(), $id);
+
+                // Tạo sản phẩm theo từng đơn
+                $this->productImport->addProductImport($request->all(), $id, 'reciept_id', 'reciept_qty');
+
+                // Cập nhật sản phẩm theo reciept
+                $this->reciept->addReciept($request->all(), $id);
+                return redirect()->route('import.index')->with('msg', 'Tạo hóa đơn mua hàng thành công !');
+            } else {
+                return redirect()->route('import.index')->with('warning', 'Hóa đơn đã được tạo hết !');
+            }
+        } else {
+            $check = $this->import->updateImport($request->all(), $id, 2);
+            if ($check) {
+                // cập nhật sản phẩm
+                $this->quoteImport->updateImport($request->all(), $id);
+
+                // Tạo sản phẩm theo từng đơn
+                $this->productImport->addProductImport($request->all(), $id, 'payOrder_id', 'payment_qty');
+
+                // Cập nhật sản phẩm theo payment
+                $this->payment->addNewPayment($request->all(),$id);
+                return redirect()->route('import.index')->with('msg', 'Tạo hóa đơn thanh toán thành công !');
+            } else {
+                return redirect()->route('import.index')->with('warning', 'Hóa đơn thanh toán đã được tạo hết !');
             }
         }
     }

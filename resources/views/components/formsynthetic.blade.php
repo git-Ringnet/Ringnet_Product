@@ -13,6 +13,7 @@
                             <span><b>Thuế VAT:</b></span>
                             <span id="product-tax">0đ</span>
                         </div>
+                        @if($import != "123")
                         @if($import)
                         <div class="d-flex justify-content-between align-items-center mt-2">
                             <span class="text-primary">Giảm giá:</span>
@@ -43,6 +44,7 @@
                                     id="transport_fee" value="0">
                             </div>
                         </div>
+                        @endif
                         @endif
                         <div class="d-flex justify-content-between mt-2">
                             <span class="text-lg"><b>Tổng cộng:</b></span>
