@@ -48,23 +48,42 @@ class QuoteExport extends Model
                 ];
                 $product = new Products($dataProduct);
                 $product->save();
+                $dataQuote = [
+                    'detailexport_id' => $id,
+                    'product_code' => $data['product_code'][$i],
+                    'product_id' => $product->id,
+                    'product_name' => $data['product_name'][$i],
+                    'product_unit' => $data['product_unit'][$i],
+                    'product_qty' => $data['product_qty'][$i],
+                    'product_tax' => $data['product_tax'][$i],
+                    'product_total' => $subtotal,
+                    'price_export' => $price,
+                    'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
+                    'price_import' => $priceImport,
+                    'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+                DB::table($this->table)->insert($dataQuote);
+            } else {
+                $dataQuote = [
+                    'detailexport_id' => $id,
+                    'product_code' => $data['product_code'][$i],
+                    'product_id' => $data['product_id'][$i],
+                    'product_name' => $data['product_name'][$i],
+                    'product_unit' => $data['product_unit'][$i],
+                    'product_qty' => $data['product_qty'][$i],
+                    'product_tax' => $data['product_tax'][$i],
+                    'product_total' => $subtotal,
+                    'price_export' => $price,
+                    'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
+                    'price_import' => $priceImport,
+                    'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+                DB::table($this->table)->insert($dataQuote);
             }
-            $dataQuote = [
-                'detailexport_id' => $id,
-                'product_code' => $data['product_code'][$i],
-                'product_name' => $data['product_name'][$i],
-                'product_unit' => $data['product_unit'][$i],
-                'product_qty' => $data['product_qty'][$i],
-                'product_tax' => $data['product_tax'][$i],
-                'product_total' => $subtotal,
-                'price_export' => $price,
-                'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
-                'price_import' => $priceImport,
-                'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ];
-            DB::table($this->table)->insert($dataQuote);
         }
     }
 }

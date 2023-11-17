@@ -125,7 +125,8 @@
                                         <p class="p-0 m-0 px-3">Ngày giao hàng</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="date" placeholder="Nhập thông tin" name="date_deliver" required
+                                        <input type="date" placeholder="Nhập thông tin"
+                                            value="{{ date('Y-m-d') }}" name="date_deliver" required
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -707,11 +708,18 @@
                                 var grandTotal = totalTax + totalPrice;
                                 $(".idGuest").val(item.guest_id);
                                 $("#detailexport_id").val(item.maXuat);
-                                $("#total-amount-sum").text(formatCurrency(totalPrice));
-                                $("#product-tax").text(formatCurrency(totalTax));
-                                $("#grand-total").text(formatCurrency(grandTotal));
-                                $("#voucher").val(formatCurrency(item.discount == null ? 0 : item.discount));
-                                $("#transport_fee").val(formatCurrency(item.transfer_fee == null ? 0 : item.transfer_fee));
+                                $("#total-amount-sum").text(
+                                    formatCurrency(totalPrice));
+                                $("#product-tax").text(formatCurrency(
+                                    totalTax));
+                                $("#grand-total").text(formatCurrency(
+                                    grandTotal));
+                                $("#voucher").val(formatCurrency(item
+                                    .discount == null ? 0 : item
+                                    .discount));
+                                $("#transport_fee").val(formatCurrency(
+                                    item.transfer_fee == null ?
+                                    0 : item.transfer_fee));
                                 var newRow = `
                                 <tr id="dynamic-row-${item.id}" class="bg-white sanPhamGiao">
                             <td class="border border-left-0 border-top-0 border-bottom-0 position-relative">
@@ -725,7 +733,7 @@
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>
                                     </svg>
                                     <input type="checkbox" class="cb-element">
-                                    <input type="text" value="${item.product_code}" autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
+                                    <input type="text" value="${item.product_code}" readonly autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
                                 </div>
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative">
@@ -739,7 +747,7 @@
                                     @endforeach
                                 </ul>
                                 <div class="d-flex align-items-center">
-                                    <input type="text" value="${item.product_name}" class="border-0 px-2 py-1 w-100 product_name" autocomplete="off" required="" name="product_name[]">
+                                    <input type="text" value="${item.product_name}" readonly class="border-0 px-2 py-1 w-100 product_name" autocomplete="off" required="" name="product_name[]">
                                     <input type="hidden" class="product_id" value="${item.product_id}" autocomplete="off" name="product_id[]">
                                     <div class="info-product" data-toggle="modal" data-target="#productModal" style="display: none;">
                                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -751,7 +759,7 @@
                                 </div>
                             </td>
                             <td class="border border-top-0 border-bottom-0">
-                                <input type="text" value="${item.product_unit}" autocomplete="off" class="border-0 px-2 py-1 w-100 product_unit" required="" name="product_unit[]">
+                                <input type="text" value="${item.product_unit}" readonly autocomplete="off" class="border-0 px-2 py-1 w-100 product_unit" required="" name="product_unit[]">
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative">
                                 <input type="text" value="${item.product_qty}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
@@ -759,11 +767,11 @@
                                 <p class="text-primary text-center position-absolute inventory" style="top: 68%; display: none;">Tồn kho: 35</p>
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative">
-                                <input type="text" value="${formatCurrency(item.price_export)}" class="border-0 px-2 py-1 w-100 product_price" autocomplete="off" name="product_price[]" required="" readonly="readonly">
+                                <input type="text" value="${formatCurrency(item.price_export)}" readonly class="border-0 px-2 py-1 w-100 product_price" autocomplete="off" name="product_price[]" required="" readonly="readonly">
                                 <p class="text-primary text-right position-absolute transaction" style="top: 68%; right: 5%; display: none;">Giao dịch gần đây</p>
                             </td>
                             <td class="border border-top-0 border-bottom-0 px-4">
-                                <select name="product_tax[]" class="border-0 text-center product_tax" required="">
+                                <select name="product_tax[]" class="border-0 text-center product_tax" required="" disabled>
                                     <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                     <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
                                     <option value="10" ${(item.product_tax == 10) ? 'selected' : ''}>10%</option>
@@ -771,17 +779,17 @@
                                 </select>
                             </td>
                             <td class="border border-top-0 border-bottom-0">
-                                <input type="text" value="${formatCurrency(item.product_total)}" readonly="" class="border-0 px-2 py-1 w-100 total-amount">
+                                <input type="text" value="${formatCurrency(item.product_total)}" readonly class="border-0 px-2 py-1 w-100 total-amount">
                             </td>
                             <td class="border-top border-secondary p-0 bg-secondary Daydu" style="width:1%;"></td>
                             <td class="border border-top-0 border-bottom-0 position-relative product_ratio">
-                                <input type="text" value="${item.product_ratio}" class="border-0 px-2 py-1 w-100 heSoNhan" autocomplete="off" required="required" name="product_ratio[]">
+                                <input type="text" value="${item.product_ratio}" readonly class="border-0 px-2 py-1 w-100 heSoNhan" autocomplete="off" required="required" name="product_ratio[]">
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative price_import">
-                                <input type="text" value="${formatCurrency(item.price_import)}" class="border-0 px-2 py-1 w-100 giaNhap" autocomplete="off" required="required" name="price_import[]">
+                                <input type="text" value="${formatCurrency(item.price_import)}" readonly class="border-0 px-2 py-1 w-100 giaNhap" autocomplete="off" required="required" name="price_import[]">
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative note p-1">
-                                <input type="text" value="${(item.product_note == null) ? '' : item.product_note}" class="border-0 py-1 w-100" placeholder="Nhập ghi chú" name="product_note[]">
+                                <input type="text" readonly value="${(item.product_note == null) ? '' : item.product_note}" class="border-0 py-1 w-100" placeholder="Nhập ghi chú" name="product_note[]">
                             </td>
                             <td class="border border-top-0 border-bottom-0 border-right-0 text-right deleteProduct">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

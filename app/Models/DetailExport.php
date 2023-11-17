@@ -19,6 +19,9 @@ class DetailExport extends Model
         'reference_number',
         'price_effect',
         'status',
+        'status_receive',
+        'status_reciept',
+        'status_pay',
         'total_price',
         'terms_pay',
         'total_tax',
@@ -50,12 +53,14 @@ class DetailExport extends Model
         $dataExport = [
             'guest_id' => $data['guest_id'],
             'project_id' => 1,
-            'product_id' => 1,
             'user_id' => 1,
             'quotation_number' => $data['quotation_number'],
             'reference_number' => $data['reference_number'],
             'price_effect' => $data['price_effect'],
             'status' => 1,
+            'status_receive' => 1,
+            'status_reciept' => 1,
+            'status_pay' => 1,
             'created_at' => $data['date_quote'],
             'total_price' => $totalBeforeTax,
             'terms_pay' => $data['terms_pay'],
@@ -90,5 +95,12 @@ class DetailExport extends Model
             ->leftJoin('guest', 'detailexport.guest_id', 'guest.id')
             ->first();
         return $detailExport;
+    }
+    public function getProductToId($id)
+    {
+        $quoteExport = QuoteExport::where('detailexport.id', $id)
+            ->leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+            ->get();
+        return $quoteExport;
     }
 }

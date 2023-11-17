@@ -92,7 +92,7 @@ class DeliveryController extends Controller
     {
         $data = $request->all();
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
-            ->select('*','detailexport.id as maXuat')
+            ->select('*', 'detailexport.id as maXuat')
             ->where('detailexport.id', $data['idQuote'])->get();
         return $delivery;
     }

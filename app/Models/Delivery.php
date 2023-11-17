@@ -30,7 +30,7 @@ class Delivery extends Model
             'status' => 1,
             'created_at' => $data['date_deliver'],
         ];
-        $detaiExport = DetailExport::where('id',$data['detailexport_id'])->first();
+        $detaiExport = DetailExport::where('id', $data['detailexport_id'])->first();
         if ($detaiExport) {
             $detaiExport->update([
                 'status' => 2,
@@ -38,6 +38,9 @@ class Delivery extends Model
         }
         $delivery = new Delivery($dataDelivery);
         $delivery->save();
+        $detailexportId = $delivery->id;
+        QuoteExport::where('detailexport_id', $data['detailexport_id'])
+            ->update(['deliver_id' => $detailexportId]);
         return $delivery->id;
     }
 }

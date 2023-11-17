@@ -39,7 +39,14 @@ class Delivered extends Model
                 ];
                 $product = new Products($dataProduct);
                 $product->save();
+            } else {
+                $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])->first();
+                if ($quoteExport) {
+                    $quoteExport->qty_delivery += $data['product_qty'][$i];
+                    $quoteExport->save();
+                }
             }
+
             $dataDelivered = [
                 'delivery_id' => $id,
                 'product_id' => $data['product_id'][$i],

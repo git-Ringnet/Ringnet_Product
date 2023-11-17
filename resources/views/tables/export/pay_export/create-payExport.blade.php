@@ -106,7 +106,7 @@
                                         <p class="p-0 m-0 px-3">Hạn thanh toán</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="date" placeholder="Nhập thông tin" name="date_pay" required
+                                        <input type="date" placeholder="Nhập thông tin" value="{{ date('Y-m-d') }}" name="date_pay" required
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
