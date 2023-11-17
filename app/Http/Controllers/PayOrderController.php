@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DetailImport;
 use App\Models\PayOder;
 use App\Models\ProductImport;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -24,7 +25,9 @@ class PayOrderController extends Controller
     {
         $title = "Thanh toán mua hàng";
         $payment = PayOder::all();
-        return view('tables.paymentOrder.paymentOrder', compact('title', 'payment'));
+        $today = Carbon::now();
+        // dd($payment[0]->formatDate($payment[0]->payment_date)->diffInDays($today));
+        return view('tables.paymentOrder.paymentOrder', compact('title', 'payment','today'));
     }
 
     /**
@@ -104,8 +107,11 @@ class PayOrderController extends Controller
         // Cập nhật trạng thái
         $result = $this->payment->updatePayment($request->all(), $id);
         if ($result) {
+            return redirect()->route('paymentOrder.index')->with('msg', 'Thanh toán hóa đơn thành công !');
+        }else{
+            return redirect()->route('paymentOrder.index')->with('warning', 'Hóa đơn đã được thanh toán !');
         }
-        return redirect()->route('paymentOrder.index')->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
+       
     }
 
     /**

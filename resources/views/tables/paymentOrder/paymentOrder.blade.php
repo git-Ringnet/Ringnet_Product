@@ -167,18 +167,33 @@
                                             <td>{{ $item->getQuotation->quotation_number }}</td>
                                             <td>{{ $item->getProvideName->provide_name_display }}</td>
                                             <td>
-                                                @if($item->status == 1)
-                                                Chưa thanh toán
+                                                @if ($item->status == 1)
+                                                    @if ($item->payment > 0)
+                                                        <span style="color: #858585">Đặt cọc</span>
+                                                    @else
+                                                        <span style="color: #858585">Chưa thanh toán</span>
+                                                    @endif
                                                 @elseif($item->status == 2)
-                                                Thanh toán đủ
+                                                    <span style="color: #08AA36">Thanh toán đủ</span>
+                                                @elseif($item->status == 3)
+                                                    <span style="color: #0052CC">Đến hạn trong
+                                                        {{ $item->formatDate($item->payment_date)->diffInDays($today) + 1 }}
+                                                        ngày</span>
+                                                @elseif($item->status == 4)
+                                                    <span style="color:#EC212D">Quá hạn trong
+                                                        {{ $item->formatDate($item->payment_date)->diffInDays($today) }}
+                                                        ngày</span>
                                                 @else
-                                                Quá hạn
+                                                    <span style="color: #0052CC">Đến hạn</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $item->payment_date }}</td>
-                                            <td>{{ number_format($item->total) }}</td>
-                                            <td>{{ number_format($item->payment) }}</td>
-                                            <td>{{ number_format($item->debt) }}</td>
+                                            <td>{{ date_format(new DateTime($item->payment_date), 'd-m-Y') }}</td>
+                                            <td>{{ fmod($item->total, 2) > 0 ? number_format($item->total, 2, '.', ',') : nunber_format($item->total) }}
+                                            </td>
+                                            <td>{{ fmod($item->payment, 2) > 0 ? number_format($item->payment, 2, '.', ',') : number_format($item->payment) }}
+                                            </td>
+                                            <td>{{ fmod($item->debt, 2) > 0 ? number_format($item->debt, 2, '.', ',') : number_format($item->debt) }}
+                                            </td>
                                             <td>
                                                 <a href="{{ route('paymentOrder.edit', $item->id) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32"

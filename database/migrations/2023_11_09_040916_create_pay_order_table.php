@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('detailimport_id');
             $table->integer('provide_id');
             $table->integer('status');
-            $table->date('payment_date');
+            $table->dateTime('payment_date');
             $table->decimal('total',20,4);
             $table->decimal('payment',20,4);
             $table->decimal('debt',20,4);

@@ -114,7 +114,7 @@
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Thanh toán trước</p>
                                     </div>
-                                    <input required type="text" placeholder="Nhập thông tin" name="payment"
+                                    <input type="text" placeholder="Nhập thông tin" name="payment"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 payment_input">
                                 </div>
                             </div>

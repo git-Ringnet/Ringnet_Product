@@ -75,7 +75,7 @@
                                     </div>
                                     <input type="date" placeholder="Nhập thông tin" name="payment_date"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="{{ $payment->payment_date }}">
+                                        value="{{ $payment->formatDate($payment->payment_date)->format('Y-m-d') }}">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">

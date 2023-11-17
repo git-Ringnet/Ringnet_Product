@@ -35,7 +35,7 @@ class PayOder extends Model
     {
         $result = true;
         $payment = PayOder::where('id', $id)->first();
-        if ($payment && $payment->status == 1) {
+        if ($payment && $payment->status != 2) {
             $dataPayment = [
                 'payment_date' => $data['payment_date'],
                 'payment' => $payment->payment + str_replace(',', '', $data['payment']),
@@ -50,7 +50,7 @@ class PayOder extends Model
                 $total = $payment->payment + str_replace(',', '', $data['payment']);
             }
             $this->calculateDebt($payment->provide_id, $total);
-            $this->updateStatus($id, PayOder::class, 'payment_qty', 'status_pay');
+            $this->updateStatus($payment->detailimport_id, PayOder::class, 'payment_qty', 'status_pay');
         } else {
             $result = false;
         }
@@ -59,13 +59,34 @@ class PayOder extends Model
     public function addNewPayment($data, $id)
     {
         $total = 0;
+        $startDate = Carbon::now()->startOfDay();
+        $endDate = $data['payment_date'] == null ? Carbon::now() : Carbon::parse($data['payment_date']);
+        // $endDateFormatted = $endDate->format('Y-m-d');
+        $endDate = Carbon::parse($endDate);
+        $daysDiffss = $startDate->diffInDays($endDate);
+        if ($endDate < $startDate) {
+            $daysDiff = -$daysDiffss;
+        } else {
+            $daysDiff = $daysDiffss;
+        }
+    
+        if($daysDiff <= 3 && $daysDiff > 0){
+            $status = 3;
+        }elseif($daysDiff == 0){
+            $status = 5;
+        }elseif($daysDiff < 0){
+            $status = 4;
+        }else{
+            $status = 1;
+        }
+      
         $detail =  DetailImport::findOrFail($id);
         if ($detail) {
             $dataReciept = [
                 'detailimport_id' => $detail->id,
                 'provide_id' => $detail->provide_id,
-                'status' => 1,
-                'payment_date' => Carbon::now(),
+                'status' => $status,
+                'payment_date' => $data['payment_date'] == null ? Carbon::now() : Carbon::parse($data['payment_date']),
                 'total' => 0,
                 'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
                 'debt' => 0,
@@ -120,7 +141,7 @@ class PayOder extends Model
         }
         $receive = $table::where('detailimport_id', $detail->id)->get();
         foreach ($receive as $value) {
-            if ($value->status == 1) {
+            if ($value->status != 2) {
                 $check = true;
                 break;
             }
@@ -147,5 +168,9 @@ class PayOder extends Model
             ];
             Provides::where('id', $provide_id)->update($dataProvide);
         }
+    }
+
+    public function formatDate($data){
+        return Carbon::parse($data);
     }
 }

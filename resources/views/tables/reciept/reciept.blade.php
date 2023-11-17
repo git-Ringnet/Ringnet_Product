@@ -151,13 +151,14 @@
                                             <td>{{ $item->id }}</td>
                                             <td>{{ $item->getProvideName->provide_name_display }}</td>
                                             <td>
-                                                @if($item->status == 1)
-                                                <span style="color: #858585">Bản nháp</span>
+                                                @if ($item->status == 1)
+                                                    <span style="color: #858585">Bản nháp</span>
                                                 @else
-                                                <span style="color: #08AA36">Chính thức</span>
+                                                    <span style="color: #08AA36">Chính thức</span>
                                                 @endif
                                             </td>
-                                            <td>{{ number_format($item->price_total) }}</td>
+                                            <td>{{ fmod($item->price_total, 2) > 0 ? number_format($item->price_total, 2, '.', ',') : number_format($item->price_total) }}
+                                            </td>
                                             <td>
                                                 <a href="{{ route('reciept.edit', $item->id) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32"
