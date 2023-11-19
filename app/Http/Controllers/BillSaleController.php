@@ -34,7 +34,7 @@ class BillSaleController extends Controller
     public function create()
     {
         $title = "Tạo Hóa đơn bán hàng";
-        $numberQuote = Delivery::where('status', 1)->get();
+        $numberQuote = DetailExport::all();
         $product = $this->product->getAllProducts();
         return view('tables.export.bill_sale.create-billSale', compact('title', 'numberQuote', 'product'));
     }
@@ -93,7 +93,11 @@ class BillSaleController extends Controller
     {
         $data = $request->all();
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
-            ->where('detailexport.id', $data['idQuote'])->get();
+            ->where('detailexport.id', $data['idQuote'])
+            ->select('*')
+            ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_bill_sale, 0) as soLuongHoaDon')
+            ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_bill_sale, 0) > 0')
+            ->get();
         return $delivery;
     }
     public function getProductFromQuote(Request $request)

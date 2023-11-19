@@ -762,7 +762,7 @@
                                 <input type="text" value="${item.product_unit}" readonly autocomplete="off" class="border-0 px-2 py-1 w-100 product_unit" required="" name="product_unit[]">
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative">
-                                <input type="text" value="${item.product_qty}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
+                                <input type="text" value="${item.soLuongCanGiao}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
                                 <p class="text-primary text-center position-absolute inventory" style="top: 68%; display: none;">Tồn kho: 35</p>
                             </td>

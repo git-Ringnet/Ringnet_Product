@@ -132,7 +132,7 @@
                                         <p class="p-0 m-0 px-3">Số báo giá#</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" placeholder="Nhập thông tin" name="quotation_number"
+                                        <input type="text" required placeholder="Nhập thông tin" name="quotation_number"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@
                                         <p class="p-0 m-0 px-3">Số tham chiếu#</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" placeholder="Nhập thông tin" name="reference_number"
+                                        <input type="text" required placeholder="Nhập thông tin" name="reference_number"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -150,7 +150,7 @@
                                         <p class="p-0 m-0 px-3">Ngày báo giá</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="date" placeholder="Nhập thông tin" value="{{ date('Y-m-d') }}" name="date_quote"
+                                        <input type="date" required placeholder="Nhập thông tin" value="{{ date('Y-m-d') }}" name="date_quote"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -159,7 +159,7 @@
                                         <p class="p-0 m-0 px-3">Hiệu lực báo giá</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" placeholder="Nhập thông tin" name="price_effect"
+                                        <input type="text" required placeholder="Nhập thông tin" name="price_effect"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>

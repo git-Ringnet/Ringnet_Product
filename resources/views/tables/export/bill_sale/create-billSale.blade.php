@@ -82,7 +82,7 @@
                                                 <li>
                                                     <a href="#"
                                                         class="text-dark d-flex justify-content-between p-2 search-info"
-                                                        id="{{ $quote_value->detailexport_id }}" name="search-info">
+                                                        id="{{ $quote_value->id }}" name="search-info">
                                                         <span class="w-50">{{ $quote_value->quotation_number }}</span>
                                                     </a>
                                                 </li>
@@ -737,7 +737,7 @@
                                 <input type="text" value="${item.product_unit}" autocomplete="off" class="border-0 px-2 py-1 w-100 product_unit" required="" name="product_unit[]">
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative">
-                                <input type="text" value="${item.product_qty}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
+                                <input type="text" value="${item.soLuongHoaDon}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
                                 <p class="text-primary text-center position-absolute inventory" style="top: 68%; display: none;">Tồn kho: 35</p>
                             </td>

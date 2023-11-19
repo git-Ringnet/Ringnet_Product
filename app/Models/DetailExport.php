@@ -26,7 +26,8 @@ class DetailExport extends Model
         'terms_pay',
         'total_tax',
         'discount',
-        'transfer_fee'
+        'transfer_fee',
+        'amount_owed'
     ];
     protected $table = 'detailexport';
 
@@ -67,6 +68,7 @@ class DetailExport extends Model
             'total_tax' => $totalTax,
             'discount' => $discount,
             'transfer_fee' => $transport,
+            'amount_owed' => $totalBeforeTax + $totalTax,
         ];
         $detailexport = new DetailExport($dataExport);
         $detailexport->save();

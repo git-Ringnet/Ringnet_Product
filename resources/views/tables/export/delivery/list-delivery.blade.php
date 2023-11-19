@@ -151,7 +151,7 @@
                                                     class="cb-element" name="ids[]" id="checkbox" value=""
                                                     onclick="event.stopPropagation();"></td>
                                             <td class="border-top-0 bg-white">
-                                                {{ $item_delivery->id }}
+                                                {{ $item_delivery->maGiaoHang }}
                                             </td>
                                             <td class="border-top-0 bg-white">
                                                 {{ $item_delivery->quotation_number }}

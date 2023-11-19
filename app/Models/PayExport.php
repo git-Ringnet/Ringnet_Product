@@ -10,7 +10,6 @@ class PayExport extends Model
     use HasFactory;
     protected $fillable = [
         'detailexport_id',
-        'billSale_id',
         'guest_id',
         'payment_date',
         'total',
@@ -27,7 +26,6 @@ class PayExport extends Model
         $result = $total - $payment;
         $dataPay = [
             'detailexport_id' => $data['detailexport_id'],
-            'billSale_id' => $data['billSale_id'],
             'guest_id' => $data['guest_id'],
             'payment_date' => $data['date_pay'],
             'total' => $result,
@@ -36,20 +34,23 @@ class PayExport extends Model
             'status' => 1,
             'created_at' => $data['date_pay'],
         ];
+        $payExport = new PayExport($dataPay);
+        $payExport->save();
         $detailExport = DetailExport::where('id', $data['detailexport_id'])->first();
         if ($detailExport) {
             $detailExport->update([
-                'status_pay' => 2,
+                'amount_owed' => $result,
             ]);
+            if ($payExport->total <= 0) {
+                $detailExport->update([
+                    'status_pay' => 2,
+                ]);
+            } else {
+                $detailExport->update([
+                    'status_pay' => 3,
+                ]);
+            }
         }
-        $bill_sale = BillSale::where('id', $data['billSale_id'])->first();
-        if ($bill_sale) {
-            $bill_sale->update([
-                'status' => 2,
-            ]);
-        }
-        $payExport = new PayExport($dataPay);
-        $payExport->save();
         return $payExport;
     }
 }

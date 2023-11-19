@@ -82,7 +82,7 @@
                                                 <li>
                                                     <a href="#"
                                                         class="text-dark d-flex justify-content-between p-2 search-info"
-                                                        id="{{ $quote_value->detailexport_id }}" name="search-info">
+                                                        id="{{ $quote_value->id }}" name="search-info">
                                                         <span class="w-50">{{ $quote_value->quotation_number }}</span>
                                                     </a>
                                                 </li>
@@ -689,10 +689,10 @@
                     idQuote: idQuote
                 },
                 success: function(data) {
-                    $("#billSale_id").val(data.maThanhToan);
+                    // $("#billSale_id").val(data.maThanhToan);
                     $('.numberQute').val(data.quotation_number);
                     $('.nameGuest').val(data.guest_name_display);
-                    $('.tongTien').val(formatCurrency(data.price_total));
+                    $('.tongTien').val(formatCurrency(data.amount_owed));
                     $.ajax({
                         url: '{{ route('getProductPay') }}',
                         type: 'GET',

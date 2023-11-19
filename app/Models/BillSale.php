@@ -35,6 +35,13 @@ class BillSale extends Model
             $totalBeforeTax += $subtotal;
             $totalTax += $subTax;
             $tolal_all = $totalTax + $totalBeforeTax;
+            if ($data['product_id'][$i] != null) {
+                $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])->first();
+                if ($quoteExport) {
+                    $quoteExport->qty_bill_sale += $data['product_qty'][$i];
+                    $quoteExport->save();
+                }
+            }
         }
         $dataBill = [
             'detailexport_id' => $data['detailexport_id'],
@@ -44,20 +51,41 @@ class BillSale extends Model
             'status' => 1,
             'created_at' => $data['date_bill'],
         ];
-        $detailExport = DetailExport::where('id', $data['detailexport_id'])->first();
-        if ($detailExport) {
-            $detailExport->update([
-                'status_receive' => 2,
-            ]);
-        }
-        $delivery = Delivery::where('id', $data['delivery_id'])->first();
-        if ($delivery) {
-            $delivery->update([
-                'status' => 2,
-            ]);
-        }
         $bill_sale = new BillSale($dataBill);
         $bill_sale->save();
+        // Lấy tất cả các bản ghi từ bảng QuoteExport theo điều kiện
+        $quoteExports = QuoteExport::where('detailexport_id', $data['detailexport_id'])->get();
+
+        // Biến để kiểm tra xem có ít nhất một giá trị nào lớn hơn 0 không
+        $hasNonZeroDifference = false;
+
+        foreach ($quoteExports as $quoteExport) {
+            $productQty = bcsub($quoteExport->product_qty, '0', 4);
+            $qtyBill = bcsub($quoteExport->qty_bill_sale, '0', 4);
+
+            if (bccomp($productQty, $qtyBill, 4) !== 0) {
+                $hasNonZeroDifference = true;
+                break;
+            }
+        }
+
+        // Nếu có ít nhất một giá trị nào đó không bằng 0, cập nhật 'status_reciept' thành 3
+        if ($hasNonZeroDifference) {
+            $detailExport = DetailExport::where('id', $data['detailexport_id'])->first();
+            if ($detailExport) {
+                $detailExport->update([
+                    'status_reciept' => 3,
+                ]);
+            }
+        } else {
+            // Nếu tất cả đều bằng 0, cập nhật 'status_reciept' thành 2
+            $detailExport = DetailExport::where('id', $data['detailexport_id'])->first();
+            if ($detailExport) {
+                $detailExport->update([
+                    'status_reciept' => 2,
+                ]);
+            }
+        }
         return $bill_sale;
     }
 }

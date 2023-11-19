@@ -25,7 +25,9 @@ class DeliveryController extends Controller
     public function index()
     {
         $title = 'Giao hàng';
-        $delivery = Delivery::leftJoin('guest', 'guest.id', 'delivery.guest_id')->get();
+        $delivery = Delivery::leftJoin('guest', 'guest.id', 'delivery.guest_id')
+            ->select('*', 'delivery.id as maGiaoHang')
+            ->get();
         return view('tables.export.delivery.list-delivery', compact('title', 'delivery'));
     }
 
@@ -93,7 +95,10 @@ class DeliveryController extends Controller
         $data = $request->all();
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->select('*', 'detailexport.id as maXuat')
-            ->where('detailexport.id', $data['idQuote'])->get();
+            ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) as soLuongCanGiao')
+            ->where('detailexport.id', $data['idQuote'])
+            ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) > 0')
+            ->get();
         return $delivery;
     }
     public function getProductFromQuote(Request $request)

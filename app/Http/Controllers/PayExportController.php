@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\BillSale;
+use App\Models\DetailExport;
 use App\Models\PayExport;
 use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PayExportController extends Controller
 {
@@ -26,8 +28,14 @@ class PayExportController extends Controller
     {
         $title = "Thanh toán bán hàng";
         $payExport = PayExport::leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
-        ->leftJoin('guest', 'pay_export.guest_id', 'guest.id')
-        ->get();
+            ->leftJoin('guest', 'pay_export.guest_id', 'guest.id')
+            ->select(
+                'detailexport.*',
+                'guest.*',
+                'pay_export.*',
+                DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo')
+            )
+            ->get();
         return view('tables.export.pay_export.list-payExport', compact('title', 'payExport'));
     }
 
@@ -38,8 +46,7 @@ class PayExportController extends Controller
     {
         $title = "Tạo đơn thanh toán";
         $product = $this->product->getAllProducts();
-        $numberQuote = BillSale::leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
-            ->where('bill_sale.status', 1)->get();
+        $numberQuote = DetailExport::all();
         return view('tables.export.pay_export.create-payExport', compact('title', 'numberQuote', 'product'));
     }
 
@@ -86,19 +93,23 @@ class PayExportController extends Controller
     public function getInfoPay(Request $request)
     {
         $data = $request->all();
-        $delivery = BillSale::where('detailexport.id', $data['idQuote'])
-            ->leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
+        $delivery = DetailExport::where('detailexport.id', $data['idQuote'])
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
-            ->select('*', 'bill_sale.id as maThanhToan')
+            ->leftJoin('bill_sale', 'bill_sale.detailexport_id', 'detailexport.id')
+            ->select(
+                'detailexport.*',
+                'guest.*',
+                'bill_sale.id as maThanhToan',
+            )
             ->first();
         return $delivery;
     }
     public function getProductPay(Request $request)
     {
         $data = $request->all();
-        $delivery = BillSale::leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
-            ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
-            ->where('detailexport.id', $data['idQuote'])->get();
+        $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->where('detailexport.id', $data['idQuote'])
+            ->get();
         return $delivery;
     }
 }
