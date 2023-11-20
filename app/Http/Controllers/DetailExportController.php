@@ -86,7 +86,9 @@ class DetailExportController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $export_id = $this->detailExport->updateExport($request->all(), $id);
+        $this->quoteExport->updateQuoteExport($request->all(), $export_id);
+        return redirect()->route('detailExport.index')->with('msg', 'Cập nhật đơn báo giá thành công!');
     }
 
     /**
