@@ -62,7 +62,7 @@
             </ul>
             <!-- Centered navigation items -->
             <ul class="navbar-nav mx-auto nav-title justify-content-center">
-                <li class="nav-item {!! $isActiveRouteGroup('inventory.index,inventory.edit') !!}">
+                <li class="nav-item {!! $isActiveRouteGroup('inventory.index,inventory.edit,guests.index,guests.create,guests.edit') !!}">
                     <a href="#" class="">Kho hàng</a>
                 </li>
                 <li class="nav-item mx-3">

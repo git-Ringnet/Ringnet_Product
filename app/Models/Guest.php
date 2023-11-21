@@ -94,7 +94,7 @@ class Guest extends Model
                 'guest_receiver' => $data['guest_receiver'],
                 'guest_email_personal' => $data['guest_email_personal'],
                 'guest_phone_receiver' => $data['guest_phone_receiver'],
-                'guest_debt' => 0,
+                'guest_debt' => $data['guest_debt'],
                 'guest_note' => $data['guest_note']
             ];
             $provide_id =  DB::table($this->table)->insert($dataguest);

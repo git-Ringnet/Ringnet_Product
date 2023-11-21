@@ -1,7 +1,7 @@
 <x-navbar :title="$title"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <form action="{{ route('detailExport.update', $detailExport->maBG) }}" method="POST">
+    <form action="{{ route('detailExport.update', $detailExport->maBG) }}" method="POST" id="update-form">
         @csrf
         @method('PUT')
         <!-- Content Header (Page header) -->
@@ -16,7 +16,7 @@
                 </div>
                 <div class="row m-0 mb-1">
                     <button type="submit" name="submit" value="1"
-                        class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                        class="custom-btn d-flex align-items-center h-100" id="btn-submit" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -38,7 +38,8 @@
                             <span>Lưu và in</span>
                         </button>
                         <div class="dropdown-menu" style="z-index: 9999;">
-                            <a class="dropdown-item" href="#">Xuất Excel</a>
+                            <a class="dropdown-item" id="btn-pdf" href="#">Xuất
+                                Excel</a>
                             <a class="dropdown-item" href="#">Xuất PDF</a>
                         </div>
                     </div>
@@ -685,6 +686,16 @@
     </div>
 </div>
 <script>
+    // Lưu và xuất pdf
+    $('#btn-pdf').on('click', function(event) {
+        event.preventDefault();
+        var form = $('#update-form');
+        var newAction = "{{ route('pdf.update', $detailExport->maBG) }}"; // Thay đổi route tại đây nếu cần
+        form.attr('action', newAction);
+        $('#btn-submit').click();
+    });
+
+
     $("table tbody").sortable({
         axis: "y",
         handle: "td",

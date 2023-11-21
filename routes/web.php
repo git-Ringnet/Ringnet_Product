@@ -7,6 +7,7 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\DetailImportController;
 use App\Http\Controllers\PayExportController;
 use App\Http\Controllers\PayOrderController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvidesController;
 use App\Http\Controllers\QuoteExportController;
@@ -63,9 +64,15 @@ Route::get('/getProduct_reciept', [RecieptController::class, 'getProduct_reciept
 // Thanh toán nhập hàng
 Route::resource('paymentOrder', PayOrderController::class);
 
+
 Route::get('/', function () {
     return view('welcome');
 });
+// PDF
+Route::resource('pdf', PdfController::class);
+Route::get('/pdf/{id?}', [PdfController::class, 'index'])->name('pdf');
+Route::get('/excel', [PdfController::class, 'export'])->name('excel');
+
 
 //Bán hàng
 //Báo giá
