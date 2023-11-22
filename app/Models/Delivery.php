@@ -20,7 +20,10 @@ class Delivery extends Model
 
     public function addDelivery($data)
     {
-        $shipping_fee = str_replace(',', '', $data['shipping_fee']);
+        $shipping_fee = $data['shipping_fee'];
+        if ($shipping_fee !== null) {
+            $shipping_fee = str_replace(',', '', $shipping_fee);
+        }
         $dataDelivery = [
             'guest_id' => $data['guest_id'],
             'quotation_number' => $data['quotation_number'],

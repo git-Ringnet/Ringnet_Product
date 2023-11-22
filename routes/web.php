@@ -77,8 +77,11 @@ Route::get('/excel', [PdfController::class, 'export'])->name('excel');
 //Bán hàng
 //Báo giá
 Route::resource('detailExport', DetailExportController::class);
+Route::get('seeInfo/{id}', [DetailExportController::class, 'seeInfo'])->name('seeInfo');
 //tìm kiếm tên khách hàng
 Route::get('/searchExport', [DetailExportController::class, 'searchGuest'])->name('searchExport');
+//tìm kiếm tên project
+Route::get('/searchProject', [DetailExportController::class, 'searchProject'])->name('searchProject');
 //Thêm khách hàng
 Route::get('/addGuest', [DetailExportController::class, 'addGuest'])->name('addGuest');
 //Lấy thông tin sản phẩm

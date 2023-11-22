@@ -55,36 +55,6 @@
                                 fill="#42526E" />
                         </svg>
                     </button>
-                    <button type="submit" value="2" name="submit"
-                        class="custom-btn d-flex align-items-center h-100 ml-2" style="margin-right:10px">
-                        <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M3.75528 1.6875H5.99476H11.9948H12.123C12.3939 1.6875 12.6621 1.74088 12.9123 1.84459C13.1626 1.94829 13.3899 2.10029 13.5814 2.29189L15.7022 4.41269C16.089 4.79939 16.3064 5.32394 16.3065 5.87088V14.25C16.3065 14.797 16.0892 15.3216 15.7024 15.7084C15.3156 16.0952 14.791 16.3125 14.244 16.3125H12.75H5.25H3.83328C3.28894 16.3125 2.76666 16.0973 2.38031 15.7139C1.99396 15.3304 1.77486 14.8098 1.77078 14.2655L1.69278 3.76547C1.69074 3.49333 1.74258 3.22344 1.84531 2.97143C1.94805 2.71941 2.09965 2.49021 2.29137 2.29705C2.4831 2.10389 2.71115 1.95058 2.9624 1.84597C3.21364 1.74135 3.48312 1.68749 3.75528 1.6875ZM5.8125 15.1875H12.1875V9.9645C12.1875 9.74238 12.0071 9.5625 11.7862 9.5625H6.2145C5.99266 9.5625 5.8125 9.74266 5.8125 9.9645V15.1875ZM13.3125 15.1875V9.9645C13.3125 9.12163 12.6289 8.4375 11.7862 8.4375H6.2145C5.37134 8.4375 4.6875 9.12134 4.6875 9.9645V15.1875H3.83326C3.58582 15.1875 3.34842 15.0897 3.17281 14.9154C2.9972 14.7411 2.89761 14.5044 2.89574 14.257L2.81774 3.75703C2.81682 3.63333 2.84038 3.51066 2.88708 3.39611C2.93378 3.28155 3.00269 3.17737 3.08983 3.08957C3.17698 3.00177 3.28064 2.93208 3.39485 2.88453C3.50905 2.83698 3.63154 2.8125 3.75524 2.8125H5.43226V5.18175C5.43226 5.52985 5.57054 5.86369 5.81668 6.10983C6.06282 6.35597 6.39666 6.49425 6.74476 6.49425H11.2448C11.5929 6.49425 11.9267 6.35597 12.1728 6.10983C12.419 5.86369 12.5573 5.52985 12.5573 5.18175V2.91925C12.6414 2.96326 12.7185 3.01991 12.7858 3.08725L14.9068 5.20831C15.0826 5.38405 15.1814 5.62254 15.1815 5.87112V14.25C15.1815 14.4986 15.0827 14.7371 14.9069 14.9129C14.7311 15.0887 14.4926 15.1875 14.244 15.1875H13.3125ZM11.4323 5.18175V2.8125H6.55726V5.18175C6.55726 5.23148 6.57701 5.27917 6.61218 5.31433C6.64734 5.3495 6.69503 5.36925 6.74476 5.36925H11.2448C11.2945 5.36925 11.3422 5.3495 11.3773 5.31433C11.4125 5.27917 11.4323 5.23148 11.4323 5.18175Z"
-                                fill="white" />
-                        </svg>
-                        <span>Tạo đơn giao hàng</span>
-                    </button>
-                    <button type="submit" value="3" name="submit"
-                        class="custom-btn d-flex align-items-center h-100 ml-2" style="margin-right:10px">
-                        <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M3.75528 1.6875H5.99476H11.9948H12.123C12.3939 1.6875 12.6621 1.74088 12.9123 1.84459C13.1626 1.94829 13.3899 2.10029 13.5814 2.29189L15.7022 4.41269C16.089 4.79939 16.3064 5.32394 16.3065 5.87088V14.25C16.3065 14.797 16.0892 15.3216 15.7024 15.7084C15.3156 16.0952 14.791 16.3125 14.244 16.3125H12.75H5.25H3.83328C3.28894 16.3125 2.76666 16.0973 2.38031 15.7139C1.99396 15.3304 1.77486 14.8098 1.77078 14.2655L1.69278 3.76547C1.69074 3.49333 1.74258 3.22344 1.84531 2.97143C1.94805 2.71941 2.09965 2.49021 2.29137 2.29705C2.4831 2.10389 2.71115 1.95058 2.9624 1.84597C3.21364 1.74135 3.48312 1.68749 3.75528 1.6875ZM5.8125 15.1875H12.1875V9.9645C12.1875 9.74238 12.0071 9.5625 11.7862 9.5625H6.2145C5.99266 9.5625 5.8125 9.74266 5.8125 9.9645V15.1875ZM13.3125 15.1875V9.9645C13.3125 9.12163 12.6289 8.4375 11.7862 8.4375H6.2145C5.37134 8.4375 4.6875 9.12134 4.6875 9.9645V15.1875H3.83326C3.58582 15.1875 3.34842 15.0897 3.17281 14.9154C2.9972 14.7411 2.89761 14.5044 2.89574 14.257L2.81774 3.75703C2.81682 3.63333 2.84038 3.51066 2.88708 3.39611C2.93378 3.28155 3.00269 3.17737 3.08983 3.08957C3.17698 3.00177 3.28064 2.93208 3.39485 2.88453C3.50905 2.83698 3.63154 2.8125 3.75524 2.8125H5.43226V5.18175C5.43226 5.52985 5.57054 5.86369 5.81668 6.10983C6.06282 6.35597 6.39666 6.49425 6.74476 6.49425H11.2448C11.5929 6.49425 11.9267 6.35597 12.1728 6.10983C12.419 5.86369 12.5573 5.52985 12.5573 5.18175V2.91925C12.6414 2.96326 12.7185 3.01991 12.7858 3.08725L14.9068 5.20831C15.0826 5.38405 15.1814 5.62254 15.1815 5.87112V14.25C15.1815 14.4986 15.0827 14.7371 14.9069 14.9129C14.7311 15.0887 14.4926 15.1875 14.244 15.1875H13.3125ZM11.4323 5.18175V2.8125H6.55726V5.18175C6.55726 5.23148 6.57701 5.27917 6.61218 5.31433C6.64734 5.3495 6.69503 5.36925 6.74476 5.36925H11.2448C11.2945 5.36925 11.3422 5.3495 11.3773 5.31433C11.4125 5.27917 11.4323 5.23148 11.4323 5.18175Z"
-                                fill="white" />
-                        </svg>
-                        <span>Tạo hóa đơn bán hàng</span>
-                    </button>
-                    <button type="submit" value="4" name="submit"
-                        class="custom-btn d-flex align-items-center h-100 ml-2" style="margin-right:10px">
-                        <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M3.75528 1.6875H5.99476H11.9948H12.123C12.3939 1.6875 12.6621 1.74088 12.9123 1.84459C13.1626 1.94829 13.3899 2.10029 13.5814 2.29189L15.7022 4.41269C16.089 4.79939 16.3064 5.32394 16.3065 5.87088V14.25C16.3065 14.797 16.0892 15.3216 15.7024 15.7084C15.3156 16.0952 14.791 16.3125 14.244 16.3125H12.75H5.25H3.83328C3.28894 16.3125 2.76666 16.0973 2.38031 15.7139C1.99396 15.3304 1.77486 14.8098 1.77078 14.2655L1.69278 3.76547C1.69074 3.49333 1.74258 3.22344 1.84531 2.97143C1.94805 2.71941 2.09965 2.49021 2.29137 2.29705C2.4831 2.10389 2.71115 1.95058 2.9624 1.84597C3.21364 1.74135 3.48312 1.68749 3.75528 1.6875ZM5.8125 15.1875H12.1875V9.9645C12.1875 9.74238 12.0071 9.5625 11.7862 9.5625H6.2145C5.99266 9.5625 5.8125 9.74266 5.8125 9.9645V15.1875ZM13.3125 15.1875V9.9645C13.3125 9.12163 12.6289 8.4375 11.7862 8.4375H6.2145C5.37134 8.4375 4.6875 9.12134 4.6875 9.9645V15.1875H3.83326C3.58582 15.1875 3.34842 15.0897 3.17281 14.9154C2.9972 14.7411 2.89761 14.5044 2.89574 14.257L2.81774 3.75703C2.81682 3.63333 2.84038 3.51066 2.88708 3.39611C2.93378 3.28155 3.00269 3.17737 3.08983 3.08957C3.17698 3.00177 3.28064 2.93208 3.39485 2.88453C3.50905 2.83698 3.63154 2.8125 3.75524 2.8125H5.43226V5.18175C5.43226 5.52985 5.57054 5.86369 5.81668 6.10983C6.06282 6.35597 6.39666 6.49425 6.74476 6.49425H11.2448C11.5929 6.49425 11.9267 6.35597 12.1728 6.10983C12.419 5.86369 12.5573 5.52985 12.5573 5.18175V2.91925C12.6414 2.96326 12.7185 3.01991 12.7858 3.08725L14.9068 5.20831C15.0826 5.38405 15.1814 5.62254 15.1815 5.87112V14.25C15.1815 14.4986 15.0827 14.7371 14.9069 14.9129C14.7311 15.0887 14.4926 15.1875 14.244 15.1875H13.3125ZM11.4323 5.18175V2.8125H6.55726V5.18175C6.55726 5.23148 6.57701 5.27917 6.61218 5.31433C6.64734 5.3495 6.69503 5.36925 6.74476 5.36925H11.2448C11.2945 5.36925 11.3422 5.3495 11.3773 5.31433C11.4125 5.27917 11.4323 5.23148 11.4323 5.18175Z"
-                                fill="white" />
-                        </svg>
-                        <span>Tạo đơn thanh toán</span>
-                    </button>
                 </div>
             </div>
         </section>
@@ -132,7 +102,8 @@
                                         <p class="p-0 m-0 px-3">Số báo giá#</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" required placeholder="Nhập thông tin" name="quotation_number"
+                                        <input type="text" placeholder="Nhập thông tin"
+                                            name="quotation_number"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -141,7 +112,8 @@
                                         <p class="p-0 m-0 px-3">Số tham chiếu#</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" required placeholder="Nhập thông tin" name="reference_number"
+                                        <input type="text" placeholder="Nhập thông tin"
+                                            name="reference_number"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -150,7 +122,8 @@
                                         <p class="p-0 m-0 px-3">Ngày báo giá</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="date" required placeholder="Nhập thông tin" value="{{ date('Y-m-d') }}" name="date_quote"
+                                        <input type="date" placeholder="Nhập thông tin"
+                                            value="{{ date('Y-m-d') }}" name="date_quote"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -159,7 +132,8 @@
                                         <p class="p-0 m-0 px-3">Hiệu lực báo giá</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" required placeholder="Nhập thông tin" name="price_effect"
+                                        <input type="text" placeholder="Nhập thông tin"
+                                            name="price_effect"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -177,8 +151,22 @@
                                         <p class="p-0 m-0 px-3">Dự án</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" placeholder="Nhập thông tin"
+                                        <input type="text" placeholder="Nhập thông tin" id="ProjectInput"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                        <input type="hidden" class="idProject" autocomplete="off" name="project_id">
+                                        <ul id="listProject"
+                                            class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                            style="z-index: 99;">
+                                            @foreach ($project as $project_value)
+                                                <li>
+                                                    <a href="#"
+                                                        class="text-dark d-flex justify-content-between p-2 search-project"
+                                                        id="{{ $project_value->id }}">
+                                                        <span class="w-50">{{ $project_value->project_name }}</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -532,6 +520,44 @@
     </div>
 </div>
 <script>
+    //hiện danh sách project khi click trường tìm kiếm
+    $("#listProject").hide();
+    $("#ProjectInput").on("click", function() {
+        $("#listProject").show();
+    });
+    //ẩn danh sách project
+    $(document).click(function(event) {
+        if (!$(event.target).closest("#ProjectInput").length) {
+            $("#listProject").hide();
+        }
+    });
+    //search thông tin project
+    $(document).ready(function() {
+        $("#ProjectInput").on("keyup", function() {
+            var value = $(this).val().toUpperCase();
+            $("#listProject li").each(function() {
+                var text = $(this).find("a").text().toUpperCase();
+                $(this).toggle(text.indexOf(value) > -1);
+            });
+        });
+    });
+    //Lấy thông tin project
+    $(document).ready(function() {
+        $('.search-project').click(function() {
+            var idProject = $(this).attr('id');
+            $.ajax({
+                url: '{{ route('searchProject') }}',
+                type: 'GET',
+                data: {
+                    idProject: idProject
+                },
+                success: function(data) {
+                    $('#ProjectInput').val(data.project_name);
+                    $('.idProject').val(data.id);
+                }
+            });
+        });
+    });
     //hiện danh sách khách hàng khi click trường tìm kiếm
     $("#myUL").hide();
     $("#myInput").on("click", function() {
@@ -649,7 +675,7 @@
             );
             const heSoNhan = $(
                 "<td class='border border-top-0 border-bottom-0 position-relative product_ratio'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-100 heSoNhan' autocomplete='off' required name='product_ratio[]'>" +
+                "<input type='text' class='border-0 px-2 py-1 w-100 heSoNhan' autocomplete='off' name='product_ratio[]'>" +
                 "</td>"
             );
             const giaNhap = $(
@@ -828,7 +854,6 @@
                 $(this).closest("tr").find('.product_ratio').val('')
                 $(this).closest("tr").find('.price_import').val('')
                 // Xóa required
-                $('tbody .heSoNhan').removeAttr('required');
                 $('tbody .giaNhap').removeAttr('required');
                 $('.product-ratio').hide();
                 $('.product_ratio').hide()
@@ -844,7 +869,6 @@
                 // Xóa dữ liệu trương đơn giá
                 $(this).closest("tr").find('.price_export').val('')
                 // Thêm required
-                $('tbody .heSoNhan').attr('required', true);
                 $('tbody .giaNhap').attr('required', true);
                 $('.product_ratio').show()
                 $('.price_import').show();
@@ -1110,7 +1134,6 @@
             $('.product_ratio').val('')
             $('.price_import').val('')
             // Xóa required
-            $('tbody .heSoNhan').removeAttr('required');
             $('tbody .giaNhap').removeAttr('required');
             $('.product-ratio').hide();
             $('.product_ratio').hide()
@@ -1130,7 +1153,6 @@
             $('#grand-total').text('0đ');
             $('#product-tax').text('0đ');
             // Thêm required
-            $('tbody .heSoNhan').attr('required', true);
             $('tbody .giaNhap').attr('required', true);
             $('.product_ratio').show();
             $('.price_import').show();

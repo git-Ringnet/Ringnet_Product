@@ -106,7 +106,8 @@
                                         <p class="p-0 m-0 px-3">Hạn thanh toán</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="date" placeholder="Nhập thông tin" value="{{ date('Y-m-d') }}" name="date_pay" required
+                                        <input type="date" placeholder="Nhập thông tin"
+                                            value="{{ date('Y-m-d') }}" name="date_pay" required
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -116,12 +117,31 @@
                                     </div>
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin" readonly name="total"
+                                            value="0"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 tongTien">
                                     </div>
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Đã thanh toán</p>
+                                    </div>
+                                    <div class="w-100">
+                                        <input type="text" value="0" readonly
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 payment">
+                                    </div>
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Dư nợ</p>
+                                    </div>
+                                    <div class="w-100">
+                                        <input type="text" value="0" readonly
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 payment">
+                                    </div>
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Thanh toán trước</p>
                                     </div>
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin" name="payment" required
@@ -702,7 +722,8 @@
                         success: function(data) {
                             $(".sanPhamGiao").remove();
                             $.each(data, function(index, item) {
-                                $("#detailexport_id").val(item.detailexport_id);
+                                $("#detailexport_id").val(item
+                                    .detailexport_id);
                                 var totalTax = parseFloat(item
                                     .total_tax) || 0;
                                 var totalPrice = parseFloat(item
@@ -722,7 +743,7 @@
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>
                                     </svg>
                                     <input type="checkbox" class="cb-element">
-                                    <input type="text" value="${item.product_code}" readonly autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
+                                    <input type="text" value="${item.product_code == null ? '' : item.product_code}" readonly autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
                                 </div>
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative">

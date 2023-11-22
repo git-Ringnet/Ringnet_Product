@@ -6,6 +6,7 @@ use App\Models\DetailExport;
 use App\Models\Guest;
 use App\Models\ProductCode;
 use App\Models\Products;
+use App\Models\Project;
 use App\Models\QuoteExport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -30,6 +31,7 @@ class DetailExportController extends Controller
         $this->product_code = new ProductCode();
         $this->quoteExport = new QuoteExport();
         $this->product = new Products();
+        $this->project = new Project();
     }
     public function index()
     {
@@ -46,8 +48,9 @@ class DetailExportController extends Controller
         $title = "Tạo báo giá";
         $guest = $this->guest->getAllGuest();
         // $product_code = $this->product_code->getAllProductCode();
+        $project = $this->project->getAllProject();
         $product = $this->product->getAllProducts();
-        return view('tables.export.quote.create-quote', compact('title', 'guest', 'product'));
+        return view('tables.export.quote.create-quote', compact('title', 'guest', 'product', 'project'));
     }
 
     /**
@@ -66,6 +69,19 @@ class DetailExportController extends Controller
     public function show(string $id)
     {
         //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function seeInfo(string $id)
+    {
+        $title = 'Chỉnh sửa đơn báo giá';
+        $guest = $this->guest->getAllGuest();
+        $product = $this->product->getAllProducts();
+        $detailExport = $this->detailExport->getDetailExportToId($id);
+        $quoteExport = $this->detailExport->getProductToId($id);
+        return view('tables.export.quote.see-quote', compact('title', 'guest', 'product', 'detailExport', 'quoteExport'));
     }
 
     /**
@@ -104,6 +120,13 @@ class DetailExportController extends Controller
         $data = $request->all();
         $guest = Guest::where('id', $data['idGuest'])->first();
         return $guest;
+    }
+    //Tìm kiếm project
+    public function searchProject(Request $request)
+    {
+        $data = $request->all();
+        $project = Project::where('id', $data['idProject'])->first();
+        return $project;
     }
     //Thêm khách hàng
     public function addGuest(Request $request)

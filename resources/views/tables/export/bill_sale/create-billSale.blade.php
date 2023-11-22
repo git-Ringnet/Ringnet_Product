@@ -11,9 +11,9 @@
                 <div class="mb-3">
                     <span>Bán hàng</span>
                     <span>/</span>
-                    <span>Đơn giao hàng</span>
+                    <span>Hóa đơn bán hàng</span>
                     <span>/</span>
-                    <span class="font-weight-bold">Đơn giao hàng mới</span>
+                    <span class="font-weight-bold">Hóa đơn bán hàng mới</span>
                 </div>
                 <div class="row m-0 mb-1">
                     <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
@@ -106,7 +106,8 @@
                                         <p class="p-0 m-0 px-3">Ngày hóa đơn</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="date" placeholder="Nhập thông tin" value="{{ date('Y-m-d') }}" name="date_bill" required
+                                        <input type="date" placeholder="Nhập thông tin"
+                                            value="{{ date('Y-m-d') }}" name="date_bill" required
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -689,12 +690,20 @@
                                     .total_price) || 0;
                                 var grandTotal = totalTax + totalPrice;
                                 $(".idGuest").val(item.guest_id);
-                                $("#detailexport_id").val(item.detailexport_id);
-                                $("#total-amount-sum").text(formatCurrency(totalPrice));
-                                $("#product-tax").text(formatCurrency(totalTax));
-                                $("#grand-total").text(formatCurrency(grandTotal));
-                                $("#voucher").val(formatCurrency(item.discount == null ? 0 : item.discount));
-                                $("#transport_fee").val(formatCurrency(item.transfer_fee == null ? 0 : item.transfer_fee));
+                                $("#detailexport_id").val(item
+                                    .detailexport_id);
+                                $("#total-amount-sum").text(
+                                    formatCurrency(totalPrice));
+                                $("#product-tax").text(formatCurrency(
+                                    totalTax));
+                                $("#grand-total").text(formatCurrency(
+                                    grandTotal));
+                                $("#voucher").val(formatCurrency(item
+                                    .discount == null ? 0 : item
+                                    .discount));
+                                $("#transport_fee").val(formatCurrency(
+                                    item.transfer_fee == null ?
+                                    0 : item.transfer_fee));
                                 var newRow = `
                                 <tr id="dynamic-row-${item.id}" class="bg-white sanPhamGiao">
                             <td class="border border-left-0 border-top-0 border-bottom-0 position-relative">
@@ -708,7 +717,7 @@
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>
                                     </svg>
                                     <input type="checkbox" class="cb-element">
-                                    <input type="text" value="${item.product_code}" autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
+                                    <input type="text" value="${item.product_code == null ? '' : item.product_code}" autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
                                 </div>
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative">
