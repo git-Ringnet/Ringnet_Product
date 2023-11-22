@@ -177,7 +177,7 @@
                                                 {{ date_format(new DateTime($value_export->created_at), 'd/m/Y') }}</td>
                                             <td class="border-top-0 bg-white">
                                                 <div class="">
-                                                    <a href="{{ route('detailExport.edit', $value_export->maBG) }}"
+                                                    <a href="{{ route('seeInfo', $value_export->maBG) }}"
                                                         class="duongDan">{{ $value_export->quotation_number }}</a>
                                                 </div>
                                             </td>

@@ -44,7 +44,6 @@ class DetailExport extends Model
         $totalTax = 0;
         $transport = str_replace(',', '', $data['transport_fee']);
         $discount = str_replace(',', '', $data['discount']);
-        $submitValue = $data['submit'];
         for ($i = 0; $i < count($data['product_code']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
             $subtotal = $data['product_qty'][$i] * (float) $price;
@@ -56,7 +55,6 @@ class DetailExport extends Model
             'guest_id' => $data['guest_id'],
             'project_id' => 1,
             'user_id' => 1,
-            'quotation_number' => $data['quotation_number'],
             'reference_number' => $data['reference_number'],
             'price_effect' => $data['price_effect'],
             'status' => 1,
@@ -73,23 +71,16 @@ class DetailExport extends Model
         ];
         $detailexport = new DetailExport($dataExport);
         $detailexport->save();
-        // if ($submitValue == '2') {
-        //     $dataDelivery = [
-        //         'guest_id' => $data['guest_id'],
-        //         'quotation_number' => $data['quotation_number'],
-        //         'detailexport_id' => $detailexport->id,
-        //         'status' => 1,
-        //         'created_at' => $data['date_quote'],
-        //     ];
-        //     $UpdatedetailExport = DetailExport::where('id', $detailexport->id)->first();
-        //     if ($UpdatedetailExport) {
-        //         $UpdatedetailExport->update([
-        //             'status' => 2,
-        //         ]);
-        //     }
-        //     $delivery = new Delivery($dataDelivery);
-        //     $delivery->save();
-        // }
+        $updateDetail = DetailExport::find($detailexport->id);
+        if ($data['quotation_number'] == null) {
+            $updateDetail->update([
+                'quotation_number' => $detailexport->id,
+            ]);
+        } else {
+            $updateDetail->update([
+                'quotation_number' => $data['quotation_number'],
+            ]);
+        }
         return $detailexport->id;
     }
     public function getDetailExportToId($id)
