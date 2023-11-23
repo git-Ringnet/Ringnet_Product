@@ -11,6 +11,8 @@
                     <span>Mua hàng</span>
                     <span>/</span>
                     <span class="font-weight-bold">Đơn nhận hàng</span>
+                    <span>/</span>
+                    <span class="font-weight-bold">Tạo mới đơn nhận hàng</span>
                 </div>
                 <div class="row m-0 mb-1">
                     <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
@@ -66,7 +68,7 @@
                                                 <a href="javascript:void(0)"
                                                     class="text-dark d-flex justify-content-between p-2 search-receive"
                                                     id="{{ $value->id }}" name="search-info">
-                                                    <span class="w-50">{{ $value->quotation_number }}</span>
+                                                    <span class="w-50">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
                                                 </a>
                                             </li>
                                         @endforeach
@@ -122,8 +124,6 @@
                             <th class="border-right">Thuế</th>
                             <th class="border-right">Thành tiền</th>
                             <th class="p-0 bg-secondary" style="width:1%;"></th>
-                            <th class="border-right product_ratio">Hệ số nhân</th>
-                            <th class="border-right price_import">Giá nhập</th>
                             <th class="border-right">Ghi chú</th>
                             <th class="border-top"></th>
                         </tr>
@@ -157,7 +157,7 @@
                 detail_id: detail_id
             },
             success: function(data) {
-                $('#search_quotation').val(data.quotation_number);
+                $('#search_quotation').val(data.quotation_number== null ? data.id : data.quotation_number);
                 $('#provide_name').val(data.provide_name);
                 $('#detailimport_id').val(data.id)
                 $('#listReceive').hide();
@@ -232,16 +232,6 @@
                                     `">
                                 </td>
                                 <td class="border border-bottom-0 p-0 bg-secondary"></td>
-                                <td class="border border-top-0 border-bottom-0 product-ratio">
-                                    <input readonly required="" type="text" name="product_ratio[]" class="border-0 px-3 py-2 w-100 product_ratio" value="` +
-                                    element.product_ratio +
-                                    `">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 price_import">
-                                    <input readonly required="" type="text" name="price_import[]" class="border-0 px-3 py-2 w-100 price_import" value="` +
-                                    formatCurrency(element.price_import) +
-                                    `">
-                                </td>
                                 <td class="border border-top-0 border-bottom-0">
                                     <input readonly type="text" name="product_note[]" class="border-0 px-3 py-2 w-100" value="` +
                                     (element.product_note == null ? "" : element

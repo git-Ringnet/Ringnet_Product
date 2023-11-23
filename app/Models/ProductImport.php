@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -32,8 +33,18 @@ class ProductImport extends Model
     {
         return $this->hasMany(Serialnumber::class, 'product_id', 'product_id');
     }
-
-
+    public function getQuoteImport()
+    {
+        return $this->hasOne(QuoteImport::class, 'id', 'quoteImport_id');
+    }
+    public function getQuotetion()
+    {
+        return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
+    }
+    public function getDataProduct(){
+        return $this->hasOne(QuoteImport::class, 'id', 'quoteImport_id');
+    }
+    
     public function addProductImport($data, $id, $colum, $columQuote)
     {
         $status = false;
@@ -69,7 +80,8 @@ class ProductImport extends Model
                         // 'product_ratio' => $product_ratio,
                         // 'price_import' => $price_import,
                         // 'product_note' => $data['product_note'][$i],
-                        $colum => 0
+                        $colum => 0,
+                        'created_at' => Carbon::now(),
                     ];
 
                     DB::table($this->table)->insert($dataProductImport);

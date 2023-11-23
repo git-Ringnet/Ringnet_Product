@@ -18,7 +18,7 @@ return new class extends Migration
             // $table->string('product_code')->nullable();
             // $table->string('product_name');
             // $table->string('product_unit');
-            $table->decimal('product_qty',20,4);
+            $table->decimal('product_qty', 20, 4);
             // $table->integer('product_tax');
             // $table->decimal('product_total',20,4);
             // $table->decimal('price_export',20,4);
@@ -32,9 +32,9 @@ return new class extends Migration
             $table->timestamps();
         });
         Schema::table('quoteimport', function (Blueprint $table) {
-            $table->integer('receive_qty')->nullable()->after('product_id');
-            $table->integer('reciept_qty')->nullable()->after('receive_qty');
-            $table->integer('payment_qty')->nullable()->after('reciept_qty');
+            $table->decimal('receive_qty', 20, 4)->nullable()->after('product_id');
+            $table->decimal('reciept_qty', 20, 4)->nullable()->after('receive_qty');
+            $table->decimal('payment_qty', 20, 4)->nullable()->after('reciept_qty');
         });
     }
 

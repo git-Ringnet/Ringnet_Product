@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('reciept', function (Blueprint $table) {
             $table->id();
             $table->integer('detailimport_id');
-            // $table->string('quotation_number');
             $table->integer('provide_id');
             $table->integer('status');
             $table->decimal('price_total',20,4);
+            $table->dateTime('date_bill');
+            $table->string('number_bill');
             $table->timestamps();
         });
     }

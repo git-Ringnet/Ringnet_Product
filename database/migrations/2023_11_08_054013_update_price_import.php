@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::table('quoteexport', function (Blueprint $table) {
             $table->decimal('price_import', 20, 4)->nullable()->change();
         });
-        Schema::table('quoteimport', function (Blueprint $table) {
-            $table->decimal('price_import', 20, 4)->nullable()->change();
-        });
+        // Schema::table('quoteimport', function (Blueprint $table) {
+        //     $table->decimal('price_import', 20, 4)->nullable()->change();
+        // });
         Schema::table('quoteexport', function (Blueprint $table) {
             $table->integer('deliver_id')->nullable();
         });

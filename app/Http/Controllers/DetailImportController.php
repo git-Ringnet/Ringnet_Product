@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailImport;
+use App\Models\HistoryImport;
 use App\Models\PayOder;
 use App\Models\ProductCode;
 use App\Models\ProductImport;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 
 class DetailImportController extends Controller
 {
-    private $import;
+    private $detailImport;
     private $sn;
     private $provide;
     private $quoteImport;
@@ -27,9 +28,10 @@ class DetailImportController extends Controller
     private $productImport;
     private $reciept;
     private $payment;
+    private $history_import;
     public function __construct()
     {
-        $this->import = new DetailImport();
+        $this->detailImport = new DetailImport();
         $this->provide = new Provides();
         $this->quoteImport = new QuoteImport();
         $this->receiver_bill = new Receive_bill();
@@ -38,6 +40,7 @@ class DetailImportController extends Controller
         $this->productImport = new ProductImport();
         $this->reciept = new Reciept();
         $this->payment = new PayOder();
+        $this->history_import = new HistoryImport();
     }
     /**
      * Display a listing of the resource.
@@ -67,7 +70,9 @@ class DetailImportController extends Controller
      */
     public function store(Request $request)
     {
-        $import_id = $this->import->addImport($request->all());
+        // Thêm thông tin đơn hàng
+        $import_id = $this->detailImport->addImport($request->all());
+        // Thêm sản phẩm theo đơn hàng, thêm vào lịch sử
         $this->quoteImport->addQuoteImport($request->all(), $import_id);
         return redirect()->route('import.index')->with('msg', ' Tạo mới đơn nhập hàng thành công !');
     }
@@ -77,7 +82,13 @@ class DetailImportController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $import = DetailImport::findOrFail($id);
+        $provides = Provides::all();
+        $title = $import->quotation_number;
+        $product = QuoteImport::where('detailimport_id', $import->id)->get();
+        $project = Project::all();
+        $history = HistoryImport::where('detailImport_id',$id)->get();
+        return view('tables.import.showImport', compact('import', 'title', 'provides', 'product', 'project','history'));
     }
 
     /**
@@ -90,7 +101,8 @@ class DetailImportController extends Controller
         $title = $import->quotation_number;
         $product = QuoteImport::where('detailimport_id', $import->id)->get();
         $project = Project::all();
-        return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project'));
+        $history = HistoryImport::where('detailImport_id',$id)->get();
+        return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project','history'));
     }
 
     /**
@@ -100,12 +112,16 @@ class DetailImportController extends Controller
     {
         $title = "";
         if ($request->action == 'action_1') {
-            $this->import->updateImport($request->all(), $id, 1);
+            // Cập nhật thông tin đơn hàng
+            $this->detailImport->updateImport($request->all(), $id, 1);
+            // Cập nhật sản phẩm
             $this->quoteImport->updateImport($request->all(), $id);
+            // Lưu lịch sử
+            $this->history_import->addHistoryImport($request->all(),$id);
             return redirect()->route('import.index')->with('msg', 'Chỉnh sửa đơn mua hàng thành công !');
         } else if ($request->action == 'action_2') {
             // Cập nhật tình trạng
-            $check = $this->import->updateImport($request->all(), $id, 2);
+            $check = $this->detailImport->updateImport($request->all(), $id, 2);
             if ($check == true) {
                 // cập nhật sản phẩm
                 $this->quoteImport->updateImport($request->all(), $id);
@@ -121,7 +137,7 @@ class DetailImportController extends Controller
                 return redirect()->route('import.index')->with('warning', 'Đã tạo hết đơn nhận hàng !');
             }
         } elseif ($request->action == "action_3") {
-            $check = $this->import->updateImport($request->all(), $id, 2);
+            $check = $this->detailImport->updateImport($request->all(), $id, 2);
             if ($check) {
                 // cập nhật sản phẩm
                 $this->quoteImport->updateImport($request->all(), $id);
@@ -136,7 +152,7 @@ class DetailImportController extends Controller
                 return redirect()->route('import.index')->with('warning', 'Hóa đơn đã được tạo hết !');
             }
         } else {
-            $check = $this->import->updateImport($request->all(), $id, 2);
+            $check = $this->detailImport->updateImport($request->all(), $id, 2);
             if ($check) {
                 // cập nhật sản phẩm
                 $this->quoteImport->updateImport($request->all(), $id);
@@ -158,7 +174,7 @@ class DetailImportController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->import->deleteDetail($id);
+        $this->detailImport->deleteDetail($id);
     }
     // Hiển thị thông tin nhà cung cấp theo id đã chọn
     public function show_provide(Request $request)

@@ -10,7 +10,9 @@
                 <div class="mb-3">
                     <span>Mua hàng</span>
                     <span>/</span>
-                    <span class="font-weight-bold">Đơn nhận hàng</span>
+                    <span class="font-weight-bold">Hóa đơn mua hàng</span>
+                    <span>/</span>
+                    <span class="font-weight-bold">Tạo mới hóa đơn mua hàng</span>
                 </div>
                 <div class="row m-0 mb-1">
                     <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
@@ -66,7 +68,7 @@
                                                 <a href="javascript:void(0)"
                                                     class="text-dark d-flex justify-content-between p-2 search-receive"
                                                     id="{{ $value->id }}" name="search-info">
-                                                    <span class="w-50">{{ $value->quotation_number }}</span>
+                                                    <span class="w-50">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
                                                 </a>
                                             </li>
                                         @endforeach
@@ -79,27 +81,20 @@
                                     <input readonly type="text" id="provide_name" placeholder="Nhập thông tin"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
-                                {{-- <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Đơn vị vận chuyển</p>
-                                    </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="shipping_unit"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                                </div> --}}
-                                {{-- <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Phí giao hàng</p>
-                                    </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                                </div> --}}
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Ngày nhận hàng</p>
+                                        <p class="p-0 m-0 px-3 text-danger required-label">Ngày hóa đơn</p>
                                     </div>
                                     <input type="date" placeholder="Nhập thông tin" name="received_date"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
                                         value="{{ date('Y-m-d') }}">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3 text-danger required-label">Số hóa đơn</p>
+                                    </div>
+                                    <input required type="text" placeholder="Nhập thông tin" name="received_date"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                             </div>
                         </div>
@@ -122,8 +117,6 @@
                             <th class="border-right">Thuế</th>
                             <th class="border-right">Thành tiền</th>
                             <th class="p-0 bg-secondary" style="width:1%;"></th>
-                            <th class="border-right product_ratio">Hệ số nhân</th>
-                            <th class="border-right price_import">Giá nhập</th>
                             <th class="border-right">Ghi chú</th>
                             <th class="border-top"></th>
                         </tr>
@@ -168,13 +161,14 @@
                         console.log(product);
                         $('#inputcontent tbody').empty();
                         product.forEach(function(element) {
-                            if((element.product_qty - element.reciept_qty) > 0){
+                            if ((element.product_qty - element.reciept_qty) >
+                                0) {
                                 var tr =
-                                `
+                                    `
                                 <tr class="bg-white">
                                     <td class="border border-left-0 border-top-0 border-bottom-0">
                                     <input type="hidden" readonly value="` + element.id +
-                                `" name="listProduct[]">
+                                    `" name="listProduct[]">
                                     <div class="d-flex w-100 justify-content-between align-items-center position-relative">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z" fill="#42526E"></path>
@@ -186,61 +180,52 @@
                                         </svg>
                                         <input type="checkbox">
                                         <input type="text" readonly name="product_code[]" class="border-0 px-3 py-2 w-75 searchProduct" value="` +
-                                (element.product_code == null ? "" : element
-                                    .product_code) +
-                                `">
+                                    (element.product_code == null ? "" : element
+                                        .product_code) +
+                                    `">
                                         <ul id="listProductCode" class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 24%; top: 75%;">
                                         </ul>
                                     </div>
                                 </td> 
                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                     <input readonly id="searchProductName" type="text" name="product_name[]" class="searchProductName border-0 px-3 py-2 w-100" value="` +
-                                element.product_name +
-                                `">
+                                    element.product_name +
+                                    `">
                                 </td>   
                                 <td> 
                                     <input readonly type="text" name="product_unit[]" class="border-0 px-3 py-2 w-100 product_unit" value="` +
-                                element
-                                .product_unit +
-                                `">
+                                    element
+                                    .product_unit +
+                                    `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <input oninput="checkQty(this,` + (element.product_qty - element.reciept_qty) +
-                                `" type="text" name="product_qty[]" class="border-0 px-3 py-2 w-100 quantity-input" value="` +
-                                formatCurrency(element.product_qty - element.reciept_qty) +
-                                `">
+                                    `" type="text" name="product_qty[]" class="border-0 px-3 py-2 w-100 quantity-input" value="` +
+                                    formatCurrency(element.product_qty - element
+                                        .reciept_qty) +
+                                    `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <input readonly type="text" name="price_export[]" class="border-0 px-3 py-2 w-100 price_export" value="` +
-                                formatCurrency(element
-                                    .price_export) +
-                                `">
+                                    formatCurrency(element
+                                        .price_export) +
+                                    `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <input readonly type="text" name="product_tax[]" class="border-0 px-3 py-2 w-100 product_tax" value="` +
-                                element.product_tax +
-                                `%">
+                                    element.product_tax +
+                                    `%">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <input readonly type="text" name="total_price[]" class="border-0 px-3 py-2 w-100 total_price" readonly="" value="` +
-                                formatCurrency(element.product_total) +
-                                `">
+                                    formatCurrency(element.product_total) +
+                                    `">
                                 </td>
                                 <td class="border border-bottom-0 p-0 bg-secondary"></td>
-                                <td class="border border-top-0 border-bottom-0 product-ratio">
-                                    <input readonly required="" type="text" name="product_ratio[]" class="border-0 px-3 py-2 w-100 product_ratio" value="` +
-                                element.product_ratio +
-                                `">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 price_import">
-                                    <input readonly required="" type="text" name="price_import[]" class="border-0 px-3 py-2 w-100 price_import" value="` +
-                                formatCurrency(element.price_import) +
-                                `">
-                                </td>
                                 <td class="border border-top-0 border-bottom-0">
                                     <input readonly type="text" name="product_note[]" class="border-0 px-3 py-2 w-100" value="` +
-                                (element.product_note == null ? "" : element
-                                    .product_note) + `">
+                                    (element.product_note == null ? "" : element
+                                        .product_note) + `">
                                 </td>
                                 <td class="border border-top-0 border deleteRow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5454 5C10.2442 5 9.99999 5.24421 9.99999 5.54545C9.99999 5.8467 10.2442 6.09091 10.5454 6.09091H13.4545C13.7558 6.09091 14 5.8467 14 5.54545C14 5.24421 13.7558 5 13.4545 5H10.5454ZM6 7.72726C6 7.42601 6.24421 7.18181 6.54545 7.18181H7.63637H16.3636H17.4545C17.7558 7.18181 18 7.42601 18 7.72726C18 8.02851 17.7558 8.27272 17.4545 8.27272H16.9091V17C16.9091 18.2113 15.9118 19.1818 14.7135 19.1818H9.25891C8.97278 19.1816 8.68906 19.1247 8.42499 19.0145C8.16092 18.9044 7.92126 18.7431 7.71979 18.5399C7.51833 18.3367 7.35905 18.0957 7.25112 17.8307C7.14347 17.5664 7.08903 17.2834 7.09091 16.9981V8.27272H6.54545C6.24421 8.27272 6 8.02851 6 7.72726ZM8.18182 17.0041V8.27272H15.8182V17C15.8182 17.5966 15.3216 18.0909 14.7135 18.0909H9.25938C9.11713 18.0908 8.97632 18.0625 8.84503 18.0077C8.71375 17.953 8.5946 17.8728 8.49444 17.7718C8.39429 17.6707 8.3151 17.5509 8.26144 17.4192C8.20779 17.2874 8.18074 17.1464 8.18182 17.0041ZM13.4545 10.0909C13.7558 10.0909 14 10.3351 14 10.6364V15.7273C14 16.0285 13.7558 16.2727 13.4545 16.2727C13.1533 16.2727 12.9091 16.0285 12.9091 15.7273V10.6364C12.9091 10.3351 13.1533 10.0909 13.4545 10.0909ZM11.0909 10.6364C11.0909 10.3351 10.8467 10.0909 10.5454 10.0909C10.2442 10.0909 9.99999 10.3351 9.99999 10.6364V15.7273C9.99999 16.0285 10.2442 16.2727 10.5454 16.2727C10.8467 16.2727 11.0909 16.0285 11.0909 15.7273V10.6364Z" fill="#42526E"></path>
@@ -248,7 +233,7 @@
                                 </td>
                                 </tr>
                             `;
-                            $('#inputcontent tbody').append(tr);
+                                $('#inputcontent tbody').append(tr);
                             }
                             deleteRow()
                             updateTaxAmount()

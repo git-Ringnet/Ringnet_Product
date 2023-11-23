@@ -167,14 +167,14 @@
                                                 <div class="icon" id="icon-id"></div>
                                             </span>
                                         </th>
-                                        <th scope="col">
+                                        {{-- <th scope="col">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="id"
                                                     data-sort-type="#"><button class="btn-sort"
                                                         type="submit"></button></a>
                                                 <div class="icon" id="icon-id"></div>
                                             </span>
-                                        </th>
+                                        </th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -183,7 +183,12 @@
                                             <td><input type="checkbox" id="{{ $item->id }}"></td>
                                             <td class="text-center">
                                                 {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}</td>
-                                            <td class="text-center">{{ $item->quotation_number }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('import.show', $item->id) }}">
+                                                    {{ $item->quotation_number == null ? $item->id : $item->quotation_number }}
+                                                </a>
+                                            </td>
+                                   
                                             <td class="text-center">{{ $item->reference_number }}</td>
                                             <td class="text-center">
                                                 @if ($item->getProvideName)
@@ -286,7 +291,7 @@
                                                 @endif
                                             </td>
                                             <td>{{ number_format($item->total_price) }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 <a href="{{ route('import.edit', $item->id) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32"
                                                         height="32" viewBox="0 0 32 32" fill="none">
@@ -295,7 +300,7 @@
                                                             fill="#555555"></path>
                                                     </svg>
                                                 </a>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>

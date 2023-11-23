@@ -105,6 +105,7 @@ class Products extends Model
     {
         $status = true;
         $receive = Receive_bill::findOrFail($id);
+        // dd($receive);
         if ($receive) {
             $array_id = [];
             $list_id = [];
@@ -117,6 +118,7 @@ class Products extends Model
                 ->whereIn('id', $array_id)
                 ->get();
             $product_id = 0;
+            // dd($product);
             // Thêm sản phẩm vào tồn kho
             foreach ($product as $item) {
                 $getProductName = QuoteImport::where('id',$item->quoteImport_id)->first();
@@ -142,6 +144,9 @@ class Products extends Model
                 array_push($list_id, $product_id);
                 $item->product_id = $product_id;
                 $item->save();
+                // QuoteImport::where('id',$item->quoteImport_id)->update([
+                //     'product_id' => $product_id
+                // ]);
             }
 
             // Thêm seri number theo sản phẩm

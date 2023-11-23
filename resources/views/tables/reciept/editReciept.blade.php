@@ -114,8 +114,6 @@
                             <th class="border-right">Thuế</th>
                             <th class="border-right">Thành tiền</th>
                             <th class="p-0 bg-secondary" style="width:1%;"></th>
-                            <th class="border-right product_ratio">Hệ số nhân</th>
-                            <th class="border-right price_import">Giá nhập</th>
                             <th class="border-right">Ghi chú</th>
                             {{-- <th class="border-top"></th> --}}
                         </tr>
@@ -136,10 +134,6 @@
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                     {{ number_format($item->product_total) }}</td>
                                 <td class="border border-bottom-0 p-0 bg-secondary"></td>
-                                <td class="border border-top-0 border-bottom-0 product-ratio">
-                                    {{ $item->product_ratio }}</td>
-                                <td class="border border-top-0 border-bottom-0 price_import">
-                                    {{ number_format($item->price_import) }}</td>
                                 <td class="border border-top-0 border-bottom-0">{{ $item->product_note }}</td>
                             </tr>
                         @endforeach
