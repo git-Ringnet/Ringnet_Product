@@ -68,6 +68,14 @@ class DeliveryController extends Controller
         //
     }
 
+    public function watchDelivery(string $id)
+    {
+        $title = 'Chỉnh sửa đơn giao hàng';
+        $delivery = $this->delivery->getDeliveryToId($id);
+        $product = $this->delivery->getProductToId($id);
+        return view('tables.export.delivery.watch-delivery', compact('title', 'delivery', 'product'));
+    }
+
     /**
      * Update the specified resource in storage.
      */

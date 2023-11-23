@@ -1,23 +1,22 @@
 <x-navbar :title="$title"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <form action="{{ route('detailExport.update', $detailExport->maBG) }}" method="POST">
+    <form action="{{ route('delivery.store') }}" method="POST">
         @csrf
-        @method('PUT')
+        <input type="hidden" name="detailexport_id" id="detailexport_id">
         <!-- Content Header (Page header) -->
         <section class="content-header p-0">
             <div class="container-fluided">
                 <div class="mb-3">
                     <span>Bán hàng</span>
                     <span>/</span>
-                    <span>Đơn báo giá</span>
+                    <span>Đơn giao hàng</span>
                     <span>/</span>
-                    <span class="font-weight-bold">{{ $detailExport->maBG }}</span>
+                    <span class="font-weight-bold">{{ $delivery->quotation_number }}</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <a href="{{ route('detailExport.edit', $detailExport->maBG) }}"
-                        class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                    <a href="#" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                        <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
@@ -42,7 +41,7 @@
                             <a class="dropdown-item" href="#">Xuất PDF</a>
                         </div>
                     </div>
-                    <button class="btn-option">
+                    <a href="#" class="btn-option">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -55,6 +54,10 @@
                                 d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
                                 fill="#42526E" />
                         </svg>
+                    </a>
+                    <button type="submit" name="submit" value="2"
+                        class="custom-btn d-flex align-items-center h-100 ml-2" style="margin-right:10px">
+                        <span>Xác nhận đơn giao hàng</span>
                     </button>
                 </div>
             </div>
@@ -66,75 +69,56 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="info-chung">
-                            <p class="font-weight-bold ml-2 px-3">Thông tin chung</p>
                             <div class="content-info">
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-left-0">
-                                        <p class="p-0 m-0 px-3 required-label text-danger">Khách hàng</p>
+                                        <p class="p-0 m-0 px-3 required-label text-danger">Số báo giá</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text"
+                                        <input type="text" readonly value="{{ $delivery->quotation_number }}"
+                                            class="border w-100 py-2 border-left-0 border-right-0 px-3 numberQute"
+                                            id="myInput" autocomplete="off" name="quotation_number">
+                                    </div>
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-left-0">
+                                        <p class="p-0 m-0 px-3">Khách hàng</p>
+                                    </div>
+                                    <div class="w-100">
+                                        <input type="text" readonly value="{{ $delivery->guest_name_display }}"
                                             class="border w-100 py-2 border-left-0 border-right-0 px-3 nameGuest"
-                                            id="myInput" autocomplete="off" readonly
-                                            value="{{ $detailExport->guest_name_display }}">
+                                            id="myInput" autocomplete="off">
+                                        <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
+                                    </div>
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-left-0">
+                                        <p class="p-0 m-0 px-3">Đơn vị vận chuyển</p>
+                                    </div>
+                                    <div class="w-100">
+                                        <input type="text" readonly value="{{ $delivery->shipping_unit }}"
+                                            class="border w-100 py-2 border-left-0 border-right-0 px-3 unit_ship"
+                                            id="myInput" autocomplete="off" name="shipping_unit">
+                                    </div>
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-left-0">
+                                        <p class="p-0 m-0 px-3">Phí giao hàng</p>
+                                    </div>
+                                    <div class="w-100">
+                                        <input type="text" readonly name="shipping_fee"
+                                            value="{{ $delivery->shipping_fee }}"
+                                            class="border w-100 py-2 border-left-0 border-right-0 px-3 fee_ship"
+                                            id="myInput" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Số báo giá#</p>
-                                    </div>
-                                    <div class="w-100">
-                                        <input type="text" readonly value="{{ $detailExport->quotation_number }}"
-                                            name="quotation_number"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                                    </div>
-                                </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Số tham chiếu#</p>
-                                    </div>
-                                    <div class="w-100">
-                                        <input type="text" readonly value="{{ $detailExport->reference_number }}"
-                                            name="reference_number"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                                    </div>
-                                </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Ngày báo giá</p>
-                                    </div>
-                                    <div class="w-100">
-                                        <input type="text" name="date_quote" readonly
-                                            value="{{ $detailExport->created_at->format('d/m/Y') }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                                    </div>
-                                </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Hiệu lực báo giá</p>
-                                    </div>
-                                    <div class="w-100">
-                                        <input type="text" name="price_effect" readonly
-                                            value="{{ $detailExport->price_effect }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                                    </div>
-                                </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border-top-0 border border-left-0">
-                                        <p class="p-0 m-0 px-3">Điều khoản thanh toán</p>
-                                    </div>
-                                    <div class="w-100">
-                                        <input type="text" name="terms_pay" readonly
-                                            value="{{ $detailExport->terms_pay }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                                    </div>
-                                </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border-top-0 border border-left-0">
-                                        <p class="p-0 m-0 px-3">Dự án</p>
+                                        <p class="p-0 m-0 px-3">Ngày giao hàng</p>
                                     </div>
                                     <div class="w-100">
                                         <input type="text" readonly
+                                            value="{{ $delivery->created_at->format('d/m/Y') }}" name="date_deliver"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -185,7 +169,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($quoteExport as $item_quote)
+                                        @foreach ($product as $item_quote)
                                             <tr class="bg-white">
                                                 <td
                                                     class="border border-left-0 border-top-0 border-bottom-0 position-relative">
@@ -275,14 +259,15 @@
                                                 <td
                                                     class="border border-top-0 border-bottom-0 position-relative product_ratio">
                                                     <input type="text" class="border-0 px-2 py-1 w-100 heSoNhan"
-                                                        autocomplete="off" readonly
+                                                        autocomplete="off" required="required" readonly
                                                         value="{{ $item_quote->product_ratio }}"
                                                         name="product_ratio[]">
                                                 </td>
                                                 <td
                                                     class="border border-top-0 border-bottom-0 position-relative price_import">
                                                     <input type="text" class="border-0 px-2 py-1 w-100 giaNhap"
-                                                        autocomplete="off" readonly name="price_import[]"
+                                                        readonly autocomplete="off" required="required"
+                                                        name="price_import[]"
                                                         value="{{ number_format($item_quote->price_import) }}">
                                                 </td>
                                                 <td
@@ -317,17 +302,16 @@
                                                 <span class="text-primary">Giảm giá:</span>
                                                 <div class="w-50">
                                                     <input type="text"
-                                                        class="form-control text-right border-0 p-0 bg-white"
-                                                        name="discount" id="voucher" value="0" readonly>
+                                                        class="form-control text-right border-0 p-0 bg-white" readonly
+                                                        name="discount" id="voucher" value="0">
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-between align-items-center mt-2">
                                                 <span class="text-primary">Phí vận chuyển:</span>
                                                 <div class="w-50">
                                                     <input type="text"
-                                                        class="form-control text-right border-0 p-0 bg-white"
-                                                        name="transport_fee" id="transport_fee" value="0"
-                                                        readonly>
+                                                        class="form-control text-right border-0 p-0 bg-white" readonly
+                                                        name="transport_fee" id="transport_fee" value="0">
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-between mt-2">
@@ -378,6 +362,8 @@
             $('.price_import').hide();
             $('.note').hide();
             $('.Daydu').hide();
+            $('.heSoNhan').val('');
+            $('.giaNhap').val('');
             status_form = 1;
         } else {
             $(this).text('Đầy đủ');
@@ -389,9 +375,136 @@
             status_form = 0;
         }
     });
+    //tính thành tiền của sản phẩm
+    $(document).on('input', '.quantity-input, [name^="product_price"]', function(e) {
+        var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;
+        var productPrice = parseFloat($(this).closest('tr').find('input[name^="product_price"]').val()
+            .replace(
+                /[^0-9.-]+/g, "")) || 0;
+        updateTaxAmount($(this).closest('tr'));
+        if (!isNaN(productQty) && !isNaN(productPrice)) {
+            var totalAmount = productQty * productPrice;
+            $(this).closest('tr').find('.total-amount').val(formatCurrency(totalAmount));
+            calculateTotalAmount();
+            calculateTotalTax();
+        }
+    });
+
+    $(document).on('change', '.product_tax', function() {
+        updateTaxAmount($(this).closest('tr'));
+        calculateTotalAmount();
+        calculateTotalTax();
+    });
+
+    function updateTaxAmount(row) {
+        var productQty = parseFloat(row.find('.quantity-input').val());
+        var productPrice = parseFloat(row.find('input[name^="product_price"]').val().replace(/[^0-9.-]+/g, ""));
+        var taxValue = parseFloat(row.find('.product_tax').val());
+        var heSoNhan = parseFloat(row.find('.heSoNhan').val()) || 0;
+        var giaNhap = parseFloat(row.find('.giaNhap').val().replace(/[^0-9.-]+/g, "")) || 0;
+        if (taxValue == 99) {
+            taxValue = 0;
+        }
+        if (status_form == 1) {
+            if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
+                var totalAmount = productQty * productPrice;
+                var taxAmount = (totalAmount * taxValue) / 100;
+
+                row.find('.product_tax1').text(Math.round(taxAmount));
+            }
+        } else {
+            if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue) && !isNaN(heSoNhan) && !isNaN(giaNhap)) {
+                var donGia = ((heSoNhan + 100) * giaNhap) / 100;
+                var totalAmount = productQty * donGia;
+                var taxAmount = (totalAmount * taxValue) / 100;
+
+                row.find('.product_tax1').text(Math.round(taxAmount));
+            }
+        }
+    }
+
+    function calculateTotalAmount() {
+        var totalAmount = 0;
+        $('tr').each(function() {
+            var rowTotal = parseFloat(String($(this).find('.total-amount').val()).replace(/[^0-9.-]+/g, ""));
+            if (!isNaN(rowTotal)) {
+                totalAmount += rowTotal;
+            }
+        });
+        totalAmount = Math.round(totalAmount); // Làm tròn thành số nguyên
+        $('#total-amount-sum').text(formatCurrency(totalAmount));
+        calculateTotalTax();
+        calculateGrandTotal();
+    }
+
+    function calculateTotalTax() {
+        var totalTax = 0;
+        $('tr').each(function() {
+            var rowTax = parseFloat($(this).find('.product_tax1').text().replace(/[^0-9.-]+/g, ""));
+            if (!isNaN(rowTax)) {
+                totalTax += rowTax;
+            }
+        });
+        totalTax = Math.round(totalTax); // Làm tròn thành số nguyên
+        $('#product-tax').text(formatCurrency(totalTax));
+
+        calculateGrandTotal();
+    }
+
+    function calculateGrandTotal() {
+        var totalAmount = parseFloat($('#total-amount-sum').text().replace(/[^0-9.-]+/g, ""));
+        var totalTax = parseFloat($('#product-tax').text().replace(/[^0-9.-]+/g, ""));
+
+        var grandTotal = totalAmount + totalTax;
+        grandTotal = Math.round(grandTotal); // Làm tròn thành số nguyên
+        $('#grand-total').text(formatCurrency(grandTotal));
+
+        // Update data-value attribute
+        $('#grand-total').attr('data-value', grandTotal);
+        $('#total').val(totalAmount);
+    }
+
+    function formatCurrency(value) {
+        value = Math.round(value * 100) / 100;
+
+        var parts = value.toString().split(".");
+        var integerPart = parts[0];
+        var formattedValue = "";
+
+        var count = 0;
+        for (var i = integerPart.length - 1; i >= 0; i--) {
+            formattedValue = integerPart.charAt(i) + formattedValue;
+            count++;
+            if (count % 3 === 0 && i !== 0) {
+                formattedValue = "," + formattedValue;
+            }
+        }
+
+        if (parts.length > 1) {
+            formattedValue += "." + parts[1];
+        }
+        return formattedValue;
+    }
+
+    //Tính đơn giá
+    $(document).on('input', '.heSoNhan, .giaNhap', function(e) {
+        var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;
+        var heSoNhan = parseFloat($(this).closest('tr').find('.heSoNhan').val()) || 0;
+        var giaNhap = parseFloat($(this).closest('tr').find('.giaNhap').val().replace(/[^0-9.-]+/g, "")) || 0;
+        updateTaxAmount($(this).closest('tr'));
+        if (!isNaN(heSoNhan) && !isNaN(giaNhap)) {
+            var donGia = ((heSoNhan + 100) * giaNhap) / 100;
+            var totalAmount = productQty * donGia;
+            $(this).closest('tr').find('.product_price').val(formatCurrency(donGia));
+            $(this).closest('tr').find('.total-amount').val(formatCurrency(totalAmount));
+            calculateTotalAmount();
+            calculateTotalTax();
+        }
+    });
 
     //format giá
-    $('body').on('input', '.product_price, #transport_fee, .giaNhap, #voucher', function(event) {
+    var inputElement = document.getElementById('product_price');
+    $('body').on('input', '.product_price, #transport_fee, .giaNhap, #voucher, .fee_ship', function(event) {
         // Lấy giá trị đã nhập
         var value = event.target.value;
 
@@ -418,117 +531,6 @@
             formattedIntegerPart;
 
         return formattedNumber;
-    }
-
-    //tính thành tiền của sản phẩm
-    $(document).ready(function() {
-        calculateTotals();
-    });
-
-    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax, .heSoNhan, .giaNhap', function() {
-        calculateTotals();
-    });
-
-    function calculateTotals() {
-        var totalAmount = 0;
-        var totalTax = 0;
-
-        // Lặp qua từng hàng
-        $('tr').each(function() {
-            var productQty = parseFloat($(this).find('.quantity-input').val());
-            var productPriceElement = $(this).find('[name^="product_price"]');
-            var productPrice = 0;
-            var giaNhap = 0;
-            var taxValue = parseFloat($(this).find('.product_tax option:selected').val());
-            var heSoNhan = parseFloat($(this).find('.heSoNhan').val()) || 0;
-            var giaNhapElement = $(this).find('.giaNhap');
-            if (taxValue == 99) {
-                taxValue = 0;
-            }
-            if (productPriceElement.length > 0) {
-                var rawPrice = productPriceElement.val();
-                if (rawPrice !== "") {
-                    productPrice = parseFloat(rawPrice.replace(/,/g, ''));
-                }
-            }
-            if (giaNhapElement.length > 0) {
-                var rawGiaNhap = giaNhapElement.val();
-                if (rawGiaNhap !== "") {
-                    giaNhap = parseFloat(rawGiaNhap.replace(/,/g, ''));
-                }
-            }
-
-            if (!isNaN(productQty) && !isNaN(taxValue)) {
-                if (status_form == 0) {
-                    var donGia = ((heSoNhan + 100) * giaNhap) / 100;
-                } else {
-                    var donGia = productPrice;
-                }
-                var rowTotal = productQty * donGia;
-                var rowTax = (rowTotal * taxValue) / 100;
-
-                // Làm tròn từng thuế
-                rowTax = Math.round(rowTax);
-                $(this).find('.product_tax1').val(formatCurrency(rowTax));
-
-                // Hiển thị kết quả
-                $(this).find('.total-amount').val(formatCurrency(Math.round(rowTotal)));
-
-                if (status_form == 0) {
-                    // Đơn giá
-                    $(this).find('.product_price').val(formatCurrency(donGia));
-                }
-
-                // Cộng dồn vào tổng totalAmount và totalTax
-                totalAmount += rowTotal;
-                totalTax += rowTax;
-            }
-        });
-
-        // Hiển thị tổng totalAmount và totalTax
-        $('#total-amount-sum').text(formatCurrency(Math.round(totalAmount)));
-        $('#product-tax').text(formatCurrency(Math.round(totalTax)));
-
-        // Tính tổng thành tiền và thuế
-        calculateGrandTotal(totalAmount, totalTax);
-    }
-
-    function calculateGrandTotal(totalAmount, totalTax) {
-        if (!isNaN(totalAmount) || !isNaN(totalTax)) {
-            var grandTotal = totalAmount + totalTax;
-            $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
-        }
-
-        // Cập nhật giá trị data-value
-        $('#grand-total').attr('data-value', grandTotal);
-        $('#total').val(totalAmount);
-    }
-
-    function formatCurrency(value) {
-        // Làm tròn đến 2 chữ số thập phân
-        value = Math.round(value * 100) / 100;
-
-        // Xử lý phần nguyên
-        var parts = value.toString().split(".");
-        var integerPart = parts[0];
-        var formattedValue = "";
-
-        // Định dạng phần nguyên
-        var count = 0;
-        for (var i = integerPart.length - 1; i >= 0; i--) {
-            formattedValue = integerPart.charAt(i) + formattedValue;
-            count++;
-            if (count % 3 === 0 && i !== 0) {
-                formattedValue = "," + formattedValue;
-            }
-        }
-
-        // Nếu có phần thập phân, thêm vào sau phần nguyên
-        if (parts.length > 1) {
-            formattedValue += "." + parts[1];
-        }
-
-        return formattedValue;
     }
 </script>
 </body>

@@ -91,6 +91,7 @@ Route::get('/getProductCode', [DetailExportController::class, 'getProductCode'])
 
 //Giao hàng
 Route::resource('delivery', DeliveryController::class);
+Route::get('watchDelivery/{id}', [DeliveryController::class, 'watchDelivery'])->name('watchDelivery');
 //Lấy thông tin từ số báo giá
 Route::get('/getInfoQuote', [DeliveryController::class, 'getInfoQuote'])->name('getInfoQuote');
 Route::get('/getProductQuote', [DeliveryController::class, 'getProductQuote'])->name('getProductQuote');

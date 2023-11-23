@@ -154,7 +154,12 @@
                                                 {{ $item_delivery->maGiaoHang }}
                                             </td>
                                             <td class="border-top-0 bg-white">
-                                                {{ $item_delivery->quotation_number }}
+                                                <div class="">
+                                                    <a href="{{ route('watchDelivery', $item_delivery->detailexport_id) }}"
+                                                        class="duongDan">
+                                                        {{ $item_delivery->quotation_number }}
+                                                    </a>
+                                                </div>
                                             </td>
                                             <td class="border-top-0 bg-white">
                                                 {{ $item_delivery->guest_name_display }}

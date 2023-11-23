@@ -46,4 +46,21 @@ class Delivery extends Model
             ->update(['deliver_id' => $detailexportId]);
         return $delivery->id;
     }
+    public function getDeliveryToId($id)
+    {
+        $delivery = Delivery::where('delivery.detailexport_id', $id)
+            ->leftJoin('guest', 'delivery.guest_id', 'guest.id')
+            ->first();
+        return $delivery;
+    }
+    public function getProductToId($id)
+    {
+        $product = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->select('*', 'detailexport.id as maXuat')
+            ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) as soLuongCanGiao')
+            ->where('detailexport.id', $id)
+            ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) > 0')
+            ->get();
+        return $product;
+    }
 }
