@@ -24,6 +24,9 @@ class Receive_bill extends Model
     {
         return $this->hasOne(Provides::class, 'id', 'provide_id');
     }
+    public function getQuote(){
+        return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
+    }
 
     public function addReceiveBill($data, $id)
     {
@@ -32,35 +35,34 @@ class Receive_bill extends Model
         if ($detail) {
             $dataReceive = [
                 'detailimport_id' => $id,
-                'quotation_number' => $data['quotation_number'],
                 'provide_id' => $detail->provide_id,
                 'status' => 1,
                 'created_at' => Carbon::now(),
             ];
             $receive_id = DB::table($this->table)->insertGetId($dataReceive);
-            for ($i = 0; $i < count($data['product_name']); $i++) {
-                $dataupdate = [
-                    'receive_id' => $receive_id,
-                ];
-                // $checkQuote = ProductImport::where('quoteImport_id', $data['listProduct'][$i])
-                //     ->where('receive_id', 0)->first();
-                $checkQuote = QuoteImport::where('detailimport_id', $detail->id)->get();
-                if ($checkQuote) {
-                    foreach ($checkQuote as $value) {
-                        $productImport = ProductImport::where('quoteImport_id', $value->id)
-                            ->where('receive_id', 0)->first();
-                        if ($productImport) {
-                            DB::table('products_import')->where('id', $productImport->id)->update($dataupdate);
-                        }
-                    }
-                }
-            }
+            // for ($i = 0; $i < count($data['product_name']); $i++) {
+            //     $dataupdate = [
+            //         'receive_id' => $receive_id,
+            //     ];
+            //     // $checkQuote = ProductImport::where('quoteImport_id', $data['listProduct'][$i])
+            //     //     ->where('receive_id', 0)->first();
+            //     $checkQuote = QuoteImport::where('detailimport_id', $detail->id)->get();
+            //     if ($checkQuote) {
+            //         foreach ($checkQuote as $value) {
+            //             $productImport = ProductImport::where('quoteImport_id', $value->id)
+            //                 ->where('receive_id', 0)->first();
+            //             if ($productImport) {
+            //                 DB::table('products_import')->where('id', $productImport->id)->update($dataupdate);
+            //             }
+            //         }
+            //     }
+            // }
 
-            // Cập nhật trạng thái đơn hàng
-            if ($detail->status == 1) {
-                $detail->status = 2;
-                $detail->save();
-            }
+            // // Cập nhật trạng thái đơn hàng
+            // if ($detail->status == 1) {
+            //     $detail->status = 2;
+            //     $detail->save();
+            // }
             return $receive_id;
         }
     }
@@ -133,5 +135,31 @@ class Receive_bill extends Model
             $columStatus => $status
         ];
         DB::table('detailimport')->where('id', $detail->id)->update($dataUpdate);
+    }
+    public function deleteReceive($id)
+    {
+        $status = false;
+        $receive = DB::table($this->table)->where('id', $id)->first();
+        if ($receive) {
+            // Lấy thông tin sản phẩm 
+            $productImport = ProductImport::where('receive_id', $receive->id)->get();
+            if ($productImport) {
+                foreach ($productImport as $item) {
+                    $quoteImport = QuoteImport::where('id', $item->quoteImport_id)->first();
+                    if ($quoteImport) {
+                        $dataUpdate = [
+                            'receive_qty' => $quoteImport->receive_qty - $item->product_qty
+                        ];
+                        DB::table('quoteimport')->where('id', $quoteImport->id)->update($dataUpdate);
+                    }
+                    $item->delete();
+                }
+            }
+            $status = true;
+            DB::table('receive_bill')->where('id', $receive->id)->delete();
+        } else {
+            $status = false;
+        }
+        return $status;
     }
 }

@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('receive_bill', function (Blueprint $table) {
+        Schema::create('history_receive', function (Blueprint $table) {
             $table->id();
-            $table->integer('detailimport_id');
-            // $table->string('quotation_number');
-            $table->integer('provide_id');
-            // $table->string('shipping_unit')->nullable();
-            // $table->decimal('delivery_charges',20,4)->nullable();
+            $table->integer('receive_id');
+            $table->string('shipping_unit')->nullable();
+            $table->decimal('delivery_charges',20,4)->nullable();
             $table->integer('status');
             $table->timestamps();
         });
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('receive_bill');
+        Schema::dropIfExists('history_receive');
     }
 };

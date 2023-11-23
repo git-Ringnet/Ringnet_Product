@@ -35,12 +35,15 @@ class PayOder extends Model
     {
         $result = true;
         $payment = PayOder::where('id', $id)->first();
+
+        $status = $this->updateStatusDebt($data);
+
         if ($payment && $payment->status != 2) {
             $dataPayment = [
                 'payment_date' => $data['payment_date'],
                 'payment' => $payment->payment + str_replace(',', '', $data['payment']),
                 'debt' => $payment->total - ($payment->payment + str_replace(',', '', $data['payment'])),
-                'status' =>  $payment->total - ($payment->payment + str_replace(',', '', $data['payment'])) <= 0 ? 2 : 1,
+                'status' =>  $payment->total - ($payment->payment + str_replace(',', '', $data['payment'])) <= 0 ? 2 : $status,
             ];
             PayOder::where('id', $payment->id)->update($dataPayment);
             $total = 0;
@@ -59,27 +62,27 @@ class PayOder extends Model
     public function addNewPayment($data, $id)
     {
         $total = 0;
-        $startDate = Carbon::now()->startOfDay();
-        $endDate = $data['payment_date'] == null ? Carbon::now() : Carbon::parse($data['payment_date']);
-        // $endDateFormatted = $endDate->format('Y-m-d');
-        $endDate = Carbon::parse($endDate);
-        $daysDiffss = $startDate->diffInDays($endDate);
-        if ($endDate < $startDate) {
-            $daysDiff = -$daysDiffss;
-        } else {
-            $daysDiff = $daysDiffss;
-        }
+        // $startDate = Carbon::now()->startOfDay();
+        // $endDate = $data['payment_date'] == null ? Carbon::now() : Carbon::parse($data['payment_date']);
+        // $endDate = Carbon::parse($endDate);
+        // $daysDiffss = $startDate->diffInDays($endDate);
+        // if ($endDate < $startDate) {
+        //     $daysDiff = -$daysDiffss;
+        // } else {
+        //     $daysDiff = $daysDiffss;
+        // }
     
-        if($daysDiff <= 3 && $daysDiff > 0){
-            $status = 3;
-        }elseif($daysDiff == 0){
-            $status = 5;
-        }elseif($daysDiff < 0){
-            $status = 4;
-        }else{
-            $status = 1;
-        }
-      
+        // if($daysDiff <= 3 && $daysDiff > 0){
+        //     $status = 3;
+        // }elseif($daysDiff == 0){
+        //     $status = 5;
+        // }elseif($daysDiff < 0){
+        //     $status = 4;
+        // }else{
+        //     $status = 1;
+        // }
+        $status = $this->updateStatusDebt($data);
+
         $detail =  DetailImport::findOrFail($id);
         if ($detail) {
             $dataReciept = [
@@ -172,5 +175,30 @@ class PayOder extends Model
 
     public function formatDate($data){
         return Carbon::parse($data);
+    }
+
+    public function updateStatusDebt($date) {
+        $startDate = Carbon::now()->startOfDay();
+        $endDate = $date['payment_date'] == null ? Carbon::now() : Carbon::parse($date['payment_date']);
+        $endDate = Carbon::parse($endDate);
+        $daysDiffss = $startDate->diffInDays($endDate);
+
+        if ($endDate < $startDate) {
+            $daysDiff = -$daysDiffss;
+        } else {
+            $daysDiff = $daysDiffss;
+        }
+
+        if($daysDiff <= 3 && $daysDiff > 0){
+            $status = 3;
+        }elseif($daysDiff == 0){
+            $status = 5;
+        }elseif($daysDiff < 0){
+            $status = 4;
+        }else{
+            $status = 1;
+        }
+
+        return $status;
     }
 }

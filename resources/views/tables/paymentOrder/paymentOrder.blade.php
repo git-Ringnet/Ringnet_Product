@@ -7,7 +7,7 @@
             <div class="mb-3">
                 <span>Mua hàng</span>
                 <span>/</span>
-                <span class="font-weight-bold">Đơn nhận hàng</span>
+                <span class="font-weight-bold">Thanh toán mua hàng</span>
             </div>
             <div class="row m-0 mb-1">
                 <a href="{{ route('paymentOrder.create') }}">
@@ -115,7 +115,7 @@
                                         <th scope="col">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="id"
-                                                    data-sort-type="#"><button class="btn-sort" type="submit">Hạng
+                                                    data-sort-type="#"><button class="btn-sort" type="submit">Hạn
                                                         thanh
                                                         toán
                                                     </button></a>

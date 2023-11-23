@@ -104,7 +104,7 @@
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Số báo giá#</p>
                                     </div>
-                                    <input type="text" required placeholder="Nhập thông tin" name="quotation_number"
+                                    <input type="text" placeholder="Nhập thông tin" name="quotation_number"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -126,7 +126,7 @@
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Hiệu lực báo giá</p>
                                     </div>
-                                    <input required type="text" placeholder="Nhập thông tin" name="price_effect"
+                                    <input type="text" placeholder="Nhập thông tin" name="price_effect"
                                         class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -216,8 +216,6 @@
                             <th class="border-right">Thuế</th>
                             <th class="border-right">Thành tiền</th>
                             <th class="p-0 bg-secondary" style="width:1%;"></th>
-                            <th class="border-right product_ratio">Hệ số nhân</th>
-                            <th class="border-right price_import">Giá nhập</th>
                             <th class="border-right">Ghi chú</th>
                             <th class="border-top"></th>
                         </tr>

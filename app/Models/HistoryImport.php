@@ -1,0 +1,69 @@
+<?php
+
+namespace App\Models;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
+class HistoryImport extends Model
+{
+    use HasFactory;
+    protected $table = 'history_import';
+    protected $fillable = [
+        'detailImport_id',
+        'quoteImport_id',
+        'product_code',
+        'product_name',
+        'product_unit',
+        'product_qty',
+        'product_tax',
+        'product_total',
+        'price_export',
+        'product_ratio',
+        'price_import',
+        'product_note',
+        'version',
+    ];
+
+    public function addHistoryImport($data, $id)
+    {
+        for ($i = 0; $i < count($data['product_name']); $i++) {
+            $price_export = str_replace(',', '', $data['price_export'][$i]);
+            $total_price = str_replace(',', '', $data['product_qty'][$i]) * $price_export;
+
+            $checkData = HistoryImport::where('product_code', $data['product_code'][$i])
+                ->where('product_name', $data['product_name'][$i])
+                ->where('product_unit', $data['product_unit'][$i])
+                ->where('product_qty', $data['product_qty'][$i])
+                ->where('product_tax', $data['product_tax'][$i])
+                ->where('product_total', $total_price)
+                ->where('price_export', $price_export)
+                ->where('product_note', $data['product_note'][$i])->first();
+            if ($checkData) {
+                continue;
+            } else {
+                $quote = QuoteImport::where('detailimport_id', $id)
+                    ->where('product_name', $data['product_name'][$i])->first();
+                if ($quote) {
+                    $dataHistory = [
+                        'detailImport_id' => $id,
+                        'quoteImport_id' => $quote->id,
+                        'product_code' => $data['product_code'][$i],
+                        'product_name' => $data['product_name'][$i],
+                        'product_unit' => $data['product_unit'][$i],
+                        'product_qty' => $data['product_qty'][$i],
+                        'product_tax' => $data['product_tax'][$i],
+                        'product_total' => $total_price,
+                        'price_export' => $price_export,
+                        'product_note' => $data['product_note'][$i],
+                        'version' => $quote->version,
+                        'created_at' => Carbon::now(),
+                    ];
+                    DB::table($this->table)->insert($dataHistory);
+                }
+            }
+        }
+    }
+}

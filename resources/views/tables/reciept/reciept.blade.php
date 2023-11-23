@@ -7,7 +7,7 @@
             <div class="mb-3">
                 <span>Mua hàng</span>
                 <span>/</span>
-                <span class="font-weight-bold">Đơn nhận hàng</span>
+                <span class="font-weight-bold">Hóa đơn mua hàng</span>
             </div>
             <div class="row m-0 mb-1">
                 <a href="{{ route('reciept.create') }}">

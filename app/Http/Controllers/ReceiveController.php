@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailImport;
+use App\Models\HistoryReceive;
 use App\Models\ProductImport;
 use App\Models\Products;
 use App\Models\QuoteImport;
@@ -19,6 +20,7 @@ class ReceiveController extends Controller
     private $reciept;
     private $import;
     private $productImport;
+    private $historyReceive;
     public function __construct()
     {
         $this->receive = new Receive_bill();
@@ -27,6 +29,7 @@ class ReceiveController extends Controller
         $this->reciept = new Reciept();
         $this->import = new DetailImport();
         $this->productImport = new ProductImport();
+        $this->historyReceive = new HistoryReceive();
     }
     /**
      * Display a listing of the resource.
@@ -50,8 +53,6 @@ class ReceiveController extends Controller
             ->select('detailimport.quotation_number', 'detailimport.id')
             ->distinct()
             ->get();
-        // $listDetail = DetailImport::all();
-        // dd($listDetail);
         return view('tables.receive.insertReceive', compact('title', 'listDetail'));
     }
 
@@ -65,8 +66,16 @@ class ReceiveController extends Controller
         // Tạo sản phẩm theo đơn nhận hàng
         $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
         if ($status) {
-            // Tạo đơn nhận hàng mới
-            $this->receive->addReceiveBill($request->all(), $id);
+            // Kiểm tra xem đơn hàng đơn hàng
+            $checkReceive = Receive_bill::where('detailimport_id', $id)->first();
+            if ($checkReceive) {
+                $receive_id = $checkReceive->id;
+            } else {
+                // Tạo đơn nhận hàng mới
+                $receive_id = $this->receive->addReceiveBill($request->all(), $id);
+            }
+            // Tạo lịch sử
+            $this->historyReceive->addHistoryReceive($request->all(), $receive_id);
 
             return redirect()->route('receive.index')->with('msg', 'Tạo mới đơn nhận hàng thành công !');
         } else {
@@ -79,7 +88,26 @@ class ReceiveController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $receive = Receive_bill::findOrFail($id);
+        $title = $receive->quotation_number;
+        // $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
+        // ->where('products_import.detailimport_id', $receive->detailimport_id)
+        // ->where('products_import.receive_id', $receive->id)
+        // ->select(
+        //     'quoteimport.product_code',
+        //     'quoteimport.product_name',
+        //     'quoteimport.product_unit',
+        //     'products_import.product_qty',
+        //     'quoteimport.price_export',
+        //     'quoteimport.product_tax',
+        //     'quoteimport.product_note',
+        //     'products_import.product_id',
+        //     DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
+        // )
+        // ->with('getSerialNumber')->get();
+        $product = QuoteImport::where('detailimport_id',$receive->detailimport_id)->get();
+        $history = HistoryReceive::where('receive_id',$receive->id)->get();
+        return view('tables.receive.showReceive', compact('receive', 'title', 'product','history'));
     }
 
     /**
@@ -99,9 +127,6 @@ class ReceiveController extends Controller
                 'products_import.product_qty',
                 'quoteimport.price_export',
                 'quoteimport.product_tax',
-                // 'quoteimport.product_total',
-                'quoteimport.product_ratio',
-                'quoteimport.price_import',
                 'quoteimport.product_note',
                 'products_import.product_id',
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
@@ -132,7 +157,12 @@ class ReceiveController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $result = $this->receive->deleteReceive($id);
+        if ($result) {
+            return redirect()->route('receive.index')->with('msg', 'Xóa đơn nhận hàng thành công !');
+        } else {
+            return redirect()->route('receive.index')->with('warning', 'Không tìn thấy đơn nhận hàng cần xóa!');
+        }
     }
     public function show_receive(Request $request)
     {
@@ -148,6 +178,6 @@ class ReceiveController extends Controller
     }
     public function getProduct_receive(Request $request)
     {
-        return QuoteImport::where('detailimport_id', $request->id)->get();
+        return QuoteImport::where('detailimport_id', $request->id)->where('product_qty', '>', DB::raw('COALESCE(receive_qty,0)'))->get();
     }
 }

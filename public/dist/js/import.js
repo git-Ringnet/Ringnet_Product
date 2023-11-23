@@ -128,19 +128,9 @@ searchInput('.search_quotation', '#listReceive')
 
 
 // Tính thuế, tổng tiền,...
-$(document).on('input', '.quantity-input, [name^="price_export"],.price_import,.product_ratio', function (e) {
-    var product_ratio = parseFloat($(this).closest('tr').find('.product_ratio').val())
-    var price_import = parseFloat($(this).closest('tbody tr').find('.price_import').val().replace(/[^0-9.-]+/g, "")) || 0
-    var productPrice = 0;
-    if (status_form == 1) {
-        productPrice = parseFloat($(this).closest('tr').find('input[name^="price_export"]').val().replace(
-            /[^0-9.-]+/g, "")) || 0;
-    } else {
-        !isNaN(product_ratio) && !isNaN(price_import) ?
-            productPrice = (product_ratio + 100) * price_import / 100 : productPrice = 0
-        $(this).closest('tr').find('.price_export').val(formatCurrency(productPrice));
-    }
-    var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;
+$(document).on('input', '.quantity-input, [name^="price_export"]', function (e) {
+    var productPrice = parseFloat($(this).closest('tr').find('.price_export').val().replace(/[^0-9.-]+/g, "")) || 0;
+    var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val().replace(/[^0-9.-]+/g, "")) || 0;
     updateTaxAmount($(this).closest('tr'));
 
     if (!isNaN(productQty) && !isNaN(productPrice)) {

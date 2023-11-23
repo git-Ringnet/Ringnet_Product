@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -31,33 +32,39 @@ class QuoteImport extends Model
     public function addQuoteImport($data, $id)
     {
         for ($i = 0; $i < count($data['product_name']); $i++) {
-            $product_ratio = 0;
-            $price_import = 0;
-            isset($data['product_ratio']) ? $product_ratio = $data['product_ratio'][$i] : $product_ratio = 0;
-            isset($data['price_import']) ? $price_import = str_replace(',', '', $data['price_import'][$i]) : $price_import = 0;
-            if ($product_ratio > 0 && $price_import > 0) {
-                $price_export = (($product_ratio + 100) * $price_import) / 100;
-                $total_price = $price_export * str_replace(',','',$data['product_qty'][$i]);
-            } else {
-                $price_export = str_replace(',', '', $data['price_export'][$i]);
-                $total_price = str_replace(',','',$data['product_qty'][$i]) * $price_export;
-            }
             $dataQuote = [
                 'detailimport_id' => $id,
                 'product_code' => $data['product_code'][$i],
                 'product_name' => $data['product_name'][$i],
                 'product_unit' => $data['product_unit'][$i],
-                'product_qty' => str_replace(',','',$data['product_qty'][$i]),
+                'product_qty' => str_replace(',', '', $data['product_qty'][$i]),
                 'product_tax' => $data['product_tax'][$i],
-                'product_total' => $total_price,
-                'price_export' => $price_export,
-                'product_ratio' => $product_ratio,
-                'price_import' => $price_import,
+                'product_total' => str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]),
+                'price_export' => str_replace(',', '', $data['price_export'][$i]),
                 'product_note' => $data['product_note'][$i],
                 'receive_id' => 0,
                 'warehouse_id' => 1,
+                'version' => 1,
+                'created_at' => Carbon::now(),
             ];
-            DB::table($this->table)->insert($dataQuote);
+            $quote_id = DB::table($this->table)->insertGetId($dataQuote);
+            if ($quote_id) {
+                $dataHistory = [
+                    'detailimport_id' => $id,
+                    'quoteImport_id' => $quote_id,
+                    'product_code' => $data['product_code'][$i],
+                    'product_name' => $data['product_name'][$i],
+                    'product_unit' => $data['product_unit'][$i],
+                    'product_qty' => str_replace(',', '', $data['product_qty'][$i]),
+                    'product_tax' => $data['product_tax'][$i],
+                    'product_total' => str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]),
+                    'price_export' => str_replace(',', '', $data['price_export'][$i]),
+                    'product_note' => $data['product_note'][$i],
+                    'version' => 1,
+                    'created_at' => Carbon::now(),
+                ];
+                DB::table('history_import')->insert($dataHistory);
+            }
         }
         // return $result;
     }
@@ -74,46 +81,41 @@ class QuoteImport extends Model
         for ($i = 0; $i < count($data['product_name']); $i++) {
             // Lấy sản phẩm cần sửa
             $dataUpdate = QuoteImport::where('id', $data['listProduct'][$i])->first();
-            $product_ratio = 0;
-            $price_import = 0;
-            isset($data['product_ratio']) ? $product_ratio = $data['product_ratio'][$i] : $product_ratio = 0;
-            isset($data['price_import']) ? $price_import = str_replace(',', '', $data['price_import'][$i]) : $price_import = 0;
-            if ($product_ratio > 0 && $price_import > 0) {
-                $price_export = (($product_ratio + 100) * $price_import) / 100;
-                $total_price = $price_export * $data['product_qty'][$i];
-            } else {
-                $price_export = str_replace(',', '', $data['price_export'][$i]);
-                $total_price = $data['product_qty'][$i] * $price_export;
-            }
+            $price_export = str_replace(',', '', $data['price_export'][$i]);
+            $total_price = $data['product_qty'][$i] * $price_export;
             if ($dataUpdate) {
-                $dataQuoteUpdate = [
-                    'product_code' => $data['product_code'][$i],
-                    'product_name' => $data['product_name'][$i],
-                    'product_unit' => $data['product_unit'][$i],
-                    'product_qty' => $data['product_qty'][$i],
-                    'product_tax' => $data['product_tax'][$i],
-                    'product_total' => $total_price,
-                    'price_export' => $price_export,
-                    'product_ratio' => $product_ratio,
-                    'price_import' => $price_import,
-                    'product_note' => $data['product_note'][$i],
-                ];
-                DB::table($this->table)->where('id', $dataUpdate->id)->update($dataQuoteUpdate);
+                if (
+                    $dataUpdate->product_code != $data['product_code'][$i] || $dataUpdate->product_name != $data['product_name'][$i] || $dataUpdate->product_unit != $data['product_unit'][$i] ||
+                    $dataUpdate->product_qty != str_replace(',', '', $data['product_qty'][$i]) || $dataUpdate->product_tax != $data['product_tax'][$i] ||
+                    $dataUpdate->product_total != $total_price || $dataUpdate->price_export != $price_export || $dataUpdate->product_note != $data['product_note'][$i]
+                ) {
+                    $dataQuoteUpdate = [
+                        'product_code' => $data['product_code'][$i],
+                        'product_name' => $data['product_name'][$i],
+                        'product_unit' => $data['product_unit'][$i],
+                        'product_qty' => str_replace(',', '', $data['product_qty'][$i]),
+                        'product_tax' => $data['product_tax'][$i],
+                        'product_total' => $total_price,
+                        'price_export' => $price_export,
+                        'version' => ($dataUpdate->version + 1),
+                        'product_note' => $data['product_note'][$i],
+                    ];
+                    DB::table($this->table)->where('id', $dataUpdate->id)->update($dataQuoteUpdate);
+                }
             } else {
                 $dataQuote = [
                     'detailimport_id' => $id,
                     'product_code' => $data['product_code'][$i],
                     'product_name' => $data['product_name'][$i],
                     'product_unit' => $data['product_unit'][$i],
-                    'product_qty' => $data['product_qty'][$i],
+                    'product_qty' =>  str_replace(',', '', $data['product_qty'][$i]),
                     'product_tax' => $data['product_tax'][$i],
                     'product_total' => $total_price,
                     'price_export' => $price_export,
-                    'product_ratio' => $product_ratio,
-                    'price_import' => $price_import,
                     'product_note' => $data['product_note'][$i],
                     'receive_id' => 0,
-                    'warehouse_id' => 1
+                    'warehouse_id' => 1,
+                    'version' => 1
                 ];
                 DB::table($this->table)->insert($dataQuote);
             }

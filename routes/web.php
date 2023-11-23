@@ -5,6 +5,7 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\DetailExportController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\DetailImportController;
+use App\Http\Controllers\HistoryReceiveController;
 use App\Http\Controllers\PayExportController;
 use App\Http\Controllers\PayOrderController;
 use App\Http\Controllers\PdfController;
@@ -53,7 +54,8 @@ Route::get('/checkduplicateSN', [DetailImportController::class, 'checkduplicateS
 Route::resource('receive', ReceiveController::class);
 Route::get('/show_receive', [ReceiveController::class, 'show_receive'])->name('show_receive');
 Route::get('/getProduct_receive', [ReceiveController::class, 'getProduct_receive'])->name('getProduct_receive');
-
+// Xác nhận đơn nhận hàng
+Route::resource('historyReceive',HistoryReceiveController::class);
 
 // Hóa đơn mua hàng
 Route::resource('reciept', RecieptController::class);

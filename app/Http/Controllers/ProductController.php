@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistoryImport;
+use App\Models\ProductImport;
 use App\Models\Products;
 use App\Models\Provides;
+use App\Models\QuoteImport;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
 
@@ -59,6 +62,13 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
+        $display = 1;
+        $product = Products::findOrFail($id);
+        if ($product) {
+            $title = $product->product_name;
+        }
+        $history = ProductImport::where('product_id',$id)->get();
+        return view('tables.products.showProduct', compact('product', 'title', 'display','history'));
     }
 
     /**
@@ -81,7 +91,9 @@ class ProductController extends Controller
     {
         $data = $this->products->updateProduct($request->all());
         if ($data == 1) {
-            return redirect()->route('ton-kho.index')->with('msg', 'Chỉnh sửa sản phẩm thành công !');
+            return redirect()->route('inventory.index')->with('msg', 'Chỉnh sửa sản phẩm thành công !');
+        }else{
+            return redirect()->route('inventory.index')->with('warning', 'Chỉnh sửa sản phẩm thất bại !');
         }
     }
 

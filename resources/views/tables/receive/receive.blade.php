@@ -104,17 +104,16 @@
                                                 <div class="icon" id="icon-id"></div>
                                             </span>
                                         </th>
-                                        <th scope="col">
+                                        {{-- <th scope="col">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="id"
                                                     data-sort-type="#"><button class="btn-sort" type="submit">Đơn
                                                         vị vận chuyển
-
                                                     </button></a>
                                                 <div class="icon" id="icon-id"></div>
                                             </span>
-                                        </th>
-                                        <th scope="col">
+                                        </th> --}}
+                                        {{-- <th scope="col">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="id"
                                                     data-sort-type="#"><button class="btn-sort" type="submit">Phí
@@ -122,7 +121,7 @@
                                                     </button></a>
                                                 <div class="icon" id="icon-id"></div>
                                             </span>
-                                        </th>
+                                        </th> --}}
                                         <th scope="col">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="id"
@@ -155,11 +154,12 @@
                                     @foreach ($receive as $item)
                                         <tr>
                                             <td><input type="checkbox"></td>
-                                            <td>{{ $item->id }}</td>
+                                            <td><a href="{{ route('receive.show', $item->id) }}">{{ $item->id }}</a>
+                                            </td>
                                             <td>{{ $item->quotation_number }}</td>
                                             <td>{{ $item->getNameProvide->provide_name_display }}</td>
-                                            <td>{{ $item->shipping_unit }}</td>
-                                            <td>{{ number_format($item->delivery_charges) }}</td>
+                                            {{-- <td>{{ $item->shipping_unit }}</td>
+                                            <td>{{ number_format($item->delivery_charges) }}</td> --}}
                                             <td>
                                                 @if ($item->status == 1)
                                                     <span style="color: #858585">Chưa giao</span>

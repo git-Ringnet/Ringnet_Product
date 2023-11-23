@@ -10,7 +10,9 @@
                 <div class="mb-3">
                     <span>Mua hàng</span>
                     <span>/</span>
-                    <span class="font-weight-bold">Đơn nhận hàng</span>
+                    <span class="font-weight-bold">Thanh toán mua hàng</span>
+                    <span>/</span>
+                    <span class="font-weight-bold">Tạo mới thanh toán mua hàng</span>
                 </div>
                 <div class="row m-0 mb-1">
                     <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
@@ -138,8 +140,6 @@
                             <th class="border-right">Thuế</th>
                             <th class="border-right">Thành tiền</th>
                             <th class="p-0 bg-secondary" style="width:1%;"></th>
-                            <th class="border-right product_ratio">Hệ số nhân</th>
-                            <th class="border-right price_import">Giá nhập</th>
                             <th class="border-right">Ghi chú</th>
                             <th class="border-top"></th>
                         </tr>
@@ -220,7 +220,8 @@
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <input oninput="checkQty(this,` + (element.product_qty - element.payment_qty) +
                                     `)" type="text" name="product_qty[]" class="border-0 px-3 py-2 w-100 quantity-input" value="` +
-                                    formatCurrency(element.product_qty - element.payment_qty) +
+                                    formatCurrency(element.product_qty - element
+                                        .payment_qty) +
                                     `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
@@ -240,16 +241,6 @@
                                     `">
                                 </td>
                                 <td class="border border-bottom-0 p-0 bg-secondary"></td>
-                                <td class="border border-top-0 border-bottom-0 product-ratio">
-                                    <input readonly required="" type="text" name="product_ratio[]" class="border-0 px-3 py-2 w-100 product_ratio" value="` +
-                                    element.product_ratio +
-                                    `">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 price_import">
-                                    <input readonly required="" type="text" name="price_import[]" class="border-0 px-3 py-2 w-100 price_import" value="` +
-                                    formatCurrency(element.price_import) +
-                                    `">
-                                </td>
                                 <td class="border border-top-0 border-bottom-0">
                                     <input readonly type="text" name="product_note[]" class="border-0 px-3 py-2 w-100" value="` +
                                     (element.product_note == null ? "" : element

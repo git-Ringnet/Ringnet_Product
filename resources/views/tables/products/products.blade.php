@@ -151,7 +151,9 @@
                                         <tr>
                                             <td><input type="checkbox"></td>
                                             <td>{{ $item->product_code }}</td>
-                                            <td>{{ $item->product_name }}</td>
+                                            <td><a href="{{route('inventory.show',$item->id)}}">
+                                                    {{ $item->product_name }}
+                                                </a></td>
                                             <td>{{ number_format($item->product_inventory) }}</td>
                                             <td>
                                                 <a href="{{ route('inventory.edit', $item->id) }}">
