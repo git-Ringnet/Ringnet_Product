@@ -188,8 +188,7 @@
                                                 @endif
                                             </td>
                                             <td>{{ date_format(new DateTime($item->payment_date), 'd-m-Y') }}</td>
-                                            <td>{{ fmod($item->total, 2) > 0 ? number_format($item->total, 2, '.', ',') : nunber_format($item->total) }}
-                                            </td>
+                                            <td>{{ $item->total}}</td>
                                             <td>{{ fmod($item->payment, 2) > 0 ? number_format($item->payment, 2, '.', ',') : number_format($item->payment) }}
                                             </td>
                                             <td>{{ fmod($item->debt, 2) > 0 ? number_format($item->debt, 2, '.', ',') : number_format($item->debt) }}

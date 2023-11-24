@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailImport;
+use App\Models\HistoryPaymentOrder;
 use App\Models\PayOder;
 use App\Models\ProductImport;
+use App\Models\QuoteImport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,10 +15,12 @@ class PayOrderController extends Controller
 {
     private $payment;
     private $productImport;
+    private $historyPayment;
     public function __construct()
     {
         $this->payment = new PayOder();
         $this->productImport = new ProductImport();
+        $this->historyPayment = new HistoryPaymentOrder();
     }
     /**
      * Display a listing of the resource.
@@ -27,7 +31,7 @@ class PayOrderController extends Controller
         $payment = PayOder::all();
         $today = Carbon::now();
         // dd($payment[0]->formatDate($payment[0]->payment_date)->diffInDays($today));
-        return view('tables.paymentOrder.paymentOrder', compact('title', 'payment','today'));
+        return view('tables.paymentOrder.paymentOrder', compact('title', 'payment', 'today'));
     }
 
     /**
@@ -54,10 +58,16 @@ class PayOrderController extends Controller
 
         // Tạo sản phẩm theo đơn nhận hàng
         $this->productImport->addProductImport($request->all(), $id, 'payOrder_id', 'payment_qty');
+        // Tạo mới thanh toán hóa đơn
+        $payment = $this->payment->addNewPayment($request->all(), $id);
 
-
-        $this->payment->addNewPayment($request->all(), $id);
-        return redirect()->route('paymentOrder.index')->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
+        // Lưu lịch sử
+        if ($payment) {
+            $this->historyPayment->addHistoryPayment($request->all(),$payment);
+            return redirect()->route('paymentOrder.index')->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
+        } else {
+            return redirect()->route('paymentOrder.index')->with('msg', 'Không tìm thấy !');
+        }
     }
 
     /**
@@ -87,15 +97,13 @@ class PayOrderController extends Controller
                     'products_import.product_qty',
                     'quoteimport.price_export',
                     'quoteimport.product_tax',
-                    // 'quoteimport.product_total',
-                    'quoteimport.product_ratio',
-                    'quoteimport.price_import',
                     'quoteimport.product_note',
                     'products_import.product_id',
                     DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
                 )
                 ->get();
-            return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product'));
+            $history = HistoryPaymentOrder::where('payment_id',$payment->id)->get();
+            return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product','history'));
         }
     }
 
@@ -108,10 +116,9 @@ class PayOrderController extends Controller
         $result = $this->payment->updatePayment($request->all(), $id);
         if ($result) {
             return redirect()->route('paymentOrder.index')->with('msg', 'Thanh toán hóa đơn thành công !');
-        }else{
+        } else {
             return redirect()->route('paymentOrder.index')->with('warning', 'Hóa đơn đã được thanh toán !');
         }
-       
     }
 
     /**
@@ -120,5 +127,13 @@ class PayOrderController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getPaymentOrder(Request $request)
+    {
+        return QuoteImport::leftJoin('detailimport','detailimport.id','quoteimport.detailimport_id')
+        ->where('quoteimport.detailimport_id', $request->id)
+        // ->where('product_qty', '>', DB::raw('COALESCE(payment_qty,0)'))
+        ->get();
     }
 }

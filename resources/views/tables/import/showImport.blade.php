@@ -64,9 +64,9 @@
     <hr class="mt-3">
     <section class="content-header p-0">
         <ul class="nav nav-tabs">
-            <li class="active mr-2"><a data-toggle="tab" href="#home">Thông tin</a></li>
-            <li class="mr-2"><a data-toggle="tab" href="#menu1">Lịch sử giao dịch</a></li>
-            <li class="mr-2"><a data-toggle="tab" href="#menu2">Serial Number</a></li>
+            <li class="active mr-2 mb-3"><a data-toggle="tab" href="#info">Thông tin</a></li>
+            <li class="mr-2 mb-3"><a data-toggle="tab" href="#history">Lịch sử sản phẩm</a></li>
+            <li class="mr-2 mb-3"><a data-toggle="tab" href="#serialnumber">Serial Number</a></li>
         </ul>
 
     </section>
@@ -211,7 +211,7 @@
 
         <div class="container-fluided">
             <div class="tab-content">
-                <div id="home" class="content tab-pane in active">
+                <div id="info" class="content tab-pane in active">
                     <table class="table table-hover bg-white rounded" id="inputcontent">
                         <thead>
                             <tr>
@@ -334,7 +334,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="menu1" class="tab-pane fade">
+                <div id="history" class="tab-pane fade">
                     <table class="table table-hover bg-white rounded">
                         <thead>
                             <tr>
@@ -421,6 +421,18 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <div id="serialnumber" class="tab-pane fade">
+                    @foreach ($product as $item)
+                        @if ($item->getProductImport)
+                            @if ($item->getProductImport->getSerialNumber)
+                                {{-- @if ($item->getProductImport)
+                            @dd($item->getProductImport)
+                        @endif --}}
+                            @endif
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>

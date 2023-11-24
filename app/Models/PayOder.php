@@ -36,14 +36,12 @@ class PayOder extends Model
         $result = true;
         $payment = PayOder::where('id', $id)->first();
 
-        $status = $this->updateStatusDebt($data);
-
         if ($payment && $payment->status != 2) {
+            $prepay = $payment->payment + str_replace(',', '', $data['payment']);
             $dataPayment = [
                 'payment_date' => $data['payment_date'],
-                'payment' => $payment->payment + str_replace(',', '', $data['payment']),
-                'debt' => $payment->total - ($payment->payment + str_replace(',', '', $data['payment'])),
-                'status' =>  $payment->total - ($payment->payment + str_replace(',', '', $data['payment'])) <= 0 ? 2 : $status,
+                'payment' => $prepay,
+                'debt' => ($payment->total - $prepay),
             ];
             PayOder::where('id', $payment->id)->update($dataPayment);
             $total = 0;
@@ -52,7 +50,11 @@ class PayOder extends Model
             } else {
                 $total = $payment->payment + str_replace(',', '', $data['payment']);
             }
+            // Tính công nợ
             $this->calculateDebt($payment->provide_id, $total);
+            // Cập nhật trạng thái thanh toán
+            $this->updateStatusDebt($data, $payment->id);
+            // Cập nhật trạng thái đơn hàng
             $this->updateStatus($payment->detailimport_id, PayOder::class, 'payment_qty', 'status_pay');
         } else {
             $result = false;
@@ -62,74 +64,65 @@ class PayOder extends Model
     public function addNewPayment($data, $id)
     {
         $total = 0;
-        // $startDate = Carbon::now()->startOfDay();
-        // $endDate = $data['payment_date'] == null ? Carbon::now() : Carbon::parse($data['payment_date']);
-        // $endDate = Carbon::parse($endDate);
-        // $daysDiffss = $startDate->diffInDays($endDate);
-        // if ($endDate < $startDate) {
-        //     $daysDiff = -$daysDiffss;
-        // } else {
-        //     $daysDiff = $daysDiffss;
-        // }
-    
-        // if($daysDiff <= 3 && $daysDiff > 0){
-        //     $status = 3;
-        // }elseif($daysDiff == 0){
-        //     $status = 5;
-        // }elseif($daysDiff < 0){
-        //     $status = 4;
-        // }else{
-        //     $status = 1;
-        // }
-        $status = $this->updateStatusDebt($data);
 
         $detail =  DetailImport::findOrFail($id);
         if ($detail) {
-            $dataReciept = [
-                'detailimport_id' => $detail->id,
-                'provide_id' => $detail->provide_id,
-                'status' => $status,
-                'payment_date' => $data['payment_date'] == null ? Carbon::now() : Carbon::parse($data['payment_date']),
-                'total' => 0,
-                'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
-                'debt' => 0,
-                'created_at' => Carbon::now(),
-            ];
-            $payment_id = DB::table($this->table)->insertGetId($dataReciept);
-            for ($i = 0; $i < count($data['product_name']); $i++) {
-                $dataupdate = [
-                    'payOrder_id' => $payment_id,
+            $payment = PayOder::where('detailimport_id', $detail->id)->first();
+            if ($payment) {
+                $payment_id = $payment->id;
+                DB::table($this->table)->where('id', $payment_id)->update([
+                    'payment' => $payment->payment + (isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0),
+                    'debt' => $payment->debt - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0)
+                ]);
+            } else {
+                $dataReciept = [
+                    'detailimport_id' => $detail->id,
+                    'provide_id' => $detail->provide_id,
+                    'status' => 1,
+                    'payment_date' => $data['payment_date'] == null ? Carbon::now() : Carbon::parse($data['payment_date']),
+                    'total' => 0,
+                    'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
+                    'debt' => 0,
+                    'created_at' => Carbon::now(),
                 ];
-                $checkQuote = QuoteImport::where('detailimport_id', $detail->id)->get();
-                if ($checkQuote) {
-                    foreach ($checkQuote as $value) {
-                        $productImport = ProductImport::where('quoteImport_id', $value->id)
-                            ->where('payOrder_id', 0)->first();
-                        if ($productImport) {
-                            DB::table('products_import')->where('id', $productImport->id)->update($dataupdate);
-                            $product = QuoteImport::where('id', $productImport->quoteImport_id)->first();
-                            if ($product->product_ratio > 0 && $product->price_import > 0) {
-                                $price_export = ($product->product_ratio + 100) * $product->price_import / 100;
-                                $total += $price_export * $productImport->product_qty;
-                            } else {
+                $payment_id = DB::table($this->table)->insertGetId($dataReciept);
+                for ($i = 0; $i < count($data['product_name']); $i++) {
+                    $dataupdate = [
+                        'payOrder_id' => $payment_id,
+                    ];
+                    $checkQuote = QuoteImport::where('detailimport_id', $detail->id)->get();
+                    if ($checkQuote) {
+                        foreach ($checkQuote as $value) {
+                            $productImport = ProductImport::where('quoteImport_id', $value->id)
+                                ->where('payOrder_id', 0)->first();
+                            if ($productImport) {
+                                DB::table('products_import')->where('id', $productImport->id)->update($dataupdate);
+                                $product = QuoteImport::where('id', $productImport->quoteImport_id)->first();
                                 $price_export = $product->price_export;
                                 $total += $price_export * $productImport->product_qty;
                             }
                         }
+                        DB::table($this->table)->where('id', $payment_id)->update([
+                            'total' => $total,
+                            'debt' => $total - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0),
+                        ]);
                     }
-                    DB::table($this->table)->where('id', $payment_id)->update([
-                        'total' => $total,
-                        'debt' => $total - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0),
-                    ]);
                 }
             }
+            // Cập nhật tình trạng thanh toán
+            $status = $this->updateStatusDebt($data, $payment_id);
             // Cập nhật trạng thái đơn hàng
             if ($detail->status == 1) {
                 $detail->status = 2;
                 $detail->save();
             }
-            return $payment_id;
+            $prepay = isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0;
+            // tính dư nợ
+            $this->calculateDebt($detail->provide_id, $prepay);
+            // Cập nhật trạng thái
+            $this->updateStatus($detail->id, PayOder::class, 'payment_qty', 'status_pay');
         }
+        return $payment_id;
     }
     public function updateStatus($id, $table, $colum, $columStatus)
     {
@@ -173,13 +166,15 @@ class PayOder extends Model
         }
     }
 
-    public function formatDate($data){
+    public function formatDate($data)
+    {
         return Carbon::parse($data);
     }
 
-    public function updateStatusDebt($date) {
+    public function updateStatusDebt($data, $id)
+    {
         $startDate = Carbon::now()->startOfDay();
-        $endDate = $date['payment_date'] == null ? Carbon::now() : Carbon::parse($date['payment_date']);
+        $endDate = $data['payment_date'] == null ? Carbon::now() : Carbon::parse($data['payment_date']);
         $endDate = Carbon::parse($endDate);
         $daysDiffss = $startDate->diffInDays($endDate);
 
@@ -189,14 +184,23 @@ class PayOder extends Model
             $daysDiff = $daysDiffss;
         }
 
-        if($daysDiff <= 3 && $daysDiff > 0){
+        if ($daysDiff <= 3 && $daysDiff > 0) {
             $status = 3;
-        }elseif($daysDiff == 0){
+        } elseif ($daysDiff == 0) {
             $status = 5;
-        }elseif($daysDiff < 0){
+        } elseif ($daysDiff < 0) {
             $status = 4;
-        }else{
+        } else {
             $status = 1;
+        }
+        $payorder = PayOder::where('detailimport_id', $id)->first();
+        if ($payorder) {
+            if (($payorder->total - $payorder->payment) == 0) {
+                $status = 2;
+            }
+            DB::table('pay_order')->where('id', $id)->update([
+                'status' => $status,
+            ]);
         }
 
         return $status;

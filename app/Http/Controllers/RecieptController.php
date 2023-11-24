@@ -84,9 +84,6 @@ class RecieptController extends Controller
                 'products_import.product_qty',
                 'quoteimport.price_export',
                 'quoteimport.product_tax',
-                // 'quoteimport.product_total',
-                'quoteimport.product_ratio',
-                'quoteimport.price_import',
                 'quoteimport.product_note',
                 'products_import.product_id',
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
@@ -130,6 +127,6 @@ class RecieptController extends Controller
 
     public function getProduct_reciept(Request $request)
     {
-        return QuoteImport::where('receive_id', $request->id)->get();
+        return QuoteImport::where('detailimport_id', $request->id)->where('product_qty', '>', DB::raw('COALESCE(reciept_qty,0)'))->get();
     }
 }

@@ -2,7 +2,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <form action="{{ route('historyReceive.update', $historyReceive->id) }}" method="POST">
+    <form action="{{ route('receive.update', $receive->id) }}" method="POST">
         @csrf
         @method('PUT')
         <input type="hidden" name="detailimport_id" id="detailimport_id">
@@ -77,6 +77,7 @@
             </div>
         </section>
         <hr class="mt-3">
+
         <section class="content">
             <div class="container-fluided">
                 <div class="row">
@@ -91,7 +92,7 @@
                                         name="quotation_number"
                                         class="border w-100 py-2 border-left-0 border-right-0 px-3 search_quotation"
                                         autocomplete="off" required
-                                        value="@if ($historyReceive->getQuotetion->getQuote) {{ $historyReceive->getQuotetion->getQuote->quotation_number == null ? $historyReceive->getQuotetion->getQuote->id : $historyReceive->getQuotetion->getQuote->quotation_number }} @endif">
+                                        value="{{ $receive->quotation_number == null ? $receive->id : $receive->quotation_number }}">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
@@ -99,31 +100,34 @@
                                     </div>
                                     <input readonly type="text" id="provide_name" placeholder="Nhập thông tin"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="@if ($historyReceive->getQuotetion->getNameProvide) {{ $historyReceive->getQuotetion->getNameProvide->provide_name_display }} @endif">
+                                        value="{{ $receive->getNameProvide->provide_name_display }}">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Đơn vị vận chuyển</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="shipping_unit"
+                                    <input @if ($receive->status == 2) readonly @endif type="text"
+                                        placeholder="Nhập thông tin" name="shipping_unit"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="{{ $historyReceive->shipping_unit }}">
+                                        value="{{ $receive->shipping_unit }}">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Phí giao hàng</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
+                                    <input @if ($receive->status == 2) readonly @endif type="text"
+                                        placeholder="Nhập thông tin" name="delivery_charges"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="{{ number_format($historyReceive->delivery_charges) }}">
+                                        value="{{ number_format($receive->delivery_charges) }}">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Ngày nhận hàng</p>
                                     </div>
-                                    <input type="date" placeholder="Nhập thông tin" name="received_date"
+                                    <input @if ($receive->status == 2) readonly @endif type="date"
+                                        placeholder="Nhập thông tin" name="received_date"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="{{ $historyReceive->created_at->toDateString() }}">
+                                        value="{{ $receive->created_at->toDateString() }}">
                                 </div>
                             </div>
                         </div>
@@ -137,7 +141,7 @@
                 <table class="table table-hover bg-white rounded" id="inputcontent">
                     <thead>
                         <tr>
-                            <th class="border-right"><input type="checkbox">Mã sản phẩm
+                            <th class="border-right"><input type="checkbox"> Mã sản phẩm
                             </th>
                             <th class="border-right">Tên sản phẩm</th>
                             <th class="border-right">Đơn vị</th>
@@ -158,7 +162,7 @@
                                     <div
                                         class="d-flex w-100 justify-content-between align-items-center position-relative">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                            xmlns="http://www.w3.org/2000/svg"> ' +
                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                 d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z"
                                                 fill="#42526E"></path>
@@ -179,25 +183,21 @@
                                                 fill="#42526E"></path>
                                         </svg>
                                         <input type="checkbox">
-                                        <input readonly name="product_code[]"
-                                            class="border-0 px-3 py-2 w-75 searchProduct" type="text"
-                                            value="{{ $item->getDataProduct->product_code }}">
+                                        <input readonly type="text" name="product_code[]" id=""
+                                            class="border-0 px-3 py-2 w-75 searchProduct">
+                                        {{ $item->product_code }}
                                     </div>
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 position-relative">
-                                    <input name="product_name[]" class="searchProductName border-0 px-3 py-2 w-100"
-                                        type="text" value="{{ $item->getDataProduct->product_name }}">
+                                    <input type="text" class="searchProductName border-0 px-3 py-2 w-100"
+                                        name="product_name[]" value="{{ $item->product_name }}" readonly>
                                 </td>
-                                <td class="border border-top-0 border-bottom-0">
-                                    <input readonly type="text" name="product_unit[]"
-                                        class="border-0 px-3 py-2 w-100 product_unit"
-                                        value="{{ $item->getDataProduct->product_unit }}">
-                                </td>
+                                <td class="border border-top-0 border-bottom-0">{{ $item->product_unit }}</td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <input readonly type="text" name="product_qty[]"
-                                            class="border-0 px-3 py-2 w-100 quantity-input"
-                                            value="{{ $item->product_qty }}">
+                                        <input @if ($receive->status == 2) readonly @endif type="text"
+                                            class="border-0 px-3 py-2 w-100 quantity-input" name="product_qty[]"
+                                            value="{{ number_format($item->product_qty) }}">
                                         <button type="button" class="btn btn-primary" data-toggle="modal"
                                             data-target="#exampleModal{{ $st }}"
                                             style="background:transparent; border:none;">
@@ -221,37 +221,44 @@
                                         </button>
                                     </div>
                                 </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input readonly type="text" name="price_export[]"
-                                        class="border-0 px-3 py-2 w-100 price_export"
-                                        value="{{ $item->getDataProduct->price_export }}">
+                                <td class="border border-top-0 border-bottom-0">
+                                    <input type="text" class="border-0 px-3 py-2 w-100 price_export"
+                                        name="price_export[]"
+                                        value="{{ fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
+                                        readonly>
+                                </td>
+                                <td>
+                                    <input type="text" class="border-0 px-3 py-2 w-100 product_tax"
+                                        name="product_tax[]" value="{{ $item->product_tax }}" readonly>
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input readonly type="text" name="product_tax[]"
-                                        class="border-0 px-3 py-2 w-100 product_tax"
-                                        value="{{ $item->getDataProduct->product_tax }}">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input type="text" name="total_price[]" id=""
-                                        class="border-0 px-3 py-2 w-100 total_price" readonly
-                                        value="{{ $item->getDataProduct->price_export * $item->product_qty }}">
+                                    <input type="text" class="border-0 px-3 py-2 w-100 total_price"
+                                        name="total_price[]"
+                                        value="{{ fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
+                                        readonly>
                                 </td>
                                 <td class="border border-bottom-0 p-0 bg-secondary"></td>
                                 <td class="border border-top-0 border-bottom-0">
-                                    <input readonly type="text" name="product_note[]"
-                                        class="border-0 px-3 py-2 w-100"
-                                        value="{{ $item->getDataProduct->product_note }}">
+                                    <input type="text" class="border-0 px-3 py-2 w-100" name="product_note[]"
+                                        value="{{ $item->product_note }}" readonly>
                                 </td>
-                                <td></td>
+                                <td class="border border-top-0 @if ($receive->status == 1) deleteRow @endif">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M10.5454 5C10.2442 5 9.99999 5.24421 9.99999 5.54545C9.99999 5.8467 10.2442 6.09091 10.5454 6.09091H13.4545C13.7558 6.09091 14 5.8467 14 5.54545C14 5.24421 13.7558 5 13.4545 5H10.5454ZM6 7.72726C6 7.42601 6.24421 7.18181 6.54545 7.18181H7.63637H16.3636H17.4545C17.7558 7.18181 18 7.42601 18 7.72726C18 8.02851 17.7558 8.27272 17.4545 8.27272H16.9091V17C16.9091 18.2113 15.9118 19.1818 14.7135 19.1818H9.25891C8.97278 19.1816 8.68906 19.1247 8.42499 19.0145C8.16092 18.9044 7.92126 18.7431 7.71979 18.5399C7.51833 18.3367 7.35905 18.0957 7.25112 17.8307C7.14347 17.5664 7.08903 17.2834 7.09091 16.9981V8.27272H6.54545C6.24421 8.27272 6 8.02851 6 7.72726ZM8.18182 17.0041V8.27272H15.8182V17C15.8182 17.5966 15.3216 18.0909 14.7135 18.0909H9.25938C9.11713 18.0908 8.97632 18.0625 8.84503 18.0077C8.71375 17.953 8.5946 17.8728 8.49444 17.7718C8.39429 17.6707 8.3151 17.5509 8.26144 17.4192C8.20779 17.2874 8.18074 17.1464 8.18182 17.0041ZM13.4545 10.0909C13.7558 10.0909 14 10.3351 14 10.6364V15.7273C14 16.0285 13.7558 16.2727 13.4545 16.2727C13.1533 16.2727 12.9091 16.0285 12.9091 15.7273V10.6364C12.9091 10.3351 13.1533 10.0909 13.4545 10.0909ZM11.0909 10.6364C11.0909 10.3351 10.8467 10.0909 10.5454 10.0909C10.2442 10.0909 9.99999 10.3351 9.99999 10.6364V15.7273C9.99999 16.0285 10.2442 16.2727 10.5454 16.2727C10.8467 16.2727 11.0909 16.0285 11.0909 15.7273V10.6364Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </td>
                             </tr>
-                            @php $st++ @endphp
+                            <?php $st++; ?>
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </section>
 
-        {{-- <section class="content">
+        <section class="content">
             <div class="container-fluided">
                 <div class="d-flex">
                     <button type="button" data-toggle="dropdown"
@@ -294,7 +301,8 @@
                     </button>
                 </div>
             </div>
-        </section> --}}
+        </section>
+
         <x-formmodalseri :product="$product"></x-formmodalseri>
         <?php $import = '123'; ?>
         <x-formsynthetic :import="$import"></x-formsynthetic>
@@ -310,21 +318,27 @@
     $('.search_quotation').on('click', function() {
         $('#listReceive').show();
     })
-    // $('#addRowTable').off('click').on('click', function() {
-    //     addRowTable(2);
-    //     $('.searchProductName').on('click', function() {
-    //         $.ajax({
-    //             url: "{{ route('getProduct_receive') }}",
-    //             type: "get",
-    //             data: {
-    //                 id: id
-    //             },
-    //             success: function(data) {
-    //                 console.log(data);
-    //             }
-    //         })
-    //     })
+    // var status = @php $receive->status @endphp
+    // $('#delete_receive').off('click').on('click', function() {
+    //     status = 3;
     // })
+    $('#addRowTable').off('click').on('click', function() {
+        addRowTable(2);
+        $('.searchProductName').on('click', function() {
+            var id = @php echo $receive->id; @endphp;
+            console.log(id);
+            $.ajax({
+                url: "{{ route('getProduct_receive') }}",
+                type: "get",
+                data: {
+                    id: id
+                },
+                success: function(data) {
+                    console.log(data);
+                }
+            })
+        })
+    })
 
 
 

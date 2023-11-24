@@ -299,8 +299,8 @@
                     </div>
                 </div>
             </section>
-            <hr class="mt-3">
-            <section class="content mt-5">
+
+            <section class="content mt-2">
                 <div class="container-fluided">
                     <table class="table table-hover bg-white rounded" id="inputcontent">
                         <thead>
@@ -322,7 +322,7 @@
                             @foreach ($history as $htr)
                                 <tr class="bg-white">
                                     <td><input type="checkbox"></td>
-                                    <td>{{ $htr->created_at }}</td>
+                                    <td>{{ date_format(new DateTime($htr->created_at), 'd-m-Y') }}</td>
                                     <td>
                                         @if ($htr->getQuotetion)
                                             {{ $htr->getQuotetion->quotation_number }}
@@ -333,7 +333,7 @@
                                             {{ $htr->getQuotetion->getProvideName->provide_name_display }}
                                         @endif
                                     </td>
-                                    <td>{{ $htr->product_qty }}</td>
+                                    <td>{{ number_format($htr->product_qty) }}</td>
                                     <td>
                                         @if ($htr->getQuoteImport)
                                             {{ $htr->getQuoteImport->product_name }}
@@ -356,7 +356,70 @@
             </section>
         </div>
         <div id="serialnumber" class="tab-pane fade">
-            serialnumber
+            <section class="content">
+                <div class="container-fluided">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row m-auto filter pt-4 pb-4">
+                                <form class="w-100" action="" method="get" id="search-filter">
+                                    <div class="row mr-0">
+                                        <div class="col-md-5 d-flex">
+                                            <div class="position-relative" style="width: 55%;">
+                                                <input type="text" placeholder="Tìm kiếm" name="keywords"
+                                                    class="pr-4 w-100 input-search" value="">
+                                                <span id="search-icon" class="search-icon"><i class="fas fa-search"
+                                                        aria-hidden="true"></i></span>
+                                            </div>
+                                            <button class="filter-btn ml-2">Bộ lọc
+                                                <svg width="18" height="18" viewBox="0 0 18 18"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
+                                                        fill="white"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content">
+                <div class="container-fluided">
+                    <table class="table table-hover bg-white rounded" id="inputcontent">
+                        <thead>
+                            <tr>
+                                <th>Serial Number</th>
+                                <th>Hóa đơn mua hàng</th>
+                                <th>Hóa đơn bán hàng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($history as $item)
+                                @if ($item->getSerialNumber)
+                                    @foreach ($item->getSerialNumber as $sn)
+                                        @if ($item->receive_id == $sn->receive_id)
+                                            <tr class="bg-white">
+                                                <td>{{ $sn->serinumber }}</td>
+                                                <td>
+                                                    <div>
+                                                        {{ $item->getQuotetion->quotation_number == null ? $item->getQuotetion->id : $item->getQuotetion->quotation_number }}
+                                                    </div>
+
+                                                    {{ date_format(new DateTime($sn->created_at), 'd-m-Y') }}
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </div>
     </div>
 </div>

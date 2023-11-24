@@ -232,3 +232,19 @@ function updateTaxAmount() {
         }
     })
 }
+
+
+
+// Xóa hàng SN
+$(document).on('click', '.deleteRow1', function () {
+    var div = $(this).parent('tr');
+    var parentTable = div.closest('table');
+    div.parent().parent().parent().parent().find('.SNCount').text(div.parent().find(
+        'input[type="checkbox"]').length - 1);
+    div.remove();
+    // console.log(div);
+    var remainingRows = parentTable.find('tbody tr');
+    remainingRows.each(function (index) {
+        $(this).find('td').eq(1).text(index + 1);
+    });
+})

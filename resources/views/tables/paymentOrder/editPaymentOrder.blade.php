@@ -26,176 +26,236 @@
                         </svg>
                         <span>Thanh toán hóa đơn</span>
                     </button>
-                    {{-- <button class="btn-option">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                fill="#42526E" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                fill="#42526E" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                fill="#42526E" />
-                        </svg>
-                    </button> --}}
                 </div>
             </div>
         </section>
         <hr class="mt-3">
 
-        <section class="content">
-            <div class="container-fluided">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="info-chung">
-                            <div class="content-info">
-                                <div class="d-flex ml-2 align-items-center position-relative">
-                                    <div class="title-info py-2 border border-left-0">
-                                        <p class="p-0 m-0 px-3 required-label text-danger">Đơn mua hàng</p>
+        <section class="content-header p-0">
+            <ul class="nav nav-tabs">
+                <li class="active mr-2 mb-3"><a data-toggle="tab" href="#info">Thông tin</a></li>
+                <li class="mr-2 mb-3"><a data-toggle="tab" href="#histpry">Lịch sử thanh toán</a></li>
+                {{-- <li class="mr-2 mb-3"><a data-toggle="tab" href="#menu2">Serial Number</a></li> --}}
+            </ul>
+        </section>
+
+        <div class="tab-content">
+            <div id="info" class="content tab-pane in active">
+                <section class="content">
+                    <div class="container-fluided">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="info-chung">
+                                    <div class="content-info">
+                                        <div class="d-flex ml-2 align-items-center position-relative">
+                                            <div class="title-info py-2 border border-left-0">
+                                                <p class="p-0 m-0 px-3 required-label text-danger">Đơn mua hàng</p>
+                                            </div>
+                                            <input id="search_quotation" type="text" placeholder="Nhập thông tin"
+                                                name="quotation_number"
+                                                class="border w-100 py-2 border-left-0 border-right-0 px-3 search_quotation"
+                                                autocomplete="off" required readonly
+                                                value="{{ $payment->getQuotation->quotation_number }}">
+                                        </div>
+                                        <div class="d-flex ml-2 align-items-center">
+                                            <div class="title-info py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 px-3">Nhà cung cấp</p>
+                                            </div>
+                                            <input readonly type="text" id="provide_name"
+                                                placeholder="Nhập thông tin"
+                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                                readonly value="{{ $payment->getProvideName->provide_name_display }}">
+                                        </div>
+                                        <div class="d-flex ml-2 align-items-center">
+                                            <div class="title-info py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 px-3">Hạn thanh toán</p>
+                                            </div>
+                                            <input type="date" placeholder="Nhập thông tin" name="payment_date"
+                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                                value="{{ $payment->formatDate($payment->payment_date)->format('Y-m-d') }}">
+                                        </div>
+                                        <div class="d-flex ml-2 align-items-center">
+                                            <div class="title-info py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 px-3">Tổng tiền</p>
+                                            </div>
+                                            <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
+                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                                readonly value="{{ number_format($payment->total) }}">
+                                        </div>
+                                        <div class="d-flex ml-2 align-items-center">
+                                            <div class="title-info py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 px-3">Đã thanh toán</p>
+                                            </div>
+                                            <input readonly type="text" placeholder="Nhập thông tin" name="payment"
+                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                                value="{{ number_format($payment->payment) }}">
+                                        </div>
+                                        <div class="d-flex ml-2 align-items-center">
+                                            <div class="title-info py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 px-3">Dư nợ</p>
+                                            </div>
+                                            <input type="text" placeholder="Nhập thông tin" name="debt" readonly
+                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                                value="{{ number_format($payment->debt) }}">
+                                        </div>
+                                        <div class="d-flex ml-2 align-items-center">
+                                            <div class="title-info py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 px-3">Thanh toán trước</p>
+                                            </div>
+                                            <input type="text" placeholder="Nhập thông tin" name="payment"
+                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 payment_input">
+                                        </div>
                                     </div>
-                                    <input id="search_quotation" type="text" placeholder="Nhập thông tin"
-                                        name="quotation_number"
-                                        class="border w-100 py-2 border-left-0 border-right-0 px-3 search_quotation"
-                                        autocomplete="off" required readonly
-                                        value="{{ $payment->getQuotation->quotation_number }}">
-                                </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Nhà cung cấp</p>
-                                    </div>
-                                    <input readonly type="text" id="provide_name" placeholder="Nhập thông tin"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        readonly value="{{ $payment->getProvideName->provide_name_display }}">
-                                </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Hạn thanh toán</p>
-                                    </div>
-                                    <input type="date" placeholder="Nhập thông tin" name="payment_date"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="{{ $payment->formatDate($payment->payment_date)->format('Y-m-d') }}">
-                                </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Tổng tiền</p>
-                                    </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        readonly value="{{ number_format($payment->total) }}">
-                                </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Đã thanh toán</p>
-                                    </div>
-                                    <input readonly type="text" placeholder="Nhập thông tin" name="payment"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="{{ number_format($payment->payment) }}">
-                                </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Dư nợ</p>
-                                    </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="debt" readonly
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="{{ number_format($payment->debt) }}">
-                                </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Thanh toán trước</p>
-                                    </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="payment"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 payment_input">
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
+                </section>
 
-        <section class="content mt-5">
-            <div class="container-fluided">
-                <table class="table table-hover bg-white rounded" id="inputcontent">
-                    <thead>
-                        <tr>
-                            <th class="border-right"><input type="checkbox"> Mã sản phẩm
-                            </th>
-                            <th class="border-right">Tên sản phẩm</th>
-                            <th class="border-right">Đơn vị</th>
-                            <th class="border-right">Số lượng</th>
-                            <th class="border-right">Đơn giá</th>
-                            <th class="border-right">Thuế</th>
-                            <th class="border-right">Thành tiền</th>
-                            <th class="p-0 bg-secondary" style="width:1%;"></th>
-                            <th class="border-right product_ratio">Hệ số nhân</th>
-                            <th class="border-right price_import">Giá nhập</th>
-                            <th class="border-right">Ghi chú</th>
-                            {{-- <th class="border-top border-right"></th> --}}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($product as $item)
-                            <tr class="bg-white">
-                                <td class="border-right">
-                                    <input type="checkbox">
-                                    <input type="text" name="product_code[]" readonly
-                                        class="border-0 px-3 py-2 w-75 searchProduct">{{ $item->product_code }}
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 position-relative">
-                                    <input readonly name="product_name[]" type="text"
-                                        class="searchProductName border-0 px-3 py-2 w-100"
-                                        value=" {{ $item->product_name }}">
-                                </td>
-                                <td class="border-right">
-                                    <input readonly type="text" name="product_unit[]"
-                                        class="border-0 px-3 py-2 w-100 product_unit"
-                                        value="  {{ $item->product_unit }}">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input type="text" name="product_qty[]"
-                                        class="border-0 px-3 py-2 w-100 quantity-input"
-                                        value=" {{ number_format($item->product_qty) }}">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input type="text" name="price_export[]"
-                                        class="border-0 px-3 py-2 w-100 price_export"
-                                        value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input type="text" class="border-0 px-3 py-2 w-100 product_tax"
-                                        name="product_tax[]" value=" {{ $item->product_tax }}">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input type="text" name="total_price[]"
-                                        class="border-0 px-3 py-2 w-100 total_price"
-                                        value=" {{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
-                                </td>
-                                <td class="border border-bottom-0 p-0 bg-secondary"></td>
-                                <td class="border border-top-0 border-bottom-0 product-ratio">
-                                    <input type="text" name="product_ratio[]"
-                                        class="border-0 px-3 py-2 w-100 product_ratio"
-                                        value=" {{ $item->product_ratio }}">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 price_import">
-                                    <input type="text" name="price_import[]"
-                                        class="border-0 px-3 py-2 w-100 price_import"
-                                        value="{{ number_format($item->price_import) }}">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0">
-                                    <input type="text" name="product_note[]" class="border-0 px-3 py-2 w-100"
-                                        value="{{ $item->product_note }}">
-                                </td>
-                                {{-- <td class="border border-top-0 border"></td> --}}
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <section class="content mt-5">
+                    <div class="container-fluided">
+                        <table class="table table-hover bg-white rounded" id="inputcontent">
+                            <thead>
+                                <tr>
+                                    <th class="border-right"><input type="checkbox"> Mã sản phẩm
+                                    </th>
+                                    <th class="border-right">Tên sản phẩm</th>
+                                    <th class="border-right">Đơn vị</th>
+                                    <th class="border-right">Số lượng</th>
+                                    <th class="border-right">Đơn giá</th>
+                                    <th class="border-right">Thuế</th>
+                                    <th class="border-right">Thành tiền</th>
+                                    <th class="p-0 bg-secondary" style="width:1%;"></th>
+                                    <th class="border-right product_ratio">Hệ số nhân</th>
+                                    <th class="border-right price_import">Giá nhập</th>
+                                    <th class="border-right">Ghi chú</th>
+                                    {{-- <th class="border-top border-right"></th> --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($product as $item)
+                                    <tr class="bg-white">
+                                        <td class="border-right">
+                                            <input type="checkbox">
+                                            <input type="text" name="product_code[]" readonly
+                                                class="border-0 px-3 py-2 w-75 searchProduct">{{ $item->product_code }}
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0 position-relative">
+                                            <input readonly name="product_name[]" type="text"
+                                                class="searchProductName border-0 px-3 py-2 w-100"
+                                                value=" {{ $item->product_name }}">
+                                        </td>
+                                        <td class="border-right">
+                                            <input readonly type="text" name="product_unit[]"
+                                                class="border-0 px-3 py-2 w-100 product_unit"
+                                                value="  {{ $item->product_unit }}">
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0 border-right-0">
+                                            <input type="text" name="product_qty[]"
+                                                class="border-0 px-3 py-2 w-100 quantity-input"
+                                                value=" {{ number_format($item->product_qty) }}">
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0 border-right-0">
+                                            <input type="text" name="price_export[]"
+                                                class="border-0 px-3 py-2 w-100 price_export"
+                                                value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}">
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0 border-right-0">
+                                            <input type="text" class="border-0 px-3 py-2 w-100 product_tax"
+                                                name="product_tax[]" value=" {{ $item->product_tax }}">
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0 border-right-0">
+                                            <input type="text" name="total_price[]"
+                                                class="border-0 px-3 py-2 w-100 total_price"
+                                                value=" {{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
+                                        </td>
+                                        <td class="border border-bottom-0 p-0 bg-secondary"></td>
+                                        <td class="border border-top-0 border-bottom-0 product-ratio">
+                                            <input type="text" name="product_ratio[]"
+                                                class="border-0 px-3 py-2 w-100 product_ratio"
+                                                value=" {{ $item->product_ratio }}">
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0 price_import">
+                                            <input type="text" name="price_import[]"
+                                                class="border-0 px-3 py-2 w-100 price_import"
+                                                value="{{ number_format($item->price_import) }}">
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0">
+                                            <input type="text" name="product_note[]"
+                                                class="border-0 px-3 py-2 w-100" value="{{ $item->product_note }}">
+                                        </td>
+                                        {{-- <td class="border border-top-0 border"></td> --}}
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <?php $import = '123'; ?>
+                <x-formsynthetic :import="$import"></x-formsynthetic>
             </div>
-        </section>
-        <?php $import = '123'; ?>
-        <x-formsynthetic :import="$import"></x-formsynthetic>
+
+            <div id="histpry" class="tab-pane fade">
+                <section class="content">
+                    <div class="container-fluided">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row m-auto filter pt-4 pb-4">
+                                    <form class="w-100" action="" method="get" id="search-filter">
+                                        <div class="row mr-0">
+                                            <div class="col-md-5 d-flex">
+                                                <div class="position-relative" style="width: 55%;">
+                                                    <input type="text" placeholder="Tìm kiếm" name="keywords"
+                                                        class="pr-4 w-100 input-search" value="">
+                                                    <span id="search-icon" class="search-icon"><i
+                                                            class="fas fa-search" aria-hidden="true"></i></span>
+                                                </div>
+                                                <button class="filter-btn ml-2">Bộ lọc
+                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
+                                                            fill="white"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content mt-2">
+                    <div class="container-fluided">
+                        <table class="table table-hover bg-white rounded" id="inputcontent">
+                            <thead>
+                                <tr>
+                                    <th>Mã thanh toán</th>
+                                    <th>Ngày thanh toán</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Thanh toán</th>
+                                    <th>Dư nợ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($history as $htr)
+                                    <tr class="bg-white">
+                                        <td>{{ $htr->id }}</td>
+                                        <td>{{ date_format(new DateTime($htr->created_at), 'd-m-Y') }}</td>
+                                        <td>{{ number_format($htr->total) }}</td>
+                                        <td>{{ number_format($htr->payment) }}</td>
+                                        <td>{{ number_format($htr->debt) }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+
     </form>
 </div>
 

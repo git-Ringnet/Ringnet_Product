@@ -13,6 +13,7 @@ class Serialnumber extends Model
     protected $table = 'serialnumber';
     protected $fillable = [
         'serinumber',
+        'receive_id',
         'detailimport_id',
         'detailexport_id',
         'product_id',

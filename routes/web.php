@@ -65,7 +65,7 @@ Route::get('/getProduct_reciept', [RecieptController::class, 'getProduct_reciept
 
 // Thanh toán nhập hàng
 Route::resource('paymentOrder', PayOrderController::class);
-
+Route::get('getPaymentOrder',[PayOrderController::class,'getPaymentOrder'])->name('getPaymentOrder');
 
 Route::get('/', function () {
     return view('welcome');

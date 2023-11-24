@@ -13,7 +13,7 @@
             </div>
         </div>
     </section>
-    
+
     <hr class="mt-3">
 
     <section class="content-header p-0">
@@ -70,7 +70,7 @@
                                         <div class="title-info py-2 border border-top-0 border-left-0">
                                             <p class="p-0 m-0 px-3">Ngày nhận hàng</p>
                                         </div>
-                                        <input type="date" placeholder="Nhập thông tin" name="received_date"
+                                        <input readonly type="date" placeholder="Nhập thông tin" name="received_date"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
                                             value="{{ $receive->created_at->toDateString() }}">
                                     </div>
@@ -281,7 +281,7 @@
                                             <span style="color: #08AA36">Đã giao</span>
                                         @endif
                                     </td>
-                                    <td>{{ $htr->created_at }}</td>
+                                    <td>{{ date_format(new DateTime($htr->created_at), 'd-m-Y') }}</td>
                                     <td><a href="{{ route('historyReceive.edit', $htr->id) }}"><svg
                                                 xmlns="http://www.w3.org/2000/svg" width="32" height="32"
                                                 viewBox="0 0 32 32" fill="none">
@@ -298,109 +298,82 @@
                 </div>
             </section>
         </div>
+
+        <div id="serialnumber" class="tab-pane fade">
+            <section class="content">
+                <div class="container-fluided">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row m-auto filter pt-4 pb-4">
+                                <form class="w-100" action="" method="get" id="search-filter">
+                                    <div class="row mr-0">
+                                        <div class="col-md-5 d-flex">
+                                            <div class="position-relative" style="width: 55%;">
+                                                <input type="text" placeholder="Tìm kiếm" name="keywords"
+                                                    class="pr-4 w-100 input-search" value="">
+                                                <span id="search-icon" class="search-icon"><i class="fas fa-search"
+                                                        aria-hidden="true"></i></span>
+                                            </div>
+                                            <button class="filter-btn ml-2">Bộ lọc
+                                                <svg width="18" height="18" viewBox="0 0 18 18"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
+                                                        fill="white"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content">
+                <div class="container-fluided">
+                    <table class="table table-hover bg-white rounded" id="inputcontent">
+                        <thead>
+                            <tr>
+                                <th>Serial Number</th>
+                                <th>Hóa đơn mua hàng</th>
+                                <th>Hóa đơn bán hàng</th>
+                                <th>Ngày nhập</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($product as $item)
+                                @if ($item->getProductImport)
+                                    @if ($item->getProductImport->getSerialNumber)
+                                        @foreach ($item->getProductImport->getSerialNumber as $seri)
+                                            <tr class="bg-white">
+                                                <td> {{ $seri->serinumber }}</td>
+                                                <td>{{ $item->getQuoteNumber->quotation_number }}</td>
+                                                <td></td>
+                                                <td>{{ $item->created_at }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
     </div>
 
-    <x-formmodalseri :product="$product"></x-formmodalseri>
+    <x-formmodalseri :product="$product" :status="1"></x-formmodalseri>
 
 </div>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
-    function getAction(e) {
-        $('#getAction').val($(e).find('button').val());
-    }
     $('#listReceive').hide();
     $('.search_quotation').on('click', function() {
         $('#listReceive').show();
-    })
-    // var status = @php $receive->status @endphp
-    // $('#delete_receive').off('click').on('click', function() {
-    //     status = 3;
-    // })
-    $('#addRowTable').off('click').on('click', function() {
-        addRowTable(2);
-        $('.searchProductName').on('click', function() {
-            var id = @php echo $receive->id; @endphp;
-            console.log(id);
-            $.ajax({
-                url: "{{ route('getProduct_receive') }}",
-                type: "get",
-                data: {
-                    id: id
-                },
-                success: function(data) {
-                    console.log(data);
-                }
-            })
-        })
-    })
-
-
-
-    $('form').on('submit', function(e) {
-        e.preventDefault();
-        var productSN = {}
-        var formSubmit = false;
-        var listProductName = [];
-        var listQty = [];
-        var listSN = [];
-
-        if ($('#getAction').val() == 2) {
-            $('.searchProductName').each(function() {
-                listProductName.push($(this).val().trim());
-                listQty.push($(this).closest('tr').find('.quantity-input').val().trim());
-                var count = $($(this).closest('tr').find('button').attr('data-target')).find(
-                    'input[name^="seri"]').filter(
-                    function() {
-                        return $(this).val() !== '';
-                    }).length;
-                listSN.push(count);
-                var oldValue = $(this).val().trim();
-                productSN[oldValue] = {
-                    sn: []
-                };
-                SerialNumbers = $($(this).closest('tr').find('button').attr('data-target')).find(
-                    'input[name^="seri"]').map(function() {
-                    return $(this).val().trim();
-                }).get();
-                productSN[oldValue].sn.push(...SerialNumbers)
-            });
-            // Kiểm tra số lượng sn và số lượng sản phẩm
-            $.ajax({
-                url: "{{ route('checkSN') }}",
-                type: "get",
-                data: {
-                    listProductName: listProductName,
-                    listQty: listQty,
-                    listSN: listSN
-                },
-                success: function(data) {
-                    if (data['status'] == 'false') {
-                        alert('Vui lòng nhập đủ số lượng seri sản phẩm ' + data['productName'])
-                    } else {
-                        // Kiểm tra sản phẩm đã tồn tại seri chưa
-                        $.ajax({
-                            url: "{{ route('checkduplicateSN') }}",
-                            type: "get",
-                            data: {
-                                value: productSN,
-                            },
-                            success: function(data) {
-                                if (data['success'] == false) {
-                                    alert('Sản phảm' + data['msg'] + 'đã tồn tại seri' +
-                                        data['data'])
-                                } else {
-                                    updateProductSN()
-                                    $('form')[0].submit();
-                                }
-                            }
-                        })
-                    }
-                }
-            })
-        } else {
-            $('form')[0].submit();
-        }
     })
 
     // Tạo INPUT SERI

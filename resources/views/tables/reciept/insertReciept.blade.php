@@ -85,7 +85,7 @@
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3 text-danger required-label">Ngày hóa đơn</p>
                                     </div>
-                                    <input type="date" placeholder="Nhập thông tin" name="received_date"
+                                    <input type="date" placeholder="Nhập thông tin" name="date_bill"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
                                         value="{{ date('Y-m-d') }}">
                                 </div>
@@ -93,7 +93,7 @@
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3 text-danger required-label">Số hóa đơn</p>
                                     </div>
-                                    <input required type="text" placeholder="Nhập thông tin" name="received_date"
+                                    <input required type="text" placeholder="Nhập thông tin" name="number_bill"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                             </div>
@@ -147,18 +147,17 @@
                 detail_id: detail_id
             },
             success: function(data) {
-                $('#search_quotation').val(data.quotation_number);
+                $('#search_quotation').val(data.quotation_number == null ? data.id : data.quotation_number);
                 $('#provide_name').val(data.provide_name);
                 $('#detailimport_id').val(data.id)
                 $('#listReceive').hide();
                 $.ajax({
-                    url: "{{ route('getProduct_receive') }}",
+                    url: "{{ route('getProduct_reciept') }}",
                     type: "get",
                     data: {
                         id: data.id
                     },
                     success: function(product) {
-                        console.log(product);
                         $('#inputcontent tbody').empty();
                         product.forEach(function(element) {
                             if ((element.product_qty - element.reciept_qty) >

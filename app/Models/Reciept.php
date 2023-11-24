@@ -15,6 +15,8 @@ class Reciept extends Model
         'detailimport_id',
         'receive_id',
         'provide_id',
+        'date_bill',
+        'number_bill',
         'status',
         'price_total'
     ];
@@ -34,6 +36,8 @@ class Reciept extends Model
             $dataReciept = [
                 'detailimport_id' => $id,
                 'provide_id' => $detail->provide_id,
+                'date_bill' => isset($data['date_bill']) ?  Carbon::parse($data['date_bill']) : Carbon::now(),
+                'number_bill' => isset($data['number_bill'])  ? $data['number_bill'] :  0,
                 'status' => 1,
                 'price_total' => 0,
                 'created_at' => Carbon::now(),
@@ -78,6 +82,8 @@ class Reciept extends Model
         $reciept = Reciept::where('id', $id)->first();
         if ($reciept && $reciept->status == 1) {
             $dataUpdate = [
+                'date_bill' => Carbon::parse($data['date_bill']),
+                'number_bill' => $data['number_bill'] == null ? 0 : $data['number_bill'],
                 'status' => 2,
             ];
             DB::table($this->table)->where('id', $reciept->id)->update($dataUpdate);

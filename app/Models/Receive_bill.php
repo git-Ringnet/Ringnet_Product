@@ -24,9 +24,6 @@ class Receive_bill extends Model
     {
         return $this->hasOne(Provides::class, 'id', 'provide_id');
     }
-    public function getQuote(){
-        return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
-    }
 
     public function addReceiveBill($data, $id)
     {
@@ -36,33 +33,33 @@ class Receive_bill extends Model
             $dataReceive = [
                 'detailimport_id' => $id,
                 'provide_id' => $detail->provide_id,
+                'shipping_unit' => isset($data['shipping_unit']) ? $data['shipping_unit'] : "",
+                'delivery_charges' => isset($data['delivery_charges']) ? str_replace(',', '', $data['delivery_charges']) : 0,
                 'status' => 1,
                 'created_at' => Carbon::now(),
             ];
             $receive_id = DB::table($this->table)->insertGetId($dataReceive);
-            // for ($i = 0; $i < count($data['product_name']); $i++) {
-            //     $dataupdate = [
-            //         'receive_id' => $receive_id,
-            //     ];
-            //     // $checkQuote = ProductImport::where('quoteImport_id', $data['listProduct'][$i])
-            //     //     ->where('receive_id', 0)->first();
-            //     $checkQuote = QuoteImport::where('detailimport_id', $detail->id)->get();
-            //     if ($checkQuote) {
-            //         foreach ($checkQuote as $value) {
-            //             $productImport = ProductImport::where('quoteImport_id', $value->id)
-            //                 ->where('receive_id', 0)->first();
-            //             if ($productImport) {
-            //                 DB::table('products_import')->where('id', $productImport->id)->update($dataupdate);
-            //             }
-            //         }
-            //     }
-            // }
+            for ($i = 0; $i < count($data['product_name']); $i++) {
+                $dataupdate = [
+                    'receive_id' => $receive_id,
+                ];
+                $checkQuote = QuoteImport::where('detailimport_id', $detail->id)->get();
+                if ($checkQuote) {
+                    foreach ($checkQuote as $value) {
+                        $productImport = ProductImport::where('quoteImport_id', $value->id)
+                            ->where('receive_id', 0)->first();
+                        if ($productImport) {
+                            DB::table('products_import')->where('id', $productImport->id)->update($dataupdate);
+                        }
+                    }
+                }
+            }
 
-            // // Cập nhật trạng thái đơn hàng
-            // if ($detail->status == 1) {
-            //     $detail->status = 2;
-            //     $detail->save();
-            // }
+            // Cập nhật trạng thái đơn hàng
+            if ($detail->status == 1) {
+                $detail->status = 2;
+                $detail->save();
+            }
             return $receive_id;
         }
     }
@@ -72,6 +69,8 @@ class Receive_bill extends Model
         $receive = Receive_bill::where('id', $id)->first();
         if ($receive && $receive->status == 1) {
             $dataUpdate = [
+                'shipping_unit' => $data['shipping_unit'],
+                'delivery_charges' => $data['delivery_charges'] == null ? 0 : str_replace(',', '', $data['delivery_charges']),
                 'status' => 2,
             ];
             DB::table($this->table)->where('id', $receive->id)->update($dataUpdate);

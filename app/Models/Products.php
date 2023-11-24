@@ -121,7 +121,7 @@ class Products extends Model
             // dd($product);
             // Thêm sản phẩm vào tồn kho
             foreach ($product as $item) {
-                $getProductName = QuoteImport::where('id',$item->quoteImport_id)->first();
+                $getProductName = QuoteImport::where('id', $item->quoteImport_id)->first();
                 $checkProduct = Products::where('product_name', $getProductName->product_name)->first();
                 if ($checkProduct) {
                     $checkProduct->product_inventory += $item->product_qty;
@@ -159,6 +159,7 @@ class Products extends Model
                             if (!empty($productSN[$j])) {
                                 $dataSN = [
                                     'serinumber' => $productSN[$j],
+                                    'receive_id' => $receive->id,
                                     'detailimport_id' => $receive->detailimport_id,
                                     'detailexport_id' => 0,
                                     'product_id' => $getProduct->id,

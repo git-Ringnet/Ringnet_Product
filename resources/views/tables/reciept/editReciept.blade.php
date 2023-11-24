@@ -59,7 +59,7 @@
                                         name="quotation_number"
                                         class="border w-100 py-2 border-left-0 border-right-0 px-3 search_quotation"
                                         autocomplete="off" required
-                                        value="{{ $reciept->getQuotation->quotation_number }}">
+                                        value="{{ $reciept->getQuotation->quotation_number == null ? $reciept->getQuotation->id : $reciept->getQuotation->quotation_number }}">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
@@ -71,14 +71,6 @@
                                 </div>
                                 {{-- <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Đơn vị vận chuyển</p>
-                                    </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="shipping_unit"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="{{ $reciept->shipping_unit }}">
-                                </div> --}}
-                                {{-- <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Phí giao hàng</p>
                                     </div>
                                     <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
@@ -87,11 +79,19 @@
                                 </div> --}}
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Ngày nhận hàng</p>
+                                        <p class="p-0 m-0 px-3 text-danger required-label">Ngày hóa đơn</p>
                                     </div>
-                                    <input type="date" placeholder="Nhập thông tin" name="received_date"
+                                    <input required type="date" placeholder="Nhập thông tin" name="date_bill"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="{{ $reciept->created_at->toDateString() }}">
+                                        value="{{ Carbon\Carbon::parse($reciept->date_bill)->toDateString() }}">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3 text-danger required-label">Số hóa đơn</p>
+                                    </div>
+                                    <input required type="text" placeholder="Nhập thông tin" name="number_bill"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                        value="{{ $reciept->number_bill }}">
                                 </div>
                             </div>
                         </div>

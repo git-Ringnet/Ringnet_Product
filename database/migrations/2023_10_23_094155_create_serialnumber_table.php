@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('serialnumber', function (Blueprint $table) {
             $table->id();
             $table->string('serinumber');
+            $table->integer('receive_id');
             $table->integer('detailimport_id');
             $table->integer('detailexport_id');
             $table->unsignedBigInteger('product_id')->nullable();

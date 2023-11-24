@@ -9,17 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('history_receive', function (Blueprint $table) {
-            $table->id();
-            $table->integer('receive_id');
-            $table->string('shipping_unit')->nullable();
-            $table->decimal('delivery_charges',20,4)->nullable();
-            $table->integer('status');
-            $table->timestamps();
-        });
-    }
+    // public function up(): void
+    // {
+    //     Schema::create('history_receive', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->integer('receive_id');
+    //         $table->string('shipping_unit')->nullable();
+    //         $table->decimal('delivery_charges',20,4)->nullable();
+    //         $table->integer('status');
+    //         $table->timestamps();
+    //     });
+    // }
 
     /**
      * Reverse the migrations.

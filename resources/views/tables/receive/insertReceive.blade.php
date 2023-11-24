@@ -134,7 +134,7 @@
             </div>
         </section>
         <?php $product = []; ?>
-        <x-formmodalseri :product="$product" id="product"></x-formmodalseri>
+        <x-formmodalseri :product="$product" :status="2" id="product"></x-formmodalseri>
         <?php $import = '123'; ?>
         <x-formsynthetic :import="$import"></x-formsynthetic>
     </form>

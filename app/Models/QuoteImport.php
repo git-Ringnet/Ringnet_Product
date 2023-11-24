@@ -28,7 +28,12 @@ class QuoteImport extends Model
     {
         return DB::table($this->table)->get();
     }
-
+    public function getProductImport(){
+        return $this->hasOne(ProductImport::class, 'quoteImport_id', 'id');
+    }
+    public function getQuoteNumber(){
+        return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
+    }
     public function addQuoteImport($data, $id)
     {
         for ($i = 0; $i < count($data['product_name']); $i++) {
