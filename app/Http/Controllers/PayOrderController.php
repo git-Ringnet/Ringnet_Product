@@ -115,6 +115,8 @@ class PayOrderController extends Controller
         // Cập nhật trạng thái
         $result = $this->payment->updatePayment($request->all(), $id);
         if ($result) {
+
+            $this->historyPayment->addHistoryPayment($request->all(),$id);
             return redirect()->route('paymentOrder.index')->with('msg', 'Thanh toán hóa đơn thành công !');
         } else {
             return redirect()->route('paymentOrder.index')->with('warning', 'Hóa đơn đã được thanh toán !');
@@ -132,6 +134,7 @@ class PayOrderController extends Controller
     public function getPaymentOrder(Request $request)
     {
         return QuoteImport::leftJoin('detailimport','detailimport.id','quoteimport.detailimport_id')
+        ->leftJoin('pay_order','detailimport.id','pay_order.detailimport_id')
         ->where('quoteimport.detailimport_id', $request->id)
         // ->where('product_qty', '>', DB::raw('COALESCE(payment_qty,0)'))
         ->get();

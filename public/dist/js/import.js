@@ -40,7 +40,7 @@ function updateProductSN() {
 
 // Kiểm tra số lượng
 function checkQty(value, odlQty) {
-    if ($(value).val() > odlQty) {
+    if ($(value).val().replace(/[^0-9.-]+/g, "") > odlQty) {
         $(value).val(odlQty)
     }
 }

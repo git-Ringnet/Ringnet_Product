@@ -14,18 +14,33 @@
                     <span class="font-weight-bold">Đơn nhận hàng</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
-                        <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                fill="white" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                fill="white" />
-                        </svg>
-                        <span>Thanh toán hóa đơn</span>
-                    </button>
+                    @if ($payment->status != 2)
+                        <button type="submit" class="custom-btn d-flex align-items-center h-100"
+                            style="margin-right:10px">
+                            <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                    fill="white" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                    fill="white" />
+                            </svg>
+                            <span>Thanh toán hóa đơn</span>
+                        </button>
+                    @else
+                        <a href="{{ route('paymentOrder.index') }}">
+                            <span class="btn btn-secondary d-flex align-items-center h-100">
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10"
+                                    fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M5.76877 0.231232C6.07708 0.53954 6.07708 1.03941 5.76877 1.34772L2.11648 5L5.76877 8.65228C6.07708 8.96059 6.07708 9.46046 5.76877 9.76877C5.46046 10.0771 4.96059 10.0771 4.65228 9.76877L0.441758 5.55824C0.13345 5.24993 0.13345 4.75007 0.441758 4.44176L4.65228 0.231231C4.96059 -0.0770772 5.46046 -0.0770772 5.76877 0.231232Z"
+                                        fill="#42526E" />
+                                </svg>
+                                <span>Trở về</span>
+                            </span>
+                        </a>
+                    @endif
                 </div>
             </div>
         </section>
@@ -94,7 +109,8 @@
                                             <div class="title-info py-2 border border-top-0 border-left-0">
                                                 <p class="p-0 m-0 px-3">Dư nợ</p>
                                             </div>
-                                            <input type="text" placeholder="Nhập thông tin" name="debt" readonly
+                                            <input type="text" placeholder="Nhập thông tin" name="debt"
+                                                readonly
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
                                                 value="{{ number_format($payment->debt) }}">
                                         </div>
@@ -102,7 +118,8 @@
                                             <div class="title-info py-2 border border-top-0 border-left-0">
                                                 <p class="p-0 m-0 px-3">Thanh toán trước</p>
                                             </div>
-                                            <input type="text" placeholder="Nhập thông tin" name="payment"
+                                            <input oninput="checkQty(this,{{ $payment->debt }})" type="text"
+                                                placeholder="Nhập thông tin" name="payment"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 payment_input">
                                         </div>
                                     </div>

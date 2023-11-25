@@ -37,7 +37,7 @@ class PayOder extends Model
         $payment = PayOder::where('id', $id)->first();
 
         if ($payment && $payment->status != 2) {
-            $prepay = $payment->payment + str_replace(',', '', $data['payment']);
+            $prepay = $payment->payment + (isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0);
             $dataPayment = [
                 'payment_date' => $data['payment_date'],
                 'payment' => $prepay,
@@ -45,10 +45,10 @@ class PayOder extends Model
             ];
             PayOder::where('id', $payment->id)->update($dataPayment);
             $total = 0;
-            if ($payment->total - ($payment->payment + str_replace(',', '', $data['payment'])) == 0) {
-                $total = str_replace(',', '', $data['payment']);
+            if ($payment->total - ($payment->payment + (isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0)) == 0) {
+                $total = isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0;
             } else {
-                $total = $payment->payment + str_replace(',', '', $data['payment']);
+                $total = $payment->payment + (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0 );
             }
             // Tính công nợ
             $this->calculateDebt($payment->provide_id, $total);
@@ -79,7 +79,7 @@ class PayOder extends Model
                     'detailimport_id' => $detail->id,
                     'provide_id' => $detail->provide_id,
                     'status' => 1,
-                    'payment_date' => $data['payment_date'] == null ? Carbon::now() : Carbon::parse($data['payment_date']),
+                    'payment_date' => isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now(),
                     'total' => 0,
                     'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
                     'debt' => 0,
@@ -174,7 +174,7 @@ class PayOder extends Model
     public function updateStatusDebt($data, $id)
     {
         $startDate = Carbon::now()->startOfDay();
-        $endDate = $data['payment_date'] == null ? Carbon::now() : Carbon::parse($data['payment_date']);
+        $endDate = isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now();
         $endDate = Carbon::parse($endDate);
         $daysDiffss = $startDate->diffInDays($endDate);
 

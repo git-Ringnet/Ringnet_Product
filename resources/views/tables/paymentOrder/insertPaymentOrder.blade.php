@@ -104,21 +104,23 @@
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Đã thanh toán</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" readonly
+                                    <input id="payment" type="text" placeholder="Nhập thông tin" readonly
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Dư nợ</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="" readonly
+                                    <input id="debt" type="text" placeholder="Nhập thông tin" name=""
+                                        readonly
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Thanh toán trước</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="payment"
+                                    <input readonly id="prepayment" type="text" placeholder="Nhập thông tin"
+                                        name="payment"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 payment_input">
                                 </div>
                             </div>
@@ -184,7 +186,7 @@
                         id: data.id
                     },
                     success: function(product) {
-                        console.log(product);
+                        $('#prepayment').removeAttr('readonly')
                         var total = 0;
                         $('#inputcontent tbody').empty();
                         product.forEach(function(element) {
@@ -259,7 +261,16 @@
                             total += element.price_export * element
                                 .product_qty
                         })
+                        $('#payment').val(product[0].payment == null ? 0 :
+                            formatCurrency(product[0].payment));
+                        $('#debt').val(product[0].payment == null ? formatCurrency(
+                            total) : formatCurrency(
+                            total - product[0].payment))
                         $('#total_bill').val(formatCurrency(total))
+                        $('#prepayment').on('input', function() {
+                            checkQty(this, product[0].payment == null ? total :
+                                total - product[0].payment);
+                        })
                         updateTaxAmount()
                         calculateTotalAmount()
                         calculateTotalTax()

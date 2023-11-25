@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('history_payment_order', function (Blueprint $table) {
             $table->id();
             $table->integer('payment_id');
-            $table->decimal('total');
-            $table->decimal('payment');
-            $table->decimal('debt');
+            $table->decimal('total',20,4);
+            $table->decimal('payment',20,4);
+            $table->decimal('debt',20,4);
             $table->timestamps();
         });
     }
