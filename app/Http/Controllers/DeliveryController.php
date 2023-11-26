@@ -16,11 +16,13 @@ class DeliveryController extends Controller
     private $delivery;
     private $product;
     private $delivered;
+    private $detailExport;
     public function __construct()
     {
         $this->delivery = new Delivery();
         $this->product = new Products();
         $this->delivered = new Delivered();
+        $this->detailExport = new DetailExport();
     }
     public function index()
     {
@@ -79,9 +81,16 @@ class DeliveryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Delivery $delivery)
+    public function update(Request $request, string $id)
     {
-        //
+        $delivery = Delivery::find($id);
+        if ($delivery) {
+            $delivery->update([
+                'status' => 2,
+            ]);
+            $this->delivery->updateDetailExport($delivery->detailexport_id);
+            return redirect()->route('delivery.index')->with('success', 'Xác nhận đơn giao hàng thành công!');
+        }
     }
 
     /**

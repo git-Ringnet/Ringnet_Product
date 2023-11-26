@@ -155,7 +155,7 @@
                                             </td>
                                             <td class="border-top-0 bg-white">
                                                 <div class="">
-                                                    <a href="{{ route('watchDelivery', $item_delivery->detailexport_id) }}"
+                                                    <a href="{{ route('watchDelivery', $item_delivery->maGiaoHang) }}"
                                                         class="duongDan">
                                                         {{ $item_delivery->quotation_number }}
                                                     </a>

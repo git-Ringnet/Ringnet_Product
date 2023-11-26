@@ -10,10 +10,10 @@ class BillSale extends Model
     use HasFactory;
     protected $fillable = [
         'detailexport_id',
-        'delivery_id',
         'guest_id',
         'price_total',
         'status',
+        'number_bill',
     ];
     protected $table = 'bill_sale';
 
@@ -21,6 +21,7 @@ class BillSale extends Model
     {
         $bill_sale = BillSale::leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'bill_sale.guest_id', 'guest.id')
+            ->select('*', 'bill_sale.status as tinhTrang', 'bill_sale.id as idHD')
             ->get();
         return $bill_sale;
     }
@@ -35,57 +36,64 @@ class BillSale extends Model
             $totalBeforeTax += $subtotal;
             $totalTax += $subTax;
             $tolal_all = $totalTax + $totalBeforeTax;
-            if ($data['product_id'][$i] != null) {
-                $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])->first();
-                if ($quoteExport) {
-                    $quoteExport->qty_bill_sale += $data['product_qty'][$i];
-                    $quoteExport->save();
-                }
-            }
         }
         $dataBill = [
             'detailexport_id' => $data['detailexport_id'],
-            'delivery_id' => $data['delivery_id'],
             'guest_id' => $data['guest_id'],
             'price_total' => $tolal_all,
             'status' => 1,
             'created_at' => $data['date_bill'],
+            'number_bill' => $data['number_bill']
         ];
         $bill_sale = new BillSale($dataBill);
         $bill_sale->save();
-        // Lấy tất cả các bản ghi từ bảng QuoteExport theo điều kiện
-        $quoteExports = QuoteExport::where('detailexport_id', $data['detailexport_id'])->get();
+        $detaiExport = DetailExport::where('id', $data['detailexport_id'])->first();
+        if ($detaiExport) {
+            $detaiExport->update([
+                'status' => 2,
+            ]);
+        }
+        return $bill_sale->id;
+    }
+    public function updateDetailExport($detailexport_id)
+    {
+        $quoteExports = QuoteExport::where('detailexport_id', $detailexport_id)->get();
 
         // Biến để kiểm tra xem có ít nhất một giá trị nào lớn hơn 0 không
         $hasNonZeroDifference = false;
 
         foreach ($quoteExports as $quoteExport) {
-            $productQty = bcsub($quoteExport->product_qty, '0', 4);
-            $qtyBill = bcsub($quoteExport->qty_bill_sale, '0', 4);
+            $product_id = $quoteExport->product_id;
 
-            if (bccomp($productQty, $qtyBill, 4) !== 0) {
+            // Lấy tất cả các bản ghi delivered có product_id tương ứng và status = 2 từ bảng Delivery
+            $deliveriesForProduct = productBill::join('bill_sale', 'bill_sale.id', '=', 'product_bill.billSale_id')
+                ->where('product_bill.product_id', $product_id)
+                ->where('bill_sale.status', 2)
+                ->get();
+
+            // Tính tổng billSale_qty
+            $totalDeliveredQty = $deliveriesForProduct->sum('billSale_qty');
+            $productQty = bcsub($quoteExport->product_qty, '0', 4);
+
+            // So sánh tổng billSale_qty với product_qty
+            if (bccomp($totalDeliveredQty, $productQty, 4) !== 0) {
                 $hasNonZeroDifference = true;
                 break;
             }
         }
 
-        // Nếu có ít nhất một giá trị nào đó không bằng 0, cập nhật 'status_reciept' thành 3
-        if ($hasNonZeroDifference) {
-            $detailExport = DetailExport::where('id', $data['detailexport_id'])->first();
-            if ($detailExport) {
+        $detailExport = DetailExport::where('id', $detailexport_id)->first();
+
+        if ($detailExport) {
+            if ($hasNonZeroDifference) {
                 $detailExport->update([
                     'status_reciept' => 3,
                 ]);
-            }
-        } else {
-            // Nếu tất cả đều bằng 0, cập nhật 'status_reciept' thành 2
-            $detailExport = DetailExport::where('id', $data['detailexport_id'])->first();
-            if ($detailExport) {
+            } else {
                 $detailExport->update([
                     'status_reciept' => 2,
                 ]);
             }
         }
-        return $bill_sale;
     }
 }

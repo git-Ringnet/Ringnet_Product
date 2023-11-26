@@ -1,8 +1,9 @@
 <x-navbar :title="$title"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <form action="{{ route('delivery.store') }}" method="POST">
+    <form action="{{ route('delivery.update', $delivery->soGiaoHang) }}" method="POST">
         @csrf
+        @method('PUT')
         <input type="hidden" name="detailexport_id" id="detailexport_id">
         <!-- Content Header (Page header) -->
         <section class="content-header p-0">
@@ -14,52 +15,14 @@
                     <span>/</span>
                     <span class="font-weight-bold">{{ $delivery->quotation_number }}</span>
                 </div>
-                <div class="row m-0 mb-1">
-                    <a href="#" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
-                        <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
-                                fill="white" />
-                        </svg>
-                        <span>Sửa</span>
-                    </a>
-                    <div class="dropdown">
-                        <button type="button" data-toggle="dropdown"
-                            class="btn-save-print d-flex align-items-center h-100 dropdown-toggle"
-                            style="margin-right:10px">
-                            <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M3.75528 1.6875H5.99476H11.9948H12.123C12.3939 1.6875 12.6621 1.74088 12.9123 1.84459C13.1626 1.94829 13.3899 2.10029 13.5814 2.29189L15.7022 4.41269C16.089 4.79939 16.3064 5.32394 16.3065 5.87088V14.25C16.3065 14.797 16.0892 15.3216 15.7024 15.7084C15.3156 16.0952 14.791 16.3125 14.244 16.3125H12.75H5.25H3.83328C3.28894 16.3125 2.76666 16.0973 2.38031 15.7139C1.99396 15.3304 1.77486 14.8098 1.77078 14.2655L1.69278 3.76547C1.69074 3.49333 1.74258 3.22344 1.84531 2.97143C1.94805 2.71941 2.09965 2.49021 2.29137 2.29705C2.4831 2.10389 2.71115 1.95058 2.9624 1.84597C3.21364 1.74135 3.48312 1.68749 3.75528 1.6875ZM5.8125 15.1875H12.1875V9.9645C12.1875 9.74238 12.0071 9.5625 11.7862 9.5625H6.2145C5.99266 9.5625 5.8125 9.74266 5.8125 9.9645V15.1875ZM13.3125 15.1875V9.9645C13.3125 9.12163 12.6289 8.4375 11.7862 8.4375H6.2145C5.37134 8.4375 4.6875 9.12134 4.6875 9.9645V15.1875H3.83326C3.58582 15.1875 3.34842 15.0897 3.17281 14.9154C2.9972 14.7411 2.89761 14.5044 2.89574 14.257L2.81774 3.75703C2.81682 3.63333 2.84038 3.51066 2.88708 3.39611C2.93378 3.28155 3.00269 3.17737 3.08983 3.08957C3.17698 3.00177 3.28064 2.93208 3.39485 2.88453C3.50905 2.83698 3.63154 2.8125 3.75524 2.8125H5.43226V5.18175C5.43226 5.52985 5.57054 5.86369 5.81668 6.10983C6.06282 6.35597 6.39666 6.49425 6.74476 6.49425H11.2448C11.5929 6.49425 11.9267 6.35597 12.1728 6.10983C12.419 5.86369 12.5573 5.52985 12.5573 5.18175V2.91925C12.6414 2.96326 12.7185 3.01991 12.7858 3.08725L14.9068 5.20831C15.0826 5.38405 15.1814 5.62254 15.1815 5.87112V14.25C15.1815 14.4986 15.0827 14.7371 14.9069 14.9129C14.7311 15.0887 14.4926 15.1875 14.244 15.1875H13.3125ZM11.4323 5.18175V2.8125H6.55726V5.18175C6.55726 5.23148 6.57701 5.27917 6.61218 5.31433C6.64734 5.3495 6.69503 5.36925 6.74476 5.36925H11.2448C11.2945 5.36925 11.3422 5.3495 11.3773 5.31433C11.4125 5.27917 11.4323 5.23148 11.4323 5.18175Z"
-                                    fill="white" />
-                            </svg>
-                            <span>In</span>
+                @if ($delivery->tinhTrang !== 2)
+                    <div class="row m-0 mb-1">
+                        <button type="submit" name="submit" value="2"
+                            class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                            <span>Xác nhận đơn giao hàng</span>
                         </button>
-                        <div class="dropdown-menu" style="z-index: 9999;">
-                            <a class="dropdown-item" href="#">Xuất Excel</a>
-                            <a class="dropdown-item" href="#">Xuất PDF</a>
-                        </div>
                     </div>
-                    <a href="#" class="btn-option">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                fill="#42526E" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                fill="#42526E" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                fill="#42526E" />
-                        </svg>
-                    </a>
-                    <button type="submit" name="submit" value="2"
-                        class="custom-btn d-flex align-items-center h-100 ml-2" style="margin-right:10px">
-                        <span>Xác nhận đơn giao hàng</span>
-                    </button>
-                </div>
+                @endif
             </div>
         </section>
         <hr class="mt-3">
@@ -126,22 +89,22 @@
                         </div>
                         <div class="d-flex justify-content-between mt-5">
                             <div class="d-flex align-items-center btn-basic pb-3 px-2">
-                                <svg class="mr-1" width="18" height="18" viewBox="0 0 18 18"
-                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="mr-1" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M14.25 15.75H3.75C3.35218 15.75 2.97064 15.592 2.68934 15.3107C2.40804 15.0294 2.25 14.6478 2.25 14.25V3.75C2.25 3.35218 2.40804 2.97064 2.68934 2.68934C2.97064 2.40804 3.35218 2.25 3.75 2.25H14.25C14.6478 2.25 15.0294 2.40804 15.3107 2.68934C15.592 2.97064 15.75 3.35218 15.75 3.75V14.25C15.75 14.6478 15.592 15.0294 15.3107 15.3107C15.0294 15.592 14.6478 15.75 14.25 15.75Z"
                                         stroke="#42526E" stroke-width="1.5" stroke-linecap="round"
                                         stroke-linejoin="round" />
                                     <path d="M4.5 4.5H13.5V11.25H4.5V4.5Z" stroke="#42526E" stroke-width="1.5"
                                         stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M4.5 13.5H9.75" stroke="#42526E" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M12 13.5H13.5" stroke="#42526E" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M4.5 13.5H9.75" stroke="#42526E" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M12 13.5H13.5" stroke="#42526E" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
                                 </svg>
                                 <p class="p-0 m-0 change_colum">Đầy đủ</p>
-                                <svg class="ml-1" width="18" height="18" viewBox="0 0 18 18"
-                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="ml-1" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
                                         fill="#42526E" />
@@ -159,13 +122,13 @@
                                             <th class="border-right">Tên sản phẩm</th>
                                             <th class="border-right">Đơn vị</th>
                                             <th class="border-right">Số lượng</th>
-                                            <th class="border-right">Đơn giá</th>
+                                            {{-- <th class="border-right">Đơn giá</th>
                                             <th class="border-right">Thuế</th>
                                             <th class="border-right">Thành tiền</th>
                                             <th class="p-0 bg-secondary border-0 Daydu" style="width:1%;"></th>
                                             <th class="border-right product_ratio">Hệ số nhân</th>
                                             <th class="border-right price_import">Giá nhập</th>
-                                            <th class="border-right note">Ghi chú</th>
+                                            <th class="border-right note">Ghi chú</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -186,6 +149,9 @@
                                                         <input type="text" value="{{ $item_quote->product_name }}"
                                                             class="border-0 px-2 py-1 w-100 product_name" readonly
                                                             autocomplete="off" name="product_name[]">
+                                                        <input type="hidden" class="product_id"
+                                                            value="{{ $item_quote->product_id }}" autocomplete="off"
+                                                            name="product_id[]">
                                                         <div class="info-product" data-toggle="modal"
                                                             data-target="#productModal">
                                                             <svg width="18" height="18" viewBox="0 0 18 18"
@@ -214,7 +180,7 @@
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                                     <input type="text" readonly
-                                                        value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
+                                                        value="{{ is_int($item_quote->deliver_qty) ? $item_quote->deliver_qty : rtrim(rtrim(number_format($item_quote->deliver_qty, 4, '.', ''), '0'), '.') }}"
                                                         class="border-0 px-2 py-1 w-100 quantity-input"
                                                         autocomplete="off" name="product_qty[]">
                                                     <input type="hidden" class="tonkho">
@@ -223,7 +189,8 @@
                                                         <span class="soTonKho">35</span>
                                                     </p>
                                                 </td>
-                                                <td class="border border-top-0 border-bottom-0 position-relative">
+                                                <td
+                                                    class="border border-top-0 border-bottom-0 position-relative d-none">
                                                     <input type="text"
                                                         value="{{ number_format($item_quote->price_export) }}"
                                                         class="border-0 px-2 py-1 w-100 product_price"
@@ -232,7 +199,7 @@
                                                         style="top: 68%; right: 5%; display: none;">Giao dịch gần đây
                                                     </p>
                                                 </td>
-                                                <td class="border border-top-0 border-bottom-0 px-4">
+                                                <td class="border border-top-0 border-bottom-0 px-4 d-none">
                                                     <select name="product_tax[]"
                                                         class="border-0 text-center product_tax" disabled>
                                                         <option value="0" <?php if ($item_quote->product_tax == 0) {
@@ -249,35 +216,36 @@
                                                         } ?>>NOVAT</option>
                                                     </select>
                                                 </td>
-                                                <td class="border border-top-0 border-bottom-0">
+                                                <td class="border border-top-0 border-bottom-0 d-none">
                                                     <input type="text" readonly=""
                                                         value="{{ number_format($item_quote->product_total) }}"
                                                         class="border-0 px-2 py-1 w-100 total-amount">
                                                 </td>
-                                                <td class="border-top border-secondary p-0 bg-secondary Daydu"
+                                                <td class="border-top border-secondary p-0 bg-secondary Daydu d-none"
                                                     style="width:1%;"></td>
                                                 <td
-                                                    class="border border-top-0 border-bottom-0 position-relative product_ratio">
+                                                    class="border border-top-0 border-bottom-0 position-relative product_ratio d-none">
                                                     <input type="text" class="border-0 px-2 py-1 w-100 heSoNhan"
                                                         autocomplete="off" required="required" readonly
                                                         value="{{ $item_quote->product_ratio }}"
                                                         name="product_ratio[]">
                                                 </td>
                                                 <td
-                                                    class="border border-top-0 border-bottom-0 position-relative price_import">
+                                                    class="border border-top-0 border-bottom-0 position-relative price_import d-none">
                                                     <input type="text" class="border-0 px-2 py-1 w-100 giaNhap"
                                                         readonly autocomplete="off" required="required"
                                                         name="price_import[]"
                                                         value="{{ number_format($item_quote->price_import) }}">
                                                 </td>
                                                 <td
-                                                    class="border border-top-0 border-bottom-0 position-relative note p-1">
+                                                    class="border border-top-0 border-bottom-0 position-relative note p-1 d-none">
                                                     <input type="text" class="border-0 py-1 w-100" readonly
                                                         name="product_note[]"
                                                         value="{{ $item_quote->product_note }}">
                                                 </td>
-                                                <td style="display:none;" class=""><input type="text"
-                                                        class="product_tax1"></td>
+                                                <td style="display:none;" class="">
+                                                    <input type="text" class="product_tax1">
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -376,101 +344,99 @@
         }
     });
     //tính thành tiền của sản phẩm
-    $(document).on('input', '.quantity-input, [name^="product_price"]', function(e) {
-        var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;
-        var productPrice = parseFloat($(this).closest('tr').find('input[name^="product_price"]').val()
-            .replace(
-                /[^0-9.-]+/g, "")) || 0;
-        updateTaxAmount($(this).closest('tr'));
-        if (!isNaN(productQty) && !isNaN(productPrice)) {
-            var totalAmount = productQty * productPrice;
-            $(this).closest('tr').find('.total-amount').val(formatCurrency(totalAmount));
-            calculateTotalAmount();
-            calculateTotalTax();
-        }
+    $(document).ready(function() {
+        calculateTotals();
     });
 
-    $(document).on('change', '.product_tax', function() {
-        updateTaxAmount($(this).closest('tr'));
-        calculateTotalAmount();
-        calculateTotalTax();
+    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax, .heSoNhan, .giaNhap', function() {
+        calculateTotals();
     });
 
-    function updateTaxAmount(row) {
-        var productQty = parseFloat(row.find('.quantity-input').val());
-        var productPrice = parseFloat(row.find('input[name^="product_price"]').val().replace(/[^0-9.-]+/g, ""));
-        var taxValue = parseFloat(row.find('.product_tax').val());
-        var heSoNhan = parseFloat(row.find('.heSoNhan').val()) || 0;
-        var giaNhap = parseFloat(row.find('.giaNhap').val().replace(/[^0-9.-]+/g, "")) || 0;
-        if (taxValue == 99) {
-            taxValue = 0;
-        }
-        if (status_form == 1) {
-            if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
-                var totalAmount = productQty * productPrice;
-                var taxAmount = (totalAmount * taxValue) / 100;
-
-                row.find('.product_tax1').text(Math.round(taxAmount));
-            }
-        } else {
-            if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue) && !isNaN(heSoNhan) && !isNaN(giaNhap)) {
-                var donGia = ((heSoNhan + 100) * giaNhap) / 100;
-                var totalAmount = productQty * donGia;
-                var taxAmount = (totalAmount * taxValue) / 100;
-
-                row.find('.product_tax1').text(Math.round(taxAmount));
-            }
-        }
-    }
-
-    function calculateTotalAmount() {
+    function calculateTotals() {
         var totalAmount = 0;
-        $('tr').each(function() {
-            var rowTotal = parseFloat(String($(this).find('.total-amount').val()).replace(/[^0-9.-]+/g, ""));
-            if (!isNaN(rowTotal)) {
-                totalAmount += rowTotal;
-            }
-        });
-        totalAmount = Math.round(totalAmount); // Làm tròn thành số nguyên
-        $('#total-amount-sum').text(formatCurrency(totalAmount));
-        calculateTotalTax();
-        calculateGrandTotal();
-    }
-
-    function calculateTotalTax() {
         var totalTax = 0;
+
+        // Lặp qua từng hàng
         $('tr').each(function() {
-            var rowTax = parseFloat($(this).find('.product_tax1').text().replace(/[^0-9.-]+/g, ""));
-            if (!isNaN(rowTax)) {
+            var productQty = parseFloat($(this).find('.quantity-input').val());
+            var productPriceElement = $(this).find('[name^="product_price"]');
+            var productPrice = 0;
+            var giaNhap = 0;
+            var taxValue = parseFloat($(this).find('.product_tax option:selected').val());
+            var heSoNhan = parseFloat($(this).find('.heSoNhan').val()) || 0;
+            var giaNhapElement = $(this).find('.giaNhap');
+            if (taxValue == 99) {
+                taxValue = 0;
+            }
+            if (productPriceElement.length > 0) {
+                var rawPrice = productPriceElement.val();
+                if (rawPrice !== "") {
+                    productPrice = parseFloat(rawPrice.replace(/,/g, ''));
+                }
+            }
+            if (giaNhapElement.length > 0) {
+                var rawGiaNhap = giaNhapElement.val();
+                if (rawGiaNhap !== "") {
+                    giaNhap = parseFloat(rawGiaNhap.replace(/,/g, ''));
+                }
+            }
+
+            if (!isNaN(productQty) && !isNaN(taxValue)) {
+                if (status_form == 0) {
+                    var donGia = ((heSoNhan + 100) * giaNhap) / 100;
+                } else {
+                    var donGia = productPrice;
+                }
+                var rowTotal = productQty * donGia;
+                var rowTax = (rowTotal * taxValue) / 100;
+
+                // Làm tròn từng thuế
+                rowTax = Math.round(rowTax);
+                $(this).find('.product_tax1').val(formatCurrency(rowTax));
+
+                // Hiển thị kết quả
+                $(this).find('.total-amount').val(formatCurrency(Math.round(rowTotal)));
+
+                if (status_form == 0) {
+                    // Đơn giá
+                    $(this).find('.product_price').val(formatCurrency(donGia));
+                }
+
+                // Cộng dồn vào tổng totalAmount và totalTax
+                totalAmount += rowTotal;
                 totalTax += rowTax;
             }
         });
-        totalTax = Math.round(totalTax); // Làm tròn thành số nguyên
-        $('#product-tax').text(formatCurrency(totalTax));
 
-        calculateGrandTotal();
+        // Hiển thị tổng totalAmount và totalTax
+        $('#total-amount-sum').text(formatCurrency(Math.round(totalAmount)));
+        $('#product-tax').text(formatCurrency(Math.round(totalTax)));
+
+        // Tính tổng thành tiền và thuế
+        calculateGrandTotal(totalAmount, totalTax);
     }
 
-    function calculateGrandTotal() {
-        var totalAmount = parseFloat($('#total-amount-sum').text().replace(/[^0-9.-]+/g, ""));
-        var totalTax = parseFloat($('#product-tax').text().replace(/[^0-9.-]+/g, ""));
+    function calculateGrandTotal(totalAmount, totalTax) {
+        if (!isNaN(totalAmount) || !isNaN(totalTax)) {
+            var grandTotal = totalAmount + totalTax;
+            $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
+        }
 
-        var grandTotal = totalAmount + totalTax;
-        grandTotal = Math.round(grandTotal); // Làm tròn thành số nguyên
-        $('#grand-total').text(formatCurrency(grandTotal));
-
-        // Update data-value attribute
+        // Cập nhật giá trị data-value
         $('#grand-total').attr('data-value', grandTotal);
         $('#total').val(totalAmount);
     }
 
     function formatCurrency(value) {
+        // Làm tròn đến 2 chữ số thập phân
         value = Math.round(value * 100) / 100;
 
+        // Xử lý phần nguyên
         var parts = value.toString().split(".");
         var integerPart = parts[0];
         var formattedValue = "";
 
+        // Định dạng phần nguyên
         var count = 0;
         for (var i = integerPart.length - 1; i >= 0; i--) {
             formattedValue = integerPart.charAt(i) + formattedValue;
@@ -480,57 +446,12 @@
             }
         }
 
+        // Nếu có phần thập phân, thêm vào sau phần nguyên
         if (parts.length > 1) {
             formattedValue += "." + parts[1];
         }
+
         return formattedValue;
-    }
-
-    //Tính đơn giá
-    $(document).on('input', '.heSoNhan, .giaNhap', function(e) {
-        var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;
-        var heSoNhan = parseFloat($(this).closest('tr').find('.heSoNhan').val()) || 0;
-        var giaNhap = parseFloat($(this).closest('tr').find('.giaNhap').val().replace(/[^0-9.-]+/g, "")) || 0;
-        updateTaxAmount($(this).closest('tr'));
-        if (!isNaN(heSoNhan) && !isNaN(giaNhap)) {
-            var donGia = ((heSoNhan + 100) * giaNhap) / 100;
-            var totalAmount = productQty * donGia;
-            $(this).closest('tr').find('.product_price').val(formatCurrency(donGia));
-            $(this).closest('tr').find('.total-amount').val(formatCurrency(totalAmount));
-            calculateTotalAmount();
-            calculateTotalTax();
-        }
-    });
-
-    //format giá
-    var inputElement = document.getElementById('product_price');
-    $('body').on('input', '.product_price, #transport_fee, .giaNhap, #voucher, .fee_ship', function(event) {
-        // Lấy giá trị đã nhập
-        var value = event.target.value;
-
-        // Xóa các ký tự không phải số và dấu phân thập phân từ giá trị
-        var formattedValue = value.replace(/[^0-9.]/g, '');
-
-        // Định dạng số với dấu phân cách hàng nghìn và giữ nguyên số thập phân
-        var formattedNumber = numberWithCommas(formattedValue);
-
-        event.target.value = formattedNumber;
-    });
-
-    function numberWithCommas(number) {
-        // Chia số thành phần nguyên và phần thập phân
-        var parts = number.split('.');
-        var integerPart = parts[0];
-        var decimalPart = parts[1];
-
-        // Định dạng phần nguyên số với dấu phân cách hàng nghìn
-        var formattedIntegerPart = integerPart.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-        // Kết hợp phần nguyên và phần thập phân (nếu có)
-        var formattedNumber = decimalPart !== undefined ? formattedIntegerPart + '.' + decimalPart :
-            formattedIntegerPart;
-
-        return formattedNumber;
     }
 </script>
 </body>

@@ -56,11 +56,5 @@ class Delivered extends Model
             ];
             DB::table($this->table)->insert($dataDelivered);
         }
-        $detailExport = DetailExport::where('id', $data['detailexport_id'])->first();
-        if ($detailExport) {
-            $detailExport->update([
-                'status_receive' => 3,
-            ]);
-        }
     }
 }

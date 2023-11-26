@@ -694,7 +694,6 @@
         $('#btn-submit').click();
     });
 
-
     $("table tbody").sortable({
         axis: "y",
         handle: "td",

@@ -167,7 +167,25 @@
                                                 {{ $item_pay->guest_name_display }}
                                             </td>
                                             <td class="text-center border-top-0 bg-white">
-                                                {{ $item_pay->status == 1 }}
+                                                @if ($item_pay->status == 1)
+                                                    @if ($item_pay->payment > 0)
+                                                        <span style="color: #858585">Đặt cọc</span>
+                                                    @else
+                                                        <span style="color: #858585">Chưa thanh toán</span>
+                                                    @endif
+                                                @elseif($item_pay->status == 2)
+                                                    <span style="color: #08AA36">Thanh toán đủ</span>
+                                                @elseif($item_pay->status == 3)
+                                                    <span style="color: #0052CC">Đến hạn trong
+                                                        {{ $item_pay->formatDate($item_pay->payment_date)->diffInDays($today) + 1 }}
+                                                        ngày</span>
+                                                @elseif($item_pay->status == 4)
+                                                    <span style="color:#EC212D">Quá hạn trong
+                                                        {{ $item_pay->formatDate($item_pay->payment_date)->diffInDays($today) }}
+                                                        ngày</span>
+                                                @else
+                                                    <span style="color: #0052CC">Đến hạn</span>
+                                                @endif
                                             </td>
                                             <td class="text-center border-top-0 bg-white">
                                                 {{ date_format(new DateTime($item_pay->created_at), 'd/m/Y') }}

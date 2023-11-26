@@ -40,6 +40,7 @@ class PayExport extends Model
         if ($detailExport) {
             $detailExport->update([
                 'amount_owed' => $result,
+                'status' => 2,
             ]);
             if ($payExport->total <= 0) {
                 $detailExport->update([
