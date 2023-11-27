@@ -368,7 +368,7 @@
             // Tạo các phần tử HTML mới
             const newRow = $("<tr>", {
                 "id": `dynamic-row-${fieldCounter}`,
-                "class": `bg-white`,
+                "class": `bg-white sanPhamGiao`,
             });
             const maSanPham = $(
                 "<td class='border border-left-0 border-top-0 border-bottom-0 position-relative'>" +
