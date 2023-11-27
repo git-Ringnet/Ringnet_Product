@@ -65,7 +65,7 @@ Route::get('/getProduct_reciept', [RecieptController::class, 'getProduct_reciept
 
 // Thanh toán nhập hàng
 Route::resource('paymentOrder', PayOrderController::class);
-Route::get('getPaymentOrder',[PayOrderController::class,'getPaymentOrder'])->name('getPaymentOrder');
+Route::get('getPaymentOrder', [PayOrderController::class, 'getPaymentOrder'])->name('getPaymentOrder');
 
 Route::get('/', function () {
     return view('welcome');
@@ -73,7 +73,7 @@ Route::get('/', function () {
 // PDF
 // Route::resource('pdf', PdfController::class);
 Route::get('/pdf/{id?}', [PdfController::class, 'index'])->name('pdf');
-Route::get('/pdfdelivery', [PdfController::class, 'pdfdelivery'])->name('pdfdelivery');
+Route::get('/pdfdelivery{id?}', [PdfController::class, 'pdfdelivery'])->name('pdfdelivery');
 Route::get('/excel/{id?}', [PdfController::class, 'export'])->name('excel');
 
 

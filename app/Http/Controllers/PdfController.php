@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Exports\UsersExport;
+use App\Models\BillSale;
 use App\Models\DetailExport;
 use App\Models\Guest;
 use App\Models\Products;
 use App\Models\QuoteExport;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -55,7 +57,6 @@ class PdfController extends Controller
                 'enable_remote' => false,
             ]);
         return $pdf->download('invoice.pdf');
-        // dd($data['detailExport']);
         // return view('pdf.quote', compact('data'));
     }
     public function export($id)
@@ -68,15 +69,35 @@ class PdfController extends Controller
         return Excel::download(new UsersExport($data), 'users.xlsx');
     }
 
-    public function pdfdelivery()
+    public function pdfdelivery($id)
     {
         // // $id = session('id');
         // $guest = $this->guest->getAllGuest();
         // $product = $this->product->getAllProducts();
         // $detailExport = $this->detailExport->getDetailExportToId($id);
         // $quoteExport = $this->detailExport->getProductToId($id);
-        // $data = ['detailExport' => $detailExport, 'quoteExport' => $quoteExport, 'product' => $product];
-        $pdf = Pdf::loadView('pdf.delivery')
+        $billSale = BillSale::where('bill_sale.id', $id)
+            ->leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
+            ->leftJoin('guest', 'bill_sale.guest_id', 'guest.id')
+            ->select('*', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD')
+            ->first();
+
+        $product = BillSale::join('product_bill', 'bill_sale.id', '=', 'product_bill.billSale_id')
+            ->join('quoteexport', 'product_bill.product_id', '=', 'quoteexport.product_id')
+            ->where('bill_sale.id', $id)
+            ->select(
+                'bill_sale.*',
+                'product_bill.*',
+                'quoteexport.*',
+            )
+            ->get();
+        $data = [
+            'delivery' => $billSale,
+            'product' => $product,
+            'date' => $billSale->created_at
+        ];
+
+        $pdf = Pdf::loadView('pdf.delivery', compact('data'))
             ->setPaper('A4', 'portrait')
             ->setOptions([
                 'defaultFont' => 'sans-serif',
@@ -85,7 +106,8 @@ class PdfController extends Controller
                 'isPhpEnabled' => true,
                 'enable_remote' => false,
             ]);
-        // return $pdf->download('invoice.pdf');
-        return view('pdf.delivery');
+        return $pdf->download('delivery.pdf');
+        // dd($data);
+        // return view('pdf.delivery', compact('data'));
     }
 }

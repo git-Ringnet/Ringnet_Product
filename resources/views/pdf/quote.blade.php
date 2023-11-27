@@ -147,6 +147,10 @@
             vertical-align: top;
             overflow: visible;
         }
+
+        td {
+            vertical-align: center;
+        }
     </style>
 </head>
 
@@ -262,7 +266,7 @@
                 $index = 1;
             @endphp
             @foreach ($data['quoteExport'] as $item_quote)
-                <tr style="height:15px">
+                <tr style="height:19px">
                     <td
                         style="width:37px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                         <p class="s4"
@@ -272,16 +276,18 @@
                     </td>
                     <td
                         style="width:122px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
-                        <p style="text-indent: 0px;text-align: left;">{{ $item_quote->product_code }}</p>
+                        <p style="text-indent: 0px;text-align: left;padding-left:3px;">{{ $item_quote->product_code }}
+                        </p>
                     </td>
                     <td
                         style="width:373px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
-                        <p style="text-indent: 0px;text-align: left;">{{ $item_quote->product_name }}</p>
+                        <p style="text-indent: 0px;text-align: left;padding-left:3px;">{{ $item_quote->product_name }}
+                        </p>
                     </td>
                     <td
                         style="width:55px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                         <p class="s4"
-                            style="padding-right: 18px;text-indent: 0px;line-height: 14px;text-align: right;">
+                            style="padding-right: 18px;text-indent: 0px;line-height: 14px;text-align: center;">
                             {{ $item_quote->product_unit }}</p>
                     </td>
                     <td
@@ -292,7 +298,7 @@
                     </td>
                     <td
                         style="width:100px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
-                        <p style="text-indent: 0px;text-align: right;">
+                        <p style="text-indent: 0px;text-align: right;padding-right:3px;">
                             {{ number_format($item_quote->price_export) }}
                         </p>
                     </td>
@@ -306,12 +312,14 @@
                     </td>
                     <td
                         style="width:122px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
-                        <p style="text-indent: 0px;text-align: right;">{{ number_format($item_quote->product_total) }}
+                        <p style="text-indent: 0px;text-align: right;padding-right:3px;">
+                            {{ number_format($item_quote->product_total) }}
                         </p>
                     </td>
                     <td
                         style="width:134px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
-                        <p style="text-indent: 0px;text-align: left;">{{ $item_quote->product_note }}</p>
+                        <p style="text-indent: 0px;text-align: left;padding-left:3px;">{{ $item_quote->product_note }}
+                        </p>
                     </td>
                 </tr>
                 @php
@@ -326,7 +334,7 @@
                 </td>
                 <td
                     style="width:122px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px;vertical-align: middle;">
-                    <p style="text-indent: 0px;text-align: right;">
+                    <p style="text-indent: 0px;text-align: right;padding-right:3px;">
                         {{ number_format($data['detailExport']->total_price) }}</p>
                 </td>
                 <td
@@ -342,7 +350,8 @@
                 </td>
                 <td
                     style="width:122px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px;vertical-align: middle;">
-                    <p style="text-indent: 0px;text-align: right;">{{ $data['detailExport']->total_tax }}
+                    <p style="text-indent: 0px;text-align: right;padding-right:3px;">
+                        {{ number_format($data['detailExport']->total_tax) }}
                     </p>
                 </td>
                 <td
@@ -358,7 +367,7 @@
                 </td>
                 <td
                     style="width:122px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px;vertical-align: middle;">
-                    <p style="text-indent: 0px;text-align: right;">
+                    <p style="text-indent: 0px;text-align: right;padding-right:3px;">
                         {{ number_format($data['detailExport']->total_tax + $data['detailExport']->total_price) }}</p>
                 </td>
                 <td
@@ -381,46 +390,46 @@
                         1. Hàng hóa và phương thức giao hàng</p>
                 </td>
             </tr>
-            <tr style="height:19px">
+            <tr style="height:23px">
                 <td
                     style="width:159px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s8"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         Hàng hóa:</p>
                 </td>
                 <td
                     style="width:563px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s4"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
-                        Hàng mới 100% hàng chính hãng</p>
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        {{ $data['detailExport']->goods }}</p>
                 </td>
             </tr>
-            <tr style="height:19px">
+            <tr style="height:23px">
                 <td
                     style="width:159px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s8"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         Giao hàng:</p>
                 </td>
                 <td
                     style="width:563px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s4"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
-                        Giao hàng trong vòng 5-7 ngày sau khi nhận được cọc</p>
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        {{ $data['detailExport']->delivery }}</p>
                 </td>
             </tr>
-            <tr style="height:19px">
+            <tr style="height:23px">
                 <td
                     style="width:159px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s8"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         Địa điểm:</p>
                 </td>
                 <td
                     style="width:563px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s4"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
-                        Tại trụ sở Khách Hàng ở TP. HCM</p>
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        {{ $data['detailExport']->location }}</p>
                 </td>
             </tr>
         </tbody>
@@ -433,70 +442,70 @@
                 <td style="width:722px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px"
                     colspan="2" bgcolor="#E6B8B7">
                     <p class="s10"
-                        style="padding-top: 6px;padding-left: 2px;text-indent: 0px;line-height: 16px;text-align: left;">
+                        style="padding-top: 6px;padding-left: 4px;text-indent: 0px;line-height: 16px;text-align: left;">
                         2. Thông tin thanh toán</p>
                 </td>
             </tr>
-            <tr style="height:19px">
+            <tr style="height:23px">
                 <td
                     style="width:159px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s8"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         Hiệu lực:</p>
                 </td>
                 <td
                     style="width:563px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s4"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         {{ $data['detailExport']->price_effect }}</p>
                 </td>
             </tr>
-            <tr style="height:19px">
+            <tr style="height:23px">
                 <td
                     style="width:159px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s8"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         Phương thức:</p>
                 </td>
                 <td
                     style="width:563px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s4"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         {{ $data['detailExport']->terms_pay }}</p>
                 </td>
             </tr>
-            <tr style="height:19px">
+            <tr style="height:23px">
                 <td
                     style="width:159px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s8"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         Hình thức:</p>
                 </td>
                 <td
                     style="width:563px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s4"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         Chuyển khoản</p>
                 </td>
             </tr>
-            <tr style="height:19px">
+            <tr style="height:23px">
                 <td style="width:159px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px"
                     rowspan="2">
-                    <p class="s8" style="padding-top: 10px;padding-left: 2px;text-indent: 0px;text-align: left;">
+                    <p class="s8" style="padding-top: 10px;padding-left: 4px;text-indent: 0px;text-align: left;">
                         Tài khoản:</p>
                 </td>
                 <td
                     style="width:563px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s4"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         CÔNG TY CỔ PHẦN THƯƠNG MẠI DỊCH VỤ RINGNET</p>
                 </td>
             </tr>
-            <tr style="height:19px">
+            <tr style="height:23px">
                 <td
                     style="width:563px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s4"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         STK: 0721000655617 tại VCB chi nhánh Kỳ Đồng</p>
                 </td>
             </tr>
@@ -509,49 +518,49 @@
             <tr style="height:23px">
                 <td style="width:722px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px"
                     colspan="2">
-                    <p class="s10" style="padding-top: 2px;padding-left: 2px;text-indent: 0px;text-align: left;">
+                    <p class="s10" style="padding-top: 2px;padding-left: 4px;text-indent: 0px;text-align: left;">
                         Mọi thắc mắc vui lòng liên hệ:</p>
                 </td>
             </tr>
-            <tr style="height:19px">
+            <tr style="height:23px">
                 <td
                     style="width:159px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s8"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         Họ tên:</p>
                 </td>
                 <td
                     style="width:563px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s4"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         Vũ Vĩ Ân</p>
                 </td>
             </tr>
-            <tr style="height:19px">
+            <tr style="height:23px">
                 <td
                     style="width:159px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s8"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         Email:</p>
                 </td>
                 <td
                     style="width:563px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
-                    <p style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                    <p style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         <a href="mailto:vincent.vu@ringnet.vn" class="s6">vincent.vu@ringnet.vn</a>
                     </p>
                 </td>
             </tr>
-            <tr style="height:19px">
+            <tr style="height:23px">
                 <td
                     style="width:159px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s8"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         Hotline:</p>
                 </td>
                 <td
                     style="width:563px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                     <p class="s4"
-                        style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 15px;text-align: left;">
+                        style="padding-top: 2px;padding-left: 4px;text-indent: 0px;line-height: 15px;text-align: left;">
                         0933747371</p>
                 </td>
             </tr>

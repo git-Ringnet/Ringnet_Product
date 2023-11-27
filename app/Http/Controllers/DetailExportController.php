@@ -92,7 +92,7 @@ class DetailExportController extends Controller
      */
     public function seeInfo(string $id)
     {
-        $title = 'Chỉnh sửa đơn báo giá';
+        $title = 'Chi tiết đơn báo giá';
         $guest = $this->guest->getAllGuest();
         $product = $this->product->getAllProducts();
         $detailExport = $this->detailExport->getDetailExportToId($id);
