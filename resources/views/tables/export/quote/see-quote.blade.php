@@ -84,7 +84,7 @@
                             <span>Tạo hóa đơn bán hàng</span>
                         </button>
                     </a>
-                    <a href="#" onclick="getAction(this)" id="btnThanhToan">
+                    {{-- <a href="#" onclick="getAction(this)" id="btnThanhToan">
                         <button name="action" value="action_4" type="submit"
                             class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                             <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
@@ -95,7 +95,7 @@
                             </svg>
                             <span>Tạo đơn thanh toán</span>
                         </button>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </section>
@@ -606,6 +606,12 @@
     }
     //
     document.getElementById('btnNhan').addEventListener('click', function() {
+        var selects = document.querySelectorAll('.product_tax');
+        selects.forEach(function(select) {
+            select.removeAttribute('disabled');
+        });
+    });
+    document.getElementById('btnHoaDon').addEventListener('click', function() {
         var selects = document.querySelectorAll('.product_tax');
         selects.forEach(function(select) {
             select.removeAttribute('disabled');

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BillSale;
 use App\Models\Delivered;
 use App\Models\Delivery;
 use App\Models\DetailExport;
 use App\Models\Guest;
+use App\Models\productBill;
 use App\Models\ProductCode;
 use App\Models\Products;
 use App\Models\Project;
@@ -21,23 +23,25 @@ class DetailExportController extends Controller
      */
     private $detailExport;
     private $guest;
-    private $product_code;
     private $quoteExport;
     private $project;
     private $product;
     private $delivery;
     private $delivered;
+    private $billSale;
+    private $productBill;
 
     public function __construct()
     {
         $this->detailExport = new DetailExport();
         $this->guest = new Guest();
-        $this->product_code = new ProductCode();
         $this->quoteExport = new QuoteExport();
         $this->product = new Products();
         $this->project = new Project();
         $this->delivered = new Delivered();
         $this->delivery = new Delivery();
+        $this->billSale = new BillSale();
+        $this->productBill = new productBill();
     }
     public function index()
     {
@@ -116,9 +120,12 @@ class DetailExportController extends Controller
         if ($request->action == "action_2") {
             $delivery_id = $this->delivery->addDelivery($request->all());
             $this->delivered->addDelivered($request->all(), $delivery_id);
-            return redirect()->route('delivery.index')->with('msg', ' Tạo mới đơn giao hàng thành công !');
+            return redirect()->route('watchDelivery', ['id' => $delivery_id])->with('msg', ' Tạo mới đơn giao hàng thành công!');
         }
         if ($request->action == "action_3") {
+            $billSale_id = $this->billSale->addBillSale($request->all());
+            $this->productBill->addProductBill($request->all(), $billSale_id);
+            return redirect()->route('billSale.edit', ['billSale' => $billSale_id])->with('msg', ' Tạo mới hóa đơn bán hàng thành công!');
         }
         if ($request->action == "action_4") {
         }

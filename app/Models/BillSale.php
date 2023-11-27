@@ -37,13 +37,23 @@ class BillSale extends Model
             $totalTax += $subTax;
             $tolal_all = $totalTax + $totalBeforeTax;
         }
+        if (isset($data['date_bill'])) {
+            $date_bill = $data['date_bill'];
+        } else {
+            $date_bill = null;
+        }
+        if (isset($data['number_bill'])) {
+            $number_bill = $data['number_bill'];
+        } else {
+            $number_bill = null;
+        }
         $dataBill = [
             'detailexport_id' => $data['detailexport_id'],
             'guest_id' => $data['guest_id'],
             'price_total' => $tolal_all,
             'status' => 1,
-            'created_at' => $data['date_bill'],
-            'number_bill' => $data['number_bill']
+            'created_at' => $date_bill,
+            'number_bill' =>  $number_bill,
         ];
         $bill_sale = new BillSale($dataBill);
         $bill_sale->save();
