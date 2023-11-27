@@ -235,7 +235,7 @@
     <tr>
         <td></td>
         <td>Họ và tên:</td>
-        <td style="text-align: left;">{{ $data['detailExport']->guest_name_display }}</td>
+        <td style="text-align: left;">{{ $data['detailExport']->guest_receiver }}</td>
         <td></td>
         <td></td>
         <td></td>
@@ -379,7 +379,7 @@
         <td colspan="7" style="text-align: right; font-size: 12px; font-weight: bold;border: 1px solid black;">
             GIÁ TRỊ TRƯỚC THUẾ (VND)
         </td>
-        <td style="border: 1px solid black">{{ $data['detailExport']->total_price }}</td>
+        <td style="border: 1px solid black">{{ number_format($data['detailExport']->total_price) }}</td>
         <td style="border: 1px solid black"></td>
         <td style="border: 1px solid black"></td>
         <td style="border: 1px solid black"></td>
@@ -390,7 +390,7 @@
         <td colspan="7" style="text-align: right; font-size: 12px; font-weight: bold;border: 1px solid black;">
             THUẾ VAT (VND)
         </td>
-        <td style="border: 1px solid black">{{ $data['detailExport']->total_tax }}</td>
+        <td style="border: 1px solid black">{{ number_format($data['detailExport']->total_tax) }}</td>
         <td style="border: 1px solid black"></td>
         <td style="border: 1px solid black"></td>
         <td style="border: 1px solid black"></td>
@@ -401,7 +401,8 @@
         <td colspan="7" style="text-align: right; font-size: 12px; font-weight: bold;border: 1px solid black;">
             TỔNG CỘNG (VND)
         </td>
-        <td style="border: 1px solid black">{{ $data['detailExport']->total_tax + $data['detailExport']->total_price }}
+        <td style="border: 1px solid black">
+            {{ number_format($data['detailExport']->total_tax + $data['detailExport']->total_price) }}
         </td>
         <td style="border: 1px solid black"></td>
         <td style="border: 1px solid black"></td>

@@ -170,7 +170,7 @@
                             {{ $data['detailExport']->quotation_number }}</span></p>
                     <p class="s4" style="padding-left: 2px;text-indent: 0px;line-height: 18px;text-align: left;">Địa
                         chỉ: L17-11, Tầng 17, Vincom Center, 72 Lê Thánh Tôn, P. Bến Nghé, Q. 1, TP. HCM <span
-                            class="s5" style="margin-left:30%">Ngày báo giá:
+                            class="s5" style="margin-left:29%">Ngày báo giá:
                             {{ $data['detailExport']->created_at->format('d.m.Y') }}</span>
                     </p>
                 </td>
@@ -199,7 +199,7 @@
                         {{ $data['detailExport']->guest_address }}</p>
                     <p style="padding-left: 39px;font-weight:700;font-size:15px;padding-top:10px">Người mua hàng:</p>
                     <p style="padding-left: 39px;">Điện thoại:{{ $data['detailExport']->guest_phone }}</p>
-                    <p style="padding-left: 39px;">Họ và tên:{{ $data['detailExport']->guest_name_display }}</p>
+                    <p style="padding-left: 39px;">Họ và tên:{{ $data['detailExport']->guest_receiver }}</p>
                     <p style="padding-left: 39px;">Email:{{ $data['detailExport']->guest_email }}</p>
                 </td>
             </tr>
@@ -292,17 +292,21 @@
                     </td>
                     <td
                         style="width:100px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
-                        <p style="text-indent: 0px;text-align: left;">
+                        <p style="text-indent: 0px;text-align: right;">
                             {{ number_format($item_quote->price_export) }}
                         </p>
                     </td>
                     <td
                         style="width:105px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
-                        <p style="text-indent: 0px;text-align: left;">{{ $item_quote->product_tax }}</p>
+                        <p style="text-indent: 0px;text-align: center;">
+                            @if ($item_quote->product_tax == 99)
+                                NOVAT @else{{ $item_quote->product_tax . '%' }}
+                            @endif
+                        </p>
                     </td>
                     <td
                         style="width:122px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
-                        <p style="text-indent: 0px;text-align: left;">{{ number_format($item_quote->product_total) }}
+                        <p style="text-indent: 0px;text-align: right;">{{ number_format($item_quote->product_total) }}
                         </p>
                     </td>
                     <td
@@ -322,7 +326,8 @@
                 </td>
                 <td
                     style="width:122px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px;vertical-align: middle;">
-                    <p style="text-indent: 0px;text-align: left;">{{ $data['detailExport']->total_price }}</p>
+                    <p style="text-indent: 0px;text-align: right;">
+                        {{ number_format($data['detailExport']->total_price) }}</p>
                 </td>
                 <td
                     style="width:134px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
@@ -337,7 +342,7 @@
                 </td>
                 <td
                     style="width:122px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px;vertical-align: middle;">
-                    <p style="text-indent: 0px;text-align: left;">{{ $data['detailExport']->total_tax }}
+                    <p style="text-indent: 0px;text-align: right;">{{ $data['detailExport']->total_tax }}
                     </p>
                 </td>
                 <td
@@ -353,8 +358,8 @@
                 </td>
                 <td
                     style="width:122px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px;vertical-align: middle;">
-                    <p style="text-indent: 0px;text-align: left;">
-                        {{ $data['detailExport']->total_tax + $data['detailExport']->total_price }}</p>
+                    <p style="text-indent: 0px;text-align: right;">
+                        {{ number_format($data['detailExport']->total_tax + $data['detailExport']->total_price) }}</p>
                 </td>
                 <td
                     style="width:134px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
