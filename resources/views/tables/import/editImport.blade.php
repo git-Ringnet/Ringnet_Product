@@ -65,7 +65,7 @@
                     </button>
 
                     @if ($import->status == 2)
-                        <a href="{{ route('import.index') }}">
+                        <a href="{{ route('import.index') }}" class="mr-2">
                             <span class="btn btn-secondary d-flex align-items-center h-100">
                                 <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="6" height="10"
                                     viewBox="0 0 6 10" fill="none">
