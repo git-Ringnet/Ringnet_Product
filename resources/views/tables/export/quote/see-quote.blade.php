@@ -185,7 +185,8 @@
                                         <p class="p-0 m-0 px-3">Hàng hóa</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" readonly name="goods" value="{{ $detailExport->goods }}"
+                                        <input type="text" readonly name="goods"
+                                            value="{{ $detailExport->goods }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -194,7 +195,8 @@
                                         <p class="p-0 m-0 px-3">Giao hàng</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" readonly name="delivery" value="{{ $detailExport->delivery }}"
+                                        <input type="text" readonly name="delivery"
+                                            value="{{ $detailExport->delivery }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -203,7 +205,8 @@
                                         <p class="p-0 m-0 px-3">Địa điểm</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" readonly name="location" value="{{ $detailExport->location }}"
+                                        <input type="text" readonly name="location"
+                                            value="{{ $detailExport->location }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -271,7 +274,8 @@
                                                         <input type="text" value="{{ $item_quote->product_name }}"
                                                             class="border-0 px-2 py-1 w-100 product_name" readonly
                                                             autocomplete="off" name="product_name[]">
-
+                                                        <input type="hidden" class="product_id" value="{{ $item_quote->product_id }}"
+                                                            autocomplete="off" name="product_id[]">
                                                         <div class="info-product" data-toggle="modal"
                                                             data-target="#productModal">
                                                             <svg width="18" height="18" viewBox="0 0 18 18"

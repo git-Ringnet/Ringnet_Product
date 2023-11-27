@@ -18,7 +18,7 @@
                 @if ($delivery->tinhTrang !== 2)
                     <div class="row m-0 mb-1">
                         <button type="button" id="submitXacNhan" class="custom-btn d-flex align-items-center h-100"
-                            onclick="kiemTraSoLuong()">
+                            onclick="kiemTraFormGiaoHang()">
                             <span>Xác nhận đơn giao hàng</span>
                         </button>
                     </div>
@@ -133,7 +133,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($product as $item_quote)
-                                            <tr class="bg-white">
+                                            <tr class="bg-white addProduct">
                                                 <td
                                                     class="border border-left-0 border-top-0 border-bottom-0 position-relative">
                                                     <div
@@ -456,9 +456,10 @@
         return formattedValue;
     }
 
-    function kiemTraSoLuong() {
+    function kiemTraFormGiaoHang() {
         var rows = document.querySelectorAll('tr');
         var invalidProducts = [];
+        var hasProducts = false;
 
         for (var i = 1; i < rows.length; i++) {
             var row = rows[i];
@@ -469,13 +470,23 @@
             if (quantityInput > soTonKho) {
                 invalidProducts.push(productName);
             }
+
+            // Kiểm tra xem có thẻ tr nào có class addProduct không
+            if (row.classList.contains('addProduct')) {
+                hasProducts = true;
+            }
         }
 
+        // Hiển thị thông báo nếu không có sản phẩm
+        if (!hasProducts) {
+            alert("Không có sản phẩm để giao");
+        }
+
+        // Hiển thị thông báo cuối cùng nếu có sản phẩm không hợp lệ
         if (invalidProducts.length > 0) {
-            // Hiển thị thông báo cuối cùng
             alert("Không đủ số lượng tồn kho cho các sản phẩm:\n" + invalidProducts.join(', '));
-        } else {
-            // Nếu không có lỗi, tiếp tục submit form
+        } else if (hasProducts) {
+            // Nếu không có lỗi và có sản phẩm, tiếp tục submit form
             document.getElementById('deliveryForm').submit();
         }
     }
