@@ -86,10 +86,7 @@ class Delivery extends Model
             ->join('products', 'products.id', 'quoteexport.product_id')
             ->where('delivery.id', $id)
             ->select(
-                'delivery.*',
-                'delivered.*',
-                'quoteexport.*',
-                'products.*'
+                '*',
             )
             ->get();
         return $product;
@@ -132,6 +129,11 @@ class Delivery extends Model
                 $detailExport->update([
                     'status_receive' => 2,
                 ]);
+                if ($detailExport->status_receive == 2 && $detailExport->status_reciept == 2 && $detailExport->status_pay == 2) {
+                    $detailExport->update([
+                        'status' => 3,
+                    ]);
+                }
             }
         }
         for ($i = 0; $i < count($data['product_code']); $i++) {

@@ -103,6 +103,11 @@ class BillSale extends Model
                 $detailExport->update([
                     'status_reciept' => 2,
                 ]);
+                if ($detailExport->status_receive == 2 && $detailExport->status_reciept == 2 && $detailExport->status_pay == 2) {
+                    $detailExport->update([
+                        'status' => 3,
+                    ]);
+                }
             }
         }
     }

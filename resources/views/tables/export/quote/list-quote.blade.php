@@ -191,6 +191,8 @@
                                                     <span class="text-secondary">Draft</span>
                                                 @elseif($value_export->status === 2)
                                                     <span class="text-primary">Approved</span>
+                                                @elseif($value_export->status === 3)
+                                                    <span class="text-success">Close</span>
                                                 @endif
                                             </td>
                                             <td class="text-center border-top-0 bg-white">
