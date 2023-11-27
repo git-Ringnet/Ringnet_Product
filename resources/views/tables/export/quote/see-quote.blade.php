@@ -185,7 +185,7 @@
                                         <p class="p-0 m-0 px-3">Hàng hóa</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" readonly placeholder="Nhập thông tin" name="goods" value="{{ $detailExport->goods }}"
+                                        <input type="text" readonly name="goods" value="{{ $detailExport->goods }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -194,7 +194,7 @@
                                         <p class="p-0 m-0 px-3">Giao hàng</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" readonly placeholder="Nhập thông tin" name="delivery" value="{{ $detailExport->delivery }}"
+                                        <input type="text" readonly name="delivery" value="{{ $detailExport->delivery }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -203,7 +203,7 @@
                                         <p class="p-0 m-0 px-3">Địa điểm</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" readonly placeholder="Nhập thông tin" name="location" value="{{ $detailExport->location }}"
+                                        <input type="text" readonly name="location" value="{{ $detailExport->location }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
