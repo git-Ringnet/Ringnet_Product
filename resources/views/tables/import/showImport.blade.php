@@ -487,9 +487,9 @@
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
-    function getAction(e) {
-        $('#getAction').val($(e).find('button').val());
-    }
+    // function getAction(e) {
+    //     $('#getAction').val($(e).find('button').val());
+    // }
     $('#addRowTable').off('click').on('click', function() {
         addRowTable(1);
     })

@@ -63,6 +63,7 @@
                                 fill="#42526E" />
                         </svg>
                     </button>
+
                     @if ($import->status == 2)
                         <a href="{{ route('import.index') }}">
                             <span class="btn btn-secondary d-flex align-items-center h-100">
@@ -76,7 +77,7 @@
                             </span>
                         </a>
                     @endif
-                    {{-- <a href="#" onclick="getAction(this)">
+                    <a href="#" onclick="getAction(this)">
                         <button name="action" value="action_2" type="submit"
                             class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                             <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
@@ -111,7 +112,7 @@
                             </svg>
                             <span>Tạo hóa đơn thanh toán</span>
                         </button>
-                    </a> --}}
+                    </a>
                     {{-- @method('DELETE')
                     <a href="{{route('import.destroy',$import->id)}}">
                         <button name="action" value="action_3" type="submit"
@@ -450,9 +451,9 @@
         addRowTable(1);
     })
 
-    // function getAction(e) {
-    //     $('#getAction').val($(e).find('button').val());
-    // }
+    function getAction(e) {
+        $('#getAction').val($(e).find('button').val());
+    }
     $('.search-info').click(function() {
         var provides_id = $(this).attr('id');
         console.log(provides_id);
