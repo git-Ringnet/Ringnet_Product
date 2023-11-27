@@ -354,7 +354,6 @@
     });
 
 
-
     function getProduct(name) {
         $('#inputcontent tbody tr .' + name).on('click', function() {
             listProductName = $(this).closest('tr').find('#listProductName');

@@ -25,17 +25,17 @@ class HistoryPaymentOrder extends Model
             $dataHistory = [
                 'payment_id' => $payment->id,
                 'total' => $payment->total,
-                'payment' => $payment->payment,
+                // 'payment' => $payment->payment,ư
+                'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
                 'debt' => $payment->debt,
                 'created_at' => Carbon::now(),
             ];
             $checkHistory = HistoryPaymentOrder::where('payment_id', $payment->id)
-            ->where('total',$payment->total)
-            ->where('payment',$payment->payment)
-            ->where('debt',$payment->debt)
-            ->first();
-            // dd($checkHistory);
-            if(!$checkHistory){
+                ->where('total', $payment->total)
+                ->where('payment', $payment->payment)
+                ->where('debt', $payment->debt)
+                ->first();
+            if (!$checkHistory) {
                 DB::table($this->table)->insert($dataHistory);
             }
             $status = true;

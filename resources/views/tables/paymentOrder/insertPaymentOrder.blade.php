@@ -10,7 +10,7 @@
                 <div class="mb-3">
                     <span>Mua hàng</span>
                     <span>/</span>
-                    <span class="font-weight-bold">Thanh toán mua hàng</span>
+                    <span>Thanh toán mua hàng</span>
                     <span>/</span>
                     <span class="font-weight-bold">Tạo mới thanh toán mua hàng</span>
                 </div>

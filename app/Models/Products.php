@@ -76,7 +76,7 @@ class Products extends Model
         }
         return $return;
     }
-    public function updateProduct($data)
+    public function updateProduct($data, $id)
     {
         // dd($data['action']);
         $return = 0;
@@ -95,9 +95,17 @@ class Products extends Model
             'product_tax' => $data['product_tax'],
             'check_seri' => $check,
         ];
-        $updateProduct = DB::table($this->table)->update($dataUpdate);
+        // $checkProductName = DB::table($this->table)->where('product_name', $data['product_name'])->first();
+        // if ($checkProductName) {
+        //     $return = 0;
+        // } else {
+        $updateProduct = DB::table($this->table)
+            ->where('id', $id)
+            ->update($dataUpdate);
+
         if ($updateProduct) {
             $return = 1;
+            // }
         }
         return $return;
     }
@@ -105,7 +113,6 @@ class Products extends Model
     {
         $status = true;
         $receive = Receive_bill::findOrFail($id);
-        // dd($receive);
         if ($receive) {
             $array_id = [];
             $list_id = [];
@@ -118,7 +125,6 @@ class Products extends Model
                 ->whereIn('id', $array_id)
                 ->get();
             $product_id = 0;
-            // dd($product);
             // Thêm sản phẩm vào tồn kho
             foreach ($product as $item) {
                 $getProductName = QuoteImport::where('id', $item->quoteImport_id)->first();
@@ -137,7 +143,8 @@ class Products extends Model
                         'product_ratio' => $getProductName->product_ratio,
                         'product_tax' => $getProductName->product_tax,
                         'product_inventory' => $item->product_qty,
-                        'check_seri' => 1
+                        // 'check_seri' => 1
+                        'check_seri' => $item->cbSN
                     ];
                     $product_id = DB::table($this->table)->insertGetId($dataProduct);
                 }

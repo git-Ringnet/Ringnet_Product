@@ -59,6 +59,7 @@ class ReceiveController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $id = $request->detailimport_id;
 
         // Tạo sản phẩm theo đơn nhận hàng
@@ -119,6 +120,7 @@ class ReceiveController extends Controller
                 'quoteimport.product_tax',
                 'quoteimport.product_note',
                 'products_import.product_id',
+                'products_import.cbSN',
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
             )
             ->with('getSerialNumber')->get();

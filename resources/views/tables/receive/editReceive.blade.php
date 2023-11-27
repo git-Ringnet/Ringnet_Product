@@ -146,11 +146,14 @@
                             <th class="border-right">Tên sản phẩm</th>
                             <th class="border-right">Đơn vị</th>
                             <th class="border-right" style="width:12%;">Số lượng</th>
-                            <th class="border-right">Đơn giá</th>
+                            {{-- <th class="border-right">Đơn giá</th>
                             <th class="border-right">Thuế</th>
-                            <th class="border-right">Thành tiền</th>
-                            <th class="p-0 bg-secondary" style="width:1%;"></th>
-                            <th class="border-right">Ghi chú</th>
+                            <th class="border-right">Thành tiền</th> --}}
+                            <th class="border-right">
+                                Quản lý S/N
+                            </th>
+                            {{-- <th class="p-0 bg-secondary" style="width:1%;"></th> --}}
+                            <th class="border-right">Ghi chú sản phẩm</th>
                             <th class="border-top"></th>
                         </tr>
                     </thead>
@@ -198,30 +201,37 @@
                                         <input @if ($receive->status == 2) readonly @endif type="text"
                                             class="border-0 px-3 py-2 w-100 quantity-input" name="product_qty[]"
                                             value="{{ number_format($item->product_qty) }}">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#exampleModal{{ $st }}"
-                                            style="background:transparent; border:none;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                viewBox="0 0 32 32" fill="none">
-                                                <rect width="32" height="32" rx="4" fill="white">
-                                                </rect>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z"
-                                                    fill="#0095F6"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z"
-                                                    fill="#0095F6"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z"
-                                                    fill="#0095F6"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z"
-                                                    fill="#0095F6"></path>
-                                            </svg>
-                                        </button>
+                                        @if ($item->cbSN == 1)
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#exampleModal{{ $st }}"
+                                                style="background:transparent; border:none;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                    viewBox="0 0 32 32" fill="none">
+                                                    <rect width="32" height="32" rx="4"
+                                                        fill="white">
+                                                    </rect>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z"
+                                                        fill="#0095F6"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z"
+                                                        fill="#0095F6"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z"
+                                                        fill="#0095F6"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z"
+                                                        fill="#0095F6"></path>
+                                                </svg>
+                                            </button>
+                                        @endif
                                     </div>
                                 </td>
-                                <td class="border border-top-0 border-bottom-0">
+                                <td class="border border-top-0 border-bottom-0 border-right-0 text-center">
+                                    <input type="checkbox" name="cbSeri[]" disabled value="{{ $item->cbSN }}"
+                                        @if ($item->cbSN == 1) {{ 'checked' }} @endif>
+                                </td>
+                                {{-- <td class="border border-top-0 border-bottom-0">
                                     <input type="text" class="border-0 px-3 py-2 w-100 price_export"
                                         name="price_export[]"
                                         value="{{ fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
@@ -236,8 +246,8 @@
                                         name="total_price[]"
                                         value="{{ fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
                                         readonly>
-                                </td>
-                                <td class="border border-bottom-0 p-0 bg-secondary"></td>
+                                </td> --}}
+                                {{-- <td class="border border-bottom-0 p-0 bg-secondary"></td> --}}
                                 <td class="border border-top-0 border-bottom-0">
                                     <input type="text" class="border-0 px-3 py-2 w-100" name="product_note[]"
                                         value="{{ $item->product_note }}" readonly>
@@ -349,9 +359,10 @@
         var listProductName = [];
         var listQty = [];
         var listSN = [];
-
+        var checkSN = [];
         if ($('#getAction').val() == 2) {
             $('.searchProductName').each(function() {
+                checkSN.push($(this).closest('tr').find('input[name^="cbSeri"]').val())
                 listProductName.push($(this).val().trim());
                 listQty.push($(this).closest('tr').find('.quantity-input').val().trim());
                 var count = $($(this).closest('tr').find('button').attr('data-target')).find(
@@ -377,7 +388,8 @@
                 data: {
                     listProductName: listProductName,
                     listQty: listQty,
-                    listSN: listSN
+                    listSN: listSN,
+                    checkSN: checkSN,
                 },
                 success: function(data) {
                     if (data['status'] == 'false') {

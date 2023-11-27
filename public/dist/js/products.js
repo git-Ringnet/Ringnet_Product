@@ -374,7 +374,6 @@ function addRowTable(status) {
         '</td>' +
         '</tr>';
     $('#inputcontent tbody').append(tr)
-    // checkAddForm()
     showListProductCode()
     showListProductName()
     searchProductName()
@@ -383,6 +382,7 @@ function addRowTable(status) {
     if (status == 2) {
         createModal(rowCount)
     }
+    getProduct('searchProductName')
     rowCount++;
 }
 

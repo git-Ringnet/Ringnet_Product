@@ -120,21 +120,44 @@
                     </thead>
                     <tbody>
                         @foreach ($product as $item)
-                            <tr>
+                            <tr class="bg-white">
                                 <td class="border border-left-0 border-top-0 border-bottom-0"><input type="checkbox"
-                                        name="" id=""> {{ $item->product_code }}</td>
+                                        name="" id="">
+                                    <input readonly type="text" class="border-0 px-3 py-2 w-75 searchProduct"
+                                        value="{{ $item->product_code }}">
+                                </td>
                                 <td class="border border-top-0 border-bottom-0 position-relative">
-                                    {{ $item->product_name }}</td>
-                                <td class="border border-top-0 border-bottom-0">{{ $item->product_unit }}</td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    {{ number_format($item->product_qty) }}</td>
+                                    <input readonly type="text" class="searchProductName border-0 px-3 py-2 w-100"
+                                        value="{{ $item->product_name }}">
+                                </td>
                                 <td class="border border-top-0 border-bottom-0">
-                                    {{ number_format($item->price_export) }}</td>
-                                <td>{{ $item->product_tax }}</td>
+                                    <input readonly type="text" class="border-0 px-3 py-2 w-100 product_unit"
+                                        value="{{ $item->product_unit }}">
+                                </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    {{ number_format($item->product_total) }}</td>
+                                    <input readonly type="text" class="border-0 px-3 py-2 w-100 quantity-input"
+                                        value="{{ number_format($item->product_qty) }}">
+                                </td>
+                                <td class="border border-top-0 border-bottom-0">
+                                    <input readonly type="text" name="price_export[]"
+                                        class="border-0 px-3 py-2 w-100 price_export"
+                                        value="{{ number_format($item->price_export) }}">
+                                </td>
+                                <td class="border border-top-0 border-bottom-0 border-right-0">
+                                    <input readonly type="text" class="border-0 px-3 py-2 w-100 product_tax"
+                                        value="{{ $item->product_tax }}" disabled>
+                                </td>
+                                <input type="hidden" class="product_tax1">
+                                <td class="border border-top-0 border-bottom-0 border-right-0">
+                                    <input readonly type="text" name="" id=""
+                                        class="border-0 px-3 py-2 w-100 total_price"
+                                        value="{{ number_format($item->product_total) }}">
+                                </td>
                                 <td class="border border-bottom-0 p-0 bg-secondary"></td>
-                                <td class="border border-top-0 border-bottom-0">{{ $item->product_note }}</td>
+                                <td class="border border-top-0 border-bottom-0">
+                                    <input readonly type="text" class="border-0 px-3 py-2 w-100"
+                                        value="{{ $item->product_note }}">
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -26,7 +26,8 @@ class ProductImport extends Model
         'product_note',
         'receive_id',
         'reciept_id',
-        'payOrder_id'
+        'payOrder_id',
+        'cbSN'
     ];
 
     public function getSerialNumber()
@@ -51,7 +52,8 @@ class ProductImport extends Model
         $status = false;
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $qty = 0;
-            $product = QuoteImport::where('product_name', $data['product_name'][$i])->first();
+            $product = QuoteImport::where('detailimport_id', $id)
+                ->where('product_name', $data['product_name'][$i])->first();
             if ($product) {
                 if ($colum == 'payOrder_id' && $columQuote == 'payment_qty') {
                     if ($product->product_qty == $product->$columQuote) {
@@ -74,6 +76,7 @@ class ProductImport extends Model
                         'quoteImport_id' => $product->id,
                         'product_qty' => $qty,
                         $colum => 0,
+                        'cbSN' => isset($data['cbSN']) ? $data['cbSN'][$i] : 1,
                         'created_at' => Carbon::now(),
                     ];
                 }

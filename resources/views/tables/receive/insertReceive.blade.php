@@ -10,7 +10,7 @@
                 <div class="mb-3">
                     <span>Mua hàng</span>
                     <span>/</span>
-                    <span class="font-weight-bold">Đơn nhận hàng</span>
+                    <span>Đơn nhận hàng</span>
                     <span>/</span>
                     <span class="font-weight-bold">Tạo mới đơn nhận hàng</span>
                 </div>
@@ -68,7 +68,8 @@
                                                 <a href="javascript:void(0)"
                                                     class="text-dark d-flex justify-content-between p-2 search-receive"
                                                     id="{{ $value->id }}" name="search-info">
-                                                    <span class="w-50">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
+                                                    <span
+                                                        class="w-50">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
                                                 </a>
                                             </li>
                                         @endforeach
@@ -120,10 +121,11 @@
                             <th class="border-right">Tên sản phẩm</th>
                             <th class="border-right">Đơn vị</th>
                             <th class="border-right">Số lượng</th>
-                            <th class="border-right">Đơn giá</th>
+                            {{-- <th class="border-right">Đơn giá</th>
                             <th class="border-right">Thuế</th>
-                            <th class="border-right">Thành tiền</th>
-                            <th class="p-0 bg-secondary" style="width:1%;"></th>
+                            <th class="border-right">Thành tiền</th> --}}
+                            <th class="border-right">Quản lý S/N</th>
+                            {{-- <th class="p-0 bg-secondary" style="width:1%;"></th> --}}
                             <th class="border-right">Ghi chú</th>
                             <th class="border-top"></th>
                         </tr>
@@ -157,7 +159,8 @@
                 detail_id: detail_id
             },
             success: function(data) {
-                $('#search_quotation').val(data.quotation_number== null ? data.id : data.quotation_number);
+                $('#search_quotation').val(data.quotation_number == null ? data.id : data
+                    .quotation_number);
                 $('#provide_name').val(data.provide_name);
                 $('#detailimport_id').val(data.id)
                 $('#listReceive').hide();
@@ -214,24 +217,10 @@
                                     `">
                                 </div>
                                 </td>
-                               
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input readonly type="text" name="price_export[]" class="border-0 px-3 py-2 w-100 price_export" value="` +
-                                    formatCurrency(element
-                                        .price_export) +
-                                    `">
+                                <td class="border border-top-0 border-bottom-0 text-center">
+                                    <input onclick="getDataCheckbox(this)" type="checkbox" checked>
+                                    <input type="hidden" name="cbSN[]" value="1">
                                 </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input readonly type="text" name="product_tax[]" class="border-0 px-3 py-2 w-100 product_tax" value="` +
-                                    element.product_tax +
-                                    `%">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input readonly type="text" name="total_price[]" class="border-0 px-3 py-2 w-100 total_price" readonly="" value="` +
-                                    formatCurrency(element.product_total) +
-                                    `">
-                                </td>
-                                <td class="border border-bottom-0 p-0 bg-secondary"></td>
                                 <td class="border border-top-0 border-bottom-0">
                                     <input readonly type="text" name="product_note[]" class="border-0 px-3 py-2 w-100" value="` +
                                     (element.product_note == null ? "" : element
@@ -266,5 +255,14 @@
             $(this).closest('tr').remove();
 
         })
+    }
+
+    function getDataCheckbox(element) {
+        var isChecked = $(element).is(':checked');
+        if(isChecked){
+            $(element).closest('tr').find('input[name^="cbSN"]').val(1)
+        }else{
+            $(element).closest('tr').find('input[name^="cbSN"]').val(0)
+        }
     }
 </script>

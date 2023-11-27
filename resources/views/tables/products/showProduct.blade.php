@@ -138,7 +138,7 @@
                                             <p class="p-0 m-0 px-3">Quản lý Serial Number</p>
                                         </div>
                                         <div class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                                            <input disabled type="checkbox" checked name="check_seri"
+                                            <input disabled type="checkbox" name="check_seri"
                                                 @if ($product->check_seri == 1) checked @endif>
                                         </div>
                                     </div>
@@ -345,7 +345,11 @@
                                         @endif
                                     </td>
                                     <td>Chiết khấu</td>
-                                    <td>Tiền thuế</td>
+                                    <td>
+                                        @if ($htr->getQuoteImport)
+                                            {{ ($htr->getQuoteImport->price_export * $htr->product_qty * $htr->getQuoteImport->product_tax) / 100 }}
+                                        @endif
+                                    </td>
                                     <td>Tổng tiền</td>
                                     <td>Trạng thái</td>
                                 </tr>
@@ -360,9 +364,9 @@
                 <div class="container-fluided">
                     <div class="row">
                         <div class="col-12">
-                            <div class="row m-auto filter pt-4 pb-4">
+                            <div class="row m-auto filter pt-2 pb-4">
                                 <form class="w-100" action="" method="get" id="search-filter">
-                                    <div class="row mr-0">
+                                    <div class="row mr-0 w-100">
                                         <div class="col-md-5 d-flex">
                                             <div class="position-relative" style="width: 55%;">
                                                 <input type="text" placeholder="Tìm kiếm" name="keywords"

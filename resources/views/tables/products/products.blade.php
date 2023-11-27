@@ -156,7 +156,8 @@
                                                 </a></td>
                                             <td>{{ number_format($item->product_inventory) }}</td>
                                             <td>
-                                                <a href="{{ route('inventory.edit', $item->id) }}">
+                                                <a href="# ">
+                                                {{-- {{ route('inventory.edit', $item->id) }} --}}
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                         height="24" viewBox="0 0 24 24" fill="none">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"

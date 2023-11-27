@@ -211,16 +211,12 @@ function calculateGrandTotal() {
 
 
 
-// Edit
-updateTaxAmount()
-calculateTotalAmount()
-calculateTotalTax()
-calculateGrandTotal()
 
 function updateTaxAmount() {
     $('#inputcontent tbody tr').each(function () {
         var productQty = parseFloat($(this).find('.quantity-input').val());
         var productPrice = parseFloat($(this).find('input[name^="price_export"]').val().replace(/[^0-9.-]+/g, ""));
+
         var taxValue = parseFloat($(this).find('.product_tax').val());
         if (taxValue == 99) {
             taxValue = 0;
@@ -233,7 +229,11 @@ function updateTaxAmount() {
     })
 }
 
-
+// Edit
+updateTaxAmount()
+calculateTotalAmount()
+calculateTotalTax()
+calculateGrandTotal()
 
 // Xóa hàng SN
 $(document).on('click', '.deleteRow1', function () {

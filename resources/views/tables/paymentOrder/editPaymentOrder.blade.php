@@ -219,7 +219,7 @@
                             <div class="col-12">
                                 <div class="row m-auto filter pt-4 pb-4">
                                     <form class="w-100" action="" method="get" id="search-filter">
-                                        <div class="row mr-0">
+                                        <div class="row mr-0 w-100">
                                             <div class="col-md-5 d-flex">
                                                 <div class="position-relative" style="width: 55%;">
                                                     <input type="text" placeholder="Tìm kiếm" name="keywords"
@@ -246,7 +246,7 @@
 
                 <section class="content mt-2">
                     <div class="container-fluided">
-                        <table class="table table-hover bg-white rounded" id="inputcontent">
+                        <table class="table table-hover bg-white rounded" id="inputcontent1">
                             <thead>
                                 <tr>
                                     <th>Mã thanh toán</th>

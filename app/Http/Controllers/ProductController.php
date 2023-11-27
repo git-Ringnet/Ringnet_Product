@@ -89,7 +89,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = $this->products->updateProduct($request->all());
+        $data = $this->products->updateProduct($request->all(),$id);
         if ($data == 1) {
             return redirect()->route('inventory.index')->with('msg', 'Chỉnh sửa sản phẩm thành công !');
         }else{

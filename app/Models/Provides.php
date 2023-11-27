@@ -21,6 +21,11 @@ class Provides extends Model
         'provide_debt',
         'provide_address_delivery',
     ];
+
+    public function getAllDetail(){
+        return $this->hasMany(DetailImport::class, 'provide_id', 'id');
+    }
+
     public function getAllProvide()
     {
         return DB::table($this->table)->get();

@@ -24,7 +24,7 @@ return new class extends Migration
             // $table->decimal('price_export',20,4);
             // $table->integer('product_ratio')->nullable();
             // $table->decimal('price_import',20,4);
-            // $table->string('product_note')->nullable();
+            // $table->integer('cbSN')->nullable();
             $table->integer('receive_id')->nullable();
             $table->integer('reciept_id')->nullable();
             $table->integer('payOrder_id')->nullable();

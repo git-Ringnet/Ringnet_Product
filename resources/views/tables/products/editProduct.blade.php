@@ -79,8 +79,8 @@
                                         <div class="title-info py-2 border border-top-0 border-left-0">
                                             <p class="p-0 m-0 px-3">Mã sản phẩm</p>
                                         </div>
-                                        <input type="text" required="" placeholder="Nhập thông tin"
-                                            name="product_code" value="{{ $product->product_code }}"
+                                        <input type="text" placeholder="Nhập thông tin" name="product_code"
+                                            value="{{ $product->product_code }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                     <div class="d-flex ml-2 align-items-center">
@@ -123,16 +123,21 @@
                                             value="{{ $product->product_guarantee }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
-                                    <div class="d-flex ml-2 align-items-center">
-                                        <div class="title-info py-2 border border-top-0 border-left-0">
-                                            <p class="p-0 m-0 px-3">Quản lý Serial Number</p>
-                                        </div>
-                                        <div class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                                            <input type="checkbox" checked name="check_seri"
-                                                @if ($product->check_seri == 1) checked @endif>
-                                        </div>
-
-                                    </div>
+                                    @if ($product->getSerialNumber)
+                                    @dd($product->getSerialNumber)
+                                        @if (count($product->getSerialNumber) < 0)
+                                            <div class="d-flex ml-2 align-items-center">
+                                                <div class="title-info py-2 border border-top-0 border-left-0">
+                                                    <p class="p-0 m-0 px-3">Quản lý Serial Number</p>
+                                                </div>
+                                                <div
+                                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                                    <input type="checkbox" checked name="check_seri"
+                                                        @if ($product->check_seri == 1) checked @endif>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>

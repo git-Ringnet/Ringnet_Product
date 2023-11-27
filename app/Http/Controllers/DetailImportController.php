@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DetailImport;
 use App\Models\HistoryImport;
+use App\Models\HistoryPaymentOrder;
 use App\Models\PayOder;
 use App\Models\ProductCode;
 use App\Models\ProductImport;
@@ -29,6 +30,7 @@ class DetailImportController extends Controller
     private $reciept;
     private $payment;
     private $history_import;
+    private $historyPayment;
     public function __construct()
     {
         $this->detailImport = new DetailImport();
@@ -41,6 +43,7 @@ class DetailImportController extends Controller
         $this->reciept = new Reciept();
         $this->payment = new PayOder();
         $this->history_import = new HistoryImport();
+        $this->historyPayment = new HistoryPaymentOrder();
     }
     /**
      * Display a listing of the resource.
@@ -87,8 +90,8 @@ class DetailImportController extends Controller
         $title = $import->quotation_number;
         $product = QuoteImport::where('detailimport_id', $import->id)->get();
         $project = Project::all();
-        $history = HistoryImport::where('detailImport_id',$id)->get();
-        return view('tables.import.showImport', compact('import', 'title', 'provides', 'product', 'project','history'));
+        $history = HistoryImport::where('detailImport_id', $id)->get();
+        return view('tables.import.showImport', compact('import', 'title', 'provides', 'product', 'project', 'history'));
     }
 
     /**
@@ -101,8 +104,8 @@ class DetailImportController extends Controller
         $title = $import->quotation_number;
         $product = QuoteImport::where('detailimport_id', $import->id)->get();
         $project = Project::all();
-        $history = HistoryImport::where('detailImport_id',$id)->get();
-        return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project','history'));
+        $history = HistoryImport::where('detailImport_id', $id)->get();
+        return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history'));
     }
 
     /**
@@ -117,7 +120,7 @@ class DetailImportController extends Controller
             // Cập nhật sản phẩm
             $this->quoteImport->updateImport($request->all(), $id);
             // Lưu lịch sử
-            $this->history_import->addHistoryImport($request->all(),$id);
+            $this->history_import->addHistoryImport($request->all(), $id);
             return redirect()->route('import.index')->with('msg', 'Chỉnh sửa đơn mua hàng thành công !');
         } else if ($request->action == 'action_2') {
             // Cập nhật tình trạng
@@ -161,7 +164,10 @@ class DetailImportController extends Controller
                 $this->productImport->addProductImport($request->all(), $id, 'payOrder_id', 'payment_qty');
 
                 // Cập nhật sản phẩm theo payment
-                $this->payment->addNewPayment($request->all(),$id);
+                $payment = $this->payment->addNewPayment($request->all(), $id);
+                if ($payment) {
+                    $this->historyPayment->addHistoryPayment($request->all(), $payment);
+                }
                 return redirect()->route('import.index')->with('msg', 'Tạo hóa đơn thanh toán thành công !');
             } else {
                 return redirect()->route('import.index')->with('warning', 'Hóa đơn thanh toán đã được tạo hết !');
@@ -235,14 +241,14 @@ class DetailImportController extends Controller
         $productName = "123";
         for ($i = 0; $i < count($data['listProductName']); $i++) {
             $check = Products::where('product_name', $data['listProductName'][$i])->first();
-            if ($check && $check->check_seri == 1) {
+            if ($check && $check->check_seri == 1 && $data['checkSN'][$i] == 1) {
                 if ($data['listQty'][$i] != $data['listSN'][$i]) {
                     $status = "false";
                     $productName = $check->product_name;
                 }
             }
             if (!$check) {
-                if ($data['listQty'][$i] != $data['listSN'][$i]) {
+                if ($data['listQty'][$i] != $data['listSN'][$i] && $data['checkSN'][$i] == 1) {
                     $status = "false";
                     $productName = $data['listProductName'][$i];
                 }
@@ -256,7 +262,6 @@ class DetailImportController extends Controller
     }
     public function checkduplicateSN(Request $request)
     {
-        // return $request->all();
         return $this->sn->checkSN($request->all());
     }
 }
