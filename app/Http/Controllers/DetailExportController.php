@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Delivered;
+use App\Models\Delivery;
 use App\Models\DetailExport;
 use App\Models\Guest;
 use App\Models\ProductCode;
@@ -23,6 +25,8 @@ class DetailExportController extends Controller
     private $quoteExport;
     private $project;
     private $product;
+    private $delivery;
+    private $delivered;
 
     public function __construct()
     {
@@ -32,6 +36,8 @@ class DetailExportController extends Controller
         $this->quoteExport = new QuoteExport();
         $this->product = new Products();
         $this->project = new Project();
+        $this->delivered = new Delivered();
+        $this->delivery = new Delivery();
     }
     public function index()
     {
@@ -102,9 +108,20 @@ class DetailExportController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $export_id = $this->detailExport->updateExport($request->all(), $id);
-        $this->quoteExport->updateQuoteExport($request->all(), $export_id);
-        return redirect()->route('detailExport.index')->with('msg', 'Cập nhật đơn báo giá thành công!');
+        if ($request->action == "action_1") {
+            $export_id = $this->detailExport->updateExport($request->all(), $id);
+            $this->quoteExport->updateQuoteExport($request->all(), $export_id);
+            return redirect()->route('detailExport.index')->with('msg', 'Cập nhật đơn báo giá thành công!');
+        }
+        if ($request->action == "action_2") {
+            $delivery_id = $this->delivery->addDelivery($request->all());
+            $this->delivered->addDelivered($request->all(), $delivery_id);
+            return redirect()->route('delivery.index')->with('msg', ' Tạo mới đơn giao hàng thành công !');
+        }
+        if ($request->action == "action_3") {
+        }
+        if ($request->action == "action_4") {
+        }
     }
 
     /**

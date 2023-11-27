@@ -102,8 +102,7 @@
                                         <p class="p-0 m-0 px-3">Số báo giá#</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" placeholder="Nhập thông tin"
-                                            name="quotation_number"
+                                        <input type="text" placeholder="Nhập thông tin" name="quotation_number"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -112,8 +111,7 @@
                                         <p class="p-0 m-0 px-3">Số tham chiếu#</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" placeholder="Nhập thông tin"
-                                            name="reference_number"
+                                        <input type="text" placeholder="Nhập thông tin" name="reference_number"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -132,8 +130,7 @@
                                         <p class="p-0 m-0 px-3">Hiệu lực báo giá</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" placeholder="Nhập thông tin"
-                                            name="price_effect"
+                                        <input type="text" placeholder="Nhập thông tin" name="price_effect"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
@@ -153,7 +150,8 @@
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin" id="ProjectInput"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                                        <input type="hidden" class="idProject" autocomplete="off" name="project_id">
+                                        <input type="hidden" class="idProject" autocomplete="off"
+                                            name="project_id">
                                         <ul id="listProject"
                                             class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
                                             style="z-index: 99;">
@@ -167,6 +165,33 @@
                                                 </li>
                                             @endforeach
                                         </ul>
+                                    </div>
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border-top-0 border border-left-0">
+                                        <p class="p-0 m-0 px-3">Hàng hóa</p>
+                                    </div>
+                                    <div class="w-100">
+                                        <input type="text" placeholder="Nhập thông tin" name="goods"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                    </div>
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border-top-0 border border-left-0">
+                                        <p class="p-0 m-0 px-3">Giao hàng</p>
+                                    </div>
+                                    <div class="w-100">
+                                        <input type="text" placeholder="Nhập thông tin" name="delivery"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                    </div>
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border-top-0 border border-left-0">
+                                        <p class="p-0 m-0 px-3">Địa điểm</p>
+                                    </div>
+                                    <div class="w-100">
+                                        <input type="text" placeholder="Nhập thông tin" name="location"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
                             </div>

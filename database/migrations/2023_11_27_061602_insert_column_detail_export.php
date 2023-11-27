@@ -11,7 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('detailexport', function (Blueprint $table) {
+            $table->string('goods')->nullable(); //hàng hóa
+            $table->string('delivery')->nullable(); //giao hàng
+            $table->string('location')->nullable(); //địa điểm
+        });
     }
 
     /**

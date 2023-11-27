@@ -15,7 +15,7 @@
                     <span class="font-weight-bold">{{ $detailExport->maBG }}</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <button type="submit" name="submit" value="1"
+                    <button type="submit" name="action" value="action_1"
                         class="custom-btn d-flex align-items-center h-100" id="btn-submit" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -167,6 +167,33 @@
                                     </div>
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                    </div>
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border-top-0 border border-left-0">
+                                        <p class="p-0 m-0 px-3">Hàng hóa</p>
+                                    </div>
+                                    <div class="w-100">
+                                        <input type="text" placeholder="Nhập thông tin" name="goods" value="{{ $detailExport->goods }}" 
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                    </div>
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border-top-0 border border-left-0">
+                                        <p class="p-0 m-0 px-3">Giao hàng</p>
+                                    </div>
+                                    <div class="w-100">
+                                        <input type="text" placeholder="Nhập thông tin" name="delivery" value="{{ $detailExport->delivery }}" 
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                    </div>
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border-top-0 border border-left-0">
+                                        <p class="p-0 m-0 px-3">Địa điểm</p>
+                                    </div>
+                                    <div class="w-100">
+                                        <input type="text" placeholder="Nhập thông tin" name="location" value="{{ $detailExport->location }}" 
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>

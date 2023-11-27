@@ -27,7 +27,10 @@ class DetailExport extends Model
         'total_tax',
         'discount',
         'transfer_fee',
-        'amount_owed'
+        'amount_owed',
+        'goods',
+        'delivery',
+        'location',
     ];
     protected $table = 'detailexport';
 
@@ -68,6 +71,9 @@ class DetailExport extends Model
             'discount' => $discount,
             'transfer_fee' => $transport,
             'amount_owed' => $totalBeforeTax + $totalTax,
+            'goods' => $data['goods'],
+            'delivery' => $data['delivery'],
+            'location' => $data['location'],
         ];
         $detailexport = new DetailExport($dataExport);
         $detailexport->save();
@@ -131,6 +137,9 @@ class DetailExport extends Model
                 'discount' => $discount,
                 'transfer_fee' => $transport,
                 'amount_owed' => $totalBeforeTax + $totalTax,
+                'goods' => $data['goods'],
+                'delivery' => $data['delivery'],
+                'location' => $data['location'],
             ]);
         }
         return $detailExport->id;

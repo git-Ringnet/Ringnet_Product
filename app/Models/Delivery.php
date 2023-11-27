@@ -31,18 +31,32 @@ class Delivery extends Model
 
     public function addDelivery($data)
     {
-        $shipping_fee = $data['shipping_fee'];
-        if ($shipping_fee !== null) {
-            $shipping_fee = str_replace(',', '', $shipping_fee);
+        if (isset($data['shipping_fee'])) {
+            $shipping_fee = $data['shipping_fee'];
+            if ($shipping_fee !== null) {
+                $shipping_fee = str_replace(',', '', $shipping_fee);
+            }
+        } else {
+            $shipping_fee = null;
+        }
+        if (isset($data['shipping_unit'])) {
+            $shipping_unit = $data['shipping_unit'];
+        } else {
+            $shipping_unit = null;
+        }
+        if (isset($data['date_deliver'])) {
+            $date_deliver = $data['date_deliver'];
+        } else {
+            $date_deliver = null;
         }
         $dataDelivery = [
             'guest_id' => $data['guest_id'],
             'quotation_number' => $data['quotation_number'],
-            'shipping_unit' => $data['shipping_unit'],
+            'shipping_unit' => $shipping_unit,
             'shipping_fee' => $shipping_fee,
             'detailexport_id' => $data['detailexport_id'],
             'status' => 1,
-            'created_at' => $data['date_deliver'],
+            'created_at' => $date_deliver,
         ];
         $detaiExport = DetailExport::where('id', $data['detailexport_id'])->first();
         if ($detaiExport) {
