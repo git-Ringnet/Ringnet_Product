@@ -88,8 +88,8 @@ class DeliveryController extends Controller
             $delivery->update([
                 'status' => 2,
             ]);
-            $this->delivery->updateDetailExport($delivery->detailexport_id);
-            return redirect()->route('delivery.index')->with('success', 'Xác nhận đơn giao hàng thành công!');
+            $this->delivery->updateDetailExport($request->all(), $delivery->detailexport_id);
+            return redirect()->route('delivery.index')->with('msg', 'Xác nhận đơn giao hàng thành công!');
         }
     }
 
@@ -100,6 +100,7 @@ class DeliveryController extends Controller
     {
         //
     }
+
     public function getInfoQuote(Request $request)
     {
         $data = $request->all();
@@ -107,6 +108,7 @@ class DeliveryController extends Controller
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')->first();
         return $delivery;
     }
+
     public function getProductQuote(Request $request)
     {
         $data = $request->all();

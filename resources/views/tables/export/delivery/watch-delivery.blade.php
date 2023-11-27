@@ -1,7 +1,7 @@
 <x-navbar :title="$title"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <form action="{{ route('delivery.update', $delivery->soGiaoHang) }}" method="POST">
+    <form action="{{ route('delivery.update', $delivery->soGiaoHang) }}" method="POST" id="deliveryForm">
         @csrf
         @method('PUT')
         <input type="hidden" name="detailexport_id" id="detailexport_id">
@@ -17,8 +17,8 @@
                 </div>
                 @if ($delivery->tinhTrang !== 2)
                     <div class="row m-0 mb-1">
-                        <button type="submit" name="submit" value="2"
-                            class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                        <button type="button" id="submitXacNhan" class="custom-btn d-flex align-items-center h-100"
+                            onclick="kiemTraSoLuong()">
                             <span>Xác nhận đơn giao hàng</span>
                         </button>
                     </div>
@@ -185,8 +185,10 @@
                                                         autocomplete="off" name="product_qty[]">
                                                     <input type="hidden" class="tonkho">
                                                     <p class="text-primary text-center position-absolute inventory"
-                                                        style="top: 68%; display: none;">Tồn kho:
-                                                        <span class="soTonKho">35</span>
+                                                        style="top: 68%;">Tồn kho:
+                                                        <span
+                                                            class="soTonKho">{{ is_int($item_quote->product_inventory) ? $item_quote->product_inventory : rtrim(rtrim(number_format($item_quote->product_inventory, 4, '.', ''), '0'), '.') }}
+                                                        </span>
                                                     </p>
                                                 </td>
                                                 <td
@@ -452,6 +454,30 @@
         }
 
         return formattedValue;
+    }
+
+    function kiemTraSoLuong() {
+        var rows = document.querySelectorAll('tr');
+        var invalidProducts = [];
+
+        for (var i = 1; i < rows.length; i++) {
+            var row = rows[i];
+            var quantityInput = parseInt(row.querySelector('.quantity-input').value);
+            var soTonKho = parseInt(row.querySelector('.soTonKho').innerText);
+            var productName = row.querySelector('.product_name').value;
+
+            if (quantityInput > soTonKho) {
+                invalidProducts.push(productName);
+            }
+        }
+
+        if (invalidProducts.length > 0) {
+            // Hiển thị thông báo cuối cùng
+            alert("Không đủ số lượng tồn kho cho các sản phẩm:\n" + invalidProducts.join(', '));
+        } else {
+            // Nếu không có lỗi, tiếp tục submit form
+            document.getElementById('deliveryForm').submit();
+        }
     }
 </script>
 </body>

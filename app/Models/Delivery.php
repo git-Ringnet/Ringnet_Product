@@ -69,16 +69,18 @@ class Delivery extends Model
     {
         $product = Delivery::join('delivered', 'delivery.id', '=', 'delivered.delivery_id')
             ->join('quoteexport', 'delivered.product_id', '=', 'quoteexport.product_id')
+            ->join('products', 'products.id', 'quoteexport.product_id')
             ->where('delivery.id', $id)
             ->select(
                 'delivery.*',
                 'delivered.*',
                 'quoteexport.*',
+                'products.*'
             )
             ->get();
         return $product;
     }
-    public function updateDetailExport($detailexport_id)
+    public function updateDetailExport($data, $detailexport_id)
     {
         $quoteExports = QuoteExport::where('detailexport_id', $detailexport_id)->get();
 
@@ -115,6 +117,15 @@ class Delivery extends Model
             } else {
                 $detailExport->update([
                     'status_receive' => 2,
+                ]);
+            }
+        }
+        for ($i = 0; $i < count($data['product_code']); $i++) {
+            $product = Products::find($data['product_id'][$i]);
+            if ($product) {
+                $result = $product->product_inventory - $data['product_qty'][$i];
+                $product->update([
+                    'product_inventory' => $result,
                 ]);
             }
         }
