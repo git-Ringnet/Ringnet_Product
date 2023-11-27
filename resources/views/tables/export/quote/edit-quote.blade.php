@@ -25,7 +25,7 @@
                         </svg>
                         <span>Lưu</span>
                     </button>
-                    <div class="dropdown">
+                    <div class="dropdown d-none">
                         <button type="button" data-toggle="dropdown"
                             class="btn-save-print d-flex align-items-center h-100 dropdown-toggle"
                             style="margin-right:10px">
@@ -38,9 +38,9 @@
                             <span>Lưu và in</span>
                         </button>
                         <div class="dropdown-menu" style="z-index: 9999;">
-                            <a class="dropdown-item" id="btn-pdf" href="#">Xuất
+                            <a class="dropdown-item" href="#">Xuất
                                 Excel</a>
-                            <a class="dropdown-item" href="#">Xuất PDF</a>
+                            <a class="dropdown-item" id="btn-pdf" href="#">Xuất PDF</a>
                         </div>
                     </div>
                     <button class="btn-option">
@@ -685,15 +685,6 @@
     </div>
 </div>
 <script>
-    // Lưu và xuất pdf
-    $('#btn-pdf').on('click', function(event) {
-        event.preventDefault();
-        var form = $('#update-form');
-        var newAction = "{{ route('pdf.update', $detailExport->maBG) }}"; // Thay đổi route tại đây nếu cần
-        form.attr('action', newAction);
-        $('#btn-submit').click();
-    });
-
     $("table tbody").sortable({
         axis: "y",
         handle: "td",

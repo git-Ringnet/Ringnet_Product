@@ -321,12 +321,12 @@
                         GIÁ TRỊ TRƯỚC THUẾ (VND)</p>
                 </td>
                 <td
-                    style="width:122px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
-                    <p style="text-indent: 0px;text-align: left;"><br></p>
+                    style="width:122px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px;vertical-align: middle;">
+                    <p style="text-indent: 0px;text-align: left;">{{ $data['detailExport']->total_price }}</p>
                 </td>
                 <td
                     style="width:134px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
-                    <p style="text-indent: 0px;text-align: left;"><br></p>
+                    <p style="text-indent: 0px;text-align: left;"></p>
                 </td>
             </tr>
             <tr style="height:33px">
@@ -336,8 +336,9 @@
                         THUẾ VAT (VND)</p>
                 </td>
                 <td
-                    style="width:122px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
-                    <p style="text-indent: 0px;text-align: left;"><br></p>
+                    style="width:122px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px;vertical-align: middle;">
+                    <p style="text-indent: 0px;text-align: left;">{{ $data['detailExport']->total_tax }}
+                    </p>
                 </td>
                 <td
                     style="width:134px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
@@ -351,8 +352,9 @@
                         TỔNG CỘNG (VND)</p>
                 </td>
                 <td
-                    style="width:122px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
-                    <p style="text-indent: 0px;text-align: left;"><br></p>
+                    style="width:122px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px;vertical-align: middle;">
+                    <p style="text-indent: 0px;text-align: left;">
+                        {{ $data['detailExport']->total_tax + $data['detailExport']->total_price }}</p>
                 </td>
                 <td
                     style="width:134px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">

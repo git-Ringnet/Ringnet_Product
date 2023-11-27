@@ -37,9 +37,9 @@ class PdfController extends Controller
     {
         //
     }
-    public function index()
+    public function index(string $id)
     {
-        $id = session('id');
+        // $id = session('id');
         $guest = $this->guest->getAllGuest();
         $product = $this->product->getAllProducts();
         $detailExport = $this->detailExport->getDetailExportToId($id);
@@ -58,9 +58,34 @@ class PdfController extends Controller
         // dd($data['detailExport']);
         // return view('pdf.quote', compact('data'));
     }
-    public function export()
+    public function export($id)
     {
-        return Excel::download(new UsersExport, 'users.xlsx');
-        // return view('pdf.quote-excel');
+        $guest = $this->guest->getAllGuest();
+        $product = $this->product->getAllProducts();
+        $detailExport = $this->detailExport->getDetailExportToId($id);
+        $quoteExport = $this->detailExport->getProductToId($id);
+        $data = ['detailExport' => $detailExport, 'quoteExport' => $quoteExport, 'product' => $product];
+        return Excel::download(new UsersExport($data), 'users.xlsx');
+    }
+
+    public function pdfdelivery()
+    {
+        // // $id = session('id');
+        // $guest = $this->guest->getAllGuest();
+        // $product = $this->product->getAllProducts();
+        // $detailExport = $this->detailExport->getDetailExportToId($id);
+        // $quoteExport = $this->detailExport->getProductToId($id);
+        // $data = ['detailExport' => $detailExport, 'quoteExport' => $quoteExport, 'product' => $product];
+        $pdf = Pdf::loadView('pdf.delivery')
+            ->setPaper('A4', 'portrait')
+            ->setOptions([
+                'defaultFont' => 'sans-serif',
+                'dpi' => 140,
+                'isHtml5ParserEnabled' => true,
+                'isPhpEnabled' => true,
+                'enable_remote' => false,
+            ]);
+        // return $pdf->download('invoice.pdf');
+        return view('pdf.delivery');
     }
 }

@@ -55,7 +55,7 @@ Route::resource('receive', ReceiveController::class);
 Route::get('/show_receive', [ReceiveController::class, 'show_receive'])->name('show_receive');
 Route::get('/getProduct_receive', [ReceiveController::class, 'getProduct_receive'])->name('getProduct_receive');
 // Xác nhận đơn nhận hàng
-Route::resource('historyReceive',HistoryReceiveController::class);
+Route::resource('historyReceive', HistoryReceiveController::class);
 
 // Hóa đơn mua hàng
 Route::resource('reciept', RecieptController::class);
@@ -71,9 +71,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 // PDF
-Route::resource('pdf', PdfController::class);
+// Route::resource('pdf', PdfController::class);
 Route::get('/pdf/{id?}', [PdfController::class, 'index'])->name('pdf');
-Route::get('/excel', [PdfController::class, 'export'])->name('excel');
+Route::get('/pdfdelivery', [PdfController::class, 'pdfdelivery'])->name('pdfdelivery');
+Route::get('/excel/{id?}', [PdfController::class, 'export'])->name('excel');
 
 
 //Bán hàng
