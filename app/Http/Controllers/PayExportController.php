@@ -98,6 +98,11 @@ class PayExportController extends Controller
             ->orderBy('id', 'desc')
             ->where('pay_id', $id)
             ->first();
+        if ($duNo !== null) {
+            $noConLaiValue = $duNo->noConLai;
+        } else {
+            $noConLaiValue = $payExport->tongTienNo;
+        }
         $product = PayExport::join('product_pay', 'pay_export.id', '=', 'product_pay.pay_id')
             ->join('quoteexport', 'product_pay.product_id', '=', 'quoteexport.product_id')
             ->where('pay_export.id', $id)
@@ -108,7 +113,7 @@ class PayExportController extends Controller
             )
             ->get();
         $history = history_Pay_Export::where('pay_id', $id)->get();
-        return view('tables.export.pay_export.edit', compact('title', 'payExport', 'product', 'history', 'thanhToan', 'duNo'));
+        return view('tables.export.pay_export.edit', compact('title', 'payExport', 'product', 'history', 'thanhToan', 'noConLaiValue'));
     }
 
     /**
@@ -118,9 +123,6 @@ class PayExportController extends Controller
     {
         $payExport = PayExport::find($id);
         if ($payExport) {
-            $payExport->update([
-                'status' => 1,
-            ]);
             $this->payExport->updateDetailExport($request->all(), $payExport->detailexport_id);
             return redirect()->route('payExport.index')->with('msg', 'Xác nhận thanh toán thành công!');
         }
@@ -140,10 +142,21 @@ class PayExportController extends Controller
         $delivery = DetailExport::where('detailexport.id', $data['idQuote'])
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
+            ->leftJoin('history_payment_export', 'history_payment_export.pay_id', 'pay_export.id')
             ->select(
-                'detailexport.*',
-                'guest.*',
-                DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo')
+                'detailexport.guest_id',
+                'guest.guest_name_display',
+                'detailexport.quotation_number',
+                DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
+                DB::raw('SUM(history_payment_export.payment) as tongThanhToan')
+            )
+            ->groupBy(
+                'detailexport.guest_id',
+                'guest.guest_name_display',
+                'detailexport.total_price',
+                'detailexport.total_tax',
+                'detailexport.quotation_number',
             )
             ->first();
         return $delivery;

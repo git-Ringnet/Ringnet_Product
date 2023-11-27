@@ -7,8 +7,10 @@ use App\Models\Delivered;
 use App\Models\Delivery;
 use App\Models\DetailExport;
 use App\Models\Guest;
+use App\Models\PayExport;
 use App\Models\productBill;
 use App\Models\ProductCode;
+use App\Models\productPay;
 use App\Models\Products;
 use App\Models\Project;
 use App\Models\QuoteExport;
@@ -30,6 +32,8 @@ class DetailExportController extends Controller
     private $delivered;
     private $billSale;
     private $productBill;
+    private $payExport;
+    private $productPay;
 
     public function __construct()
     {
@@ -42,6 +46,8 @@ class DetailExportController extends Controller
         $this->delivery = new Delivery();
         $this->billSale = new BillSale();
         $this->productBill = new productBill();
+        $this->payExport = new PayExport();
+        $this->productPay = new productPay();
     }
     public function index()
     {
@@ -128,6 +134,9 @@ class DetailExportController extends Controller
             return redirect()->route('billSale.edit', ['billSale' => $billSale_id])->with('msg', ' Tạo mới hóa đơn bán hàng thành công!');
         }
         if ($request->action == "action_4") {
+            $pay_id = $this->payExport->addPayExport($request->all());
+            $this->productPay->addProductPay($request->all(), $pay_id);
+            return redirect()->route('payExport.edit', ['payExport' => $pay_id])->with('msg', 'Tạo đơn thanh toán hàng thành công!');
         }
     }
 

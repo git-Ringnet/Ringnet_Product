@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,22 +22,35 @@ class PayExport extends Model
 
     public function addPayExport($data)
     {
-        $total = str_replace(',', '', $data['total']);
+        if (isset($data['total'])) {
+            $total = $data['total'];
+            if ($total !== null) {
+                $total = str_replace(',', '', $total);
+            }
+        } else {
+            $detailExport = DetailExport::find($data['detailexport_id']);
+            $total = $detailExport->amount_owed;
+        }
         if (isset($data['payment'])) {
             $payment = str_replace(',', '', $data['payment']);
         } else {
             $payment = 0;
         }
+        if (isset($data['date_pay'])) {
+            $date_pay = $data['date_pay'];
+        } else {
+            $date_pay = Carbon::now();
+        }
         $result = $total - $payment;
         $dataPay = [
             'detailexport_id' => $data['detailexport_id'],
             'guest_id' => $data['guest_id'],
-            'payment_date' => $data['date_pay'],
+            'payment_date' =>  $date_pay,
             'total' => $total,
             'payment' => $payment,
             'debt' => $result,
             'status' => 1,
-            'created_at' => $data['date_pay'],
+            'created_at' => Carbon::now(),
         ];
         $payExport = new PayExport($dataPay);
         $payExport->save();
@@ -76,9 +90,12 @@ class PayExport extends Model
                 'amount_owed' => $result,
                 'status' => 2,
             ]);
-            if ($payExport->debt <= 0) {
+            if ($detailExport->amount_owed <= 0) {
                 $detailExport->update([
                     'status_pay' => 2,
+                ]);
+                $payExport->update([
+                    'status' => 2,
                 ]);
             } else {
                 $detailExport->update([

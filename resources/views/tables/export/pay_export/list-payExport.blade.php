@@ -149,14 +149,15 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($payExport as $item_pay)
                                         <tr onclick="handleRowClick('checkbox', event);">
-                                            <td class="><input type="checkbox"
-                                                    class="cb-element" name="ids[]" id="checkbox" value=""
-                                                    onclick="event.stopPropagation();"></td>
+                                            <td class="><input type="checkbox" class="cb-element" name="ids[]"
+                                                id="checkbox" value="" onclick="event.stopPropagation();">
+                                            </td>
                                             <td class="">
                                                 {{ $item_pay->id }}
                                             </td>

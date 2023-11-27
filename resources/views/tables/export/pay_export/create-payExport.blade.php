@@ -712,8 +712,8 @@
                     $('.numberQute').val(data.quotation_number);
                     $('.nameGuest').val(data.guest_name_display);
                     $('.tongTien').val(formatCurrency(data.tongTienNo));
-                    $('.daThanhToan').val();
-                    $('.duNo').val();
+                    $('.daThanhToan').val(formatCurrency(data.tongThanhToan));
+                    $('.duNo').val(formatCurrency(data.tongTienNo - data.tongThanhToan));
                     $.ajax({
                         url: '{{ route('getProductPay') }}',
                         type: 'GET',
@@ -721,6 +721,7 @@
                             idQuote: idQuote
                         },
                         success: function(data) {
+                            console.log(data);
                             $(".sanPhamGiao").remove();
                             $.each(data, function(index, item) {
                                 $("#detailexport_id").val(item

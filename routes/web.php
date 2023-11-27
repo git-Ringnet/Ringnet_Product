@@ -107,6 +107,7 @@ Route::get('/getProductDelivery', [BillSaleController::class, 'getProductDeliver
 
 //thanh toán bán hàng
 Route::resource('payExport', PayExportController::class);
+
 Route::get('/getInfoPay', [PayExportController::class, 'getInfoPay'])->name('getInfoPay');
 Route::get('/getProductPay', [PayExportController::class, 'getProductPay'])->name('getProductPay');
 
