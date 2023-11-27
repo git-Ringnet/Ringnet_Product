@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\BillSale;
 use App\Models\DetailExport;
+use App\Models\history_Pay_Export;
 use App\Models\PayExport;
+use App\Models\productPay;
 use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,12 +19,14 @@ class PayExportController extends Controller
     private $billSale;
     private $product;
     private $payExport;
+    private $productPay;
 
     public function __construct()
     {
         $this->billSale = new BillSale();
         $this->product = new Products();
         $this->payExport = new PayExport();
+        $this->productPay = new productPay();
     }
     public function index()
     {
@@ -33,6 +37,7 @@ class PayExportController extends Controller
                 'detailexport.*',
                 'guest.*',
                 'pay_export.*',
+                'pay_export.id as idThanhToan',
                 DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo')
             )
             ->get();
@@ -55,7 +60,8 @@ class PayExportController extends Controller
      */
     public function store(Request $request)
     {
-        $payExport = $this->payExport->addPayExport($request->all());
+        $pay_id = $this->payExport->addPayExport($request->all());
+        $this->productPay->addProductPay($request->all(), $pay_id);
         return redirect()->route('payExport.index')->with('msg', ' Tạo đơn thanh toán hàng thành công !');
     }
 
@@ -70,17 +76,54 @@ class PayExportController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PayExport $payExport)
+    public function edit(string $id)
     {
-        //
+        $title = "Thanh toán bán hàng";
+        $payExport = PayExport::where('pay_export.id', $id)
+            ->leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
+            ->leftJoin('guest', 'pay_export.guest_id', 'guest.id')
+            ->select(
+                '*',
+                'pay_export.id as idTT',
+                'pay_export.created_at as ngayTT',
+                DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo')
+            )
+            ->first();
+        $thanhToan = DB::table('history_payment_export')
+            ->select(DB::raw('SUM(payment) as tongThanhToan'))
+            ->where('pay_id', $id)
+            ->first();
+        $duNo = DB::table('history_payment_export')
+            ->select('debt as noConLai')
+            ->orderBy('id', 'desc')
+            ->where('pay_id', $id)
+            ->first();
+        $product = PayExport::join('product_pay', 'pay_export.id', '=', 'product_pay.pay_id')
+            ->join('quoteexport', 'product_pay.product_id', '=', 'quoteexport.product_id')
+            ->where('pay_export.id', $id)
+            ->select(
+                'pay_export.*',
+                'product_pay.*',
+                'quoteexport.*',
+            )
+            ->get();
+        $history = history_Pay_Export::where('pay_id', $id)->get();
+        return view('tables.export.pay_export.edit', compact('title', 'payExport', 'product', 'history', 'thanhToan', 'duNo'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PayExport $payExport)
+    public function update(Request $request, string $id)
     {
-        //
+        $payExport = PayExport::find($id);
+        if ($payExport) {
+            $payExport->update([
+                'status' => 1,
+            ]);
+            $this->payExport->updateDetailExport($request->all(), $payExport->detailexport_id);
+            return redirect()->route('payExport.index')->with('msg', 'Xác nhận thanh toán thành công!');
+        }
     }
 
     /**
@@ -90,16 +133,17 @@ class PayExportController extends Controller
     {
         //
     }
+
     public function getInfoPay(Request $request)
     {
         $data = $request->all();
         $delivery = DetailExport::where('detailexport.id', $data['idQuote'])
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
-            ->leftJoin('bill_sale', 'bill_sale.detailexport_id', 'detailexport.id')
+            ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->select(
                 'detailexport.*',
                 'guest.*',
-                'bill_sale.id as maThanhToan',
+                DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo')
             )
             ->first();
         return $delivery;
@@ -109,6 +153,7 @@ class PayExportController extends Controller
         $data = $request->all();
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->where('detailexport.id', $data['idQuote'])
+            ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_payment, 0) > 0')
             ->get();
         return $delivery;
     }

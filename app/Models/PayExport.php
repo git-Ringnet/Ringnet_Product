@@ -22,27 +22,61 @@ class PayExport extends Model
     public function addPayExport($data)
     {
         $total = str_replace(',', '', $data['total']);
-        $payment = str_replace(',', '', $data['payment']);
+        if (isset($data['payment'])) {
+            $payment = str_replace(',', '', $data['payment']);
+        } else {
+            $payment = 0;
+        }
         $result = $total - $payment;
         $dataPay = [
             'detailexport_id' => $data['detailexport_id'],
             'guest_id' => $data['guest_id'],
             'payment_date' => $data['date_pay'],
-            'total' => $result,
+            'total' => $total,
             'payment' => $payment,
-            'debt' => 0,
+            'debt' => $result,
             'status' => 1,
             'created_at' => $data['date_pay'],
         ];
         $payExport = new PayExport($dataPay);
         $payExport->save();
-        $detailExport = DetailExport::where('id', $data['detailexport_id'])->first();
+        if (isset($data['payment'])) {
+            $history = new history_Pay_Export;
+            $history->pay_id = $payExport->id;
+            $history->total = $total;
+            $history->payment = $payment;
+            $history->debt = $result;
+            $history->save();
+            $payExport->update([
+                'payment' => $payment,
+            ]);
+        }
+        return $payExport->id;
+    }
+
+    public function updateDetailExport($data, $detailexport_id)
+    {
+        $total = str_replace(',', '', $data['total']);
+        if (isset($data['payment'])) {
+            $payment = str_replace(',', '', $data['payment']);
+        } else {
+            $payment = 0;
+        }
+        if (isset($data['daThanhToan'])) {
+            $daThanhToan = str_replace(',', '', $data['daThanhToan']);
+        } else {
+            $daThanhToan = 0;
+        }
+        $result = $total - $daThanhToan - $payment;
+        $payExport = PayExport::where('detailexport_id', $detailexport_id)
+            ->first();
+        $detailExport = DetailExport::where('id', $detailexport_id)->first();
         if ($detailExport) {
             $detailExport->update([
                 'amount_owed' => $result,
                 'status' => 2,
             ]);
-            if ($payExport->total <= 0) {
+            if ($payExport->debt <= 0) {
                 $detailExport->update([
                     'status_pay' => 2,
                 ]);
@@ -52,6 +86,16 @@ class PayExport extends Model
                 ]);
             }
         }
-        return $payExport;
+        $history = new history_Pay_Export;
+        $history->pay_id = $payExport->id;
+        $history->total = $total;
+        $history->payment = $payment;
+        $history->debt = $detailExport->amount_owed;
+        $history->save();
+        $payExport->update([
+            'payment' => $payment,
+            'debt' =>  $detailExport->amount_owed,
+        ]);
+        return $detailExport;
     }
 }
