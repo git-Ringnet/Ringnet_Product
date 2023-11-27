@@ -93,7 +93,7 @@ class DetailExport extends Model
     {
         $detailExport = DetailExport::where('detailexport.id', $id)
             ->leftJoin('guest', 'detailexport.guest_id', 'guest.id')
-            ->select('*', 'guest.id as maKH', 'detailexport.id as maBG')
+            ->select('*', 'guest.id as maKH', 'detailexport.id as maBG','detailexport.status as tinhTrang')
             ->first();
         return $detailExport;
     }
