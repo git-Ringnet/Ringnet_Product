@@ -215,8 +215,10 @@ function calculateGrandTotal() {
 function updateTaxAmount() {
     $('#inputcontent tbody tr').each(function () {
         var productQty = parseFloat($(this).find('.quantity-input').val());
-        var productPrice = parseFloat($(this).find('input[name^="price_export"]').val().replace(/[^0-9.-]+/g, ""));
-
+        var productPrice = parseFloat($(this).find('input[name^="price_export"]').val());
+        if(productPrice.length > 0){
+            productPrice.replace(/[^0-9.-]+/g, "");
+        }
         var taxValue = parseFloat($(this).find('.product_tax').val());
         if (taxValue == 99) {
             taxValue = 0;
