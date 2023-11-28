@@ -74,6 +74,7 @@ class BillSaleController extends Controller
 
         $product = BillSale::join('product_bill', 'bill_sale.id', '=', 'product_bill.billSale_id')
             ->join('quoteexport', 'product_bill.product_id', '=', 'quoteexport.product_id')
+            ->join('products', 'products.id', 'product_bill.product_id')
             ->where('bill_sale.id', $id)
             ->select(
                 'quoteexport.product_id',
