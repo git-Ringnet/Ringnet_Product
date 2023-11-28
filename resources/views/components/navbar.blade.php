@@ -62,7 +62,8 @@
             </ul>
             <!-- Centered navigation items -->
             <ul class="navbar-nav mx-auto nav-title justify-content-center">
-                <li class="nav-item {!! $isActiveRouteGroup('inventory.index,inventory.edit,guests.index,guests.create,guests.edit') !!}">
+                <li
+                    class="nav-item {{ request()->route()->named('inventory.index', 'inventory.edit', 'guests.index', 'guests.create', 'guests.edit')? 'active': '' }}">
                     <a href="#" class="">Kho hàng</a>
                 </li>
                 <li class="nav-item mx-3">
@@ -212,13 +213,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('inventory.index') }}" class="nav-link {!! $isActiveRouteGroup('inventory.index,inventory.edit,inventory.create,inventory.show') !!}">
+                                <a href="{{ route('inventory.index') }}"
+                                    class="nav-link {{ request()->route()->named('inventory.index', 'inventory.edit', 'inventory.create', 'inventory.show')? 'active': '' }}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0;"></i>
                                     <p>Sản phẩm</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('editProduct') }}" class="nav-link {!! $isActiveRouteGroup('editProduct,inventory.showProductInventory') !!}">
+                                <a href="{{ route('editProduct') }}"
+                                    class="nav-link {{ request()->route()->named('editProduct', 'inventory.showProductInventory')? 'active': '' }}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0;"></i>
                                     <p>Sửa tồn kho</p>
                                 </a>
@@ -266,31 +269,36 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('detailExport.index') }}" class="nav-link {!! $isActiveRouteGroup('detailExport.index,detailExport.create,detailExport.edit') !!}">
+                                <a href="{{ route('detailExport.index') }}"
+                                    class="nav-link {{ request()->route()->named('detailExport.index', 'detailExport.create', 'detailExport.edit')? 'active': '' }}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Báo giá</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('delivery.index') }}" class="nav-link {!! $isActiveRouteGroup('delivery.index,delivery.create,watchDelivery') !!}">
+                                <a href="{{ route('delivery.index') }}"
+                                    class="nav-link {{ request()->route()->named('delivery.index', 'delivery.create', 'watchDelivery')? 'active': '' }}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Giao hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('billSale.index') }}" class="nav-link {!! $isActiveRouteGroup('billSale.index,billSale.create,billSale.edit') !!}">
+                                <a href="{{ route('billSale.index') }}"
+                                    class="nav-link {{ request()->route()->named('billSale.index', 'billSale.create', 'billSale.edit')? 'active': '' }}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Hóa đơn bán hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('payExport.index') }}" class="nav-link {!! $isActiveRouteGroup('payExport.index,payExport.create,payExport.edit') !!}">
+                                <a href="{{ route('payExport.index') }}"
+                                    class="nav-link {{ request()->route()->named('payExport.index', 'payExport.create', 'payExport.edit')? 'active': '' }}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Thanh toán</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('guests.index') }}" class="nav-link {!! $isActiveRouteGroup('guests.index,guests.create,guests.edit') !!}">
+                                <a href="{{ route('guests.index') }}"
+                                    class="nav-link {{ request()->route()->named('guests.index', 'guests.create', 'guests.edit')? 'active': '' }}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Khách hàng</p>
                                 </a>
@@ -331,32 +339,36 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('import.index') }}" class="nav-link {!! $isActiveRouteGroup('import.index,import.edit,import.create') !!}">
+                                <a href="{{ route('import.index') }}"
+                                    class="nav-link {{ request()->route()->named('import.index', 'import.edit', 'import.create')? 'active': '' }}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Đơn mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('receive.index') }}" class="nav-link {!! $isActiveRouteGroup('receive.index,receive.edit,receive.create') !!} ">
+                                <a href="{{ route('receive.index') }}"
+                                    class="nav-link {{ request()->route()->named('receive.index', 'receive.edit', 'receive.create')? 'active': '' }} ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Đơn nhận hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('reciept.index') }}" class="nav-link {!! $isActiveRouteGroup('reciept.index,reciept.edit,reciept.create') !!} ">
+                                <a href="{{ route('reciept.index') }}"
+                                    class="nav-link {{ request()->route()->named('reciept.index', 'reciept.edit', 'reciept.create')? 'active': '' }} ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Hóa đơn mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('paymentOrder.index') }}"
-                                    class="nav-link {!! $isActiveRouteGroup('paymentOrder.index,paymentOrder.edit,paymentOrder.create') !!} ">
+                                    class="nav-link {{ request()->route()->named('paymentOrder.index', 'paymentOrder.edit', 'paymentOrder.create')? 'active': '' }} ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Thanh toán mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('provides.index') }}" class="nav-link {!! $isActiveRouteGroup('provides.index,provides.edit,provides.create') !!}">
+                                <a href="{{ route('provides.index') }}"
+                                    class="nav-link {{ request()->route()->named('provides.index', 'provides.edit', 'provides.create')? 'active': '' }}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Nhà cung cấp</p>
                                 </a>
