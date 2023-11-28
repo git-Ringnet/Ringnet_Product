@@ -86,7 +86,22 @@ class Delivery extends Model
             ->join('products', 'products.id', 'delivered.product_id')
             ->where('delivery.id', $id)
             ->select(
-                '*',
+                'quoteexport.product_id',
+                'quoteexport.product_code',
+                'quoteexport.product_name',
+                'quoteexport.product_unit',
+                'quoteexport.product_note',
+                'delivered.deliver_qty',
+                'products.product_inventory',
+            )
+            ->groupBy(
+                'quoteexport.product_code',
+                'quoteexport.product_name',
+                'quoteexport.product_unit',
+                'delivered.deliver_qty',
+                'products.product_inventory',
+                'quoteexport.product_id',
+                'quoteexport.product_note',
             )
             ->get();
         return $product;
