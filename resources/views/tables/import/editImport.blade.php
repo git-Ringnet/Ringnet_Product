@@ -32,6 +32,19 @@
                             </button>
                         </a>
                     @endif
+                    @if ($import->status == 2)
+                        <a href="{{ route('import.index') }}" class="mr-2">
+                            <span class="btn-secondary d-flex align-items-center h-100">
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="6" height="10"
+                                    viewBox="0 0 6 10" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M5.76877 0.231232C6.07708 0.53954 6.07708 1.03941 5.76877 1.34772L2.11648 5L5.76877 8.65228C6.07708 8.96059 6.07708 9.46046 5.76877 9.76877C5.46046 10.0771 4.96059 10.0771 4.65228 9.76877L0.441758 5.55824C0.13345 5.24993 0.13345 4.75007 0.441758 4.44176L4.65228 0.231231C4.96059 -0.0770772 5.46046 -0.0770772 5.76877 0.231232Z"
+                                        fill="#42526E" />
+                                </svg>
+                                <span>Trở về</span>
+                            </span>
+                        </a>
+                    @endif
                     <div class="dropdown">
                         <button type="button" data-toggle="dropdown"
                             class="btn-save-print d-flex align-items-center h-100 dropdown-toggle"
@@ -64,20 +77,7 @@
                         </svg>
                     </button>
 
-                    @if ($import->status == 2)
-                        <a href="{{ route('import.index') }}" class="mr-2">
-                            <span class="btn btn-secondary d-flex align-items-center h-100">
-                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="6" height="10"
-                                    viewBox="0 0 6 10" fill="none">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M5.76877 0.231232C6.07708 0.53954 6.07708 1.03941 5.76877 1.34772L2.11648 5L5.76877 8.65228C6.07708 8.96059 6.07708 9.46046 5.76877 9.76877C5.46046 10.0771 4.96059 10.0771 4.65228 9.76877L0.441758 5.55824C0.13345 5.24993 0.13345 4.75007 0.441758 4.44176L4.65228 0.231231C4.96059 -0.0770772 5.46046 -0.0770772 5.76877 0.231232Z"
-                                        fill="#42526E" />
-                                </svg>
-                                <span>Trở về</span>
-                            </span>
-                        </a>
-                    @endif
-                    <a href="#" onclick="getAction(this)">
+                    {{-- <a href="#" onclick="getAction(this)">
                         <button name="action" value="action_2" type="submit"
                             class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                             <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
@@ -112,7 +112,7 @@
                             </svg>
                             <span>Tạo hóa đơn thanh toán</span>
                         </button>
-                    </a>
+                    </a> --}}
                     {{-- @method('DELETE')
                     <a href="{{route('import.destroy',$import->id)}}">
                         <button name="action" value="action_3" type="submit"

@@ -71,12 +71,13 @@ class ProductImport extends Model
                 if ($qty == 0) {
                     continue;
                 } else {
+                    $checkCBSN = Products::where('product_name', $data['product_name'][$i])->first();
                     $dataProductImport = [
                         'detailimport_id' => $id,
                         'quoteImport_id' => $product->id,
                         'product_qty' => $qty,
                         $colum => 0,
-                        'cbSN' => isset($data['cbSN']) ? $data['cbSN'][$i] : 1,
+                        'cbSN' => $checkCBSN == null ? (isset($data['cbSN']) ? $data['cbSN'][$i] : 1) : $checkCBSN->check_seri,
                         'created_at' => Carbon::now(),
                     ];
                 }

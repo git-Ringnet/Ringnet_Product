@@ -43,6 +43,7 @@
                 </div>
             </div>
         </section>
+
         <hr class="mt-3">
 
         <section class="content">
@@ -58,7 +59,7 @@
                                     <input id="search_quotation" type="text" placeholder="Nhập thông tin"
                                         name="quotation_number"
                                         class="border w-100 py-2 border-left-0 border-right-0 px-3 search_quotation"
-                                        autocomplete="off" required
+                                        autocomplete="off" required @if ($reciept->status == 2) readonly @endif
                                         value="{{ $reciept->getQuotation->quotation_number == null ? $reciept->getQuotation->id : $reciept->getQuotation->quotation_number }}">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -83,6 +84,7 @@
                                     </div>
                                     <input required type="date" placeholder="Nhập thông tin" name="date_bill"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                        @if ($reciept->status == 2) readonly @endif
                                         value="{{ Carbon\Carbon::parse($reciept->date_bill)->toDateString() }}">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -91,6 +93,7 @@
                                     </div>
                                     <input required type="text" placeholder="Nhập thông tin" name="number_bill"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                        @if ($reciept->status == 2) readonly @endif
                                         value="{{ $reciept->number_bill }}">
                                 </div>
                             </div>
@@ -105,8 +108,7 @@
                 <table class="table table-hover bg-white rounded" id="inputcontent">
                     <thead>
                         <tr>
-                            <th class="border-right"><input type="checkbox"> Mã sản phẩm
-                            </th>
+                            <th class="border-right"><input type="checkbox">Mã sản phẩm</th>
                             <th class="border-right">Tên sản phẩm</th>
                             <th class="border-right">Đơn vị</th>
                             <th class="border-right">Số lượng</th>
