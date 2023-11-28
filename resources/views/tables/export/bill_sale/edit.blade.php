@@ -33,7 +33,7 @@
                             <span>In</span>
                         </button>
                         <div class="dropdown-menu" style="z-index: 9999;">
-                            <a class="dropdown-item" href="{{ route('pdfdelivery',$billSale->idHD) }}">Xuất
+                            <a class="dropdown-item" href="{{ route('pdfdelivery', $billSale->idHD) }}">Xuất
                                 PDF</a>
                         </div>
                     </div>
@@ -184,7 +184,7 @@
                                                         <input type="text" value="{{ $item->product_name }}"
                                                             class="border-0 px-2 py-1 w-100 product_name"
                                                             readonly="" autocomplete="off" name="product_name[]">
-                                                        <input type="hidden" class="product_id" value="2"
+                                                        <input type="hidden" class="product_id" value="{{ $item->product_id }}"
                                                             autocomplete="off" name="product_id[]">
                                                         <div class="info-product" data-toggle="modal"
                                                             data-target="#productModal">
@@ -214,7 +214,7 @@
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                                     <input type="text" readonly=""
-                                                        value="{{ $item->billSale_qty }}"
+                                                        value="{{ is_int($item->billSale_qty) ? $item->billSale_qty : rtrim(rtrim(number_format($item->billSale_qty, 4, '.', ''), '0'), '.') }}"
                                                         class="border-0 px-2 py-1 w-100 quantity-input"
                                                         autocomplete="off" name="product_qty[]">
                                                     <input type="hidden" class="tonkho">
@@ -235,10 +235,18 @@
                                                 <td class="border border-top-0 border-bottom-0 px-4">
                                                     <select name="product_tax[]"
                                                         class="border-0 text-center product_tax" disabled="">
-                                                        <option value="0">0%</option>
-                                                        <option value="8">8%</option>
-                                                        <option value="10" selected="">10%</option>
-                                                        <option value="99">NOVAT</option>
+                                                        <option value="0" <?php if ($item->product_tax == 0) {
+                                                            echo 'selected';
+                                                        } ?>>0%</option>
+                                                        <option value="8" <?php if ($item->product_tax == 8) {
+                                                            echo 'selected';
+                                                        } ?>>8%</option>
+                                                        <option value="10" <?php if ($item->product_tax == 10) {
+                                                            echo 'selected';
+                                                        } ?>>10%</option>
+                                                        <option value="99" <?php if ($item->product_tax == 99) {
+                                                            echo 'selected';
+                                                        } ?>>NOVAT</option>
                                                     </select>
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0">

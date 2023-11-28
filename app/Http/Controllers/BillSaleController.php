@@ -76,9 +76,30 @@ class BillSaleController extends Controller
             ->join('quoteexport', 'product_bill.product_id', '=', 'quoteexport.product_id')
             ->where('bill_sale.id', $id)
             ->select(
-                'bill_sale.*',  
-                'product_bill.*',
-                'quoteexport.*',
+                'quoteexport.product_id',
+                'quoteexport.product_code',
+                'quoteexport.product_name',
+                'quoteexport.product_unit',
+                'quoteexport.price_export',
+                'product_bill.billSale_qty',
+                'quoteexport.product_tax',
+                'quoteexport.product_note',
+                'quoteexport.product_total',
+                'quoteexport.product_ratio',
+                'quoteexport.price_import',
+            )
+            ->groupBy(
+                'quoteexport.product_id',
+                'quoteexport.product_code',
+                'quoteexport.product_name',
+                'quoteexport.product_unit',
+                'quoteexport.price_export',
+                'product_bill.billSale_qty',
+                'quoteexport.product_tax',
+                'quoteexport.product_note',
+                'quoteexport.product_total',
+                'quoteexport.product_ratio',
+                'quoteexport.price_import',
             )
             ->get();
         return view('tables.export.bill_sale.edit', compact('billSale', 'title', 'product'));
