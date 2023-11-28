@@ -73,35 +73,34 @@ class BillSaleController extends Controller
             ->first();
 
         $product = BillSale::join('product_bill', 'bill_sale.id', '=', 'product_bill.billSale_id')
-            ->join('quoteexport', 'product_bill.product_id', '=', 'quoteexport.product_id')
-            ->join('products', 'products.id', 'product_bill.product_id')
-            ->where('bill_sale.id', $id)
-            ->select(
-                'quoteexport.product_id',
-                'quoteexport.product_code',
-                'quoteexport.product_name',
-                'quoteexport.product_unit',
-                'quoteexport.price_export',
-                'product_bill.billSale_qty',
-                'quoteexport.product_tax',
-                'quoteexport.product_note',
-                'quoteexport.product_total',
-                'quoteexport.product_ratio',
-                'quoteexport.price_import',
-            )
-            ->groupBy(
-                'quoteexport.product_id',
-                'quoteexport.product_code',
-                'quoteexport.product_name',
-                'quoteexport.product_unit',
-                'quoteexport.price_export',
-                'product_bill.billSale_qty',
-                'quoteexport.product_tax',
-                'quoteexport.product_note',
-                'quoteexport.product_total',
-                'quoteexport.product_ratio',
-                'quoteexport.price_import',
-            )
+            // ->join('quoteexport', 'product_bill.product_id', '=', 'quoteexport.product_id')
+            // ->where('bill_sale.id', $id)
+            // ->select(
+            //     'quoteexport.product_id',
+            //     'quoteexport.product_code',
+            //     'quoteexport.product_name',
+            //     'quoteexport.product_unit',
+            //     'quoteexport.price_export',
+            //     'product_bill.billSale_qty',
+            //     'quoteexport.product_tax',
+            //     'quoteexport.product_note',
+            //     'quoteexport.product_total',
+            //     'quoteexport.product_ratio',
+            //     'quoteexport.price_import',
+            // )
+            // ->groupBy(
+            //     'quoteexport.product_id',
+            //     'quoteexport.product_code',
+            //     'quoteexport.product_name',
+            //     'quoteexport.product_unit',
+            //     'quoteexport.price_export',
+            //     'product_bill.billSale_qty',
+            //     'quoteexport.product_tax',
+            //     'quoteexport.product_note',
+            //     'quoteexport.product_total',
+            //     'quoteexport.product_ratio',
+            //     'quoteexport.price_import',
+            // )
             ->get();
         return view('tables.export.bill_sale.edit', compact('billSale', 'title', 'product'));
     }
