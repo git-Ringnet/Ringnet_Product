@@ -187,7 +187,14 @@
                     data-accordion="false">
                     <li
                         class="nav-item 
-                    @if (in_array(\Route::currentRouteName(), ['inventory.index', 'inventory.edit', 'inventory.create', 'editProduct'])) menu-is-opening menu-open @endif">
+                    @if (in_array(\Route::currentRouteName(), [
+                            'inventory.index',
+                            'inventory.edit',
+                            'inventory.create',
+                            'editProduct',
+                            'inventory.showProductInventory',
+                            'inventory.show',
+                        ])) menu-is-opening menu-open @endif">
                         <a href="#" class="nav-link">
                             <svg class="fill" width="32" height="32" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -205,13 +212,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('inventory.index') }}" class="nav-link {!! $isActiveRouteGroup('inventory.index,inventory.edit,inventory.create') !!}">
+                                <a href="{{ route('inventory.index') }}" class="nav-link {!! $isActiveRouteGroup('inventory.index,inventory.edit,inventory.create,inventory.show') !!}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0;"></i>
                                     <p>Sản phẩm</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('editProduct') }}" class="nav-link {!! $isActiveRouteGroup('editProduct') !!}">
+                                <a href="{{ route('editProduct') }}" class="nav-link {!! $isActiveRouteGroup('editProduct,inventory.showProductInventory') !!}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0;"></i>
                                     <p>Sửa tồn kho</p>
                                 </a>
@@ -225,13 +232,22 @@
                         </ul>
                     </li>
                     <li class="nav-item @if (in_array(\Route::currentRouteName(), [
-                            'quoteExport.index',
-                            'quoteExport.edit',
-                            'quoteExport.create',
                             'editProduct',
                             'guests.index',
                             'guests.create',
                             'guests.edit',
+                            'detailExport.index',
+                            'detailExport.edit',
+                            'detailExport.create',
+                            'delivery.index',
+                            'delivery.edit',
+                            'delivery.create',
+                            'billSale.index',
+                            'billSale.edit',
+                            'billSale.create',
+                            'payExport.index',
+                            'payExport.edit',
+                            'watchDelivery',
                         ])) menu-is-opening menu-open @endif">
                         <a href="#" class="nav-link">
                             <svg class="fill" width="32" height="32" viewBox="0 0 24 24" fill="none"
@@ -250,25 +266,25 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('detailExport.index') }}" class="nav-link {!! $isActiveRouteGroup('quoteExport.index,quoteExport.create,quoteExport.edit') !!}">
+                                <a href="{{ route('detailExport.index') }}" class="nav-link {!! $isActiveRouteGroup('detailExport.index,detailExport.create,detailExport.edit') !!}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Báo giá</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('delivery.index') }}" class="nav-link {!! $isActiveRouteGroup('delivery.index,delivery.create') !!}">
+                                <a href="{{ route('delivery.index') }}" class="nav-link {!! $isActiveRouteGroup('delivery.index,delivery.create,watchDelivery') !!}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Giao hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('billSale.index') }}" class="nav-link {!! $isActiveRouteGroup('billSale.index,billSale.create') !!}">
+                                <a href="{{ route('billSale.index') }}" class="nav-link {!! $isActiveRouteGroup('billSale.index,billSale.create,billSale.edit') !!}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Hóa đơn bán hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('payExport.index') }}" class="nav-link {!! $isActiveRouteGroup('payExport.index,payExport.create') !!}">
+                                <a href="{{ route('payExport.index') }}" class="nav-link {!! $isActiveRouteGroup('payExport.index,payExport.create,payExport.edit') !!}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Thanh toán</p>
                                 </a>

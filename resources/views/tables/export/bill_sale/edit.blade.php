@@ -37,6 +37,7 @@
                                 PDF</a>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -184,8 +185,9 @@
                                                         <input type="text" value="{{ $item->product_name }}"
                                                             class="border-0 px-2 py-1 w-100 product_name"
                                                             readonly="" autocomplete="off" name="product_name[]">
-                                                        <input type="hidden" class="product_id" value="{{ $item->product_id }}"
-                                                            autocomplete="off" name="product_id[]">
+                                                        <input type="hidden" class="product_id"
+                                                            value="{{ $item->product_id }}" autocomplete="off"
+                                                            name="product_id[]">
                                                         <div class="info-product" data-toggle="modal"
                                                             data-target="#productModal">
                                                             <svg width="18" height="18" viewBox="0 0 18 18"

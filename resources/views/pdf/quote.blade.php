@@ -203,7 +203,9 @@
                         {{ $data['detailExport']->guest_address }}</p>
                     <p style="padding-left: 39px;font-weight:700;font-size:15px;padding-top:10px">Người mua hàng:</p>
                     <p style="padding-left: 39px;">Điện thoại:{{ $data['detailExport']->guest_phone }}</p>
-                    <p style="padding-left: 39px;">Họ và tên:{{ $data['detailExport']->guest_receiver }}</p>
+                    <p style="padding-left: 39px;">Họ và tên:
+                    <p style="padding-left: 3px;">{{ $data['detailExport']->guest_receiver }}</p>
+                    </p>
                     <p style="padding-left: 39px;">Email:{{ $data['detailExport']->guest_email }}</p>
                 </td>
             </tr>
