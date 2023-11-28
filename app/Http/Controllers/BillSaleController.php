@@ -8,6 +8,7 @@ use App\Models\DetailExport;
 use App\Models\productBill;
 use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BillSaleController extends Controller
 {
@@ -73,7 +74,10 @@ class BillSaleController extends Controller
             ->first();
 
         $product = BillSale::join('quoteexport', 'bill_sale.detailexport_id', '=', 'quoteexport.detailexport_id')
-            ->join('product_bill', 'product_bill.billSale_id', '=', 'bill_sale.id')
+            ->leftJoin('product_bill', function ($join) {
+                $join->on('product_bill.billSale_id', '=', 'bill_sale.id');
+                $join->on('product_bill.product_id', '=', 'quoteexport.product_id');
+            })
             ->where('bill_sale.id', $id)
             ->select(
                 'quoteexport.product_id',
@@ -86,6 +90,7 @@ class BillSaleController extends Controller
                 'quoteexport.product_total',
                 'quoteexport.product_ratio',
                 'quoteexport.price_import',
+                'product_bill.billSale_qty'
             )
             ->groupBy(
                 'quoteexport.product_id',
@@ -98,6 +103,7 @@ class BillSaleController extends Controller
                 'quoteexport.product_total',
                 'quoteexport.product_ratio',
                 'quoteexport.price_import',
+                'product_bill.billSale_qty'
             )
             ->get();
         return view('tables.export.bill_sale.edit', compact('billSale', 'title', 'product'));
