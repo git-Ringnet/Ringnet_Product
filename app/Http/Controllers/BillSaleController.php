@@ -72,7 +72,7 @@ class BillSaleController extends Controller
             ->select('*', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD')
             ->first();
 
-        $product = BillSale::join('product_bill', 'bill_sale.id', '=', 'product_bill.billSale_id')
+        $product = BillSale::join('quoteexport', 'bill_sale.detailexport_id', '=', 'quoteexport.detailexport_id')
             // ->join('quoteexport', 'product_bill.product_id', '=', 'quoteexport.product_id')
             // ->where('bill_sale.id', $id)
             // ->select(
