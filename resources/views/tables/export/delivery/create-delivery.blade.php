@@ -15,7 +15,7 @@
                     <span class="font-weight-bold">Đơn giao hàng mới</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                    <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px" onclick="kiemTraFormGiaoHang();">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -234,12 +234,12 @@
                                             <th class="border-right">Tên sản phẩm</th>
                                             <th class="border-right">Đơn vị</th>
                                             <th class="border-right">Số lượng</th>
-                                            <th class="border-right">Đơn giá</th>
+                                            {{-- <th class="border-right">Đơn giá</th>
                                             <th class="border-right">Thuế</th>
                                             <th class="border-right">Thành tiền</th>
                                             <th class="p-0 bg-secondary border-0 Daydu" style="width:1%;"></th>
                                             <th class="border-right product_ratio">Hệ số nhân</th>
-                                            <th class="border-right price_import">Giá nhập</th>
+                                            <th class="border-right price_import">Giá nhập</th> --}}
                                             <th class="border-right note">Ghi chú</th>
                                             <th class=""></th>
                                         </tr>
@@ -721,7 +721,7 @@
                                     item.transfer_fee == null ?
                                     0 : item.transfer_fee));
                                 var newRow = `
-                                <tr id="dynamic-row-${item.id}" class="bg-white sanPhamGiao">
+                                <tr id="dynamic-row-${item.id}" class="bg-white addProduct">
                             <td class="border border-left-0 border-top-0 border-bottom-0 position-relative">
                                 <div class="d-flex w-100 justify-content-between align-items-center">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -757,11 +757,11 @@
                                 <input type="hidden" class="tonkho">
                                 <p class="text-primary text-center position-absolute inventory" style="top: 68%; display: none;">Tồn kho: 35</p>
                             </td>
-                            <td class="border border-top-0 border-bottom-0 position-relative">
+                            <td class="border border-top-0 border-bottom-0 position-relative d-none">
                                 <input type="text" value="${formatCurrency(item.price_export)}" readonly class="border-0 px-2 py-1 w-100 product_price" autocomplete="off" name="product_price[]" required="" readonly="readonly">
                                 <p class="text-primary text-right position-absolute transaction" style="top: 68%; right: 5%; display: none;">Giao dịch gần đây</p>
                             </td>
-                            <td class="border border-top-0 border-bottom-0 px-4">
+                            <td class="border border-top-0 border-bottom-0 px-4 d-none">
                                 <select name="product_tax[]" class="border-0 text-center product_tax" required="" disabled>
                                     <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                     <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
@@ -769,18 +769,18 @@
                                     <option value="99" ${(item.product_tax == 99) ? 'selected' : ''}>NOVAT</option>
                                 </select>
                             </td>
-                            <td class="border border-top-0 border-bottom-0">
+                            <td class="border border-top-0 border-bottom-0 d-none">
                                 <input type="text" value="${formatCurrency(item.product_total)}" readonly class="border-0 px-2 py-1 w-100 total-amount">
                             </td>
-                            <td class="border-top border-secondary p-0 bg-secondary Daydu" style="width:1%;"></td>
-                            <td class="border border-top-0 border-bottom-0 position-relative product_ratio">
+                            <td class="border-top border-secondary p-0 bg-secondary Daydu d-none" style="width:1%;"></td>
+                            <td class="border border-top-0 border-bottom-0 position-relative product_ratio d-none">
                                 <input type="text" value="${item.product_ratio}" readonly class="border-0 px-2 py-1 w-100 heSoNhan" autocomplete="off" required="required" name="product_ratio[]">
                             </td>
-                            <td class="border border-top-0 border-bottom-0 position-relative price_import">
+                            <td class="border border-top-0 border-bottom-0 position-relative price_import d-none">
                                 <input type="text" value="${formatCurrency(item.price_import)}" readonly class="border-0 px-2 py-1 w-100 giaNhap" autocomplete="off" required="required" name="price_import[]">
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative note p-1">
-                                <input type="text" readonly value="${(item.product_note == null) ? '' : item.product_note}" class="border-0 py-1 w-100" placeholder="Nhập ghi chú" name="product_note[]">
+                                <input type="text" readonly value="${(item.product_note == null) ? '' : item.product_note}" class="border-0 py-1 w-100" name="product_note[]">
                             </td>
                             <td class="border border-top-0 border-bottom-0 border-right-0 text-right deleteProduct">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1279,6 +1279,23 @@
             formattedIntegerPart;
 
         return formattedNumber;
+    }
+
+    function kiemTraFormGiaoHang() {
+        var rows = document.querySelectorAll('tr');
+        var hasProducts = false;
+
+        for (var i = 1; i < rows.length; i++) {
+            if (rows[i].classList.contains('addProduct')) {
+                hasProducts = true;
+            }
+        }
+
+        // Hiển thị thông báo nếu không có sản phẩm
+        if (!hasProducts) {
+            alert("Không có sản phẩm để giao");
+            event.preventDefault();
+        }
     }
 </script>
 </body>

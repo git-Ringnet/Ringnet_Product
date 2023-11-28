@@ -14,7 +14,7 @@
                     <span class="font-weight-bold">Báo giá mới</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <button type="submit" name="submit" value="1"
+                    <button type="submit" name="submit" value="1" onclick="kiemTraFormGiaoHang();"
                         class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -612,7 +612,7 @@
             // Tạo các phần tử HTML mới
             const newRow = $("<tr>", {
                 "id": `dynamic-row-${fieldCounter}`,
-                "class": `bg-white`,
+                "class": `bg-white addProduct`,
             });
             const maSanPham = $(
                 "<td class='border border-left-0 border-top-0 border-bottom-0 position-relative'>" +
@@ -1186,6 +1186,23 @@
             status_form = 0;
         }
     });
+    //
+    function kiemTraFormGiaoHang() {
+        var rows = document.querySelectorAll('tr');
+        var hasProducts = false;
+
+        for (var i = 1; i < rows.length; i++) {
+            if (rows[i].classList.contains('addProduct')) {
+                hasProducts = true;
+            }
+        }
+
+        // Hiển thị thông báo nếu không có sản phẩm
+        if (!hasProducts) {
+            alert("Không có sản phẩm để báo giá");
+            event.preventDefault();
+        }
+    }
 </script>
 </body>
 

@@ -83,7 +83,7 @@ class Delivery extends Model
     {
         $product = Delivery::join('delivered', 'delivery.id', '=', 'delivered.delivery_id')
             ->join('quoteexport', 'delivered.product_id', '=', 'quoteexport.product_id')
-            ->join('products', 'products.id', 'quoteexport.product_id')
+            ->join('products', 'products.id', 'delivered.product_id')
             ->where('delivery.id', $id)
             ->select(
                 '*',
@@ -136,7 +136,7 @@ class Delivery extends Model
                 }
             }
         }
-        for ($i = 0; $i < count($data['product_code']); $i++) {
+        for ($i = 0; $i < count($data['product_name']); $i++) {
             $product = Products::find($data['product_id'][$i]);
             if ($product) {
                 $result = $product->product_inventory - $data['product_qty'][$i];

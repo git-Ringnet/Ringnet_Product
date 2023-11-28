@@ -19,7 +19,7 @@ class Delivered extends Model
 
     public function addDelivered($data, $id)
     {
-        for ($i = 0; $i < count($data['product_code']); $i++) {
+        for ($i = 0; $i < count($data['product_name']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
             if (!empty($data['price_import'][$i])) {
                 $priceImport = str_replace(',', '', $data['price_import'][$i]);

@@ -27,7 +27,7 @@ class QuoteExport extends Model
     }
     public function addQuoteExport($data, $id)
     {
-        for ($i = 0; $i < count($data['product_code']); $i++) {
+        for ($i = 0; $i < count($data['product_name']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
             if (!empty($data['price_import'][$i])) {
                 $priceImport = str_replace(',', '', $data['price_import'][$i]);
@@ -93,7 +93,7 @@ class QuoteExport extends Model
             $quoteExports->each(function ($quoteExport) {
                 $quoteExport->delete();
             });
-            for ($i = 0; $i < count($data['product_code']); $i++) {
+            for ($i = 0; $i < count($data['product_name']); $i++) {
                 $price = str_replace(',', '', $data['product_price'][$i]);
                 if (!empty($data['price_import'][$i])) {
                     $priceImport = str_replace(',', '', $data['price_import'][$i]);

@@ -76,7 +76,7 @@ class BillSaleController extends Controller
             ->join('quoteexport', 'product_bill.product_id', '=', 'quoteexport.product_id')
             ->where('bill_sale.id', $id)
             ->select(
-                'bill_sale.*',
+                'bill_sale.*',  
                 'product_bill.*',
                 'quoteexport.*',
             )

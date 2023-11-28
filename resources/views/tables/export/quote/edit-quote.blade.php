@@ -1364,6 +1364,14 @@
 
         return formattedValue;
     }
+    var productNameInputs = document.querySelectorAll('.product_name');
+
+    productNameInputs.forEach(function(input) {
+        input.addEventListener('input', function() {
+            var productIdInput = this.parentElement.querySelector('.product_id');
+            productIdInput.value = '';
+        });
+    });
 </script>
 </body>
 

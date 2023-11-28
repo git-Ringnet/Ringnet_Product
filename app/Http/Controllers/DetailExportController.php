@@ -119,9 +119,14 @@ class DetailExportController extends Controller
     public function update(Request $request, string $id)
     {
         if ($request->action == "action_1") {
-            $export_id = $this->detailExport->updateExport($request->all(), $id);
-            $this->quoteExport->updateQuoteExport($request->all(), $export_id);
-            return redirect()->route('detailExport.index')->with('msg', 'Cập nhật đơn báo giá thành công!');
+            $detailExport = DetailExport::find($id);
+            if ($detailExport->status == 1) {
+                $export_id = $this->detailExport->updateExport($request->all(), $id);
+                $this->quoteExport->updateQuoteExport($request->all(), $export_id);
+                return redirect()->route('detailExport.index')->with('msg', 'Cập nhật đơn báo giá thành công!');
+            } else {
+                return redirect()->route('detailExport.index')->with('warning', 'Cập nhật không thành công!');
+            }
         }
         if ($request->action == "action_2") {
             $delivery_id = $this->delivery->addDelivery($request->all());

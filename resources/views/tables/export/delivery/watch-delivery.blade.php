@@ -127,8 +127,8 @@
                                             <th class="border-right">Thành tiền</th>
                                             <th class="p-0 bg-secondary border-0 Daydu" style="width:1%;"></th>
                                             <th class="border-right product_ratio">Hệ số nhân</th>
-                                            <th class="border-right price_import">Giá nhập</th>
-                                            <th class="border-right note">Ghi chú</th> --}}
+                                            <th class="border-right price_import">Giá nhập</th> --}}
+                                            <th class="border-right note">Ghi chú</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -240,7 +240,7 @@
                                                         value="{{ number_format($item_quote->price_import) }}">
                                                 </td>
                                                 <td
-                                                    class="border border-top-0 border-bottom-0 position-relative note p-1 d-none">
+                                                    class="border border-top-0 border-bottom-0 position-relative note p-1">
                                                     <input type="text" class="border-0 py-1 w-100" readonly
                                                         name="product_note[]"
                                                         value="{{ $item_quote->product_note }}">

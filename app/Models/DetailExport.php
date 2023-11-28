@@ -47,7 +47,7 @@ class DetailExport extends Model
         $totalTax = 0;
         $transport = str_replace(',', '', $data['transport_fee']);
         $discount = str_replace(',', '', $data['discount']);
-        for ($i = 0; $i < count($data['product_code']); $i++) {
+        for ($i = 0; $i < count($data['product_name']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
             $subtotal = $data['product_qty'][$i] * (float) $price;
             $subTax = ($subtotal * $data['product_tax'][$i]) / 100;
@@ -112,7 +112,7 @@ class DetailExport extends Model
             $totalTax = 0;
             $transport = str_replace(',', '', $data['transport_fee']);
             $discount = str_replace(',', '', $data['discount']);
-            for ($i = 0; $i < count($data['product_code']); $i++) {
+            for ($i = 0; $i < count($data['product_name']); $i++) {
                 $price = str_replace(',', '', $data['product_price'][$i]);
                 $subtotal = $data['product_qty'][$i] * (float) $price;
                 $subTax = ($subtotal * $data['product_tax'][$i]) / 100;

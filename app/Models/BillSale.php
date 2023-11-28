@@ -29,7 +29,7 @@ class BillSale extends Model
     {
         $totalBeforeTax = 0;
         $totalTax = 0;
-        for ($i = 0; $i < count($data['product_code']); $i++) {
+        for ($i = 0; $i < count($data['product_name']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
             $subtotal = $data['product_qty'][$i] * (float) $price;
             $subTax = ($subtotal * $data['product_tax'][$i]) / 100;

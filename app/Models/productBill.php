@@ -19,7 +19,7 @@ class productBill extends Model
 
     public function addProductBill($data, $id)
     {
-        for ($i = 0; $i < count($data['product_code']); $i++) {
+        for ($i = 0; $i < count($data['product_name']); $i++) {
             if ($data['product_id'][$i] != null) {
                 $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])->first();
                 if ($quoteExport) {
