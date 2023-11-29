@@ -27,7 +27,7 @@ class Attachment extends Model
     {
         $getFile = $data['file'];
         $name = $getFile->getClientOriginalName();
-        $fullPath = storage_path('backup');
+        $fullPath = storage_path('backup/DMH');
         $getFile->move($fullPath, $name);
         $dataAttachment = [
             'table_id' => $table_id,
