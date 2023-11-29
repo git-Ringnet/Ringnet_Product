@@ -91,23 +91,25 @@ class PdfController extends Controller
                 'quoteexport.*',
             )
             ->get();
+        $bg = url('dist/img/logo-2050x480-1.png');
         $data = [
             'delivery' => $billSale,
             'product' => $product,
-            'date' => $billSale->created_at
+            'date' => $billSale->created_at,
+            'bg' => $bg,
         ];
 
         $pdf = Pdf::loadView('pdf.delivery', compact('data'))
             ->setPaper('A4', 'portrait')
             ->setOptions([
                 'defaultFont' => 'sans-serif',
-                'dpi' => 140,
+                'dpi' => 100,
                 'isHtml5ParserEnabled' => true,
                 'isPhpEnabled' => true,
                 'enable_remote' => false,
+
             ]);
         return $pdf->download('delivery.pdf');
-        // dd($data);
         // return view('pdf.delivery', compact('data'));
     }
 }

@@ -22,7 +22,8 @@ class Provides extends Model
         'provide_address_delivery',
     ];
 
-    public function getAllDetail(){
+    public function getAllDetail()
+    {
         return $this->hasMany(DetailImport::class, 'provide_id', 'id');
     }
 
@@ -58,5 +59,53 @@ class Provides extends Model
     public function updateProvide($data, $id)
     {
         return DB::table($this->table)->where('id', $id)->update($data);
+    }
+    public function getprovidebyCode($data)
+    {
+        $provides = DB::table($this->table);
+        if (isset($data['idCode'])) {
+            $provides = $provides->whereIn('provides.id', $data['idCode']);
+        }
+        $provides = $provides->pluck('provide_code')->all();
+        return $provides;
+    }
+    public function getprovidebyName($data)
+    {
+        $provides = DB::table($this->table);
+        if (isset($data['idName'])) {
+            $provides = $provides->whereIn('provides.id', $data['idName']);
+        }
+        $provides = $provides->pluck('provide_name_display')->all();
+        return $provides;
+    }
+    public function ajax($data)
+    {
+        $provides =  DB::table($this->table);
+        if (isset($data['search'])) {
+            $provides = $provides->where(function ($query) use ($data) {
+                $query->orWhere('provide_code', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('provide_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['idName'])) {
+            $provides = $provides->whereIn('provides.id', $data['idName']);
+        }
+        if (isset($data['idCode'])) {
+            $provides = $provides->whereIn('provides.id', $data['idCode']);
+        }
+        if (isset($data['email'])) {
+            $provides = $provides->where('provide_email', 'like', '%' . $data['email'] . '%');
+        }
+        if (isset($data['phone'])) {
+            $provides = $provides->where('provide_phone', 'like', '%' . $data['phone'] . '%');
+        }
+        if (isset($data['debt'][0]) && isset($data['debt'][1])) {
+            $provides = $provides->where('provide_debt', $data['debt'][0], $data['debt'][1]);
+        }
+        if (isset($data['sort_by']) && $data['sort_type']) {
+            $provides = $provides->orderBy($data['sort_by'], $data['sort_type']);
+        }
+        $provides = $provides->get();
+        return $provides;
     }
 }

@@ -36,6 +36,8 @@ Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProduc
 
 // Nhà cung cấp
 Route::resource('provides', ProvidesController::class);
+Route::get('/searchProvides', [ProvidesController::class, 'search'])->name('searchProvides');
+
 // Khách hàng
 Route::resource('guests', GuestController::class);
 Route::get('/search', [GuestController::class, 'search'])->name('search');
@@ -49,7 +51,9 @@ Route::get('/getAllProducts', [DetailImportController::class, 'getAllProducts'])
 Route::get('/showProductName', [DetailImportController::class, 'showProductName'])->name('showProductName');
 Route::get('/checkSN', [DetailImportController::class, 'checkSN'])->name('checkSN');
 Route::get('/checkduplicateSN', [DetailImportController::class, 'checkduplicateSN'])->name('checkduplicateSN');
-Route::POST('addAttachment',[DetailImportController::class,'addAttachment'])->name('addAttachment');
+Route::POST('addAttachment', [DetailImportController::class, 'addAttachment'])->name('addAttachment');
+Route::get('/download/{file?}', [DetailImportController::class, 'downloadFile'])->name('downloadFile');
+
 
 // Đơn nhận hàng
 Route::resource('receive', ReceiveController::class);
