@@ -23,11 +23,11 @@ class Attachment extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
-    public function addAttachment($data,$table_id,$table_name)
+    public function addAttachment($data, $table_id, $table_name)
     {
         $getFile = $data['file'];
         $name = $getFile->getClientOriginalName();
-        $fullPath = storage_path('backup/DMH');
+        $fullPath = storage_path('backup/' . $table_name);
         $getFile->move($fullPath, $name);
         $dataAttachment = [
             'table_id' => $table_id,

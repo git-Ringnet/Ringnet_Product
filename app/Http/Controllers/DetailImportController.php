@@ -19,6 +19,7 @@ use App\Models\Serialnumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 
 class DetailImportController extends Controller
 {
@@ -273,18 +274,24 @@ class DetailImportController extends Controller
         $this->attachment->addAttachment($request->all(), $request->detail_id, 'DMH');
         return redirect()->back()->with('msg', 'Thêm file thành công !');
     }
+
     public function downloadFile($file)
     {
-        $backupPath = storage_path('app/backupdata/');
+        $backupPath = storage_path('backup/DMH/');
         $filePath = $backupPath . $file;
 
         if (file_exists($filePath)) {
             $headers = [
-                'Content-Type' => 'application/sql',
+                'Content-Type' => 'application/octet-stream',
             ];
             return Response::download($filePath, $file, $headers);
         } else {
             return back()->with('error', 'Tệp backup không tồn tại.');
         }
+    }
+    public function getFileSize($file_path)
+    {
+        // Ensure $this->file_path begins with '/public/';
+        return Storage::size($file_path);
     }
 }

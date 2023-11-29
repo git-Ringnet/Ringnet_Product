@@ -36,11 +36,13 @@ class DetailImport extends Model
     {
         return $this->hasOne(Project::class, 'id', 'project_id');
     }
-    public function getProductImport(){
+    public function getProductImport()
+    {
         return $this->hasMany(QuoteImport::class, 'detailimport_id', 'id');
     }
-    public function getAttachment($name){
-        return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name',$name)->get();
+    public function getAttachment($name)
+    {
+        return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name', $name)->get();
     }
 
 

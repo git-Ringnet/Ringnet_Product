@@ -23,20 +23,21 @@
                         </td>
                         <td>{{ date_format(new DateTime($item->created_at), 'd-m-Y') }}</td>
                         <td>
+                            {{ filesize(storage_path('backup/DMH/' . $item->file_name)) }}
                         </td>
                         <td>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
-                                fill="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M27.9998 15.9997C27.9998 14.5269 26.8059 13.333 25.3332 13.333C23.8604 13.333 22.6665 14.5269 22.6665 15.9997C22.6665 17.4724 23.8604 18.6663 25.3332 18.6663C26.8059 18.6663 27.9998 17.4724 27.9998 15.9997Z"
-                                    fill="#42526E" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M18.6668 15.9997C18.6668 14.5269 17.4729 13.333 16.0002 13.333C14.5274 13.333 13.3335 14.5269 13.3335 15.9997C13.3335 17.4724 14.5274 18.6663 16.0002 18.6663C17.4729 18.6663 18.6668 17.4724 18.6668 15.9997Z"
-                                    fill="#42526E" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M9.33333 15.9997C9.33333 14.5269 8.13943 13.333 6.66667 13.333C5.19391 13.333 4 14.5269 4 15.9997C4 17.4724 5.19391 18.6663 6.66667 18.6663C8.13943 18.6663 9.33333 17.4724 9.33333 15.9997Z"
-                                    fill="#42526E" />
-                            </svg>
+                            <a href="{{ route('downloadFile', ['file' => $item->file_name]) }}" download><svg
+                                    width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M20.0004 10.4023H22.0002C22.5306 10.4023 23.0392 10.613 23.4143 10.9881C23.7893 11.3631 24 11.8718 24 12.4021V22.8024C24 23.3328 23.7893 23.8414 23.4143 24.2165C23.0392 24.5915 22.5306 24.8022 22.0002 24.8022H9.99982C9.46943 24.8022 8.96077 24.5915 8.58573 24.2165C8.21069 23.8414 8 23.3328 8 22.8024V12.4021C8 11.8718 8.21069 11.3631 8.58573 10.9881C8.96077 10.613 9.46943 10.4023 9.99982 10.4023H11.9996"
+                                        stroke="#555555" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M11.9996 15.1992L15.9993 19.1988L20.0004 15.1992" stroke="#555555"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M16.0007 4V18.3999" stroke="#555555" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </a>
                         </td>
                     </tr>
                 @endforeach

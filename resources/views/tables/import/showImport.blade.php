@@ -504,7 +504,7 @@
                     </div>
 
                     <div id="files" class="tab-pane fade">
-                        <x-form-attachment :value="$import"> </x-form-attachment>
+                        <x-form-attachment :value="$import"></x-form-attachment>
                     </div>
                 </div>
             </div>
