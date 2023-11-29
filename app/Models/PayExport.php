@@ -20,6 +20,19 @@ class PayExport extends Model
     ];
     protected $table = 'pay_export';
 
+
+    public function checkSL($data)
+    {
+        $payExport = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->select('*', 'detailexport.id as maXuat')
+            ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_payment, 0) as soLuong')
+            ->where('detailexport.id', $data['detailexport_id'])
+            ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_payment, 0) > 0')
+            ->get();
+        $check = !$payExport->isEmpty();
+        return $check;
+    }
+
     public function addPayExport($data)
     {
         if (isset($data['total'])) {

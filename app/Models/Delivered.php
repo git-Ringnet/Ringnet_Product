@@ -40,7 +40,9 @@ class Delivered extends Model
                 $product = new Products($dataProduct);
                 $product->save();
             } else {
-                $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])->first();
+                $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])
+                    ->where('detailexport_id', $data['detailexport_id'])
+                    ->first();
                 if ($quoteExport) {
                     $quoteExport->qty_delivery += $data['product_qty'][$i];
                     $quoteExport->save();
@@ -55,6 +57,49 @@ class Delivered extends Model
                 'updated_at' => Carbon::now(),
             ];
             DB::table($this->table)->insert($dataDelivered);
+        }
+    }
+    public function addDeliveredQuick($data, $id)
+    {
+        for ($i = 0; $i < count($data['product_name']); $i++) {
+            $price = str_replace(',', '', $data['product_price'][$i]);
+            if (!empty($data['price_import'][$i])) {
+                $priceImport = str_replace(',', '', $data['price_import'][$i]);
+            } else {
+                $priceImport = null;
+            }
+            $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])
+                ->where('detailexport_id', $data['detailexport_id'])
+                ->first();
+            $result = $quoteExport->product_qty - $quoteExport->qty_delivery;
+            if ($data['product_id'][$i] == null) {
+                $dataProduct = [
+                    'product_code' => $data['product_code'][$i],
+                    'product_name' => $data['product_name'][$i],
+                    'product_unit' => $data['product_unit'][$i],
+                    'product_tax' => $data['product_tax'][$i],
+                    'product_guarantee' => 1,
+                    'product_price_export' => $price,
+                    'product_price_import' => isset($priceImport) ? $priceImport : 0,
+                    'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
+                ];
+                $product = new Products($dataProduct);
+                $product->save();
+            } else {
+                $quoteExport->qty_delivery += $result;
+                $quoteExport->save();
+            }
+
+            if ($result > 0) {
+                $dataDelivered = [
+                    'delivery_id' => $id,
+                    'product_id' => $data['product_id'][$i],
+                    'deliver_qty' => $result,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+                DB::table($this->table)->insert($dataDelivered);
+            }
         }
     }
 }

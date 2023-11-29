@@ -111,7 +111,7 @@
                                             </div>
                                             <div class="w-100">
                                                 <input type="text" placeholder="Nhập thông tin" name="payment"
-                                                    required
+                                                    required oninput="validateInput();"
                                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 payment">
                                             </div>
                                         </div>
@@ -281,7 +281,7 @@
                                                         <td
                                                             class="border border-top-0 border-bottom-0 position-relative">
                                                             <input type="text" readonly
-                                                                value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
+                                                                value="{{ is_int($item_quote->pay_qty) ? $item_quote->pay_qty : rtrim(rtrim(number_format($item_quote->pay_qty, 4, '.', ''), '0'), '.') }}"
                                                                 class="border-0 px-2 py-1 w-100 quantity-input"
                                                                 autocomplete="off" name="product_qty[]">
                                                             <input type="hidden" class="tonkho">
@@ -1435,6 +1435,17 @@
             formattedIntegerPart;
 
         return formattedNumber;
+    }
+
+    function validateInput() {
+        var duNoValue = document.querySelector('.duNo').value;
+        var paymentInput = document.querySelector('.payment');
+        var paymentValue = paymentInput.value;
+        var duNoNumber = parseFloat(duNoValue.replace(/,/g, ''));
+        var paymentNumber = parseFloat(paymentValue.replace(/,/g, ''));
+        if (paymentNumber < 0 || paymentNumber > duNoNumber) {
+            paymentInput.value = duNoValue;
+        }
     }
 </script>
 </body>

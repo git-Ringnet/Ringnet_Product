@@ -33,12 +33,30 @@ class PayExportController extends Controller
         $title = "Thanh toán bán hàng";
         $payExport = PayExport::leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'pay_export.guest_id', 'guest.id')
+            ->leftJoin('history_payment_export', 'pay_export.id', 'history_payment_export.pay_id')
             ->select(
-                'detailexport.*',
-                'guest.*',
-                'pay_export.*',
+                'detailexport.quotation_number',
+                'guest.guest_name_display',
+                'pay_export.payment_date',
+                'pay_export.total',
                 'pay_export.id as idThanhToan',
-                DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo')
+                'pay_export.debt',
+                'pay_export.status',
+                'pay_export.payment',
+                DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
+                DB::raw('SUM(history_payment_export.payment) as tongThanhToan')
+            )
+            ->groupby(
+                'detailexport.quotation_number',
+                'guest.guest_name_display',
+                'pay_export.payment_date',
+                'pay_export.total',
+                'pay_export.id',
+                'detailexport.total_price',
+                'detailexport.total_tax',
+                'pay_export.debt',
+                'pay_export.status',
+                'pay_export.payment',
             )
             ->get();
         return view('tables.export.pay_export.list-payExport', compact('title', 'payExport'));
@@ -103,13 +121,38 @@ class PayExportController extends Controller
         } else {
             $noConLaiValue = $payExport->tongTienNo;
         }
-        $product = PayExport::join('product_pay', 'pay_export.id', '=', 'product_pay.pay_id')
-            ->join('quoteexport', 'product_pay.product_id', '=', 'quoteexport.product_id')
+        $product = PayExport::join('quoteexport', 'pay_export.detailexport_id', '=', 'quoteexport.detailexport_id')
+            ->leftJoin('product_pay', function ($join) {
+                $join->on('product_pay.pay_id', '=', 'pay_export.id');
+                $join->on('product_pay.product_id', '=', 'quoteexport.product_id');
+            })
             ->where('pay_export.id', $id)
+            ->join('products', 'products.id', 'product_pay.product_id')
             ->select(
-                'pay_export.*',
-                'product_pay.*',
-                'quoteexport.*',
+                'quoteexport.product_id',
+                'quoteexport.product_code',
+                'quoteexport.product_name',
+                'quoteexport.product_unit',
+                'quoteexport.price_export',
+                'quoteexport.product_tax',
+                'quoteexport.product_note',
+                'quoteexport.product_total',
+                'quoteexport.product_ratio',
+                'quoteexport.price_import',
+                'product_pay.pay_qty'
+            )
+            ->groupBy(
+                'quoteexport.product_id',
+                'quoteexport.product_code',
+                'quoteexport.product_name',
+                'quoteexport.product_unit',
+                'quoteexport.price_export',
+                'quoteexport.product_tax',
+                'quoteexport.product_note',
+                'quoteexport.product_total',
+                'quoteexport.product_ratio',
+                'quoteexport.price_import',
+                'product_pay.pay_qty'
             )
             ->get();
         $history = history_Pay_Export::where('pay_id', $id)->get();

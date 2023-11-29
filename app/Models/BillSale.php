@@ -25,6 +25,19 @@ class BillSale extends Model
             ->get();
         return $bill_sale;
     }
+
+    public function checkSL($data)
+    {
+        $bill_sale = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->select('*', 'detailexport.id as maXuat')
+            ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_bill_sale, 0) as soLuong')
+            ->where('detailexport.id', $data['detailexport_id'])
+            ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_bill_sale, 0) > 0')
+            ->get();
+        $check = !$bill_sale->isEmpty();
+        return $check;
+    }
+
     public function addBillSale($data)
     {
         $totalBeforeTax = 0;
@@ -65,6 +78,7 @@ class BillSale extends Model
         }
         return $bill_sale->id;
     }
+
     public function updateDetailExport($detailexport_id)
     {
         $quoteExports = QuoteExport::where('detailexport_id', $detailexport_id)->get();

@@ -159,7 +159,7 @@
                                                 id="checkbox" value="" onclick="event.stopPropagation();">
                                             </td>
                                             <td class="">
-                                                {{ $item_pay->id }}
+                                                {{ $item_pay->idThanhToan }}
                                             </td>
                                             <td class="">
                                                 {{ $item_pay->quotation_number }}

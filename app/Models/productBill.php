@@ -21,7 +21,9 @@ class productBill extends Model
     {
         for ($i = 0; $i < count($data['product_name']); $i++) {
             if ($data['product_id'][$i] != null) {
-                $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])->first();
+                $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])
+                    ->where('detailexport_id', $data['detailexport_id'])
+                    ->first();
                 if ($quoteExport) {
                     $quoteExport->qty_bill_sale += $data['product_qty'][$i];
                     $quoteExport->save();
@@ -36,6 +38,30 @@ class productBill extends Model
                 'updated_at' => Carbon::now(),
             ];
             DB::table($this->table)->insert($dataBill);
+        }
+    }
+    public function addProductBillQuick($data, $id)
+    {
+        for ($i = 0; $i < count($data['product_name']); $i++) {
+            $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])
+                ->where('detailexport_id', $data['detailexport_id'])
+                ->first();
+            $result = $quoteExport->product_qty - $quoteExport->qty_bill_sale;
+            if ($data['product_id'][$i] != null) {
+                $quoteExport->qty_bill_sale += $result;
+                $quoteExport->save();
+            }
+
+            if ($result > 0) {
+                $dataBill = [
+                    'billSale_id' => $id,
+                    'product_id' => $data['product_id'][$i],
+                    'billSale_qty' => $result,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+                DB::table($this->table)->insert($dataBill);
+            }
         }
     }
 }

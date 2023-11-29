@@ -118,8 +118,8 @@ class DetailExportController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $detailExport = DetailExport::find($id);
         if ($request->action == "action_1") {
-            $detailExport = DetailExport::find($id);
             if ($detailExport->status == 1) {
                 $export_id = $this->detailExport->updateExport($request->all(), $id);
                 $this->quoteExport->updateQuoteExport($request->all(), $export_id);
@@ -129,19 +129,46 @@ class DetailExportController extends Controller
             }
         }
         if ($request->action == "action_2") {
-            $delivery_id = $this->delivery->addDelivery($request->all());
-            $this->delivered->addDelivered($request->all(), $delivery_id);
-            return redirect()->route('watchDelivery', ['id' => $delivery_id])->with('msg', ' Tạo mới đơn giao hàng thành công!');
+            if ($detailExport->status_receive == 2) {
+                return redirect()->route('detailExport.index')->with('warning', 'Tạo mới đơn giao hàng không thành công!');
+            } else {
+                $check = $this->delivery->checkSL($request->all());
+                if (!$check) {
+                    return redirect()->route('detailExport.index')->with('warning', 'Tạo mới đơn giao hàng không thành công!');
+                } else {
+                    $delivery_id = $this->delivery->addDelivery($request->all());
+                    $this->delivered->addDeliveredQuick($request->all(), $delivery_id);
+                    return redirect()->route('watchDelivery', ['id' => $delivery_id])->with('msg', ' Tạo mới đơn giao hàng thành công!');
+                }
+            }
         }
         if ($request->action == "action_3") {
-            $billSale_id = $this->billSale->addBillSale($request->all());
-            $this->productBill->addProductBill($request->all(), $billSale_id);
-            return redirect()->route('billSale.edit', ['billSale' => $billSale_id])->with('msg', ' Tạo mới hóa đơn bán hàng thành công!');
+            if ($detailExport->status_reciept == 2) {
+                return redirect()->route('detailExport.index')->with('warning', 'Tạo mới hóa đơn bán hàng không thành công!');
+            } else {
+                $check = $this->billSale->checkSL($request->all());
+                if (!$check) {
+                    return redirect()->route('detailExport.index')->with('warning', 'Tạo mới hóa đơn bán hàng không thành công!');
+                } else {
+                    $billSale_id = $this->billSale->addBillSale($request->all());
+                    $this->productBill->addProductBillQuick($request->all(), $billSale_id);
+                    return redirect()->route('billSale.edit', ['billSale' => $billSale_id])->with('msg', ' Tạo mới hóa đơn bán hàng thành công!');
+                }
+            }
         }
         if ($request->action == "action_4") {
-            $pay_id = $this->payExport->addPayExport($request->all());
-            $this->productPay->addProductPay($request->all(), $pay_id);
-            return redirect()->route('payExport.edit', ['payExport' => $pay_id])->with('msg', 'Tạo đơn thanh toán hàng thành công!');
+            if ($detailExport->status_pay == 2) {
+                return redirect()->route('detailExport.index')->with('warning', 'Tạo mới thanh toán hàng không thành công!');
+            } else {
+                $check = $this->payExport->checkSL($request->all());
+                if (!$check) {
+                    return redirect()->route('detailExport.index')->with('warning', 'Tạo mới thanh toán hàng không thành công!');
+                } else {
+                    $pay_id = $this->payExport->addPayExport($request->all());
+                    $this->productPay->addProductPayQuick($request->all(), $pay_id);
+                    return redirect()->route('payExport.edit', ['payExport' => $pay_id])->with('msg', 'Tạo đơn thanh toán hàng thành công!');
+                }
+            }
         }
     }
 
