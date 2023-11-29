@@ -49,6 +49,7 @@ Route::get('/getAllProducts', [DetailImportController::class, 'getAllProducts'])
 Route::get('/showProductName', [DetailImportController::class, 'showProductName'])->name('showProductName');
 Route::get('/checkSN', [DetailImportController::class, 'checkSN'])->name('checkSN');
 Route::get('/checkduplicateSN', [DetailImportController::class, 'checkduplicateSN'])->name('checkduplicateSN');
+Route::POST('addAttachment',[DetailImportController::class,'addAttachment'])->name('addAttachment');
 
 // Đơn nhận hàng
 Route::resource('receive', ReceiveController::class);

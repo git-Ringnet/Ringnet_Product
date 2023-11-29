@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
 use App\Models\DetailImport;
 use App\Models\HistoryImport;
 use App\Models\HistoryPaymentOrder;
@@ -31,6 +32,7 @@ class DetailImportController extends Controller
     private $payment;
     private $history_import;
     private $historyPayment;
+    private $attachment;
     public function __construct()
     {
         $this->detailImport = new DetailImport();
@@ -44,6 +46,7 @@ class DetailImportController extends Controller
         $this->payment = new PayOder();
         $this->history_import = new HistoryImport();
         $this->historyPayment = new HistoryPaymentOrder();
+        $this->attachment = new Attachment();
     }
     /**
      * Display a listing of the resource.
@@ -263,5 +266,10 @@ class DetailImportController extends Controller
     public function checkduplicateSN(Request $request)
     {
         return $this->sn->checkSN($request->all());
+    }
+    public function addAttachment(Request $request)
+    {
+        $this->attachment->addAttachment($request->all(),$request->detail_id,'DMH');
+        return redirect()->back()->with('msg', 'Restore dữ liệu thành công !');
     }
 }
