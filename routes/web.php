@@ -116,6 +116,10 @@ Route::resource('payExport', PayExportController::class);
 Route::get('/getInfoPay', [PayExportController::class, 'getInfoPay'])->name('getInfoPay');
 Route::get('/getProductPay', [PayExportController::class, 'getProductPay'])->name('getProductPay');
 
+//danh sách serial number theo product
+Route::get('/getProductSeri', [ProductController::class, 'getProductSeri'])->name('getProductSeri');
+Route::get('/getProductSeriEdit', [ProductController::class, 'getProductSeriEdit'])->name('getProductSeriEdit');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

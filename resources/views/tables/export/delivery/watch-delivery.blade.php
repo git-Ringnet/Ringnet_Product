@@ -4,7 +4,7 @@
     <form action="{{ route('delivery.update', $delivery->soGiaoHang) }}" method="POST" id="deliveryForm">
         @csrf
         @method('PUT')
-        <input type="hidden" name="detailexport_id" id="detailexport_id">
+        <input type="hidden" name="detailexport_id" id="detailexport_id" value="{{$delivery->detailexport_id}}">
         <!-- Content Header (Page header) -->
         <section class="content-header p-0">
             <div class="container-fluided">
@@ -196,17 +196,48 @@
                                                         name="product_unit[]">
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 position-relative">
-                                                    <input type="text" readonly
-                                                        value="{{ is_int($item_quote->deliver_qty) ? $item_quote->deliver_qty : rtrim(rtrim(number_format($item_quote->deliver_qty, 4, '.', ''), '0'), '.') }}"
-                                                        class="border-0 px-2 py-1 w-100 quantity-input"
-                                                        autocomplete="off" name="product_qty[]">
-                                                    <input type="hidden" class="tonkho">
-                                                    <p class="text-primary text-center position-absolute inventory"
-                                                        style="top: 68%;">Tồn kho:
-                                                        <span
-                                                            class="soTonKho">{{ is_int($item_quote->product_inventory) ? $item_quote->product_inventory : rtrim(rtrim(number_format($item_quote->product_inventory, 4, '.', ''), '0'), '.') }}
-                                                        </span>
-                                                    </p>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="">
+                                                            <input type="text" readonly
+                                                                value="{{ is_int($item_quote->deliver_qty) ? $item_quote->deliver_qty : rtrim(rtrim(number_format($item_quote->deliver_qty, 4, '.', ''), '0'), '.') }}"
+                                                                class="border-0 px-2 py-1 w-100 quantity-input"
+                                                                autocomplete="off" name="product_qty[]">
+                                                            <input type="hidden" class="tonkho">
+                                                            <p class="text-primary text-center position-absolute inventory"
+                                                                style="top: 68%;">Tồn kho:
+                                                                <span
+                                                                    class="soTonKho">{{ is_int($item_quote->product_inventory) ? $item_quote->product_inventory : rtrim(rtrim(number_format($item_quote->product_inventory, 4, '.', ''), '0'), '.') }}
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                        <div class="">
+
+                                                            <a href="#" class="btn btn-primary sn1"
+                                                                data-toggle="modal" data-target="#exampleModal0"
+                                                                style="background:transparent; border:none;">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="32"
+                                                                    height="32" viewBox="0 0 32 32"
+                                                                    fill="none">
+                                                                    <rect width="32" height="32"
+                                                                        rx="4" fill="white">
+                                                                    </rect>
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                        d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z"
+                                                                        fill="#0095F6"></path>
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                        d="M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z"
+                                                                        fill="#0095F6"></path>
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                        d="M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z"
+                                                                        fill="#0095F6"></path>
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                        d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z"
+                                                                        fill="#0095F6"></path>
+                                                                </svg>
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
                                                 </td>
                                                 <td
                                                     class="border border-top-0 border-bottom-0 position-relative d-none">
@@ -336,8 +367,74 @@
             </div>
         </div>
     </div>
+    {{-- Modal seri --}}
+    <div id="list_modal">
+        <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel"
+            style="display: none;" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
+                        <a href="#" class="close btnclose" data-dismiss="" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </a>
+                    </div>
+                    <div class="modal-body">
+                        <table id="table_SNS">
+                            <thead>
+                                <tr>
+                                    <td style="width:2%"></td>
+                                    <th style="width:5%">STT</th>
+                                    <th style="width:100%">Serial number</th>
+                                    <th style="width:3%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary check-seri" data-dismiss="">
+                            Save changes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
+    //Lấy thông tin SN
+    var selectedSerialNumbers = [];
+    $(document).ready(function() {
+        $('.sn1').on('click', function() {
+            $("#exampleModal0 .modal-body tbody").empty();
+            var trElement = $(this).closest('tr');
+            var productInput = trElement.find('.product_id');
+            var productId = productInput.val();
+            var detailExportId = $("#detailexport_id").val();
+            var selectedSerialNumbersForProduct = selectedSerialNumbers[productId] || [];
+            var qty_enter = trElement.find('.quantity-input').val();
+            $.ajax({
+                url: "{{ route('getProductSeriEdit') }}",
+                method: 'GET',
+                data: {
+                    productId: productId,
+                    detailExportId: detailExportId,
+                },
+                success: function(response) {
+                    response.forEach(function(sn, index) {
+                        var newRow = `<tr>
+                        <td><input type="checkbox" class="check-item" value="${sn.id}"></td>
+                        <td>${index + 1}</td>
+                        <td><input class="form-control w-25" type="text" value="${sn.serinumber}" readonly=""></td>
+                    </tr>`;
+                        $("#exampleModal0 .modal-body tbody").append(newRow);
+                    });
+                }
+            });
+        });
+    });
     //Mở rộng
     var status_form = 0;
     $('.change_colum').off('click').on('click', function() {
@@ -480,17 +577,26 @@
 
         for (var i = 1; i < rows.length; i++) {
             var row = rows[i];
-            var quantityInput = parseInt(row.querySelector('.quantity-input').value);
-            var soTonKho = parseInt(row.querySelector('.soTonKho').innerText);
-            var productName = row.querySelector('.product_name').value;
+            var quantityInput = row.querySelector('.quantity-input');
+            var soTonKhoElement = row.querySelector('.soTonKho');
+            var productNameInput = row.querySelector('.product_name');
 
-            if (quantityInput > soTonKho) {
-                invalidProducts.push(productName);
-            }
+            // Kiểm tra xem phần tử có tồn tại không
+            if (quantityInput && soTonKhoElement && productNameInput) {
+                var quantityValue = parseInt(quantityInput.value);
+                var soTonKho = parseInt(soTonKhoElement.innerText);
+                var productName = productNameInput.value;
 
-            // Kiểm tra xem có thẻ tr nào có class addProduct không
-            if (row.classList.contains('addProduct')) {
-                hasProducts = true;
+                if (quantityValue > soTonKho) {
+                    invalidProducts.push(productName);
+                }
+
+                // Kiểm tra xem có thẻ tr nào có class addProduct không
+                if (row.classList.contains('addProduct')) {
+                    hasProducts = true;
+                }
+            } else {
+                console.error('Phần tử không tồn tại trong hàng ' + i);
             }
         }
 

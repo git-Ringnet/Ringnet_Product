@@ -6,6 +6,7 @@ use App\Models\Delivered;
 use App\Models\Delivery;
 use App\Models\DetailExport;
 use App\Models\Products;
+use App\Models\Serialnumber;
 use Illuminate\Http\Request;
 
 class DeliveryController extends Controller

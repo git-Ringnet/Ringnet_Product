@@ -7,6 +7,7 @@ use App\Models\ProductImport;
 use App\Models\Products;
 use App\Models\Provides;
 use App\Models\QuoteImport;
+use App\Models\Serialnumber;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
 
@@ -67,8 +68,8 @@ class ProductController extends Controller
         if ($product) {
             $title = $product->product_name;
         }
-        $history = ProductImport::where('product_id',$id)->get();
-        return view('tables.products.showProduct', compact('product', 'title', 'display','history'));
+        $history = ProductImport::where('product_id', $id)->get();
+        return view('tables.products.showProduct', compact('product', 'title', 'display', 'history'));
     }
 
     /**
@@ -89,10 +90,10 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = $this->products->updateProduct($request->all(),$id);
+        $data = $this->products->updateProduct($request->all(), $id);
         if ($data == 1) {
             return redirect()->route('inventory.index')->with('msg', 'Chỉnh sửa sản phẩm thành công !');
-        }else{
+        } else {
             return redirect()->route('inventory.index')->with('warning', 'Chỉnh sửa sản phẩm thất bại !');
         }
     }
@@ -167,5 +168,21 @@ class ProductController extends Controller
                 'inventory' => [$request->input('inventory'), $request->input('inventory_op')],
             ];
         }
+    }
+    public function getProductSeri(Request $request)
+    {
+        $data = $request->all();
+        $serinumber = Serialnumber::where('product_id', $data['productId'])
+            ->where('status', 1)
+            ->get();
+        return response()->json($serinumber);
+    }
+
+    public function getProductSeriEdit(Request $request)
+    {
+        $data = $request->all();
+        $serinumber = Serialnumber::where('product_id', $data['productId'])
+            ->get();
+        return response()->json($serinumber);
     }
 }

@@ -177,5 +177,11 @@ class Delivery extends Model
                 ]);
             }
         }
+        $serinumber = Serialnumber::where('serialnumber.status', 3)
+            ->where('detailexport_id', $detailexport_id)
+            ->get();
+        $serinumber->each(function ($serial) {
+            $serial->update(['status' => 2]);
+        });
     }
 }

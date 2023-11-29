@@ -58,6 +58,19 @@ class Delivered extends Model
             ];
             DB::table($this->table)->insert($dataDelivered);
         }
+        if (isset($data['selected_serial_numbers'])) {
+            $selectedSerialNumbers = $data['selected_serial_numbers'];
+
+            foreach ($selectedSerialNumbers as $serialNumberId) {
+                $serialNumber = Serialnumber::find($serialNumberId);
+                if ($serialNumber) {
+                    $serialNumber->update([
+                        'detailexport_id' => $id,
+                        'status' => 3,
+                    ]);
+                }
+            }
+        }
     }
     public function addDeliveredQuick($data, $id)
     {
