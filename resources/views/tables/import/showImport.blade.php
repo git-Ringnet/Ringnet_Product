@@ -18,7 +18,9 @@
                 </div>
 
                 <div class="row m-0 mb-1">
-                    <a href="{{ route('import.edit', $import->id) }}" style="margin-right:10px" class="custom-btn d-flex align-items-center h-100">
+                    @if ($import->status == 1)
+                        <a href="{{ route('import.edit', $import->id) }}" style="margin-right:10px"
+                            class="custom-btn d-flex align-items-center h-100">
                             <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -26,7 +28,8 @@
                                     fill="white" />
                             </svg>
                             <span>Chỉnh sửa</span>
-                    </a>
+                        </a>
+                    @endif
                     <div class="dropdown">
                         <button type="button" data-toggle="dropdown"
                             class="btn-save-print d-flex align-items-center h-100 dropdown-toggle"

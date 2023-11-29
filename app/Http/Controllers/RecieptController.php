@@ -36,7 +36,8 @@ class RecieptController extends Controller
     {
         $title = "Tạo mới hóa đơn mua hàng";
         $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
-            ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
+            // ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
+            ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.reciept_qty,0)'))
             ->distinct()
             ->select('detailimport.quotation_number', 'detailimport.id')
             ->get();
@@ -51,10 +52,13 @@ class RecieptController extends Controller
         $id = $request->detailimport_id;
 
         // Tạo sản phẩm theo đơn nhận hàng
-        $this->productImport->addProductImport($request->all(), $id, 'reciept_id','reciept_qty');
-
-        $this->reciept->addReciept($request->all(), $id);
-        return redirect()->route('reciept.index')->with('msg', 'Tạo mới hóa đơn mua hàng thành công !');
+        $status = $this->productImport->addProductImport($request->all(), $id, 'reciept_id', 'reciept_qty');
+        if ($status) {
+            $this->reciept->addReciept($request->all(), $id);
+            return redirect()->route('reciept.index')->with('msg', 'Tạo mới hóa đơn mua hàng thành công !');
+        } else {
+            return redirect()->route('receive.index')->with('warning', 'Hóa đơn mua hàng đã đươc tạo hết !');
+        }
     }
 
     /**
@@ -98,9 +102,9 @@ class RecieptController extends Controller
     public function update(Request $request, string $id)
     {
         $result = $this->reciept->updateReciept($request->all(), $id);
-        if($result){
-              return redirect()->route('reciept.index')->with('msg', 'Xác nhận hóa đơn thành công !');
-        }else{
+        if ($result) {
+            return redirect()->route('reciept.index')->with('msg', 'Xác nhận hóa đơn thành công !');
+        } else {
             return redirect()->route('reciept.index')->with('warning', 'Hóa đơn đã được xác nhận !');
         }
     }

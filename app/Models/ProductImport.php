@@ -85,7 +85,7 @@ class ProductImport extends Model
                 // Thêm số lượng sản phẩm đã nhập
                 if ($columQuote == "receive_qty") {
                     $receive_qty = $product->receive_qty;
-                } else if ($colum == "reciept_qty") {
+                } else if ($columQuote == "reciept_qty") {
                     $receive_qty = $product->reciept_qty;
                 } else {
                     $receive_qty = $product->payment_qty;

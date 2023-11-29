@@ -199,7 +199,7 @@
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <input oninput="checkQty(this,` + (element.product_qty - element.reciept_qty) +
-                                    `" type="text" name="product_qty[]" class="border-0 px-3 py-2 w-100 quantity-input" value="` +
+                                    `)" type="text" name="product_qty[]" class="border-0 px-3 py-2 w-100 quantity-input" value="` +
                                     formatCurrency(element.product_qty - element
                                         .reciept_qty) +
                                     `">
