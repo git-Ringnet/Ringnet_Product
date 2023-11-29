@@ -18,6 +18,11 @@ class Attachment extends Model
         'file_name',
         'user_id',
     ];
+
+    public function getUsers()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
     public function addAttachment($data,$table_id,$table_name)
     {
         $getFile = $data['file'];
