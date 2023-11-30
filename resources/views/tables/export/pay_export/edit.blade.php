@@ -531,30 +531,31 @@
                     </div>
                 </section>
             </div>
-            <div id="files" class="tab-pane fade">
-                <x-form-attachment :value="$payExport" name="TT"></x-form-attachment>
-            </div>
-        </div>
     </form>
-    {{-- Thông tin sản phẩm --}}
-    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Thông tin sản phẩm</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+    <div id="files" class="tab-pane fade">
+        <x-form-attachment :value="$payExport" name="TT"></x-form-attachment>
+    </div>
+</div>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                </div>
+{{-- Thông tin sản phẩm --}}
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông tin sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
+</div>
 </div>
 <script>
     $('#file_restore').on('change', function(e) {

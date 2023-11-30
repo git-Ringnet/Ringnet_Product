@@ -395,67 +395,68 @@
                     </div>
                     <div id="history" class="tab-pane fade">
                     </div>
-                    <div id="files" class="tab-pane fade">
-                        <x-form-attachment :value="$delivery" name="BG"></x-form-attachment>
-                    </div>
-                </div>
-            </div>
-        </section>
     </form>
-    {{-- Thông tin sản phẩm --}}
-    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="files" class="tab-pane fade">
+        <x-form-attachment :value="$delivery" name="BG"></x-form-attachment>
+    </div>
+</div>
+</div>
+</section>
+
+{{-- Thông tin sản phẩm --}}
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông tin sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Modal seri --}}
+<div id="list_modal">
+    <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel"
+        style="display: none;" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Thông tin sản phẩm</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
+                    <a href="#" class="close btnclose" data-dismiss="" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </a>
                 </div>
                 <div class="modal-body">
-
+                    <table id="table_SNS">
+                        <thead>
+                            <tr>
+                                <td style="width:2%"></td>
+                                <th style="width:5%">STT</th>
+                                <th style="width:100%">Serial number</th>
+                                <th style="width:3%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <a href="#" class="btn btn-primary check-seri" data-dismiss="">
+                        Save changes
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-    {{-- Modal seri --}}
-    <div id="list_modal">
-        <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel"
-            style="display: none;" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
-                        <a href="#" class="close btnclose" data-dismiss="" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </a>
-                    </div>
-                    <div class="modal-body">
-                        <table id="table_SNS">
-                            <thead>
-                                <tr>
-                                    <td style="width:2%"></td>
-                                    <th style="width:5%">STT</th>
-                                    <th style="width:100%">Serial number</th>
-                                    <th style="width:3%"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" class="btn btn-primary check-seri" data-dismiss="">
-                            Save changes
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 </div>
 <script>
     $('#file_restore').on('change', function(e) {
