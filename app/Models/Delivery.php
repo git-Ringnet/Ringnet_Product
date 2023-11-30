@@ -184,4 +184,8 @@ class Delivery extends Model
             $serial->update(['status' => 2]);
         });
     }
+    public function getAttachment($name)
+    {
+        return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name', $name)->get();
+    }
 }

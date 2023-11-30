@@ -25,7 +25,7 @@ class formAttachment extends Component
     public function render(): View|Closure|string
     {
         return view('components.form-attachment', [
-            'import' => $this->value,
+            'data' => $this->value,
             'name' => $this->name
         ]);
     }

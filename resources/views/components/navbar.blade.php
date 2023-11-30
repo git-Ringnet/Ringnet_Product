@@ -251,6 +251,7 @@
                             'payExport.index',
                             'payExport.edit',
                             'watchDelivery',
+                            'seeInfo',
                         ])) menu-is-opening menu-open @endif">
                         <a href="#" class="nav-link">
                             <svg class="fill" width="32" height="32" viewBox="0 0 24 24" fill="none"
@@ -270,7 +271,7 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('detailExport.index') }}"
-                                    class="nav-link {{ request()->route()->named('detailExport.index', 'detailExport.create', 'detailExport.edit')? 'active': '' }}">
+                                    class="nav-link {{ request()->route()->named('detailExport.index', 'detailExport.create', 'detailExport.edit', 'seeInfo')? 'active': '' }}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Báo giá</p>
                                 </a>

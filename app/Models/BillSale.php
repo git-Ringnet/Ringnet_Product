@@ -125,4 +125,8 @@ class BillSale extends Model
             }
         }
     }
+    public function getAttachment($name)
+    {
+        return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name', $name)->get();
+    }
 }
