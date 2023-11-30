@@ -14,6 +14,7 @@
         <tbody>
             @if ($import->getAttachment($name))
                 @foreach ($import->getAttachment($name) as $item)
+
                     <tr>
                         <td><input type="checkbox"></td>
                         <td>{{ $item->file_name }}</td>

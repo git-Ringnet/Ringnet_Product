@@ -250,3 +250,4 @@ $(document).on('click', '.deleteRow1', function () {
         $(this).find('td').eq(1).text(index + 1);
     });
 })
+

@@ -25,6 +25,11 @@ class Receive_bill extends Model
         return $this->hasOne(Provides::class, 'id', 'provide_id');
     }
 
+    public function getAttachment($name)
+    {
+        return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name', $name)->get();
+    }
+
     public function addReceiveBill($data, $id)
     {
         // $check_status = true;

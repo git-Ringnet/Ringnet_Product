@@ -28,6 +28,11 @@ class Reciept extends Model
     {
         return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
     }
+    public function getAttachment($name)
+    {
+        return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name', $name)->get();
+    }
+
     public function addReciept($data, $id)
     {
         $detail =  DetailImport::findOrFail($id);

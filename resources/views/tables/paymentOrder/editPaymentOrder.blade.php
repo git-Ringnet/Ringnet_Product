@@ -6,6 +6,8 @@
         @csrf
         @method('PUT')
         <input type="hidden" name="detailimport_id" id="detailimport_id" value="{{ $payment->detailimport_id }}">
+        <input type="hidden" name="detail_id" value="{{ $payment->id }}">
+        <input type="hidden" name="table_name" value="TTMH">
         <section class="content-header p-0">
             <div class="container-fluided">
                 <div class="mb-3">
@@ -31,8 +33,8 @@
                     @else
                         <a href="{{ route('paymentOrder.index') }}">
                             <span class="btn btn-secondary d-flex align-items-center h-100">
-                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10"
-                                    fill="none">
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="6" height="10"
+                                    viewBox="0 0 6 10" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M5.76877 0.231232C6.07708 0.53954 6.07708 1.03941 5.76877 1.34772L2.11648 5L5.76877 8.65228C6.07708 8.96059 6.07708 9.46046 5.76877 9.76877C5.46046 10.0771 4.96059 10.0771 4.65228 9.76877L0.441758 5.55824C0.13345 5.24993 0.13345 4.75007 0.441758 4.44176L4.65228 0.231231C4.96059 -0.0770772 5.46046 -0.0770772 5.76877 0.231232Z"
                                         fill="#42526E" />
@@ -41,6 +43,19 @@
                             </span>
                         </a>
                     @endif
+                    <label class="custom-btn d-flex align-items-center h-100 m-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" class="mr-1">
+                            <path
+                                d="M6.78565 11.9915C7.26909 11.9915 7.71035 11.9915 8.1516 11.9915C8.23486 11.9915 8.31812 11.9899 8.40082 11.9926C8.5923 11.9987 8.72995 12.0903 8.80599 12.2657C8.88425 12.445 8.84429 12.6071 8.71108 12.7425C8.40082 13.0589 8.08666 13.3713 7.77362 13.6855C7.28519 14.1762 6.79731 14.6679 6.30721 15.1569C6.03135 15.4322 5.81489 15.4322 5.54125 15.158C4.75809 14.3737 3.97771 13.5873 3.19344 12.8047C3.03969 12.6509 2.94423 12.4861 3.03581 12.2679C3.13016 12.0431 3.31666 11.9871 3.54367 11.9899C4.02822 11.996 4.51221 11.9915 5.01619 11.9915C5.03173 11.7812 5.04227 11.5769 5.0617 11.3732C5.33145 8.55805 6.6752 6.39617 9.13957 5.02744C14.0156 2.31941 19.6492 5.27333 20.8021 10.2814C21.7784 14.5225 19.0442 18.8202 14.7788 19.7643C12.3693 20.2977 10.1664 19.8015 8.1838 18.3334C7.74531 18.0087 7.65762 17.4681 7.964 17.0546C8.26983 16.6422 8.80821 16.5761 9.25003 16.9114C10.4556 17.825 11.811 18.2396 13.3223 18.1885C16.042 18.0969 18.502 16.0228 19.0726 13.3219C19.8113 9.82465 17.4652 6.4217 13.9246 5.85334C10.641 5.32605 7.4134 7.66055 6.89777 10.9414C6.84504 11.28 6.8245 11.6241 6.78565 11.9915Z"
+                                fill="#0095F6" />
+                            <path
+                                d="M12.129 10.7643C12.129 10.2315 12.1274 9.69806 12.1296 9.16522C12.1312 8.74062 12.406 8.44811 12.7945 8.44922C13.183 8.45033 13.4567 8.74339 13.4578 9.17022C13.4606 10.091 13.4617 11.0118 13.4556 11.9326C13.4545 12.0675 13.4955 12.143 13.6132 12.2118C14.4075 12.6758 15.1973 13.1476 15.9876 13.6183C16.238 13.7676 16.3568 13.9952 16.3246 14.281C16.2935 14.5602 16.1342 14.7733 15.8572 14.8244C15.6868 14.8555 15.4692 14.8433 15.3238 14.7606C14.398 14.2344 13.485 13.6855 12.5714 13.1382C12.2767 12.9611 12.1279 12.6925 12.129 12.3434C12.1301 11.8166 12.129 11.2905 12.129 10.7643Z"
+                                fill="#0095F6" />
+                        </svg>
+                        Attachment<input type="file" style="display: none;" id="file_restore" accept="*"
+                            name="file">
+                    </label>
                 </div>
             </div>
         </section>
@@ -50,7 +65,7 @@
             <ul class="nav nav-tabs">
                 <li class="active mr-2 mb-3"><a data-toggle="tab" href="#info">Thông tin</a></li>
                 <li class="mr-2 mb-3"><a data-toggle="tab" href="#histpry">Lịch sử thanh toán</a></li>
-                {{-- <li class="mr-2 mb-3"><a data-toggle="tab" href="#menu2">Serial Number</a></li> --}}
+                <li class="mr-2 mb-3"><a data-toggle="tab" href="#attachment">Attachment</a></li>
             </ul>
         </section>
 
@@ -93,7 +108,8 @@
                                             <div class="title-info py-2 border border-top-0 border-left-0">
                                                 <p class="p-0 m-0 px-3">Tổng tiền</p>
                                             </div>
-                                            <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
+                                            <input type="text" placeholder="Nhập thông tin"
+                                                name="delivery_charges"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
                                                 readonly value="{{ number_format($payment->total) }}">
                                         </div>
@@ -101,7 +117,8 @@
                                             <div class="title-info py-2 border border-top-0 border-left-0">
                                                 <p class="p-0 m-0 px-3">Đã thanh toán</p>
                                             </div>
-                                            <input readonly type="text" placeholder="Nhập thông tin" name="payment"
+                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                                name="payment"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
                                                 value="{{ number_format($payment->payment) }}">
                                         </div>
@@ -271,13 +288,24 @@
                     </div>
                 </section>
             </div>
-        </div>
-
     </form>
+    <div id="attachment" class="tab-pane fade">
+        <x-form-attachment :value="$payment" name="TTMH"></x-form-attachment>
+    </div>
+</div>
+
+
 </div>
 
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    $('#file_restore').on('change', function(e) {
+        e.preventDefault();
+        $('#formSubmit').attr('action', '{{ route('addAttachment') }}');
+        $('input[name="_method"]').remove();
+        $('#formSubmit')[0].submit();
+    })
+
     $('#listReceive').hide();
     $('.search_quotation').on('click', function() {
         $('#listReceive').show();

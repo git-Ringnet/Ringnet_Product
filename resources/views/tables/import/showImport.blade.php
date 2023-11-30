@@ -123,7 +123,6 @@
                 <li class="mr-2 mb-3"><a data-toggle="tab" href="#history">Lịch sử sản phẩm</a></li>
                 <li class="mr-2 mb-3"><a data-toggle="tab" href="#files">Attachment</a></li>
             </ul>
-
         </section>
         {{-- <hr class="mt-3"> --}}
         <!-- Main content -->
@@ -698,7 +697,6 @@
     $('#file_restore').on('change', function(e) {
         e.preventDefault();
         $('#formSubmit').attr('action', '{{ route('addAttachment') }}');
-        // $('#formSubmit').attr('method', 'HEAD');
         $('input[name="_method"]').remove();
         $('#formSubmit')[0].submit();
     })

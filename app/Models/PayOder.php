@@ -205,4 +205,8 @@ class PayOder extends Model
 
         return $status;
     }
+    public function getAttachment($name)
+    {
+        return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name', $name)->get();
+    }
 }

@@ -25,18 +25,28 @@ class Attachment extends Model
     }
     public function addAttachment($data, $table_id, $table_name)
     {
+        $status = false;
         $getFile = $data['file'];
         $name = $getFile->getClientOriginalName();
         $fullPath = storage_path('backup/' . $table_name);
         $getFile->move($fullPath, $name);
-        $dataAttachment = [
-            'table_id' => $table_id,
-            'table_name' => $table_name,
-            'file_name' => $name,
-            'user_id' => 1,
-            'created_at' => Carbon::now(),
-        ];
-        DB::table($this->table)->insert($dataAttachment);
+        $checkFiles = Attachment::where('table_id', $table_id)
+            ->where('table_name', $table_name)
+            ->where('file_name', $name)->first();
+        if ($checkFiles) {
+            $status = false;
+        } else {
+            $dataAttachment = [
+                'table_id' => $table_id,
+                'table_name' => $table_name,
+                'file_name' => $name,
+                'user_id' => 1,
+                'created_at' => Carbon::now(),
+            ];
+            DB::table($this->table)->insert($dataAttachment);
+            $status = true;
+        }
+        return $status;
     }
     public function deleteFile($file, $id, $table_name)
     {
