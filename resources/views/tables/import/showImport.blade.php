@@ -410,6 +410,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <x-formsynthetic :import="$import"></x-formsynthetic>
                     </div>
                     <div id="history" class="tab-pane fade">
                         <table class="table table-hover bg-white rounded">
@@ -470,13 +471,11 @@
                                                 readonly value="{{ $item->product_unit }}">
                                         </td>
                                         <td class="border border-top-0 border-bottom-0 border-right-0">
-                                            <input type="text" class="border-0 px-3 py-2 w-100 quantity-input"
-                                                readonly
+                                            <input type="text" class="border-0 px-3 py-2 w-100" readonly
                                                 value="{{ fmod($item->product_qty, 2) > 0 ? number_format($item->product_qty, 2, '.', ',') : number_format($item->product_qty) }}">
                                         </td>
                                         <td class="border border-top-0 border-bottom-0 border-right-0">
-                                            <input type="text" class="border-0 px-3 py-2 w-100 price_export"
-                                                readonly
+                                            <input type="text" class="border-0 px-3 py-2 w-100" readonly
                                                 value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}">
                                         </td>
                                         <td class="border border-top-0 border-bottom-0 border-right-0">
@@ -484,7 +483,7 @@
                                                 readonly value="{{ $item->product_tax }}">
                                         </td>
                                         <td class="border border-top-0 border-bottom-0 border-right-0">
-                                            <input type="text" class="border-0 px-3 py-2 w-100 total_price"
+                                            <input type="text" class="border-0 px-3 py-2 w-100"
                                                 readonly
                                                 value="{{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                         </td>
@@ -509,7 +508,6 @@
                 </div>
             </div>
 
-            <x-formsynthetic :import="$import"></x-formsynthetic>
         </section>
     </form>
 

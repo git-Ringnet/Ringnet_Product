@@ -112,13 +112,17 @@ class Products extends Model
     public function addProductTowarehouse($data, $id)
     {
         $status = true;
-        $receive = Receive_bill::findOrFail($id);
+
+        // $receive = Receive_bill::findOrFail($id);
+        $receive = Receive_bill::where('id', $id)->first();
         if ($receive) {
             $array_id = [];
             $list_id = [];
             // Lấy hết sản phẩm theo đơn mua hàng
             for ($i = 0; $i < count($data['product_name']); $i++) {
-                $products = QuoteImport::where('product_name', $data['product_name'][$i])->first();
+                $products = QuoteImport::where('product_name', $data['product_name'][$i])
+                    ->where('detailimport_id', $receive->detailimport_id)
+                    ->first();
                 array_push($array_id, $products->id);
             }
             $product = ProductImport::where('receive_id', $receive->id)
