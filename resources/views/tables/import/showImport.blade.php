@@ -6,6 +6,7 @@
         @method('PUT')
         @csrf
         <input type="hidden" name="detail_id" value="{{ $import->id }}">
+        <input type="hidden" name="table_name" value="DMH">
         <input type="hidden" id="provides_id" name="provides_id" value="{{ $import->provide_id }}">
         <input type="hidden" id="project_id" name="project_id" value="{{ $import->project_id }}">
         <section class="content-header p-0">

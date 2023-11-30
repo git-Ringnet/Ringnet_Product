@@ -271,7 +271,7 @@ class DetailImportController extends Controller
     }
     public function addAttachment(Request $request)
     {
-        $this->attachment->addAttachment($request->all(), $request->detail_id, 'DMH');
+        $this->attachment->addAttachment($request->all(), $request->detail_id, $request->table_name);
         return redirect()->back()->with('msg', 'Thêm file thành công !');
     }
 
