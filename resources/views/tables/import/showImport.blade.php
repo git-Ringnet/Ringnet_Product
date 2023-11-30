@@ -484,8 +484,7 @@
                                                 readonly value="{{ $item->product_tax }}">
                                         </td>
                                         <td class="border border-top-0 border-bottom-0 border-right-0">
-                                            <input type="text" class="border-0 px-3 py-2 w-100"
-                                                readonly
+                                            <input type="text" class="border-0 px-3 py-2 w-100" readonly
                                                 value="{{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                         </td>
                                         <td class="border border-bottom-0 p-0 bg-secondary"></td>
@@ -502,15 +501,15 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <div id="files" class="tab-pane fade">
-                        <x-form-attachment :value="$import"></x-form-attachment>
-                    </div>
-                </div>
-            </div>
-
-        </section>
     </form>
+    <div id="files" class="tab-pane fade">
+        <x-form-attachment :value="$import" name="DMH"></x-form-attachment>
+    </div>
+</div>
+</div>
+
+</section>
+
 
 </div>
 <script src="{{ asset('/dist/js/products.js') }}"></script>

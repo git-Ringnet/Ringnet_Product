@@ -9,12 +9,14 @@ use Illuminate\View\Component;
 class formAttachment extends Component
 {
     public $value;
+    public $name;
     /**
      * Create a new component instance.
      */
-    public function __construct($value = null)
+    public function __construct($value = null, $name = null)
     {
         $this->value = $value;
+        $this->name = $name;
     }
 
     /**
@@ -23,7 +25,8 @@ class formAttachment extends Component
     public function render(): View|Closure|string
     {
         return view('components.form-attachment', [
-            'import' => $this->value
+            'import' => $this->value,
+            'name' => $this->name
         ]);
     }
 }

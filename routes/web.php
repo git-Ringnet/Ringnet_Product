@@ -52,7 +52,9 @@ Route::get('/showProductName', [DetailImportController::class, 'showProductName'
 Route::get('/checkSN', [DetailImportController::class, 'checkSN'])->name('checkSN');
 Route::get('/checkduplicateSN', [DetailImportController::class, 'checkduplicateSN'])->name('checkduplicateSN');
 Route::POST('addAttachment', [DetailImportController::class, 'addAttachment'])->name('addAttachment');
-Route::get('/download/{file?}', [DetailImportController::class, 'downloadFile'])->name('downloadFile');
+Route::get('/download/{folder}/{file?}', [DetailImportController::class, 'downloadFile'])->name('downloadFile');
+Route::delete('/deleteFile/{folder}/{file}', [DetailImportController::class, 'deleteFile'])->name('deleteFile');
+
 
 
 // Đơn nhận hàng

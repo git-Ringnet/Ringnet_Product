@@ -38,4 +38,22 @@ class Attachment extends Model
         ];
         DB::table($this->table)->insert($dataAttachment);
     }
+    public function deleteFile($file, $id, $table_name)
+    {
+        DB::table($this->table)
+            ->where('id', $id)
+            ->where('table_name', $table_name)
+            ->delete();
+
+        $backupPath = storage_path('backup/' . $table_name . '/');
+        // Kiểm tra xem tệp tồn tại trước khi xóa
+        if (file_exists($backupPath . $file)) {
+            unlink($backupPath . $file);
+            // Hoặc nếu bạn muốn xóa tệp zip nếu tồn tại
+            // $zipFile = str_replace('.sql', '.zip', $file);
+            // if (file_exists($backupPath . $zipFile)) {
+            //     unlink($backupPath . $zipFile);
+            // }
+        }
+    }
 }

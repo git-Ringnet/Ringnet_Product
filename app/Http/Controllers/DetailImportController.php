@@ -275,9 +275,9 @@ class DetailImportController extends Controller
         return redirect()->back()->with('msg', 'Thêm file thành công !');
     }
 
-    public function downloadFile($file)
+    public function downloadFile($folder, $file)
     {
-        $backupPath = storage_path('backup/DMH/');
+        $backupPath = storage_path('backup/' . $folder . '/');
         $filePath = $backupPath . $file;
 
         if (file_exists($filePath)) {
@@ -289,9 +289,10 @@ class DetailImportController extends Controller
             return back()->with('error', 'Tệp backup không tồn tại.');
         }
     }
-    public function getFileSize($file_path)
+    public function deleteFile(Request $request, $folder, $file)
     {
-        // Ensure $this->file_path begins with '/public/';
-        return Storage::size($file_path);
+
+        $this->attachment->deleteFile($file, $request->table_id, $folder);
+        return back()->with('msg', 'Xóa file thành công!');
     }
 }
