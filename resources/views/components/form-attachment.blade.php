@@ -23,7 +23,7 @@
                         </td>
                         <td>{{ date_format(new DateTime($item->created_at), 'd-m-Y') }}</td>
                         <td>
-                            {{ filesize(storage_path('backup/DMH/' . $item->file_name)) }}
+                            {{-- {{ filesize(storage_path('backup/DMH/' . $item->file_name)) }} --}}
                         </td>
                         <td>
                             <a href="{{ route('downloadFile', ['file' => $item->file_name]) }}" download><svg
