@@ -12,8 +12,8 @@
             </tr>
         </thead>
         <tbody>
-            @if ($data->getAttachment($name))
-                @foreach ($data->getAttachment($name) as $item)
+            @if ($dataa->getAttachment($name))
+                @foreach ($dataa->getAttachment($name) as $item)
                     <tr>
                         <td><input type="checkbox"></td>
                         <td>{{ $item->file_name }}</td>
