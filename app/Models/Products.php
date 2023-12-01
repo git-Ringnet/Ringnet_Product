@@ -125,7 +125,7 @@ class Products extends Model
                 array_push($array_id, $products->id); //4
             }
             $product = ProductImport::where('receive_id', $receive->id)
-                // ->whereIn('quoteImport_id', $array_id)
+                ->whereIn('quoteImport_id', $array_id)
                 ->get();
             $product_id = 0;
             // Thêm sản phẩm vào tồn kho
