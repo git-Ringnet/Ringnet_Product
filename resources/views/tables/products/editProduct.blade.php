@@ -124,7 +124,6 @@
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                     @if ($product->getSerialNumber)
-                                    @dd($product->getSerialNumber)
                                         @if (count($product->getSerialNumber) < 0)
                                             <div class="d-flex ml-2 align-items-center">
                                                 <div class="title-info py-2 border border-top-0 border-left-0">
