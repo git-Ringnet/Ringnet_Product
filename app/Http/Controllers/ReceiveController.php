@@ -122,11 +122,11 @@ class ReceiveController extends Controller
                 'quoteimport.product_note',
                 'products_import.product_id',
                 'products_import.cbSN',
+                'products_import.receive_id',
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
             )
             ->with('getSerialNumber')->get();
         return view('tables.receive.editReceive', compact('receive', 'title', 'product'));
-
     }
 
     /**
@@ -134,16 +134,16 @@ class ReceiveController extends Controller
      */
     public function update(Request $request, string $id)
     {
-         // Cập nhật trạng thái
-         $result = $this->receive->updateReceive($request->all(), $id);
-         if ($result) {
-             // Thêm sản phẩm, seri vào tồn kho
-             $this->product->addProductTowarehouse($request->all(), $id);
- 
-             return redirect()->route('receive.index')->with('msg', 'Nhận hàng thành công !');
-         } else {
-             return redirect()->route('receive.index')->with('warning', 'Đơn hàng đã được nhận trước đó !');
-         }
+        // Cập nhật trạng thái
+        $result = $this->receive->updateReceive($request->all(), $id);
+        if ($result) {
+            // Thêm sản phẩm, seri vào tồn kho
+            $this->product->addProductTowarehouse($request->all(), $id);
+
+            return redirect()->route('receive.index')->with('msg', 'Nhận hàng thành công !');
+        } else {
+            return redirect()->route('receive.index')->with('warning', 'Đơn hàng đã được nhận trước đó !');
+        }
     }
 
     /**

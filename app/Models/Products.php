@@ -113,7 +113,6 @@ class Products extends Model
     {
         $status = true;
 
-        // $receive = Receive_bill::findOrFail($id);
         $receive = Receive_bill::where('id', $id)->first();
         if ($receive) {
             $array_id = [];
@@ -123,10 +122,10 @@ class Products extends Model
                 $products = QuoteImport::where('product_name', $data['product_name'][$i])
                     ->where('detailimport_id', $receive->detailimport_id)
                     ->first();
-                array_push($array_id, $products->id);
+                array_push($array_id, $products->id); //4
             }
             $product = ProductImport::where('receive_id', $receive->id)
-                ->whereIn('id', $array_id)
+                // ->whereIn('quoteImport_id', $array_id)
                 ->get();
             $product_id = 0;
             // Thêm sản phẩm vào tồn kho
@@ -155,9 +154,6 @@ class Products extends Model
                 array_push($list_id, $product_id);
                 $item->product_id = $product_id;
                 $item->save();
-                // QuoteImport::where('id',$item->quoteImport_id)->update([
-                //     'product_id' => $product_id
-                // ]);
             }
 
             // Thêm seri number theo sản phẩm

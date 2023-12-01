@@ -29,11 +29,17 @@ class Attachment extends Model
         $getFile = $data['file'];
         $name = $getFile->getClientOriginalName();
         $fullPath = storage_path('backup/' . $table_name);
-        $getFile->move($fullPath, $name);
+
         $checkFiles = Attachment::where('table_id', $table_id)
             ->where('table_name', $table_name)
             ->where('file_name', $name)->first();
         if ($checkFiles) {
+            $filePath = $fullPath . '/' . $name;
+            if (file_exists($filePath)) {
+                // Nếu tồn tại, xóa file cũ
+                unlink($filePath);
+            }
+
             $status = false;
         } else {
             $dataAttachment = [
@@ -46,6 +52,7 @@ class Attachment extends Model
             DB::table($this->table)->insert($dataAttachment);
             $status = true;
         }
+        $getFile->move($fullPath, $name);
         return $status;
     }
     public function deleteFile($file, $id, $table_name)

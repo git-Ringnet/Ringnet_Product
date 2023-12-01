@@ -28,7 +28,7 @@
                                         @if ($pro->getSerialNumber && count($pro->getSerialNumber) > 0)
                                             @foreach ($pro->getSerialNumber as $item)
                                                 <tr>
-                                                    @if ($pro->product_id == $item->product_id)
+                                                    @if ($pro->product_id == $item->product_id && $pro->receive_id == $item->receive_id)
                                                         <td><input type="checkbox"></td>
                                                         <td>1</td>
                                                         <td><input class="form-control w-25" type="text"
