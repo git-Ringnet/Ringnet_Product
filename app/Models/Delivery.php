@@ -110,6 +110,7 @@ class Delivery extends Model
                 'quoteexport.product_note',
                 'delivered.deliver_qty',
                 'products.product_inventory',
+                'delivery.created_at as ngayGiao'
             )
             ->groupBy(
                 'quoteexport.product_code',
@@ -119,6 +120,7 @@ class Delivery extends Model
                 'products.product_inventory',
                 'quoteexport.product_id',
                 'quoteexport.product_note',
+                'delivery.created_at'
             )
             ->get();
         return $product;
@@ -177,12 +179,19 @@ class Delivery extends Model
                 ]);
             }
         }
-        $serinumber = Serialnumber::where('serialnumber.status', 3)
-            ->where('detailexport_id', $detailexport_id)
-            ->get();
-        $serinumber->each(function ($serial) {
-            $serial->update(['status' => 2]);
-        });
+        if (isset($data['id_seri'])) {
+            $id_seri = $data['id_seri'];
+
+            foreach ($id_seri as $serialNumberId) {
+                $serialNumber = Serialnumber::find($serialNumberId);
+                if ($serialNumber) {
+                    $serialNumber->update([
+                        'detailexport_id' => $detailexport_id,
+                        'status' => 2,
+                    ]);
+                }
+            }
+        }
     }
     public function getAttachment($name)
     {

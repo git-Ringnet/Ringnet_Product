@@ -126,7 +126,7 @@
                                             </div>
                                             <div class="w-100">
                                                 <input type="text" readonly
-                                                    value="{{ $delivery->created_at->format('d/m/Y') }}"
+                                                    value="{{ date_format(new DateTime($delivery->ngayGiao), 'd/m/Y') }}"
                                                     name="date_deliver"
                                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                             </div>
@@ -232,6 +232,7 @@
                                                             <div class="d-flex align-items-center">
                                                                 <div class="">
                                                                     <input type="text" readonly
+                                                                        data-row="row{{ $item_quote->product_id }}"
                                                                         value="{{ is_int($item_quote->deliver_qty) ? $item_quote->deliver_qty : rtrim(rtrim(number_format($item_quote->deliver_qty, 4, '.', ''), '0'), '.') }}"
                                                                         class="border-0 px-2 py-1 w-100 quantity-input"
                                                                         autocomplete="off" name="product_qty[]">
@@ -244,10 +245,10 @@
                                                                     </p>
                                                                 </div>
                                                                 <div class="">
-
                                                                     <a href="#" class="btn btn-primary sn1"
+                                                                        data-row="row{{ $item_quote->product_id }}"
                                                                         data-toggle="modal"
-                                                                        data-target="#exampleModal0"
+                                                                        data-target="#exampleModal{{ $item_quote->product_id }}"
                                                                         style="background:transparent; border:none;">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
                                                                             width="32" height="32"
@@ -273,7 +274,6 @@
                                                                                 fill="#0095F6"></path>
                                                                         </svg>
                                                                     </a>
-
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -395,10 +395,71 @@
                     </div>
                     <div id="history" class="tab-pane fade">
                     </div>
+                    <div id="files" class="tab-pane fade">
+                        <x-form-attachment :value="$delivery" name="BG"></x-form-attachment>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {{-- Modal seri --}}
+        @foreach ($product as $item)
+            {{-- Modal seri --}}
+            <div id="list_modal">
+                <div class="modal fade my-custom-modal" id="exampleModal{{ $item->product_id }}" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
+                                <a href="#" class="close btnclose" data-dismiss="" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </a>
+                            </div>
+                            <div class="modal-body">
+                                <table id="table_SNS">
+                                    <thead>
+                                        <tr>
+                                            <td style="width:2%"></td>
+                                            <th style="width:5%">STT</th>
+                                            <th style="width:100%">Serial number</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $stt = 1;
+                                        @endphp
+                                        @foreach ($serinumber as $item_seri)
+                                            @if ($item->product_id == $item_seri->product_id)
+                                                <tr>
+                                                    <td>
+                                                        <input name="id_seri[]"
+                                                            {{ $item_seri->detailexport_id == $delivery->detailexport_id ? 'checked' : '' }}
+                                                            type="checkbox" class="check-item"
+                                                            data-product-id={{ $item_seri->product_id }}
+                                                            value="{{ $item_seri->id }}">
+                                                    </td>
+                                                    <td>{{ $stt++ }}</td>
+                                                    <td>
+                                                        <input readonly class="form-control w-25" type="text"
+                                                            value="{{ $item_seri->serinumber }}">
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#" class="btn btn-primary check-seri" data-dismiss="" data-row="row{{$item_seri->product_id }}" data-target="#exampleModal{{ $item->product_id }}">
+                                    Save changes
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </form>
-    <div id="files" class="tab-pane fade">
-        <x-form-attachment :value="$delivery" name="BG"></x-form-attachment>
-    </div>
 </div>
 </div>
 </section>
@@ -466,38 +527,24 @@
         $('input[name="_method"]').remove();
         $('#deliveryForm')[0].submit();
     })
+    //Kiểm tra số lượng SN được checked
+    // $('.check-seri').on('click', function() {
+    //     // Lấy giá trị của data-target và data-row từ button
+    //     const dataTarget = $(this).data('target');
+    //     const rowID = $(this).data('row');
 
-    //Lấy thông tin SN
-    var selectedSerialNumbers = [];
-    $(document).ready(function() {
-        $('.sn1').on('click', function() {
-            $("#exampleModal0 .modal-body tbody").empty();
-            var trElement = $(this).closest('tr');
-            var productInput = trElement.find('.product_id');
-            var productId = productInput.val();
-            var detailExportId = $("#detailexport_id").val();
-            var selectedSerialNumbersForProduct = selectedSerialNumbers[productId] || [];
-            var qty_enter = trElement.find('.quantity-input').val();
-            $.ajax({
-                url: "{{ route('getProductSeriEdit') }}",
-                method: 'GET',
-                data: {
-                    productId: productId,
-                    detailExportId: detailExportId,
-                },
-                success: function(response) {
-                    response.forEach(function(sn, index) {
-                        var newRow = `<tr>
-                        <td><input type="checkbox" class="check-item" value="${sn.id}"></td>
-                        <td>${index + 1}</td>
-                        <td><input class="form-control w-25" type="text" value="${sn.serinumber}" readonly=""></td>
-                    </tr>`;
-                        $("#exampleModal0 .modal-body tbody").append(newRow);
-                    });
-                }
-            });
-        });
-    });
+    //     // Lấy giá trị từ input số lượng
+    //     const quantityInputValue = parseInt($(`.${rowID} .quantity-input`).val());
+
+    //     // Lấy số lượng checkbox được chọn trong modal
+    //     const checkedCheckboxCount = $(`${dataTarget} .check-item:checked`).length;
+
+    //     // Kiểm tra xem số lượng checkbox có bằng với giá trị từ input không
+    //     if (checkedCheckboxCount !== quantityInputValue) {
+    //         alert('Vui lòng chọn đủ serinumber.');
+    //     }
+    // });
+
     //Mở rộng
     var status_form = 0;
     $('.change_colum').off('click').on('click', function() {

@@ -76,7 +76,8 @@ class DeliveryController extends Controller
         $title = 'Chỉnh sửa đơn giao hàng';
         $delivery = $this->delivery->getDeliveryToId($id);
         $product = $this->delivery->getProductToId($id);
-        return view('tables.export.delivery.watch-delivery', compact('title', 'delivery', 'product'));
+        $serinumber = Serialnumber::all();
+        return view('tables.export.delivery.watch-delivery', compact('title', 'delivery', 'product', 'serinumber'));
     }
 
     /**
