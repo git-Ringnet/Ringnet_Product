@@ -227,7 +227,7 @@
                                             <td class="border border-top-0 border-bottom-0 border-right-0">
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <input @if ($receive->status == 2) readonly @endif
-                                                        type="text" class="border-0 px-3 py-2 w-100"
+                                                        type="text" class="border-0 px-3 py-2 w-100 quantity-input"
                                                         name="product_qty[]" {{-- oninput="checkQty(this,{{ $item->product_qty }})"  --}} readonly
                                                         value="{{ number_format($item->product_qty) }}">
                                                     @if ($item->cbSN == 1)
