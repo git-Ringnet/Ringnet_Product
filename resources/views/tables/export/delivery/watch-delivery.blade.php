@@ -404,7 +404,7 @@
         {{-- Modal seri --}}
         @foreach ($product as $item)
             {{-- Modal seri --}}
-            <div id="list_modal">
+            {{-- <div id="list_modal">
                 <div class="modal fade my-custom-modal" id="exampleModal{{ $item->product_id }}" tabindex="-1"
                     aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -457,7 +457,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         @endforeach
     </form>
 </div>
