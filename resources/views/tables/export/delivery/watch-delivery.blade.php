@@ -6,7 +6,7 @@
         @csrf
         @method('PUT')
         <input type="hidden" name="detail_id" value="{{ $delivery->id }}">
-        <input type="hidden" name="table_name" value="DGH">
+        <input type="hidden" name="table_name" value="GH">
         <input type="hidden" name="detailexport_id" id="detailexport_id" value="{{ $delivery->detailexport_id }}">
         <!-- Content Header (Page header) -->
         <section class="content-header p-0">
@@ -396,7 +396,7 @@
                     <div id="history" class="tab-pane fade">
                     </div>
                     <div id="files" class="tab-pane fade">
-                        <x-form-attachment :value="$delivery" name="BG"></x-form-attachment>
+                        <x-form-attachment :value="$delivery" name="GH"></x-form-attachment>
                     </div>
                 </div>
             </div>
