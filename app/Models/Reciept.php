@@ -131,4 +131,47 @@ class Reciept extends Model
         ];
         DB::table('detailimport')->where('id', $detail->id)->update($dataUpdate);
     }
+    public function deleteReciept($id)
+    {
+        $status = false;
+        $reciept = DB::table($this->table)->where('id', $id)->first();
+        if ($reciept) {
+            $detail = $reciept->detailimport_id;
+            $productImport = ProductImport::where('reciept_id', $reciept->id)->get();
+            if ($productImport) {
+                foreach ($productImport as $item) {
+                    $quoteImport = QuoteImport::where('id', $item->quoteImport_id)->first();
+                    if ($quoteImport) {
+                        $dataUpdate = [
+                            'reciept_qty' => $quoteImport->reciept_qty - $item->product_qty
+                        ];
+                        DB::table('quoteimport')->where('id', $quoteImport->id)->update($dataUpdate);
+                    }
+                }
+            }
+            DB::table('reciept')->where('id', $reciept->id)->delete();
+            // Cập nhật lại trạng thái đơn hàng
+            $checkReceive = Receive_bill::where('detailimport_id', $detail)->first();
+            $checkReciept = Reciept::where('detailimport_id', $detail)->first();
+            $checkPayment = PayOder::where('detailimport_id', $detail)->first();
+            if ($checkReciept) {
+                $st = 1;
+            } else {
+                $st = 0;
+            }
+            if ($checkReceive || $checkReciept || $checkPayment) {
+                $stDetail = 2;
+            } else {
+                $stDetail = 1;
+            }
+            DB::table('detailimport')->where('id', $detail)->update([
+                'status_reciept' => $st,
+                'status' => $stDetail
+            ]);
+            $status = true;
+        } else {
+            $status = false;
+        }
+        return $status;
+    }
 }

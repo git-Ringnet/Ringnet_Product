@@ -114,7 +114,12 @@ class RecieptController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $status = $this->reciept->deleteReciept($id);
+        if ($status) {
+            return redirect()->route('reciept.index')->with('msg', 'Xóa hóa đơn mua hàng thành công !');
+        } else {
+            return redirect()->route('reciept.index')->with('warning', 'Không tìn thấy hóa đơn mua hàng cần xóa !');
+        }
     }
     public function show_reciept(Request $request)
     {

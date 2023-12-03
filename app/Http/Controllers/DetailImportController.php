@@ -185,7 +185,12 @@ class DetailImportController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->detailImport->deleteDetail($id);
+        $status = $this->detailImport->deleteDetail($id);
+        if ($status['status']) {
+            return redirect()->route('import.index')->with('msg', 'Xóa đơn mua hàng thành công !');
+        } else {
+            return redirect()->route('import.index')->with('warning', $status['msg']);
+        }
     }
     // Hiển thị thông tin nhà cung cấp theo id đã chọn
     public function show_provide(Request $request)

@@ -48,10 +48,12 @@ class PayOder extends Model
             if ($payment->total - ($payment->payment + (isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0)) == 0) {
                 $total = isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0;
             } else {
-                $total = $payment->payment + (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0 );
+                $total = $payment->payment + (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0);
             }
-            // Tính công nợ
-            $this->calculateDebt($payment->provide_id, $total);
+            $prepay = (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0);
+            // dd($prepay);
+            // Tính công nợ nhà cung cấp
+            $this->calculateDebt($payment->provide_id, $prepay);
             // Cập nhật trạng thái thanh toán
             $this->updateStatusDebt($data, $payment->id);
             // Cập nhật trạng thái đơn hàng
@@ -64,7 +66,6 @@ class PayOder extends Model
     public function addNewPayment($data, $id)
     {
         $total = 0;
-
         $detail =  DetailImport::findOrFail($id);
         if ($detail) {
             $payment = PayOder::where('detailimport_id', $detail->id)->first();
@@ -162,7 +163,7 @@ class PayOder extends Model
             $dataProvide = [
                 'provide_debt' => $debt,
             ];
-            Provides::where('id', $provide_id)->update($dataProvide);
+            Provides::where('id', $provide->id)->update($dataProvide);
         }
     }
 
@@ -208,5 +209,62 @@ class PayOder extends Model
     public function getAttachment($name)
     {
         return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name', $name)->get();
+    }
+    public function deletePayment($id)
+    {
+        $status = false;
+        $payment = DB::table($this->table)->where('id', $id)->first();
+        if ($payment) {
+            $detail = $payment->detailimport_id;
+            $productImport = ProductImport::where('payOrder_id', $payment->id)->get();
+            if ($productImport) {
+                foreach ($productImport as $item) {
+                    $quoteImport = QuoteImport::where('id', $item->quoteImport_id)->first();
+                    if ($quoteImport) {
+                        $dataUpdate = [
+                            'payment_qty' => $quoteImport->payment_qty - $item->product_qty
+                        ];
+                        DB::table('quoteimport')->where('id', $quoteImport->id)->update($dataUpdate);
+                    }
+                }
+                // Tính dư nợ nhà cung cấp
+                if ($payment->payment > 0) {
+                    $provide = Provides::where('id', $payment->provide_id)->first();
+                    if ($provide) {
+                        $dataProvide = [
+                            'provide_debt' => ($provide->provide_debt + $payment->payment),
+                        ];
+                        DB::table('provides')->where('id', $provide->id)->update($dataProvide);
+                    }
+                }
+            }
+
+            // Xóa lịch sử
+            HistoryPaymentOrder::where('payment_id', $payment->id)->delete();
+
+            // Xóa thanh toán
+            DB::table('pay_order')->where('id', $payment->id)->delete();
+
+            // Cập nhật lại trạng thái đơn hàng
+            $checkReceive = Receive_bill::where('detailimport_id', $detail)->first();
+            $checkReciept = Reciept::where('detailimport_id', $detail)->first();
+            $checkPayment = PayOder::where('detailimport_id', $detail)->first();
+            if ($checkReceive || $checkReciept || $checkPayment) {
+                $stDetail = 2;
+            } else {
+                $stDetail = 1;
+            }
+
+
+            DB::table('detailimport')->where('id', $detail)->update([
+                'status_pay' => 0,
+                'status' => $stDetail
+            ]);
+
+            $status = true;
+        } else {
+            $status = false;
+        }
+        return $status;
     }
 }

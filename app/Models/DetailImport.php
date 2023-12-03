@@ -183,20 +183,20 @@ class DetailImport extends Model
         $checkReceive = Receive_bill::where('detailimport_id', $id)->get();
         $checkReciept = Reciept::where('detailimport_id', $id)->get();
         $checkPayOrder = PayOder::where('detailimport_id', $id)->get();
-        if (count($checkPayOrder) > 0) {
+        if (count($checkReceive) > 0) {
             $result = [
                 'status' => false,
-                'msg' => ''
+                'msg' => 'Vui lòng xóa đơn nhận hàng'
             ];
         } elseif (count($checkReciept) > 0) {
             $result = [
                 'status' => false,
-                'msg' => ''
+                'msg' => 'Vui lòng xóa hóa đơn mua hàng'
             ];
         } elseif (count($checkPayOrder) > 0) {
             $result = [
                 'status' => false,
-                'msg' => ''
+                'msg' => 'Vui lòng xóa thanh toán mua hàng'
             ];
         } else {
             $result = [

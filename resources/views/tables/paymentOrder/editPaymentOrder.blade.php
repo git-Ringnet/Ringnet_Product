@@ -2,7 +2,8 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <form action="{{ route('paymentOrder.update', $payment->id) }}" method="POST" id="formSubmit" enctype="multipart/form-data">
+    <form action="{{ route('paymentOrder.update', $payment->id) }}" method="POST" id="formSubmit"
+        enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="hidden" name="detailimport_id" id="detailimport_id" value="{{ $payment->detailimport_id }}">
@@ -43,7 +44,8 @@
                             </span>
                         </a>
                     @endif
-                    <label class="custom-btn d-flex align-items-center h-100 m-0">
+
+                    <label class="custom-btn d-flex align-items-center h-100 m-0 mr-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" class="mr-1">
                             <path
@@ -56,6 +58,25 @@
                         Attachment<input type="file" style="display: none;" id="file_restore" accept="*"
                             name="file">
                     </label>
+
+                    <a href="#" id="delete_payment" class="d-flex align-items-center h-100 btn-danger"
+                        style="padding: 3px 16px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34"
+                            fill="none">
+                            <path
+                                d="M22.981 10.9603C26.3005 14.2798 26.3005 19.6617 22.981 22.9811C19.6615 26.3006 14.2796 26.3006 10.9602 22.9811C7.64073 19.6617 7.64073 14.2798 10.9602 10.9603C14.2796 7.64084 19.6615 7.64084 22.981 10.9603Z"
+                                stroke="#E4E4E4" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12.728 12.7281C13.0023 12.4538 13.447 12.4538 13.7213 12.7281L21.2133 20.22C21.4876 20.4943 21.4876 20.9391 21.2133 21.2133C20.939 21.4876 20.4943 21.4876 20.22 21.2133L12.728 13.7214C12.4537 13.4471 12.4537 13.0024 12.728 12.7281Z"
+                                fill="#E4E4E4" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M21.2133 12.7281C21.4876 13.0024 21.4876 13.4471 21.2133 13.7214L13.7213 21.2133C13.447 21.4876 13.0023 21.4876 12.728 21.2133C12.4537 20.9391 12.4537 20.4943 12.728 20.22L20.22 12.7281C20.4943 12.4538 20.939 12.4538 21.2133 12.7281Z"
+                                fill="#E4E4E4" />
+                        </svg>
+                        <span>Xóa đơn nhận hàng</span>
+                    </a>
+
+
                 </div>
             </div>
         </section>
@@ -299,6 +320,8 @@
 
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    // Xóa đơn hàng
+    deleteImport('#delete_payment', '{{ route('paymentOrder.destroy', $payment->id) }}')
     $('#file_restore').on('change', function(e) {
         e.preventDefault();
         $('#formSubmit').attr('action', '{{ route('addAttachment') }}');

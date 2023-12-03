@@ -81,6 +81,10 @@ function createRowInput(name) {
     var addRow = $('.addRow');
     for (let i = 0; i <= addRow.length; i++) {
         $(addRow[i]).off('click').on('click', function () {
+            // var SLProduct, SLTr;
+            // SLProduct = 1;
+            // SLTr = $(addSNBtns[i]).closest('.modal-dialog').find('#table_SNS tbody tr').length;
+
             var modal_body = $(this).closest('.modal-content').find('.modal-body');
             var newtr = document.createElement('tr');
             var newtd1 = document.createElement('td');
@@ -215,9 +219,9 @@ function calculateGrandTotal() {
 function updateTaxAmount() {
     $('#inputcontent tbody tr').each(function () {
         var productQty = parseFloat($(this).find('.quantity-input').val());
-        var productPrice = parseFloat($(this).find('input[name^="price_export"]').val());
-        if(productPrice.length > 0){
-            productPrice.replace(/[^0-9.-]+/g, "");
+        var productPrice = $(this).find('input[name^="price_export"]');
+        if (productPrice.length > 0) {
+            productPrice = parseFloat(productPrice.val().replace(/[^0-9.-]+/g, ""))
         }
         var taxValue = parseFloat($(this).find('.product_tax').val());
         if (taxValue == 99) {
@@ -250,4 +254,13 @@ $(document).on('click', '.deleteRow1', function () {
         $(this).find('td').eq(1).text(index + 1);
     });
 })
+
+function deleteImport(name, route) {
+    $(name).off('click').on('click', function (e) {
+        e.preventDefault();
+        $('#formSubmit').attr('action', route);
+        $('input[name="_method"]').val('DELETE');
+        $('#formSubmit')[0].submit();
+    })
+}
 

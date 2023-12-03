@@ -128,7 +128,12 @@ class PayOrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $status = $this->payment->deletePayment($id);
+        if($status){
+            return redirect()->route('paymentOrder.index')->with('msg', 'Xóa thanh toán mua hàng thành công !');
+        }else{
+            return redirect()->route('paymentOrder.index')->with('warning', 'Không tìn thấy thanh toán mua hàng cần xóa !');
+        }
     }
 
     public function getPaymentOrder(Request $request)
