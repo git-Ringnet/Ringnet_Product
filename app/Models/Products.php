@@ -26,7 +26,8 @@ class Products extends Model
         'product_inventory',
         'product_trade',
         'product_available',
-        'warehouse_id'
+        'warehouse_id',
+        'check_seri'
     ];
     public function getAllProducts()
     {

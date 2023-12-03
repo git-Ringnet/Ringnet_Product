@@ -29,7 +29,7 @@ class DeliveryController extends Controller
     {
         $title = 'Giao hàng';
         $delivery = Delivery::leftJoin('guest', 'guest.id', 'delivery.guest_id')
-            ->select('*', 'delivery.id as maGiaoHang')
+            ->select('*', 'delivery.id as maGiaoHang', 'delivery.created_at as ngayGiao')
             ->get();
         return view('tables.export.delivery.list-delivery', compact('title', 'delivery'));
     }
@@ -85,13 +85,20 @@ class DeliveryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $delivery = Delivery::find($id);
-        if ($delivery) {
-            $delivery->update([
-                'status' => 2,
-            ]);
-            $this->delivery->updateDetailExport($request->all(), $delivery->detailexport_id);
-            return redirect()->route('delivery.index')->with('msg', 'Xác nhận đơn giao hàng thành công!');
+        if ($request->action == "action_1") {
+            $delivery = Delivery::find($id);
+            if ($delivery) {
+                $delivery->update([
+                    'status' => 2,
+                ]);
+                $this->delivery->updateDetailExport($request->all(), $delivery->detailexport_id);
+                return redirect()->route('delivery.index')->with('msg', 'Xác nhận đơn giao hàng thành công!');
+            }
+        }
+        if ($request->action == "action_2") {
+            Delivery::find($id)->delete();
+            Delivered::where('delivery_id', $id)->delete();
+            return redirect()->route('delivery.index')->with('msg', 'Xóa đơn giao hàng thành công!');
         }
     }
 
@@ -114,14 +121,31 @@ class DeliveryController extends Controller
     public function getProductQuote(Request $request)
     {
         $data = $request->all();
+
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
-            ->select('*', 'detailexport.id as maXuat')
+            ->leftJoin('products', 'products.id', 'quoteexport.product_id')
+            ->select('*', 'detailexport.id as maXuat', 'quoteexport.product_id as maSP')
             ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) as soLuongCanGiao')
+            ->leftJoin('serialnumber', function ($join) {
+                $join->on('serialnumber.product_id', '=', 'products.id');
+            })
             ->where('detailexport.id', $data['idQuote'])
             ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) > 0')
             ->get();
-        return $delivery;
+
+        // Group dữ liệu theo ID sản phẩm để có danh sách seri cho mỗi sản phẩm
+        $groupedDelivery = $delivery->groupBy('maSP'); // Use the alias maSP instead of product_id
+
+        // Xử lý dữ liệu để thêm danh sách seri vào mỗi sản phẩm
+        $processedDelivery = $groupedDelivery->map(function ($group) {
+            $product = $group->first();
+            $product['seri_pro'] = $group->pluck('serinumber')->toArray();
+            return $product;
+        });
+
+        return $processedDelivery;
     }
+
     public function getProductFromQuote(Request $request)
     {
         $data = $request->all();

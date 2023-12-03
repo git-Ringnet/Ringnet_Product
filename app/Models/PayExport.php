@@ -67,6 +67,11 @@ class PayExport extends Model
         ];
         $payExport = new PayExport($dataPay);
         $payExport->save();
+        if ($result == 0) {
+            $payExport->update([
+                'status' => 2,
+            ]);
+        }
         if (isset($data['payment'])) {
             $history = new history_Pay_Export;
             $history->pay_id = $payExport->id;

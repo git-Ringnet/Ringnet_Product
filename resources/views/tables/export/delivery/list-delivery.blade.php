@@ -178,7 +178,7 @@
                                                 @endif
                                             </td>
                                             <td class="border-top-0 bg-white">
-                                                {{ date_format(new DateTime($item_delivery->created_at), 'd/m/Y') }}
+                                                {{ date_format(new DateTime($item_delivery->ngayGiao), 'd/m/Y') }}
                                             </td>
                                         </tr>
                                     @endforeach

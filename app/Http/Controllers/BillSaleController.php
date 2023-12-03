@@ -115,13 +115,20 @@ class BillSaleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $billSale = BillSale::find($id);
-        if ($billSale) {
-            $billSale->update([
-                'status' => 2,
-            ]);
-            $this->billSale->updateDetailExport($billSale->detailexport_id);
-            return redirect()->route('billSale.index')->with('success', 'Xác nhận hóa đơn bán hàng thành công!');
+        if ($request->action == "action_1") {
+            $billSale = BillSale::find($id);
+            if ($billSale) {
+                $billSale->update([
+                    'status' => 2,
+                ]);
+                $this->billSale->updateDetailExport($billSale->detailexport_id);
+                return redirect()->route('billSale.index')->with('success', 'Xác nhận hóa đơn bán hàng thành công!');
+            }
+        }
+        if ($request->action == "action_2") {
+            BillSale::find($id)->delete();
+            productBill::where('billSale_id', $id)->delete();
+            return redirect()->route('delivery.index')->with('msg', 'Xóa hóa đơn bán hàng thành công!');
         }
     }
 

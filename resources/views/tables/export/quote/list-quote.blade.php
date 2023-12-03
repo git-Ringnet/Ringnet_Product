@@ -174,7 +174,7 @@
                                                     class="cb-element" name="ids[]" id="checkbox" value=""
                                                     onclick="event.stopPropagation();"></td>
                                             <td class="border-top-0 bg-white">
-                                                {{ date_format(new DateTime($value_export->created_at), 'd/m/Y') }}</td>
+                                                {{ date_format(new DateTime($value_export->ngayBG), 'd/m/Y') }}</td>
                                             <td class="border-top-0 bg-white">
                                                 <div class="">
                                                     <a href="{{ route('seeInfo', $value_export->maBG) }}"

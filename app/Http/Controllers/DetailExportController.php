@@ -170,6 +170,18 @@ class DetailExportController extends Controller
                 }
             }
         }
+        if ($request->action == "action_5") {
+            $delivery = Delivery::where('detailexport_id', $id)->get();
+            $billSale = BillSale::where('detailexport_id', $id)->get();
+            $pay = PayExport::where('detailexport_id', $id)->get();
+            if ($delivery->isEmpty() && $billSale->isEmpty() && $pay->isEmpty()) {
+                QuoteExport::where('detailexport_id', $id)->delete();
+                DetailExport::find($id)->delete();
+                return redirect()->route('detailExport.index')->with('msg', 'Xóa đơn bán hàng thành công!');
+            } else {
+                return redirect()->route('detailExport.index')->with('warning', 'Xóa đơn bán hàng thất bại!');
+            }
+        }
     }
 
     /**

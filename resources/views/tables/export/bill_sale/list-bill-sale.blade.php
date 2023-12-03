@@ -143,7 +143,7 @@
                                                     class="cb-element" name="ids[]" id="checkbox" value=""
                                                     onclick="event.stopPropagation();"></td>
                                             <td class="">
-                                                {{ date_format(new DateTime($item_bill->created_at), 'd/m/Y') }}
+                                                {{ date_format(new DateTime($item_bill->ngayHD), 'd/m/Y') }}
                                             </td>
                                             <td class="">
                                                 {{ $item_bill->id }}

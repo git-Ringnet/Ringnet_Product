@@ -164,10 +164,17 @@ class PayExportController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $payExport = PayExport::find($id);
-        if ($payExport) {
-            $this->payExport->updateDetailExport($request->all(), $payExport->detailexport_id);
-            return redirect()->route('payExport.index')->with('msg', 'Xác nhận thanh toán thành công!');
+        if ($request->action == "action_1") {
+            $payExport = PayExport::find($id);
+            if ($payExport) {
+                $this->payExport->updateDetailExport($request->all(), $payExport->detailexport_id);
+                return redirect()->route('payExport.index')->with('msg', 'Xác nhận thanh toán thành công!');
+            }
+        }
+        if ($request->action == "action_2") {
+            PayExport::find($id)->delete();
+            productPay::where('pay_id', $id)->delete();
+            return redirect()->route('delivery.index')->with('msg', 'Xóa đơn thanh toán thành công!');
         }
     }
 

@@ -37,7 +37,7 @@ class DetailExport extends Model
     public function getAllDetailExport()
     {
         $detailExport = DetailExport::leftJoin('guest', 'guest.id', 'detailexport.guest_id')
-            ->select('*', 'detailexport.id as maBG')
+            ->select('*', 'detailexport.id as maBG','detailexport.created_at as ngayBG')
             ->orderBy('detailexport.id', 'desc')->get();
         return $detailExport;
     }

@@ -45,6 +45,7 @@ class QuoteExport extends Model
                     'product_price_export' => $price,
                     'product_price_import' => isset($priceImport) ? $priceImport : 0,
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
+                    'check_seri' => 1,
                 ];
                 $product = new Products($dataProduct);
                 $product->save();

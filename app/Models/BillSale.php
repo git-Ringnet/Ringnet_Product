@@ -21,7 +21,7 @@ class BillSale extends Model
     {
         $bill_sale = BillSale::leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'bill_sale.guest_id', 'guest.id')
-            ->select('*', 'bill_sale.status as tinhTrang', 'bill_sale.id as idHD')
+            ->select('*', 'bill_sale.status as tinhTrang', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD')
             ->get();
         return $bill_sale;
     }

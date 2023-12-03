@@ -20,7 +20,7 @@
                 </div>
                 <div class="row m-0 mb-1">
                     @if ($delivery->tinhTrang !== 2)
-                        <button type="button" id="submitXacNhan"
+                        <button type="button" id="submitXacNhan" name="action" value="action_1"
                             class="custom-btn d-flex align-items-center h-100 mr-2" onclick="kiemTraFormGiaoHang()">
                             <span>Xác nhận đơn giao hàng</span>
                         </button>
@@ -55,6 +55,14 @@
                         Attachment<input type="file" style="display: none;" id="file_restore" accept="*"
                             name="file">
                     </label>
+                    <button name="action" value="action_2" type="submit" class="d-flex align-items-center h-100 btn-danger ml-2 border-0" style="padding: 3px 16px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
+                            <path d="M22.981 10.9603C26.3005 14.2798 26.3005 19.6617 22.981 22.9811C19.6615 26.3006 14.2796 26.3006 10.9602 22.9811C7.64073 19.6617 7.64073 14.2798 10.9602 10.9603C14.2796 7.64084 19.6615 7.64084 22.981 10.9603Z" stroke="#E4E4E4"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.728 12.7281C13.0023 12.4538 13.447 12.4538 13.7213 12.7281L21.2133 20.22C21.4876 20.4943 21.4876 20.9391 21.2133 21.2133C20.939 21.4876 20.4943 21.4876 20.22 21.2133L12.728 13.7214C12.4537 13.4471 12.4537 13.0024 12.728 12.7281Z" fill="#E4E4E4"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M21.2133 12.7281C21.4876 13.0024 21.4876 13.4471 21.2133 13.7214L13.7213 21.2133C13.447 21.4876 13.0023 21.4876 12.728 21.2133C12.4537 20.9391 12.4537 20.4943 12.728 20.22L20.22 12.7281C20.4943 12.4538 20.939 12.4538 21.2133 12.7281Z" fill="#E4E4E4"></path>
+                        </svg>
+                        <span>Xóa đơn giao hàng</span>
+                    </button>
                 </div>
             </div>
         </section>
@@ -404,7 +412,7 @@
         {{-- Modal seri --}}
         @foreach ($product as $item)
             {{-- Modal seri --}}
-            {{-- <div id="list_modal">
+            <div id="list_modal">
                 <div class="modal fade my-custom-modal" id="exampleModal{{ $item->product_id }}" tabindex="-1"
                     aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -450,14 +458,16 @@
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <a href="#" class="btn btn-primary check-seri" data-dismiss="" data-row="row{{$item_seri->product_id }}" data-target="#exampleModal{{ $item->product_id }}">
+                                <a href="#" class="btn btn-primary check-seri" data-dismiss=""
+                                    data-row="row{{ $item->product_id }}"
+                                    data-target="#exampleModal{{ $item->product_id }}">
                                     Save changes
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         @endforeach
     </form>
 </div>
@@ -483,41 +493,6 @@
         </div>
     </div>
 </div>
-{{-- Modal seri --}}
-<div id="list_modal">
-    <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel"
-        style="display: none;" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
-                    <a href="#" class="close btnclose" data-dismiss="" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </a>
-                </div>
-                <div class="modal-body">
-                    <table id="table_SNS">
-                        <thead>
-                            <tr>
-                                <td style="width:2%"></td>
-                                <th style="width:5%">STT</th>
-                                <th style="width:100%">Serial number</th>
-                                <th style="width:3%"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn btn-primary check-seri" data-dismiss="">
-                        Save changes
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 </div>
 <script>
     $('#file_restore').on('change', function(e) {
@@ -528,22 +503,22 @@
         $('#deliveryForm')[0].submit();
     })
     //Kiểm tra số lượng SN được checked
-    // $('.check-seri').on('click', function() {
-    //     // Lấy giá trị của data-target và data-row từ button
-    //     const dataTarget = $(this).data('target');
-    //     const rowID = $(this).data('row');
+    $('.check-seri').on('click', function() {
+        // Lấy giá trị của data-target và data-row từ button
+        const dataTarget = $(this).data('target');
+        const rowID = $(this).data('row');
 
-    //     // Lấy giá trị từ input số lượng
-    //     const quantityInputValue = parseInt($(`.${rowID} .quantity-input`).val());
+        // Lấy giá trị từ input số lượng
+        const quantityInputValue = parseInt($(`.${rowID} .quantity-input`).val());
 
-    //     // Lấy số lượng checkbox được chọn trong modal
-    //     const checkedCheckboxCount = $(`${dataTarget} .check-item:checked`).length;
+        // Lấy số lượng checkbox được chọn trong modal
+        const checkedCheckboxCount = $(`${dataTarget} .check-item:checked`).length;
 
-    //     // Kiểm tra xem số lượng checkbox có bằng với giá trị từ input không
-    //     if (checkedCheckboxCount !== quantityInputValue) {
-    //         alert('Vui lòng chọn đủ serinumber.');
-    //     }
-    // });
+        // Kiểm tra xem số lượng checkbox có bằng với giá trị từ input không
+        if (checkedCheckboxCount !== quantityInputValue) {
+            alert('Vui lòng chọn đủ serinumber.');
+        }
+    });
 
     //Mở rộng
     var status_form = 0;
