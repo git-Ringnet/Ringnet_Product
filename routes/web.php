@@ -122,6 +122,9 @@ Route::get('/getProductPay', [PayExportController::class, 'getProductPay'])->nam
 Route::get('/getProductSeri', [ProductController::class, 'getProductSeri'])->name('getProductSeri');
 Route::get('/getProductSeriEdit', [ProductController::class, 'getProductSeriEdit'])->name('getProductSeriEdit');
 
+
+Route::get('exportDatabase',[ProductController::class,'exportDatabase'])->name('exportDatabase');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

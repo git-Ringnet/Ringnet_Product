@@ -9,6 +9,11 @@
                 <span>/</span>
                 <span class="font-weight-bold">Sản phẩm</span>
             </div>
+
+            <a href="{{route('exportDatabase')}}">
+                Export
+            </a>
+
             <div class="row m-0 mb-1">
                 <a href="{{ route('inventory.create') }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
