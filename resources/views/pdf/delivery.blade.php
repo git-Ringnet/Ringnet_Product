@@ -177,8 +177,8 @@
     <hr style="width:90%;opacity: .5;">
     <h1 style="padding-top: 4px;padding-left: 189px;text-indent: 0px;text-align: left;">BIÊN BẢN BÀN GIAO</h1>
     <p class="s3" style="padding-top: 14px;padding-left: 360px;text-indent: 0px;text-align: left;">Thành phố Hồ Chí
-        Minh, ngày {{ $data['date']->format('d') }} tháng {{ $data['date']->format('m') }} năm
-        {{ $data['date']->format('Y') }}</p>
+        {{-- Minh, ngày {{ $data['date']->format('d') }} tháng {{ $data['date']->format('m') }} năm
+        {{ $data['date']->format('Y') }}</p> --}}
     <p style="text-indent: 0px;text-align: left;"><br></p>
     <table style="border-collapse:collapse;margin-left:13.884px" cellspacing="0">
         <tbody>

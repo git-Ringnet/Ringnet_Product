@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\UsersExport;
 use App\Models\BillSale;
+use App\Models\Delivery;
 use App\Models\DetailExport;
 use App\Models\Guest;
 use App\Models\Products;
@@ -19,6 +20,7 @@ class PdfController extends Controller
     private $quoteExport;
     private $guest;
     private $product;
+    private $delivery;
 
 
     public function __construct()
@@ -27,6 +29,7 @@ class PdfController extends Controller
         $this->guest = new Guest();
         $this->quoteExport = new QuoteExport();
         $this->product = new Products();
+        $this->delivery = new Delivery();
     }
     public function update(Request $request, string $id)
     {
@@ -76,21 +79,8 @@ class PdfController extends Controller
         // $product = $this->product->getAllProducts();
         // $detailExport = $this->detailExport->getDetailExportToId($id);
         // $quoteExport = $this->detailExport->getProductToId($id);
-        $billSale = BillSale::where('bill_sale.id', $id)
-            ->leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
-            ->leftJoin('guest', 'bill_sale.guest_id', 'guest.id')
-            ->select('*', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD')
-            ->first();
-
-        $product = BillSale::join('product_bill', 'bill_sale.id', '=', 'product_bill.billSale_id')
-            ->join('quoteexport', 'product_bill.product_id', '=', 'quoteexport.product_id')
-            ->where('bill_sale.id', $id)
-            ->select(
-                'bill_sale.*',
-                'product_bill.*',
-                'quoteexport.*',
-            )
-            ->get();
+        $billSale = $this->delivery->getDeliveryToId($id);
+        $product = $this->delivery->getProductToId($id);
         $bg = url('dist/img/logo-2050x480-1.png');
         $data = [
             'delivery' => $billSale,
@@ -109,6 +99,7 @@ class PdfController extends Controller
                 'enable_remote' => false,
 
             ]);
+        // dd($billSale)
         return $pdf->download('delivery.pdf');
         // return view('pdf.delivery', compact('data'));
     }
