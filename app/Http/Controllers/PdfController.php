@@ -100,7 +100,7 @@ class PdfController extends Controller
 
             ]);
         // dd($billSale);
-        // return $pdf->download('delivery.pdf');
-        return view('pdf.delivery', compact('data'));
+        return $pdf->download('delivery.pdf');
+        // return view('pdf.delivery', compact('data'));
     }
 }

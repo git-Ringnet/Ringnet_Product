@@ -212,27 +212,27 @@
             <tr style="height:131px">
                 <td style="width:80px">
                     <p class="s4"
-                        style="padding-top: 6px;padding-left: 2px;text-indent: 0px;text-align: left;height:15px;">BÊN
+                        style="padding-top: 6px;padding-left: 2px;text-indent: 0px;text-align: left;height:19px;">BÊN
                         B:</p>
-                    <p style="text-indent: 0px;text-align: left;"><br></p>
-                    <p class="s5" style="padding-left: 2px;text-indent: 0px;text-align: left;">Địa chỉ<b>:</b></p>
-                    <p style="text-indent: 0px;text-align: left;"><br></p>
-                    <p style="padding-top: 4px;text-indent: 0px;text-align: left;"><br></p>
-                    <p class="s5" style="padding-left: 2px;text-indent: 0px;line-height: 28px;text-align: left;">
+                    <p class="s5"
+                        style="padding-left: 2px;text-indent: 0px;text-align: left;padding-top:5px;height:40px">Địa
+                        chỉ<b>:</b></p>
+                    <p class="s5"
+                        style="padding-left: 2px;text-indent: 0px;line-height: 28px;text-align: left;padding-top:7px;">
                         <span>Mã số thuế:<br>Đại diện</span><b>:</b>
                     </p>
                 </td>
                 <td style="width:500px">
                     <p class="s4"
-                        style="padding-top: 6px;padding-left: 45px;text-indent: 0px;text-align: left;height:15px;">
+                        style="padding-top: 6px;padding-left: 45px;text-indent: 0px;text-align: left;height:19px;">
                         CÔNG TY CỔ PHẦN THƯƠNG MẠI DỊCH VỤ RINGNET</p>
-                    <p style="text-indent: 0px;text-align: left;"><br></p>
                     <p class="s5"
-                        style="width:100%;padding-left: 45px;text-indent: 0px;line-height: 190%;text-align: left;">
+                        style="width:100%;padding-left: 45px;text-indent: 0px;line-height: 190%;text-align: left;height:50px">
                         <span>L17-11, Tầng 17, Tòa nhà Vincom Center, Số 72 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, TP
                             HCM</span>
                     </p>
-                    <p class="s5" style="padding-left: 45px;text-indent: 0px;text-align: left;">0315726490</p>
+                    <p class="s5" style="padding-left: 45px;text-indent: 0px;text-align: left;padding-top:11px;">
+                        0315726490</p>
                     <p style="text-indent: 0px;text-align: left;"><br></p>
                     <p class="s5"
                         style="width:120%;padding-left: 45px;text-indent: 0px;line-height: 13px;text-align: left;">
