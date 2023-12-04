@@ -212,9 +212,9 @@
                                     </div>
                                 </td> 
                                 <td class="border border-top-0 border-bottom-0 position-relative">
-                                    <input readonly id="searchProductName" type="text" name="product_name[]" class="searchProductName border-0 px-3 py-2 w-100" value="` +
+                                    <input readonly id="searchProductName" type="text" name="product_name[]" class="searchProductName border-0 px-3 py-2 w-100" value='` +
                                 element.product_name +
-                                `">
+                                `'>
                                 </td>   
                                 <td> 
                                     <input readonly type="text" name="product_unit[]" class="border-0 px-3 py-2 w-100 product_unit" value="` +

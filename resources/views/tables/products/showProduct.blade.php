@@ -242,12 +242,7 @@
                                         <div class="title-info py-2 border border-left-0" style="width:23%;">
                                             <input readonly type="text"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                                @if ($product->getProductImport) @if ($product->getProductImport[0]->getDataProduct)
-                                                @if ($product->getProductImport[0]->getDataProduct->getWareHouse)
-                                                value="{{ $product->getProductImport[0]->getDataProduct->getWareHouse->warehouse_name }}" @endif
-                                                @endif
-                                            @endif
-                                            >
+                                                value="Tên kho hàng">
                                         </div>
                                         <div class="title-info py-2 border border-left-0" style="width:20%;">
                                             <input readonly

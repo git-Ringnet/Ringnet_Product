@@ -53,7 +53,8 @@ class ProductImport extends Model
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $qty = 0;
             $product = QuoteImport::where('detailimport_id', $id)
-                ->where('product_name', $data['product_name'][$i])->first();
+                ->where('product_name', $data['product_name'][$i])
+                ->first();
             if ($product) {
                 if ($colum == 'payOrder_id' && $columQuote == 'payment_qty') {
                     if ($product->product_qty == $product->$columQuote) {
