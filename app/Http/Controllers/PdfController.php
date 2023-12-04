@@ -99,8 +99,8 @@ class PdfController extends Controller
                 'enable_remote' => false,
 
             ]);
-        // dd($billSale)
-        return $pdf->download('delivery.pdf');
-        // return view('pdf.delivery', compact('data'));
+        // dd($billSale);
+        // return $pdf->download('delivery.pdf');
+        return view('pdf.delivery', compact('data'));
     }
 }

@@ -177,26 +177,29 @@
     <hr style="width:90%;opacity: .5;">
     <h1 style="padding-top: 4px;padding-left: 189px;text-indent: 0px;text-align: left;">BIÊN BẢN BÀN GIAO</h1>
     <p class="s3" style="padding-top: 14px;padding-left: 360px;text-indent: 0px;text-align: left;">Thành phố Hồ Chí
-        {{-- Minh, ngày {{ $data['date']->format('d') }} tháng {{ $data['date']->format('m') }} năm
-        {{ $data['date']->format('Y') }}</p> --}}
+        Minh, ngày {{ $data['date']->format('d') }} tháng {{ $data['date']->format('m') }} năm
+        {{ $data['date']->format('Y') }}</p>
     <p style="text-indent: 0px;text-align: left;"><br></p>
     <table style="border-collapse:collapse;margin-left:13.884px" cellspacing="0">
         <tbody>
             <tr style="height:104px">
                 <td style="width:110px">
-                    <p class="s4" style="padding-left: 2px;text-indent: 0px;text-align: left;">BÊN A:</p>
+                    <p class="s4" style="padding-left: 2px;text-indent: 0px;text-align: left;height:19px;">BÊN A:
+                    </p>
                     <p style="text-indent: 0px;text-align: left;"><br></p>
-                    <p class="s5" style="padding-left: 2px;text-indent: 0px;text-align: left;">Địa chỉ:</p>
+                    <p class="s5" style="padding-left: 2px;text-indent: 0px;text-align: left;height:19px;">Địa chỉ:
+                    </p>
                     <p class="s5"
-                        style="padding-top: 4px;padding-left: 2px;text-indent: 0px;line-height: 28px;text-align: left;">
+                        style="padding-top: 5px;padding-left: 2px;text-indent: 0px;line-height: 28px;text-align: left;">
                         <span>Mã số thuế:<br>Đại diện</span><b>:</b>
                     </p>
                 </td>
                 <td style="width:431px">
-                    <p class="s6" style="padding-left: 45px;text-indent: 0px;text-align: left;">
+                    <p class="s6" style="padding-left: 45px;text-indent: 0px;text-align: left;height:19px;">
                         {{ $data['delivery']->guest_name }}</p>
                     <p style="text-indent: 0px;text-align: left;"><br></p>
-                    <p class="s5" style="width:120%;padding-left: 45px;text-indent: 0px;text-align: left;">
+                    <p class="s5"
+                        style="width:120%;padding-left: 45px;text-indent: 0px;text-align: left;height:19px;">
                         {{ $data['delivery']->guest_address }}</p>
                     <p style="text-indent: 0px;text-align: left;"><br></p>
                     <p class="s7" style="padding-left: 45px;text-indent: 0px;text-align: left;">
@@ -208,7 +211,8 @@
             </tr>
             <tr style="height:131px">
                 <td style="width:80px">
-                    <p class="s4" style="padding-top: 6px;padding-left: 2px;text-indent: 0px;text-align: left;">BÊN
+                    <p class="s4"
+                        style="padding-top: 6px;padding-left: 2px;text-indent: 0px;text-align: left;height:15px;">BÊN
                         B:</p>
                     <p style="text-indent: 0px;text-align: left;"><br></p>
                     <p class="s5" style="padding-left: 2px;text-indent: 0px;text-align: left;">Địa chỉ<b>:</b></p>
@@ -219,11 +223,12 @@
                     </p>
                 </td>
                 <td style="width:500px">
-                    <p class="s4" style="padding-top: 6px;padding-left: 45px;text-indent: 0px;text-align: left;">
+                    <p class="s4"
+                        style="padding-top: 6px;padding-left: 45px;text-indent: 0px;text-align: left;height:15px;">
                         CÔNG TY CỔ PHẦN THƯƠNG MẠI DỊCH VỤ RINGNET</p>
                     <p style="text-indent: 0px;text-align: left;"><br></p>
                     <p class="s5"
-                        style="width:100%;padding-left: 45px;text-indent: 0px;line-height: 200%;text-align: left;">
+                        style="width:100%;padding-left: 45px;text-indent: 0px;line-height: 190%;text-align: left;">
                         <span>L17-11, Tầng 17, Tòa nhà Vincom Center, Số 72 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, TP
                             HCM</span>
                     </p>
@@ -306,7 +311,7 @@
                     <td
                         style="width:37px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;height:30px;vertical-align: middle; border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
                         <p class="s8" style="text-indent: 0px;text-align: center;">
-                            {{ number_format($item->billSale_qty) }}</p>
+                            {{ number_format($item->deliver_qty) }}</p>
                     </td>
                     <td
                         style="width:141px;border-top-style:solid;border-top-width:1px;border-left-style:solid;border-left-width:1px;height:30px;vertical-align: middle; border-bottom-style:solid;border-bottom-width:1px;border-right-style:solid;border-right-width:1px">
