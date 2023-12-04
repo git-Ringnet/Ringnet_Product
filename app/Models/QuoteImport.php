@@ -34,6 +34,10 @@ class QuoteImport extends Model
     public function getQuoteNumber(){
         return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
     }
+    public function getWareHouse(){
+        return $this->hasOne(Warehouse::class, 'id', 'warehouse_id');
+    }
+
     public function addQuoteImport($data, $id)
     {
         for ($i = 0; $i < count($data['product_name']); $i++) {
