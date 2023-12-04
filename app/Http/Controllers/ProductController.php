@@ -9,7 +9,9 @@ use App\Models\Provides;
 use App\Models\QuoteImport;
 use App\Models\Serialnumber;
 use App\Models\Warehouse;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
+use ZipArchive;
 
 class ProductController extends Controller
 {
@@ -184,5 +186,26 @@ class ProductController extends Controller
         $serinumber = Serialnumber::where('product_id', $data['productId'])
             ->get();
         return response()->json($serinumber);
+    }
+    // Backup DATABASE
+    public function exportDatabase()
+    {
+        $dbUsername = 'root';
+        $dbName = 'laravel';
+        $dbPass = ''; // If you have a password, provide it here.
+
+        // Sử dụng lệnh mysqldump để xuất cơ sở dữ liệu
+        $passwordOption = $dbPass !== '' ? "-p$dbPass" : "";
+
+        // Lấy ngày giờ hiện tại của hệ thống máy tính
+        $date = date('d_m_Y_H_i_s');
+
+        // Thực hiện mysqldump để tạo file SQL và lưu vào thư mục tạm thời
+        $fileName = "backup_$date.sql";
+        $command = "mysqldump -u $dbUsername $passwordOption $dbName > $fileName";
+        exec($command);
+
+        // Trả về tệp đã được backup và thiết lập header để tải về
+        return response()->download($fileName)->deleteFileAfterSend(true);
     }
 }

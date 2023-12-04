@@ -85,33 +85,36 @@ class Products extends Model
         // dd($data['action']);
         $return = 0;
         $product = Products::where('id', $id)->first();
-        // isset($data['check_seri']) ? $check = 1 : $check = 0;
-        isset($data['check_seri']) ? $check = 1 : $check = $product->check_seri;
-        $dataUpdate = [
-            'product_code' => $data['product_code'],
-            'product_name' => $data['product_name'],
-            'product_unit' => $data['product_unit'],
-            'product_type' => $data['product_type'],
-            'product_manufacturer' => $data['product_manufacturer'],
-            'product_origin' => $data['product_origin'],
-            'product_guarantee' => $data['product_guarantee'],
-            'product_price_import' => isset($data['product_price_import']) ? str_replace(',', '', $data['product_price_import']) : 0,
-            'product_price_export' => isset($data['product_price_export']) ? str_replace(',', '', $data['product_price_export']) : 0,
-            'product_ratio' => $data['product_ratio'],
-            'product_tax' => $data['product_tax'],
-            'check_seri' => $check,
-        ];
-        // $checkProductName = DB::table($this->table)->where('product_name', $data['product_name'])->first();
-        // if ($checkProductName) {
-        //     $return = 0;
-        // } else {
-        $updateProduct = DB::table($this->table)
-            ->where('id', $id)
-            ->update($dataUpdate);
-
-        if ($updateProduct) {
-            $return = 1;
-            // }
+        if ($product) {
+            // isset($data['check_seri']) ? $check = 1 : $check = 0;
+            isset($data['check_seri']) ? $check = 1 : $check = $product->check_seri;
+            $dataUpdate = [
+                'product_code' => $data['product_code'],
+                'product_name' => $data['product_name'],
+                'product_unit' => $data['product_unit'],
+                'product_type' => $data['product_type'],
+                'product_manufacturer' => $data['product_manufacturer'],
+                'product_origin' => $data['product_origin'],
+                'product_guarantee' => $data['product_guarantee'],
+                'product_price_import' => isset($data['product_price_import']) ? str_replace(',', '', $data['product_price_import']) : 0,
+                'product_price_export' => isset($data['product_price_export']) ? str_replace(',', '', $data['product_price_export']) : 0,
+                'product_ratio' => $data['product_ratio'],
+                'product_tax' => $data['product_tax'],
+                'check_seri' => $check,
+            ];
+            $checkProductName = DB::table($this->table)
+                ->where('id', '!=', $product->id)
+                ->where('product_name', $data['product_name'])->first();
+            if ($checkProductName) {
+                $return = 0;
+            } else {
+                $updateProduct = DB::table($this->table)
+                    ->where('id', $id)
+                    ->update($dataUpdate);
+                if ($updateProduct) {
+                    $return = 1;
+                }
+            }
         }
         return $return;
     }
