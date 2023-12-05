@@ -47,12 +47,15 @@ class QuoteExport extends Model
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                     'check_seri' => 1,
                 ];
-                $product = new Products($dataProduct);
-                $product->save();
+                $checkProduct = Products::where('product_name', $data['product_name'][$i])->first();
+                if (!$checkProduct) {
+                    $product = new Products($dataProduct);
+                    $product->save();
+                }
                 $dataQuote = [
                     'detailexport_id' => $id,
                     'product_code' => $data['product_code'][$i],
-                    'product_id' => $product->id,
+                    'product_id' => $checkProduct == null ? $product->id : $checkProduct->id,
                     'product_name' => $data['product_name'][$i],
                     'product_unit' => $data['product_unit'][$i],
                     'product_qty' => $data['product_qty'][$i],
