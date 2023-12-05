@@ -170,11 +170,11 @@
                 <td style="width:1083px;border-left-style:solid;border-left-width:1px;border-right-style:solid;border-right-width:1px"
                     colspan="9" bgcolor="#FCE9D9">
                     <p class="s2" style="padding-left: 3px;text-indent: 0px;text-align: left;">CÔNG TY CỔ PHẦN
-                        THƯƠNG MẠI DỊCH VỤ RINGNET <span class="s3" style="margin-left:39%">Mã đơn hàng:
+                        THƯƠNG MẠI DỊCH VỤ RINGNET <span class="s3" style="margin-left:32%">Mã đơn hàng:
                             {{ $data['detailExport']->quotation_number }}</span></p>
                     <p class="s4" style="padding-left: 2px;text-indent: 0px;line-height: 18px;text-align: left;">Địa
                         chỉ: L17-11, Tầng 17, Vincom Center, 72 Lê Thánh Tôn, P. Bến Nghé, Q. 1, TP. HCM <span
-                            class="s5" style="margin-left:29%">Ngày báo giá:
+                            class="s5" style="margin-left:22%">Ngày báo giá:
                             {{ $data['detailExport']->created_at->format('d.m.Y') }}</span>
                     </p>
                 </td>
@@ -203,8 +203,7 @@
                         {{ $data['detailExport']->guest_address }}</p>
                     <p style="padding-left: 39px;font-weight:700;font-size:15px;padding-top:10px">Người mua hàng:</p>
                     <p style="padding-left: 39px;">Điện thoại:{{ $data['detailExport']->guest_phone }}</p>
-                    <p style="padding-left: 39px;">Họ và tên:
-                    <p style="padding-left: 3px;">{{ $data['detailExport']->guest_receiver }}</p>
+                    <p style="padding-left: 39px;">Họ và tên:{{ $data['detailExport']->guest_receiver }}
                     </p>
                     <p style="padding-left: 39px;">Email:{{ $data['detailExport']->guest_email }}</p>
                 </td>

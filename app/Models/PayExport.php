@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class PayExport extends Model
 {
@@ -148,6 +149,30 @@ class PayExport extends Model
     }
     public function getAttachment($name)
     {
-        return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name', $name)->get();
+        return $this->hasMany(Attachment::class, 'table_id', 'idTT')->where('table_name', $name)->get();
+    }
+    public function getInfoPay($idQuote)
+    {
+        $delivery = DetailExport::where('detailexport.id', $idQuote)
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
+            ->leftJoin('history_payment_export', 'history_payment_export.pay_id', 'pay_export.id')
+            ->select(
+                'detailexport.guest_id',
+                'guest.guest_name_display',
+                'detailexport.quotation_number',
+                DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
+                DB::raw('SUM(history_payment_export.payment) as tongThanhToan')
+            )
+            ->groupBy(
+                'detailexport.guest_id',
+                'guest.guest_name_display',
+                'detailexport.total_price',
+                'detailexport.total_tax',
+                'detailexport.quotation_number',
+            )
+            ->first();
+        return $delivery;
     }
 }

@@ -127,6 +127,6 @@ class BillSale extends Model
     }
     public function getAttachment($name)
     {
-        return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name', $name)->get();
+        return $this->hasMany(Attachment::class, 'table_id', 'idHD')->where('table_name', $name)->get();
     }
 }

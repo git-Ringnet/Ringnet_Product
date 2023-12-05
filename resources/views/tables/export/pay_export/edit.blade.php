@@ -5,7 +5,7 @@
         enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <input type="hidden" name="detail_id" value="{{ $payExport->id }}">
+        <input type="hidden" name="detail_id" value="{{ $payExport->idTT }}">
         <input type="hidden" name="table_name" value="TT">
         <input type="hidden" name="detailexport_id" id="detailexport_id">
         <input type="hidden" name="billSale_id" id="billSale_id">

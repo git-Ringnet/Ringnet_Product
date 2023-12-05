@@ -5,7 +5,7 @@
         enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <input type="hidden" name="detail_id" value="{{ $billSale->id }}">
+        <input type="hidden" name="detail_id" value="{{ $billSale->idHD }}">
         <input type="hidden" name="table_name" value="HDBH">
         <input type="hidden" name="detailexport_id" id="detailexport_id">
         <input type="hidden" name="delivery_id" id="delivery_id">
@@ -20,7 +20,8 @@
                     <span class="font-weight-bold">Hóa đơn bán hàng</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <button type="submit" name="action" value="action_1" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                    <button type="submit" name="action" value="action_1"
+                        class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <span>Xác nhận hóa đơn</span>
                     </button>
                     <div class="dropdown">

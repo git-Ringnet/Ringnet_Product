@@ -175,7 +175,7 @@
     <p style="text-indent: 0px;line-height: 1px;text-align: left;"></p>
     <p style="text-indent: 0px;text-align: left;"><br></p>
     <hr style="width:90%;opacity: .5;">
-    <h1 style="padding-top: 4px;padding-left: 189px;text-indent: 0px;text-align: left;">BIÊN BẢN BÀN GIAO</h1>
+    <h1 style="padding-top: 4px;padding-left: 235px;text-indent: 0px;text-align: left;">BIÊN BẢN BÀN GIAO</h1>
     <p class="s3" style="padding-top: 14px;padding-left: 360px;text-indent: 0px;text-align: left;">Thành phố Hồ Chí
         Minh, ngày {{ $data['date']->format('d') }} tháng {{ $data['date']->format('m') }} năm
         {{ $data['date']->format('Y') }}</p>
@@ -218,7 +218,7 @@
                         style="padding-left: 2px;text-indent: 0px;text-align: left;padding-top:5px;height:40px">Địa
                         chỉ<b>:</b></p>
                     <p class="s5"
-                        style="padding-left: 2px;text-indent: 0px;line-height: 28px;text-align: left;padding-top:7px;">
+                        style="padding-left: 2px;text-indent: 0px;line-height: 28px;text-align: left;padding-top:15px;">
                         <span>Mã số thuế:<br>Đại diện</span><b>:</b>
                     </p>
                 </td>
@@ -231,7 +231,7 @@
                         <span>L17-11, Tầng 17, Tòa nhà Vincom Center, Số 72 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, TP
                             HCM</span>
                     </p>
-                    <p class="s5" style="padding-left: 45px;text-indent: 0px;text-align: left;padding-top:11px;">
+                    <p class="s5" style="padding-left: 45px;text-indent: 0px;text-align: left;padding-top:19px;">
                         0315726490</p>
                     <p style="text-indent: 0px;text-align: left;"><br></p>
                     <p class="s5"
@@ -339,7 +339,7 @@
     <p class="s10" style="padding-top: 4px;padding-left: 47px;text-indent: 0px;text-align: left;">3. Biên bản này
         được lập thành 02 bản có giá trị như nhau, mỗi bên giữ 01 bản.</p>
     <p style="text-indent: 0px;text-align: left;"><br></p>
-    <table style="border-collapse:collapse;margin-left:87.35px" cellspacing="0">
+    <table style="border-collapse:collapse;margin-left:50.35px" cellspacing="0">
         <tbody>
             <tr style="height:30px">
                 <td style="width:200px">
@@ -350,12 +350,12 @@
                         style="padding-top: 2px;padding-left: 2px;text-indent: 0px;line-height: 13px;text-align: center;">
                         (<i>Ký &amp; Ghi rõ họ tên</i>)</p>
                 </td>
-                <td style="width:250px">
+                <td style="width:450px">
                     <p class="s4"
-                        style="padding-left: 73px;text-indent: 0px;line-height: 13px;text-align: center;">
+                        style="padding-left: 130px;text-indent: 0px;line-height: 13px;text-align: center;">
                         ĐẠI DIỆN BÊN B</p>
                     <p class="s5"
-                        style="padding-top: 2px;padding-left: 70px;text-indent: 0px;line-height: 13px;text-align: center;">
+                        style="padding-top: 2px;padding-left: 127px;text-indent: 0px;line-height: 13px;text-align: center;">
                         (<i>Ký &amp; Ghi rõ họ tên</i>)</p>
                 </td>
             </tr>
