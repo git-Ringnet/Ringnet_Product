@@ -31,6 +31,8 @@ class DetailExport extends Model
         'goods',
         'delivery',
         'location',
+        'created_at', 
+        'updated_at'
     ];
     protected $table = 'detailexport';
 

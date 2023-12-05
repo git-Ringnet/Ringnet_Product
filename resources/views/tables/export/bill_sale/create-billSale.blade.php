@@ -17,7 +17,7 @@
                     <span class="font-weight-bold">Hóa đơn bán hàng mới</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                    <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px" onclick="kiemTraFormGiaoHang(event);">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1048,6 +1048,23 @@
             formattedIntegerPart;
 
         return formattedNumber;
+    }
+
+    function kiemTraFormGiaoHang(event) {
+        var rows = document.querySelectorAll('tr');
+        var hasProducts = false;
+
+        for (var i = 1; i < rows.length; i++) {
+            if (rows[i].classList.contains('sanPhamGiao')) {
+                hasProducts = true;
+            }
+        }
+
+        // Hiển thị thông báo nếu không có sản phẩm
+        if (!hasProducts) {
+            alert("Không có sản phẩm để tạo hóa đơn");
+            event.preventDefault();
+        }
     }
 </script>
 </body>

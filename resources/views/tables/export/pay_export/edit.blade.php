@@ -105,7 +105,7 @@
                                             </div>
                                             <div class="w-100">
                                                 <input type="text" placeholder="Nhập thông tin"
-                                                    value="{{ date_format(new DateTime($payExport->ngayTT), 'd/m/Y') }}"
+                                                    value="{{ date_format(new DateTime($payExport->payment_date), 'd/m/Y') }}"
                                                     name="date_pay" required
                                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                             </div>

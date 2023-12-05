@@ -16,6 +16,8 @@ class Delivery extends Model
         'shipping_fee',
         'detailexport_id',
         'status',
+        'created_at',
+        'updated_at'
     ];
     protected $table = 'delivery';
 
@@ -159,6 +161,7 @@ class Delivery extends Model
 
             // Lấy tất cả các bản ghi delivered có product_id tương ứng và status = 2 từ bảng Delivery
             $deliveriesForProduct = Delivered::join('delivery', 'delivery.id', '=', 'delivered.delivery_id')
+                ->where('delivery.detailexport_id', $detailexport_id)
                 ->where('delivered.product_id', $product_id)
                 ->where('delivery.status', 2)
                 ->get();

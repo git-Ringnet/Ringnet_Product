@@ -14,6 +14,8 @@ class BillSale extends Model
         'price_total',
         'status',
         'number_bill',
+        'created_at', 
+        'updated_at'
     ];
     protected $table = 'bill_sale';
 
@@ -66,6 +68,7 @@ class BillSale extends Model
             'price_total' => $tolal_all,
             'status' => 1,
             'created_at' => $date_bill,
+            'updated_at' => $date_bill,
             'number_bill' =>  $number_bill,
         ];
         $bill_sale = new BillSale($dataBill);
@@ -92,6 +95,7 @@ class BillSale extends Model
             // Lấy tất cả các bản ghi delivered có product_id tương ứng và status = 2 từ bảng Delivery
             $deliveriesForProduct = productBill::join('bill_sale', 'bill_sale.id', '=', 'product_bill.billSale_id')
                 ->where('product_bill.product_id', $product_id)
+                ->where('bill_sale.detailexport_id', $detailexport_id)
                 ->where('bill_sale.status', 2)
                 ->get();
 

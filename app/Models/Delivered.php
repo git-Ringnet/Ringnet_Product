@@ -14,6 +14,8 @@ class Delivered extends Model
         'delivery_id',
         'product_id',
         'deliver_qty',
+        'created_at', 
+        'updated_at'
     ];
     protected $table = 'delivered';
 

@@ -189,7 +189,7 @@
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                {{ date_format(new DateTime($item_pay->created_at), 'd/m/Y') }}
+                                                {{ date_format(new DateTime($item_pay->payment_date), 'd/m/Y') }}
                                             </td>
                                             <td class="text-center">
                                                 {{ number_format($item_pay->tongTienNo) }}

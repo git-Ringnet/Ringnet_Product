@@ -18,6 +18,8 @@ class PayExport extends Model
         'payment',
         'debt',
         'status',
+        'created_at',
+        'updated_at'
     ];
     protected $table = 'pay_export';
 
@@ -75,8 +77,12 @@ class PayExport extends Model
             $detailExport->amount_owed = $result;
             $detailExport->status_pay = 2;
             $detailExport->save();
-        }
-        elseif($result > 0){
+            if ($detailExport->status_receive == 2 && $detailExport->status_reciept == 2 && $detailExport->status_pay == 2) {
+                $detailExport->update([
+                    'status' => 3,
+                ]);
+            }
+        } elseif ($result > 0) {
             $detailExport->amount_owed = $result;
             $detailExport->status_pay = 3;
             $detailExport->save();
