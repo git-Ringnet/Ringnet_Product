@@ -127,6 +127,28 @@ class Delivery extends Model
     }
     public function updateDetailExport($data, $detailexport_id)
     {
+        if (isset($data['shipping_fee'])) {
+            $shipping_fee = $data['shipping_fee'];
+            if ($shipping_fee !== null) {
+                $shipping_fee = str_replace(',', '', $shipping_fee);
+            }
+        } else {
+            $shipping_fee = null;
+        }
+        if (isset($data['shipping_unit'])) {
+            $shipping_unit = $data['shipping_unit'];
+        } else {
+            $shipping_unit = null;
+        }
+        //cập nhật delivery
+        $delivery = Delivery::where('detailexport_id', $detailexport_id)->first();
+        if ($delivery) {
+            $delivery->update([
+                'shipping_unit' => $shipping_unit,
+                'shipping_fee' => $shipping_fee,
+            ]);
+        }
+        //
         $quoteExports = QuoteExport::where('detailexport_id', $detailexport_id)->get();
 
         // Biến để kiểm tra xem có ít nhất một giá trị nào lớn hơn 0 không

@@ -56,7 +56,7 @@
                         Attachment<input type="file" style="display: none;" id="file_restore" accept="*"
                             name="file">
                     </label>
-                    <button name="action" value="action_2" type="submit"
+                    <button name="action" value="action_2" type="submit" id="xoaBtn"
                         class="d-flex align-items-center h-100 btn-danger ml-2 border-0" style="padding: 3px 16px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34"
                             fill="none">
@@ -122,7 +122,8 @@
                                                 <p class="p-0 m-0 px-3">Đơn vị vận chuyển</p>
                                             </div>
                                             <div class="w-100">
-                                                <input type="text" readonly value="{{ $delivery->shipping_unit }}"
+                                                <input type="text" value="{{ $delivery->shipping_unit }}"
+                                                    placeholder="Nhập thông tin"
                                                     class="border w-100 py-2 border-left-0 border-right-0 px-3 unit_ship"
                                                     id="myInput" autocomplete="off" name="shipping_unit">
                                             </div>
@@ -132,8 +133,9 @@
                                                 <p class="p-0 m-0 px-3">Phí giao hàng</p>
                                             </div>
                                             <div class="w-100">
-                                                <input type="text" readonly name="shipping_fee"
-                                                    value="{{ $delivery->shipping_fee }}"
+                                                <input type="text" name="shipping_fee"
+                                                    value="{{ number_format($delivery->shipping_fee) }}"
+                                                    placeholder="Nhập thông tin"
                                                     class="border w-100 py-2 border-left-0 border-right-0 px-3 fee_ship"
                                                     id="myInput" autocomplete="off">
                                             </div>
@@ -422,7 +424,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
-                                <a href="#" class="close btnclose" data-dismiss="" aria-label="Close">
+                                <a href="#" class="close btnclose" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </a>
                             </div>
@@ -445,7 +447,7 @@
                                                     <td>
                                                         <input name="id_seri[]"
                                                             {{ $item_seri->detailexport_id == $delivery->detailexport_id ? 'checked' : '' }}
-                                                            type="checkbox" class="check-item"
+                                                            type="checkbox" class="check-item" disabled
                                                             data-product-id={{ $item_seri->product_id }}
                                                             value="{{ $item_seri->id }}">
                                                     </td>
@@ -460,13 +462,13 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="modal-footer">
+                            {{-- <div class="modal-footer">
                                 <a href="#" class="btn btn-primary check-seri" data-dismiss=""
                                     data-row="row{{ $item->product_id }}"
                                     data-target="#exampleModal{{ $item->product_id }}">
                                     Save changes
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -522,6 +524,11 @@
     //         alert('Vui lòng chọn đủ serinumber.');
     //     }
     // });
+
+    //
+    $('.ml-1.btn-sm').on('click', function(event) {
+        $('input[name="_method"][value="put"]').remove();
+    });
 
     //Mở rộng
     var status_form = 0;
@@ -700,13 +707,48 @@
             event.preventDefault();
         } else if (hasProducts) {
             var hiddenInputsToRemove = document.querySelectorAll(
-            'input[type="hidden"][name="_method"][value="delete"]');
+                'input[type="hidden"][name="_method"][value="delete"]');
             hiddenInputsToRemove.forEach(function(hiddenInput) {
                 hiddenInput.remove();
             });
             // Nếu không có lỗi và có sản phẩm, tiếp tục submit form
             document.getElementById('deliveryForm').submit();
         }
+    }
+    $('#xoaBtn').on('click', function(event) {
+        var hiddenInputsToRemove = document.querySelectorAll(
+            'input[type="hidden"][name="_method"][value="delete"]');
+        hiddenInputsToRemove.forEach(function(hiddenInput) {
+            hiddenInput.remove();
+        });
+    })
+    $('body').on('input', '.product_price, #transport_fee, .giaNhap, #voucher, .fee_ship', function(event) {
+        // Lấy giá trị đã nhập
+        var value = event.target.value;
+
+        // Xóa các ký tự không phải số và dấu phân thập phân từ giá trị
+        var formattedValue = value.replace(/[^0-9.]/g, '');
+
+        // Định dạng số với dấu phân cách hàng nghìn và giữ nguyên số thập phân
+        var formattedNumber = numberWithCommas(formattedValue);
+
+        event.target.value = formattedNumber;
+    });
+
+    function numberWithCommas(number) {
+        // Chia số thành phần nguyên và phần thập phân
+        var parts = number.split('.');
+        var integerPart = parts[0];
+        var decimalPart = parts[1];
+
+        // Định dạng phần nguyên số với dấu phân cách hàng nghìn
+        var formattedIntegerPart = integerPart.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        // Kết hợp phần nguyên và phần thập phân (nếu có)
+        var formattedNumber = decimalPart !== undefined ? formattedIntegerPart + '.' + decimalPart :
+            formattedIntegerPart;
+
+        return formattedNumber;
     }
 </script>
 </body>

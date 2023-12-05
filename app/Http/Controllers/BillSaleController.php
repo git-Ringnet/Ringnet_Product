@@ -38,7 +38,11 @@ class BillSaleController extends Controller
     public function create()
     {
         $title = "Tạo Hóa đơn bán hàng";
-        $numberQuote = DetailExport::all();
+        $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
+            ->where('quoteexport.product_qty', '>', DB::raw('COALESCE(quoteexport.qty_bill_sale,0)'))
+            ->select('detailexport.quotation_number', 'detailexport.id')
+            ->distinct()
+            ->get();
         $product = $this->product->getAllProducts();
         return view('tables.export.bill_sale.create-billSale', compact('title', 'numberQuote', 'product'));
     }
@@ -122,7 +126,7 @@ class BillSaleController extends Controller
                     'status' => 2,
                 ]);
                 $this->billSale->updateDetailExport($billSale->detailexport_id);
-                return redirect()->route('billSale.index')->with('success', 'Xác nhận hóa đơn bán hàng thành công!');
+                return redirect()->route('billSale.index')->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
             }
         }
         if ($request->action == "action_2") {

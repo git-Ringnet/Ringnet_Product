@@ -6,6 +6,7 @@ use App\Models\Delivered;
 use App\Models\Delivery;
 use App\Models\DetailExport;
 use App\Models\Products;
+use App\Models\QuoteExport;
 use App\Models\Serialnumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -66,7 +67,7 @@ class DeliveryController extends Controller
                         $serial->detailimport_id = 0;
                         $serial->detailexport_id = $request->detailexport_id;
                         $serial->product_id = $maSP;
-                        $serial->status = 1;
+                        $serial->status = 3;
                         $serial->save();
                     }
                 }
@@ -118,6 +119,16 @@ class DeliveryController extends Controller
             }
         }
         if ($request->action == "action_2") {
+            $delivery = Delivery::find($id);
+            Serialnumber::where('detailexport_id', $delivery->detailexport_id)
+                ->update([
+                    'status' => 1,
+                    'detailexport_id' => 0,
+                ]);
+            QuoteExport::where('detailexport_id', $delivery->detailexport_id)
+                ->update([
+                    'qty_delivery' => 0,
+                ]);
             Delivery::find($id)->delete();
             Delivered::where('delivery_id', $id)->delete();
             return redirect()->route('delivery.index')->with('msg', 'Xóa đơn giao hàng thành công!');
@@ -150,13 +161,14 @@ class DeliveryController extends Controller
             ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) as soLuongCanGiao')
             ->leftJoin('serialnumber', function ($join) {
                 $join->on('serialnumber.product_id', '=', 'products.id');
+                $join->where('serialnumber.detailexport_id', 0);
             })
             ->where('detailexport.id', $data['idQuote'])
             ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) > 0')
             ->get();
 
         // Group dữ liệu theo ID sản phẩm để có danh sách seri cho mỗi sản phẩm
-        $groupedDelivery = $delivery->groupBy('maSP'); // Use the alias maSP instead of product_id
+        $groupedDelivery = $delivery->groupBy('maSP');
 
         // Xử lý dữ liệu để thêm danh sách seri vào mỗi sản phẩm
         $processedDelivery = $groupedDelivery->map(function ($group) {

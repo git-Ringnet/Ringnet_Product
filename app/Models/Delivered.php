@@ -70,7 +70,7 @@ class Delivered extends Model
                 $serialNumber = Serialnumber::find($serialNumberId);
                 if ($serialNumber) {
                     $serialNumber->update([
-                        'detailexport_id' => $id,
+                        'detailexport_id' => $data['detailexport_id'],
                         'status' => 3,
                     ]);
                 }

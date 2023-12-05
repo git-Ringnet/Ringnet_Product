@@ -721,7 +721,6 @@
                             idQuote: idQuote
                         },
                         success: function(data) {
-                            console.log(data);
                             $(".sanPhamGiao").remove();
                             $.each(data, function(index, item) {
                                 $("#detailexport_id").val(item
@@ -803,6 +802,32 @@
                                     axis: "y",
                                     handle: "td",
                                 });
+                                //Giới hạn số tiền
+                                document.querySelector('.payment')
+                                    .addEventListener('input',
+                                    function() {
+                                        var duNoValue = document
+                                            .querySelector('.duNo')
+                                            .value;
+                                        var paymentInput = document
+                                            .querySelector(
+                                                '.payment');
+                                        var paymentValue =
+                                            paymentInput.value;
+                                        var duNoNumber = parseFloat(
+                                            duNoValue.replace(
+                                                /,/g, ''));
+                                        var paymentNumber =
+                                            parseFloat(paymentValue
+                                                .replace(/,/g, ''));
+
+                                        if (paymentNumber < 0 ||
+                                            paymentNumber >
+                                            duNoNumber) {
+                                            paymentInput.value =
+                                                duNoValue;
+                                        }
+                                    });
                                 //Xóa sản phẩm
                                 $('.deleteProduct').click(function() {
                                     $(this).closest("tr")

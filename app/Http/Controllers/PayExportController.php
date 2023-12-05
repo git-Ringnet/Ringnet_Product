@@ -69,7 +69,11 @@ class PayExportController extends Controller
     {
         $title = "Tạo đơn thanh toán";
         $product = $this->product->getAllProducts();
-        $numberQuote = DetailExport::all();
+        $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
+            ->where('quoteexport.product_qty', '>', DB::raw('COALESCE(quoteexport.qty_payment,0)'))
+            ->select('detailexport.quotation_number', 'detailexport.id')
+            ->distinct()
+            ->get();
         return view('tables.export.pay_export.create-payExport', compact('title', 'numberQuote', 'product'));
     }
 
@@ -175,7 +179,7 @@ class PayExportController extends Controller
         if ($request->action == "action_2") {
             PayExport::find($id)->delete();
             productPay::where('pay_id', $id)->delete();
-            return redirect()->route('delivery.index')->with('msg', 'Xóa đơn thanh toán thành công!');
+            return redirect()->route('payExport.index')->with('msg', 'Xóa đơn thanh toán thành công!');
         }
     }
 

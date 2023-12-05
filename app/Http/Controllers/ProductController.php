@@ -176,6 +176,7 @@ class ProductController extends Controller
         $data = $request->all();
         $serinumber = Serialnumber::where('product_id', $data['productId'])
             ->where('status', 1)
+            ->where('detailexport_id', 0)
             ->get();
         return response()->json($serinumber);
     }
