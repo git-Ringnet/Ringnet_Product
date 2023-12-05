@@ -25,7 +25,8 @@ class RecieptController extends Controller
     public function index()
     {
         $title = "Hóa đơn mua hàng";
-        $reciept = Reciept::all();
+        $perPage = 10;
+        $reciept = Reciept::orderBy('id','desc')->paginate($perPage);
         return view('tables.reciept.reciept', compact('title', 'reciept'));
     }
 

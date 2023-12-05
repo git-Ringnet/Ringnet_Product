@@ -171,9 +171,10 @@
                         id: data.id
                     },
                     success: function(product) {
+                        console.log(product);
                         $('#product').html(product)
                         $('#inputcontent tbody').empty();
-                        product.forEach(element => {
+                        product.quoteImport.forEach((element, index) => {
                             if (element.product_qty - element.receive_qty > 0) {
                                 var tr =
                                     `
@@ -218,8 +219,18 @@
                                 </div>
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 text-center">
-                                    <input onclick="getDataCheckbox(this)" type="checkbox" checked>
-                                    <input type="hidden" name="cbSN[]" value="1">
+                                    <input onclick="getDataCheckbox(this)" type="checkbox" ` + (product.checked[
+                                            index] ==
+                                        'endable' || product.cb[index] == 1 ?
+                                        'checked' : '') + ` ` + (
+                                        product
+                                        .checked[
+                                            index]) +
+                                    ` >
+                                    <input type="hidden" name="cbSN[]" value="` + (product.checked[index] ==
+                                        'endable' ||
+                                        product.cb[index] == 1 ? 1 : 0) +
+                                    `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0">
                                     <input readonly type="text" name="product_note[]" class="border-0 px-3 py-2 w-100" value="` +
@@ -259,9 +270,9 @@
 
     function getDataCheckbox(element) {
         var isChecked = $(element).is(':checked');
-        if(isChecked){
+        if (isChecked) {
             $(element).closest('tr').find('input[name^="cbSN"]').val(1)
-        }else{
+        } else {
             $(element).closest('tr').find('input[name^="cbSN"]').val(0)
         }
     }

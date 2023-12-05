@@ -73,23 +73,28 @@ class ProductImport extends Model
                     continue;
                 } else {
                     $checkCBSN = Products::where('product_name', $data['product_name'][$i])->first();
-                    $checkCBImport = ProductImport::where('quoteImport_id', $product->id)->first();
-                    if ($checkCBSN) {
-                        $cbSN = $checkCBSN->check_seri;
-                    } else if ($checkCBImport) {
-                        $cbSN = $checkCBImport->cbSN;
-                    } else {
-                        $cbSN = isset($data['cbSN']) ? $data['cbSN'][$i] : 1;
+                    $productExist = QuoteImport::where('product_name', $data['product_name'][$i])->first();
+                    if ($productExist) {
+                        $checkCBImport = ProductImport::where('quoteImport_id', $productExist->id)
+                            ->where('receive_id', '!=', 'null')
+                            ->first();
+                        if ($checkCBSN) {
+                            $cbSN = $checkCBSN->check_seri;
+                        } else if ($checkCBImport) {
+                            $cbSN = $checkCBImport->cbSN;
+                        } else {
+                            $cbSN = isset($data['cbSN']) ? $data['cbSN'][$i] : 1;
+                        }
+                        $dataProductImport = [
+                            'detailimport_id' => $id,
+                            'quoteImport_id' => $product->id,
+                            'product_qty' => $qty,
+                            $colum => 0,
+                            // 'cbSN' => $checkCBSN == null ? (isset($data['cbSN']) ? $data['cbSN'][$i] : 1) : $checkCBSN->check_seri,
+                            'cbSN' => $cbSN,
+                            'created_at' => Carbon::now(),
+                        ];
                     }
-                    $dataProductImport = [
-                        'detailimport_id' => $id,
-                        'quoteImport_id' => $product->id,
-                        'product_qty' => $qty,
-                        $colum => 0,
-                        // 'cbSN' => $checkCBSN == null ? (isset($data['cbSN']) ? $data['cbSN'][$i] : 1) : $checkCBSN->check_seri,
-                        'cbSN' => $cbSN,
-                        'created_at' => Carbon::now(),
-                    ];
                 }
                 DB::table($this->table)->insert($dataProductImport);
                 // Thêm số lượng sản phẩm đã nhập

@@ -288,7 +288,7 @@
                                                     name="product_note[]" value="{{ $item->product_note }}" readonly>
                                             </td>
                                             <td
-                                                class="border border-top-0 @if ($receive->status == 1) deleteRow @endif">
+                                                class="border border-top-0 @if ($receive->status == 3) deleteRow @endif">
                                                 <svg width="24" height="24" viewBox="0 0 24 24"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"

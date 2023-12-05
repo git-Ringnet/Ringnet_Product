@@ -28,7 +28,8 @@ class PayOrderController extends Controller
     public function index()
     {
         $title = "Thanh toán mua hàng";
-        $payment = PayOder::all();
+        $perPage = 10;
+        $payment = PayOder::orderBy('id','desc')->paginate($perPage);
         $today = Carbon::now();
         // dd($payment[0]->formatDate($payment[0]->payment_date)->diffInDays($today));
         return view('tables.paymentOrder.paymentOrder', compact('title', 'payment', 'today'));

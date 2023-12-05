@@ -31,7 +31,9 @@ class Products extends Model
     ];
     public function getAllProducts()
     {
-        return DB::table($this->table)->get();
+        $perpage = 10;
+        return DB::table($this->table)->orderBy('id','desc')->paginate($perpage);
+        // return DB::table($this->table)->get();
     }
     public function getSerialNumber()
     {

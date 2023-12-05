@@ -10,7 +10,7 @@
                 <span class="font-weight-bold">Sản phẩm</span>
             </div>
 
-            <a href="{{route('exportDatabase')}}">
+            <a href="{{ route('exportDatabase') }}">
                 Export
             </a>
 
@@ -156,13 +156,13 @@
                                         <tr>
                                             <td><input type="checkbox"></td>
                                             <td>{{ $item->product_code }}</td>
-                                            <td><a href="{{route('inventory.show',$item->id)}}">
+                                            <td><a href="{{ route('inventory.show', $item->id) }}">
                                                     {{ $item->product_name }}
                                                 </a></td>
                                             <td>{{ number_format($item->product_inventory) }}</td>
                                             <td>
                                                 <a href="# ">
-                                                {{-- {{ route('inventory.edit', $item->id) }} --}}
+                                                    {{-- {{ route('inventory.edit', $item->id) }} --}}
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                         height="24" viewBox="0 0 24 24" fill="none">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -187,6 +187,39 @@
             </div>
         </div>
     </section>
+
+
+    {{-- Pagination --}}
+    <div class="paginator mt-2 d-flex justify-content-end">
+        {{ $product->appends(request()->except('page'))->links() }}
+    </div>
+    {{-- @php
+        $paginationRange = App\Helpers\PaginationHelper::calculatePaginationRange($product->currentPage(), $product->lastPage());
+    @endphp
+    <div class="pagination mt-4 d-flex justify-content-end">
+        <ul>
+            @if ($paginationRange['start'] > 1)
+                <li><a href="{{ $product->url(1) }}">1</a></li>
+                @if ($paginationRange['start'] > 2)
+                    <li><span>...</span></li>
+                @endif
+            @endif
+
+            @for ($i = $paginationRange['start']; $i <= $paginationRange['end']; $i++)
+                <li class="{{ $i == $product->currentPage() ? 'active' : '' }}">
+                    <a href="{{ $product->url($i) }}">{{ $i }}</a>
+                </li>
+            @endfor
+
+            @if ($paginationRange['end'] < $product->lastPage())
+                @if ($paginationRange['end'] < $product->lastPage() - 1)
+                    <li><span>...</span></li>
+                @endif
+                <li><a href="{{ $product->url($product->lastPage()) }}">{{ $product->lastPage() }}</a>
+                </li>
+            @endif
+        </ul>
+    </div> --}}
 </div>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 

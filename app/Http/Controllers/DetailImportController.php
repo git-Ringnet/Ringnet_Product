@@ -56,7 +56,8 @@ class DetailImportController extends Controller
     public function index()
     {
         $title = 'Đơn mua hàng';
-        $import = DetailImport::all();
+        $perPage = 10;
+        $import = DetailImport::orderBy('id','desc')->paginate($perPage);
         // $import = $this->import->getAllImport();
         return view('tables.import.import', compact('title', 'import'));
     }

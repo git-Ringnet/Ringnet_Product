@@ -189,5 +189,10 @@
         </div>
     </section>
 
+    {{-- Pagination --}}
+    <div class="paginator mt-2 d-flex justify-content-end">
+        {{ $receive->appends(request()->except('page'))->links() }}
+    </div>
 
+    
 </div>
