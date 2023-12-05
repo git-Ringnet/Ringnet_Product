@@ -35,13 +35,13 @@ class PayExport extends Model
 
     public function addPayExport($data)
     {
+        $detailExport = DetailExport::find($data['detailexport_id']);
         if (isset($data['total'])) {
             $total = $data['total'];
             if ($total !== null) {
                 $total = str_replace(',', '', $total);
             }
         } else {
-            $detailExport = DetailExport::find($data['detailexport_id']);
             $total = $detailExport->amount_owed;
         }
         if (isset($data['payment'])) {
@@ -71,6 +71,14 @@ class PayExport extends Model
             $payExport->update([
                 'status' => 2,
             ]);
+            $detailExport->amount_owed = $result;
+            $detailExport->status_pay = 2;
+            $detailExport->save();
+        }
+        elseif($result > 0){
+            $detailExport->amount_owed = $result;
+            $detailExport->status_pay = 3;
+            $detailExport->save();
         }
         if (isset($data['payment'])) {
             $history = new history_Pay_Export;

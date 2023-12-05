@@ -20,8 +20,8 @@
                 </div>
                 <div class="row m-0 mb-1">
                     @if ($delivery->tinhTrang !== 2)
-                        <button type="button" id="submitXacNhan" name="action" value="action_1"
-                            class="custom-btn d-flex align-items-center h-100 mr-2" onclick="kiemTraFormGiaoHang()">
+                        <button type="submit" id="submitXacNhan" name="action" value="action_1"
+                            class="custom-btn d-flex align-items-center h-100 mr-2" onclick="kiemTraFormGiaoHang(event)">
                             <span>Xác nhận đơn giao hàng</span>
                         </button>
                     @endif
@@ -55,11 +55,19 @@
                         Attachment<input type="file" style="display: none;" id="file_restore" accept="*"
                             name="file">
                     </label>
-                    <button name="action" value="action_2" type="submit" class="d-flex align-items-center h-100 btn-danger ml-2 border-0" style="padding: 3px 16px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
-                            <path d="M22.981 10.9603C26.3005 14.2798 26.3005 19.6617 22.981 22.9811C19.6615 26.3006 14.2796 26.3006 10.9602 22.9811C7.64073 19.6617 7.64073 14.2798 10.9602 10.9603C14.2796 7.64084 19.6615 7.64084 22.981 10.9603Z" stroke="#E4E4E4"></path>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.728 12.7281C13.0023 12.4538 13.447 12.4538 13.7213 12.7281L21.2133 20.22C21.4876 20.4943 21.4876 20.9391 21.2133 21.2133C20.939 21.4876 20.4943 21.4876 20.22 21.2133L12.728 13.7214C12.4537 13.4471 12.4537 13.0024 12.728 12.7281Z" fill="#E4E4E4"></path>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M21.2133 12.7281C21.4876 13.0024 21.4876 13.4471 21.2133 13.7214L13.7213 21.2133C13.447 21.4876 13.0023 21.4876 12.728 21.2133C12.4537 20.9391 12.4537 20.4943 12.728 20.22L20.22 12.7281C20.4943 12.4538 20.939 12.4538 21.2133 12.7281Z" fill="#E4E4E4"></path>
+                    <button name="action" value="action_2" type="submit"
+                        class="d-flex align-items-center h-100 btn-danger ml-2 border-0" style="padding: 3px 16px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34"
+                            fill="none">
+                            <path
+                                d="M22.981 10.9603C26.3005 14.2798 26.3005 19.6617 22.981 22.9811C19.6615 26.3006 14.2796 26.3006 10.9602 22.9811C7.64073 19.6617 7.64073 14.2798 10.9602 10.9603C14.2796 7.64084 19.6615 7.64084 22.981 10.9603Z"
+                                stroke="#E4E4E4"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12.728 12.7281C13.0023 12.4538 13.447 12.4538 13.7213 12.7281L21.2133 20.22C21.4876 20.4943 21.4876 20.9391 21.2133 21.2133C20.939 21.4876 20.4943 21.4876 20.22 21.2133L12.728 13.7214C12.4537 13.4471 12.4537 13.0024 12.728 12.7281Z"
+                                fill="#E4E4E4"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M21.2133 12.7281C21.4876 13.0024 21.4876 13.4471 21.2133 13.7214L13.7213 21.2133C13.447 21.4876 13.0023 21.4876 12.728 21.2133C12.4537 20.9391 12.4537 20.4943 12.728 20.22L20.22 12.7281C20.4943 12.4538 20.939 12.4538 21.2133 12.7281Z"
+                                fill="#E4E4E4"></path>
                         </svg>
                         <span>Xóa đơn giao hàng</span>
                     </button>
@@ -89,7 +97,8 @@
                                                 <p class="p-0 m-0 px-3 required-label text-danger">Số báo giá</p>
                                             </div>
                                             <div class="w-100">
-                                                <input type="text" readonly value="{{ $delivery->quotation_number }}"
+                                                <input type="text" readonly
+                                                    value="{{ $delivery->quotation_number }}"
                                                     class="border w-100 py-2 border-left-0 border-right-0 px-3 numberQute"
                                                     id="myInput" autocomplete="off" name="quotation_number">
                                             </div>
@@ -503,22 +512,22 @@
         $('#deliveryForm')[0].submit();
     })
     //Kiểm tra số lượng SN được checked
-    $('.check-seri').on('click', function() {
-        // Lấy giá trị của data-target và data-row từ button
-        const dataTarget = $(this).data('target');
-        const rowID = $(this).data('row');
+    // $('.check-seri').on('click', function() {
+    //     // Lấy giá trị của data-target và data-row từ button
+    //     const dataTarget = $(this).data('target');
+    //     const rowID = $(this).data('row');
 
-        // Lấy giá trị từ input số lượng
-        const quantityInputValue = parseInt($(`.${rowID} .quantity-input`).val());
+    //     // Lấy giá trị từ input số lượng
+    //     const quantityInputValue = parseInt($(`.${rowID} .quantity-input`).val());
 
-        // Lấy số lượng checkbox được chọn trong modal
-        const checkedCheckboxCount = $(`${dataTarget} .check-item:checked`).length;
+    //     // Lấy số lượng checkbox được chọn trong modal
+    //     const checkedCheckboxCount = $(`${dataTarget} .check-item:checked`).length;
 
-        // Kiểm tra xem số lượng checkbox có bằng với giá trị từ input không
-        if (checkedCheckboxCount !== quantityInputValue) {
-            alert('Vui lòng chọn đủ serinumber.');
-        }
-    });
+    //     // Kiểm tra xem số lượng checkbox có bằng với giá trị từ input không
+    //     if (checkedCheckboxCount !== quantityInputValue) {
+    //         alert('Vui lòng chọn đủ serinumber.');
+    //     }
+    // });
 
     //Mở rộng
     var status_form = 0;
@@ -655,7 +664,7 @@
         return formattedValue;
     }
 
-    function kiemTraFormGiaoHang() {
+    function kiemTraFormGiaoHang(event) {
         var rows = document.querySelectorAll('tr');
         var invalidProducts = [];
         var hasProducts = false;
@@ -688,11 +697,13 @@
         // Hiển thị thông báo nếu không có sản phẩm
         if (!hasProducts) {
             alert("Không có sản phẩm để giao");
+            event.preventDefault();
         }
 
         // Hiển thị thông báo cuối cùng nếu có sản phẩm không hợp lệ
         if (invalidProducts.length > 0) {
             alert("Không đủ số lượng tồn kho cho các sản phẩm:\n" + invalidProducts.join(', '));
+            event.preventDefault();
         } else if (hasProducts) {
             // Nếu không có lỗi và có sản phẩm, tiếp tục submit form
             document.getElementById('deliveryForm').submit();

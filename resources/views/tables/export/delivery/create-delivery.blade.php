@@ -17,7 +17,7 @@
                 </div>
                 <div class="row m-0 mb-1">
                     <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px"
-                        onclick="kiemTraFormGiaoHang();">
+                        onclick="kiemTraFormGiaoHang(event);">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -375,6 +375,9 @@
                 </div>
             </div>
         </div>
+        <div class="all-modal-seri">
+
+        </div>
     </form>
     {{-- Thông tin sản phẩm --}}
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -461,16 +464,19 @@
                 "<input type='text' class='border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "<p class='text-primary text-center position-absolute inventory' style='top: 68%;'>Tồn kho: 35</p>" +
+                "</td>" +
+                "<td class='text-center ui-sortable-handle'>" +
+                "<input class='check-add-sn' type='checkbox' name='cbSeri[]' value='1'>" +
                 "</td>"
             );
             const donGia = $(
-                "<td class='border border-top-0 border-bottom-0 position-relative'>" +
+                "<td class='border border-top-0 border-bottom-0 position-relative d-none'>" +
                 "<input type='text' class='border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
                 "<p class='text-primary text-right position-absolute transaction' style='top: 68%;right: 5%;'>Giao dịch gần đây</p>" +
                 "</td>"
             );
             const thue = $(
-                "<td class='border border-top-0 border-bottom-0 px-4'>" +
+                "<td class='border border-top-0 border-bottom-0 px-4 d-none'>" +
                 "<select name='product_tax[]' class='border-0 text-center product_tax' required>" +
                 "<option value='0'>0%</option>" +
                 "<option value='8'>8%</option>" +
@@ -480,11 +486,11 @@
                 "</td>"
             );
             const thanhTien = $(
-                "<td class='border border-top-0 border-bottom-0'><input type='text' readonly class='border-0 px-2 py-1 w-100 total-amount'>" +
-                "</td><td class='border-top border-secondary p-0 bg-secondary Daydu' style='width:1%;'></td>"
+                "<td class='border border-top-0 border-bottom-0 d-none'><input type='text' readonly class='border-0 px-2 py-1 w-100 total-amount'>" +
+                "</td><td class='border-top border-secondary p-0 bg-secondary Daydu d-none' style='width:1%;'></td>"
             );
             const option = $(
-                "<td class='border border-top-0 border-bottom-0 border-right-0 text-right'>" +
+                "<td class='border border-top-0 border-bottom-0 border-right-0 text-right d-none'>" +
                 "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
                 "<path fill-rule='evenodd' clip-rule='evenodd' d='M10.5454 5C10.2442 5 9.99999 5.24421 9.99999 5.54545C9.99999 5.8467 10.2442 6.09091 10.5454 6.09091H13.4545C13.7558 6.09091 14 5.8467 14 5.54545C14 5.24421 13.7558 5 13.4545 5H10.5454ZM6 7.72726C6 7.42601 6.24421 7.18181 6.54545 7.18181H7.63637H16.3636H17.4545C17.7558 7.18181 18 7.42601 18 7.72726C18 8.02851 17.7558 8.27272 17.4545 8.27272H16.9091V17C16.9091 18.2113 15.9118 19.1818 14.7135 19.1818H9.25891C8.97278 19.1816 8.68906 19.1247 8.42499 19.0145C8.16092 18.9044 7.92126 18.7431 7.71979 18.5399C7.51833 18.3367 7.35905 18.0957 7.25112 17.8307C7.14347 17.5664 7.08903 17.2834 7.09091 16.9981V8.27272H6.54545C6.24421 8.27272 6 8.02851 6 7.72726ZM8.18182 17.0041V8.27272H15.8182V17C15.8182 17.5966 15.3216 18.0909 14.7135 18.0909H9.25938C9.11713 18.0908 8.97632 18.0625 8.84503 18.0077C8.71375 17.953 8.5946 17.8728 8.49444 17.7718C8.39429 17.6707 8.3151 17.5509 8.26144 17.4192C8.20779 17.2874 8.18074 17.1464 8.18182 17.0041ZM13.4545 10.0909C13.7558 10.0909 14 10.3351 14 10.6364V15.7273C14 16.0285 13.7558 16.2727 13.4545 16.2727C13.1533 16.2727 12.9091 16.0285 12.9091 15.7273V10.6364C12.9091 10.3351 13.1533 10.0909 13.4545 10.0909ZM11.0909 10.6364C11.0909 10.3351 10.8467 10.0909 10.5454 10.0909C10.2442 10.0909 9.99999 10.3351 9.99999 10.6364V15.7273C9.99999 16.0285 10.2442 16.2727 10.5454 16.2727C10.8467 16.2727 11.0909 16.0285 11.0909 15.7273V10.6364Z' fill='#42526E'/>" +
                 "</svg>" +
@@ -492,12 +498,12 @@
                 "<td style='display:none;'><input type='text' class='product_tax1'></td>"
             );
             const heSoNhan = $(
-                "<td class='border border-top-0 border-bottom-0 position-relative product_ratio'>" +
+                "<td class='border border-top-0 border-bottom-0 position-relative product_ratio d-none'>" +
                 "<input type='text' class='border-0 px-2 py-1 w-100 heSoNhan' autocomplete='off' required name='product_ratio[]'>" +
                 "</td>"
             );
             const giaNhap = $(
-                "<td class='border border-top-0 border-bottom-0 position-relative price_import'>" +
+                "<td class='border border-top-0 border-bottom-0 position-relative price_import d-none'>" +
                 "<input type='text' class='border-0 px-2 py-1 w-100 giaNhap' autocomplete='off' required name='price_import[]'>" +
                 "</td>"
             );
@@ -737,7 +743,6 @@
                             idQuote: idQuote
                         },
                         success: function(data) {
-                            console.log(data);
                             $(".addProduct").remove();
                             $.each(data, function(index, item) {
                                 var totalTax = parseFloat(item
@@ -760,7 +765,7 @@
                                     item.transfer_fee == null ?
                                     0 : item.transfer_fee));
                                 var newRow = `
-                                <tr id="dynamic-row-${item.id}" class="bg-white addProduct">
+                                <tr id="dynamic-row-${item.maSP}" class="bg-white addProduct">
                             <td class="border border-left-0 border-top-0 border-bottom-0 position-relative">
                                 <div class="d-flex w-100 justify-content-between align-items-center">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -800,6 +805,15 @@
                                 </div>
                                 <div>
                                 <button type="button" class="btn btn-primary open-modal-btn" data-toggle="modal" data-target="#exampleModal0" style="background:transparent; border:none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                        <rect width="32" height="32" rx="4" fill="white"></rect>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z" fill="#0095F6"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z" fill="#0095F6"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z" fill="#0095F6"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z" fill="#0095F6"></path>
+                                    </svg>
+                                </button>
+                                <button type="button" class="btn btn-primary add-seri-number" data-toggle="modal" data-target="#exampleModal${item.maSP}" style="background:transparent; border:none;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                                         <rect width="32" height="32" rx="4" fill="white"></rect>
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z" fill="#0095F6"></path>
@@ -849,21 +863,124 @@
                             <td style='display:none;'><ul class ='seri_pro'></ul></td>
                             </tr>`;
                                 $("#dynamic-fields").before(newRow);
-                                //
+                                // Tạo modal HTML
+                                var modalHTML = `<div id="list_modal"><div class="modal fade" id="exampleModal${item.maSP}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table_SNS${item.maSP}">
+                    <thead>
+                        <tr>
+                            <td style="width:2%"><input type="checkbox"></td>
+                            <th style="width:5%">STT</th>
+                            <th style="width:100%">Serial number</th>
+                            <th style="width:3%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                    </table>
+                    <div class="mt-4">
+                        <button type="button" class="btn btn-primary addRow${item.maSP}">Thêm dòng</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div></div>`;
+                                // Thêm modal vào body
+                                $('.all-modal-seri').append(modalHTML);
+
+                                //add SN mới
+                                var nextRowNumber = 1;
+                                $(`.addRow${item.maSP}`).on('click',
+                                    function() {
+                                        // Tạo một dòng mới rỗng
+                                        var newRow = $('<tr></tr>');
+                                        // Cột checkbox
+                                        newRow.append(
+                                            '<td><input type="checkbox"></td>'
+                                        );
+                                        // Cột STT
+                                        newRow.append(
+                                            `<td>${nextRowNumber}</td>`
+                                        );
+                                        // Cột Serial number
+                                        newRow.append(
+                                            `<td><input class="form-control w-25" type="text" name="seri[${item.maSP}][]" data-product-id="${item.maSP}"></td>`
+                                        );
+                                        // Cột nút xóa
+                                        newRow.append(`
+                                            <td class="deleteRow1${item.maSP}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M14.0606 6.66675C13.6589 6.66675 13.3333 6.99236 13.3333 7.39402C13.3333 7.79568 13.6589 8.12129 14.0606 8.12129H17.9394C18.341 8.12129 18.6667 7.79568 18.6667 7.39402C18.6667 6.99236 18.341 6.66675 17.9394 6.66675H14.0606ZM8 10.3031C8 9.90143 8.32561 9.57582 8.72727 9.57582H10.1818H21.8182H23.2727C23.6744 9.57582 24 9.90143 24 10.3031C24 10.7048 23.6744 11.0304 23.2727 11.0304H22.5455V22.6667C22.5455 24.2819 21.2158 25.5758 19.6179 25.5758H12.3452C11.9637 25.5755 11.5854 25.4997 11.2333 25.3528C10.8812 25.2059 10.5617 24.9908 10.2931 24.7199C10.0244 24.449 9.81206 24.1276 9.66816 23.7743C9.52463 23.4219 9.45204 23.0447 9.45455 22.6642V11.0304H8.72727C8.32561 11.0304 8 10.7048 8 10.3031ZM10.9091 22.6723V11.0304H21.0909V22.6667C21.0909 23.4623 20.4288 24.1213 19.6179 24.1213H12.3458C12.1562 24.1211 11.9684 24.0834 11.7934 24.0104C11.6183 23.9374 11.4595 23.8304 11.3259 23.6958C11.1924 23.5611 11.0868 23.4013 11.0153 23.2257C10.9437 23.05 10.9076 22.8619 10.9091 22.6723ZM17.9394 13.4546C18.3411 13.4546 18.6667 13.7802 18.6667 14.1819V20.9698C18.6667 21.3714 18.3411 21.6971 17.9394 21.6971C17.5377 21.6971 17.2121 21.3714 17.2121 20.9698V14.1819C17.2121 13.7802 17.5377 13.4546 17.9394 13.4546ZM14.7879 14.1819C14.7879 13.7802 14.4623 13.4546 14.0606 13.4546C13.6589 13.4546 13.3333 13.7802 13.3333 14.1819V20.9698C13.3333 21.3714 13.6589 21.6971 14.0606 21.6971C14.4623 21.6971 14.7879 21.3714 14.7879 20.9698V14.1819Z" fill="#555555"></path>
+                                                </svg>                           
+                                            </td>
+                                        `);
+                                        // Thêm dòng mới vào tbody
+                                        $(`.table_SNS${item.maSP} tbody`)
+                                            .append(newRow);
+                                        // Tăng số thứ tự cho lần thêm dòng tiếp theo
+                                        nextRowNumber++;
+                                    });
+                                //Xóa S/N
+                                $(document).on('click',
+                                    `.deleteRow1${item.maSP}`,
+                                    function() {
+                                        var tbody = $(
+                                            `.table_SNS${item.maSP} tbody`
+                                        );
+
+                                        // Xác định dòng cần xóa
+                                        var currentRow = $(this)
+                                            .closest('tr');
+
+                                        // Xóa dòng
+                                        currentRow.remove();
+
+                                        // Cập nhật lại số thứ tự sau mỗi lần xóa
+                                        updateRowNumbers(tbody);
+                                    });
+
+                                // Hàm cập nhật số thứ tự
+                                function updateRowNumbers(tbody) {
+                                    // Lặp qua tất cả các dòng và cập nhật số thứ tự
+                                    tbody.find('tr').each(function(
+                                        index) {
+                                        $(this).find(
+                                            'td:nth-child(2)'
+                                        ).text(index +
+                                            1);
+                                    });
+                                }
+
+                                //Check S/N
+                                var rowId = $(this).closest(
+                                    'tr').attr('id');
                                 var seriList = item.seri_pro.filter(
                                     item => item !== null).join(
                                     '</li><li>');
                                 var seriProElement = $(
-                                    `#dynamic-row-${item.id} .seri_pro`
+                                    `#dynamic-row-${item.maSP} .seri_pro`
                                 );
                                 if (seriList.length > 0) {
-                                    // Nếu không có dữ liệu, ẩn ul và disable checkbox
                                     seriProElement.hide();
-                                    $(`#dynamic-row-${item.id} .check-add-sn`)
+                                    $(`#dynamic-row-${item.maSP} .check-add-sn`)
                                         .prop('disabled', true);
+                                    $(`.add-seri-number`).hide();
                                 } else {
                                     seriProElement.html(
                                         `<li>${seriList}</li>`);
+                                    $(`.open-modal-btn`).hide();
                                 }
                                 //Hủy checked quản lý S/N
                                 $('.check-add-sn').on('change',
@@ -873,12 +990,20 @@
                                             'tr').attr('id');
                                         if ($(this).prop(
                                                 'checked')) {
-                                            $(`#${rowId} .open-modal-btn`)
+                                            $(`#${rowId} .add-seri-number`)
                                                 .show();
                                         } else {
-                                            $(`#${rowId} .open-modal-btn`)
+                                            $(`#${rowId} .add-seri-number`)
                                                 .hide();
                                         }
+                                    });
+                                // Initially hide the buttons for unchecked checkboxes
+                                $('.check-add-sn:not(:checked)').each(
+                                    function() {
+                                        var rowId = $(this).closest(
+                                            'tr').attr('id');
+                                        $(`#${rowId} .add-seri-number`)
+                                            .hide();
                                     });
                                 //kéo thả vị trí sản phẩm
                                 $("table tbody").sortable({
@@ -1647,7 +1772,7 @@
         return formattedNumber;
     }
 
-    function kiemTraFormGiaoHang() {
+    function kiemTraFormGiaoHang(event) {
         var rows = document.querySelectorAll('tr');
         var hasProducts = false;
 
@@ -1661,6 +1786,11 @@
         if (!hasProducts) {
             alert("Không có sản phẩm để giao");
             event.preventDefault();
+        } else {
+            var checkboxes = document.querySelectorAll('.quantity-input[disabled]');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.removeAttribute('disabled');
+            });
         }
     }
 </script>

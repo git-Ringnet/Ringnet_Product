@@ -104,6 +104,7 @@ class PayExportController extends Controller
                 '*',
                 'pay_export.id as idTT',
                 'pay_export.created_at as ngayTT',
+                'pay_export.status as trangThai',
                 DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo')
             )
             ->first();

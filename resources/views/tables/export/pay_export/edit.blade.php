@@ -20,10 +20,12 @@
                     <span class="font-weight-bold">Đơn thanh toán</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <button type="submit" name="action" value="action_1"
-                        class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
-                        <span>Xác nhận thanh toán</span>
-                    </button>
+                    @if ($payExport->trangThai != 2)
+                        <button type="submit" name="action" value="action_1"
+                            class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                            <span>Xác nhận thanh toán</span>
+                        </button>
+                    @endif
                     <label class="custom-btn d-flex align-items-center h-100 m-0">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" class="mr-1">
