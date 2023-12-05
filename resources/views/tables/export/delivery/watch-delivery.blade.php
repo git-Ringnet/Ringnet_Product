@@ -21,7 +21,8 @@
                 <div class="row m-0 mb-1">
                     @if ($delivery->tinhTrang !== 2)
                         <button type="submit" id="submitXacNhan" name="action" value="action_1"
-                            class="custom-btn d-flex align-items-center h-100 mr-2" onclick="kiemTraFormGiaoHang(event)">
+                            class="custom-btn d-flex align-items-center h-100 mr-2"
+                            onclick="kiemTraFormGiaoHang(event)">
                             <span>Xác nhận đơn giao hàng</span>
                         </button>
                     @endif
@@ -185,12 +186,6 @@
                                                     <th class="border-right">Tên sản phẩm</th>
                                                     <th class="border-right">Đơn vị</th>
                                                     <th class="border-right">Số lượng</th>
-                                                    {{-- <th class="border-right">Đơn giá</th>
-                                            <th class="border-right">Thuế</th>
-                                            <th class="border-right">Thành tiền</th>
-                                            <th class="p-0 bg-secondary border-0 Daydu" style="width:1%;"></th>
-                                            <th class="border-right product_ratio">Hệ số nhân</th>
-                                            <th class="border-right price_import">Giá nhập</th> --}}
                                                     <th class="border-right note">Ghi chú</th>
                                                 </tr>
                                             </thead>
@@ -420,7 +415,6 @@
         </section>
         {{-- Modal seri --}}
         @foreach ($product as $item)
-            {{-- Modal seri --}}
             <div id="list_modal">
                 <div class="modal fade my-custom-modal" id="exampleModal{{ $item->product_id }}" tabindex="-1"
                     aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
@@ -705,6 +699,11 @@
             alert("Không đủ số lượng tồn kho cho các sản phẩm:\n" + invalidProducts.join(', '));
             event.preventDefault();
         } else if (hasProducts) {
+            var hiddenInputsToRemove = document.querySelectorAll(
+            'input[type="hidden"][name="_method"][value="delete"]');
+            hiddenInputsToRemove.forEach(function(hiddenInput) {
+                hiddenInput.remove();
+            });
             // Nếu không có lỗi và có sản phẩm, tiếp tục submit form
             document.getElementById('deliveryForm').submit();
         }
