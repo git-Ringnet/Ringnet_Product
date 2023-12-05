@@ -54,14 +54,16 @@ class DeliveryController extends Controller
         if (is_array($seriArray) && !empty($seriArray)) {
             foreach ($seriArray as $maSP => $serialNumbers) {
                 foreach ($serialNumbers as $serialNumber) {
-                    $serial = new SerialNumber();
-                    $serial->serinumber = $serialNumber;
-                    $serial->receive_id = 0;
-                    $serial->detailimport_id = 0;
-                    $serial->detailexport_id = $request->detailexport_id;
-                    $serial->product_id = $maSP;
-                    $serial->status = 1;
-                    $serial->save();
+                    if ($serialNumber != null) {
+                        $serial = new SerialNumber();
+                        $serial->serinumber = $serialNumber;
+                        $serial->receive_id = 0;
+                        $serial->detailimport_id = 0;
+                        $serial->detailexport_id = $request->detailexport_id;
+                        $serial->product_id = $maSP;
+                        $serial->status = 1;
+                        $serial->save();
+                    }
                 }
             }
         }
