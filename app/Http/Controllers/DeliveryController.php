@@ -8,6 +8,7 @@ use App\Models\DetailExport;
 use App\Models\Products;
 use App\Models\Serialnumber;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DeliveryController extends Controller
 {
@@ -40,7 +41,11 @@ class DeliveryController extends Controller
     public function create()
     {
         $title = "Tạo đơn giao hàng";
-        $numberQuote = DetailExport::all();
+        $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
+            ->where('quoteexport.product_qty', '>', DB::raw('COALESCE(quoteexport.qty_delivery,0)'))
+            ->select('detailexport.quotation_number', 'detailexport.id')
+            ->distinct()
+            ->get();
         $product = $this->product->getAllProducts();
         return view('tables.export.delivery.create-delivery', compact('title', 'numberQuote', 'product'));
     }

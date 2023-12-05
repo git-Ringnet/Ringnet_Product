@@ -17,7 +17,7 @@
                 </div>
                 <div class="row m-0 mb-1">
                     <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px"
-                        onclick="kiemTraFormGiaoHang(event);">
+                        onclick="kiemTraFormGiaoHang(event);" id="luuNhap">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -253,7 +253,7 @@
                                 </table>
                             </div>
                         </section>
-                        <section class="content">
+                        {{-- <section class="content">
                             <div class="container-fluided">
                                 <div class="d-flex">
                                     <button type="button" data-toggle="dropdown" id="add-field-btn"
@@ -297,7 +297,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </section>
+                        </section> --}}
                         <div class="content">
                             <div class="container-fluided">
                                 <div class="row position-relative footer-total">
@@ -408,7 +408,7 @@
             // Tạo các phần tử HTML mới
             const newRow = $("<tr>", {
                 "id": `dynamic-row-${fieldCounter}`,
-                "class": `bg-white sanPhamGiao`,
+                "class": `bg-white addProduct`,
             });
             const maSanPham = $(
                 "<td class='border border-left-0 border-top-0 border-bottom-0 position-relative'>" +
@@ -499,12 +499,12 @@
             );
             const heSoNhan = $(
                 "<td class='border border-top-0 border-bottom-0 position-relative product_ratio d-none'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-100 heSoNhan' autocomplete='off' required name='product_ratio[]'>" +
+                "<input type='text' class='border-0 px-2 py-1 w-100 heSoNhan' autocomplete='off' name='product_ratio[]'>" +
                 "</td>"
             );
             const giaNhap = $(
                 "<td class='border border-top-0 border-bottom-0 position-relative price_import d-none'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-100 giaNhap' autocomplete='off' required name='price_import[]'>" +
+                "<input type='text' class='border-0 px-2 py-1 w-100 giaNhap' autocomplete='off' name='price_import[]'>" +
                 "</td>"
             );
             const ghiChu = $(
@@ -799,10 +799,10 @@
                             <td class="border border-top-0 border-bottom-0 position-relative">
                                 <div class="d-flex align-items-center">
                                     <div>
-                                <input type="text" value="${item.soLuongCanGiao}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
+                                <input type="text" value="${item.soLuongCanGiao}" data-product-id="${item.maSP}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
                                 <p class="text-primary text-center position-absolute inventory" style="top: 68%; display: none;">Tồn kho: 35</p>
-                                </div>
+                                </div>  
                                 <div>
                                 <button type="button" class="btn btn-primary open-modal-btn" data-toggle="modal" data-target="#exampleModal0" style="background:transparent; border:none;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -826,7 +826,7 @@
                                 </div>
                             </td>
                             <td class="text-center">
-                                <input class="check-add-sn" type="checkbox" name="cbSeri[]" value="1" ${(item.check_seri == 1) ? 'checked' : ''}>    
+                                <input class="check-add-sn" data-seri="${item.maSP}" type="checkbox" name="cbSeri[]" value="1" ${(item.check_seri == 1) ? 'checked' : ''}>    
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative d-none">
                                 <input type="text" value="${formatCurrency(item.price_export)}" readonly class="border-0 px-2 py-1 w-100 product_price" autocomplete="off" name="product_price[]" required="" readonly="readonly">
@@ -892,7 +892,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                    <button type="button" class="btn btn-primary save-seri-btn" data-maSP="${item.maSP}" data-dismiss="">Save changes</button>
                 </div>
             </div>
         </div>
@@ -962,7 +962,6 @@
                                             1);
                                     });
                                 }
-
                                 //Check S/N
                                 var rowId = $(this).closest(
                                     'tr').attr('id');
@@ -988,6 +987,7 @@
                                         // Lấy id của hàng tr
                                         var rowId = $(this).closest(
                                             'tr').attr('id');
+                                        var maSP = $(this).data('seri');
                                         if ($(this).prop(
                                                 'checked')) {
                                             $(`#${rowId} .add-seri-number`)
@@ -995,6 +995,7 @@
                                         } else {
                                             $(`#${rowId} .add-seri-number`)
                                                 .hide();
+                                            $('input[name="seri[' + maSP + '][]"]').closest('tr').remove();
                                         }
                                     });
                                 // Initially hide the buttons for unchecked checkboxes
@@ -1005,6 +1006,133 @@
                                         $(`#${rowId} .add-seri-number`)
                                             .hide();
                                     });
+                                //Kiểm tra đã thêm seri chưa
+                                $('#luuNhap').off('click').on('click',
+                                    function(e) {
+                                        var
+                                            insufficientSeriProducts = [];
+                                        $(".bg-white.addProduct")
+                                            .each(function() {
+                                                var isChecked =
+                                                    $(this)
+                                                    .find(
+                                                        ".check-add-sn"
+                                                    ).prop(
+                                                        "checked"
+                                                    );
+
+                                                // Nếu checkbox được chọn
+                                                if (isChecked) {
+                                                    var quantityValue =
+                                                        parseInt(
+                                                            $(
+                                                                this
+                                                            )
+                                                            .find(
+                                                                ".quantity-input"
+                                                            )
+                                                            .val()
+                                                        );
+                                                    var productId =
+                                                        $(this)
+                                                        .find(
+                                                            ".product_id"
+                                                        )
+                                                        .val();
+                                                    var productName =
+                                                        $(this)
+                                                        .find(
+                                                            ".product_name"
+                                                        )
+                                                        .val();
+                                                    for (var i =
+                                                            0; i <
+                                                        quantityValue; i++
+                                                    ) {
+                                                        // Kiểm tra xem input "seri" có đủ hay không
+                                                        var isSeriInputExist =
+                                                            $(
+                                                                `input[name="seri[${productId}][]"][data-product-id="${productId}"]:eq(${i})`
+                                                            )
+                                                            .length >
+                                                            0;
+
+                                                        if (!
+                                                            isSeriInputExist
+                                                        ) {
+                                                            insufficientSeriProducts
+                                                                .push(
+                                                                    productName
+                                                                );
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            });
+
+                                        // Nếu có sản phẩm không đủ "seri", hiển thị thông báo
+                                        if (insufficientSeriProducts
+                                            .length > 0) {
+                                            alert(
+                                                `Số lượng "seri" không đủ cho các sản phẩm: ${insufficientSeriProducts.join(", ")}`
+                                            );
+                                            e.preventDefault();
+                                        }
+                                    });
+                                //Kiểm tra seri có được nhập
+                                $('.save-seri-btn').off('click').on(
+                                    'click',
+                                    function() {
+                                        var maSP = $(this).data(
+                                            'masp');
+                                        var inputs = $(
+                                            'input[name="seri[' +
+                                            maSP + '][]"]');
+                                        var quantityInput = $(
+                                            'input.quantity-input[data-product-id="' +
+                                            maSP + '"]');
+                                        var requiredCount =
+                                            parseInt(quantityInput
+                                                .val());
+                                        var isValid = true;
+                                        if (inputs.length > 0) {
+                                            if (inputs.length !==
+                                                requiredCount) {
+                                                isValid = false;
+                                            } else {
+                                                inputs.each(
+                                                    function() {
+                                                        if ($(
+                                                                this
+                                                                )
+                                                            .val()
+                                                            .trim() ===
+                                                            ''
+                                                        ) {
+                                                            isValid
+                                                                =
+                                                                false;
+                                                            return false;
+                                                        }
+                                                    });
+                                            }
+
+                                            if (!isValid) {
+                                                alert(
+                                                    'Serinumber đang được bỏ trống hoặc chưa được nhập đủ số lượng!'
+                                                );
+                                                $(this).attr('data-dismiss', '');
+                                            }
+                                            else{
+                                                $(this).attr('data-dismiss', 'modal');
+                                            }
+                                        } else {
+                                            alert(
+                                                'Vui lòng thêm serinumber!'
+                                            );
+                                        }
+                                    });
+
                                 //kéo thả vị trí sản phẩm
                                 $("table tbody").sortable({
                                     axis: "y",
