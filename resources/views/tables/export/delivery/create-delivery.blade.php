@@ -3,7 +3,8 @@
 <div class="content-wrapper">
     <form action="{{ route('delivery.store') }}" method="POST">
         @csrf
-        <input type="hidden" name="detailexport_id" id="detailexport_id">
+        <input type="hidden" name="detailexport_id" id="detailexport_id"
+            value="@isset($yes) {{ $data['detailexport_id'] }} @endisset">
         <div id="selectedSerialNumbersContainer"></div>
         <!-- Content Header (Page header) -->
         <section class="content-header p-0">
@@ -75,7 +76,8 @@
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin"
                                             class="border w-100 py-2 border-left-0 border-right-0 px-3 numberQute"
-                                            id="myInput" autocomplete="off" name="quotation_number" required>
+                                            id="myInput" autocomplete="off" name="quotation_number" required
+                                            value="@isset($yes) {{ $data['quotation_number'] }} @endisset">
                                         <ul id="myUL"
                                             class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
                                             style="z-index: 99;">
@@ -98,8 +100,10 @@
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin"
                                             class="border w-100 py-2 border-left-0 border-right-0 px-3 nameGuest"
-                                            id="myInput" autocomplete="off" required>
-                                        <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
+                                            id="myInput" autocomplete="off" required
+                                            value="@isset($yes){{ $getGuestbyId[0]->guest_name_display }}@endisset">
+                                        <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
+                                            value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset">
                                     </div>
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -248,6 +252,190 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @isset($quoteExport)
+                                            {{-- @dd($quoteExport); --}}
+                                            @foreach ($quoteExport as $item)
+                                                <tr id="dynamic-row-" class="bg-white addProduct">
+                                                    <td
+                                                        class="border border-left-0 border-top-0 border-bottom-0 position-relative">
+                                                        <div
+                                                            class="d-flex w-100 justify-content-between align-items-center">
+                                                            <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z"
+                                                                    fill="#42526E"></path>
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z"
+                                                                    fill="#42526E"></path>
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z"
+                                                                    fill="#42526E"></path>
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z"
+                                                                    fill="#42526E"></path>
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z"
+                                                                    fill="#42526E"></path>
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z"
+                                                                    fill="#42526E"></path>
+                                                            </svg>
+                                                            <input type="checkbox" class="cb-element">
+                                                            <input type="text"
+                                                                value="{{ $item->product_code == null ? '' : $item->product_code }}"
+                                                                readonly autocomplete="off"
+                                                                class="border-0 px-2 py-1 w-75 product_code"
+                                                                name="product_code[]">
+                                                        </div>
+                                                    </td>
+                                                    <td class="border border-top-0 border-bottom-0 position-relative">
+                                                        <div class="d-flex align-items-center">
+                                                            <input type="text" value="{{ $item->product_name }}"
+                                                                readonly class="border-0 px-2 py-1 w-100 product_name"
+                                                                autocomplete="off" required="" name="product_name[]">
+                                                            <input type="hidden" class="product_id"
+                                                                value="{{ $item->product_id }}" autocomplete="off"
+                                                                name="product_id[]">
+                                                            <div class="info-product" data-toggle="modal"
+                                                                data-target="#productModal">
+                                                                <svg width="18" height="18" viewBox="0 0 18 18"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M8.99998 4.5C8.45998 4.5 8.09998 4.86 8.09998 5.4C8.09998 5.94 8.45998 6.3 8.99998 6.3C9.53998 6.3 9.89998 5.94 9.89998 5.4C9.89998 4.86 9.53998 4.5 8.99998 4.5Z"
+                                                                        fill="#42526E"></path>
+                                                                    <path
+                                                                        d="M9 0C4.05 0 0 4.05 0 9C0 13.95 4.05 18 9 18C13.95 18 18 13.95 18 9C18 4.05 13.95 0 9 0ZM9 16.2C5.04 16.2 1.8 12.96 1.8 9C1.8 5.04 5.04 1.8 9 1.8C12.96 1.8 16.2 5.04 16.2 9C16.2 12.96 12.96 16.2 9 16.2Z"
+                                                                        fill="#42526E"></path>
+                                                                    <path
+                                                                        d="M8.99998 7.2002C8.45998 7.2002 8.09998 7.5602 8.09998 8.10019V12.6002C8.09998 13.1402 8.45998 13.5002 8.99998 13.5002C9.53998 13.5002 9.89998 13.1402 9.89998 12.6002V8.10019C9.89998 7.5602 9.53998 7.2002 8.99998 7.2002Z"
+                                                                        fill="#42526E"></path>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="border border-top-0 border-bottom-0">
+                                                        <input type="text" value="{{ $item->product_unit }}" readonly
+                                                            autocomplete="off"
+                                                            class="border-0 px-2 py-1 w-100 product_unit" required=""
+                                                            name="product_unit[]">
+                                                    </td>
+                                                    <td class="border border-top-0 border-bottom-0 position-relative">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <input type="text" value="{{ $item->product_qty }}"
+                                                                    class="border-0 px-2 py-1 w-100 quantity-input"
+                                                                    autocomplete="off" required=""
+                                                                    name="product_qty[]">
+                                                                <input type="hidden" class="tonkho">
+                                                                <p class="text-primary text-center position-absolute inventory"
+                                                                    style="top: 68%; display: none;">Tồn kho: 35</p>
+                                                            </div>
+                                                            <div>
+                                                                <button type="button"
+                                                                    class="btn btn-primary open-modal-btn"
+                                                                    data-toggle="modal" data-target="#exampleModal0"
+                                                                    style="background:transparent; border:none;">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32"
+                                                                        height="32" viewBox="0 0 32 32"
+                                                                        fill="none">
+                                                                        <rect width="32" height="32"
+                                                                            rx="4" fill="white"></rect>
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z"
+                                                                            fill="#0095F6"></path>
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z"
+                                                                            fill="#0095F6"></path>
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z"
+                                                                            fill="#0095F6"></path>
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z"
+                                                                            fill="#0095F6"></path>
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <input class="check-add-sn" type="checkbox" name="cbSeri[]"
+                                                            value="1" {{ $item->check_seri == 1 ? 'checked' : '' }}>
+                                                    </td>
+                                                    <td
+                                                        class="border border-top-0 border-bottom-0 position-relative d-none">
+                                                        <input type="text"
+                                                            value="{{ number_format($item->price_export) }}" readonly
+                                                            class="border-0 px-2 py-1 w-100 product_price"
+                                                            autocomplete="off" name="product_price[]" required=""
+                                                            readonly="readonly">
+                                                        <p class="text-primary text-right position-absolute transaction"
+                                                            style="top: 68%; right: 5%; display: none;">Giao dịch gần đây
+                                                        </p>
+                                                    </td>
+                                                    <td class="border border-top-0 border-bottom-0 px-4 d-none">
+                                                        <select name="product_tax[]"
+                                                            class="border-0 text-center product_tax" required=""
+                                                            disabled>
+                                                            <option value="0"
+                                                                {{ $item->product_tax == 0 ? 'selected' : '' }}>
+                                                                0%</option>
+                                                            <option value="8"
+                                                                {{ $item->product_tax == 8 ? 'selected' : '' }}>
+                                                                8%</option>
+                                                            <option value="10"
+                                                                {{ $item->product_tax == 10 ? 'selected' : '' }}>
+                                                                10%</option>
+                                                            <option value="99"
+                                                                {{ $item->product_tax == 99 ? 'selected' : '' }}>
+                                                                NOVAT</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="border border-top-0 border-bottom-0 d-none">
+                                                        <input type="text"
+                                                            value="{{ number_format($item->product_total) }}" readonly
+                                                            class="border-0 px-2 py-1 w-100 total-amount">
+                                                    </td>
+                                                    <td class="border-top border-secondary p-0 bg-secondary Daydu d-none"
+                                                        style="width:1%;"></td>
+                                                    <td
+                                                        class="border border-top-0 border-bottom-0 position-relative product_ratio d-none">
+                                                        <input type="text" value="{{ $item->product_ratio }}" readonly
+                                                            class="border-0 px-2 py-1 w-100 heSoNhan" autocomplete="off"
+                                                            required="required" name="product_ratio[]">
+                                                    </td>
+                                                    <td
+                                                        class="border border-top-0 border-bottom-0 position-relative price_import d-none">
+                                                        <input type="text"
+                                                            value="{{ number_format($item->price_import) }}" readonly
+                                                            class="border-0 px-2 py-1 w-100 giaNhap" autocomplete="off"
+                                                            required="required" name="price_import[]">
+                                                    </td>
+                                                    <td
+                                                        class="border border-top-0 border-bottom-0 position-relative note p-1">
+                                                        <input type="text" readonly
+                                                            value="{{ $item->product_note == null ? '' : $item->product_note }}"
+                                                            class="border-0 py-1 w-100" name="product_note[]">
+                                                    </td>
+                                                    <td
+                                                        class="border border-top-0 border-bottom-0 border-right-0 text-right deleteProduct1">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M10.5454 5C10.2442 5 9.99999 5.24421 9.99999 5.54545C9.99999 5.8467 10.2442 6.09091 10.5454 6.09091H13.4545C13.7558 6.09091 14 5.8467 14 5.54545C14 5.24421 13.7558 5 13.4545 5H10.5454ZM6 7.72726C6 7.42601 6.24421 7.18181 6.54545 7.18181H7.63637H16.3636H17.4545C17.7558 7.18181 18 7.42601 18 7.72726C18 8.02851 17.7558 8.27272 17.4545 8.27272H16.9091V17C16.9091 18.2113 15.9118 19.1818 14.7135 19.1818H9.25891C8.97278 19.1816 8.68906 19.1247 8.42499 19.0145C8.16092 18.9044 7.92126 18.7431 7.71979 18.5399C7.51833 18.3367 7.35905 18.0957 7.25112 17.8307C7.14347 17.5664 7.08903 17.2834 7.09091 16.9981V8.27272H6.54545C6.24421 8.27272 6 8.02851 6 7.72726ZM8.18182 17.0041V8.27272H15.8182V17C15.8182 17.5966 15.3216 18.0909 14.7135 18.0909H9.25938C9.11713 18.0908 8.97632 18.0625 8.84503 18.0077C8.71375 17.953 8.5946 17.8728 8.49444 17.7718C8.39429 17.6707 8.3151 17.5509 8.26144 17.4192C8.20779 17.2874 8.18074 17.1464 8.18182 17.0041ZM13.4545 10.0909C13.7558 10.0909 14 10.3351 14 10.6364V15.7273C14 16.0285 13.7558 16.2727 13.4545 16.2727C13.1533 16.2727 12.9091 16.0285 12.9091 15.7273V10.6364C12.9091 10.3351 13.1533 10.0909 13.4545 10.0909ZM11.0909 10.6364C11.0909 10.3351 10.8467 10.0909 10.5454 10.0909C10.2442 10.0909 9.99999 10.3351 9.99999 10.6364V15.7273C9.99999 16.0285 10.2442 16.2727 10.5454 16.2727C10.8467 16.2727 11.0909 16.0285 11.0909 15.7273V10.6364Z"
+                                                                fill="#42526E"></path>
+                                                        </svg>
+                                                    </td>
+                                                    <td style="display:none;" class=""><input type="text"
+                                                            class="product_tax1"></td>
+                                                    <td style="display:none;"><input type="text" class="product_tax1">
+                                                    </td>
+                                                    <td style='display:none;'>
+                                                        <ul class ='seri_pro'></ul>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endisset
                                         <tr id="dynamic-fields" class="bg-white"></tr>
                                     </tbody>
                                 </table>
@@ -400,6 +588,74 @@
     </div>
 </div>
 <script>
+    $('#checkall').change(function() {
+        $('.cb-element').prop(
+            'checked', this
+            .checked);
+        updateMultipleActionVisibility
+            ();
+    });
+    $('.cb-element').change(function() {
+        updateMultipleActionVisibility
+            ();
+        if ($('.cb-element:checked')
+            .length === $(
+                '.cb-element')
+            .length) {
+            $('#checkall').prop(
+                'checked', true);
+        } else {
+            $('#checkall').prop(
+                'checked', false
+            );
+        }
+    });
+    $(document).on('click',
+        '.cancal_action',
+        function(e) {
+            e.preventDefault();
+            $('.cb-element:checked')
+                .prop('checked', false);
+            $('#checkall').prop(
+                'checked', false);
+            updateMultipleActionVisibility
+                ()
+        })
+
+    function updateMultipleActionVisibility() {
+        if ($('.cb-element:checked')
+            .length > 0) {
+            $('.multiple_action').show();
+            $('.count_checkbox').text(
+                'Đã chọn ' + $(
+                    '.cb-element:checked'
+                ).length);
+        } else {
+            $('.multiple_action').hide();
+        }
+    }
+    $('.deleteProduct1').click(function() {
+        $(this).closest("tr")
+            .remove();
+        fieldCounter--;
+        calculateTotalAmount();
+        calculateGrandTotal();
+        var productTaxText = $(
+                '#product-tax')
+            .text();
+        var productTaxValue =
+            parseFloat(
+                productTaxText
+                .replace(/,/g, ''));
+        var taxAmount = parseFloat((
+                '.product_tax1')
+            .text());
+        var totalTax =
+            productTaxValue -
+            taxAmount;
+        $('#product-tax').text(
+            totalTax);
+    });
     //thêm sản phẩm
     let fieldCounter = 1;
     $(document).ready(function() {

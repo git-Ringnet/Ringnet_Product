@@ -206,4 +206,14 @@ class DetailImport extends Model
         }
         return $result;
     }
+
+
+    public function dataImport($dataImport)
+    {
+        // $result = $data;
+        // dd($dataImport);
+        // product_id
+        $data = DB::table('products')->whereIn('id', $dataImport['product_id'])->get();
+        return $data;
+    }
 }

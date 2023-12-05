@@ -57,7 +57,7 @@ class DetailImportController extends Controller
     {
         $title = 'Đơn mua hàng';
         $perPage = 10;
-        $import = DetailImport::orderBy('id','desc')->paginate($perPage);
+        $import = DetailImport::orderBy('id', 'desc')->paginate($perPage);
         // $import = $this->import->getAllImport();
         return view('tables.import.import', compact('title', 'import'));
     }
@@ -129,54 +129,68 @@ class DetailImportController extends Controller
             $this->history_import->addHistoryImport($request->all(), $id);
             return redirect()->route('import.index')->with('msg', 'Chỉnh sửa đơn mua hàng thành công !');
         } else if ($request->action == 'action_2') {
-            // Cập nhật tình trạng
-            $check = $this->detailImport->updateImport($request->all(), $id, 2);
-            if ($check == true) {
-                // cập nhật sản phẩm
-                $this->quoteImport->updateImport($request->all(), $id);
-
-                // Tạo sản phẩm theo từng đơn
-                $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
-
-                // Cập nhập sản phẩm theo receive
-                $receive_id = $this->receiver_bill->addReceiveBill($request->all(), $id);
-
-                return redirect()->route('import.index')->with('msg', 'Tạo đơn nhận hàng thành công !');
-            } else {
+            $receiver_bill = $this->receiver_bill->getProduct_receive($request->detail_id);
+            $show_receive = $this->receiver_bill->show_receive($request->detail_id);
+            $data = $request->all();
+            if ($receiver_bill['quoteImport']->isEmpty()) {
                 return redirect()->route('import.index')->with('warning', 'Đã tạo hết đơn nhận hàng !');
+            } else {
+                $title = "Tạo đơn nhận hàng";
+                $listDetail = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
+                    ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.receive_qty,0)'))
+                    ->select('detailimport.quotation_number', 'detailimport.id')
+                    ->distinct()
+                    ->get();
+                $yes = true;
+                return view('tables.receive.insertReceive', compact('title', 'listDetail', 'receiver_bill', 'data', 'yes', 'show_receive'));
             }
         } elseif ($request->action == "action_3") {
-            $check = $this->detailImport->updateImport($request->all(), $id, 2);
-            if ($check) {
-                // cập nhật sản phẩm
-                $this->quoteImport->updateImport($request->all(), $id);
+            // $check = $this->detailImport->updateImport($request->all(), $id, 2);
+            // if ($check) {
+            //     // cập nhật sản phẩm
+            //     $this->quoteImport->updateImport($request->all(), $id);
 
-                // Tạo sản phẩm theo từng đơn
-                $this->productImport->addProductImport($request->all(), $id, 'reciept_id', 'reciept_qty');
+            //     // Tạo sản phẩm theo từng đơn
+            //     $this->productImport->addProductImport($request->all(), $id, 'reciept_id', 'reciept_qty');
 
-                // Cập nhật sản phẩm theo reciept
-                $this->reciept->addReciept($request->all(), $id);
-                return redirect()->route('import.index')->with('msg', 'Tạo hóa đơn mua hàng thành công !');
-            } else {
+            //     // Cập nhật sản phẩm theo reciept
+            //     $this->reciept->addReciept($request->all(), $id);
+            //     return redirect()->route('import.index')->with('msg', 'Tạo hóa đơn mua hàng thành công !');
+            // } else {
+            //     return redirect()->route('import.index')->with('warning', 'Hóa đơn đã được tạo hết !');
+            // }
+            $recieptProduct = $this->reciept->getProduct_reciept($request->detail_id);
+            $show_receive = $this->receiver_bill->show_receive($request->detail_id);
+            $title = "Tạo mới hóa đơn mua hàng";
+            if ($recieptProduct->isEmpty()) {
                 return redirect()->route('import.index')->with('warning', 'Hóa đơn đã được tạo hết !');
+            } else {
+                $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
+                    ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.reciept_qty,0)'))
+                    ->distinct()
+                    ->select('detailimport.quotation_number', 'detailimport.id')
+                    ->get();
+                // dd($show_receive);
+                $yes = true;
+                return view('tables.reciept.insertReciept', compact('yes', 'title', 'reciept', 'recieptProduct', 'show_receive'));
             }
         } else {
-            $check = $this->detailImport->updateImport($request->all(), $id, 2);
-            if ($check) {
-                // cập nhật sản phẩm
-                $this->quoteImport->updateImport($request->all(), $id);
+            $getPaymentOrder = $this->payment->getPaymentOrder($request->detail_id);
+            $show_receive = $this->receiver_bill->show_receive($request->detail_id);
 
-                // Tạo sản phẩm theo từng đơn
-                $this->productImport->addProductImport($request->all(), $id, 'payOrder_id', 'payment_qty');
-
-                // Cập nhật sản phẩm theo payment
-                $payment = $this->payment->addNewPayment($request->all(), $id);
-                if ($payment) {
-                    $this->historyPayment->addHistoryPayment($request->all(), $payment);
-                }
-                return redirect()->route('import.index')->with('msg', 'Tạo hóa đơn thanh toán thành công !');
+            if ($getPaymentOrder->isEmpty()) {
+                return redirect()->route('import.index')->with('warning', 'Hóa đơn thanh toán đã được tạo hết!');
             } else {
-                return redirect()->route('import.index')->with('warning', 'Hóa đơn thanh toán đã được tạo hết !');
+                $title = "Tạo mới hóa đơn thanh toán";
+                $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
+                    ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
+                    ->distinct()
+                    ->select('detailimport.quotation_number', 'detailimport.id')
+                    ->get();
+                // $reciept = Reciept::where('status', '=', 1)->get();
+                $yes = true;
+                // dd($getPaymentOrder);
+                return view('tables.paymentOrder.insertPaymentOrder', compact('yes', 'title', 'reciept', 'getPaymentOrder', 'show_receive'));
             }
         }
     }

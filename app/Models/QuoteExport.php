@@ -157,4 +157,13 @@ class QuoteExport extends Model
             }
         }
     }
+    public function getProductsbyId($id)
+    {
+        $products = DB::table('quoteexport')
+            ->whereIn('product_id', $id)
+            ->join('products', 'quoteexport.product_id', '=', 'products.id')
+            ->select('products.*', 'quoteexport.*', 'quoteexport.product_qty')
+            ->get();
+        return $products;
+    }
 }

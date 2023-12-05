@@ -267,4 +267,12 @@ class PayOder extends Model
         }
         return $status;
     }
+    public function getPaymentOrder($id)
+    {
+        return QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
+            ->leftJoin('pay_order', 'detailimport.id', 'pay_order.detailimport_id')
+            ->where('quoteimport.detailimport_id', $id)
+            // ->where('product_qty', '>', DB::raw('COALESCE(payment_qty,0)'))
+            ->get();
+    }
 }

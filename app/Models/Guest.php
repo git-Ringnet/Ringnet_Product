@@ -46,6 +46,13 @@ class Guest extends Model
         $guests = $guests->pluck('guest_name_display')->all();
         return $guests;
     }
+    public function getGuestbyId($id)
+    {
+        $guests = DB::table($this->table);
+        $guests = $guests->where('guest.id', $id)->get();
+
+        return $guests;
+    }
     public function ajax($data)
     {
         $guests =  DB::table($this->table);

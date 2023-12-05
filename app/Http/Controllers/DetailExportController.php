@@ -6,6 +6,7 @@ use App\Models\BillSale;
 use App\Models\Delivered;
 use App\Models\Delivery;
 use App\Models\DetailExport;
+use App\Models\DetailImport;
 use App\Models\Guest;
 use App\Models\PayExport;
 use App\Models\productBill;
@@ -13,6 +14,7 @@ use App\Models\ProductCode;
 use App\Models\productPay;
 use App\Models\Products;
 use App\Models\Project;
+use App\Models\Provides;
 use App\Models\QuoteExport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -34,10 +36,12 @@ class DetailExportController extends Controller
     private $productBill;
     private $payExport;
     private $productPay;
+    private $detailImport;
 
     public function __construct()
     {
         $this->detailExport = new DetailExport();
+        $this->detailImport = new DetailImport();
         $this->guest = new Guest();
         $this->quoteExport = new QuoteExport();
         $this->product = new Products();
@@ -129,46 +133,36 @@ class DetailExportController extends Controller
             }
         }
         if ($request->action == "action_2") {
-            if ($detailExport->status_receive == 2) {
-                return redirect()->route('detailExport.index')->with('warning', 'Tạo mới đơn giao hàng không thành công!');
-            } else {
-                $check = $this->delivery->checkSL($request->all());
-                if (!$check) {
-                    return redirect()->route('detailExport.index')->with('warning', 'Tạo mới đơn giao hàng không thành công!');
-                } else {
-                    $delivery_id = $this->delivery->addDelivery($request->all());
-                    $this->delivered->addDeliveredQuick($request->all(), $delivery_id);
-                    return redirect()->route('watchDelivery', ['id' => $delivery_id])->with('msg', ' Tạo mới đơn giao hàng thành công!');
-                }
-            }
+            $title = "Tạo đơn giao hàng";
+            $numberQuote = DetailExport::all();
+            $product = $this->product->getAllProducts();
+            $quoteExport = $this->quoteExport->getProductsbyId($request->product_id);
+            $data = $request->all();
+            $getGuestbyId = $this->guest->getGuestbyId($request->guest_id);
+            $yes = true;
+            return view('tables.export.delivery.create-delivery',  ['yes' => $yes, 'getGuestbyId' => $getGuestbyId, 'data' => $data, 'title' => $title, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
         }
         if ($request->action == "action_3") {
-            if ($detailExport->status_reciept == 2) {
-                return redirect()->route('detailExport.index')->with('warning', 'Tạo mới hóa đơn bán hàng không thành công!');
-            } else {
-                $check = $this->billSale->checkSL($request->all());
-                if (!$check) {
-                    return redirect()->route('detailExport.index')->with('warning', 'Tạo mới hóa đơn bán hàng không thành công!');
-                } else {
-                    $billSale_id = $this->billSale->addBillSale($request->all());
-                    $this->productBill->addProductBillQuick($request->all(), $billSale_id);
-                    return redirect()->route('billSale.edit', ['billSale' => $billSale_id])->with('msg', ' Tạo mới hóa đơn bán hàng thành công!');
-                }
-            }
+            $title = "Tạo Hóa đơn bán hàng";
+            $data = $request->all();
+            $numberQuote = DetailExport::all();
+            $product = $this->product->getAllProducts();
+            $quoteExport = $this->quoteExport->getProductsbyId($request->product_id);
+            $getGuestbyId = $this->guest->getGuestbyId($request->guest_id);
+            $yes = true;
+            return view('tables.export.bill_sale.create-billSale', ['yes' => $yes, 'getGuestbyId' => $getGuestbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
         }
         if ($request->action == "action_4") {
-            if ($detailExport->status_pay == 2) {
-                return redirect()->route('detailExport.index')->with('warning', 'Tạo mới thanh toán hàng không thành công!');
-            } else {
-                $check = $this->payExport->checkSL($request->all());
-                if (!$check) {
-                    return redirect()->route('detailExport.index')->with('warning', 'Tạo mới thanh toán hàng không thành công!');
-                } else {
-                    $pay_id = $this->payExport->addPayExport($request->all());
-                    $this->productPay->addProductPayQuick($request->all(), $pay_id);
-                    return redirect()->route('payExport.edit', ['payExport' => $pay_id])->with('msg', 'Tạo đơn thanh toán hàng thành công!');
-                }
-            }
+            $title = "Tạo đơn thanh toán";
+            $product = $this->product->getAllProducts();
+            $numberQuote = DetailExport::all();
+            $data = $request->all();
+            $quoteExport = $this->quoteExport->getProductsbyId($request->product_id);
+            $getGuestbyId = $this->guest->getGuestbyId($request->guest_id);
+            $yes = true;
+            $delivery = $this->payExport->getInfoPay($request->quotation_number);
+            // dd($delivery);
+            return view('tables.export.pay_export.create-payExport', ['yes' => $yes, 'delivery' => $delivery, 'getGuestbyId' => $getGuestbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
         }
         if ($request->action == "action_5") {
             $delivery = Delivery::where('detailexport_id', $id)->get();
@@ -181,6 +175,13 @@ class DetailExportController extends Controller
             } else {
                 return redirect()->route('detailExport.index')->with('warning', 'Xóa đơn bán hàng thất bại!');
             }
+        }
+        if ($request->action == "action_6") {
+            $dataImport = $this->detailImport->dataImport($request->all());
+            $title = "Tạo đơn mua hàng";
+            $provides = Provides::all();
+            $project = Project::all();
+            return view('tables.import.insertImport', ['dataImport' => $dataImport, 'title' => $title, 'provides' => $provides, 'project' => $project]);
         }
     }
 

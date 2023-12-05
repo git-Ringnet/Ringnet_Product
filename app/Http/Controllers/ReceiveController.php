@@ -63,7 +63,6 @@ class ReceiveController extends Controller
     {
         // dd($request->all());
         $id = $request->detailimport_id;
-
         // Tạo sản phẩm theo đơn nhận hàng
         $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
         if ($status) {

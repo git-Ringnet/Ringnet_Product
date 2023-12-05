@@ -217,4 +217,53 @@ class Receive_bill extends Model
         }
         return $status;
     }
+    public function getProduct_receive($id)
+    {
+        $data = [];
+        $list = [];
+        $id_quote = [];
+        $checked = [];
+        $value = [];
+        $quote = QuoteImport::where('detailimport_id', $id)->where('product_qty', '>', DB::raw('COALESCE(receive_qty,0)'))->get();
+        foreach ($quote as $qt) {
+            $product = Products::where('product_name', $qt->product_name)->first();
+            $productImport = QuoteImport::where('product_name', $qt->product_name)->get();
+            foreach ($productImport as $ip) {
+                array_push($id_quote, $ip->id);
+            }
+            $CBSN = ProductImport::whereIn('quoteImport_id', $id_quote)
+                ->where('receive_id', '!=', 'null')
+                ->first();
+            if ($product) {
+                // array_push($list, $product->check_seri == 0 ? 1 : $product->check_seri);
+                array_push($list, $product->check_seri);
+                array_push($checked, 'disabled');
+            } else if ($CBSN) {
+                // array_push($list, $CBSN->cbSN == 0 ? 1 : $CBSN->cbSN);
+                array_push($list, $CBSN->cbSN);
+                array_push($checked, 'disabled');
+            } else {
+                array_push($list, 0);
+                array_push($checked, 'endable');
+            }
+        }
+        $data = [
+            'checked' => $checked,
+            'cb' => $list,
+            'quoteImport' => $quote,
+        ];
+        return $data;
+    }
+    public function show_receive($detail_id)
+    {
+        $data = [];
+        $detail = DetailImport::FindOrFail($detail_id);
+        $name =  $detail->getProvideName->provide_name_display;
+        $data = [
+            'quotation_number' => $detail->quotation_number,
+            'provide_name' => $name,
+            'id' => $detail->id
+        ];
+        return $data;
+    }
 }

@@ -174,4 +174,20 @@ class Reciept extends Model
         }
         return $status;
     }
+    public function getProduct_reciept($id)
+    {
+        return QuoteImport::where('detailimport_id', $id)->where('product_qty', '>', DB::raw('COALESCE(reciept_qty,0)'))->get();
+    }
+    public function show_reciept($detail_id)
+    {
+        $data = [];
+        $detail = Receive_bill::FindOrFail($detail_id);
+        $name =  $detail->getNameProvide->provide_name_display;
+        $data = [
+            'quotation_number' => $detail->quotation_number,
+            'provide_name' => $name,
+            'id' => $detail->id
+        ];
+        return $data;
+    }
 }
