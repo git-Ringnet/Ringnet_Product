@@ -155,7 +155,7 @@ class ReceiveController extends Controller
         if ($result) {
             return redirect()->route('receive.index')->with('msg', 'Xóa đơn nhận hàng thành công !');
         } else {
-            return redirect()->route('receive.index')->with('warning', 'Không tìn thấy đơn nhận hàng cần xóa!');
+            return redirect()->route('receive.index')->with('warning', 'Sản phẩm đã được tạo trong đơn mua hàng !');
         }
     }
     public function show_receive(Request $request)
@@ -179,7 +179,9 @@ class ReceiveController extends Controller
         $value = [];
         $quote = QuoteImport::where('detailimport_id', $request->id)->where('product_qty', '>', DB::raw('COALESCE(receive_qty,0)'))->get();
         foreach ($quote as $qt) {
-            $product = Products::where('product_name', $qt->product_name)->first();
+            $product = Products::where('product_name', $qt->product_name)
+            ->where(DB::raw('COALESCE(product_inventory,0)'),'>',0 )
+            ->first();
             $productImport = QuoteImport::where('product_name', $qt->product_name)->get();
             foreach ($productImport as $ip) {
                 array_push($id_quote, $ip->id);

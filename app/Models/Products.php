@@ -32,7 +32,7 @@ class Products extends Model
     public function getAllProducts()
     {
         $perpage = 10;
-        return DB::table($this->table)->orderBy('id','desc')->paginate($perpage);
+        return DB::table($this->table)->orderBy('id', 'desc')->paginate($perpage);
         // return DB::table($this->table)->get();
     }
     public function getSerialNumber()
@@ -145,6 +145,7 @@ class Products extends Model
                 $checkProduct = Products::where('product_name', $getProductName->product_name)->first();
                 if ($checkProduct) {
                     $checkProduct->product_inventory += $item->product_qty;
+                    $checkProduct->check_seri = $item->cbSN;
                     $checkProduct->save();
                     $product_id = $checkProduct->id;
                 } else {

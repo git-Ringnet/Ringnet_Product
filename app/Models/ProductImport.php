@@ -72,7 +72,9 @@ class ProductImport extends Model
                 if ($qty == 0) {
                     continue;
                 } else {
-                    $checkCBSN = Products::where('product_name', $data['product_name'][$i])->first();
+                    $checkCBSN = Products::where('product_name', $data['product_name'][$i])
+                    ->where(DB::raw('COALESCE(product_inventory,0)'),'>',0 )
+                    ->first();
                     $productExist = QuoteImport::where('product_name', $data['product_name'][$i])->first();
                     if ($productExist) {
                         $checkCBImport = ProductImport::where('quoteImport_id', $productExist->id)
