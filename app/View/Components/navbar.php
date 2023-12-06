@@ -13,10 +13,12 @@ class navbar extends Component
      * Create a new component instance.
      */
     public $title;
+    public $activeName;
 
-    public function __construct($title = 'Ringnet')
+    public function __construct($title = 'Ringnet', $activeName = 'activeName')
     {
         $this->title = $title;
+        $this->activeName = $activeName;
     }
 
     /**

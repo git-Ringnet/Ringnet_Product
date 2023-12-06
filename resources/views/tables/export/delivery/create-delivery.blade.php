@@ -79,6 +79,8 @@
                                             class="border w-100 py-2 border-left-0 border-right-0 px-3 numberQute"
                                             id="myInput" autocomplete="off" name="quotation_number" required
                                             value="@isset($yes) {{ $data['quotation_number'] }} @endisset">
+                                        <input type="hidden" name="detail_id" id="detail_id"
+                                            value="@isset($yes) {{ $data['detail_id'] }} @endisset">
                                         <ul id="myUL"
                                             class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
                                             style="z-index: 99;">
@@ -253,9 +255,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @isset($quoteExport)
-                                            {{-- @dd($quoteExport); --}}
-                                            @foreach ($quoteExport as $item)
+                                        @isset($getProductQuote)
+                                            @foreach ($getProductQuote as $item)
                                                 <tr id="dynamic-row-" class="bg-white addProduct">
                                                     <td
                                                         class="border border-left-0 border-top-0 border-bottom-0 position-relative">
@@ -582,7 +583,6 @@
             </div>
         </div>
         <div class="all-modal-seri">
-
         </div>
     </form>
     {{-- Thông tin sản phẩm --}}
@@ -998,9 +998,14 @@
     });
     var selectedSerialNumbers = [];
     //Lấy thông tin từ số báo giá
+
     $(document).ready(function() {
-        $('.search-info').click(function() {
-            var idQuote = parseInt($(this).attr('id'), 10);
+        $('.search-info').click(function(event, idQuote) {
+            if (idQuote) {
+                idQuote = idQuote
+            } else {
+                idQuote = parseInt($(this).attr('id'), 10);
+            }
             $.ajax({
                 url: '{{ route('getInfoQuote') }}',
                 type: 'GET',
@@ -1017,7 +1022,7 @@
                             idQuote: idQuote
                         },
                         success: function(data) {
-                            console.log(data);
+                            // console.log(data);
                             $(".addProduct").remove();
                             $.each(data, function(index, item) {
                                 var totalTax = parseFloat(item
@@ -2057,6 +2062,10 @@
                 }
             });
         });
+        var idQuote = $('#detail_id').val();
+        if (idQuote) {
+            $('.search-info').trigger('click', idQuote);
+        }
     });
     //Mở rộng
     var status_form = 0;

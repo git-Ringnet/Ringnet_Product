@@ -228,4 +228,30 @@ class Delivery extends Model
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')->first();
         return $delivery;
     }
+    public function getProductQuote($idQuote)
+    {
+        $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->leftJoin('products', 'products.id', 'quoteexport.product_id')
+            ->select('*', 'detailexport.id as maXuat', 'quoteexport.product_id as maSP')
+            ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) as soLuongCanGiao')
+            ->leftJoin('serialnumber', function ($join) {
+                $join->on('serialnumber.product_id', '=', 'products.id');
+                $join->where('serialnumber.detailexport_id', 0);
+            })
+            ->where('detailexport.id', $idQuote)
+            ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) > 0')
+            ->get();
+
+        // Group dữ liệu theo ID sản phẩm để có danh sách seri cho mỗi sản phẩm
+        $groupedDelivery = $delivery->groupBy('maSP');
+
+        // Xử lý dữ liệu để thêm danh sách seri vào mỗi sản phẩm
+        $processedDelivery = $groupedDelivery->map(function ($group) {
+            $product = $group->first();
+            $product['seri_pro'] = $group->pluck('serinumber')->toArray();
+            return $product;
+        });
+
+        return $processedDelivery;
+    }
 }

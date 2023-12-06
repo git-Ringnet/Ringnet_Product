@@ -134,14 +134,23 @@ class DetailExportController extends Controller
         }
         if ($request->action == "action_2") {
             $title = "Tạo đơn giao hàng";
-            $numberQuote = DetailExport::all();
+            $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
+                ->where('quoteexport.product_qty', '>', DB::raw('COALESCE(quoteexport.qty_delivery,0)'))
+                ->select('detailexport.quotation_number', 'detailexport.id')
+                ->distinct()
+                ->get();
             $product = $this->product->getAllProducts();
             $quoteExport = $this->quoteExport->getProductsbyId($request->product_id);
             $data = $request->all();
             $getGuestbyId = $this->guest->getGuestbyId($request->guest_id);
             $yes = true;
             $getInfoQuote = $this->delivery->getInfoQuote($request->detailexport_id);
-            return view('tables.export.delivery.create-delivery',  ['yes' => $yes, 'getInfoQuote' => $getInfoQuote, 'getGuestbyId' => $getGuestbyId, 'data' => $data, 'title' => $title, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
+            $getProductQuote = $this->delivery->getProductQuote($request->detailexport_id);
+            // dd($data);
+            return view('tables.export.delivery.create-delivery',  [
+                'active' => 'active', 'yes' => $yes, 'getInfoQuote' => $getInfoQuote, 'getGuestbyId' => $getGuestbyId, 'data' => $data, 'title' => $title, 'numberQuote' => $numberQuote,
+                'product' => $product, 'getProductQuote' => $getProductQuote
+            ]);
         }
         if ($request->action == "action_3") {
             $title = "Tạo Hóa đơn bán hàng";

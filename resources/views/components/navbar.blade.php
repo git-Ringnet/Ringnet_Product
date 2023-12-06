@@ -342,7 +342,7 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('import.index') }}"
-                                    class="nav-link {{ request()->route()->named('import.index','import.show', 'import.edit', 'import.create')? 'active': '' }}">
+                                    class="nav-link {{ request()->route()->named('import.index', 'import.show', 'import.edit', 'import.create')? 'active': '' }}">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Đơn mua hàng</p>
                                 </a>
