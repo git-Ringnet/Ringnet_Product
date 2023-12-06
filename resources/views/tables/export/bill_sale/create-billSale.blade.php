@@ -1,4 +1,5 @@
-<x-navbar :title="$title"></x-navbar>
+<x-navbar :title="$title">
+</x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <form action="{{ route('billSale.store') }}" method="POST">
@@ -17,7 +18,8 @@
                     <span class="font-weight-bold">Hóa đơn bán hàng mới</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px" onclick="kiemTraFormGiaoHang(event);">
+                    <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px"
+                        onclick="kiemTraFormGiaoHang(event);">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -375,31 +377,48 @@
                                         <div class="mt-4 w-50" style="float: right;">
                                             <div class="d-flex justify-content-between">
                                                 <span><b>Giá trị trước thuế:</b></span>
-                                                <span id="total-amount-sum">0đ</span>
+                                                <span id="total-amount-sum"> @isset($yes)
+                                                        {{ number_format($getInfoDelivery->total_price) }}
+                                                    @endisset
+                                                </span>
                                             </div>
                                             <div class="d-flex justify-content-between mt-2 align-items-center">
                                                 <span><b>Thuế VAT:</b></span>
-                                                <span id="product-tax">0đ</span>
+                                                <span id="product-tax">
+                                                    @isset($yes)
+                                                        {{ number_format($getInfoDelivery->total_tax) }}
+                                                    @endisset
+                                                </span>
                                             </div>
                                             <div class="d-flex justify-content-between align-items-center mt-2">
                                                 <span class="text-primary">Giảm giá:</span>
                                                 <div class="w-50">
                                                     <input type="text" class="form-control text-right border-0 p-0"
-                                                        name="discount" id="voucher" value="0">
+                                                        name="discount" id="voucher"
+                                                        value="@isset($yes)
+                                                        {{ number_format($getInfoDelivery->discount) }}
+                                                    @endisset">
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-between align-items-center mt-2">
                                                 <span class="text-primary">Phí vận chuyển:</span>
                                                 <div class="w-50">
                                                     <input type="text" class="form-control text-right border-0 p-0"
-                                                        name="transport_fee" id="transport_fee" value="0">
+                                                        name="transport_fee" id="transport_fee"
+                                                        value="@isset($yes)
+                                                        {{ number_format($getInfoDelivery->transfer_fee) }}
+                                                    @endisset">
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-between mt-2">
                                                 <span class="text-lg"><b>Tổng cộng:</b></span>
-                                                <span><b id="grand-total" data-value="0">0đ</b></span>
+                                                <span><b id="grand-total" data-value="0">
+                                                        @isset($yes)
+                                                            {{ number_format($getInfoDelivery->total_tax + $getInfoDelivery->total_price) }}
+                                                        @endisset
+                                                    </b></span>
                                                 <input type="text" hidden="" name="totalValue"
-                                                    value="0" id="total">
+                                                    value="" id="total">
                                             </div>
                                         </div>
                                     </div>
@@ -432,6 +451,28 @@
     </div>
 </div>
 <script>
+    $('.deleteProduct').click(function() {
+        $(this).closest("tr")
+            .remove();
+        fieldCounter--;
+        calculateTotalAmount();
+        calculateGrandTotal();
+        var productTaxText = $(
+                '#product-tax')
+            .text();
+        var productTaxValue =
+            parseFloat(
+                productTaxText
+                .replace(/,/g, ''));
+        var taxAmount = parseFloat((
+                '.product_tax1')
+            .text());
+        var totalTax =
+            productTaxValue -
+            taxAmount;
+        $('#product-tax').text(
+            totalTax);
+    });
     //hiện danh sách số báo giá khi click trường tìm kiếm
     $("#myUL").hide();
     $("#myInput").on("click", function() {

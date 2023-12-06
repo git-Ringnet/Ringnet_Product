@@ -222,4 +222,10 @@ class Delivery extends Model
     {
         return $this->hasMany(Attachment::class, 'table_id', 'soGiaoHang')->where('table_name', $name)->get();
     }
+    public function getInfoQuote($idQuote)
+    {
+        $delivery = DetailExport::where('detailexport.id', $idQuote)
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')->first();
+        return $delivery;
+    }
 }

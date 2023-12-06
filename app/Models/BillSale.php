@@ -14,7 +14,7 @@ class BillSale extends Model
         'price_total',
         'status',
         'number_bill',
-        'created_at', 
+        'created_at',
         'updated_at'
     ];
     protected $table = 'bill_sale';
@@ -132,5 +132,14 @@ class BillSale extends Model
     public function getAttachment($name)
     {
         return $this->hasMany(Attachment::class, 'table_id', 'idHD')->where('table_name', $name)->get();
+    }
+    public function getInfoDelivery($idQuote)
+    {
+        $delivery = DetailExport::where('detailexport.id', $idQuote)
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->leftJoin('delivery', 'delivery.detailexport_id', 'detailexport.id')
+            ->select('*', 'delivery.id as maGiaoHang', 'detailexport.quotation_number as soBG')
+            ->first();
+        return $delivery;
     }
 }

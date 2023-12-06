@@ -1,4 +1,5 @@
-<x-navbar :title="$title"></x-navbar>
+<x-navbar :title="$title">
+</x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <form action="{{ route('delivery.store') }}" method="POST">
@@ -494,29 +495,46 @@
                                         <div class="mt-4 w-50" style="float: right;">
                                             <div class="d-flex justify-content-between">
                                                 <span><b>Giá trị trước thuế:</b></span>
-                                                <span id="total-amount-sum">0đ</span>
+                                                <span id="total-amount-sum">
+                                                    @isset($yes)
+                                                        {{ number_format($getInfoQuote->total_price) }}
+                                                    @endisset
+                                                </span>
                                             </div>
                                             <div class="d-flex justify-content-between mt-2 align-items-center">
                                                 <span><b>Thuế VAT:</b></span>
-                                                <span id="product-tax">0đ</span>
+                                                <span id="product-tax"> @isset($yes)
+                                                        {{ number_format($getInfoQuote->total_tax) }}
+                                                    @endisset
+                                                </span>
                                             </div>
                                             <div class="d-flex justify-content-between align-items-center mt-2">
                                                 <span class="text-primary">Giảm giá:</span>
                                                 <div class="w-50">
                                                     <input type="text" class="form-control text-right border-0 p-0"
-                                                        name="discount" id="voucher" value="0">
+                                                        name="discount" id="voucher"
+                                                        value="@isset($yes)
+                                                        {{ number_format($getInfoQuote->discount) }}
+                                                    @endisset">
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-between align-items-center mt-2">
                                                 <span class="text-primary">Phí vận chuyển:</span>
                                                 <div class="w-50">
                                                     <input type="text" class="form-control text-right border-0 p-0"
-                                                        name="transport_fee" id="transport_fee" value="0">
+                                                        name="transport_fee" id="transport_fee"
+                                                        value="@isset($yes)
+                                                        {{ number_format($getInfoQuote->transfer_fee) }}
+                                                    @endisset">
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-between mt-2">
                                                 <span class="text-lg"><b>Tổng cộng:</b></span>
-                                                <span><b id="grand-total" data-value="0">0đ</b></span>
+                                                <span><b id="grand-total" data-value="0">
+                                                        @isset($yes)
+                                                            {{ number_format($getInfoQuote->total_tax + $getInfoQuote->total_price) }}
+                                                        @endisset
+                                                    </b></span>
                                                 <input type="text" hidden="" name="totalValue"
                                                     value="0" id="total">
                                             </div>
@@ -1277,7 +1295,7 @@
                                 $('#luuNhap').off('click').on('click',
                                     function(e) {
                                         var
-                                    insufficientSeriProducts = [];
+                                            insufficientSeriProducts = [];
 
                                         $(".bg-white.addProduct")
                                             .each(function() {
@@ -1285,58 +1303,61 @@
                                                     $(this)
                                                     .find(
                                                         ".check-add-sn"
-                                                        );
+                                                    );
                                                 var isCheckedAndNotDisabled =
                                                     checkbox
                                                     .prop(
                                                         "checked"
-                                                        ) && !
+                                                    ) && !
                                                     checkbox
                                                     .prop(
                                                         "disabled"
-                                                        );
+                                                    );
 
                                                 if (
-                                                    isCheckedAndNotDisabled) {
+                                                    isCheckedAndNotDisabled
+                                                ) {
                                                     var quantityValue =
                                                         parseInt(
                                                             $(
-                                                                this)
+                                                                this
+                                                            )
                                                             .find(
                                                                 ".quantity-input"
-                                                                )
+                                                            )
                                                             .val()
-                                                            );
+                                                        );
                                                     var productId =
                                                         $(this)
                                                         .find(
                                                             ".product_id"
-                                                            )
+                                                        )
                                                         .val();
                                                     var productName =
                                                         $(this)
                                                         .find(
                                                             ".product_name"
-                                                            )
+                                                        )
                                                         .val();
 
                                                     for (var i =
                                                             0; i <
                                                         quantityValue; i++
-                                                        ) {
+                                                    ) {
                                                         var isSeriInputExist =
                                                             $(
-                                                                `input[name="seri[${productId}][]"][data-product-id="${productId}"]:eq(${i})`)
+                                                                `input[name="seri[${productId}][]"][data-product-id="${productId}"]:eq(${i})`
+                                                            )
                                                             .length >
                                                             0;
 
                                                         if (!
                                                             isSeriInputExist
-                                                            ) {
+                                                        ) {
                                                             insufficientSeriProducts
                                                                 .push(
                                                                     productName
-                                                                    );
+                                                                );
                                                             break;
                                                         }
                                                     }
@@ -1346,50 +1367,52 @@
                                                 if (checkbox
                                                     .prop(
                                                         "checked"
-                                                        ) &&
+                                                    ) &&
                                                     checkbox
                                                     .prop(
                                                         "disabled"
-                                                        )) {
+                                                    )) {
                                                     var quantityValue =
                                                         parseInt(
                                                             $(
-                                                                this)
+                                                                this
+                                                            )
                                                             .find(
                                                                 ".quantity-input"
-                                                                )
+                                                            )
                                                             .val()
-                                                            );
+                                                        );
                                                     var productId =
                                                         $(this)
                                                         .find(
                                                             ".product_id"
-                                                            )
+                                                        )
                                                         .val();
                                                     var productName =
                                                         $(this)
                                                         .find(
                                                             ".product_name"
-                                                            )
+                                                        )
                                                         .val();
 
                                                     for (var i =
                                                             0; i <
                                                         quantityValue; i++
-                                                        ) {
+                                                    ) {
                                                         var isSeriInputExist =
                                                             $(
-                                                                `input[name="selected_serial_numbers[]"][data-product-id="${productId}"]:eq(${i})`)
+                                                                `input[name="selected_serial_numbers[]"][data-product-id="${productId}"]:eq(${i})`
+                                                            )
                                                             .length >
                                                             0;
 
                                                         if (!
                                                             isSeriInputExist
-                                                            ) {
+                                                        ) {
                                                             insufficientSeriProducts
                                                                 .push(
                                                                     productName
-                                                                    );
+                                                                );
                                                             break;
                                                         }
                                                     }
@@ -1400,7 +1423,8 @@
                                         if (insufficientSeriProducts
                                             .length > 0) {
                                             alert(
-                                                `Số lượng "seri" không đủ cho các sản phẩm: ${insufficientSeriProducts.join(", ")}`);
+                                                `Số lượng "seri" không đủ cho các sản phẩm: ${insufficientSeriProducts.join(", ")}`
+                                            );
                                             e.preventDefault();
                                         } else {
                                             // Hủy disabled cho các checkbox được chọn

@@ -140,7 +140,8 @@ class DetailExportController extends Controller
             $data = $request->all();
             $getGuestbyId = $this->guest->getGuestbyId($request->guest_id);
             $yes = true;
-            return view('tables.export.delivery.create-delivery',  ['yes' => $yes, 'getGuestbyId' => $getGuestbyId, 'data' => $data, 'title' => $title, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
+            $getInfoQuote = $this->delivery->getInfoQuote($request->detailexport_id);
+            return view('tables.export.delivery.create-delivery',  ['yes' => $yes, 'getInfoQuote' => $getInfoQuote, 'getGuestbyId' => $getGuestbyId, 'data' => $data, 'title' => $title, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
         }
         if ($request->action == "action_3") {
             $title = "Tạo Hóa đơn bán hàng";
@@ -150,7 +151,8 @@ class DetailExportController extends Controller
             $quoteExport = $this->quoteExport->getProductsbyId($request->product_id);
             $getGuestbyId = $this->guest->getGuestbyId($request->guest_id);
             $yes = true;
-            return view('tables.export.bill_sale.create-billSale', ['yes' => $yes, 'getGuestbyId' => $getGuestbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
+            $getInfoDelivery = $this->billSale->getInfoDelivery($request->detailexport_id);
+            return view('tables.export.bill_sale.create-billSale', ['yes' => $yes, 'getInfoDelivery' => $getInfoDelivery, 'getGuestbyId' => $getGuestbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
         }
         if ($request->action == "action_4") {
             $title = "Tạo đơn thanh toán";
@@ -160,8 +162,7 @@ class DetailExportController extends Controller
             $quoteExport = $this->quoteExport->getProductsbyId($request->product_id);
             $getGuestbyId = $this->guest->getGuestbyId($request->guest_id);
             $yes = true;
-            $delivery = $this->payExport->getInfoPay($request->quotation_number);
-            // dd($delivery);
+            $delivery = $this->payExport->getInfoPay($request->detailexport_id);
             return view('tables.export.pay_export.create-payExport', ['yes' => $yes, 'delivery' => $delivery, 'getGuestbyId' => $getGuestbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
         }
         if ($request->action == "action_5") {
