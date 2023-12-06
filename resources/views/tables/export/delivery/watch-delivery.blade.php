@@ -409,72 +409,77 @@
                     </div>
                     <div id="history" class="tab-pane fade">
                     </div>
-                    <div id="files" class="tab-pane fade">
-                        <x-form-attachment :value="$delivery" name="GH"></x-form-attachment>
-                    </div>
-                </div>
-            </div>
-        </section>
-        {{-- Modal seri --}}
-        @foreach ($product as $item)
-            <div id="list_modal">
-                <div class="modal fade my-custom-modal" id="exampleModal{{ $item->product_id }}" tabindex="-1"
-                    aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
-                                <a href="#" class="close btnclose" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </a>
+                    {{-- Modal seri --}}
+                    @foreach ($product as $item)
+                        <div id="list_modal">
+                            <div class="modal fade my-custom-modal" id="exampleModal{{ $item->product_id }}"
+                                tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;"
+                                aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number
+                                            </h5>
+                                            <a href="#" class="close btnclose" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table id="table_SNS">
+                                                <thead>
+                                                    <tr>
+                                                        <td style="width:2%"></td>
+                                                        <th style="width:5%">STT</th>
+                                                        <th style="width:100%">Serial number</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @php
+                                                        $stt = 1;
+                                                    @endphp
+                                                    @foreach ($serinumber as $item_seri)
+                                                        @if ($item->product_id == $item_seri->product_id)
+                                                            <tr>
+                                                                <td>
+                                                                    <input name="id_seri[]"
+                                                                        {{ $item_seri->detailexport_id == $delivery->detailexport_id ? 'checked' : '' }}
+                                                                        type="checkbox" class="check-item" disabled
+                                                                        data-product-id={{ $item_seri->product_id }}
+                                                                        value="{{ $item_seri->id }}">
+                                                                </td>
+                                                                <td>{{ $stt++ }}</td>
+                                                                <td>
+                                                                    <input readonly class="form-control w-25"
+                                                                        type="text"
+                                                                        value="{{ $item_seri->serinumber }}">
+                                                                </td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        {{-- <div class="modal-footer">
+                            <a href="#" class="btn btn-primary check-seri" data-dismiss=""
+                                data-row="row{{ $item->product_id }}"
+                                data-target="#exampleModal{{ $item->product_id }}">
+                                Save changes
+                            </a>
+                        </div> --}}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <table id="table_SNS">
-                                    <thead>
-                                        <tr>
-                                            <td style="width:2%"></td>
-                                            <th style="width:5%">STT</th>
-                                            <th style="width:100%">Serial number</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php
-                                            $stt = 1;
-                                        @endphp
-                                        @foreach ($serinumber as $item_seri)
-                                            @if ($item->product_id == $item_seri->product_id)
-                                                <tr>
-                                                    <td>
-                                                        <input name="id_seri[]"
-                                                            {{ $item_seri->detailexport_id == $delivery->detailexport_id ? 'checked' : '' }}
-                                                            type="checkbox" class="check-item" disabled
-                                                            data-product-id={{ $item_seri->product_id }}
-                                                            value="{{ $item_seri->id }}">
-                                                    </td>
-                                                    <td>{{ $stt++ }}</td>
-                                                    <td>
-                                                        <input readonly class="form-control w-25" type="text"
-                                                            value="{{ $item_seri->serinumber }}">
-                                                    </td>
-                                                </tr>
-                                            @endif
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                            {{-- <div class="modal-footer">
-                                <a href="#" class="btn btn-primary check-seri" data-dismiss=""
-                                    data-row="row{{ $item->product_id }}"
-                                    data-target="#exampleModal{{ $item->product_id }}">
-                                    Save changes
-                                </a>
-                            </div> --}}
                         </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
+                    @endforeach
     </form>
+    <div id="files" class="tab-pane fade">
+        <x-form-attachment :value="$delivery" name="GH"></x-form-attachment>
+    </div>
+</div>
+</div>
+</section>
+{{-- </form> --}}
 </div>
 </div>
 </section>

@@ -1,5 +1,4 @@
 <div>
-
     <table class="table table-hover bg-white rounded">
         <thead>
             <tr>
