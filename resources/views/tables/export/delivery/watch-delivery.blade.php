@@ -446,7 +446,7 @@
                                                                         {{ $item_seri->detailexport_id == $delivery->detailexport_id ? 'checked' : '' }}
                                                                         type="checkbox" class="check-item" disabled
                                                                         data-product-id={{ $item_seri->product_id }}
-                                                                        value="{{ $item_seri->id }}">
+                                                                        value="{{ $item_seri->idSeri }}">
                                                                 </td>
                                                                 <td>{{ $stt++ }}</td>
                                                                 <td>
@@ -716,6 +716,7 @@
             hiddenInputsToRemove.forEach(function(hiddenInput) {
                 hiddenInput.remove();
             });
+            $('.check-item').prop('disabled', false);
             // Nếu không có lỗi và có sản phẩm, tiếp tục submit form
             document.getElementById('deliveryForm').submit();
         }

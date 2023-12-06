@@ -130,6 +130,11 @@ class BillSaleController extends Controller
             }
         }
         if ($request->action == "action_2") {
+            $billSale = BillSale::find($id);
+            if($billSale->status == 2)
+            {
+                
+            }
             BillSale::find($id)->delete();
             productBill::where('billSale_id', $id)->delete();
             return redirect()->route('delivery.index')->with('msg', 'Xóa hóa đơn bán hàng thành công!');

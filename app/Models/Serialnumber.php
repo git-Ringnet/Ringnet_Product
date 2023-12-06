@@ -18,6 +18,7 @@ class Serialnumber extends Model
         'detailexport_id',
         'product_id',
         'status',
+        'delivery_id',
     ];
 
     public function checkSN($data)

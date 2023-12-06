@@ -56,6 +56,8 @@ class DeliveryController extends Controller
      */
     public function store(Request $request)
     {
+        $delivery_id = $this->delivery->addDelivery($request->all());
+        $this->delivered->addDelivered($request->all(), $delivery_id);
         $seriArray = $request->input('seri');
         if (is_array($seriArray) && !empty($seriArray)) {
             foreach ($seriArray as $maSP => $serialNumbers) {
@@ -68,13 +70,12 @@ class DeliveryController extends Controller
                         $serial->detailexport_id = $request->detailexport_id;
                         $serial->product_id = $maSP;
                         $serial->status = 3;
+                        $serial->delivery_id = $delivery_id;
                         $serial->save();
                     }
                 }
             }
         }
-        $delivery_id = $this->delivery->addDelivery($request->all());
-        $this->delivered->addDelivered($request->all(), $delivery_id);
         return redirect()->route('delivery.index')->with('msg', ' Tạo mới đơn giao hàng thành công !');
     }
 
@@ -99,7 +100,11 @@ class DeliveryController extends Controller
         $title = 'Chỉnh sửa đơn giao hàng';
         $delivery = $this->delivery->getDeliveryToId($id);
         $product = $this->delivery->getProductToId($id);
-        $serinumber = Serialnumber::all();
+        $serinumber = Serialnumber::leftJoin('delivery', 'delivery.detailexport_id', 'serialnumber.detailexport_id')
+            ->where('delivery.id', $id)
+            ->where('serialnumber.delivery_id', $id)
+            ->select('*', 'serialnumber.id as idSeri')
+            ->get();
         return view('tables.export.delivery.watch-delivery', compact('title', 'delivery', 'product', 'serinumber'));
     }
 
@@ -120,6 +125,31 @@ class DeliveryController extends Controller
         }
         if ($request->action == "action_2") {
             $delivery = Delivery::find($id);
+            Serialnumber::where('detailexport_id', $delivery->detailexport_id)
+                ->update([
+                    'status' => 1,
+                    'detailexport_id' => 0,
+                    'delivery_id' => 0,
+                ]);
+            QuoteExport::where('detailexport_id', $delivery->detailexport_id)
+                ->update([
+                    'qty_delivery' => 0,
+                ]);
+            Delivered::where('delivery_id', $id)->delete();
+            $deliveredCount = Delivered::where('delivery.detailexport_id', $delivery->detailexport_id)
+                ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
+                ->count();
+            if ($deliveredCount > 0) {
+                DetailExport::where('id', $delivery->detailexport_id)
+                    ->update([
+                        'status_receive' => 3,
+                    ]);
+            } else {
+                DetailExport::where('id', $delivery->detailexport_id)
+                    ->update([
+                        'status_receive' => 1,
+                    ]);
+            }
             if ($delivery->status == 2) {
                 $delivered = Delivered::where('delivery_id', $id)->get();
                 foreach ($delivered as $delivery) {
@@ -130,17 +160,7 @@ class DeliveryController extends Controller
                     }
                 }
             }
-            Serialnumber::where('detailexport_id', $delivery->detailexport_id)
-                ->update([
-                    'status' => 1,
-                    'detailexport_id' => 0,
-                ]);
-            QuoteExport::where('detailexport_id', $delivery->detailexport_id)
-                ->update([
-                    'qty_delivery' => 0,
-                ]);
             Delivery::find($id)->delete();
-            Delivered::where('delivery_id', $id)->delete();
             return redirect()->route('delivery.index')->with('msg', 'Xóa đơn giao hàng thành công!');
         }
     }
