@@ -199,10 +199,25 @@ class DetailImport extends Model
                 'msg' => 'Vui lòng xóa thanh toán mua hàng'
             ];
         } else {
-            $result = [
-                'status' => true,
-                'msg' => 'Xóa đơn mua hàng thành công !'
-            ];
+            $detail = DetailImport::where('id', $id)->first();
+            if ($detail) {
+                $quote = QuoteImport::where('detailimport_id', $detail->id)->get();
+                if ($quote) {
+                    foreach ($quote as $qt) {
+                        $qt->delete();
+                    }
+                }
+                $detail->delete();
+                $result = [
+                    'status' => true,
+                    'msg' => 'Xóa đơn mua hàng thành công !'
+                ];
+            } else {
+                $result = [
+                    'status' => false,
+                    'msg' => 'Không tìm thấy đơn mua hàng cần xóa !'
+                ];
+            }
         }
         return $result;
     }
