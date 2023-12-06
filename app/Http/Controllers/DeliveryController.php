@@ -121,10 +121,14 @@ class DeliveryController extends Controller
         if ($request->action == "action_2") {
             $delivery = Delivery::find($id);
             if ($delivery->status == 2) {
-                $delivered = Delivered::where('delivery_id', $id)->first();
-                $product = Products::where('id', $delivered->product_id)->first();
-                $product->product_inventory += $delivered->deliver_qty;
-                $product->save();
+                $delivered = Delivered::where('delivery_id', $id)->get();
+                foreach ($delivered as $delivery) {
+                    $product = Products::find($delivery->product_id);
+                    if ($product) {
+                        $product->product_inventory += $delivery->deliver_qty;
+                        $product->save();
+                    }
+                }
             }
             Serialnumber::where('detailexport_id', $delivery->detailexport_id)
                 ->update([
