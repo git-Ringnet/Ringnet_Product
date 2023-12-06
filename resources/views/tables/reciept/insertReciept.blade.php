@@ -128,7 +128,7 @@
                     <tbody>
                         @isset($recieptProduct)
                             @foreach ($recieptProduct as $index => $element)
-                                @if ($element->product_qty - ($element->receive_qty == null ? 0 : $element->receive_qty) > 0)
+                                @if ($element->product_qty - ($element->reciept_qty == null ? 0 : $element->reciept_qty) > 0)
                                     <tr class="bg-white">
                                         <td class="border border-left-0 border-top-0 border-bottom-0">
                                             <input type="hidden" readonly value="{{ $element->id }}"
