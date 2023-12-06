@@ -473,6 +473,7 @@
         $('#product-tax').text(
             totalTax);
     });
+    let fieldCounter = 1;
     //hiện danh sách số báo giá khi click trường tìm kiếm
     $("#myUL").hide();
     $("#myInput").on("click", function() {
