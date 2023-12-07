@@ -145,20 +145,6 @@ class DetailImportController extends Controller
                 return view('tables.receive.insertReceive', compact('title', 'listDetail', 'receiver_bill', 'data', 'yes', 'show_receive'));
             }
         } elseif ($request->action == "action_3") {
-            // $check = $this->detailImport->updateImport($request->all(), $id, 2);
-            // if ($check) {
-            //     // cập nhật sản phẩm
-            //     $this->quoteImport->updateImport($request->all(), $id);
-
-            //     // Tạo sản phẩm theo từng đơn
-            //     $this->productImport->addProductImport($request->all(), $id, 'reciept_id', 'reciept_qty');
-
-            //     // Cập nhật sản phẩm theo reciept
-            //     $this->reciept->addReciept($request->all(), $id);
-            //     return redirect()->route('import.index')->with('msg', 'Tạo hóa đơn mua hàng thành công !');
-            // } else {
-            //     return redirect()->route('import.index')->with('warning', 'Hóa đơn đã được tạo hết !');
-            // }
             $recieptProduct = $this->reciept->getProduct_reciept($request->detail_id);
             $show_receive = $this->receiver_bill->show_receive($request->detail_id);
             $title = "Tạo mới hóa đơn mua hàng";
@@ -187,9 +173,7 @@ class DetailImportController extends Controller
                     ->distinct()
                     ->select('detailimport.quotation_number', 'detailimport.id')
                     ->get();
-                // $reciept = Reciept::where('status', '=', 1)->get();
                 $yes = true;
-                // dd($getPaymentOrder);
                 return view('tables.paymentOrder.insertPaymentOrder', compact('yes', 'title', 'reciept', 'getPaymentOrder', 'show_receive'));
             }
         }
