@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Delivered;
 use App\Models\Delivery;
 use App\Models\DetailExport;
+use App\Models\productBill;
+use App\Models\productPay;
 use App\Models\Products;
 use App\Models\QuoteExport;
 use App\Models\Serialnumber;
@@ -148,6 +150,18 @@ class DeliveryController extends Controller
                 DetailExport::where('id', $delivery->detailexport_id)
                     ->update([
                         'status_receive' => 1,
+                    ]);
+            }
+            $BillCount = productBill::where('bill_sale.detailexport_id', $delivery->detailexport_id)
+                ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
+                ->count();
+            $PayCount = productPay::where('pay_export.detailexport_id', $delivery->detailexport_id)
+                ->leftJoin('pay_export', 'product_pay.pay_id', 'pay_export.id')
+                ->count();
+            if ($deliveredCount == 0 && $BillCount == 0 && $PayCount == 0) {
+                DetailExport::where('id', $delivery->detailexport_id)
+                    ->update([
+                        'status' => 1,
                     ]);
             }
             if ($delivery->status == 2) {

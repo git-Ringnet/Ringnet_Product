@@ -84,7 +84,6 @@ class PayExport extends Model
             }
         } elseif ($result > 0) {
             $detailExport->amount_owed = $result;
-            $detailExport->status_pay = 3;
             $detailExport->save();
         }
         if (isset($data['payment'])) {
@@ -97,6 +96,13 @@ class PayExport extends Model
             $payExport->update([
                 'payment' => $payment,
             ]);
+            if ($payment > 0 && $payment < $result) {
+                $detailExport->status_pay = 3;
+                $detailExport->save();
+            } else if ($payment == 0) {
+                $detailExport->status_pay = 1;
+                $detailExport->save();
+            }
         }
         return $payExport->id;
     }

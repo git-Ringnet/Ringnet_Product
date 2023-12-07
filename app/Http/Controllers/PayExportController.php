@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\BillSale;
+use App\Models\Delivered;
 use App\Models\DetailExport;
 use App\Models\history_Pay_Export;
 use App\Models\PayExport;
+use App\Models\productBill;
 use App\Models\productPay;
 use App\Models\Products;
+use App\Models\QuoteExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -178,6 +181,10 @@ class PayExportController extends Controller
         }
         if ($request->action == "action_2") {
             $payExport = PayExport::find($id);
+            QuoteExport::where('detailexport_id', $payExport->detailexport_id)
+                ->update([
+                    'qty_payment' => 0,
+                ]);
             productPay::where('pay_id', $id)->delete();
             $PayCount = productPay::where('pay_export.detailexport_id', $payExport->detailexport_id)
                 ->leftJoin('pay_export', 'product_pay.pay_id', 'pay_export.id')
@@ -191,6 +198,18 @@ class PayExportController extends Controller
                 DetailExport::where('id', $payExport->detailexport_id)
                     ->update([
                         'status_pay' => 1,
+                    ]);
+            }
+            $BillCount = productBill::where('bill_sale.detailexport_id', $payExport->detailexport_id)
+                ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
+                ->count();
+            $deliveredCount = Delivered::where('delivery.detailexport_id', $payExport->detailexport_id)
+                ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
+                ->count();
+            if ($deliveredCount == 0 && $BillCount == 0 && $PayCount == 0) {
+                DetailExport::where('id', $payExport->detailexport_id)
+                    ->update([
+                        'status' => 1,
                     ]);
             }
             PayExport::find($id)->delete();
