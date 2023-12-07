@@ -110,8 +110,14 @@ class Delivery extends Model
                 'quoteexport.product_name',
                 'quoteexport.product_unit',
                 'quoteexport.product_note',
-                'delivered.deliver_qty',
+                'quoteexport.product_note',
+                'quoteexport.price_export',
+                'quoteexport.product_ratio',
                 'products.product_inventory',
+                'quoteexport.product_tax',
+                'quoteexport.price_import',
+                'quoteexport.product_total',
+                'delivered.deliver_qty',
                 'delivery.created_at as ngayGiao'
             )
             ->groupBy(
@@ -122,6 +128,11 @@ class Delivery extends Model
                 'products.product_inventory',
                 'quoteexport.product_id',
                 'quoteexport.product_note',
+                'quoteexport.price_export',
+                'quoteexport.product_ratio',
+                'quoteexport.product_tax',
+                'quoteexport.price_import',
+                'quoteexport.product_total',
                 'delivery.created_at'
             )
             ->get();

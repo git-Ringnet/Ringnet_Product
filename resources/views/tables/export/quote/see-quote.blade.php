@@ -612,14 +612,17 @@
                 }
             }
             if (giaNhapElement.length > 0) {
-                var rawGiaNhap = giaNhapElement.val();
+                var rawGiaNhap = giaNhapElement.val() || 0;
                 if (rawGiaNhap !== "") {
-                    giaNhap = parseFloat(rawGiaNhap.replace(/,/g, ''));
+                    giaNhap = parseFloat(rawGiaNhap.replace(/,/g, '')) ||
+                        0;
+                } else {
+                    giaNhap = 0;
                 }
             }
 
             if (!isNaN(productQty) && !isNaN(taxValue)) {
-                if (status_form == 0) {
+                if (status_form == 1) {
                     var donGia = ((heSoNhan + 100) * giaNhap) / 100;
                 } else {
                     var donGia = productPrice;
@@ -634,7 +637,7 @@
                 // Hiển thị kết quả
                 $(this).find('.total-amount').val(formatCurrency(Math.round(rowTotal)));
 
-                if (status_form == 0) {
+                if (status_form == 1) {
                     // Đơn giá
                     $(this).find('.product_price').val(formatCurrency(donGia));
                 }
@@ -690,7 +693,7 @@
 
         return formattedValue;
     }
-    //
+
     document.getElementById('btnNhan').addEventListener('click', function() {
         var selects = document.querySelectorAll('.product_tax');
         selects.forEach(function(select) {
