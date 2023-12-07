@@ -163,6 +163,11 @@ class DeliveryController extends Controller
                     ->update([
                         'status' => 1,
                     ]);
+            } else {
+                DetailExport::where('id', $delivery->detailexport_id)
+                    ->update([
+                        'status' => 2,
+                    ]);
             }
             if ($delivery->status == 2) {
                 $delivered = Delivered::where('delivery_id', $id)->get();

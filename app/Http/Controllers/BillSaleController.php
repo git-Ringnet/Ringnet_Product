@@ -164,6 +164,11 @@ class BillSaleController extends Controller
                     ->update([
                         'status' => 1,
                     ]);
+            } else {
+                DetailExport::where('id', $billSale->detailexport_id)
+                    ->update([
+                        'status' => 2,
+                    ]);
             }
             BillSale::find($id)->delete();
             return redirect()->route('billSale.index')->with('msg', 'Xóa hóa đơn bán hàng thành công!');

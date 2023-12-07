@@ -211,6 +211,11 @@ class PayExportController extends Controller
                     ->update([
                         'status' => 1,
                     ]);
+            } else {
+                DetailExport::where('id', $payExport->detailexport_id)
+                    ->update([
+                        'status' => 2,
+                    ]);
             }
             PayExport::find($id)->delete();
             return redirect()->route('payExport.index')->with('msg', 'Xóa đơn thanh toán thành công!');
