@@ -139,8 +139,7 @@ class DeliveryController extends Controller
                 ]);
             if ($delivery->status == 1) {
                 Delivered::where('delivery_id', $id)->delete();
-            }
-            if ($delivery->status == 2) {
+            } elseif ($delivery->status == 2) {
                 $delivered = Delivered::where('delivery_id', $id)->get();
                 foreach ($delivered as $delivery) {
                     $product = Products::find($delivery->product_id);
