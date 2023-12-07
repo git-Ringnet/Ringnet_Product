@@ -177,8 +177,23 @@ class PayExportController extends Controller
             }
         }
         if ($request->action == "action_2") {
-            PayExport::find($id)->delete();
+            $payExport = PayExport::find($id);
             productPay::where('pay_id', $id)->delete();
+            $PayCount = productPay::where('pay_export.detailexport_id', $payExport->detailexport_id)
+                ->leftJoin('pay_export', 'product_pay.pay_id', 'pay_export.id')
+                ->count();
+            if ($PayCount > 0) {
+                DetailExport::where('id', $payExport->detailexport_id)
+                    ->update([
+                        'status_pay' => 3,
+                    ]);
+            } else {
+                DetailExport::where('id', $payExport->detailexport_id)
+                    ->update([
+                        'status_pay' => 1,
+                    ]);
+            }
+            PayExport::find($id)->delete();
             return redirect()->route('payExport.index')->with('msg', 'Xóa đơn thanh toán thành công!');
         }
     }

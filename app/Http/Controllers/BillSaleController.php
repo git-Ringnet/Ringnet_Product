@@ -131,13 +131,23 @@ class BillSaleController extends Controller
         }
         if ($request->action == "action_2") {
             $billSale = BillSale::find($id);
-            // if($billSale->status == 2)
-            // {
-                
-            // }
-            BillSale::find($id)->delete();
             productBill::where('billSale_id', $id)->delete();
-            return redirect()->route('delivery.index')->with('msg', 'Xóa hóa đơn bán hàng thành công!');
+            $BillCount = productBill::where('bill_sale.detailexport_id', $billSale->detailexport_id)
+                ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
+                ->count();
+            if ($BillCount > 0) {
+                DetailExport::where('id', $billSale->detailexport_id)
+                    ->update([
+                        'status_reciept' => 3,
+                    ]);
+            } else {
+                DetailExport::where('id', $billSale->detailexport_id)
+                    ->update([
+                        'status_reciept' => 1,
+                    ]);
+            }
+            BillSale::find($id)->delete();
+            return redirect()->route('billSale.index')->with('msg', 'Xóa hóa đơn bán hàng thành công!');
         }
     }
 
