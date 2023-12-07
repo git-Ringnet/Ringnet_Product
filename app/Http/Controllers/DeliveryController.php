@@ -137,7 +137,20 @@ class DeliveryController extends Controller
                 ->update([
                     'qty_delivery' => 0,
                 ]);
-            Delivered::where('delivery_id', $id)->delete();
+            if ($delivery->status == 1) {
+                Delivered::where('delivery_id', $id)->delete();
+            }
+            if ($delivery->status == 2) {
+                $delivered = Delivered::where('delivery_id', $id)->get();
+                foreach ($delivered as $delivery) {
+                    $product = Products::find($delivery->product_id);
+                    if ($product) {
+                        $product->product_inventory += $delivery->deliver_qty;
+                        $product->save();
+                    }
+                }
+                Delivered::where('delivery_id', $id)->delete();
+            }
             $deliveredCount = Delivered::where('delivery.detailexport_id', $delivery->detailexport_id)
                 ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
                 ->count();
@@ -168,16 +181,6 @@ class DeliveryController extends Controller
                     ->update([
                         'status' => 2,
                     ]);
-            }
-            if ($delivery->status == 2) {
-                $delivered = Delivered::where('delivery_id', $id)->get();
-                foreach ($delivered as $delivery) {
-                    $product = Products::find($delivery->product_id);
-                    if ($product) {
-                        $product->product_inventory += $delivery->deliver_qty;
-                        $product->save();
-                    }
-                }
             }
             Delivery::find($id)->delete();
             return redirect()->route('delivery.index')->with('msg', 'Xóa đơn giao hàng thành công!');
