@@ -14,7 +14,7 @@ class Delivered extends Model
         'delivery_id',
         'product_id',
         'deliver_qty',
-        'created_at', 
+        'created_at',
         'updated_at'
     ];
     protected $table = 'delivered';
@@ -74,6 +74,7 @@ class Delivered extends Model
                     $serialNumber->update([
                         'detailexport_id' => $data['detailexport_id'],
                         'status' => 3,
+                        'delivery_id' => $id,
                     ]);
                 }
             }
