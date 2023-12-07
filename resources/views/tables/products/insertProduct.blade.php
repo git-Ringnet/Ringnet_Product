@@ -1,4 +1,4 @@
-<x-navbar :title="$title"></x-navbar>
+<x-navbar :title="$title" activeGroup="products" activeName="product"></x-navbar>
 <div class="content-wrapper" style="background: none;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -34,8 +34,7 @@
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Mã sản phẩm</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin"
-                                        name="product_code"
+                                    <input type="text" placeholder="Nhập thông tin" name="product_code"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -101,15 +100,13 @@
                                         <p class="p-0 m-0 px-3">Đơn giá bán</p>
                                     </div>
                                     <input type="text" placeholder="Nhập thông tin" name="product_price_export"
-                                        class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off"
-                                        >
+                                        class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Đơn giá nhập</p>
                                     </div>
-                                    <input type="text" placeholder="Nhập thông tin"
-                                        name="product_price_import"
+                                    <input type="text" placeholder="Nhập thông tin" name="product_price_import"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">

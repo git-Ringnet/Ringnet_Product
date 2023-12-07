@@ -133,13 +133,14 @@ class BillSale extends Model
     {
         return $this->hasMany(Attachment::class, 'table_id', 'idHD')->where('table_name', $name)->get();
     }
-    public function getInfoDelivery($idQuote)
+    public function getProductDelivery($idQuote)
     {
-        $delivery = DetailExport::where('detailexport.id', $idQuote)
-            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
-            ->leftJoin('delivery', 'delivery.detailexport_id', 'detailexport.id')
-            ->select('*', 'delivery.id as maGiaoHang', 'detailexport.quotation_number as soBG')
-            ->first();
+        $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            ->where('detailexport.id', $idQuote)
+            ->select('*')
+            ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_bill_sale, 0) as soLuongHoaDon')
+            ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_bill_sale, 0) > 0')
+            ->get();
         return $delivery;
     }
 }

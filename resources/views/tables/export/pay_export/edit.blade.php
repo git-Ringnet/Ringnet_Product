@@ -1,4 +1,4 @@
-<x-navbar :title="$title"></x-navbar>
+<x-navbar :title="$title" activeGroup="sell" activeName="payexport"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <form action="{{ route('payExport.update', $payExport->idTT) }}" method="POST" id="formSubmit"

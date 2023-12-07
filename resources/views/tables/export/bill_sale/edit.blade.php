@@ -1,4 +1,4 @@
-<x-navbar :title="$title"></x-navbar>
+<x-navbar :title="$title" activeGroup="sell" activeName="billsale"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <form action="{{ route('billSale.update', $billSale->idHD) }}" method="POST" id="formSubmit"

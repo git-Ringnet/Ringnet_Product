@@ -1,4 +1,4 @@
-<x-navbar :title="$title"></x-navbar>
+<x-navbar :title="$title" activeGroup="buy" activeName="import"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -188,7 +188,7 @@
                                                     {{ $item->quotation_number == null ? $item->id : $item->quotation_number }}
                                                 </a>
                                             </td>
-                                   
+
                                             <td class="text-center">{{ $item->reference_number }}</td>
                                             <td class="text-center">
                                                 @if ($item->getProvideName)

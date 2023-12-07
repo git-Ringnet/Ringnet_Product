@@ -146,33 +146,52 @@ class DetailExportController extends Controller
             $yes = true;
             $getInfoQuote = $this->delivery->getInfoQuote($request->detailexport_id);
             $getProductQuote = $this->delivery->getProductQuote($request->detailexport_id);
-            // dd($data);
-            return view('tables.export.delivery.create-delivery',  [
-                'active' => 'active', 'yes' => $yes, 'getInfoQuote' => $getInfoQuote, 'getGuestbyId' => $getGuestbyId, 'data' => $data, 'title' => $title, 'numberQuote' => $numberQuote,
-                'product' => $product, 'getProductQuote' => $getProductQuote
-            ]);
+            if ($getProductQuote->isEmpty()) {
+                return redirect()->route('delivery.index')->with('warning', 'Đơn giao hàng đã tạo hết!');
+            } else {
+                return view('tables.export.delivery.create-delivery', [
+                    'active' => 'active', 'yes' => $yes, 'getInfoQuote' => $getInfoQuote, 'getGuestbyId' => $getGuestbyId, 'data' => $data, 'title' => $title, 'numberQuote' => $numberQuote,
+                    'product' => $product, 'getProductQuote' => $getProductQuote
+                ]);
+            }
         }
         if ($request->action == "action_3") {
             $title = "Tạo Hóa đơn bán hàng";
             $data = $request->all();
-            $numberQuote = DetailExport::all();
+            $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
+                ->where('quoteexport.product_qty', '>', DB::raw('COALESCE(quoteexport.qty_bill_sale,0)'))
+                ->select('detailexport.quotation_number', 'detailexport.id')
+                ->distinct()
+                ->get();;
             $product = $this->product->getAllProducts();
             $quoteExport = $this->quoteExport->getProductsbyId($request->product_id);
             $getGuestbyId = $this->guest->getGuestbyId($request->guest_id);
             $yes = true;
-            $getInfoDelivery = $this->billSale->getInfoDelivery($request->detailexport_id);
-            return view('tables.export.bill_sale.create-billSale', ['yes' => $yes, 'getInfoDelivery' => $getInfoDelivery, 'getGuestbyId' => $getGuestbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
+            $getInfoDelivery = $this->billSale->getProductDelivery($request->detailexport_id);
+            if ($getInfoDelivery->isEmpty()) {
+                return redirect()->route('billSale.index')->with('warning', 'Hóa đơn bán hàng đã được tạo hết!');
+            } else {
+                return view('tables.export.bill_sale.create-billSale', ['yes' => $yes, 'getInfoDelivery' => $getInfoDelivery, 'getGuestbyId' => $getGuestbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
+            }
         }
         if ($request->action == "action_4") {
             $title = "Tạo đơn thanh toán";
             $product = $this->product->getAllProducts();
-            $numberQuote = DetailExport::all();
+            $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
+                ->where('quoteexport.product_qty', '>', DB::raw('COALESCE(quoteexport.qty_payment,0)'))
+                ->select('detailexport.quotation_number', 'detailexport.id')
+                ->distinct()
+                ->get();
             $data = $request->all();
             $quoteExport = $this->quoteExport->getProductsbyId($request->product_id);
             $getGuestbyId = $this->guest->getGuestbyId($request->guest_id);
             $yes = true;
-            $delivery = $this->payExport->getInfoPay($request->detailexport_id);
-            return view('tables.export.pay_export.create-payExport', ['yes' => $yes, 'delivery' => $delivery, 'getGuestbyId' => $getGuestbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
+            $delivery = $this->payExport->getProductPay($request->detailexport_id);
+            if ($delivery->isEmpty()) {
+                return redirect()->route('payExport.index')->with('warning', 'Thanh toán bán hàng đã được tạo hết!');
+            } else {
+                return view('tables.export.pay_export.create-payExport', ['yes' => $yes, 'delivery' => $delivery, 'getGuestbyId' => $getGuestbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
+            }
         }
         if ($request->action == "action_5") {
             $delivery = Delivery::where('detailexport_id', $id)->get();

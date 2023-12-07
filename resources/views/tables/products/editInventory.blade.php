@@ -1,4 +1,4 @@
-<x-navbar :title="$title"></x-navbar>
+<x-navbar :title="$title" activeGroup="products" activeName="product"></x-navbar>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header p-0">

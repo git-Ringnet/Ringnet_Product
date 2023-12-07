@@ -1,4 +1,4 @@
-<x-navbar :title="$title"></x-navbar>
+<x-navbar :title="$title" activeGroup="products" activeName="editproduct"></x-navbar>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -8,7 +8,7 @@
             <span>Kho hàng / Tồn kho / {{ $title }}</span>
         </div><!-- /.container-fluided -->
     </section>
-    <form action="{{ route('ton-kho.update',$product->id) }}" method="POST">
+    <form action="{{ route('ton-kho.update', $product->id) }}" method="POST">
         @method('PUT')
         @csrf
         <section class="content-header">
@@ -142,7 +142,8 @@
                         Đơn giá bán
                     </div>
                     <div class="col-md-9">
-                        <input type="text" name="product_price_export" value="{{ $product->product_price_export }}">
+                        <input type="text" name="product_price_export"
+                            value="{{ $product->product_price_export }}">
                     </div>
                 </div>
                 {{-- Đơn giá mua --}}

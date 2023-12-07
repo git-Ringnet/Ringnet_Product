@@ -1,4 +1,4 @@
-<x-navbar :title="$title"></x-navbar>
+<x-navbar :title="$title" activeGroup="sell" activeName="payexport"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <form action="{{ route('payExport.store') }}" method="POST">
@@ -17,7 +17,8 @@
                     <span class="font-weight-bold">Đơn thanh toán mới</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px" onclick="kiemTraFormGiaoHang(event);">
+                    <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px"
+                        onclick="kiemTraFormGiaoHang(event);">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -60,6 +61,8 @@
                                             class="border w-100 py-2 border-left-0 border-right-0 px-3 numberQute"
                                             id="myInput" autocomplete="off" name="quotation_number" required
                                             value="@isset($yes) {{ $data['quotation_number'] }} @endisset">
+                                        <input type="hidden" name="detail_id" id="detail_id"
+                                            value="@isset($yes) {{ $data['detail_id'] }} @endisset">
                                         <ul id="myUL"
                                             class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
                                             style="z-index: 99;">
@@ -104,7 +107,7 @@
                                     </div>
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin" readonly name="total"
-                                            value="@isset($yes){{ number_format($delivery->tongTienNo) }}@endisset"
+                                            value=""
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 tongTien">
                                     </div>
                                 </div>
@@ -113,9 +116,7 @@
                                         <p class="p-0 m-0 px-3">Đã thanh toán</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text"
-                                            value="@isset($yes){{ number_format($delivery->daThanhToan) }}@endisset"
-                                            readonly
+                                        <input type="text" value="" readonly
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 daThanhToan">
                                     </div>
                                 </div>
@@ -124,9 +125,7 @@
                                         <p class="p-0 m-0 px-3">Dư nợ</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text"
-                                            value="@isset($yes){{ number_format($delivery->tongTienNo - $delivery->daThanhToan) }}@endisset"
-                                            readonly
+                                        <input type="text" value="" readonly
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 duNo">
                                     </div>
                                 </div>
@@ -828,8 +827,12 @@
     });
     //Lấy thông tin từ số báo giá
     $(document).ready(function() {
-        $('.search-info').click(function() {
-            var idQuote = parseInt($(this).attr('id'), 10);
+        $('.search-info').click(function(event, idQuote) {
+            if (idQuote) {
+                idQuote = idQuote
+            } else {
+                idQuote = parseInt($(this).attr('id'), 10);
+            }
             $.ajax({
                 url: '{{ route('getInfoPay') }}',
                 type: 'GET',
@@ -1242,6 +1245,10 @@
                 }
             });
         });
+        var idQuote = $('#detail_id').val();
+        if (idQuote) {
+            $('.search-info').trigger('click', idQuote);
+        }
     });
     //Mở rộng
     var status_form = 0;

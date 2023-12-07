@@ -1,4 +1,4 @@
-<x-navbar :title="$title"></x-navbar>
+<x-navbar :title="$title" activeGroup="sell" activeName="billsale"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -139,8 +139,8 @@
                                 <tbody>
                                     @foreach ($billSale as $item_bill)
                                         <tr onclick="handleRowClick('checkbox', event);">
-                                            <td class=""><input type="checkbox"
-                                                    class="cb-element" name="ids[]" id="checkbox" value=""
+                                            <td class=""><input type="checkbox" class="cb-element"
+                                                    name="ids[]" id="checkbox" value=""
                                                     onclick="event.stopPropagation();"></td>
                                             <td class="">
                                                 {{ date_format(new DateTime($item_bill->ngayHD), 'd/m/Y') }}

@@ -1,4 +1,4 @@
-<x-navbar :title="$title"></x-navbar>
+<x-navbar :title="$title" activeGroup="buy" activeName="paymentorder"></x-navbar>
 <div class="content-wrapper" style="background: none;">
     <!-- Content Header (Page header) -->
     <section class="content-header p-0">

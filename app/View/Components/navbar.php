@@ -14,11 +14,13 @@ class navbar extends Component
      */
     public $title;
     public $activeName;
+    public $activeGroup;
 
-    public function __construct($title = 'Ringnet', $activeName = 'activeName')
+    public function __construct($title = 'Ringnet', $activeName = 'activeName', $activeGroup = 'activeGroup')
     {
         $this->title = $title;
         $this->activeName = $activeName;
+        $this->activeGroup = $activeGroup;
     }
 
     /**

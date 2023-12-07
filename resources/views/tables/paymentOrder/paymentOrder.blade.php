@@ -1,4 +1,4 @@
-<x-navbar :title="$title"></x-navbar>
+<x-navbar :title="$title" activeGroup="buy" activeName="paymentorder"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -188,7 +188,7 @@
                                                 @endif
                                             </td>
                                             <td>{{ date_format(new DateTime($item->payment_date), 'd-m-Y') }}</td>
-                                            <td>{{ number_format($item->total)}}</td>
+                                            <td>{{ number_format($item->total) }}</td>
                                             <td>{{ fmod($item->payment, 2) > 0 ? number_format($item->payment, 2, '.', ',') : number_format($item->payment) }}
                                             </td>
                                             <td>{{ fmod($item->debt, 2) > 0 ? number_format($item->debt, 2, '.', ',') : number_format($item->debt) }}

@@ -188,14 +188,7 @@
                     data-accordion="false">
                     <li
                         class="nav-item 
-                    @if (in_array(\Route::currentRouteName(), [
-                            'inventory.index',
-                            'inventory.edit',
-                            'inventory.create',
-                            'editProduct',
-                            'inventory.showProductInventory',
-                            'inventory.show',
-                        ])) menu-is-opening menu-open @endif">
+                         @if (!empty($activeGroup) && $activeGroup == 'products') menu-is-opening menu-open @endif">
                         <a href="#" class="nav-link">
                             <svg class="fill" width="32" height="32" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -214,14 +207,14 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('inventory.index') }}"
-                                    class="nav-link {{ request()->route()->named('inventory.index', 'inventory.edit', 'inventory.create', 'inventory.show')? 'active': '' }}">
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'product') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0;"></i>
                                     <p>Sản phẩm</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('editProduct') }}"
-                                    class="nav-link {{ request()->route()->named('editProduct', 'inventory.showProductInventory')? 'active': '' }}">
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'editproduct') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0;"></i>
                                     <p>Sửa tồn kho</p>
                                 </a>
@@ -234,25 +227,9 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item @if (in_array(\Route::currentRouteName(), [
-                            'editProduct',
-                            'guests.index',
-                            'guests.create',
-                            'guests.edit',
-                            'detailExport.index',
-                            'detailExport.edit',
-                            'detailExport.create',
-                            'delivery.index',
-                            'delivery.edit',
-                            'delivery.create',
-                            'billSale.index',
-                            'billSale.edit',
-                            'billSale.create',
-                            'payExport.index',
-                            'payExport.edit',
-                            'watchDelivery',
-                            'seeInfo',
-                        ])) menu-is-opening menu-open @endif">
+                    <li
+                        class="nav-item
+                        @if (!empty($activeGroup) && $activeGroup == 'sell') menu-is-opening menu-open @endif">
                         <a href="#" class="nav-link">
                             <svg class="fill" width="32" height="32" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -271,59 +248,43 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('detailExport.index') }}"
-                                    class="nav-link {{ request()->route()->named('detailExport.index', 'detailExport.create', 'detailExport.edit', 'seeInfo')? 'active': '' }}">
+                                    class="nav-link
+                                    @if (!empty($activeName) && $activeName == 'quote') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Báo giá</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('delivery.index') }}"
-                                    class="nav-link {{ request()->route()->named('delivery.index', 'delivery.create', 'watchDelivery')? 'active': '' }}">
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'delivery') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Giao hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('billSale.index') }}"
-                                    class="nav-link {{ request()->route()->named('billSale.index', 'billSale.create', 'billSale.edit')? 'active': '' }}">
+                                    class="nav-link  @if (!empty($activeName) && $activeName == 'billsale') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Hóa đơn bán hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('payExport.index') }}"
-                                    class="nav-link {{ request()->route()->named('payExport.index', 'payExport.create', 'payExport.edit')? 'active': '' }}">
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'payexport') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Thanh toán</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('guests.index') }}"
-                                    class="nav-link {{ request()->route()->named('guests.index', 'guests.create', 'guests.edit')? 'active': '' }}">
+                                    class="nav-link  @if (!empty($activeName) && $activeName == 'guest') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Khách hàng</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item @if (in_array(\Route::currentRouteName(), [
-                            'import.index',
-                            'import.show',
-                            'import.edit',
-                            'import.create',
-                            'receive.index',
-                            'receive.create',
-                            'receive.edit',
-                            'reciept.index',
-                            'reciept.create',
-                            'reciept.edit',
-                            'paymentOrder.index',
-                            'paymentOrder.create',
-                            'paymentOrder.edit',
-                            'provides.index',
-                            'provides.edit',
-                            'provides.create',
-                        ])) menu-is-opening menu-open @endif">
+                    <li class="nav-item @if (!empty($activeGroup) && $activeGroup == 'buy') menu-is-opening menu-open @endif">
                         <a href="#" class="nav-link">
                             <svg class="fill" width="32" height="32" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -342,35 +303,35 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('import.index') }}"
-                                    class="nav-link {{ request()->route()->named('import.index', 'import.show', 'import.edit', 'import.create')? 'active': '' }}">
+                                    class="nav-link  @if (!empty($activeName) && $activeName == 'import') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Đơn mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('receive.index') }}"
-                                    class="nav-link {{ request()->route()->named('receive.index', 'receive.edit', 'receive.create')? 'active': '' }} ">
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'receive') active @endif ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Đơn nhận hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('reciept.index') }}"
-                                    class="nav-link {{ request()->route()->named('reciept.index', 'reciept.edit', 'reciept.create')? 'active': '' }} ">
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'reciept') active @endif ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Hóa đơn mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('paymentOrder.index') }}"
-                                    class="nav-link {{ request()->route()->named('paymentOrder.index', 'paymentOrder.edit', 'paymentOrder.create')? 'active': '' }} ">
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'paymentorder') active @endif ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Thanh toán mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('provides.index') }}"
-                                    class="nav-link {{ request()->route()->named('provides.index', 'provides.edit', 'provides.create')? 'active': '' }}">
+                                    class="nav-link @if (!empty($activeName) && $activeName == 'provide') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Nhà cung cấp</p>
                                 </a>

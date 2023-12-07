@@ -1,4 +1,4 @@
-<x-navbar :title="$title"></x-navbar>
+<x-navbar :title="$title" activeGroup="buy" activeName="receive"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -194,5 +194,5 @@
         {{ $receive->appends(request()->except('page'))->links() }}
     </div>
 
-    
+
 </div>
