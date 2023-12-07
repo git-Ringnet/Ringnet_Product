@@ -415,8 +415,15 @@
                                                     <div>
                                                         {{ $item->getQuotetion->quotation_number == null ? $item->getQuotetion->id : $item->getQuotetion->quotation_number }}
                                                     </div>
-
                                                     {{ date_format(new DateTime($sn->created_at), 'd-m-Y') }}
+                                                </td>
+                                                <td>
+                                                    @if ($sn->getQuotation)
+                                                        <div>
+                                                            {{ $sn->getQuotation->quotation_number == null ? $sn->getQuotation->id : $sn->getQuotation->quotation_number }}
+                                                        </div>
+                                                        {{ date_format(new DateTime($sn->getQuotation->created_at), 'd-m-Y') }}
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endif

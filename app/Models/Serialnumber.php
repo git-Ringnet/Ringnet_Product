@@ -21,6 +21,11 @@ class Serialnumber extends Model
         'delivery_id',
     ];
 
+    public function getQuotation(){
+        return $this->hasOne(Delivery::class, 'id', 'delivery_id');
+    }
+
+
     public function checkSN($data)
     {
         foreach ($data as $value ) {
