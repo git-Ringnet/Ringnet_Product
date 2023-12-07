@@ -70,6 +70,8 @@ class PayExport extends Model
         ];
         $payExport = new PayExport($dataPay);
         $payExport->save();
+        $detailExport->status = 2;
+        $detailExport->save();
         if ($result == 0) {
             $payExport->update([
                 'status' => 2,
@@ -98,11 +100,9 @@ class PayExport extends Model
             ]);
             if ($payment > 0 && $payment < $result) {
                 $detailExport->status_pay = 3;
-                $detailExport->status = 2;
                 $detailExport->save();
             } else if ($payment == 0) {
                 $detailExport->status_pay = 1;
-                $detailExport->status = 2;
                 $detailExport->save();
             }
         }
