@@ -25,7 +25,6 @@ class Serialnumber extends Model
         return $this->hasOne(Delivery::class, 'id', 'delivery_id');
     }
 
-
     public function checkSN($data)
     {
         foreach ($data as $value ) {

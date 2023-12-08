@@ -46,7 +46,9 @@ class ProductImport extends Model
     {
         return $this->hasOne(QuoteImport::class, 'id', 'quoteImport_id');
     }
-
+    public function getReceive(){
+        return $this->hasOne(Receive_bill::class, 'id', 'receive_id');
+    }
     public function addProductImport($data, $id, $colum, $columQuote)
     {
         $status = false;

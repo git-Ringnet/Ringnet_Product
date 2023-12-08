@@ -266,22 +266,23 @@
                                                     value="{{ $item->cbSN }}"
                                                     @if ($item->cbSN == 1) {{ 'checked' }} @endif>
                                             </td>
-                                            {{-- <td class="border border-top-0 border-bottom-0">
+                                            <td class="border border-top-0 border-bottom-0 d-none">
                                                 <input type="text" class="border-0 px-3 py-2 w-100 price_export"
                                                     name="price_export[]"
                                                     value="{{ fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
                                                     readonly>
                                             </td>
-                                            <td>
+                                            <td class="d-none">
                                                 <input type="text" class="border-0 px-3 py-2 w-100 product_tax"
                                                     name="product_tax[]" value="{{ $item->product_tax }}" readonly>
                                             </td>
-                                            <td class="border border-top-0 border-bottom-0 border-right-0">
+                                            <input type="hidden" class="product_tax1">
+                                            <td class="border border-top-0 border-bottom-0 border-right-0 d-none">
                                                 <input type="text" class="border-0 px-3 py-2 w-100 total_price"
                                                     name="total_price[]"
                                                     value="{{ fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
                                                     readonly>
-                                            </td> --}}
+                                            </td>
                                             {{-- <td class="border border-bottom-0 p-0 bg-secondary"></td> --}}
                                             <td class="border border-top-0 border-bottom-0">
                                                 <input type="text" class="border-0 px-3 py-2 w-100"

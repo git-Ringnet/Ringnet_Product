@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Số báo giá#</p>
+                                        <p class="p-0 m-0 px-3">Đơn mua hàng#</p>
                                     </div>
                                     <input type="text" placeholder="Nhập thông tin" name="quotation_number"
                                         class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
@@ -364,8 +364,22 @@
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    function getUppercaseCharacters(input) {
+        // Sử dụng regular expression để lọc ra các ký tự viết hoa
+        var uppercaseChars = input.match(/[A-Z]/g);
+        // Nếu không có ký tự viết hoa, trả về chuỗi trống
+        return uppercaseChars ? uppercaseChars.join('') : '';
+    }
     $('.search-info').click(function() {
         var provides_id = $(this).attr('id');
+
+        var currentDate = new Date();
+        var day = currentDate.getDate();
+        var month = currentDate.getMonth() + 1;
+        var formattedDay = day.toString().padStart(2, '0');
+        var formattedMonth = month.toString().padStart(2, '0');
+        var formattedDate = formattedDay + formattedMonth + currentDate.getFullYear();
+        var name = "RN";
         $.ajax({
             url: "{{ route('show_provide') }}",
             type: "get",
@@ -373,8 +387,17 @@
                 provides_id: provides_id,
             },
             success: function(data) {
-                $('#myInput').val(data.provide_name_display);
-                $('#provides_id').val(data.id);
+                var uppercaseCharacters = getUppercaseCharacters(data['provide']
+                    .provide_name_display);
+                if (data['count'] < 10) {
+                    count = '0' + data['count']
+                } else {
+                    count = data['count']
+                }
+                quotation = formattedDate + '/' + name + '-' + uppercaseCharacters + '-' + count;
+                $('input[name="quotation_number"]').val(quotation);
+                $('#myInput').val(data['provide'].provide_name_display);
+                $('#provides_id').val(data['provide'].id);
             }
         });
     });

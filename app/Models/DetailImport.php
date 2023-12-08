@@ -88,6 +88,11 @@ class DetailImport extends Model
             'terms_pay' => $data['terms_pay']
         ];
         $result = DB::table($this->table)->insertGetId($dataImport);
+        if(!isset($data['quotation_number'])){
+            DB::table($this->table)->where('id', $result)->update([
+                'quotation_number' => $result
+            ]);
+        }
         return  $result;
     }
 

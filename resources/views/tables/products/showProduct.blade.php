@@ -412,15 +412,22 @@
                                             <tr class="bg-white">
                                                 <td>{{ $sn->serinumber }}</td>
                                                 <td>
+                                                    {{-- @dd($item->getReceive) --}}
                                                     <div>
-                                                        {{ $item->getQuotetion->quotation_number == null ? $item->getQuotetion->id : $item->getQuotetion->quotation_number }}
+                                                        <a href="{{ route('receive.edit', $item->getReceive->id) }}">
+                                                            {{ $item->getReceive->id }}
+                                                        </a>
                                                     </div>
                                                     {{ date_format(new DateTime($sn->created_at), 'd-m-Y') }}
                                                 </td>
                                                 <td>
                                                     @if ($sn->getQuotation)
+                                                        {{-- @dd($sn->getQuotation->id) --}}
                                                         <div>
-                                                            {{ $sn->getQuotation->quotation_number == null ? $sn->getQuotation->id : $sn->getQuotation->quotation_number }}
+                                                            <a
+                                                                href="{{ route('watchDelivery', $sn->getQuotation->id) }}">
+                                                                {{ $sn->getQuotation->id }}
+                                                            </a>
                                                         </div>
                                                         {{ date_format(new DateTime($sn->getQuotation->created_at), 'd-m-Y') }}
                                                     @endif

@@ -194,9 +194,17 @@ class DetailImportController extends Controller
     // Hiển thị thông tin nhà cung cấp theo id đã chọn
     public function show_provide(Request $request)
     {
+        $data = [];
         $data = $request->all();
         $provide = Provides::findOrFail($data['provides_id']);
-        return $provide;
+        if($provide){
+            $count = DetailImport::where('provide_id',$provide->id)->count();
+            $data = [
+                'provide' => $provide,
+                'count' => $count,
+            ];
+        }
+        return $data;
     }
     // Thêm mới nhà cung cấp
     public function addNewProvide(Request $request)
