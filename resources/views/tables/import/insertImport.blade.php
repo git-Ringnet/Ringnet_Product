@@ -370,9 +370,8 @@
         // Nếu không có ký tự viết hoa, trả về chuỗi trống
         return uppercaseChars ? uppercaseChars.join('') : '';
     }
-    $('.search-info').click(function() {
-        var provides_id = $(this).attr('id');
 
+    function getQuotation(getName,count) {
         var currentDate = new Date();
         var day = currentDate.getDate();
         var month = currentDate.getMonth() + 1;
@@ -380,6 +379,22 @@
         var formattedMonth = month.toString().padStart(2, '0');
         var formattedDate = formattedDay + formattedMonth + currentDate.getFullYear();
         var name = "RN";
+
+
+        var uppercaseCharacters = getUppercaseCharacters(getName);
+        if (count < 10) {
+            count = '0' + count
+        } else {
+            count = count
+        }
+        quotation = formattedDate + '/' + name + '-' + uppercaseCharacters + '-' + count;
+        return quotation;
+    }
+
+    $('.search-info').click(function() {
+        var provides_id = $(this).attr('id');
+
+
         $.ajax({
             url: "{{ route('show_provide') }}",
             type: "get",
@@ -387,14 +402,7 @@
                 provides_id: provides_id,
             },
             success: function(data) {
-                var uppercaseCharacters = getUppercaseCharacters(data['provide']
-                    .provide_name_display);
-                if (data['count'] < 10) {
-                    count = '0' + data['count']
-                } else {
-                    count = data['count']
-                }
-                quotation = formattedDate + '/' + name + '-' + uppercaseCharacters + '-' + count;
+                quotation = getQuotation(data['provide'].provide_name_display,data['count'])
                 $('input[name="quotation_number"]').val(quotation);
                 $('#myInput').val(data['provide'].provide_name_display);
                 $('#provides_id').val(data['provide'].id);
