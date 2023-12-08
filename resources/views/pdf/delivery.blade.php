@@ -174,7 +174,7 @@
     </div>
     <p style="text-indent: 0px;line-height: 1px;text-align: left;"></p>
     <p style="text-indent: 0px;text-align: left;"><br></p>
-    <hr style="width:90%;opacity: .5;">
+    <hr style="width:92%;opacity: .5;">
     <h1 style="padding-top: 4px;padding-left: 235px;text-indent: 0px;text-align: left;">BIÊN BẢN BÀN GIAO</h1>
     <p class="s3" style="padding-top: 14px;padding-left: 360px;text-indent: 0px;text-align: left;">Thành phố Hồ Chí
         Minh, ngày {{ $data['date']->format('d') }} tháng {{ $data['date']->format('m') }} năm
@@ -190,7 +190,7 @@
                     <p class="s5" style="padding-left: 2px;text-indent: 0px;text-align: left;height:19px;">Địa chỉ:
                     </p>
                     <p class="s5"
-                        style="padding-top: 5px;padding-left: 2px;text-indent: 0px;line-height: 28px;text-align: left;">
+                        style="padding-top: 15px;padding-left: 2px;text-indent: 0px;line-height: 28px;text-align: left;">
                         <span>Mã số thuế:<br>Đại diện</span><b>:</b>
                     </p>
                 </td>
@@ -199,10 +199,10 @@
                         {{ $data['delivery']->guest_name }}</p>
                     <p style="text-indent: 0px;text-align: left;"><br></p>
                     <p class="s5"
-                        style="width:120%;padding-left: 45px;text-indent: 0px;text-align: left;height:19px;">
+                        style="width:95%;padding-left: 45px;text-indent: 0px;text-align: left;height:19px;">
                         {{ $data['delivery']->guest_address }}</p>
                     <p style="text-indent: 0px;text-align: left;"><br></p>
-                    <p class="s7" style="padding-left: 45px;text-indent: 0px;text-align: left;">
+                    <p class="s7" style=" padding-top:10px;padding-left: 45px;text-indent: 0px;text-align: left;">
                         {{ $data['delivery']->guest_code }}</p>
                     <p style="text-indent: 0px;text-align: left;"><br></p>
                     <p class="s5" style="width:120%;padding-left: 45px;text-indent: 0px;text-align: left;">
@@ -322,6 +322,14 @@
                         <p class="s5"
                             style="padding-left: 5px;text-indent: 0px;line-height: 13px;text-align: left;">
                             F4E2C620222E</p> --}}
+                        <p class="s5" style="padding-left:4px">
+                            @foreach ($data['serinumber'] as $item_seri)
+                                @if ($item->product_id == $item_seri->product_id)
+                                    {{ $item_seri->serinumber }}
+                                    <br>
+                                @endif
+                            @endforeach
+                        </p>
                     </td>
                 </tr>
                 @php

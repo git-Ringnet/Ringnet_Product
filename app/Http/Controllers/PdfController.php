@@ -9,6 +9,7 @@ use App\Models\DetailExport;
 use App\Models\Guest;
 use App\Models\Products;
 use App\Models\QuoteExport;
+use App\Models\Serialnumber;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -81,14 +82,20 @@ class PdfController extends Controller
         // $quoteExport = $this->detailExport->getProductToId($id);
         $billSale = $this->delivery->getDeliveryToId($id);
         $product = $this->delivery->getProductToId($id);
+        $serinumber = Serialnumber::leftJoin('delivery', 'delivery.detailexport_id', 'serialnumber.detailexport_id')
+            ->where('delivery.id', $id)
+            ->where('serialnumber.delivery_id', $id)
+            ->select('*', 'serialnumber.id as idSeri')
+            ->get();
         $bg = url('dist/img/logo-2050x480-1.png');
         $data = [
             'delivery' => $billSale,
             'product' => $product,
+            'serinumber' => $serinumber,
             'date' => $billSale->created_at,
             'bg' => $bg,
         ];
-
+        // dd($serinumber);
         $pdf = Pdf::loadView('pdf.delivery', compact('data'))
             ->setPaper('A4', 'portrait')
             ->setOptions([
