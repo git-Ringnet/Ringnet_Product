@@ -364,37 +364,39 @@
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
-    function getUppercaseCharacters(input) {
-        // Sử dụng regular expression để lọc ra các ký tự viết hoa
-        var uppercaseChars = input.match(/[A-Z]/g);
-        // Nếu không có ký tự viết hoa, trả về chuỗi trống
-        return uppercaseChars ? uppercaseChars.join('') : '';
-    }
+    getKeyProvide($('#getKeyProvide'));
+ 
 
-    function getQuotation(getName,count) {
-        var currentDate = new Date();
-        var day = currentDate.getDate();
+    function getQuotation(getName, count) {
+        var currentDate = new Date()
+        var day = currentDate.getDate()
         var month = currentDate.getMonth() + 1;
-        var formattedDay = day.toString().padStart(2, '0');
-        var formattedMonth = month.toString().padStart(2, '0');
+        var formattedDay = day.toString().padStart(2, '0')
+        var formattedMonth = month.toString().padStart(2, '0')
         var formattedDate = formattedDay + formattedMonth + currentDate.getFullYear();
         var name = "RN";
 
-
         var uppercaseCharacters = getUppercaseCharacters(getName);
+        if (uppercaseCharacters) {
+            key = uppercaseCharacters
+        } else {
+            key = getUppercaseCharacters(getName.charAt(0).toUpperCase() + getName.slice(1))
+        }
+
         if (count < 10) {
+            if (count == 0) {
+                count = 1
+            }
             count = '0' + count
         } else {
             count = count
         }
-        quotation = formattedDate + '/' + name + '-' + uppercaseCharacters + '-' + count;
-        return quotation;
+        quotation = formattedDate + '/' + name + '-' + key + '-' + count
+        return quotation
     }
 
     $('.search-info').click(function() {
         var provides_id = $(this).attr('id');
-
-
         $.ajax({
             url: "{{ route('show_provide') }}",
             type: "get",
@@ -402,7 +404,12 @@
                 provides_id: provides_id,
             },
             success: function(data) {
-                quotation = getQuotation(data['provide'].provide_name_display,data['count'])
+                if (data.key) {
+                    quotation = getQuotation(data.key, data['count']);
+                } else {
+                    quotation = getQuotation(data['provide'].provide_name_display, data['count'])
+                }
+                // console.log(quotation);
                 $('input[name="quotation_number"]').val(quotation);
                 $('#myInput').val(data['provide'].provide_name_display);
                 $('#provides_id').val(data['provide'].id);
@@ -415,6 +422,7 @@
         var provide_name_display = $("input[name='provide_name_display']").val().trim();
         var provide_code = $("input[name='provide_code']").val().trim();
         var provide_address = $("input[name='provide_address']").val().trim();
+        var key = $("input[name='key']").val().trim();
         var provide_name = $("input[name='provide_name']").val().trim();
         var provide_represent = $("input[name='provide_represent']").val().trim();
         var provide_email = $("input[name='provide_email']").val().trim();
@@ -443,6 +451,7 @@
                     provide_name_display: provide_name_display,
                     provide_code: provide_code,
                     provide_address: provide_address,
+                    key: key,
                     provide_name: provide_name,
                     provide_represent: provide_represent,
                     provide_email: provide_email,
@@ -451,13 +460,16 @@
                 },
                 success: function(data) {
                     if (data.success == true) {
+                        quotation = getQuotation(data.key, '1')
                         $('#myInput').val(data.name);
                         $('#provides_id').val(data.id);
+                        $('input[name="quotation_number"]').val(quotation);
                         $('.modal [data-dismiss="modal"]').click();
                         alert(data.msg);
                         $("input[name='provide_name_display']").val('');
                         $("input[name='provide_code']").val('');
                         $("input[name='provide_address']").val('');
+                        $("input[name='key']").val('');
                         $("input[name='provide_name']").val('');
                         $("input[name='provide_represent']").val('');
                         $("input[name='provide_email']").val('');

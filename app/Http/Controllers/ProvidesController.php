@@ -79,6 +79,7 @@ class ProvidesController extends Controller
             'provide_name_display' => $request->provide_name_display,
             'provide_code' => $request->provide_code,
             'provide_name' => $request->provide_name,
+            'key' => $request->key,
             'provide_address' => $request->provide_address,
             'provide_represent' => $request->provide_represent,
             'provide_email' => $request->provide_email,

@@ -82,6 +82,14 @@
                                         </div>
                                         <div class="d-flex ml-2 align-items-center">
                                             <div class="title-info py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 px-3">Key</p>
+                                            </div>
+                                            <input type="text" placeholder="Nhập thông tin" name="key"
+                                                value="{{ old('key') ?? $provide->key }}"
+                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                        </div>
+                                        <div class="d-flex ml-2 align-items-center">
+                                            <div class="title-info py-2 border border-top-0 border-left-0">
                                                 <p class="p-0 m-0 px-3">Tên nhà cung cấp</p>
                                             </div>
                                             <input type="text" placeholder="Nhập thông tin" name="provide_name"
@@ -125,7 +133,7 @@
                                             <div class="title-info py-2 border border-top-0 border-left-0">
                                                 <p class="p-0 m-0 px-3">Dư nợ</p>
                                             </div>
-                                            <input type="text" placeholder="Nhập thông tin" name="provide_debt"
+                                            <input readonly type="text" placeholder="Nhập thông tin" name="provide_debt"
                                                 value="{{ old('provide_debt') ?? $provide->provide_debt }}"
                                                 class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
                                         </div>

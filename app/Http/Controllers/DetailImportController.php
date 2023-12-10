@@ -197,11 +197,12 @@ class DetailImportController extends Controller
         $data = [];
         $data = $request->all();
         $provide = Provides::findOrFail($data['provides_id']);
-        if($provide){
-            $count = DetailImport::where('provide_id',$provide->id)->count();
+        if ($provide) {
+            $count = DetailImport::where('provide_id', $provide->id)->count();
             $data = [
                 'provide' => $provide,
                 'count' => $count,
+                'key' => $provide->key,
             ];
         }
         return $data;
@@ -211,10 +212,28 @@ class DetailImportController extends Controller
     {
         $check = Provides::where('provide_code', $request->provide_code)->first();
         if ($check == null) {
+            if (isset($request->key)) {
+                $key = $request->key;
+            } else {
+                $key = preg_match_all('/[A-ZĐ]/u', $request->provide_name_display, $matches);
+                if ($key > 0) {
+                    $key = implode('', $matches[0]);
+                } else {
+                    $key =  ucfirst($request->provide_name_display);
+                    $key = preg_match_all('/[A-ZĐ]/u', $key, $matches);
+                    $key = implode('', $matches[0]);
+                    if($key){
+                        $key = $key;
+                    }else{
+                        $key = "RN";
+                    }
+                }
+            }
             $data = [
                 'provide_name_display' => $request->provide_name_display,
                 'provide_name' => $request->provide_name,
                 'provide_address' => $request->provide_address,
+                'key' => $key,
                 'provide_code' => $request->provide_code,
                 'provide_represent' => $request->provide_represent,
                 'provide_email' => $request->provide_email,
@@ -224,7 +243,7 @@ class DetailImportController extends Controller
             ];
             $new_provide = DB::table('provides')->insertGetId($data);
             $provide = Provides::findOrFail($new_provide);
-            $msg = response()->json(['success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công', 'id' => $new_provide, 'name' => $provide->provide_name_display]);
+            $msg = response()->json(['success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công', 'id' => $new_provide, 'name' => $provide->provide_name_display,'key' => $key]);
         } else {
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế đã tồn tại']);
         }

@@ -38,11 +38,29 @@ class Provides extends Model
         if ($provides) {
             $exist = true;
         } else {
+            if (isset($data['key'])) {
+                $key = $data['key'];
+            } else {
+                $key = preg_match_all('/[A-ZĐ]/u', $data['provide_name_display'], $matches);
+                if ($key > 0) {
+                    $key = implode('', $matches[0]);
+                } else {
+                    $key =  ucfirst($data['provide_name_display']);
+                    $key = preg_match_all('/[A-ZĐ]/u', $key, $matches);
+                    $key = implode('', $matches[0]);
+                    if ($key) {
+                        $key = $key;
+                    } else {
+                        $key = "RN";
+                    }
+                }
+            }
             $dataProvide = [
                 'provide_name_display' => $data['provide_name_display'],
                 'provide_name' => $data['provide_name'],
                 'provide_address' => $data['provide_address'],
                 'provide_code' => $data['provide_code'],
+                'key' => $key,
                 'provide_represent' => $data['provide_represent'],
                 'provide_email' => $data['provide_email'],
                 'provide_phone' => $data['provide_phone'],

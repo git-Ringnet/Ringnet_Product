@@ -18,7 +18,7 @@
                                         Tên hiển thị
                                     </p>
                                 </div>
-                                <input name="provide_name_display" type="text" placeholder="Nhập thông tin"
+                                <input id="getKeyProvide" name="provide_name_display" type="text" placeholder="Nhập thông tin"
                                     class="border w-100 py-2 border-left-0 border-right-0 px-3"
                                     autocomplete="off">
                             </div>
@@ -39,6 +39,16 @@
                                     </p>
                                 </div>
                                 <input name="provide_address" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3"
+                                    autocomplete="off">
+                            </div>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        Key
+                                    </p>
+                                </div>
+                                <input name="key" type="text" placeholder="Nhập thông tin"
                                     class="border w-100 py-2 border-left-0 border-right-0 px-3"
                                     autocomplete="off">
                             </div>
