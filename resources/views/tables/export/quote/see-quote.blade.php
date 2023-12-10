@@ -622,7 +622,7 @@
             }
 
             if (!isNaN(productQty) && !isNaN(taxValue)) {
-                if (status_form == 1) {
+                if (giaNhap > 0) {
                     var donGia = ((heSoNhan + 100) * giaNhap) / 100;
                 } else {
                     var donGia = productPrice;
@@ -637,7 +637,7 @@
                 // Hiển thị kết quả
                 $(this).find('.total-amount').val(formatCurrency(Math.round(rowTotal)));
 
-                if (status_form == 1) {
+                if (status_form == 0) {
                     // Đơn giá
                     $(this).find('.product_price').val(formatCurrency(donGia));
                 }

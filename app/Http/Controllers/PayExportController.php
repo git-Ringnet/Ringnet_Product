@@ -180,44 +180,7 @@ class PayExportController extends Controller
             }
         }
         if ($request->action == "action_2") {
-            $payExport = PayExport::find($id);
-            QuoteExport::where('detailexport_id', $payExport->detailexport_id)
-                ->update([
-                    'qty_payment' => 0,
-                ]);
-            productPay::where('pay_id', $id)->delete();
-            $PayCount = productPay::where('pay_export.detailexport_id', $payExport->detailexport_id)
-                ->leftJoin('pay_export', 'product_pay.pay_id', 'pay_export.id')
-                ->count();
-            if ($PayCount > 0) {
-                DetailExport::where('id', $payExport->detailexport_id)
-                    ->update([
-                        'status_pay' => 3,
-                    ]);
-            } else {
-                DetailExport::where('id', $payExport->detailexport_id)
-                    ->update([
-                        'status_pay' => 1,
-                    ]);
-            }
-            $BillCount = productBill::where('bill_sale.detailexport_id', $payExport->detailexport_id)
-                ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
-                ->count();
-            $deliveredCount = Delivered::where('delivery.detailexport_id', $payExport->detailexport_id)
-                ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
-                ->count();
-            if ($deliveredCount == 0 && $BillCount == 0 && $PayCount == 0) {
-                DetailExport::where('id', $payExport->detailexport_id)
-                    ->update([
-                        'status' => 1,
-                    ]);
-            } else {
-                DetailExport::where('id', $payExport->detailexport_id)
-                    ->update([
-                        'status' => 2,
-                    ]);
-            }
-            PayExport::find($id)->delete();
+            $this->payExport->deletePayExport($request->all(), $id);
             return redirect()->route('payExport.index')->with('msg', 'Xóa đơn thanh toán thành công!');
         }
     }
@@ -261,6 +224,10 @@ class PayExportController extends Controller
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->where('detailexport.id', $data['idQuote'])
             ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_payment, 0) > 0')
+            ->where(function ($query) {
+                $query->where('quoteexport.product_delivery', null)
+                    ->orWhere('quoteexport.product_delivery', 0);
+            })
             ->get();
         return $delivery;
     }

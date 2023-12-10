@@ -133,44 +133,8 @@ class BillSaleController extends Controller
             }
         }
         if ($request->action == "action_2") {
-            $billSale = BillSale::find($id);
-            QuoteExport::where('detailexport_id', $billSale->detailexport_id)
-                ->update([
-                    'qty_bill_sale' => 0,
-                ]);
-            productBill::where('billSale_id', $id)->delete();
-            $BillCount = productBill::where('bill_sale.detailexport_id', $billSale->detailexport_id)
-                ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
-                ->count();
-            if ($BillCount > 0) {
-                DetailExport::where('id', $billSale->detailexport_id)
-                    ->update([
-                        'status_reciept' => 3,
-                    ]);
-            } else {
-                DetailExport::where('id', $billSale->detailexport_id)
-                    ->update([
-                        'status_reciept' => 1,
-                    ]);
-            }
-            $deliveredCount = Delivered::where('delivery.detailexport_id', $billSale->detailexport_id)
-                ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
-                ->count();
-            $PayCount = productPay::where('pay_export.detailexport_id', $billSale->detailexport_id)
-                ->leftJoin('pay_export', 'product_pay.pay_id', 'pay_export.id')
-                ->count();
-            if ($deliveredCount == 0 && $BillCount == 0 && $PayCount == 0) {
-                DetailExport::where('id', $billSale->detailexport_id)
-                    ->update([
-                        'status' => 1,
-                    ]);
-            } else {
-                DetailExport::where('id', $billSale->detailexport_id)
-                    ->update([
-                        'status' => 2,
-                    ]);
-            }
-            BillSale::find($id)->delete();
+
+            $this->billSale->deleteBillSale($request->all(), $id);
             return redirect()->route('billSale.index')->with('msg', 'Xóa hóa đơn bán hàng thành công!');
         }
     }
@@ -198,6 +162,10 @@ class BillSaleController extends Controller
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->where('detailexport.id', $data['idQuote'])
             ->select('*')
+            ->where(function ($query) {
+                $query->where('quoteexport.product_delivery', null)
+                    ->orWhere('quoteexport.product_delivery', 0);
+            })
             ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_bill_sale, 0) as soLuongHoaDon')
             ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_bill_sale, 0) > 0')
             ->get();

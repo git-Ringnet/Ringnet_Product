@@ -31,7 +31,7 @@ class DetailExport extends Model
         'goods',
         'delivery',
         'location',
-        'created_at', 
+        'created_at',
         'updated_at'
     ];
     protected $table = 'detailexport';
@@ -103,6 +103,10 @@ class DetailExport extends Model
     {
         $quoteExport = QuoteExport::where('detailexport.id', $id)
             ->leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+            ->where(function ($query) {
+                $query->where('quoteexport.product_delivery', null)
+                    ->orWhere('quoteexport.product_delivery', 0);
+            })
             ->get();
         return $quoteExport;
     }

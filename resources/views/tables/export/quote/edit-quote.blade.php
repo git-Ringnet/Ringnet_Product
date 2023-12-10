@@ -1293,7 +1293,7 @@
             }
 
             if (!isNaN(productQty) && !isNaN(taxValue)) {
-                if (status_form == 0) {
+                if (giaNhap > 0) {
                     var donGia = ((heSoNhan + 100) * giaNhap) / 100;
                 } else {
                     var donGia = productPrice;

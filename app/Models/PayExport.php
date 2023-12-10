@@ -173,4 +173,49 @@ class PayExport extends Model
             ->get();
         return $delivery;
     }
+    public function deletePayExport($data, $id)
+    {
+        $payExport = PayExport::find($id);
+        QuoteExport::where('detailexport_id', $payExport->detailexport_id)
+            ->update([
+                'qty_payment' => 0,
+            ]);
+        productPay::where('pay_id', $id)->delete();
+        DetailExport::where('id', $payExport->detailexport_id)
+            ->update([
+                'amount_owed' => $payExport->total,
+            ]);
+        $PayCount = productPay::where('pay_export.detailexport_id', $payExport->detailexport_id)
+            ->leftJoin('pay_export', 'product_pay.pay_id', 'pay_export.id')
+            ->count();
+        if ($PayCount > 0) {
+            DetailExport::where('id', $payExport->detailexport_id)
+                ->update([
+                    'status_pay' => 3,
+                ]);
+        } else {
+            DetailExport::where('id', $payExport->detailexport_id)
+                ->update([
+                    'status_pay' => 1,
+                ]);
+        }
+        $BillCount = productBill::where('bill_sale.detailexport_id', $payExport->detailexport_id)
+            ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
+            ->count();
+        $deliveredCount = Delivered::where('delivery.detailexport_id', $payExport->detailexport_id)
+            ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
+            ->count();
+        if ($deliveredCount == 0 && $BillCount == 0 && $PayCount == 0) {
+            DetailExport::where('id', $payExport->detailexport_id)
+                ->update([
+                    'status' => 1,
+                ]);
+        } else {
+            DetailExport::where('id', $payExport->detailexport_id)
+                ->update([
+                    'status' => 2,
+                ]);
+        }
+        PayExport::find($id)->delete();
+    }
 }

@@ -13,7 +13,24 @@ class QuoteExport extends Model
     protected $table = 'quoteexport';
     protected $fillable = [
         'detailexport_id',
+        'product_code',
+        'product_name',
+        'product_unit',
+        'product_qty',
+        'product_tax',
+        'product_total',
+        'price_export',
+        'product_ratio',
+        'price_import',
+        'product_note',
+        'created_at',
+        'updated_at',
+        'deliver_id',
         'product_id',
+        'qty_delivery',
+        'qty_bill_sale',
+        'qty_bill_sale',
+        'product_delivery',
     ];
     public function getAllQuoteExport()
     {

@@ -265,4 +265,68 @@ class Delivery extends Model
 
         return $processedDelivery;
     }
+    public function deleteDelivery($data, $id)
+    {
+        $delivery = Delivery::find($id);
+        Serialnumber::where('detailexport_id', $delivery->detailexport_id)
+            ->update([
+                'status' => 1,
+                'detailexport_id' => 0,
+                'delivery_id' => 0,
+            ]);
+        QuoteExport::where('detailexport_id', $delivery->detailexport_id)
+            ->update([
+                'qty_delivery' => 0,
+            ]);
+        if ($delivery->status == 1) {
+            Delivered::where('delivery_id', $id)->delete();
+        } elseif ($delivery->status == 2) {
+            $deliveredItems = Delivered::where('delivery_id', $id)->get();
+            foreach ($deliveredItems as $deliveredItem) {
+                $product = Products::find($deliveredItem->product_id);
+                if ($product) {
+                    $product->product_inventory += $deliveredItem->deliver_qty;
+                    $product->save();
+                }
+            }
+            Delivered::where('delivery_id', $id)->delete();
+            $deliveredCount = Delivered::where('delivery.detailexport_id', $delivery->detailexport_id)
+                ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
+                ->where('delivery.status', 2)
+                ->count();
+            if ($deliveredCount > 0) {
+                DetailExport::where('id', $delivery->detailexport_id)
+                    ->update([
+                        'status_receive' => 3,
+                    ]);
+            } else {
+                DetailExport::where('id', $delivery->detailexport_id)
+                    ->update([
+                        'status_receive' => 1,
+                    ]);
+            }
+        }
+        $deliveredCount = Delivered::where('delivery.detailexport_id', $delivery->detailexport_id)
+            ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
+            ->count();
+        $BillCount = productBill::where('bill_sale.detailexport_id', $delivery->detailexport_id)
+            ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
+            ->count();
+        $PayCount = productPay::where('pay_export.detailexport_id', $delivery->detailexport_id)
+            ->leftJoin('pay_export', 'product_pay.pay_id', 'pay_export.id')
+            ->count();
+        if ($deliveredCount == 0 && $BillCount == 0 && $PayCount == 0) {
+            DetailExport::where('id', $delivery->detailexport_id)
+                ->update([
+                    'status' => 1,
+                ]);
+        } else {
+            DetailExport::where('id', $delivery->detailexport_id)
+                ->update([
+                    'status' => 2,
+                ]);
+        }
+        QuoteExport::where('product_delivery', $id)->delete();
+        Delivery::find($id)->delete();
+    }
 }

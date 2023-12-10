@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use League\CommonMark\Extension\SmartPunct\Quote;
 
 class Delivered extends Model
 {
@@ -64,6 +65,38 @@ class Delivered extends Model
                 'updated_at' => Carbon::now(),
             ];
             DB::table($this->table)->insert($dataDelivered);
+            //thêm sản phẩm từ đơn giao hàng
+            $checkProduct = Products::where('product_name', $data['product_name'][$i])->first();
+            if (!$checkProduct) {
+                $product = new Products($dataProduct);
+                $product->save();
+            }
+            $delivery = Delivery::find($id);
+            $checkQuote = QuoteExport::where('detailexport_id', $delivery->detailexport_id)
+                ->where('product_id', $data['product_id'][$i])
+                ->first();
+            if ($delivery) {
+                if (!$checkQuote) {
+                    $dataQuote = [
+                        'detailexport_id' => $delivery->detailexport_id,
+                        'product_code' => $data['product_code'][$i],
+                        'product_id' => $checkProduct == null ? $product->id : $checkProduct->id,
+                        'product_name' => $data['product_name'][$i],
+                        'product_unit' => $data['product_unit'][$i],
+                        'product_qty' => $data['product_qty'][$i],
+                        'product_tax' => 0,
+                        'product_total' => 0,
+                        'price_export' => 0,
+                        'product_ratio' => 0,
+                        'price_import' => 0,
+                        'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                        'product_delivery' => $id,
+                    ];
+                    DB::table('quoteexport')->insert($dataQuote);
+                }
+            }
         }
         if (isset($data['selected_serial_numbers'])) {
             $selectedSerialNumbers = $data['selected_serial_numbers'];
