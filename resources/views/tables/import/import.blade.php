@@ -88,8 +88,8 @@
                                         <th scope="col">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="id"
-                                                    data-sort-type="#"><button class="btn-sort" type="submit">Số báo
-                                                        giá#
+                                                    data-sort-type="#"><button class="btn-sort" type="submit">Đơn mua
+                                                        hàng#
                                                     </button></a>
                                                 <div class="icon" id="icon-id"></div>
                                             </span>
@@ -188,7 +188,6 @@
                                                     {{ $item->quotation_number == null ? $item->id : $item->quotation_number }}
                                                 </a>
                                             </td>
-
                                             <td class="text-center">{{ $item->reference_number }}</td>
                                             <td class="text-center">
                                                 @if ($item->getProvideName)

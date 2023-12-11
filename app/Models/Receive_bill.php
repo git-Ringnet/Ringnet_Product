@@ -20,6 +20,10 @@ class Receive_bill extends Model
         'status'
     ];
 
+    public function getQuotation(){
+        return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
+    }
+
     public function getNameProvide()
     {
         return $this->hasOne(Provides::class, 'id', 'provide_id');

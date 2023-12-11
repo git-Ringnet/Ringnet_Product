@@ -155,10 +155,12 @@
                                         <tr>
                                             <td><input type="checkbox"></td>
                                             <td>{{ $item->id }}</td>
-                                            <td>{{ $item->quotation_number == null ? $item->id : $item->quotation_number }}
+                                            <td>
+                                                @if ($item->getQuotation)
+                                                    {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
+                                                @endif
                                             </td>
                                             <td>{{ $item->getNameProvide->provide_name_display }}</td>
-                                            {{-- <td>{{ $item->shipping_unit }}</td> --}}
                                             <td>{{ number_format($item->delivery_charges) }}</td>
                                             <td>
                                                 @if ($item->status == 1)

@@ -340,7 +340,7 @@ function removeAccents(str) {
 }
 
 function getKeyProvide(name) {
-    $(name).on('input', function() {
+    $(name).on('input', function () {
         input = getUppercaseCharacters($(this).val());
         if (input) {
             $('input[name="key"]').val(input)
@@ -350,4 +350,32 @@ function getKeyProvide(name) {
             $('input[name="key"]').val(getValueUpperCase)
         }
     })
+}
+
+function getQuotation(getName, count) {
+    var currentDate = new Date()
+    var day = currentDate.getDate()
+    var month = currentDate.getMonth() + 1;
+    var formattedDay = day.toString().padStart(2, '0')
+    var formattedMonth = month.toString().padStart(2, '0')
+    var formattedDate = formattedDay + formattedMonth + currentDate.getFullYear();
+    var name = "RN";
+
+    var uppercaseCharacters = getUppercaseCharacters(getName);
+    if (uppercaseCharacters) {
+        key = uppercaseCharacters
+    } else {
+        key = getUppercaseCharacters(getName.charAt(0).toUpperCase() + getName.slice(1))
+    }
+
+    if (count < 10) {
+        if (count == 0) {
+            count = 1
+        }
+        count = '0' + count
+    } else {
+        count = count
+    }
+    quotation = formattedDate + '/' + name + '-' + key + '-' + count
+    return quotation
 }

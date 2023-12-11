@@ -447,6 +447,7 @@
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    getKeyProvide($('#myInput'));
     $('#addRowTable').off('click').on('click', function() {
         addRowTable(1);
     })
@@ -456,7 +457,6 @@
     }
     $('.search-info').click(function() {
         var provides_id = $(this).attr('id');
-        console.log(provides_id);
         $.ajax({
             url: "{{ route('show_provide') }}",
             type: "get",
@@ -464,8 +464,17 @@
                 provides_id: provides_id,
             },
             success: function(data) {
-                $('#myInput').val(data.provide_name_display);
-                $('#provides_id').val(data.id);
+                if (data.key) {
+                    quotation = getQuotation(data.key, data['count']);
+                } else {
+                    quotation = getQuotation(data['provide'].provide_name_display, data['count'])
+                }
+                $('input[name="quotation_number"]').val(quotation);
+                $('#myInput').val(data['provide'].provide_name_display);
+                $('#provides_id').val(data['provide'].id);
+                // console.log(data);
+                // $('#myInput').val(data['provide'].provide_name_display);
+                // $('#provides_id').val(data['provide'].id);
             }
         });
     });

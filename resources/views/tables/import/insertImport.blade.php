@@ -367,33 +367,33 @@
     getKeyProvide($('#getKeyProvide'));
 
 
-    function getQuotation(getName, count) {
-        var currentDate = new Date()
-        var day = currentDate.getDate()
-        var month = currentDate.getMonth() + 1;
-        var formattedDay = day.toString().padStart(2, '0')
-        var formattedMonth = month.toString().padStart(2, '0')
-        var formattedDate = formattedDay + formattedMonth + currentDate.getFullYear();
-        var name = "RN";
+    // function getQuotation(getName, count) {
+    //     var currentDate = new Date()
+    //     var day = currentDate.getDate()
+    //     var month = currentDate.getMonth() + 1;
+    //     var formattedDay = day.toString().padStart(2, '0')
+    //     var formattedMonth = month.toString().padStart(2, '0')
+    //     var formattedDate = formattedDay + formattedMonth + currentDate.getFullYear();
+    //     var name = "RN";
 
-        var uppercaseCharacters = getUppercaseCharacters(getName);
-        if (uppercaseCharacters) {
-            key = uppercaseCharacters
-        } else {
-            key = getUppercaseCharacters(getName.charAt(0).toUpperCase() + getName.slice(1))
-        }
+    //     var uppercaseCharacters = getUppercaseCharacters(getName);
+    //     if (uppercaseCharacters) {
+    //         key = uppercaseCharacters
+    //     } else {
+    //         key = getUppercaseCharacters(getName.charAt(0).toUpperCase() + getName.slice(1))
+    //     }
 
-        if (count < 10) {
-            if (count == 0) {
-                count = 1
-            }
-            count = '0' + count
-        } else {
-            count = count
-        }
-        quotation = formattedDate + '/' + name + '-' + key + '-' + count
-        return quotation
-    }
+    //     if (count < 10) {
+    //         if (count == 0) {
+    //             count = 1
+    //         }
+    //         count = '0' + count
+    //     } else {
+    //         count = count
+    //     }
+    //     quotation = formattedDate + '/' + name + '-' + key + '-' + count
+    //     return quotation
+    // }
 
     $('.search-info').click(function() {
         var provides_id = $(this).attr('id');
@@ -409,7 +409,6 @@
                 } else {
                     quotation = getQuotation(data['provide'].provide_name_display, data['count'])
                 }
-                // console.log(quotation);
                 $('input[name="quotation_number"]').val(quotation);
                 $('#myInput').val(data['provide'].provide_name_display);
                 $('#provides_id').val(data['provide'].id);
