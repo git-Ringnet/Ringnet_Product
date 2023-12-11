@@ -1041,8 +1041,8 @@
                     idGuest: idGuest
                 },
                 success: function(data) {
-                    $('.nameGuest').val(data.guest_name_display);
-                    $('.idGuest').val(data.id);
+                    $('#myInput').val(data['guest'].guest_name_display);
+                    $('.idGuest').val(data['guest'].id);
                 }
             });
         });
