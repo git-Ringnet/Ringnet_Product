@@ -222,9 +222,9 @@ class DetailImportController extends Controller
                     $key =  ucfirst($request->provide_name_display);
                     $key = preg_match_all('/[A-ZĐ]/u', $key, $matches);
                     $key = implode('', $matches[0]);
-                    if($key){
+                    if ($key) {
                         $key = $key;
-                    }else{
+                    } else {
                         $key = "RN";
                     }
                 }
@@ -243,7 +243,10 @@ class DetailImportController extends Controller
             ];
             $new_provide = DB::table('provides')->insertGetId($data);
             $provide = Provides::findOrFail($new_provide);
-            $msg = response()->json(['success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công', 'id' => $new_provide, 'name' => $provide->provide_name_display,'key' => $key]);
+            $msg = response()->json([
+                'success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công',
+                'id' => $new_provide, 'name' => $provide->provide_name_display, 'key' => $key
+            ]);
         } else {
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế đã tồn tại']);
         }

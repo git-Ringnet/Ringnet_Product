@@ -1,0 +1,94 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\DateForm;
+use Illuminate\Http\Request;
+
+class DateFormController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    protected $date_form;
+    public function __construct()
+    {
+        $this->date_form = new DateForm();
+    }
+    public function index()
+    {
+        $date_form = $this->date_form->getDateForm();
+        return $$date_form;
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+    public function addDateForm(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = [
+                'form_field' => $request->name,
+                'form_name' => $request->inputName,
+                'form_desc' => $request->inputDesc,
+            ];
+            $new_date_form = $this->date_form->createDateForm($data);
+            $msg = response()->json([
+                'success' => true,
+                'msg' => 'Thêm thành công',
+                'new_date_form' => $new_date_form,
+            ]);
+            return $msg;
+        }
+    }
+    public function searchDateForm(Request $request)
+    {
+        $data = $request->all();
+        $dateForm = DateForm::where('id', $data['idDateForm'])->first();
+        return $dateForm;
+    }
+}

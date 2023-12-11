@@ -62,6 +62,13 @@
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
                                     <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Key</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="key"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
                                         <p class="p-0 m-0 px-3">Tên công ty</p>
                                     </div>
                                     <input type="text" placeholder="Nhập thông tin" name="guest_name"
@@ -124,3 +131,7 @@
         </section>
     </form>
 </div>
+<script src="{{ asset('/dist/js/export.js') }}"></script>
+<script>
+    getKeyGuest($('input[name="guest_name_display"]'))
+</script>

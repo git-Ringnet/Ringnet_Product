@@ -1604,3 +1604,8 @@ input[type="checkbox"] {
 #product_tax{
     pointer-events: none;
 }
+/* .scroll-data li{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+} */

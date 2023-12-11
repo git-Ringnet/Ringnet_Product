@@ -16,6 +16,7 @@ use App\Models\Products;
 use App\Models\Project;
 use App\Models\Provides;
 use App\Models\QuoteExport;
+use App\Models\DateForm;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,9 +38,12 @@ class DetailExportController extends Controller
     private $payExport;
     private $productPay;
     private $detailImport;
+    protected $date_form;
+
 
     public function __construct()
     {
+        $this->date_form = new DateForm();
         $this->detailExport = new DetailExport();
         $this->detailImport = new DetailImport();
         $this->guest = new Guest();
@@ -67,10 +71,11 @@ class DetailExportController extends Controller
     {
         $title = "Tạo báo giá";
         $guest = $this->guest->getAllGuest();
+        $date_form = $this->date_form->getDateForm();
         // $product_code = $this->product_code->getAllProductCode();
         $project = $this->project->getAllProject();
         $product = $this->product->getAllProducts();
-        return view('tables.export.quote.create-quote', compact('title', 'guest', 'product', 'project'));
+        return view('tables.export.quote.create-quote', compact('title', 'guest', 'product', 'project', 'date_form'));
     }
 
     /**
@@ -226,7 +231,15 @@ class DetailExportController extends Controller
     {
         $data = $request->all();
         $guest = Guest::where('id', $data['idGuest'])->first();
-        return $guest;
+        if ($guest) {
+            $count = DetailExport::where('guest_id', $guest->id)->count();
+            $data = [
+                'guest' => $guest,
+                'count' => $count,
+                'key' => $guest->key,
+            ];
+        }
+        return $data;
     }
     //Tìm kiếm project
     public function searchProject(Request $request)
@@ -246,6 +259,7 @@ class DetailExportController extends Controller
                 'guest_address' => $request->guest_address,
                 'guest_code' => $request->guest_code,
                 'guest_email' => $request->guest_email,
+                'key' => $request->key,
                 'guest_phone' => $request->guest_phone,
                 'guest_receiver' => $request->guest_receiver,
                 'guest_email_personal' => $request->guest_email_personal,
@@ -256,7 +270,10 @@ class DetailExportController extends Controller
                 'updated_at' => Carbon::now(),
             ];
             $new_guest = DB::table('guest')->insertGetId($data);
-            $msg = response()->json(['success' => true, 'msg' => 'Thêm mới khách hàng thành công', 'id' => $new_guest, 'guest_name_display' => $request->guest_name_display]);
+            $msg = response()->json([
+                'success' => true, 'msg' => 'Thêm mới khách hàng thành công', 'id' => $new_guest,
+                'guest_name_display' => $request->guest_name_display, 'key' => $request->key
+            ]);
         } else {
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế đã tồn tại']);
         }

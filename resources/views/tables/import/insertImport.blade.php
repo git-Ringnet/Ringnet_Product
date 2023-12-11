@@ -196,7 +196,7 @@
             </div>
         </section>
 
-        <x-formprovides> </x-formprovides>
+        <x-formprovides></x-formprovides>
 
         <section class="content">
             <div class="container-fluided">
@@ -365,7 +365,7 @@
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
     getKeyProvide($('#getKeyProvide'));
- 
+
 
     function getQuotation(getName, count) {
         var currentDate = new Date()

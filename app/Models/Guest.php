@@ -98,6 +98,7 @@ class Guest extends Model
                 'guest_code' => $data['guest_code'],
                 'guest_phone' => $data['guest_phone'],
                 'guest_email' => $data['guest_email'],
+                'key' => $data['key'],
                 'guest_receiver' => $data['guest_receiver'],
                 'guest_email_personal' => $data['guest_email_personal'],
                 'guest_phone_receiver' => $data['guest_phone_receiver'],

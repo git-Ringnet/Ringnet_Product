@@ -130,8 +130,34 @@
                                         <p class="p-0 m-0 px-3">Hiệu lực báo giá</p>
                                     </div>
                                     <div class="w-100">
+                                        {{-- <input type="text" placeholder="Nhập thông tin" name="price_effect"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"> --}}
                                         <input type="text" placeholder="Nhập thông tin" name="price_effect"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                            id="myInput-quote">
+                                        <input type="hidden" class="idDateForm" autocomplete="off"
+                                            name="idDateForm">
+                                        <ul id="myUL2"
+                                            class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                            style="z-index: 99;">
+                                            @foreach ($date_form as $item)
+                                                @if ($item->form_field == 'quote')
+                                                    <li>
+                                                        <a href="#"
+                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                            id="{{ $item->id }}" name="search-date-form"
+                                                            data-name="quote">
+                                                            <span class="w-50">{{ $item->form_name }}</span>
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                            <a type="button"
+                                                class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormquote"
+                                                data-toggle="modal" data-target="#formModalQuote" style="bottom: 0;">
+                                                <span class="w-50 text-white">Thêm mới</span>
+                                            </a>
+                                        </ul>
                                     </div>
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -140,7 +166,31 @@
                                     </div>
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin" name="terms_pay"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                            id="myInput-payment">
+                                        <input type="hidden" class="idDateForm" autocomplete="off"
+                                            name="idDateForm">
+                                        <ul id="myUL1"
+                                            class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                            style="z-index: 99;">
+                                            @foreach ($date_form as $item)
+                                                @if ($item->form_field == 'payment')
+                                                    <li>
+                                                        <a href="#"
+                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                            id="{{ $item->id }}" name="search-date-form"
+                                                            data-name="payment">
+                                                            <span class="w-50">{{ $item->form_name }}</span>
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                            <a type="button"
+                                                class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormpayment"
+                                                data-toggle="modal" data-target="#DateFormModal" style="bottom: 0;">
+                                                <span class="w-50 text-white">Thêm mới</span>
+                                            </a>
+                                        </ul>
                                     </div>
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -172,8 +222,34 @@
                                         <p class="p-0 m-0 px-3">Hàng hóa</p>
                                     </div>
                                     <div class="w-100">
+                                        {{-- <input type="text" placeholder="Nhập thông tin" name="goods"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"> --}}
                                         <input type="text" placeholder="Nhập thông tin" name="goods"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                            id="myInput-goods">
+                                        <input type="hidden" class="idDateForm" autocomplete="off"
+                                            name="idDateForm">
+                                        <ul id="myUL4"
+                                            class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                            style="z-index: 99;">
+                                            @foreach ($date_form as $item)
+                                                @if ($item->form_field == 'goods')
+                                                    <li>
+                                                        <a href="#"
+                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                            id="{{ $item->id }}" name="search-date-form"
+                                                            data-name="goods">
+                                                            <span class="w-50">{{ $item->form_name }}</span>
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                            <a type="button"
+                                                class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormgoods"
+                                                data-toggle="modal" data-target="#formModalGoods" style="bottom: 0;">
+                                                <span class="w-50 text-white">Thêm mới</span>
+                                            </a>
+                                        </ul>
                                     </div>
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -181,8 +257,35 @@
                                         <p class="p-0 m-0 px-3">Giao hàng</p>
                                     </div>
                                     <div class="w-100">
+                                        {{-- <input type="text" placeholder="Nhập thông tin" name="delivery"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"> --}}
                                         <input type="text" placeholder="Nhập thông tin" name="delivery"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                            id="myInput-delivery">
+                                        <input type="hidden" class="idDateForm" autocomplete="off"
+                                            name="idDateForm">
+                                        <ul id="myUL5"
+                                            class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                            style="z-index: 99;">
+                                            @foreach ($date_form as $item)
+                                                @if ($item->form_field == 'delivery')
+                                                    <li>
+                                                        <a href="#"
+                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                            id="{{ $item->id }}" name="search-date-form"
+                                                            data-name="delivery">
+                                                            <span class="w-50">{{ $item->form_name }}</span>
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                            <a type="button"
+                                                class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormdelivery"
+                                                data-toggle="modal" data-target="#formModalDelivery"
+                                                style="bottom: 0;">
+                                                <span class="w-50 text-white">Thêm mới</span>
+                                            </a>
+                                        </ul>
                                     </div>
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -190,8 +293,47 @@
                                         <p class="p-0 m-0 px-3">Địa điểm</p>
                                     </div>
                                     <div class="w-100">
+                                        {{-- <input type="text" placeholder="Nhập thông tin" name="location"
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"> --}}
                                         <input type="text" placeholder="Nhập thông tin" name="location"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                            id="myInput-location">
+                                        <input type="hidden" class="idDateForm" autocomplete="off"
+                                            name="idDateForm">
+                                        <ul id="myUL6"
+                                            class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                            style="z-index: 99;">
+                                            @foreach ($date_form as $item)
+                                                @if ($item->form_field == 'location')
+                                                    <li>
+                                                        <a href="#"
+                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                            id="{{ $item->id }}" name="search-date-form"
+                                                            data-name="location">
+                                                            <span class="w-50">{{ $item->form_name }}</span>
+                                                        </a>
+                                                        <div class="dropdown">
+                                                            <button type="button" data-toggle="dropdown"
+                                                                class="btn-save-print d-flex align-items-center h-100 dropdown-toggle"
+                                                                style="margin-right:10px">
+                                                                <i class="fa-solid fa-ellipsis"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu" style="z-index: 100;">
+                                                                <a class="dropdown-item" href="#">Xuất Excel</a>
+                                                                <a class="dropdown-item" href="#">Xuất PDF</a>
+                                                            </div>
+                                                        </div>
+
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                            <a type="button"
+                                                class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormlocation"
+                                                data-toggle="modal" data-target="#formModalLocation"
+                                                style="bottom: 0;">
+                                                <span class="w-50 text-white">Thêm mới</span>
+                                            </a>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -448,6 +590,15 @@
                         <div class="d-flex ml-2 align-items-center">
                             <div class="title-info py-2 border border-left-0">
                                 <p class="p-0 m-0 px-3">
+                                    Key
+                                </p>
+                            </div>
+                            <input name="key" type="text" placeholder="Nhập thông tin" id="key"
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
+                        </div>
+                        <div class="d-flex ml-2 align-items-center">
+                            <div class="title-info py-2 border border-left-0">
+                                <p class="p-0 m-0 px-3">
                                     Tên công ty
                                 </p>
                             </div>
@@ -524,6 +675,12 @@
             </div>
         </div>
     </div>
+
+    <x-date-form-modal title="Điều khoản thanh toán" name="payment" idModal="DateFormModal"></x-date-form-modal>
+    <x-date-form-modal title="Hiệu lực báo giá" name="quote" idModal="formModalQuote"></x-date-form-modal>
+    <x-date-form-modal title="Hàng hóa" name="goods" idModal="formModalGoods"></x-date-form-modal>
+    <x-date-form-modal title="Giao hàng" name="delivery" idModal="formModalDelivery"></x-date-form-modal>
+    <x-date-form-modal title="Địa điểm" name="location" idModal="formModalLocation"></x-date-form-modal>
     {{-- Thông tin sản phẩm --}}
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -544,7 +701,40 @@
         </div>
     </div>
 </div>
-<script>
+<script src="{{ asset('/dist/js/export.js') }}"></script>
+
+<script type="text/javascript">
+    // Số báo giáo
+    getKeyGuest($('#guest_name_display'));
+
+    function getQuotation(getName, count) {
+        var currentDate = new Date()
+        var day = currentDate.getDate()
+        var month = currentDate.getMonth() + 1;
+        var formattedDay = day.toString().padStart(2, '0')
+        var formattedMonth = month.toString().padStart(2, '0')
+        var formattedDate = formattedDay + formattedMonth + currentDate.getFullYear();
+        var name = "RN";
+
+        var uppercaseCharacters = getUppercaseCharacters(getName);
+        if (uppercaseCharacters) {
+            key = uppercaseCharacters
+        } else {
+            key = getUppercaseCharacters(getName.charAt(0).toUpperCase() + getName.slice(1))
+        }
+
+        if (count < 10) {
+            if (count == 0) {
+                count = 1
+            }
+            count = '0' + count
+        } else {
+            count = count
+        }
+        quotation = formattedDate + '/' + name + '-' + key + '-' + count
+        return quotation
+    }
+
     //hiện danh sách project khi click trường tìm kiếm
     $("#listProject").hide();
     $("#ProjectInput").on("click", function() {
@@ -585,27 +775,112 @@
     });
     //hiện danh sách khách hàng khi click trường tìm kiếm
     $("#myUL").hide();
-    $("#myInput").on("click", function() {
-        $("#myUL").show();
-    });
-    //ẩn danh sách khách hàng
-    $(document).click(function(event) {
-        if (!$(event.target).closest("#myInput").length) {
-            $("#myUL").hide();
-        }
-    });
-    //search thông tin khách hàng
+    $("#myUL1").hide();
+    $("#myUL2").hide();
+    $("#myUL4").hide();
+    $("#myUL5").hide();
+    $("#myUL6").hide();
     $(document).ready(function() {
-        $("#myInput").on("keyup", function() {
-            var value = $(this).val().toUpperCase();
-            $("#myUL li").each(function() {
-                var text = $(this).find("a").text().toUpperCase();
-                $(this).toggle(text.indexOf(value) > -1);
+        function toggleList(input, list) {
+            input.on("click", function() {
+                list.show();
+            });
+
+            $(document).click(function(event) {
+                if (!$(event.target).closest(input).length) {
+                    list.hide();
+                }
+            });
+
+            input.on("keyup", function() {
+                var value = $(this).val().toUpperCase();
+                list.find("li").each(function() {
+                    var text = $(this).find("a").text().toUpperCase();
+                    $(this).toggle(text.indexOf(value) > -1);
+                });
+            });
+        }
+
+        toggleList($("#myInput"), $("#myUL"));
+        toggleList($("#myInput-payment"), $("#myUL1"));
+        toggleList($("#myInput-quote"), $("#myUL2"));
+        toggleList($("#myInput-goods"), $("#myUL4"));
+        toggleList($("#myInput-delivery"), $("#myUL5"));
+        toggleList($("#myInput-location"), $("#myUL6"));
+    });
+
+    $(document).ready(function() {
+        $('.search-date-form').click(function() {
+            var idDateForm = $(this).attr('id');
+            var name = $(this).data('name');
+            // console.log(name);
+            $.ajax({
+                url: '{{ route('searchDateForm') }}',
+                type: 'GET',
+                data: {
+                    idDateForm: idDateForm
+                },
+                success: function(data) {
+                    // console.log(data);
+                    $('#myInput-' + name).val(data.form_name);
+                }
             });
         });
-    });
-    //thêm sản phẩm
-    $(document).ready(function() {
+
+        // submit thêm mới các trường
+        $('.btn-submit').click(function(event) {
+            event.preventDefault();
+            var name = $(this).data('button-name');
+            var inputName = $('#form-name-' + name).val();
+            var inputDesc = $('#form-desc-' + name).val();
+            $.ajax({
+                url: '{{ route('addDateForm') }}',
+                type: 'GET',
+                data: {
+                    name: name,
+                    inputName: inputName,
+                    inputDesc: inputDesc,
+                },
+                success: function(data) {
+                    $('#myInput-' + name).val(data.new_date_form.form_name);
+                    $('#form-name-' + name).val('')
+                    $('#form-desc-' + name).val('')
+                    alert(data.msg);
+                    $('.modal [data-dismiss="modal"]').click();
+
+                    // Thêm phần tử mới vào trong form tìm kiếm
+
+                    var newListItem =
+                        '<li><a href="#" class="text-dark d-flex justify-content-between p-2 search-date-form" id="' +
+                        data.new_date_form.id + '" name="search-date-form" data-name="' +
+                        name + '">' +
+                        '<span class="w-50">' + data.new_date_form.form_name +
+                        '</span></a></li>';
+                    // Thêm mục mới vào danh sách
+                    var addButton = $(".addDateForm" + name);
+                    $(newListItem).insertBefore(addButton);
+                    //clear
+                    $('.search-date-form').click(function() {
+                        var idDateForm = $(this).attr('id');
+                        var name = $(this).data('name');
+                        // console.log(name);
+                        $.ajax({
+                            url: '{{ route('searchDateForm') }}',
+                            type: 'GET',
+                            data: {
+                                idDateForm: idDateForm
+                            },
+                            success: function(data) {
+                                $('#myInput-' + name).val(data
+                                    .form_name);
+                            }
+                        });
+                    });
+                }
+            });
+
+        });
+
         let fieldCounter = 1;
         $("#add-field-btn").click(function() {
             let nextSoTT = $(".soTT").length + 1;
@@ -915,15 +1190,24 @@
                     idGuest: idGuest
                 },
                 success: function(data) {
-                    $('.nameGuest').val(data.guest_name_display);
-                    $('.idGuest').val(data.id);
+                    console.log(data);
+                    if (data.key) {
+                        quotation = getQuotation(data.key, data['count']);
+                    } else {
+                        quotation = getQuotation(data['guest'].guest_name_display, data[
+                            'count'])
+                    }
+                    console.log(quotation);
+                    $('input[name="quotation_number"]').val(quotation);
+                    $('.nameGuest').val(data['guest'].guest_name_display);
+                    $('.idGuest').val(data['guest'].id);
                 }
             });
         });
     });
     //Thêm thông tin khách hàng
     $(document).on('click', '#addGuest', function(e) {
-        var guest_name_display = $('#guest_name_display').val();
+        var guest_name_display = $('input[name="guest_name_display"]').val();
         var guest_name = $('#guest_name').val();
         var guest_address = $('#guest_address').val();
         var guest_code = $('#guest_code').val();
@@ -933,25 +1217,28 @@
         var guest_email_personal = $('#guest_email_personal').val();
         var guest_phone_receiver = $('#guest_phone_receiver').val();
         var guest_note = $('#guest_note').val();
+        var key = $("input[name='key']").val().trim();
         $('.nameGuest').val(null);
         $('.idGuest').val(null);
         $.ajax({
             url: "{{ route('addGuest') }}",
             type: "get",
             data: {
-                guest_name_display,
-                guest_name,
-                guest_address,
-                guest_code,
-                guest_email,
-                guest_phone,
-                guest_receiver,
-                guest_email_personal,
-                guest_phone_receiver,
-                guest_note,
+                guest_name_display: guest_name_display,
+                guest_name: guest_name,
+                guest_address: guest_address,
+                guest_code: guest_code,
+                guest_email: guest_email,
+                guest_phone: guest_phone,
+                guest_receiver: guest_receiver,
+                guest_email_personal: guest_email_personal,
+                guest_phone_receiver: guest_phone_receiver,
+                guest_note: guest_note,
+                key: key,
             },
             success: function(data) {
                 if (data.success) {
+                    quotation = getQuotation(data.key, '1')
                     alert(data.msg);
                     $('.nameGuest').val(data.guest_name_display);
                     $('.idGuest').val(data.id);
@@ -969,6 +1256,7 @@
                     $(newListItem).insertBefore(addButton);
                     //clear
                     $('#guest_name_display').val(null);
+                    $("input[name='key']").val('');
                     $('#guest_address').val(null);
                     $('#guest_code').val(null);
                     $('.search-info').click(function() {

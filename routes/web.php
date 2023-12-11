@@ -12,6 +12,7 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvidesController;
 use App\Http\Controllers\QuoteExportController;
+use App\Http\Controllers\DateFormController;
 use App\Http\Controllers\ReceiveController;
 use App\Http\Controllers\RecieptController;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +55,10 @@ Route::get('/checkduplicateSN', [DetailImportController::class, 'checkduplicateS
 Route::POST('addAttachment', [DetailImportController::class, 'addAttachment'])->name('addAttachment');
 Route::get('/download/{folder}/{file?}', [DetailImportController::class, 'downloadFile'])->name('downloadFile');
 Route::delete('/deleteFile/{folder}/{file}', [DetailImportController::class, 'deleteFile'])->name('deleteFile');
+
+Route::resource('DateForm', DateFormController::class);
+Route::get('/addDateForm', [DateFormController::class, 'addDateForm'])->name('addDateForm');
+Route::get('/searchDateForm', [DateFormController::class, 'searchDateForm'])->name('searchDateForm');
 
 
 
@@ -123,7 +128,7 @@ Route::get('/getProductSeri', [ProductController::class, 'getProductSeri'])->nam
 Route::get('/getProductSeriEdit', [ProductController::class, 'getProductSeriEdit'])->name('getProductSeriEdit');
 
 
-Route::get('exportDatabase',[ProductController::class,'exportDatabase'])->name('exportDatabase');
+Route::get('exportDatabase', [ProductController::class, 'exportDatabase'])->name('exportDatabase');
 
 Route::middleware([
     'auth:sanctum',
