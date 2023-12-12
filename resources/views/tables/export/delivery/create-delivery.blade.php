@@ -751,6 +751,8 @@
                                 product_id.val(productData.id);
                                 tonkho.val(productData.product_inventory);
                                 soTonKho.text(productData
+                                    .product_inventory == null ? 0 :
+                                    productData
                                     .product_inventory);
                                 // Cập nhật ID của hàng (row)
                                 var newRowID = 'dynamic-row-' + productData
@@ -764,8 +766,10 @@
                                     productData.id;
                                 currentRow.find('.add-seri-number').attr(
                                     'data-target', dataTarget);
-                                var quantityInput = currentRow.find('.quantity-input');
-                                quantityInput.attr('data-product-id', productData.id);
+                                var quantityInput = currentRow.find(
+                                    '.quantity-input');
+                                quantityInput.attr('data-product-id',
+                                    productData.id);
                                 //Ẩn/hiện button S/N
                                 var rowElement = $(`#${newRowID}`);
                                 if (seriProArray && seriProArray.length >
@@ -1584,7 +1588,7 @@
                                     <div>
                                 <input type="text" value="${item.soLuongCanGiao}" data-product-id="${item.maSP}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
-                                <p class="text-primary text-center position-absolute inventory" style="top: 68%;">Tồn kho: ${item.product_inventory}</p>
+                                <p class="text-primary text-center position-absolute inventory" style="top: 68%;">Tồn kho: ${item.product_inventory == null ? 0 : item.product_code}</p>
                                 </div>  
                                 <div>
                                 <button type="button" class="btn btn-primary open-modal-btn" data-toggle="modal" data-target="#exampleModal0" style="background:transparent; border:none;">
