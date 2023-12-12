@@ -14,9 +14,11 @@ class DateFormModal extends Component
     public $name;
     public $title;
     public $idModal;
+    public $dataa;
 
-    public function __construct($name = null, $title = null, $idModal = null)
+    public function __construct($dataa = null, $name = null, $title = null, $idModal = null)
     {
+        $this->dataa = $dataa;
         $this->idModal = $idModal;
         $this->name = $name;
         $this->title = $title;

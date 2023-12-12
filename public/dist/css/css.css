@@ -1201,8 +1201,9 @@ input[type="checkbox"] {
 }
 
 /**/
-#myUL li:hover {
-    background: #ececec;
+
+.scroll-data li:hover {
+    background: #ECECEC;
 }
 
 .text-perpage {
@@ -1601,14 +1602,17 @@ input[type="checkbox"] {
 #product_tax {
     pointer-events: none;
 }
-/* .scroll-data li{
+.scroll-data li{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: baseline;
-} */
-
+}
 .editGuest .content-header .nav-tabs .active {
     color: #0052cc !important;
     padding-bottom: 20px;
     border-bottom: 3px solid;
+}
+
+.scroll-data li .search-date-form{
+    width: 90%;
 }

@@ -119,7 +119,8 @@ class DetailExportController extends Controller
         $product = $this->product->getAllProducts();
         $detailExport = $this->detailExport->getDetailExportToId($id);
         $quoteExport = $this->detailExport->getProductToId($id);
-        return view('tables.export.quote.edit-quote', compact('title', 'guest', 'product', 'detailExport', 'quoteExport'));
+        $date_form = $this->date_form->getDateForm();
+        return view('tables.export.quote.edit-quote', compact('title', 'guest', 'product', 'detailExport', 'quoteExport', 'date_form'));
     }
 
     /**
