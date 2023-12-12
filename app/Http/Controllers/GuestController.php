@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailExport;
 use App\Models\Guest;
+use App\Models\PayExport;
+use App\Models\representGuest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,15 +15,22 @@ class GuestController extends Controller
      * Display a listing of the resource.
      */
     private $guests;
+    private $representGuest;
     public function __construct()
     {
         $this->guests = new Guest();
+        $this->representGuest = new representGuest();
     }
     public function index(Request $request)
     {
         $title = "Khách hàng";
         $guests = $this->guests->getAllGuest();
         $dataa = $this->guests->getAllGuest();
+        //Dư nợ
+        foreach ($guests as $guest) {
+            $sumDebt = DetailExport::where('guest_id', $guest->id)->sum('amount_owed');
+            $guest->sumDebt = $sumDebt;
+        }
         return view('tables.guests.index', compact('title', 'guests', 'dataa'));
     }
 
@@ -38,21 +48,7 @@ class GuestController extends Controller
      */
     public function store(Request $request)
     {
-        $dataguest = [
-            'guest_name_display' => $request->guest_name_display,
-            'guest_name' => $request->guest_name,
-            'guest_address' => $request->guest_address,
-            'guest_code' => $request->guest_code,
-            'guest_phone' => $request->guest_phone,
-            'key' => $request->key,
-            'guest_email' => $request->guest_email,
-            'guest_receiver' => $request->guest_receiver,
-            'guest_email_personal' => $request->guest_email_personal,
-            'guest_phone_receiver' => $request->guest_phone_receiver,
-            'guest_debt' => $request->guest_debt,
-            'guest_note' => $request->guest_note
-        ];
-        $result = $this->guests->addGuest($dataguest);
+        $result = $this->guests->addGuest($request->all());
         if ($result == true) {
             $msg = redirect()->back()->with('msg', 'Khách hàng đã tồn tại');
         } else {
@@ -80,7 +76,17 @@ class GuestController extends Controller
         }
         $getId = $id;
         $request->session()->put('id', $id);
-        return view('tables.guests.edit', compact('title', 'guest'));
+        //Người đại diện
+        $representGuest = representGuest::where('guest_id', $id)->get();
+        //Tổng số đơn
+        $countDetail = DetailExport::where('guest_id', $id)->count();
+        //Tổng số tiền đã thanh toán
+        $sumPay = PayExport::leftJoin('guest', 'guest.id', 'pay_export.guest_id')->sum('pay_export.payment');
+        //Dư nợ
+        $sumDebt = DetailExport::where('guest_id', $id)->sum('amount_owed');
+        //Lịch sử giao dịch
+        $historyGuest = DetailExport::where('guest_id', $id)->get();
+        return view('tables.guests.edit', compact('title', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay'));
     }
 
     /**
@@ -100,10 +106,11 @@ class GuestController extends Controller
             'guest_receiver' => $request->guest_receiver,
             'guest_email_personal' => $request->guest_email_personal,
             'guest_phone_receiver' => $request->guest_phone_receiver,
-            'guest_debt' => $request->guest_debt,
+            'guest_debt' => $request->guest_debt == null ? 0 : $request->guest_debt,
             'guest_note' => $request->guest_note
         ];
         $this->guests->updateProvide($data, $id);
+        $this->representGuest->updateRepresentGuest($request->all(), $id);
         session()->forget('id');
         return redirect(route('guests.index'))->with('msg', 'Sửa khách hàng thành công');
     }
@@ -113,9 +120,15 @@ class GuestController extends Controller
      */
     public function destroy(string $id)
     {
-        $guests = Guest::find($id);
-        $guests->delete();
-        return back()->with('msg', 'Xóa khách hàng thành công');
+        $check = DetailExport::where('guest_id', $id)->first();
+        if ($check) {
+            return back()->with('warning', 'Xóa thất bại do khách hàng này đang báo giá!');
+        } else {
+            $guests = Guest::find($id);
+            $guests->delete();
+            representGuest::where('guest_id', $id)->delete();
+            return back()->with('msg', 'Xóa khách hàng thành công');
+        }
     }
 
     public function search(Request $request)

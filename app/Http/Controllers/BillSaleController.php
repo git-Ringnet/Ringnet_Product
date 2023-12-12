@@ -77,7 +77,7 @@ class BillSaleController extends Controller
         $billSale = BillSale::where('bill_sale.id', $id)
             ->leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'bill_sale.guest_id', 'guest.id')
-            ->select('*', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD')
+            ->select('*', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD', 'bill_sale.status as tinhTrang')
             ->first();
 
         $product = BillSale::join('quoteexport', 'bill_sale.detailexport_id', '=', 'quoteexport.detailexport_id')
@@ -133,7 +133,6 @@ class BillSaleController extends Controller
             }
         }
         if ($request->action == "action_2") {
-
             $this->billSale->deleteBillSale($request->all(), $id);
             return redirect()->route('billSale.index')->with('msg', 'Xóa hóa đơn bán hàng thành công!');
         }

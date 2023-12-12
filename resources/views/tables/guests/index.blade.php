@@ -174,7 +174,9 @@
                                             <td>{{ $item->guest_name }}</td>
                                             <td>{{ $item->guest_email }}</td>
                                             <td>{{ $item->guest_phone }}</td>
-                                            <td>{{ number_format($item->guest_debt) }}</td>
+                                            <td>
+                                                {{ number_format($item->sumDebt) }}
+                                            </td>
                                             <td>
                                                 <a href="{{ route('guests.edit', $item->id) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32"

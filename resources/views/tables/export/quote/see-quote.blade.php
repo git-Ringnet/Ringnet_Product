@@ -202,7 +202,7 @@
                                             </div>
                                             <div class="w-100">
                                                 <input type="text" name="date_quote" readonly
-                                                    value="{{ $detailExport->created_at->format('d/m/Y') }}"
+                                                    value="{{ date_format(new DateTime($detailExport->created_at), 'd/m/Y') }}"
                                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                             </div>
                                         </div>

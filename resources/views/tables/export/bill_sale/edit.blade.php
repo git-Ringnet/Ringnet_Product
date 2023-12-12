@@ -20,10 +20,12 @@
                     <span class="font-weight-bold">Hóa đơn bán hàng</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <button type="submit" name="action" value="action_1"
-                        class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
-                        <span>Xác nhận hóa đơn</span>
-                    </button>
+                    @if ($billSale->tinhTrang != 2)
+                        <button type="submit" name="action" value="action_1"
+                            class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                            <span>Xác nhận hóa đơn</span>
+                        </button>
+                    @endif
                     <div class="dropdown">
                         <button type="button" data-toggle="dropdown"
                             class="btn-save-print d-flex align-items-center h-100 dropdown-toggle"

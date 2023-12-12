@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -96,17 +97,30 @@ class Guest extends Model
                 'guest_name' => $data['guest_name'],
                 'guest_address' => $data['guest_address'],
                 'guest_code' => $data['guest_code'],
-                'guest_phone' => $data['guest_phone'],
-                'guest_email' => $data['guest_email'],
+                'guest_phone' => isset($data['guest_phone']) ? $data['guest_phone'] : null,
+                'guest_email' => isset($data['guest_email']) ? $data['guest_email'] : null,
                 'key' => $data['key'],
-                'guest_receiver' => $data['guest_receiver'],
-                'guest_email_personal' => $data['guest_email_personal'],
-                'guest_phone_receiver' => $data['guest_phone_receiver'],
-                'guest_debt' => $data['guest_debt'],
-                'guest_note' => $data['guest_note']
+                'guest_receiver' => isset($data['guest_receiver']) ? $data['guest_receiver'] : null,
+                'guest_email_personal' => isset($data['guest_email_personal']) ? $data['guest_email_personal'] : null,
+                'guest_phone_receiver' => isset($data['guest_phone_receiver']) ? $data['guest_phone_receiver'] : null,
+                'guest_debt' => isset($data['guest_debt']) ? $data['guest_debt'] : 0,
+                'guest_note' => isset($data['guest_note']) ? $data['guest_note'] : null,
             ];
-            $provide_id =  DB::table($this->table)->insert($dataguest);
-            if ($provide_id) {
+            $guest_id =  DB::table($this->table)->insertGetId($dataguest);
+            //Thêm người đại diện
+            for ($i = 0; $i < count($data['represent_name']); $i++) {
+                $dataRepresent = [
+                    'guest_id' => $guest_id,
+                    'represent_name' => $data['represent_name'][$i],
+                    'represent_email' => $data['represent_email'][$i],
+                    'represent_phone' => $data['represent_phone'][$i],
+                    'represent_address' => $data['represent_address'][$i],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+                DB::table('represent_guest')->insert($dataRepresent);
+            }
+            if ($guest_id) {
                 $exist = false;
             }
         }

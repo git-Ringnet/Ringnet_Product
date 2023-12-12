@@ -128,7 +128,7 @@
                                     </div>
                                     <div class="w-100">
                                         <input type="date" placeholder="Nhập thông tin" name="date_quote"
-                                            value="{{ $detailExport->created_at->format('Y-m-d') }}"
+                                            value="{{ date_format(new DateTime($detailExport->created_at), 'Y-m-d') }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
                                 </div>
