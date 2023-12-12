@@ -81,7 +81,9 @@ class GuestController extends Controller
         //Tổng số đơn
         $countDetail = DetailExport::where('guest_id', $id)->count();
         //Tổng số tiền đã thanh toán
-        $sumPay = PayExport::leftJoin('guest', 'guest.id', 'pay_export.guest_id')->sum('pay_export.payment');
+        $sumPay = PayExport::leftJoin('guest', 'guest.id', 'pay_export.guest_id')
+            ->where('guest_id', $id)
+            ->sum('pay_export.payment');
         //Dư nợ
         $sumDebt = DetailExport::where('guest_id', $id)->sum('amount_owed');
         //Lịch sử giao dịch
