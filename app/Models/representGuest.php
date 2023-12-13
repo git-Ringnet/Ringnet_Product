@@ -20,6 +20,13 @@ class representGuest extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function getRepresentGuest($id)
+    {
+        $representGuest = representGuest::where('guest_id', $id)->get();
+        return $representGuest;
+    }
+
     public function updateRepresentGuest($data, $id)
     {
         representGuest::where('guest_id', $id)->delete();
