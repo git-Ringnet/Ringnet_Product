@@ -317,6 +317,7 @@
                                             <th>Xuất hóa đơn</th>
                                             <th>Thanh toán</th>
                                             <th>Tổng tiền</th>
+                                            <th>Dư nợ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -425,6 +426,11 @@
                                                 @endif
                                             </td>
                                             <td>{{ number_format($detail->total_price) }}</td>
+                                            <td>
+                                                @if ($detail->getPayOrder && $detail->getPayOrder->getHistoryPayment)
+                                                    {{ number_format($detail->total_price - $detail->getPayOrder->getHistoryPayment->sum('payment')) }}
+                                                @endif
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

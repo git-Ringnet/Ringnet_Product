@@ -44,6 +44,9 @@ class DetailImport extends Model
     {
         return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name', $name)->get();
     }
+    public function getPayOrder(){
+        return $this->hasOne(PayOder::class, 'detailimport_id', 'id');
+    }
 
 
     public function getAllImport()
