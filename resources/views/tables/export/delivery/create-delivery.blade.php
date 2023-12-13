@@ -1588,7 +1588,7 @@
                                     <div>
                                 <input type="text" value="${item.soLuongCanGiao}" data-product-id="${item.maSP}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
-                                <p class="text-primary text-center position-absolute inventory" style="top: 68%;">Tồn kho: ${item.product_inventory == null ? 0 : item.product_code}</p>
+                                <p class="text-primary text-center position-absolute inventory" style="top: 68%;">Tồn kho: ${item.product_inventory == null ? 0 : item.product_inventory}</p>
                                 </div>  
                                 <div>
                                 <button type="button" class="btn btn-primary open-modal-btn" data-toggle="modal" data-target="#exampleModal0" style="background:transparent; border:none;">
