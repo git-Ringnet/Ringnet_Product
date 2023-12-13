@@ -30,6 +30,10 @@ class PayOder extends Model
     {
         return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
     }
+    public function getHistoryPayment()
+    {
+        return $this->hasMany(HistoryPaymentOrder::class, 'payment_id', 'id');
+    }
 
     public function updatePayment($data, $id)
     {

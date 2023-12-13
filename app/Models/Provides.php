@@ -27,16 +27,25 @@ class Provides extends Model
         return $this->hasMany(DetailImport::class, 'provide_id', 'id');
     }
 
+    public function getPayment()
+    {
+        return $this->hasOne(PayOder::class, 'provide_id', 'id');
+    }
+
     public function getAllProvide()
     {
         return DB::table($this->table)->get();
     }
     public function addProvide($data)
     {
+        $result = [];
         $exist = false;
         $provides = DB::table($this->table)->where('provide_code', $data['provide_code'])->first();
         if ($provides) {
-            $exist = true;
+            $result = [
+                'status' => true,
+            ];
+            // $exist = true;
         } else {
             if (isset($data['key'])) {
                 $key = $data['key'];
@@ -61,22 +70,71 @@ class Provides extends Model
                 'provide_address' => $data['provide_address'],
                 'provide_code' => $data['provide_code'],
                 'key' => $key,
-                'provide_represent' => $data['provide_represent'],
-                'provide_email' => $data['provide_email'],
-                'provide_phone' => $data['provide_phone'],
+                // 'provide_represent' => $data['provide_represent'],
+                // 'provide_email' => $data['provide_email'],
+                // 'provide_phone' => $data['provide_phone'],
                 'provide_debt' => 0,
-                'provide_address_delivery' => $data['provide_address_delivery']
+                // 'provide_address_delivery' => $data['provide_address_delivery']
             ];
-            $provide_id =  DB::table($this->table)->insert($dataProvide);
+            $provide_id =  DB::table($this->table)->insertGetId($dataProvide);
             if ($provide_id) {
-                $exist = false;
+                $result = [
+                    'status' => false,
+                    'id' => $provide_id
+                ];
+                // $exist = false;
             }
         }
-        return $exist;
+        return $result;
     }
     public function updateProvide($data, $id)
     {
-        return DB::table($this->table)->where('id', $id)->update($data);
+        $exist = false;
+        $check = DB::table($this->table)->where('provide_code', $data['provide_code'])
+            ->where('id', '!=', $id)
+            ->first();
+        if ($check) {
+            $exist = true;
+        } else {
+            $dataUpdate = [
+                'provide_name_display' => $data['provide_name_display'],
+                'key' => $data['key'],
+                'provide_name' => $data['provide_name'],
+                'provide_address' => $data['provide_address'],
+                'provide_code' => $data['provide_code'],
+            ];
+            Provides::where('id', $id)->update($dataUpdate);
+
+
+            if (isset($data['represent_name'])) {
+                // Xóa các id không tòn tại
+                if(isset($data['repesent_id'])){
+                    ProvideRepesent::where('provide_id', $id)->whereNotIn('id', $data['repesent_id'])->delete();
+                }
+                // Chỉnh sửa thông tin người đại diện và thêm người đại diện
+                for ($i = 0; $i < count($data['represent_name']); $i++) {
+                    $represent = ProvideRepesent::where('id', isset($data['repesent_id'][$i]) ? $data['repesent_id'][$i]  : "")->first();
+                    $dataRepresent = [
+                        'represent_name' => $data['represent_name'][$i],
+                        'represent_email' => $data['represent_email'][$i],
+                        'represent_phone' => $data['represent_phone'][$i],
+                        'represent_address' => $data['represent_address'][$i],
+                    ];
+                    if ($represent) {
+                        ProvideRepesent::where('id', $represent->id)->update($dataRepresent);
+                    } else {
+                        $dataRepresent['provide_id'] = $id;
+                        DB::table('represent_provide')->insert($dataRepresent);
+                    }
+                }
+            }else{
+                ProvideRepesent::where('provide_id', $id)->delete();
+            }
+            $exist = false;
+        }
+        return $exist;
+        // dd($data);
+        // return DB::table($this->table)->where('id', $id)->update($data);
     }
     public function getprovidebyCode($data)
     {

@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailImport;
+use App\Models\ProvideRepesent;
 use App\Models\Provides;
 use Illuminate\Http\Request;
 
 class ProvidesController extends Controller
 {
     private $provides;
+    private $repesent;
     public function __construct()
     {
         $this->provides = new Provides();
+        $this->repesent = new ProvideRepesent();
     }
     /**
      * Display a listing of the resource.
@@ -37,10 +41,12 @@ class ProvidesController extends Controller
      */
     public function store(Request $request)
     {
-        $resuilt = $this->provides->addProvide($request->all());
-        if ($resuilt == true) {
+        $result = $this->provides->addProvide($request->all());
+        if ($result['status'] == true) {
             $msg = redirect()->back()->with('msg', 'Mã số thuế đã tồn tại');
         } else {
+            // Thêm mới người đại diện
+            $this->repesent->addRePesent($request->all(), $result['id']);
             $msg = redirect()->route('provides.index')->with('msg', 'Thêm mới nhà cung cấp thành công');
         }
         return $msg;
@@ -63,10 +69,12 @@ class ProvidesController extends Controller
         $provide = Provides::findOrFail($id);
         if ($provide) {
             $title = $provide->provide_name_display;
+            $repesent = ProvideRepesent::where('provide_id', $provide->id)->get();
         }
         $getId = $id;
         $request->session()->put('id', $id);
-        return view('tables.provides.editProvides', compact('title', 'provide'));
+
+        return view('tables.provides.editProvides', compact('title', 'provide', 'repesent'));
     }
 
     /**
@@ -75,21 +83,13 @@ class ProvidesController extends Controller
     public function update(Request $request, string $id)
     {
         $id = session('id');
-        $data = [
-            'provide_name_display' => $request->provide_name_display,
-            'provide_code' => $request->provide_code,
-            'provide_name' => $request->provide_name,
-            'key' => $request->key,
-            'provide_address' => $request->provide_address,
-            'provide_represent' => $request->provide_represent,
-            'provide_email' => $request->provide_email,
-            'provide_phone' => $request->provide_phone,
-            'provide_address_delivery' => $request->provide_address_delivery,
-            'provide_debt' => $request->provide_debt,
-        ];
-        $this->provides->updateProvide($data, $id);
+        $status =  $this->provides->updateProvide($request->all(), $id);
         session()->forget('id');
-        return redirect(route('provides.index'))->with('msg', 'Sửa nhà cung cấp thành công');
+        if ($status) {
+            return redirect(route('provides.index'))->with('warning', 'Mã số thuế đã tồn tại');
+        } else {
+            return redirect(route('provides.index'))->with('msg', 'Sửa nhà cung cấp thành công');
+        }
     }
 
     /**
@@ -98,8 +98,14 @@ class ProvidesController extends Controller
     public function destroy(string $id)
     {
         $provides = Provides::find($id);
-        $provides->delete();
-        return back()->with('msg', 'Xóa nhà cung cấp thành công');
+        $checkDebt = DetailImport::where('provide_id', $provides->id)->first();
+        if ($checkDebt) {
+            return back()->with('warning', 'Nhà cung cấp đã tồn tại trong đơn mua hàng');
+        } else {
+            $provides->delete();
+            ProvideRepesent::where('provide_id', $id)->delete();
+            return back()->with('msg', 'Xóa nhà cung cấp thành công');
+        }
     }
     public function search(Request $request)
     {
