@@ -298,29 +298,27 @@
                 </section>
 
 
-
-                @if ($provide->getAllDetail)
-                    @foreach ($provide->getAllDetail as $detail)
-                        {{-- @dd($detail) --}}
-                        <section class="content mt-2">
-                            <div class="container-fluided">
-                                <table class="table table-hover bg-white rounded" id="inputcontent">
-                                    <thead>
-                                        <tr>
-                                            <th>Ngày mua hàng</th>
-                                            <th>Đơn mua hàng#</th>
-                                            <th>Số than chiếu#</th>
-                                            <th>Nhà cung cấp</th>
-                                            <th>Dự án</th>
-                                            <th>Trạng thái</th>
-                                            <th>Nhận hàng</th>
-                                            <th>Xuất hóa đơn</th>
-                                            <th>Thanh toán</th>
-                                            <th>Tổng tiền</th>
-                                            <th>Dư nợ</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                <section class="content mt-2">
+                    <div class="container-fluided">
+                        <table class="table table-hover bg-white rounded" id="inputcontent">
+                            <thead>
+                                <tr>
+                                    <th>Ngày mua hàng</th>
+                                    <th>Đơn mua hàng#</th>
+                                    <th>Số than chiếu#</th>
+                                    <th>Nhà cung cấp</th>
+                                    <th>Dự án</th>
+                                    <th>Trạng thái</th>
+                                    <th>Nhận hàng</th>
+                                    <th>Xuất hóa đơn</th>
+                                    <th>Thanh toán</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Dư nợ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if ($provide->getAllDetail)
+                                    @foreach ($provide->getAllDetail as $detail)
                                         <tr class="bg-white">
                                             <td>{{ date_format(new DateTime($detail->created_at), 'd/m/Y') }}</td>
                                             <td>{{ $detail->quotation_number }}</td>
@@ -425,21 +423,21 @@
                                                     </svg>
                                                 @endif
                                             </td>
-                                            <td>{{ number_format($detail->total_price) }}</td>
+                                            <td>{{ number_format($detail->total_tax) }}</td>
                                             <td>
                                                 @if ($detail->getPayOrder && $detail->getPayOrder->getHistoryPayment)
-                                                    {{ number_format($detail->total_price - $detail->getPayOrder->getHistoryPayment->sum('payment')) }}
+                                                    {{ number_format($detail->total_tax - $detail->getPayOrder->getHistoryPayment->sum('payment')) }}
                                                 @else
-                                                    {{ number_format($detail->total_price) }}
+                                                    {{ number_format($detail->total_tax) }}
                                                 @endif
                                             </td>
                                         </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </section>
-                    @endforeach
-                @endif
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
             </div>
         </div>
     </form>

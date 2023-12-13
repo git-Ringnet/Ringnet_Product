@@ -55,7 +55,7 @@ class PayOder extends Model
                 $total = $payment->payment + (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0);
             }
             $prepay = (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0);
-            // dd($prepay);
+
             // Tính công nợ nhà cung cấp
             $this->calculateDebt($payment->provide_id, $prepay);
             // Cập nhật trạng thái thanh toán
@@ -70,6 +70,8 @@ class PayOder extends Model
     public function addNewPayment($data, $id)
     {
         $total = 0;
+        $total_tax = 0;
+        $sum = 0;
         $detail =  DetailImport::findOrFail($id);
         if ($detail) {
             $payment = PayOder::where('detailimport_id', $detail->id)->first();
@@ -105,11 +107,14 @@ class PayOder extends Model
                                 $product = QuoteImport::where('id', $productImport->quoteImport_id)->first();
                                 $price_export = $product->price_export;
                                 $total += $price_export * $productImport->product_qty;
+                                $total_tax += ($price_export * $productImport->product_qty) * $product->product_tax / 100;
                             }
                         }
+                        $sum = $total + $total_tax;
+                        // dd($sum);
                         DB::table($this->table)->where('id', $payment_id)->update([
-                            'total' => $total,
-                            'debt' => $total - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0),
+                            'total' => $sum,
+                            'debt' => $sum - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0),
                         ]);
                     }
                 }

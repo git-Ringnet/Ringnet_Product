@@ -44,7 +44,8 @@ class DetailImport extends Model
     {
         return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name', $name)->get();
     }
-    public function getPayOrder(){
+    public function getPayOrder()
+    {
         return $this->hasOne(PayOder::class, 'detailimport_id', 'id');
     }
 
@@ -70,8 +71,10 @@ class DetailImport extends Model
                 $price_export = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
                 $total += $price_export;
             }
-            $total_tax += $data['product_tax'][$i] * $total;
+            $total_tax +=  (($data['product_tax'][$i] * $price_export) / 100);
+           
         }
+        $total_tax = $total_tax + $total;
         $dataImport = [
             'provide_id' => $data['provides_id'],
             'project_id' => isset($data['project_id']) ? $data['project_id'] : 1,
@@ -91,7 +94,7 @@ class DetailImport extends Model
             'terms_pay' => $data['terms_pay']
         ];
         $result = DB::table($this->table)->insertGetId($dataImport);
-        if(!isset($data['quotation_number'])){
+        if (!isset($data['quotation_number'])) {
             DB::table($this->table)->where('id', $result)->update([
                 'quotation_number' => $result
             ]);

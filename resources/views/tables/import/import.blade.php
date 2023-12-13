@@ -289,7 +289,7 @@
                                                     </svg>
                                                 @endif
                                             </td>
-                                            <td>{{ number_format($item->total_price) }}</td>
+                                            <td>{{ number_format($item->total_tax) }}</td>
                                             {{-- <td>
                                                 <a href="{{ route('import.edit', $item->id) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32"

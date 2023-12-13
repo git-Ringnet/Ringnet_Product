@@ -37,6 +37,8 @@ class Reciept extends Model
     {
         $detail =  DetailImport::findOrFail($id);
         $total = 0;
+        $total_tax = 0;
+        $sum = 0;
         if ($detail) {
             $dataReciept = [
                 'detailimport_id' => $id,
@@ -67,12 +69,14 @@ class Reciept extends Model
                                 $price_export = $product->price_export;
                                 $total += $price_export * $productImport->product_qty;
                             }
+                            $total_tax += (($price_export * $productImport->product_qty) * $product->product_tax) / 100;
                         }
                     }
+                    $sum = $total_tax + $total;
                 }
             }
             DB::table($this->table)->where('id', $reciept_id)->update([
-                'price_total' => $total
+                'price_total' => $sum
             ]);
         }
         if ($detail->status == 1) {
