@@ -429,6 +429,8 @@
                                             <td>
                                                 @if ($detail->getPayOrder && $detail->getPayOrder->getHistoryPayment)
                                                     {{ number_format($detail->total_price - $detail->getPayOrder->getHistoryPayment->sum('payment')) }}
+                                                @else
+                                                    {{ number_format($detail->total_price) }}
                                                 @endif
                                             </td>
                                         </tr>
