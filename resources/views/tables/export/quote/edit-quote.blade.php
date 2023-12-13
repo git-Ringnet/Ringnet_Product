@@ -140,7 +140,7 @@
                                         <input type="text" placeholder="Nhập thông tin" name="price_effect"
                                             value="{{ $detailExport->price_effect }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                            id="myInput-quote">
+                                            autocomplete="off" id="myInput-quote">
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDateForm">
                                         <ul id="myUL2"
@@ -190,7 +190,7 @@
                                         <input type="text" placeholder="Nhập thông tin" name="terms_pay"
                                             value="{{ $detailExport->terms_pay }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                            id="myInput-payment">
+                                            autocomplete="off" id="myInput-payment">
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDateForm">
                                         <ul id="myUL1"
@@ -251,7 +251,7 @@
                                         <input type="text" placeholder="Nhập thông tin" name="goods"
                                             value="{{ $detailExport->goods }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                            id="myInput-goods">
+                                            autocomplete="off" id="myInput-goods">
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDateForm">
                                         <ul id="myUL4"
@@ -301,7 +301,7 @@
                                         <input type="text" placeholder="Nhập thông tin" name="delivery"
                                             value="{{ $detailExport->delivery }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                            id="myInput-delivery">
+                                            autocomplete="off" id="myInput-delivery">
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDateForm">
                                         <ul id="myUL5"
@@ -354,7 +354,7 @@
                                         <input type="text" placeholder="Nhập thông tin" name="location"
                                             value="{{ $detailExport->location }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                            id="myInput-location">
+                                            autocomplete="off" id="myInput-location">
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDateForm">
                                         <ul id="myUL6"

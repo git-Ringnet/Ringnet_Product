@@ -134,7 +134,7 @@
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"> --}}
                                         <input type="text" placeholder="Nhập thông tin" name="price_effect"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                            id="myInput-quote">
+                                            autocomplete="off" id="myInput-quote">
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDateForm">
                                         <ul id="myUL2"
@@ -183,7 +183,7 @@
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin" name="terms_pay"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                            id="myInput-payment">
+                                            autocomplete="off" id="myInput-payment">
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDateForm">
                                         <ul id="myUL1"
@@ -260,7 +260,7 @@
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"> --}}
                                         <input type="text" placeholder="Nhập thông tin" name="goods"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                            id="myInput-goods">
+                                            autocomplete="off" id="myInput-goods">
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDateForm">
                                         <ul id="myUL4"
@@ -311,7 +311,7 @@
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"> --}}
                                         <input type="text" placeholder="Nhập thông tin" name="delivery"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                            id="myInput-delivery">
+                                            autocomplete="off" id="myInput-delivery">
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDateForm">
                                         <ul id="myUL5"
@@ -365,7 +365,7 @@
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"> --}}
                                         <input type="text" placeholder="Nhập thông tin" name="location"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                            id="myInput-location">
+                                            autocomplete="off" id="myInput-location">
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDateForm">
                                         <ul id="myUL6"
