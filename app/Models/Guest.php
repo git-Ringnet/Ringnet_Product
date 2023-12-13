@@ -120,9 +120,6 @@ class Guest extends Model
                 ];
                 DB::table('represent_guest')->insert($dataRepresent);
             }
-            if ($guest_id) {
-                $exist = false;
-            }
         }
         return $exist;
     }
