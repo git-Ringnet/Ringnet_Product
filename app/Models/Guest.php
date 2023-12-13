@@ -108,17 +108,19 @@ class Guest extends Model
             ];
             $guest_id =  DB::table($this->table)->insertGetId($dataguest);
             //Thêm người đại diện
-            for ($i = 0; $i < count($data['represent_name']); $i++) {
-                $dataRepresent = [
-                    'guest_id' => $guest_id,
-                    'represent_name' => $data['represent_name'][$i],
-                    'represent_email' => $data['represent_email'][$i],
-                    'represent_phone' => $data['represent_phone'][$i],
-                    'represent_address' => $data['represent_address'][$i],
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ];
-                DB::table('represent_guest')->insert($dataRepresent);
+            if (isset($data['represent_name'])) {
+                for ($i = 0; $i < count($data['represent_name']); $i++) {
+                    $dataRepresent = [
+                        'guest_id' => $guest_id,
+                        'represent_name' => $data['represent_name'][$i],
+                        'represent_email' => $data['represent_email'][$i],
+                        'represent_phone' => $data['represent_phone'][$i],
+                        'represent_address' => $data['represent_address'][$i],
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                    ];
+                    DB::table('represent_guest')->insert($dataRepresent);
+                }
             }
         }
         return $exist;

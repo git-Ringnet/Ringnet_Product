@@ -87,7 +87,7 @@
                                             @foreach ($numberQuote as $quote_value)
                                                 <li>
                                                     <a href="#"
-                                                        class="text-dark d-flex justify-content-between p-2 search-info"
+                                                        class="text-dark d-flex justify-content-between p-2 search-info w-100"
                                                         id="{{ $quote_value->id }}" name="search-info">
                                                         <span class="w-50">{{ $quote_value->quotation_number }}</span>
                                                     </a>

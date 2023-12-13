@@ -155,10 +155,10 @@ class PayExport extends Model
         $history->payment = $payment;
         $history->debt = $detailExport->amount_owed;
         $history->save();
-        $payExport->update([
-            'payment' => $payment,
-            'debt' =>  $detailExport->amount_owed,
-        ]);
+        //payment
+        $payExport->payment += $payment;
+        $payExport->debt += $detailExport->amount_owed;
+        $payExport->save();
         return $detailExport;
     }
     public function getAttachment($name)
@@ -216,6 +216,7 @@ class PayExport extends Model
                     'status' => 2,
                 ]);
         }
+        history_Pay_Export::where('pay_id', $id)->delete();
         PayExport::find($id)->delete();
     }
     public function sumPay($id)

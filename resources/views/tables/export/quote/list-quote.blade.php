@@ -277,7 +277,7 @@
                                                 @endif
                                             </td>
                                             <td class="border-top-0 bg-white">
-                                                {{ number_format($value_export->total_price) }}
+                                                {{ number_format($value_export->total_price + $value_export->total_tax) }}
                                             </td>
                                         </tr>
                                     @endforeach

@@ -16,8 +16,7 @@
         @csrf
         <section class="content-header p-0">
             <div class="container-fluided">
-                <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px"
-                    onclick="kiemTraFormGiaoHang(event)">
+                <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                     <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -267,13 +266,13 @@
             "<td class='border border-top-0 border-bottom-0 border-left-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_name' required name='represent_name[]'></td>"
         );
         const email = $(
-            "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_email' required name='represent_email[]'></td>"
+            "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_email' name='represent_email[]'></td>"
         );
         const soDT = $(
-            "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_phone' required name='represent_phone[]'></td>"
+            "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_phone' name='represent_phone[]'></td>"
         );
         const diaChi = $(
-            "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_address' required name='represent_address[]'></td>"
+            "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_address' name='represent_address[]'></td>"
         );
         const option = $(
             "<td class='border border-top-0 border-bottom-0 border-right-0 text-right'>" +
@@ -293,21 +292,4 @@
             fieldCounter--;
         });
     });
-    //
-    function kiemTraFormGiaoHang(event) {
-        var rows = document.querySelectorAll('tr');
-        var hasProducts = false;
-
-        for (var i = 1; i < rows.length; i++) {
-            if (rows[i].classList.contains('addProduct')) {
-                hasProducts = true;
-            }
-        }
-
-        // Hiển thị thông báo nếu không có sản phẩm
-        if (!hasProducts) {
-            alert("Chưa thêm người đại diện");
-            event.preventDefault();
-        }
-    }
 </script>
