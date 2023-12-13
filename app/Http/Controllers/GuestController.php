@@ -16,10 +16,14 @@ class GuestController extends Controller
      */
     private $guests;
     private $representGuest;
+    private $detailExport;
+    private $payExport;
     public function __construct()
     {
         $this->guests = new Guest();
         $this->representGuest = new representGuest();
+        $this->detailExport = new DetailExport();
+        $this->payExport = new PayExport();
     }
     public function index(Request $request)
     {
@@ -77,17 +81,15 @@ class GuestController extends Controller
         $getId = $id;
         $request->session()->put('id', $id);
         //Người đại diện
-        $representGuest = representGuest::where('guest_id', $id)->get();
+        $representGuest = $this->representGuest->getRepresentGuest($id);
         //Tổng số đơn
-        $countDetail = DetailExport::where('guest_id', $id)->count();
+        $countDetail = $this->detailExport->countDetail($id);
         //Tổng số tiền đã thanh toán
-        $sumPay = PayExport::leftJoin('guest', 'guest.id', 'pay_export.guest_id')
-            ->where('guest_id', $id)
-            ->sum('pay_export.payment');
+        $sumPay = $this->payExport->sumPay($id);
         //Dư nợ
-        $sumDebt = DetailExport::where('guest_id', $id)->sum('amount_owed');
+        $sumDebt = $this->detailExport->sumDebt($id);
         //Lịch sử giao dịch
-        $historyGuest = DetailExport::where('guest_id', $id)->get();
+        $historyGuest = $this->detailExport->historyGuest($id);
         return view('tables.guests.edit', compact('title', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay'));
     }
 

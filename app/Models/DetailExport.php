@@ -154,4 +154,19 @@ class DetailExport extends Model
     {
         return $this->hasMany(Attachment::class, 'table_id', 'maBG')->where('table_name', $name)->get();
     }
+    public function countDetail($id)
+    {
+        $countDetail = DetailExport::where('guest_id', $id)->count();
+        return $countDetail;
+    }
+    public function sumDebt($id)
+    {
+        $sumDebt = DetailExport::where('guest_id', $id)->sum('amount_owed');
+        return $sumDebt;
+    }
+    public function historyGuest($id)
+    {
+        $historyGuest = DetailExport::where('guest_id', $id)->get();
+        return $historyGuest;
+    }
 }

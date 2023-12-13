@@ -218,4 +218,11 @@ class PayExport extends Model
         }
         PayExport::find($id)->delete();
     }
+    public function sumPay($id)
+    {
+        $sumPay = PayExport::leftJoin('guest', 'guest.id', 'pay_export.guest_id')
+            ->where('guest_id', $id)
+            ->sum('pay_export.payment');
+        return $sumPay;
+    }
 }
