@@ -1,4 +1,5 @@
-<x-navbar :title="$title" activeGroup="buy" activeName="provide"></x-navbar>
+<x-navbar :title="$title" activeGroup="buy" activeName="provide">
+</x-navbar>
 <div class="content-wrapper" style="background: none;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -38,8 +39,8 @@
             <ul class="nav nav-tabs">
                 <li class="active mr-2 mb-3"><a class="text-secondary" data-toggle="tab" href="#info">Thông
                         tin</a></li>
-                <li class="mr-2 mb-3"><a class="text-secondary" data-toggle="tab" href="#history">Sản phẩm đã
-                        nhập</a></li>
+                <li class="mr-2 mb-3"><a class="text-secondary" data-toggle="tab" href="#history">Lịch sử giao dịch</a>
+                </li>
                 </li>
             </ul>
         </section>
@@ -126,7 +127,8 @@
                                                 <tbody>
                                                     @foreach ($repesent as $rp)
                                                         <tr class="bg-white">
-                                                            <input type="hidden" name="repesent_id[]" value="{{$rp->id}}">
+                                                            <input type="hidden" name="repesent_id[]"
+                                                                value="{{ $rp->id }}">
                                                             <td class="border border-top-0">
                                                                 <input type="text" name="represent_name[]"
                                                                     value="{{ $rp->represent_name }}"
@@ -268,9 +270,9 @@
                     <div class="container-fluided">
                         <div class="row">
                             <div class="col-12">
-                                <div class="row m-auto filter pt-2 pb-4">
+                                <div class="row m-auto filter pt-2 pb-2">
                                     <form class="w-100" action="" method="get" id="search-filter">
-                                        <div class="row mr-0">
+                                        <div class="row mr-0 w-100">
                                             <div class="col-md-5 d-flex">
                                                 <div class="position-relative" style="width: 55%;">
                                                     <input type="text" placeholder="Tìm kiếm" name="keywords"
@@ -299,32 +301,131 @@
 
                 @if ($provide->getAllDetail)
                     @foreach ($provide->getAllDetail as $detail)
+                        {{-- @dd($detail) --}}
                         <section class="content mt-2">
                             <div class="container-fluided">
                                 <table class="table table-hover bg-white rounded" id="inputcontent">
                                     <thead>
                                         <tr>
-                                            <th>Mã đơn</th>
-                                            <th>Số lượng nhập</th>
-                                            <th>Đơn giá</th>
-                                            <th>Thành tiền</th>
-                                            <th>Thuế</th>
+                                            <th>Ngày mua hàng</th>
+                                            <th>Đơn mua hàng#</th>
+                                            <th>Số than chiếu#</th>
+                                            <th>Nhà cung cấp</th>
+                                            <th>Dự án</th>
+                                            <th>Trạng thái</th>
+                                            <th>Nhận hàng</th>
+                                            <th>Xuất hóa đơn</th>
+                                            <th>Thanh toán</th>
+                                            <th>Tổng tiền</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if ($detail->getProductImport)
-                                            @foreach ($detail->getProductImport as $item)
-                                                <tr class="bg-white">
-                                                    <td>
-                                                        {{ $detail->quotation_number == null ? $detail->id : $detail->quotation_number }}
-                                                    </td>
-                                                    <td>{{ $item->product_name }}</td>
-                                                    <td>{{ $item->price_export }}</td>
-                                                    <td>{{ $item->product_total }}</td>
-                                                    <td>{{ $item->product_tax }}</td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
+                                        <tr class="bg-white">
+                                            <td>{{ date_format(new DateTime($detail->created_at), 'd/m/Y') }}</td>
+                                            <td>{{ $detail->quotation_number }}</td>
+                                            <td>{{ $detail->reference_number }}</td>
+                                            <td>
+                                                @if ($detail->getProvideName)
+                                                    {{ $detail->getProvideName->provide_name_display }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($detail->getProjectName)
+                                                    {{ $detail->getProjectName->project_name }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($detail->status_receive == 2 && $detail->status_reciept == 2 && $detail->status_pay == 2)
+                                                    <span style="color: #08AA36">Close</span>
+                                                @elseif($detail->status == 1)
+                                                    <span style="color: #858585">Draft</span>
+                                                @else
+                                                    <span style="color: #0052CC">Approved</span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($detail->status_receive == 0)
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                        height="18" viewBox="0 0 18 18" fill="none">
+                                                        <path
+                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                            fill="#D6D6D6" />
+                                                    </svg>
+                                                @elseif ($detail->status_receive == 1)
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                        height="18" viewBox="0 0 18 18" fill="none">
+                                                        <path
+                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                            fill="#08AA36" />
+                                                        <path
+                                                            d="M9 -1.90735e-06C10.1819 -1.90735e-06 11.3522 0.23279 12.4442 0.685081C13.5361 1.13737 14.5282 1.80031 15.364 2.63604C16.1997 3.47176 16.8626 4.46392 17.3149 5.55585C17.7672 6.64778 18 7.8181 18 9C18 10.1819 17.7672 11.3522 17.3149 12.4442C16.8626 13.5361 16.1997 14.5282 15.364 15.364C14.5282 16.1997 13.5361 16.8626 12.4442 17.3149C11.3522 17.7672 10.1819 18 9 18L9 9V-1.90735e-06Z"
+                                                            fill="#D6D6D6" />
+                                                    </svg>
+                                                @else
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                        height="18" viewBox="0 0 18 18" fill="none">
+                                                        <path
+                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                            fill="#08AA36" />
+                                                    </svg>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($detail->status_reciept == 0)
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                        height="18" viewBox="0 0 18 18" fill="none">
+                                                        <path
+                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                            fill="#D6D6D6" />
+                                                    </svg>
+                                                @elseif ($detail->status_reciept == 1)
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                        height="18" viewBox="0 0 18 18" fill="none">
+                                                        <path
+                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                            fill="#08AA36" />
+                                                        <path
+                                                            d="M9 -1.90735e-06C10.1819 -1.90735e-06 11.3522 0.23279 12.4442 0.685081C13.5361 1.13737 14.5282 1.80031 15.364 2.63604C16.1997 3.47176 16.8626 4.46392 17.3149 5.55585C17.7672 6.64778 18 7.8181 18 9C18 10.1819 17.7672 11.3522 17.3149 12.4442C16.8626 13.5361 16.1997 14.5282 15.364 15.364C14.5282 16.1997 13.5361 16.8626 12.4442 17.3149C11.3522 17.7672 10.1819 18 9 18L9 9V-1.90735e-06Z"
+                                                            fill="#D6D6D6" />
+                                                    </svg>
+                                                @else
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                        height="18" viewBox="0 0 18 18" fill="none">
+                                                        <path
+                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                            fill="#08AA36" />
+                                                    </svg>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($detail->status_pay == 0)
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                        height="18" viewBox="0 0 18 18" fill="none">
+                                                        <path
+                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                            fill="#D6D6D6" />
+                                                    </svg>
+                                                @elseif ($detail->status_pay == 1)
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                        height="18" viewBox="0 0 18 18" fill="none">
+                                                        <path
+                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                            fill="#08AA36" />
+                                                        <path
+                                                            d="M9 -1.90735e-06C10.1819 -1.90735e-06 11.3522 0.23279 12.4442 0.685081C13.5361 1.13737 14.5282 1.80031 15.364 2.63604C16.1997 3.47176 16.8626 4.46392 17.3149 5.55585C17.7672 6.64778 18 7.8181 18 9C18 10.1819 17.7672 11.3522 17.3149 12.4442C16.8626 13.5361 16.1997 14.5282 15.364 15.364C14.5282 16.1997 13.5361 16.8626 12.4442 17.3149C11.3522 17.7672 10.1819 18 9 18L9 9V-1.90735e-06Z"
+                                                            fill="#D6D6D6" />
+                                                    </svg>
+                                                @else
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                        height="18" viewBox="0 0 18 18" fill="none">
+                                                        <path
+                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
+                                                            fill="#08AA36" />
+                                                    </svg>
+                                                @endif
+                                            </td>
+                                            <td>{{ number_format($detail->total_price) }}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
