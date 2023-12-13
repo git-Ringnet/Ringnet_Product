@@ -91,6 +91,8 @@ class Receive_bill extends Model
             // Lấy tổng tiền hóa đơn nhập
             $product = ProductImport::where('receive_id', $receive->id)->get();
             $total = 0;
+            $total_tax = 0;
+            $sum = 0;
             foreach ($product as $item) {
                 $getProduct = QuoteImport::where('id', $item->quoteImport_id)->first();
                 if ($getProduct->product_ratio > 0 && $getProduct->price_import > 0) {
@@ -100,11 +102,13 @@ class Receive_bill extends Model
                     $price_export = $getProduct->price_export;
                     $total += $price_export * $item->product_qty;
                 }
+                $total_tax += ($price_export * $item->product_qty) * $getProduct->product_tax / 100;
             }
+            $sum = $total + $total_tax;
             $getDebt = Provides::where('id', $detail->provide_id)->first();
-            $total += $getDebt->provide_debt;
+            $sum += $getDebt->provide_debt;
             DB::table('provides')->where('id', $detail->provide_id)->update([
-                'provide_debt' => $total
+                'provide_debt' => $sum
             ]);
 
             // Cập nhật trạng thái nhận hàng
