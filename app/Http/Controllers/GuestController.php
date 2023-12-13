@@ -32,7 +32,7 @@ class GuestController extends Controller
         $dataa = $this->guests->getAllGuest();
         //Dư nợ
         foreach ($guests as $guest) {
-            $sumDebt = DetailExport::where('guest_id', $guest->id)->sum('amount_owed');
+            $sumDebt = DetailExport::where('guest_id', $guest->id)->where('status', 2)->sum('amount_owed');
             $guest->sumDebt = $sumDebt;
         }
         return view('tables.guests.index', compact('title', 'guests', 'dataa'));
@@ -66,7 +66,23 @@ class GuestController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $guest = Guest::findOrFail($id);
+        if ($guest) {
+            $title = $guest->guest_name_display;
+        }
+        //Người đại diện
+        $representGuest = $this->representGuest->getRepresentGuest($id);
+        //Tổng số đơn
+        $countDetail = $this->detailExport->countDetail($id);
+        //Tổng số tiền đã bán
+        $sumSell = $this->detailExport->sumSell($id);
+        //Tổng số tiền đã thanh toán
+        $sumPay = $this->payExport->sumPay($id);
+        //Dư nợ
+        $sumDebt = $this->detailExport->sumDebt($id);
+        //Lịch sử giao dịch
+        $historyGuest = $this->detailExport->historyGuest($id);
+        return view('tables.guests.show', compact('title', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay', 'sumSell'));
     }
 
     /**
@@ -84,13 +100,15 @@ class GuestController extends Controller
         $representGuest = $this->representGuest->getRepresentGuest($id);
         //Tổng số đơn
         $countDetail = $this->detailExport->countDetail($id);
+        //Tổng số tiền đã bán
+        $sumSell = $this->detailExport->sumSell($id);
         //Tổng số tiền đã thanh toán
         $sumPay = $this->payExport->sumPay($id);
         //Dư nợ
         $sumDebt = $this->detailExport->sumDebt($id);
         //Lịch sử giao dịch
         $historyGuest = $this->detailExport->historyGuest($id);
-        return view('tables.guests.edit', compact('title', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay'));
+        return view('tables.guests.edit', compact('title', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay', 'sumSell'));
     }
 
     /**

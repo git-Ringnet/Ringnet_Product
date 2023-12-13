@@ -178,7 +178,7 @@
                                                 {{ number_format($item->sumDebt) }}
                                             </td>
                                             <td>
-                                                <a href="{{ route('guests.edit', $item->id) }}">
+                                                <a href="{{ route('guests.show', $item->id) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32"
                                                         height="32" viewBox="0 0 32 32" fill="none">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"

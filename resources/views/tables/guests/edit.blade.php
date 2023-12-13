@@ -34,7 +34,7 @@
             </div>
         </section>
         <hr>
-        <section class="content-header p-0">
+        {{-- <section class="content-header p-0">
             <ul class="nav nav-tabs">
                 <li class="mr-2 mb-3">
                     <a class="text-secondary active m-0" data-toggle="tab" href="#info">Thông tin</a>
@@ -43,7 +43,7 @@
                     <a class="text-secondary m-0" data-toggle="tab" href="#history">Lịch sử giao dịch</a>
                 </li>
             </ul>
-        </section>
+        </section> --}}
         <div class="tab-content mt-3">
             <div id="info" class="content tab-pane in active">
                 <section class="content">
@@ -254,7 +254,8 @@
                                         </div>
                                     </section>
                                 </div>
-                                <div class="info-chung">
+
+                                {{-- <div class="info-chung">
                                     <p class="font-weight-bold ml-2 mt-5">Thông tin bán hàng</p>
                                     <div class="content-info">
                                         <div class="d-flex ml-2 align-items-center">
@@ -266,26 +267,33 @@
                                         </div>
                                         <div class="d-flex ml-2 align-items-center">
                                             <div class="title-info py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 px-3">Tổng số tiền đã bán</p>
+                                            </div>
+                                            <input type="text" value="{{ number_format($sumSell) }} vnd" readonly
+                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                        </div>
+                                        <div class="d-flex ml-2 align-items-center">
+                                            <div class="title-info py-2 border border-top-0 border-left-0">
                                                 <p class="p-0 m-0 px-3">Tổng số tiền đã thanh toán</p>
                                             </div>
-                                            <input type="text" value="{{ number_format($sumPay) }}" readonly
+                                            <input type="text" value="{{ number_format($sumPay) }} vnd" readonly
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                         </div>
                                         <div class="d-flex ml-2 align-items-center">
                                             <div class="title-info py-2 border border-top-0 border-left-0">
                                                 <p class="p-0 m-0 px-3">Dư nợ</p>
                                             </div>
-                                            <input type="text" value="{{ number_format($sumDebt) }}" readonly
+                                            <input type="text" value="{{ number_format($sumDebt) }} vnd" readonly
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
                 </section>
             </div>
-            <div id="history" class="tab-pane fade">
+            {{-- <div id="history" class="tab-pane fade">
                 <section class="content">
                     <div class="container-fluided">
                         <div class="row">
@@ -446,7 +454,7 @@
                         </table>
                     </div>
                 </section>
-            </div>
+            </div> --}}
         </div>
     </form>
 </div>

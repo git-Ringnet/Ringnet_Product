@@ -156,17 +156,25 @@ class DetailExport extends Model
     }
     public function countDetail($id)
     {
-        $countDetail = DetailExport::where('guest_id', $id)->count();
+        $countDetail = DetailExport::where('guest_id', $id)->where('status', 2)->count();
         return $countDetail;
     }
     public function sumDebt($id)
     {
-        $sumDebt = DetailExport::where('guest_id', $id)->sum('amount_owed');
+        $sumDebt = DetailExport::where('guest_id', $id)->where('status', 2)->sum('amount_owed');
         return $sumDebt;
     }
     public function historyGuest($id)
     {
         $historyGuest = DetailExport::where('guest_id', $id)->get();
         return $historyGuest;
+    }
+    public function sumSell($id)
+    {
+        $sumSell = DetailExport::where('guest_id', $id)
+            ->where('status', 2)
+            ->selectRaw('SUM(total_price + total_tax) as sumSell')
+            ->value('sumSell');
+        return $sumSell;
     }
 }
