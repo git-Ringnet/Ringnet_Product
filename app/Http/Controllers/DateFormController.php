@@ -85,6 +85,39 @@ class DateFormController extends Controller
             return $msg;
         }
     }
+    public function updateDateForm(Request $request)
+    {
+        if ($request->ajax()) {
+            $id = $request->id;
+            $data = [
+                'form_field' => $request->name,
+                'form_name' => $request->inputName,
+                'form_desc' => $request->inputDesc,
+            ];
+            $new_date_form = $this->date_form->updateDateForm($id, $data);
+            $form = DateForm::find($id);
+            $msg = response()->json([
+                'success' => true,
+                'msg' => 'Cập nhật thành công',
+                'new_date_form' => $new_date_form,
+                'form' => $form,
+            ]);
+            return $msg;
+        }
+    }
+    public function deleteDateForm(Request $request)
+    {
+        if ($request->ajax()) {
+            $id = $request->id;
+            $form = DateForm::find($id)->delete();
+            $msg = response()->json([
+                'success' => true,
+                'msg' => 'Xóa thành công',
+                'form' => $form,
+            ]);
+            return $msg;
+        }
+    }
     public function searchDateForm(Request $request)
     {
         $data = $request->all();

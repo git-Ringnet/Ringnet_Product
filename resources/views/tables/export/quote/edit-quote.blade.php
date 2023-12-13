@@ -87,7 +87,7 @@
                                             @foreach ($guest as $guest_value)
                                                 <li>
                                                     <a href="#"
-                                                        class="text-dark d-flex justify-content-between p-2 search-info"
+                                                        class="text-dark d-flex justify-content-between p-2 search-info w-100"
                                                         id="{{ $guest_value->id }}" name="search-info">
                                                         <span
                                                             class="w-50">{{ $guest_value->guest_name_display }}</span>
@@ -139,7 +139,47 @@
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin" name="price_effect"
                                             value="{{ $detailExport->price_effect }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                            id="myInput-quote">
+                                        <input type="hidden" class="idDateForm" autocomplete="off"
+                                            name="idDateForm">
+                                        <ul id="myUL2"
+                                            class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                            style="z-index: 99;">
+                                            @foreach ($date_form as $item)
+                                                @if ($item->form_field == 'quote')
+                                                    <li class="item-{{ $item->id }}">
+                                                        <a href="#"
+                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                            id="{{ $item->id }}" name="search-date-form"
+                                                            data-name="quote">
+                                                            <span class="w-50"
+                                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
+                                                        </a>
+                                                        <div class="dropdown">
+                                                            <button type="button" data-toggle="dropdown"
+                                                                class="btn-save-print d-flex align-items-center h-100"
+                                                                style="margin-right:10px">
+                                                                <i class="fa-solid fa-ellipsis"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu" style="z-index: 100;">
+                                                                <a class="dropdown-item search-date-form"
+                                                                    data-toggle="modal" data-target="#formModalquote"
+                                                                    data-name="quote" data-id="{{ $item->id }}"
+                                                                    id="{{ $item->id }}">Chỉnh sửa</a>
+                                                                <a class="dropdown-item delete-item" href="#"
+                                                                    data-id="{{ $item->id }}">Xóa</a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                            <a type="button"
+                                                class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormquote"
+                                                data-toggle="modal" data-target="#formModalquote" style="bottom: 0;">
+                                                <span class="w-50 text-white">Thêm mới</span>
+                                            </a>
+                                        </ul>
                                     </div>
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -149,7 +189,49 @@
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin" name="terms_pay"
                                             value="{{ $detailExport->terms_pay }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                            id="myInput-payment">
+                                        <input type="hidden" class="idDateForm" autocomplete="off"
+                                            name="idDateForm">
+                                        <ul id="myUL1"
+                                            class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                            style="z-index: 99;">
+                                            @foreach ($date_form as $item)
+                                                @if ($item->form_field == 'payment')
+                                                    <li class="item-{{ $item->id }}">
+                                                        <a href="#"
+                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                            id="{{ $item->id }}" name="search-date-form"
+                                                            data-name="payment">
+                                                            <span class="w-50"
+                                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
+                                                        </a>
+                                                        <div class="dropdown">
+                                                            <button type="button" data-toggle="dropdown"
+                                                                class="btn-save-print d-flex align-items-center h-100"
+                                                                style="margin-right:10px">
+                                                                <i class="fa-solid fa-ellipsis"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu" style="z-index: 100;">
+                                                                <a class="dropdown-item search-date-form"
+                                                                    data-toggle="modal"
+                                                                    data-target="#formModalpayment"
+                                                                    data-name="payment" data-id="{{ $item->id }}"
+                                                                    id="{{ $item->id }}">Chỉnh sửa</a>
+                                                                <a class="dropdown-item delete-item" href="#"
+                                                                    data-id="{{ $item->id }}">Xóa</a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                            <a type="button"
+                                                class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormpayment"
+                                                data-toggle="modal" data-target="#formModalpayment"
+                                                style="bottom: 0;">
+                                                <span class="w-50 text-white">Thêm mới</span>
+                                            </a>
+                                        </ul>
                                     </div>
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -168,7 +250,47 @@
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin" name="goods"
                                             value="{{ $detailExport->goods }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                            id="myInput-goods">
+                                        <input type="hidden" class="idDateForm" autocomplete="off"
+                                            name="idDateForm">
+                                        <ul id="myUL4"
+                                            class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                            style="z-index: 99;">
+                                            @foreach ($date_form as $item)
+                                                @if ($item->form_field == 'goods')
+                                                    <li class="item-{{ $item->id }}">
+                                                        <a href="#"
+                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                            id="{{ $item->id }}" name="search-date-form"
+                                                            data-name="goods">
+                                                            <span class="w-50"
+                                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
+                                                        </a>
+                                                        <div class="dropdown">
+                                                            <button type="button" data-toggle="dropdown"
+                                                                class="btn-save-print d-flex align-items-center h-100"
+                                                                style="margin-right:10px">
+                                                                <i class="fa-solid fa-ellipsis"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu" style="z-index: 100;">
+                                                                <a class="dropdown-item search-date-form"
+                                                                    data-toggle="modal" data-target="#formModalgoods"
+                                                                    data-name="goods" data-id="{{ $item->id }}"
+                                                                    id="{{ $item->id }}">Chỉnh sửa</a>
+                                                                <a class="dropdown-item delete-item" href="#"
+                                                                    data-id="{{ $item->id }}">Xóa</a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                            <a type="button"
+                                                class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormgoods"
+                                                data-toggle="modal" data-target="#formModalgoods" style="bottom: 0;">
+                                                <span class="w-50 text-white">Thêm mới</span>
+                                            </a>
+                                        </ul>
                                     </div>
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -178,7 +300,50 @@
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin" name="delivery"
                                             value="{{ $detailExport->delivery }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                            id="myInput-delivery">
+                                        <input type="hidden" class="idDateForm" autocomplete="off"
+                                            name="idDateForm">
+                                        <ul id="myUL5"
+                                            class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                            style="z-index: 99;">
+                                            @foreach ($date_form as $item)
+                                                @if ($item->form_field == 'delivery')
+                                                    <li class="item-{{ $item->id }}">
+                                                        <a href="#"
+                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                            id="{{ $item->id }}" name="search-date-form"
+                                                            data-name="delivery">
+                                                            <span class="w-50"
+                                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
+                                                        </a>
+                                                        <div class="dropdown">
+                                                            <button type="button" data-toggle="dropdown"
+                                                                class="btn-save-print d-flex align-items-center h-100"
+                                                                style="margin-right:10px">
+                                                                <i class="fa-solid fa-ellipsis"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu" style="z-index: 100;">
+                                                                <a class="dropdown-item search-date-form"
+                                                                    data-toggle="modal"
+                                                                    data-target="#formModaldelivery"
+                                                                    data-name="delivery"
+                                                                    data-id="{{ $item->id }}"
+                                                                    id="{{ $item->id }}">Chỉnh sửa</a>
+                                                                <a class="dropdown-item delete-item" href="#"
+                                                                    data-id="{{ $item->id }}">Xóa</a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                            <a type="button"
+                                                class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormdelivery"
+                                                data-toggle="modal" data-target="#formModaldelivery"
+                                                style="bottom: 0;">
+                                                <span class="w-50 text-white">Thêm mới</span>
+                                            </a>
+                                        </ul>
                                     </div>
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -188,7 +353,50 @@
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin" name="location"
                                             value="{{ $detailExport->location }}"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                            id="myInput-location">
+                                        <input type="hidden" class="idDateForm" autocomplete="off"
+                                            name="idDateForm">
+                                        <ul id="myUL6"
+                                            class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                            style="z-index: 99;">
+                                            @foreach ($date_form as $item)
+                                                @if ($item->form_field == 'location')
+                                                    <li class="item-{{ $item->id }}">
+                                                        <a href="#"
+                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                            id="{{ $item->id }}" name="search-date-form"
+                                                            data-name="location">
+                                                            <span class="w-50"
+                                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
+                                                        </a>
+                                                        <div class="dropdown">
+                                                            <button type="button" data-toggle="dropdown"
+                                                                class="btn-save-print d-flex align-items-center h-100"
+                                                                style="margin-right:10px">
+                                                                <i class="fa-solid fa-ellipsis"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu" style="z-index: 100;">
+                                                                <a class="dropdown-item search-date-form"
+                                                                    data-toggle="modal"
+                                                                    data-target="#formModallocation"
+                                                                    data-name="location"
+                                                                    data-id="{{ $item->id }}"
+                                                                    id="{{ $item->id }}">Chỉnh sửa</a>
+                                                                <a class="dropdown-item delete-item" href="#"
+                                                                    data-id="{{ $item->id }}">Xóa</a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                            <a type="button"
+                                                class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormlocation"
+                                                data-toggle="modal" data-target="#formModallocation"
+                                                style="bottom: 0;">
+                                                <span class="w-50 text-white">Thêm mới</span>
+                                            </a>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -609,6 +817,15 @@
                         <div class="d-flex ml-2 align-items-center">
                             <div class="title-info py-2 border border-left-0">
                                 <p class="p-0 m-0 px-3">
+                                    Key
+                                </p>
+                            </div>
+                            <input name="key" type="text" placeholder="Nhập thông tin" id="key"
+                                class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
+                        </div>
+                        <div class="d-flex ml-2 align-items-center">
+                            <div class="title-info py-2 border border-left-0">
+                                <p class="p-0 m-0 px-3">
                                     Tên công ty
                                 </p>
                             </div>
@@ -685,6 +902,11 @@
             </div>
         </div>
     </div>
+    <x-date-form-modal title="Điều khoản thanh toán" name="payment" idModal="formModalpayment"></x-date-form-modal>
+    <x-date-form-modal title="Hiệu lực báo giá" name="quote" idModal="formModalquote"></x-date-form-modal>
+    <x-date-form-modal title="Hàng hóa" name="goods" idModal="formModalgoods"></x-date-form-modal>
+    <x-date-form-modal title="Giao hàng" name="delivery" idModal="formModaldelivery"></x-date-form-modal>
+    <x-date-form-modal title="Địa điểm" name="location" idModal="formModallocation"></x-date-form-modal>
     {{-- Thông tin sản phẩm --}}
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -705,32 +927,578 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('/dist/js/export.js') }}"></script>
+
 <script>
     $("table tbody").sortable({
         axis: "y",
         handle: "td",
     });
-    //hiện danh sách khách hàng khi click trường tìm kiếm
-    $("#myUL").hide();
-    $("#myInput").on("click", function() {
-        $("#myUL").show();
-    });
-    //ẩn danh sách khách hàng
-    $(document).click(function(event) {
-        if (!$(event.target).closest("#myInput").length) {
-            $("#myUL").hide();
+
+    getKeyGuest($('#guest_name_display'));
+
+    function getQuotation(getName, count) {
+        var currentDate = new Date()
+        var day = currentDate.getDate()
+        var month = currentDate.getMonth() + 1;
+        var formattedDay = day.toString().padStart(2, '0')
+        var formattedMonth = month.toString().padStart(2, '0')
+        var formattedDate = formattedDay + formattedMonth + currentDate.getFullYear();
+        var name = "RN";
+
+        var uppercaseCharacters = getUppercaseCharacters(getName);
+        if (uppercaseCharacters) {
+            key = uppercaseCharacters
+        } else {
+            key = getUppercaseCharacters(getName.charAt(0).toUpperCase() + getName.slice(1))
         }
-    });
-    //search thông tin khách hàng
+
+        if (count < 10) {
+            if (count == 0) {
+                count = 1
+            }
+            count = '0' + count
+        } else {
+            count = count
+        }
+        quotation = formattedDate + '/' + name + '-' + key + '-' + count
+        return quotation
+    }
+    $("#myUL").hide();
+    $("#myUL1").hide();
+    $("#myUL2").hide();
+    $("#myUL4").hide();
+    $("#myUL5").hide();
+    $("#myUL6").hide();
     $(document).ready(function() {
-        $("#myInput").on("keyup", function() {
-            var value = $(this).val().toUpperCase();
-            $("#myUL li").each(function() {
-                var text = $(this).find("a").text().toUpperCase();
-                $(this).toggle(text.indexOf(value) > -1);
+        function toggleList(input, list) {
+            input.on("click", function() {
+                list.show();
+            });
+
+            $(document).click(function(event) {
+                if (!$(event.target).closest(input).length) {
+                    list.hide();
+                }
+            });
+
+            input.on("keyup", function() {
+                var value = $(this).val().toUpperCase();
+                list.find("li").each(function() {
+                    var text = $(this).find("a").text().toUpperCase();
+                    $(this).toggle(text.indexOf(value) > -1);
+                });
+            });
+        }
+
+        toggleList($("#myInput"), $("#myUL"));
+        toggleList($("#myInput-payment"), $("#myUL1"));
+        toggleList($("#myInput-quote"), $("#myUL2"));
+        toggleList($("#myInput-goods"), $("#myUL4"));
+        toggleList($("#myInput-delivery"), $("#myUL5"));
+        toggleList($("#myInput-location"), $("#myUL6"));
+    });
+
+    $(document).ready(function() {
+        $('.search-date-form').click(function() {
+            $('.modal').on('hidden.bs.modal', function() {
+                $('#form-name-' + name).val('')
+                $('#form-desc-' + name).val('')
+                $('.btn-submit').attr('data-action', 'insert').text('Lưu');
+                $('.title-dateform').text('Biểu mẫu mới');
+            });
+            var idDateForm = $(this).attr('id');
+            var name = $(this).data('name');
+            var dataid = $(this).data('id');
+            // console.log(dataid);
+            if (dataid) {
+                $('.btn-submit').attr('data-action', 'update').text(
+                    'Cập nhật');
+                $('.title-dateform').text('Cập nhật');
+            }
+            $.ajax({
+                url: '{{ route('searchDateForm') }}',
+                type: 'GET',
+                data: {
+                    idDateForm: idDateForm
+                },
+                success: function(data) {
+                    $('#myInput-' + name).val(data.form_desc);
+                    if (dataid) {
+                        $('#form-name-' + name).val(data.form_name)
+                        $('#form-desc-' + name).val(data.form_desc)
+                        $('.btn-submit').attr('data-id', dataid)
+                    }
+                    if (dataid) {
+                        $('.btn-submit').attr('data-action', 'update').text(
+                            'Cập nhật');
+                        $('.title-dateform').text('Cập nhật');
+                    }
+                }
+            });
+        });
+
+        // submit thêm mới các trường
+        $('.btn-submit').click(function(event) {
+            event.preventDefault();
+            var name = $(this).data('button-name');
+            var inputName = $('#form-name-' + name).val();
+            var inputDesc = $('#form-desc-' + name).val();
+            var action = $(this).data('action');
+
+            if ($('.btn-submit' + name).text() === 'Lưu') {
+                console.log('Đây là thêm mới');
+                $('#form-name-' + name).val('')
+                $('#form-desc-' + name).val('')
+                $.ajax({
+                    url: '{{ route('addDateForm') }}',
+                    type: 'GET',
+                    data: {
+                        name: name,
+                        inputName: inputName,
+                        inputDesc: inputDesc,
+                    },
+                    success: function(data) {
+                        $('#myInput-' + name).val(data.new_date_form.form_desc);
+                        alert(data.msg);
+                        $('.modal [data-dismiss="modal"]').click();
+                        // Thêm phần tử mới vào trong form tìm kiếm
+                        var newListItem =
+                            '<li class="item-' + data.new_date_form.id +
+                            '"><a href="#" class="text-dark d-flex justify-content-between p-2 search-date-form" id="' +
+                            data.new_date_form.id +
+                            '" name="search-date-form" data-name="' +
+                            name + '">' +
+                            '<span class="w-50" id="' + data.new_date_form.form_field + data
+                            .new_date_form.id + '">' + data.new_date_form.form_name +
+                            '</span></a><div class="dropdown">' +
+                            '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">' +
+                            '<i class="fa-solid fa-ellipsis"></i>' + '</button>' +
+                            '<div class="dropdown-menu" style="z-index: 100;">' +
+                            '<a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModal' +
+                            name + '" data-name="' +
+                            name + '" data-id="' + data.new_date_form.id +
+                            '" id="' + data.new_date_form.id + '">Chỉnh sửa</a>' +
+                            '<a class="dropdown-item delete-item" href="#" data-id="' + data
+                            .new_date_form.id + '">Xóa</a>' +
+                            '</div>' +
+                            '</div></li>';
+                        // Thêm mục mới vào danh sách
+                        var addButton = $(".addDateForm" + name);
+                        $(newListItem).insertBefore(addButton);
+                        //clear
+                        $('.search-date-form').click(function() {
+                            $('.modal').on('hidden.bs.modal', function() {
+                                $('#form-name-' + name).val('')
+                                $('#form-desc-' + name).val('')
+                                $('.btn-submit').attr('data-action',
+                                    'insert').text('Lưu');
+                                $('.title-dateform').text('Biểu mẫu mới');
+                            });
+                            var idDateForm = $(this).attr('id');
+                            var name = $(this).data('name');
+                            var dataid = $(this).data('id');
+                            // console.log(name);
+                            if (dataid) {
+                                $('.btn-submit').attr('data-action', 'update').attr(
+                                    'data-id', dataid).text(
+                                    'Cập nhật');
+                                $('.title-dateform').text('Cập nhật');
+                            }
+                            $.ajax({
+                                url: '{{ route('searchDateForm') }}',
+                                type: 'GET',
+                                data: {
+                                    idDateForm: idDateForm
+                                },
+                                success: function(data) {
+                                    $('#myInput-' + name).val(data
+                                        .form_desc);
+                                    if (dataid) {
+                                        $('#form-name-' + name).val(data
+                                            .form_name)
+                                        $('#form-desc-' + name).val(data
+                                            .form_desc)
+                                    }
+                                }
+                            });
+                        });
+                    }
+                });
+            }
+            if ($('.btn-submit' + name).text() === 'Cập nhật') {
+                console.log('Đây là update');
+                var id = $(this).data('id');
+                console.log(id);
+                $.ajax({
+                    url: '{{ route('updateDateForm') }}',
+                    type: 'GET',
+                    data: {
+                        id: id,
+                        name: name,
+                        inputName: inputName,
+                        inputDesc: inputDesc,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        $('.modal [data-dismiss="modal"]').click();
+                        alert(data.msg);
+                        $("#" + name + id).text(data.new_date_form.form_name)
+                        console.log(name, id);
+                        $('#myInput-' + name).val(data.new_date_form.form_desc);
+                    }
+                });
+            }
+        });
+
+        // Xóa form date
+        $('.delete-item').on('click', function(e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            console.log(id);
+            if (confirm('Bạn có chắc chắn muốn xóa không?')) {
+                $.ajax({
+                    url: '{{ route('deleteDateForm') }}',
+                    type: 'GET',
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        $(".item-" + id).remove();
+                    }
+                });
+            }
+        });
+
+        let fieldCounter = 1;
+        $("#add-field-btn").click(function() {
+            let nextSoTT = $(".soTT").length + 1;
+            // Tạo các phần tử HTML mới
+            const newRow = $("<tr>", {
+                "id": `dynamic-row-${fieldCounter}`,
+                "class": `bg-white addProduct`,
+            });
+            const maSanPham = $(
+                "<td class='border border-left-0 border-top-0 border-bottom-0 position-relative'>" +
+                "<div class='d-flex w-100 justify-content-between align-items-center'>" +
+                "<svg width='24' height='24' viewBox='0 0 24 24'" +
+                "fill='none' xmlns='http://www.w3.org/2000/svg'>" +
+                "<path fill-rule='evenodd' clip-rule='evenodd' d='M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z' fill='#42526E'/>" +
+                "<path fill-rule='evenodd' clip-rule='evenodd'" +
+                "d='M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z'" +
+                "fill='#42526E' />" +
+                "<path fill-rule='evenodd' clip-rule='evenodd'" +
+                "d='M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z'" +
+                "fill='#42526E' />" +
+                "<path fill-rule='evenodd' clip-rule='evenodd'" +
+                "d='M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z'" +
+                "fill='#42526E' />" +
+                "<path fill-rule='evenodd' clip-rule='evenodd'" +
+                "d='M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z'" +
+                "fill='#42526E' />" +
+                "<path fill-rule='evenodd' clip-rule='evenodd'" +
+                "d='M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z'" +
+                "fill='#42526E' />" +
+                "</svg>" +
+                "<input type='checkbox' class='cb-element'>" +
+                "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-75 product_code' name='product_code[]'>" +
+                "</td>");
+            const tenSanPham = $(
+                "<td class='border border-top-0 border-bottom-0 position-relative'>" +
+                "<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 75%;left: 10%;'>" +
+                "@foreach ($product as $product_value)" +
+                "<li>" +
+                "<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 idProduct' id='{{ $product_value->id }}' name='idProduct'>" +
+                "<span class='w-50'>{{ $product_value->product_name }}</span>" +
+                "</a>" +
+                "</li>" +
+                "@endforeach" +
+                "</a></ul>" +
+                "<div class='d-flex align-items-center'>" +
+                "<input type='text' class='border-0 px-2 py-1 w-100 product_name' autocomplete='off' required name='product_name[]'>" +
+                "<input type='hidden' class='product_id' autocomplete='off' name='product_id[]'>" +
+                "<div class='info-product' style='display: none;' data-toggle='modal' data-target='#productModal'>" +
+                "<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
+                "<path d='M8.99998 4.5C8.45998 4.5 8.09998 4.86 8.09998 5.4C8.09998 5.94 8.45998 6.3 8.99998 6.3C9.53998 6.3 9.89998 5.94 9.89998 5.4C9.89998 4.86 9.53998 4.5 8.99998 4.5Z' fill='#42526E'/>" +
+                "<path d='M9 0C4.05 0 0 4.05 0 9C0 13.95 4.05 18 9 18C13.95 18 18 13.95 18 9C18 4.05 13.95 0 9 0ZM9 16.2C5.04 16.2 1.8 12.96 1.8 9C1.8 5.04 5.04 1.8 9 1.8C12.96 1.8 16.2 5.04 16.2 9C16.2 12.96 12.96 16.2 9 16.2Z' fill='#42526E'/>" +
+                "<path d='M8.99998 7.2002C8.45998 7.2002 8.09998 7.5602 8.09998 8.10019V12.6002C8.09998 13.1402 8.45998 13.5002 8.99998 13.5002C9.53998 13.5002 9.89998 13.1402 9.89998 12.6002V8.10019C9.89998 7.5602 9.53998 7.2002 8.99998 7.2002Z' fill='#42526E'/>" +
+                "</svg></div></div></td>"
+            );
+            const dvTinh = $(
+                "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit' required name='product_unit[]'></td>"
+            );
+            const soLuong = $(
+                "<td class='border border-top-0 border-bottom-0 position-relative'>" +
+                "<input type='text' class='border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
+                "<input type='hidden' class='tonkho'>" +
+                "<p class='text-primary text-center position-absolute inventory' style='top: 68%;display: none;'>Tồn kho: <span class='soTonKho'>35</span></p>" +
+                "</td>"
+            );
+            const donGia = $(
+                "<td class='border border-top-0 border-bottom-0 position-relative'>" +
+                "<input type='text' class='border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
+                "<p class='text-primary text-right position-absolute transaction' style='top: 68%;right: 5%;'>Giao dịch gần đây</p>" +
+                "</td>"
+            );
+            const thue = $(
+                "<td class='border border-top-0 border-bottom-0 px-4'>" +
+                "<select name='product_tax[]' class='border-0 text-center product_tax' required>" +
+                "<option value='0'>0%</option>" +
+                "<option value='8'>8%</option>" +
+                "<option value='10'>10%</option>" +
+                "<option value='99'>NOVAT</option>" +
+                "</select>" +
+                "</td>"
+            );
+            const thanhTien = $(
+                "<td class='border border-top-0 border-bottom-0'><input type='text' readonly class='border-0 px-2 py-1 w-100 total-amount'>" +
+                "</td><td class='border-top border-secondary p-0 bg-secondary Daydu' style='width:1%;'></td>"
+            );
+            const option = $(
+                "<td class='border border-top-0 border-bottom-0 border-right-0 text-right'>" +
+                "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
+                "<path fill-rule='evenodd' clip-rule='evenodd' d='M10.5454 5C10.2442 5 9.99999 5.24421 9.99999 5.54545C9.99999 5.8467 10.2442 6.09091 10.5454 6.09091H13.4545C13.7558 6.09091 14 5.8467 14 5.54545C14 5.24421 13.7558 5 13.4545 5H10.5454ZM6 7.72726C6 7.42601 6.24421 7.18181 6.54545 7.18181H7.63637H16.3636H17.4545C17.7558 7.18181 18 7.42601 18 7.72726C18 8.02851 17.7558 8.27272 17.4545 8.27272H16.9091V17C16.9091 18.2113 15.9118 19.1818 14.7135 19.1818H9.25891C8.97278 19.1816 8.68906 19.1247 8.42499 19.0145C8.16092 18.9044 7.92126 18.7431 7.71979 18.5399C7.51833 18.3367 7.35905 18.0957 7.25112 17.8307C7.14347 17.5664 7.08903 17.2834 7.09091 16.9981V8.27272H6.54545C6.24421 8.27272 6 8.02851 6 7.72726ZM8.18182 17.0041V8.27272H15.8182V17C15.8182 17.5966 15.3216 18.0909 14.7135 18.0909H9.25938C9.11713 18.0908 8.97632 18.0625 8.84503 18.0077C8.71375 17.953 8.5946 17.8728 8.49444 17.7718C8.39429 17.6707 8.3151 17.5509 8.26144 17.4192C8.20779 17.2874 8.18074 17.1464 8.18182 17.0041ZM13.4545 10.0909C13.7558 10.0909 14 10.3351 14 10.6364V15.7273C14 16.0285 13.7558 16.2727 13.4545 16.2727C13.1533 16.2727 12.9091 16.0285 12.9091 15.7273V10.6364C12.9091 10.3351 13.1533 10.0909 13.4545 10.0909ZM11.0909 10.6364C11.0909 10.3351 10.8467 10.0909 10.5454 10.0909C10.2442 10.0909 9.99999 10.3351 9.99999 10.6364V15.7273C9.99999 16.0285 10.2442 16.2727 10.5454 16.2727C10.8467 16.2727 11.0909 16.0285 11.0909 15.7273V10.6364Z' fill='#42526E'/>" +
+                "</svg>" +
+                "</td>" +
+                "<td style='display:none;'><input type='text' class='product_tax1'></td>"
+            );
+            const heSoNhan = $(
+                "<td class='border border-top-0 border-bottom-0 position-relative product_ratio'>" +
+                "<input type='text' class='border-0 px-2 py-1 w-100 heSoNhan' autocomplete='off' name='product_ratio[]'>" +
+                "</td>"
+            );
+            const giaNhap = $(
+                "<td class='border border-top-0 border-bottom-0 position-relative price_import'>" +
+                "<input type='text' class='border-0 px-2 py-1 w-100 giaNhap' autocomplete='off' required name='price_import[]'>" +
+                "</td>"
+            );
+            const ghiChu = $(
+                "<td class='border border-top-0 border-bottom-0 position-relative note p-1'>" +
+                "<input type='text' class='border-0 py-1 w-100' placeholder='Nhập ghi chú' name='product_note[]'>" +
+                "</td>"
+            );
+            // Gắn các phần tử vào hàng mới
+            newRow.append(maSanPham, tenSanPham, dvTinh,
+                soLuong, donGia, thue, thanhTien, heSoNhan, giaNhap, ghiChu, option
+            );
+            $("#dynamic-fields").before(newRow);
+            // Tăng giá trị fieldCounter
+            fieldCounter++;
+            //kéo thả vị trí sản phẩm
+            $("table tbody").sortable({
+                axis: "y",
+                handle: "td",
+            });
+            //Xóa sản phẩm
+            option.click(function() {
+                $(this).closest("tr").remove();
+                fieldCounter--;
+                calculateTotalAmount();
+                calculateGrandTotal();
+                var productTaxText = $('#product-tax').text();
+                var productTaxValue = parseFloat(productTaxText.replace(/,/g, ''));
+                var taxAmount = parseFloat(('.product_tax1').text());
+                var totalTax = productTaxValue - taxAmount;
+                $('#product-tax').text(totalTax);
+            });
+            // Checkbox
+            $('#checkall').change(function() {
+                $('.cb-element').prop('checked', this.checked);
+                updateMultipleActionVisibility();
+            });
+            $('.cb-element').change(function() {
+                updateMultipleActionVisibility();
+                if ($('.cb-element:checked').length === $('.cb-element').length) {
+                    $('#checkall').prop('checked', true);
+                } else {
+                    $('#checkall').prop('checked', false);
+                }
+            });
+            $(document).on('click', '.cancal_action', function(e) {
+                e.preventDefault();
+                $('.cb-element:checked').prop('checked', false);
+                $('#checkall').prop('checked', false);
+                updateMultipleActionVisibility()
+            })
+
+            function updateMultipleActionVisibility() {
+                if ($('.cb-element:checked').length > 0) {
+                    $('.multiple_action').show();
+                    $('.count_checkbox').text('Đã chọn ' + $('.cb-element:checked').length);
+                } else {
+                    $('.multiple_action').hide();
+                }
+            }
+            //Hiển thị danh sách mã sản phẩm
+            // $(".list_code").hide();
+            // $('.product_code').on("click", function(e) {
+            //     e.stopPropagation();
+            //     $(this).closest('tr').find(".list_code").show();
+            // });
+            // $(document).on("click", function(e) {
+            //     if (!$(e.target).is(".product_code")) {
+            //         $(".list_code").hide();
+            //     }
+            // });
+            //Hiển thị danh sách tên sản phẩm
+            $(".list_product").hide();
+            $('.product_name').on("click", function(e) {
+                e.stopPropagation();
+                $(this).closest('tr').find(".list_product").show();
+            });
+            $(document).on("click", function(e) {
+                if (!$(e.target).is(".product_name")) {
+                    $(".list_product").hide();
+                }
+            });
+            //search mã sản phẩm
+            // $(".product_code").on("keyup", function() {
+            //     var value = $(this).val().toUpperCase();
+            //     var $tr = $(this).closest("tr");
+            //     $tr.find(".list_code li").each(function() {
+            //         var text = $(this).find("a").text().toUpperCase();
+            //         $(this).toggle(text.indexOf(value) > -1);
+            //     });
+            // });
+            //search tên sản phẩm
+            $(".product_name").on("keyup", function() {
+                var value = $(this).val().toUpperCase();
+                var $tr = $(this).closest("tr");
+                $tr.find(".list_product li").each(function() {
+                    var text = $(this).find("a").text().toUpperCase();
+                    $(this).toggle(text.indexOf(value) > -1);
+                });
+            });
+            //lấy thông tin sản phẩm
+            $(document).ready(function() {
+                $('.idProduct').click(function() {
+                    var productName = $(this).closest('tr').find('.product_name');
+                    var productUnit = $(this).closest('tr').find('.product_unit');
+                    var thue = $(this).closest('tr').find('.product_tax');
+                    var product_id = $(this).closest('tr').find('.product_id');
+                    var tonkho = $(this).closest('tr').find('.tonkho');
+                    var idProduct = $(this).attr('id');
+                    var soTonKho = $(this).closest('tr').find('.soTonKho');
+                    var infoProduct = $(this).closest('tr').find('.info-product');
+                    var inventory = $(this).closest('tr').find('.inventory');
+
+                    $.ajax({
+                        url: '{{ route('getProduct') }}',
+                        type: 'GET',
+                        data: {
+                            idProduct: idProduct
+                        },
+                        success: function(data) {
+                            productName.val(data.product_name);
+                            productUnit.val(data.product_unit);
+                            thue.val(data.product_tax);
+                            product_id.val(data.id);
+                            tonkho.val(data.product_inventory)
+                            soTonKho.text(parseFloat(data
+                                .product_inventory == null ? 0 :
+                                data.product_inventory));
+                            infoProduct.show();
+
+                            if (data.product_inventory > 0) {
+                                inventory.show();
+                            }
+                        }
+                    });
+                });
+            });
+            //lấy thông tin mã sản phẩm
+            // $(document).ready(function() {
+            //     $('.maSP').click(function() {
+            //         var idCode = $(this).attr('id');
+            //         var productCode = $(this).closest('tr').find('.product_code');
+            //         $.ajax({
+            //             url: '{{ route('getProductCode') }}',
+            //             type: 'GET',
+            //             data: {
+            //                 idCode: idCode
+            //             },
+            //             success: function(data) {
+            //                 productCode.val(data.product_code);
+            //             }
+            //         });
+            //     });
+            // });
+            //Xem thông tin sản phẩm
+            $('.info-product').click(function() {
+                var productName = $(this).closest('tr').find('.product_name').val();
+                var dvt = $(this).closest('tr').find('.product_unit').val();
+                var thue = $(this).closest('tr').find('.product_tax').val();
+                var tonKho = $(this).closest('tr').find('.tonkho').val();
+                $('#productModal').find('.modal-body').html('<b>Tên sản phẩm: </b> ' +
+                    productName + '<br>' +
+                    '<b>Đơn vị: </b>' + dvt + '<br>' + '<b>Tồn kho: </b>' + tonKho +
+                    '<br>' + '<b>Thuế: </b>' +
+                    (thue == 99 || thue == null ? "NOVAT" : thue + '%'));
+            });
+            //Mở rộng
+            if (status_form == 1) {
+                $('.change_colum').text('Tối giản');
+                $('.product_price').attr('readonly', false);
+                // Xóa dữ liệu trường hệ số nhân, giá nhập
+                $(this).closest("tr").find('.product_ratio').val('')
+                $(this).closest("tr").find('.price_import').val('')
+                // Xóa required
+                $('tbody .giaNhap').removeAttr('required');
+                $('.product-ratio').hide();
+                $('.product_ratio').hide()
+                $('.price_import').hide();
+                $('.note').hide();
+                $('.Daydu').hide();
+                $('.heSoNhan').val('')
+                $('.giaNhap').val('')
+            } else {
+                $('.change_colum').text('Đầy đủ');
+                $('.product_price').attr('readonly', true);
+                $(this).closest("tr").find('.product_price').val('');
+                // Xóa dữ liệu trương đơn giá
+                $(this).closest("tr").find('.price_export').val('')
+                // Thêm required
+                $('tbody .giaNhap').attr('required', true);
+                $('.product_ratio').show()
+                $('.price_import').show();
+                $('.note').show();
+                $('.Daydu').show();
+                $(this).closest("tr").find('.heSoNhan').val('');
+                $(this).closest("tr").find('.giaNhap').val('');
+            }
+        });
+    });
+    //Lấy thông tin khách hàng
+    $(document).ready(function() {
+        $('.search-info').click(function() {
+            var idGuest = $(this).attr('id');
+            $.ajax({
+                url: '{{ route('searchExport') }}',
+                type: 'GET',
+                data: {
+                    idGuest: idGuest
+                },
+                success: function(data) {
+                    console.log(data);
+                    if (data.key) {
+                        quotation = getQuotation(data.key, data['count']);
+                    } else {
+                        quotation = getQuotation(data['guest'].guest_name_display, data[
+                            'count'])
+                    }
+                    console.log(quotation);
+                    $('input[name="quotation_number"]').val(quotation);
+                    $('.nameGuest').val(data['guest'].guest_name_display);
+                    $('.idGuest').val(data['guest'].id);
+                }
             });
         });
     });
+
+
+
+
+
     //thêm sản phẩm
     $(document).ready(function() {
         let fieldCounter = 1;
@@ -1028,23 +1796,6 @@
                 $(this).closest("tr").find('.heSoNhan').val('');
                 $(this).closest("tr").find('.giaNhap').val('');
             }
-        });
-    });
-    //Lấy thông tin khách hàng
-    $(document).ready(function() {
-        $('.search-info').click(function() {
-            var idGuest = $(this).attr('id');
-            $.ajax({
-                url: '{{ route('searchExport') }}',
-                type: 'GET',
-                data: {
-                    idGuest: idGuest
-                },
-                success: function(data) {
-                    $('#myInput').val(data['guest'].guest_name_display);
-                    $('.idGuest').val(data['guest'].id);
-                }
-            });
         });
     });
     //Thêm thông tin khách hàng

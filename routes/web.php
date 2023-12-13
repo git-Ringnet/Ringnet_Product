@@ -58,6 +58,8 @@ Route::delete('/deleteFile/{folder}/{file}', [DetailImportController::class, 'de
 
 Route::resource('DateForm', DateFormController::class);
 Route::get('/addDateForm', [DateFormController::class, 'addDateForm'])->name('addDateForm');
+Route::get('/updateDateForm', [DateFormController::class, 'updateDateForm'])->name('updateDateForm');
+Route::get('/deleteDateForm', [DateFormController::class, 'deleteDateForm'])->name('deleteDateForm');
 Route::get('/searchDateForm', [DateFormController::class, 'searchDateForm'])->name('searchDateForm');
 
 
