@@ -18,7 +18,7 @@
                     <span class="font-weight-bold">Hóa đơn bán hàng mới</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px"
+                    <button type="submit" name="action" value="1" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px"
                         onclick="kiemTraFormGiaoHang(event);">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -27,6 +27,14 @@
                                 fill="white" />
                         </svg>
                         <span>Lưu nháp</span>
+                    </button>
+                    <button type="submit" name="action" value="2" class="btn-option d-flex align-items-center py-1 px-3" style="margin-right:10px"
+                        onclick="kiemTraFormGiaoHang(event);">
+                        <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9 1.38462C4.79374 1.38462 1.38462 4.79374 1.38462 9C1.38462 13.2063 4.79374 16.6154 9 16.6154C13.2063 16.6154 16.6154 13.2063 16.6154 9C16.6154 4.79374 13.2063 1.38462 9 1.38462ZM0 9C0 4.02903 4.02903 0 9 0C13.971 0 18 4.02903 18 9C18 13.971 13.971 18 9 18C4.02903 18 0 13.971 0 9Z" fill="#42446E"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1817 6.66432C13.4521 6.93468 13.4521 7.37303 13.1817 7.64339L8.56631 12.2588C8.29595 12.5291 7.8576 12.5291 7.58724 12.2588L4.81801 9.48954C4.54764 9.21918 4.54764 8.78084 4.81801 8.51047C5.08837 8.24011 5.52671 8.24011 5.79708 8.51047L8.07677 10.7902L12.2026 6.66432C12.473 6.39396 12.9113 6.39396 13.1817 6.66432Z" fill="#42446E"/>
+                            </svg>                            
+                        <span>Xác nhận</span>
                     </button>
                     <div class="dropdown">
                         <button type="button" data-toggle="dropdown"
@@ -89,7 +97,8 @@
                                                     <a href="#"
                                                         class="text-dark d-flex justify-content-between p-2 search-info w-100"
                                                         id="{{ $quote_value->id }}" name="search-info">
-                                                        <span class="w-50">{{ $quote_value->quotation_number }}</span>
+                                                        <span
+                                                            class="w-50">{{ $quote_value->quotation_number }}</span>
                                                     </a>
                                                 </li>
                                             @endforeach

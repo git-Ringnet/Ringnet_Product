@@ -55,9 +55,15 @@ class BillSaleController extends Controller
      */
     public function store(Request $request)
     {
-        $billSale_id = $this->billSale->addBillSale($request->all());
-        $this->productBill->addProductBill($request->all(), $billSale_id);
-        return redirect()->route('billSale.index')->with('msg', ' Tạo mới hóa đơn bán hàng thành công !');
+        if ($request->action == 1) {
+            $billSale_id = $this->billSale->addBillSale($request->all());
+            $this->productBill->addProductBill($request->all(), $billSale_id);
+            return redirect()->route('billSale.index')->with('msg', ' Tạo mới hóa đơn bán hàng thành công !');
+        }
+        if ($request->action == 2) {
+            $this->billSale->acceptBillSale($request->all());
+            return redirect()->route('billSale.index')->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
+        }
     }
 
     /**

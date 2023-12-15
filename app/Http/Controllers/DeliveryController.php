@@ -58,27 +58,15 @@ class DeliveryController extends Controller
      */
     public function store(Request $request)
     {
-        $delivery_id = $this->delivery->addDelivery($request->all());
-        $this->delivered->addDelivered($request->all(), $delivery_id);
-        $seriArray = $request->input('seri');
-        if (is_array($seriArray) && !empty($seriArray)) {
-            foreach ($seriArray as $maSP => $serialNumbers) {
-                foreach ($serialNumbers as $serialNumber) {
-                    if ($serialNumber != null) {
-                        $serial = new SerialNumber();
-                        $serial->serinumber = $serialNumber;
-                        $serial->receive_id = 0;
-                        $serial->detailimport_id = 0;
-                        $serial->detailexport_id = $request->detailexport_id;
-                        $serial->product_id = $maSP;
-                        $serial->status = 3;
-                        $serial->delivery_id = $delivery_id;
-                        $serial->save();
-                    }
-                }
-            }
+        if ($request->action == 1) {
+            $delivery_id = $this->delivery->addDelivery($request->all());
+            $this->delivered->addDelivered($request->all(), $delivery_id);
+            return redirect()->route('delivery.index')->with('msg', ' Tạo mới đơn giao hàng thành công !');
         }
-        return redirect()->route('delivery.index')->with('msg', ' Tạo mới đơn giao hàng thành công !');
+        if ($request->action == 2) {
+            $this->delivery->acceptDelivery($request->all());
+            return redirect()->route('delivery.index')->with('msg', 'Xác nhận đơn giao hàng thành công!');
+        }
     }
 
     /**

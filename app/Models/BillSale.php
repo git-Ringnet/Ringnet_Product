@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class BillSale extends Model
 {
@@ -196,5 +198,113 @@ class BillSale extends Model
                 ]);
         }
         BillSale::find($id)->delete();
+    }
+    public function acceptBillSale($data)
+    {
+        $totalBeforeTax = 0;
+        $totalTax = 0;
+        for ($i = 0; $i < count($data['product_name']); $i++) {
+            $price = str_replace(',', '', $data['product_price'][$i]);
+            $subtotal = $data['product_qty'][$i] * (float) $price;
+            $subTax = ($subtotal * $data['product_tax'][$i]) / 100;
+            $totalBeforeTax += $subtotal;
+            $totalTax += $subTax;
+            $tolal_all = $totalTax + $totalBeforeTax;
+        }
+        if (isset($data['date_bill'])) {
+            $date_bill = $data['date_bill'];
+        } else {
+            $date_bill = null;
+        }
+        if (isset($data['number_bill'])) {
+            $number_bill = $data['number_bill'];
+        } else {
+            $number_bill = null;
+        }
+        //add bill sale
+        $dataBill = [
+            'detailexport_id' => $data['detailexport_id'],
+            'guest_id' => $data['guest_id'],
+            'price_total' => $tolal_all,
+            'status' => 2,
+            'created_at' => $date_bill,
+            'updated_at' => $date_bill,
+            'number_bill' =>  $number_bill,
+        ];
+        $bill_sale = new BillSale($dataBill);
+        $bill_sale->save();
+        //approve
+        $detaiExport = DetailExport::where('id', $data['detailexport_id'])->first();
+        if ($detaiExport) {
+            $detaiExport->update([
+                'status' => 2,
+            ]);
+        }
+        //add product_bill
+        for ($i = 0; $i < count($data['product_name']); $i++) {
+            if ($data['product_id'][$i] != null) {
+                $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])
+                    ->where('detailexport_id', $data['detailexport_id'])
+                    ->first();
+                if ($quoteExport) {
+                    $quoteExport->qty_bill_sale += $data['product_qty'][$i];
+                    $quoteExport->save();
+                }
+            }
+
+            $dataBill = [
+                'billSale_id' => $bill_sale->id,
+                'product_id' => $data['product_id'][$i],
+                'billSale_qty' => $data['product_qty'][$i],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+            DB::table('product_bill')->insert($dataBill);
+        }
+        //cập nhật
+        $quoteExports = QuoteExport::where('detailexport_id', $data['detailexport_id'])->get();
+
+        // Biến để kiểm tra xem có ít nhất một giá trị nào lớn hơn 0 không
+        $hasNonZeroDifference = false;
+
+        foreach ($quoteExports as $quoteExport) {
+            $product_id = $quoteExport->product_id;
+
+            // Lấy tất cả các bản ghi delivered có product_id tương ứng và status = 2 từ bảng Delivery
+            $deliveriesForProduct = productBill::join('bill_sale', 'bill_sale.id', '=', 'product_bill.billSale_id')
+                ->where('product_bill.product_id', $product_id)
+                ->where('bill_sale.detailexport_id', $data['detailexport_id'])
+                ->where('bill_sale.status', 2)
+                ->get();
+
+            // Tính tổng billSale_qty
+            $totalDeliveredQty = $deliveriesForProduct->sum('billSale_qty');
+            $productQty = bcsub($quoteExport->product_qty, '0', 4);
+
+            // So sánh tổng billSale_qty với product_qty
+            if (bccomp($totalDeliveredQty, $productQty, 4) !== 0) {
+                $hasNonZeroDifference = true;
+                break;
+            }
+        }
+
+        $detailExport = DetailExport::where('id', $data['detailexport_id'])->first();
+
+        if ($detailExport) {
+            if ($hasNonZeroDifference) {
+                $detailExport->update([
+                    'status_reciept' => 3,
+                ]);
+            } else {
+                $detailExport->update([
+                    'status_reciept' => 2,
+                ]);
+                if ($detailExport->status_receive == 2 && $detailExport->status_reciept == 2 && $detailExport->status_pay == 2) {
+                    $detailExport->update([
+                        'status' => 3,
+                    ]);
+                }
+            }
+        }
     }
 }

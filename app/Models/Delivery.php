@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -328,5 +329,195 @@ class Delivery extends Model
         }
         QuoteExport::where('product_delivery', $id)->delete();
         Delivery::find($id)->delete();
+    }
+    public function acceptDelivery($data)
+    {
+        //thêm delivery
+        if (isset($data['shipping_fee'])) {
+            $shipping_fee = $data['shipping_fee'];
+            if ($shipping_fee !== null) {
+                $shipping_fee = str_replace(',', '', $shipping_fee);
+            }
+        } else {
+            $shipping_fee = null;
+        }
+        if (isset($data['shipping_unit'])) {
+            $shipping_unit = $data['shipping_unit'];
+        } else {
+            $shipping_unit = null;
+        }
+        if (isset($data['date_deliver'])) {
+            $date_deliver = $data['date_deliver'];
+        } else {
+            $date_deliver = null;
+        }
+        $dataDelivery = [
+            'guest_id' => $data['guest_id'],
+            'quotation_number' => $data['quotation_number'],
+            'shipping_unit' => $shipping_unit,
+            'shipping_fee' => $shipping_fee,
+            'detailexport_id' => $data['detailexport_id'],
+            'status' => 2,
+            'created_at' => $date_deliver,
+        ];
+        $detaiExport = DetailExport::where('id', $data['detailexport_id'])->first();
+        if ($detaiExport) {
+            $detaiExport->update([
+                'status' => 2,
+            ]);
+        }
+        $delivery = new Delivery($dataDelivery);
+        $delivery->save();
+
+        $deliveryId = $delivery->id;
+        QuoteExport::where('detailexport_id', $data['detailexport_id'])
+            ->update(['deliver_id' => $deliveryId]);
+
+        //Thêm delivered
+        for ($i = 0; $i < count($data['product_name']); $i++) {
+            $price = str_replace(',', '', $data['product_price'][$i]);
+            if (!empty($data['price_import'][$i])) {
+                $priceImport = str_replace(',', '', $data['price_import'][$i]);
+            } else {
+                $priceImport = null;
+            }
+            if ($data['product_id'][$i] == null) {
+                $dataProduct = [
+                    'product_code' => $data['product_code'][$i],
+                    'product_name' => $data['product_name'][$i],
+                    'product_unit' => $data['product_unit'][$i],
+                    'product_tax' => $data['product_tax'][$i],
+                    'product_guarantee' => 1,
+                    'product_price_export' => $price,
+                    'product_price_import' => isset($priceImport) ? $priceImport : 0,
+                    'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
+                ];
+                $product = new Products($dataProduct);
+                $product->save();
+            } else {
+                $product = Products::where('id', $data['product_id'][$i])->first();
+                if ($product) {
+                    $product->check_seri = isset($data['cbSeri'][$i]) ? $data['cbSeri'][$i] : null;
+                    $product->save();
+                }
+                $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])
+                    ->where('detailexport_id', $data['detailexport_id'])
+                    ->first();
+                if ($quoteExport) {
+                    $quoteExport->qty_delivery += $data['product_qty'][$i];
+                    $quoteExport->save();
+                }
+            }
+
+            $dataDelivered = [
+                'delivery_id' => $deliveryId,
+                'product_id' => $data['product_id'][$i],
+                'deliver_qty' => $data['product_qty'][$i],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+            DB::table('delivered')->insert($dataDelivered);
+            //thêm sản phẩm từ đơn giao hàng
+            $checkProduct = Products::where('product_name', $data['product_name'][$i])->first();
+            if (!$checkProduct) {
+                $product = new Products($dataProduct);
+                $product->save();
+            }
+            $delivery = Delivery::find($deliveryId);
+            $checkQuote = QuoteExport::where('detailexport_id', $delivery->detailexport_id)
+                ->where('product_id', $data['product_id'][$i])
+                ->first();
+            if ($delivery) {
+                if (!$checkQuote) {
+                    $dataQuote = [
+                        'detailexport_id' => $delivery->detailexport_id,
+                        'product_code' => $data['product_code'][$i],
+                        'product_id' => $checkProduct == null ? $product->id : $checkProduct->id,
+                        'product_name' => $data['product_name'][$i],
+                        'product_unit' => $data['product_unit'][$i],
+                        'product_qty' => $data['product_qty'][$i],
+                        'product_tax' => 0,
+                        'product_total' => 0,
+                        'price_export' => 0,
+                        'product_ratio' => 0,
+                        'price_import' => 0,
+                        'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                        'product_delivery' => $deliveryId,
+                        'qty_delivery' => $data['product_qty'][$i],
+                    ];
+                    DB::table('quoteexport')->insert($dataQuote);
+                }
+            }
+        }
+        if (isset($data['selected_serial_numbers'])) {
+            $selectedSerialNumbers = $data['selected_serial_numbers'];
+
+            foreach ($selectedSerialNumbers as $serialNumberId) {
+                $serialNumber = Serialnumber::find($serialNumberId);
+                if ($serialNumber) {
+                    $serialNumber->update([
+                        'detailexport_id' => $data['detailexport_id'],
+                        'status' => 2,
+                        'delivery_id' => $deliveryId,
+                    ]);
+                }
+            }
+        }
+        //xác nhận giao hàng
+        $quoteExports = QuoteExport::where('detailexport_id', $data['detailexport_id'])->get();
+
+        // Biến để kiểm tra xem có ít nhất một giá trị nào lớn hơn 0 không
+        $hasNonZeroDifference = false;
+
+        foreach ($quoteExports as $quoteExport) {
+            $product_id = $quoteExport->product_id;
+
+            // Lấy tất cả các bản ghi delivered có product_id tương ứng và status = 2 từ bảng Delivery
+            $deliveriesForProduct = Delivered::join('delivery', 'delivery.id', '=', 'delivered.delivery_id')
+                ->where('delivery.detailexport_id', $data['detailexport_id'])
+                ->where('delivered.product_id', $product_id)
+                ->where('delivery.status', 2)
+                ->get();
+
+            // Tính tổng deliver_qty
+            $totalDeliveredQty = $deliveriesForProduct->sum('deliver_qty');
+            $productQty = bcsub($quoteExport->product_qty, '0', 4);
+
+            // So sánh tổng deliver_qty với product_qty
+            if (bccomp($totalDeliveredQty, $productQty, 4) !== 0) {
+                $hasNonZeroDifference = true;
+                break;
+            }
+        }
+
+        $detailExport = DetailExport::where('id', $data['detailexport_id'])->first();
+
+        if ($detailExport) {
+            if ($hasNonZeroDifference) {
+                $detailExport->update([
+                    'status_receive' => 3,
+                ]);
+            } else {
+                $detailExport->update([
+                    'status_receive' => 2,
+                ]);
+                if ($detailExport->status_receive == 2 && $detailExport->status_reciept == 2 && $detailExport->status_pay == 2) {
+                    $detailExport->update([
+                        'status' => 3,
+                    ]);
+                }
+            }
+        }
+        for ($i = 0; $i < count($data['product_name']); $i++) {
+            $product = Products::find($data['product_id'][$i]);
+            if ($product) {
+                $result = $product->product_inventory - $data['product_qty'][$i];
+                $product->update([
+                    'product_inventory' => $result,
+                ]);
+            }
+        }
     }
 }

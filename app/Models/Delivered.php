@@ -93,6 +93,7 @@ class Delivered extends Model
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                         'product_delivery' => $id,
+                        'qty_delivery' => $data['product_qty'][$i],
                     ];
                     DB::table('quoteexport')->insert($dataQuote);
                 }

@@ -18,7 +18,8 @@
                     <span class="font-weight-bold">Đơn giao hàng mới</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px"
+                    <button type="submit" name="action" value="1"
+                        class="custom-btn d-flex align-items-center h-100" style="margin-right:10px"
                         onclick="kiemTraFormGiaoHang(event);" id="luuNhap">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -27,6 +28,20 @@
                                 fill="white" />
                         </svg>
                         <span>Lưu nháp</span>
+                    </button>
+                    <button type="submit" name="action" value="2"
+                        class="btn-option d-flex align-items-center py-1 px-3" style="margin-right:10px"
+                        onclick="kiemTraFormGiaoHang(event);" id="giaoHang">
+                        <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M9 1.38462C4.79374 1.38462 1.38462 4.79374 1.38462 9C1.38462 13.2063 4.79374 16.6154 9 16.6154C13.2063 16.6154 16.6154 13.2063 16.6154 9C16.6154 4.79374 13.2063 1.38462 9 1.38462ZM0 9C0 4.02903 4.02903 0 9 0C13.971 0 18 4.02903 18 9C18 13.971 13.971 18 9 18C4.02903 18 0 13.971 0 9Z"
+                                fill="#42446E" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M13.1817 6.66432C13.4521 6.93468 13.4521 7.37303 13.1817 7.64339L8.56631 12.2588C8.29595 12.5291 7.8576 12.5291 7.58724 12.2588L4.81801 9.48954C4.54764 9.21918 4.54764 8.78084 4.81801 8.51047C5.08837 8.24011 5.52671 8.24011 5.79708 8.51047L8.07677 10.7902L12.2026 6.66432C12.473 6.39396 12.9113 6.39396 13.1817 6.66432Z"
+                                fill="#42446E" />
+                        </svg>
+                        <span>Giao hàng</span>
                     </button>
                     <div class="dropdown">
                         <button type="button" data-toggle="dropdown"
@@ -89,7 +104,8 @@
                                                     <a href="#"
                                                         class="text-dark d-flex justify-content-between p-2 search-info w-100"
                                                         id="{{ $quote_value->id }}" name="search-info">
-                                                        <span class="w-50">{{ $quote_value->quotation_number }}</span>
+                                                        <span
+                                                            class="w-50">{{ $quote_value->quotation_number }}</span>
                                                     </a>
                                                 </li>
                                             @endforeach
@@ -243,7 +259,7 @@
                                             <th class="border-right">Tên sản phẩm</th>
                                             <th class="border-right">Đơn vị</th>
                                             <th class="border-right">Số lượng</th>
-                                            <th class="border-right">Quản lý S/N</th>
+                                            <th class="border-right d-none">Quản lý S/N</th>
                                             {{-- <th class="border-right">Đơn giá</th>
                                             <th class="border-right">Thuế</th>
                                             <th class="border-right">Thành tiền</th>
@@ -398,8 +414,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="all-modal-seri">
         </div>
     </form>
     {{-- Thông tin sản phẩm --}}
@@ -568,20 +582,11 @@
                 "<path fill-rule='evenodd' clip-rule='evenodd' d='M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z' fill='#0095F6'></path>" +
                 "</svg>" +
                 "</button>" +
-                "<button type='button' class='btn btn-primary add-seri-number d-none' data-toggle='modal' data-target='#exampleModal' style='background:transparent; border:none;'>" +
-                "<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' fill='none'>" +
-                "<rect width='32' height='32' rx='4' fill='white'></rect>" +
-                "<path fill-rule='evenodd' clip-rule='evenodd' d='M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z' fill='#0095F6'></path>" +
-                "<path fill-rule='evenodd' clip-rule='evenodd' d='M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z' fill='#0095F6'></path>" +
-                "<path fill-rule='evenodd' clip-rule='evenodd' d='M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z' fill='#0095F6'></path>" +
-                "<path fill-rule='evenodd' clip-rule='evenodd' d='M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z' fill='#0095F6'></path>" +
-                "</svg>" +
-                "</button>" +
                 "</div>" +
                 "</div>" +
                 "</td>" +
                 "</td>" +
-                "<td class='text-center ui-sortable-handle'>" +
+                "<td class='text-center ui-sortable-handle d-none'>" +
                 "<input class='check-add-sn' type='checkbox' name='cbSeri[]' value='1'>" +
                 "</td>"
             );
@@ -682,18 +687,6 @@
                 }
             }
 
-            //Hiển thị danh sách mã sản phẩm
-            // $(".list_code").hide();
-            // $('.product_code').on("click", function(e) {
-            //     e.stopPropagation();
-            //     $(this).closest('tr').find(".list_code").show();
-            // });
-            // $(document).on("click", function(e) {
-            //     if (!$(e.target).is(".product_code")) {
-            //         $(".list_code").hide();
-            //     }
-            // });
-
             //Hiển thị danh sách tên sản phẩm
             $(".list_product").hide();
             $('.product_name').on("click", function(e) {
@@ -705,15 +698,6 @@
                     $(".list_product").hide();
                 }
             });
-            //search mã sản phẩm
-            // $(".product_code").on("keyup", function() {
-            //     var value = $(this).val().toUpperCase();
-            //     var $tr = $(this).closest("tr");
-            //     $tr.find(".list_code li").each(function() {
-            //         var text = $(this).find("a").text().toUpperCase();
-            //         $(this).toggle(text.indexOf(value) > -1);
-            //     });
-            // });
             //search tên sản phẩm
             $(".product_name").on("keyup", function() {
                 var value = $(this).val().toUpperCase();
@@ -727,6 +711,7 @@
             $(document).ready(function() {
                 $('.transaction').hide();
                 $('.idProduct').click(function() {
+                    var productCode = $(this).closest('tr').find('.product_code');
                     var productName = $(this).closest('tr').find('.product_name');
                     var productUnit = $(this).closest('tr').find('.product_unit');
                     var thue = $(this).closest('tr').find('.product_tax');
@@ -745,6 +730,7 @@
                             if (Array.isArray(data) && data.length > 0) {
                                 var productData = data[0];
                                 var seriProArray = productData.seri_pro;
+                                productCode.val(productData.product_code);
                                 productName.val(productData.product_name);
                                 productUnit.val(productData.product_unit);
                                 thue.val(productData.product_tax);
@@ -776,88 +762,14 @@
                                     0 && seriProArray[0] !== null) {
                                     currentRow.find('.open-modal-btn')
                                         .removeClass('d-none');
-                                    currentRow.find('.add-seri-number')
-                                        .addClass('d-none');
                                     currentRow.find(`.check-add-sn`)
                                         .prop('disabled', true);
                                 } else {
-                                    currentRow.find('.add-seri-number')
-                                        .removeClass('d-none');
                                     currentRow.find('.open-modal-btn')
                                         .addClass('d-none');
                                     currentRow.find(`.check-add-sn`)
                                         .prop('disabled', false);
                                 }
-                                //Tạo modal
-                                var modalHTML = `<div id="list_modal"><div class="modal fade" id="exampleModal${productData.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table_SNS${productData.id}">
-                    <thead>
-                        <tr>
-                            <td style="width:2%"><input type="checkbox"></td>
-                            <th style="width:5%">STT</th>
-                            <th style="width:100%">Serial number</th>
-                            <th style="width:3%"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                    </tbody>
-                    </table>
-                    <div class="mt-4">
-                        <button type="button" class="btn btn-primary addRow${productData.id}">Thêm dòng</button>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary save-seri-btn" data-maSP="${productData.id}" data-dismiss="">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div></div>`;
-                                // Thêm modal vào body
-                                $('.all-modal-seri').append(modalHTML);
-                                var nextRowNumber = 1;
-                                $(`.addRow${productData.id}`).off('click')
-                                    .on(
-                                        'click',
-                                        function() {
-                                            // Tạo một dòng mới rỗng
-                                            var newRow = $('<tr></tr>');
-                                            // Cột checkbox
-                                            newRow.append(
-                                                '<td><input type="checkbox"></td>'
-                                            );
-                                            // Cột STT
-                                            newRow.append(
-                                                `<td>${nextRowNumber}</td>`
-                                            );
-                                            // Cột Serial number
-                                            newRow.append(
-                                                `<td><input class="form-control w-25" type="text" name="seri[${productData.id}][]" data-product-id="${productData.id}"></td>`
-                                            );
-                                            // Cột nút xóa
-                                            newRow.append(`
-                                            <td class="deleteRow1${productData.id}">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M14.0606 6.66675C13.6589 6.66675 13.3333 6.99236 13.3333 7.39402C13.3333 7.79568 13.6589 8.12129 14.0606 8.12129H17.9394C18.341 8.12129 18.6667 7.79568 18.6667 7.39402C18.6667 6.99236 18.341 6.66675 17.9394 6.66675H14.0606ZM8 10.3031C8 9.90143 8.32561 9.57582 8.72727 9.57582H10.1818H21.8182H23.2727C23.6744 9.57582 24 9.90143 24 10.3031C24 10.7048 23.6744 11.0304 23.2727 11.0304H22.5455V22.6667C22.5455 24.2819 21.2158 25.5758 19.6179 25.5758H12.3452C11.9637 25.5755 11.5854 25.4997 11.2333 25.3528C10.8812 25.2059 10.5617 24.9908 10.2931 24.7199C10.0244 24.449 9.81206 24.1276 9.66816 23.7743C9.52463 23.4219 9.45204 23.0447 9.45455 22.6642V11.0304H8.72727C8.32561 11.0304 8 10.7048 8 10.3031ZM10.9091 22.6723V11.0304H21.0909V22.6667C21.0909 23.4623 20.4288 24.1213 19.6179 24.1213H12.3458C12.1562 24.1211 11.9684 24.0834 11.7934 24.0104C11.6183 23.9374 11.4595 23.8304 11.3259 23.6958C11.1924 23.5611 11.0868 23.4013 11.0153 23.2257C10.9437 23.05 10.9076 22.8619 10.9091 22.6723ZM17.9394 13.4546C18.3411 13.4546 18.6667 13.7802 18.6667 14.1819V20.9698C18.6667 21.3714 18.3411 21.6971 17.9394 21.6971C17.5377 21.6971 17.2121 21.3714 17.2121 20.9698V14.1819C17.2121 13.7802 17.5377 13.4546 17.9394 13.4546ZM14.7879 14.1819C14.7879 13.7802 14.4623 13.4546 14.0606 13.4546C13.6589 13.4546 13.3333 13.7802 13.3333 14.1819V20.9698C13.3333 21.3714 13.6589 21.6971 14.0606 21.6971C14.4623 21.6971 14.7879 21.3714 14.7879 20.9698V14.1819Z" fill="#555555"></path>
-                                                </svg>                           
-                                            </td>
-                                        `);
-                                            // Thêm dòng mới vào tbody
-                                            $(`.table_SNS${productData.id} tbody`)
-                                                .append(newRow);
-                                            // Tăng số thứ tự cho lần thêm dòng tiếp theo
-                                            nextRowNumber++;
-                                        });
-                                // 
                                 //Hiện SN theo sản phẩm
                                 $('.open-modal-btn').off('click').on(
                                     'click',
@@ -1134,99 +1046,19 @@
                                             }
                                         });
                                     });
-                                //Xóa S/N
-                                $(document).on('click',
-                                    `.deleteRow1${productData.id}`,
-                                    function() {
-                                        var tbody = $(
-                                            `.table_SNS${productData.id} tbody`
-                                        );
-
-                                        // Xác định dòng cần xóa
-                                        var currentRow = $(this)
-                                            .closest('tr');
-
-                                        // Xóa dòng
-                                        currentRow.remove();
-
-                                        // Cập nhật lại số thứ tự sau mỗi lần xóa
-                                        updateRowNumbers(tbody);
-                                    });
-
-                                // Hàm cập nhật số thứ tự
-                                function updateRowNumbers(tbody) {
-                                    // Lặp qua tất cả các dòng và cập nhật số thứ tự
-                                    tbody.find('tr').each(function(
-                                        index) {
-                                        $(this).find(
-                                            'td:nth-child(2)'
-                                        ).text(index +
-                                            1);
-                                    });
+                                //Hủy checked
+                                if (productData.check_seri == 1) {
+                                    currentRow.find(`.check-add-sn`)
+                                        .prop('checked', true);
+                                } else {
+                                    currentRow.find(`.check-add-sn`)
+                                        .prop('checked', false);
                                 }
-                                //Kiểm tra seri có được nhập
-                                $('.save-seri-btn').off('click').on(
-                                    'click',
-                                    function() {
-                                        var maSP = $(this).data(
-                                            'masp');
-                                        var inputs = $(
-                                            'input[name="seri[' +
-                                            maSP + '][]"]'
-                                        );
-                                        var quantityInput = $(
-                                            'input.quantity-input[data-product-id="' +
-                                            maSP + '"]');
-                                        var requiredCount =
-                                            parseInt(quantityInput
-                                                .val());
-                                        var isValid = true;
-                                        if (inputs.length > 0) {
-                                            if (inputs.length !==
-                                                requiredCount) {
-                                                isValid = false;
-                                            } else {
-                                                inputs.each(
-                                                    function() {
-                                                        if ($(
-                                                                this
-                                                            )
-                                                            .val()
-                                                            .trim() ===
-                                                            ''
-                                                        ) {
-                                                            isValid
-                                                                =
-                                                                false;
-                                                            return false;
-                                                        }
-                                                    });
-                                            }
-
-                                            if (!isValid) {
-                                                alert(
-                                                    'Serinumber đang được bỏ trống hoặc chưa được nhập đủ số lượng!'
-                                                );
-                                                $(this).attr(
-                                                    'data-dismiss',
-                                                    '');
-                                            } else {
-                                                $(this).attr(
-                                                    'data-dismiss',
-                                                    'modal');
-                                            }
-                                        } else {
-                                            alert(
-                                                'Vui lòng thêm serinumber!'
-                                            );
-                                        }
-                                    });
                                 //Kiểm tra đã thêm seri chưa
                                 $('#luuNhap').off('click').on('click',
                                     function(e) {
                                         var
                                             insufficientSeriProducts = [];
-
                                         $(".bg-white.addProduct")
                                             .each(function() {
                                                 var checkbox =
@@ -1234,65 +1066,6 @@
                                                     .find(
                                                         ".check-add-sn"
                                                     );
-                                                var isCheckedAndNotDisabled =
-                                                    checkbox
-                                                    .prop(
-                                                        "checked"
-                                                    ) && !
-                                                    checkbox
-                                                    .prop(
-                                                        "disabled"
-                                                    );
-
-                                                if (
-                                                    isCheckedAndNotDisabled
-                                                ) {
-                                                    var quantityValue =
-                                                        parseInt(
-                                                            $(
-                                                                this
-                                                            )
-                                                            .find(
-                                                                ".quantity-input"
-                                                            )
-                                                            .val()
-                                                        );
-                                                    var productId =
-                                                        $(this)
-                                                        .find(
-                                                            ".product_id"
-                                                        )
-                                                        .val();
-                                                    var productName =
-                                                        $(this)
-                                                        .find(
-                                                            ".product_name"
-                                                        )
-                                                        .val();
-
-                                                    for (var i =
-                                                            0; i <
-                                                        quantityValue; i++
-                                                    ) {
-                                                        var isSeriInputExist =
-                                                            $(
-                                                                `input[name="seri[${productId}][]"][data-product-id="${productId}"]:eq(${i})`
-                                                            )
-                                                            .length >
-                                                            0;
-
-                                                        if (!
-                                                            isSeriInputExist
-                                                        ) {
-                                                            insufficientSeriProducts
-                                                                .push(
-                                                                    productName
-                                                                );
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-
                                                 // Trường hợp chọn seri
                                                 if (checkbox
                                                     .prop(
@@ -1303,7 +1076,7 @@
                                                         "disabled"
                                                     )) {
                                                     var quantityValue =
-                                                        parseInt(
+                                                        parseFloat(
                                                             $(
                                                                 this
                                                             )
@@ -1366,9 +1139,6 @@
                                                         .find(
                                                             '.product_name'
                                                         ).val();
-                                                    console.log(
-                                                        productName
-                                                    );
                                                     var productUnit =
                                                         $(this)
                                                         .find(
@@ -1402,35 +1172,165 @@
                                             }
                                         }
                                     });
-                                //Hủy checked
-                                if (productData.check_seri == 1) {
-                                    currentRow.find(`.check-add-sn`)
-                                        .prop('checked', true);
-                                } else {
-                                    currentRow.find(`.check-add-sn`)
-                                        .prop('checked', false);
-                                    currentRow.find('.add-seri-number')
-                                        .addClass('d-none');
-                                }
-                                $('.check-add-sn').on('change',
-                                    function() {
-                                        // Lấy id của hàng tr
-                                        var rowId = $(this).closest(
-                                            'tr').attr('id');
-                                        var maSP = $(this).data(
-                                            'seri');
-                                        if ($(this).prop(
-                                                'checked')) {
-                                            $(`#${rowId} .add-seri-number`)
-                                                .removeClass('d-none');
+                                $('#giaoHang').off('click').on('click',
+                                    function(e) {
+                                        var
+                                            insufficientSeriProducts = [];
+                                        var
+                                            invalidInventoryProducts = [];
+
+                                        $(".bg-white.addProduct").each(
+                                            function() {
+                                                var soTonKho =
+                                                    parseFloat($(
+                                                            this)
+                                                        .find(
+                                                            ".soTonKho"
+                                                        ).text()
+                                                    );
+                                                var checkbox = $(
+                                                    this).find(
+                                                    ".check-add-sn"
+                                                );
+
+                                                var quantity =
+                                                    parseFloat(
+                                                        $(this)
+                                                        .find(
+                                                            ".quantity-input"
+                                                        )
+                                                        .val());
+                                                var productNameInventory =
+                                                    $(this)
+                                                    .find(
+                                                        ".product_name"
+                                                    ).val();
+                                                // Kiểm tra số lượng tồn kho
+                                                if (quantity >
+                                                    soTonKho) {
+                                                    invalidInventoryProducts
+                                                        .push(
+                                                            productNameInventory
+                                                        );
+                                                }
+
+                                                if (checkbox.prop(
+                                                        "checked"
+                                                    ) &&
+                                                    checkbox.prop(
+                                                        "disabled")
+                                                ) {
+                                                    var quantityValue =
+                                                        parseFloat(
+                                                            $(this)
+                                                            .find(
+                                                                ".quantity-input"
+                                                            )
+                                                            .val());
+                                                    var productId =
+                                                        $(this)
+                                                        .find(
+                                                            ".product_id"
+                                                        ).val();
+                                                    var productName =
+                                                        $(this)
+                                                        .find(
+                                                            ".product_name"
+                                                        ).val();
+
+                                                    for (var i =
+                                                            0; i <
+                                                        quantityValue; i++
+                                                    ) {
+                                                        var isSeriInputExist =
+                                                            $(
+                                                                `input[name="selected_serial_numbers[]"][data-product-id="${productId}"]:eq(${i})`
+                                                            )
+                                                            .length >
+                                                            0;
+
+                                                        if (!
+                                                            isSeriInputExist
+                                                        ) {
+                                                            insufficientSeriProducts
+                                                                .push(
+                                                                    productName
+                                                                );
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            });
+
+                                        // Hiển thị thông báo nếu có sản phẩm không đủ "seri"
+                                        if (insufficientSeriProducts
+                                            .length > 0) {
+                                            alert(
+                                                `Số lượng "seri" không đủ cho các sản phẩm: ${insufficientSeriProducts.join(", ")}`
+                                            );
+                                            e.preventDefault();
                                         } else {
-                                            $(`#${rowId} .add-seri-number`)
-                                                .addClass('d-none');
-                                            $('input[name="seri[' +
-                                                    productData.id +
-                                                    '][]"]')
-                                                .closest('tr')
-                                                .remove();
+                                            // Hiển thị thông báo nếu không đủ số lượng tồn kho
+                                            if (invalidInventoryProducts
+                                                .length > 0) {
+                                                alert("Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                    invalidInventoryProducts
+                                                    .join(', '));
+                                                e.preventDefault();
+                                            } else {
+                                                // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
+                                                var allFieldsFilled =
+                                                    true;
+
+                                                $('.addProduct').each(
+                                                    function() {
+                                                        var productName =
+                                                            $(this)
+                                                            .find(
+                                                                '.product_name'
+                                                            )
+                                                            .val();
+                                                        var productUnit =
+                                                            $(this)
+                                                            .find(
+                                                                '.product_unit'
+                                                            )
+                                                            .val();
+                                                        var productQty =
+                                                            $(this)
+                                                            .find(
+                                                                '.quantity-input'
+                                                            )
+                                                            .val();
+
+                                                        if (productName ===
+                                                            '' ||
+                                                            productUnit ===
+                                                            '' ||
+                                                            productQty ===
+                                                            '') {
+                                                            allFieldsFilled
+                                                                =
+                                                                false;
+                                                            return false;
+                                                        }
+                                                    });
+
+                                                if (allFieldsFilled) {
+                                                    $('.check-add-sn:checked[disabled]')
+                                                        .prop(
+                                                            'disabled',
+                                                            false);
+                                                    document
+                                                        .getElementById(
+                                                            'deliveryForm'
+                                                        ).submit();
+                                                } else {
+                                                    console.log(
+                                                        'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
+                                                    );
+                                                }
+                                            }
                                         }
                                     });
                             } else {
@@ -1446,23 +1346,6 @@
                 });
             });
 
-            //lấy thông tin mã sản phẩm
-            // $(document).ready(function() {
-            //     $('.maSP').click(function() {
-            //         var idCode = $(this).attr('id');
-            //         var productCode = $(this).closest('tr').find('.product_code');
-            //         $.ajax({
-            //             url: '{{ route('getProductCode') }}',
-            //             type: 'GET',
-            //             data: {
-            //                 idCode: idCode
-            //             },
-            //             success: function(data) {
-            //                 productCode.val(data.product_code);
-            //             }
-            //         });
-            //     });
-            // });
             //Xem thông tin sản phẩm
             $('.info-product').click(function() {
                 var productName = $(this).closest('tr').find('.product_name').val();
@@ -1588,7 +1471,7 @@
                                     <div>
                                 <input type="text" value="${item.soLuongCanGiao}" data-product-id="${item.maSP}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
-                                <p class="text-primary text-center position-absolute inventory" style="top: 68%;">Tồn kho: ${item.product_inventory == null ? 0 : item.product_inventory}</p>
+                                <p class="text-primary text-center position-absolute inventory" style="top: 68%;">Tồn kho: <span class="soTonKho">${item.product_inventory == null ? 0 : item.product_inventory}</span></p>
                                 </div>  
                                 <div>
                                 <button type="button" class="btn btn-primary open-modal-btn" data-toggle="modal" data-target="#exampleModal0" style="background:transparent; border:none;">
@@ -1600,19 +1483,10 @@
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z" fill="#0095F6"></path>
                                     </svg>
                                 </button>
-                                <button type="button" class="btn btn-primary add-seri-number" data-toggle="modal" data-target="#exampleModal${item.maSP}" style="background:transparent; border:none;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                                        <rect width="32" height="32" rx="4" fill="white"></rect>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z" fill="#0095F6"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z" fill="#0095F6"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z" fill="#0095F6"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z" fill="#0095F6"></path>
-                                    </svg>
-                                </button>
                                 </div>
                                 </div>
                             </td>
-                            <td class="text-center">
+                            <td class="text-center d-none">
                                 <input class="check-add-sn" data-seri="${item.maSP}" type="checkbox" name="cbSeri[]" value="1" ${(item.check_seri == 1) ? 'checked' : ''}>    
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative d-none">
@@ -1650,107 +1524,6 @@
                             <td style='display:none;'><ul class ='seri_pro'></ul></td>
                             </tr>`;
                                 $("#dynamic-fields").before(newRow);
-                                // Tạo modal HTML
-                                var modalHTML = `<div id="list_modal"><div class="modal fade" id="exampleModal${item.maSP}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table_SNS${item.maSP}">
-                    <thead>
-                        <tr>
-                            <td style="width:2%"><input type="checkbox"></td>
-                            <th style="width:5%">STT</th>
-                            <th style="width:100%">Serial number</th>
-                            <th style="width:3%"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                    </tbody>
-                    </table>
-                    <div class="mt-4">
-                        <button type="button" class="btn btn-primary addRow${item.maSP}">Thêm dòng</button>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary save-seri-btn" data-maSP="${item.maSP}" data-dismiss="">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div></div>`;
-                                // Thêm modal vào body
-                                $('.all-modal-seri').append(modalHTML);
-
-                                //add SN mới
-                                var nextRowNumber = 1;
-                                $(`.addRow${item.maSP}`).off('click')
-                                    .on(
-                                        'click',
-                                        function() {
-                                            // Tạo một dòng mới rỗng
-                                            var newRow = $('<tr></tr>');
-                                            // Cột checkbox
-                                            newRow.append(
-                                                '<td><input type="checkbox"></td>'
-                                            );
-                                            // Cột STT
-                                            newRow.append(
-                                                `<td>${nextRowNumber}</td>`
-                                            );
-                                            // Cột Serial number
-                                            newRow.append(
-                                                `<td><input class="form-control w-25" type="text" name="seri[${item.maSP}][]" data-product-id="${item.maSP}"></td>`
-                                            );
-                                            // Cột nút xóa
-                                            newRow.append(`
-                                            <td class="deleteRow1${item.maSP}">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M14.0606 6.66675C13.6589 6.66675 13.3333 6.99236 13.3333 7.39402C13.3333 7.79568 13.6589 8.12129 14.0606 8.12129H17.9394C18.341 8.12129 18.6667 7.79568 18.6667 7.39402C18.6667 6.99236 18.341 6.66675 17.9394 6.66675H14.0606ZM8 10.3031C8 9.90143 8.32561 9.57582 8.72727 9.57582H10.1818H21.8182H23.2727C23.6744 9.57582 24 9.90143 24 10.3031C24 10.7048 23.6744 11.0304 23.2727 11.0304H22.5455V22.6667C22.5455 24.2819 21.2158 25.5758 19.6179 25.5758H12.3452C11.9637 25.5755 11.5854 25.4997 11.2333 25.3528C10.8812 25.2059 10.5617 24.9908 10.2931 24.7199C10.0244 24.449 9.81206 24.1276 9.66816 23.7743C9.52463 23.4219 9.45204 23.0447 9.45455 22.6642V11.0304H8.72727C8.32561 11.0304 8 10.7048 8 10.3031ZM10.9091 22.6723V11.0304H21.0909V22.6667C21.0909 23.4623 20.4288 24.1213 19.6179 24.1213H12.3458C12.1562 24.1211 11.9684 24.0834 11.7934 24.0104C11.6183 23.9374 11.4595 23.8304 11.3259 23.6958C11.1924 23.5611 11.0868 23.4013 11.0153 23.2257C10.9437 23.05 10.9076 22.8619 10.9091 22.6723ZM17.9394 13.4546C18.3411 13.4546 18.6667 13.7802 18.6667 14.1819V20.9698C18.6667 21.3714 18.3411 21.6971 17.9394 21.6971C17.5377 21.6971 17.2121 21.3714 17.2121 20.9698V14.1819C17.2121 13.7802 17.5377 13.4546 17.9394 13.4546ZM14.7879 14.1819C14.7879 13.7802 14.4623 13.4546 14.0606 13.4546C13.6589 13.4546 13.3333 13.7802 13.3333 14.1819V20.9698C13.3333 21.3714 13.6589 21.6971 14.0606 21.6971C14.4623 21.6971 14.7879 21.3714 14.7879 20.9698V14.1819Z" fill="#555555"></path>
-                                                </svg>                           
-                                            </td>
-                                        `);
-                                            // Thêm dòng mới vào tbody
-                                            $(`.table_SNS${item.maSP} tbody`)
-                                                .append(newRow);
-                                            // Tăng số thứ tự cho lần thêm dòng tiếp theo
-                                            nextRowNumber++;
-                                        });
-                                //Xóa S/N
-                                $(document).on('click',
-                                    `.deleteRow1${item.maSP}`,
-                                    function() {
-                                        var tbody = $(
-                                            `.table_SNS${item.maSP} tbody`
-                                        );
-
-                                        // Xác định dòng cần xóa
-                                        var currentRow = $(this)
-                                            .closest('tr');
-
-                                        // Xóa dòng
-                                        currentRow.remove();
-
-                                        // Cập nhật lại số thứ tự sau mỗi lần xóa
-                                        updateRowNumbers(tbody);
-                                    });
-
-                                // Hàm cập nhật số thứ tự
-                                function updateRowNumbers(tbody) {
-                                    // Lặp qua tất cả các dòng và cập nhật số thứ tự
-                                    tbody.find('tr').each(function(
-                                        index) {
-                                        $(this).find(
-                                            'td:nth-child(2)'
-                                        ).text(index +
-                                            1);
-                                    });
-                                }
                                 //Check S/N
                                 var rowId = $(this.currentTarget)
                                     .closest('tr').attr('id');
@@ -1766,8 +1539,6 @@
                                 if (seriList.length > 0) {
                                     rowElement.find(`.check-add-sn`)
                                         .prop('disabled', true);
-                                    rowElement.find(`.add-seri-number`)
-                                        .hide();
                                     seriProElement.hide();
                                 } else {
                                     seriProElement.html(
@@ -1776,35 +1547,6 @@
                                     rowElement.find(`.open-modal-btn`)
                                         .hide();
                                 }
-                                //Hủy checked quản lý S/N
-                                $('.check-add-sn').on('change',
-                                    function() {
-                                        // Lấy id của hàng tr
-                                        var rowId = $(this).closest(
-                                            'tr').attr('id');
-                                        var maSP = $(this).data(
-                                            'seri');
-                                        if ($(this).prop(
-                                                'checked')) {
-                                            $(`#${rowId} .add-seri-number`)
-                                                .show();
-                                        } else {
-                                            $(`#${rowId} .add-seri-number`)
-                                                .hide();
-                                            $('input[name="seri[' +
-                                                    maSP + '][]"]')
-                                                .closest('tr')
-                                                .remove();
-                                        }
-                                    });
-                                // Initially hide the buttons for unchecked checkboxes
-                                $('.check-add-sn:not(:checked)').each(
-                                    function() {
-                                        var rowId = $(this).closest(
-                                            'tr').attr('id');
-                                        $(`#${rowId} .add-seri-number`)
-                                            .hide();
-                                    });
                                 //Kiểm tra đã thêm seri chưa
                                 $('#luuNhap').off('click').on('click',
                                     function(e) {
@@ -1827,56 +1569,6 @@
                                                     .prop(
                                                         "disabled"
                                                     );
-
-                                                if (
-                                                    isCheckedAndNotDisabled
-                                                ) {
-                                                    var quantityValue =
-                                                        parseInt(
-                                                            $(
-                                                                this
-                                                            )
-                                                            .find(
-                                                                ".quantity-input"
-                                                            )
-                                                            .val()
-                                                        );
-                                                    var productId =
-                                                        $(this)
-                                                        .find(
-                                                            ".product_id"
-                                                        )
-                                                        .val();
-                                                    var productName =
-                                                        $(this)
-                                                        .find(
-                                                            ".product_name"
-                                                        )
-                                                        .val();
-
-                                                    for (var i =
-                                                            0; i <
-                                                        quantityValue; i++
-                                                    ) {
-                                                        var isSeriInputExist =
-                                                            $(
-                                                                `input[name="seri[${productId}][]"][data-product-id="${productId}"]:eq(${i})`
-                                                            )
-                                                            .length >
-                                                            0;
-
-                                                        if (!
-                                                            isSeriInputExist
-                                                        ) {
-                                                            insufficientSeriProducts
-                                                                .push(
-                                                                    productName
-                                                                );
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-
                                                 // Trường hợp chọn seri
                                                 if (checkbox
                                                     .prop(
@@ -1887,7 +1579,7 @@
                                                         "disabled"
                                                     )) {
                                                     var quantityValue =
-                                                        parseInt(
+                                                        parseFloat(
                                                             $(
                                                                 this
                                                             )
@@ -1932,7 +1624,6 @@
                                                     }
                                                 }
                                             });
-
                                         // Nếu có sản phẩm không đủ "seri", hiển thị thông báo
                                         if (insufficientSeriProducts
                                             .length > 0) {
@@ -1986,6 +1677,184 @@
                                             }
                                         }
                                     });
+                                $('#giaoHang').off('click').on('click',
+                                    function(e) {
+                                        var
+                                            insufficientSeriProducts = [];
+                                        var
+                                            invalidInventoryProducts = [];
+
+                                        $(".bg-white.addProduct")
+                                            .each(
+                                                function() {
+                                                    var soTonKho =
+                                                        parseFloat(
+                                                            $(
+                                                                this
+                                                                )
+                                                            .find(
+                                                                ".soTonKho"
+                                                            ).text()
+                                                        );
+                                                    var checkbox =
+                                                        $(
+                                                            this)
+                                                        .find(
+                                                            ".check-add-sn"
+                                                        );
+
+                                                    var quantity =
+                                                        parseFloat(
+                                                            $(this)
+                                                            .find(
+                                                                ".quantity-input"
+                                                            )
+                                                            .val());
+                                                    var productNameInventory =
+                                                        $(this)
+                                                        .find(
+                                                            ".product_name"
+                                                        ).val();
+                                                    // Kiểm tra số lượng tồn kho
+                                                    if (quantity >
+                                                        soTonKho) {
+                                                        invalidInventoryProducts
+                                                            .push(
+                                                                productNameInventory
+                                                            );
+                                                    }
+
+                                                    if (checkbox
+                                                        .prop(
+                                                            "checked"
+                                                        ) &&
+                                                        checkbox
+                                                        .prop(
+                                                            "disabled"
+                                                            )
+                                                    ) {
+                                                        var quantityValue =
+                                                            parseFloat(
+                                                                $(
+                                                                    this)
+                                                                .find(
+                                                                    ".quantity-input"
+                                                                )
+                                                                .val()
+                                                                );
+                                                        var productId =
+                                                            $(this)
+                                                            .find(
+                                                                ".product_id"
+                                                            ).val();
+                                                        var productName =
+                                                            $(this)
+                                                            .find(
+                                                                ".product_name"
+                                                            ).val();
+
+                                                        for (var i =
+                                                                0; i <
+                                                            quantityValue; i++
+                                                        ) {
+                                                            var isSeriInputExist =
+                                                                $(
+                                                                    `input[name="selected_serial_numbers[]"][data-product-id="${productId}"]:eq(${i})`
+                                                                )
+                                                                .length >
+                                                                0;
+
+                                                            if (!
+                                                                isSeriInputExist
+                                                            ) {
+                                                                insufficientSeriProducts
+                                                                    .push(
+                                                                        productName
+                                                                    );
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                });
+
+                                        // Hiển thị thông báo nếu có sản phẩm không đủ "seri"
+                                        if (insufficientSeriProducts
+                                            .length > 0) {
+                                            alert(
+                                                `Số lượng "seri" không đủ cho các sản phẩm: ${insufficientSeriProducts.join(", ")}`
+                                            );
+                                            e.preventDefault();
+                                        } else {
+                                            // Hiển thị thông báo nếu không đủ số lượng tồn kho
+                                            if (invalidInventoryProducts
+                                                .length > 0) {
+                                                alert("Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                    invalidInventoryProducts
+                                                    .join(', '));
+                                                e.preventDefault();
+                                            } else {
+                                                // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
+                                                var allFieldsFilled =
+                                                    true;
+
+                                                $('.addProduct')
+                                                    .each(
+                                                        function() {
+                                                            var productName =
+                                                                $(
+                                                                    this)
+                                                                .find(
+                                                                    '.product_name'
+                                                                )
+                                                                .val();
+                                                            var productUnit =
+                                                                $(
+                                                                    this)
+                                                                .find(
+                                                                    '.product_unit'
+                                                                )
+                                                                .val();
+                                                            var productQty =
+                                                                $(
+                                                                    this)
+                                                                .find(
+                                                                    '.quantity-input'
+                                                                )
+                                                                .val();
+
+                                                            if (productName ===
+                                                                '' ||
+                                                                productUnit ===
+                                                                '' ||
+                                                                productQty ===
+                                                                ''
+                                                                ) {
+                                                                allFieldsFilled
+                                                                    =
+                                                                    false;
+                                                                return false;
+                                                            }
+                                                        });
+
+                                                if (
+                                                    allFieldsFilled) {
+                                                    $('.check-add-sn:checked[disabled]')
+                                                        .prop(
+                                                            'disabled',
+                                                            false);
+                                                    document
+                                                        .getElementById(
+                                                            'deliveryForm'
+                                                        ).submit();
+                                                } else {
+                                                    console.log(
+                                                        'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
+                                                    );
+                                                }
+                                            }
+                                        }
+                                    });
+
                                 //Kiểm tra seri có được nhập
                                 $('.save-seri-btn').off('click').on(
                                     'click',
