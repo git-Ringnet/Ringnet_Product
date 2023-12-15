@@ -26,7 +26,7 @@ class RecieptController extends Controller
     {
         $title = "Hóa đơn mua hàng";
         $perPage = 10;
-        $reciept = Reciept::orderBy('id','desc')->paginate($perPage);
+        $reciept = Reciept::orderBy('id', 'desc')->paginate($perPage);
         return view('tables.reciept.reciept', compact('title', 'reciept'));
     }
 
@@ -54,12 +54,24 @@ class RecieptController extends Controller
 
         // Tạo sản phẩm theo đơn nhận hàng
         $status = $this->productImport->addProductImport($request->all(), $id, 'reciept_id', 'reciept_qty');
+        $status = true;
         if ($status) {
-            $this->reciept->addReciept($request->all(), $id);
-            return redirect()->route('reciept.index')->with('msg', 'Tạo mới hóa đơn mua hàng thành công !');
+            $reciept_id = $this->reciept->addReciept($request->all(), $id);
+            if ($request->action == "action_1") {
+                return redirect()->route('reciept.index')->with('msg', 'Tạo mới hóa đơn mua hàng thành công !');
+            } else {
+                // Xác nhận hóa đơn
+                $this->reciept->updateReciept($request->all(), $reciept_id);
+                return redirect()->route('reciept.index')->with('msg', 'Xác nhận hóa đơn thành công !');
+            }
         } else {
-            return redirect()->route('receive.index')->with('warning', 'Hóa đơn mua hàng đã đươc tạo hết !');
+            return redirect()->route('reciept.index')->with('warning', 'Hóa đơn mua hàng đã đươc tạo hết !');
         }
+
+        // if ($status) {
+        //     return redirect()->route('reciept.index')->with('msg', 'Tạo mới hóa đơn mua hàng thành công !');
+        // } else {
+        // }
     }
 
     /**

@@ -408,11 +408,10 @@
                             @foreach ($history as $item)
                                 @if ($item->getSerialNumber)
                                     @foreach ($item->getSerialNumber as $sn)
-                                        @if ($item->receive_id == $sn->receive_id)
+                                        @if ($item->product_id == $sn->product_id)
                                             <tr class="bg-white">
                                                 <td>{{ $sn->serinumber }}</td>
                                                 <td>
-                                                    {{-- @dd($item->getReceive) --}}
                                                     <div>
                                                         <a href="{{ route('receive.edit', $item->getReceive->id) }}">
                                                             {{ $item->getReceive->id }}
@@ -422,7 +421,6 @@
                                                 </td>
                                                 <td>
                                                     @if ($sn->getQuotation)
-                                                        {{-- @dd($sn->getQuotation->id) --}}
                                                         <div>
                                                             <a
                                                                 href="{{ route('watchDelivery', $sn->getQuotation->id) }}">

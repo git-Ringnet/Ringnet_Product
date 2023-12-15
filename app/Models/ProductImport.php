@@ -32,7 +32,7 @@ class ProductImport extends Model
 
     public function getSerialNumber()
     {
-        return $this->hasMany(Serialnumber::class, 'product_id', 'product_id');
+        return $this->hasMany(Serialnumber::class, 'receive_id', 'receive_id');
     }
     public function getQuoteImport()
     {
@@ -87,7 +87,7 @@ class ProductImport extends Model
                         } else if ($checkCBImport) {
                             $cbSN = $checkCBImport->cbSN;
                         } else {
-                            $cbSN = isset($data['cbSN']) ? $data['cbSN'][$i] : 1;
+                            $cbSN = isset($data['cbSeri']) ? $data['cbSeri'][$i] : 1;
                         }
                         $dataProductImport = [
                             'detailimport_id' => $id,

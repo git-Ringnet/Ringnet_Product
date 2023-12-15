@@ -58,7 +58,15 @@ class ProvidesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $provide = Provides::findOrFail($id);
+        if ($provide) {
+            $title = $provide->provide_name_display;
+            $repesent = ProvideRepesent::where('provide_id', $provide->id)->get();
+        }
+        $getId = $id;
+        // $request->session()->put('id', $id);
+
+        return view('tables.provides.showProvides', compact('title', 'provide', 'repesent'));
     }
 
     /**

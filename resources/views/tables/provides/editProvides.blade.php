@@ -216,9 +216,8 @@
                         </div>
                     </div>
                 </section>
-
                 {{-- Thông tin bán hàng --}}
-                <section class="content">
+                {{-- <section class="content">
                     <div class="container-fluided">
                         <div class="row">
                             <div class="col-12">
@@ -233,6 +232,16 @@
                                                 <input readonly type="text" placeholder="Nhập thông tin"
                                                     name=""
                                                     value="@if ($provide->getAllDetail) {{ $provide->getAllDetail->count() }} @endif"
+                                                    class="border w-100 py-2 border-left-0 border-right-0 px-3">
+                                            </div>
+
+                                            <div class="d-flex ml-2 align-items-center">
+                                                <div class="title-info py-2 border border-left-0">
+                                                    <p class="p-0 m-0 px-3">Tổng số tiền đã mua</p>
+                                                </div>
+                                                <input readonly type="text" placeholder="Nhập thông tin"
+                                                    name=""
+                                                    value="@if ($provide->getAllDetail){{number_format($provide->getAllDetail->where('status', 2)->sum('total_tax'))}}@endif vnd"
                                                     class="border w-100 py-2 border-left-0 border-right-0 px-3">
                                             </div>
 
@@ -261,10 +270,8 @@
                             </div>
                         </div>
                     </div>
-                </section>
-
+                </section> --}}
             </div>
-
             <div id="history" class="tab-pane fade">
                 <section class="content">
                     <div class="container-fluided">

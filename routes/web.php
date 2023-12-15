@@ -69,7 +69,7 @@ Route::resource('receive', ReceiveController::class);
 Route::get('/show_receive', [ReceiveController::class, 'show_receive'])->name('show_receive');
 Route::get('/getProduct_receive', [ReceiveController::class, 'getProduct_receive'])->name('getProduct_receive');
 // Xác nhận đơn nhận hàng
-Route::resource('historyReceive', HistoryReceiveController::class);
+// Route::resource('historyReceive', HistoryReceiveController::class);
 
 // Hóa đơn mua hàng
 Route::resource('reciept', RecieptController::class);

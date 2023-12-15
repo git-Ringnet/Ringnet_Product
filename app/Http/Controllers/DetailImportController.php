@@ -80,10 +80,15 @@ class DetailImportController extends Controller
     public function store(Request $request)
     {
         // Thêm thông tin đơn hàng
-        $import_id = $this->detailImport->addImport($request->all());
-        // Thêm sản phẩm theo đơn hàng, thêm vào lịch sử
-        $this->quoteImport->addQuoteImport($request->all(), $import_id);
-        return redirect()->route('import.index')->with('msg', ' Tạo mới đơn nhập hàng thành công !');
+        $result = $import_id = $this->detailImport->addImport($request->all());
+        if ($result['status']) {
+            $import_id = $result['detail_id'];
+            // Thêm sản phẩm theo đơn hàng, thêm vào lịch sử
+            $this->quoteImport->addQuoteImport($request->all(), $import_id);
+            return redirect()->route('import.index')->with('msg', 'Tạo mới đơn nhập hàng thành công !');
+        } else {
+            return redirect()->route('import.index')->with('warning', 'Số đơn mua hàng đã tồn tại !');
+        }
     }
 
     /**
@@ -279,7 +284,9 @@ class DetailImportController extends Controller
         $status = "success";
         $productName = "123";
         for ($i = 0; $i < count($data['listProductName']); $i++) {
-            $check = Products::where('product_name', $data['listProductName'][$i])->first();
+            $check = Products::where('product_name', $data['listProductName'][$i])
+            ->where(DB::raw('COALESCE(product_inventory,0)'),'>',0 )
+            ->first();
             if ($check && $check->check_seri == 1 && $data['checkSN'][$i] == 1) {
                 if ($data['listQty'][$i] != $data['listSN'][$i]) {
                     $status = "false";

@@ -6,6 +6,7 @@
         @csrf
         <input type="hidden" name="detailimport_id" id="detailimport_id"
             value="@isset($yes){{ $show_receive['id'] }}@endisset">
+        <input type="hidden" value="" name="action" id="getAction">
         <section class="content-header p-0">
             <div class="container-fluided">
                 <div class="mb-3">
@@ -16,18 +17,38 @@
                     <span class="font-weight-bold">Tạo mới đơn nhận hàng</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
-                        <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                fill="white" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                fill="white" />
-                        </svg>
-                        <span>Tạo mới</span>
-                    </button>
+                    <a href="#" onclick="getAction(this)">
+                        <button value="action_1" type="submit" class="custom-btn d-flex align-items-center h-100"
+                            style="margin-right:10px">
+                            <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                    fill="white" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                    fill="white" />
+                            </svg>
+                            <span>Lưu nháp</span>
+                        </button>
+                    </a>
+
+                    <a href="#" onclick="getAction(this)">
+                        <button value="action_2" type="submit" class="custom-btn d-flex align-items-center h-100"
+                            style="margin-right:10px">
+                            <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                    fill="white" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                    fill="white" />
+                            </svg>
+                            <span>Nhận hàng</span>
+                        </button>
+                    </a>
+
                     <button class="btn-option">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -45,6 +66,7 @@
                 </div>
             </div>
         </section>
+
         <hr class="mt-3">
 
         <section class="content">
@@ -125,11 +147,7 @@
                             <th class="border-right">Tên sản phẩm</th>
                             <th class="border-right">Đơn vị</th>
                             <th class="border-right">Số lượng</th>
-                            {{-- <th class="border-right">Đơn giá</th>
-                            <th class="border-right">Thuế</th>
-                            <th class="border-right">Thành tiền</th> --}}
                             <th class="border-right">Quản lý S/N</th>
-                            {{-- <th class="p-0 bg-secondary" style="width:1%;"></th> --}}
                             <th class="border-right">Ghi chú</th>
                             <th class="border-top"></th>
                         </tr>
@@ -146,9 +164,12 @@
     </form>
 </div>
 
-{{-- <script src="{{ asset('/dist/js/products.js') }}"></script> --}}
+<script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    function getAction(e) {
+        $('#getAction').val($(e).find('button').val());
+    }
     deleteRow()
     $('#listReceive').hide();
     $('.search_quotation').on('click', function() {
@@ -183,7 +204,7 @@
                             id: data.id
                         },
                         success: function(product) {
-                            // console.log(product);
+                            console.log(product);
                             $('#product').html(product)
                             $('#inputcontent tbody').empty();
                             product.quoteImport.forEach((element, index) => {
@@ -231,6 +252,26 @@
                                             .product_qty - element
                                             .receive_qty) +
                                         `">
+                                        <button type="button" class="btn btn-primary"
+                                                data-toggle="modal" data-target="#exampleModal` + element.id + `"
+                                                style="background:transparent; border:none;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="32"
+                                                    height="32" viewBox="0 0 32 32" fill="none">
+                                                        <rect width="32" height="32" rx="4" fill="white"></rect>
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z"
+                                                                fill="#0095F6"></path>
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z"
+                                                                 fill="#0095F6"></path>
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z"
+                                                                fill="#0095F6"></path>
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z"
+                                                                fill="#0095F6"></path>
+                                                </svg>
+                                        </button>
                                     </div>
                                     </td>
                                     <td class="border border-top-0 border-bottom-0 text-center">
@@ -239,7 +280,7 @@
                                             product.cb[index] == 1 ?
                                             'checked' : '') + ` ` + (
                                             product.checked[index]) + ` >
-                                    <input type="hidden" name="cbSN[]" value="` + (product.checked[index] ==
+                                    <input type="hidden" name="cbSeri[]" value="` + (product.checked[index] ==
                                             'endable' || product.cb[
                                                 index] == 1 ? 1 : 0) +
                                         `">
@@ -269,6 +310,7 @@
                                 calculateTotalAmount()
                                 calculateTotalTax()
                                 calculateGrandTotal()
+                                createModal(element.id)
                             });
                         }
                     })
@@ -287,16 +329,92 @@
             id = $(this).closest('tr').find('button').attr('data-target');
             $('#list_modal ' + id).remove();
             $(this).closest('tr').remove();
-
         })
     }
 
     function getDataCheckbox(element) {
         var isChecked = $(element).is(':checked');
         if (isChecked) {
-            $(element).closest('tr').find('input[name^="cbSN"]').val(1)
+            $(element).closest('tr').find('input[name^="cbSeri"]').val(1)
+            $(element).closest('tr').find('button').show()
         } else {
-            $(element).closest('tr').find('input[name^="cbSN"]').val(0)
+            $(element).closest('tr').find('input[name^="cbSeri"]').val(0)
+            $(element).closest('tr').find('button').hide();
         }
     }
+
+    // Tạo INPUT SERI
+    createRowInput('seri');
+
+
+    // Kiểm tra Serial Number
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+        var productSN = {}
+        var formSubmit = false;
+        var listProductName = [];
+        var listQty = [];
+        var listSN = [];
+        var checkSN = [];
+        // if ($('#getAction').val() == 2) {
+            $('.searchProductName').each(function() {
+                checkSN.push($(this).closest('tr').find('input[name^="cbSeri"]').val())
+                listProductName.push($(this).val().trim());
+                listQty.push($(this).closest('tr').find('.quantity-input').val().trim());
+                var count = $($(this).closest('tr').find('button').attr('data-target')).find(
+                    'input[name^="seri"]').filter(
+                    function() {
+                        return $(this).val() !== '';
+                    }).length;
+                listSN.push(count);
+                var oldValue = $(this).val().trim();
+                productSN[oldValue] = {
+                    sn: []
+                };
+                SerialNumbers = $($(this).closest('tr').find('button').attr('data-target')).find(
+                    'input[name^="seri"]').map(function() {
+                    return $(this).val().trim();
+                }).get();
+                productSN[oldValue].sn.push(...SerialNumbers)
+            });
+            // Kiểm tra số lượng sn và số lượng sản phẩm
+            $.ajax({
+                url: "{{ route('checkSN') }}",
+                type: "get",
+                data: {
+                    listProductName: listProductName,
+                    listQty: listQty,
+                    listSN: listSN,
+                    checkSN: checkSN,
+                },
+                success: function(data) {
+                    console.log(data);
+                    if (data['status'] == 'false') {
+                        alert('Vui lòng nhập đủ số lượng seri sản phẩm ' + data['productName'])
+                    } else {
+                        // Kiểm tra sản phẩm đã tồn tại seri chưa
+                        $.ajax({
+                            url: "{{ route('checkduplicateSN') }}",
+                            type: "get",
+                            data: {
+                                value: productSN,
+                            },
+                            success: function(data) {
+                                if (data['success'] == false) {
+                                    alert('Sản phảm' + data['msg'] + 'đã tồn tại seri' +
+                                        data['data'])
+                                } else {
+                                    updateProductSN()
+                                    $('form')[0].submit();
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        // }
+        // else {
+        //     $('form')[0].submit();
+        // }
+    })
 </script>

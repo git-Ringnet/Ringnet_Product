@@ -20,7 +20,8 @@ class Receive_bill extends Model
         'status'
     ];
 
-    public function getQuotation(){
+    public function getQuotation()
+    {
         return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
     }
 
@@ -153,6 +154,7 @@ class Receive_bill extends Model
     {
         $status = false;
         $total = 0;
+        $total_tax = 0;
         $listID = [];
         $receive = DB::table($this->table)->where('id', $id)->first();
         if ($receive) {
@@ -176,10 +178,17 @@ class Receive_bill extends Model
                         $quoteImport = QuoteImport::where('id', $item->quoteImport_id)->first();
                         if ($quoteImport) {
                             $total += $item->product_qty * $quoteImport->price_export;
+                            $total_tax += ($item->product_qty * $quoteImport->price_export) * $quoteImport->product_tax / 100;
                             $dataUpdate = [
                                 'receive_qty' => $quoteImport->receive_qty - $item->product_qty
                             ];
                             DB::table('quoteimport')->where('id', $quoteImport->id)->update($dataUpdate);
+                            // Xóa serial number
+                            $SN = Serialnumber::where('receive_id', $item->receive_id)
+                                ->where('quoteImport_id', $quoteImport->id)->get();
+                            foreach ($SN as $sn) {
+                                $sn->delete();
+                            }
                         }
                         // Trừ sản phẩm khỏi tồn kho
                         $product = Products::where('id', $item->product_id)->first();
@@ -190,12 +199,6 @@ class Receive_bill extends Model
                             DB::table('products')
                                 ->where('id', $product->id)
                                 ->update($dataProduct);
-                            // Xóa serial number
-                            $SN = Serialnumber::where('receive_id', $item->receive_id)
-                                ->where('product_id', $product->id)->get();
-                            foreach ($SN as $sn) {
-                                $sn->delete();
-                            }
                         }
                         // Xóa đơn hàng
                         $item->delete();
@@ -227,7 +230,7 @@ class Receive_bill extends Model
                         $provide = Provides::where('id', $receive->provide_id)->first();
                         if ($provide) {
                             $dataProvide = [
-                                'provide_debt' => $provide->provide_debt - $total,
+                                'provide_debt' => ($provide->provide_debt - ($total + $total_tax)),
                             ];
                             DB::table('provides')->where('id', $provide->id)->update($dataProvide);
                         }

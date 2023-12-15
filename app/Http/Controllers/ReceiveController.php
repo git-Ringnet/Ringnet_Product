@@ -8,6 +8,7 @@ use App\Models\Products;
 use App\Models\QuoteImport;
 use App\Models\Receive_bill;
 use App\Models\Reciept;
+use App\Models\Serialnumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,6 +20,7 @@ class ReceiveController extends Controller
     private $reciept;
     private $import;
     private $productImport;
+    private $sn;
     public function __construct()
     {
         $this->receive = new Receive_bill();
@@ -27,6 +29,7 @@ class ReceiveController extends Controller
         $this->reciept = new Reciept();
         $this->import = new DetailImport();
         $this->productImport = new ProductImport();
+        $this->sn = new Serialnumber();
         // $this->historyReceive = new HistoryReceive();
     }
     /**
@@ -61,17 +64,40 @@ class ReceiveController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $id = $request->detailimport_id;
-        // Tạo sản phẩm theo đơn nhận hàng
-        $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
-        if ($status) {
-            // Tạo đơn nhận hàng mới
-            $this->receive->addReceiveBill($request->all(), $id);
+        if ($request->action == 'action_1') {
+            // Tạo sản phẩm theo đơn nhận hàng
+            $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
+            if ($status) {
+                // Tạo đơn nhận hàng mới
+                $receive_id = $this->receive->addReceiveBill($request->all(), $id);
 
-            return redirect()->route('receive.index')->with('msg', 'Tạo mới đơn nhận hàng thành công !');
+                // Thêm SN
+                $this->sn->addSN($request->all(), $receive_id, $id);
+                return redirect()->route('receive.index')->with('msg', 'Tạo mới đơn nhận hàng thành công !');
+            } else {
+                return redirect()->route('receive.index')->with('warning', 'Đơn nhận hàng đã tạo hết sản phẩm !');
+            }
         } else {
-            return redirect()->route('receive.index')->with('warning', 'Đơn nhận hàng đã tạo hết sản phẩm !');
+            // Tạo sản phẩm theo đơn nhận hàng
+            $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
+            if ($status) {
+                // Tạo đơn nhận hàng mới
+                $receive_id = $this->receive->addReceiveBill($request->all(), $id);
+
+                // Thêm SN
+                $this->sn->addSN($request->all(), $receive_id, $id);
+
+                // Cập nhật đơn hàng
+                $this->receive->updateReceive($request->all(), $receive_id);
+
+                // Thêm sản phẩm, seri vào tồn kho
+                $this->product->addProductTowarehouse($request->all(), $receive_id);
+
+                return redirect()->route('receive.index')->with('msg', 'Nhận hàng thành công !');
+            } else {
+                return redirect()->route('receive.index')->with('warning', 'Đơn nhận hàng đã tạo hết sản phẩm !');
+            }
         }
     }
 
@@ -82,23 +108,7 @@ class ReceiveController extends Controller
     {
         $receive = Receive_bill::findOrFail($id);
         $title = $receive->quotation_number;
-        // $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
-        // ->where('products_import.detailimport_id', $receive->detailimport_id)
-        // ->where('products_import.receive_id', $receive->id)
-        // ->select(
-        //     'quoteimport.product_code',
-        //     'quoteimport.product_name',
-        //     'quoteimport.product_unit',
-        //     'products_import.product_qty',
-        //     'quoteimport.price_export',
-        //     'quoteimport.product_tax',
-        //     'quoteimport.product_note',
-        //     'products_import.product_id',
-        //     DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
-        // )
-        // ->with('getSerialNumber')->get();
         $product = QuoteImport::where('detailimport_id', $receive->detailimport_id)->get();
-        // $history = HistoryReceive::where('receive_id', $receive->id)->get();
         return view('tables.receive.showReceive', compact('receive', 'title', 'product', 'history'));
     }
 
@@ -123,6 +133,7 @@ class ReceiveController extends Controller
                 'products_import.product_id',
                 'products_import.cbSN',
                 'products_import.receive_id',
+                'products_import.quoteImport_id',
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
             )
             ->with('getSerialNumber')->get();
@@ -180,8 +191,8 @@ class ReceiveController extends Controller
         $quote = QuoteImport::where('detailimport_id', $request->id)->where('product_qty', '>', DB::raw('COALESCE(receive_qty,0)'))->get();
         foreach ($quote as $qt) {
             $product = Products::where('product_name', $qt->product_name)
-            ->where(DB::raw('COALESCE(product_inventory,0)'),'>',0 )
-            ->first();
+                ->where(DB::raw('COALESCE(product_inventory,0)'), '>', 0)
+                ->first();
             $productImport = QuoteImport::where('product_name', $qt->product_name)->get();
             foreach ($productImport as $ip) {
                 array_push($id_quote, $ip->id);

@@ -25,6 +25,32 @@ class Serialnumber extends Model
         return $this->hasOne(Delivery::class, 'id', 'delivery_id');
     }
 
+    public function addSN($data,$receive_id,$detail_id){
+        // dd($data);
+        for ($i = 0; $i < count($data['product_name']); $i++) {
+            $getProduct = QuoteImport::where('product_name', $data['product_name'][$i])->first();
+            if ($getProduct) {
+                if (isset($data['seri' . $i]) && $data['cbSeri'][$i] == 1) {
+                    $productSN = $data['seri' . $i];
+                    for ($j = 0; $j < count($productSN); $j++) {
+                        if (!empty($productSN[$j])) {
+                            $dataSN = [
+                                'serinumber' => $productSN[$j],
+                                'receive_id' => $receive_id,
+                                'detailimport_id' => $detail_id,
+                                'quoteImport_id' => $getProduct->id,
+                                'detailexport_id' => 0,
+                                'status' => 0,
+                                'created_at' => Carbon::now(),
+                            ];
+                            DB::table('serialnumber')->insert($dataSN);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public function checkSN($data)
     {
         foreach ($data as $value ) {

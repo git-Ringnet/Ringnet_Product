@@ -122,8 +122,8 @@ class Products extends Model
     }
     public function addProductTowarehouse($data, $id)
     {
+        // dd($data);
         $status = true;
-
         $receive = Receive_bill::where('id', $id)->first();
         if ($receive) {
             $array_id = [];
@@ -168,24 +168,28 @@ class Products extends Model
                 $item->save();
             }
 
-            // Thêm seri number theo sản phẩm
+
+            // Cập nhật serial number theo sản phẩm
             for ($i = 0; $i < count($data['product_name']); $i++) {
-                $getProduct = Products::where('product_name', $data['product_name'][$i])->first();
+                $getProduct = QuoteImport::where('product_name', $data['product_name'][$i])
+                    ->where('detailimport_id', $receive->detailimport_id)
+                    ->first();
                 if ($getProduct) {
-                    if (isset($data['seri' . $i]) && $getProduct->check_seri == 1) {
+                    if (isset($data['seri' . $i])) {
                         $productSN = $data['seri' . $i];
                         for ($j = 0; $j < count($productSN); $j++) {
                             if (!empty($productSN[$j])) {
+                                $getSN = Serialnumber::where('serinumber', $productSN[$j])
+                                    ->where('receive_id', $receive->id)
+                                    ->where('quoteImport_id', $getProduct->id)
+                                    ->get();
                                 $dataSN = [
-                                    'serinumber' => $productSN[$j],
-                                    'receive_id' => $receive->id,
-                                    'detailimport_id' => $receive->detailimport_id,
-                                    'detailexport_id' => 0,
-                                    'product_id' => $getProduct->id,
+                                    'product_id' => $list_id[$i],
                                     'status' => 1,
-                                    'created_at' => Carbon::now(),
                                 ];
-                                DB::table('serialnumber')->insert($dataSN);
+                                foreach ($getSN as $sn) {
+                                    DB::table('serialnumber')->where('id', $sn->id)->update($dataSN);
+                                }
                             }
                         }
                     }

@@ -58,6 +58,7 @@ class DetailImport extends Model
     {
         $total = 0;
         $total_tax = 0;
+        $result =[];
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $product_ratio = 0;
             $price_import = 0;
@@ -72,7 +73,6 @@ class DetailImport extends Model
                 $total += $price_export;
             }
             $total_tax +=  (($data['product_tax'][$i] * $price_export) / 100);
-           
         }
         $total_tax = $total_tax + $total;
         $dataImport = [
@@ -93,10 +93,22 @@ class DetailImport extends Model
             'status_pay' => 0,
             'terms_pay' => $data['terms_pay']
         ];
-        $result = DB::table($this->table)->insertGetId($dataImport);
+        $checkQuotation = DetailImport::where('quotation_number', $data['quotation_number'])->first();
+        if ($checkQuotation) {
+            $result = [
+                'status' => false,
+            ];
+        } else {
+            $detail_id = DB::table($this->table)->insertGetId($dataImport);
+            $result = [
+                'status' => true,
+                'detail_id' => $detail_id,
+            ];
+        }
+
         if (!isset($data['quotation_number'])) {
-            DB::table($this->table)->where('id', $result)->update([
-                'quotation_number' => $result
+            DB::table($this->table)->where('id', $detail_id)->update([
+                'quotation_number' => $detail_id
             ]);
         }
         return  $result;
@@ -142,25 +154,6 @@ class DetailImport extends Model
                         ($data['action'] != "action_2" && $data['action'] != "action_3" && $item->product_qty != $item->payment_qty)
                     );
                 }
-                // if ($data['action'] == "action_2") {
-                //     foreach ($product as $item) {
-                //         if ($item->product_qty != $item->receive_qty) {
-                //             $check_status = true;
-                //         }
-                //     }
-                // } elseif ($data['action'] == "action_3") {
-                //     foreach ($product as $item) {
-                //         if ($item->product_qty != $item->reciept_qty) {
-                //             $check_status = true;
-                //         }
-                //     }
-                // } else {
-                //     foreach ($product as $item) {
-                //         if ($item->product_qty != $item->payment_qty) {
-                //             $check_status = true;
-                //         }
-                //     }
-                // }
             }
             if ($check_status && $detail->status == 1) {
                 $dataImport = [
