@@ -204,10 +204,15 @@ class DetailImportController extends Controller
         $provide = Provides::findOrFail($data['provides_id']);
         if ($provide) {
             $count = DetailImport::where('provide_id', $provide->id)->count();
+            $date = DetailImport::where('provide_id', $provide->id)->orderBy('id', 'desc')->first();
+            if($date){
+                $date = explode('/',$date->quotation_number)[0];
+            }
             $data = [
                 'provide' => $provide,
                 'count' => $count,
                 'key' => $provide->key,
+                'date' => $date
             ];
         }
         return $data;

@@ -352,7 +352,8 @@ function getKeyProvide(name) {
     })
 }
 
-function getQuotation(getName, count) {
+function getQuotation(getName, count,date) {
+    console.log(date);
     var currentDate = new Date()
     var day = currentDate.getDate()
     var month = currentDate.getMonth() + 1;
@@ -371,11 +372,18 @@ function getQuotation(getName, count) {
     if (count < 10) {
         if (count == 0) {
             count = 1
+        } else {
+            count += 1
         }
         count = '0' + count
     } else {
         count = count
     }
-    quotation = formattedDate + '/' + name + '-' + key + '-' + count
+    if(formattedDate == date){
+        stt = count
+    }else{
+        stt = '01'
+    }
+    quotation = formattedDate + '/' + name + '-' + key + '-' + stt
     return quotation
 }
