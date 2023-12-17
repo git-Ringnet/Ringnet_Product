@@ -874,35 +874,6 @@
 <script type="text/javascript">
     // Số báo giáo
     getKeyGuest($('#guest_name_display'));
-
-    function getQuotation(getName, count) {
-        var currentDate = new Date()
-        var day = currentDate.getDate()
-        var month = currentDate.getMonth() + 1;
-        var formattedDay = day.toString().padStart(2, '0')
-        var formattedMonth = month.toString().padStart(2, '0')
-        var formattedDate = formattedDay + formattedMonth + currentDate.getFullYear();
-        var name = "RN";
-
-        var uppercaseCharacters = getUppercaseCharacters(getName);
-        if (uppercaseCharacters) {
-            key = uppercaseCharacters
-        } else {
-            key = getUppercaseCharacters(getName.charAt(0).toUpperCase() + getName.slice(1))
-        }
-
-        if (count < 10) {
-            if (count == 0) {
-                count = 1
-            }
-            count = '0' + count
-        } else {
-            count = count
-        }
-        quotation = formattedDate + '/' + name + '-' + key + '-' + count
-        return quotation
-    }
-
     //hiện danh sách project khi click trường tìm kiếm
     $("#listProject").hide();
     $("#ProjectInput").on("click", function() {
@@ -988,7 +959,6 @@
             var idDateForm = $(this).attr('id');
             var name = $(this).data('name');
             var dataid = $(this).data('id');
-            // console.log(dataid);
             if (dataid) {
                 $('.btn-submit').attr('data-action', 'update').text(
                     'Cập nhật');
@@ -1025,7 +995,6 @@
             e.preventDefault();
             var id = $(this).data('id');
             var name = $(this).data('name');
-            console.log(id);
             if (confirm('Bạn có chắc chắn muốn xóa không?')) {
                 $.ajax({
                     url: '{{ route('deleteDateForm') }}',
@@ -1048,7 +1017,6 @@
             e.preventDefault();
             var id = $(this).data('id');
             var name = $(this).data('name');
-            console.log(id);
             $.ajax({
                 url: '{{ route('setDefault') }}',
                 type: 'GET',
@@ -1083,7 +1051,6 @@
             var action = $(this).data('action');
 
             if ($('.btn-submit' + name).text() === 'Lưu') {
-                console.log('Đây là thêm mới');
                 $('#form-name-' + name).val('')
                 $('#form-desc-' + name).val('')
                 $.ajax({
@@ -1153,7 +1120,6 @@
                             var idDateForm = $(this).attr('id');
                             var name = $(this).data('name');
                             var dataid = $(this).data('id');
-                            // console.log(name);
                             if (dataid) {
                                 $('.btn-submit').attr('data-action', 'update').attr(
                                     'data-id', dataid).text(
@@ -1190,9 +1156,7 @@
                 });
             }
             if ($('.btn-submit' + name).text() === 'Cập nhật') {
-                console.log('Đây là update');
                 var id = $(this).data('id');
-                console.log(id);
                 $.ajax({
                     url: '{{ route('updateDateForm') }}',
                     type: 'GET',
@@ -1203,7 +1167,6 @@
                         inputDesc: inputDesc,
                     },
                     success: function(data) {
-                        console.log(data);
                         $('.modal [data-dismiss="modal"]').click();
                         $("input[name='idDate[" + data.new_date_form.form_field + "]']")
                             .val(data.new_date_form
@@ -1212,7 +1175,6 @@
                             .val(data.new_date_form
                                 .form_field);
                         $("#" + name + id).text(data.new_date_form.form_name)
-                        console.log(name, id);
                         $('#myInput-' + name).val(data.new_date_form.form_desc);
                         alert(data.msg);
                     }
@@ -1533,10 +1495,10 @@
                 },
                 success: function(data) {
                     if (data.key) {
-                        quotation = getQuotation(data.key, data['count']);
+                        quotation = getQuotation(data.key, data['count'], data['date']);
                     } else {
-                        quotation = getQuotation(data['guest'].guest_name_display, data[
-                            'count'])
+                        quotation = getQuotation(data['provide'].provide_name_display, data[
+                            'count'], data['date']);
                     }
                     $('input[name="quotation_number"]').val(quotation);
                     $('.nameGuest').val(data['guest'].guest_name_display);
@@ -1549,7 +1511,6 @@
                         },
                         success: function(data) {
                             Object.keys(data).forEach(function(key) {
-                                console.log("Key:", key);
                                 var formField = data[key].form
                                     .form_field;
                                 var dateFormId = data[key].date_form_id;
@@ -1620,7 +1581,7 @@
                     var addButton = $(".addGuestNew");
                     $(newListItem).insertBefore(addButton);
                     //clear
-                    $('#guest_name_display').val(null);
+                    $('#guest_name_display').val('');
                     $("input[name='key']").val('');
                     $('#guest_address').val(null);
                     $('#guest_code').val(null);

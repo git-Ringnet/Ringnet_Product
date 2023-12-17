@@ -26,3 +26,42 @@ function getKeyGuest(name) {
         }
     });
 }
+
+function getQuotation(getName, count, date) {
+    console.log(date);
+    var currentDate = new Date();
+    var day = currentDate.getDate();
+    var month = currentDate.getMonth() + 1;
+    var formattedDay = day.toString().padStart(2, "0");
+    var formattedMonth = month.toString().padStart(2, "0");
+    var formattedDate =
+        formattedDay + formattedMonth + currentDate.getFullYear();
+    var name = "RN";
+
+    var uppercaseCharacters = getUppercaseCharacters(getName);
+    if (uppercaseCharacters) {
+        key = uppercaseCharacters;
+    } else {
+        key = getUppercaseCharacters(
+            getName.charAt(0).toUpperCase() + getName.slice(1)
+        );
+    }
+
+    if (count < 10) {
+        if (count == 0) {
+            count = 1;
+        } else {
+            count += 1;
+        }
+        count = "0" + count;
+    } else {
+        count = count;
+    }
+    if (formattedDate == date) {
+        stt = count;
+    } else {
+        stt = "01";
+    }
+    quotation = formattedDate + "/" + name + "-" + key + "-" + stt;
+    return quotation;
+}

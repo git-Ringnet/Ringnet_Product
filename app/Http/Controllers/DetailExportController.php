@@ -271,14 +271,21 @@ class DetailExportController extends Controller
     //Tìm kiếm khách hàng
     public function searchGuest(Request $request)
     {
+        $data = [];
         $data = $request->all();
-        $guest = Guest::where('id', $data['idGuest'])->first();
+        $guest = Guest::findOrFail($data['idGuest']);
+        // $guest = Guest::where('id', $data['idGuest'])->first();
         if ($guest) {
             $count = DetailExport::where('guest_id', $guest->id)->count();
+            $date = DetailExport::where('guest_id', $guest->id)->orderBy('id', 'desc')->first();
+            if ($date) {
+                $date = explode('/', $date->quotation_number)[0];
+            }
             $data = [
                 'guest' => $guest,
                 'count' => $count,
                 'key' => $guest->key,
+                'date' => $date
             ];
         }
         return $data;
