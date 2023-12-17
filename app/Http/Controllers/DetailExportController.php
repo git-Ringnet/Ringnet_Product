@@ -8,6 +8,7 @@ use App\Models\Delivery;
 use App\Models\DetailExport;
 use App\Models\DetailImport;
 use App\Models\Guest;
+use App\Models\GuestFormDate;
 use App\Models\PayExport;
 use App\Models\productBill;
 use App\Models\ProductCode;
@@ -39,11 +40,13 @@ class DetailExportController extends Controller
     private $productPay;
     private $detailImport;
     protected $date_form;
+    protected $guest_dateForm;
 
 
     public function __construct()
     {
         $this->date_form = new DateForm();
+        $this->guest_dateForm = new GuestFormDate();
         $this->detailExport = new DetailExport();
         $this->detailImport = new DetailImport();
         $this->guest = new Guest();
@@ -72,10 +75,25 @@ class DetailExportController extends Controller
         $title = "Tạo báo giá";
         $guest = $this->guest->getAllGuest();
         $date_form = $this->date_form->getDateForm();
-        // $product_code = $this->product_code->getAllProductCode();
         $project = $this->project->getAllProject();
         $product = $this->product->getAllProducts();
-        return view('tables.export.quote.create-quote', compact('title', 'guest', 'product', 'project', 'date_form'));
+
+        $dataForm = [
+            'location' => $this->date_form->findFormByField('location'),
+            'quote' => $this->date_form->findFormByField('quote'),
+            'delivery' => $this->date_form->findFormByField('delivery'),
+            'goods' => $this->date_form->findFormByField('goods'),
+            'payment' => $this->date_form->findFormByField('payment'),
+        ];
+
+        // dd($data);
+        return view('tables.export.quote.create-quote', compact('title', 'guest', 'product', 'project', 'date_form', 'dataForm'));
+    }
+    public function searchFormByGuestId(Request $request)
+    {
+        $data = $request->all();
+        $dateForm = $this->guest_dateForm->getFormFieldIdsByGuestId($data['idGuest']);
+        return $dateForm;
     }
 
     /**
@@ -85,6 +103,14 @@ class DetailExportController extends Controller
     {
         $export_id = $this->detailExport->addExport($request->all());
         $this->quoteExport->addQuoteExport($request->all(), $export_id);
+
+        $dateForms = $request->idDate;
+        $fieldDates = $request->fieldDate;
+        $guestId = $request->guest_id;
+        foreach ($dateForms as $key => $dateFormId) {
+            $formField = $fieldDates[$key];
+            $this->guest_dateForm->insertFormGuest($guestId, $dateFormId, $formField);
+        }
         return redirect()->route('detailExport.index')->with('msg', ' Tạo mới đơn báo giá thành công !');
     }
 
@@ -120,7 +146,15 @@ class DetailExportController extends Controller
         $detailExport = $this->detailExport->getDetailExportToId($id);
         $quoteExport = $this->detailExport->getProductToId($id);
         $date_form = $this->date_form->getDateForm();
-        return view('tables.export.quote.edit-quote', compact('title', 'guest', 'product', 'detailExport', 'quoteExport', 'date_form'));
+
+        $dataForm = [
+            'location' => $this->date_form->findFormByField('location'),
+            'quote' => $this->date_form->findFormByField('quote'),
+            'delivery' => $this->date_form->findFormByField('delivery'),
+            'goods' => $this->date_form->findFormByField('goods'),
+            'payment' => $this->date_form->findFormByField('payment'),
+        ];
+        return view('tables.export.quote.edit-quote', compact('title', 'guest', 'product', 'detailExport', 'quoteExport', 'date_form', 'dataForm'));
     }
 
     /**
@@ -133,6 +167,13 @@ class DetailExportController extends Controller
             if ($detailExport->status == 1) {
                 $export_id = $this->detailExport->updateExport($request->all(), $id);
                 $this->quoteExport->updateQuoteExport($request->all(), $export_id);
+                $dateForms = $request->idDate;
+                $fieldDates = $request->fieldDate;
+                $guestId = $request->guest_id;
+                foreach ($dateForms as $key => $dateFormId) {
+                    $formField = $fieldDates[$key];
+                    $this->guest_dateForm->insertFormGuest($guestId, $dateFormId, $formField);
+                }
                 return redirect()->route('detailExport.index')->with('msg', 'Cập nhật đơn báo giá thành công!');
             } else {
                 return redirect()->route('detailExport.index')->with('warning', 'Cập nhật không thành công!');

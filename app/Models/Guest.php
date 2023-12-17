@@ -129,4 +129,8 @@ class Guest extends Model
     {
         return DB::table($this->table)->where('id', $id)->update($data);
     }
+    public function dateForms()
+    {
+        return $this->belongsToMany(DateForm::class, 'guest_dateform', 'guest_id', 'date_form_id');
+    }
 }

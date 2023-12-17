@@ -140,9 +140,14 @@
                                         <input type="text" placeholder="Nhập thông tin" name="price_effect"
                                             value="{{ $detailExport->price_effect }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                            autocomplete="off" id="myInput-quote">
+                                            autocomplete="off" id="myInput-quote"
+                                            value="{{ isset($dataForm['quote']) ? $dataForm['quote']->form_desc : '' }}">
                                         <input type="hidden" class="idDateForm" autocomplete="off"
-                                            name="idDateForm">
+                                            name="idDate[quote]"
+                                            value="{{ isset($dataForm['quote']) ? $dataForm['quote']->id : '' }}">
+                                        <input type="hidden" class="nameDateForm" autocomplete="off"
+                                            name="fieldDate[quote]"
+                                            value="{{ isset($dataForm['quote']) ? $dataForm['quote']->form_field : '' }}">
                                         <ul id="myUL2"
                                             class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
                                             style="z-index: 99;">
@@ -162,13 +167,27 @@
                                                                 style="margin-right:10px">
                                                                 <i class="fa-solid fa-ellipsis"></i>
                                                             </button>
-                                                            <div class="dropdown-menu" style="z-index: 100;">
+                                                            <div class="dropdown-menu date-form-setting"
+                                                                style="z-index: 100;">
                                                                 <a class="dropdown-item search-date-form"
                                                                     data-toggle="modal" data-target="#formModalquote"
                                                                     data-name="quote" data-id="{{ $item->id }}"
-                                                                    id="{{ $item->id }}">Chỉnh sửa</a>
+                                                                    id="{{ $item->id }}"><i
+                                                                        class="fa-regular fa-pen-to-square"></i></a>
                                                                 <a class="dropdown-item delete-item" href="#"
-                                                                    data-id="{{ $item->id }}">Xóa</a>
+                                                                    data-id="{{ $item->id }}"
+                                                                    data-name="{{ $item->form_field }}"><i
+                                                                        class="fa-solid fa-trash-can"></i></a>
+                                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                    id="default-id{{ $item->id }}" href="#"
+                                                                    data-name="{{ $item->form_field }}"
+                                                                    data-id="{{ $item->id }}">
+                                                                    @if ($item->default_form === 1)
+                                                                        <i class="fa-solid fa-link-slash"></i>
+                                                                    @else
+                                                                        <i class="fa-solid fa-link"></i>
+                                                                    @endif
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -190,9 +209,14 @@
                                         <input type="text" placeholder="Nhập thông tin" name="terms_pay"
                                             value="{{ $detailExport->terms_pay }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                            autocomplete="off" id="myInput-payment">
+                                            autocomplete="off" id="myInput-payment"
+                                            value="{{ isset($dataForm['payment']) ? $dataForm['payment']->form_desc : '' }}">
                                         <input type="hidden" class="idDateForm" autocomplete="off"
-                                            name="idDateForm">
+                                            name="idDate[payment]"
+                                            value="{{ isset($dataForm['payment']) ? $dataForm['payment']->id : '' }}">
+                                        <input type="hidden" class="nameDateForm" autocomplete="off"
+                                            name="fieldDate[payment]"
+                                            value="{{ isset($dataForm['payment']) ? $dataForm['payment']->form_field : '' }}">
                                         <ul id="myUL1"
                                             class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
                                             style="z-index: 99;">
@@ -212,14 +236,28 @@
                                                                 style="margin-right:10px">
                                                                 <i class="fa-solid fa-ellipsis"></i>
                                                             </button>
-                                                            <div class="dropdown-menu" style="z-index: 100;">
+                                                            <div class="dropdown-menu date-form-setting"
+                                                                style="z-index: 100;">
                                                                 <a class="dropdown-item search-date-form"
                                                                     data-toggle="modal"
                                                                     data-target="#formModalpayment"
                                                                     data-name="payment" data-id="{{ $item->id }}"
-                                                                    id="{{ $item->id }}">Chỉnh sửa</a>
+                                                                    id="{{ $item->id }}"><i
+                                                                        class="fa-regular fa-pen-to-square"></i></a>
                                                                 <a class="dropdown-item delete-item" href="#"
-                                                                    data-id="{{ $item->id }}">Xóa</a>
+                                                                    data-id="{{ $item->id }}"
+                                                                    data-name="{{ $item->form_field }}"><i
+                                                                        class="fa-solid fa-trash-can"></i></a>
+                                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                    id="default-id{{ $item->id }}" href="#"
+                                                                    data-name="{{ $item->form_field }}"
+                                                                    data-id="{{ $item->id }}">
+                                                                    @if ($item->default_form === 1)
+                                                                        <i class="fa-solid fa-link-slash"></i>
+                                                                    @else
+                                                                        <i class="fa-solid fa-link"></i>
+                                                                    @endif
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -251,9 +289,14 @@
                                         <input type="text" placeholder="Nhập thông tin" name="goods"
                                             value="{{ $detailExport->goods }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                            autocomplete="off" id="myInput-goods">
+                                            autocomplete="off" id="myInput-goods"
+                                            value="{{ isset($dataForm['goods']) ? $dataForm['goods']->form_desc : '' }}">
                                         <input type="hidden" class="idDateForm" autocomplete="off"
-                                            name="idDateForm">
+                                            name="idDate[goods]"
+                                            value="{{ isset($dataForm['goods']) ? $dataForm['goods']->id : '' }}">
+                                        <input type="hidden" class="nameDateForm" autocomplete="off"
+                                            name="fieldDate[goods]"
+                                            value="{{ isset($dataForm['goods']) ? $dataForm['goods']->form_field : '' }}">
                                         <ul id="myUL4"
                                             class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
                                             style="z-index: 99;">
@@ -273,13 +316,27 @@
                                                                 style="margin-right:10px">
                                                                 <i class="fa-solid fa-ellipsis"></i>
                                                             </button>
-                                                            <div class="dropdown-menu" style="z-index: 100;">
+                                                            <div class="dropdown-menu date-form-setting"
+                                                                style="z-index: 100;">
                                                                 <a class="dropdown-item search-date-form"
                                                                     data-toggle="modal" data-target="#formModalgoods"
                                                                     data-name="goods" data-id="{{ $item->id }}"
-                                                                    id="{{ $item->id }}">Chỉnh sửa</a>
+                                                                    id="{{ $item->id }}"><i
+                                                                        class="fa-regular fa-pen-to-square"></i></a>
                                                                 <a class="dropdown-item delete-item" href="#"
-                                                                    data-id="{{ $item->id }}">Xóa</a>
+                                                                    data-id="{{ $item->id }}"
+                                                                    data-name="{{ $item->form_field }}"><i
+                                                                        class="fa-solid fa-trash-can"></i></a>
+                                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                    id="default-id{{ $item->id }}" href="#"
+                                                                    data-name="{{ $item->form_field }}"
+                                                                    data-id="{{ $item->id }}">
+                                                                    @if ($item->default_form === 1)
+                                                                        <i class="fa-solid fa-link-slash"></i>
+                                                                    @else
+                                                                        <i class="fa-solid fa-link"></i>
+                                                                    @endif
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -301,9 +358,14 @@
                                         <input type="text" placeholder="Nhập thông tin" name="delivery"
                                             value="{{ $detailExport->delivery }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                            autocomplete="off" id="myInput-delivery">
+                                            autocomplete="off" id="myInput-delivery"
+                                            value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->form_desc : '' }}">
                                         <input type="hidden" class="idDateForm" autocomplete="off"
-                                            name="idDateForm">
+                                            name="idDate[delivery]"
+                                            value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->id : '' }}">
+                                        <input type="hidden" class="nameDateForm" autocomplete="off"
+                                            name="fieldDate[delivery]"
+                                            value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->form_field : '' }}">
                                         <ul id="myUL5"
                                             class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
                                             style="z-index: 99;">
@@ -323,15 +385,29 @@
                                                                 style="margin-right:10px">
                                                                 <i class="fa-solid fa-ellipsis"></i>
                                                             </button>
-                                                            <div class="dropdown-menu" style="z-index: 100;">
+                                                            <div class="dropdown-menu date-form-setting"
+                                                                style="z-index: 100;">
                                                                 <a class="dropdown-item search-date-form"
                                                                     data-toggle="modal"
                                                                     data-target="#formModaldelivery"
                                                                     data-name="delivery"
                                                                     data-id="{{ $item->id }}"
-                                                                    id="{{ $item->id }}">Chỉnh sửa</a>
+                                                                    id="{{ $item->id }}"><i
+                                                                        class="fa-regular fa-pen-to-square"></i></a>
                                                                 <a class="dropdown-item delete-item" href="#"
-                                                                    data-id="{{ $item->id }}">Xóa</a>
+                                                                    data-id="{{ $item->id }}"
+                                                                    data-name="{{ $item->form_field }}"><i
+                                                                        class="fa-solid fa-trash-can"></i></a>
+                                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                    id="default-id{{ $item->id }}" href="#"
+                                                                    data-name="{{ $item->form_field }}"
+                                                                    data-id="{{ $item->id }}">
+                                                                    @if ($item->default_form === 1)
+                                                                        <i class="fa-solid fa-link-slash"></i>
+                                                                    @else
+                                                                        <i class="fa-solid fa-link"></i>
+                                                                    @endif
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -354,9 +430,14 @@
                                         <input type="text" placeholder="Nhập thông tin" name="location"
                                             value="{{ $detailExport->location }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                            autocomplete="off" id="myInput-location">
+                                            autocomplete="off" id="myInput-location"
+                                            value="{{ isset($dataForm['location']) ? $dataForm['location']->form_desc : '' }}">
                                         <input type="hidden" class="idDateForm" autocomplete="off"
-                                            name="idDateForm">
+                                            name="idDate[location]"
+                                            value="{{ isset($dataForm['location']) ? $dataForm['location']->id : '' }}">
+                                        <input type="hidden" class="nameDateForm" autocomplete="off"
+                                            name="fieldDate[location]"
+                                            value="{{ isset($dataForm['location']) ? $dataForm['location']->form_field : '' }}">
                                         <ul id="myUL6"
                                             class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
                                             style="z-index: 99;">
@@ -376,15 +457,29 @@
                                                                 style="margin-right:10px">
                                                                 <i class="fa-solid fa-ellipsis"></i>
                                                             </button>
-                                                            <div class="dropdown-menu" style="z-index: 100;">
+                                                            <div class="dropdown-menu date-form-setting"
+                                                                style="z-index: 100;">
                                                                 <a class="dropdown-item search-date-form"
                                                                     data-toggle="modal"
                                                                     data-target="#formModallocation"
                                                                     data-name="location"
                                                                     data-id="{{ $item->id }}"
-                                                                    id="{{ $item->id }}">Chỉnh sửa</a>
+                                                                    id="{{ $item->id }}"><i
+                                                                        class="fa-regular fa-pen-to-square"></i></a>
                                                                 <a class="dropdown-item delete-item" href="#"
-                                                                    data-id="{{ $item->id }}">Xóa</a>
+                                                                    data-id="{{ $item->id }}"
+                                                                    data-name="{{ $item->form_field }}"><i
+                                                                        class="fa-solid fa-trash-can"></i></a>
+                                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                    id="default-id{{ $item->id }}" href="#"
+                                                                    data-name="{{ $item->form_field }}"
+                                                                    data-id="{{ $item->id }}">
+                                                                    @if ($item->default_form === 1)
+                                                                        <i class="fa-solid fa-link-slash"></i>
+                                                                    @else
+                                                                        <i class="fa-solid fa-link"></i>
+                                                                    @endif
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -1000,7 +1095,7 @@
     });
 
     $(document).ready(function() {
-        $('.search-date-form').click(function() {
+        $(document).on('click', '.search-date-form', function(e) {
             $('.modal').on('hidden.bs.modal', function() {
                 $('#form-name-' + name).val('')
                 $('#form-desc-' + name).val('')
@@ -1024,6 +1119,10 @@
                 },
                 success: function(data) {
                     $('#myInput-' + name).val(data.form_desc);
+                    $("input[name='idDate[" + data.form_field + "]']").val(data
+                        .id);
+                    $("input[name='fieldDate[" + data.form_field + "]']").val(data
+                        .form_field);
                     if (dataid) {
                         $('#form-name-' + name).val(data.form_name)
                         $('#form-desc-' + name).val(data.form_desc)
@@ -1034,6 +1133,56 @@
                             'Cập nhật');
                         $('.title-dateform').text('Cập nhật');
                     }
+                }
+            });
+        });
+        // Xóa form date
+        $(document).on('click', '.delete-item', function(e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            var name = $(this).data('name');
+            console.log(id);
+            if (confirm('Bạn có chắc chắn muốn xóa không?')) {
+                $.ajax({
+                    url: '{{ route('deleteDateForm') }}',
+                    type: 'GET',
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        $(".item-" + id).remove();
+                        $('#myInput-' + name).val('');
+                        $("input[name='idDate[" + name + "]']").val(null);
+                        $("input[name='fieldDate[" + data.form_field + "]']").val();
+                    }
+                });
+            }
+        });
+        // Set mặc định có các dateForm
+        $(document).on('click', '.set-default', function(e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            var name = $(this).data('name');
+            console.log(id);
+            $.ajax({
+                url: '{{ route('setDefault') }}',
+                type: 'GET',
+                data: {
+                    id: id,
+                    name: name,
+                },
+                success: function(data) {
+                    // $("input[name='idDate[" + name + "]']").val(id);
+                    // $("input[name='fieldDate[" + name + "]']").val(name);
+                    data.update_form.forEach(item => {
+                        if (item.default_form === 1) {
+                            $('#default-id' + item.id).html(
+                                '<i class="fa-solid fa-link-slash"></i>');
+                        } else {
+                            $('#default-id' + item.id).html(
+                                '<i class="fa-solid fa-link"></i>');
+                        }
+                    });
                 }
             });
         });
@@ -1061,7 +1210,23 @@
                     success: function(data) {
                         $('#myInput-' + name).val(data.new_date_form.form_desc);
                         alert(data.msg);
+                        $("input[name='idDate[" + data.new_date_form.form_field + "]']")
+                            .val(data.new_date_form
+                                .id);
+                        $("input[name='fieldDate[" + data.new_date_form.form_field + "]']")
+                            .val(data.new_date_form
+                                .form_field);
                         $('.modal [data-dismiss="modal"]').click();
+
+                        // Đoạn html của set default
+                        let originalHTML =
+                            '<a class="dropdown-item set-default default-id' + data
+                            .new_date_form.form_field + '"' +
+                            'id="default-id' + data.new_date_form.id + '" href="#"' +
+                            'data-name="' + data.new_date_form.form_field + '"' +
+                            'data-id="' + data.new_date_form.id + '">' +
+                            '<i class="fa-solid fa-link"></i>' +
+                            '</a>';
                         // Thêm phần tử mới vào trong form tìm kiếm
                         var newListItem =
                             '<li class="item-' + data.new_date_form.id +
@@ -1074,13 +1239,16 @@
                             '</span></a><div class="dropdown">' +
                             '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">' +
                             '<i class="fa-solid fa-ellipsis"></i>' + '</button>' +
-                            '<div class="dropdown-menu" style="z-index: 100;">' +
+                            '<div class="dropdown-menu date-form-setting" style="z-index: 100;">' +
                             '<a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModal' +
                             name + '" data-name="' +
                             name + '" data-id="' + data.new_date_form.id +
-                            '" id="' + data.new_date_form.id + '">Chỉnh sửa</a>' +
+                            '" id="' + data.new_date_form.id +
+                            '"><i class="fa-regular fa-pen-to-square"></i></a>' +
                             '<a class="dropdown-item delete-item" href="#" data-id="' + data
-                            .new_date_form.id + '">Xóa</a>' +
+                            .new_date_form.id +
+                            '" data-name="' + data.new_date_form.form_field +
+                            '"><i class="fa-solid fa-trash-can"></i></a>' + originalHTML +
                             '</div>' +
                             '</div></li>';
                         // Thêm mục mới vào danh sách
@@ -1112,6 +1280,14 @@
                                     idDateForm: idDateForm
                                 },
                                 success: function(data) {
+                                    $("input[name='idDate[" + data
+                                        .form_field + "]']").val(
+                                        data
+                                        .id);
+                                    $("input[name='fieldDate[" + data
+                                        .form_field + "]']").val(
+                                        data
+                                        .form_field);
                                     $('#myInput-' + name).val(data
                                         .form_desc);
                                     if (dataid) {
@@ -1142,33 +1318,21 @@
                     success: function(data) {
                         console.log(data);
                         $('.modal [data-dismiss="modal"]').click();
-                        alert(data.msg);
+                        $("input[name='idDate[" + data.new_date_form.form_field + "]']")
+                            .val(data.new_date_form
+                                .id);
+                        $("input[name='fieldDate[" + data.new_date_form.form_field + "]']")
+                            .val(data.new_date_form
+                                .form_field);
                         $("#" + name + id).text(data.new_date_form.form_name)
                         console.log(name, id);
                         $('#myInput-' + name).val(data.new_date_form.form_desc);
+                        alert(data.msg);
                     }
                 });
             }
         });
 
-        // Xóa form date
-        $('.delete-item').on('click', function(e) {
-            e.preventDefault();
-            var id = $(this).data('id');
-            console.log(id);
-            if (confirm('Bạn có chắc chắn muốn xóa không?')) {
-                $.ajax({
-                    url: '{{ route('deleteDateForm') }}',
-                    type: 'GET',
-                    data: {
-                        id: id
-                    },
-                    success: function(data) {
-                        $(".item-" + id).remove();
-                    }
-                });
-            }
-        });
 
         let fieldCounter = 1;
         $("#add-field-btn").click(function() {
@@ -1470,7 +1634,7 @@
     });
     //Lấy thông tin khách hàng
     $(document).ready(function() {
-        $('.search-info').click(function() {
+        $(document).on('click', '.search-info', function(e) {
             var idGuest = $(this).attr('id');
             $.ajax({
                 url: '{{ route('searchExport') }}',
@@ -1490,6 +1654,29 @@
                     $('input[name="quotation_number"]').val(quotation);
                     $('.nameGuest').val(data['guest'].guest_name_display);
                     $('.idGuest').val(data['guest'].id);
+                    $.ajax({
+                        url: '{{ route('searchFormByGuestId') }}',
+                        type: 'GET',
+                        data: {
+                            idGuest: idGuest
+                        },
+                        success: function(data) {
+                            Object.keys(data).forEach(function(key) {
+                                console.log("Key:", key);
+                                var formField = data[key].form
+                                    .form_field;
+                                var dateFormId = data[key].date_form_id;
+                                var formDesc = data[key].form.form_desc;
+                                $("input[name='fieldDate[" + key +
+                                        "]']")
+                                    .val(key);
+                                $("input[name='idDate[" + key +
+                                        "]']")
+                                    .val(dateFormId);
+                                $('#myInput-' + key).val(formDesc);
+                            });
+                        }
+                    });
                 }
             });
         });
@@ -1829,8 +2016,10 @@
             },
             success: function(data) {
                 if (data.success) {
-                    alert(data.msg);
+                    quotation = getQuotation(data.key, '1')
+                    $('input[name="quotation_number"]').val(quotation);
                     $('.nameGuest').val(data.guest_name_display);
+                    alert(data.msg);
                     $('.idGuest').val(data.id);
                     $('.modal [data-dismiss="modal"]').click();
                     // Nếu thành công, tạo một mục mới

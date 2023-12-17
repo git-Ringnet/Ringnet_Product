@@ -1,6 +1,5 @@
 // Lấy thông tin key
 function getUppercaseCharacters(input) {
-    console.log(input);
     // Sử dụng regular expression để lọc ra các ký tự viết hoa
     var uppercaseChars = input.match(/[A-Z]/g);
     // Nếu không có ký tự viết hoa, trả về chuỗi trống

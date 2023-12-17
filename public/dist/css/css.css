@@ -1616,3 +1616,10 @@ input[type="checkbox"] {
 .scroll-data li .search-date-form{
     width: 90%;
 }
+.dropdown-menu.show.date-form-setting{
+    display: flex !important;
+    justify-items: baseline;
+}
+.search-date-form,.set-default{
+    cursor: pointer;
+}

@@ -177,4 +177,10 @@ class DetailExport extends Model
             ->value('sumSell');
         return $sumSell;
     }
+    // Ajax filter search history Guest
+    public function historyFilterGuest($data)
+    {
+        $historyGuest = DetailExport::where('guest_id', $data['idName'])->get();
+        return $historyGuest;
+    }
 }

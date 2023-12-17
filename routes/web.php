@@ -42,6 +42,7 @@ Route::get('/searchProvides', [ProvidesController::class, 'search'])->name('sear
 // Khách hàng
 Route::resource('guests', GuestController::class);
 Route::get('/search', [GuestController::class, 'search'])->name('search');
+Route::get('/searchDetailGuest', [GuestController::class, 'searchDetailGuest'])->name('searchDetailGuest');
 
 // Mua hàng
 Route::resource('import', DetailImportController::class);
@@ -60,7 +61,10 @@ Route::resource('DateForm', DateFormController::class);
 Route::get('/addDateForm', [DateFormController::class, 'addDateForm'])->name('addDateForm');
 Route::get('/updateDateForm', [DateFormController::class, 'updateDateForm'])->name('updateDateForm');
 Route::get('/deleteDateForm', [DateFormController::class, 'deleteDateForm'])->name('deleteDateForm');
+Route::get('/setDefault', [DateFormController::class, 'setDefault'])->name('setDefault');
 Route::get('/searchDateForm', [DateFormController::class, 'searchDateForm'])->name('searchDateForm');
+Route::get('/searchFormByGuestId', [DetailExportController::class, 'searchFormByGuestId'])->name('searchFormByGuestId');
+
 
 
 

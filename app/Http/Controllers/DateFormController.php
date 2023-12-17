@@ -118,6 +118,32 @@ class DateFormController extends Controller
             return $msg;
         }
     }
+    public function setDefault(Request $request)
+    {
+        if ($request->ajax()) {
+            $id = $request->id;
+            $form = DateForm::find($id);
+            $name = $request->name;
+
+            if ($form->default_form != 1) {
+                DateForm::where('form_field', $name)->update(['default_form' => 0]);
+                $form->update(['default_form' => 1]);
+                $text = 'Đã cài mặc định';
+            } else {
+                $form->update(['default_form' => 0]);
+                $text = 'Đã bỏ mặc định';
+            }
+            $update_form = DateForm::where('form_field', $name)->get();
+            $msg = response()->json([
+                'id' => $id,
+                'success' => true,
+                'msg' => $text,
+                'form' => $form,
+                'update_form' => $update_form,
+            ]);
+            return $msg;
+        }
+    }
     public function searchDateForm(Request $request)
     {
         $data = $request->all();
