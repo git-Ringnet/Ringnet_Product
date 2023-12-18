@@ -15,7 +15,7 @@
                     <span class="font-weight-bold">Báo giá mới</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <button type="submit" name="submit" value="1" onclick="kiemTraFormGiaoHang();"
+                    <button type="submit" onclick="kiemTraFormGiaoHang(event);"
                         class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -712,138 +712,138 @@
                 </div>
             </div>
         </section>
-    </form>
-    <div class="modal fade" id="guestModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="productModalLabel">Thông tin khách hàng</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="content-info">
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3 required-label text-danger">
-                                    Tên hiển thị
-                                </p>
+
+        <div class="modal fade" id="guestModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productModalLabel">Thông tin khách hàng</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="content-info">
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3 required-label text-danger">
+                                        Tên hiển thị
+                                    </p>
+                                </div>
+                                <input name="guest_name_display" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3"
+                                    id="guest_name_display" autocomplete="off">
                             </div>
-                            <input name="guest_name_display" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_name_display"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3 required-label text-danger">
-                                    Địa chỉ
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3 required-label text-danger">
+                                        Địa chỉ
+                                    </p>
+                                </div>
+                                <input name="guest_address" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_address"
+                                    autocomplete="off">
                             </div>
-                            <input name="guest_address" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_address"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3 required-label text-danger">
-                                    Mã số thuế
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3 required-label text-danger">
+                                        Mã số thuế
+                                    </p>
+                                </div>
+                                <input name="guest_code" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_code"
+                                    autocomplete="off">
                             </div>
-                            <input name="guest_code" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_code"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    Key
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        Key
+                                    </p>
+                                </div>
+                                <input name="key" type="text" placeholder="Nhập thông tin" id="key"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
                             </div>
-                            <input name="key" type="text" placeholder="Nhập thông tin" id="key"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    Tên công ty
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        Tên công ty
+                                    </p>
+                                </div>
+                                <input name="guest_name" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_name"
+                                    autocomplete="off">
                             </div>
-                            <input name="guest_name" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_name"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    Email
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        Email
+                                    </p>
+                                </div>
+                                <input name="guest_email" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_email"
+                                    autocomplete="off">
                             </div>
-                            <input name="guest_email" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_email"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    Số điện thoại
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        Số điện thoại
+                                    </p>
+                                </div>
+                                <input name="guest_phone" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_phone"
+                                    autocomplete="off">
                             </div>
-                            <input name="guest_phone" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_phone"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    Người nhận hàng
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        Người nhận hàng
+                                    </p>
+                                </div>
+                                <input name="guest_receiver" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_receiver"
+                                    autocomplete="off">
                             </div>
-                            <input name="guest_receiver" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_receiver"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    Email cá nhân
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        Email cá nhân
+                                    </p>
+                                </div>
+                                <input name="guest_email_personal" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3"
+                                    id="guest_email_personal" autocomplete="off">
                             </div>
-                            <input name="guest_email_personal" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_email_personal"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    SĐT người nhận
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        SĐT người nhận
+                                    </p>
+                                </div>
+                                <input name="guest_phone_receiver" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3"
+                                    id="guest_phone_receiver" autocomplete="off">
                             </div>
-                            <input name="guest_phone_receiver" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_phone_receiver"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    Ghi chú
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        Ghi chú
+                                    </p>
+                                </div>
+                                <input name="guest_note" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_note"
+                                    autocomplete="off">
                             </div>
-                            <input name="guest_note" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_note"
-                                autocomplete="off">
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary" id="addGuest">Thêm mới</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary" id="addGuest">Thêm mới</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
+    </form>
     <x-date-form-modal title="Điều khoản thanh toán" name="payment" idModal="formModalpayment"></x-date-form-modal>
     <x-date-form-modal title="Hiệu lực báo giá" name="quote" idModal="formModalquote"></x-date-form-modal>
     <x-date-form-modal title="Hàng hóa" name="goods" idModal="formModalgoods"></x-date-form-modal>
@@ -1787,7 +1787,9 @@
         }
     });
     //
-    function kiemTraFormGiaoHang() {
+    function kiemTraFormGiaoHang(event) {
+        event.preventDefault();
+
         var rows = document.querySelectorAll('tr');
         var hasProducts = false;
 
@@ -1801,6 +1803,23 @@
         if (!hasProducts) {
             alert("Không có sản phẩm để báo giá");
             event.preventDefault();
+        }
+        var quotetion_number = $('input[name="quotation_number"]').val();
+        if (hasProducts) {
+            $.ajax({
+                url: "{{ route('checkQuotetionExport') }}",
+                type: "get",
+                data: {
+                    quotetion_number: quotetion_number,
+                },
+                success: function(data) {
+                    if (!data['status']) {
+                        alert('Số báo giá đã tồn tại')
+                    } else {
+                        $('form')[0].submit();
+                    }
+                }
+            })
         }
     }
 </script>

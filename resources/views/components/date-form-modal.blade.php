@@ -10,17 +10,15 @@
                  </button>
              </div>
              <div class="modal-body">
-                 <form>
-                     <div class="form-group">
-                         <label for="form-name" class="col-form-label">Tên biểu mẫu</label>
-                         <input type="text" class="form-control" id="form-name-{{ $name }}"
-                             name="form-name-{{ $name }}" value="" required>
-                     </div>
-                     <div class="form-group">
-                         <label for="message-text" class="col-form-label">Nội dung</label>
-                         <textarea class="form-control" id="form-desc-{{ $name }}" name="form-desc-{{ $name }}" required></textarea>
-                     </div>
-                 </form>
+                 <div class="form-group">
+                     <label for="form-name" class="col-form-label">Tên biểu mẫu</label>
+                     <input type="text" class="form-control" id="form-name-{{ $name }}"
+                         name="form-name-{{ $name }}" value="" required>
+                 </div>
+                 <div class="form-group">
+                     <label for="message-text" class="col-form-label">Nội dung</label>
+                     <textarea class="form-control" id="form-desc-{{ $name }}" name="form-desc-{{ $name }}" required></textarea>
+                 </div>
              </div>
              <div class="modal-footer">
                  <button type="button" class="btn btn-primary btn-submit btn-submit{{ $name }}"

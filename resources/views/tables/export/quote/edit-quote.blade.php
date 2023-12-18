@@ -1,7 +1,7 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="quote"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <form action="{{ route('detailExport.update', $detailExport->maBG) }}" method="POST" id="update-form">
+    <form action="{{ route('detailExport.update', $detailExport->maBG) }}" method="POST">
         @csrf
         @method('PUT')
         <input type="hidden" value="{{ $detailExport->maBG }}" name="detailexport_id">
@@ -16,7 +16,7 @@
                     <span class="font-weight-bold">{{ $detailExport->maBG }}</span>
                 </div>
                 <div class="row m-0 mb-1">
-                    <button type="submit" name="action" value="action_1"
+                    <button type="submit" name="action1" value="action_1" onclick="kiemTraFormGiaoHang(event);"
                         class="custom-btn d-flex align-items-center h-100" id="btn-submit" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -24,6 +24,7 @@
                                 d="M3.75528 1.6875H5.99476H11.9948H12.123C12.3939 1.6875 12.6621 1.74088 12.9123 1.84459C13.1626 1.94829 13.3899 2.10029 13.5814 2.29189L15.7022 4.41269C16.089 4.79939 16.3064 5.32394 16.3065 5.87088V14.25C16.3065 14.797 16.0892 15.3216 15.7024 15.7084C15.3156 16.0952 14.791 16.3125 14.244 16.3125H12.75H5.25H3.83328C3.28894 16.3125 2.76666 16.0973 2.38031 15.7139C1.99396 15.3304 1.77486 14.8098 1.77078 14.2655L1.69278 3.76547C1.69074 3.49333 1.74258 3.22344 1.84531 2.97143C1.94805 2.71941 2.09965 2.49021 2.29137 2.29705C2.4831 2.10389 2.71115 1.95058 2.9624 1.84597C3.21364 1.74135 3.48312 1.68749 3.75528 1.6875ZM5.8125 15.1875H12.1875V9.9645C12.1875 9.74238 12.0071 9.5625 11.7862 9.5625H6.2145C5.99266 9.5625 5.8125 9.74266 5.8125 9.9645V15.1875ZM13.3125 15.1875V9.9645C13.3125 9.12163 12.6289 8.4375 11.7862 8.4375H6.2145C5.37134 8.4375 4.6875 9.12134 4.6875 9.9645V15.1875H3.83326C3.58582 15.1875 3.34842 15.0897 3.17281 14.9154C2.9972 14.7411 2.89761 14.5044 2.89574 14.257L2.81774 3.75703C2.81682 3.63333 2.84038 3.51066 2.88708 3.39611C2.93378 3.28155 3.00269 3.17737 3.08983 3.08957C3.17698 3.00177 3.28064 2.93208 3.39485 2.88453C3.50905 2.83698 3.63154 2.8125 3.75524 2.8125H5.43226V5.18175C5.43226 5.52985 5.57054 5.86369 5.81668 6.10983C6.06282 6.35597 6.39666 6.49425 6.74476 6.49425H11.2448C11.5929 6.49425 11.9267 6.35597 12.1728 6.10983C12.419 5.86369 12.5573 5.52985 12.5573 5.18175V2.91925C12.6414 2.96326 12.7185 3.01991 12.7858 3.08725L14.9068 5.20831C15.0826 5.38405 15.1814 5.62254 15.1815 5.87112V14.25C15.1815 14.4986 15.0827 14.7371 14.9069 14.9129C14.7311 15.0887 14.4926 15.1875 14.244 15.1875H13.3125ZM11.4323 5.18175V2.8125H6.55726V5.18175C6.55726 5.23148 6.57701 5.27917 6.61218 5.31433C6.64734 5.3495 6.69503 5.36925 6.74476 5.36925H11.2448C11.2945 5.36925 11.3422 5.3495 11.3773 5.31433C11.4125 5.27917 11.4323 5.23148 11.4323 5.18175Z"
                                 fill="white" />
                         </svg>
+                        <input type="hidden" id="hiddenAction" name="action" value="action_1">
                         <span>Lưu</span>
                     </button>
                     <div class="dropdown d-none">
@@ -610,7 +611,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($quoteExport as $item_quote)
-                                            <tr class="bg-white">
+                                            <tr class="bg-white addProduct">
                                                 <td
                                                     class="border border-left-0 border-top-0 border-bottom-0 position-relative">
                                                     <div
@@ -866,137 +867,137 @@
                 </div>
             </div>
         </section>
-    </form>
-    <div class="modal fade" id="guestModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="productModalLabel">Thông tin khách hàng</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="content-info">
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3 required-label text-danger">
-                                    Tên hiển thị
-                                </p>
+        <div class="modal fade" id="guestModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productModalLabel">Thông tin khách hàng</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="content-info">
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3 required-label text-danger">
+                                        Tên hiển thị
+                                    </p>
+                                </div>
+                                <input name="guest_name_display" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3"
+                                    id="guest_name_display" autocomplete="off">
                             </div>
-                            <input name="guest_name_display" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_name_display"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3 required-label text-danger">
-                                    Địa chỉ
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3 required-label text-danger">
+                                        Địa chỉ
+                                    </p>
+                                </div>
+                                <input name="guest_address" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_address"
+                                    autocomplete="off">
                             </div>
-                            <input name="guest_address" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_address"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3 required-label text-danger">
-                                    Mã số thuế
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3 required-label text-danger">
+                                        Mã số thuế
+                                    </p>
+                                </div>
+                                <input name="guest_code" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_code"
+                                    autocomplete="off">
                             </div>
-                            <input name="guest_code" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_code"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    Key
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        Key
+                                    </p>
+                                </div>
+                                <input name="key" type="text" placeholder="Nhập thông tin" id="key"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
                             </div>
-                            <input name="key" type="text" placeholder="Nhập thông tin" id="key"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    Tên công ty
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        Tên công ty
+                                    </p>
+                                </div>
+                                <input name="guest_name" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_name"
+                                    autocomplete="off">
                             </div>
-                            <input name="guest_name" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_name"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    Email
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        Email
+                                    </p>
+                                </div>
+                                <input name="guest_email" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_email"
+                                    autocomplete="off">
                             </div>
-                            <input name="guest_email" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_email"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    Số điện thoại
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        Số điện thoại
+                                    </p>
+                                </div>
+                                <input name="guest_phone" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_phone"
+                                    autocomplete="off">
                             </div>
-                            <input name="guest_phone" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_phone"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    Người nhận hàng
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        Người nhận hàng
+                                    </p>
+                                </div>
+                                <input name="guest_receiver" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_receiver"
+                                    autocomplete="off">
                             </div>
-                            <input name="guest_receiver" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_receiver"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    Email cá nhân
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        Email cá nhân
+                                    </p>
+                                </div>
+                                <input name="guest_email_personal" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3"
+                                    id="guest_email_personal" autocomplete="off">
                             </div>
-                            <input name="guest_email_personal" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_email_personal"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    SĐT người nhận
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        SĐT người nhận
+                                    </p>
+                                </div>
+                                <input name="guest_phone_receiver" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3"
+                                    id="guest_phone_receiver" autocomplete="off">
                             </div>
-                            <input name="guest_phone_receiver" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_phone_receiver"
-                                autocomplete="off">
-                        </div>
-                        <div class="d-flex ml-2 align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3">
-                                    Ghi chú
-                                </p>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3">
+                                        Ghi chú
+                                    </p>
+                                </div>
+                                <input name="guest_note" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_note"
+                                    autocomplete="off">
                             </div>
-                            <input name="guest_note" type="text" placeholder="Nhập thông tin"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_note"
-                                autocomplete="off">
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary" id="addGuest">Thêm mới</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary" id="addGuest">Thêm mới</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
     <x-date-form-modal title="Điều khoản thanh toán" name="payment" idModal="formModalpayment"></x-date-form-modal>
     <x-date-form-modal title="Hiệu lực báo giá" name="quote" idModal="formModalquote"></x-date-form-modal>
     <x-date-form-modal title="Hàng hóa" name="goods" idModal="formModalgoods"></x-date-form-modal>
@@ -1650,305 +1651,6 @@
         });
     });
 
-    //thêm sản phẩm
-    $(document).ready(function() {
-        let fieldCounter = 1;
-        $("#add-field-btn").click(function() {
-            let nextSoTT = $(".soTT").length + 1;
-            // Tạo các phần tử HTML mới
-            const newRow = $("<tr>", {
-                "id": `dynamic-row-${fieldCounter}`,
-                "class": `bg-white`,
-            });
-            const maSanPham = $(
-                "<td class='border border-left-0 border-top-0 border-bottom-0 position-relative'>" +
-                "<div class='d-flex w-100 justify-content-between align-items-center'>" +
-                "<svg width='24' height='24' viewBox='0 0 24 24'" +
-                "fill='none' xmlns='http://www.w3.org/2000/svg'>" +
-                "<path fill-rule='evenodd' clip-rule='evenodd' d='M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z' fill='#42526E'/>" +
-                "<path fill-rule='evenodd' clip-rule='evenodd'" +
-                "d='M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z'" +
-                "fill='#42526E' />" +
-                "<path fill-rule='evenodd' clip-rule='evenodd'" +
-                "d='M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z'" +
-                "fill='#42526E' />" +
-                "<path fill-rule='evenodd' clip-rule='evenodd'" +
-                "d='M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z'" +
-                "fill='#42526E' />" +
-                "<path fill-rule='evenodd' clip-rule='evenodd'" +
-                "d='M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z'" +
-                "fill='#42526E' />" +
-                "<path fill-rule='evenodd' clip-rule='evenodd'" +
-                "d='M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z'" +
-                "fill='#42526E' />" +
-                "</svg>" +
-                "<input type='checkbox' class='cb-element'>" +
-                "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-75 product_code' name='product_code[]'>" +
-                "</td>");
-            const tenSanPham = $(
-                "<td class='border border-top-0 border-bottom-0 position-relative'>" +
-                "<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 75%;left: 10%;'>" +
-                "@foreach ($product as $product_value)" +
-                "<li>" +
-                "<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 idProduct' id='{{ $product_value->id }}' name='idProduct'>" +
-                "<span class='w-50'>{{ $product_value->product_name }}</span>" +
-                "</a>" +
-                "</li>" +
-                "@endforeach" +
-                "</a></ul>" +
-                "<div class='d-flex align-items-center'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-100 product_name' autocomplete='off' required name='product_name[]'>" +
-                "<input type='hidden' class='product_id' autocomplete='off' name='product_id[]'>" +
-                "<div class='info-product' data-toggle='modal' data-target='#productModal'>" +
-                "<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
-                "<path d='M8.99998 4.5C8.45998 4.5 8.09998 4.86 8.09998 5.4C8.09998 5.94 8.45998 6.3 8.99998 6.3C9.53998 6.3 9.89998 5.94 9.89998 5.4C9.89998 4.86 9.53998 4.5 8.99998 4.5Z' fill='#42526E'/>" +
-                "<path d='M9 0C4.05 0 0 4.05 0 9C0 13.95 4.05 18 9 18C13.95 18 18 13.95 18 9C18 4.05 13.95 0 9 0ZM9 16.2C5.04 16.2 1.8 12.96 1.8 9C1.8 5.04 5.04 1.8 9 1.8C12.96 1.8 16.2 5.04 16.2 9C16.2 12.96 12.96 16.2 9 16.2Z' fill='#42526E'/>" +
-                "<path d='M8.99998 7.2002C8.45998 7.2002 8.09998 7.5602 8.09998 8.10019V12.6002C8.09998 13.1402 8.45998 13.5002 8.99998 13.5002C9.53998 13.5002 9.89998 13.1402 9.89998 12.6002V8.10019C9.89998 7.5602 9.53998 7.2002 8.99998 7.2002Z' fill='#42526E'/>" +
-                "</svg></div></div></td>"
-            );
-            const dvTinh = $(
-                "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit' required name='product_unit[]'></td>"
-            );
-            const soLuong = $(
-                "<td class='border border-top-0 border-bottom-0 position-relative'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
-                "<input type='hidden' class='tonkho'>" +
-                "<p class='text-primary text-center position-absolute inventory' style='top: 68%;'>Tồn kho: <span class='soTonKho'>35</span></p>" +
-                "</td>"
-            );
-            const donGia = $(
-                "<td class='border border-top-0 border-bottom-0 position-relative'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
-                "<p class='text-primary text-right position-absolute transaction' style='top: 68%;right: 5%;'>Giao dịch gần đây</p>" +
-                "</td>"
-            );
-            const thue = $(
-                "<td class='border border-top-0 border-bottom-0 px-4'>" +
-                "<select name='product_tax[]' class='border-0 text-center product_tax' required>" +
-                "<option value='0'>0%</option>" +
-                "<option value='8'>8%</option>" +
-                "<option value='10'>10%</option>" +
-                "<option value='99'>NOVAT</option>" +
-                "</select>" +
-                "</td>"
-            );
-            const thanhTien = $(
-                "<td class='border border-top-0 border-bottom-0'><input type='text' readonly class='border-0 px-2 py-1 w-100 total-amount'>" +
-                "</td><td class='border-top border-secondary p-0 bg-secondary Daydu' style='width:1%;'></td>"
-            );
-            const option = $(
-                "<td class='border border-top-0 border-bottom-0 border-right-0 text-right'>" +
-                "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
-                "<path fill-rule='evenodd' clip-rule='evenodd' d='M10.5454 5C10.2442 5 9.99999 5.24421 9.99999 5.54545C9.99999 5.8467 10.2442 6.09091 10.5454 6.09091H13.4545C13.7558 6.09091 14 5.8467 14 5.54545C14 5.24421 13.7558 5 13.4545 5H10.5454ZM6 7.72726C6 7.42601 6.24421 7.18181 6.54545 7.18181H7.63637H16.3636H17.4545C17.7558 7.18181 18 7.42601 18 7.72726C18 8.02851 17.7558 8.27272 17.4545 8.27272H16.9091V17C16.9091 18.2113 15.9118 19.1818 14.7135 19.1818H9.25891C8.97278 19.1816 8.68906 19.1247 8.42499 19.0145C8.16092 18.9044 7.92126 18.7431 7.71979 18.5399C7.51833 18.3367 7.35905 18.0957 7.25112 17.8307C7.14347 17.5664 7.08903 17.2834 7.09091 16.9981V8.27272H6.54545C6.24421 8.27272 6 8.02851 6 7.72726ZM8.18182 17.0041V8.27272H15.8182V17C15.8182 17.5966 15.3216 18.0909 14.7135 18.0909H9.25938C9.11713 18.0908 8.97632 18.0625 8.84503 18.0077C8.71375 17.953 8.5946 17.8728 8.49444 17.7718C8.39429 17.6707 8.3151 17.5509 8.26144 17.4192C8.20779 17.2874 8.18074 17.1464 8.18182 17.0041ZM13.4545 10.0909C13.7558 10.0909 14 10.3351 14 10.6364V15.7273C14 16.0285 13.7558 16.2727 13.4545 16.2727C13.1533 16.2727 12.9091 16.0285 12.9091 15.7273V10.6364C12.9091 10.3351 13.1533 10.0909 13.4545 10.0909ZM11.0909 10.6364C11.0909 10.3351 10.8467 10.0909 10.5454 10.0909C10.2442 10.0909 9.99999 10.3351 9.99999 10.6364V15.7273C9.99999 16.0285 10.2442 16.2727 10.5454 16.2727C10.8467 16.2727 11.0909 16.0285 11.0909 15.7273V10.6364Z' fill='#42526E'/>" +
-                "</svg>" +
-                "</td>" +
-                "<td style='display:none;'><input type='text' class='product_tax1'></td>"
-            );
-            const heSoNhan = $(
-                "<td class='border border-top-0 border-bottom-0 position-relative product_ratio'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-100 heSoNhan' autocomplete='off' name='product_ratio[]'>" +
-                "</td>"
-            );
-            const giaNhap = $(
-                "<td class='border border-top-0 border-bottom-0 position-relative price_import'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-100 giaNhap' autocomplete='off' required name='price_import[]'>" +
-                "</td>"
-            );
-            const ghiChu = $(
-                "<td class='border border-top-0 border-bottom-0 position-relative note p-1'>" +
-                "<input type='text' class='border-0 py-1 w-100' placeholder='Nhập ghi chú' name='product_note[]'>" +
-                "</td>"
-            );
-            // Gắn các phần tử vào hàng mới
-            newRow.append(maSanPham, tenSanPham, dvTinh,
-                soLuong, donGia, thue, thanhTien, heSoNhan, giaNhap, ghiChu, option
-            );
-            $("#dynamic-fields").before(newRow);
-            // Tăng giá trị fieldCounter
-            fieldCounter++;
-            //kéo thả vị trí sản phẩm
-            $("table tbody").sortable({
-                axis: "y",
-                handle: "td",
-            });
-            //Xóa sản phẩm
-            option.click(function() {
-                $(this).closest("tr").remove();
-                fieldCounter--;
-                calculateTotals();
-                calculateGrandTotal();
-                var productTaxText = $('#product-tax').text();
-                var productTaxValue = parseFloat(productTaxText.replace(/,/g, ''));
-                var taxAmount = parseFloat(('.product_tax1').text());
-                var totalTax = productTaxValue - taxAmount;
-                $('#product-tax').text(totalTax);
-            });
-            // Checkbox
-            $('#checkall').change(function() {
-                $('.cb-element').prop('checked', this.checked);
-                updateMultipleActionVisibility();
-            });
-            $('.cb-element').change(function() {
-                updateMultipleActionVisibility();
-                if ($('.cb-element:checked').length === $('.cb-element').length) {
-                    $('#checkall').prop('checked', true);
-                } else {
-                    $('#checkall').prop('checked', false);
-                }
-            });
-            $(document).on('click', '.cancal_action', function(e) {
-                e.preventDefault();
-                $('.cb-element:checked').prop('checked', false);
-                $('#checkall').prop('checked', false);
-                updateMultipleActionVisibility()
-            })
-
-            function updateMultipleActionVisibility() {
-                if ($('.cb-element:checked').length > 0) {
-                    $('.multiple_action').show();
-                    $('.count_checkbox').text('Đã chọn ' + $('.cb-element:checked').length);
-                } else {
-                    $('.multiple_action').hide();
-                }
-            }
-            //Hiển thị danh sách mã sản phẩm
-            // $(".list_code").hide();
-            // $('.product_code').on("click", function(e) {
-            //     e.stopPropagation();
-            //     $(this).closest('tr').find(".list_code").show();
-            // });
-            // $(document).on("click", function(e) {
-            //     if (!$(e.target).is(".product_code")) {
-            //         $(".list_code").hide();
-            //     }
-            // });
-            //Hiển thị danh sách tên sản phẩm
-            $(".list_product").hide();
-            $('.product_name').on("click", function(e) {
-                e.stopPropagation();
-                $(this).closest('tr').find(".list_product").show();
-            });
-            $(document).on("click", function(e) {
-                if (!$(e.target).is(".product_name")) {
-                    $(".list_product").hide();
-                }
-            });
-            //search mã sản phẩm
-            // $(".product_code").on("keyup", function() {
-            //     var value = $(this).val().toUpperCase();
-            //     var $tr = $(this).closest("tr");
-            //     $tr.find(".list_code li").each(function() {
-            //         var text = $(this).find("a").text().toUpperCase();
-            //         $(this).toggle(text.indexOf(value) > -1);
-            //     });
-            // });
-            //search tên sản phẩm
-            $(".product_name").on("keyup", function() {
-                var value = $(this).val().toUpperCase();
-                var $tr = $(this).closest("tr");
-                $tr.find(".list_product li").each(function() {
-                    var text = $(this).find("a").text().toUpperCase();
-                    $(this).toggle(text.indexOf(value) > -1);
-                });
-            });
-            //lấy thông tin sản phẩm
-            $(document).ready(function() {
-                $('.inventory').hide();
-                $('.transaction').hide();
-                $('.info-product').hide();
-                $('.idProduct').click(function() {
-                    var productName = $(this).closest('tr').find('.product_name');
-                    var productUnit = $(this).closest('tr').find('.product_unit');
-                    var thue = $(this).closest('tr').find('.product_tax');
-                    var product_id = $(this).closest('tr').find('.product_id');
-                    var tonkho = $(this).closest('tr').find('.tonkho');
-                    var idProduct = $(this).attr('id');
-                    var soTonKho = $(this).closest('tr').find('.soTonKho');
-                    $.ajax({
-                        url: '{{ route('getProduct') }}',
-                        type: 'GET',
-                        data: {
-                            idProduct: idProduct
-                        },
-                        success: function(data) {
-                            productName.val(data.product_name);
-                            productUnit.val(data.product_unit);
-                            thue.val(data.product_tax);
-                            product_id.val(data.id);
-                            tonkho.val(data.product_inventory)
-                            $('.info-product').show();
-                            soTonKho.text(parseFloat(data
-                                .product_inventory));
-                            if (data.product_inventory !== null) {
-                                $('.inventory').show();
-                                $('.transaction').show();
-                            }
-                        }
-                    });
-                });
-            });
-            //lấy thông tin mã sản phẩm
-            // $(document).ready(function() {
-            //     $('.maSP').click(function() {
-            //         var idCode = $(this).attr('id');
-            //         var productCode = $(this).closest('tr').find('.product_code');
-            //         $.ajax({
-            //             url: '{{ route('getProductCode') }}',
-            //             type: 'GET',
-            //             data: {
-            //                 idCode: idCode
-            //             },
-            //             success: function(data) {
-            //                 productCode.val(data.product_code);
-            //             }
-            //         });
-            //     });
-            // });
-            //Xem thông tin sản phẩm
-            $('.info-product').click(function() {
-                var productName = $(this).closest('tr').find('.product_name').val();
-                var dvt = $(this).closest('tr').find('.product_unit').val();
-                var thue = $(this).closest('tr').find('.product_tax').val();
-                var tonKho = $(this).closest('tr').find('.tonkho').val();
-                $('#productModal').find('.modal-body').html('<b>Tên sản phẩm: </b> ' +
-                    productName + '<br>' +
-                    '<b>Đơn vị: </b>' + dvt + '<br>' + '<b>Tồn kho: </b>' + tonKho +
-                    '<br>' + '<b>Thuế: </b>' +
-                    (thue == 99 || thue == null ? "NOVAT" : thue + '%'));
-            });
-            //Mở rộng
-            if (status_form == 1) {
-                $('.change_colum').text('Tối giản');
-                $('.product_price').attr('readonly', false);
-                // Xóa dữ liệu trường hệ số nhân, giá nhập
-                $(this).closest("tr").find('.product_ratio').val('')
-                $(this).closest("tr").find('.price_import').val('')
-                // Xóa required
-                $('tbody .giaNhap').removeAttr('required');
-                $('.product-ratio').hide();
-                $('.product_ratio').hide()
-                $('.price_import').hide();
-                $('.note').hide();
-                $('.Daydu').hide();
-                $('.heSoNhan').val('')
-                $('.giaNhap').val('')
-            } else {
-                $('.change_colum').text('Đầy đủ');
-                $('.product_price').attr('readonly', true);
-                $(this).closest("tr").find('.product_price').val('');
-                // Xóa dữ liệu trương đơn giá
-                $(this).closest("tr").find('.price_export').val('')
-                // Thêm required
-                $('tbody .giaNhap').attr('required', true);
-                $('.product_ratio').show()
-                $('.price_import').show();
-                $('.note').show();
-                $('.Daydu').show();
-                $(this).closest("tr").find('.heSoNhan').val('');
-                $(this).closest("tr").find('.giaNhap').val('');
-            }
-        });
-    });
     //Thêm thông tin khách hàng
     $(document).on('click', '#addGuest', function(e) {
         var guest_name_display = $('input[name="guest_name_display"]').val();
@@ -2265,6 +1967,48 @@
             productIdInput.value = '';
         });
     });
+
+    function kiemTraFormGiaoHang(event) {
+        event.preventDefault();
+
+        var rows = document.querySelectorAll('tr');
+        var hasProducts = false;
+
+        for (var i = 1; i < rows.length; i++) {
+            if (rows[i].classList.contains('addProduct')) {
+                hasProducts = true;
+            }
+        }
+
+        // Hiển thị thông báo nếu không có sản phẩm
+        if (!hasProducts) {
+            alert("Không có sản phẩm để báo giá");
+            event.preventDefault();
+        }
+        var quotetion_number = $('input[name="quotation_number"]').val();
+        var detail_id = {{ $detailExport->maBG }}
+        $('button[name="action"]').val('action_1');
+
+        if (hasProducts) {
+            $.ajax({
+                url: "{{ route('checkQuotetionExport') }}",
+                type: "get",
+                data: {
+                    quotetion_number: quotetion_number,
+                    detail_id: detail_id
+
+                },
+                success: function(data) {
+                    if (!data['status']) {
+                        alert('Số báo giá đã tồn tại')
+                    } else {
+                        $('input[name="action"]').val('action_1');
+                        $('form')[0].submit();
+                    }
+                }
+            })
+        }
+    }
 </script>
 </body>
 

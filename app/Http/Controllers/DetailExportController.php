@@ -163,6 +163,7 @@ class DetailExportController extends Controller
     public function update(Request $request, string $id)
     {
         $detailExport = DetailExport::find($id);
+        // dd($request->all());
         if ($request->action == "action_1") {
             if ($detailExport->status == 1) {
                 $export_id = $this->detailExport->updateExport($request->all(), $id);
@@ -297,11 +298,50 @@ class DetailExportController extends Controller
         $project = Project::where('id', $data['idProject'])->first();
         return $project;
     }
+
+
+    public function checkQuotetionExport(Request $request)
+    {
+        $result = [];
+        $data = $request->all();
+        $checkQuotetion = DetailExport::where('quotation_number', $data['quotetion_number']);
+        if (isset($data['detail_id'])) {
+            $checkQuotetion->where('id', '!=', $data['detail_id']);
+        }
+        $checkQuotetion = $checkQuotetion->first();
+        if ($checkQuotetion) {
+            $result = [
+                'status' => false,
+            ];
+        } else {
+            $result = [
+                'status' => true,
+            ];
+        }
+        return $result;
+    }
     //Thêm khách hàng
     public function addGuest(Request $request)
     {
         $check = Guest::where('guest_code', $request->guest_code)->first();
         if ($check == null) {
+            if (isset($request->key)) {
+                $key = $request->key;
+            } else {
+                $key = preg_match_all('/[A-ZĐ]/u', $request->guest_name_display, $matches);
+                if ($key > 0) {
+                    $key = implode('', $matches[0]);
+                } else {
+                    $key =  ucfirst($request->guest_name_display);
+                    $key = preg_match_all('/[A-ZĐ]/u', $key, $matches);
+                    $key = implode('', $matches[0]);
+                    if ($key) {
+                        $key = $key;
+                    } else {
+                        $key = "RN";
+                    }
+                }
+            }
             $data = [
                 'guest_name_display' => $request->guest_name_display,
                 'guest_name' => $request->guest_name,

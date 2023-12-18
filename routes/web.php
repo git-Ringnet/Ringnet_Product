@@ -59,6 +59,8 @@ Route::get('/download/{folder}/{file?}', [DetailImportController::class, 'downlo
 Route::delete('/deleteFile/{folder}/{file}', [DetailImportController::class, 'deleteFile'])->name('deleteFile');
 Route::get('/checkQuotetion', [DetailImportController::class, 'checkQuotetion'])->name('checkQuotetion');
 
+Route::get('/checkQuotetionExport', [DetailExportController::class, 'checkQuotetionExport'])->name('checkQuotetionExport');
+
 Route::resource('DateForm', DateFormController::class);
 Route::get('/addDateForm', [DateFormController::class, 'addDateForm'])->name('addDateForm');
 Route::get('/updateDateForm', [DateFormController::class, 'updateDateForm'])->name('updateDateForm');
