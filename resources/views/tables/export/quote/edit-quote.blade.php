@@ -1024,41 +1024,13 @@
 </div>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 
-<script>
+<script type="text/javascript">
     $("table tbody").sortable({
         axis: "y",
         handle: "td",
     });
-
     getKeyGuest($('#guest_name_display'));
 
-    function getQuotation(getName, count) {
-        var currentDate = new Date()
-        var day = currentDate.getDate()
-        var month = currentDate.getMonth() + 1;
-        var formattedDay = day.toString().padStart(2, '0')
-        var formattedMonth = month.toString().padStart(2, '0')
-        var formattedDate = formattedDay + formattedMonth + currentDate.getFullYear();
-        var name = "RN";
-
-        var uppercaseCharacters = getUppercaseCharacters(getName);
-        if (uppercaseCharacters) {
-            key = uppercaseCharacters
-        } else {
-            key = getUppercaseCharacters(getName.charAt(0).toUpperCase() + getName.slice(1))
-        }
-
-        if (count < 10) {
-            if (count == 0) {
-                count = 1
-            }
-            count = '0' + count
-        } else {
-            count = count
-        }
-        quotation = formattedDate + '/' + name + '-' + key + '-' + count
-        return quotation
-    }
     $("#myUL").hide();
     $("#myUL1").hide();
     $("#myUL2").hide();
@@ -1172,8 +1144,6 @@
                     name: name,
                 },
                 success: function(data) {
-                    // $("input[name='idDate[" + name + "]']").val(id);
-                    // $("input[name='fieldDate[" + name + "]']").val(name);
                     data.update_form.forEach(item => {
                         if (item.default_form === 1) {
                             $('#default-id' + item.id).html(
@@ -1643,14 +1613,12 @@
                     idGuest: idGuest
                 },
                 success: function(data) {
-                    console.log(data);
                     if (data.key) {
-                        quotation = getQuotation(data.key, data['count']);
+                        quotation = getQuotation(data.key, data['count'], data['date']);
                     } else {
-                        quotation = getQuotation(data['guest'].guest_name_display, data[
-                            'count'])
+                        quotation = getQuotation(data['provide'].provide_name_display, data[
+                            'count'], data['date']);
                     }
-                    console.log(quotation);
                     $('input[name="quotation_number"]').val(quotation);
                     $('.nameGuest').val(data['guest'].guest_name_display);
                     $('.idGuest').val(data['guest'].id);
@@ -1662,7 +1630,6 @@
                         },
                         success: function(data) {
                             Object.keys(data).forEach(function(key) {
-                                console.log("Key:", key);
                                 var formField = data[key].form
                                     .form_field;
                                 var dateFormId = data[key].date_form_id;
@@ -1677,14 +1644,11 @@
                             });
                         }
                     });
+
                 }
             });
         });
     });
-
-
-
-
 
     //thêm sản phẩm
     $(document).ready(function() {
@@ -1987,7 +1951,7 @@
     });
     //Thêm thông tin khách hàng
     $(document).on('click', '#addGuest', function(e) {
-        var guest_name_display = $('#guest_name_display').val();
+        var guest_name_display = $('input[name="guest_name_display"]').val();
         var guest_name = $('#guest_name').val();
         var guest_address = $('#guest_address').val();
         var guest_code = $('#guest_code').val();
@@ -1997,22 +1961,24 @@
         var guest_email_personal = $('#guest_email_personal').val();
         var guest_phone_receiver = $('#guest_phone_receiver').val();
         var guest_note = $('#guest_note').val();
+        var key = $("input[name='key']").val().trim();
         $('.nameGuest').val(null);
         $('.idGuest').val(null);
         $.ajax({
             url: "{{ route('addGuest') }}",
             type: "get",
             data: {
-                guest_name_display,
-                guest_name,
-                guest_address,
-                guest_code,
-                guest_email,
-                guest_phone,
-                guest_receiver,
-                guest_email_personal,
-                guest_phone_receiver,
-                guest_note,
+                guest_name_display: guest_name_display,
+                guest_name: guest_name,
+                guest_address: guest_address,
+                guest_code: guest_code,
+                guest_email: guest_email,
+                guest_phone: guest_phone,
+                guest_receiver: guest_receiver,
+                guest_email_personal: guest_email_personal,
+                guest_phone_receiver: guest_phone_receiver,
+                guest_note: guest_note,
+                key: key,
             },
             success: function(data) {
                 if (data.success) {
@@ -2034,23 +2000,10 @@
                     var addButton = $(".addGuestNew");
                     $(newListItem).insertBefore(addButton);
                     //clear
-                    $('#guest_name_display').val(null);
+                    $('#guest_name_display').val('');
+                    $("input[name='key']").val('');
                     $('#guest_address').val(null);
                     $('#guest_code').val(null);
-                    $('.search-info').click(function() {
-                        var idGuest = $(this).attr('id');
-                        $.ajax({
-                            url: '{{ route('searchExport') }}',
-                            type: 'GET',
-                            data: {
-                                idGuest: idGuest
-                            },
-                            success: function(data) {
-                                $('.nameGuest').val(data.guest_name_display);
-                                $('.idGuest').val(data.id);
-                            }
-                        });
-                    });
                 } else {
                     alert(data.msg);
                 }
