@@ -203,11 +203,14 @@ class DetailImportController extends Controller
         $data = $request->all();
         $provide = Provides::findOrFail($data['provides_id']);
         if ($provide) {
-            $count = DetailImport::where('provide_id', $provide->id)->count();
+            // $count = DetailImport::where('provide_id', $provide->id)->count();
             $date = DetailImport::where('provide_id', $provide->id)->orderBy('id', 'desc')->first();
-            if($date){
-                $date = explode('/',$date->quotation_number)[0];
+            if ($date) {
+                $date = explode('/', $date->quotation_number)[0];
             }
+            $count = DetailImport::where('provide_id', $provide->id)
+                ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [$date])
+                ->count();
             $data = [
                 'provide' => $provide,
                 'count' => $count,
@@ -290,8 +293,8 @@ class DetailImportController extends Controller
         $productName = "123";
         for ($i = 0; $i < count($data['listProductName']); $i++) {
             $check = Products::where('product_name', $data['listProductName'][$i])
-            ->where(DB::raw('COALESCE(product_inventory,0)'),'>',0 )
-            ->first();
+                ->where(DB::raw('COALESCE(product_inventory,0)'), '>', 0)
+                ->first();
             if ($check && $check->check_seri == 1 && $data['checkSN'][$i] == 1) {
                 if ($data['listQty'][$i] != $data['listSN'][$i]) {
                     $status = "false";

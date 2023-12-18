@@ -457,6 +457,8 @@
     }
     $('.search-info').click(function() {
         var provides_id = $(this).attr('id');
+        var quotation_number = "{{ $import->quotation_number }}"
+        var old_provide = {{ $import->provide_id }}
         $.ajax({
             url: "{{ route('show_provide') }}",
             type: "get",
@@ -465,16 +467,18 @@
             },
             success: function(data) {
                 if (data.key) {
-                    quotation = getQuotation(data.key, data['count']);
+                    if (old_provide == data['provide'].id) {
+                        quotation = quotation_number
+                    } else {
+                        quotation = getQuotation(data.key, data['count'], data['date']);
+                    }
                 } else {
-                    quotation = getQuotation(data['provide'].provide_name_display, data['count'])
+                    quotation = getQuotation(data['provide'].provide_name_display, data['count'],
+                        data['date'])
                 }
                 $('input[name="quotation_number"]').val(quotation);
                 $('#myInput').val(data['provide'].provide_name_display);
                 $('#provides_id').val(data['provide'].id);
-                // console.log(data);
-                // $('#myInput').val(data['provide'].provide_name_display);
-                // $('#provides_id').val(data['provide'].id);
             }
         });
     });

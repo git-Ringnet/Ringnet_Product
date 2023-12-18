@@ -155,7 +155,7 @@
                                                         class="border w-100 py-2 border-left-0 border-right-0 px-3"
                                                         autocomplete="off"
                                                         value="{{ $import->getProvideName->provide_name_display }}">
-                                                    <ul id="myUL"
+                                                    {{-- <ul id="myUL"
                                                         class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
                                                         style="z-index: 99;left: 24%;top: 20%;">
                                                         @foreach ($provides as $item)
@@ -174,7 +174,7 @@
                                                             style="bottom: 0;">
                                                             <span class="w-50 text-white">Thêm mới</span>
                                                         </a>
-                                                    </ul>
+                                                    </ul> --}}
                                                 </div>
                                                 <div class="d-flex ml-2 align-items-center">
                                                     <div class="title-info py-2 border border-top-0 border-left-0">

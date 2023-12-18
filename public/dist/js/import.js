@@ -306,7 +306,6 @@ $(document).on("click", ".deleteRow1", function () {
         .find(".SNCount")
         .text(div.parent().find('input[type="checkbox"]').length - 1);
     div.remove();
-    // console.log(div);
     var remainingRows = parentTable.find("tbody tr");
     remainingRows.each(function (index) {
         $(this)
@@ -352,8 +351,7 @@ function getKeyProvide(name) {
     })
 }
 
-function getQuotation(getName, count,date) {
-    console.log(date);
+function getQuotation(getName, count, date) {
     var currentDate = new Date()
     var day = currentDate.getDate()
     var month = currentDate.getMonth() + 1;
@@ -379,9 +377,9 @@ function getQuotation(getName, count,date) {
     } else {
         count = count
     }
-    if(formattedDate == date){
+    if (formattedDate == date) {
         stt = count
-    }else{
+    } else {
         stt = '01'
     }
     quotation = formattedDate + '/' + name + '-' + key + '-' + stt
