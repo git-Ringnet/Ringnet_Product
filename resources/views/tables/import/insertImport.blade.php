@@ -83,7 +83,7 @@
                                         @foreach ($provides as $item)
                                             <li>
                                                 <a href="javascript:void(0)"
-                                                    class="text-dark d-flex justify-content-between p-2 search-info"
+                                                    class="text-dark d-flex justify-content-between p-2 search-info w-100"
                                                     id="{{ $item->id }}" name="search-info">
                                                     <span class="w-50">{{ $item->provide_name_display }}</span>
                                                 </a>
@@ -144,7 +144,7 @@
                                         @foreach ($project as $va)
                                             <li>
                                                 <a href="javascript:void(0)"
-                                                    class="text-dark d-flex justify-content-between p-2 project_name"
+                                                    class="text-dark d-flex justify-content-between p-2 project_name w-100"
                                                     id="{{ $va->id }}" name="project_name">
                                                     <span class="w-50">{{ $va->project_name }}</span>
                                                 </a>
@@ -376,9 +376,10 @@
             },
             success: function(data) {
                 if (data.key) {
-                    quotation = getQuotation(data.key, data['count'],data['date']);
+                    quotation = getQuotation(data.key, data['count'], data['date']);
                 } else {
-                    quotation = getQuotation(data['provide'].provide_name_display, data['count'], data['date']);
+                    quotation = getQuotation(data['provide'].provide_name_display, data['count'],
+                        data['date']);
                 }
                 $('input[name="quotation_number"]').val(quotation);
                 $('#myInput').val(data['provide'].provide_name_display);
@@ -538,8 +539,23 @@
             alert('Vui lòng thêm ít nhất 1 sản phẩm');
             return false;
         }
+
+        var quotetion_number = $('input[name="quotation_number"]').val();
         if (formSubmit) {
-            this.submit()
+            $.ajax({
+                url: "{{ route('checkQuotetion') }}",
+                type: "get",
+                data: {
+                    quotetion_number: quotetion_number,
+                },
+                success: function(data) {
+                    if (!data['status']) {
+                        alert('Số báo giá đã tồn tại')
+                    } else {
+                        $('form')[0].submit();
+                    }
+                }
+            })
         }
     })
 </script>

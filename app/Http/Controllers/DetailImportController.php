@@ -225,9 +225,11 @@ class DetailImportController extends Controller
     {
         $result = [];
         $data = $request->all();
-        $checkQuotetion = DetailImport::where('quotation_number', $data['quotetion_number'])
-            ->where('id', '!=', $data['detail_id'])
-            ->first();
+        $checkQuotetion = DetailImport::where('quotation_number', $data['quotetion_number']);
+        if (isset($data['detail_id'])) {
+            $checkQuotetion->where('id', '!=', $data['detail_id']);
+        }
+        $checkQuotetion = $checkQuotetion->first();
         if ($checkQuotetion) {
             $result = [
                 'status' => false,
