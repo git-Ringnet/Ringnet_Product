@@ -152,7 +152,7 @@
                                         style="z-index: 99;left: 24%;top: 20%;">
                                         @foreach ($provides as $item)
                                             <li>
-                                                <a href="#"
+                                                <a href="javascript:void(0)"
                                                     class="text-dark d-flex justify-content-between p-2 search-info"
                                                     id="{{ $item->id }}" name="search-info">
                                                     <span class="w-50">{{ $item->provide_name_display }}</span>
@@ -665,6 +665,28 @@
                 $('#project_id').val(data.id);
             }
         })
+    })
+
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+        var quotetion_number = $('input[name="quotation_number"]').val();
+        var detail_id = {{ $import->id }}
+        $.ajax({
+            url: "{{ route('checkQuotetion') }}",
+            type: "get",
+            data: {
+                quotetion_number: quotetion_number,
+                detail_id: detail_id
+            },
+            success: function(data) {
+                if (!data['status']) {
+                    alert('Số báo giá đã tồn tại')
+                } else {
+                    $('form')[0].submit();
+                }
+            }
+        })
+
     })
 </script>
 </body>

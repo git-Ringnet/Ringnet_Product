@@ -220,6 +220,25 @@ class DetailImportController extends Controller
         }
         return $data;
     }
+
+    public function checkQuotetion(Request $request)
+    {
+        $result = [];
+        $data = $request->all();
+        $checkQuotetion = DetailImport::where('quotation_number', $data['quotetion_number'])
+            ->where('id', '!=', $data['detail_id'])
+            ->first();
+        if ($checkQuotetion) {
+            $result = [
+                'status' => false,
+            ];
+        } else {
+            $result = [
+                'status' => true,
+            ];
+        }
+        return $result;
+    }
     // Thêm mới nhà cung cấp
     public function addNewProvide(Request $request)
     {

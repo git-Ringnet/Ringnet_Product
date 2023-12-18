@@ -15,6 +15,7 @@ use App\Http\Controllers\QuoteExportController;
 use App\Http\Controllers\DateFormController;
 use App\Http\Controllers\ReceiveController;
 use App\Http\Controllers\RecieptController;
+use App\Models\DetailImport;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,6 +57,7 @@ Route::get('/checkduplicateSN', [DetailImportController::class, 'checkduplicateS
 Route::POST('addAttachment', [DetailImportController::class, 'addAttachment'])->name('addAttachment');
 Route::get('/download/{folder}/{file?}', [DetailImportController::class, 'downloadFile'])->name('downloadFile');
 Route::delete('/deleteFile/{folder}/{file}', [DetailImportController::class, 'deleteFile'])->name('deleteFile');
+Route::get('/checkQuotetion', [DetailImportController::class, 'checkQuotetion'])->name('checkQuotetion');
 
 Route::resource('DateForm', DateFormController::class);
 Route::get('/addDateForm', [DateFormController::class, 'addDateForm'])->name('addDateForm');
