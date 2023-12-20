@@ -21,14 +21,18 @@ class Serialnumber extends Model
         'delivery_id',
     ];
 
-    public function getQuotation(){
+    public function getQuotation()
+    {
         return $this->hasOne(Delivery::class, 'id', 'delivery_id');
     }
 
-    public function addSN($data,$receive_id,$detail_id){
+    public function addSN($data, $receive_id, $detail_id)
+    {
         // dd($data);
         for ($i = 0; $i < count($data['product_name']); $i++) {
-            $getProduct = QuoteImport::where('product_name', $data['product_name'][$i])->first();
+            $getProduct = QuoteImport::where('product_name', $data['product_name'][$i])
+                ->where('detailimport_id', $detail_id)
+                ->first();
             if ($getProduct) {
                 if (isset($data['seri' . $i]) && $data['cbSeri'][$i] == 1) {
                     $productSN = $data['seri' . $i];
@@ -53,14 +57,14 @@ class Serialnumber extends Model
 
     public function checkSN($data)
     {
-        foreach ($data as $value ) {
+        foreach ($data as $value) {
             foreach ($value as $SN => $productName) {
                 $product = Products::where('product_name', $SN)->first();
                 if ($product) {
                     $checkSN = Serialnumber::where('product_id', $product->id)->get();
                     foreach ($productName['sn'] as $SN) {
-                        foreach($checkSN as $list){
-                            if($list->serinumber == $SN){
+                        foreach ($checkSN as $list) {
+                            if ($list->serinumber == $SN) {
                                 return response()->json(['success' => false, 'msg' => $product->product_name, 'data' => $SN]);
                             }
                         }
@@ -71,11 +75,3 @@ class Serialnumber extends Model
         return response()->json(['success' => true]);
     }
 }
-
-
-
-
-
-
-
-

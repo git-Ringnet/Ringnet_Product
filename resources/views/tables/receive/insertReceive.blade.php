@@ -197,6 +197,7 @@
                     $('#provide_name').val(data.provide_name);
                     $('#detailimport_id').val(data.id)
                     $('#listReceive').hide();
+                    $('#list_modal').empty();
                     $.ajax({
                         url: "{{ route('getProduct_receive') }}",
                         type: "get",
@@ -204,7 +205,6 @@
                             id: data.id
                         },
                         success: function(product) {
-                            console.log(product);
                             $('#product').html(product)
                             $('#inputcontent tbody').empty();
                             product.quoteImport.forEach((element, index) => {
