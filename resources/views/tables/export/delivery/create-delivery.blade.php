@@ -117,7 +117,7 @@
                                         <p class="p-0 m-0 px-3">Khách hàng</p>
                                     </div>
                                     <div class="w-100">
-                                        <input type="text" placeholder="Nhập thông tin"
+                                        <input type="text" placeholder="Nhập thông tin" readonly
                                             class="border w-100 py-2 border-left-0 border-right-0 px-3 nameGuest"
                                             id="myInput" autocomplete="off" required
                                             value="@isset($yes){{ $getGuestbyId[0]->guest_name_display }}@endisset">
@@ -1691,7 +1691,7 @@
                                                         parseFloat(
                                                             $(
                                                                 this
-                                                                )
+                                                            )
                                                             .find(
                                                                 ".soTonKho"
                                                             ).text()
@@ -1731,17 +1731,18 @@
                                                         checkbox
                                                         .prop(
                                                             "disabled"
-                                                            )
+                                                        )
                                                     ) {
                                                         var quantityValue =
                                                             parseFloat(
                                                                 $(
-                                                                    this)
+                                                                    this
+                                                                )
                                                                 .find(
                                                                     ".quantity-input"
                                                                 )
                                                                 .val()
-                                                                );
+                                                            );
                                                         var productId =
                                                             $(this)
                                                             .find(
@@ -1802,21 +1803,24 @@
                                                         function() {
                                                             var productName =
                                                                 $(
-                                                                    this)
+                                                                    this
+                                                                )
                                                                 .find(
                                                                     '.product_name'
                                                                 )
                                                                 .val();
                                                             var productUnit =
                                                                 $(
-                                                                    this)
+                                                                    this
+                                                                )
                                                                 .find(
                                                                     '.product_unit'
                                                                 )
                                                                 .val();
                                                             var productQty =
                                                                 $(
-                                                                    this)
+                                                                    this
+                                                                )
                                                                 .find(
                                                                     '.quantity-input'
                                                                 )
@@ -1828,7 +1832,7 @@
                                                                 '' ||
                                                                 productQty ===
                                                                 ''
-                                                                ) {
+                                                            ) {
                                                                 allFieldsFilled
                                                                     =
                                                                     false;
@@ -1837,7 +1841,8 @@
                                                         });
 
                                                 if (
-                                                    allFieldsFilled) {
+                                                    allFieldsFilled
+                                                ) {
                                                     $('.check-add-sn:checked[disabled]')
                                                         .prop(
                                                             'disabled',
@@ -2589,10 +2594,17 @@
             }
         }
 
-        // Hiển thị thông báo nếu không có sản phẩm
-        if (!hasProducts) {
-            alert("Không có sản phẩm để giao");
+        var inputValue = $('.idGuest').val();
+
+        if ($.trim(inputValue) === '') {
+            alert('Vui lòng chọn số báo giá từ danh sách!');
             event.preventDefault();
+        } else {
+            // Hiển thị thông báo nếu không có sản phẩm
+            if (!hasProducts) {
+                alert("Không có sản phẩm để báo giá");
+                event.preventDefault();
+            }
         }
     }
 </script>

@@ -276,7 +276,7 @@
                                                                 class="d-flex w-100 justify-content-between align-items-center">
                                                                 <input type="text" autocomplete="off" readonly
                                                                     value="{{ $item_quote->product_code }}"
-                                                                    class="border-0 px-2 py-1 w-75 product_code"
+                                                                    class="border-0 px-2 py-1 w-75 product_code w-100"
                                                                     name="product_code[]">
                                                             </div>
                                                         </td>

@@ -527,6 +527,31 @@
         $('#formSubmit')[0].submit();
     })
 
+    //xem thông tin sản phẩm
+    $('.info-product').click(function() {
+        var idProduct = $(this).closest('tr').find('.product_id').val();
+
+        $.ajax({
+            url: '{{ route('getProductFromQuote') }}',
+            type: 'GET',
+            data: {
+                idProduct: idProduct
+            },
+            success: function(data) {
+                if (Array.isArray(data) && data.length > 0) {
+                    var productData = data[0];
+                    $('#productModal').find('.modal-body').html('<b>Tên sản phẩm: </b> ' +
+                        productData.product_name + '<br>' + '<b>Đơn vị: </b>' + productData
+                        .product_unit + '<br>' + '<b>Tồn kho: </b>' + productData
+                        .product_inventory + '<br>' + '<b>Thuế: </b>' + (productData
+                            .product_tax == 99 || productData.product_tax == null ? "NOVAT" :
+                            productData.product_tax + '%'
+                        ));
+                }
+            }
+        });
+    });
+
     //Mở rộng
     var status_form = 0;
     $('.change_colum').off('click').on('click', function() {
@@ -585,9 +610,10 @@
         calculateTotals();
     });
 
-    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax, .heSoNhan, .giaNhap', function() {
-        calculateTotals();
-    });
+    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax, .heSoNhan, .giaNhap',
+        function() {
+            calculateTotals();
+        });
 
     function calculateTotals() {
         var totalAmount = 0;

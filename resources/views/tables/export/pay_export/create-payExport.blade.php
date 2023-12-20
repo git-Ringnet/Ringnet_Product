@@ -85,7 +85,7 @@
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin"
                                             class="border w-100 py-2 border-left-0 border-right-0 px-3 nameGuest"
-                                            id="myInput" autocomplete="off" required
+                                            id="myInput" autocomplete="off" required readonly
                                             value="@isset($yes){{ $getGuestbyId[0]->guest_name_display }}@endisset">
                                         <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
                                             value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset">

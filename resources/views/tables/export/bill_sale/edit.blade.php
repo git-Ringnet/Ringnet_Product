@@ -223,7 +223,7 @@
                                                                 class="d-flex w-100 justify-content-between align-items-center">
                                                                 <input type="text" autocomplete="off"
                                                                     readonly="" value="{{ $item->product_code }}"
-                                                                    class="border-0 px-2 py-1 w-75 product_code"
+                                                                    class="border-0 px-2 py-1 w-75 product_code w-100"
                                                                     name="product_code[]">
                                                             </div>
                                                         </td>
@@ -509,7 +509,7 @@
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>
                                     </svg>
                                     <input type="checkbox" class="cb-element">
-                                    <input type="text" readonly value="${item.product_code == null ? '' : item.product_code}" autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
+                                    <input type="text" readonly value="${item.product_code == null ? '' : item.product_code}" autocomplete="off" class="border-0 px-2 py-1 w-75 product_code w-100" name="product_code[]">
                                 </div>
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative">
