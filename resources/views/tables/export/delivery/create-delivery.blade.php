@@ -2032,8 +2032,13 @@
                                                         .product_unit +
                                                         '<br>' +
                                                         '<b>Tồn kho: </b>' +
-                                                        productData
-                                                        .product_inventory +
+                                                        (productData
+                                                            .product_inventory ==
+                                                            null ?
+                                                            0 :
+                                                            productData
+                                                            .product_inventory
+                                                            ) +
                                                         '<br>' +
                                                         '<b>Thuế: </b>' +
                                                         (productData

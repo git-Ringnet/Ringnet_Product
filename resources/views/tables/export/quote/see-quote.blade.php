@@ -542,8 +542,9 @@
                     var productData = data[0];
                     $('#productModal').find('.modal-body').html('<b>Tên sản phẩm: </b> ' +
                         productData.product_name + '<br>' + '<b>Đơn vị: </b>' + productData
-                        .product_unit + '<br>' + '<b>Tồn kho: </b>' + productData
-                        .product_inventory + '<br>' + '<b>Thuế: </b>' + (productData
+                        .product_unit + '<br>' + '<b>Tồn kho: </b>' + (productData
+                            .product_inventory == null ? 0 : productData
+                            .product_inventory) + '<br>' + '<b>Thuế: </b>' + (productData
                             .product_tax == 99 || productData.product_tax == null ? "NOVAT" :
                             productData.product_tax + '%'
                         ));

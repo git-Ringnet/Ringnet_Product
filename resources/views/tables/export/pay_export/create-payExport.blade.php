@@ -98,7 +98,8 @@
                                     <div class="w-100">
                                         <input type="date" placeholder="Nhập thông tin" value="{{ date('Y-m-d') }}"
                                             name="date_pay" required
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                            id="customDateInput">
                                     </div>
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">
@@ -1464,6 +1465,36 @@
             alert("Không có sản phẩm để thanh toán");
             event.preventDefault();
         }
+    }
+
+    // Lấy thẻ input theo ID
+    var dateInput = document.getElementById('customDateInput');
+    // Người dùng thay đổi giá trị
+    dateInput.addEventListener('input', function() {
+        // Lấy giá trị của thẻ input
+        var inputValue = dateInput.value;
+
+        // Định dạng lại ngày tháng năm
+        var formattedDate = formatDate(inputValue);
+
+        // Gán giá trị đã định dạng lại cho thẻ input
+        dateInput.value = formattedDate;
+    });
+
+    // Hàm để định dạng lại ngày tháng năm
+    function formatDate(inputDate) {
+        // Chuyển đổi thành đối tượng Date JavaScript
+        var dateObject = new Date(inputDate + 'T00:00:00');
+
+        // Lấy ngày, tháng, năm
+        var day = dateObject.getDate();
+        var month = dateObject.getMonth() + 1;
+        var year = dateObject.getFullYear();
+
+        // Định dạng lại thành 'YYYY-MM-DD'
+        var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+
+        return formattedDate;
     }
 </script>
 </body>

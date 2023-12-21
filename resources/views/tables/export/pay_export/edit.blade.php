@@ -81,7 +81,7 @@
                                             </div>
                                             <div class="w-100">
                                                 <input type="text" placeholder="Nhập thông tin"
-                                                    value="{{ $payExport->quotation_number }}"
+                                                    value="{{ $payExport->quotation_number }}" readonly
                                                     class="border w-100 py-2 border-left-0 border-right-0 px-3 numberQute"
                                                     id="myInput" autocomplete="off" name="quotation_number" required>
                                             </div>
@@ -91,7 +91,7 @@
                                                 <p class="p-0 m-0 px-3">Khách hàng</p>
                                             </div>
                                             <div class="w-100">
-                                                <input type="text" placeholder="Nhập thông tin"
+                                                <input type="text" placeholder="Nhập thông tin" readonly
                                                     value="{{ $payExport->guest_name_display }}"
                                                     class="border w-100 py-2 border-left-0 border-right-0 px-3 nameGuest"
                                                     id="myInput" autocomplete="off" required>
@@ -106,7 +106,7 @@
                                             <div class="w-100">
                                                 <input type="text" placeholder="Nhập thông tin"
                                                     value="{{ date_format(new DateTime($payExport->payment_date), 'd/m/Y') }}"
-                                                    name="date_pay" required
+                                                    name="date_pay" required id="customDateInput"
                                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                             </div>
                                         </div>
@@ -287,6 +287,9 @@
                                                                     value="{{ $item_quote->product_name }}"
                                                                     class="border-0 px-2 py-1 w-100 product_name"
                                                                     readonly autocomplete="off" name="product_name[]">
+                                                                <input type="hidden" class="product_id"
+                                                                    value="{{ $item_quote->product_id }}"
+                                                                    autocomplete="off" name="product_id[]">
                                                                 <div class="info-product" data-toggle="modal"
                                                                     data-target="#productModal">
                                                                     <svg width="18" height="18"
@@ -1499,6 +1502,46 @@
         var paymentInput = document.getElementsByName('payment')[0];
         paymentInput.removeAttribute('required');
         validateInput();
+    });
+    $('.info-product').click(function() {
+        var idProduct = $(this).closest('tr').find('.product_id').val();
+
+        $.ajax({
+            url: '{{ route('getProductFromQuote') }}',
+            type: 'GET',
+            data: {
+                idProduct: idProduct
+            },
+            success: function(data) {
+                if (Array.isArray(data) && data.length > 0) {
+                    var productData = data[0];
+                    $('#productModal').find('.modal-body').html('<b>Tên sản phẩm: </b> ' +
+                        productData.product_name + '<br>' + '<b>Đơn vị: </b>' + productData
+                        .product_unit + '<br>' + '<b>Tồn kho: </b>' + (productData
+                            .product_inventory == null ? 0 : productData
+                            .product_inventory) + '<br>' + '<b>Thuế: </b>' + (productData
+                            .product_tax == 99 || productData.product_tax == null ? "NOVAT" :
+                            productData.product_tax + '%'
+                        ));
+                }
+            }
+        });
+    });
+    var dateInput = document.getElementById('customDateInput');
+
+    // Người dùng thay đổi giá trị
+    dateInput.addEventListener('input', function() {
+        // Lấy giá trị của thẻ input
+        var inputValue = dateInput.value;
+
+        // Chuyển đổi thành định dạng Date JavaScript
+        var dateObject = new Date(inputValue.split('/').reverse().join('-'));
+
+        // Định dạng lại thành 'YYYY-MM-DD'
+        var formattedDate = dateObject.toISOString().split('T')[0];
+
+        // Gán giá trị đã chuyển đổi lại cho thẻ input
+        dateInput.value = formattedDate;
     });
 </script>
 </body>

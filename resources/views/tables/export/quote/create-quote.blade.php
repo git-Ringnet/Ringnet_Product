@@ -1182,9 +1182,6 @@
             }
         });
 
-
-
-
         let fieldCounter = 1;
         $("#add-field-btn").click(function() {
             let nextSoTT = $(".soTT").length + 1;
@@ -1223,7 +1220,7 @@
                 "<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 75%;left: 10%;'>" +
                 "@foreach ($product as $product_value)" +
                 "<li>" +
-                "<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 idProduct' id='{{ $product_value->id }}' name='idProduct'>" +
+                "<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 idProduct w-100' id='{{ $product_value->id }}' name='idProduct'>" +
                 "<span class='w-50'>{{ $product_value->product_name }}</span>" +
                 "</a>" +
                 "</li>" +
@@ -1303,6 +1300,15 @@
             $("table tbody").sortable({
                 axis: "y",
                 handle: "td",
+            });
+            //Change
+            var productNameInputs = document.querySelectorAll('.product_name');
+            productNameInputs.forEach(function(input) {
+                input.addEventListener('input', function() {
+                    var productIdInput = this.parentElement.querySelector(
+                        '.product_id');
+                    productIdInput.value = '';
+                });
             });
             //Xóa sản phẩm
             option.click(function() {
@@ -1408,7 +1414,8 @@
                             productUnit.val(data.product_unit);
                             thue.val(data.product_tax);
                             product_id.val(data.id);
-                            tonkho.val(data.product_inventory)
+                            tonkho.val(data.product_inventory == null ? 0 :
+                                data.product_inventory)
                             soTonKho.text(parseFloat(data
                                 .product_inventory == null ? 0 :
                                 data.product_inventory));
@@ -1795,28 +1802,32 @@
 
         for (var i = 1; i < rows.length; i++) {
             if (rows[i].classList.contains('addProduct')) {
+                var inputs = rows[i].querySelectorAll('input[required]');
+                for (var j = 0; j < inputs.length; j++) {
+                    if (inputs[j].value.trim() === '') {
+                        alert('Vui lòng điền đủ thông tin sản phẩm');
+                        return; // Dừng ngay khi gặp một trường input thiếu thông tin
+                    }
+                }
                 hasProducts = true;
             }
         }
 
-        // Lấy giá trị của trường input
+        // Tiếp tục với các kiểm tra khác và xử lý submit nếu cần
         var inputValue = $('.idGuest').val();
-
-        var shouldSubmit = true; // Thêm biến để theo dõi xem có nên submit hay không
+        var shouldSubmit = true;
 
         if ($.trim(inputValue) === '') {
             alert('Vui lòng chọn khách hàng từ danh sách hoặc thêm mới khách hàng!');
             shouldSubmit = false;
-        } else {
-            // Hiển thị thông báo nếu không có sản phẩm
-            if (!hasProducts) {
-                alert("Không có sản phẩm để báo giá");
-                shouldSubmit = false;
-            }
+        } else if (!hasProducts) {
+            alert("Không có sản phẩm để báo giá");
+            shouldSubmit = false;
         }
 
-        var quotetion_number = $('input[name="quotation_number"]').val();
+        // Kiểm tra số báo giá tồn tại bằng Ajax
         if (hasProducts && shouldSubmit) {
+            var quotetion_number = $('input[name="quotation_number"]').val();
             $.ajax({
                 url: "{{ route('checkQuotetionExport') }}",
                 type: "get",
@@ -1826,8 +1837,8 @@
                 success: function(data) {
                     if (!data['status']) {
                         alert('Số báo giá đã tồn tại');
-                        shouldSubmit = false;
                     } else {
+                        // Nếu số báo giá không tồn tại, thực hiện submit form
                         $('form')[0].submit();
                     }
                 }
