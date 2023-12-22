@@ -104,7 +104,8 @@
                                     </div>
                                     <div class="w-100">
                                         <input type="text" placeholder="Nhập thông tin" name="quotation_number"
-                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
+                                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                            autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="d-flex ml-2 align-items-center">

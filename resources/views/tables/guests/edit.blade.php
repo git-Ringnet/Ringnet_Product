@@ -19,12 +19,8 @@
         @method('PUT')
         <section class="content-header p-0">
             <div class="container-fluided">
-<<<<<<< Updated upstream
-                <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
-=======
                 <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px"
                     onclick="kiemTraFormGiaoHang(event)">
->>>>>>> Stashed changes
                     <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"

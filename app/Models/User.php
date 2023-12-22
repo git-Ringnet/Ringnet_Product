@@ -27,6 +27,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'provider',
+        'provider_id', 'origin_workspace', 'current_workspace'
     ];
 
     /**
@@ -61,5 +63,9 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+    public function workspaces()
+    {
+        return $this->hasMany(Workspace::class);
     }
 }

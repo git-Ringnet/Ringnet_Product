@@ -276,7 +276,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('guests.index') }}"
+                                <a href="{{ route('guests.index', $workspacename) }}"
                                     class="nav-link  @if (!empty($activeName) && $activeName == 'guest') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Khách hàng</p>

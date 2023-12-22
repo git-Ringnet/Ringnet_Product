@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\BillSaleController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\DetailExportController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\ReceiveController;
 use App\Http\Controllers\RecieptController;
 use App\Models\DetailImport;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +43,7 @@ Route::resource('provides', ProvidesController::class);
 Route::get('/searchProvides', [ProvidesController::class, 'search'])->name('searchProvides');
 
 // Khách hàng
-Route::resource('guests', GuestController::class);
+Route::resource('{workspace}/guests', GuestController::class);
 Route::get('/search', [GuestController::class, 'search'])->name('search');
 Route::get('/searchDetailGuest', [GuestController::class, 'searchDetailGuest'])->name('searchDetailGuest');
 
@@ -139,6 +141,12 @@ Route::get('/getProductSeriEdit', [ProductController::class, 'getProductSeriEdit
 
 
 Route::get('exportDatabase', [ProductController::class, 'exportDatabase'])->name('exportDatabase');
+
+
+Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
+Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
+Route::post('/create-workspace', [ProviderController::class, 'createWorkspace'])->name('createWorkspace');
+
 
 Route::middleware([
     'auth:sanctum',

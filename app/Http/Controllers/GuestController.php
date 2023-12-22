@@ -6,7 +6,9 @@ use App\Models\DetailExport;
 use App\Models\Guest;
 use App\Models\PayExport;
 use App\Models\representGuest;
+use App\Models\Workspace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class GuestController extends Controller
@@ -18,12 +20,14 @@ class GuestController extends Controller
     private $representGuest;
     private $detailExport;
     private $payExport;
+    private $workspaces;
     public function __construct()
     {
         $this->guests = new Guest();
         $this->representGuest = new representGuest();
         $this->detailExport = new DetailExport();
         $this->payExport = new PayExport();
+        $this->workspaces = new Workspace();
     }
     public function index(Request $request)
     {
@@ -31,11 +35,13 @@ class GuestController extends Controller
         $guests = $this->guests->getAllGuest();
         $dataa = $this->guests->getAllGuest();
         //Dư nợ
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         foreach ($guests as $guest) {
             $sumDebt = DetailExport::where('guest_id', $guest->id)->where('status', 2)->sum('amount_owed');
             $guest->sumDebt = $sumDebt;
         }
-        return view('tables.guests.index', compact('title', 'guests', 'dataa'));
+        return view('tables.guests.index', compact('title', 'guests', 'dataa', 'workspacename'));
     }
 
     /**
