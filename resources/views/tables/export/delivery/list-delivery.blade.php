@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="delivery"></x-navbar>
+<x-navbar :title="$title" activeGroup="sell" activeName="delivery" :workspacename="$workspacename"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -10,7 +10,7 @@
                 <span class="font-weight-bold">Đơn giao hàng</span>
             </div>
             <div class="row m-0 mb-1">
-                <a href="{{ route('delivery.create') }}">
+                <a href="{{ route('delivery.create', ['workspace' => $workspacename]) }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -155,7 +155,7 @@
                                             </td>
                                             <td class="border-top-0 bg-white">
                                                 <div class="">
-                                                    <a href="{{ route('watchDelivery', $item_delivery->maGiaoHang) }}"
+                                                    <a href="{{ route('watchDelivery', ['workspace' => $workspacename, 'id' => $item_delivery->maGiaoHang]) }}"
                                                         class="duongDan">
                                                         {{ $item_delivery->quotation_number }}
                                                     </a>

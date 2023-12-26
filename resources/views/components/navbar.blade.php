@@ -247,7 +247,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('detailExport.index') }}"
+                                <a href="{{ route('detailExport.index', $workspacename) }}"
                                     class="nav-link
                                     @if (!empty($activeName) && $activeName == 'quote') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
@@ -255,21 +255,21 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('delivery.index') }}"
+                                <a href="{{ route('delivery.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'delivery') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Giao hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('billSale.index') }}"
+                                <a href="{{ route('billSale.index', $workspacename) }}"
                                     class="nav-link  @if (!empty($activeName) && $activeName == 'billsale') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Hóa đơn bán hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('payExport.index') }}"
+                                <a href="{{ route('payExport.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'payexport') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Thanh toán</p>

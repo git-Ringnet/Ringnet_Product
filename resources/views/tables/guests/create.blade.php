@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="guest"></x-navbar>
+<x-navbar :title="$title" activeGroup="sell" activeName="guest" :workspacename="$workspacename"></x-navbar>
 <div class="content-wrapper" style="background: none;">
     <!-- Content Header (Page header) -->
     <section class="content-header p-0">
@@ -6,13 +6,13 @@
             <div class="mb-3">
                 <span>Bán hàng</span>
                 <span>/</span>
-                <span><a class="text-dark" href="{{ route('guests.index') }}">Khách hàng</a></span>
+                <span><a class="text-dark" href="{{ route('guests.create', $workspacename) }}">Khách hàng</a></span>
                 <span>/</span>
                 <span class="font-weight-bold">{{ $title }}</span>
             </div>
         </div><!-- /.container-fluided -->
     </section>
-    <form action="{{ route('guests.store') }}" method="POST">
+    <form action="{{ route('guests.store', $workspacename) }}" method="POST">
         @csrf
         <section class="content-header p-0">
             <div class="container-fluided">

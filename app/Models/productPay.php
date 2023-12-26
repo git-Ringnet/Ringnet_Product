@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class productPay extends Model
@@ -14,6 +15,7 @@ class productPay extends Model
         'pay_id',
         'product_id',
         'pay_qty',
+        'workspace_id',
     ];
     protected $table = 'product_pay';
 
@@ -34,6 +36,7 @@ class productPay extends Model
                 'pay_id' => $id,
                 'product_id' => $data['product_id'][$i],
                 'pay_qty' => $data['product_qty'][$i],
+                'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];

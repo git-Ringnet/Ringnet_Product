@@ -2,7 +2,7 @@
 </x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <form action="{{ route('delivery.store') }}" method="POST">
+    <form action="{{ route('delivery.store', ['workspace' => $workspacename]) }}" method="POST">
         @csrf
         <input type="hidden" name="detailexport_id" id="detailexport_id"
             value="@isset($yes) {{ $data['detailexport_id'] }} @endisset">

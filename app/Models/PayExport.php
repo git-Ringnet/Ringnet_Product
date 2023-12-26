@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PayExport extends Model
@@ -18,6 +19,7 @@ class PayExport extends Model
         'payment',
         'debt',
         'status',
+        'workspace_id',
         'created_at',
         'updated_at'
     ];
@@ -66,6 +68,7 @@ class PayExport extends Model
             'payment' => $payment,
             'debt' => $result,
             'status' => 1,
+            'workspace_id' => Auth::user()->current_workspace,
             'created_at' => Carbon::now(),
         ];
         $payExport = new PayExport($dataPay);
@@ -94,6 +97,7 @@ class PayExport extends Model
             $history->total = $total;
             $history->payment = $payment;
             $history->debt = $result;
+            $history->workspace_id = Auth::user()->current_workspace;
             $history->save();
             $payExport->update([
                 'payment' => $payment,

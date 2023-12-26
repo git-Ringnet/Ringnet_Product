@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="quote"></x-navbar>
+<x-navbar :title="$title" activeGroup="sell" activeName="quote" :workspacename="$workspacename"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -10,7 +10,7 @@
                 <span class="font-weight-bold">Đơn báo giá</span>
             </div>
             <div class="row m-0 mb-1">
-                <a href="{{ route('detailExport.create') }}">
+                <a href="{{ route('detailExport.create', ['workspace' => $workspacename]) }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -177,7 +177,7 @@
                                                 {{ date_format(new DateTime($value_export->ngayBG), 'd/m/Y') }}</td>
                                             <td class="border-top-0 bg-white">
                                                 <div class="">
-                                                    <a href="{{ route('seeInfo', $value_export->maBG) }}"
+                                                    <a href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $value_export->maBG]) }}"
                                                         class="duongDan">{{ $value_export->quotation_number }}</a>
                                                 </div>
                                             </td>

@@ -103,8 +103,8 @@ Route::get('/excel/{id?}', [PdfController::class, 'export'])->name('excel');
 
 //Bán hàng
 //Báo giá
-Route::resource('detailExport', DetailExportController::class);
-Route::get('seeInfo/{id}', [DetailExportController::class, 'seeInfo'])->name('seeInfo');
+Route::resource('{workspace}/detailExport', DetailExportController::class);
+Route::get('{workspace}/seeInfo/{id}', [DetailExportController::class, 'seeInfo'])->name('seeInfo');
 //tìm kiếm tên khách hàng
 Route::get('/searchExport', [DetailExportController::class, 'searchGuest'])->name('searchExport');
 //tìm kiếm tên project
@@ -117,20 +117,20 @@ Route::get('/getProduct', [DetailExportController::class, 'getProduct'])->name('
 Route::get('/getProductCode', [DetailExportController::class, 'getProductCode'])->name('getProductCode');
 
 //Giao hàng
-Route::resource('delivery', DeliveryController::class);
-Route::get('watchDelivery/{id}', [DeliveryController::class, 'watchDelivery'])->name('watchDelivery');
+Route::resource('{workspace}/delivery', DeliveryController::class);
+Route::get('{workspace}/watchDelivery/{id}', [DeliveryController::class, 'watchDelivery'])->name('watchDelivery');
 //Lấy thông tin từ số báo giá
 Route::get('/getInfoQuote', [DeliveryController::class, 'getInfoQuote'])->name('getInfoQuote');
 Route::get('/getProductQuote', [DeliveryController::class, 'getProductQuote'])->name('getProductQuote');
 Route::get('/getProductFromQuote', [DeliveryController::class, 'getProductFromQuote'])->name('getProductFromQuote');
 //Hóa đơn bán hàng
-Route::resource('billSale', BillSaleController::class);
+Route::resource('{workspace}/billSale', BillSaleController::class);
 //lấy thông tin từ số báo giá trong hóa đơn
 Route::get('/getInfoDelivery', [BillSaleController::class, 'getInfoDelivery'])->name('getInfoDelivery');
 Route::get('/getProductDelivery', [BillSaleController::class, 'getProductDelivery'])->name('getProductDelivery');
 
 //thanh toán bán hàng
-Route::resource('payExport', PayExportController::class);
+Route::resource('{workspace}/payExport', PayExportController::class);
 
 Route::get('/getInfoPay', [PayExportController::class, 'getInfoPay'])->name('getInfoPay');
 Route::get('/getProductPay', [PayExportController::class, 'getProductPay'])->name('getProductPay');

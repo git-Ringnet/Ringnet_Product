@@ -1,8 +1,8 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="billsale"></x-navbar>
+<x-navbar :title="$title" activeGroup="sell" activeName="billsale" :workspacename="$workspacename"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <form action="{{ route('billSale.update', $billSale->idHD) }}" method="POST" id="formSubmit"
-        enctype="multipart/form-data">
+    <form action="{{ route('billSale.update', ['workspace' => $workspacename, 'billSale' => $billSale->idHD]) }}"
+        method="POST" id="formSubmit" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="hidden" name="detail_id" value="{{ $billSale->idHD }}">

@@ -1,8 +1,8 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="delivery"></x-navbar>
+<x-navbar :title="$title" activeGroup="sell" activeName="delivery" :workspacename="$workspacename"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <form action="{{ route('delivery.update', $delivery->soGiaoHang) }}" method="POST" id="deliveryForm"
-        enctype="multipart/form-data">
+    <form action="{{ route('delivery.update', ['workspace' => $workspacename, 'delivery' => $delivery->soGiaoHang]) }}"
+        method="POST" id="deliveryForm" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="hidden" name="detail_id" value="{{ $delivery->soGiaoHang }}">

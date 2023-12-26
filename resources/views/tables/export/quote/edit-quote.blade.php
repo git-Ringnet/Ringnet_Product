@@ -1,7 +1,8 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="quote"></x-navbar>
+<x-navbar :title="$title" activeGroup="sell" activeName="quote" :workspacename="$workspacename"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <form action="{{ route('detailExport.update', $detailExport->maBG) }}" method="POST">
+    <form action="{{ route('detailExport.update', ['workspace' => $workspacename, 'detailExport' => $detailExport->maBG]) }}"
+        method="POST">
         @csrf
         @method('PUT')
         <input type="hidden" value="{{ $detailExport->maBG }}" name="detailexport_id">
@@ -45,7 +46,7 @@
                             <a class="dropdown-item" id="btn-pdf" href="#">Xuất PDF</a>
                         </div>
                     </div>
-                    <button class="btn-option">
+                    <button type="button" class="btn-option">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -807,7 +808,7 @@
                                         </svg>
                                         <span>Thêm hàng loạt</span>
                                     </button>
-                                    <button class="btn-option py-1 px-2">
+                                    <button type="button" class="btn-option py-1 px-2">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"

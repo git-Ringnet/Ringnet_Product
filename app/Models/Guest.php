@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Guest extends Model
@@ -27,7 +28,9 @@ class Guest extends Model
 
     public function getAllGuest()
     {
-        return DB::table($this->table)->get();
+        return DB::table($this->table)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
     }
     public function getGuestbyCompany($data)
     {

@@ -1,8 +1,8 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="payexport"></x-navbar>
+<x-navbar :title="$title" activeGroup="sell" activeName="payexport" :workspacename="$workspacename"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <form action="{{ route('payExport.update', $payExport->idTT) }}" method="POST" id="formSubmit"
-        enctype="multipart/form-data">
+    <form action="{{ route('payExport.update', ['workspace' => $workspacename, 'payExport' => $payExport->idTT]) }}"
+        method="POST" id="formSubmit" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="hidden" name="detail_id" value="{{ $payExport->idTT }}">

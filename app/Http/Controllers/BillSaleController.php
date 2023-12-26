@@ -10,7 +10,9 @@ use App\Models\productBill;
 use App\Models\productPay;
 use App\Models\Products;
 use App\Models\QuoteExport;
+use App\Models\Workspace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class BillSaleController extends Controller
@@ -21,18 +23,22 @@ class BillSaleController extends Controller
     private $billSale;
     private $productBill;
     private $product;
+    private $workspaces;
 
     public function __construct()
     {
         $this->billSale = new BillSale();
         $this->product = new Products();
         $this->productBill = new productBill();
+        $this->workspaces = new Workspace();
     }
     public function index()
     {
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         $title = "Hóa đơn bán hàng";
         $billSale = $this->billSale->getBillSale();
-        return view('tables.export.bill_sale.list-bill-sale', compact('title', 'billSale'));
+        return view('tables.export.bill_sale.list-bill-sale', compact('title', 'billSale', 'workspacename'));
     }
 
     /**
@@ -41,28 +47,31 @@ class BillSaleController extends Controller
     public function create()
     {
         $title = "Tạo Hóa đơn bán hàng";
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
             ->where('quoteexport.product_qty', '>', DB::raw('COALESCE(quoteexport.qty_bill_sale,0)'))
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('detailexport.quotation_number', 'detailexport.id')
             ->distinct()
             ->get();
         $product = $this->product->getAllProducts();
-        return view('tables.export.bill_sale.create-billSale', compact('title', 'numberQuote', 'product'));
+        return view('tables.export.bill_sale.create-billSale', compact('title', 'numberQuote', 'product', 'workspacename'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(string $workspace, Request $request)
     {
         if ($request->action == 1) {
             $billSale_id = $this->billSale->addBillSale($request->all());
             $this->productBill->addProductBill($request->all(), $billSale_id);
-            return redirect()->route('billSale.index')->with('msg', ' Tạo mới hóa đơn bán hàng thành công !');
+            return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', ' Tạo mới hóa đơn bán hàng thành công !');
         }
         if ($request->action == 2) {
             $this->billSale->acceptBillSale($request->all());
-            return redirect()->route('billSale.index')->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
+            return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
         }
     }
 
@@ -77,9 +86,11 @@ class BillSaleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $workspace, string $id)
     {
         $title = "Hóa đơn bán hàng";
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         $billSale = BillSale::where('bill_sale.id', $id)
             ->leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'bill_sale.guest_id', 'guest.id')
@@ -120,13 +131,13 @@ class BillSaleController extends Controller
                 'product_bill.billSale_qty'
             )
             ->get();
-        return view('tables.export.bill_sale.edit', compact('billSale', 'title', 'product'));
+        return view('tables.export.bill_sale.edit', compact('billSale', 'title', 'product', 'workspacename'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(string $workspace, Request $request, string $id)
     {
         if ($request->action == "action_1") {
             $billSale = BillSale::find($id);
@@ -135,12 +146,12 @@ class BillSaleController extends Controller
                     'status' => 2,
                 ]);
                 $this->billSale->updateDetailExport($billSale->detailexport_id);
-                return redirect()->route('billSale.index')->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
+                return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
             }
         }
         if ($request->action == "action_2") {
             $this->billSale->deleteBillSale($request->all(), $id);
-            return redirect()->route('billSale.index')->with('msg', 'Xóa hóa đơn bán hàng thành công!');
+            return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xóa hóa đơn bán hàng thành công!');
         }
     }
 

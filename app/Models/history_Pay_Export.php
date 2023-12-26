@@ -13,6 +13,7 @@ class history_Pay_Export extends Model
         'total',
         'payment',
         'debt',
+        'workspace_id',
     ];
     protected $table = 'history_payment_export';
 }

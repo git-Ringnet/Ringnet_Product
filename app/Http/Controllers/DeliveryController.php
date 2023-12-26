@@ -10,7 +10,9 @@ use App\Models\productPay;
 use App\Models\Products;
 use App\Models\QuoteExport;
 use App\Models\Serialnumber;
+use App\Models\Workspace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DeliveryController extends Controller
@@ -22,20 +24,26 @@ class DeliveryController extends Controller
     private $product;
     private $delivered;
     private $detailExport;
+    private $workspaces;
+
     public function __construct()
     {
         $this->delivery = new Delivery();
         $this->product = new Products();
         $this->delivered = new Delivered();
         $this->detailExport = new DetailExport();
+        $this->workspaces = new Workspace();
     }
     public function index()
     {
         $title = 'Giao hàng';
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         $delivery = Delivery::leftJoin('guest', 'guest.id', 'delivery.guest_id')
             ->select('*', 'delivery.id as maGiaoHang', 'delivery.created_at as ngayGiao')
+            ->where('delivery.workspace_id', Auth::user()->current_workspace)
             ->get();
-        return view('tables.export.delivery.list-delivery', compact('title', 'delivery'));
+        return view('tables.export.delivery.list-delivery', compact('title', 'delivery', 'workspacename'));
     }
 
     /**
@@ -44,28 +52,31 @@ class DeliveryController extends Controller
     public function create()
     {
         $title = "Tạo đơn giao hàng";
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
             ->where('quoteexport.product_qty', '>', DB::raw('COALESCE(quoteexport.qty_delivery,0)'))
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('detailexport.quotation_number', 'detailexport.id')
             ->distinct()
             ->get();
         $product = $this->product->getAllProducts();
-        return view('tables.export.delivery.create-delivery', compact('title', 'numberQuote', 'product'));
+        return view('tables.export.delivery.create-delivery', compact('title', 'numberQuote', 'product', 'workspacename'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(string $workspace, Request $request)
     {
         if ($request->action == 1) {
             $delivery_id = $this->delivery->addDelivery($request->all());
             $this->delivered->addDelivered($request->all(), $delivery_id);
-            return redirect()->route('delivery.index')->with('msg', ' Tạo mới đơn giao hàng thành công !');
+            return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', ' Tạo mới đơn giao hàng thành công !');
         }
         if ($request->action == 2) {
             $this->delivery->acceptDelivery($request->all());
-            return redirect()->route('delivery.index')->with('msg', 'Xác nhận đơn giao hàng thành công!');
+            return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
         }
     }
 
@@ -85,8 +96,10 @@ class DeliveryController extends Controller
         //
     }
 
-    public function watchDelivery(string $id)
+    public function watchDelivery(string $workspace, string $id)
     {
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         $title = 'Chỉnh sửa đơn giao hàng';
         $delivery = $this->delivery->getDeliveryToId($id);
         $product = $this->delivery->getProductToId($id);
@@ -95,13 +108,13 @@ class DeliveryController extends Controller
             ->where('serialnumber.delivery_id', $id)
             ->select('*', 'serialnumber.id as idSeri')
             ->get();
-        return view('tables.export.delivery.watch-delivery', compact('title', 'delivery', 'product', 'serinumber'));
+        return view('tables.export.delivery.watch-delivery', compact('title', 'delivery', 'product', 'serinumber', 'workspacename'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(string $workspace, Request $request, string $id)
     {
         if ($request->action == "action_1") {
             $delivery = Delivery::find($id);
@@ -110,12 +123,12 @@ class DeliveryController extends Controller
                     'status' => 2,
                 ]);
                 $this->delivery->updateDetailExport($request->all(), $delivery->detailexport_id);
-                return redirect()->route('delivery.index')->with('msg', 'Xác nhận đơn giao hàng thành công!');
+                return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
             }
         }
         if ($request->action == "action_2") {
             $this->delivery->deleteDelivery($request->all(), $id);
-            return redirect()->route('delivery.index')->with('msg', 'Xóa đơn giao hàng thành công!');
+            return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn giao hàng thành công!');
         }
     }
 
@@ -131,6 +144,7 @@ class DeliveryController extends Controller
     {
         $data = $request->all();
         $delivery = DetailExport::where('detailexport.id', $data['idQuote'])
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')->first();
         return $delivery;
     }

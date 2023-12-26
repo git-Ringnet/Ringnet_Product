@@ -22,6 +22,7 @@ class DetailExport extends Model
         'status_receive',
         'status_reciept',
         'status_pay',
+        'workspace_id',
         'total_price',
         'terms_pay',
         'total_tax',
@@ -39,6 +40,7 @@ class DetailExport extends Model
     public function getAllDetailExport()
     {
         $detailExport = DetailExport::leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG')
             ->orderBy('detailexport.id', 'desc')->paginate(10);
         return $detailExport;
@@ -66,6 +68,7 @@ class DetailExport extends Model
             'status_receive' => 1,
             'status_reciept' => 1,
             'status_pay' => 1,
+            'workspace_id' => Auth::user()->current_workspace,
             'created_at' => $data['date_quote'],
             'total_price' => $totalBeforeTax,
             'terms_pay' => $data['terms_pay'],

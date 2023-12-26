@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class BillSale extends Model
@@ -16,6 +17,7 @@ class BillSale extends Model
         'price_total',
         'status',
         'number_bill',
+        'workspace_id',
         'created_at',
         'updated_at'
     ];
@@ -25,6 +27,7 @@ class BillSale extends Model
     {
         $bill_sale = BillSale::leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'bill_sale.guest_id', 'guest.id')
+            ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
             ->select('*', 'bill_sale.status as tinhTrang', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD')
             ->get();
         return $bill_sale;
@@ -72,6 +75,7 @@ class BillSale extends Model
             'created_at' => $date_bill,
             'updated_at' => $date_bill,
             'number_bill' =>  $number_bill,
+            'workspace_id' => Auth::user()->current_workspace,
         ];
         $bill_sale = new BillSale($dataBill);
         $bill_sale->save();
@@ -230,6 +234,7 @@ class BillSale extends Model
             'created_at' => $date_bill,
             'updated_at' => $date_bill,
             'number_bill' =>  $number_bill,
+            'workspace_id' => Auth::user()->current_workspace,
         ];
         $bill_sale = new BillSale($dataBill);
         $bill_sale->save();
@@ -256,6 +261,7 @@ class BillSale extends Model
                 'billSale_id' => $bill_sale->id,
                 'product_id' => $data['product_id'][$i],
                 'billSale_qty' => $data['product_qty'][$i],
+                'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];

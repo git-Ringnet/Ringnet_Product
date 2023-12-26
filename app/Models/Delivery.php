@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Delivery extends Model
@@ -16,6 +17,7 @@ class Delivery extends Model
         'shipping_unit',
         'shipping_fee',
         'detailexport_id',
+        'workspace_id',
         'status',
         'created_at',
         'updated_at'
@@ -72,6 +74,7 @@ class Delivery extends Model
             'shipping_fee' => $shipping_fee,
             'detailexport_id' => $data['detailexport_id'],
             'status' => 1,
+            'workspace_id' => Auth::user()->current_workspace,
             'created_at' => $date_deliver,
         ];
         $detaiExport = DetailExport::where('id', $data['detailexport_id'])->first();
@@ -357,6 +360,7 @@ class Delivery extends Model
             'shipping_unit' => $shipping_unit,
             'shipping_fee' => $shipping_fee,
             'detailexport_id' => $data['detailexport_id'],
+            'workspace_id' => Auth::user()->current_workspace,
             'status' => 2,
             'created_at' => $date_deliver,
         ];
@@ -389,6 +393,7 @@ class Delivery extends Model
                     'product_tax' => $data['product_tax'][$i],
                     'product_guarantee' => 1,
                     'product_price_export' => $price,
+                    'workspace_id' => Auth::user()->current_workspace,
                     'product_price_import' => isset($priceImport) ? $priceImport : 0,
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                 ];
@@ -413,6 +418,7 @@ class Delivery extends Model
                 'delivery_id' => $deliveryId,
                 'product_id' => $data['product_id'][$i],
                 'deliver_qty' => $data['product_qty'][$i],
+                'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];
@@ -441,6 +447,7 @@ class Delivery extends Model
                         'price_export' => 0,
                         'product_ratio' => 0,
                         'price_import' => 0,
+                        'workspace_id' => Auth::user()->current_workspace,
                         'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
@@ -478,6 +485,7 @@ class Delivery extends Model
             $deliveriesForProduct = Delivered::join('delivery', 'delivery.id', '=', 'delivered.delivery_id')
                 ->where('delivery.detailexport_id', $data['detailexport_id'])
                 ->where('delivered.product_id', $product_id)
+                ->where('delivery.workspace_id', Auth::user()->current_workspace)
                 ->where('delivery.status', 2)
                 ->get();
 

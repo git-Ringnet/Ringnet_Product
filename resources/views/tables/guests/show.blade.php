@@ -7,7 +7,9 @@
             <div class="mb-3">
                 <span>Bán hàng</span>
                 <span>/</span>
-                <span><a class="text-dark" href="{{ route('guests.index') }}">Khách hàng</a></span>
+                <span><a class="text-dark" href="{{ route('guests.index', ['workspace' => $workspacename]) }}">Khách
+                        hàng</a>
+                </span>
                 <span>/</span>
                 <span>Chỉnh sửa khách hàng</span>
                 <span class="font-weight-bold">{{ $title }}</span>
@@ -17,7 +19,7 @@
 
     <section class="content-header p-0">
         <div class="container-fluided">
-            <a href="{{ route('guests.edit', $guest->id) }}">
+            <a href="{{ route('guests.edit', ['workspace' => $workspacename, 'guest' => $guest->id]) }}">
                 <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +56,7 @@
                                         <div class="title-info py-2 border border-left-0">
                                             <p class="p-0 m-0 px-3 required-label text-danger">Tên hiển thị</p>
                                         </div>
-                                        <input type="text" required placeholder="Nhập thông tin" readonly
+                                        <input type="text" required readonly
                                             name="guest_name_display" value="{{ $guest->guest_name_display }}"
                                             class="border w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
@@ -62,7 +64,7 @@
                                         <div class="title-info py-2 border border-top-0 border-left-0">
                                             <p class="p-0 m-0 px-3">Tên viết tắt</p>
                                         </div>
-                                        <input type="text" placeholder="Nhập thông tin" name="key"
+                                        <input type="text" name="key"
                                             value="{{ $guest->key }}" readonly
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
@@ -70,7 +72,7 @@
                                         <div class="title-info py-2 border border-top-0 border-left-0">
                                             <p class="p-0 m-0 px-3 required-label text-danger">Mã số thuế</p>
                                         </div>
-                                        <input type="text" required placeholder="Nhập thông tin" name="guest_code"
+                                        <input type="text" required name="guest_code"
                                             value="{{ $guest->guest_code }}" readonly
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
@@ -78,7 +80,7 @@
                                         <div class="title-info py-2 border border-top-0 border-left-0">
                                             <p class="p-0 m-0 px-3 required-label text-danger">Địa chỉ</p>
                                         </div>
-                                        <input type="text" required placeholder="Nhập thông tin" name="guest_address"
+                                        <input type="text" required name="guest_address"
                                             value="{{ $guest->guest_address }}" readonly
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>
@@ -86,7 +88,7 @@
                                         <div class="title-info py-2 border border-top-0 border-left-0">
                                             <p class="p-0 m-0 px-3">Tên đầy đủ</p>
                                         </div>
-                                        <input type="text" placeholder="Nhập thông tin" name="guest_name"
+                                        <input type="text" name="guest_name"
                                             value="{{ $guest->guest_name }}" readonly
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                                     </div>

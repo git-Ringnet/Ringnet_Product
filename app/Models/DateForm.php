@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,9 @@ class DateForm extends Model
     protected $fillable = ['form_name', 'form_field', 'form_desc', 'user_id', 'default_form'];
     public function getDateForm()
     {
-        return DB::table($this->table)->get();
+        return DB::table($this->table)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
     }
     public function createDateForm($data)
     {

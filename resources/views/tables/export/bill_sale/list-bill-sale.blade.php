@@ -1,4 +1,4 @@
-<x-navbar :title="$title" activeGroup="sell" activeName="billsale"></x-navbar>
+<x-navbar :title="$title" activeGroup="sell" activeName="billsale" :workspacename="$workspacename"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -10,7 +10,7 @@
                 <span class="font-weight-bold">Hóa đơn bán hàng</span>
             </div>
             <div class="row m-0 mb-1">
-                <a href="{{ route('billSale.create') }}">
+                <a href="{{ route('billSale.create', ['workspace' => $workspacename]) }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -165,7 +165,8 @@
                                                 {{ number_format($item_bill->price_total) }}
                                             </td>
                                             <td>
-                                                <a href="{{ route('billSale.edit', $item_bill->idHD) }}">
+                                                <a
+                                                    href="{{ route('billSale.edit', ['workspace' => $workspacename, 'billSale' => $item_bill->idHD]) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32"
                                                         height="32" viewBox="0 0 32 32" fill="none">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"

@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class QuoteExport extends Model
@@ -23,6 +24,7 @@ class QuoteExport extends Model
         'product_ratio',
         'price_import',
         'product_note',
+        'workspace_id',
         'created_at',
         'updated_at',
         'deliver_id',
@@ -63,6 +65,7 @@ class QuoteExport extends Model
                     'product_price_import' => isset($priceImport) ? $priceImport : 0,
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                     'check_seri' => 1,
+                    'workspace_id' => Auth::user()->current_workspace,
                 ];
                 $checkProduct = Products::where('product_name', $data['product_name'][$i])->first();
                 if (!$checkProduct) {
@@ -81,6 +84,7 @@ class QuoteExport extends Model
                     'price_export' => $price,
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                     'price_import' => $priceImport,
+                    'workspace_id' => Auth::user()->current_workspace,
                     'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
@@ -99,6 +103,7 @@ class QuoteExport extends Model
                     'price_export' => $price,
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                     'price_import' => $priceImport,
+                    'workspace_id' => Auth::user()->current_workspace,
                     'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),

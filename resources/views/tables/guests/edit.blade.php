@@ -7,14 +7,15 @@
             <div class="mb-3">
                 <span>Bán hàng</span>
                 <span>/</span>
-                <span><a class="text-dark" href="{{ route('guests.index') }}">Khách hàng</a></span>
+                <span><a class="text-dark" href="{{ route('guests.index', ['workspace' => $workspacename]) }}">Khách
+                        hàng</a></span>
                 <span>/</span>
                 <span>Chỉnh sửa khách hàng</span>
                 <span class="font-weight-bold">{{ $title }}</span>
             </div>
         </div><!-- /.container-fluided -->
     </section>
-    <form action="{{ route('guests.update', $guest->id) }}" method="POST">
+    <form action="{{ route('guests.update', ['workspace' => $workspacename, 'guest' => $guest->id]) }}" method="POST">
         @csrf
         @method('PUT')
         <section class="content-header p-0">
@@ -237,7 +238,7 @@
                                                     </svg>
                                                     <span>Thêm hàng loạt</span>
                                                 </button>
-                                                <button class="btn-option py-1 px-2">
+                                                <button type="button" class="btn-option py-1 px-2">
                                                     <svg width="24" height="24" viewBox="0 0 24 24"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"

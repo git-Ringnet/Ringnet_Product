@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class GuestFormDate extends Model
 {
@@ -16,6 +17,7 @@ class GuestFormDate extends Model
         // Kiểm tra nếu chưa có guestid và cùng field thì sẽ thêm mới ngược lại cập nhật thui
         $existingRecord = self::where('guest_id', $guestId)
             ->where('form_field', $formField)
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
 
         if ($existingRecord) {

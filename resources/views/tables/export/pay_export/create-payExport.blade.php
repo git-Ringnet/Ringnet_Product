@@ -1,7 +1,7 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="payexport"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <form action="{{ route('payExport.store') }}" method="POST">
+    <form action="{{ route('payExport.store', ['workspace' => $workspacename]) }}" method="POST">
         @csrf
         <input type="hidden" name="detailexport_id" id="detailexport_id"
             value="@isset($yes) {{ $data['detailexport_id'] }} @endisset">
@@ -27,7 +27,7 @@
                         </svg>
                         <span>Lưu nháp</span>
                     </button>
-                    <button class="btn-option">
+                    <button type="button" class="btn-option">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"

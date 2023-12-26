@@ -2,7 +2,7 @@
 </x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <form action="{{ route('detailExport.store') }}" method="POST">
+    <form action="{{ route('detailExport.store', ['workspace' => $workspacename]) }}" method="POST">
         @csrf
         <!-- Content Header (Page header) -->
         <section class="content-header p-0">

@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use League\CommonMark\Extension\SmartPunct\Quote;
 
@@ -15,6 +16,7 @@ class Delivered extends Model
         'delivery_id',
         'product_id',
         'deliver_qty',
+        'workspace_id',
         'created_at',
         'updated_at'
     ];
@@ -36,6 +38,7 @@ class Delivered extends Model
                     'product_unit' => $data['product_unit'][$i],
                     'product_tax' => $data['product_tax'][$i],
                     'product_guarantee' => 1,
+                    'workspace_id' => Auth::user()->current_workspace,
                     'product_price_export' => $price,
                     'product_price_import' => isset($priceImport) ? $priceImport : 0,
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
@@ -61,6 +64,7 @@ class Delivered extends Model
                 'delivery_id' => $id,
                 'product_id' => $data['product_id'][$i],
                 'deliver_qty' => $data['product_qty'][$i],
+                'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];
@@ -89,6 +93,7 @@ class Delivered extends Model
                         'price_export' => 0,
                         'product_ratio' => 0,
                         'price_import' => 0,
+                        'workspace_id' => Auth::user()->current_workspace,
                         'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),

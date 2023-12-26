@@ -11,7 +11,9 @@ use App\Models\productBill;
 use App\Models\productPay;
 use App\Models\Products;
 use App\Models\QuoteExport;
+use App\Models\Workspace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PayExportController extends Controller
@@ -23,6 +25,7 @@ class PayExportController extends Controller
     private $product;
     private $payExport;
     private $productPay;
+    private $workspaces;
 
     public function __construct()
     {
@@ -30,13 +33,17 @@ class PayExportController extends Controller
         $this->product = new Products();
         $this->payExport = new PayExport();
         $this->productPay = new productPay();
+        $this->workspaces = new Workspace();
     }
     public function index()
     {
         $title = "Thanh toán bán hàng";
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         $payExport = PayExport::leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'pay_export.guest_id', 'guest.id')
             ->leftJoin('history_payment_export', 'pay_export.id', 'history_payment_export.pay_id')
+            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
             ->select(
                 'detailexport.quotation_number',
                 'guest.guest_name_display',
@@ -62,7 +69,7 @@ class PayExportController extends Controller
                 'pay_export.payment',
             )
             ->get();
-        return view('tables.export.pay_export.list-payExport', compact('title', 'payExport'));
+        return view('tables.export.pay_export.list-payExport', compact('title', 'payExport', 'workspacename'));
     }
 
     /**
@@ -71,23 +78,26 @@ class PayExportController extends Controller
     public function create()
     {
         $title = "Tạo đơn thanh toán";
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         $product = $this->product->getAllProducts();
         $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
             ->where('quoteexport.product_qty', '>', DB::raw('COALESCE(quoteexport.qty_payment,0)'))
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('detailexport.quotation_number', 'detailexport.id')
             ->distinct()
             ->get();
-        return view('tables.export.pay_export.create-payExport', compact('title', 'numberQuote', 'product'));
+        return view('tables.export.pay_export.create-payExport', compact('title', 'numberQuote', 'product', 'workspacename'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(string $workspace, Request $request)
     {
         $pay_id = $this->payExport->addPayExport($request->all());
         $this->productPay->addProductPay($request->all(), $pay_id);
-        return redirect()->route('payExport.index')->with('msg', ' Tạo đơn thanh toán hàng thành công !');
+        return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', ' Tạo đơn thanh toán hàng thành công !');
     }
 
     /**
@@ -101,9 +111,11 @@ class PayExportController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $workspace, string $id)
     {
         $title = "Thanh toán bán hàng";
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         $payExport = PayExport::where('pay_export.id', $id)
             ->leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'pay_export.guest_id', 'guest.id')
@@ -164,24 +176,24 @@ class PayExportController extends Controller
             )
             ->get();
         $history = history_Pay_Export::where('pay_id', $id)->get();
-        return view('tables.export.pay_export.edit', compact('title', 'payExport', 'product', 'history', 'thanhToan', 'noConLaiValue'));
+        return view('tables.export.pay_export.edit', compact('title', 'payExport', 'product', 'history', 'thanhToan', 'noConLaiValue', 'workspacename'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(string $workspace, Request $request, string $id)
     {
         if ($request->action == "action_1") {
             $payExport = PayExport::find($id);
             if ($payExport) {
                 $this->payExport->updateDetailExport($request->all(), $payExport->detailexport_id);
-                return redirect()->route('payExport.index')->with('msg', 'Xác nhận thanh toán thành công!');
+                return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', 'Xác nhận thanh toán thành công!');
             }
         }
         if ($request->action == "action_2") {
             $this->payExport->deletePayExport($request->all(), $id);
-            return redirect()->route('payExport.index')->with('msg', 'Xóa đơn thanh toán thành công!');
+            return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn thanh toán thành công!');
         }
     }
 

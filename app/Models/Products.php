@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Products extends Model
@@ -27,12 +28,15 @@ class Products extends Model
         'product_trade',
         'product_available',
         'warehouse_id',
-        'check_seri'
+        'check_seri',
+        'workspace_id'
     ];
     public function getAllProducts()
     {
         $perpage = 10;
-        return DB::table($this->table)->orderBy('id', 'desc')->paginate($perpage);
+        return DB::table($this->table)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->orderBy('id', 'desc')->paginate($perpage);
         // return DB::table($this->table)->get();
     }
     public function getSerialNumber()

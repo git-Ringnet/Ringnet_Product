@@ -49,20 +49,22 @@ class GuestController extends Controller
      */
     public function create()
     {
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         $title = "Thêm mới khách hàng";
-        return view('tables.guests.create', compact('title'));
+        return view('tables.guests.create', compact('title', 'workspacename'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(string $workspace, Request $request)
     {
         $result = $this->guests->addGuest($request->all());
         if ($result == true) {
             $msg = redirect()->back()->with('msg', 'Khách hàng đã tồn tại');
         } else {
-            $msg = redirect()->route('guests.index')->with('msg', 'Thêm mới khách hàng thành công');
+            $msg = redirect()->route('guests.index', ['workspace' => $workspace])->with('msg', 'Thêm mới khách hàng thành công');
         }
         return $msg;
     }
@@ -70,8 +72,10 @@ class GuestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $workspace, string $id)
     {
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         $guest = Guest::findOrFail($id);
         if ($guest) {
             $title = $guest->guest_name_display;
@@ -88,14 +92,16 @@ class GuestController extends Controller
         $sumDebt = $this->detailExport->sumDebt($id);
         //Lịch sử giao dịch
         $historyGuest = $this->detailExport->historyGuest($id);
-        return view('tables.guests.show', compact('title', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay', 'sumSell'));
+        return view('tables.guests.show', compact('title', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay', 'sumSell', 'workspacename'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id, Request $request)
+    public function edit(string $workspace, string $id, Request $request)
     {
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         $guest = Guest::findOrFail($id);
         if ($guest) {
             $title = $guest->guest_name_display;
@@ -117,13 +123,13 @@ class GuestController extends Controller
         $historyGuest = $this->detailExport->historyGuest($id);
         $dataa = $this->guests->getAllGuest();
 
-        return view('tables.guests.edit', compact('title', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay', 'dataa'));
+        return view('tables.guests.edit', compact('title', 'guest', 'historyGuest', 'representGuest', 'countDetail', 'sumDebt', 'sumPay', 'dataa', 'workspacename'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(string $workspace, Request $request, string $id)
     {
         $id = session('id');
         $data = [
@@ -143,24 +149,27 @@ class GuestController extends Controller
         $this->guests->updateProvide($data, $id);
         $this->representGuest->updateRepresentGuest($request->all(), $id);
         session()->forget('id');
-        return redirect(route('guests.index'))->with('msg', 'Sửa khách hàng thành công');
+        return redirect(route('guests.index', ['workspace' => $workspace]))->with('msg', 'Sửa khách hàng thành công');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $workspace, string $id)
     {
+        $guest = Guest::find($id);
+        if (!$guest) {
+            return back()->with('warning', 'Không tìm thấy khách hàng để xóa');
+        }
         $check = DetailExport::where('guest_id', $id)->first();
         if ($check) {
             return back()->with('warning', 'Xóa thất bại do khách hàng này đang báo giá!');
-        } else {
-            $guests = Guest::find($id);
-            $guests->delete();
-            representGuest::where('guest_id', $id)->delete();
-            return back()->with('msg', 'Xóa khách hàng thành công');
         }
+        representGuest::where('guest_id', $id)->delete();
+        $guest->delete();
+        return back()->with('msg', 'Xóa khách hàng thành công');
     }
+
 
     public function search(Request $request)
     {
