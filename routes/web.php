@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\ProviderController;
+use App\Http\Controllers\Auth\WorkspaceController;
 use App\Http\Controllers\BillSaleController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\DetailExportController;
@@ -93,7 +94,7 @@ Route::get('getPaymentOrder', [PayOrderController::class, 'getPaymentOrder'])->n
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 // PDF
 // Route::resource('pdf', PdfController::class);
 Route::get('/pdf/{id?}', [PdfController::class, 'index'])->name('pdf');
@@ -147,6 +148,7 @@ Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect'])
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
 Route::post('/create-workspace', [ProviderController::class, 'createWorkspace'])->name('createWorkspace');
 
+Route::resource('workspace', WorkspaceController::class);
 
 Route::middleware([
     'auth:sanctum',
@@ -154,6 +156,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        // return view('dashboard');
+        return redirect()->route('workspace.index');
     })->name('dashboard');
 });

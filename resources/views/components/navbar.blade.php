@@ -1,3 +1,26 @@
+@if (Auth::guest())
+    <?php header('Location: ' . route('login'));
+    exit(); ?>
+@endif
+@if (Auth::check())
+    <!-- Kiểm tra xem người dùng đã đăng nhập chưa -->
+    @php
+        $currentWorkspace = Auth::user()->current_workspace;
+        $workspacename = App\Models\Workspace::where('id', Auth::user()->current_workspace)->first();
+        $workspacename = $workspacename->workspace_name;
+        $idUser = Auth::user()->id;
+        $workspaceExists = App\Models\Workspace::where('id', $currentWorkspace)
+            ->where('user_id', $idUser)
+            ->exists();
+    @endphp
+
+    {{-- @if ($workspaceExists)
+        <!-- Hiển thị nội dung navbar dựa trên việc current_workspace của người dùng có tồn tại trong Workspace hay không -->
+        <p>User's current workspace exists in Workspace.</p>
+    @else
+        <p>User's current workspace does not exist in Workspace.</p>
+    @endif --}}
+@endif
 <!DOCTYPE html>
 <html lang="en">
 
@@ -389,6 +412,7 @@
                             </p>
                         </a>
                     </li>
+                    <a href="{{ route('dashboard') }}">Quay lại trang Quản lý workspace</a>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

@@ -18,7 +18,7 @@ class navbar extends Component
     public $activeGroup;
     public $workspacename;
 
-    public function __construct($title = 'Ringnet', $activeName = 'activeName', $activeGroup = 'activeGroup', $workspacename = 'dhkas')
+    public function __construct($title = 'Ringnet', $activeName = 'activeName', $activeGroup = 'activeGroup', $workspacename = 'worksapcename')
     {
         $this->title = $title;
         $this->activeName = $activeName;
@@ -32,16 +32,5 @@ class navbar extends Component
     public function render(): View|Closure|string
     {
         return view('components.navbar');
-    }
-    public function isActiveRouteGroup($routeGroup)
-    {
-        $currentRoute = Route::currentRouteName();
-        $routes = is_array($routeGroup) ? $routeGroup : explode(',', $routeGroup);
-
-        if (in_array($currentRoute, $routes)) {
-            return 'active';
-        }
-
-        return '';
     }
 }

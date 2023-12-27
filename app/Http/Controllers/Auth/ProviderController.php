@@ -40,11 +40,6 @@ class ProviderController extends Controller
                 'provider' => $provider,
                 'provider_id' => $getInfo->id,
             ]);
-            $userId = $user->id;
-            $user->update([
-                'origin_workspace' => $userId,
-                'current_workspace' => $userId
-            ]);
         }
         return $user;
     }
@@ -56,6 +51,13 @@ class ProviderController extends Controller
         $workspace->workspace_name = $workspaceName;
         $workspace->save();
 
+
+        $userId = Auth::user()->id;
+        $user = User::where('id', $userId)->first();
+        $user->update([
+            'origin_workspace' => $workspace->id,
+            'current_workspace' => $workspace->id,
+        ]);
         return redirect()->route('dashboard')->with('success', 'Workspace đã được tạo thành công!');
     }
 }

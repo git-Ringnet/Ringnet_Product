@@ -20,6 +20,10 @@ class Workspace extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function getAll($idUser)
+    {
+        return Workspace::where('user_id', $idUser)->get();
+    }
     public function getNameWorkspace($idWorkspaceCurrent)
     {
         return DB::table($this->table)->where('id', $idWorkspaceCurrent)->first();

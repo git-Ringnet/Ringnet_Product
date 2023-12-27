@@ -43,8 +43,7 @@ class GuestController extends Controller
                 $guest->sumDebt = $sumDebt;
             }
             return view('tables.guests.index', compact('title', 'guests', 'dataa', 'workspacename'));
-        }
-        else{
+        } else {
             return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
         }
     }
