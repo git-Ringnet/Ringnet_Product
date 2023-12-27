@@ -217,6 +217,7 @@ class PayExportController extends Controller
     {
         $data = $request->all();
         $delivery = DetailExport::where('detailexport.id', $data['idQuote'])
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
@@ -243,6 +244,7 @@ class PayExportController extends Controller
         $data = $request->all();
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->where('detailexport.id', $data['idQuote'])
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_payment, 0) > 0')
             ->where(function ($query) {
                 $query->where('quoteexport.product_delivery', null)

@@ -22,7 +22,8 @@ class Guest extends Model
         'guest_email_personal',
         'guest_phone_receiver',
         'guest_debt',
-        'guest_note'
+        'guest_note',
+        'workspace_id',
     ];
     protected $table = 'guest';
 
@@ -91,7 +92,13 @@ class Guest extends Model
     public function addGuest($data)
     {
         $exist = false;
-        $guests = DB::table($this->table)->where('guest_code', $data['guest_code'])->first();
+        $guests = DB::table($this->table)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->where(function ($query) use ($data) {
+                $query->where('guest_code', $data['guest_code'])
+                    ->orWhere('guest_name_display', $data['guest_name_display']);
+            })
+            ->first();
         if ($guests) {
             $exist = true;
         } else {
@@ -108,6 +115,7 @@ class Guest extends Model
                 'guest_phone_receiver' => isset($data['guest_phone_receiver']) ? $data['guest_phone_receiver'] : null,
                 'guest_debt' => isset($data['guest_debt']) ? $data['guest_debt'] : 0,
                 'guest_note' => isset($data['guest_note']) ? $data['guest_note'] : null,
+                'workspace_id' => Auth::user()->current_workspace,
             ];
             $guest_id =  DB::table($this->table)->insertGetId($dataguest);
             //Thêm người đại diện
@@ -119,6 +127,7 @@ class Guest extends Model
                         'represent_email' => $data['represent_email'][$i],
                         'represent_phone' => $data['represent_phone'][$i],
                         'represent_address' => $data['represent_address'][$i],
+                        'workspace_id' => Auth::user()->current_workspace,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ];
