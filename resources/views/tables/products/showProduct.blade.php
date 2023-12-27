@@ -13,7 +13,7 @@
             <div class="d-flex">
                 {{-- Sửa --}}
                 @if ($display == 1)
-                    <a href="{{ route('inventory.edit', $product->id) }}">
+                    <a href="{{ route('inventory.edit', ['workspace' => $workspacename ,'inventory' => $product->id]) }}">
                         <div class="mr-2">
                             <button class="btn btn-primary" name="action" value="1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
@@ -413,7 +413,7 @@
                                                 <td>{{ $sn->serinumber }}</td>
                                                 <td>
                                                     <div>
-                                                        <a href="{{ route('receive.edit', $item->getReceive->id) }}">
+                                                        <a href="{{ route('receive.edit', ['workspace' => $workspacename ,'receive' => $item->getReceive->id]) }}">
                                                             {{ $item->getReceive->id }}
                                                         </a>
                                                     </div>

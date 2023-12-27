@@ -7,14 +7,15 @@
             <div class="mb-3">
                 <span>Mua hàng</span>
                 <span>/</span>
-                <span><a class="text-dark" href="{{ route('provides.index') }}">Nhà cung cấp</a></span>
+                <span><a class="text-dark" href="{{ route('provides.index', $workspacename) }}">Nhà cung cấp</a></span>
                 <span>/</span>
                 <span>Chỉnh sửa nhà cung cấp</span>
                 <span class="font-weight-bold">{{ $title }}</span>
             </div>
         </div><!-- /.container-fluided -->
     </section>
-    <form action="{{ route('provides.update', $provide->id) }}" method="POST">
+    <form action="{{ route('provides.update', ['workspace' => $workspacename, 'provide' => $provide->id]) }}"
+        method="POST">
         @csrf
         @method('PUT')
         <section class="content-header p-0">

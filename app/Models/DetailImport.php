@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DetailImport extends Model
@@ -91,7 +92,8 @@ class DetailImport extends Model
             'status_receive' => 0,
             'status_reciept' => 0,
             'status_pay' => 0,
-            'terms_pay' => $data['terms_pay']
+            'terms_pay' => $data['terms_pay'],
+            'workspace_id' => Auth::user()->current_workspace
         ];
         $checkQuotation = DetailImport::where('quotation_number', $data['quotation_number'])->first();
         if ($checkQuotation) {
@@ -119,7 +121,9 @@ class DetailImport extends Model
         $total = 0;
         $total_tax = 0;
         $check_status = false;
-        $detail = DetailImport::where('id', $id)->first();
+        $detail = DetailImport::where('id', $id)
+        ->where('workspace_id',Auth::user()->current_workspace)
+        ->first();
         if ($detail) {
             if ($data['action'] == "action_1") {
                 $check_status = true;
@@ -139,7 +143,9 @@ class DetailImport extends Model
                     $total_tax += $data['product_tax'][$i] * $total;
                 }
             } else {
-                $product = QuoteImport::where('detailimport_id', $id)->get();
+                $product = QuoteImport::where('detailimport_id', $id)
+                ->where('workspace_id',Auth::user()->current_workspace)
+                ->get();
                 foreach ($product as $item) {
                     if ($item->product_ratio > 0 && $item->price_import) {
                         $total += (($item->product_ratio + 100) * $item->price_import / 100) * $item->product_qty;

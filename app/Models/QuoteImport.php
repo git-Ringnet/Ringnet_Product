@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class QuoteImport extends Model
@@ -28,13 +29,16 @@ class QuoteImport extends Model
     {
         return DB::table($this->table)->get();
     }
-    public function getProductImport(){
+    public function getProductImport()
+    {
         return $this->hasOne(ProductImport::class, 'quoteImport_id', 'id');
     }
-    public function getQuoteNumber(){
+    public function getQuoteNumber()
+    {
         return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
     }
-    public function getWareHouse(){
+    public function getWareHouse()
+    {
         return $this->hasOne(Warehouse::class, 'id', 'warehouse_id');
     }
 
@@ -55,6 +59,7 @@ class QuoteImport extends Model
                 'warehouse_id' => 1,
                 'version' => 1,
                 'created_at' => Carbon::now(),
+                'workspace_id' => Auth::user()->current_workspace
             ];
             $quote_id = DB::table($this->table)->insertGetId($dataQuote);
             if ($quote_id) {
@@ -71,6 +76,7 @@ class QuoteImport extends Model
                     'product_note' => $data['product_note'][$i],
                     'version' => 1,
                     'created_at' => Carbon::now(),
+                    'workspace_id' => Auth::user()->current_workspace
                 ];
                 DB::table('history_import')->insert($dataHistory);
             }
@@ -84,12 +90,15 @@ class QuoteImport extends Model
         // Xóa sản phẩm khi chỉnh sửa đơn hàng
         if ($data['action'] == 'action_1') {
             $id_detail = DB::table($this->table)->where('detailimport_id', $id)
+                ->where('workspace_id', Auth::user()->current_workspace)
                 ->whereNotIn('id', $data['listProduct'])
                 ->delete();
         }
         for ($i = 0; $i < count($data['product_name']); $i++) {
             // Lấy sản phẩm cần sửa
-            $dataUpdate = QuoteImport::where('id', $data['listProduct'][$i])->first();
+            $dataUpdate = QuoteImport::where('id', $data['listProduct'][$i])
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
             $price_export = str_replace(',', '', $data['price_export'][$i]);
             $total_price = $data['product_qty'][$i] * $price_export;
             if ($dataUpdate) {
@@ -124,7 +133,9 @@ class QuoteImport extends Model
                     'product_note' => $data['product_note'][$i],
                     'receive_id' => 0,
                     'warehouse_id' => 1,
-                    'version' => 1
+                    'version' => 1,
+                    'created_at' => Carbon::now(),
+                    'workspace_id' => Auth::user()->current_workspace
                 ];
                 DB::table($this->table)->insert($dataQuote);
             }

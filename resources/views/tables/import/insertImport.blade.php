@@ -2,7 +2,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <form action="{{ route('import.store') }}" method="POST">
+    <form action="{{ route('import.store',$workspacename) }}" method="POST">
         @csrf
         <input type="hidden" id="provides_id" name="provides_id">
         <input type="hidden" id="project_id" name="project_id">
@@ -470,7 +470,7 @@
                 success: function(data) {
                     listProductName.empty();
                     data.forEach(element => {
-                        var UL = '<li>' +
+                        var UL = '<li class="w-100">' +
                             '<a data-unit="' + element
                             .product_unit +
                             '" data-priceExport= "' +

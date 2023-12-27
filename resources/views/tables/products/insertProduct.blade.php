@@ -8,7 +8,7 @@
             <span>Kho hàng / Tồn kho / {{ $title }}</span>
         </div><!-- /.container-fluided -->
     </section>
-    <form action="{{ route('inventory.store') }}" method="POST">
+    <form action="{{ route('inventory.store',$workspacename) }}" method="POST">
         @csrf
         <section class="content-header">
             <div class="container-fluided">

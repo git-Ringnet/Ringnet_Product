@@ -32,14 +32,14 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 // Kho hàng
-Route::resource('inventory', ProductController::class);
+Route::resource('{workspace}/inventory', ProductController::class);
 Route::get('/searchInventory', [ProductController::class, 'search'])->name('searchInventory');
 
-Route::get('/editProduct', [ProductController::class, 'editProduct'])->name('editProduct');
+Route::get('{workspacename}/editProduct', [ProductController::class, 'editProduct'])->name('editProduct');
 Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProductInventory'])->name('inventory.showProductInventory');
 
 // Nhà cung cấp
-Route::resource('provides', ProvidesController::class);
+Route::resource('{workspace}/provides', ProvidesController::class);
 Route::get('/searchProvides', [ProvidesController::class, 'search'])->name('searchProvides');
 
 // Khách hàng
@@ -48,7 +48,7 @@ Route::get('/search', [GuestController::class, 'search'])->name('search');
 Route::get('/searchDetailGuest', [GuestController::class, 'searchDetailGuest'])->name('searchDetailGuest');
 
 // Mua hàng
-Route::resource('import', DetailImportController::class);
+Route::resource('{workspace}/import', DetailImportController::class);
 Route::get('/show_provide', [DetailImportController::class, 'show_provide'])->name('show_provide');
 Route::get('/show_project', [DetailImportController::class, 'show_project'])->name('show_project');
 Route::get('/addNewProvide', [DetailImportController::class, 'addNewProvide'])->name('addNewProvide');
@@ -75,20 +75,20 @@ Route::get('/searchFormByGuestId', [DetailExportController::class, 'searchFormBy
 
 
 // Đơn nhận hàng
-Route::resource('receive', ReceiveController::class);
+Route::resource('{workspace}/receive', ReceiveController::class);
 Route::get('/show_receive', [ReceiveController::class, 'show_receive'])->name('show_receive');
 Route::get('/getProduct_receive', [ReceiveController::class, 'getProduct_receive'])->name('getProduct_receive');
 // Xác nhận đơn nhận hàng
 // Route::resource('historyReceive', HistoryReceiveController::class);
 
 // Hóa đơn mua hàng
-Route::resource('reciept', RecieptController::class);
+Route::resource('{workspace}/reciept', RecieptController::class);
 Route::get('/show_reciept', [RecieptController::class, 'show_reciept'])->name('show_reciept');
 Route::get('/getProduct_reciept', [RecieptController::class, 'getProduct_reciept'])->name('getProduct_reciept');
 
 
 // Thanh toán nhập hàng
-Route::resource('paymentOrder', PayOrderController::class);
+Route::resource('{workspace}/paymentOrder', PayOrderController::class);
 Route::get('getPaymentOrder', [PayOrderController::class, 'getPaymentOrder'])->name('getPaymentOrder');
 
 Route::get('/', function () {

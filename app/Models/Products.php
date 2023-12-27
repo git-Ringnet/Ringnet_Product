@@ -59,7 +59,9 @@ class Products extends Model
     {
         $return  = 0;
         isset($data['check_seri']) ? $check = 1 : $check = 0;
-        $checkProductName = DB::table($this->table)->where('product_name', $data['product_name'])->first();
+        $checkProductName = DB::table($this->table)->where('product_name', $data['product_name'])
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
         if ($checkProductName) {
             $return = 0;
         } else {
@@ -79,6 +81,7 @@ class Products extends Model
                 'product_inventory' => 0,
                 'product_trade' => 0,
                 'product_available' => 0,
+                'workspace_id' => Auth::user()->current_workspace
                 // 'warehouse_id' => 1
             ];
             $product_id =  DB::table($this->table)->insert($product);
@@ -110,7 +113,9 @@ class Products extends Model
             ];
             $checkProductName = DB::table($this->table)
                 ->where('id', '!=', $product->id)
-                ->where('product_name', $data['product_name'])->first();
+                ->where('product_name', $data['product_name'])
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
             if ($checkProductName) {
                 $return = 0;
             } else {
@@ -136,17 +141,21 @@ class Products extends Model
             for ($i = 0; $i < count($data['product_name']); $i++) {
                 $products = QuoteImport::where('product_name', $data['product_name'][$i])
                     ->where('detailimport_id', $receive->detailimport_id)
+                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->first();
                 array_push($array_id, $products->id); //4
             }
             $product = ProductImport::where('receive_id', $receive->id)
                 ->whereIn('quoteImport_id', $array_id)
+                ->where('workspace_id', Auth::user()->current_workspace)
                 ->get();
             $product_id = 0;
             // Thêm sản phẩm vào tồn kho
             foreach ($product as $item) {
                 $getProductName = QuoteImport::where('id', $item->quoteImport_id)->first();
-                $checkProduct = Products::where('product_name', $getProductName->product_name)->first();
+                $checkProduct = Products::where('product_name', $getProductName->product_name)
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->first();
                 if ($checkProduct) {
                     $checkProduct->product_inventory += $item->product_qty;
                     $checkProduct->check_seri = $item->cbSN;
@@ -163,7 +172,8 @@ class Products extends Model
                         'product_tax' => $getProductName->product_tax,
                         'product_inventory' => $item->product_qty,
                         // 'check_seri' => 1
-                        'check_seri' => $item->cbSN
+                        'check_seri' => $item->cbSN,
+                        'workspace_id' => Auth::user()->current_workspace
                     ];
                     $product_id = DB::table($this->table)->insertGetId($dataProduct);
                 }
@@ -177,6 +187,7 @@ class Products extends Model
             for ($i = 0; $i < count($data['product_name']); $i++) {
                 $getProduct = QuoteImport::where('product_name', $data['product_name'][$i])
                     ->where('detailimport_id', $receive->detailimport_id)
+                    ->where('workspace_id', Auth::user()->current_workspace)
                     ->first();
                 if ($getProduct) {
                     if (isset($data['seri' . $i])) {
@@ -186,6 +197,7 @@ class Products extends Model
                                 $getSN = Serialnumber::where('serinumber', $productSN[$j])
                                     ->where('receive_id', $receive->id)
                                     ->where('quoteImport_id', $getProduct->id)
+                                    ->where('workspace_id', Auth::user()->current_workspace)
                                     ->get();
                                 $dataSN = [
                                     'product_id' => $list_id[$i],

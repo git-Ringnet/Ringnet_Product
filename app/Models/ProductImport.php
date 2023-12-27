@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProductImport extends Model
@@ -46,7 +47,8 @@ class ProductImport extends Model
     {
         return $this->hasOne(QuoteImport::class, 'id', 'quoteImport_id');
     }
-    public function getReceive(){
+    public function getReceive()
+    {
         return $this->hasOne(Receive_bill::class, 'id', 'receive_id');
     }
     public function addProductImport($data, $id, $colum, $columQuote)
@@ -56,6 +58,7 @@ class ProductImport extends Model
             $qty = 0;
             $product = QuoteImport::where('detailimport_id', $id)
                 ->where('product_name', $data['product_name'][$i])
+                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($product) {
                 if ($colum == 'payOrder_id' && $columQuote == 'payment_qty') {
@@ -75,11 +78,15 @@ class ProductImport extends Model
                     continue;
                 } else {
                     $checkCBSN = Products::where('product_name', $data['product_name'][$i])
-                    ->where(DB::raw('COALESCE(product_inventory,0)'),'>',0 )
-                    ->first();
-                    $productExist = QuoteImport::where('product_name', $data['product_name'][$i])->first();
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->where(DB::raw('COALESCE(product_inventory,0)'), '>', 0)
+                        ->first();
+                    $productExist = QuoteImport::where('product_name', $data['product_name'][$i])
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->first();
                     if ($productExist) {
                         $checkCBImport = ProductImport::where('quoteImport_id', $productExist->id)
+                            ->where('workspace_id', Auth::user()->current_workspace)
                             ->where('receive_id', '!=', 'null')
                             ->first();
                         if ($checkCBSN) {
@@ -97,6 +104,7 @@ class ProductImport extends Model
                             // 'cbSN' => $checkCBSN == null ? (isset($data['cbSN']) ? $data['cbSN'][$i] : 1) : $checkCBSN->check_seri,
                             'cbSN' => $cbSN,
                             'created_at' => Carbon::now(),
+                            'workspace_id' => Auth::user()->current_workspace
                         ];
                     }
                 }
@@ -113,7 +121,9 @@ class ProductImport extends Model
                 $dataQuote = [
                     $columQuote => $receive_qty + $qty
                 ];
-                QuoteImport::where('id', $product->id)->update($dataQuote);
+                QuoteImport::where('id', $product->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->update($dataQuote);
                 $status = true;
             }
         }

@@ -7,7 +7,7 @@
             <div class="mb-3">
                 <span>Mua hàng</span>
                 <span>/</span>
-                <span><a class="text-dark" href="{{ route('provides.index') }}">Nhà cung cấp</a></span>
+                <span><a class="text-dark" href="{{ route('provides.index', $workspacename) }}">Nhà cung cấp</a></span>
                 <span>/</span>
                 <span>Chỉnh sửa nhà cung cấp</span>
                 <span class="font-weight-bold">{{ $title }}</span>
@@ -19,7 +19,7 @@
     {{-- @method('PUT') --}}
     <section class="content-header p-0">
         <div class="container-fluided">
-            <a href="{{ route('provides.edit', $provide->id) }}">
+            <a href="{{ route('provides.edit', ['workspace' => $workspacename ,'provide' => $provide->id]) }}">
                 <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                     <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                         xmlns="http://www.w3.org/2000/svg">

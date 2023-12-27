@@ -2,7 +2,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <form action="{{ route('reciept.store') }}" method="POST">
+    <form action="{{ route('reciept.store',$workspacename) }}" method="POST">
         @csrf
         <input type="hidden" name="detailimport_id" id="detailimport_id"
             value="@isset($yes){{ $show_receive['id'] }}@endisset">

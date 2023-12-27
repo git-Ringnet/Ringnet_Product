@@ -2,7 +2,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <form action="{{ route('receive.update', $receive->id) }}" method="POST" id="formSubmit" enctype="multipart/form-data">
+    <form action="{{ route('receive.update', ['workspace' => $workspacename ,'receive' =>  $receive->id]) }}" method="POST" id="formSubmit" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="hidden" name="detailimport_id" id="detailimport_id">
@@ -374,7 +374,7 @@
         $('#listReceive').show();
     })
     // Xóa đơn hàng
-    deleteImport('#delete_receive', '{{ route('receive.destroy', $receive->id) }}')
+    deleteImport('#delete_receive', '{{ route('receive.destroy', ['workspace' => $workspacename ,'receive' =>  $receive->id]) }}')
 
     $('#addRowTable').off('click').on('click', function() {
         addRowTable(2);

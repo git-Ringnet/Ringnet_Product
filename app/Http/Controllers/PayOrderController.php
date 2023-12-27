@@ -7,8 +7,10 @@ use App\Models\HistoryPaymentOrder;
 use App\Models\PayOder;
 use App\Models\ProductImport;
 use App\Models\QuoteImport;
+use App\Models\Workspace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PayOrderController extends Controller
@@ -16,11 +18,13 @@ class PayOrderController extends Controller
     private $payment;
     private $productImport;
     private $historyPayment;
+    private $workspaces;
     public function __construct()
     {
         $this->payment = new PayOder();
         $this->productImport = new ProductImport();
         $this->historyPayment = new HistoryPaymentOrder();
+        $this->workspaces = new Workspace();
     }
     /**
      * Display a listing of the resource.
@@ -29,10 +33,12 @@ class PayOrderController extends Controller
     {
         $title = "Thanh toán mua hàng";
         $perPage = 10;
-        $payment = PayOder::orderBy('id','desc')->paginate($perPage);
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        $payment = PayOder::where('workspace_id', Auth::user()->current_workspace)->orderBy('id', 'desc')->paginate($perPage);
         $today = Carbon::now();
         // dd($payment[0]->formatDate($payment[0]->payment_date)->diffInDays($today));
-        return view('tables.paymentOrder.paymentOrder', compact('title', 'payment', 'today'));
+        return view('tables.paymentOrder.paymentOrder', compact('title', 'payment', 'today', 'workspacename'));
     }
 
     /**
@@ -41,13 +47,16 @@ class PayOrderController extends Controller
     public function create()
     {
         $title = "Tạo mới hóa đơn thanh toán";
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
             ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
+            ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->distinct()
             ->select('detailimport.quotation_number', 'detailimport.id')
             ->get();
         // $reciept = Reciept::where('status', '=', 1)->get();
-        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept'));
+        return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename'));
     }
 
     /**
@@ -56,7 +65,8 @@ class PayOrderController extends Controller
     public function store(Request $request)
     {
         $id = $request->detailimport_id;
-
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         // Tạo sản phẩm theo đơn nhận hàng
         $this->productImport->addProductImport($request->all(), $id, 'payOrder_id', 'payment_qty');
         // Tạo mới thanh toán hóa đơn
@@ -64,10 +74,10 @@ class PayOrderController extends Controller
 
         // Lưu lịch sử
         if ($payment) {
-            $this->historyPayment->addHistoryPayment($request->all(),$payment);
-            return redirect()->route('paymentOrder.index')->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
+            $this->historyPayment->addHistoryPayment($request->all(), $payment);
+            return redirect()->route('paymentOrder.index', $workspacename)->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
         } else {
-            return redirect()->route('paymentOrder.index')->with('msg', 'Không tìm thấy !');
+            return redirect()->route('paymentOrder.index', $workspacename)->with('msg', 'Không tìm thấy !');
         }
     }
 
@@ -82,12 +92,13 @@ class PayOrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $workspaces, string $id)
     {
         $payment = PayOder::findOrFail($id);
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         if ($payment) {
             $title = $payment->id;
-            // $product = QuoteImport::where('receive_id',$payment->reciept_id)->get();
             $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
                 ->where('products_import.detailimport_id', $payment->detailimport_id)
                 ->where('products_import.payOrder_id', $payment->id)
@@ -103,46 +114,50 @@ class PayOrderController extends Controller
                     DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
                 )
                 ->get();
-            $history = HistoryPaymentOrder::where('payment_id',$payment->id)->get();
-            return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product','history'));
+            $history = HistoryPaymentOrder::where('payment_id', $payment->id)->get();
+            return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product', 'history', 'workspacename'));
         }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(string $workspace, Request $request, string $id)
     {
         // Cập nhật trạng thái
         $result = $this->payment->updatePayment($request->all(), $id);
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         if ($result) {
-
-            $this->historyPayment->addHistoryPayment($request->all(),$id);
-            return redirect()->route('paymentOrder.index')->with('msg', 'Thanh toán hóa đơn thành công !');
+            $this->historyPayment->addHistoryPayment($request->all(), $id);
+            return redirect()->route('paymentOrder.index', $workspacename)->with('msg', 'Thanh toán hóa đơn thành công !');
         } else {
-            return redirect()->route('paymentOrder.index')->with('warning', 'Hóa đơn đã được thanh toán !');
+            return redirect()->route('paymentOrder.index', $workspacename)->with('warning', 'Hóa đơn đã được thanh toán !');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $workspace, string $id)
     {
         $status = $this->payment->deletePayment($id);
-        if($status){
-            return redirect()->route('paymentOrder.index')->with('msg', 'Xóa thanh toán mua hàng thành công !');
-        }else{
-            return redirect()->route('paymentOrder.index')->with('warning', 'Không tìn thấy thanh toán mua hàng cần xóa !');
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
+        if ($status) {
+            return redirect()->route('paymentOrder.index', $workspacename)->with('msg', 'Xóa thanh toán mua hàng thành công !');
+        } else {
+            return redirect()->route('paymentOrder.index', $workspacename)->with('warning', 'Không tìn thấy thanh toán mua hàng cần xóa !');
         }
     }
 
     public function getPaymentOrder(Request $request)
     {
-        return QuoteImport::leftJoin('detailimport','detailimport.id','quoteimport.detailimport_id')
-        ->leftJoin('pay_order','detailimport.id','pay_order.detailimport_id')
-        ->where('quoteimport.detailimport_id', $request->id)
-        // ->where('product_qty', '>', DB::raw('COALESCE(payment_qty,0)'))
-        ->get();
+        return QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
+            ->leftJoin('pay_order', 'detailimport.id', 'pay_order.detailimport_id')
+            ->where('quoteimport.detailimport_id', $request->id)
+            ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
+            // ->where('product_qty', '>', DB::raw('COALESCE(payment_qty,0)'))
+            ->get();
     }
 }

@@ -10,7 +10,7 @@
                 <span class="font-weight-bold">Nhà cung cấp</span>
             </div>
             <div class="row m-0 mb-1">
-                <a href="{{ route('provides.create') }}">
+                <a href="{{ route('provides.create',$workspacename) }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -177,7 +177,7 @@
                                             <td>{{ $item->provide_phone }}</td>
                                             <td>{{ number_format($item->provide_debt) }}</td>
                                             <td>
-                                                <a href="{{ route('provides.show', $item->id) }}">
+                                                <a href="{{ route('provides.show', ['workspace' => $workspacename ,'provide'=> $item->id]) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32"
                                                         height="32" viewBox="0 0 32 32" fill="none">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -189,7 +189,7 @@
                                             </td>
                                             <td>
                                                 <form onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                    action="{{ route('provides.destroy', $item->id) }}" method="POST"
+                                                    action="{{ route('provides.destroy', ['workspace' => $workspacename ,'provide' => $item->id]) }}" method="POST"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')

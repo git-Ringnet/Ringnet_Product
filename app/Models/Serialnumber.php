@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Serialnumber extends Model
@@ -32,6 +33,7 @@ class Serialnumber extends Model
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $getProduct = QuoteImport::where('product_name', $data['product_name'][$i])
                 ->where('detailimport_id', $detail_id)
+                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($getProduct) {
                 if (isset($data['seri' . $i]) && $data['cbSeri'][$i] == 1) {
@@ -46,6 +48,7 @@ class Serialnumber extends Model
                                 'detailexport_id' => 0,
                                 'status' => 0,
                                 'created_at' => Carbon::now(),
+                                'workspace_id' => Auth::user()->current_workspace
                             ];
                             DB::table('serialnumber')->insert($dataSN);
                         }
@@ -59,9 +62,13 @@ class Serialnumber extends Model
     {
         foreach ($data as $value) {
             foreach ($value as $SN => $productName) {
-                $product = Products::where('product_name', $SN)->first();
+                $product = Products::where('product_name', $SN)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
                 if ($product) {
-                    $checkSN = Serialnumber::where('product_id', $product->id)->get();
+                    $checkSN = Serialnumber::where('product_id', $product->id)
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->get();
                     foreach ($productName['sn'] as $SN) {
                         foreach ($checkSN as $list) {
                             if ($list->serinumber == $SN) {

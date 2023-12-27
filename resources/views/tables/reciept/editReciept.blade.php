@@ -2,7 +2,8 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <form action="{{ route('reciept.update', $reciept->id) }}" method="POST" id="formSubmit" enctype="multipart/form-data">
+    <form action="{{ route('reciept.update', ['workspace' => $workspacename, 'reciept' => $reciept->id]) }}"
+        method="POST" id="formSubmit" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="hidden" name="detailimport_id" id="detailimport_id" value="{{ $reciept->detailimport_id }}">
@@ -233,7 +234,8 @@
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
     // Xóa đơn hàng
-    deleteImport('#delete_reciept', '{{ route('reciept.destroy', $reciept->id) }}')
+    deleteImport('#delete_reciept',
+        '{{ route('reciept.destroy', ['workspace' => $workspacename, 'reciept' => $reciept->id]) }}')
     $('#listReceive').hide();
     $('.search_quotation').on('click', function() {
         $('#listReceive').show();

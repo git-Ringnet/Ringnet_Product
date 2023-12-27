@@ -2,8 +2,8 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <form action="{{ route('paymentOrder.update', $payment->id) }}" method="POST" id="formSubmit"
-        enctype="multipart/form-data">
+    <form action="{{ route('paymentOrder.update', ['workspace' => $workspacename, 'paymentOrder' => $payment->id]) }}"
+        method="POST" id="formSubmit" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="hidden" name="detailimport_id" id="detailimport_id" value="{{ $payment->detailimport_id }}">
@@ -32,7 +32,7 @@
                             <span>Thanh toán hóa đơn</span>
                         </button>
                     @else
-                        <a href="{{ route('paymentOrder.index') }}">
+                        <a href="{{ route('paymentOrder.index',$workspacename) }}">
                             <span class="btn btn-secondary d-flex align-items-center h-100">
                                 <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="6" height="10"
                                     viewBox="0 0 6 10" fill="none">
@@ -321,7 +321,8 @@
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
     // Xóa đơn hàng
-    deleteImport('#delete_payment', '{{ route('paymentOrder.destroy', $payment->id) }}')
+    deleteImport('#delete_payment',
+        '{{ route('paymentOrder.destroy', ['workspace' => $workspacename, 'paymentOrder' => $payment->id]) }}')
     $('#file_restore').on('change', function(e) {
         e.preventDefault();
         $('#formSubmit').attr('action', '{{ route('addAttachment') }}');

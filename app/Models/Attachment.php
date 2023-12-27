@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Attachment extends Model
@@ -48,6 +49,7 @@ class Attachment extends Model
                 'file_name' => $name,
                 'user_id' => 1,
                 'created_at' => Carbon::now(),
+                'workspace_id' => Auth::user()->current_workspace
             ];
             DB::table($this->table)->insert($dataAttachment);
             $status = true;

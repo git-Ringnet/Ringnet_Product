@@ -10,7 +10,7 @@
                 <span class="font-weight-bold">Đơn báo giá</span>
             </div>
             <div class="row m-0 mb-1">
-                <a href="{{ route('import.create') }}">
+                <a href="{{ route('import.create', $workspacename) }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -184,7 +184,8 @@
                                             <td class="text-center">
                                                 {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('import.show', $item->id) }}">
+                                                <a
+                                                    href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->id]) }}">
                                                     {{ $item->quotation_number == null ? $item->id : $item->quotation_number }}
                                                 </a>
                                             </td>

@@ -206,14 +206,14 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('inventory.index') }}"
+                                <a href="{{ route('inventory.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'product') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0;"></i>
                                     <p>Sản phẩm</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('editProduct') }}"
+                                <a href="{{ route('editProduct', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'editproduct') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0;"></i>
                                     <p>Sửa tồn kho</p>
@@ -302,35 +302,35 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('import.index') }}"
+                                <a href="{{ route('import.index', $workspacename) }}"
                                     class="nav-link  @if (!empty($activeName) && $activeName == 'import') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Đơn mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('receive.index') }}"
+                                <a href="{{ route('receive.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'receive') active @endif ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Đơn nhận hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('reciept.index') }}"
+                                <a href="{{ route('reciept.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'reciept') active @endif ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Hóa đơn mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('paymentOrder.index') }}"
+                                <a href="{{ route('paymentOrder.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'paymentorder') active @endif ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Thanh toán mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('provides.index') }}"
+                                <a href="{{ route('provides.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'provide') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
                                     <p>Nhà cung cấp</p>

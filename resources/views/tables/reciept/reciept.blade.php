@@ -10,7 +10,7 @@
                 <span class="font-weight-bold">Hóa đơn mua hàng</span>
             </div>
             <div class="row m-0 mb-1">
-                <a href="{{ route('reciept.create') }}">
+                <a href="{{ route('reciept.create', $workspacename) }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -164,7 +164,8 @@
                                             <td>{{ fmod($item->price_total, 2) > 0 ? number_format($item->price_total, 2, '.', ',') : number_format($item->price_total) }}
                                             </td>
                                             <td>
-                                                <a href="{{ route('reciept.edit', $item->id) }}">
+                                                <a
+                                                    href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32"
                                                         height="32" viewBox="0 0 32 32" fill="none">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"

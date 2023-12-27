@@ -2,7 +2,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <form action="{{ route('import.update', $import->id) }}" method="POST" id="formSubmit" enctype="multipart/form-data">
+    <form action="{{ route('import.update', ['workspace' => $workspacename ,'import' => $import->id]) }}" method="POST" id="formSubmit" enctype="multipart/form-data">
         @method('PUT')
         @csrf
         <input type="hidden" name="detail_id" value="{{ $import->id }}">
@@ -21,7 +21,7 @@
 
                 <div class="row m-0 mb-1">
                     @if ($import->status == 1)
-                        <a href="{{ route('import.edit', $import->id) }}" style="margin-right:10px"
+                        <a href="{{ route('import.edit',['workspace' => $workspacename, 'import' => $import->id]) }}" style="margin-right:10px"
                             class="custom-btn d-flex align-items-center h-100">
                             <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -521,7 +521,7 @@
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
     // Xóa đơn hàng
-    deleteImport('#delete_import', '{{ route('import.destroy', $import->id) }}')
+    deleteImport('#delete_import', '{{ route('import.destroy', ["workspace" => $workspacename, "import" => $import->id]) }}')
 
     function getAction(e) {
         $('#getAction').val($(e).find('button').val());

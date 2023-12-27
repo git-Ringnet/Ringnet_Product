@@ -15,7 +15,7 @@
             </a>
 
             <div class="row m-0 mb-1">
-                <a href="{{ route('inventory.create') }}">
+                <a href="{{ route('inventory.create',$workspacename) }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -156,7 +156,7 @@
                                         <tr>
                                             <td><input type="checkbox"></td>
                                             <td>{{ $item->product_code }}</td>
-                                            <td><a href="{{ route('inventory.show', $item->id) }}">
+                                            <td><a href="{{ route('inventory.show', ['workspace' => $workspacename ,'inventory'=>$item->id]) }}">
                                                     {{ $item->product_name }}
                                                 </a></td>
                                             <td>{{ number_format($item->product_inventory) }}</td>

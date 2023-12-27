@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HistoryImport extends Model
@@ -25,6 +26,7 @@ class HistoryImport extends Model
         'price_import',
         'product_note',
         'version',
+        'workspace_id'
     ];
 
     public function addHistoryImport($data, $id)
@@ -40,12 +42,16 @@ class HistoryImport extends Model
                 ->where('product_tax', $data['product_tax'][$i])
                 ->where('product_total', $total_price)
                 ->where('price_export', $price_export)
-                ->where('product_note', $data['product_note'][$i])->first();
+                ->where('product_note', $data['product_note'][$i])
+                ->where('workspace_id',Auth::user()->current_workspace)
+                ->first();
             if ($checkData) {
                 continue;
             } else {
                 $quote = QuoteImport::where('detailimport_id', $id)
-                    ->where('product_name', $data['product_name'][$i])->first();
+                    ->where('product_name', $data['product_name'][$i])
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->first();
                 if ($quote) {
                     $dataHistory = [
                         'detailImport_id' => $id,
@@ -60,6 +66,7 @@ class HistoryImport extends Model
                         'product_note' => $data['product_note'][$i],
                         'version' => $quote->version,
                         'created_at' => Carbon::now(),
+                        'workspace_id' => Auth::user()->current_workspace
                     ];
                     DB::table($this->table)->insert($dataHistory);
                 }

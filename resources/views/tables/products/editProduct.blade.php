@@ -8,7 +8,8 @@
             <span>Kho hàng / Tồn kho / {{ $title }}</span>
         </div><!-- /.container-fluided -->
     </section>
-    <form action="{{ route('inventory.update', $product->id) }}" method="POST">
+    <form action="{{ route('inventory.update', ['workspace' => $workspacename, 'inventory' => $product->id]) }}"
+        method="POST">
         @method('PUT')
         @csrf
         <section class="content-header">

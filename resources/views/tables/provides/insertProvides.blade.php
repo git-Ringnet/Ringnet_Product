@@ -6,13 +6,13 @@
             <div class="mb-3">
                 <span>Mua hàng</span>
                 <span>/</span>
-                <span><a class="text-dark" href="{{ route('provides.index') }}">Nhà cung cấp</a></span>
+                <span><a class="text-dark" href="{{ route('provides.index', $workspacename) }}">Nhà cung cấp</a></span>
                 <span>/</span>
                 <span class="font-weight-bold">{{ $title }}</span>
             </div>
         </div><!-- /.container-fluided -->
     </section>
-    <form action="{{ route('provides.store') }}" method="POST">
+    <form action="{{ route('provides.store', $workspacename) }}" method="POST">
         @csrf
         <section class="content-header p-0">
             <div class="container-fluided">

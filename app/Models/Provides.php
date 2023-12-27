@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Provides extends Model
@@ -34,7 +35,7 @@ class Provides extends Model
 
     public function getAllProvide()
     {
-        return DB::table($this->table)->get();
+        return DB::table($this->table)->where('workspace_id',Auth::user()->current_workspace)->get();
     }
     public function addProvide($data)
     {
@@ -70,11 +71,8 @@ class Provides extends Model
                 'provide_address' => $data['provide_address'],
                 'provide_code' => $data['provide_code'],
                 'key' => $key,
-                // 'provide_represent' => $data['provide_represent'],
-                // 'provide_email' => $data['provide_email'],
-                // 'provide_phone' => $data['provide_phone'],
                 'provide_debt' => 0,
-                // 'provide_address_delivery' => $data['provide_address_delivery']
+                'provides' => Auth::user()->current_workspace
             ];
             $provide_id =  DB::table($this->table)->insertGetId($dataProvide);
             if ($provide_id) {
@@ -113,12 +111,15 @@ class Provides extends Model
                 }
                 // Chỉnh sửa thông tin người đại diện và thêm người đại diện
                 for ($i = 0; $i < count($data['represent_name']); $i++) {
-                    $represent = ProvideRepesent::where('id', isset($data['repesent_id'][$i]) ? $data['repesent_id'][$i]  : "")->first();
+                    $represent = ProvideRepesent::where('id', isset($data['repesent_id'][$i]) ? $data['repesent_id'][$i]  : "")
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->first();
                     $dataRepresent = [
                         'represent_name' => $data['represent_name'][$i],
                         'represent_email' => $data['represent_email'][$i],
                         'represent_phone' => $data['represent_phone'][$i],
                         'represent_address' => $data['represent_address'][$i],
+                        'workspace_id' => Auth::user()->current_workspace
                     ];
                     if ($represent) {
                         ProvideRepesent::where('id', $represent->id)->update($dataRepresent);

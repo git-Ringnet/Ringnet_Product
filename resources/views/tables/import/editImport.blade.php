@@ -2,7 +2,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <form action="{{ route('import.update', $import->id) }}" method="POST">
+    <form action="{{ route('import.update', ['workspace' => $workspacename, 'import' => $import->id]) }}" method="POST">
         @method('PUT')
         @csrf
         <input type="hidden" id="provides_id" name="provides_id" value="{{ $import->provide_id }}">
@@ -33,7 +33,7 @@
                         </a>
                     @endif
                     @if ($import->status == 2)
-                        <a href="{{ route('import.index') }}" class="mr-2">
+                        <a href="{{ route('import.index',$workspacename) }}" class="mr-2">
                             <span class="btn-secondary d-flex align-items-center h-100">
                                 <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="6" height="10"
                                     viewBox="0 0 6 10" fill="none">
