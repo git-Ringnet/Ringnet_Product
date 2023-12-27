@@ -351,7 +351,12 @@ class DetailExportController extends Controller
     //Thêm khách hàng
     public function addGuest(Request $request)
     {
-        $check = Guest::where('guest_code', $request->guest_code)->first();
+        $check = Guest::where('workspace_id', Auth::user()->current_workspace)
+            ->where(function ($query) use ($request) {
+                $query->where('guest_code', $request->guest_code)
+                    ->orWhere('guest_name_display', $request->guest_name_display);
+            })
+            ->first();
         if ($check == null) {
             if (isset($request->key)) {
                 $key = $request->key;
@@ -393,7 +398,7 @@ class DetailExportController extends Controller
                 'guest_name_display' => $request->guest_name_display, 'key' => $request->key
             ]);
         } else {
-            $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế đã tồn tại']);
+            $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế hoặc tên khách hàng đã tồn tại']);
         }
         return $msg;
     }

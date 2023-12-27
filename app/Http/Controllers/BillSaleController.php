@@ -173,6 +173,7 @@ class BillSaleController extends Controller
     {
         $data = $request->all();
         $delivery = DetailExport::where('detailexport.id', $data['idQuote'])
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->leftJoin('delivery', 'delivery.detailexport_id', 'detailexport.id')
             ->select('*', 'delivery.id as maGiaoHang', 'detailexport.quotation_number as soBG')
@@ -184,6 +185,7 @@ class BillSaleController extends Controller
         $data = $request->all();
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->where('detailexport.id', $data['idQuote'])
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('*')
             ->where(function ($query) {
                 $query->where('quoteexport.product_delivery', null)
