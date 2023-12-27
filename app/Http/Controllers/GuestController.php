@@ -31,17 +31,22 @@ class GuestController extends Controller
     }
     public function index(Request $request)
     {
-        $title = "Khách hàng";
-        $guests = $this->guests->getAllGuest();
-        $dataa = $this->guests->getAllGuest();
-        //Dư nợ
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-        foreach ($guests as $guest) {
-            $sumDebt = DetailExport::where('guest_id', $guest->id)->where('status', 2)->sum('amount_owed');
-            $guest->sumDebt = $sumDebt;
+        if (Auth::check()) {
+            $title = "Khách hàng";
+            $guests = $this->guests->getAllGuest();
+            $dataa = $this->guests->getAllGuest();
+            //Dư nợ
+            $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+            $workspacename = $workspacename->workspace_name;
+            foreach ($guests as $guest) {
+                $sumDebt = DetailExport::where('guest_id', $guest->id)->where('status', 2)->sum('amount_owed');
+                $guest->sumDebt = $sumDebt;
+            }
+            return view('tables.guests.index', compact('title', 'guests', 'dataa', 'workspacename'));
         }
-        return view('tables.guests.index', compact('title', 'guests', 'dataa', 'workspacename'));
+        else{
+            return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
+        }
     }
 
     /**
@@ -76,9 +81,14 @@ class GuestController extends Controller
     {
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $guest = Guest::findOrFail($id);
+        $guest = Guest::where('guest.id', $id)
+            ->where('guest.workspace_id', Auth::user()->current_workspace)
+            ->first();
         if ($guest) {
             $title = $guest->guest_name_display;
+        } else {
+            abort('404');
+            $title = '';
         }
         //Người đại diện
         $representGuest = $this->representGuest->getRepresentGuest($id);
@@ -102,9 +112,14 @@ class GuestController extends Controller
     {
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $guest = Guest::findOrFail($id);
+        $guest = Guest::where('guest.id', $id)
+            ->where('guest.workspace_id', Auth::user()->current_workspace)
+            ->first();
         if ($guest) {
             $title = $guest->guest_name_display;
+        } else {
+            abort('404');
+            $title = '';
         }
         $getId = $id;
         $request->session()->put('id', $id);
@@ -119,7 +134,6 @@ class GuestController extends Controller
         //Dư nợ
         $sumDebt = $this->detailExport->sumDebt($id);
         //Lịch sử giao dịch
-
         $historyGuest = $this->detailExport->historyGuest($id);
         $dataa = $this->guests->getAllGuest();
 

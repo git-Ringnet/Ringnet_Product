@@ -1041,8 +1041,6 @@
             });
         });
 
-
-
         // submit thêm mới các trường
         $('.btn-submit').click(function(event) {
             event.preventDefault();

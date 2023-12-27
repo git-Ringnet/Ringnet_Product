@@ -34,11 +34,15 @@ class BillSaleController extends Controller
     }
     public function index()
     {
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-        $title = "Hóa đơn bán hàng";
-        $billSale = $this->billSale->getBillSale();
-        return view('tables.export.bill_sale.list-bill-sale', compact('title', 'billSale', 'workspacename'));
+        if (Auth::check()) {
+            $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+            $workspacename = $workspacename->workspace_name;
+            $title = "Hóa đơn bán hàng";
+            $billSale = $this->billSale->getBillSale();
+            return view('tables.export.bill_sale.list-bill-sale', compact('title', 'billSale', 'workspacename'));
+        } else {
+            return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
+        }
     }
 
     /**
@@ -92,11 +96,14 @@ class BillSaleController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $billSale = BillSale::where('bill_sale.id', $id)
+            ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'bill_sale.guest_id', 'guest.id')
             ->select('*', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD', 'bill_sale.status as tinhTrang')
             ->first();
-
+        if (!$billSale) {
+            abort('404');
+        }
         $product = BillSale::join('quoteexport', 'bill_sale.detailexport_id', '=', 'quoteexport.detailexport_id')
             ->leftJoin('product_bill', function ($join) {
                 $join->on('product_bill.billSale_id', '=', 'bill_sale.id');

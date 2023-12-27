@@ -65,11 +65,15 @@ class DetailExportController extends Controller
     }
     public function index()
     {
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-        $title = "Báo giá";
-        $quoteExport = $this->detailExport->getAllDetailExport();
-        return view('tables.export.quote.list-quote', compact('title', 'quoteExport', 'workspacename'));
+        if (Auth::check()) {
+            $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+            $workspacename = $workspacename->workspace_name;
+            $title = "Báo giá";
+            $quoteExport = $this->detailExport->getAllDetailExport();
+            return view('tables.export.quote.list-quote', compact('title', 'quoteExport', 'workspacename'));
+        } else {
+            return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
+        }
     }
 
     /**
@@ -140,6 +144,9 @@ class DetailExportController extends Controller
         $guest = $this->guest->getAllGuest();
         $product = $this->product->getAllProducts();
         $detailExport = $this->detailExport->getDetailExportToId($id);
+        if (!$detailExport) {
+            abort('404');
+        }
         $quoteExport = $this->detailExport->getProductToId($id);
         return view('tables.export.quote.see-quote', compact('title', 'guest', 'product', 'detailExport', 'quoteExport', 'workspacename'));
     }
@@ -153,6 +160,9 @@ class DetailExportController extends Controller
         $guest = $this->guest->getAllGuest();
         $product = $this->product->getAllProducts();
         $detailExport = $this->detailExport->getDetailExportToId($id);
+        if (!$detailExport) {
+            abort('404');
+        }
         $quoteExport = $this->detailExport->getProductToId($id);
         $date_form = $this->date_form->getDateForm();
 

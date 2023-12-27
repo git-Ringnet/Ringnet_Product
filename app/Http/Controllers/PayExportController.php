@@ -37,39 +37,43 @@ class PayExportController extends Controller
     }
     public function index()
     {
-        $title = "Thanh toán bán hàng";
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-        $payExport = PayExport::leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
-            ->leftJoin('guest', 'pay_export.guest_id', 'guest.id')
-            ->leftJoin('history_payment_export', 'pay_export.id', 'history_payment_export.pay_id')
-            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
-            ->select(
-                'detailexport.quotation_number',
-                'guest.guest_name_display',
-                'pay_export.payment_date',
-                'pay_export.total',
-                'pay_export.id as idThanhToan',
-                'pay_export.debt',
-                'pay_export.status',
-                'pay_export.payment',
-                DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
-                DB::raw('SUM(history_payment_export.payment) as tongThanhToan')
-            )
-            ->groupby(
-                'detailexport.quotation_number',
-                'guest.guest_name_display',
-                'pay_export.payment_date',
-                'pay_export.total',
-                'pay_export.id',
-                'detailexport.total_price',
-                'detailexport.total_tax',
-                'pay_export.debt',
-                'pay_export.status',
-                'pay_export.payment',
-            )
-            ->get();
-        return view('tables.export.pay_export.list-payExport', compact('title', 'payExport', 'workspacename'));
+        if (Auth::check()) {
+            $title = "Thanh toán bán hàng";
+            $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+            $workspacename = $workspacename->workspace_name;
+            $payExport = PayExport::leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
+                ->leftJoin('guest', 'pay_export.guest_id', 'guest.id')
+                ->leftJoin('history_payment_export', 'pay_export.id', 'history_payment_export.pay_id')
+                ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+                ->select(
+                    'detailexport.quotation_number',
+                    'guest.guest_name_display',
+                    'pay_export.payment_date',
+                    'pay_export.total',
+                    'pay_export.id as idThanhToan',
+                    'pay_export.debt',
+                    'pay_export.status',
+                    'pay_export.payment',
+                    DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
+                    DB::raw('SUM(history_payment_export.payment) as tongThanhToan')
+                )
+                ->groupby(
+                    'detailexport.quotation_number',
+                    'guest.guest_name_display',
+                    'pay_export.payment_date',
+                    'pay_export.total',
+                    'pay_export.id',
+                    'detailexport.total_price',
+                    'detailexport.total_tax',
+                    'pay_export.debt',
+                    'pay_export.status',
+                    'pay_export.payment',
+                )
+                ->get();
+            return view('tables.export.pay_export.list-payExport', compact('title', 'payExport', 'workspacename'));
+        } else {
+            return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
+        }
     }
 
     /**
@@ -117,6 +121,7 @@ class PayExportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $payExport = PayExport::where('pay_export.id', $id)
+            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'pay_export.guest_id', 'guest.id')
             ->select(
@@ -127,6 +132,9 @@ class PayExportController extends Controller
                 DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo')
             )
             ->first();
+        if (!$payExport) {
+            abort('404');
+        }
         $thanhToan = DB::table('history_payment_export')
             ->select(DB::raw('SUM(payment) as tongThanhToan'))
             ->where('pay_id', $id)

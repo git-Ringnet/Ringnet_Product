@@ -97,6 +97,7 @@ class DetailExport extends Model
     public function getDetailExportToId($id)
     {
         $detailExport = DetailExport::where('detailexport.id', $id)
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('guest', 'detailexport.guest_id', 'guest.id')
             ->select('*', 'guest.id as maKH', 'detailexport.id as maBG', 'detailexport.status as tinhTrang')
             ->first();
@@ -159,23 +160,28 @@ class DetailExport extends Model
     }
     public function countDetail($id)
     {
-        $countDetail = DetailExport::where('guest_id', $id)->where('status', 2)->count();
+        $countDetail = DetailExport::where('guest_id', $id)->where('status', 2)
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)->count();
         return $countDetail;
     }
     public function sumDebt($id)
     {
-        $sumDebt = DetailExport::where('guest_id', $id)->where('status', 2)->sum('amount_owed');
+        $sumDebt = DetailExport::where('guest_id', $id)->where('status', 2)
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)->sum('amount_owed');
         return $sumDebt;
     }
     public function historyGuest($id)
     {
-        $historyGuest = DetailExport::where('guest_id', $id)->get();
+        $historyGuest = DetailExport::where('guest_id', $id)
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->get();
         return $historyGuest;
     }
     public function sumSell($id)
     {
         $sumSell = DetailExport::where('guest_id', $id)
             ->where('status', 2)
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->selectRaw('SUM(total_price + total_tax) as sumSell')
             ->value('sumSell');
         return $sumSell;
@@ -183,7 +189,8 @@ class DetailExport extends Model
     // Ajax filter search history Guest
     public function historyFilterGuest($data)
     {
-        $historyGuest = DetailExport::where('guest_id', $data['idName'])->get();
+        $historyGuest = DetailExport::where('guest_id', $data['idName'])
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)->get();
         return $historyGuest;
     }
 }

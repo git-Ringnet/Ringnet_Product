@@ -36,14 +36,18 @@ class DeliveryController extends Controller
     }
     public function index()
     {
-        $title = 'Giao hàng';
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-        $delivery = Delivery::leftJoin('guest', 'guest.id', 'delivery.guest_id')
-            ->select('*', 'delivery.id as maGiaoHang', 'delivery.created_at as ngayGiao')
-            ->where('delivery.workspace_id', Auth::user()->current_workspace)
-            ->get();
-        return view('tables.export.delivery.list-delivery', compact('title', 'delivery', 'workspacename'));
+        if (Auth::check()) {
+            $title = 'Giao hàng';
+            $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+            $workspacename = $workspacename->workspace_name;
+            $delivery = Delivery::leftJoin('guest', 'guest.id', 'delivery.guest_id')
+                ->select('*', 'delivery.id as maGiaoHang', 'delivery.created_at as ngayGiao')
+                ->where('delivery.workspace_id', Auth::user()->current_workspace)
+                ->get();
+            return view('tables.export.delivery.list-delivery', compact('title', 'delivery', 'workspacename'));
+        } else {
+            return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
+        }
     }
 
     /**
@@ -102,6 +106,9 @@ class DeliveryController extends Controller
         $workspacename = $workspacename->workspace_name;
         $title = 'Chỉnh sửa đơn giao hàng';
         $delivery = $this->delivery->getDeliveryToId($id);
+        if (!$delivery) {
+            abort('404');
+        }
         $product = $this->delivery->getProductToId($id);
         $serinumber = Serialnumber::leftJoin('delivery', 'delivery.detailexport_id', 'serialnumber.detailexport_id')
             ->where('delivery.id', $id)

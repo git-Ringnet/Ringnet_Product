@@ -10,7 +10,7 @@ class GuestFormDate extends Model
 {
     use HasFactory;
     protected $table = 'guest_dateform';
-    protected $fillable = ['form_field', 'guest_id', 'date_form_id'];
+    protected $fillable = ['form_field', 'guest_id', 'date_form_id', 'workspace_id'];
 
     public function insertFormGuest($guestId, $dateFormId = 0, $formField)
     {
@@ -24,7 +24,7 @@ class GuestFormDate extends Model
             $existingRecord->date_form_id = $dateFormId;
             $existingRecord->save();
         } else {
-            self::create(['guest_id' => $guestId, 'form_field' => $formField, 'date_form_id' => $dateFormId]);
+            self::create(['guest_id' => $guestId, 'form_field' => $formField, 'date_form_id' => $dateFormId, 'workspace_id' => Auth::user()->current_workspace]);
         }
     }
     public function getFormFieldIdsByGuestId($guestId)

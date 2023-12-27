@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DateForm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DateFormController extends Controller
 {
@@ -75,6 +76,7 @@ class DateFormController extends Controller
                 'form_field' => $request->name,
                 'form_name' => $request->inputName,
                 'form_desc' => $request->inputDesc,
+                'workspace_id' => Auth::user()->current_workspace,
             ];
             $new_date_form = $this->date_form->createDateForm($data);
             $msg = response()->json([
