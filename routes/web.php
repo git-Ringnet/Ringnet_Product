@@ -149,6 +149,8 @@ Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback'])
 Route::post('/create-workspace', [ProviderController::class, 'createWorkspace'])->name('createWorkspace');
 
 Route::resource('workspace', WorkspaceController::class);
+Route::get('/updateWorkspaceUser', [WorkspaceController::class, 'updateWorkspaceUser'])->name('updateWorkspaceUser');
+
 
 Route::middleware([
     'auth:sanctum',

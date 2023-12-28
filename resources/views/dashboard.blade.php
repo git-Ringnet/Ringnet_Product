@@ -17,9 +17,30 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- <x-welcome /> --}}
                 @foreach ($workspace as $item)
-                    <a href="{{ route('welcome', $item->workspace_name) }}">{{ $item->workspace_name }}</a>
+                    <a class="workspace-link" href="{{ route('welcome', $item->workspace_name) }}"
+                        data-id="{{ $item->id }}">{{ $item->workspace_name }}</a>
+                    <br>
                 @endforeach
+                <input type="hidden" id="idUser" name="idUser" value="{{ Auth::user()->id }}">
             </div>
         </div>
     </div>
 </x-app-layout>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $('.workspace-link').on('click', function(event) {
+        var workspaceId = $(this).data('id');
+        var idUser = $('#idUser').val();
+        $.ajax({
+            url: '{{ route('updateWorkspaceUser') }}',
+            type: 'GET',
+            data: {
+                idUser: idUser,
+                workspaceId: workspaceId,
+            },
+            success: function(data) {
+                console.log(data);
+            }
+        });
+    });
+</script>

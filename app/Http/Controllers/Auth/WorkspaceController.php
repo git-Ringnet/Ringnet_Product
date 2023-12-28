@@ -14,10 +14,12 @@ class WorkspaceController extends Controller
      * Display a listing of the resource.
      */
     private $workspace;
+    private $user;
 
     public function __construct()
     {
         $this->workspace = new Workspace();
+        $this->user = new User();
     }
     public function index()
     {
@@ -79,5 +81,21 @@ class WorkspaceController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function updateWorkspaceUser(Request $request)
+    {
+        if ($request->ajax()) {
+            $id = $request->idUser;
+            $data = [
+                'current_workspace' => $request->workspaceId,
+            ];
+            $new_user = $this->user->updateWorkSpaceUser($id, $data);
+            $msg = response()->json([
+                'success' => true,
+                'msg' => 'Cập nhật thành công',
+                'new_date_form' => $new_user,
+            ]);
+            return $msg;
+        }
     }
 }

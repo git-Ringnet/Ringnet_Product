@@ -68,4 +68,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Workspace::class);
     }
+    public function updateWorkSpaceUser($id, $data)
+    {
+        $user = self::find($id);
+        if ($user) {
+            $user->update($data);
+            return $user;
+        }
+        return null;
+    }
 }
