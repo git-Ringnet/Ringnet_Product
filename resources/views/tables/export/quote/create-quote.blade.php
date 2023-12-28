@@ -1503,7 +1503,7 @@
                     if (data.key) {
                         quotation = getQuotation(data.key, data['count'], data['date']);
                     } else {
-                        quotation = getQuotation(data['provide'].provide_name_display, data[
+                        quotation = getQuotation(data['guest'].guest_name_display, data[
                             'count'], data['date']);
                     }
                     $('input[name="quotation_number"]').val(quotation);
