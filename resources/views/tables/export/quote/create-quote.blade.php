@@ -42,7 +42,7 @@
                             <a class="dropdown-item" href="#">Xuất PDF</a>
                         </div>
                     </div>
-                    <button class="btn-option">
+                    <button type="button" class="btn-option">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -653,7 +653,7 @@
                                         </svg>
                                         <span>Thêm hàng loạt</span>
                                     </button>
-                                    <button class="btn-option py-1 px-2">
+                                    <button type="button" class="btn-option py-1 px-2">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1248,7 +1248,7 @@
             const donGia = $(
                 "<td class='border border-top-0 border-bottom-0 position-relative'>" +
                 "<input type='text' class='border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
-                "<p class='text-primary text-right position-absolute transaction' style='top: 68%;right: 5%;'>Giao dịch gần đây</p>" +
+                "<p class='text-primary text-right position-absolute transaction d-none' style='top: 68%;right: 5%;'>Giao dịch gần đây</p>" +
                 "</td>"
             );
             const thue = $(

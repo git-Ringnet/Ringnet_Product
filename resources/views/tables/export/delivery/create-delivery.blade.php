@@ -60,8 +60,8 @@
                             <a class="dropdown-item" href="#">Xuất PDF</a>
                         </div>
                     </div>
-                    <button class="btn-option">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    <button type="button" class="btn-option">
+                        <svg ty width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
@@ -304,7 +304,7 @@
                                         </svg>
                                         <span>Thêm hàng loạt</span>
                                     </button>
-                                    <button class="btn-option py-1 px-2">
+                                    <button type="button" class="btn-option py-1 px-2">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
