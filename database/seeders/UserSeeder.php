@@ -13,14 +13,19 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // DB::table('users')->insert([
-        //     [
-        //         'name' => 'Admin',
-        //         'email' => 'admin@ringnet.vn',
-        //         'password' => bcrypt('Ringnet@123'),
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ],
-        // ]);
+        DB::table('users')->insert([
+            [
+                'name' => 'Admin',
+                'email' => 'admin@ringnet.vn',
+                'provider' => 'login',
+                'provider_id' => 1,
+                'password' => bcrypt('Ringnet@123'),
+                'current_workspace' => 1,
+                'origin_workspace' => 1,
+                'status' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 }

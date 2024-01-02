@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             WareHouse::class,
             Project::class,
+            Workspace::class,
         ]);
     }
 }
