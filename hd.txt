@@ -1,0 +1,27 @@
+sudo nano /etc/apache2/sites-available/xnk.ringnet.vn.conf
+<VirtualHost *:80>
+    ServerAdmin webmaster@xnk.ringnet.vn
+    ServerName xnk.ringnet.vn
+    DocumentRoot /path/to/your/xnk/project
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerAdmin webmaster@xnk.ringnet.vn
+    ServerName xnk.ringnet.vn
+    DocumentRoot /path/to/your/xnk/project
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    SSLEngine on
+    SSLCertificateFile /path/to/your/ssl/xnk.ringnet.vn.crt
+    SSLCertificateKeyFile /path/to/your/ssl/xnk.ringnet.vn.key
+    SSLCertificateChainFile /path/to/your/ssl/xnk.ringnet.vn.ca-bundle
+</VirtualHost>
+Kích hoạt Virtual Host và Restart Apache:
+sudo a2ensite xnk.ringnet.vn.conf
+sudo systemctl restart apache2
+Lưu ý: Đảm bảo bạn đã cài đặt các mô-đun ssl và headers cho Apache:
+sudo a2enmod ssl
+sudo a2enmod headers
