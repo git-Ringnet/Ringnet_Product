@@ -48,7 +48,7 @@
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- overlayScrollbars -->
@@ -58,8 +58,7 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="{{ asset('dist/js/scripts.js') }}"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -220,7 +219,7 @@
                                     fill="#55555" />
                             </svg>
                             <div class="d-flex align-items-center justify-content-between w-100">
-                                <p>Tồn kho</p>
+                                <p class="text-nav">Tồn kho</p>
                                 <i class="fas fa-angle-left right"></i>
                             </div>
                         </a>
@@ -229,20 +228,20 @@
                                 <a href="{{ route('inventory.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'product') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0;"></i>
-                                    <p>Sản phẩm</p>
+                                    <p class="text-nav">Sản phẩm</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('editProduct', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'editproduct') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0;"></i>
-                                    <p>Sửa tồn kho</p>
+                                    <p class="text-nav">Sửa tồn kho</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/layout/top-nav.html" class="nav-link">
                                     <i class="far fa-circle nav-icon" style="opacity: 0;"></i>
-                                    <p>Chuyển kho</p>
+                                    <p class="text-nav">Chuyển kho</p>
                                 </a>
                             </li>
                         </ul>
@@ -275,7 +274,7 @@
                                 </g>
                             </svg>
                             <div class="d-flex align-items-center justify-content-between w-100">
-                                <p>Bán hàng</p>
+                                <p class="text-nav">Bán hàng</p>
                                 <i class="fas fa-angle-left right"></i>
                             </div>
                         </a>
@@ -285,14 +284,14 @@
                                     class="nav-link
                                     @if (!empty($activeName) && $activeName == 'quote') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
-                                    <p>Đơn báo giá</p>
+                                    <p class="text-nav">Đơn báo giá</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('delivery.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'delivery') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
-                                    <p>Đơn giao hàng</p>
+                                    <p class="text-nav">Đơn giao hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -306,14 +305,14 @@
                                 <a href="{{ route('payExport.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'payexport') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
-                                    <p>Thanh toán bán hàng</p>
+                                    <p class="text-nav">Thanh toán bán hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('guests.index', $workspacename) }}"
                                     class="nav-link  @if (!empty($activeName) && $activeName == 'guest') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
-                                    <p>Khách hàng</p>
+                                    <p class="text-nav">Khách hàng</p>
                                 </a>
                             </li>
                         </ul>
@@ -330,7 +329,7 @@
                                     fill="#55555" />
                             </svg>
                             <div class="d-flex align-items-center justify-content-between w-100">
-                                <p>Mua hàng</p>
+                                <p class="text-nav">Mua hàng</p>
                                 <i class="fas fa-angle-left right"></i>
                             </div>
                         </a>
@@ -339,35 +338,35 @@
                                 <a href="{{ route('import.index', $workspacename) }}"
                                     class="nav-link  @if (!empty($activeName) && $activeName == 'import') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
-                                    <p>Đơn mua hàng</p>
+                                    <p class="text-nav">Đơn mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('receive.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'receive') active @endif ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
-                                    <p>Đơn nhận hàng</p>
+                                    <p class="text-nav">Đơn nhận hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('reciept.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'reciept') active @endif ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
-                                    <p>Hóa đơn mua hàng</p>
+                                    <p class="text-nav">Hóa đơn mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('paymentOrder.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'paymentorder') active @endif ">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
-                                    <p>Thanh toán mua hàng</p>
+                                    <p class="text-nav">Thanh toán mua hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('provides.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'provide') active @endif">
                                     <i class="far fa-circle nav-icon" style="opacity: 0"></i>
-                                    <p>Nhà cung cấp</p>
+                                    <p class="text-nav">Nhà cung cấp</p>
                                 </a>
                             </li>
                         </ul>
@@ -383,8 +382,7 @@
                                     d="M10.9394 8.18934C11.2207 7.90804 11.6022 7.75 12.0001 7.75C12.3979 7.75 12.7794 7.90804 13.0607 8.18934C13.3421 8.47065 13.5001 8.85219 13.5001 9.25001C13.5001 9.64784 13.3421 10.0294 13.0607 10.3107C12.7794 10.592 12.3979 10.75 12.0001 10.75C11.6022 10.75 11.2207 10.592 10.9394 10.3107C10.6581 10.0294 10.5001 9.64784 10.5001 9.25001C10.5001 8.85219 10.6581 8.47065 10.9394 8.18934ZM12.0001 6.25C12.7957 6.25 13.5588 6.56607 14.1214 7.12868C14.684 7.6913 15.0001 8.45436 15.0001 9.25001C15.0001 10.0457 14.684 10.8087 14.1214 11.3713C13.5588 11.934 12.7957 12.25 12.0001 12.25C11.2044 12.25 10.4414 11.934 9.87874 11.3713C9.31613 10.8087 9.00006 10.0457 9.00006 9.25001C9.00006 8.45436 9.31613 7.6913 9.87874 7.12868C10.4414 6.56607 11.2044 6.25 12.0001 6.25ZM13.4573 13.338L10.5441 13.338C9.67413 13.3391 8.83217 13.6506 8.17135 14.2164C7.51054 14.7822 7.07327 15.5652 6.93816 16.4245C6.87384 16.8337 7.1534 17.2176 7.56259 17.2819C7.97178 17.3462 8.35564 17.0667 8.41996 16.6575C8.49961 16.1509 8.75738 15.6893 9.14692 15.3558C9.53634 15.0224 10.0319 14.8388 10.5446 14.838H13.4554C13.9681 14.839 14.4636 15.0226 14.853 15.356C15.2426 15.6896 15.5004 16.1511 15.5802 16.6577C15.6446 17.0669 16.0286 17.3463 16.4378 17.2819C16.8469 17.2174 17.1264 16.8335 17.0619 16.4243C16.9266 15.5651 16.4893 14.7823 15.8286 14.2166C15.1679 13.6509 14.3271 13.3394 13.4573 13.338Z"
                                     fill="#555555" />
                             </svg>
-
-                            <p>
+                            <p class="text-nav">
                                 Báo cáo
                             </p>
                         </a>
@@ -401,7 +399,7 @@
                                     fill="#555555" />
                             </svg>
 
-                            <p>
+                            <p class="text-nav">
                                 Lịch sử giao dịch
                             </p>
                         </a>
@@ -417,13 +415,12 @@
                                     d="M10.9394 8.18934C11.2207 7.90804 11.6022 7.75 12.0001 7.75C12.3979 7.75 12.7794 7.90804 13.0607 8.18934C13.3421 8.47065 13.5001 8.85219 13.5001 9.25001C13.5001 9.64784 13.3421 10.0294 13.0607 10.3107C12.7794 10.592 12.3979 10.75 12.0001 10.75C11.6022 10.75 11.2207 10.592 10.9394 10.3107C10.6581 10.0294 10.5001 9.64784 10.5001 9.25001C10.5001 8.85219 10.6581 8.47065 10.9394 8.18934ZM12.0001 6.25C12.7957 6.25 13.5588 6.56607 14.1214 7.12868C14.684 7.6913 15.0001 8.45436 15.0001 9.25001C15.0001 10.0457 14.684 10.8087 14.1214 11.3713C13.5588 11.934 12.7957 12.25 12.0001 12.25C11.2044 12.25 10.4414 11.934 9.87874 11.3713C9.31613 10.8087 9.00006 10.0457 9.00006 9.25001C9.00006 8.45436 9.31613 7.6913 9.87874 7.12868C10.4414 6.56607 11.2044 6.25 12.0001 6.25ZM13.4573 13.338L10.5441 13.338C9.67413 13.3391 8.83217 13.6506 8.17135 14.2164C7.51054 14.7822 7.07327 15.5652 6.93816 16.4245C6.87384 16.8337 7.1534 17.2176 7.56259 17.2819C7.97178 17.3462 8.35564 17.0667 8.41996 16.6575C8.49961 16.1509 8.75738 15.6893 9.14692 15.3558C9.53634 15.0224 10.0319 14.8388 10.5446 14.838H13.4554C13.9681 14.839 14.4636 15.0226 14.853 15.356C15.2426 15.6896 15.5004 16.1511 15.5802 16.6577C15.6446 17.0669 16.0286 17.3463 16.4378 17.2819C16.8469 17.2174 17.1264 16.8335 17.0619 16.4243C16.9266 15.5651 16.4893 14.7823 15.8286 14.2166C15.1679 13.6509 14.3271 13.3394 13.4573 13.338Z"
                                     fill="#555555" />
                             </svg>
-
-                            <p>
+                            <p class="text-nav">
                                 Cài đặt
                             </p>
                         </a>
                     </li>
-                    <a href="{{ route('dashboard') }}">Quay lại trang Quản lý workspace</a>
+                    <a href="{{ route('dashboard') }}" class="text-nav">Quay lại trang Quản lý workspace</a>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

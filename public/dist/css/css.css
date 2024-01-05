@@ -903,26 +903,26 @@ input[type="number"] {
 
 .custom-btn {
     padding: 7px 8px;
-    background-color: #6E79D6;
-    border: 1px solid #6E79D6;
+    background-color: #6e79d6;
+    border: 1px solid #6e79d6;
     color: white;
     border-radius: 5px;
 }
 
 .custom-btn:hover {
-    color: #6E79D6;
+    color: #6e79d6;
     background-color: white;
-    border: 1px solid #6E79D6;
+    border: 1px solid #6e79d6;
 }
 
 .custom-btn:hover path {
-    fill: #6E79D6;
+    fill: #6e79d6;
 }
 
 .btn-save-print {
     border: 1px solid #d6d6d6;
     color: #42526e;
-    background-color: #ecedf0;
+    background-color: #ffffff;
 }
 
 .title-info {
@@ -939,15 +939,15 @@ input[type="number"] {
     background-color: #ecedf0;
 }
 
-.bg-filter-search{
-    background-color: #F3F5F7;
-    border: 1px solid #DFE1E4;
+.bg-filter-search {
+    background-color: #f3f5f7;
+    border: 1px solid #dfe1e4;
 }
 
 .filter-btn {
     border-radius: 5px;
     padding: 4px 12px;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
 }
 
 .input-search {
@@ -1571,6 +1571,7 @@ input[type="checkbox"] {
 
 .main-sidebar {
     background-color: #fafbfc !important;
+    width: 230px;
 }
 
 .card-body > .table > thead > tr > th {
@@ -1628,14 +1629,65 @@ input[type="checkbox"] {
 }
 /**/
 .content-wrapper1 {
-    padding: 52px 24px 0 24px;
+    padding: 52px 10px 0 0px;
 }
 .content-wrapper2 {
-    padding: 52px 24px 0 24px;
+    padding: 52px 10px 0 0px;
 }
 @media (min-width: 768px) {
     .content-wrapper1 {
         transition: margin-left 0.3s ease-in-out;
-        margin-left: 250px;
+        margin-left: 230px;
     }
+}
+.text-success {
+    color: #08aa36;
+}
+.text-nav {
+    font-size: 15px;
+}
+/*Sidenav*/
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 67px;
+    right: 0;
+    background-color: #ffff;
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+#main {
+    transition: margin-right 0.5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+/* #show_info_Guest {
+    opacity: 0;
+    transition: opacity 1s ease;
+} */
+.bg-input-guest {
+    background-color: #f0f4ff;
+}
+.bg-input-guest:focus {
+    outline: none;
+}
+.content-wrapper1 .container-fluided .content .row1{
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
