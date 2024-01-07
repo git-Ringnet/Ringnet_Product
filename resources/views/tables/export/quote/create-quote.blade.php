@@ -1740,6 +1740,8 @@
                     $("input[name='key']").val('');
                     $('#guest_address').val(null);
                     $('#guest_code').val(null);
+                    //
+                    $('#show-info-guest').show();
                 } else {
                     alert(data.msg);
                 }
