@@ -2,7 +2,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper1 py-0">
     <!-- Content Header (Page header) -->
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center pl-4">
         <div class="container-fluided">
             <div class="mb-3">
                 <span class="font-weight-bold">Bán hàng</span>
@@ -50,7 +50,7 @@
         </div>
     </div>
 </div>
-<div class="bg-filter-search">
+<div class="bg-filter-search pl-4">
     <div class="content-wrapper1 py-1">
         <div class="row m-auto filter pt-1">
             <div class="w-100">

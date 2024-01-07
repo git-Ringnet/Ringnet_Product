@@ -109,7 +109,7 @@ li {
 
 .search-icon {
     position: absolute;
-    right: 15px;
+    right: 5px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -1640,6 +1640,12 @@ input[type="checkbox"] {
         margin-left: 230px;
     }
 }
+@media (max-width: 991.98px){
+    .content-wrapper1 {
+        transition: margin-left 0.3s ease-in-out;
+        margin-left: 0;
+    }
+}
 .text-success {
     color: #08aa36;
 }
@@ -1647,6 +1653,10 @@ input[type="checkbox"] {
     font-size: 15px;
 }
 /*Sidenav*/
+#mySidenav {
+    width: 300px;
+    height: 100vh;
+}
 .sidenav {
     height: 100%;
     width: 0;
@@ -1655,12 +1665,12 @@ input[type="checkbox"] {
     top: 67px;
     right: 0;
     background-color: #ffff;
-    overflow-x: hidden;
     transition: 0.5s;
 }
 #main {
     transition: margin-right 0.5s;
     padding: 16px;
+    margin-right: 300px;
 }
 
 @media screen and (max-height: 450px) {
@@ -1671,17 +1681,20 @@ input[type="checkbox"] {
         font-size: 18px;
     }
 }
-/* #show_info_Guest {
-    opacity: 0;
+#show_info_Guest {
+    opacity: 1;
     transition: opacity 1s ease;
-} */
-.bg-input-guest {
-    background-color: #f0f4ff;
 }
+#show_info_Guest input::placeholder{
+    font-size: 14px;
+}
+/* .bg-input-guest {
+    background-color: #f0f4ff;
+} */
 .bg-input-guest:focus {
     outline: none;
 }
-.content-wrapper1 .container-fluided .content .row1{
+.content-wrapper1 .container-fluided .content .row1 {
     margin-right: 0 !important;
     margin-bottom: 0 !important;
     display: -webkit-flex;
@@ -1690,4 +1703,15 @@ input[type="checkbox"] {
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+}
+.text-table{
+    font-size: 13px;
+}
+.list-guest{
+    top: 41px;
+    right: 300px;
+    width: 65%;
+}
+.list-guest .position-relative input::placeholder{
+    font-size: 13px;
 }
