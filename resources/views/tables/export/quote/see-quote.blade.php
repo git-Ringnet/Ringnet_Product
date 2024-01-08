@@ -339,20 +339,40 @@
                                     <table class="table table-hover bg-white rounded">
                                         <thead>
                                             <tr>
-                                                <th class="border-right border-top-0">
-                                                    Mã sản phẩm
+                                                <th class="border-right p-1" style="width: 15%;">
+                                                    <input class="ml-4 border-danger" id="checkall" type="checkbox">
+                                                    <span class="text-table text-secondary">Mã sản phẩm</span>
                                                 </th>
-                                                <th class="border-right border-top-0">Tên sản phẩm</th>
-                                                <th class="border-right border-top-0">Đơn vị</th>
-                                                <th class="border-right border-top-0">Số lượng</th>
-                                                <th class="border-right border-top-0">Đơn giá</th>
-                                                <th class="border-right border-top-0">Thuế</th>
-                                                <th class="border-right border-top-0">Thành tiền</th>
-                                                <th class="p-0 bg-secondary border-0 Daydu" style="width:1%;">
+                                                <th class="border-right p-1" style="width: 15%;">
+                                                    <span class="text-table text-secondary">Tên sản phẩm</span>
                                                 </th>
-                                                <th class="border-right product_ratio border-top-0">Hệ số nhân</th>
-                                                <th class="border-right price_import border-top-0">Giá nhập</th>
-                                                <th class="border-right note border-top-0">Ghi chú</th>
+                                                <th class="border-right p-1" style="width: 8%;">
+                                                    <span class="text-table text-secondary">Đơn vị</span>
+                                                </th>
+                                                <th class="border-right p-1" style="width: 8%;">
+                                                    <span class="text-table text-secondary">Số lượng</span>
+                                                </th>
+                                                <th class="border-right p-1" style="width: 10%;">
+                                                    <span class="text-table text-secondary">Đơn giá</span>
+                                                </th>
+                                                <th class="border-right p-1" style="width: 8%;">
+                                                    <span class="text-table text-secondary">Thuế</span>
+                                                </th>
+                                                <th class="border-right p-1" style="width: 10%;">
+                                                    <span class="text-table text-secondary">Thành
+                                                        tiền</span>
+                                                </th>
+                                                <th class="p-1 bg-secondary border-0 Daydu p-1" style="width:1%;"></th>
+                                                <th class="border-right product_ratio p-1">
+                                                    <span class="text-table text-secondary">Hệ số nhân</span>
+                                                </th>
+                                                <th class="border-right price_import p-1">
+                                                    <span class="text-table text-secondary">Giá nhập</span>
+                                                </th>
+                                                <th class="border-right note p-1">
+                                                    <span class="text-table text-secondary">Ghi
+                                                        chú</span>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>

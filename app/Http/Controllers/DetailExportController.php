@@ -348,6 +348,26 @@ class DetailExportController extends Controller
         }
         return $result;
     }
+    public function checkQuotetionExportEdit(Request $request)
+    {
+        $result = [];
+        $data = $request->all();
+        $checkQuotetion = DetailExport::where('quotation_number', $data['quotetion_number']);
+        if (isset($data['detailexport_id'])) {
+            $checkQuotetion->where('id', '!=', $data['detailexport_id']);
+        }
+        $checkQuotetion = $checkQuotetion->first();
+        if ($checkQuotetion) {
+            $result = [
+                'status' => false,
+            ];
+        } else {
+            $result = [
+                'status' => true,
+            ];
+        }
+        return $result;
+    }
     //Thêm khách hàng
     public function addGuest(Request $request)
     {
