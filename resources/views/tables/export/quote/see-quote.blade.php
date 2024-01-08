@@ -164,168 +164,168 @@
         </div>
     </div>
     {{-- Thông tin sản phẩm --}}
-    <div class="content-wrapper1 py-0 pl-0 px-0" id="main">
-        <section class="content-header p-2">
-            <div class="d-flex justify-content-between">
-                <ul class="nav nav-tabs bg-filter-search border-0 py-2 rounded">
-                    <li class="text-nav"><a data-toggle="tab" href="#info" class="active text-secondary">
-                            Thông tin</a>
-                    </li>
-                    <li class="text-nav"><a data-toggle="tab" href="#history" class="text-secondary mx-4">Lịch
-                            sử</a>
-                    </li>
-                    <li class="text-nav">
-                        <a data-toggle="tab" href="#files" class="text-secondary">File đính kèm
-                        </a>
-                    </li>
-                </ul>
-                <div class="d-flex position-fixed" style="right: 10px; top: 80px;">
-                    @if ($detailExport->status_receive == 1)
-                        <div class="border text-secondary p-1">
-                            <span>
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+    <section class="content-wrapper1 p-2 position-relative">
+        <div class="d-flex justify-content-between">
+            <ul class="nav nav-tabs bg-filter-search border-0 py-2 rounded ml-3">
+                <li class="text-nav"><a data-toggle="tab" href="#info" class="active text-secondary">
+                        Thông tin</a>
+                </li>
+                <li class="text-nav"><a data-toggle="tab" href="#history" class="text-secondary mx-4">Lịch
+                        sử</a>
+                </li>
+                <li class="text-nav">
+                    <a data-toggle="tab" href="#files" class="text-secondary">File đính kèm
+                    </a>
+                </li>
+            </ul>
+            <div class="d-flex position-sticky" style="right: 10px; top: 80px;">
+                @if ($detailExport->status_receive == 1)
+                    <div class="border text-secondary p-1">
+                        <span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
+                                    fill="#858585" />
+                            </svg>
+                        </span>
+                        <span class="text-table">Giao hàng: Chưa giao</span>
+                    </div>
+                @elseif($detailExport->status_receive == 2)
+                    <div class="border text-success p-1">
+                        <span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                    fill="#08AA36" fill-opacity="0.75" />
+                            </svg>
+                        </span>
+                        <span class="text-table">Giao hàng: Đã giao</span>
+                    </div>
+                @else
+                    <div class="border text-warning p-1">
+                        <span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_1699_20021)">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
-                                        fill="#858585" />
-                                </svg>
-                            </span>
-                            <span class="text-table">Giao hàng: Chưa giao</span>
-                        </div>
-                    @elseif($detailExport->status_receive == 2)
-                        <div class="border text-success p-1">
-                            <span>
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                        d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
+                                        fill="#E8B600" />
+                                    <path
+                                        d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
+                                        fill="#E8B600" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_1699_20021">
+                                        <rect width="16" height="16" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </span>
+                        <span class="text-table">Giao hàng: Một phần</span>
+                    </div>
+                @endif
+                <div class="line-vertical mx-2 my-1"></div>
+                @if ($detailExport->status_reciept == 1)
+                    <div class="border text-secondary p-1">
+                        <span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
+                                    fill="#858585" />
+                            </svg>
+                        </span>
+                        <span class="text-table">Hóa đơn: Chưa chính thức</span>
+                    </div>
+                @elseif($detailExport->status_reciept == 2)
+                    <div class="border text-success p-1">
+                        <span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                    fill="#08AA36" fill-opacity="0.75" />
+                            </svg>
+                        </span>
+                        <span class="text-table">Hóa đơn: Chính thức</span>
+                    </div>
+                @else
+                    <div class="border text-warning p-1">
+                        <span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_1699_20021)">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
-                                        fill="#08AA36" fill-opacity="0.75" />
-                                </svg>
-                            </span>
-                            <span class="text-table">Giao hàng: Đã giao</span>
-                        </div>
-                    @else
-                        <div class="border text-warning p-1">
-                            <span>
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_1699_20021)">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
-                                            fill="#E8B600" />
-                                        <path
-                                            d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
-                                            fill="#E8B600" />
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_1699_20021">
-                                            <rect width="16" height="16" fill="white" />
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                            </span>
-                            <span class="text-table">Giao hàng: Một phần</span>
-                        </div>
-                    @endif
-                    <div class="line-vertical mx-2 my-1"></div>
-                    @if ($detailExport->status_reciept == 1)
-                        <div class="border text-secondary p-1">
-                            <span>
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                        d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
+                                        fill="#E8B600" />
+                                    <path
+                                        d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
+                                        fill="#E8B600" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_1699_20021">
+                                        <rect width="16" height="16" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </span>
+                        <span class="text-table">Hóa đơn: Một phần</span>
+                    </div>
+                @endif
+                <div class="line-vertical mx-2 my-1"></div>
+                @if ($detailExport->status_pay == 1)
+                    <div class="border text-secondary p-1">
+                        <span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
+                                    fill="#858585" />
+                            </svg>
+                        </span>
+                        <span class="text-table">Thanh toán: Chưa thanh toán</span>
+                    </div>
+                @elseif($detailExport->status_pay == 2)
+                    <div class="border text-success p-1">
+                        <span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                    fill="#08AA36" fill-opacity="0.75" />
+                            </svg>
+                        </span>
+                        <span class="text-table">Thanh toán: Đã thanh toán</span>
+                    </div>
+                @else
+                    <div class="border text-warning p-1">
+                        <span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_1699_20021)">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
-                                        fill="#858585" />
-                                </svg>
-                            </span>
-                            <span class="text-table">Hóa đơn: Chưa chính thức</span>
-                        </div>
-                    @elseif($detailExport->status_reciept == 2)
-                        <div class="border text-success p-1">
-                            <span>
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
-                                        fill="#08AA36" fill-opacity="0.75" />
-                                </svg>
-                            </span>
-                            <span class="text-table">Hóa đơn: Chính thức</span>
-                        </div>
-                    @else
-                        <div class="border text-warning p-1">
-                            <span>
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_1699_20021)">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
-                                            fill="#E8B600" />
-                                        <path
-                                            d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
-                                            fill="#E8B600" />
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_1699_20021">
-                                            <rect width="16" height="16" fill="white" />
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                            </span>
-                            <span class="text-table">Hóa đơn: Một phần</span>
-                        </div>
-                    @endif
-                    <div class="line-vertical mx-2 my-1"></div>
-                    @if ($detailExport->status_pay == 1)
-                        <div class="border text-secondary p-1">
-                            <span>
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
-                                        fill="#858585" />
-                                </svg>
-                            </span>
-                            <span class="text-table">Thanh toán: Chưa thanh toán</span>
-                        </div>
-                    @elseif($detailExport->status_pay == 2)
-                        <div class="border text-success p-1">
-                            <span>
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
-                                        fill="#08AA36" fill-opacity="0.75" />
-                                </svg>
-                            </span>
-                            <span class="text-table">Thanh toán: Đã thanh toán</span>
-                        </div>
-                    @else
-                        <div class="border text-warning p-1">
-                            <span>
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_1699_20021)">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
-                                            fill="#E8B600" />
-                                        <path
-                                            d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
-                                            fill="#E8B600" />
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_1699_20021">
-                                            <rect width="16" height="16" fill="white" />
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                            </span>
-                            <span class="text-table">Thanh toán: Một phần</span>
-                        </div>
-                    @endif
-                </div>
+                                        d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
+                                        fill="#E8B600" />
+                                    <path
+                                        d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
+                                        fill="#E8B600" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_1699_20021">
+                                        <rect width="16" height="16" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </span>
+                        <span class="text-table">Thanh toán: Một phần</span>
+                    </div>
+                @endif
             </div>
-        </section>
+        </div>
+    </section>
+    <div class="content-wrapper1 py-0 pl-0 px-0" id="main">
         <section class="content">
             <div class="container-fluided">
                 <div class="tab-content">
@@ -362,7 +362,8 @@
                                                     <span class="text-table text-secondary">Thành
                                                         tiền</span>
                                                 </th>
-                                                <th class="p-1 bg-secondary border-0 Daydu p-1" style="width:1%;"></th>
+                                                <th class="p-1 bg-secondary border-0 Daydu p-1" style="width:1%;">
+                                                </th>
                                                 <th class="border-right product_ratio p-1">
                                                     <span class="text-table text-secondary">Hệ số nhân</span>
                                                 </th>
@@ -399,21 +400,26 @@
                                                                 autocomplete="off" name="product_id[]">
                                                             <div class="info-product" data-toggle="modal"
                                                                 data-target="#productModal">
-                                                                <svg width="18" height="18"
-                                                                    viewBox="0 0 18 18" fill="none"
+                                                                <svg width="16" height="16"
+                                                                    viewBox="0 0 16 16" fill="none"
                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M8.99998 4.5C8.45998 4.5 8.09998 4.86 8.09998 5.4C8.09998 5.94 8.45998 6.3 8.99998 6.3C9.53998 6.3 9.89998 5.94 9.89998 5.4C9.89998 4.86 9.53998 4.5 8.99998 4.5Z"
-                                                                        fill="#42526E">
-                                                                    </path>
-                                                                    <path
-                                                                        d="M9 0C4.05 0 0 4.05 0 9C0 13.95 4.05 18 9 18C13.95 18 18 13.95 18 9C18 4.05 13.95 0 9 0ZM9 16.2C5.04 16.2 1.8 12.96 1.8 9C1.8 5.04 5.04 1.8 9 1.8C12.96 1.8 16.2 5.04 16.2 9C16.2 12.96 12.96 16.2 9 16.2Z"
-                                                                        fill="#42526E">
-                                                                    </path>
-                                                                    <path
-                                                                        d="M8.99998 7.2002C8.45998 7.2002 8.09998 7.5602 8.09998 8.10019V12.6002C8.09998 13.1402 8.45998 13.5002 8.99998 13.5002C9.53998 13.5002 9.89998 13.1402 9.89998 12.6002V8.10019C9.89998 7.5602 9.53998 7.2002 8.99998 7.2002Z"
-                                                                        fill="#42526E">
-                                                                    </path>
+                                                                    <g clip-path="url(#clip0_1704_35239)">
+                                                                        <path
+                                                                            d="M7.99996 1.69596C6.32803 1.69596 4.72458 2.36012 3.54235 3.54235C2.36012 4.72458 1.69596 6.32803 1.69596 7.99996C1.69596 9.67188 2.36012 11.2753 3.54235 12.4576C4.72458 13.6398 6.32803 14.304 7.99996 14.304C9.67188 14.304 11.2753 13.6398 12.4576 12.4576C13.6398 11.2753 14.304 9.67188 14.304 7.99996C14.304 6.32803 13.6398 4.72458 12.4576 3.54235C11.2753 2.36012 9.67188 1.69596 7.99996 1.69596ZM0.303955 7.99996C0.303955 5.95885 1.11478 4.00134 2.55806 2.55806C4.00134 1.11478 5.95885 0.303955 7.99996 0.303955C10.0411 0.303955 11.9986 1.11478 13.4418 2.55806C14.8851 4.00134 15.696 5.95885 15.696 7.99996C15.696 10.0411 14.8851 11.9986 13.4418 13.4418C11.9986 14.8851 10.0411 15.696 7.99996 15.696C5.95885 15.696 4.00134 14.8851 2.55806 13.4418C1.11478 11.9986 0.303955 10.0411 0.303955 7.99996Z"
+                                                                            fill="#282A30" />
+                                                                        <path
+                                                                            d="M8.08001 4.96596C7.91994 4.95499 7.75932 4.97706 7.60814 5.0308C7.45696 5.08454 7.31845 5.1688 7.20121 5.27834C7.08398 5.38788 6.99053 5.52037 6.92667 5.66756C6.86281 5.81475 6.82991 5.97351 6.83001 6.13396C6.83001 6.31868 6.75663 6.49584 6.62601 6.62646C6.49539 6.75708 6.31824 6.83046 6.13351 6.83046C5.94879 6.83046 5.77163 6.75708 5.64101 6.62646C5.51039 6.49584 5.43701 6.31868 5.43701 6.13396C5.43691 5.66404 5.56601 5.20314 5.81019 4.80164C6.05436 4.40014 6.40422 4.0735 6.82152 3.85743C7.23881 3.64136 7.70748 3.54417 8.17629 3.57649C8.64509 3.60881 9.09599 3.76939 9.47968 4.04069C9.86338 4.31198 10.1651 4.68354 10.3519 5.11475C10.5386 5.54595 10.6033 6.02021 10.5387 6.48567C10.4741 6.95113 10.2828 7.38987 9.98568 7.75394C9.68857 8.11801 9.29708 8.39338 8.85401 8.54996C8.8079 8.56649 8.76805 8.59691 8.73993 8.63702C8.71182 8.67713 8.69682 8.72497 8.69701 8.77396V9.39996C8.69701 9.58468 8.62363 9.76184 8.49301 9.89246C8.36239 10.0231 8.18524 10.0965 8.00051 10.0965C7.81579 10.0965 7.63863 10.0231 7.50801 9.89246C7.37739 9.76184 7.30401 9.58468 7.30401 9.39996V8.77396C7.30392 8.43693 7.4083 8.10815 7.60279 7.83289C7.79727 7.55764 8.0723 7.34944 8.39001 7.23696C8.64354 7.14711 8.85837 6.97265 8.99832 6.74296C9.13828 6.51326 9.19482 6.24235 9.15843 5.97585C9.12203 5.70935 8.99492 5.46352 8.7985 5.27977C8.60208 5.09601 8.34835 4.98454 8.08001 4.96596Z"
+                                                                            fill="#282A30" />
+                                                                        <path
+                                                                            d="M8.05005 11.571C8.00257 11.571 7.95705 11.5898 7.92348 11.6234C7.88991 11.657 7.87105 11.7025 7.87105 11.75C7.87105 11.7974 7.88991 11.843 7.92348 11.8765C7.95705 11.9101 8.00257 11.929 8.05005 11.929C8.09752 11.929 8.14305 11.9101 8.17662 11.8765C8.21019 11.843 8.22905 11.7974 8.22905 11.75C8.22905 11.7025 8.21019 11.657 8.17662 11.6234C8.14305 11.5898 8.09752 11.571 8.05005 11.571ZM8.05005 12.5C8.14854 12.5 8.24607 12.4806 8.33706 12.4429C8.42805 12.4052 8.51073 12.3499 8.58038 12.2803C8.65002 12.2106 8.70527 12.128 8.74296 12.037C8.78065 11.946 8.80005 11.8484 8.80005 11.75C8.80005 11.6515 8.78065 11.5539 8.74296 11.4629C8.70527 11.3719 8.65002 11.2893 8.58038 11.2196C8.51073 11.15 8.42805 11.0947 8.33706 11.057C8.24607 11.0194 8.14854 11 8.05005 11C7.85114 11 7.66037 11.079 7.51972 11.2196C7.37907 11.3603 7.30005 11.551 7.30005 11.75C7.30005 11.9489 7.37907 12.1396 7.51972 12.2803C7.66037 12.4209 7.85114 12.5 8.05005 12.5Z"
+                                                                            fill="#282A30" />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_1704_35239">
+                                                                            <rect width="16" height="16"
+                                                                                fill="white" />
+                                                                        </clipPath>
+                                                                    </defs>
                                                                 </svg>
                                                             </div>
                                                         </div>

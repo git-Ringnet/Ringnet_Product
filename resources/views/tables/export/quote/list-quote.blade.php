@@ -151,86 +151,114 @@
                             <table id="example2" class="table table-hover">
                                 <thead class="sticky-head">
                                     <tr>
-                                        <th class="border-top-0 bg-white"><input type="checkbox" name="all"
-                                                id="checkall"></th>
+                                        <th class="border-top-0 bg-white">
+                                            <input type="checkbox" name="all" id="checkall">
+                                        </th>
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="id"
-                                                    data-sort-type="#"><button class="btn-sort" type="submit">Ngày
-                                                        báo
-                                                        giá</button></a>
+                                                    data-sort-type="#">
+                                                    <button class="btn-sort" type="submit"><span
+                                                            class="text-secondary text-nav">Ngày báo
+                                                            giá</span></button>
+                                                </a>
                                                 <div class="icon" id="icon-id"></div>
                                             </span>
                                         </th>
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="export_code"
-                                                    data-sort-type=""><button class="btn-sort" type="submit">Số báo
-                                                        giá#</button></a>
+                                                    data-sort-type="">
+                                                    <button class="btn-sort" type="submit">
+                                                        <span class="text-secondary text-nav">Số báo giá</span>
+                                                    </button>
+                                                </a>
                                                 <div class="icon" id="icon-export_code"></div>
                                             </span>
                                         </th>
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="guest_receiver"
-                                                    data-sort-type=""><button class="btn-sort" type="submit">Số tham
-                                                        chiếu#</button></a>
+                                                    data-sort-type="">
+                                                    <button class="btn-sort" type="submit">
+                                                        <span class="text-secondary text-nav">Số tham chiếu</span>
+                                                    </button>
+                                                </a>
                                                 <div class="icon" id="icon-guest_receiver"></div>
                                             </span>
                                         </th>
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="created_at"
-                                                    data-sort-type=""><button class="btn-sort" type="submit">Khách
-                                                        hàng</button></a>
+                                                    data-sort-type="">
+                                                    <button class="btn-sort" type="submit">
+                                                        <span class="text-secondary text-nav">Khách hàng</span>
+                                                    </button>
+                                                </a>
                                                 <div class="icon" id="icon-created_at"></div>
                                             </span>
                                         </th>
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort" type="submit">Dự
-                                                        án</button></a>
+                                                    data-sort-type="">
+                                                    <button class="btn-sort" type="submit">
+                                                        <span class="text-secondary text-nav">Dự án</span>
+                                                    </button>
+                                                </a>
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort" type="submit">Trạng
-                                                        thái</button></a>
+                                                    data-sort-type="">
+                                                    <button class="btn-sort" type="submit">
+                                                        <span class="text-secondary text-nav">Trạng thái</span>
+                                                    </button>
+                                                </a>
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex justify-content-center">
                                                 <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort" type="submit">Giao
-                                                        hàng</button></a>
+                                                    data-sort-type="">
+                                                    <button class="btn-sort" type="submit">
+                                                        <span class="text-secondary text-nav">Giao hàng</span>
+                                                    </button>
+                                                </a>
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex justify-content-center">
                                                 <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort" type="submit">Xuất
-                                                        hóa đơn</button></a>
+                                                    data-sort-type="">
+                                                    <button class="btn-sort" type="submit">
+                                                        <span class="text-secondary text-nav">Xuất hóa đơn</span>
+                                                    </button>
+                                                </a>
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex justify-content-center">
                                                 <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort" type="submit">Thanh
-                                                        toán</button></a>
+                                                    data-sort-type="">
+                                                    <button class="btn-sort" type="submit">
+                                                        <span class="text-secondary text-nav">Thanh toán</span>
+                                                    </button>
+                                                </a>
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort" type="submit">Tổng
-                                                        tiền</button></a>
+                                                    data-sort-type="">
+                                                <button class="btn-sort" type="submit"><span class="text-secondary text-nav">Tổng tiền</span></button>
+                                                </a>
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
@@ -259,89 +287,110 @@
                                                 @if ($value_export->status === 1)
                                                     <span class="text-secondary">Draft</span>
                                                 @elseif($value_export->status === 2)
-                                                    <span class="text-primary">Approved</span>
+                                                    <span class="text-warning">Approved</span>
                                                 @elseif($value_export->status === 3)
                                                     <span class="text-success">Close</span>
                                                 @endif
                                             </td>
                                             <td class="text-center bg-white">
                                                 @if ($value_export->status_receive === 1)
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                    <svg width="16" height="16" viewBox="0 0 16 16"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                            fill="#D6D6D6" />
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
+                                                            fill="#858585" />
                                                     </svg>
                                                 @elseif ($value_export->status_receive === 3)
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                    <svg width="16" height="16" viewBox="0 0 16 16"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                            fill="#4CB782" />
-                                                        <path
-                                                            d="M9 -1.90735e-06C10.1819 -1.90735e-06 11.3522 0.23279 12.4442 0.685081C13.5361 1.13737 14.5282 1.80031 15.364 2.63604C16.1997 3.47176 16.8626 4.46392 17.3149 5.55585C17.7672 6.64778 18 7.8181 18 9C18 10.1819 17.7672 11.3522 17.3149 12.4442C16.8626 13.5361 16.1997 14.5282 15.364 15.364C14.5282 16.1997 13.5361 16.8626 12.4442 17.3149C11.3522 17.7672 10.1819 18 9 18L9 9V-1.90735e-06Z"
-                                                            fill="#D6D6D6" />
+                                                        <g clip-path="url(#clip0_1699_20021)">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
+                                                                fill="#E8B600" />
+                                                            <path
+                                                                d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
+                                                                fill="#E8B600" />
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_1699_20021">
+                                                                <rect width="16" height="16" fill="white" />
+                                                            </clipPath>
+                                                        </defs>
                                                     </svg>
                                                 @elseif($value_export->status_receive === 2)
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                    <svg width="16" height="16" viewBox="0 0 16 16"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                            fill="#4CB782" />
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                                            fill="#08AA36" fill-opacity="0.75" />
                                                     </svg>
                                                 @endif
                                             </td>
                                             <td class="text-center bg-white">
                                                 @if ($value_export->status_reciept === 1)
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                    <svg width="16" height="16" viewBox="0 0 16 16"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                            fill="#D6D6D6" />
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
+                                                            fill="#858585" />
                                                     </svg>
                                                 @elseif ($value_export->status_reciept === 3)
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                    <svg width="16" height="16" viewBox="0 0 16 16"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                            fill="#4CB782" />
-                                                        <path
-                                                            d="M9 -1.90735e-06C10.1819 -1.90735e-06 11.3522 0.23279 12.4442 0.685081C13.5361 1.13737 14.5282 1.80031 15.364 2.63604C16.1997 3.47176 16.8626 4.46392 17.3149 5.55585C17.7672 6.64778 18 7.8181 18 9C18 10.1819 17.7672 11.3522 17.3149 12.4442C16.8626 13.5361 16.1997 14.5282 15.364 15.364C14.5282 16.1997 13.5361 16.8626 12.4442 17.3149C11.3522 17.7672 10.1819 18 9 18L9 9V-1.90735e-06Z"
-                                                            fill="#D6D6D6" />
+                                                        <g clip-path="url(#clip0_1699_20021)">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
+                                                                fill="#E8B600" />
+                                                            <path
+                                                                d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
+                                                                fill="#E8B600" />
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_1699_20021">
+                                                                <rect width="16" height="16" fill="white" />
+                                                            </clipPath>
+                                                        </defs>
                                                     </svg>
                                                 @elseif($value_export->status_reciept === 2)
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                    <svg width="16" height="16" viewBox="0 0 16 16"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                            fill="#4CB782" />
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                                            fill="#08AA36" fill-opacity="0.75" />
                                                     </svg>
                                                 @endif
                                             </td>
                                             <td class="text-center bg-white">
                                                 @if ($value_export->status_pay === 1)
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                    <svg width="16" height="16" viewBox="0 0 16 16"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                            fill="#D6D6D6" />
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
+                                                            fill="#858585" />
                                                     </svg>
                                                 @elseif ($value_export->status_pay === 3)
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                    <svg width="16" height="16" viewBox="0 0 16 16"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                            fill="#4CB782" />
-                                                        <path
-                                                            d="M9 -1.90735e-06C10.1819 -1.90735e-06 11.3522 0.23279 12.4442 0.685081C13.5361 1.13737 14.5282 1.80031 15.364 2.63604C16.1997 3.47176 16.8626 4.46392 17.3149 5.55585C17.7672 6.64778 18 7.8181 18 9C18 10.1819 17.7672 11.3522 17.3149 12.4442C16.8626 13.5361 16.1997 14.5282 15.364 15.364C14.5282 16.1997 13.5361 16.8626 12.4442 17.3149C11.3522 17.7672 10.1819 18 9 18L9 9V-1.90735e-06Z"
-                                                            fill="#D6D6D6" />
+                                                        <g clip-path="url(#clip0_1699_20021)">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
+                                                                fill="#E8B600" />
+                                                            <path
+                                                                d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
+                                                                fill="#E8B600" />
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_1699_20021">
+                                                                <rect width="16" height="16" fill="white" />
+                                                            </clipPath>
+                                                        </defs>
                                                     </svg>
                                                 @elseif($value_export->status_pay === 2)
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                    <svg width="16" height="16" viewBox="0 0 16 16"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9Z"
-                                                            fill="#4CB782" />
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                                            fill="#08AA36" fill-opacity="0.75" />
                                                     </svg>
                                                 @endif
                                             </td>
