@@ -35,18 +35,19 @@ class Provides extends Model
 
     public function getAllProvide()
     {
-        return DB::table($this->table)->where('workspace_id',Auth::user()->current_workspace)->get();
+        return DB::table($this->table)->where('workspace_id', Auth::user()->current_workspace)->get();
     }
     public function addProvide($data)
     {
         $result = [];
-        $exist = false;
-        $provides = DB::table($this->table)->where('provide_code', $data['provide_code'])->first();
+        $provides = DB::table($this->table)->where('provide_code', $data['provide_code'])
+            ->orWhere('provide_name_display', $data['provide_name_display'])
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
         if ($provides) {
             $result = [
                 'status' => true,
             ];
-            // $exist = true;
         } else {
             if (isset($data['key'])) {
                 $key = $data['key'];
@@ -72,7 +73,7 @@ class Provides extends Model
                 'provide_code' => $data['provide_code'],
                 'key' => $key,
                 'provide_debt' => 0,
-                'provides' => Auth::user()->current_workspace
+                'workspace_id' => Auth::user()->current_workspace
             ];
             $provide_id =  DB::table($this->table)->insertGetId($dataProvide);
             if ($provide_id) {
@@ -80,7 +81,6 @@ class Provides extends Model
                     'status' => false,
                     'id' => $provide_id
                 ];
-                // $exist = false;
             }
         }
         return $result;
@@ -90,6 +90,8 @@ class Provides extends Model
         $exist = false;
         $check = DB::table($this->table)->where('provide_code', $data['provide_code'])
             ->where('id', '!=', $id)
+            ->orWhere('provide_name_display', $data['provide_name_display'])
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($check) {
             $exist = true;
@@ -106,14 +108,14 @@ class Provides extends Model
 
             if (isset($data['represent_name'])) {
                 // Xóa các id không tòn tại
-                if(isset($data['repesent_id'])){
+                if (isset($data['repesent_id'])) {
                     ProvideRepesent::where('provide_id', $id)->whereNotIn('id', $data['repesent_id'])->delete();
                 }
                 // Chỉnh sửa thông tin người đại diện và thêm người đại diện
                 for ($i = 0; $i < count($data['represent_name']); $i++) {
                     $represent = ProvideRepesent::where('id', isset($data['repesent_id'][$i]) ? $data['repesent_id'][$i]  : "")
-                    ->where('workspace_id', Auth::user()->current_workspace)
-                    ->first();
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->first();
                     $dataRepresent = [
                         'represent_name' => $data['represent_name'][$i],
                         'represent_email' => $data['represent_email'][$i],
@@ -128,7 +130,7 @@ class Provides extends Model
                         DB::table('represent_provide')->insert($dataRepresent);
                     }
                 }
-            }else{
+            } else {
                 ProvideRepesent::where('provide_id', $id)->delete();
             }
             $exist = false;

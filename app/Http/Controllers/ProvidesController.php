@@ -41,7 +41,7 @@ class ProvidesController extends Controller
         $title = "Thêm mới nhà cung cấp";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.provides.insertProvides', compact('title','workspacename'));
+        return view('tables.provides.insertProvides', compact('title', 'workspacename'));
     }
 
     /**
@@ -53,7 +53,7 @@ class ProvidesController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($result['status'] == true) {
-            $msg = redirect()->back()->with('msg', 'Mã số thuế đã tồn tại');
+            $msg = redirect()->back()->with('warning', 'Mã số thuế hoặc tên hiển thị đã tồn tại');
         } else {
             // Thêm mới người đại diện
             $this->repesent->addRePesent($request->all(), $result['id']);
@@ -96,13 +96,13 @@ class ProvidesController extends Controller
         $getId = $id;
         $request->session()->put('id', $id);
 
-        return view('tables.provides.editProvides', compact('title', 'provide', 'repesent','workspacename'));
+        return view('tables.provides.editProvides', compact('title', 'provide', 'repesent', 'workspacename'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $workspace ,Request $request, string $id)
+    public function update(string $workspace, Request $request, string $id)
     {
         $id = session('id');
         $status =  $this->provides->updateProvide($request->all(), $id);
@@ -110,9 +110,9 @@ class ProvidesController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($status) {
-            return redirect(route('provides.index',$workspacename))->with('warning', 'Mã số thuế đã tồn tại');
+            return redirect(route('provides.index', $workspacename))->with('warning', 'Mã số thuế đã tồn tại');
         } else {
-            return redirect(route('provides.index',$workspacename))->with('msg', 'Sửa nhà cung cấp thành công');
+            return redirect(route('provides.index', $workspacename))->with('msg', 'Sửa nhà cung cấp thành công');
         }
     }
 

@@ -269,8 +269,10 @@ class DetailImportController extends Controller
     public function addNewProvide(Request $request)
     {
         $check = Provides::where('provide_code', $request->provide_code)
+            ->orwhere('provide_name_display', $request->provide_name_display)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
+
         if ($check == null) {
             if (isset($request->key)) {
                 $key = $request->key;
@@ -295,21 +297,31 @@ class DetailImportController extends Controller
                 'provide_address' => $request->provide_address,
                 'key' => $key,
                 'provide_code' => $request->provide_code,
-                'provide_represent' => $request->provide_represent,
-                'provide_email' => $request->provide_email,
-                'provide_phone' => $request->provide_phone,
                 'provide_debt' => 0,
-                'provide_address_delivery' => $request->provide_address_delivery,
                 'workspace_id' => Auth::user()->current_workspace
             ];
             $new_provide = DB::table('provides')->insertGetId($data);
+            if ($new_provide) {
+                $dataRepresent = [
+                    'provide_id' => $new_provide,
+                    'represent_name' => $request->provide_represent,
+                    'represent_email' => $request->provide_email,
+                    'represent_phone' => $request->provide_phone,
+                    'represent_address' => $request->provide_address_delivery,
+                    'workspace_id' => Auth::user()->current_workspace
+                ];
+                if ($request->provide_represent != null || $request->provide_email != null || $request->provide_phone != null) {
+                    // Thêm người đại diện
+                    DB::table('represent_provide')->insertGetId($dataRepresent);
+                }
+            }
             $provide = Provides::findOrFail($new_provide);
             $msg = response()->json([
                 'success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công',
                 'id' => $new_provide, 'name' => $provide->provide_name_display, 'key' => $key
             ]);
         } else {
-            $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế đã tồn tại']);
+            $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế hoặc tên hiển thị đã tồn tại']);
         }
         return $msg;
     }

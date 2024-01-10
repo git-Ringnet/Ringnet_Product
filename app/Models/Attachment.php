@@ -47,7 +47,7 @@ class Attachment extends Model
                 'table_id' => $table_id,
                 'table_name' => $table_name,
                 'file_name' => $name,
-                'user_id' => 1,
+                'user_id' => Auth::user()->id,
                 'created_at' => Carbon::now(),
                 'workspace_id' => Auth::user()->current_workspace
             ];

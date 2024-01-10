@@ -59,7 +59,7 @@ class DetailImport extends Model
     {
         $total = 0;
         $total_tax = 0;
-        $result =[];
+        $result = [];
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $product_ratio = 0;
             $price_import = 0;
@@ -79,7 +79,7 @@ class DetailImport extends Model
         $dataImport = [
             'provide_id' => $data['provides_id'],
             'project_id' => isset($data['project_id']) ? $data['project_id'] : 1,
-            'user_id' => 1,
+            'user_id' => Auth::user()->id,
             'quotation_number' => $data['quotation_number'],
             'reference_number' => $data['reference_number'],
             'price_effect' => $data['price_effect'],
@@ -122,8 +122,8 @@ class DetailImport extends Model
         $total_tax = 0;
         $check_status = false;
         $detail = DetailImport::where('id', $id)
-        ->where('workspace_id',Auth::user()->current_workspace)
-        ->first();
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
         if ($detail) {
             if ($data['action'] == "action_1") {
                 $check_status = true;
@@ -140,19 +140,21 @@ class DetailImport extends Model
                         $price_export = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
                         $total += $price_export;
                     }
-                    $total_tax += $data['product_tax'][$i] * $total;
+                    // $total_tax += $data['product_tax'][$i] * $total;
+                    $total_tax += $data['product_tax'][$i] * $price_export / 100;
                 }
             } else {
                 $product = QuoteImport::where('detailimport_id', $id)
-                ->where('workspace_id',Auth::user()->current_workspace)
-                ->get();
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->get();
                 foreach ($product as $item) {
                     if ($item->product_ratio > 0 && $item->price_import) {
                         $total += (($item->product_ratio + 100) * $item->price_import / 100) * $item->product_qty;
                     } else {
                         $total += $item->product_qty * $item->price_export;
                     }
-                    $total_tax += $item->product_tax * $total;
+                    // $total_tax += $item->product_tax * $total;
+                    $total_tax += $item->product_tax * ($item->product_qty * $item->price_export / 100);
 
                     $check_status = $check_status || (
                         ($data['action'] == "action_2" && $item->product_qty != $item->receive_qty) ||
@@ -172,7 +174,7 @@ class DetailImport extends Model
                     'status' => $status,
                     'created_at' => $data['date_quote'],
                     'total_price' => $total,
-                    'total_tax' => $total_tax,
+                    'total_tax' => ($total_tax + $total),
                     'discount' =>   isset($data['discount']) ? str_replace(',', '', $data['discount']) : 0,
                     'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
                     'terms_pay' => $data['terms_pay']

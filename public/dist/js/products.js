@@ -317,7 +317,7 @@ $('#addRowRepesent').on('click', function () {
 
 function addRowTable(status) {
     var tr = '<tr class="bg-white">' +
-        '<td class="border border-left-0 border-top-0 border-bottom-0">' +
+        '<td class="border border-left-0 border-bottom-0">' +
         '<input type="hidden" name="listProduct[]" value="0">' +
         '<div class="d-flex w-100 justify-content-between align-items-center position-relative">' +
         '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> ' +
@@ -334,15 +334,15 @@ function addRowTable(status) {
         '</ul>' +
         '</div>' +
         '</td>' +
-        '<td class="border border-top-0 border-bottom-0 position-relative"> ' +
+        '<td class="border border-bottom-0 position-relative"> ' +
         '<input autocomplete="off" required type="text" id="searchProductName" class="searchProductName border-0 px-3 py-2 w-100" name="product_name[]">' +
         '<ul id="listProductName" class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 1%; top: 74%;"> ' +
         '</ul>' +
         '</td>' +
-        '<td class="border border-top-0 border-bottom-0">' +
+        '<td class="border border-bottom-0">' +
         '<input type="text" required class="border-0 px-3 py-2 w-100 product_unit" name="product_unit[]" ' + (status == 2 ? 'readonly' : '') + ' >' +
         '</td>' +
-        '<td class="border border-top-0 border-bottom-0">' +
+        '<td class="border border-bottom-0">' +
         '<div class="d-flex"><input type="text" required oninput="validateQtyInput1(this)" class="border-0 px-3 py-2 w-100 quantity-input" name="product_qty[]">';
     if (status == 2) {
         tr += '<button type="button" class="btn btn-primary" data-toggle="modal" ' +
@@ -370,10 +370,10 @@ function addRowTable(status) {
     tr +=
         '</div>' +
         '</td>' +
-        '<td class="border border-top-0 border-bottom-0">' +
+        '<td class="border border-bottom-0">' +
         '<input type="text" required class="border-0 px-3 py-2 w-100 price_export" name="price_export[]">' +
         '</td>' +
-        '<td class="border border-top-0 border-bottom-0">';
+        '<td class="border border-bottom-0">';
     if (status == 2) {
         tr +=
             '<input type="text" class="border-0 px-3 py-2 w-100 product_tax" name="product_tax[]" readonly >';
@@ -389,15 +389,14 @@ function addRowTable(status) {
     tr +=
         '</td>' +
         '<input type="hidden" class="product_tax1">' +
-        '<td class="border border-top-0 border-bottom-0">' +
+        '<td class="border border-bottom-0">' +
         '<input type="text" class="border-0 px-3 py-2 w-100 total_price" readonly name="total_price[]">' +
         '</td>' +
-        '<td class="border border-bottom-0 p-0 bg-secondary"> </td>' +
-        '<td class="border border-top-0 border-bottom-0">' +
-        '<input type="text" class="border-0 px-3 py-2 w-100" name="product_note[]" ' + (status == 2 ? 'readonly' : '') + ' >' +
+        '<td class="border border-bottom-0">' +
+        '<input type="text" placeholder="Nhập ghi chú" class="border-0 px-3 py-2 w-100" name="product_note[]" ' + (status == 2 ? 'readonly' : '') + ' >' +
         '</td>' +
-        '<td class="border border-top-0 deleteRow">' +
-        '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.5454 5C10.2442 5 9.99999 5.24421 9.99999 5.54545C9.99999 5.8467 10.2442 6.09091 10.5454 6.09091H13.4545C13.7558 6.09091 14 5.8467 14 5.54545C14 5.24421 13.7558 5 13.4545 5H10.5454ZM6 7.72726C6 7.42601 6.24421 7.18181 6.54545 7.18181H7.63637H16.3636H17.4545C17.7558 7.18181 18 7.42601 18 7.72726C18 8.02851 17.7558 8.27272 17.4545 8.27272H16.9091V17C16.9091 18.2113 15.9118 19.1818 14.7135 19.1818H9.25891C8.97278 19.1816 8.68906 19.1247 8.42499 19.0145C8.16092 18.9044 7.92126 18.7431 7.71979 18.5399C7.51833 18.3367 7.35905 18.0957 7.25112 17.8307C7.14347 17.5664 7.08903 17.2834 7.09091 16.9981V8.27272H6.54545C6.24421 8.27272 6 8.02851 6 7.72726ZM8.18182 17.0041V8.27272H15.8182V17C15.8182 17.5966 15.3216 18.0909 14.7135 18.0909H9.25938C9.11713 18.0908 8.97632 18.0625 8.84503 18.0077C8.71375 17.953 8.5946 17.8728 8.49444 17.7718C8.39429 17.6707 8.3151 17.5509 8.26144 17.4192C8.20779 17.2874 8.18074 17.1464 8.18182 17.0041ZM13.4545 10.0909C13.7558 10.0909 14 10.3351 14 10.6364V15.7273C14 16.0285 13.7558 16.2727 13.4545 16.2727C13.1533 16.2727 12.9091 16.0285 12.9091 15.7273V10.6364C12.9091 10.3351 13.1533 10.0909 13.4545 10.0909ZM11.0909 10.6364C11.0909 10.3351 10.8467 10.0909 10.5454 10.0909C10.2442 10.0909 9.99999 10.3351 9.99999 10.6364V15.7273C9.99999 16.0285 10.2442 16.2727 10.5454 16.2727C10.8467 16.2727 11.0909 16.0285 11.0909 15.7273V10.6364Z" fill="#42526E"></path></svg>' +
+        '<td class="border deleteRow">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.3687 6.09375C12.6448 6.09375 12.8687 6.30362 12.8687 6.5625C12.8687 6.59865 12.8642 6.63468 12.8554 6.66986L11.3628 12.617C11.1502 13.4639 10.3441 14.0625 9.41597 14.0625H6.58403C5.65593 14.0625 4.84977 13.4639 4.6372 12.617L3.14459 6.66986C3.08135 6.41786 3.24798 6.16551 3.51678 6.10621C3.55431 6.09793 3.59274 6.09375 3.6313 6.09375H12.3687ZM8.5 0.9375C9.88071 0.9375 11 1.98683 11 3.28125H13C13.5523 3.28125 14 3.70099 14 4.21875V4.6875C14 4.94638 13.7761 5.15625 13.5 5.15625H2.5C2.22386 5.15625 2 4.94638 2 4.6875V4.21875C2 3.70099 2.44772 3.28125 3 3.28125H5C5 1.98683 6.11929 0.9375 7.5 0.9375H8.5ZM8.5 2.34375H7.5C6.94772 2.34375 6.5 2.76349 6.5 3.28125H9.5C9.5 2.76349 9.05228 2.34375 8.5 2.34375Z" fill="#6B6F76"/></svg>' +
         '</td>' +
         '</tr>';
     $('#inputcontent tbody').append(tr)
@@ -522,7 +521,22 @@ function emptyData(position, name, unit, price_export, tax, total_price, ratio, 
     $(position).find('.' + price_import).val('');
 }
 
-
+jQuery(document).ready(function ($) {
+    let countClick = 1;
+    $("#sideProvide").on("click", function () {
+        if (countClick === 1) {
+            document.getElementById("mySidenav").style.width = "300px";
+            document.getElementById("main").style.marginRight = "300px";
+            document.getElementById("show_info_Guest").style.opacity = "1";
+            countClick += 1;
+        } else if (countClick === 2) {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginRight = "0";
+            document.getElementById("show_info_Guest").style.opacity = "0";
+            countClick = 1;
+        }
+    });
+});
 
 
 

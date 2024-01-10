@@ -206,23 +206,37 @@ class ReceiveController extends Controller
         $id_quote = [];
         $checked = [];
         $value = [];
-        $quote = QuoteImport::where('detailimport_id', $request->id)->where('product_qty', '>', DB::raw('COALESCE(receive_qty,0)'))->get();
+        $quote = QuoteImport::where('detailimport_id', $request->id)
+            ->where('product_qty', '>', DB::raw('COALESCE(receive_qty,0)'))
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
         foreach ($quote as $qt) {
             $product = Products::where('product_name', $qt->product_name)
                 ->where(DB::raw('COALESCE(product_inventory,0)'), '>', 0)
+                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
-            $productImport = QuoteImport::where('product_name', $qt->product_name)->get();
-            foreach ($productImport as $ip) {
-                array_push($id_quote, $ip->id);
+            // $productImport = QuoteImport::where('product_name', $qt->product_name)
+            //     ->where('workspace_id', Auth::user()->current_workspace)
+            //     ->get();
+
+            $productImport = QuoteImport::where('product_name', $qt->product_name)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+
+            if ($productImport) {
+                $CBSN = ProductImport::where('quoteImport_id', $productImport->id)
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->where('receive_id', '!=', 'null')
+                    ->first();
             }
-            $CBSN = ProductImport::whereIn('quoteImport_id', $id_quote)
-                ->where('receive_id', '!=', 'null')
-                ->first();
+            // foreach ($productImport as $ip) {
+            // array_push($id_quote, $ip->id);
+
             if ($product) {
-                // array_push($list, $product->check_seri == 0 ? 1 : $product->check_seri);
                 array_push($list, $product->check_seri);
                 array_push($checked, 'disabled');
             } else if ($CBSN) {
+                // return $CBSN;
                 // array_push($list, $CBSN->cbSN == 0 ? 1 : $CBSN->cbSN);
                 array_push($list, $CBSN->cbSN);
                 array_push($checked, 'disabled');
@@ -230,7 +244,13 @@ class ReceiveController extends Controller
                 array_push($list, 0);
                 array_push($checked, 'endable');
             }
+            // }
+            // $CBSN = ProductImport::whereIn('quoteImport_id', $id_quote)
+            //     ->where('workspace_id', Auth::user()->current_workspace)
+            //     ->where('receive_id', '!=', 'null')
+            //     ->first();
         }
+        // return $list;
         $data = [
             'checked' => $checked,
             'cb' => $list,
