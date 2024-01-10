@@ -158,13 +158,13 @@
                                             <span class="text-table text-secondary">Thành
                                                 tiền</span>
                                         </th>
-                                        <th class="p-1 bg-secondary border-0 Daydu p-1" style="width:1%;"></th>
+                                        {{-- <th class="p-1 bg-secondary border-0 Daydu p-1" style="width:1%;"></th>
                                         <th class="border-right product_ratio p-1">
                                             <span class="text-table text-secondary">Hệ số nhân</span>
                                         </th>
                                         <th class="border-right price_import p-1">
                                             <span class="text-table text-secondary">Giá nhập</span>
-                                        </th>
+                                        </th> --}}
                                         <th class="border-right note p-1">
                                             <span class="text-table text-secondary">Ghi
                                                 chú</span>
@@ -305,26 +305,26 @@
                                                     value="{{ number_format($item_quote->product_total) }}"
                                                     class="border-0 px-2 py-1 w-100 total-amount">
                                             </td>
-                                            <td class="border-top border-secondary p-0 bg-secondary Daydu"
+                                            {{-- <td class="border-top border-secondary p-0 bg-secondary Daydu"
                                                 style="width:1%;"></td>
                                             <td
                                                 class="border border-top-0 border-bottom-0 position-relative product_ratio">
                                                 <input type="text" class="border-0 px-2 py-1 w-100 heSoNhan"
                                                     autocomplete="off" value="{{ $item_quote->product_ratio }}"
                                                     name="product_ratio[]">
-                                            </td>
-                                            <td
+                                            </td> --}}
+                                            {{-- <td
                                                 class="border border-top-0 border-bottom-0 position-relative price_import">
                                                 <input type="text" class="border-0 px-2 py-1 w-100 giaNhap"
                                                     autocomplete="off" required="required" name="price_import[]"
                                                     value="{{ number_format($item_quote->price_import) }}">
-                                            </td>
+                                            </td> --}}
                                             <td class="border border-top-0 border-bottom-0 position-relative note p-1">
                                                 <input type="text" class="border-0 py-1 w-100"
                                                     placeholder="Nhập ghi chú" name="product_note[]"
                                                     value="{{ $item_quote->product_note }}">
                                             </td>
-                                            <td class="border border-top-0 border-bottom-0 border-right-0 text-right">
+                                            <td class="border border-top-0 border-bottom-0 border-right-0 text-right delete-product">
                                                 <svg width="17" height="17" viewBox="0 0 17 17"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1501,8 +1501,7 @@
                 "</td>"
             );
             const thanhTien = $(
-                "<td class='border border-top-0 border-bottom-0'><input type='text' readonly class='border-0 px-2 py-1 w-100 total-amount'>" +
-                "</td><td class='border-top border-secondary p-0 bg-secondary Daydu' style='width:1%;'></td>"
+                "<td class='border border-top-0 border-bottom-0'><input type='text' readonly class='border-0 px-2 py-1 w-100 total-amount'>"
             );
             const option = $(
                 "<td class='border border-top-0 border-bottom-0 border-right-0 text-right'>" +
@@ -1512,16 +1511,16 @@
                 "</td>" +
                 "<td style='display:none;'><input type='text' class='product_tax1'></td>"
             );
-            const heSoNhan = $(
-                "<td class='border border-top-0 border-bottom-0 position-relative product_ratio'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-100 heSoNhan' autocomplete='off' name='product_ratio[]'>" +
-                "</td>"
-            );
-            const giaNhap = $(
-                "<td class='border border-top-0 border-bottom-0 position-relative price_import'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-100 giaNhap' autocomplete='off' required name='price_import[]'>" +
-                "</td>"
-            );
+            // const heSoNhan = $(
+            //     "<td class='border border-top-0 border-bottom-0 position-relative product_ratio'>" +
+            //     "<input type='text' class='border-0 px-2 py-1 w-100 heSoNhan' autocomplete='off' name='product_ratio[]'>" +
+            //     "</td>"
+            // );
+            // const giaNhap = $(
+            //     "<td class='border border-top-0 border-bottom-0 position-relative price_import'>" +
+            //     "<input type='text' class='border-0 px-2 py-1 w-100 giaNhap' autocomplete='off' required name='price_import[]'>" +
+            //     "</td>"
+            // );
             const ghiChu = $(
                 "<td class='border border-top-0 border-bottom-0 position-relative note p-1'>" +
                 "<input type='text' class='border-0 py-1 w-100' placeholder='Nhập ghi chú' name='product_note[]'>" +
@@ -1529,7 +1528,7 @@
             );
             // Gắn các phần tử vào hàng mới
             newRow.append(maSanPham, tenSanPham, dvTinh,
-                soLuong, donGia, thue, thanhTien, heSoNhan, giaNhap, ghiChu, option
+                soLuong, donGia, thue, thanhTien, ghiChu, option
             );
             $("#dynamic-fields").before(newRow);
             // Tăng giá trị fieldCounter
@@ -1685,37 +1684,6 @@
                     '<br>' + '<b>Thuế: </b>' +
                     (thue == 99 || thue == null ? "NOVAT" : thue + '%'));
             });
-            //Mở rộng
-            if (status_form == 1) {
-                $('.change_colum').text('Tối giản');
-                $('.product_price').attr('readonly', false);
-                // Xóa dữ liệu trường hệ số nhân, giá nhập
-                $(this).closest("tr").find('.product_ratio').val('')
-                $(this).closest("tr").find('.price_import').val('')
-                // Xóa required
-                $('tbody .giaNhap').removeAttr('required');
-                $('.product-ratio').hide();
-                $('.product_ratio').hide()
-                $('.price_import').hide();
-                $('.note').hide();
-                $('.Daydu').hide();
-                $('.heSoNhan').val('')
-                $('.giaNhap').val('')
-            } else {
-                $('.change_colum').text('Đầy đủ');
-                $('.product_price').attr('readonly', true);
-                $(this).closest("tr").find('.product_price').val('');
-                // Xóa dữ liệu trương đơn giá
-                $(this).closest("tr").find('.price_export').val('')
-                // Thêm required
-                $('tbody .giaNhap').attr('required', true);
-                $('.product_ratio').show()
-                $('.price_import').show();
-                $('.note').show();
-                $('.Daydu').show();
-                $(this).closest("tr").find('.heSoNhan').val('');
-                $(this).closest("tr").find('.giaNhap').val('');
-            }
         });
     });
     //Lấy thông tin khách hàng
@@ -1826,46 +1794,6 @@
                 }
             }
         });
-    });
-
-    //Mở rộng
-    var status_form = 0;
-    $('.change_colum').off('click').on('click', function() {
-        if (status_form == 0) {
-            $(this).text('Tối giản');
-            $('.product_price').attr('readonly', false);
-            // Xóa dữ liệu trường hệ số nhân, giá nhập
-            $('.product_ratio').val('')
-            $('.price_import').val('')
-            // Xóa required
-            $('tbody .heSoNhan').removeAttr('required');
-            $('tbody .giaNhap').removeAttr('required');
-            $('.product-ratio').hide();
-            $('.product_ratio').hide()
-            $('.price_import').hide();
-            $('.note').hide();
-            $('.Daydu').hide();
-            $('.heSoNhan').val('');
-            $('.giaNhap').val('');
-            status_form = 1;
-        } else {
-            $(this).text('Đầy đủ');
-            $('.product_price').attr('readonly', true);
-            // Xóa dữ liệu trương đơn giá
-            $('.product_price').val('');
-            $('.total-amount').val('');
-            $('#total-amount-sum').text('0đ');
-            $('#grand-total').text('0đ');
-            $('#product-tax').text('0đ');
-            // Thêm required
-            $('tbody .heSoNhan').attr('required', true);
-            $('tbody .giaNhap').attr('required', true);
-            $('.product_ratio').show();
-            $('.price_import').show();
-            $('.note').show();
-            $('.Daydu').show();
-            status_form = 0;
-        }
     });
 
     //format giá
@@ -2017,11 +1945,7 @@
 
                 // Hiển thị kết quả
                 $(this).find('.total-amount').val(formatCurrency(Math.round(rowTotal)));
-
-                if (status_form == 0) {
-                    // Đơn giá
-                    $(this).find('.product_price').val(formatCurrency(donGia));
-                }
+                $(this).find('.product_price').val(formatCurrency(donGia));
 
                 // Cộng dồn vào tổng totalAmount và totalTax
                 totalAmount += rowTotal;

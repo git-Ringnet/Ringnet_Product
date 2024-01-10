@@ -355,14 +355,14 @@
                                                     <span class="text-table text-secondary">Thành
                                                         tiền</span>
                                                 </th>
-                                                <th class="p-1 bg-secondary border-0 Daydu p-1" style="width:1%;">
+                                                {{-- <th class="p-1 bg-secondary border-0 Daydu p-1" style="width:1%;">
                                                 </th>
                                                 <th class="border-right product_ratio p-1">
                                                     <span class="text-table text-secondary">Hệ số nhân</span>
                                                 </th>
                                                 <th class="border-right price_import p-1">
                                                     <span class="text-table text-secondary">Giá nhập</span>
-                                                </th>
+                                                </th> --}}
                                                 <th class="border-right note p-1">
                                                     <span class="text-table text-secondary">Ghi
                                                         chú</span>
@@ -467,22 +467,22 @@
                                                             value="{{ number_format($item_quote->product_total) }}"
                                                             class="border-0 px-2 py-1 w-100 total-amount">
                                                     </td>
-                                                    <td class="border-top border-secondary p-0 bg-secondary Daydu"
-                                                        style="width:1%;"></td>
-                                                    <td
+                                                    {{-- <td class="border-top border-secondary p-0 bg-secondary Daydu"
+                                                        style="width:1%;"></td> --}}
+                                                    {{-- <td
                                                         class="border border-top-0 border-bottom-0 position-relative product_ratio">
                                                         <input type="text"
                                                             class="border-0 px-2 py-1 w-100 heSoNhan"
                                                             autocomplete="off" readonly
                                                             value="{{ $item_quote->product_ratio }}"
                                                             name="product_ratio[]">
-                                                    </td>
-                                                    <td
+                                                    </td> --}}
+                                                    {{-- <td
                                                         class="border border-top-0 border-bottom-0 position-relative price_import">
                                                         <input type="text" class="border-0 px-2 py-1 w-100 giaNhap"
                                                             autocomplete="off" readonly name="price_import[]"
                                                             value="{{ number_format($item_quote->price_import) }}">
-                                                    </td>
+                                                    </td> --}}
                                                     <td
                                                         class="border border-top-0 border-bottom-0 position-relative note p-1">
                                                         <input type="text" class="border-0 py-1 w-100" readonly
@@ -504,15 +504,15 @@
                                         <div class="col-sm-6">
                                             <div class="mt-4 w-50" style="float: right;">
                                                 <div class="d-flex justify-content-between">
-                                                    <span><b>Giá trị trước thuế:</b></span>
-                                                    <span id="total-amount-sum">0đ</span>
+                                                    <span class="text-table"><b>Giá trị trước thuế:</b></span>
+                                                    <span id="total-amount-sum" class="text-table">0đ</span>
                                                 </div>
                                                 <div class="d-flex justify-content-between mt-2 align-items-center">
-                                                    <span><b>Thuế VAT:</b></span>
-                                                    <span id="product-tax">0đ</span>
+                                                    <span class="text-table"><b>Thuế VAT:</b></span>
+                                                    <span id="product-tax" class="text-table">0đ</span>
                                                 </div>
                                                 <div class="d-flex justify-content-between align-items-center mt-2">
-                                                    <span class="text-primary">Giảm giá:</span>
+                                                    <span class="text-primary text-table">Giảm giá:</span>
                                                     <div class="w-50">
                                                         <input type="text"
                                                             class="form-control text-right border-0 p-0 bg-white"
@@ -520,7 +520,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="d-flex justify-content-between align-items-center mt-2">
-                                                    <span class="text-primary">Phí vận chuyển:</span>
+                                                    <span class="text-primary text-table">Phí vận chuyển:</span>
                                                     <div class="w-50">
                                                         <input type="text"
                                                             class="form-control text-right border-0 p-0 bg-white"
@@ -571,18 +571,16 @@
                                                         class="d-flex w-100 justify-content-between align-items-center">
                                                         <input type="text" autocomplete="off" readonly
                                                             value="{{ $item_quote->product_code }}"
-                                                            class="border-0 px-2 py-1 w-75 product_code"
-                                                            name="product_code[]">
+                                                            class="border-0 px-2 py-1 w-75 product_code">
                                                     </div>
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                                     <div class="d-flex align-items-center">
                                                         <input type="text" value="{{ $item_quote->product_name }}"
                                                             class="border-0 px-2 py-1 w-100 product_name" readonly
-                                                            autocomplete="off" name="product_name[]">
+                                                            autocomplete="off">
                                                         <input type="hidden" class="product_id"
-                                                            value="{{ $item_quote->product_id }}" autocomplete="off"
-                                                            name="product_id[]">
+                                                            value="{{ $item_quote->product_id }}" autocomplete="off">
                                                         <div class="info-product" data-toggle="modal"
                                                             data-target="#productModal">
                                                             <svg width="18" height="18" viewBox="0 0 18 18"
@@ -606,14 +604,13 @@
                                                 <td class="border border-top-0 border-bottom-0">
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item_quote->product_unit }}"
-                                                        class="border-0 px-2 py-1 w-100 product_unit"
-                                                        name="product_unit[]">
+                                                        class="border-0 px-2 py-1 w-100 product_unit">
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                                     <input type="text" readonly
                                                         value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
                                                         class="border-0 px-2 py-1 w-100 quantity-input"
-                                                        autocomplete="off" name="product_qty[]">
+                                                        autocomplete="off">
                                                     <input type="hidden" class="tonkho">
                                                     <p class="text-primary text-center position-absolute inventory"
                                                         style="top: 68%; display: none;">Tồn kho:
@@ -624,14 +621,14 @@
                                                     <input type="text"
                                                         value="{{ number_format($item_quote->price_export) }}"
                                                         class="border-0 px-2 py-1 w-100 product_price"
-                                                        autocomplete="off" name="product_price[]" readonly>
+                                                        autocomplete="off" readonly>
                                                     <p class="text-primary text-right position-absolute transaction"
                                                         style="top: 68%; right: 5%; display: none;">Giao dịch
                                                         gần đây
                                                     </p>
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 px-4">
-                                                    <select name="product_tax[]"
+                                                    <select
                                                         class="border-0 text-center product_tax" disabled>
                                                         <option value="0" <?php if ($item_quote->product_tax == 0) {
                                                             echo 'selected';
@@ -656,7 +653,6 @@
                                                 <td
                                                     class="border border-top-0 border-bottom-0 position-relative note p-1">
                                                     <input type="text" class="border-0 py-1 w-100" readonly
-                                                        name="product_note[]"
                                                         value="{{ $item_quote->product_note }}">
                                                 </td>
                                             </tr>
@@ -958,29 +954,6 @@
         });
     });
 
-    //Mở rộng
-    var status_form = 0;
-    $('.change_colum').off('click').on('click', function() {
-        if (status_form == 0) {
-            $(this).text('Tối giản');
-            $('.product_price').attr('readonly', false);
-            $('.product-ratio').hide();
-            $('.product_ratio').hide()
-            $('.price_import').hide();
-            $('.note').hide();
-            $('.Daydu').hide();
-            status_form = 1;
-        } else {
-            $(this).text('Đầy đủ');
-            $('.product_price').attr('readonly', true);
-            $('.product_ratio').show();
-            $('.price_import').show();
-            $('.note').show();
-            $('.Daydu').show();
-            status_form = 0;
-        }
-    });
-
     //format giá
     $('body').on('input', '.product_price, #transport_fee, .giaNhap, #voucher', function(event) {
         // Lấy giá trị đã nhập
@@ -1016,10 +989,9 @@
         calculateTotals();
     });
 
-    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax, .heSoNhan, .giaNhap',
-        function() {
-            calculateTotals();
-        });
+    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax, .heSoNhan, .giaNhap', function() {
+        calculateTotals();
+    });
 
     function calculateTotals() {
         var totalAmount = 0;
@@ -1030,10 +1002,8 @@
             var productQty = parseFloat($(this).find('.quantity-input').val());
             var productPriceElement = $(this).find('[name^="product_price"]');
             var productPrice = 0;
-            var giaNhap = 0;
             var taxValue = parseFloat($(this).find('.product_tax option:selected').val());
-            var heSoNhan = parseFloat($(this).find('.heSoNhan').val()) || 0;
-            var giaNhapElement = $(this).find('.giaNhap');
+            console.log(productPriceElement);
             if (taxValue == 99) {
                 taxValue = 0;
             }
@@ -1043,22 +1013,9 @@
                     productPrice = parseFloat(rawPrice.replace(/,/g, ''));
                 }
             }
-            if (giaNhapElement.length > 0) {
-                var rawGiaNhap = giaNhapElement.val() || 0;
-                if (rawGiaNhap !== "") {
-                    giaNhap = parseFloat(rawGiaNhap.replace(/,/g, '')) ||
-                        0;
-                } else {
-                    giaNhap = 0;
-                }
-            }
 
             if (!isNaN(productQty) && !isNaN(taxValue)) {
-                if (giaNhap > 0) {
-                    var donGia = ((heSoNhan + 100) * giaNhap) / 100;
-                } else {
-                    var donGia = productPrice;
-                }
+                var donGia = productPrice;
                 var rowTotal = productQty * donGia;
                 var rowTax = (rowTotal * taxValue) / 100;
 
@@ -1068,11 +1025,7 @@
 
                 // Hiển thị kết quả
                 $(this).find('.total-amount').val(formatCurrency(Math.round(rowTotal)));
-
-                if (status_form == 0) {
-                    // Đơn giá
-                    $(this).find('.product_price').val(formatCurrency(donGia));
-                }
+                $(this).find('.product_price').val(formatCurrency(donGia));
 
                 // Cộng dồn vào tổng totalAmount và totalTax
                 totalAmount += rowTotal;
