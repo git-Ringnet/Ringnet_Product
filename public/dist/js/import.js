@@ -147,7 +147,7 @@ function searchInput(input, list) {
         });
     });
 }
-searchInput("#myInput", "#myUL li");
+searchInput("#provideFilter", "#myUL li");
 searchInput(".search_quotation", "#listReceive");
 
 // Tính thuế, tổng tiền,...

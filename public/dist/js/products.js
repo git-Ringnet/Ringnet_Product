@@ -86,7 +86,8 @@ $(document).click(function (event) {
 
 //ẩn danh sách khách hàng
 $(document).click(function (event) {
-    if (!$(event.target).closest("#myInput").length) {
+    if (!$(event.target).closest("#myInput").length && !$(event.target).closest("#provideFilter").length) {
+        console.log(123);
         $("#myUL").hide();
     }
 });

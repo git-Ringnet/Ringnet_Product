@@ -292,13 +292,16 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-between border py-2 px-1">
                         <span class="text-table mr-3">Nhà cung cấp</span>
-                        <input type="text" placeholder="Chọn thông tin"
+                        <input readonly type="text" placeholder="Chọn thông tin"
                             class="border-0 bg w-50 bg-input-guest py-1 nameGuest" autocomplete="off" id="myInput">
-                        {{-- <input id="myInput" type="text" placeholder="Nhập thông tin"
-                    class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off"
-                    required value=""> --}}
-                        <ul id="myUL" class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                            style="z-index: 99;left: 38%;top: 13%;">
+                        <ul id="myUL" class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
+                            style="z-index: 99;">
+                            <div class="p-1">
+                                <div class="position-relative">
+                                    <input type="text" placeholder="Nhập công ty" class="pr-4 w-100 input-search" id="provideFilter">
+                                    <span id="search-icon" class="search-icon"><i class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                </div>
+                            </div>
                             @foreach ($provides as $item)
                                 <li>
                                     <a href="javascript:void(0)"
@@ -308,9 +311,14 @@
                                     </a>
                                 </li>
                             @endforeach
-                            <a type="button" class="bg-dark d-flex justify-content-between p-2 position-sticky"
+                            <a type="button" class="d-flex justify-content-center align-items-center p-2 position-sticky addGuestNew"
                                 data-toggle="modal" data-target="#provideModal" style="bottom: 0;">
-                                <span class="w-50 text-white">Thêm mới</span>
+                                <span class="text-table text-center font-weight-bold">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"></path>
+                                    </svg>
+                                    Thêm nhà cung cấp
+                                </span>
                             </a>
                         </ul>
                         <div class="">
@@ -328,6 +336,7 @@
                             </svg>
                         </div>
                     </div>
+                    <div id="more_info" style="display: none;">
                     <div class="d-flex align-items-center justify-content-between border py-2 px-1">
                         <span class="text-table mr-3">Người đại diện</span>
                         <input type="text" placeholder="Chọn thông tin"
@@ -479,6 +488,7 @@
                             </svg>
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -504,7 +514,6 @@
                 provides_id: provides_id,
             },
             success: function(data) {
-                console.log(123);
                 if (data.key) {
                     quotation = getQuotation(data.key, data['count'], data['date']);
                 } else {
@@ -514,6 +523,7 @@
                 $('input[name="quotation_number"]').val(quotation);
                 $('#myInput').val(data['provide'].provide_name_display);
                 $('#provides_id').val(data['provide'].id);
+                $('#more_info').show();
             }
         });
     });
