@@ -6,24 +6,24 @@
                 <div class="col-sm-6">
                     <div class="mt-4 w-50" style="float: right;">
                         <div class="d-flex justify-content-between">
-                            <span><b>Giá trị trước thuế:</b></span>
+                            <span class="text-table"><b>Giá trị trước thuế:</b></span>
                             <span id="total-amount-sum">0đ</span>
                         </div>
                         <div class="d-flex justify-content-between mt-2 align-items-center">
-                            <span><b>Thuế VAT:</b></span>
+                            <span class="text-table"><b>Thuế VAT:</b></span>
                             <span id="product-tax">0đ</span>
                         </div>
                         @if($import != "123")
                         @if($import)
                         <div class="d-flex justify-content-between align-items-center mt-2">
-                            <span class="text-primary">Giảm giá:</span>
+                            <span class="text-primary text-table">Giảm giá:</span>
                             <div class="w-50">
                                 <input type="text" class="form-control text-right border-0 p-0" name="discount"
                                     id="voucher" value="{{number_format($import->discount)}}">
                             </div>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-2">
-                            <span class="text-primary">Phí vận chuyển:</span>
+                            <span class="text-primary text-table">Phí vận chuyển:</span>
                             <div class="w-50">
                                 <input type="text" class="form-control text-right border-0 p-0" name="transport_fee"
                                     id="transport_fee" value="{{number_format($import->transfer_fee)}}">
@@ -31,14 +31,14 @@
                         </div>
                         @else
                         <div class="d-flex justify-content-between align-items-center mt-2">
-                            <span class="text-primary">Giảm giá:</span>
+                            <span class="text-primary text-table">Giảm giá:</span>
                             <div class="w-50">
                                 <input type="text" class="form-control text-right border-0 p-0" name="discount"
                                     id="voucher" value="0">
                             </div>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-2">
-                            <span class="text-primary">Phí vận chuyển:</span>
+                            <span class="text-primary text-table">Phí vận chuyển:</span>
                             <div class="w-50">
                                 <input type="text" class="form-control text-right border-0 p-0" name="transport_fee"
                                     id="transport_fee" value="0">
