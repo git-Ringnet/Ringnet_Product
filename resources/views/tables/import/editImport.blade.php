@@ -763,6 +763,7 @@
                         $("input[name='provide_email']").val('');
                         $("input[name='provide_phone']").val('');
                         $("input[name='provide_address_delivery']").val('');
+                        $('#more_info').show();
                     } else {
                         alert(data.msg);
                     }
