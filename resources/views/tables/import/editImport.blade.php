@@ -471,7 +471,7 @@
         <div id="mySidenav" class="sidenav">
             <div id="show_info_Guest">
                 <div class="bg-filter-search border-top-0 py-2 text-center">
-                    <span class="font-weight-bold text-secondary">THÔNG TIN KHÁCH HÀNG</span>
+                    <span class="font-weight-bold text-secondary text-nav">THÔNG TIN KHÁCH HÀNG</span>
                 </div>
                 <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
                     <span class="text-table mr-3">Nhà cung cấp</span>

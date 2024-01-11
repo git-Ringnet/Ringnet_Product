@@ -105,7 +105,7 @@
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="id"
-                                                    data-sort-type="#"><button class="btn-sort" type="submit">Mã
+                                                    data-sort-type="#"><button class="btn-sort text-secondary text-nav" type="submit">Mã
                                                         nhận hàng</button></a>
                                                 <div class="icon" id="icon-id"></div>
                                             </span>
@@ -113,7 +113,7 @@
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="export_code"
-                                                    data-sort-type=""><button class="btn-sort" type="submit">Đơn mua
+                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav" type="submit">Đơn mua
                                                         hàng#</button></a>
                                                 <div class="icon" id="icon-export_code"></div>
                                             </span>
@@ -121,7 +121,7 @@
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="created_at"
-                                                    data-sort-type=""><button class="btn-sort" type="submit">Nhà
+                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav" type="submit">Nhà
                                                         cung cấp
                                                     </button></a>
                                                 <div class="icon" id="icon-created_at"></div>
@@ -130,7 +130,7 @@
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort" type="submit">Phí
+                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav" type="submit">Phí
                                                         nhận
                                                         hàng</button></a>
                                                 <div class="icon" id="icon-total"></div>
@@ -139,7 +139,7 @@
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort" type="submit">Trạng
+                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav" type="submit">Trạng
                                                         thái</button></a>
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
@@ -147,7 +147,7 @@
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort" type="submit">Ngày
+                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav" type="submit">Ngày
                                                         giao
                                                         hàng</button></a>
                                                 <div class="icon" id="icon-total"></div>
