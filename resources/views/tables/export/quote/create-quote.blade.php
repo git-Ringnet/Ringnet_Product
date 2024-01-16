@@ -96,26 +96,26 @@
                             <table class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr>
-                                        <th class="border-right p-1" style="width: 15%;">
+                                        <th class="border-right p-1 border-bottom-0" style="width: 15%;">
                                             <input class="ml-4 border-danger" id="checkall" type="checkbox">
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-1" style="width: 15%;">
+                                        <th class="border-right p-1 border-bottom-0" style="width: 15%;">
                                             <span class="text-table text-secondary">Tên sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-1" style="width: 8%;">
+                                        <th class="border-right p-1 border-bottom-0" style="width: 8%;">
                                             <span class="text-table text-secondary">Đơn vị</span>
                                         </th>
-                                        <th class="border-right p-1" style="width: 8%;">
+                                        <th class="border-right p-1 border-bottom-0" style="width: 8%;">
                                             <span class="text-table text-secondary">Số lượng</span>
                                         </th>
-                                        <th class="border-right p-1" style="width: 10%;">
+                                        <th class="border-right p-1 border-bottom-0" style="width: 10%;">
                                             <span class="text-table text-secondary">Đơn giá</span>
                                         </th>
-                                        <th class="border-right p-1" style="width: 8%;">
+                                        <th class="border-right p-1 border-bottom-0" style="width: 8%;">
                                             <span class="text-table text-secondary">Thuế</span>
                                         </th>
-                                        <th class="border-right p-1" style="width: 10%;">
+                                        <th class="border-right p-1 border-bottom-0" style="width: 10%;">
                                             <span class="text-table text-secondary">Thành
                                                 tiền</span>
                                         </th>
@@ -126,11 +126,11 @@
                                         {{-- <th class="border-right price_import p-1">
                                             <span class="text-table text-secondary">Giá nhập</span>
                                         </th> --}}
-                                        <th class="border-right note p-1">
+                                        <th class="border-right note p-1 border-bottom-0">
                                             <span class="text-table text-secondary">Ghi
                                                 chú</span>
                                         </th>
-                                        <th class=""></th>
+                                        <th class="border-bottom-0"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -1335,7 +1335,7 @@
                 "class": `bg-white addProduct`,
             });
             const maSanPham = $(
-                "<td class='border border-left-0 border-top-0 border-bottom-0 position-relative'>" +
+                "<td class='border border-left-0 border-bottom-0 position-relative'>" +
                 "<div class='d-flex w-100 justify-content-between align-items-center'>" +
                 "<svg width='24' height='24' viewBox='0 0 24 24'" +
                 "fill='none' xmlns='http://www.w3.org/2000/svg'>" +
@@ -1360,7 +1360,7 @@
                 "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-75 product_code' name='product_code[]'>" +
                 "</td>");
             const tenSanPham = $(
-                "<td class='border border-top-0 border-bottom-0 position-relative'>" +
+                "<td class='border border-bottom-0 position-relative'>" +
                 "<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 75%;left: 10%;'>" +
                 "@foreach ($product as $product_value)" +
                 "<li>" +
@@ -1389,23 +1389,23 @@
                 "</div></div></td>"
             );
             const dvTinh = $(
-                "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit' required name='product_unit[]'></td>"
+                "<td class='border border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit' required name='product_unit[]'></td>"
             );
             const soLuong = $(
-                "<td class='border border-top-0 border-bottom-0 position-relative'>" +
+                "<td class='border border-bottom-0 position-relative'>" +
                 "<input type='text' class='border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "<p class='text-primary text-center position-absolute inventory' style='top: 68%;display: none;'>Tồn kho: <span class='soTonKho'>35</span></p>" +
                 "</td>"
             );
             const donGia = $(
-                "<td class='border border-top-0 border-bottom-0 position-relative'>" +
+                "<td class='border border-bottom-0 position-relative'>" +
                 "<input type='text' class='border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
                 "<p class='text-primary text-right position-absolute transaction d-none' style='top: 68%;right: 5%;'>Giao dịch gần đây</p>" +
                 "</td>"
             );
             const thue = $(
-                "<td class='border border-top-0 border-bottom-0 px-2'>" +
+                "<td class='border border-bottom-0 px-2'>" +
                 "<select name='product_tax[]' class='border-0 text-center product_tax' required>" +
                 "<option value='0'>0%</option>" +
                 "<option value='8'>8%</option>" +
@@ -1415,10 +1415,10 @@
                 "</td>"
             );
             const thanhTien = $(
-                "<td class='border border-top-0 border-bottom-0'><input type='text' readonly class='border-0 px-2 py-1 w-100 total-amount'>"
+                "<td class='border border-bottom-0'><input type='text' readonly class='border-0 px-2 py-1 w-100 total-amount'>"
             );
             const option = $(
-                "<td class='border border-top-0 border-bottom-0 border-right-0 text-right'>" +
+                "<td class='border border-bottom-0 border-right-0 text-right'>" +
                 "<svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
                 "<path fill-rule='evenodd' clip-rule='evenodd' d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z' fill='#6B6F76'/>" +
                 "</svg>" +
@@ -1436,7 +1436,7 @@
             //     "</td>"
             // );
             const ghiChu = $(
-                "<td class='border border-top-0 border-bottom-0 position-relative note p-1'>" +
+                "<td class='border border-bottom-0 position-relative note p-1'>" +
                 "<input type='text' class='border-0 py-1 w-100' placeholder='Nhập ghi chú' name='product_note[]'>" +
                 "</td>"
             );

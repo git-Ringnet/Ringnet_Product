@@ -54,7 +54,7 @@
                                     d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                     fill="#6D7075" />
                             </svg>
-                            <span>Lưu và in</span>
+                            <span>Lưu</span>
                         </button>
                         <div class="dropdown-menu" style="z-index: 9999;">
                             <a class="dropdown-item" href="#">Xuất Excel</a>
@@ -62,26 +62,23 @@
                         </div>
                     </div>
                     <button type="submit" name="action" value="2"
-                        class="btn-option d-flex align-items-center py-1 px-3 rounded" style="margin-right:10px"
+                        class="btn-save-print d-flex align-items-center py-1 px-3 rounded" style="margin-right:10px"
                         onclick="kiemTraFormGiaoHang(event);" id="giaoHang">
-                        <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
+                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                            viewBox="0 0 16 16" fill="none">
                             <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M9 1.38462C4.79374 1.38462 1.38462 4.79374 1.38462 9C1.38462 13.2063 4.79374 16.6154 9 16.6154C13.2063 16.6154 16.6154 13.2063 16.6154 9C16.6154 4.79374 13.2063 1.38462 9 1.38462ZM0 9C0 4.02903 4.02903 0 9 0C13.971 0 18 4.02903 18 9C18 13.971 13.971 18 9 18C4.02903 18 0 13.971 0 9Z"
-                                fill="#42446E" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M13.1817 6.66432C13.4521 6.93468 13.4521 7.37303 13.1817 7.64339L8.56631 12.2588C8.29595 12.5291 7.8576 12.5291 7.58724 12.2588L4.81801 9.48954C4.54764 9.21918 4.54764 8.78084 4.81801 8.51047C5.08837 8.24011 5.52671 8.24011 5.79708 8.51047L8.07677 10.7902L12.2026 6.66432C12.473 6.39396 12.9113 6.39396 13.1817 6.66432Z"
-                                fill="#42446E" />
+                                d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                fill="#6D7075" />
                         </svg>
                         <span>Giao hàng</span>
                     </button>
                     <button type="submit" name="action" value="1"
                         class="custom-btn d-flex align-items-center h-100" style="margin-right:10px"
                         onclick="kiemTraFormGiaoHang(event);" id="luuNhap">
-                        <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                        <svg class="mx-1" width="18" height="18" viewBox="0 0 16 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M3.75528 1.6875H5.99476H11.9948H12.123C12.3939 1.6875 12.6621 1.74088 12.9123 1.84459C13.1626 1.94829 13.3899 2.10029 13.5814 2.29189L15.7022 4.41269C16.089 4.79939 16.3064 5.32394 16.3065 5.87088V14.25C16.3065 14.797 16.0892 15.3216 15.7024 15.7084C15.3156 16.0952 14.791 16.3125 14.244 16.3125H12.75H5.25H3.83328C3.28894 16.3125 2.76666 16.0973 2.38031 15.7139C1.99396 15.3304 1.77486 14.8098 1.77078 14.2655L1.69278 3.76547C1.69074 3.49333 1.74258 3.22344 1.84531 2.97143C1.94805 2.71941 2.09965 2.49021 2.29137 2.29705C2.4831 2.10389 2.71115 1.95058 2.9624 1.84597C3.21364 1.74135 3.48312 1.68749 3.75528 1.6875ZM5.8125 15.1875H12.1875V9.9645C12.1875 9.74238 12.0071 9.5625 11.7862 9.5625H6.2145C5.99266 9.5625 5.8125 9.74266 5.8125 9.9645V15.1875ZM13.3125 15.1875V9.9645C13.3125 9.12163 12.6289 8.4375 11.7862 8.4375H6.2145C5.37134 8.4375 4.6875 9.12134 4.6875 9.9645V15.1875H3.83326C3.58582 15.1875 3.34842 15.0897 3.17281 14.9154C2.9972 14.7411 2.89761 14.5044 2.89574 14.257L2.81774 3.75703C2.81682 3.63333 2.84038 3.51066 2.88708 3.39611C2.93378 3.28155 3.00269 3.17737 3.08983 3.08957C3.17698 3.00177 3.28064 2.93208 3.39485 2.88453C3.50905 2.83698 3.63154 2.8125 3.75524 2.8125H5.43226V5.18175C5.43226 5.52985 5.57054 5.86369 5.81668 6.10983C6.06282 6.35597 6.39666 6.49425 6.74476 6.49425H11.2448C11.5929 6.49425 11.9267 6.35597 12.1728 6.10983C12.419 5.86369 12.5573 5.52985 12.5573 5.18175V2.91925C12.6414 2.96326 12.7185 3.01991 12.7858 3.08725L14.9068 5.20831C15.0826 5.38405 15.1814 5.62254 15.1815 5.87112V14.25C15.1815 14.4986 15.0827 14.7371 14.9069 14.9129C14.7311 15.0887 14.4926 15.1875 14.244 15.1875H13.3125ZM11.4323 5.18175V2.8125H6.55726V5.18175C6.55726 5.23148 6.57701 5.27917 6.61218 5.31433C6.64734 5.3495 6.69503 5.36925 6.74476 5.36925H11.2448C11.2945 5.36925 11.3422 5.3495 11.3773 5.31433C11.4125 5.27917 11.4323 5.23148 11.4323 5.18175Z"
+                                d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                 fill="white" />
                         </svg>
                         <span>Lưu nháp</span>
@@ -168,26 +165,26 @@
                             <table class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr>
-                                        <th class="border-right p-1">
+                                        <th class="border-right p-1 border-top-0 border-bottom-0">
                                             <input class="ml-4" id="checkall" type="checkbox">
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-1">
+                                        <th class="border-right p-1 border-top-0 border-bottom-0">
                                             <span class="text-table text-secondary">Tên sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-1">
+                                        <th class="border-right p-1 border-top-0 border-bottom-0">
                                             <span class="text-table text-secondary">Đơn vị</span>
                                         </th>
-                                        <th class="border-right p-1">
+                                        <th class="border-right p-1 border-top-0 border-bottom-0">
                                             <span class="text-table text-secondary">Số lượng</span>
                                         </th>
                                         <th class="border-right d-none">
                                             <span class="text-table text-secondary">Quản lý S/N</span>
                                         </th>
-                                        <th class="border-right note p-1">
+                                        <th class="border-right note p-1 border-top-0 border-bottom-0">
                                             <span class="text-table text-secondary">Ghi chú</span>
                                         </th>
-                                        <th class=""></th>
+                                        <th class="border-top-0 border-bottom-0"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -199,32 +196,60 @@
                     <section class="content">
                         <div class="container-fluided">
                             <div class="d-flex">
-                                <button type="button" data-toggle="dropdown" id="add-field-btn" class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded" style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z" fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z" fill="#42526E"></path>
+                                <button type="button" data-toggle="dropdown" id="add-field-btn"
+                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                    style="margin-right:10px">
+                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
+                                        height="14" viewBox="0 0 18 18" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                            fill="#42526E"></path>
                                     </svg>
                                     <span class="text-table">Thêm sản phẩm</span>
                                 </button>
-                                <button type="button" data-toggle="dropdown" id="add-field-btn" class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded" style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z" fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z" fill="#42526E"></path>
+                                <button type="button" data-toggle="dropdown" id="add-field-btn"
+                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                    style="margin-right:10px">
+                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
+                                        height="14" viewBox="0 0 18 18" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                            fill="#42526E"></path>
                                     </svg>
                                     <span class="text-table">Thêm đầu mục</span>
                                 </button>
-                                <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded" style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z" fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z" fill="#42526E"></path>
+                                <button type="button" data-toggle="dropdown"
+                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                    style="margin-right:10px">
+                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
+                                        height="14" viewBox="0 0 18 18" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                            fill="#42526E"></path>
                                     </svg>
                                     <span class="text-table">Thêm hàng loạt</span>
                                 </button>
                                 <button type="button" class="btn-option py-1 px-2 bg-white border-0">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z" fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z" fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z" fill="#42526E"></path>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
                                     </svg>
                                 </button>
                             </div>

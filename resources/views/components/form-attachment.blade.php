@@ -3,11 +3,12 @@
         <thead>
             <tr>
                 <th class="border-right"><input type="checkbox"></th>
-                <th class="border-right">Tên file</th>
-                <th class="border-right">Chủ nhân</th>
-                <th class="border-right">Chỉnh sửa cuối</th>
-                <th class="border-right">Kích cỡ</th>
-                <th class="border-right"></th>
+                <th class="border-right text-table text-secondary">Tên file</th>
+                <th class="border-right text-table text-secondary">Chủ nhân</th>
+                <th class="border-right text-table text-secondary">Chỉnh sửa cuối</th>
+                <th class="border-right text-table text-secondary">Kích cỡ</th>
+                <th class="border-right text-table text-secondary"></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
