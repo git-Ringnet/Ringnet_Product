@@ -2,13 +2,20 @@
     <table class="table table-hover bg-white rounded">
         <thead>
             <tr>
-                <th class="border-right"><input type="checkbox"></th>
-                <th class="border-right text-table text-secondary">Tên file</th>
-                <th class="border-right text-table text-secondary">Chủ nhân</th>
-                <th class="border-right text-table text-secondary">Chỉnh sửa cuối</th>
-                <th class="border-right text-table text-secondary">Kích cỡ</th>
-                <th class="border-right text-table text-secondary"></th>
-                <th></th>
+                <th class="border-right p-1 border-bottom"><input type="checkbox"></th>
+                <th class="border-right p-1 border-bottom">
+                    <span class="text-table text-secondary">Tên file</span>
+                </th>
+                <th class="border-right p-1 border-bottom">
+                    <span class="text-table text-secondary">Chủ nhân</span>
+                </th>
+                <th class="border-right p-1 border-bottom">
+                    <span class="text-table text-secondary">Chỉnh sửa cuối</span>
+                </th>
+                <th class="border-right p-1 border-bottom">
+                    <span class="text-table text-secondary">Kích cỡ</span>
+                </th>
+                <th class="border-right p-1 border-bottom"></th>
             </tr>
         </thead>
         <tbody>

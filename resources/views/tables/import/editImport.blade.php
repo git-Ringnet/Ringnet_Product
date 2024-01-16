@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="container-fluided">
-                <div class="row m-0 mb-1">
+                <div class="row m-0 mb-3">
                     <a href="{{ route('import.index', $workspacename) }}">
                         <button type="button" class="btn-save-print rounded d-flex align-items-center h-100"
                             style="margin-right:10px">
@@ -468,7 +468,7 @@
     </div>
 
     <div class="content-wrapper2 px-0 py-0">
-        <div id="mySidenav" class="sidenav">
+        <div id="mySidenav" class="sidenavadd">
             <div id="show_info_Guest">
                 <div class="bg-filter-search border-top-0 py-2 text-center">
                     <span class="font-weight-bold text-secondary text-nav">THÔNG TIN KHÁCH HÀNG</span>

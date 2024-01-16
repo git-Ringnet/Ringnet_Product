@@ -1,172 +1,173 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="paymentorder"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <form action="{{ route('paymentOrder.store', $workspacename) }}" method="POST">
-        @csrf
+<form action="{{ route('paymentOrder.store', $workspacename) }}" method="POST">
+    @csrf
+    <div class="content-wrapper1 py-0 border-bottom px-4">
+        <!-- Content Header (Page header) -->
+
         <input type="hidden" name="detailimport_id" id="detailimport_id"
             value="@isset($yes){{ $show_receive['id'] }}@endisset">
-        <section class="content-header p-0">
-            <div class="container-fluided">
-                <div class="mb-3">
-                    <span>Mua hàng</span>
-                    <span>/</span>
-                    <span>Thanh toán mua hàng</span>
-                    <span>/</span>
-                    <span class="font-weight-bold">Tạo mới thanh toán mua hàng</span>
+        <div class="content-header p-0">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="container-fluided">
+                    <div class="mb-3">
+                        <span class="font-weight-bold">Mua hàng</span>
+                        <span class="mx-2">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
+                                    fill="#26273B" fill-opacity="0.8"></path>
+                            </svg>
+                        </span>
+                        <span class="font-weight-bold">Thanh toán mua hàng</span>
+                        <span class="mx-2">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
+                                    fill="#26273B" fill-opacity="0.8"></path>
+                            </svg>
+                        </span>
+                        <span>Tạo mới thanh toán mua hàng</span>
+                    </div>
                 </div>
-                <div class="row m-0 mb-1">
-                    <button name="action" value="payment" type="submit"
-                        class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
-                        <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                fill="white" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                fill="white" />
-                        </svg>
-                        <span>Tạo mới</span>
-                    </button>
-                    <button class="btn-option">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                fill="#42526E" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                fill="#42526E" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                fill="#42526E" />
-                        </svg>
-                    </button>
+                <div class="container-fluided">
+                    <div class="row m-0 mb-3">
+                        <button name="action" value="payment" type="submit"
+                            class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                            <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                    fill="white" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                    fill="white" />
+                            </svg>
+                            <span>Tạo mới</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </section>
-        <hr class="mt-3">
+        </div>
+    </div>
 
-        <section class="content">
-            <div class="container-fluided">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="info-chung">
-                            <div class="content-info">
-                                <div class="d-flex ml-2 align-items-center position-relative">
-                                    <div class="title-info py-2 border border-left-0">
-                                        <p class="p-0 m-0 px-3 required-label text-danger">Đơn mua hàng</p>
-                                    </div>
-                                    <input id="search_quotation" type="text" placeholder="Nhập thông tin"
-                                        name="quotation_number"
-                                        class="border w-100 py-2 border-left-0 border-right-0 px-3 search_quotation"
-                                        autocomplete="off" required> <input type="hidden" name="detail_id"
-                                        id="detail_id"
-                                        value="@isset($yes) {{ $show_receive['id'] }} @endisset">
-                                    <ul id="listReceive"
-                                        class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                                        style="z-index: 99; left: 23%; top: 100%; display: block;">
-                                        @foreach ($reciept as $value)
-                                            <li>
-                                                <a href="javascript:void(0)"
-                                                    class="text-dark d-flex justify-content-between p-2 search-receive"
-                                                    id="{{ $value->id }}" name="search-info">
-                                                    <span
-                                                        class="w-50">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+    <section class="content">
+        <div class="container-fluided">
+            <div class="row">
+                <div class="col-12">
+                    <div class="info-chung">
+                        <div class="content-info">
+                            <div class="d-flex ml-2 align-items-center position-relative">
+                                <div class="title-info py-2 border border-left-0">
+                                    <p class="p-0 m-0 px-3 required-label text-danger">Đơn mua hàng</p>
                                 </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Nhà cung cấp</p>
-                                    </div>
-                                    <input readonly type="text" id="provide_name" placeholder="Nhập thông tin"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="@isset($yes){{ $show_receive['provide_name'] }}@endisset">
+                                <input id="search_quotation" type="text" placeholder="Nhập thông tin"
+                                    name="quotation_number"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-3 search_quotation"
+                                    autocomplete="off" required> <input type="hidden" name="detail_id" id="detail_id"
+                                    value="@isset($yes) {{ $show_receive['id'] }} @endisset">
+                                <ul id="listReceive"
+                                    class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                    style="z-index: 99; left: 23%; top: 100%; display: block;">
+                                    @foreach ($reciept as $value)
+                                        <li>
+                                            <a href="javascript:void(0)"
+                                                class="text-dark d-flex justify-content-between p-2 search-receive"
+                                                id="{{ $value->id }}" name="search-info">
+                                                <span
+                                                    class="w-50">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-top-0 border-left-0">
+                                    <p class="p-0 m-0 px-3">Nhà cung cấp</p>
                                 </div>
-                                <div class="d-flex
+                                <input readonly type="text" id="provide_name" placeholder="Nhập thông tin"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                    value="@isset($yes){{ $show_receive['provide_name'] }}@endisset">
+                            </div>
+                            <div class="d-flex
                                         ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Hạn thanh toán</p>
-                                    </div>
-                                    <input type="date" placeholder="Nhập thông tin" name="payment_date"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="{{ date('Y-m-d') }}">
+                                <div class="title-info py-2 border border-top-0 border-left-0">
+                                    <p class="p-0 m-0 px-3">Hạn thanh toán</p>
                                 </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Tổng tiền</p>
-                                    </div>
-                                    <input type="text" placeholder="Nhập thông tin" name="" id="total_bill"
-                                        readonly
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="@isset($yes){{ number_format($getPaymentOrder[0]->total_price) }}@endisset">
+                                <input type="date" placeholder="Nhập thông tin" name="payment_date"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                    value="{{ date('Y-m-d') }}">
+                            </div>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-top-0 border-left-0">
+                                    <p class="p-0 m-0 px-3">Tổng tiền</p>
                                 </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Đã thanh toán</p>
-                                    </div>
-                                    <input id="payment" type="text" placeholder="Nhập thông tin" readonly
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="@isset($yes){{ $getPaymentOrder[0]->payment == null ? 0 : number_format($getPaymentOrder[0]->payment) }}@endisset">
+                                <input type="text" placeholder="Nhập thông tin" name="" id="total_bill"
+                                    readonly class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                    value="@isset($yes){{ number_format($getPaymentOrder[0]->total_price) }}@endisset">
+                            </div>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-top-0 border-left-0">
+                                    <p class="p-0 m-0 px-3">Đã thanh toán</p>
                                 </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Dư nợ</p>
-                                    </div>
-                                    <input id="debt" type="text" placeholder="Nhập thông tin" name=""
-                                        readonly
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                        value="@isset($yes){{ $getPaymentOrder[0]->payment == null
-                                            ? number_format($getPaymentOrder[0]->total_price)
-                                            : number_format($getPaymentOrder[0]->total_price - $getPaymentOrder[0]->payment) }}@endisset">
+                                <input id="payment" type="text" placeholder="Nhập thông tin" readonly
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                    value="@isset($yes){{ $getPaymentOrder[0]->payment == null ? 0 : number_format($getPaymentOrder[0]->payment) }}@endisset">
+                            </div>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-top-0 border-left-0">
+                                    <p class="p-0 m-0 px-3">Dư nợ</p>
                                 </div>
-                                <div class="d-flex ml-2 align-items-center">
-                                    <div class="title-info py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 px-3">Thanh toán trước</p>
-                                    </div>
-                                    <input id="prepayment" type="text" placeholder="Nhập thông tin"
-                                        name="payment"
-                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 payment_input"
-                                        {{-- oninput="@isset($yes)checkQty(this, {{ $getPaymentOrder[0]->payment == null
+                                <input id="debt" type="text" placeholder="Nhập thông tin" name=""
+                                    readonly class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                    value="@isset($yes){{ $getPaymentOrder[0]->payment == null
+                                        ? number_format($getPaymentOrder[0]->total_price)
+                                        : number_format($getPaymentOrder[0]->total_price - $getPaymentOrder[0]->payment) }}@endisset">
+                            </div>
+                            <div class="d-flex ml-2 align-items-center">
+                                <div class="title-info py-2 border border-top-0 border-left-0">
+                                    <p class="p-0 m-0 px-3">Thanh toán trước</p>
+                                </div>
+                                <input id="prepayment" type="text" placeholder="Nhập thông tin" name="payment"
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 payment_input"
+                                    {{-- oninput="@isset($yes)checkQty(this, {{ $getPaymentOrder[0]->payment == null
                                             ? $getPaymentOrder[0]->total_price
                                             : $getPaymentOrder[0]->total_price - $getPaymentOrder[0]->payment }})@endisset" --}}>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-        </section>
-
-        <section class="content mt-5">
-            <div class="container-fluided">
-                <table class="table table-hover bg-white rounded" id="inputcontent">
-                    <thead>
-                        <tr>
-                            <th class="border-right"><input type="checkbox"> Mã sản phẩm
-                            </th>
-                            <th class="border-right">Tên sản phẩm</th>
-                            <th class="border-right">Đơn vị</th>
-                            <th class="border-right">Số lượng</th>
-                            <th class="border-right">Đơn giá</th>
-                            <th class="border-right">Thuế</th>
-                            <th class="border-right">Thành tiền</th>
-                            <th class="p-0 bg-secondary" style="width:1%;"></th>
-                            <th class="border-right">Ghi chú</th>
-                            <th class="border-top"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
             </div>
-        </section>
-        <?php $import = '123'; ?>
-        <x-formsynthetic :import="$import"></x-formsynthetic>
-    </form>
+    </section>
+
+    <section class="content mt-5">
+        <div class="container-fluided">
+            <table class="table table-hover bg-white rounded" id="inputcontent">
+                <thead>
+                    <tr>
+                        <th class="border-right"><input type="checkbox"> Mã sản phẩm
+                        </th>
+                        <th class="border-right">Tên sản phẩm</th>
+                        <th class="border-right">Đơn vị</th>
+                        <th class="border-right">Số lượng</th>
+                        <th class="border-right">Đơn giá</th>
+                        <th class="border-right">Thuế</th>
+                        <th class="border-right">Thành tiền</th>
+                        <th class="p-0 bg-secondary" style="width:1%;"></th>
+                        <th class="border-right">Ghi chú</th>
+                        <th class="border-top"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <?php $import = '123'; ?>
+    <x-formsynthetic :import="$import"></x-formsynthetic>
+</form>
 </div>
 
 <script src="{{ asset('/dist/js/import.js') }}"></script>

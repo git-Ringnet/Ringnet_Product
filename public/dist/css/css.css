@@ -1677,6 +1677,26 @@ input[type="checkbox"] {
     background-color: #ffff;
     transition: 0.5s;
 }
+.sidenavshow {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 133px;
+    right: 0;
+    background-color: #ffff;
+    transition: 0.5s;
+}
+.sidenavadd {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 78px;
+    right: 0;
+    background-color: #ffff;
+    transition: 0.5s;
+}
 #main {
     transition: margin-right 0.5s;
     padding: 16px;

@@ -105,7 +105,8 @@
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="id"
-                                                    data-sort-type="#"><button class="btn-sort text-secondary text-nav" type="submit">Mã
+                                                    data-sort-type="#"><button
+                                                        class="btn-sort text-secondary text-nav" type="submit">Mã
                                                         nhận hàng</button></a>
                                                 <div class="icon" id="icon-id"></div>
                                             </span>
@@ -113,7 +114,8 @@
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="export_code"
-                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav" type="submit">Đơn mua
+                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav"
+                                                        type="submit">Đơn mua
                                                         hàng#</button></a>
                                                 <div class="icon" id="icon-export_code"></div>
                                             </span>
@@ -121,7 +123,8 @@
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="created_at"
-                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav" type="submit">Nhà
+                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav"
+                                                        type="submit">Nhà
                                                         cung cấp
                                                     </button></a>
                                                 <div class="icon" id="icon-created_at"></div>
@@ -129,8 +132,18 @@
                                         </th>
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="created_at"
+                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav"
+                                                        type="submit">Đơn vị vận chuyển
+                                                    </button></a>
+                                                <div class="icon" id="icon-created_at"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="border-top-0 bg-white">
+                                            <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav" type="submit">Phí
+                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav"
+                                                        type="submit">Phí
                                                         nhận
                                                         hàng</button></a>
                                                 <div class="icon" id="icon-total"></div>
@@ -139,7 +152,8 @@
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav" type="submit">Trạng
+                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav"
+                                                        type="submit">Trạng
                                                         thái</button></a>
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
@@ -147,7 +161,8 @@
                                         <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
-                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav" type="submit">Ngày
+                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav"
+                                                        type="submit">Ngày
                                                         giao
                                                         hàng</button></a>
                                                 <div class="icon" id="icon-total"></div>
@@ -159,13 +174,19 @@
                                     @foreach ($receive as $item)
                                         <tr>
                                             <td><input type="checkbox"></td>
-                                            <td>{{ $item->id }}</td>
+                                            <td>
+                                                <a
+                                                    href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}">
+                                                    {{ $item->id }}
+                                                </a>
+                                            </td>
                                             <td>
                                                 @if ($item->getQuotation)
                                                     {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
                                                 @endif
                                             </td>
                                             <td>{{ $item->getNameProvide->provide_name_display }}</td>
+                                            <td>{{ $item->shipping_unit}}</td>
                                             <td>{{ number_format($item->delivery_charges) }}</td>
                                             <td>
                                                 @if ($item->status == 1)
@@ -175,7 +196,7 @@
                                                 @endif
                                             </td>
                                             <td>{{ date_format(new DateTime($item->created_at), 'd/m/Y') }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 <a
                                                     href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32"
@@ -185,7 +206,7 @@
                                                             fill="#555555"></path>
                                                     </svg>
                                                 </a>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>

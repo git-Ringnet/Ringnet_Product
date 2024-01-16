@@ -8,8 +8,6 @@
         <input type="hidden" name="detailimport_id" id="detailimport_id"
             value="@isset($yes){{ $show_receive['id'] }}@endisset">
         <input type="hidden" value="" name="action" id="getAction">
-
-
         <div class="d-flex justify-content-between align-items-center">
             <div class="container-fluided">
                 <div class="mb-3">
@@ -35,28 +33,29 @@
                 </div>
             </div>
             <div class="container-fluided">
-                <div class="row m-0 mb-1">
+                <div class="row m-0 mb-3">
                     <a href="{{ route('receive.index', $workspacename) }}">
-                        <span class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
-                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                viewBox="0 0 16 16" fill="none">
+                        <button type="button" class="btn-save-print rounded d-flex align-items-center h-100"
+                            style="margin-right:10px">
+                            <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
-                                    fill="#6D7075" />
+                                    fill="#6D7075"></path>
                             </svg>
                             <span>Hủy</span>
-                        </span>
+                        </button>
                     </a>
 
                     <div class="dropdown">
                         <button type="button" data-toggle="dropdown"
-                            class="btn-save-print d-flex align-items-center h-100 dropdown-toggle"
+                            class="btn-save-print d-flex align-items-center h-100 dropdown-toggle rounded"
                             style="margin-right:10px">
-                            <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14"
+                                fill="none" class="mr-2">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M3.75528 1.6875H5.99476H11.9948H12.123C12.3939 1.6875 12.6621 1.74088 12.9123 1.84459C13.1626 1.94829 13.3899 2.10029 13.5814 2.29189L15.7022 4.41269C16.089 4.79939 16.3064 5.32394 16.3065 5.87088V14.25C16.3065 14.797 16.0892 15.3216 15.7024 15.7084C15.3156 16.0952 14.791 16.3125 14.244 16.3125H12.75H5.25H3.83328C3.28894 16.3125 2.76666 16.0973 2.38031 15.7139C1.99396 15.3304 1.77486 14.8098 1.77078 14.2655L1.69278 3.76547C1.69074 3.49333 1.74258 3.22344 1.84531 2.97143C1.94805 2.71941 2.09965 2.49021 2.29137 2.29705C2.4831 2.10389 2.71115 1.95058 2.9624 1.84597C3.21364 1.74135 3.48312 1.68749 3.75528 1.6875ZM5.8125 15.1875H12.1875V9.9645C12.1875 9.74238 12.0071 9.5625 11.7862 9.5625H6.2145C5.99266 9.5625 5.8125 9.74266 5.8125 9.9645V15.1875ZM13.3125 15.1875V9.9645C13.3125 9.12163 12.6289 8.4375 11.7862 8.4375H6.2145C5.37134 8.4375 4.6875 9.12134 4.6875 9.9645V15.1875H3.83326C3.58582 15.1875 3.34842 15.0897 3.17281 14.9154C2.9972 14.7411 2.89761 14.5044 2.89574 14.257L2.81774 3.75703C2.81682 3.63333 2.84038 3.51066 2.88708 3.39611C2.93378 3.28155 3.00269 3.17737 3.08983 3.08957C3.17698 3.00177 3.28064 2.93208 3.39485 2.88453C3.50905 2.83698 3.63154 2.8125 3.75524 2.8125H5.43226V5.18175C5.43226 5.52985 5.57054 5.86369 5.81668 6.10983C6.06282 6.35597 6.39666 6.49425 6.74476 6.49425H11.2448C11.5929 6.49425 11.9267 6.35597 12.1728 6.10983C12.419 5.86369 12.5573 5.52985 12.5573 5.18175V2.91925C12.6414 2.96326 12.7185 3.01991 12.7858 3.08725L14.9068 5.20831C15.0826 5.38405 15.1814 5.62254 15.1815 5.87112V14.25C15.1815 14.4986 15.0827 14.7371 14.9069 14.9129C14.7311 15.0887 14.4926 15.1875 14.244 15.1875H13.3125ZM11.4323 5.18175V2.8125H6.55726V5.18175C6.55726 5.23148 6.57701 5.27917 6.61218 5.31433C6.64734 5.3495 6.69503 5.36925 6.74476 5.36925H11.2448C11.2945 5.36925 11.3422 5.3495 11.3773 5.31433C11.4125 5.27917 11.4323 5.23148 11.4323 5.18175Z"
-                                    fill="white" />
+                                    d="M4.75 0V5.75C4.75 6.5297 5.34489 7.17045 6.10554 7.24313L6.25 7.25H12V12C12 13.1046 11.1046 14 10 14H2C0.89543 14 0 13.1046 0 12V2C0 0.89543 0.89543 0 2 0H4.75ZM6 0L12 6.03022H7C6.44772 6.03022 6 5.5825 6 5.03022V0Z"
+                                    fill="#6D7075" />
                             </svg>
                             <span>Lưu và in</span>
                         </button>
@@ -69,10 +68,10 @@
                     <a href="#" onclick="getAction(this)">
                         <button type="submit" class="custom-btn d-flex align-items-center h-100"
                             style="margin-right:10px" value="action_1">
-                            <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14"
+                                fill="none" class="mr-2">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M3.75528 1.6875H5.99476H11.9948H12.123C12.3939 1.6875 12.6621 1.74088 12.9123 1.84459C13.1626 1.94829 13.3899 2.10029 13.5814 2.29189L15.7022 4.41269C16.089 4.79939 16.3064 5.32394 16.3065 5.87088V14.25C16.3065 14.797 16.0892 15.3216 15.7024 15.7084C15.3156 16.0952 14.791 16.3125 14.244 16.3125H12.75H5.25H3.83328C3.28894 16.3125 2.76666 16.0973 2.38031 15.7139C1.99396 15.3304 1.77486 14.8098 1.77078 14.2655L1.69278 3.76547C1.69074 3.49333 1.74258 3.22344 1.84531 2.97143C1.94805 2.71941 2.09965 2.49021 2.29137 2.29705C2.4831 2.10389 2.71115 1.95058 2.9624 1.84597C3.21364 1.74135 3.48312 1.68749 3.75528 1.6875ZM5.8125 15.1875H12.1875V9.9645C12.1875 9.74238 12.0071 9.5625 11.7862 9.5625H6.2145C5.99266 9.5625 5.8125 9.74266 5.8125 9.9645V15.1875ZM13.3125 15.1875V9.9645C13.3125 9.12163 12.6289 8.4375 11.7862 8.4375H6.2145C5.37134 8.4375 4.6875 9.12134 4.6875 9.9645V15.1875H3.83326C3.58582 15.1875 3.34842 15.0897 3.17281 14.9154C2.9972 14.7411 2.89761 14.5044 2.89574 14.257L2.81774 3.75703C2.81682 3.63333 2.84038 3.51066 2.88708 3.39611C2.93378 3.28155 3.00269 3.17737 3.08983 3.08957C3.17698 3.00177 3.28064 2.93208 3.39485 2.88453C3.50905 2.83698 3.63154 2.8125 3.75524 2.8125H5.43226V5.18175C5.43226 5.52985 5.57054 5.86369 5.81668 6.10983C6.06282 6.35597 6.39666 6.49425 6.74476 6.49425H11.2448C11.5929 6.49425 11.9267 6.35597 12.1728 6.10983C12.419 5.86369 12.5573 5.52985 12.5573 5.18175V2.91925C12.6414 2.96326 12.7185 3.01991 12.7858 3.08725L14.9068 5.20831C15.0826 5.38405 15.1814 5.62254 15.1815 5.87112V14.25C15.1815 14.4986 15.0827 14.7371 14.9069 14.9129C14.7311 15.0887 14.4926 15.1875 14.244 15.1875H13.3125ZM11.4323 5.18175V2.8125H6.55726V5.18175C6.55726 5.23148 6.57701 5.27917 6.61218 5.31433C6.64734 5.3495 6.69503 5.36925 6.74476 5.36925H11.2448C11.2945 5.36925 11.3422 5.3495 11.3773 5.31433C11.4125 5.27917 11.4323 5.23148 11.4323 5.18175Z"
+                                    d="M4.75 0V5.75C4.75 6.5297 5.34489 7.17045 6.10554 7.24313L6.25 7.25H12V12C12 13.1046 11.1046 14 10 14H2C0.89543 14 0 13.1046 0 12V2C0 0.89543 0.89543 0 2 0H4.75ZM6 0L12 6.03022H7C6.44772 6.03022 6 5.5825 6 5.03022V0Z"
                                     fill="white" />
                             </svg>
                             <span>Lưu nháp</span>
@@ -95,7 +94,7 @@
                         </button>
                     </a>
 
-                    <span id="sideProvide">
+                    <span id="sideProvide" class="d-flex align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
                             fill="none">
                             <path
@@ -182,25 +181,25 @@
                             <table id="inputcontent" class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr>
-                                        <th class="border-right p-1"><input type="checkbox">
+                                        <th class="border-right p-1" style="width:15%;"><input type="checkbox">
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-1">
+                                        <th class="border-right p-1" style="width:25%;">
                                             <span class="text-table text-secondary"> Tên sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-1">
+                                        <th class="border-right p-1" style="width:10%;">
                                             <span class="text-table text-secondary">Đơn vị</span>
                                         </th>
-                                        <th class="border-right p-1">
+                                        <th class="border-right p-1" style="width:15%;">
                                             <span class="text-table text-secondary">Số lượng</span>
                                         </th>
-                                        <th class="border-right p-1">
+                                        <th class="border-right p-1" style="width:10%;">
                                             <span class="text-table text-secondary">Quản lý S/N</span>
                                         </th>
-                                        <th class="border-right p-1">
+                                        <th class="border-right p-1" style="width:10%;">
                                             <span class="text-table text-secondary">Ghi chú</span>
                                         </th>
-                                        <th class="border-top p-1"></th>
+                                        <th class="border-top border-right p-1" style="width:1%;"></th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -212,26 +211,29 @@
             </div>
         </section>
         <div class="content-wrapper2 px-0 py-0">
-            <div id="mySidenav" class="sidenav">
+            <div id="mySidenav" class="sidenavadd">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-top-0 py-2 text-center">
-                        <span class="font-weight-bold text-secondary">THÔNG TIN NHÀ CUNG CẤP</span>
+                        <span class="font-weight-bold text-secondary text-nav">THÔNG TIN NHÀ CUNG CẤP</span>
                     </div>
                     {{-- Đơn nhận hàng --}}
-                    <div class="d-flex align-items-center justify-content-between border py-2 px-1">
+                    <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
                         <span class="text-table mr-3">Đơn mua hàng</span>
-                        <input id="search_quotation" type="text" placeholder="Nhập thông tin"
+                        <input readonly id="myInput" type="text" placeholder="Nhập thông tin"
                             name="quotation_number"
-                            class="border w-100 py-2 border-left-0 border-right-0 px-3 search_quotation"
+                            class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest search_quotation"
                             autocomplete="off" required>
                         <input type="hidden" name="detail_id" id="detail_id"
                             value="@isset($yes) {{ $show_receive['id'] }} @endisset">
-                        <ul id="listReceive" class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data list-guest"
+                        <ul id="listReceive"
+                            class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
                             style="z-index: 99; display: block;">
                             <div class="p-1">
                                 <div class="position-relative">
-                                    <input type="text" placeholder="Nhập công ty" class="pr-4 w-100 input-search" id="companyFilter">
-                                    <span id="search-icon" class="search-icon"><i class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                    <input type="text" placeholder="Nhập đơn mua hàng" class="pr-4 w-100 input-search"
+                                        id="provideFilter">
+                                    <span id="search-icon" class="search-icon"><i class="fas fa-search text-table"
+                                            aria-hidden="true"></i></span>
                                 </div>
                             </div>
                             @foreach ($listDetail as $value)
@@ -246,7 +248,7 @@
                             @endforeach
                         </ul>
                         <div class="">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                     d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
@@ -261,136 +263,137 @@
                         </div>
                     </div>
                     <div id="more_info" style="display:none;">
-                    {{-- Nhà cung cấp --}}
-                    <div class="d-flex align-items-center justify-content-between border py-2 px-1">
-                        <span class="text-table mr-3">Nhà cung cấp</span>
-                        <input readonly type="text" id="provide_name" placeholder="Nhập thông tin"
-                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                            value="@isset($yes){{ $show_receive['provide_name'] }}@endisset">
-                        <div class="">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
+                        {{-- Nhà cung cấp --}}
+                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
+                            <span class="text-table mr-3">Nhà cung cấp</span>
+                            <input readonly type="text" id="provide_name" placeholder="Nhập thông tin"
+                                class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest"
+                                value="@isset($yes){{ $show_receive['provide_name'] }}@endisset">
+                            <div class="">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                        fill="#42526E"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        {{-- Người đại diện --}}
+                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
+                            <span class="text-table mr-3">Người đại diện</span>
+                            <input name="represent" type="text" placeholder="Chọn thông tin"
+                                class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest" autocomplete="off"
+                                id="represent">
+                            <div class="">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                        fill="#42526E"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        {{-- Mã thanh toán --}}
+                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
+                            <span class="text-table mr-3">Mã thanh toán</span>
+                            <input type="text" placeholder="Chọn thông tin" name="reference_number"
+                                class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest" autocomplete="off">
+                            <div class="">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                        fill="#42526E"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        {{-- Đơn vị vận chuyển --}}
+                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
+                            <span class="text-table mr-3">Đơn vị vận chuyển</span>
+                            <input type="text" placeholder="Nhập thông tin" name="shipping_unit"
+                                class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest">
+                            <div class="">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                        fill="#42526E"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        {{-- Phí giao hàng --}}
+                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
+                            <span class="text-table mr-3">Phí giao hàng</span>
+                            <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
+                                class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest">
+                            <div class="">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                        fill="#42526E"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        {{-- Ngày giao hàng --}}
+                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
+                            <span class="text-table mr-3">Ngày nhận hàng</span>
+                            <input type="date" placeholder="Nhập thông tin" name="received_date"
+                                class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest"
+                                value="{{ date('Y-m-d') }}">
+                            <div class="">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                        fill="#42526E"></path>
+                                </svg>
+                            </div>
                         </div>
                     </div>
-                    {{-- Người đại diện --}}
-                    <div class="d-flex align-items-center justify-content-between border py-2 px-1">
-                        <span class="text-table mr-3">Người đại diện</span>
-                        <input name="represent" type="text" placeholder="Chọn thông tin"
-                            class="border-0 bg w-50 bg-input-guest py-1" autocomplete="off" id="represent">
-                        <div class="">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    {{-- Mã thanh toán --}}
-                    <div class="d-flex align-items-center justify-content-between border py-2 px-1">
-                        <span class="text-table mr-3">Mã thanh toán</span>
-                        <input type="text" placeholder="Chọn thông tin" name="reference_number"
-                            class="border-0 bg w-50 bg-input-guest py-1" autocomplete="off">
-                        <div class="">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    {{-- Đơn vị vận chuyển --}}
-                    <div class="d-flex align-items-center justify-content-between border py-2 px-1">
-                        <span class="text-table mr-3">Đơn vị vận chuyển</span>
-                        <input type="text" placeholder="Nhập thông tin" name="shipping_unit"
-                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                        <div class="">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    {{-- Phí giao hàng --}}
-                    <div class="d-flex align-items-center justify-content-between border py-2 px-1">
-                        <span class="text-table mr-3">Phí giao hàng</span>
-                        <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
-                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                        <div class="">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    {{-- Ngày giao hàng --}}
-                    <div class="d-flex align-items-center justify-content-between border py-2 px-1">
-                        <span class="text-table mr-3">Ngày nhận hàng</span>
-                        <input type="date" placeholder="Nhập thông tin" name="received_date"
-                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                            value="{{ date('Y-m-d') }}">
-                        <div class="">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
     </div>
 
-<?php $product = []; ?>
-<x-formmodalseri :product="$product" :status="2" id="product"></x-formmodalseri>
+    <?php $product = []; ?>
+    <x-formmodalseri :product="$product" :status="2" id="product"></x-formmodalseri>
 
 </form>
 </div>
@@ -423,7 +426,7 @@
                 },
                 success: function(data) {
                     console.log(data);
-                    $('#search_quotation').val(data.quotation_number == null ? data.id :
+                    $('#myInput').val(data.quotation_number == null ? data.id :
                         data
                         .quotation_number);
                     $('#provide_name').val(data.provide_name);
@@ -469,9 +472,22 @@
                                         </div>
                                     </td> 
                                     <td class="border border-top-0 border-bottom-0 position-relative">
+                                        <div class="d-flex w-100 justify-content-between align-items-center">
                                         <input readonly id="searchProductName" type="text" name="product_name[]" class="searchProductName border-0 px-3 py-2 w-100" value='` +
                                         element.product_name +
                                         `'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                            <path
+                                                d="M8.0002 1.69571C6.32827 1.69571 4.72483 2.35988 3.5426 3.54211C2.36037 4.72434 1.6962 6.32779 1.6962 7.99971C1.6962 9.67164 2.36037 11.2751 3.5426 12.4573C4.72483 13.6395 6.32827 14.3037 8.0002 14.3037C9.67212 14.3037 11.2756 13.6395 12.4578 12.4573C13.64 11.2751 14.3042 9.67164 14.3042 7.99971C14.3042 6.32779 13.64 4.72434 12.4578 3.54211C11.2756 2.35988 9.67212 1.69571 8.0002 1.69571ZM0.304199 7.99971C0.304199 5.9586 1.11503 4.0011 2.55831 2.55782C4.00159 1.11454 5.95909 0.303711 8.0002 0.303711C10.0413 0.303711 11.9988 1.11454 13.4421 2.55782C14.8854 4.0011 15.6962 5.9586 15.6962 7.99971C15.6962 10.0408 14.8854 11.9983 13.4421 13.4416C11.9988 14.8849 10.0413 15.6957 8.0002 15.6957C5.95909 15.6957 4.00159 14.8849 2.55831 13.4416C1.11503 11.9983 0.304199 10.0408 0.304199 7.99971Z"
+                                                    fill="#282A30" />
+                                            <path
+                                                d="M8.08026 4.96571C7.92018 4.95474 7.75956 4.97681 7.60838 5.03055C7.4572 5.08429 7.31869 5.16855 7.20146 5.2781C7.08422 5.38764 6.99077 5.52012 6.92691 5.66732C6.86306 5.81451 6.83015 5.97327 6.83026 6.13371C6.83026 6.31844 6.75688 6.49559 6.62626 6.62621C6.49564 6.75683 6.31848 6.83021 6.13376 6.83021C5.94903 6.83021 5.77188 6.75683 5.64126 6.62621C5.51064 6.49559 5.43726 6.31844 5.43726 6.13371C5.43716 5.6638 5.56625 5.20289 5.81043 4.8014C6.05461 4.3999 6.40447 4.07326 6.82176 3.85719C7.23906 3.64111 7.70773 3.54393 8.17653 3.57625C8.64534 3.60856 9.09623 3.76915 9.47993 4.04044C9.86363 4.31174 10.1654 4.6833 10.3521 5.1145C10.5389 5.54571 10.6035 6.01997 10.5389 6.48542C10.4744 6.95088 10.283 7.38963 9.98593 7.75369C9.68881 8.11776 9.29732 8.39314 8.85426 8.54971C8.80815 8.56625 8.76829 8.59666 8.74018 8.63678C8.71206 8.67689 8.69707 8.72473 8.69726 8.77371V9.39971C8.69726 9.58444 8.62387 9.76159 8.49326 9.89221C8.36264 10.0228 8.18548 10.0962 8.00076 10.0962C7.81603 10.0962 7.63888 10.0228 7.50826 9.89221C7.37764 9.76159 7.30426 9.58444 7.30426 9.39971V8.77371C7.30416 8.43668 7.40854 8.10791 7.60303 7.83265C7.79752 7.5574 8.07255 7.3492 8.39026 7.23671C8.64378 7.14687 8.85861 6.97241 8.99857 6.74271C9.13853 6.51302 9.19507 6.24211 9.15867 5.97561C9.12228 5.70911 8.99517 5.46328 8.79875 5.27952C8.60233 5.09576 8.34859 4.98429 8.08026 4.96571Z"
+                                                    fill="#282A30" />
+                                            <path
+                                                d="M8.05029 11.5707C8.00282 11.5707 7.95729 11.5896 7.92372 11.6231C7.89015 11.6567 7.87129 11.7022 7.87129 11.7497C7.87129 11.7972 7.89015 11.8427 7.92372 11.8763C7.95729 11.9099 8.00282 11.9287 8.05029 11.9287C8.09777 11.9287 8.1433 11.9099 8.17686 11.8763C8.21043 11.8427 8.22929 11.7972 8.22929 11.7497C8.22929 11.7022 8.21043 11.6567 8.17686 11.6231C8.1433 11.5896 8.09777 11.5707 8.05029 11.5707ZM8.05029 12.4997C8.14878 12.4997 8.24631 12.4803 8.33731 12.4426C8.4283 12.4049 8.51098 12.3497 8.58062 12.28C8.65027 12.2104 8.70551 12.1277 8.7432 12.0367C8.78089 11.9457 8.80029 11.8482 8.80029 11.7497C8.80029 11.6512 8.78089 11.5537 8.7432 11.4627C8.70551 11.3717 8.65027 11.289 8.58062 11.2194C8.51098 11.1497 8.4283 11.0945 8.33731 11.0568C8.24631 11.0191 8.14878 10.9997 8.05029 10.9997C7.85138 10.9997 7.66061 11.0787 7.51996 11.2194C7.37931 11.36 7.30029 11.5508 7.30029 11.7497C7.30029 11.9486 7.37931 12.1394 7.51996 12.28C7.66061 12.4207 7.85138 12.4997 8.05029 12.4997Z"
+                                                    fill="#282A30" />
+                                        </svg>
+                                        </div>
                                     </td>   
                                     <td> 
                                         <input readonly type="text" name="product_unit[]" class="border-0 px-3 py-2 w-100 product_unit" value="` +
@@ -531,9 +547,7 @@
                                     <input type="hidden" class="border-0 px-3 py-2 w-100 total_price"
                                         name="total_price[]" value="` + formatCurrency(element.product_total) + `" readonly>             
                                     <td class="border border-top-0 border deleteRow">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5454 5C10.2442 5 9.99999 5.24421 9.99999 5.54545C9.99999 5.8467 10.2442 6.09091 10.5454 6.09091H13.4545C13.7558 6.09091 14 5.8467 14 5.54545C14 5.24421 13.7558 5 13.4545 5H10.5454ZM6 7.72726C6 7.42601 6.24421 7.18181 6.54545 7.18181H7.63637H16.3636H17.4545C17.7558 7.18181 18 7.42601 18 7.72726C18 8.02851 17.7558 8.27272 17.4545 8.27272H16.9091V17C16.9091 18.2113 15.9118 19.1818 14.7135 19.1818H9.25891C8.97278 19.1816 8.68906 19.1247 8.42499 19.0145C8.16092 18.9044 7.92126 18.7431 7.71979 18.5399C7.51833 18.3367 7.35905 18.0957 7.25112 17.8307C7.14347 17.5664 7.08903 17.2834 7.09091 16.9981V8.27272H6.54545C6.24421 8.27272 6 8.02851 6 7.72726ZM8.18182 17.0041V8.27272H15.8182V17C15.8182 17.5966 15.3216 18.0909 14.7135 18.0909H9.25938C9.11713 18.0908 8.97632 18.0625 8.84503 18.0077C8.71375 17.953 8.5946 17.8728 8.49444 17.7718C8.39429 17.6707 8.3151 17.5509 8.26144 17.4192C8.20779 17.2874 8.18074 17.1464 8.18182 17.0041ZM13.4545 10.0909C13.7558 10.0909 14 10.3351 14 10.6364V15.7273C14 16.0285 13.7558 16.2727 13.4545 16.2727C13.1533 16.2727 12.9091 16.0285 12.9091 15.7273V10.6364C12.9091 10.3351 13.1533 10.0909 13.4545 10.0909ZM11.0909 10.6364C11.0909 10.3351 10.8467 10.0909 10.5454 10.0909C10.2442 10.0909 9.99999 10.3351 9.99999 10.6364V15.7273C9.99999 16.0285 10.2442 16.2727 10.5454 16.2727C10.8467 16.2727 11.0909 16.0285 11.0909 15.7273V10.6364Z" fill="#42526E"></path>
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.3687 6.09375C12.6448 6.09375 12.8687 6.30362 12.8687 6.5625C12.8687 6.59865 12.8642 6.63468 12.8554 6.66986L11.3628 12.617C11.1502 13.4639 10.3441 14.0625 9.41597 14.0625H6.58403C5.65593 14.0625 4.84977 13.4639 4.6372 12.617L3.14459 6.66986C3.08135 6.41786 3.24798 6.16551 3.51678 6.10621C3.55431 6.09793 3.59274 6.09375 3.6313 6.09375H12.3687ZM8.5 0.9375C9.88071 0.9375 11 1.98683 11 3.28125H13C13.5523 3.28125 14 3.70099 14 4.21875V4.6875C14 4.94638 13.7761 5.15625 13.5 5.15625H2.5C2.22386 5.15625 2 4.94638 2 4.6875V4.21875C2 3.70099 2.44772 3.28125 3 3.28125H5C5 1.98683 6.11929 0.9375 7.5 0.9375H8.5ZM8.5 2.34375H7.5C6.94772 2.34375 6.5 2.76349 6.5 3.28125H9.5C9.5 2.76349 9.05228 2.34375 8.5 2.34375Z" fill="#6B6F76"></path></svg>
                                     </td>
                                 </tr>`;
                                     $('#inputcontent tbody').append(tr);
