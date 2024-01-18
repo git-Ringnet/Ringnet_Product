@@ -242,9 +242,9 @@
 
                 <section id="files" class="tab-pane fade">
                     <div class="bg-filter-search border-bottom-0 text-center py-2">
-                        <span class="font-weight-bold text-secondary text-nav">File đính kèm</span>
+                        <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
                     </div>
-                    <x-form-attachment :value="$reciept" name="DNH"></x-form-attachment>
+                    <x-form-attachment :value="$reciept" name="HDMH"></x-form-attachment>
                 </section>
 
 

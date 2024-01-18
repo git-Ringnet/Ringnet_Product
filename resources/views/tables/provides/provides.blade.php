@@ -1,16 +1,18 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="provide"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div class="content-wrapper1 py-0 border-bottom px-4">
     <!-- Content Header (Page header) -->
-    <section class="content-header p-0">
+    <div class="d-flex justify-content-between align-items-center">
         <div class="container-fluided">
             <div class="mb-3">
                 <span>Mua hàng</span>
                 <span>/</span>
                 <span class="font-weight-bold">Nhà cung cấp</span>
             </div>
-            <div class="row m-0 mb-1">
-                <a href="{{ route('provides.create',$workspacename) }}">
+        </div>
+        <div class="container-fluided">
+            <div class="row m-0 mb-3">
+                <a href="{{ route('provides.create', $workspacename) }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -24,147 +26,104 @@
                         <span>Tạo mới</span>
                     </button>
                 </a>
-                <button class="btn-option">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                            fill="#42526E" />
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                            fill="#42526E" />
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                            fill="#42526E" />
-                    </svg>
-                </button>
             </div>
         </div>
-    </section>
-    <hr class="mt-3">
+    </div>
+</div>
 
+<div class="bg-filter-search">
+    <div class="content-wrapper1 py-1">
+        <div class="row m-auto filter pt-1">
+            <div class="w-100">
+                <div class="row mr-0">
+                    <div class="col-md-5 d-flex">
+                        <form action="" method="get" id="search-filter">
+                            <div class="position-relative">
+                                <input type="text" placeholder="Tìm kiếm" name="keywords"
+                                    class="pr-4 w-100 input-search" value="{{ request()->keywords }}">
+                                <span id="search-icon" class="search-icon"><i class="fas fa-search"
+                                        aria-hidden="true"></i></span>
+                            </div>
+                        </form>
+                        <div class="dropdown">
+                            <button class="filter-btn ml-2 align-items-center d-flex border" data-toggle="dropdown">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
+                                        fill="#6D7075"></path>
+                                    <path
+                                        d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
+                                        fill="#6D7075"></path>
+                                    <path
+                                        d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
+                                        fill="#6D7075"></path>
+                                    <path
+                                        d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
+                                        fill="#6D7075"></path>
+                                </svg>
+                                <span class="text-secondary mx-1"> Bộ lọc</span>
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
+                                        fill="#6D7075"></path>
+                                </svg>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="content-wrapper py-0 px-2" style="min-height: 335px;">
     {{-- Content --}}
     <section class="content">
         <div class="container-fluided">
             <div class="row">
                 <div class="col-12">
-                    <div class="row m-auto filter pt-2 pb-4">
-                        <form class="w-100" action="" method="get" id='search-filter'>
-                            <div class="col-12 col-md-12 mr-0">
-                                <div class="row d-flex">
-                                    <div class="position-relative">
-                                        <input type="text" placeholder="Tìm kiếm" id="search" name="keywords"
-                                            class="pr-4 w-100 input-search" value="{{ request()->keywords }}">
-                                        <span id="search-icon" class="search-icon"><i
-                                                class="fas fa-search btn-submit"></i></span>
-                                        <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
-                                            style="display: none;">
-                                    </div>
-                                    <div class="dropdown mx-2">
-                                        <button class="btn filter-btn" type="button" id="dropdownMenuButton"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span>
-                                                Bộ lọc<svg width="18" height="18" viewBox="0 0 18 18"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
-                                                        fill="white" />
-                                                </svg>
-                                            </span>
-                                        </button>
-                                        <div class="dropdown-menu" id="dropdown-menu"
-                                            aria-labelledby="dropdownMenuButton">
-                                            <div class="search-container px-2">
-                                                <input type="text" placeholder="Tìm kiếm" id="myInput"
-                                                    onkeyup="filterFunction()">
-                                                <span class="search-icon"><i class="fas fa-search"></i></span>
-                                            </div>
-                                            <div class="scrollbar">
-                                                <button class="dropdown-item btndropdown" id="btn-name"
-                                                    data-button="name" type="button">Tên</button>
-                                                <button class="dropdown-item btndropdown" id="btn-code"
-                                                    data-button="code" type="button">Mã số thuế</button>
-                                                <button class="dropdown-item btndropdown" id="btn-email"
-                                                    data-button="email" type="button">Email</button>
-                                                <button class="dropdown-item btndropdown" id="btn-phone"
-                                                    data-button="phone" type="button">Điện
-                                                    thoại</button>
-                                                <button class="dropdown-item btndropdown" id="btn-debt"
-                                                    data-button="debt" type="button">Dư
-                                                    nợ</button>
-                                            </div>
-                                        </div>
-                                        <x-filter-text name="email" title="Email" />
-                                        <x-filter-checkbox :dataa="$dataa" name="name" title="Tên"
-                                            namedisplay="provide_name_display" />
-                                        <x-filter-checkbox :dataa="$dataa" name="code" title="Mã số thuế"
-                                            namedisplay="provide_code" />
-                                        <x-filter-text name="phone" title="Điện thoại" />
-                                        <x-filter-compare name="debt" title="Dư nợ" />
-                                    </div>
-                                    <div class="filter-results d-flex m-0">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
                     <div class="card scroll-custom">
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example2" class="table table-hover">
                                 <thead class="sticky-head">
                                     <tr>
-                                        <th style="width: 2%"><input type="checkbox" name="all" id="checkall">
-                                        </th>
-                                        <th scope="col">
+                                        <th class="border-top-0 bg-white"><input type="checkbox" name="all"
+                                                id="checkall"></th>
+                                        <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
-                                                <a href="#" class="sort-link"
-                                                    data-sort-by="provide_name_display" data-sort-type="ASC"><button
-                                                        class="btn-sort" type="submit">Tên
-                                                    </button></a>
-                                                <div class="icon" id="icon-provide_name_display"></div>
+                                                <a href="#" class="sort-link" data-sort-by="id"
+                                                    data-sort-type="#"><button class="btn-sort text-secondary text-nav"
+                                                        type="submit">Tên hiển thị</button></a>
+                                                <div class="icon" id="icon-id"></div>
                                             </span>
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
-                                                <a href="#" class="sort-link" data-sort-by="provide_code"
-                                                    data-sort-type="ASC"><button class="btn-sort" type="submit">Mã
-                                                        số
-                                                        thuế
-                                                    </button></a>
-                                                <div class="icon" id="icon-provide_code"></div>
+                                                <a href="#" class="sort-link" data-sort-by="export_code"
+                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav"
+                                                        type="submit">Mã số thuế</button></a>
+                                                <div class="icon" id="icon-export_code"></div>
                                             </span>
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="border-top-0 bg-white">
                                             <span class="d-flex">
-                                                <a href="#" class="sort-link" data-sort-by="provide_email"
-                                                    data-sort-type="ASC"><button class="btn-sort"
-                                                        type="submit">Email
-                                                    </button></a>
-                                                <div class="icon" id="icon-provide_email"></div>
+                                                <a href="#" class="sort-link" data-sort-by="total"
+                                                    data-sort-type=""><button class="btn-sort text-secondary text-nav"
+                                                        type="submit">Dư
+                                                        nợ</button></a>
+                                                <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col">
-                                            <span class="d-flex">
-                                                <a href="#" class="sort-link" data-sort-by="provide_phone"
-                                                    data-sort-type="ASC"><button class="btn-sort" type="submit">Điện
-                                                        thoại
-                                                    </button></a>
-                                                <div class="icon" id="icon-provide_phone"></div>
-                                            </span>
-                                        </th>
-                                        <th scope="col">
-                                            <span class="d-flex">
-                                                <a href="#" class="sort-link" data-sort-by="provide_debt"
-                                                    data-sort-type="ASC"><button class="btn-sort" type="submit">Dư
-                                                        nợ
-                                                    </button></a>
-                                                <div class="icon" id="icon-provide_debt"></div>
-                                            </span>
-                                        </th>
-                                        <th scope="col" style="width:5%;">
-                                        </th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -173,11 +132,10 @@
                                             <td><input type="checkbox"></td>
                                             <td>{{ $item->provide_name_display }}</td>
                                             <td>{{ $item->provide_code }}</td>
-                                            <td>{{ $item->provide_email }}</td>
-                                            <td>{{ $item->provide_phone }}</td>
                                             <td>{{ number_format($item->provide_debt) }}</td>
                                             <td>
-                                                <a href="{{ route('provides.show', ['workspace' => $workspacename ,'provide'=> $item->id]) }}">
+                                                <a
+                                                    href="{{ route('provides.show', ['workspace' => $workspacename, 'provide' => $item->id]) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32"
                                                         height="32" viewBox="0 0 32 32" fill="none">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -189,8 +147,8 @@
                                             </td>
                                             <td>
                                                 <form onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                    action="{{ route('provides.destroy', ['workspace' => $workspacename ,'provide' => $item->id]) }}" method="POST"
-                                                    class="d-inline">
+                                                    action="{{ route('provides.destroy', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
+                                                    method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm"><svg
@@ -210,10 +168,206 @@
                             </table>
                         </div>
                     </div>
+                    <div class="ml-3">
+                        <span class="text-perpage">
+                            Hiển thị:
+                            <select name="perPage" id="perPage" class="border-0">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                            </select>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- Content --}}
+<section class="content">
+    <div class="container-fluided">
+        <div class="row">
+            <div class="col-12">
+                <div class="row m-auto filter pt-2 pb-4">
+                    <form class="w-100" action="" method="get" id='search-filter'>
+                        <div class="col-12 col-md-12 mr-0">
+                            <div class="row d-flex">
+                                <div class="position-relative">
+                                    <input type="text" placeholder="Tìm kiếm" id="search" name="keywords"
+                                        class="pr-4 w-100 input-search" value="{{ request()->keywords }}">
+                                    <span id="search-icon" class="search-icon"><i
+                                            class="fas fa-search btn-submit"></i></span>
+                                    <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
+                                        style="display: none;">
+                                </div>
+                                <div class="dropdown mx-2">
+                                    <button class="btn filter-btn" type="button" id="dropdownMenuButton"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span>
+                                            Bộ lọc<svg width="18" height="18" viewBox="0 0 18 18"
+                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
+                                                    fill="white" />
+                                            </svg>
+                                        </span>
+                                    </button>
+                                    <div class="dropdown-menu" id="dropdown-menu"
+                                        aria-labelledby="dropdownMenuButton">
+                                        <div class="search-container px-2">
+                                            <input type="text" placeholder="Tìm kiếm" id="myInput"
+                                                onkeyup="filterFunction()">
+                                            <span class="search-icon"><i class="fas fa-search"></i></span>
+                                        </div>
+                                        <div class="scrollbar">
+                                            <button class="dropdown-item btndropdown" id="btn-name"
+                                                data-button="name" type="button">Tên</button>
+                                            <button class="dropdown-item btndropdown" id="btn-code"
+                                                data-button="code" type="button">Mã số thuế</button>
+                                            <button class="dropdown-item btndropdown" id="btn-email"
+                                                data-button="email" type="button">Email</button>
+                                            <button class="dropdown-item btndropdown" id="btn-phone"
+                                                data-button="phone" type="button">Điện
+                                                thoại</button>
+                                            <button class="dropdown-item btndropdown" id="btn-debt"
+                                                data-button="debt" type="button">Dư
+                                                nợ</button>
+                                        </div>
+                                    </div>
+                                    <x-filter-text name="email" title="Email" />
+                                    <x-filter-checkbox :dataa="$dataa" name="name" title="Tên"
+                                        namedisplay="provide_name_display" />
+                                    <x-filter-checkbox :dataa="$dataa" name="code" title="Mã số thuế"
+                                        namedisplay="provide_code" />
+                                    <x-filter-text name="phone" title="Điện thoại" />
+                                    <x-filter-compare name="debt" title="Dư nợ" />
+                                </div>
+                                <div class="filter-results d-flex m-0">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card scroll-custom">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-hover">
+                            <thead class="sticky-head">
+                                <tr>
+                                    <th style="width: 2%"><input type="checkbox" name="all" id="checkall">
+                                    </th>
+                                    <th scope="col">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link" data-sort-by="provide_name_display"
+                                                data-sort-type="ASC"><button class="btn-sort" type="submit">Tên
+                                                </button></a>
+                                            <div class="icon" id="icon-provide_name_display"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link" data-sort-by="provide_code"
+                                                data-sort-type="ASC"><button class="btn-sort" type="submit">Mã
+                                                    số
+                                                    thuế
+                                                </button></a>
+                                            <div class="icon" id="icon-provide_code"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link" data-sort-by="provide_email"
+                                                data-sort-type="ASC"><button class="btn-sort" type="submit">Email
+                                                </button></a>
+                                            <div class="icon" id="icon-provide_email"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link" data-sort-by="provide_phone"
+                                                data-sort-type="ASC"><button class="btn-sort" type="submit">Điện
+                                                    thoại
+                                                </button></a>
+                                            <div class="icon" id="icon-provide_phone"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col">
+                                        <span class="d-flex">
+                                            <a href="#" class="sort-link" data-sort-by="provide_debt"
+                                                data-sort-type="ASC"><button class="btn-sort" type="submit">Dư
+                                                    nợ
+                                                </button></a>
+                                            <div class="icon" id="icon-provide_debt"></div>
+                                        </span>
+                                    </th>
+                                    <th scope="col" style="width:5%;">
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($provides as $item)
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>{{ $item->provide_name_display }}</td>
+                                        <td>{{ $item->provide_code }}</td>
+                                        <td>{{ $item->provide_email }}</td>
+                                        <td>{{ $item->provide_phone }}</td>
+                                        <td>{{ number_format($item->provide_debt) }}</td>
+                                        <td>
+                                            <a
+                                                href="{{ route('provides.show', ['workspace' => $workspacename, 'provide' => $item->id]) }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                    viewBox="0 0 32 32" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M18.7832 6.79483C18.987 6.71027 19.2056 6.66675 19.4263 6.66675C19.6471 6.66675 19.8656 6.71027 20.0695 6.79483C20.2734 6.87938 20.4586 7.00331 20.6146 7.15952L21.9607 8.50563C22.1169 8.66165 22.2408 8.84693 22.3253 9.05087C22.4099 9.25482 22.4534 9.47342 22.4534 9.69419C22.4534 9.91495 22.4099 10.1336 22.3253 10.3375C22.2408 10.5414 22.1169 10.7267 21.9607 10.8827L20.2809 12.5626C20.2711 12.5736 20.2609 12.5844 20.2503 12.595C20.2397 12.6056 20.2289 12.6158 20.2178 12.6256L11.5607 21.2827C11.4257 21.4177 11.2426 21.4936 11.0516 21.4936H8.34644C7.94881 21.4936 7.62647 21.1712 7.62647 20.7736V18.0684C7.62647 17.8775 7.70233 17.6943 7.83737 17.5593L16.4889 8.9086C16.5003 8.89532 16.5124 8.88235 16.525 8.86973C16.5376 8.8571 16.5506 8.84504 16.5639 8.83354L18.2381 7.15952C18.394 7.00352 18.5795 6.8793 18.7832 6.79483ZM17.0354 10.3984L9.06641 18.3667V20.0536H10.7534L18.7221 12.085L17.0354 10.3984ZM19.7402 11.0668L18.0537 9.38022L19.2572 8.17685C19.2794 8.15461 19.3057 8.13696 19.3348 8.12493C19.3638 8.11289 19.3949 8.10669 19.4263 8.10669C19.4578 8.10669 19.4889 8.11289 19.5179 8.12493C19.5469 8.13697 19.5737 8.15504 19.5959 8.17728L20.9428 9.52411C20.9651 9.5464 20.9831 9.57315 20.9951 9.60228C21.0072 9.63141 21.0134 9.66264 21.0134 9.69419C21.0134 9.72573 21.0072 9.75696 20.9951 9.78609C20.9831 9.81522 20.9651 9.84197 20.9428 9.86426L19.7402 11.0668ZM6.6665 24.6134C6.6665 24.2158 6.98885 23.8935 7.38648 23.8935H24.6658C25.0634 23.8935 25.3858 24.2158 25.3858 24.6134C25.3858 25.0111 25.0634 25.3334 24.6658 25.3334H7.38648C6.98885 25.3334 6.6665 25.0111 6.6665 24.6134Z"
+                                                        fill="#555555"></path>
+                                                </svg>
+                                            </a>
+
+                                        </td>
+                                        <td>
+                                            <form onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
+                                                action="{{ route('provides.destroy', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="32"
+                                                        height="32" viewBox="0 0 32 32" fill="none">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M14.0606 6.66675C13.6589 6.66675 13.3333 6.99236 13.3333 7.39402C13.3333 7.79568 13.6589 8.12129 14.0606 8.12129H17.9394C18.341 8.12129 18.6667 7.79568 18.6667 7.39402C18.6667 6.99236 18.341 6.66675 17.9394 6.66675H14.0606ZM8 10.3031C8 9.90143 8.32561 9.57582 8.72727 9.57582H10.1818H21.8182H23.2727C23.6744 9.57582 24 9.90143 24 10.3031C24 10.7048 23.6744 11.0304 23.2727 11.0304H22.5455V22.6667C22.5455 24.2819 21.2158 25.5758 19.6179 25.5758H12.3452C11.9637 25.5755 11.5854 25.4997 11.2333 25.3528C10.8812 25.2059 10.5617 24.9908 10.2931 24.7199C10.0244 24.449 9.81206 24.1276 9.66816 23.7743C9.52463 23.4219 9.45204 23.0447 9.45455 22.6642V11.0304H8.72727C8.32561 11.0304 8 10.7048 8 10.3031ZM10.9091 22.6723V11.0304H21.0909V22.6667C21.0909 23.4623 20.4288 24.1213 19.6179 24.1213H12.3458C12.1562 24.1211 11.9684 24.0834 11.7934 24.0104C11.6183 23.9374 11.4595 23.8304 11.3259 23.6958C11.1924 23.5611 11.0868 23.4013 11.0153 23.2257C10.9437 23.05 10.9076 22.8619 10.9091 22.6723ZM17.9394 13.4546C18.3411 13.4546 18.6667 13.7802 18.6667 14.1819V20.9698C18.6667 21.3714 18.3411 21.6971 17.9394 21.6971C17.5377 21.6971 17.2121 21.3714 17.2121 20.9698V14.1819C17.2121 13.7802 17.5377 13.4546 17.9394 13.4546ZM14.7879 14.1819C14.7879 13.7802 14.4623 13.4546 14.0606 13.4546C13.6589 13.4546 13.3333 13.7802 13.3333 14.1819V20.9698C13.3333 21.3714 13.6589 21.6971 14.0606 21.6971C14.4623 21.6971 14.7879 21.3714 14.7879 20.9698V14.1819Z"
+                                                            fill="#555555">
+                                                        </path>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 </div>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 
