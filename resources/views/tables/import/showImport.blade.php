@@ -38,13 +38,12 @@
                         @else
                             Chình thức
                         @endif
-
                     </span>
                 </div>
             </div>
             <div class="container-fluided">
                 <div class="row m-0 mb-3">
-                    <a href="http://127.0.0.1:8000/Ringnet/import">
+                    <a href="{{route('import.index',$workspacename)}}">
                         <button type="button" class="btn-save-print rounded d-flex align-items-center h-100"
                             style="margin-right:10px">
                             <svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 8"
