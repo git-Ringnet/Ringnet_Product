@@ -1649,7 +1649,7 @@ input[type="checkbox"] {
 @media (min-width: 768px) {
     .content-wrapper1 {
         transition: margin-left 0.3s ease-in-out;
-        margin-left: 230px;
+        margin-left: 250px;
     }
 }
 @media (max-width: 991.98px) {
