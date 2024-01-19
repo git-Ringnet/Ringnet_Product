@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\HistoryImport;
+use App\Models\ImportDB;
 use App\Models\ProductImport;
 use App\Models\Products;
 use App\Models\Provides;
@@ -13,6 +14,7 @@ use App\Models\Workspace;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use ZipArchive;
 
 class ProductController extends Controller
@@ -38,7 +40,7 @@ class ProductController extends Controller
         $title = "Kho 1";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.products.products', compact('product', 'title','workspacename'));
+        return view('tables.products.products', compact('product', 'title', 'workspacename'));
     }
 
     /**
@@ -50,7 +52,7 @@ class ProductController extends Controller
         $title = "Thêm sản phẩm";
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.products.insertProduct', compact('warehouse', 'title','workspacename'));
+        return view('tables.products.insertProduct', compact('warehouse', 'title', 'workspacename'));
     }
 
     /**
@@ -62,9 +64,9 @@ class ProductController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($add == 0) {
-            $msg = redirect()->route('inventory.index',$workspacename)->with('warning', 'Sản phẩm đã tồn tại !');
+            $msg = redirect()->route('inventory.index', $workspacename)->with('warning', 'Sản phẩm đã tồn tại !');
         } else {
-            $msg = redirect()->route('inventory.index',$workspacename)->with('msg', 'Thêm sản phẩm mới thành công !');
+            $msg = redirect()->route('inventory.index', $workspacename)->with('msg', 'Thêm sản phẩm mới thành công !');
         }
 
         return $msg;
@@ -83,7 +85,7 @@ class ProductController extends Controller
             $title = $product->product_name;
         }
         $history = ProductImport::where('product_id', $id)->get();
-        return view('tables.products.showProduct', compact('product', 'title', 'display', 'history','workspacename'));
+        return view('tables.products.showProduct', compact('product', 'title', 'display', 'history', 'workspacename'));
     }
 
     /**
@@ -98,7 +100,7 @@ class ProductController extends Controller
         if ($product) {
             $title = $product->product_name;
         }
-        return view('tables.products.editProduct', compact('product', 'title', 'display','workspacename'));
+        return view('tables.products.editProduct', compact('product', 'title', 'display', 'workspacename'));
     }
 
     /**
@@ -110,9 +112,9 @@ class ProductController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($data == 1) {
-            return redirect()->route('inventory.index',$workspacename)->with('msg', 'Chỉnh sửa sản phẩm thành công !');
+            return redirect()->route('inventory.index', $workspacename)->with('msg', 'Chỉnh sửa sản phẩm thành công !');
         } else {
-            return redirect()->route('inventory.index',$workspacename)->with('warning', 'Chỉnh sửa sản phẩm thất bại !');
+            return redirect()->route('inventory.index', $workspacename)->with('warning', 'Chỉnh sửa sản phẩm thất bại !');
         }
     }
 
@@ -131,7 +133,7 @@ class ProductController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $product = $this->products->getAllProducts();
-        return view('tables.products.editInventory', compact('product', 'title','workspacename'));
+        return view('tables.products.editInventory', compact('product', 'title', 'workspacename'));
     }
 
     public function showProductInventory($id)
@@ -143,7 +145,7 @@ class ProductController extends Controller
         if ($product) {
             $title = $product->product_name;
         }
-        return view('tables.products.editProduct', compact('product', 'title', 'display','workspacename'));
+        return view('tables.products.editProduct', compact('product', 'title', 'display', 'workspacename'));
     }
     public function search(Request $request)
     {
@@ -228,5 +230,15 @@ class ProductController extends Controller
 
         // Trả về tệp đã được backup và thiết lập header để tải về
         return response()->download($fileName)->deleteFileAfterSend(true);
+    }
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+        // dd($request->file('file'));
+        Excel::import(new ImportDB(), $request->file('file'));
+
+        return redirect()->back()->with('success', 'Dữ liệu đã được import thành công.');
     }
 }

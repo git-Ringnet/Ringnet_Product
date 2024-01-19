@@ -63,12 +63,12 @@ class Serialnumber extends Model
         foreach ($data as $value) {
             foreach ($value as $SN => $productName) {
                 $product = Products::where('product_name', $SN)
-                ->where('workspace_id', Auth::user()->current_workspace)
-                ->first();
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->first();
                 if ($product) {
                     $checkSN = Serialnumber::where('product_id', $product->id)
-                    ->where('workspace_id', Auth::user()->current_workspace)
-                    ->get();
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->get();
                     foreach ($productName['sn'] as $SN) {
                         foreach ($checkSN as $list) {
                             if ($list->serinumber == $SN) {
@@ -80,5 +80,33 @@ class Serialnumber extends Model
             }
         }
         return response()->json(['success' => true]);
+    }
+    function getProductIdsHistory($keywords)
+    {
+        if (!empty($keywords)) {
+            $serinumber = Serialnumber::leftJoin('delivery', 'delivery.detailexport_id', 'serialnumber.detailexport_id')
+                ->where('serialnumber.serinumber', 'like', '%' . $keywords . '%')
+                ->select('*', 'serialnumber.id as idSeri')
+                ->get();
+            $product = [];
+
+            foreach ($serinumber as $value) {
+                $pair = [
+                    'product_id' => $value->product_id,
+                    'delivery_id' => $value->delivery_id,
+                ];
+                array_push($product, $pair);
+            }
+        }
+        $deliveredIds = [];
+        foreach ($product as $item) {
+            $delivered = Delivered::where('product_id', $item['product_id'])
+                ->where('delivery_id', $item['delivery_id'])
+                ->pluck('id');
+            if ($delivered->isNotEmpty()) {
+                $deliveredIds = array_merge($deliveredIds, $delivered->toArray());
+            }
+        }
+        return $deliveredIds;
     }
 }

@@ -423,7 +423,15 @@ class Delivery extends Model
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];
-            DB::table('delivered')->insert($dataDelivered);
+            $delivered_id = DB::table('delivered')->insertGetId($dataDelivered);
+            // Add lịch sử giao dịch
+            $history = new History();
+            $dataHistory = [
+                'detailexport_id' => $data['detailexport_id'],
+                'delivered_id' => $delivered_id,
+            ];
+            $history->addHistory($dataHistory);
+
             //thêm sản phẩm từ đơn giao hàng
             $checkProduct = Products::where('product_name', $data['product_name'][$i])->first();
             if (!$checkProduct) {

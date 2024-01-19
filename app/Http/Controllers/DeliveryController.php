@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Delivered;
 use App\Models\Delivery;
 use App\Models\DetailExport;
+use App\Models\History;
 use App\Models\productBill;
 use App\Models\productPay;
 use App\Models\Products;
@@ -25,6 +26,7 @@ class DeliveryController extends Controller
     private $delivered;
     private $detailExport;
     private $workspaces;
+    private $history;
 
     public function __construct()
     {
@@ -33,6 +35,7 @@ class DeliveryController extends Controller
         $this->delivered = new Delivered();
         $this->detailExport = new DetailExport();
         $this->workspaces = new Workspace();
+        $this->history = new History();
     }
     public function index()
     {
@@ -73,6 +76,7 @@ class DeliveryController extends Controller
      */
     public function store(string $workspace, Request $request)
     {
+
         if ($request->action == 1) {
             $delivery_id = $this->delivery->addDelivery($request->all());
             $this->delivered->addDelivered($request->all(), $delivery_id);
@@ -80,6 +84,7 @@ class DeliveryController extends Controller
         }
         if ($request->action == 2) {
             $this->delivery->acceptDelivery($request->all());
+            // dd($request->all());
             return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
         }
     }
@@ -131,6 +136,17 @@ class DeliveryController extends Controller
                     'status' => 2,
                 ]);
                 $this->delivery->updateDetailExport($request->all(), $delivery->detailexport_id);
+
+                // Add lịch sử giao dịch
+                $delivered = DB::table('delivered')->where('delivery_id', $id)->get();
+                foreach ($delivered as $item) {
+                    $history = new History();
+                    $dataHistory = [
+                        'detailexport_id' => $delivery->detailexport_id,
+                        'delivered_id' => $item->id,
+                    ];
+                    $history->addHistory($dataHistory);
+                }
                 return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
             }
         }

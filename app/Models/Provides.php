@@ -198,4 +198,11 @@ class Provides extends Model
         $provides = $provides->get();
         return $provides;
     }
+    public function model(array $row)
+    {
+        return new Provides([
+            'provide_name_display' => $row['C'], // Thay $row[0] bằng cột tương ứng trong file Excel
+            'provide_code' => $row['D'],
+        ]);
+    }
 }

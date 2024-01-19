@@ -145,4 +145,11 @@ class Guest extends Model
     {
         return $this->belongsToMany(DateForm::class, 'guest_dateform', 'guest_id', 'date_form_id');
     }
+    public function model(array $row)
+    {
+        return new Guest([
+            'guest_name_display' => $row['A'], // Thay $row[0] bằng cột tương ứng trong file Excel
+            'guest_code' => $row['B'],
+        ]);
+    }
 }

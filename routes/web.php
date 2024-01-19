@@ -7,6 +7,7 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\DetailExportController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\DetailImportController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HistoryReceiveController;
 use App\Http\Controllers\PayExportController;
 use App\Http\Controllers\PayOrderController;
@@ -141,8 +142,14 @@ Route::get('/getProductPay', [PayExportController::class, 'getProductPay'])->nam
 Route::get('/getProductSeri', [ProductController::class, 'getProductSeri'])->name('getProductSeri');
 Route::get('/getProductSeriEdit', [ProductController::class, 'getProductSeriEdit'])->name('getProductSeriEdit');
 
-
 Route::get('exportDatabase', [ProductController::class, 'exportDatabase'])->name('exportDatabase');
+Route::post('import', [ProductController::class, 'import'])->name('import');
+
+// Lịch sử giao dịch
+Route::resource('{workspace}/history', HistoryController::class);
+Route::get('getSN', [HistoryController::class, 'getSN'])->name('getSN');
+Route::get('/searchHistory', [HistoryController::class, 'searchHistory'])->name('searchHistory');
+
 
 
 Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
