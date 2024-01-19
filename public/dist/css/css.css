@@ -232,6 +232,7 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
 
 @media (min-width: 992px) {
     .sidebar-mini.sidebar-collapse .content-wrapper,
+    .sidebar-mini.sidebar-collapse .content-wrapper1,
     .sidebar-mini.sidebar-collapse .main-footer,
     .sidebar-mini.sidebar-collapse .main-header {
         margin-left: 3.6rem !important;
@@ -261,8 +262,14 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
 .content-wrapper .card-body {
     padding: 0;
 }
+.content-wrapper1 .card-body {
+    padding: 0;
+}
 
 .content-wrapper .card-header {
+    display: none;
+}
+.content-wrapper1 .card-header {
     display: none;
 }
 
@@ -1571,7 +1578,6 @@ input[type="checkbox"] {
 
 .main-sidebar {
     background-color: #fafbfc !important;
-    width: 15%;
 }
 
 .card-body > .table > thead > tr > th {
@@ -1580,8 +1586,14 @@ input[type="checkbox"] {
 .content-wrapper .content .list_product li:hover {
     background-color: #ececec;
 }
+.content-wrapper1 .content .list_product li:hover {
+    background-color: #ececec;
+}
 
 .content-wrapper .content .list_code li:hover {
+    background-color: #ececec;
+}
+.content-wrapper1 .content .list_code li:hover {
     background-color: #ececec;
 }
 .filter-item {

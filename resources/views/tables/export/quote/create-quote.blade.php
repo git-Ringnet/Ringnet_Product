@@ -341,7 +341,7 @@
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-left-0">
                                     <p class="p-0 m-0 px-3">
-                                        Key
+                                        Tên viết tắt
                                     </p>
                                 </div>
                                 <input name="key" type="text" placeholder="Nhập thông tin" id="key"
@@ -350,14 +350,14 @@
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-left-0">
                                     <p class="p-0 m-0 px-3">
-                                        Tên công ty
+                                        Tên đầy đủ
                                     </p>
                                 </div>
                                 <input name="guest_name" type="text" placeholder="Nhập thông tin"
                                     class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_name"
                                     autocomplete="off">
                             </div>
-                            <div class="d-flex ml-2 align-items-center">
+                            {{-- <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-left-0">
                                     <p class="p-0 m-0 px-3">
                                         Email
@@ -416,7 +416,7 @@
                                 <input name="guest_note" type="text" placeholder="Nhập thông tin"
                                     class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_note"
                                     autocomplete="off">
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -493,7 +493,7 @@
                         class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
                         <span class="text-table mr-2">Người đại diện</span>
                         <input type="text" placeholder="Chọn thông tin"
-                            class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off" id="myInput">
+                            class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off">
                         <div class="">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -570,7 +570,7 @@
                         </div>
                     </div>
                     <div
-                        class="d-flex align-items-center justify-content-between border border-left-0 border py-1 px-1 border-top-0">
+                        class="d-flex align-items-center justify-content-between position-relative border border-left-0 border py-1 px-1 border-top-0">
                         <span class="text-table">Hiệu lực báo giá</span>
                         <input type="text" placeholder="Chọn thông tin" name="price_effect"
                             class="border-0 bg w-50 bg-input-guest py-0" autocomplete="off" id="myInput-quote"
@@ -580,7 +580,7 @@
                         <input type="hidden" class="nameDateForm" autocomplete="off" name="fieldDate[quote]"
                             value="{{ isset($dataForm['quote']) ? $dataForm['quote']->form_field : '' }}">
                         <ul id="myUL2" class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                            style="z-index: 99;">
+                            style="z-index: 99;top: 33px;">
                             @foreach ($date_form as $item)
                                 @if ($item->form_field == 'quote')
                                     <li class="item-{{ $item->id }}">
@@ -623,7 +623,7 @@
                             <a type="button"
                                 class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormquote"
                                 data-toggle="modal" data-target="#formModalquote" style="bottom: 0;">
-                                <span class="w-50 text-white">Thêm mới</span>
+                                <span class="text-white">Thêm mới</span>
                             </a>
                         </ul>
                         <div class="">
@@ -642,7 +642,7 @@
                         </div>
                     </div>
                     <div
-                        class="d-flex align-items-center justify-content-between border border-left-0 border py-1 px-1 border-top-0">
+                        class="d-flex align-items-center position-relative justify-content-between border border-left-0 border py-1 px-1 border-top-0">
                         <span class="text-table mr-4">Điều khoản</span>
                         <input type="text" placeholder="Chọn thông tin" name="terms_pay"
                             class="border-0 bg w-50 bg-input-guest py-0" autocomplete="off" id="myInput-payment"
@@ -652,7 +652,7 @@
                         <input type="hidden" class="nameDateForm" autocomplete="off" name="fieldDate[payment]"
                             value="{{ isset($dataForm['payment']) ? $dataForm['payment']->form_field : '' }}">
                         <ul id="myUL1" class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                            style="z-index: 99;">
+                            style="z-index: 99;top: 33px;">
                             @foreach ($date_form as $item)
                                 @if ($item->form_field == 'payment')
                                     <li class="item-{{ $item->id }}">
@@ -695,7 +695,7 @@
                             <a type="button"
                                 class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormpayment"
                                 data-toggle="modal" data-target="#formModalpayment" style="bottom: 0;">
-                                <span class="w-50 text-white">Thêm mới</span>
+                                <span class="text-white">Thêm mới</span>
                             </a>
                         </ul>
                         <div class="">
@@ -747,7 +747,7 @@
                         </div>
                     </div>
                     <div
-                        class="d-flex align-items-center justify-content-between border border border-left-0 py-1 px-1 border-top-0">
+                        class="d-flex align-items-center position-relative justify-content-between border border border-left-0 py-1 px-1 border-top-0">
                         <span class="text-table mr-4">Hàng hóa</span>
                         <input type="text" placeholder="Chọn thông tin" name="goods"
                             class="border-0 bg w-50 bg-input-guest py-0" autocomplete="off" id="myInput-goods"
@@ -757,7 +757,7 @@
                         <input type="hidden" class="nameDateForm" autocomplete="off" name="fieldDate[goods]"
                             value="{{ isset($dataForm['goods']) ? $dataForm['goods']->form_field : '' }}">
                         <ul id="myUL4" class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                            style="z-index: 99;">
+                            style="z-index: 99;top: 33px;">
                             @foreach ($date_form as $item)
                                 @if ($item->form_field == 'goods')
                                     <li class="item-{{ $item->id }}">
@@ -800,7 +800,7 @@
                             <a type="button"
                                 class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormgoods"
                                 data-toggle="modal" data-target="#formModalgoods" style="bottom: 0;">
-                                <span class="w-50 text-white">Thêm mới</span>
+                                <span class="text-white">Thêm mới</span>
                             </a>
                         </ul>
                         <div class="">
@@ -819,7 +819,7 @@
                         </div>
                     </div>
                     <div
-                        class="d-flex align-items-center justify-content-between border border border-left-0 py-1 px-1 border-top-0">
+                        class="d-flex align-items-center position-relative justify-content-between border border border-left-0 py-1 px-1 border-top-0">
                         <span class="text-table mr-4">Giao hàng</span>
                         <input type="text" placeholder="Chọn thông tin" name="delivery"
                             class="border-0 bg w-50 bg-input-guest py-0" autocomplete="off" id="myInput-delivery"
@@ -829,7 +829,7 @@
                         <input type="hidden" class="nameDateForm" autocomplete="off" name="fieldDate[delivery]"
                             value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->form_field : '' }}">
                         <ul id="myUL5" class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                            style="z-index: 99;">
+                            style="z-index: 99;top: 33px;">
                             @foreach ($date_form as $item)
                                 @if ($item->form_field == 'delivery')
                                     <li class="item-{{ $item->id }}">
@@ -872,7 +872,7 @@
                             <a type="button"
                                 class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormdelivery"
                                 data-toggle="modal" data-target="#formModaldelivery" style="bottom: 0;">
-                                <span class="w-50 text-white">Thêm mới</span>
+                                <span class="text-white">Thêm mới</span>
                             </a>
                         </ul>
                         <div class="">
@@ -891,7 +891,7 @@
                         </div>
                     </div>
                     <div
-                        class="d-flex align-items-center justify-content-between border border border-left-0 py-1 px-1 border-top-0">
+                        class="d-flex align-items-center position-relative justify-content-between border border border-left-0 py-1 px-1 border-top-0">
                         <span class="text-table mr-4">Địa điểm</span>
                         <input type="text" placeholder="Chọn thông tin" name="location"
                             class="border-0 bg w-50 bg-input-guest py-0" autocomplete="off" id="myInput-location"
@@ -901,7 +901,7 @@
                         <input type="hidden" class="nameDateForm" autocomplete="off" name="fieldDate[location]"
                             value="{{ isset($dataForm['location']) ? $dataForm['location']->form_field : '' }}">
                         <ul id="myUL6" class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                            style="z-index: 99;">
+                            style="z-index: 99;top: 33px;">
                             @foreach ($date_form as $item)
                                 @if ($item->form_field == 'location')
                                     <li class="item-{{ $item->id }}">
@@ -944,7 +944,7 @@
                             <a type="button"
                                 class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormlocation"
                                 data-toggle="modal" data-target="#formModallocation" style="bottom: 0;">
-                                <span class="w-50 text-white">Thêm mới</span>
+                                <span class="text-white">Thêm mới</span>
                             </a>
                         </ul>
                         <div class="">

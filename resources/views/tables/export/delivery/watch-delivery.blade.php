@@ -18,7 +18,7 @@
                                 fill="#26273B" fill-opacity="0.8"></path>
                         </svg>
                     </span>
-                    <span class="font-weight-bold">Đơn báo giá</span>
+                    <span class="font-weight-bold">Đơn giao hàng</span>
                     <span class="mx-2"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
