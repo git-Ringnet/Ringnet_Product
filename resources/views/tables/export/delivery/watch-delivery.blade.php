@@ -34,7 +34,7 @@
                     @endif
                 </div>
             </div>
-            <div class="container-fluided">
+            <div class="container-fluided z-index-block">
                 <div class="row m-0 mb-1">
                     <div class="dropdown">
                         <a href="{{ route('delivery.index', ['workspace' => $workspacename]) }}">

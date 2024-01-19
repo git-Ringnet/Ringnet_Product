@@ -28,7 +28,7 @@
                     <span class="font-weight-bold text-secondary">Tạo đơn giao hàng</span>
                 </div>
             </div>
-            <div class="container-fluided">
+            <div class="container-fluided z-index-block">
                 <div class="row m-0 mb-1">
                     <div class="dropdown">
                         <a href="{{ route('delivery.index', $workspacename) }}">

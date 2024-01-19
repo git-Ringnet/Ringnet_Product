@@ -451,8 +451,8 @@
         </div>
         <!-- /.sidebar -->
     </aside>
-    <div class="alert notification d-flex justify-content-center align-items-center m-0">
-        <div class="success" style="position: absolute;top: 60px;">
+    <div class="alert notification d-flex justify-content-center align-items-center m-0 w-100" style="position: absolute;">
+        <div class="success">
             @if (Session::has('msg'))
                 <div id="notification" class="alert alert-success alert-dismissible fade show" role="alert"
                     style="z-index: 999999;">
@@ -483,7 +483,7 @@
                 </div>
             @endif
         </div>
-        <div class="warning" style="position: absolute;top: 60px;">
+        <div class="warning">
             @if (Session::has('warning'))
                 <div id="notification" class="alert alert-warning alert-dismissible fade show m-0" role="alert"
                     style="z-index: 999999;">

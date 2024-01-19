@@ -1,10 +1,10 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="quote" :workspacename="$workspacename"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper1 py-0">
+<div class="content-wrapper1 py-1">
     <!-- Content Header (Page header) -->
     <div class="d-flex justify-content-between align-items-center pl-4">
         <div class="container-fluided">
-            <div class="mb-3">
+            <div class="mb">
                 <span class="font-weight-bold">Bán hàng</span>
                 <span class="mx-2"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -16,7 +16,7 @@
                 <span class="font-weight-bold text-secondary">Đơn báo giá</span>
             </div>
         </div>
-        <div class="container-fluided">
+        <div class="container-fluided z-index-block">
             <div class="row m-0 mb-1">
                 <a href="{{ route('detailExport.create', ['workspace' => $workspacename]) }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
@@ -52,11 +52,11 @@
 </div>
 <div class="bg-filter-search pl-4">
     <div class="content-wrapper1 py-1">
-        <div class="row m-auto filter pt-1">
+        <div class="row m-auto filter p-0">
             <div class="w-100">
                 <div class="row mr-0">
-                    <div class="col-md-5 d-flex">
-                        <form action="" method="get" id='search-filter'>
+                    <div class="col-md-5 d-flex align-items-center">
+                        <form action="" method="get" id='search-filter' class="p-0 m-0">
                             <div class="position-relative">
                                 <input type="text" placeholder="Tìm kiếm" name="keywords"
                                     class="pr-4 w-100 input-search" value="{{ request()->keywords }}">
@@ -80,7 +80,7 @@
                                         d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
                                         fill="#6D7075" />
                                 </svg>
-                                <span class="text-secondary mx-1"> Bộ lọc</span>
+                                <span class="text-secondary mx-1 text-filter"> Bộ lọc</span>
                                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -100,7 +100,7 @@
         </div>
     </div>
 </div>
-<div class="content-wrapper1 py-1 pl-4 border-bottom">
+{{-- <div class="content-wrapper1 py-1 pl-4 border-bottom">
     <div class="row m-auto filter pt-1">
         <div class="w-100">
             <div class="row mr-0">
@@ -138,7 +138,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <div class="content-wrapper py-0 pl-0 pr-2">
     <!-- Main content -->
     <section class="content">

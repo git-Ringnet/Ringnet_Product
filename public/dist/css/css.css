@@ -114,9 +114,14 @@ li {
     transform: translateY(-50%);
 }
 
+#search-filter{
+    width: 32%;
+}
+
 #search-icon {
     z-index: 1000;
     cursor: pointer;
+    font-size: 12px;
 }
 
 .search-icon i {
@@ -841,10 +846,6 @@ input[type="number"] {
     margin-bottom: 5px;
 }
 
-.filter-btn {
-    margin-bottom: 5px;
-}
-
 #btn-addNoteForm {
     cursor: pointer;
     position: absolute;
@@ -953,14 +954,22 @@ input[type="number"] {
 
 .filter-btn {
     border-radius: 5px;
-    padding: 4px 12px;
+    padding: 3px 1px;
     background-color: #ffffff;
 }
 
+.text-filter{
+    font-size: 12px;
+}
+
 .input-search {
-    padding: 4px 12px;
+    padding: 0px 12px;
     border: 1px solid #d6d6d6;
     border-radius: 5px;
+}
+
+.input-search::placeholder{
+    font-size: 12px;
 }
 
 /* input[type="text"],
@@ -1643,6 +1652,9 @@ input[type="checkbox"] {
 .content-wrapper1 {
     padding: 52px 10px 0 0px;
 }
+.z-index-block{
+    z-index: 99999;
+}
 .content-wrapper2 {
     padding: 52px 10px 0 0px;
 }
@@ -1680,7 +1692,7 @@ input[type="checkbox"] {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 67px;
+    top: 41px;
     right: 0;
     background-color: #ffff;
     transition: 0.5s;
@@ -1690,7 +1702,7 @@ input[type="checkbox"] {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 125px;
+    top: 99px;
     right: 0;
     background-color: #ffff;
     transition: 0.5s;
@@ -1700,7 +1712,7 @@ input[type="checkbox"] {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 133px;
+    top: 108px;
     right: 0;
     background-color: #ffff;
     transition: 0.5s;
@@ -1710,7 +1722,7 @@ input[type="checkbox"] {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 78px;
+    top: 54px;
     right: 0;
     background-color: #ffff;
     transition: 0.5s;

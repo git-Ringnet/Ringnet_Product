@@ -34,7 +34,7 @@
                     @endif
                 </div>
             </div>
-            <div class="container-fluided">
+            <div class="container-fluided z-index-block">
                 <div class="row m-0 mb-1">
                     <label class="custom-btn d-flex align-items-center h-100 m-0 mr-2">
                         <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 14 14" fill="none">

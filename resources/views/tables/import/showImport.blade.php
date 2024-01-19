@@ -182,7 +182,7 @@
                         </a>
                     </li>
                 </ul>
-                <div class="d-flex position-fixed" style="right: 10px; top: 90px;">
+                <div class="d-flex position-fixed" style="right: 10px; top: 65px;">
                     @if ($import->status_receive == 0)
                         <div class="border text-secondary p-1">
                             <span>
