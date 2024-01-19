@@ -39,12 +39,12 @@
 </div>
 
 {{-- Search --}}
-<div class="bg-filter-search">
+<div class="bg-filter-search pl-4">
     <div class="content-wrapper1 py-1">
         <div class="row m-auto filter pt-1">
             <div class="w-100">
                 <div class="row mr-0">
-                    <div class="col-md-5 d-flex">
+                    <div class="col-md-5 d-flex pl-0">
                         <form action="" method="get" id="search-filter">
                             <div class="position-relative">
                                 <input type="text" placeholder="Tìm kiếm" name="keywords"

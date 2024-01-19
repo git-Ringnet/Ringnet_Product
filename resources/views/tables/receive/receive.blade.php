@@ -18,30 +18,32 @@
             </div>
         </div>
         <div class="container-fluided">
-            <a href="{{ route('receive.create', $workspacename) }}">
-                <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
-                    <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                            fill="white" />
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                            fill="white" />
-                    </svg>
-                    <span>Tạo mới</span>
-                </button>
-            </a>
+            <div class="row m-0 mb-3">
+                <a href="{{ route('receive.create', $workspacename) }}">
+                    <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                        <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                fill="white" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                fill="white" />
+                        </svg>
+                        <span>Tạo mới</span>
+                    </button>
+                </a>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="bg-filter-search">
+<div class="bg-filter-search pl-4">
     <div class="content-wrapper1 py-1">
         <div class="row m-auto filter pt-1">
             <div class="w-100">
                 <div class="row mr-0">
-                    <div class="col-md-5 d-flex">
+                    <div class="col-md-5 d-flex pl-0">
                         <form action="" method="get" id="search-filter">
                             <div class="position-relative">
                                 <input type="text" placeholder="Tìm kiếm" name="keywords"
@@ -186,7 +188,7 @@
                                                 @endif
                                             </td>
                                             <td>{{ $item->getNameProvide->provide_name_display }}</td>
-                                            <td>{{ $item->shipping_unit}}</td>
+                                            <td>{{ $item->shipping_unit }}</td>
                                             <td>{{ number_format($item->delivery_charges) }}</td>
                                             <td>
                                                 @if ($item->status == 1)

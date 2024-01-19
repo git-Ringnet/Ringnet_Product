@@ -131,7 +131,7 @@
                                     <thead>
                                         <tr>
                                             <th class="border-right border-left btn-sort text-secondary text-nav"
-                                                style="width:23%;">Người đại diện
+                                                style="width:23%;"><span class="ml-3">Người đại diện</span>
                                             </th>
                                             <th class="border-right btn-sort text-secondary text-nav"
                                                 style="width:15%;">Số điện thoại

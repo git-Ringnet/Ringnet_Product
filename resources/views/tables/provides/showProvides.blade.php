@@ -141,19 +141,19 @@
                                     <thead>
                                         <tr>
                                             <th class="border-right border-left btn-sort text-secondary text-nav"
-                                                style="width:23%;">Người đại diện
+                                                style="width:23%;"><span class="ml-3">Người đại diện</span>
                                             </th>
                                             <th class="border-right btn-sort text-secondary text-nav"
-                                            style="width:15%;">Số điện thoại
+                                                style="width:15%;">Số điện thoại
                                             </th>
                                             <th class="border-right btn-sort text-secondary text-nav"
-                                            style="width:20%;">Email</th>
+                                                style="width:20%;">Email</th>
 
-                                            <th class="border-right btn-sort text-secondary text-nav"
-                                            style="">Địa chỉ nhận
+                                            <th class="border-right btn-sort text-secondary text-nav" style="">
+                                                Địa chỉ nhận
                                             </th>
                                             <th class="border-right btn-sort text-secondary text-nav"
-                                            style="width:5%;"></th>
+                                                style="width:5%;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -214,25 +214,27 @@
                                     <thead>
                                         <tr>
                                             <th class="border-right border-left btn-sort text-secondary text-nav"
-                                                style="width:23%;">Tổng số đơn đã mua
+                                                style="width:23%;"><span class="ml-3">Tổng số đơn đã mua</span>
                                             </th>
                                             <th class="border-right btn-sort text-secondary text-nav"
-                                            style="width:15%;">Tổng số tiền đã
+                                                style="width:15%;">Tổng số tiền đã
                                                 mua</th>
                                             <th class="border-right btn-sort text-secondary text-nav"
-                                            style="width:20%;">Tổng số tiền
+                                                style="width:20%;">Tổng số tiền
                                                 thanh toán</th>
                                             <th class="border-right btn-sort text-secondary text-nav">Dư nợ</th>
                                             <th class="border-right btn-sort text-secondary text-nav"
-                                            style="width:5%;"></th>
+                                                style="width:5%;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr class="bg-white">
                                             <td class="border border-top-0">
-                                                @if ($provide->getAllDetail)
-                                                    {{ $provide->getAllDetail->count() }}
-                                                @endif
+                                                <span class="ml-3">
+                                                    @if ($provide->getAllDetail)
+                                                        {{ $provide->getAllDetail->count() }}
+                                                    @endif
+                                                </span>
                                             </td>
                                             <td class="border border-top-0">
                                                 @if ($provide->getAllDetail)
