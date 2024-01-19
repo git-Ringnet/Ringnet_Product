@@ -24,6 +24,7 @@ class BillSaleController extends Controller
     private $productBill;
     private $product;
     private $workspaces;
+    private $detailExport;
 
     public function __construct()
     {
@@ -31,6 +32,7 @@ class BillSaleController extends Controller
         $this->product = new Products();
         $this->productBill = new productBill();
         $this->workspaces = new Workspace();
+        $this->detailExport = new DetailExport();
     }
     public function index()
     {
@@ -138,7 +140,8 @@ class BillSaleController extends Controller
                 'product_bill.billSale_qty'
             )
             ->get();
-        return view('tables.export.bill_sale.edit', compact('billSale', 'title', 'product', 'workspacename'));
+        $quoteExport = $this->detailExport->getProductToId($billSale->detailexport_id);
+        return view('tables.export.bill_sale.edit', compact('quoteExport','billSale', 'title', 'product', 'workspacename'));
     }
 
     /**

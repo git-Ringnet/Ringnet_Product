@@ -301,44 +301,6 @@
                 </div>
                 <section class="content">
                     <div class="container-fluided">
-                        <div class="col-12">
-                            <div class="row m-auto filter pt-2 pb-4">
-                                <div class="w-100">
-                                    <div class="row mr-0">
-                                        <div class="col-md-5 d-flex">
-                                            <form action="" method="get" id="search-filter">
-                                                <div class="position-relative">
-                                                    <input type="text" placeholder="Tìm kiếm" name="keywords"
-                                                        class="pr-4 w-100 input-search" value="">
-                                                    <span id="search-icon" class="search-icon"><i
-                                                            class="fas fa-search" aria-hidden="true"></i></span>
-                                                </div>
-                                            </form>
-                                            <div class="dropdown">
-                                                <button class="filter-btn ml-2" data-toggle="dropdown">Bộ lọc
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
-                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
-                                                            fill="white"></path>
-                                                    </svg>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else
-                                                        here</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section class="content">
-                    <div class="container-fluided">
                         <table class="table table-hover bg-white rounded" id="inputcontent">
                             <thead>
                                 <tr>

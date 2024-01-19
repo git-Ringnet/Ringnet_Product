@@ -544,16 +544,16 @@
                                 <table class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr>
-                                            <th class="border-right">
+                                            <th class="border-right text-table text-secondary">
                                                 Mã sản phẩm
                                             </th>
-                                            <th class="border-right">Tên sản phẩm</th>
-                                            <th class="border-right">Đơn vị</th>
-                                            <th class="border-right">Số lượng</th>
-                                            <th class="border-right">Đơn giá</th>
-                                            <th class="border-right">Thuế</th>
-                                            <th class="border-right">Thành tiền</th>
-                                            <th class="border-right note">Ghi chú</th>
+                                            <th class="border-right text-table text-secondary">Tên sản phẩm</th>
+                                            <th class="border-right text-table text-secondary">Đơn vị</th>
+                                            <th class="border-right text-table text-secondary">Số lượng</th>
+                                            <th class="border-right text-table text-secondary">Đơn giá</th>
+                                            <th class="border-right text-table text-secondary">Thuế</th>
+                                            <th class="border-right text-table text-secondary">Thành tiền</th>
+                                            <th class="border-right note text-table text-secondary">Ghi chú</th>
                                         </tr>
                                     </thead>
                                     <tbody>

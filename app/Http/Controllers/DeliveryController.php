@@ -115,7 +115,8 @@ class DeliveryController extends Controller
             ->where('serialnumber.delivery_id', $id)
             ->select('*', 'serialnumber.id as idSeri')
             ->get();
-        return view('tables.export.delivery.watch-delivery', compact('title', 'delivery', 'product', 'serinumber', 'workspacename'));
+        $quoteExport = $this->detailExport->getProductToId($delivery->detailexport_id);
+        return view('tables.export.delivery.watch-delivery', compact('title', 'quoteExport', 'delivery', 'product', 'serinumber', 'workspacename'));
     }
 
     /**

@@ -361,9 +361,125 @@
                     </div>
                 </div>
                 <div id="history" class="tab-pane fade">
-                    <div class="bg-filter-search border-bottom-0 text-center py-2">
-                        <span class="font-weight-bold text-secondary text-nav">Lịch sử</span>
+                    <div class="bg-filter-search border-top-0 text-center py-2">
+                        <span class="font-weight-bold text-secondary text-nav">LỊCH SỬ</span>
                     </div>
+                    <section class="content">
+                        <div class="container-fluided order_content">
+                            <table class="table table-hover bg-white rounded">
+                                <thead>
+                                    <tr>
+                                        <th class="border-right text-table text-secondary">
+                                            Mã sản phẩm
+                                        </th>
+                                        <th class="border-right text-table text-secondary">Tên sản phẩm</th>
+                                        <th class="border-right text-table text-secondary">Đơn vị</th>
+                                        <th class="border-right text-table text-secondary">Số lượng</th>
+                                        <th class="border-right text-table text-secondary">Đơn giá</th>
+                                        <th class="border-right text-table text-secondary">Thuế</th>
+                                        <th class="border-right text-table text-secondary">Thành tiền</th>
+                                        <th class="border-right note text-table text-secondary">Ghi chú</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($quoteExport as $item_quote)
+                                        <tr class="bg-white">
+                                            <td
+                                                class="border border-left-0 border-top-0 border-bottom-0 position-relative">
+                                                <div
+                                                    class="d-flex w-100 justify-content-between align-items-center">
+                                                    <input type="text" autocomplete="off" readonly
+                                                        value="{{ $item_quote->product_code }}"
+                                                        class="border-0 px-2 py-1 w-75 product_code">
+                                                </div>
+                                            </td>
+                                            <td class="border border-top-0 border-bottom-0 position-relative">
+                                                <div class="d-flex align-items-center">
+                                                    <input type="text" value="{{ $item_quote->product_name }}"
+                                                        class="border-0 px-2 py-1 w-100 product_name" readonly
+                                                        autocomplete="off">
+                                                    <input type="hidden" class="product_id"
+                                                        value="{{ $item_quote->product_id }}" autocomplete="off">
+                                                    <div class="info-product" data-toggle="modal"
+                                                        data-target="#productModal">
+                                                        <svg width="18" height="18" viewBox="0 0 18 18"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M8.99998 4.5C8.45998 4.5 8.09998 4.86 8.09998 5.4C8.09998 5.94 8.45998 6.3 8.99998 6.3C9.53998 6.3 9.89998 5.94 9.89998 5.4C9.89998 4.86 9.53998 4.5 8.99998 4.5Z"
+                                                                fill="#42526E">
+                                                            </path>
+                                                            <path
+                                                                d="M9 0C4.05 0 0 4.05 0 9C0 13.95 4.05 18 9 18C13.95 18 18 13.95 18 9C18 4.05 13.95 0 9 0ZM9 16.2C5.04 16.2 1.8 12.96 1.8 9C1.8 5.04 5.04 1.8 9 1.8C12.96 1.8 16.2 5.04 16.2 9C16.2 12.96 12.96 16.2 9 16.2Z"
+                                                                fill="#42526E">
+                                                            </path>
+                                                            <path
+                                                                d="M8.99998 7.2002C8.45998 7.2002 8.09998 7.5602 8.09998 8.10019V12.6002C8.09998 13.1402 8.45998 13.5002 8.99998 13.5002C9.53998 13.5002 9.89998 13.1402 9.89998 12.6002V8.10019C9.89998 7.5602 9.53998 7.2002 8.99998 7.2002Z"
+                                                                fill="#42526E">
+                                                            </path>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="border border-top-0 border-bottom-0">
+                                                <input type="text" autocomplete="off" readonly
+                                                    value="{{ $item_quote->product_unit }}"
+                                                    class="border-0 px-2 py-1 w-100 product_unit">
+                                            </td>
+                                            <td class="border border-top-0 border-bottom-0 position-relative">
+                                                <input type="text" readonly
+                                                    value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
+                                                    class="border-0 px-2 py-1 w-100 quantity-input"
+                                                    autocomplete="off">
+                                                <input type="hidden" class="tonkho">
+                                                <p class="text-primary text-center position-absolute inventory"
+                                                    style="top: 68%; display: none;">Tồn kho:
+                                                    <span class="soTonKho">35</span>
+                                                </p>
+                                            </td>
+                                            <td class="border border-top-0 border-bottom-0 position-relative">
+                                                <input type="text"
+                                                    value="{{ number_format($item_quote->price_export) }}"
+                                                    class="border-0 px-2 py-1 w-100 product_price"
+                                                    autocomplete="off" readonly>
+                                                <p class="text-primary text-right position-absolute transaction"
+                                                    style="top: 68%; right: 5%; display: none;">Giao dịch
+                                                    gần đây
+                                                </p>
+                                            </td>
+                                            <td class="border border-top-0 border-bottom-0 px-4">
+                                                <select
+                                                    class="border-0 text-center product_tax" disabled>
+                                                    <option value="0" <?php if ($item_quote->product_tax == 0) {
+                                                        echo 'selected';
+                                                    } ?>>0%</option>
+                                                    <option value="8" <?php if ($item_quote->product_tax == 8) {
+                                                        echo 'selected';
+                                                    } ?>>8%</option>
+                                                    <option value="10" <?php if ($item_quote->product_tax == 10) {
+                                                        echo 'selected';
+                                                    } ?>>10%</option>
+                                                    <option value="99" <?php if ($item_quote->product_tax == 99) {
+                                                        echo 'selected';
+                                                    } ?>>NOVAT
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td class="border border-top-0 border-bottom-0">
+                                                <input type="text" readonly=""
+                                                    value="{{ number_format($item_quote->product_total) }}"
+                                                    class="border-0 px-2 py-1 w-100 total-amount">
+                                            </td>
+                                            <td
+                                                class="border border-top-0 border-bottom-0 position-relative note p-1">
+                                                <input type="text" class="border-0 py-1 w-100" readonly
+                                                    value="{{ $item_quote->product_note }}">
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
                 </div>
                 {{-- Modal seri --}}
                 @foreach ($product as $item)
@@ -547,7 +663,7 @@
 </form>
 <div id="files" class="tab-pane fade">
     <div class="bg-filter-search border-bottom-0 text-center py-2">
-        <span class="font-weight-bold text-secondary text-nav">File đính kèm</span>
+        <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
     </div>
     <x-form-attachment :value="$delivery" name="GH"></x-form-attachment>
 </div>
