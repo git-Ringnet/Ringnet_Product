@@ -107,7 +107,7 @@
                             <div class="title-info py-2 border border-top-0 border-left-0">
                                 <p class="p-0 m-0 px-3 required-label text-danger">Mã số thuế</p>
                             </div>
-                            <input type="text" required placeholder="Nhập thông tin" name="guest_code"
+                            <input type="number" required placeholder="Nhập thông tin" name="guest_code"
                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                         </div>
                     </div>
@@ -247,10 +247,10 @@
             "<td class='border border-top-0 border-bottom-0 border-left-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_name' required name='represent_name[]'></td>"
         );
         const email = $(
-            "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_email' name='represent_email[]'></td>"
+            "<td class='border border-top-0 border-bottom-0'><input type='email' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_email' name='represent_email[]'></td>"
         );
         const soDT = $(
-            "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_phone' name='represent_phone[]'></td>"
+            "<td class='border border-top-0 border-bottom-0'><input type='number' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_phone' name='represent_phone[]'></td>"
         );
         const diaChi = $(
             "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_address' name='represent_address[]'></td>"

@@ -334,7 +334,7 @@
                                         Mã số thuế
                                     </p>
                                 </div>
-                                <input name="guest_code" type="text" placeholder="Nhập thông tin"
+                                <input name="guest_code" type="number" placeholder="Nhập thông tin"
                                     class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_code"
                                     autocomplete="off">
                             </div>
@@ -1393,7 +1393,7 @@
             );
             const soLuong = $(
                 "<td class='border border-bottom-0 position-relative'>" +
-                "<input type='text' class='border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
+                "<input type='number' class='border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "<p class='text-primary text-center position-absolute inventory' style='top: 68%;display: none;'>Tồn kho: <span class='soTonKho'>35</span></p>" +
                 "</td>"

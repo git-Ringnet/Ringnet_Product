@@ -659,7 +659,7 @@
                 "<td class='border border-top-0 border-bottom-0 position-relative'>" +
                 "<div class='d-flex align-items-center'>" +
                 "<div>" +
-                "<input type='text' value='' data-product-id='' class='border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required='' name='product_qty[]'>" +
+                "<input type='number' value='' data-product-id='' class='border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required='' name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "<p class='text-primary text-center position-absolute inventory' style='top: 68%;'>Tồn kho: <span class='soTonKho'></span></p>" +
                 "</div>" +
@@ -1570,7 +1570,7 @@
                             <td class="border border-top-0 border-bottom-0 position-relative">
                                 <div class="d-flex align-items-center">
                                     <div>
-                                <input type="text" value="${item.soLuongCanGiao}" data-product-id="${item.maSP}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
+                                <input type="number" value="${item.soLuongCanGiao}" data-product-id="${item.maSP}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
                                 <p class="text-primary text-center position-absolute inventory" style="top: 68%;">Tồn kho: <span class="soTonKho">${item.product_inventory == null ? 0 : item.product_inventory}</span></p>
                                 </div>  

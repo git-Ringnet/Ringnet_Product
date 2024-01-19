@@ -992,14 +992,14 @@
                                         Mã số thuế
                                     </p>
                                 </div>
-                                <input name="guest_code" type="text" placeholder="Nhập thông tin"
+                                <input name="guest_code" type="number" placeholder="Nhập thông tin"
                                     class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_code"
                                     autocomplete="off">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-left-0">
                                     <p class="p-0 m-0 px-3">
-                                        Key
+                                        Tên viết tắt
                                     </p>
                                 </div>
                                 <input name="key" type="text" placeholder="Nhập thông tin" id="key"
@@ -1008,71 +1008,11 @@
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-left-0">
                                     <p class="p-0 m-0 px-3">
-                                        Tên công ty
+                                        Tên đầy đủ
                                     </p>
                                 </div>
                                 <input name="guest_name" type="text" placeholder="Nhập thông tin"
                                     class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_name"
-                                    autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Email
-                                    </p>
-                                </div>
-                                <input name="guest_email" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_email"
-                                    autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Số điện thoại
-                                    </p>
-                                </div>
-                                <input name="guest_phone" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_phone"
-                                    autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Người nhận hàng
-                                    </p>
-                                </div>
-                                <input name="guest_receiver" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_receiver"
-                                    autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Email cá nhân
-                                    </p>
-                                </div>
-                                <input name="guest_email_personal" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3"
-                                    id="guest_email_personal" autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        SĐT người nhận
-                                    </p>
-                                </div>
-                                <input name="guest_phone_receiver" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3"
-                                    id="guest_phone_receiver" autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Ghi chú
-                                    </p>
-                                </div>
-                                <input name="guest_note" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_note"
                                     autocomplete="off">
                             </div>
                         </div>

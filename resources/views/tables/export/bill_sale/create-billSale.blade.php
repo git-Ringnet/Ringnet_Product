@@ -374,7 +374,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
                         <span class="text-table mr-3">Số hóa đơn</span>
-                        <input type="text" placeholder="Nhập thông tin" name="number_bill" required
+                        <input type="number" placeholder="Nhập thông tin" name="number_bill" required
                             class="border-0 bg w-50 bg-input-guest py-0 px-0">
                         <div class="">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
