@@ -12,7 +12,7 @@
         <input type="hidden" name="table_name" value="TTMH">
         <div class="d-flex justify-content-between align-items-center">
             <div class="container-fluided">
-                <div class="mb-3">
+                <div class="mb">
                     <span class="font-weight-bold">Mua hàng</span>
                     <span class="mx-2">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -34,8 +34,8 @@
                     <span>Chỉnh sửa thanh toán mua hang</span>
                 </div>
             </div>
-            <div class="container-fluided">
-                <div class="row m-0 mb-3">
+            <div class="container-fluided z-index-block">
+                <div class="row m-0 my-1">
                     <a href="{{ route('paymentOrder.index', $workspacename) }}">
                         <button type="button" class="btn-save-print rounded d-flex align-items-center h-100"
                             style="margin-right:10px">
@@ -117,7 +117,7 @@
                 <li class="text-nav"><a data-toggle="tab" href="#info" class="active text-secondary">Thông
                         tin</a>
                 </li>
-                <li class="text-nav"><a data-toggle="tab" href="#histpry" class="text-secondary">Lịch
+                <li class="text-nav"><a data-toggle="tab" href="#histpry" class="text-secondary mx-4">Lịch
                         sử</a>
                 </li>
                 <li class="text-nav">
@@ -258,7 +258,7 @@
                 </div>
 
                 <div class="content-wrapper2 px-0 py-0">
-                    <div id="mySidenav" class="sidenavshow" style="top: 137px;">
+                    <div id="mySidenav" class="sidenavshow" style="top: 103px;">
                         <div id="show_info_Guest">
                             <div class="bg-filter-search border-top-0 py-2 text-center">
                                 <span class="font-weight-bold text-secondary">THÔNG TIN NHÀ

@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <div class="d-flex justify-content-between align-items-center">
         <div class="container-fluided">
-            <div class="mb-3">
+            <div class="mb">
                 <span class="font-weight-bold">Mua hàng</span>
                 <span class="mx-2">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -17,8 +17,8 @@
                 <span>Hóa đơn mua hàng</span>
             </div>
         </div>
-        <div class="container-fluided">
-            <div class="row m-0 mb-3">
+        <div class="container-fluided z-index-block">
+            <div class="row m-0 my-1">
                 <a href="{{ route('reciept.create', $workspacename) }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
@@ -166,6 +166,7 @@
                                                 <div class="icon" id="icon-id"></div>
                                             </span>
                                         </th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -175,12 +176,9 @@
                                             <td>{{ date_format(new DateTime($item->created_at), 'd/m/Y') }}</td>
                                             <td>{{ $item->number_bill }}</td>
                                             <td>
-                                                <a
-                                                    href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}">
-                                                    @if ($item->getQuotation)
-                                                        {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
-                                                    @endif
-                                                </a>
+                                                @if ($item->getQuotation)
+                                                    {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
+                                                @endif
                                             </td>
                                             <td>{{ $item->getProvideName->provide_name_display }}</td>
                                             <td>
@@ -191,6 +189,40 @@
                                                 @endif
                                             </td>
                                             <td>{{ fmod($item->price_total, 2) > 0 ? number_format($item->price_total, 2, '.', ',') : number_format($item->price_total) }}
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <a
+                                                        href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="21"
+                                                            height="21" viewBox="0 0 21 21" fill="none">
+                                                            <path
+                                                                d="M6.125 1.0001C3.01839 1.0001 0.5 3.5185 0.5 6.6251V14.875C0.5 17.9817 3.01839 20.5 6.125 20.5H14.3752C17.4818 20.5 20.0002 17.9817 20.0002 14.875V10.0001C20.0002 9.37879 19.4965 8.8751 18.8752 8.8751C18.2539 8.8751 17.7502 9.37879 17.7502 10.0001V14.875C17.7502 16.7391 16.239 18.25 14.3752 18.25H6.125C4.26104 18.25 2.75 16.7391 2.75 14.875V6.6251C2.75 4.76114 4.26104 3.2501 6.125 3.2501H9.5C10.1213 3.2501 10.625 2.74642 10.625 2.1251C10.625 1.50379 10.1213 1.0001 9.5 1.0001H6.125Z"
+                                                                fill="#6D7075"></path>
+                                                            <path
+                                                                d="M17.2009 5.79192L15.0796 3.6706L8.79218 9.95794C7.65777 11.0923 6.88452 12.5372 6.5699 14.1103C6.54716 14.224 6.64742 14.3242 6.76113 14.3016C8.33427 13.9869 9.77909 13.2136 10.9135 12.0793L17.2009 5.79192Z"
+                                                                fill="#6D7075"></path>
+                                                            <path
+                                                                d="M19.1838 0.185187C18.8994 0.0903425 18.5856 0.164397 18.3737 0.376467L16.6704 2.07961L18.7917 4.20093L20.495 2.49778C20.7071 2.28571 20.781 1.97203 20.6862 1.68751C20.4498 0.978207 19.8932 0.421617 19.1838 0.185187Z"
+                                                                fill="#6D7075"></path>
+                                                        </svg>
+                                                    </a>
+
+                                                    <form
+                                                        action="{{ route('reciept.destroy', ['workspace' => $workspacename, 'reciept' => $item->id]) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24" fill="none">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M18.5531 9.75C18.9672 9.75 19.3031 10.0858 19.3031 10.5C19.3031 10.5578 19.2963 10.6155 19.2831 10.6718L17.0442 20.1872C16.7253 21.5422 15.5161 22.5 14.124 22.5H9.87605C8.4839 22.5 7.27465 21.5422 6.9558 20.1872L4.71688 10.6718C4.62202 10.2686 4.87197 9.86481 5.27517 9.76993C5.33146 9.75669 5.38911 9.75 5.44695 9.75H18.5531ZM12.75 1.5C14.8211 1.5 16.5 3.17894 16.5 5.25H19.5C20.3284 5.25 21 5.92158 21 6.75V7.5C21 7.91421 20.6642 8.25 20.25 8.25H3.75C3.33579 8.25 3 7.91421 3 7.5V6.75C3 5.92158 3.67158 5.25 4.5 5.25H7.5C7.5 3.17894 9.17894 1.5 11.25 1.5H12.75ZM12.75 3.75H11.25C10.4216 3.75 9.75 4.42158 9.75 5.25H14.25C14.25 4.42158 13.5784 3.75 12.75 3.75Z"
+                                                                    fill="#6D7075"></path>
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

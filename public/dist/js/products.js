@@ -48,13 +48,23 @@ $(document).click(function (event) {
 //hiện danh sách khách hàng khi click trường tìm kiếm
 $("#myUL").hide();
 $('#listProject').hide();
+$('#listRepresent').hide();
 
-$("#inputProject").on("click", function () {
-    $("#listProject").show();
-});
-$("#myInput").on("click", function () {
-    $("#myUL").show();
-});
+function showForm(id,list){
+    $(id).on('click', function(){
+        console.log(123);
+        $(list).show();
+    })
+}
+showForm('#inputProject','#listProject')
+showForm('#myInput','#myUL')
+showForm('#represent','#listRepresent')
+// $("#inputProject").on("click", function () {
+//     $("#listProject").show();
+// });
+// $("#myInput").on("click", function () {
+//     $("#myUL").show();
+// });
 
 function showListProductCode() {
     $('#inputcontent tbody').on('click', '.searchProduct', function () {
@@ -86,10 +96,12 @@ $(document).click(function (event) {
 
 //ẩn danh sách khách hàng
 $(document).click(function (event) {
-    if (!$(event.target).closest("#myInput").length && !$(event.target).closest("#provideFilter").length) {
+    if (!$(event.target).closest("#myInput").length && !$(event.target).closest("#provideFilter").length
+    ) {
         $("#myUL").hide();
         $('#listReceive').hide();
     }
+
 });
 
 

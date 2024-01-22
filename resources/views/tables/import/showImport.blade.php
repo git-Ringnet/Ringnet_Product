@@ -12,7 +12,7 @@
         <input type="hidden" id="project_id" name="project_id" value="{{ $import->project_id }}">
         <div class="d-flex justify-content-between align-items-center">
             <div class="container-fluided">
-                <div class="mb-3">
+                <div class="mb">
                     <span class="font-weight-bold">Mua hàng</span>
                     <span class="mx-2">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -41,8 +41,8 @@
                     </span>
                 </div>
             </div>
-            <div class="container-fluided">
-                <div class="row m-0 mb-3">
+            <div class="container-fluided z-index-block">
+                <div class="row m-0 my-1">
                     <a href="{{route('import.index',$workspacename)}}">
                         <button type="button" class="btn-save-print rounded d-flex align-items-center h-100"
                             style="margin-right:10px">
@@ -168,7 +168,7 @@
 
 
     <div class="content-wrapper1 py-0 pl-0 px-0" id="main">
-        <section class="content-header p-2">
+        <section class="content-header p-2 ml-3">
             <div class="d-flex justify-content-between">
                 <ul class="nav nav-tabs bg-filter-search border-0 py-2 rounded">
                     <li class="text-nav"><a data-toggle="tab" href="#info" class="active text-secondary">
@@ -182,7 +182,7 @@
                         </a>
                     </li>
                 </ul>
-                <div class="d-flex position-fixed" style="right: 10px; top: 65px;">
+                <div class="d-flex position-fixed" style="right: 10px; top: 56px;">
                     @if ($import->status_receive == 0)
                         <div class="border text-secondary p-1">
                             <span>

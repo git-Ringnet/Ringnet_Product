@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <div class="d-flex justify-content-between align-items-center">
         <div class="container-fluided">
-            <div class="mb-3">
+            <div class="mb">
                 <span class="font-weight-bold">Mua hàng</span>
                 <span class="mx-2">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -27,8 +27,8 @@
                 <span>{{ $title }}</span>
             </div>
         </div>
-        <div class="container-fluided">
-            <div class="row m-0 mb-3">
+        <div class="container-fluided z-index-block">
+            <div class="row m-0 my-1">
                 <div class="container-fluided">
                     <a href="{{ route('provides.edit', ['workspace' => $workspacename, 'provide' => $provide->id]) }}">
                         <button type="button" class="custom-btn d-flex align-items-center h-100"
@@ -58,7 +58,7 @@
                     tin</a>
             </li>
             <li class="text-nav">
-                <a data-toggle="tab" href="#history" class="text-secondary">Lịch sử</a>
+                <a data-toggle="tab" href="#history" class="text-secondary mx-4">Lịch sử</a>
             </li>
             <li class="text-nav">
                 <a data-toggle="tab" href="#files" class="text-secondary">File đính kèm</a>
@@ -265,17 +265,17 @@
                 <table class="table table-hover bg-white rounded" id="inputcontent">
                     <thead>
                         <tr>
-                            <th>Ngày mua hàng</th>
-                            <th>Đơn mua hàng#</th>
-                            <th>Số than chiếu#</th>
-                            <th>Nhà cung cấp</th>
-                            <th>Dự án</th>
-                            <th>Trạng thái</th>
-                            <th>Nhận hàng</th>
-                            <th>Xuất hóa đơn</th>
-                            <th>Thanh toán</th>
-                            <th>Tổng tiền</th>
-                            <th>Dư nợ</th>
+                            <th class="text-table text-secondary">Ngày mua hàng</th>
+                            <th class="text-table text-secondary">Đơn mua hàng#</th>
+                            <th class="text-table text-secondary">Số than chiếu#</th>
+                            <th class="text-table text-secondary">Nhà cung cấp</th>
+                            <th class="text-table text-secondary">Dự án</th>
+                            <th class="text-table text-secondary">Trạng thái</th>
+                            <th class="text-table text-secondary">Nhận hàng</th>
+                            <th class="text-table text-secondary">Xuất hóa đơn</th>
+                            <th class="text-table text-secondary">Thanh toán</th>
+                            <th class="text-table text-secondary">Tổng tiền</th>
+                            <th class="text-table text-secondary">Dư nợ</th>
                         </tr>
                     </thead>
                     <tbody>

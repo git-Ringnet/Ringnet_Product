@@ -10,7 +10,7 @@
         <div class="content-header p-0">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="container-fluided">
-                    <div class="mb-3">
+                    <div class="mb">
                         <span class="font-weight-bold">Mua hàng</span>
                         <span class="mx-2">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -32,8 +32,8 @@
                         <span>Tạo mới thanh toán mua hàng</span>
                     </div>
                 </div>
-                <div class="container-fluided">
-                    <div class="row m-0 mb-3">
+                <div class="container-fluided z-index-block">
+                    <div class="row m-0 my-1">
                         <button name="action" value="payment" type="submit"
                             class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                             <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
