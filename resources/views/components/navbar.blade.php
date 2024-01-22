@@ -27,6 +27,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>
         @if (!empty($title))
             {{ $title }}
@@ -37,7 +38,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <script src="https://kit.fontawesome.com/774b78ff1e.js" crossorigin="anonymous"></script>
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <!-- Việt css -->
@@ -451,7 +453,8 @@
         </div>
         <!-- /.sidebar -->
     </aside>
-    <div class="alert notification d-flex justify-content-center align-items-center m-0 w-100" style="position: absolute;">
+    <div class="alert notification d-flex justify-content-center align-items-center m-0 w-100"
+        style="position: absolute;">
         <div class="success">
             @if (Session::has('msg'))
                 <div id="notification" class="alert alert-success alert-dismissible fade show" role="alert"
