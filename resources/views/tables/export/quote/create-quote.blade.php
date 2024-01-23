@@ -2,11 +2,10 @@
 </x-navbar>
 <form action="{{ route('detailExport.store', ['workspace' => $workspacename]) }}" method="POST">
     @csrf
-    <div class="content-wrapper1 py-0 border-bottom px-4">
-        <!-- Content Header (Page header) -->
-        <div class="d-flex justify-content-between align-items-center">
+    <div class="content-wrapper1 py-1">
+        <div class="d-flex justify-content-between align-items-center pl-4 ml-1">
             <div class="container-fluided">
-                <div class="mb-3">
+                <div class="mb">
                     <span class="font-weight-bold">Bán hàng</span>
                     <span class="mx-2"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -44,7 +43,7 @@
                     </div>
                     <div class="dropdown">
                         <button type="button" data-toggle="dropdown"
-                            class="btn-save-print rounded d-flex align-items-center h-100 dropdown-toggle"
+                            class="btn-save-print rounded d-flex align-items-center h-100 dropdown-toggle px-2"
                             style="margin-right:10px">
                             <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -52,7 +51,7 @@
                                     d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                     fill="#6D7075" />
                             </svg>
-                            <span>Lưu và in</span>
+                            <span class="text-button">Lưu và in</span>
                         </button>
                         <div class="dropdown-menu" style="z-index: 9999;">
                             <a class="dropdown-item" href="#">Xuất Excel</a>
@@ -60,7 +59,7 @@
                         </div>
                     </div>
                     <button type="submit" onclick="kiemTraFormGiaoHang(event);"
-                        class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                        class="custom-btn d-flex align-items-center h-100 py-1 px-2" style="margin-right:10px">
                         <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -96,27 +95,27 @@
                             <table class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr>
-                                        <th class="border-right p-1 border-bottom-0" style="width: 15%;">
+                                        <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 15%;">
                                             <input class="ml-4 border-danger" id="checkall" type="checkbox">
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-1 border-bottom-0" style="width: 15%;">
+                                        <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 15%;">
                                             <span class="text-table text-secondary">Tên sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-1 border-bottom-0" style="width: 8%;">
+                                        <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 8%;">
                                             <span class="text-table text-secondary">Đơn vị</span>
                                         </th>
-                                        <th class="border-right p-1 border-bottom-0" style="width: 8%;">
+                                        <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 8%;">
                                             <span class="text-table text-secondary">Số lượng</span>
                                         </th>
-                                        <th class="border-right p-1 border-bottom-0" style="width: 10%;">
+                                        <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 10%;">
                                             <span class="text-table text-secondary">Đơn giá</span>
                                         </th>
-                                        <th class="border-right p-1 border-bottom-0" style="width: 8%;">
+                                        <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 8%;">
                                             <span class="text-table text-secondary">Thuế</span>
                                         </th>
-                                        <th class="border-right p-1 border-bottom-0" style="width: 10%;">
-                                            <span class="text-table text-secondary">Thành
+                                        <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 10%;">
+                                            <span class="text-table text-secondary border-top-0">Thành
                                                 tiền</span>
                                         </th>
                                         {{-- <th class="p-1 bg-secondary border-0 Daydu p-1" style="width:1%;"></th> --}}
@@ -126,11 +125,12 @@
                                         {{-- <th class="border-right price_import p-1">
                                             <span class="text-table text-secondary">Giá nhập</span>
                                         </th> --}}
-                                        <th class="border-right note p-1 border-bottom-0">
-                                            <span class="text-table text-secondary">Ghi
-                                                chú</span>
+                                        <th class="border-right note p-1 border-bottom-0 border-top-0">
+                                            <span class="text-table text-secondary">
+                                                Ghi chú
+                                            </span>
                                         </th>
-                                        <th class="border-bottom-0"></th>
+                                        <th class="border-bottom-0 border-top-0"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -214,20 +214,6 @@
                                         <div class="d-flex justify-content-between mt-2 align-items-center">
                                             <span class="text-table"><b>Thuế VAT:</b></span>
                                             <span id="product-tax" class="text-table">0đ</span>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-2">
-                                            <span class="text-primary text-table">Giảm giá:</span>
-                                            <div class="w-50">
-                                                <input type="text" class="form-control text-right border-0 p-0"
-                                                    name="discount" id="voucher" value="0">
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-2">
-                                            <span class="text-primary text-table">Phí vận chuyển:</span>
-                                            <div class="w-50">
-                                                <input type="text" class="form-control text-right border-0 p-0"
-                                                    name="transport_fee" id="transport_fee" value="0">
-                                            </div>
                                         </div>
                                         <div class="d-flex justify-content-between mt-2">
                                             <span class="text-lg"><b>Tổng cộng:</b></span>

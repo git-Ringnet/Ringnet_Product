@@ -15,7 +15,7 @@
                 <span class="font-weight-bold text-secondary">Khách hàng</span>
             </div>
         </div>
-        <div class="container-fluided">
+        <div class="container-fluided z-index-block">
             <div class="row m-0 mb-1">
                 <a href="{{ route('guests.create', ['workspace' => $workspacename]) }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">

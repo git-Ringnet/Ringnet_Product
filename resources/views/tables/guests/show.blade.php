@@ -22,7 +22,7 @@
                 <span class="font-weight-bold text-secondary">{{ $title }}</span>
             </div>
         </div>
-        <div class="container-fluided">
+        <div class="container-fluided z-index-block">
             <div class="row m-0 mb-1">
                 <div class="dropdown">
                     <a href="{{ route('guests.index', ['workspace' => $workspacename]) }}">
