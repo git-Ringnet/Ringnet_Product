@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="quote" :workspacename="$workspacename"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper1 py-1">
+<div class="content-wrapper1 py-2">
     <!-- Content Header (Page header) -->
     <div class="d-flex justify-content-between align-items-center pl-4 ml-1">
         <div class="container-fluided">
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="container-fluided z-index-block">
-            <div class="row m-0 mb-1">
+            <div class="row m-0">
                 <a href="{{ route('detailExport.create', ['workspace' => $workspacename]) }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"

@@ -446,7 +446,7 @@
                             </li>
                         @endforeach
                         <a type="button"
-                            class="d-flex justify-content-center align-items-center p-2 position-sticky addGuestNew"
+                            class="d-flex justify-content-center align-items-center p-2 position-sticky addGuestNew bg-white"
                             data-toggle="modal" data-target="#guestModal" style="bottom: 0;">
                             <span class="text-table text-center font-weight-bold">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
