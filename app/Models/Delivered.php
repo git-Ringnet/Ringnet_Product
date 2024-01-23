@@ -16,6 +16,8 @@ class Delivered extends Model
         'delivery_id',
         'product_id',
         'deliver_qty',
+        'price_export',
+        'product_total_vat',
         'workspace_id',
         'created_at',
         'updated_at'
@@ -59,11 +61,17 @@ class Delivered extends Model
                     $quoteExport->save();
                 }
             }
-
+            //thêm giá xuất và thành tiền có thuế của mỗi sản phẩm giao
+            $productExport = QuoteExport::where('detailexport_id', $data['detailexport_id'])
+                ->where('product_id', $data['product_id'][$i])->first();
+            $priceTax = ($data['product_qty'][$i] * $productExport->price_export *  $productExport->product_tax) / 100;
+            $tolTax = ($data['product_qty'][$i] * $productExport->price_export) + $priceTax;
             $dataDelivered = [
                 'delivery_id' => $id,
                 'product_id' => $data['product_id'][$i],
                 'deliver_qty' => $data['product_qty'][$i],
+                'price_export' => $productExport->price_export,
+                'product_total_vat' => $tolTax,
                 'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

@@ -414,7 +414,11 @@ class Delivery extends Model
                     $quoteExport->save();
                 }
             }
-
+            //thêm giá xuất và thành tiền có thuế của mỗi sản phẩm giao
+            $productExport = QuoteExport::where('detailexport_id', $data['detailexport_id'])
+                ->where('product_id', $data['product_id'][$i])->first();
+            $priceTax = ($data['product_qty'][$i] * $productExport->price_export *  $productExport->product_tax) / 100;
+            $tolTax = ($data['product_qty'][$i] * $productExport->price_export) + $priceTax;
             $dataDelivered = [
                 'delivery_id' => $deliveryId,
                 'product_id' => $data['product_id'][$i],
@@ -422,6 +426,8 @@ class Delivery extends Model
                 'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'price_export' => $productExport->price_export,
+                'product_total_vat' => $tolTax,
             ];
             $delivered_id = DB::table('delivered')->insertGetId($dataDelivered);
             // Add lịch sử giao dịch
