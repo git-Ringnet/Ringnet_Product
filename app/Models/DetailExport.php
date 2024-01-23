@@ -49,8 +49,6 @@ class DetailExport extends Model
     {
         $totalBeforeTax = 0;
         $totalTax = 0;
-        $transport = str_replace(',', '', $data['transport_fee']);
-        $discount = str_replace(',', '', $data['discount']);
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
             $subtotal = $data['product_qty'][$i] * (float) $price;
@@ -73,8 +71,6 @@ class DetailExport extends Model
             'total_price' => $totalBeforeTax,
             'terms_pay' => $data['terms_pay'],
             'total_tax' => $totalTax,
-            'discount' => $discount,
-            'transfer_fee' => $transport,
             'amount_owed' => $totalBeforeTax + $totalTax,
             'goods' => $data['goods'],
             'delivery' => $data['delivery'],
@@ -120,8 +116,6 @@ class DetailExport extends Model
         if ($detailExport) {
             $totalBeforeTax = 0;
             $totalTax = 0;
-            $transport = str_replace(',', '', $data['transport_fee']);
-            $discount = str_replace(',', '', $data['discount']);
             for ($i = 0; $i < count($data['product_name']); $i++) {
                 $price = str_replace(',', '', $data['product_price'][$i]);
                 $subtotal = $data['product_qty'][$i] * (float) $price;
@@ -144,8 +138,6 @@ class DetailExport extends Model
                 'total_price' => $totalBeforeTax,
                 'terms_pay' => $data['terms_pay'],
                 'total_tax' => $totalTax,
-                'discount' => $discount,
-                'transfer_fee' => $transport,
                 'amount_owed' => $totalBeforeTax + $totalTax,
                 'goods' => $data['goods'],
                 'delivery' => $data['delivery'],
