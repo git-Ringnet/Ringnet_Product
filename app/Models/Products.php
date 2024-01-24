@@ -178,6 +178,9 @@ class Products extends Model
                     $product_id = DB::table($this->table)->insertGetId($dataProduct);
                 }
                 array_push($list_id, $product_id);
+                HistoryImport::where('quoteImport_id', $getProductName->id)->update([
+                    'product_id' => $product_id
+                ]);
                 $item->product_id = $product_id;
                 $item->save();
             }

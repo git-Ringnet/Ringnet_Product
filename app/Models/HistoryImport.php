@@ -34,7 +34,6 @@ class HistoryImport extends Model
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $price_export = str_replace(',', '', $data['price_export'][$i]);
             $total_price = str_replace(',', '', $data['product_qty'][$i]) * $price_export;
-
             $checkData = HistoryImport::where('product_code', $data['product_code'][$i])
                 ->where('product_name', $data['product_name'][$i])
                 ->where('product_unit', $data['product_unit'][$i])
@@ -43,7 +42,7 @@ class HistoryImport extends Model
                 ->where('product_total', $total_price)
                 ->where('price_export', $price_export)
                 ->where('product_note', $data['product_note'][$i])
-                ->where('workspace_id',Auth::user()->current_workspace)
+                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($checkData) {
                 continue;
@@ -52,7 +51,8 @@ class HistoryImport extends Model
                     ->where('product_name', $data['product_name'][$i])
                     ->where('workspace_id', Auth::user()->current_workspace)
                     ->first();
-                if ($quote) {
+                $getProvide = DetailImport::where('id', $id)->first();
+                if ($quote && $getProvide) {
                     $dataHistory = [
                         'detailImport_id' => $id,
                         'quoteImport_id' => $quote->id,
@@ -66,7 +66,8 @@ class HistoryImport extends Model
                         'product_note' => $data['product_note'][$i],
                         'version' => $quote->version,
                         'created_at' => Carbon::now(),
-                        'workspace_id' => Auth::user()->current_workspace
+                        'workspace_id' => Auth::user()->current_workspace,
+                        'provide_id' => $getProvide->provide_id
                     ];
                     DB::table($this->table)->insert($dataHistory);
                 }

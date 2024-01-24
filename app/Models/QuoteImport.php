@@ -62,7 +62,8 @@ class QuoteImport extends Model
                 'workspace_id' => Auth::user()->current_workspace
             ];
             $quote_id = DB::table($this->table)->insertGetId($dataQuote);
-            if ($quote_id) {
+            $getProvide = DetailImport::where('id', $id)->first();
+            if ($quote_id && $getProvide) {
                 $dataHistory = [
                     'detailimport_id' => $id,
                     'quoteImport_id' => $quote_id,
@@ -76,7 +77,8 @@ class QuoteImport extends Model
                     'product_note' => $data['product_note'][$i],
                     'version' => 1,
                     'created_at' => Carbon::now(),
-                    'workspace_id' => Auth::user()->current_workspace
+                    'workspace_id' => Auth::user()->current_workspace,
+                    'provide_id' => $getProvide->provide_id
                 ];
                 DB::table('history_import')->insert($dataHistory);
             }
@@ -97,8 +99,8 @@ class QuoteImport extends Model
         for ($i = 0; $i < count($data['product_name']); $i++) {
             // Lấy sản phẩm cần sửa
             $dataUpdate = QuoteImport::where('id', $data['listProduct'][$i])
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->first();
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
             $price_export = str_replace(',', '', $data['price_export'][$i]);
             $total_price = $data['product_qty'][$i] * $price_export;
             if ($dataUpdate) {
