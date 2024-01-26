@@ -73,7 +73,12 @@ Route::get('/deleteDateForm', [DateFormController::class, 'deleteDateForm'])->na
 Route::get('/setDefault', [DateFormController::class, 'setDefault'])->name('setDefault');
 Route::get('/searchDateForm', [DateFormController::class, 'searchDateForm'])->name('searchDateForm');
 Route::get('/searchFormByGuestId', [DetailExportController::class, 'searchFormByGuestId'])->name('searchFormByGuestId');
-
+Route::get('/getDataForm', [DetailImportController::class, 'getDataForm'])->name('getDataForm');
+Route::get('/addNewForm', [DetailImportController::class, 'addNewForm'])->name('addNewForm');
+Route::get('/updateForm', [DetailImportController::class, 'updateForm'])->name('updateForm');
+Route::get('/deleteForm', [DetailImportController::class, 'deleteForm'])->name('deleteForm');
+Route::get('/setDefault',[DetailImportController::class, 'setDefault'])->name('setDefault');
+Route::get('/showData',[DetailImportController::class,'showData'])->name('showData');
 
 
 

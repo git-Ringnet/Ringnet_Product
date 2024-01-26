@@ -11,95 +11,56 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="content-info">
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3 required-label text-danger">
-                                        Tên hiển thị
-                                    </p>
-                                </div>
-                                <input id="getKeyProvide" name="provide_name_display" type="text"
-                                    placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3 required-label text-danger">
-                                        Mã só thuế
-                                    </p>
-                                </div>
-                                <input name="provide_code" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3"
-                                    oninput="validateNumberInput(this)" autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3 required-label text-danger">
-                                        Địa chỉ
-                                    </p>
-                                </div>
-                                <input name="provide_address" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Key
-                                    </p>
-                                </div>
-                                <input name="key" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Tên nhà cung cấp
-                                    </p>
-                                </div>
-                                <input name="provide_name" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Người đại diện
-                                    </p>
-                                </div>
-                                <input name="provide_represent" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Email
-                                    </p>
-                                </div>
-                                <input name="provide_email" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Số điện thoại
-                                    </p>
-                                </div>
-                                <input name="provide_phone" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Địa chỉ nhận hàng
-                                    </p>
-                                </div>
-                                <input name="provide_address_delivery" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
-                            </div>
+                        <div class="form-group">
+                            <label for="form-name" class="col-form-label">Tên hiển thị</label>
+                            <input id="getKeyProvide" type="text" class="form-control" name="provide_name_display"
+                                placeholder="Nhập thông tin">
                         </div>
+                        <div class="form-group">
+                            <label for="form-name" class="col-form-label">Mã só thuế</label>
+                            <input id="getKeyProvide" type="text" class="form-control" name="provide_code"
+                                oninput="validateNumberInput(this)" autocomplete="off" placeholder="Nhập thông tin">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-name" class="col-form-label">Địa chỉ</label>
+                            <input id="getKeyProvide" type="text" class="form-control" name="provide_address"
+                                autocomplete="off" placeholder="Nhập thông tin">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-name" class="col-form-label">Tên viết tắt</label>
+                            <input id="getKeyProvide" type="text" class="form-control" name="key"
+                                autocomplete="off" placeholder="Nhập thông tin">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-name" class="col-form-label">Tên đầy đủ</label>
+                            <input id="getKeyProvide" type="text" class="form-control" name="provide_name"
+                                autocomplete="off" placeholder="Nhập thông tin">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-name" class="col-form-label">Người đại diện</label>
+                            <input id="getKeyProvide" type="text" class="form-control" name="provide_represent"
+                                autocomplete="off" placeholder="Nhập thông tin">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-name" class="col-form-label">Email</label>
+                            <input id="getKeyProvide" type="text" class="form-control" name="provide_email"
+                                autocomplete="off" placeholder="Nhập thông tin">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-name" class="col-form-label">Số điện thoại</label>
+                            <input id="getKeyProvide" type="text" class="form-control" name="provide_phone"
+                                autocomplete="off" placeholder="Nhập thông tin">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-name" class="col-form-label">Địa chỉ nhận hàng</label>
+                            <input id="getKeyProvide" type="text" class="form-control"
+                                name="provide_address_delivery" autocomplete="off" placeholder="Nhập thông tin">
+                        </div>
+
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-primary" id="addProvide">Thêm mới</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Trở về</button>
+                        <button type="button" class="btn btn-primary" id="addProvide">Thêm khách hàng</button>
                     </div>
                 </div>
             </div>

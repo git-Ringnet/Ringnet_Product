@@ -43,7 +43,7 @@
             </div>
             <div class="container-fluided z-index-block">
                 <div class="row m-0 my-1">
-                    <a href="{{route('import.index',$workspacename)}}">
+                    <a href="{{ route('import.index', $workspacename) }}">
                         <button type="button" class="btn-save-print rounded d-flex align-items-center h-100"
                             style="margin-right:10px">
                             <svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 8"
@@ -75,7 +75,7 @@
 
                     @if ($import->status == 1)
                         <a href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $import->id]) }}"
-                            class="custom-btn d-flex align-items-center h-100 mr-2">
+                            class="custom-btn d-flex align-items-center h-100 mr-2" style="padding: 6px 8px;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
                                 fill="none" class="mr-2">
                                 <path
@@ -92,14 +92,14 @@
                         </a>
                     @endif
 
-                    <label class="custom-btn d-flex align-items-center h-100 m-0 mr-2">
+                    <label class="custom-btn d-flex align-items-center h-100 m-0 mr-2" style="padding: 6px 8px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
                             fill="none" class="mr-2">
                             <path
                                 d="M8.30541 9.20586C8.57207 9.47246 8.5943 9.89106 8.37208 10.183L8.30541 10.2593L5.84734 12.7174C4.58675 13.978 2.54294 13.978 1.28235 12.7174C0.0652319 11.5003 0.0232719 9.55296 1.15644 8.2855L1.28235 8.15237L3.74042 5.69429C4.03133 5.40339 4.50298 5.40339 4.79388 5.69429C5.06054 5.96096 5.08277 6.37949 4.86055 6.67147L4.79388 6.74775L2.33581 9.20586C1.65703 9.88456 1.65703 10.9852 2.33581 11.6639C2.98065 12.3088 4.00611 12.341 4.68901 11.7607L4.79388 11.6639L7.25195 9.20586C7.54286 8.91492 8.01451 8.91492 8.30541 9.20586ZM8.82965 5.17005C9.12053 5.46095 9.12053 5.9326 8.82965 6.22351L6.34904 8.70413C6.05813 8.99504 5.58648 8.99504 5.29558 8.70413C5.00467 8.41323 5.00467 7.94158 5.29558 7.65067L7.7762 5.17005C8.0671 4.87914 8.53875 4.87914 8.82965 5.17005ZM12.7173 1.28236C13.9344 2.49948 13.9764 4.44674 12.8432 5.71422L12.7173 5.84735L10.2592 8.30543C9.96833 8.59633 9.49673 8.59633 9.20583 8.30543C8.93914 8.03877 8.91692 7.62023 9.13913 7.32825L9.20583 7.25197L11.6638 4.79389C12.3426 4.11511 12.3426 3.0146 11.6638 2.33582C11.019 1.69098 9.99363 1.65874 9.31073 2.23909L9.20583 2.33582L6.74774 4.79389C6.45683 5.0848 5.98518 5.0848 5.69428 4.79389C5.42762 4.52723 5.40539 4.10869 5.62761 3.81672L5.69428 3.74043L8.15235 1.28236C9.41293 0.0217665 11.4567 0.0217665 12.7173 1.28236Z"
                                 fill="white" />
                         </svg>
-                        <span>Đính kèm file</span> 
+                        <span>Đính kèm file</span>
                         <input type="file" style="display: none;" id="file_restore" accept="*"
                             name="file">
                     </label>
@@ -182,7 +182,7 @@
                         </a>
                     </li>
                 </ul>
-                <div class="d-flex position-fixed" style="right: 10px; top: 56px;">
+                <div class="d-flex position-fixed" style="right: 10px; top: 50px;">
                     @if ($import->status_receive == 0)
                         <div class="border text-secondary p-1">
                             <span>
@@ -614,183 +614,228 @@
                     <div class="content-wrapper2 px-0 py-0">
                         <div id="mySidenav" class="sidenavshow border">
                             <div id="show_info_Guest">
-                                <div class="bg-filter-search border-top-0 py-2 text-center">
+                                <div class="bg-filter-search border-0 py-2 text-center">
                                     <span class="font-weight-bold text-secondary text-nav">THÔNG TIN KHÁCH HÀNG</span>
                                 </div>
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                    <span class="text-table mr-3">Nhà cung cấp</span>
-                                    <input type="text" placeholder="Chọn thông tin"
-                                        class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest" autocomplete="off"
-                                        id="myInput" value="{{ $import->getProvideName->provide_name_display }}"
-                                        readonly>
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
+                                <div class="d-flex">
+                                    <div style="width:55%;">
+                                        <div class="border border-right-0 py-1 border-left-0">
+                                            <span class="text-table ml-2">
+                                                Nhà cung cấp
+                                            </span>
+                                        </div>
+                                        <div class="border border-right-0 py-1 border-left-0">
+                                            <span class="text-table ml-2">
+                                                Người đại diện
+                                            </span>
+                                        </div>
+                                        <div class="border border-right-0 py-1 border-left-0">
+                                            <span class="text-table ml-2">
+                                                Đơn mua hàng
+                                            </span>
+                                        </div>
+                                        <div class="border border-right-0 py-1 border-left-0">
+                                            <span class="text-table ml-2">
+                                                Số tham chiếu
+                                            </span>
+                                        </div>
+                                        <div class="border border-right-0 py-1 border-left-0">
+                                            <span class="text-table ml-2">
+                                                Ngày báo giá
+                                            </span>
+                                        </div>
+                                        <div class="border border-right-0 py-1 border-left-0">
+                                            <span class="text-table ml-2">
+                                                Hiệu lực báo giá
+                                            </span>
+                                        </div>
+                                        <div class="border border-right-0 py-1 border-left-0">
+                                            <span class="text-table ml-2">
+                                                Điều khoản
+                                            </span>
+                                        </div>
+                                        <div class="border border-right-0 py-1 border-left-0">
+                                            <span class="text-table ml-2">
+                                                Dự án
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                                {{-- Người đại diện --}}
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                    <span class="text-table mr-3">Người đại diện</span>
-                                    <input type="text" placeholder="Chọn thông tin"
-                                        class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off"
-                                        id="represent" readonly>
                                     <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                {{-- Đơn mua hàng --}}
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                    <span class="text-table mr-3">Đơn mua hàng</span>
-                                    <input readonly type="text" placeholder="Chọn thông tin"
-                                        name="quotation_number" class="border-0 bg w-50 bg-input-guest py-0 px-0"
-                                        autocomplete="off" value="{{ $import->quotation_number }}">
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                {{-- Số tham chiếu --}}
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                    <span class="text-table mr-3">Số tham chiếu</span>
-                                    <input readonly type="text" placeholder="Chọn thông tin"
-                                        name="reference_number" class="border-0 bg w-50 bg-input-guest py-0 px-0"
-                                        autocomplete="off" value="{{ $import->reference_number }}">
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                {{-- Ngày báo giá --}}
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                    <span class="text-table mr-3">Ngày báo giá</span>
-                                    <input readonly type="date" placeholder="Chọn thông tin" name="date_quote"
-                                        class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off"
-                                        value="{{ $import->created_at->toDateString() }}">
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                {{-- Hiệu lực báo giá --}}
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                    <span class="text-table mr-3">Hiệu lực báo giá</span>
-                                    <input readonly type="text" placeholder="Chọn thông tin" name="price_effect"
-                                        class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off"
-                                        value="{{ $import->price_effect }}">
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                {{-- Điều khoản thanh toán --}}
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                    <span class="text-table mr-3">Điều khoản thanh toán</span>
-                                    <input readonly type="text" placeholder="Chọn thông tin" name="terms_pay"
-                                        class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off"
-                                        value="{{ $import->terms_pay }}">
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                {{-- Dự án --}}
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 position-relative">
-                                    <span class="text-table mr-3">Dự án</span>
-                                    <input readonly type="text" placeholder="Chọn thông tin" id="inputProject"
-                                        class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off"
-                                        value="@if ($import->getProjectName) {{ $import->getProjectName->project_name }} @endif">
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
+                                        <div
+                                            class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                            <input type="text" placeholder="Chọn thông tin"
+                                                class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                                autocomplete="off" id="myInput"
+                                                value="{{ $import->getProvideName->provide_name_display }}" readonly>
+                                            <div class="">
+                                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                            <input type="text" placeholder="Chọn thông tin"
+                                                class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                                autocomplete="off" id="represent" readonly>
+                                            <div class="">
+                                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                            <input readonly type="text" placeholder="Chọn thông tin"
+                                                name="quotation_number"
+                                                class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                                autocomplete="off" value="{{ $import->quotation_number }}">
+                                            <div class="">
+                                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                            <input readonly type="text" placeholder="Chọn thông tin"
+                                                name="reference_number"
+                                                class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                                autocomplete="off" value="{{ $import->reference_number }}">
+                                            <div class="">
+                                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                            <input readonly type="date" placeholder="Chọn thông tin"
+                                                name="date_quote"
+                                                class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                                autocomplete="off" value="{{ $import->created_at->toDateString() }}">
+                                            <div class="">
+                                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                            <input readonly type="text" placeholder="Chọn thông tin"
+                                                name="price_effect"
+                                                class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                                autocomplete="off" value="{{ $import->price_effect }}">
+                                            <div class="">
+                                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                            <input readonly type="text" placeholder="Chọn thông tin"
+                                                name="terms_pay"
+                                                class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                                autocomplete="off" value="{{ $import->terms_pay }}">
+                                            <div class="">
+                                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                            <input readonly type="text" placeholder="Chọn thông tin"
+                                                id="inputProject"
+                                                class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                                autocomplete="off"
+                                                value="@if ($import->getProjectName) {{ $import->getProjectName->project_name }} @endif">
+                                            <div class="">
+                                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -49,16 +49,16 @@ $(document).click(function (event) {
 $("#myUL").hide();
 $('#listProject').hide();
 $('#listRepresent').hide();
-
-function showForm(id,list){
-    $(id).on('click', function(){
-        console.log(123);
+$('#listPriceEffect').hide();
+function showForm(id, list) {
+    $(id).on('click', function () {
         $(list).show();
     })
 }
-showForm('#inputProject','#listProject')
-showForm('#myInput','#myUL')
-showForm('#represent','#listRepresent')
+showForm('#inputProject', '#listProject')
+showForm('#myInput', '#myUL')
+showForm('#represent', '#listRepresent')
+showForm('#price_effect','#listPriceEffect')
 // $("#inputProject").on("click", function () {
 //     $("#listProject").show();
 // });

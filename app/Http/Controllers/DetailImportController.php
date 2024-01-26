@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attachment;
+use App\Models\DateForm;
 use App\Models\DetailImport;
+use App\Models\GuestFormDate;
 use App\Models\HistoryImport;
 use App\Models\HistoryPaymentOrder;
 use App\Models\PayOder;
@@ -11,12 +13,14 @@ use App\Models\ProductCode;
 use App\Models\ProductImport;
 use App\Models\Products;
 use App\Models\Project;
+use App\Models\ProvideRepesent;
 use App\Models\Provides;
 use App\Models\QuoteImport;
 use App\Models\Receive_bill;
 use App\Models\Reciept;
 use App\Models\Serialnumber;
 use App\Models\Workspace;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -407,5 +411,224 @@ class DetailImportController extends Controller
     {
         $this->attachment->deleteFile($file, $request->table_id, $folder);
         return back()->with('msg', 'Xóa file thành công!');
+    }
+
+    public function getDataForm(Request $request)
+    {
+        $data = [];
+        if ($request->status == "add") {
+
+            $represent = ProvideRepesent::where('provide_id', $request->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->get();
+
+            $price_effect = DateForm::where('form_field', 'import')
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->get();
+
+            $terms_pay = DateForm::where('form_field', 'terms_pay')
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->get();
+            $data['represent'] = $represent;
+            $data['price_effect'] = $price_effect;
+            $data['terms_pay'] = $terms_pay;
+            return $data;
+        } else {
+            if ($request->table == 'represent') {
+                $represent = ProvideRepesent::where('id', $request->id)
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->first();
+                $data['represent'] = $represent;
+            } else {
+                $dateForm = DateForm::where('id', $request->id)
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->first();
+                $data[$request->table] = $dateForm;
+                $data['table'] = $request->table;
+            }
+
+            return $data;
+        }
+    }
+    public function addNewForm(Request $request)
+    {
+        if ($request->id == "addRepresent") {
+            $dataRepresent = [
+                'provide_id' => $request->provides_id,
+                'represent_name' => $request->provide_represent,
+                'represent_email' => $request->provide_email,
+                'represent_phone' => $request->provide_phone,
+                'represent_address' => $request->provide_address_delivery,
+                'workspace_id' => Auth::user()->current_workspace,
+                'default' => 0
+            ];
+            if ($request->provide_represent != null || $request->provide_email != null || $request->provide_phone != null) {
+                // Thêm người đại diện
+                $check = ProvideRepesent::where('represent_name', $request->provide_represent)
+                    ->where('represent_phone', $request->provide_phone)->first();
+                if ($check) {
+                    $msg = response()->json([
+                        'success' => true, 'msg' => 'Thêm mới người đại diện thành công'
+                    ]);
+                } else {
+                    $new = DB::table('represent_provide')->insertGetId($dataRepresent);
+                    $msg = response()->json([
+                        'success' => true, 'msg' => 'Thêm mới người đại diện thành công'
+                    ]);
+                }
+            }
+        } else {
+            $checkF = DateForm::where('form_name', $request->inputName)
+                ->where('form_field', $request->table)
+                ->where('form_desc', $request->inputDesc)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+            if ($checkF) {
+                $msg = response()->json([
+                    'success' => false, 'msg' => 'Báo giá đã tồn tại'
+                ]);
+            } else {
+                $dataForm = [
+                    'form_name' => $request->inputName,
+                    'form_field' => $request->table,
+                    'form_desc' => $request->inputDesc,
+                    'default_form' => 0,
+                    'default_guest' => 0,
+                    'workspace_id' => Auth::user()->current_workspace,
+                    'created_at' => Carbon::now(),
+                ];
+                DB::table('date_form')->insertGetId($dataForm);
+                $msg = response()->json([
+                    'success' => true, 'msg' => 'Tạo mới báo giá thành công'
+                ]);
+            }
+        }
+        return $msg;
+    }
+    public function updateForm(Request $request)
+    {
+        if ($request->table == "addRepresent") {
+            $check = ProvideRepesent::where('id', '!=', $request->present_id)
+                ->where('represent_name', $request->provide_represent)
+                ->where('represent_phone', $request->provide_phone)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+            if ($check) {
+                $msg = response()->json([
+                    'success' => false, 'msg' => 'Người đại diện đã trùng'
+                ]);
+            } else {
+                $dataRepresent = [
+                    'represent_name' => $request->provide_represent,
+                    'represent_email' => $request->provide_email,
+                    'represent_phone' => $request->provide_phone,
+                    'represent_address' => $request->provide_address_delivery
+                ];
+                DB::table('represent_provide')
+                    ->where('id', $request->present_id)
+                    ->update($dataRepresent);
+                $msg = response()->json([
+                    'success' => true, 'msg' => 'Chỉnh sửa thông tin thành công'
+                ]);
+            }
+        } else {
+            $checkF = DateForm::where('id', '!=', $request->present_id)
+                ->where('form_name', $request->inputName)
+                ->where('form_field', $request->inputField)
+                ->where('form_desc', $request->inputDesc)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+            if ($checkF) {
+                $msg = response()->json([
+                    'success' => false, 'msg' => 'Thông tin đã tồn tại'
+                ]);
+            } else {
+                $dataForm = [
+                    'form_name' => $request->inputName,
+                    'form_desc' => $request->inputDesc
+                ];
+                DB::table('date_form')
+                    ->where('id', $request->present_id)
+                    ->update($dataForm);
+                $msg = response()->json([
+                    'success' => true, 'msg' => 'Chỉnh sửa thông tin thành công'
+                ]);
+            }
+        }
+
+        return $msg;
+    }
+    public function deleteForm(Request $request)
+    {
+        $check = ProvideRepesent::where('id', $request->id)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
+        if ($check) {
+            if ($request->table == 'represent') {
+                // ProvideRepesent::where('id',$check->id)->delete();
+                $msg = response()->json([
+                    'success' => true, 'msg' => 'Xóa người đại diện thành công'
+                ]);
+            }
+        } else {
+            $msg = response()->json([
+                'success' => false, 'msg' => 'Không tìm thấy dữ liệu cần xóa'
+            ]);
+        }
+        return $msg;
+    }
+
+    public function setDefault(Request $request)
+    {
+        $data = [];
+        $checkF = GuestFormDate::where('guest_id', $request->provides_id)
+            ->where('form_field', $request->form)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
+        if ($request->form == 'represent') {
+            if ($checkF) {
+                DB::table('represent_provide')
+                    ->where('id', $checkF->date_form_id)
+                    ->update(['default' => 0]);
+                if ($checkF->date_form_id == $request->id) {
+                    $checkF->date_form_id = 0;
+                    $checkF->save();
+                } else {
+                    DB::table('represent_provide')
+                        ->where('id', $request->id)
+                        ->update(['default' => 1]);
+                    $checkF->date_form_id = $request->id;
+                    $checkF->save();
+                }
+            } else {
+                $dataForm = [
+                    'form_field' => $request->form,
+                    'guest_id' => $request->provides_id,
+                    'date_form_id' => $request->id,
+                    'workspace_id' => Auth::user()->current_workspace
+                ];
+                GuestFormDate::insert($dataForm);
+            }
+            $data[$request->form] = ProvideRepesent::where('id', $request->id)->first();
+        } else {
+            return 2;
+        }
+
+        return $data;
+    }
+
+    public function showData(Request $request)
+    {
+        $data = [];
+        if ($request->table == 'search-represent') {
+            $represent = ProvideRepesent::where('id', $request->id)->first();
+            $data[$request->table] = $represent;
+            $data['table'] = $request->table;
+        } else if ($request->table == "search-price-effect") {
+            $price_effect = DateForm::where('id', $request->id)->first();
+            $data[$request->table] = $price_effect;
+            $data['table'] = $request->table;
+        }
+        return $data;
     }
 }

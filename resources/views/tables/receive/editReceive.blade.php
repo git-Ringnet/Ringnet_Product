@@ -333,7 +333,7 @@
 
 
                 <div class="content-wrapper2 px-0 py-0">
-                    <div id="mySidenav" class="sidenavshow" style="top: 104px;">
+                    <div id="mySidenav" class="sidenavshow" style="top: 101px;">
                         <div id="show_info_Guest">
                             <div class="bg-filter-search border-top-0 py-2 text-center">
                                 <span class="font-weight-bold text-secondary">THÔNG TIN NHÀ

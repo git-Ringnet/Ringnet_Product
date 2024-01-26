@@ -6,6 +6,7 @@
         @csrf
         <input type="hidden" id="provides_id" name="provides_id">
         <input type="hidden" id="project_id" name="project_id">
+        <input type="hidden" id="represent_id" name="represent_id">
         <div class="d-flex justify-content-between align-items-center">
             <div class="container-fluided">
                 <div class="mb">
@@ -307,241 +308,292 @@
         <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenavadd">
                 <div id="show_info_Guest">
-                    <div class="bg-filter-search border-top-0 py-2 text-center">
+                    <div class="bg-filter-search border-0 py-2 text-center">
                         <span class="font-weight-bold text-secondary text-nav">THÔNG TIN KHÁCH HÀNG</span>
                     </div>
-                    <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                        <span class="text-table mr-3">Nhà cung cấp</span>
-                        <input readonly type="text" placeholder="Chọn thông tin"
-                            class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest" autocomplete="off"
-                            id="myInput">
-                        <ul id="myUL"
-                            class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
-                            style="z-index: 99;">
-                            <div class="p-1">
-                                <div class="position-relative">
-                                    <input type="text" placeholder="Nhập công ty" class="pr-4 w-100 input-search"
-                                        id="provideFilter">
-                                    <span id="search-icon" class="search-icon"><i class="fas fa-search text-table"
-                                            aria-hidden="true"></i></span>
+                    <div class="d-flex">
+                        <div style="width: 55%;">
+                            <div class="border border-right-0 py-1 border-left-0">
+                                <span class="text-table ml-2">Nhà cung cấp</span>
+                            </div>
+                            <div id="more_info" style="">
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Người đại diện</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Đơn mua hàng</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Số tham chiếu</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Ngày báo giá</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Hiệu lực báo giá</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Điều khoản</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Dự án</span>
                                 </div>
                             </div>
-                            @foreach ($provides as $item)
-                                <li>
-                                    <a href="javascript:void(0)"
-                                        class="text-dark d-flex justify-content-between p-2 search-info w-100"
-                                        id="{{ $item->id }}" name="search-info">
-                                        <span class="w-50">{{ $item->provide_name_display }}</span>
-                                    </a>
-                                </li>
-                            @endforeach
-                            <a type="button"
-                                class="d-flex justify-content-center align-items-center p-2 position-sticky addGuestNew"
-                                data-toggle="modal" data-target="#provideModal" style="bottom: 0;">
-                                <span class="text-table text-center font-weight-bold">
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                            fill="#282A30"></path>
-                                    </svg>
-                                    Thêm nhà cung cấp
-                                </span>
-                            </a>
-                        </ul>
+                        </div>
                         <div class="">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div id="more_info" style="display: none;">
-                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                            <span class="text-table mr-3">Người đại diện</span>
-                            <input type="text" placeholder="Chọn thông tin"
-                                class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off" id="represent">
-                            <ul id="listRepresent"
-                                class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
-                                style="z-index: 99;">
-                                <div class="p-1">
-                                    <div class="position-relative">
-                                        <input type="text" placeholder="Nhập công ty"
-                                            class="pr-4 w-100 input-search" id="searchRepresent">
-                                        <span id="search-icon" class="search-icon"><i
-                                                class="fas fa-search text-table" aria-hidden="true"></i></span>
+                            <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                <input readonly type="text" placeholder="Chọn thông tin"
+                                    class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
+                                    id="myInput">
+                                <ul id="myUL"
+                                    class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
+                                    style="z-index: 99;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập công ty"
+                                                class="pr-4 w-100 input-search" id="provideFilter">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                        </div>
                                     </div>
+                                    @foreach ($provides as $item)
+                                        <li>
+                                            <a href="javascript:void(0)"
+                                                class="text-dark d-flex justify-content-between p-2 search-info w-100"
+                                                id="{{ $item->id }}" name="search-info">
+                                                <span class="w-50">{{ $item->provide_name_display }}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                    <a type="button"
+                                        class="d-flex justify-content-center align-items-center p-2 position-sticky addGuestNew"
+                                        data-toggle="modal" data-target="#provideModal" style="bottom: 0;">
+                                        <span class="text-table text-center font-weight-bold">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30"></path>
+                                            </svg>
+                                            Thêm nhà cung cấp
+                                        </span>
+                                    </a>
+                                </ul>
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
                                 </div>
-                                <a type="button"
-                                    class="d-flex justify-content-center align-items-center p-2 position-sticky addGuestNew"
-                                    data-toggle="modal" data-target="#provideModal" style="bottom: 0;">
-                                    <span class="text-table text-center font-weight-bold">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                fill="#282A30"></path>
-                                        </svg>
-                                        Thêm mới
-                                    </span>
-                                </a>
-                            </ul>
+                            </div>
 
-                            <div class="">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                        fill="#42526E"></path>
-                                </svg>
+                            <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                <input type="text" placeholder="Chọn thông tin"
+                                    class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
+                                    id="represent" readonly>
+                                <ul id="listRepresent"
+                                    class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
+                                    style="z-index: 99;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập thông tin"
+                                                class="pr-4 w-100 input-search" id="searchRepresent">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                    <a type="button"
+                                        class="d-flex justify-content-center align-items-center p-2 position-sticky addRepresent"
+                                        data-toggle="modal" data-target="#modalAddRepresent" style="bottom: 0;">
+                                        <span class="text-table text-center font-weight-bold">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30"></path>
+                                            </svg>
+                                            Thêm mới
+                                        </span>
+                                    </a>
+                                </ul>
+
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
                             </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                            <span class="text-table mr-3">Đơn mua hàng</span>
-                            <input type="text" placeholder="Chọn thông tin" name="quotation_number"
-                                class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off">
-                            <div class="">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                        fill="#42526E"></path>
-                                </svg>
+
+                            <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                <input type="text" placeholder="Chọn thông tin" name="quotation_number"
+                                    class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off">
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
                             </div>
-                        </div>
-                        {{-- Số tham chiếu --}}
-                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                            <span class="text-table mr-3">Số tham chiếu</span>
-                            <input type="text" placeholder="Chọn thông tin" name="reference_number"
-                                class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off">
-                            <div class="">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                        fill="#42526E"></path>
-                                </svg>
+
+                            <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                <input type="text" placeholder="Chọn thông tin" name="reference_number"
+                                    class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off">
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
                             </div>
-                        </div>
-                        {{-- Ngày báo giá --}}
-                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                            <span class="text-table mr-3">Ngày báo giá</span>
-                            <input type="date" placeholder="Chọn thông tin" name="date_quote"
-                                class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off"
-                                value="{{ date('Y-m-d') }}">
-                            <div class="">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                        fill="#42526E"></path>
-                                </svg>
+
+                            <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                <input type="date" placeholder="Chọn thông tin" name="date_quote"
+                                    class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
+                                    value="{{ date('Y-m-d') }}">
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
                             </div>
-                        </div>
-                        {{-- Hiệu lực báo giá --}}
-                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                            <span class="text-table mr-3">Hiệu lực báo giá</span>
-                            <input type="text" placeholder="Chọn thông tin" name="price_effect"
-                                class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off">
-                            <div class="">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                        fill="#42526E"></path>
-                                </svg>
+
+                            <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                <input type="text" placeholder="Chọn thông tin" name="price_effect"
+                                    class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
+                                    id="price_effect" readonly>
+
+                                <ul id="listPriceEffect"
+                                    class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
+                                    style="z-index: 99;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập thông tin"
+                                                class="pr-4 w-100 input-search" id="searchPriceEffect">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                    <a type="button"
+                                        class="d-flex justify-content-center align-items-center p-2 position-sticky addRepresent"
+                                        data-toggle="modal" data-target="#formModalquote" style="bottom: 0;">
+                                        <span class="text-table text-center font-weight-bold">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30"></path>
+                                            </svg>
+                                            Thêm mới
+                                        </span>
+                                    </a>
+                                </ul>
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
                             </div>
-                        </div>
-                        {{-- Điều khoản thanh toán --}}
-                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                            <span class="text-table mr-3">Điều khoản thanh toán</span>
-                            <input type="text" placeholder="Chọn thông tin" name="terms_pay"
-                                class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off">
-                            <div class="">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                        fill="#42526E"></path>
-                                </svg>
+
+                            <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                <input type="text" placeholder="Chọn thông tin" name="terms_pay"
+                                    class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off" readonly>
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
                             </div>
-                        </div>
-                        {{-- Dự án --}}
-                        <div
-                            class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 position-relative">
-                            <span class="text-table mr-3">Dự án</span>
-                            <input type="text" placeholder="Chọn thông tin" id="inputProject"
-                                class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off">
-                            <ul id="listProject"
-                                class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                                style="z-index: 99;left: 23%;top: 96%;">
-                                @foreach ($project as $va)
-                                    <li>
-                                        <a href="javascript:void(0)"
-                                            class="text-dark d-flex justify-content-between p-2 project_name w-100"
-                                            id="{{ $va->id }}" name="project_name">
-                                            <span class="w-50">{{ $va->project_name }}</span>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            <div class="">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                        fill="#42526E"></path>
-                                </svg>
+
+                            <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                <input type="text" placeholder="Chọn thông tin" id="inputProject"
+                                    class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off">
+                                <ul id="listProject"
+                                    class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                    style="z-index: 99;left: 23%;top: 96%;">
+                                    @foreach ($project as $va)
+                                        <li>
+                                            <a href="javascript:void(0)"
+                                                class="text-dark d-flex justify-content-between p-2 project_name w-100"
+                                                id="{{ $va->id }}" name="project_name">
+                                                <span class="w-50">{{ $va->project_name }}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -552,7 +604,10 @@
 
     <!-- Main content -->
     <x-formprovides></x-formprovides>
-
+    <x-formModalImport title="Thêm mới người đại diện" name="addRepresent"
+        idModal="modalAddRepresent"></x-formModalImport>
+    <x-formModalImport title="Hiệu lực báo giá" name="import" idModal="formModalquote"></x-formModalImport>
+    {{-- <x-date-form-modal title="Hiệu lực báo giá" name="import" idModal="formModalquote"></x-date-form-modal> --}}
 </form>
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -562,8 +617,13 @@
     getKeyProvide($('#getKeyProvide'));
 
     $(document).click(function(event) {
-        if (!$(event.target).closest("#searchRepresent").length && !$(event.target).closest('#represent').length) {
+        if ((!$(event.target).closest("#searchRepresent").length && !$(event.target).closest('#represent')
+                .length) && !$(event.target).closest('.dropdown').length) {
             $('#listRepresent').hide();
+        }
+        if ((!$(event.target).closest('#price_effect').length && !$(event.target).closest('#searchPriceEffect')
+                .length) && !$(event.target).closest('.dropdown').length) {
+            $('#listPriceEffect').hide();
         }
     });
 
@@ -585,11 +645,220 @@
                 $('input[name="quotation_number"]').val(quotation);
                 $('#myInput').val(data['provide'].provide_name_display);
                 $('#provides_id').val(data['provide'].id);
+
+                $.ajax({
+                    url: "{{ route('getDataForm') }}",
+                    type: "get",
+                    data: {
+                        id: data['provide'].id,
+                        status: 'add'
+                    },
+                    success: function(data) {
+                        $('#listRepresent li').empty();
+                        $('#listPriceEffect li').empty();
+                        data['represent'].forEach(function(element) {
+                            var li =
+                                `
+                            <li>
+                                <a href="javascript:void(0)"
+                                    class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent"
+                                    id="` + element.id + `" name="search-represent">
+                                    <span class="w-100">` + element.represent_name + `</span>
+                                </a>
+
+                                <div class="dropdown">
+                                    <button type="button" data-toggle="dropdown"
+                                        class="btn-save-print d-flex align-items-center h-100"
+                                        style="margin-right:10px">
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </button>
+                                    <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal"
+                                            data-target="#modalAddRepresent" data-name="represent"
+                                            data-id="` + element.id + `" id="` + element.id + `"><i
+                                            class="fa-regular fa-pen-to-square"></i></a>
+                                        <a class="dropdown-item delete-item" href="#"
+                                            data-id="` + element.id + `"
+                                            data-name="represent"><i
+                                            class="fa-solid fa-trash-can"></i></a>
+                                        <a class="dropdown-item set-default default-id ` + element.represent_name + `"
+                                            id="default-id` + element.id + `" href="#"
+                                            data-name="represent"
+                                            data-id="` + element.id + `">
+                                            ` + (element.default === 1 ? '<i class="fa-solid fa-link-slash"></i>' :
+                                    '<i class="fa-solid fa-link"></i>') + ` 
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            `;
+                            $('#listRepresent .p-1').after(li);
+                            if (element.default == 1) {
+                                $('#represent').val(element.represent_name);
+                                $('#represent_id').val(element.id);
+                            }
+                        });
+
+                        data['price_effect'].forEach(function(element) {
+                            var li =
+                                `
+                            <li>
+                                <a href="javascript:void(0)"
+                                    class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect"
+                                    id="` + element.id + `" name="search-price-effect">
+                                    <span class="w-100">` + element.form_desc + `</span>
+                                </a>
+
+                                <div class="dropdown">
+                                    <button type="button" data-toggle="dropdown"
+                                        class="btn-save-print d-flex align-items-center h-100"
+                                        style="margin-right:10px">
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </button>
+                                    <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal"
+                                            data-target="#formModalquote" data-name="import"
+                                            data-id="` + element.id + `" id="` + element.id + `"><i
+                                            class="fa-regular fa-pen-to-square"></i></a>
+                                        <a class="dropdown-item delete-item" href="#"
+                                            data-id="` + element.id + `"
+                                            data-name="represent"><i
+                                            class="fa-solid fa-trash-can"></i></a>
+                                        <a class="dropdown-item set-default default-id ` + element.form_desc + `"
+                                            id="default-id` + element.id + `" href="#"
+                                            data-name="represent"
+                                            data-id="` + element.id + `">
+                                            ` + (element.default_form === 1 ?
+                                    '<i class="fa-solid fa-link-slash"></i>' :
+                                    '<i class="fa-solid fa-link"></i>') + ` 
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            `;
+                            $('#listPriceEffect .p-1').after(li);
+                            if (element.default_form == 1) {
+                                $('#price_effect').val(element.form_desc);
+                            }
+                        });
+                    }
+                })
                 $('#more_info').show();
             }
         });
     });
 
+    function showData(classname, inputShow, inputHide) {
+        $(document).on('click', '.' + classname, function(e) {
+            e.preventDefault();
+            id = $(this).attr('id');
+            table = $(this).attr('name');
+            $.ajax({
+                url: "{{ route('showData') }}",
+                type: "get",
+                data: {
+                    id: id,
+                    table: table,
+                },
+                success: function(data) {
+                    if (data['table'] == "search-represent") {
+                        $('#' + inputShow).val(data[table].represent_name)
+                        $('#' + inputHide).val(data[table].id)
+                    } else if (data['table'] == "search-price-effect") {
+                        $('#price_effect').val(data[table].form_desc)
+                    }
+                }
+            })
+        })
+    }
+
+
+
+    showData('search-represent', 'represent', 'represent_id')
+    showData('search-price-effect', 'price_effect', '')
+
+    // Ghim 
+    $(document).on('click', '.set-default', function() {
+        id = $(this).attr('data-id');
+        form = $(this).attr('data-name');
+        provides_id = $('#provides_id').val()
+        $.ajax({
+            url: "{{ route('setDefault') }}",
+            type: "get",
+            data: {
+                id: id,
+                provides_id: provides_id,
+                form: form
+            },
+            success: function(data) {
+                if (data['represent']) {
+                    // console.log(data['represent']);
+                    $('#represent').val(data['represent'].represent_name)
+                    $('#represent_id').val(data['represent'].id)
+                    $('#listRepresent').hide()
+                } else {
+                    // console.log(321);
+                }
+
+            }
+        })
+    })
+
+    // Xóa người đại diện
+    $(document).on('click', '.delete-item', function() {
+        id = $(this).attr('data-id')
+        table = $(this).attr('data-name')
+        $.ajax({
+            url: "{{ route('deleteForm') }}",
+            type: "get",
+            data: {
+                id: id,
+                table: table
+            },
+            success: function(data) {
+                // console.log(data);
+            }
+        })
+    })
+    // Chỉnh sửa thông tin
+    $(document).on('click', '.search-date-form', function() {
+        var id = $(this).data('id');
+        var table = $(this).attr('data-name')
+        if (id) {
+            $.ajax({
+                url: "{{ route('getDataForm') }}",
+                type: "get",
+                data: {
+                    id: id,
+                    status: 'eidt',
+                    table: table
+                },
+                success: function(data) {
+                    if (data['represent']) {
+                        $('input[name="provide_represent_new"]').val(data['represent']
+                            .represent_name)
+                        $('input[name="provide_email_new"]').val(data['represent'].represent_email)
+                        $('input[name="provide_phone_new"]').val(data['represent'].represent_phone)
+                        $('input[name="provide_address_delivery_new"]').val(data['represent']
+                            .represent_address)
+                        $('#modalAddRepresent #exampleModalLabel').text('Cập nhật')
+                        $('#addRepresent').attr('data-id', data['represent'].id).text('Cập nhật')
+                    } else {
+                        //console.log(data);
+                        $('#form-name-' + data['table']).val(data[data['table']].form_name)
+                        $('#form-desc-' + data['table']).val(data[data['table']].form_desc)
+                        $('#form_field').val(data[data['table']].form_field)
+                        $('#formModalquote #exampleModalLabel').text('Cập nhật')
+                        $('#' + data['table']).attr('data-id', data[data['table']].id).text(
+                            'Cập nhật')
+                    }
+
+                }
+            })
+
+        }
+
+    })
     $('#addProvide').click(function() {
         var check = false;
         var provide_name_display = $("input[name='provide_name_display']").val().trim();
@@ -657,6 +926,165 @@
         }
     });
 
+    function actionForm(id, routeAdd, routeEdit) {
+        $('#' + id).click(function() {
+            var status = $(this).text().trim();
+            // if (id == 'addRepresent') {
+            provide_represent = $("input[name='provide_represent_new']").val().trim();
+            provide_email = $("input[name='provide_email_new']").val().trim();
+            provide_phone = $("input[name='provide_phone_new']").val().trim();
+            provide_address_delivery = $("input[name='provide_address_delivery_new']").val().trim();
+
+            if (status == 'Thêm mới') {
+                if ((provides_id == "" || provide_represent == "") && id == 'addRepresent') {
+                    alert('Vui lòng nhập tên người đại diện')
+                } else {
+                    if (id == 'addRepresent') {
+                        $.ajax({
+                            url: routeAdd,
+                            type: "get",
+
+                            data: {
+                                table: id,
+                                provides_id: provides_id,
+                                provide_represent: provide_represent,
+                                provide_email: provide_email,
+                                provide_phone: provide_phone,
+                                provide_address_delivery: provide_address_delivery
+                            },
+                            success: function(data) {
+                                if (data.success) {
+                                    $("input[name='provide_represent_new']").val('')
+                                    $("input[name='provide_email_new']").val('')
+                                    $("input[name='provide_phone_new']").val('')
+                                    $("input[name='provide_address_delivery_new']").val('')
+                                    alert(data.msg);
+                                }
+                            }
+                        })
+                    } else {
+                        inputName = $('#form-name-' + id).val().trim();
+                        inputDesc = $('#form-desc-' + id).val()
+
+                        $.ajax({
+                            url: routeAdd,
+                            type: "get",
+                            data: {
+                                table: id,
+                                inputName: inputName,
+                                inputDesc: inputDesc,
+                            },
+                            success: function(data) {
+                                if (data.success) {
+                                    alert(data.msg);
+                                }
+                            }
+                        })
+                    }
+
+                }
+            } else {
+                present_id = $(this).attr('data-id');
+                if (id == 'addRepresent') {
+                    $.ajax({
+                        url: routeEdit,
+                        type: "get",
+                        data: {
+                            table: id,
+                            present_id: present_id,
+                            provide_represent: provide_represent,
+                            provide_email: provide_email,
+                            provide_phone: provide_phone,
+                            provide_address_delivery: provide_address_delivery
+                        },
+                        success: function(data) {
+                            console.log(data);
+                            // alert(data.msg);
+                        }
+                    })
+                } else {
+                    inputName = $('#form-name-' + id).val().trim();
+                    inputDesc = $('#form-desc-' + id).val()
+                    inputField = $('#form_field').val()
+                    $.ajax({
+                        url: routeEdit,
+                        type: "get",
+                        data: {
+                            table: id,
+                            present_id: present_id,
+                            inputName: inputName,
+                            inputDesc: inputDesc,
+                            inputField: inputField
+                        },
+                        success: function(data) {
+                            alert(data.msg);
+                        }
+                    })
+
+                }
+            }
+        })
+
+        // $(id).click(function() {
+
+        // })
+    }
+
+    function getAc(button) {
+        // console.log($(button).attr('id'));
+        return $(button).attr('id');
+    }
+
+
+
+    actionForm('addRepresent', '{{ route('addNewForm') }}', '{{ route('updateForm') }}')
+    actionForm('import', '{{ route('addNewForm') }}', '{{ route('updateForm') }}')
+    // $('#addRepresent').click(function() {
+    //     var status = $(this).text().trim();
+    //     provide_represent = $("input[name='provide_represent_new']").val().trim();
+    //     provide_email = $("input[name='provide_email_new']").val().trim();
+    //     provide_phone = $("input[name='provide_phone_new']").val().trim();
+    //     provide_address_delivery = $("input[name='provide_address_delivery_new']").val().trim();
+    //     if (status == 'Thêm mới') {
+    //         provides_id = $('#provides_id').val()
+    //         if (provides_id == "" || provide_represent == "") {
+    //             alert('Vui lòng nhập tên người đại diện')
+    //         } else {
+    //             $.ajax({
+    //                 url: "{{ route('addNewForm') }}",
+    //                 type: "get",
+    //                 data: {
+    //                     provides_id: provides_id,
+    //                     provide_represent: provide_represent,
+    //                     provide_email: provide_email,
+    //                     provide_phone: provide_phone,
+    //                     provide_address_delivery: provide_address_delivery
+    //                 },
+    //                 success: function(data) {
+    //                     if (data.success) {
+    //                         alert(data.msg);
+    //                     }
+    //                 }
+    //             })
+    //         }
+    //     } else {
+    //         present_id = $(this).attr('data-id');
+    //         $.ajax({
+    //             url: "{{ route('updateForm') }}",
+    //             type: "get",
+    //             data: {
+    //                 present_id: present_id,
+    //                 provide_represent: provide_represent,
+    //                 provide_email: provide_email,
+    //                 provide_phone: provide_phone,
+    //                 provide_address_delivery: provide_address_delivery
+    //             },
+    //             success: function(data) {
+    //                 alert(data.msg);
+    //             }
+    //         })
+    //     }
+    // })
 
     function getProduct(name) {
         $('#inputcontent tbody tr .' + name).on('click', function() {

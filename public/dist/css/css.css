@@ -655,9 +655,9 @@ td p {
     max-width: 85% !important;
 }
 
-#provideModal .modal-dialog {
+/* #provideModal .modal-dialog {
     max-width: 65% !important;
-}
+} */
 
 #guestModal .modal-dialog {
     max-width: 20% !important;

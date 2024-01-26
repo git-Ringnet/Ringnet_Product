@@ -21,6 +21,10 @@ class ProvideRepesent extends Model
         'represent_address',
     ];
 
+    public function getDefault(){
+        return $this->hasOne(GuestFormDate::class, 'date_form_id', 'id');
+    }
+
     public function addRePesent($data, $provide_id)
     {
         if (isset($provide_id) && isset($data['represent_name'])) {
