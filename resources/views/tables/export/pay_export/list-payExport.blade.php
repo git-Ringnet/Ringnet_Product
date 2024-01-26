@@ -95,8 +95,9 @@
                             <table id="example2" class="table table-hover">
                                 <thead class="sticky-head">
                                     <tr>
-                                        <th><input type="checkbox" name="all" id="checkall"></th>
-                                        <th scope="col">
+                                        <th class="border-top-0 my-0 py-2"></th>
+                                        <th class="border-top-0 bg-white pl-0 my-0 py-2"><input type="checkbox" name="all" id="checkall"></th>
+                                        <th scope="col" class="border-top-0 my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="id"
                                                     data-sort-type="#">
@@ -107,7 +108,7 @@
                                                 <div class="icon" id="icon-id"></div>
                                             </span>
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="border-top-0 my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="created_at"
                                                     data-sort-type="">
@@ -118,7 +119,7 @@
                                                 <div class="icon" id="icon-created_at"></div>
                                             </span>
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="border-top-0 my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="created_at"
                                                     data-sort-type="">
@@ -129,7 +130,7 @@
                                                 <div class="icon" id="icon-created_at"></div>
                                             </span>
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="border-top-0 my-0 py-2">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type="">
@@ -140,7 +141,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="border-top-0 my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type="">
@@ -151,7 +152,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="border-top-0 my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type="">
@@ -162,7 +163,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="border-top-0 my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type="">
@@ -173,7 +174,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col">
+                                        <th scope="col" class="border-top-0 my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type="">
@@ -189,22 +190,34 @@
                                 <tbody>
                                     @foreach ($payExport as $item_pay)
                                         <tr onclick="handleRowClick('checkbox', event);">
-                                            <td class="><input type="checkbox" class="cb-element" name="ids[]"
+                                            <td class="pr-0 py-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="6" class="mb-1" height="10" viewBox="0 0 6 10" fill="none">
+                                                    <g clip-path="url(#clip0_2326_17048)">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z" fill="#282A30"></path>
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_2326_17048">
+                                                            <rect width="6" height="10" fill="white"></rect>
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </td>
+                                            <td class="pl-0 py-2"><input type="checkbox" class="cb-element" name="ids[]"
                                                 id="checkbox" value="" onclick="event.stopPropagation();">
                                             </td>
-                                            <td class="">
+                                            <td class="py-2">
                                                 {{ $item_pay->idThanhToan }}
                                             </td>
-                                            <td class="">
+                                            <td class="py-2">
                                                 <a
                                                     href="{{ route('payExport.edit', ['workspace' => $workspacename, 'payExport' => $item_pay->idThanhToan]) }}">
                                                     {{ $item_pay->quotation_number }}
                                                 </a>
                                             </td>
-                                            <td class="text-left">
+                                            <td class="text-left py-2">
                                                 {{ $item_pay->guest_name_display }}
                                             </td>
-                                            <td class="text-left">
+                                            <td class="text-left py-2">
                                                 @if ($item_pay->status == 1)
                                                     @if ($item_pay->payment > 0)
                                                         <span style="color: #858585">Đặt cọc</span>
@@ -227,16 +240,16 @@
                                                     <span style="color: #E8B600">Đến hạn</span>
                                                 @endif
                                             </td>
-                                            <td class="text-left">
+                                            <td class="text-left py-2">
                                                 {{ date_format(new DateTime($item_pay->payment_date), 'd/m/Y') }}
                                             </td>
-                                            <td class="text-left">
+                                            <td class="text-left py-2">
                                                 {{ number_format($item_pay->tongTienNo) }}
                                             </td>
-                                            <td class="text-left">
+                                            <td class="text-left py-2">
                                                 {{ number_format($item_pay->tongThanhToan) }}
                                             </td>
-                                            <td class="text-left">
+                                            <td class="text-left py-2">
                                                 {{ number_format($item_pay->debt) }}
                                             </td>
                                         </tr>

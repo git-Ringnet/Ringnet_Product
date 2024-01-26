@@ -1,10 +1,10 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="guest" :workspacename="$workspacename"></x-navbar>
 <form action="{{ route('guests.store', $workspacename) }}" method="POST">
     @csrf
-    <div class="content-wrapper1 py-0 border-bottom px-4">
-        <div class="d-flex justify-content-between align-items-center">
+    <div class="content-wrapper1 py-2 border-bottom">
+        <div class="d-flex justify-content-between align-items-center pl-4 ml-1">
             <div class="container-fluided">
-                <div class="mb-3">
+                <div class="mb">
                     <span class="font-weight-bold">Bán hàng</span>
                     <span class="mx-2"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -13,7 +13,7 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="font-weight-bold">Đơn giao hàng</span>
+                    <span class="font-weight-bold">Khách hàng</span>
                     <span class="mx-2"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -21,11 +21,11 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="font-weight-bold text-secondary">Tạo đơn giao hàng</span>
+                    <span class="font-weight-bold text-secondary">Tạo khách hàng</span>
                 </div>
             </div>
             <div class="container-fluided z-index-block">
-                <div class="row m-0 mb-1">
+                <div class="row m-0">
                     <div class="dropdown">
                         <a href="{{ route('guests.index', $workspacename) }}">
                             <button type="button" class="btn-save-print rounded d-flex align-items-center h-100"
@@ -36,7 +36,7 @@
                                         d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
                                         fill="#6D7075" />
                                 </svg>
-                                <span>Hủy</span>
+                                <span class="text-button">Hủy</span>
                             </button>
                         </a>
                     </div>
@@ -75,37 +75,37 @@
                 </div>
                 <div class="info-chung">
                     <div class="content-info">
-                        <div class="d-flex ml-2 align-items-center">
+                        <div class="d-flex align-items-center">
                             <div class="title-info py-2 border border-top-0 border-left-0">
-                                <p class="p-0 m-0 px-3">Tên khách hàng</p>
+                                <p class="p-0 m-0 px-3 ml-2">Tên khách hàng</p>
                             </div>
                             <input type="text" placeholder="Nhập thông tin" name="guest_name"
                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                         </div>
-                        <div class="d-flex ml-2 align-items-center">
+                        <div class="d-flex align-items-center">
                             <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3 required-label text-danger">Tên hiển thị</p>
+                                <p class="p-0 m-0 px-3 required-label text-danger ml-2">Tên hiển thị</p>
                             </div>
                             <input type="text" required placeholder="Nhập thông tin" name="guest_name_display"
                                 class="border w-100 py-2 border-left-0 border-right-0 px-3">
                         </div>
-                        <div class="d-flex ml-2 align-items-center">
+                        <div class="d-flex align-items-center">
                             <div class="title-info py-2 border border-top-0 border-left-0">
-                                <p class="p-0 m-0 px-3 required-label text-danger">Địa chỉ</p>
+                                <p class="p-0 m-0 px-3 required-label text-danger ml-2">Địa chỉ</p>
                             </div>
                             <input type="text" required placeholder="Nhập thông tin" name="guest_address"
                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                         </div>
-                        <div class="d-flex ml-2 align-items-center">
+                        <div class="d-flex align-items-center">
                             <div class="title-info py-2 border border-top-0 border-left-0">
-                                <p class="p-0 m-0 px-3">Tên viết tắt</p>
+                                <p class="p-0 m-0 px-3 ml-2">Tên viết tắt</p>
                             </div>
                             <input type="text" placeholder="Nhập thông tin" name="key"
                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                         </div>
-                        <div class="d-flex ml-2 align-items-center">
+                        <div class="d-flex align-items-center">
                             <div class="title-info py-2 border border-top-0 border-left-0">
-                                <p class="p-0 m-0 px-3 required-label text-danger">Mã số thuế</p>
+                                <p class="p-0 m-0 px-3 required-label text-danger ml-2">Mã số thuế</p>
                             </div>
                             <input type="number" required placeholder="Nhập thông tin" name="guest_code"
                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
@@ -173,19 +173,19 @@
                         <table class="table table-hover bg-white rounded">
                             <thead>
                                 <tr>
-                                    <th class="border-right" style="width: 23%;">
+                                    <th class="border-right border-top-0" style="width: 23%;">
                                         <span class="ml-3 text-nav text-secondary">Người đại diện</span>
                                     </th>
-                                    <th class="border-right" style="width: 23%;">
+                                    <th class="border-right border-top-0" style="width: 23%;">
                                         <span class="ml-3 text-nav text-secondary">Số điện thoại</span>
                                     </th>
-                                    <th class="border-right" style="width: 23%;">
+                                    <th class="border-right border-top-0" style="width: 23%;">
                                         <span class="ml-3 text-nav text-secondary">Email</span>
                                     </th>
-                                    <th class="border-right" style="width: 23%;">
+                                    <th class="border-right border-top-0" style="width: 23%;">
                                         <span class="ml-3 text-nav text-secondary">Địa chỉ nhận</span>
                                     </th>
-                                    <th style="width: 8%;"></th>
+                                    <th class="border-top-0" style="width: 8%;"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -197,7 +197,7 @@
                         <div class="container-fluided">
                             <div class="d-flex">
                                 <button type="button" data-toggle="dropdown" id="add-field-btn"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 ml-4"
+                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 ml-4 rounded"
                                     style="margin-right:10px">
                                     <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
                                         height="14" viewBox="0 0 18 18" fill="none">
@@ -208,7 +208,7 @@
                                             d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
                                             fill="#42526E"></path>
                                     </svg>
-                                    <span>Thêm người đại diện</span>
+                                    <span class="text-table">Thêm người đại diện</span>
                                 </button>
                                 <button type="button" class="btn-option py-1 px-2 bg-white border-0">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

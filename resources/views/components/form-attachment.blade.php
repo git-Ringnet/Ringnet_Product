@@ -15,6 +15,7 @@
                 <th class="border-right p-1 border-bottom">
                     <span class="text-table text-secondary">Kích cỡ</span>
                 </th>
+                <th class="p-1 border-bottom border-right"></th>
                 <th class="p-1 border-bottom"></th>
             </tr>
         </thead>
@@ -22,18 +23,18 @@
             @if ($value->getAttachment($name))
                 @foreach ($value->getAttachment($name) as $item)
                     <tr>
-                        <td><input type="checkbox"></td>
-                        <td>{{ $item->file_name }}</td>
-                        <td>
+                        <td class="p-1 border-right"><input type="checkbox"></td>
+                        <td class="p-1 border-right">{{ $item->file_name }}</td>
+                        <td class="p-1 border-right">
                             @if ($item->getUsers)
                                 {{ $item->getUsers->name }}
                             @endif
                         </td>
-                        <td>{{ date_format(new DateTime($item->created_at), 'd-m-Y') }}</td>
-                        <td>
+                        <td class="p-1 border-right">{{ date_format(new DateTime($item->created_at), 'd-m-Y') }}</td>
+                        <td class="p-1 border-right">
                             {{-- {{ filesize(storage_path('backup/DMH/' . $item->file_name)) }} --}}
                         </td>
-                        <td>
+                        <td class="p-1 border-right">
                             <a href="{{ route('downloadFile', ['folder' => $name, 'file' => $item->file_name]) }}"
                                 download><svg width="32" height="32" viewBox="0 0 32 32" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -46,9 +47,8 @@
                                         stroke-linejoin="round" />
                                 </svg>
                             </a>
-
                         </td>
-                        <td>
+                        <td class="p-1 border-right">
                             <form onclick="return confirm('Bạn có chắc chắn muốn xoá !!')"
                                 action="{{ route('deleteFile', ['folder' => $name, 'file' => $item->file_name]) }}"
                                 method="post">
@@ -63,7 +63,7 @@
                                             fill="#555555"></path>
                                     </svg></button>
                             </form>
-                        </td>
+                        </td class="p-1">
                     </tr>
                 @endforeach
             @endif
