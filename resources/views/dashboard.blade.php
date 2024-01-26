@@ -103,15 +103,15 @@
                     <input type="hidden" id="idUser" name="idUser" value="{{ Auth::user()->id }}">
                 </div>
                 <br>
-                <label for="">Bật tắt Invite </label>
-                <div class="toggle">
-                    <input type="checkbox" id="toggle2" name="toggle_invitation"
-                        {{ $invitation->status ? 'checked' : '' }} />
-                    <label for="toggle2"></label>
-                </div>
-                <input type="hidden" name="invi_workspace_id" value="{{ $invitation->workspace_id }}">
-                <input type="hidden" name="invi_token" value="{{ $invitation->token }}">
                 @if ($invitation)
+                    <label for="">Bật tắt Invite </label>
+                    <div class="toggle">
+                        <input type="checkbox" id="toggle2" name="toggle_invitation"
+                            {{ $invitation->status ? 'checked' : '' }} />
+                        <label for="toggle2"></label>
+                    </div>
+                    <input type="hidden" name="invi_workspace_id" value="{{ $invitation->workspace_id }}">
+                    <input type="hidden" name="invi_token" value="{{ $invitation->token }}">
                     <br>
                     <div class="div-url"
                         style="{{ $invitation && $invitation->status == 1 ? 'display: block;' : 'display: none;' }}">
