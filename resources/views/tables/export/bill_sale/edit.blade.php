@@ -63,15 +63,14 @@
                     </label>
                     <div class="dropdown">
                         <button type="button" data-toggle="dropdown"
-                            class="btn-save-print rounded d-flex align-items-center h-100"
-                            style="margin-right:10px">
+                            class="btn-save-print rounded d-flex align-items-center h-100" style="margin-right:10px">
                             <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                     d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                     fill="#6D7075" />
                             </svg>
-                            <span>In</span>
+                            <span class="text-button">In</span>
                         </button>
                         <div class="dropdown-menu" style="z-index: 9999;">
                             <a class="dropdown-item" href="{{ route('pdfdelivery', $billSale->idHD) }}">Xuất
@@ -95,7 +94,8 @@
                     @endif
                     <button name="action" value="action_2" type="submit"
                         onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                        class="custom-btn-danger d-flex align-items-center h-100 py-1 px-2" style="margin-right:10px;">
+                        class="custom-btn-danger d-flex align-items-center h-100 py-1 px-2"
+                        style="margin-right:10px;">
                         <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -138,7 +138,7 @@
             <div class="container-fluided">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
-                        <div class="bg-filter-search border-bottom-0 text-center py-2">
+                        <div class="bg-filter-search border-bottom-0 text-center py-2 border-right-0">
                             <span class="font-weight-bold text-secondary text-nav">THÔNG TIN SẢN PHẨM</span>
                         </div>
                         <section class="content">
@@ -201,29 +201,29 @@
                                 <table class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr>
-                                            <th class="border-right" style="width: 15%;">
+                                            <th class="border-right p-1" style="width: 15%;">
                                                 <input class="ml-4" id="checkall" type="checkbox">
                                                 <span class="text-secondary text-table">Mã sản phẩm</span>
                                             </th>
-                                            <th class="border-right">
+                                            <th class="border-right p-1">
                                                 <span class="text-secondary text-table">Tên sản phẩm</span>
                                             </th>
-                                            <th class="border-right">
+                                            <th class="border-right p-1">
                                                 <span class="text-secondary text-table">Đơn vị</span>
                                             </th>
-                                            <th class="border-right">
+                                            <th class="border-right p-1">
                                                 <span class="text-secondary text-table">Số lượng</span>
                                             </th>
-                                            <th class="border-right">
+                                            <th class="border-right p-1">
                                                 <span class="text-secondary text-table">Đơn giá</span>
                                             </th>
-                                            <th class="border-right">
+                                            <th class="border-right p-1">
                                                 <span class="text-secondary text-table">Thuế</span>
                                             </th>
-                                            <th class="border-right">
+                                            <th class="border-right p-1">
                                                 <span class="text-secondary text-table">Thành tiền</span>
                                             </th>
-                                            <th class="border-right note">
+                                            <th class="note p-1">
                                                 <span class="text-secondary text-table">Ghi chú</span>
                                             </th>
                                         </tr>
@@ -245,16 +245,14 @@
                                                     <div class="d-flex align-items-center">
                                                         <input type="text" value="{{ $item->product_name }}"
                                                             class="border-0 px-2 py-1 w-100 product_name"
-                                                            readonly="" autocomplete="off"
-                                                            name="product_name[]">
+                                                            readonly="" autocomplete="off" name="product_name[]">
                                                         <input type="hidden" class="product_id"
                                                             value="{{ $item->product_id }}" autocomplete="off"
                                                             name="product_id[]">
                                                         <div class="info-product" data-toggle="modal"
                                                             data-target="#productModal">
-                                                            <svg width="18" height="18"
-                                                                viewBox="0 0 18 18" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
+                                                            <svg width="18" height="18" viewBox="0 0 18 18"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path
                                                                     d="M8.99998 4.5C8.45998 4.5 8.09998 4.86 8.09998 5.4C8.09998 5.94 8.45998 6.3 8.99998 6.3C9.53998 6.3 9.89998 5.94 9.89998 5.4C9.89998 4.86 9.53998 4.5 8.99998 4.5Z"
                                                                     fill="#42526E">
@@ -322,8 +320,7 @@
                                                 </td>
                                                 <td
                                                     class="border border-top-0 border-bottom-0 position-relative product_ratio d-none">
-                                                    <input type="text"
-                                                        class="border-0 px-2 py-1 w-100 heSoNhan"
+                                                    <input type="text" class="border-0 px-2 py-1 w-100 heSoNhan"
                                                         autocomplete="off" required="required" readonly=""
                                                         value="{{ $item->product_ratio }}" name="product_ratio[]">
                                                 </td>
@@ -334,10 +331,10 @@
                                                         name="price_import[]" value="{{ $item->price_import }}">
                                                 </td>
                                                 <td
-                                                    class="border border-top-0 border-bottom-0 position-relative note p-1">
-                                                    <input type="text" class="border-0 py-1 w-100"
-                                                        readonly="" value="{{ $item->product_note }}"
-                                                        name="product_note[]" value="">
+                                                    class="border border-top-0 border-right-0 border-bottom-0 position-relative note p-1">
+                                                    <input type="text" class="border-0 py-1 w-100" readonly=""
+                                                        value="{{ $item->product_note }}" name="product_note[]"
+                                                        value="">
                                                 </td>
                                                 <td style="display:none;" class="">
                                                     <input type="text" class="product_tax1">
@@ -501,89 +498,101 @@
                                 <div class="bg-filter-search border-0 py-2 text-center">
                                     <span class="font-weight-bold text-secondary text-nav">THÔNG TIN KHÁCH HÀNG</span>
                                 </div>
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                    <span class="text-table mr-3">Số báo giá</span>
-                                    <input type="text" readonly value="{{ $billSale->quotation_number }}"
-                                        class="border-0 bg w-50 bg-input-guest py-0 numberQute px-0" id="myInput"
-                                        autocomplete="off" name="quotation_number">
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
+                                <div class="d-flex">
+                                    <div style="width: 55%;">
+                                        <div class="border border-right-0 py-1 border-left-0">
+                                            <span class="text-table ml-2">Số báo giá</span>
+                                        </div>
+                                        <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                            <span class="text-table ml-2">Khách hàng</span>
+                                        </div>
+                                        <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                            <span class="text-table ml-2">Ngày hóa đơn</span>
+                                        </div>
+                                        <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                            <span class="text-table ml-2">Số hóa đơn</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                    <span class="text-table mr-3">Khách hàng</span>
-                                    <input type="text" readonly value="{{ $billSale->guest_name_display }}"
-                                        class="border-0 bg w-50 bg-input-guest py-0 nameGuest px-0"
-                                        autocomplete="off">
-                                    <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
                                     <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                    <span class="text-table mr-3">Ngày hóa đơn</span>
-                                    <input type="text" readonly
-                                        value="{{ date_format(new DateTime($billSale->ngayHD), 'd/m/Y') }}"
-                                        name="date_bill" class="border-0 bg w-50 bg-input-guest py-0 px-0">
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                    <span class="text-table mr-3">Số hóa đơn</span>
-                                    <input type="text" name="number_bill" readonly
-                                        value="{{ $billSale->number_bill }}"
-                                        class="border-0 bg w-50 bg-input-guest py-0 px-0">
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
+                                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
+                                            <input type="text" readonly value="{{ $billSale->quotation_number }}"
+                                                class="border-0 bg w-50 bg-input-guest py-0 numberQute px-0"
+                                                id="myInput" autocomplete="off" name="quotation_number">
+                                            <div class="">
+                                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="border-top-0 d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
+                                            <input type="text" readonly
+                                                value="{{ $billSale->guest_name_display }}"
+                                                class="border-0 bg w-50 bg-input-guest py-0 nameGuest px-0"
+                                                autocomplete="off">
+                                            <input type="hidden" class="idGuest" autocomplete="off"
+                                                name="guest_id">
+                                            <div class="">
+                                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="border-top-0 d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
+                                            <input type="text" readonly
+                                                value="{{ date_format(new DateTime($billSale->ngayHD), 'd/m/Y') }}"
+                                                name="date_bill" class="border-0 bg w-50 bg-input-guest py-0 px-0">
+                                            <div class="">
+                                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="border-top-0 d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
+                                            <input type="text" name="number_bill" readonly
+                                                value="{{ $billSale->number_bill }}"
+                                                class="border-0 bg w-50 bg-input-guest py-0 px-0">
+                                            <div class="">
+                                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

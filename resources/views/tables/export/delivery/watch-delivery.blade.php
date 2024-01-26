@@ -166,8 +166,7 @@
                                         <tr class="bg-white addProduct">
                                             <td
                                                 class="border border-left-0 border-top-0 border-bottom-0 border position-relative">
-                                                <div
-                                                    class="d-flex w-100 justify-content-between align-items-center">
+                                                <div class="d-flex w-100 justify-content-between align-items-center">
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item_quote->product_code }}"
                                                         class="border-0 px-2 py-1 w-75 product_code"
@@ -231,10 +230,9 @@
                                                             data-target="#exampleModal{{ $item_quote->product_id }}"
                                                             style="background:transparent; border:none;">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="32"
-                                                                height="32" viewBox="0 0 32 32"
-                                                                fill="none">
-                                                                <rect width="32" height="32"
-                                                                    rx="4" fill="white">
+                                                                height="32" viewBox="0 0 32 32" fill="none">
+                                                                <rect width="32" height="32" rx="4"
+                                                                    fill="white">
                                                                 </rect>
                                                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                                                     d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z"
@@ -253,20 +251,19 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td
-                                                class="border border-top-0 border-bottom-0 position-relative d-none">
+                                            <td class="border border-top-0 border-bottom-0 position-relative d-none">
                                                 <input type="text"
                                                     value="{{ number_format($item_quote->price_export) }}"
-                                                    class="border-0 px-2 py-1 w-100 product_price"
-                                                    autocomplete="off" name="product_price[]" readonly>
+                                                    class="border-0 px-2 py-1 w-100 product_price" autocomplete="off"
+                                                    name="product_price[]" readonly>
                                                 <p class="text-primary text-right position-absolute transaction"
                                                     style="top: 68%; right: 5%; display: none;">Giao dịch
                                                     gần đây
                                                 </p>
                                             </td>
                                             <td class="border border-top-0 border-bottom-0 px-4 d-none">
-                                                <select name="product_tax[]"
-                                                    class="border-0 text-center product_tax" disabled>
+                                                <select name="product_tax[]" class="border-0 text-center product_tax"
+                                                    disabled>
                                                     <option value="0" <?php if ($item_quote->product_tax == 0) {
                                                         echo 'selected';
                                                     } ?>>0%</option>
@@ -293,8 +290,7 @@
                                                 class="border border-top-0 border-bottom-0 position-relative product_ratio d-none">
                                                 <input type="text" class="border-0 px-2 py-1 w-100 heSoNhan"
                                                     autocomplete="off" required="required" readonly
-                                                    value="{{ $item_quote->product_ratio }}"
-                                                    name="product_ratio[]">
+                                                    value="{{ $item_quote->product_ratio }}" name="product_ratio[]">
                                             </td>
                                             <td
                                                 class="border border-top-0 border-bottom-0 position-relative price_import d-none">
@@ -306,8 +302,7 @@
                                             <td
                                                 class="border border-top-0 border-bottom-0 border-right-0 position-relative note p-1">
                                                 <input type="text" class="border-0 py-1 w-100" readonly
-                                                    name="product_note[]"
-                                                    value="{{ $item_quote->product_note }}">
+                                                    name="product_note[]" value="{{ $item_quote->product_note }}">
                                             </td>
                                             <td style="display:none;" class="">
                                                 <input type="text" class="product_tax1">
@@ -325,18 +320,18 @@
                                 <div class="col-sm-6">
                                     <div class="mt-4 w-50" style="float: right;">
                                         <div class="d-flex justify-content-between">
-                                            <span><b>Giá trị trước thuế:</b></span>
-                                            <span id="total-amount-sum">0đ</span>
+                                            <span class="text-table"><b>Giá trị trước thuế:</b></span>
+                                            <span id="total-amount-sum" class="text-table">0đ</span>
                                         </div>
                                         <div class="d-flex justify-content-between mt-2 align-items-center">
-                                            <span><b>Thuế VAT:</b></span>
-                                            <span id="product-tax">0đ</span>
+                                            <span class="text-table"><b>Thuế VAT:</b></span>
+                                            <span id="product-tax" class="text-table">0đ</span>
                                         </div>
                                         <div class="d-flex justify-content-between mt-2">
                                             <span class="text-lg"><b>Tổng cộng:</b></span>
                                             <span><b id="grand-total" data-value="0">0đ</b></span>
-                                            <input type="text" hidden="" name="totalValue"
-                                                value="0" id="total">
+                                            <input type="text" hidden="" name="totalValue" value="0"
+                                                id="total">
                                         </div>
                                     </div>
                                 </div>
@@ -451,7 +446,8 @@
                                                     value="{{ number_format($item_quote->product_total) }}"
                                                     class="border-0 px-2 py-1 w-100 total-amount">
                                             </td>
-                                            <td class="border border-top-0 border-bottom-0 border-right-0 position-relative note p-1">
+                                            <td
+                                                class="border border-top-0 border-bottom-0 border-right-0 position-relative note p-1">
                                                 <input type="text" class="border-0 py-1 w-100" readonly
                                                     value="{{ $item_quote->product_note }}">
                                             </td>
@@ -532,110 +528,129 @@
                             <div class="bg-filter-search border-0 py-2 text-center">
                                 <span class="font-weight-bold text-secondary text-nav">THÔNG TIN KHÁCH HÀNG</span>
                             </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                <span class="text-table mr-3">Số báo giá</span>
-                                <input type="text" readonly value="{{ $delivery->quotation_number }}"
-                                    class="border-0 bg w-50 bg-input-guest py-0 numberQute px-0" id="myInput"
-                                    autocomplete="off" name="quotation_number">
-                                <div class="">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
+                            <div class="d-flex">
+                                <div style="width: 55%;">
+                                    <div class="border border-right-0 py-1 border-left-0">
+                                        <span class="text-table ml-2">Số báo giá</span>
+                                    </div>
+                                    <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                        <span class="text-table ml-2">Khách hàng</span>
+                                    </div>
+                                    <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                        <span class="text-table ml-2">Đơn vị vận chuyển</span>
+                                    </div>
+                                    <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                        <span class="text-table ml-2">Phí giao hàng</span>
+                                    </div>
+                                    <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                        <span class="text-table ml-2">Ngày giao hàng</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                <span class="text-table mr-3">Khách hàng</span>
-                                <input type="text" readonly value="{{ $delivery->guest_name_display }}"
-                                    class="border-0 bg w-50 bg-input-guest py-0 px-0" id="myInput"
-                                    autocomplete="off">
-                                <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
                                 <div class="">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                <span class="text-table mr-3">Đơn vị vận chuyển</span>
-                                <input type="text" value="{{ $delivery->shipping_unit }}"
-                                    placeholder="Nhập thông tin" class="border-0 bg w-50 bg-input-guest py-0 px-0"
-                                    autocomplete="off" name="shipping_unit">
-                                <div class="">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                <span class="text-table mr-3">Phí giao hàng</span>
-                                <input type="text" name="shipping_fee"
-                                    value="{{ number_format($delivery->shipping_fee) }}" placeholder="Nhập thông tin"
-                                    class="border-0 bg w-50 bg-input-guest py-0 px-0 fee_ship" autocomplete="off">
-                                <div class="">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                <span class="text-table mr-3">Ngày giao hàng</span>
-                                <input type="text" readonly
-                                    value="{{ date_format(new DateTime($delivery->ngayGiao), 'd/m/Y') }}"
-                                    name="date_deliver" class="border-0 bg w-50 bg-input-guest py-0 px-0">
-                                <div class="">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
+                                    <div
+                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
+                                        <input type="text" readonly value="{{ $delivery->quotation_number }}"
+                                            class="border-0 bg w-100 bg-input-guest py-0 numberQute px-0"
+                                            id="myInput" autocomplete="off" name="quotation_number">
+                                        <div class="">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                    fill="#42526E"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                    fill="#42526E"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                    fill="#42526E"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
+                                        <input type="text" readonly value="{{ $delivery->guest_name_display }}"
+                                            class="border-0 bg w-100 bg-input-guest py-0 px-0" id="myInput"
+                                            autocomplete="off">
+                                        <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
+                                        <div class="">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                    fill="#42526E"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                    fill="#42526E"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                    fill="#42526E"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
+                                        <input type="text" value="{{ $delivery->shipping_unit }}"
+                                            placeholder="Nhập thông tin"
+                                            class="border-0 bg w-100 bg-input-guest py-0 px-0" autocomplete="off"
+                                            name="shipping_unit">
+                                        <div class="">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                    fill="#42526E"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                    fill="#42526E"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                    fill="#42526E"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
+                                        <input type="text" name="shipping_fee"
+                                            value="{{ number_format($delivery->shipping_fee) }}"
+                                            placeholder="Nhập thông tin"
+                                            class="border-0 bg w-100 bg-input-guest py-0 px-0 fee_ship"
+                                            autocomplete="off">
+                                        <div class="">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                    fill="#42526E"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                    fill="#42526E"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                    fill="#42526E"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
+                                        <input type="text" readonly
+                                            value="{{ date_format(new DateTime($delivery->ngayGiao), 'd/m/Y') }}"
+                                            name="date_deliver" class="border-0 bg w-100 bg-input-guest py-0 px-0">
+                                        <div class="">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                    fill="#42526E"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                    fill="#42526E"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                    fill="#42526E"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
