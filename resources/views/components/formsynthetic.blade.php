@@ -7,11 +7,11 @@
                     <div class="mt-4 w-50" style="float: right;">
                         <div class="d-flex justify-content-between">
                             <span class="text-table"><b>Giá trị trước thuế:</b></span>
-                            <span id="total-amount-sum">0đ</span>
+                            <span id="total-amount-sum" class="text-table">0đ</span>
                         </div>
                         <div class="d-flex justify-content-between mt-2 align-items-center">
                             <span class="text-table"><b>Thuế VAT:</b></span>
-                            <span id="product-tax">0đ</span>
+                            <span id="product-tax" class="text-table">0đ</span>
                         </div>
                         @if($import != "123")
                         {{-- @if($import)
