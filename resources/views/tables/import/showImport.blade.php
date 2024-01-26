@@ -2,7 +2,7 @@
 <!-- Content Wrapper. Contains page content -->
 <form action="{{ route('import.update', ['workspace' => $workspacename, 'import' => $import->id]) }}" method="POST"
     id="formSubmit" enctype="multipart/form-data">
-    <div class="content-wrapper1 py-0 border-bottom px-4">
+    <div class="content-wrapper1 py-2 border border-top-0 border-left-0 border-right-0">
         <!-- Content Header (Page header) -->
         @method('PUT')
         @csrf
@@ -10,7 +10,7 @@
         <input type="hidden" name="table_name" value="DMH">
         <input type="hidden" id="provides_id" name="provides_id" value="{{ $import->provide_id }}">
         <input type="hidden" id="project_id" name="project_id" value="{{ $import->project_id }}">
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center pl-4 ml-1">
             <div class="container-fluided">
                 <div class="mb">
                     <span class="font-weight-bold">Mua hàng</span>
@@ -42,42 +42,44 @@
                 </div>
             </div>
             <div class="container-fluided z-index-block">
-                <div class="row m-0 my-1">
-                    <a href="{{ route('import.index', $workspacename) }}">
-                        <button type="button" class="btn-save-print rounded d-flex align-items-center h-100"
-                            style="margin-right:10px">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 8"
-                                fill="none" class="mr-2">
+                <div class="row m-0">
+                    <a href="{{ route('import.index', $workspacename) }}" style="margin-right:10px;">
+                        <button class="btn-save-print rounded d-flex align-items-center h-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                fill="none">
                                 <path
-                                    d="M2.6738 7.48012C2.939 7.79833 3.41191 7.84132 3.73012 7.57615C4.04833 7.31097 4.09132 6.83805 3.82615 6.51984L2.3513 4.75L9.25 4.75C9.66421 4.75 10 4.41421 10 4C10 3.58579 9.66421 3.25 9.25 3.25L2.3512 3.25L3.82615 1.4801C4.09132 1.1619 4.04833 0.688999 3.73012 0.423799C3.41191 0.158599 2.939 0.201599 2.6738 0.519799L0.1738 3.51984C-0.0579996 3.79798 -0.0579996 4.20198 0.1738 4.48012L2.6738 7.48012Z"
+                                    d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
                                     fill="#6D7075" />
                             </svg>
-                            <span>Trở về</span>
+                            <span class="">Trở về</span>
                         </button>
                     </a>
 
-                    <div class="dropdown mr-2">
+                    <div class="dropdown">
                         <button type="button" data-toggle="dropdown"
-                            class="btn-save-print rounded d-flex align-items-center h-100 dropdown-toggle">
+                            class="btn-save-print rounded d-flex align-items-center h-100 dropdown-toggle px-2"
+                            style="margin-right:10px">
                             <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                     d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                     fill="#6D7075"></path>
                             </svg>
-                            <span>In</span>
+                            <span class="text-button">In</span>
                         </button>
                         <div class="dropdown-menu" style="z-index: 9999;">
-                            <a class="dropdown-item" href="#">Xuất Excel</a>
-                            <a class="dropdown-item" href="#">Xuất PDF</a>
+                            <a class="dropdown-item text-nav" href="http://127.0.0.1:8000/excel/4">Xuất
+                                Excel</a>
+                            <a class="dropdown-item text-nav border-top" href="http://127.0.0.1:8000/pdf/4">Xuất
+                                PDF</a>
                         </div>
                     </div>
 
                     @if ($import->status == 1)
                         <a href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $import->id]) }}"
-                            class="custom-btn d-flex align-items-center h-100 mr-2" style="padding: 6px 8px;">
+                            class="custom-btn d-flex align-items-center h-100 py-1 px-2" style="margin-right:10px;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                                fill="none" class="mr-2">
+                                fill="none" class="mx-1">
                                 <path
                                     d="M3.75 1.00007C1.67893 1.00007 0 2.679 0 4.75007V10.25C0 12.3211 1.67893 14 3.75 14H9.2501C11.3212 14 13.0001 12.3211 13.0001 10.25V7.00007C13.0001 6.58586 12.6643 6.25007 12.2501 6.25007C11.8359 6.25007 11.5001 6.58586 11.5001 7.00007V10.25C11.5001 11.4927 10.4927 12.5 9.2501 12.5H3.75C2.50736 12.5 1.5 11.4927 1.5 10.25V4.75007C1.5 3.50743 2.50736 2.50007 3.75 2.50007H6C6.41421 2.50007 6.75 2.16428 6.75 1.75007C6.75 1.33586 6.41421 1.00007 6 1.00007H3.75Z"
                                     fill="white" />
@@ -92,9 +94,9 @@
                         </a>
                     @endif
 
-                    <label class="custom-btn d-flex align-items-center h-100 m-0 mr-2" style="padding: 6px 8px;">
+                    <label class="custom-btn d-flex align-items-center h-100 m-0 mr-2" style="margin-right:10px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                            fill="none" class="mr-2">
+                            fill="none" class="mx-1">
                             <path
                                 d="M8.30541 9.20586C8.57207 9.47246 8.5943 9.89106 8.37208 10.183L8.30541 10.2593L5.84734 12.7174C4.58675 13.978 2.54294 13.978 1.28235 12.7174C0.0652319 11.5003 0.0232719 9.55296 1.15644 8.2855L1.28235 8.15237L3.74042 5.69429C4.03133 5.40339 4.50298 5.40339 4.79388 5.69429C5.06054 5.96096 5.08277 6.37949 4.86055 6.67147L4.79388 6.74775L2.33581 9.20586C1.65703 9.88456 1.65703 10.9852 2.33581 11.6639C2.98065 12.3088 4.00611 12.341 4.68901 11.7607L4.79388 11.6639L7.25195 9.20586C7.54286 8.91492 8.01451 8.91492 8.30541 9.20586ZM8.82965 5.17005C9.12053 5.46095 9.12053 5.9326 8.82965 6.22351L6.34904 8.70413C6.05813 8.99504 5.58648 8.99504 5.29558 8.70413C5.00467 8.41323 5.00467 7.94158 5.29558 7.65067L7.7762 5.17005C8.0671 4.87914 8.53875 4.87914 8.82965 5.17005ZM12.7173 1.28236C13.9344 2.49948 13.9764 4.44674 12.8432 5.71422L12.7173 5.84735L10.2592 8.30543C9.96833 8.59633 9.49673 8.59633 9.20583 8.30543C8.93914 8.03877 8.91692 7.62023 9.13913 7.32825L9.20583 7.25197L11.6638 4.79389C12.3426 4.11511 12.3426 3.0146 11.6638 2.33582C11.019 1.69098 9.99363 1.65874 9.31073 2.23909L9.20583 2.33582L6.74774 4.79389C6.45683 5.0848 5.98518 5.0848 5.69428 4.79389C5.42762 4.52723 5.40539 4.10869 5.62761 3.81672L5.69428 3.74043L8.15235 1.28236C9.41293 0.0217665 11.4567 0.0217665 12.7173 1.28236Z"
                                 fill="white" />
@@ -105,10 +107,10 @@
                     </label>
 
                     <a href="#" id="delete_import"
-                        class="d-flex align-items-center h-100 btn-danger mr-2 border-0 rounded"
-                        style="padding: 6px 8px;">
+                        class="custom-btn-danger d-flex align-items-center h-100 py-1 px-2"
+                        style="margin-right: 10px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"
-                            fill="none" class="mr-2">
+                            fill="none" class="mx-1">
                             <path
                                 d="M0.96967 0.969668C1.26256 0.676777 1.73744 0.676777 2.03033 0.969668L6 4.939L9.9697 0.969668C10.2626 0.676777 10.7374 0.676777 11.0303 0.969668C11.3232 1.26256 11.3232 1.73744 11.0303 2.03033L7.061 6L11.0303 9.9697C11.2966 10.2359 11.3208 10.6526 11.1029 10.9462L11.0303 11.0303C10.7374 11.3232 10.2626 11.3232 9.9697 11.0303L6 7.061L2.03033 11.0303C1.73744 11.3232 1.26256 11.3232 0.96967 11.0303C0.67678 10.7374 0.67678 10.2626 0.96967 9.9697L4.939 6L0.96967 2.03033C0.7034 1.76406 0.6792 1.3474 0.89705 1.05379L0.96967 0.969668Z"
                                 fill="white" />
@@ -182,7 +184,7 @@
                         </a>
                     </li>
                 </ul>
-                <div class="d-flex position-fixed" style="right: 10px; top: 50px;">
+                <div class="d-flex position-fixed" style="right: 10px; top: 54px;">
                     @if ($import->status_receive == 0)
                         <div class="border text-secondary p-1">
                             <span>
@@ -333,171 +335,192 @@
             <div class="container-fluided">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
-                        <div class="bg-filter-search border-top-0 text-center py-2">
+                        <div class="bg-filter-search text-center py-2 border-right-0 border-left-0">
                             <span class="font-weight-bold text-secondary text-nav">THÔNG TIN SẢN PHẨM</span>
                         </div>
-                        <div class="col-12">
-                            <section class="content">
-                                <div class="container-fluided order_content">
-                                    <table class="table table-hover bg-white rounded">
-                                        <thead>
-                                            <tr>
-                                                <th class="border-right p-1 border-bottom" style="width: 15%;">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12"
-                                                        height="12" viewBox="0 0 12 12" fill="none">
-                                                        <path
-                                                            d="M5.37 6.63C5.49289 6.75305 5.56192 6.91984 5.56192 7.09375C5.56192 7.26766 5.49289 7.43445 5.37 7.5575L3.375 9.5L4.46875 10.5938C4.46875 10.7678 4.39961 10.9347 4.27654 11.0578C4.15347 11.1809 3.98655 11.25 3.8125 11.25H1.40625C1.2322 11.25 1.06528 11.1809 0.942211 11.0578C0.81914 10.9347 0.75 10.7678 0.75 10.5938V8.1875C0.75 8.01345 0.81914 7.84653 0.942211 7.72346C1.06528 7.60039 1.2322 7.53125 1.40625 7.53125L2.5 8.625L4.4425 6.63C4.56555 6.50711 4.73234 6.43808 4.90625 6.43808C5.08016 6.43808 5.24695 6.50711 5.37 6.63ZM6.63 5.37C6.50711 5.24695 6.43808 5.08016 6.43808 4.90625C6.43808 4.73234 6.50711 4.56555 6.63 4.4425L8.625 2.5L7.53125 1.40625C7.53125 1.2322 7.60039 1.06528 7.72346 0.942211C7.84653 0.81914 8.01345 0.75 8.1875 0.75H10.5938C10.7678 0.75 10.9347 0.81914 11.0578 0.942211C11.1809 1.06528 11.25 1.2322 11.25 1.40625V3.8125C11.25 3.98655 11.1809 4.15347 11.0578 4.27654C10.9347 4.39961 10.7678 4.46875 10.5938 4.46875L9.5 3.375L7.5575 5.37C7.43445 5.49289 7.26766 5.56192 7.09375 5.56192C6.91984 5.56192 6.75305 5.49289 6.63 5.37Z"
-                                                            fill="#26273B" fill-opacity="0.8" />
-                                                    </svg>
-                                                    <input class="ml-2 border-danger" id="checkall" type="checkbox">
-                                                    <span class="text-table text-secondary">Mã sản phẩm</span>
-                                                </th>
-                                                <th class="border-right p-1 border-bottom" style="width: 15%;">
-                                                    <span class="text-table text-secondary">Tên sản phẩm</span>
-                                                </th>
-                                                <th class="border-right p-1 border-bottom" style="width: 8%;">
-                                                    <span class="text-table text-secondary">Đơn vị</span>
-                                                </th>
-                                                <th class="border-right p-1 border-bottom" style="width: 8%;">
-                                                    <span class="text-table text-secondary">Số lượng</span>
-                                                </th>
-                                                <th class="border-right p-1 border-bottom" style="width: 10%;">
-                                                    <span class="text-table text-secondary">Đơn giá</span>
-                                                </th>
-                                                <th class="border-right p-1 border-bottom" style="width: 8%;">
-                                                    <span class="text-table text-secondary">Thuế</span>
-                                                </th>
-                                                <th class="border-right p-1 border-bottom" style="width: 10%;">
-                                                    <span class="text-table text-secondary">Thành
-                                                        tiền</span>
-                                                </th>
-                                                </th>
-                                                <th class="border-right note p-1 border-bottom">
-                                                    <span class="text-table text-secondary">Ghi
-                                                        chú</span>
-                                                </th>
-                                                <th class="border-right border-bottom"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($product as $item)
-                                                <tr class="bg-white">
-                                                    <td class="border border-left-0 border-bottom-0">
-                                                        <input type="hidden" readonly value="{{ $item->id }}"
-                                                            name="listProduct[]">
-                                                        <div
-                                                            class="d-flex w-100 justify-content-between align-items-center position-relative">
-                                                            <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z"
-                                                                    fill="#42526E" />
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z"
-                                                                    fill="#42526E" />
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z"
-                                                                    fill="#42526E" />
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z"
-                                                                    fill="#42526E" />
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z"
-                                                                    fill="#42526E" />
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z"
-                                                                    fill="#42526E" />
-                                                            </svg>
-                                                            <input type="checkbox">
-                                                            <input readonly type="text" name="product_code[]"
-                                                                class="border-0 px-3 py-2 w-75 searchProduct"
-                                                                value="{{ $item->product_code }}"
-                                                                @if ($import->status == 2) echo readonly @endif>
-                                                            <ul id="listProductCode"
-                                                                class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
-                                                                style="z-index: 99; left: 24%; top: 75%;">
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                    <td class="border border-bottom-0 position-relative">
+                        <section class="content">
+                            <div class="container-fluided order_content">
+                                <table class="table table-hover bg-white rounded">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-right p-1 border-bottom" style="width: 15%;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                                    viewBox="0 0 12 12" fill="none">
+                                                    <path
+                                                        d="M5.37 6.63C5.49289 6.75305 5.56192 6.91984 5.56192 7.09375C5.56192 7.26766 5.49289 7.43445 5.37 7.5575L3.375 9.5L4.46875 10.5938C4.46875 10.7678 4.39961 10.9347 4.27654 11.0578C4.15347 11.1809 3.98655 11.25 3.8125 11.25H1.40625C1.2322 11.25 1.06528 11.1809 0.942211 11.0578C0.81914 10.9347 0.75 10.7678 0.75 10.5938V8.1875C0.75 8.01345 0.81914 7.84653 0.942211 7.72346C1.06528 7.60039 1.2322 7.53125 1.40625 7.53125L2.5 8.625L4.4425 6.63C4.56555 6.50711 4.73234 6.43808 4.90625 6.43808C5.08016 6.43808 5.24695 6.50711 5.37 6.63ZM6.63 5.37C6.50711 5.24695 6.43808 5.08016 6.43808 4.90625C6.43808 4.73234 6.50711 4.56555 6.63 4.4425L8.625 2.5L7.53125 1.40625C7.53125 1.2322 7.60039 1.06528 7.72346 0.942211C7.84653 0.81914 8.01345 0.75 8.1875 0.75H10.5938C10.7678 0.75 10.9347 0.81914 11.0578 0.942211C11.1809 1.06528 11.25 1.2322 11.25 1.40625V3.8125C11.25 3.98655 11.1809 4.15347 11.0578 4.27654C10.9347 4.39961 10.7678 4.46875 10.5938 4.46875L9.5 3.375L7.5575 5.37C7.43445 5.49289 7.26766 5.56192 7.09375 5.56192C6.91984 5.56192 6.75305 5.49289 6.63 5.37Z"
+                                                        fill="#26273B" fill-opacity="0.8" />
+                                                </svg>
+                                                <input class="ml-2 border-danger" id="checkall" type="checkbox">
+                                                <span class="text-table text-secondary">Mã sản phẩm</span>
+                                            </th>
+                                            <th class="border-right p-1 border-bottom" style="width: 15%;">
+                                                <span class="text-table text-secondary">Tên sản phẩm</span>
+                                            </th>
+                                            <th class="border-right p-1 border-bottom" style="width: 8%;">
+                                                <span class="text-table text-secondary">Đơn vị</span>
+                                            </th>
+                                            <th class="border-right p-1 border-bottom" style="width: 8%;">
+                                                <span class="text-table text-secondary">Số lượng</span>
+                                            </th>
+                                            <th class="border-right p-1 border-bottom" style="width: 10%;">
+                                                <span class="text-table text-secondary">Đơn giá</span>
+                                            </th>
+                                            <th class="border-right p-1 border-bottom" style="width: 8%;">
+                                                <span class="text-table text-secondary">Thuế</span>
+                                            </th>
+                                            <th class="border-right p-1 border-bottom" style="width: 10%;">
+                                                <span class="text-table text-secondary">Thành
+                                                    tiền</span>
+                                            </th>
+                                            </th>
+                                            <th class="border-right note p-1 border-bottom">
+                                                <span class="text-table text-secondary">Ghi
+                                                    chú</span>
+                                            </th>
+                                            <th class="border-right border-bottom"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($product as $item)
+                                            <tr class="bg-white">
+                                                <td class="border border-left-0 border-bottom-0">
+                                                    <input type="hidden" readonly value="{{ $item->id }}"
+                                                        name="listProduct[]">
+                                                    <div
+                                                        class="d-flex w-100 justify-content-between align-items-center position-relative">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z"
+                                                                fill="#42526E" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z"
+                                                                fill="#42526E" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z"
+                                                                fill="#42526E" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z"
+                                                                fill="#42526E" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z"
+                                                                fill="#42526E" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z"
+                                                                fill="#42526E" />
+                                                        </svg>
+                                                        <input type="checkbox">
+                                                        <input readonly type="text" name="product_code[]"
+                                                            class="border-0 px-2 py-1 w-75 searchProduct"
+                                                            value="{{ $item->product_code }}"
+                                                            @if ($import->status == 2) echo readonly @endif>
+                                                        <ul id="listProductCode"
+                                                            class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
+                                                            style="z-index: 99; left: 24%; top: 75%;">
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td class="border border-bottom-0 position-relative">
+                                                    <div class="d-flex align-items-center">
                                                         <input readonly id="searchProductName" type="text"
                                                             name="product_name[]"
-                                                            class="searchProductName border-0 px-3 py-2 w-100"
+                                                            class="searchProductName border-0 px-2 py-1 w-100"
                                                             value="{{ $item->product_name }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                         <ul id="listProductName"
                                                             class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
                                                             style="z-index: 99; left: 1%; top: 74%; display: none;">
                                                         </ul>
-                                                    </td>
-                                                    <td class="border border-bottom-0">
-                                                        <input type="text" name="product_unit[]"
-                                                            class="border-0 px-3 py-2 w-100 product_unit"
-                                                            value="{{ $item->product_unit }}" readonly>
-                                                    </td>
-                                                    <td class="border border-bottom-0 border-right-0">
-                                                        <input readonly
-                                                            oninput="checkQty(this,{{ $item->product_qty }})"
-                                                            type="text" name="product_qty[]"
-                                                            class="border-0 px-3 py-2 w-100 quantity-input"
-                                                            value="{{ number_format($item->product_qty) }}">
-                                                    </td>
-                                                    <td class="border border-bottom-0 border-right-0">
-                                                        <input type="text" name="price_export[]"
-                                                            class="border-0 px-3 py-2 w-100 price_export"
-                                                            value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
-                                                            readonly>
-                                                    </td>
-                                                    <input type="hidden" class="product_tax1">
-                                                    <td class="border border-bottom-0 border-right-0">
-                                                        <select name="product_tax[]" id="product_tax"
-                                                            class="product_tax border-0" disabled>
-                                                            <option value="0"
-                                                                @if ($item->product_tax == 0) selected @endif>
-                                                                0%
-                                                            </option>
-                                                            <option value="8"
-                                                                @if ($item->product_tax == 8) selected @endif>
-                                                                8%
-                                                            </option>
-                                                            <option value="10"
-                                                                @if ($item->product_tax == 10) selected @endif>
-                                                                10%
-                                                            </option>
-                                                            <option value="99"
-                                                                @if ($item->product_tax == 99) selected @endif>
-                                                                NOVAT
-                                                            </option>
-                                                        </select>
-                                                    </td>
-                                                    <td class="border border-bottom-0 border-right-0">
-                                                        <input type="text" name="total_price[]"
-                                                            class="border-0 px-3 py-2 w-100 total_price" readonly
-                                                            readonly
-                                                            value="{{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
-                                                            @if ($import->status == 2) echo readonly @endif>
-                                                    </td>
-                                                    <td class="border border-bottom-0">
-                                                        <input placeholder="Nhập ghi chú" readonly type="text"
-                                                            name="product_note[]" class="border-0 px-3 py-2 w-100"
-                                                            value="{{ $item->product_note }}">
-                                                    </td>
-                                                    <td class="border border">
-                                                        <svg width="17" height="17" viewBox="0 0 17 17"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z"
-                                                                fill="#6B6F76"></path>
-                                                        </svg>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </section>
-                            <x-formsynthetic :import="''"></x-formsynthetic>
-                        </div>
+                                                        <div class="info-product" data-toggle="modal"
+                                                            data-target="#">
+                                                            <svg width="16" height="16" viewBox="0 0 16 16"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <g clip-path="url(#clip0_1704_35239)">
+                                                                    <path
+                                                                        d="M7.99996 1.69596C6.32803 1.69596 4.72458 2.36012 3.54235 3.54235C2.36012 4.72458 1.69596 6.32803 1.69596 7.99996C1.69596 9.67188 2.36012 11.2753 3.54235 12.4576C4.72458 13.6398 6.32803 14.304 7.99996 14.304C9.67188 14.304 11.2753 13.6398 12.4576 12.4576C13.6398 11.2753 14.304 9.67188 14.304 7.99996C14.304 6.32803 13.6398 4.72458 12.4576 3.54235C11.2753 2.36012 9.67188 1.69596 7.99996 1.69596ZM0.303955 7.99996C0.303955 5.95885 1.11478 4.00134 2.55806 2.55806C4.00134 1.11478 5.95885 0.303955 7.99996 0.303955C10.0411 0.303955 11.9986 1.11478 13.4418 2.55806C14.8851 4.00134 15.696 5.95885 15.696 7.99996C15.696 10.0411 14.8851 11.9986 13.4418 13.4418C11.9986 14.8851 10.0411 15.696 7.99996 15.696C5.95885 15.696 4.00134 14.8851 2.55806 13.4418C1.11478 11.9986 0.303955 10.0411 0.303955 7.99996Z"
+                                                                        fill="#282A30"></path>
+                                                                    <path
+                                                                        d="M8.08001 4.96596C7.91994 4.95499 7.75932 4.97706 7.60814 5.0308C7.45696 5.08454 7.31845 5.1688 7.20121 5.27834C7.08398 5.38788 6.99053 5.52037 6.92667 5.66756C6.86281 5.81475 6.82991 5.97351 6.83001 6.13396C6.83001 6.31868 6.75663 6.49584 6.62601 6.62646C6.49539 6.75708 6.31824 6.83046 6.13351 6.83046C5.94879 6.83046 5.77163 6.75708 5.64101 6.62646C5.51039 6.49584 5.43701 6.31868 5.43701 6.13396C5.43691 5.66404 5.56601 5.20314 5.81019 4.80164C6.05436 4.40014 6.40422 4.0735 6.82152 3.85743C7.23881 3.64136 7.70748 3.54417 8.17629 3.57649C8.64509 3.60881 9.09599 3.76939 9.47968 4.04069C9.86338 4.31198 10.1651 4.68354 10.3519 5.11475C10.5386 5.54595 10.6033 6.02021 10.5387 6.48567C10.4741 6.95113 10.2828 7.38987 9.98568 7.75394C9.68857 8.11801 9.29708 8.39338 8.85401 8.54996C8.8079 8.56649 8.76805 8.59691 8.73993 8.63702C8.71182 8.67713 8.69682 8.72497 8.69701 8.77396V9.39996C8.69701 9.58468 8.62363 9.76184 8.49301 9.89246C8.36239 10.0231 8.18524 10.0965 8.00051 10.0965C7.81579 10.0965 7.63863 10.0231 7.50801 9.89246C7.37739 9.76184 7.30401 9.58468 7.30401 9.39996V8.77396C7.30392 8.43693 7.4083 8.10815 7.60279 7.83289C7.79727 7.55764 8.0723 7.34944 8.39001 7.23696C8.64354 7.14711 8.85837 6.97265 8.99832 6.74296C9.13828 6.51326 9.19482 6.24235 9.15843 5.97585C9.12203 5.70935 8.99492 5.46352 8.7985 5.27977C8.60208 5.09601 8.34835 4.98454 8.08001 4.96596Z"
+                                                                        fill="#282A30"></path>
+                                                                    <path
+                                                                        d="M8.05005 11.571C8.00257 11.571 7.95705 11.5898 7.92348 11.6234C7.88991 11.657 7.87105 11.7025 7.87105 11.75C7.87105 11.7974 7.88991 11.843 7.92348 11.8765C7.95705 11.9101 8.00257 11.929 8.05005 11.929C8.09752 11.929 8.14305 11.9101 8.17662 11.8765C8.21019 11.843 8.22905 11.7974 8.22905 11.75C8.22905 11.7025 8.21019 11.657 8.17662 11.6234C8.14305 11.5898 8.09752 11.571 8.05005 11.571ZM8.05005 12.5C8.14854 12.5 8.24607 12.4806 8.33706 12.4429C8.42805 12.4052 8.51073 12.3499 8.58038 12.2803C8.65002 12.2106 8.70527 12.128 8.74296 12.037C8.78065 11.946 8.80005 11.8484 8.80005 11.75C8.80005 11.6515 8.78065 11.5539 8.74296 11.4629C8.70527 11.3719 8.65002 11.2893 8.58038 11.2196C8.51073 11.15 8.42805 11.0947 8.33706 11.057C8.24607 11.0194 8.14854 11 8.05005 11C7.85114 11 7.66037 11.079 7.51972 11.2196C7.37907 11.3603 7.30005 11.551 7.30005 11.75C7.30005 11.9489 7.37907 12.1396 7.51972 12.2803C7.66037 12.4209 7.85114 12.5 8.05005 12.5Z"
+                                                                        fill="#282A30"></path>
+                                                                </g>
+                                                                <defs>
+                                                                    <clipPath id="clip0_1704_35239">
+                                                                        <rect width="16" height="16"
+                                                                            fill="white"></rect>
+                                                                    </clipPath>
+                                                                </defs>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="border border-bottom-0">
+                                                    <input type="text" name="product_unit[]"
+                                                        class="border-0 px-2 py-1 w-100 product_unit"
+                                                        value="{{ $item->product_unit }}" readonly>
+                                                </td>
+                                                <td class="border border-bottom-0 border-right-0">
+                                                    <input readonly oninput="checkQty(this,{{ $item->product_qty }})"
+                                                        type="text" name="product_qty[]"
+                                                        class="border-0 px-2 py-1 w-100 quantity-input"
+                                                        value="{{ number_format($item->product_qty) }}">
+                                                </td>
+                                                <td class="border border-bottom-0 border-right-0">
+                                                    <input type="text" name="price_export[]"
+                                                        class="border-0 px-2 py-1 w-100 price_export"
+                                                        value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
+                                                        readonly>
+                                                </td>
+                                                <input type="hidden" class="product_tax1">
+                                                <td class="border border-bottom-0 border-right-0">
+                                                    <select name="product_tax[]" id="product_tax"
+                                                        class="product_tax border-0" disabled>
+                                                        <option value="0"
+                                                            @if ($item->product_tax == 0) selected @endif>
+                                                            0%
+                                                        </option>
+                                                        <option value="8"
+                                                            @if ($item->product_tax == 8) selected @endif>
+                                                            8%
+                                                        </option>
+                                                        <option value="10"
+                                                            @if ($item->product_tax == 10) selected @endif>
+                                                            10%
+                                                        </option>
+                                                        <option value="99"
+                                                            @if ($item->product_tax == 99) selected @endif>
+                                                            NOVAT
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                                <td class="border border-bottom-0 border-right-0">
+                                                    <input type="text" name="total_price[]"
+                                                        class="border-0 px-2 py-1 w-100 total_price" readonly readonly
+                                                        value="{{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
+                                                        @if ($import->status == 2) echo readonly @endif>
+                                                </td>
+                                                <td class="border border-bottom-0">
+                                                    <input placeholder="Nhập ghi chú" readonly type="text"
+                                                        name="product_note[]" class="border-0 px-2 py-1 w-100"
+                                                        value="{{ $item->product_note }}">
+                                                </td>
+                                                <td class="border border">
+                                                    <svg width="17" height="17" viewBox="0 0 17 17"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z"
+                                                            fill="#6B6F76"></path>
+                                                    </svg>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                        <x-formsynthetic :import="''"></x-formsynthetic>
                     </div>
                     <div id="history" class="tab-pane fade">
                         <div class="bg-filter-search border-top-0 text-center py-2">
@@ -566,43 +589,43 @@
                                                         </svg>
                                                         <input type="checkbox">
                                                         <input type="text" name="" id=""
-                                                            class="border-0 px-3 py-2 w-75" readonly
+                                                            class="border-0 px-2 py-1 w-75" readonly
                                                             value="{{ $item->product_code }}">
                                                     </div>
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                                     <input type="text"
-                                                        class="searchProductName border-0 px-3 py-2 w-100" readonly
+                                                        class="searchProductName border-0 px-2 py-1 w-100" readonly
                                                         value="{{ $item->product_name }}">
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0">
                                                     <input type="text"
-                                                        class="border-0 px-3 py-2 w-100 product_unit" readonly
+                                                        class="border-0 px-2 py-1 w-100 product_unit" readonly
                                                         value="{{ $item->product_unit }}">
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 border-right-0">
-                                                    <input type="text" class="border-0 px-3 py-2 w-100" readonly
+                                                    <input type="text" class="border-0 px-2 py-1 w-100" readonly
                                                         value="{{ fmod($item->product_qty, 2) > 0 ? number_format($item->product_qty, 2, '.', ',') : number_format($item->product_qty) }}">
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 border-right-0">
-                                                    <input type="text" class="border-0 px-3 py-2 w-100" readonly
+                                                    <input type="text" class="border-0 px-2 py-1 w-100" readonly
                                                         value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}">
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 border-right-0">
-                                                    <input type="text" class="product_tax border-0 px-3 py-2 w-100"
+                                                    <input type="text" class="product_tax border-0 px-2 py-1 w-100"
                                                         readonly value="{{ $item->product_tax }}">
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 border-right-0">
-                                                    <input type="text" class="border-0 px-3 py-2 w-100" readonly
+                                                    <input type="text" class="border-0 px-2 py-1 w-100" readonly
                                                         value="{{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0">
                                                     <input placeholder="Nhập ghi chú" type="text"
-                                                        class="border-0 px-3 py-2 w-100" readonly
+                                                        class="border-0 px-2 py-1 w-100" readonly
                                                         value="{{ $item->product_note }}">
                                                 </td>
                                                 <td class="border border-top-0 border ">
-                                                    <input type="text" class="border-0 px-3 py-2 w-100" readonly
+                                                    <input type="text" class="border-0 px-2 py-1 w-100" readonly
                                                         value="{{ $item->version }}">
                                                 </td>
                                         @endforeach

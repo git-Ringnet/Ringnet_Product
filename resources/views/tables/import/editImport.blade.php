@@ -1,13 +1,13 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="import"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <form action="{{ route('import.update', ['workspace' => $workspacename, 'import' => $import->id]) }}" method="POST">
-    <div class="content-wrapper1 py-0 border-bottom px-4">
+    <div class="content-wrapper1 py-2">
         <!-- Content Header (Page header) -->
         @method('PUT')
         @csrf
         <input type="hidden" id="provides_id" name="provides_id" value="{{ $import->provide_id }}">
         <input type="hidden" id="project_id" name="project_id" value="{{ $import->project_id }}">
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center pl-4 ml-1">
             <div class="container-fluided">
                 <div class="mb">
                     <span class="font-weight-bold">Mua hàng</span>
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="container-fluided z-index-block">
-                <div class="row m-0 my-1">
+                <div class="row m-0">
                     <a href="{{ route('import.index', $workspacename) }}">
                         <button type="button" class="btn-save-print rounded d-flex align-items-center h-100"
                             style="margin-right:10px">
@@ -42,7 +42,7 @@
                                     d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
                                     fill="#6D7075"></path>
                             </svg>
-                            <span>Hủy</span>
+                            <span class="text-button">Hủy</span>
                         </button>
                     </a>
 
@@ -56,7 +56,7 @@
                                         d="M3.75528 1.6875H5.99476H11.9948H12.123C12.3939 1.6875 12.6621 1.74088 12.9123 1.84459C13.1626 1.94829 13.3899 2.10029 13.5814 2.29189L15.7022 4.41269C16.089 4.79939 16.3064 5.32394 16.3065 5.87088V14.25C16.3065 14.797 16.0892 15.3216 15.7024 15.7084C15.3156 16.0952 14.791 16.3125 14.244 16.3125H12.75H5.25H3.83328C3.28894 16.3125 2.76666 16.0973 2.38031 15.7139C1.99396 15.3304 1.77486 14.8098 1.77078 14.2655L1.69278 3.76547C1.69074 3.49333 1.74258 3.22344 1.84531 2.97143C1.94805 2.71941 2.09965 2.49021 2.29137 2.29705C2.4831 2.10389 2.71115 1.95058 2.9624 1.84597C3.21364 1.74135 3.48312 1.68749 3.75528 1.6875ZM5.8125 15.1875H12.1875V9.9645C12.1875 9.74238 12.0071 9.5625 11.7862 9.5625H6.2145C5.99266 9.5625 5.8125 9.74266 5.8125 9.9645V15.1875ZM13.3125 15.1875V9.9645C13.3125 9.12163 12.6289 8.4375 11.7862 8.4375H6.2145C5.37134 8.4375 4.6875 9.12134 4.6875 9.9645V15.1875H3.83326C3.58582 15.1875 3.34842 15.0897 3.17281 14.9154C2.9972 14.7411 2.89761 14.5044 2.89574 14.257L2.81774 3.75703C2.81682 3.63333 2.84038 3.51066 2.88708 3.39611C2.93378 3.28155 3.00269 3.17737 3.08983 3.08957C3.17698 3.00177 3.28064 2.93208 3.39485 2.88453C3.50905 2.83698 3.63154 2.8125 3.75524 2.8125H5.43226V5.18175C5.43226 5.52985 5.57054 5.86369 5.81668 6.10983C6.06282 6.35597 6.39666 6.49425 6.74476 6.49425H11.2448C11.5929 6.49425 11.9267 6.35597 12.1728 6.10983C12.419 5.86369 12.5573 5.52985 12.5573 5.18175V2.91925C12.6414 2.96326 12.7185 3.01991 12.7858 3.08725L14.9068 5.20831C15.0826 5.38405 15.1814 5.62254 15.1815 5.87112V14.25C15.1815 14.4986 15.0827 14.7371 14.9069 14.9129C14.7311 15.0887 14.4926 15.1875 14.244 15.1875H13.3125ZM11.4323 5.18175V2.8125H6.55726V5.18175C6.55726 5.23148 6.57701 5.27917 6.61218 5.31433C6.64734 5.3495 6.69503 5.36925 6.74476 5.36925H11.2448C11.2945 5.36925 11.3422 5.3495 11.3773 5.31433C11.4125 5.27917 11.4323 5.23148 11.4323 5.18175Z"
                                         fill="white" />
                                 </svg>
-                                <span>Lưu</span>
+                                <span class="text-button">Lưu</span>
                             </button>
                         </a>
                     @endif
@@ -94,14 +94,14 @@
             <div class="row">
                 <div class="col-12">
                     <div class="info-chung">
-                        <p class="font-weight-bold ml-2 px-3">Thông tin chung</p>
+                        <p class="font-weight-bold ml-2 px-2">Th1ng tin chung</p>
                         <div class="content-info">
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3 required-label text-danger">Nhà cung cấp</p>
+                                    <p class="p-0 m-0 px-2 req1ired-label text-danger">Nhà cung cấp</p>
                                 </div>
                                 <input id="myInput" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off"
+                                    class="border w-100 py-2 border-left-0 border-right-0 px-2" au1ocomplete="off"
                                     value="{{ $import->getProvideName->provide_name_display }}">
                                 <ul id="myUL"
                                     class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
@@ -124,51 +124,51 @@
                             </div>
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3">Số báo giá#</p>
+                                    <p class="p-0 m-0 px-2">Số1báo giá#</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="quotation_number"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                    value="{{ $import->quotation_number }}">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-2"
+1                                 value="{{ $import->quotation_number }}">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3">Số tham chiếu#</p>
+                                    <p class="p-0 m-0 px-2">Số1tham chiếu#</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="reference_number"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                    value="{{ $import->reference_number }}">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-2"
+1                                 value="{{ $import->reference_number }}">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3">Ngày báo giá</p>
+                                    <p class="p-0 m-0 px-2">Ng1y báo giá</p>
                                 </div>
                                 <input type="date" placeholder="Nhập thông tin" name="date_quote"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                    value="{{ $import->created_at->toDateString() }}">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-2"
+1                                 value="{{ $import->created_at->toDateString() }}">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3">Hiệu lực báo giá</p>
+                                    <p class="p-0 m-0 px-2">Hi1u lực báo giá</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="price_effect"
-                                    class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3"
-                                    value="{{ $import->price_effect }}">
+                                    class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-2"
+1                                 value="{{ $import->price_effect }}">
                             </div>
                             <div class="d-flex ml-2 align-items-center">
                                 <div class="title-info py-2 border-top-0 border border-left-0">
-                                    <p class="p-0 m-0 px-3">Điều khoản thanh toán</p>
+                                    <p class="p-0 m-0 px-2">Đi1u khoản thanh toán</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="terms_pay"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
-                                    value="{{ $import->terms_pay }}">
+                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-2"
+1                                 value="{{ $import->terms_pay }}">
                             </div>
                             <div class="d-flex ml-2 align-items-center position-relative">
                                 <div class="title-info py-2 border-top-0 border border-left-0">
-                                    <p class="p-0 m-0 px-3">Dự án</p>
+                                    <p class="p-0 m-0 px-2">Dự1án</p>
                                 </div>
                                 <input id="inputProject" required type="text" placeholder="Nhập thông tin"
-                                    class="border border-top-0 w-100 py-2 border-right-0 border-left-0 px-3"
-                                    value="@if ($import->getProjectName) {{ $import->getProjectName->project_name }} @endif">
+                                    class="border border-top-0 w-100 py-2 border-right-0 border-left-0 px-2"
+1                                 value="@if ($import->getProjectName) {{ $import->getProjectName->project_name }} @endif">
                                 <ul id="listProject"
                                     class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
                                     style="z-index: 99;left: 23%;top: 96%;">
@@ -235,232 +235,225 @@
                         <div class="bg-filter-search border-top-0 text-center py-2">
                             <span class="font-weight-bold text-secondary text-nav">THÔNG TIN SẢN PHẨM</span>
                         </div>
-                        <div class="col-12">
-                            <section class="content">
-                                <div class="container-fluided order_content">
-                                    <table id="inputcontent" class="table table-hover bg-white rounded">
-                                        <thead>
-                                            <tr>
-                                                <th class="border-right p-1 border-bottom" style="width: 15%;">
-                                                    <input class="ml-4 border-danger" id="checkall" type="checkbox">
-                                                    <span class="text-table text-secondary">Mã sản phẩm</span>
-                                                </th>
-                                                <th class="border-right p-1 border-bottom" style="width: 15%;">
-                                                    <span class="text-table text-secondary">Tên sản phẩm</span>
-                                                </th>
-                                                <th class="border-right p-1 border-bottom" style="width: 8%;">
-                                                    <span class="text-table text-secondary">Đơn vị</span>
-                                                </th>
-                                                <th class="border-right p-1 border-bottom" style="width: 8%;">
-                                                    <span class="text-table text-secondary">Số lượng</span>
-                                                </th>
-                                                <th class="border-right p-1 border-bottom" style="width: 10%;">
-                                                    <span class="text-table text-secondary">Đơn giá</span>
-                                                </th>
-                                                <th class="border-right p-1 border-bottom" style="width: 8%;">
-                                                    <span class="text-table text-secondary">Thuế</span>
-                                                </th>
-                                                <th class="border-right p-1 border-bottom" style="width: 10%;">
-                                                    <span class="text-table text-secondary">Thành
-                                                        tiền</span>
-                                                </th>
-                                                <th class="border-right note p-1 border-bottom">
-                                                    <span class="text-table text-secondary">Ghi chú</span>
-                                                </th>
-                                                <th class="border-right border-bottom"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($product as $item)
-                                                <tr class="bg-white">
-                                                    <td class="border border-left-0 border-bottom-0">
-                                                        <input type="hidden" readonly value="{{ $item->id }}"
-                                                            name="listProduct[]">
-                                                        <div
-                                                            class="d-flex w-100 justify-content-between align-items-center position-relative">
-                                                            <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z"
-                                                                    fill="#42526E" />
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z"
-                                                                    fill="#42526E" />
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z"
-                                                                    fill="#42526E" />
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z"
-                                                                    fill="#42526E" />
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z"
-                                                                    fill="#42526E" />
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z"
-                                                                    fill="#42526E" />
-                                                            </svg>
-                                                            <input type="checkbox">
-                                                            <input readonly type="text" name="product_code[]"
-                                                                class="border-0 px-3 py-2 w-75 searchProduct"
-                                                                value="{{ $item->product_code }}"
-                                                                @if ($import->status == 2) echo readonly @endif>
-                                                            <ul id="listProductCode"
-                                                                class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
-                                                                style="z-index: 99; left: 24%; top: 75%;">
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                    <td class="border border-bottom-0 position-relative">
-                                                        <input readonly id="searchProductName" type="text"
-                                                            name="product_name[]"
-                                                            class="searchProductName border-0 px-3 py-2 w-100"
-                                                            value="{{ $item->product_name }}"
-                                                            @if ($import->status == 2) echo readonly @endif>
-                                                        <ul id="listProductName"
-                                                            class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
-                                                            style="z-index: 99; left: 1%; top: 74%; display: none;">
-                                                        </ul>
-                                                    </td>
-                                                    <td class="border border-bottom-0">
-                                                        <input type="text" name="product_unit[]"
-                                                            class="border-0 px-3 py-2 w-100 product_unit"
-                                                            value="{{ $item->product_unit }}" readonly>
-                                                    </td>
-                                                    <td class="border border-bottom-0 border-right-0">
-                                                        <input readonly
-                                                            oninput="checkQty(this,{{ $item->product_qty }})"
-                                                            type="text" name="product_qty[]"
-                                                            class="border-0 px-3 py-2 w-100 quantity-input"
-                                                            value="{{ number_format($item->product_qty) }}">
-                                                    </td>
-                                                    <td class="border border-bottom-0 border-right-0">
-                                                        <input type="text" name="price_export[]"
-                                                            class="border-0 px-3 py-2 w-100 price_export"
-                                                            value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
-                                                            readonly>
-                                                    </td>
-                                                    <input type="hidden" class="product_tax1">
-                                                    <td class="border border-bottom-0 border-right-0">
-                                                        <select name="product_tax[]" id="product_tax"
-                                                            class="product_tax">
-                                                            <option value="0"
-                                                                @if ($item->product_tax == 0) selected @endif>
-                                                                0%
-                                                            </option>
-                                                            <option value="8"
-                                                                @if ($item->product_tax == 8) selected @endif>
-                                                                8%
-                                                            </option>
-                                                            <option value="10"
-                                                                @if ($item->product_tax == 10) selected @endif>
-                                                                10%
-                                                            </option>
-                                                            <option value="99"
-                                                                @if ($item->product_tax == 99) selected @endif>
-                                                                NOVAT
-                                                            </option>
-                                                        </select>
-                                                    </td>
-                                                    <td class="border border-bottom-0 border-right-0">
-                                                        <input type="text" name="total_price[]"
-                                                            class="border-0 px-3 py-2 w-100 total_price" readonly
-                                                            readonly
-                                                            value="{{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
-                                                            @if ($import->status == 2) echo readonly @endif>
-                                                    </td>
-                                                    <td class="border border-bottom-0">
-                                                        <input placeholder="Nhập ghi chú" readonly type="text"
-                                                            name="product_note[]" class="border-0 px-3 py-2 w-100"
-                                                            value="{{ $item->product_note }}">
-                                                    </td>
-                                                    <td class="border border">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="15" viewBox="0 0 16 15" fill="none">
+                        <section class="content">
+                            <div class="container-fluided order_content">
+                                <table id="inputcontent" class="table table-hover bg-white rounded">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-right p-1 border-bottom" style="width: 15%;">
+                                                <input class="ml-4 border-danger" id="checkall" type="checkbox">
+                                                <span class="text-table text-secondary">Mã sản phẩm</span>
+                                            </th>
+                                            <th class="border-right p-1 border-bottom" style="width: 15%;">
+                                                <span class="text-table text-secondary">Tên sản phẩm</span>
+                                            </th>
+                                            <th class="border-right p-1 border-bottom" style="width: 8%;">
+                                                <span class="text-table text-secondary">Đơn vị</span>
+                                            </th>
+                                            <th class="border-right p-1 border-bottom" style="width: 8%;">
+                                                <span class="text-table text-secondary">Số lượng</span>
+                                            </th>
+                                            <th class="border-right p-1 border-bottom" style="width: 10%;">
+                                                <span class="text-table text-secondary">Đơn giá</span>
+                                            </th>
+                                            <th class="border-right p-1 border-bottom" style="width: 8%;">
+                                                <span class="text-table text-secondary">Thuế</span>
+                                            </th>
+                                            <th class="border-right p-1 border-bottom" style="width: 10%;">
+                                                <span class="text-table text-secondary">Thành
+                                                    tiền</span>
+                                            </th>
+                                            <th class="border-right note p-1 border-bottom">
+                                                <span class="text-table text-secondary">Ghi chú</span>
+                                            </th>
+                                            <th class="border-right border-bottom"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($product as $item)
+                                            <tr class="bg-white">
+                                                <td class="border border-left-0 border-bottom-0">
+                                                    <input type="hidden" readonly value="{{ $item->id }}"
+                                                        name="listProduct[]">
+                                                    <div
+                                                        class="d-flex w-100 justify-content-between align-items-center position-relative">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M12.3687 6.09375C12.6448 6.09375 12.8687 6.30362 12.8687 6.5625C12.8687 6.59865 12.8642 6.63468 12.8554 6.66986L11.3628 12.617C11.1502 13.4639 10.3441 14.0625 9.41597 14.0625H6.58403C5.65593 14.0625 4.84977 13.4639 4.6372 12.617L3.14459 6.66986C3.08135 6.41786 3.24798 6.16551 3.51678 6.10621C3.55431 6.09793 3.59274 6.09375 3.6313 6.09375H12.3687ZM8.5 0.9375C9.88071 0.9375 11 1.98683 11 3.28125H13C13.5523 3.28125 14 3.70099 14 4.21875V4.6875C14 4.94638 13.7761 5.15625 13.5 5.15625H2.5C2.22386 5.15625 2 4.94638 2 4.6875V4.21875C2 3.70099 2.44772 3.28125 3 3.28125H5C5 1.98683 6.11929 0.9375 7.5 0.9375H8.5ZM8.5 2.34375H7.5C6.94772 2.34375 6.5 2.76349 6.5 3.28125H9.5C9.5 2.76349 9.05228 2.34375 8.5 2.34375Z"
-                                                                fill="#6B6F76"></path>
+                                                                d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z"
+                                                                fill="#42526E" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z"
+                                                                fill="#42526E" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z"
+                                                                fill="#42526E" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z"
+                                                                fill="#42526E" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z"
+                                                                fill="#42526E" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z"
+                                                                fill="#42526E" />
                                                         </svg>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </section>
-                            <div class="ml-3">
-                                <span class="text-perpage">
-                                    <section class="content">
-                                        <div class="container-fluided">
-                                            <div class="d-flex">
-                                                <button type="button" data-toggle="dropdown"
-                                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                                    id="addRowTable" style="margin-right:10px">
-                                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                                        width="14" height="14" viewBox="0 0 18 18"
-                                                        fill="none">
+                                                        <input type="checkbox">
+                                                        <input readonly type="text" name="product_code[]"
+                                                            class="border-0 px-2 py-1 w-75 searchProduct"
+                                                            value="{{ $item->product_code }}"
+                                                            @if ($import->status == 2) echo readonly @endif>
+                                                        <ul id="listProductCode"
+                                                            class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
+                                                            style="z-index: 99; left: 24%; top: 75%;">
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td class="border border-bottom-0 position-relative">
+                                                    <input readonly id="searchProductName" type="text"
+                                                        name="product_name[]"
+                                                        class="searchProductName border-0 px-2 py-1 w-100"
+                                                        value="{{ $item->product_name }}"
+                                                        @if ($import->status == 2) echo readonly @endif>
+                                                    <ul id="listProductName"
+                                                        class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
+                                                        style="z-index: 99; left: 1%; top: 74%; display: none;">
+                                                    </ul>
+                                                </td>
+                                                <td class="border border-bottom-0">
+                                                    <input type="text" name="product_unit[]"
+                                                        class="border-0 px-2 py-1 w-100 product_unit"
+                                                        value="{{ $item->product_unit }}" readonly>
+                                                </td>
+                                                <td class="border border-bottom-0 border-right-0">
+                                                    <input readonly oninput="checkQty(this,{{ $item->product_qty }})"
+                                                        type="text" name="product_qty[]"
+                                                        class="border-0 px-2 py-1 w-100 quantity-input"
+                                                        value="{{ number_format($item->product_qty) }}">
+                                                </td>
+                                                <td class="border border-bottom-0 border-right-0">
+                                                    <input type="text" name="price_export[]"
+                                                        class="border-0 px-2 py-1 w-100 price_export"
+                                                        value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
+                                                        readonly>
+                                                </td>
+                                                <input type="hidden" class="product_tax1">
+                                                <td class="border border-bottom-0 border-right-0">
+                                                    <select name="product_tax[]" id="product_tax"
+                                                        class="product_tax">
+                                                        <option value="0"
+                                                            @if ($item->product_tax == 0) selected @endif>
+                                                            0%
+                                                        </option>
+                                                        <option value="8"
+                                                            @if ($item->product_tax == 8) selected @endif>
+                                                            8%
+                                                        </option>
+                                                        <option value="10"
+                                                            @if ($item->product_tax == 10) selected @endif>
+                                                            10%
+                                                        </option>
+                                                        <option value="99"
+                                                            @if ($item->product_tax == 99) selected @endif>
+                                                            NOVAT
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                                <td class="border border-bottom-0 border-right-0">
+                                                    <input type="text" name="total_price[]"
+                                                        class="border-0 px-2 py-1 w-100 total_price" readonly readonly
+                                                        value="{{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
+                                                        @if ($import->status == 2) echo readonly @endif>
+                                                </td>
+                                                <td class="border border-bottom-0">
+                                                    <input placeholder="Nhập ghi chú" readonly type="text"
+                                                        name="product_note[]" class="border-0 px-2 py-1 w-100"
+                                                        value="{{ $item->product_note }}">
+                                                </td>
+                                                <td class="border border">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                        height="15" viewBox="0 0 16 15" fill="none">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                                            fill="#42526E"></path>
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                                            fill="#42526E"></path>
+                                                            d="M12.3687 6.09375C12.6448 6.09375 12.8687 6.30362 12.8687 6.5625C12.8687 6.59865 12.8642 6.63468 12.8554 6.66986L11.3628 12.617C11.1502 13.4639 10.3441 14.0625 9.41597 14.0625H6.58403C5.65593 14.0625 4.84977 13.4639 4.6372 12.617L3.14459 6.66986C3.08135 6.41786 3.24798 6.16551 3.51678 6.10621C3.55431 6.09793 3.59274 6.09375 3.6313 6.09375H12.3687ZM8.5 0.9375C9.88071 0.9375 11 1.98683 11 3.28125H13C13.5523 3.28125 14 3.70099 14 4.21875V4.6875C14 4.94638 13.7761 5.15625 13.5 5.15625H2.5C2.22386 5.15625 2 4.94638 2 4.6875V4.21875C2 3.70099 2.44772 3.28125 3 3.28125H5C5 1.98683 6.11929 0.9375 7.5 0.9375H8.5ZM8.5 2.34375H7.5C6.94772 2.34375 6.5 2.76349 6.5 3.28125H9.5C9.5 2.76349 9.05228 2.34375 8.5 2.34375Z"
+                                                            fill="#6B6F76"></path>
                                                     </svg>
-                                                    <span class="text-table">Thêm sản phẩm</span>
-                                                </button>
-
-                                                <button type="button" data-toggle="dropdown"
-                                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                                    id="" style="margin-right:10px">
-                                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                                        width="14" height="14" viewBox="0 0 18 18"
-                                                        fill="none">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                                            fill="#42526E"></path>
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                                            fill="#42526E"></path>
-                                                    </svg>
-                                                    <span class="text-table">Thêm đầu mục</span>
-                                                </button>
-
-                                                <button type="button" data-toggle="dropdown"
-                                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                                    id="" style="margin-right:10px">
-                                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                                        width="14" height="14" viewBox="0 0 18 18"
-                                                        fill="none">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                                            fill="#42526E"></path>
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                                            fill="#42526E"></path>
-                                                    </svg>
-                                                    <span class="text-table">Thêm hàng loạt</span>
-                                                </button>
-
-                                                <button type="button" class="btn-option py-1 px-2 bg-white border-0">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24"
-                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                            fill="#42526E"></path>
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                            fill="#42526E"></path>
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                            fill="#42526E"></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-                            <x-formsynthetic :import="''"></x-formsynthetic>
+                        </section>
+                        <div class="ml-3">
+                            <span class="text-perpage">
+                                <section class="content">
+                                    <div class="container-fluided">
+                                        <div class="d-flex">
+                                            <button type="button" data-toggle="dropdown"
+                                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                                id="addRowTable" style="margin-right:10px">
+                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
+                                                    height="14" viewBox="0 0 18 18" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                                <span class="text-table">Thêm sản phẩm</span>
+                                            </button>
+
+                                            <button type="button" data-toggle="dropdown"
+                                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                                id="" style="margin-right:10px">
+                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
+                                                    height="14" viewBox="0 0 18 18" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                                <span class="text-table">Thêm đầu mục</span>
+                                            </button>
+
+                                            <button type="button" data-toggle="dropdown"
+                                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                                id="" style="margin-right:10px">
+                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
+                                                    height="14" viewBox="0 0 18 18" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                                <span class="text-table">Thêm hàng loạt</span>
+                                            </button>
+
+                                            <button type="button" class="btn-option py-1 px-2 bg-white border-0">
+                                                <svg width="24" height="24" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </section>
+                            </span>
                         </div>
+                        <x-formsynthetic :import="''"></x-formsynthetic>
                     </div>
                 </div>
             </div>
@@ -468,7 +461,7 @@
     </div>
 
     <div class="content-wrapper2 px-0 py-0">
-        <div id="mySidenav" class="sidenavadd">
+        <div id="mySidenav" class="sidenavadd border">
             <div id="show_info_Guest">
                 <div class="bg-filter-search border-0 py-2 text-center">
                     <span class="font-weight-bold text-secondary text-nav">THÔNG TIN KHÁCH HÀNG</span>

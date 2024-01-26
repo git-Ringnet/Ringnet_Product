@@ -131,9 +131,11 @@
                             <table id="example2" class="table table-hover">
                                 <thead class="sticky-head">
                                     <tr>
-                                        <th class="border-top-0 bg-white"><input type="checkbox" name="all"
-                                                id="checkall"></th>
-                                        <th scope="col" class="border-top-0 bg-white">
+                                        <th class="border-top-0 my-0 py-2"></th>
+                                        <th class="border-top-0 bg-white my-0 py-2">
+                                            <input type="checkbox" name="all" id="checkall">
+                                        </th>
+                                        <th scope="col" class="border-top-0 bg-white my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="id"
                                                     data-sort-type="#"><button
@@ -143,7 +145,7 @@
                                                 <div class="icon" id="icon-id"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0 bg-white">
+                                        <th scope="col" class="border-top-0 bg-white my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="export_code"
                                                     data-sort-type=""><button class="btn-sort text-secondary text-nav"
@@ -152,7 +154,7 @@
                                                 <div class="icon" id="icon-export_code"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0 bg-white">
+                                        <th scope="col" class="border-top-0 bg-white my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="guest_receiver"
                                                     data-sort-type=""><button class="btn-sort text-secondary text-nav"
@@ -161,7 +163,7 @@
                                                 <div class="icon" id="icon-guest_receiver"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0 bg-white">
+                                        <th scope="col" class="border-top-0 bg-white my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="created_at"
                                                     data-sort-type=""><button class="btn-sort text-secondary text-nav"
@@ -171,7 +173,7 @@
                                                 <div class="icon" id="icon-created_at"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0 bg-white">
+                                        <th scope="col" class="border-top-0 bg-white my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-secondary text-nav"
@@ -180,7 +182,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0 bg-white">
+                                        <th scope="col" class="border-top-0 bg-white my-0 py-2">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-secondary text-nav"
@@ -189,7 +191,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0 bg-white">
+                                        <th scope="col" class="border-top-0 bg-white my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-secondary text-nav"
@@ -198,7 +200,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0 bg-white">
+                                        <th scope="col" class="border-top-0 bg-white my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-secondary text-nav"
@@ -207,7 +209,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0 bg-white">
+                                        <th scope="col" class="border-top-0 bg-white my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-secondary text-nav"
@@ -216,7 +218,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0 bg-white">
+                                        <th scope="col" class="border-top-0 bg-white my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-secondary text-nav"
@@ -225,30 +227,52 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0 bg-white"></th>
+                                        <th scope="col" class="border-top-0 bg-white my-0 py-2"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($import as $item)
                                         <tr>
-                                            <td><input type="checkbox" id="{{ $item->id }}"></td>
-                                            <td class="text-center">
-                                                {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}</td>
-                                            <td class="text-center">
-                                                {{ $item->quotation_number == null ? $item->id : $item->quotation_number }}
+                                            <td class="pr-0 py-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="6" class="mb-1"
+                                                    height="10" viewBox="0 0 6 10" fill="none">
+                                                    <g clip-path="url(#clip0_2326_17048)">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
+                                                            fill="#282A30" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_2326_17048">
+                                                            <rect width="6" height="10" fill="white" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
                                             </td>
-                                            <td class="text-center">{{ $item->reference_number }}</td>
-                                            <td class="text-center">
+                                            <td class="pl-0 py-2">
+                                                <input type="checkbox" id="{{ $item->id }}" class="p-0 m-0">
+                                            </td>
+                                            <td class="py-2">
+                                                {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
+                                            </td>
+                                            <td class="py-2">
+                                                <div class="">
+                                                    <a href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->id]) }}"
+                                                        class="duongDan">
+                                                        {{ $item->quotation_number == null ? $item->id : $item->quotation_number }}</a>
+                                                </div>
+                                            </td>
+                                            <td class="py-2">{{ $item->reference_number }}</td>
+                                            <td class="py-2">
                                                 @if ($item->getProvideName)
                                                     {{ $item->getProvideName->provide_name_display }}
                                                 @endif
                                             </td>
-                                            <td class="text-center" style="color: #0052CC">
+                                            <td class="py-2" style="color: #0052CC">
                                                 @if ($item->getProjectName)
                                                     {{ $item->getProjectName->project_name }}
                                                 @endif
                                             </td>
-                                            <td class="text-center">
+                                            <td class="text-center py-2">
                                                 @if ($item->status_receive == 2 && $item->status_reciept == 2 && $item->status_pay == 2)
                                                     <span style="color: #08AA36">Close</span>
                                                 @elseif($item->status == 1)
@@ -257,7 +281,7 @@
                                                     <span style="color: #E8B600">Approved</span>
                                                 @endif
                                             </td>
-                                            <td class="text-center">
+                                            <td class="text-center py-2">
                                                 @if ($item->status_receive == 0)
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                         height="14" viewBox="0 0 14 14" fill="none">
@@ -284,7 +308,7 @@
                                                     </svg>
                                                 @endif
                                             </td>
-                                            <td class="text-center">
+                                            <td class="text-center py-2">
                                                 @if ($item->status_reciept == 0)
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                         height="14" viewBox="0 0 14 14" fill="none">
@@ -311,7 +335,7 @@
                                                     </svg>
                                                 @endif
                                             </td>
-                                            <td class="text-center">
+                                            <td class="text-center py-2">
                                                 @if ($item->status_pay == 0)
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                         height="14" viewBox="0 0 14 14" fill="none">
@@ -338,8 +362,8 @@
                                                     </svg>
                                                 @endif
                                             </td>
-                                            <td class="text-center">{{ number_format($item->total_tax) }}</td>
-                                            <td>
+                                            <td class="py-2">{{ number_format($item->total_tax) }}</td>
+                                            {{-- <td>
                                                 <div class="d-flex align-items-center">
                                                     <a href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->id]) }}"
                                                         class="mr-2">
@@ -371,7 +395,7 @@
                                                         </button>
                                                     </form>
                                                 </div>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
