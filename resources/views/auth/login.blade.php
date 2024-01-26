@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <form method="POST" action="{{ route('login') }}">
+        {{-- <form method="POST" action="{{ route('login') }}">
             @csrf
             <div>
                 <x-label for="email" value="{{ __('Email') }}" />
@@ -50,7 +50,7 @@
                     {{ __('Log in') }}
                 </x-button>
             </div>
-        </form>
+        </form> --}}
     </x-authentication-card>
 </x-guest-layout>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>

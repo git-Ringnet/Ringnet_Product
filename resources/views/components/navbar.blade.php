@@ -4,10 +4,6 @@
 @endif
 @if (Auth::check())
     <!-- Kiểm tra xem người dùng đã đăng nhập chưa -->
-    @if (Auth::user()->current_workspace)
-        <?php header('Location: ' . route('dashboard'));
-        exit(); ?>
-    @endif
     @php
         $currentWorkspace = Auth::user()->current_workspace;
         $workspacename = App\Models\Workspace::where('id', Auth::user()->current_workspace)->first();
