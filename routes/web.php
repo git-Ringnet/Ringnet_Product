@@ -16,6 +16,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvidesController;
 use App\Http\Controllers\QuoteExportController;
 use App\Http\Controllers\DateFormController;
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ReceiveController;
 use App\Http\Controllers\RecieptController;
 use App\Models\DetailImport;
@@ -154,6 +155,12 @@ Route::post('import', [ProductController::class, 'import'])->name('import');
 Route::resource('{workspace}/history', HistoryController::class);
 Route::get('getSN', [HistoryController::class, 'getSN'])->name('getSN');
 Route::get('/searchHistory', [HistoryController::class, 'searchHistory'])->name('searchHistory');
+
+// Invite workspace
+Route::get('/login/{token}/invite/{workspace_id}', [InvitationController::class, 'inviteUser'])->name('invite');
+Route::post('/invite', [InvitationController::class, 'sendInvitation'])->name('sendInvitation');
+Route::get('/updateInvitations', [InvitationController::class, 'updateInvitations'])->name('updateInvitations');
+
 
 
 

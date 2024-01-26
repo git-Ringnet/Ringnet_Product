@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Invitation;
 use App\Models\User;
+use App\Models\UserWorkspaces;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
+
 
 class WorkspaceController extends Controller
 {
@@ -15,24 +20,36 @@ class WorkspaceController extends Controller
      */
     private $workspace;
     private $user;
+    private $user_workspaces;
 
     public function __construct()
     {
         $this->workspace = new Workspace();
         $this->user = new User();
+        $this->user_workspaces = new UserWorkspaces();
     }
     public function index()
     {
         $title = 'Danh sách workspace';
-        $workspace = $this->workspace->getAll(Auth::user()->id);
+
+        $allWorkSpace = UserWorkspaces::with('workspace')->where('user_id', Auth::user()->id)->get();
+        $workspaceNames = [];
+
+        foreach ($allWorkSpace as $workspace) {
+            $workspaceNames[] = [
+                'id' => $workspace->workspace->id,
+                'workspace_name' => $workspace->workspace->workspace_name
+            ];
+        }
+
         $getworkspace = Auth::user()->origin_workspace;
         $issetworkspace = false;
         if ($getworkspace != null) {
             $issetworkspace = true;
         }
 
-        // dd($workspace);
-        return view('dashboard', compact('title', 'workspace', 'issetworkspace'));
+        $invitation = Invitation::where('workspace_id', Auth::user()->current_workspace)->first();
+        return view('dashboard', compact('title', 'workspaceNames', 'issetworkspace', 'invitation'));
     }
 
     /**
