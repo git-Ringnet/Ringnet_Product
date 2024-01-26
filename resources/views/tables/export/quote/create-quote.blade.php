@@ -2,7 +2,7 @@
 </x-navbar>
 <form action="{{ route('detailExport.store', ['workspace' => $workspacename]) }}" method="POST">
     @csrf
-    <div class="content-wrapper1 py-1">
+    <div class="content-wrapper1 py-2">
         <div class="d-flex justify-content-between align-items-center pl-4 ml-1">
             <div class="container-fluided">
                 <div class="mb">
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="container-fluided z-index-block">
-                <div class="row m-0 mb-1">
+                <div class="row m-0">
                     <div class="dropdown">
                         <a href="{{ route('detailExport.index', $workspacename) }}">
                             <button type="button" class="btn-save-print rounded d-flex align-items-center h-100"
@@ -37,7 +37,7 @@
                                         d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
                                         fill="#6D7075" />
                                 </svg>
-                                <span>Hủy</span>
+                                <span class="text-button">Hủy</span>
                             </button>
                         </a>
                     </div>
@@ -84,330 +84,248 @@
     </div>
     {{-- Thông tin sản phẩm --}}
     <div class="content-wrapper1 py-0 pl-0 px-0" id="main">
-        <div class="bg-filter-search border-top-0 text-center py-2">
+        <div class="bg-filter-search text-center py-2 border-right-0 border-left-0">
             <span class="font-weight-bold text-secondary text-nav">THÔNG TIN SẢN PHẨM</span>
         </div>
         <section class="content">
             <div class="container-fluided">
-                <div class="col-12">
-                    <section class="content">
-                        <div class="container-fluided order_content">
-                            <table class="table table-hover bg-white rounded">
-                                <thead>
-                                    <tr>
-                                        <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 15%;">
-                                            <input class="ml-4 border-danger" id="checkall" type="checkbox">
-                                            <span class="text-table text-secondary">Mã sản phẩm</span>
-                                        </th>
-                                        <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 15%;">
-                                            <span class="text-table text-secondary">Tên sản phẩm</span>
-                                        </th>
-                                        <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 8%;">
-                                            <span class="text-table text-secondary">Đơn vị</span>
-                                        </th>
-                                        <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 8%;">
-                                            <span class="text-table text-secondary">Số lượng</span>
-                                        </th>
-                                        <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 10%;">
-                                            <span class="text-table text-secondary">Đơn giá</span>
-                                        </th>
-                                        <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 8%;">
-                                            <span class="text-table text-secondary">Thuế</span>
-                                        </th>
-                                        <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 10%;">
-                                            <span class="text-table text-secondary border-top-0">Thành
-                                                tiền</span>
-                                        </th>
-                                        {{-- <th class="p-1 bg-secondary border-0 Daydu p-1" style="width:1%;"></th> --}}
-                                        {{-- <th class="border-right product_ratio p-1">
-                                            <span class="text-table text-secondary">Hệ số nhân</span>
-                                        </th> --}}
-                                        {{-- <th class="border-right price_import p-1">
-                                            <span class="text-table text-secondary">Giá nhập</span>
-                                        </th> --}}
-                                        <th class="border-right note p-1 border-bottom-0 border-top-0">
-                                            <span class="text-table text-secondary">
-                                                Ghi chú
-                                            </span>
-                                        </th>
-                                        <th class="border-bottom-0 border-top-0"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr id="dynamic-fields" class="bg-white"></tr>
-                                </tbody>
-                            </table>
+                <section class="content">
+                    <div class="container-fluided order_content">
+                        <table class="table table-hover bg-white rounded">
+                            <thead>
+                                <tr>
+                                    <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 15%;">
+                                        <input class="ml-4 border-danger" id="checkall" type="checkbox">
+                                        <span class="text-table text-secondary">Mã sản phẩm</span>
+                                    </th>
+                                    <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 15%;">
+                                        <span class="text-table text-secondary">Tên sản phẩm</span>
+                                    </th>
+                                    <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 8%;">
+                                        <span class="text-table text-secondary">Đơn vị</span>
+                                    </th>
+                                    <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 8%;">
+                                        <span class="text-table text-secondary">Số lượng</span>
+                                    </th>
+                                    <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 15%;">
+                                        <span class="text-table text-secondary">Đơn giá</span>
+                                    </th>
+                                    <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 8%;">
+                                        <span class="text-table text-secondary">Thuế</span>
+                                    </th>
+                                    <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 15%;">
+                                        <span class="text-table text-secondary border-top-0">Thành
+                                            tiền</span>
+                                    </th>
+                                    <th class="border-right note p-1 border-bottom-0 border-top-0">
+                                        <span class="text-table text-secondary">
+                                            Ghi chú
+                                        </span>
+                                    </th>
+                                    <th class="border-bottom-0 border-top-0"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="dynamic-fields" class="bg-white"></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="content">
+                    <div class="container-fluided">
+                        <div class="d-flex ml-3">
+                            <button type="button" data-toggle="dropdown" id="add-field-btn"
+                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                style="margin-right:10px">
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                    viewBox="0 0 18 18" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                        fill="#42526E" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                        fill="#42526E" />
+                                </svg>
+                                <span class="text-table">Thêm sản phẩm</span>
+                            </button>
+                            <button type="button" data-toggle="dropdown" id="add-field-btn"
+                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                style="margin-right:10px">
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                    viewBox="0 0 18 18" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                        fill="#42526E" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                        fill="#42526E" />
+                                </svg>
+                                <span class="text-table">Thêm đầu mục</span>
+                            </button>
+                            <button type="button" data-toggle="dropdown"
+                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                style="margin-right:10px">
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                    viewBox="0 0 18 18" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                        fill="#42526E" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                        fill="#42526E" />
+                                </svg>
+                                <span class="text-table">Thêm hàng loạt</span>
+                            </button>
+                            <button type="button" class="btn-option py-1 px-2 bg-white border-0">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                        fill="#42526E"></path>
+                                </svg>
+                            </button>
                         </div>
-                    </section>
-                    <section class="content">
-                        <div class="container-fluided">
-                            <div class="d-flex ml-3">
-                                <button type="button" data-toggle="dropdown" id="add-field-btn"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                    style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                        height="14" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                            fill="#42526E" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                            fill="#42526E" />
-                                    </svg>
-                                    <span class="text-table">Thêm sản phẩm</span>
-                                </button>
-                                <button type="button" data-toggle="dropdown" id="add-field-btn"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                    style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                        height="14" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                            fill="#42526E" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                            fill="#42526E" />
-                                    </svg>
-                                    <span class="text-table">Thêm đầu mục</span>
-                                </button>
-                                <button type="button" data-toggle="dropdown"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                    style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                        height="14" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                            fill="#42526E" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                            fill="#42526E" />
-                                    </svg>
-                                    <span class="text-table">Thêm hàng loạt</span>
-                                </button>
-                                <button type="button" class="btn-option py-1 px-2 bg-white border-0">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </section>
-                    <div class="content">
-                        <div class="container-fluided">
-                            <div class="row position-relative footer-total">
-                                <div class="col-sm-6"></div>
-                                <div class="col-sm-6">
-                                    <div class="mt-4 w-50" style="float: right;">
-                                        <div class="d-flex justify-content-between">
-                                            <span class="text-table"><b>Giá trị trước thuế:</b></span>
-                                            <span id="total-amount-sum" class="text-table">0đ</span>
-                                        </div>
-                                        <div class="d-flex justify-content-between mt-2 align-items-center">
-                                            <span class="text-table"><b>Thuế VAT:</b></span>
-                                            <span id="product-tax" class="text-table">0đ</span>
-                                        </div>
-                                        <div class="d-flex justify-content-between mt-2">
-                                            <span class="text-lg"><b>Tổng cộng:</b></span>
-                                            <span><b id="grand-total" data-value="0">0đ</b></span>
-                                            <input type="text" hidden="" name="totalValue" value="0"
-                                                id="total">
-                                        </div>
+                    </div>
+                </section>
+                <div class="content">
+                    <div class="container-fluided">
+                        <div class="row position-relative footer-total m-0">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6">
+                                <div class="mt-4 w-50" style="float: right;">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-table"><b>Giá trị trước thuế:</b></span>
+                                        <span id="total-amount-sum" class="text-table">0đ</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 align-items-center">
+                                        <span class="text-table"><b>Thuế VAT:</b></span>
+                                        <span id="product-tax" class="text-table">0đ</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <span class="text-lg"><b>Tổng cộng:</b></span>
+                                        <span><b id="grand-total" data-value="0">0đ</b></span>
+                                        <input type="text" hidden="" name="totalValue" value="0"
+                                            id="total">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <section class="multiple_action" style="display: none;">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="count_checkbox mr-5">Đã chọn 1</span>
-                            <div class="row action">
-                                <div class="btn-chotdon my-2 ml-3">
-                                    <button type="button" id="btn-chot"
-                                        class="btn-group btn-light d-flex align-items-center h-100">
-                                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
-                                                fill="#42526E" />
-                                        </svg>
-                                        <span class="px-1">Nhân hệ số</span>
-                                    </button>
-                                </div>
-                                <div class="btn-xoahang my-2 ml-1">
-                                    <button id="deleteExports" type="button"
-                                        class="btn-group btn-light d-flex align-items-center h-100">
-                                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
-                                                fill="#42526E" />
-                                        </svg>
-                                        <span class="px-1">Thuế</span>
-                                    </button>
-                                </div>
-                                <div class="btn-huy my-2 ml-3">
-                                    <button id="cancelBillExport"
-                                        class="btn-group btn-light d-flex align-items-center h-100">
-                                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.75 15.75L2.25 2.25" stroke="#42526E" stroke-width="1.5"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M15.75 2.25L2.25 15.75" stroke="#42526E" stroke-width="1.5"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                        <span class="px-1">Xóa</span>
-                                    </button>
-                                </div>
+                </div>
+                <section class="multiple_action" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="count_checkbox mr-5">Đã chọn 1</span>
+                        <div class="row action">
+                            <div class="btn-chotdon my-2 ml-3">
+                                <button type="button" id="btn-chot"
+                                    class="btn-group btn-light d-flex align-items-center h-100">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
+                                            fill="#42526E" />
+                                    </svg>
+                                    <span class="px-1">Nhân hệ số</span>
+                                </button>
                             </div>
-                            <div class="btn ml-auto cancal_action">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
-                                    <path d="M18 18L6 6" stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                    <path d="M18 6L6 18" stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                </svg>
+                            <div class="btn-xoahang my-2 ml-1">
+                                <button id="deleteExports" type="button"
+                                    class="btn-group btn-light d-flex align-items-center h-100">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
+                                            fill="#42526E" />
+                                    </svg>
+                                    <span class="px-1">Thuế</span>
+                                </button>
+                            </div>
+                            <div class="btn-huy my-2 ml-3">
+                                <button id="cancelBillExport"
+                                    class="btn-group btn-light d-flex align-items-center h-100">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15.75 15.75L2.25 2.25" stroke="#42526E" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M15.75 2.25L2.25 15.75" stroke="#42526E" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <span class="px-1">Xóa</span>
+                                </button>
                             </div>
                         </div>
-                    </section>
-                </div>
+                        <div class="btn ml-auto cancal_action">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none">
+                                <path d="M18 18L6 6" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path d="M18 6L6 18" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </section>
             </div>
         </section>
         <div class="modal fade" id="guestModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog" role="document" style="margin-top: 10%;">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="productModalLabel">Thông tin khách hàng</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
+                    <div class="modal-body pb-0 px-2 pt-0">
                         <div class="content-info">
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3 required-label text-danger">
-                                        Tên hiển thị
-                                    </p>
-                                </div>
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 required-label text-danger text-nav">
+                                    Tên hiển thị
+                                </p>
                                 <input name="guest_name_display" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3"
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
                                     id="guest_name_display" autocomplete="off">
                             </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3 required-label text-danger">
-                                        Địa chỉ
-                                    </p>
-                                </div>
-                                <input name="guest_address" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_address"
-                                    autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3 required-label text-danger">
-                                        Mã số thuế
-                                    </p>
-                                </div>
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 required-label text-danger text-nav">
+                                    Mã số thuế
+                                </p>
                                 <input name="guest_code" type="number" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_code"
-                                    autocomplete="off">
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    id="guest_code" autocomplete="off">
                             </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Tên viết tắt
-                                    </p>
-                                </div>
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 required-label text-danger text-nav">
+                                    Địa chỉ
+                                </p>
+                                <input name="guest_address" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    id="guest_address" autocomplete="off">
+                            </div>
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 text-nav">
+                                    Tên viết tắt
+                                </p>
                                 <input name="key" type="text" placeholder="Nhập thông tin" id="key"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" autocomplete="off">
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    autocomplete="off">
                             </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Tên đầy đủ
-                                    </p>
-                                </div>
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 text-nav">
+                                    Tên đầy đủ
+                                </p>
                                 <input name="guest_name" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_name"
-                                    autocomplete="off">
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    id="guest_name" autocomplete="off">
                             </div>
-                            {{-- <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Email
-                                    </p>
-                                </div>
-                                <input name="guest_email" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_email"
-                                    autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Số điện thoại
-                                    </p>
-                                </div>
-                                <input name="guest_phone" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_phone"
-                                    autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Người nhận hàng
-                                    </p>
-                                </div>
-                                <input name="guest_receiver" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_receiver"
-                                    autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Email cá nhân
-                                    </p>
-                                </div>
-                                <input name="guest_email_personal" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3"
-                                    id="guest_email_personal" autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        SĐT người nhận
-                                    </p>
-                                </div>
-                                <input name="guest_phone_receiver" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3"
-                                    id="guest_phone_receiver" autocomplete="off">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3">
-                                        Ghi chú
-                                    </p>
-                                </div>
-                                <input name="guest_note" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3" id="guest_note"
-                                    autocomplete="off">
-                            </div> --}}
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-primary" id="addGuest">Thêm mới</button>
+                    <div class="modal-footer border-top-0 py-1 px-1">
+                        <button type="button" class="btn-save-print rounded h-100 text-table py-1"
+                            data-dismiss="modal">Trở về</button>
+                        <button type="button" class="custom-btn d-flex align-items-center h-100 py-1 px-2 text-table"
+                            id="addGuest">Thêm khách hàng</button>
                     </div>
                 </div>
             </div>
@@ -420,532 +338,676 @@
                 <div class="bg-filter-search border-0 py-2 text-center">
                     <span class="font-weight-bold text-secondary text-nav">THÔNG TIN KHÁCH HÀNG</span>
                 </div>
-                <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                    <span class="text-table mr-3">Khách hàng</span>
-                    <input type="text" placeholder="Chọn thông tin"
-                        class="border-0 bg w-50 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
-                        id="myInput">
-                    <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
-                    <ul id="myUL" class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest z-index-block"
-                        style="z-index: 99;">
-                        <div class="p-1">
-                            <div class="position-relative">
-                                <input type="text" placeholder="Nhập công ty" class="pr-4 w-100 input-search"
-                                    id="companyFilter">
-                                <span id="search-icon" class="search-icon"><i class="fas fa-search text-table"
-                                        aria-hidden="true"></i></span>
+                <div class="d-flex">
+                    <div style="width: 55%;">
+                        <div class="border border-right-0 py-1 border-left-0">
+                            <span class="text-table ml-2">Khách hàng</span>
+                        </div>
+                        <div id="show-title-guest">
+                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                <span class="text-table ml-2">Người đại diện</span>
+                            </div>
+                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                <span class="text-table ml-2">Số báo giá</span>
+                            </div>
+                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                <span class="text-table ml-2">Số tham chiếu</span>
+                            </div>
+                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                <span class="text-table ml-2">Ngày báo giá</span>
+                            </div>
+                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                <span class="text-table ml-2">Hiệu lực báo giá</span>
+                            </div>
+                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                <span class="text-table ml-2">Điều khoản</span>
+                            </div>
+                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                <span class="text-table ml-2">Dự án</span>
+                            </div>
+                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                <span class="text-table ml-2">Hàng hóa</span>
+                            </div>
+                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                <span class="text-table ml-2">Giao hàng</span>
+                            </div>
+                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                <span class="text-table ml-2">Địa điểm</span>
                             </div>
                         </div>
-                        @foreach ($guest as $guest_value)
-                            <li>
-                                <a href="#"
-                                    class="text-dark d-flex justify-content-between p-2 search-info w-100 border"
-                                    id="{{ $guest_value->id }}" name="search-info">
-                                    <span class="w-50 text-nav text-dark">{{ $guest_value->guest_name_display }}</span>
-                                </a>
-                            </li>
-                        @endforeach
-                        <a type="button"
-                            class="d-flex justify-content-center align-items-center p-2 position-sticky addGuestNew bg-white"
-                            data-toggle="modal" data-target="#guestModal" style="bottom: 0;">
-                            <span class="text-table text-center font-weight-bold">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                        fill="#282A30" />
-                                </svg>
-                                Thêm khách hàng
-                            </span>
-                        </a>
-                    </ul>
+                    </div>
                     <div class="">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                fill="#42526E"></path>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                fill="#42526E"></path>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                fill="#42526E"></path>
-                        </svg>
-                    </div>
-                </div>
-                <div id="show-info-guest">
-                    <div
-                        class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
-                        <span class="text-table mr-2">Người đại diện</span>
-                        <input type="text" placeholder="Chọn thông tin"
-                            class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off">
-                        <div class="">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div
-                        class="d-flex align-items-center justify-content-between border border border-left-0 py-1 px-1 border-top-0">
-                        <span class="text-table mr-4">Số báo giá</span>
-                        <input type="text" placeholder="Chọn thông tin" name="quotation_number"
-                            class="border-0 bg w-50 bg-input-guest py-0" autocomplete="off">
-                        <div class="">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div
-                        class="d-flex align-items-center justify-content-between border border border-left-0 py-1 px-1 border-top-0">
-                        <span class="text-table mr-2">Số tham chiếu</span>
-                        <input type="text" placeholder="Chọn thông tin" name="reference_number"
-                            class="border-0 bg w-50 bg-input-guest py-0" autocomplete="off">
-                        <div class="">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div
-                        class="d-flex align-items-center justify-content-between border border border-left-0 py-1 px-1 border-top-0">
-                        <span class="text-table mr-3">Ngày báo giá</span>
-                        <input type="date" placeholder="Chọn thông tin" value="{{ date('Y-m-d') }}"
-                            name="date_quote" class="border-0 bg w-50 bg-input-guest py-0">
-                        <div class="">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div
-                        class="d-flex align-items-center justify-content-between position-relative border border-left-0 border py-1 px-1 border-top-0">
-                        <span class="text-table">Hiệu lực báo giá</span>
-                        <input type="text" placeholder="Chọn thông tin" name="price_effect"
-                            class="border-0 bg w-50 bg-input-guest py-0" autocomplete="off" id="myInput-quote"
-                            value="{{ isset($dataForm['quote']) ? $dataForm['quote']->form_desc : '' }}">
-                        <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[quote]"
-                            value="{{ isset($dataForm['quote']) ? $dataForm['quote']->id : '' }}">
-                        <input type="hidden" class="nameDateForm" autocomplete="off" name="fieldDate[quote]"
-                            value="{{ isset($dataForm['quote']) ? $dataForm['quote']->form_field : '' }}">
-                        <ul id="myUL2" class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                            style="z-index: 99;top: 33px;">
-                            @foreach ($date_form as $item)
-                                @if ($item->form_field == 'quote')
-                                    <li class="item-{{ $item->id }}">
-                                        <a href="#"
-                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
-                                            id="{{ $item->id }}" name="search-date-form" data-name="quote">
-                                            <span class="w-50"
-                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
+                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                            <input type="text" placeholder="Chọn thông tin"
+                                class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
+                                id="myInput">
+                            <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
+                            <ul id="myUL"
+                                class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest z-index-block"
+                                style="z-index: 99;">
+                                <div class="p-1">
+                                    <div class="position-relative">
+                                        <input type="text" placeholder="Nhập công ty"
+                                            class="pr-4 w-100 input-search" id="companyFilter">
+                                        <span id="search-icon" class="search-icon"><i
+                                                class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                    </div>
+                                </div>
+                                @foreach ($guest as $guest_value)
+                                    <li>
+                                        <a href="#" title="{{ $guest_value->guest_name_display }}"
+                                            class="text-dark d-flex justify-content-between p-2 search-info w-100 border"
+                                            id="{{ $guest_value->id }}" name="search-info">
+                                            <span
+                                                class="w-100 text-nav text-dark overflow-hidden">{{ $guest_value->guest_name_display }}</span>
                                         </a>
-                                        <div class="dropdown">
-                                            <button type="button" data-toggle="dropdown"
-                                                class="btn-save-print d-flex align-items-center h-100"
-                                                style="margin-right:10px">
-                                                <i class="fa-solid fa-ellipsis"></i>
-                                            </button>
-                                            <div class="dropdown-menu date-form-setting" style="z-index: 100;">
-                                                <a class="dropdown-item search-date-form" data-toggle="modal"
-                                                    data-target="#formModalquote" data-name="quote"
-                                                    data-id="{{ $item->id }}" id="{{ $item->id }}"><i
-                                                        class="fa-regular fa-pen-to-square"></i></a>
-                                                <a class="dropdown-item delete-item" href="#"
-                                                    data-id="{{ $item->id }}"
-                                                    data-name="{{ $item->form_field }}"><i
-                                                        class="fa-solid fa-trash-can"></i></a>
-                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                    id="default-id{{ $item->id }}" href="#"
-                                                    data-name="{{ $item->form_field }}"
-                                                    data-id="{{ $item->id }}">
-                                                    @if ($item->default_form === 1)
-                                                        <i class="fa-solid fa-link-slash"></i>
-                                                    @else
-                                                        <i class="fa-solid fa-link"></i>
-                                                    @endif
-                                                </a>
-                                            </div>
-                                        </div>
                                     </li>
-                                @endif
-                            @endforeach
-                            <a type="button"
-                                class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormquote"
-                                data-toggle="modal" data-target="#formModalquote" style="bottom: 0;">
-                                <span class="text-white">Thêm mới</span>
-                            </a>
-                        </ul>
-                        <div class="">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
+                                @endforeach
+                                <a type="button"
+                                    class="d-flex justify-content-center align-items-center p-2 position-sticky addGuestNew bg-white"
+                                    data-toggle="modal" data-target="#guestModal" style="bottom: 0;">
+                                    <span class="text-table text-center font-weight-bold">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                fill="#282A30" />
+                                        </svg>
+                                        Thêm khách hàng
+                                    </span>
+                                </a>
+                            </ul>
+                            <div class="">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                        fill="#42526E"></path>
+                                </svg>
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        class="d-flex align-items-center position-relative justify-content-between border border-left-0 border py-1 px-1 border-top-0">
-                        <span class="text-table mr-4">Điều khoản</span>
-                        <input type="text" placeholder="Chọn thông tin" name="terms_pay"
-                            class="border-0 bg w-50 bg-input-guest py-0" autocomplete="off" id="myInput-payment"
-                            value="{{ isset($dataForm['payment']) ? $dataForm['payment']->form_desc : '' }}">
-                        <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[payment]"
-                            value="{{ isset($dataForm['payment']) ? $dataForm['payment']->id : '' }}">
-                        <input type="hidden" class="nameDateForm" autocomplete="off" name="fieldDate[payment]"
-                            value="{{ isset($dataForm['payment']) ? $dataForm['payment']->form_field : '' }}">
-                        <ul id="myUL1" class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                            style="z-index: 99;top: 33px;">
-                            @foreach ($date_form as $item)
-                                @if ($item->form_field == 'payment')
-                                    <li class="item-{{ $item->id }}">
-                                        <a href="#"
-                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
-                                            id="{{ $item->id }}" name="search-date-form" data-name="payment">
-                                            <span class="w-50"
-                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
-                                        </a>
-                                        <div class="dropdown">
-                                            <button type="button" data-toggle="dropdown"
-                                                class="btn-save-print d-flex align-items-center h-100"
-                                                style="margin-right:10px">
-                                                <i class="fa-solid fa-ellipsis"></i>
-                                            </button>
-                                            <div class="dropdown-menu date-form-setting" style="z-index: 100;">
-                                                <a class="dropdown-item search-date-form" data-toggle="modal"
-                                                    data-target="#formModalpayment" data-name="payment"
-                                                    data-id="{{ $item->id }}" id="{{ $item->id }}"><i
-                                                        class="fa-regular fa-pen-to-square"></i></a>
-                                                <a class="dropdown-item delete-item" href="#"
-                                                    data-id="{{ $item->id }}"
-                                                    data-name="{{ $item->form_field }}"><i
-                                                        class="fa-solid fa-trash-can"></i></a>
-                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                    id="default-id{{ $item->id }}" href="#"
-                                                    data-name="{{ $item->form_field }}"
-                                                    data-id="{{ $item->id }}">
-                                                    @if ($item->default_form === 1)
-                                                        <i class="fa-solid fa-link-slash"></i>
-                                                    @else
-                                                        <i class="fa-solid fa-link"></i>
-                                                    @endif
-                                                </a>
-                                            </div>
+                        <div id="show-info-guest">
+                            <div
+                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                                <input type="text" placeholder="Chọn thông tin"
+                                    class="border-0 bg w-100 bg-input-guest py-0 px-0" autocomplete="off">
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div
+                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                                <input type="text" placeholder="Chọn thông tin" name="quotation_number"
+                                    class="border-0 bg w-100 bg-input-guest py-0" autocomplete="off">
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div
+                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                                <input type="text" placeholder="Chọn thông tin" name="reference_number"
+                                    class="border-0 bg w-100 bg-input-guest py-0" autocomplete="off">
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div
+                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                                <input type="date" placeholder="Chọn thông tin" value="{{ date('Y-m-d') }}"
+                                    name="date_quote" class="border-0 bg w-100 bg-input-guest py-0"
+                                    style="height: 20px;">
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div
+                                class="position-relative d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                                <input type="text" placeholder="Chọn thông tin" name="price_effect"
+                                    class="border-0 bg w-100 bg-input-guest py-0" autocomplete="off"
+                                    id="myInput-quote"
+                                    value="{{ isset($dataForm['quote']) ? $dataForm['quote']->form_desc : '' }}">
+                                <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[quote]"
+                                    value="{{ isset($dataForm['quote']) ? $dataForm['quote']->id : '' }}">
+                                <input type="hidden" class="nameDateForm" autocomplete="off"
+                                    name="fieldDate[quote]"
+                                    value="{{ isset($dataForm['quote']) ? $dataForm['quote']->form_field : '' }}">
+                                <ul id="myUL2"
+                                    class="bg-white position-absolute rounded w-100 shadow p-0 scroll-data list-guest z-index-block"
+                                    style="z-index: 99;top: 33px;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập hiệu lực"
+                                                class="pr-4 w-100 input-search" id="companyFilter2">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
                                         </div>
-                                    </li>
-                                @endif
-                            @endforeach
-                            <a type="button"
-                                class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormpayment"
-                                data-toggle="modal" data-target="#formModalpayment" style="bottom: 0;">
-                                <span class="text-white">Thêm mới</span>
-                            </a>
-                        </ul>
-                        <div class="">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div
-                        class="d-flex align-items-center justify-content-between border border-left-0 border py-1 px-1 border-top-0">
-                        <span class="text-table mr-5">Dự án</span>
-                        <input type="text" placeholder="Chọn thông tin" id="ProjectInput"
-                            class="border-0 bg w-50 bg-input-guest py-0">
-                        <input type="hidden" class="idProject" autocomplete="off" name="project_id">
-                        <ul id="listProject" class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                            style="z-index: 99;">
-                            @foreach ($project as $project_value)
-                                <li class="d-block">
-                                    <a href="#"
-                                        class="text-dark d-flex justify-content-between p-2 search-project"
-                                        id="{{ $project_value->id }}">
-                                        <span class="w-50">{{ $project_value->project_name }}</span>
+                                    </div>
+                                    @foreach ($date_form as $item)
+                                        @if ($item->form_field == 'quote')
+                                            <li class="item-{{ $item->id }} border">
+                                                <a href="#" title="{{ $item->form_name }}"
+                                                    class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                    id="{{ $item->id }}" name="search-date-form"
+                                                    data-name="quote">
+                                                    <span class="w-100 text-nav text-dark overflow-hidden"
+                                                        id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
+                                                </a>
+                                                <div class="dropdown">
+                                                    <button type="button" data-toggle="dropdown"
+                                                        class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
+                                                        style="margin-right:10px">
+                                                        <i class="fa-solid fa-ellipsis"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu date-form-setting"
+                                                        style="z-index: 1000;">
+                                                        <a class="dropdown-item search-date-form" data-toggle="modal"
+                                                            data-target="#formModalquote" data-name="quote"
+                                                            data-id="{{ $item->id }}"
+                                                            id="{{ $item->id }}"><i
+                                                                class="fa-regular fa-pen-to-square"></i></a>
+                                                        <a class="dropdown-item delete-item" href="#"
+                                                            data-id="{{ $item->id }}"
+                                                            data-name="{{ $item->form_field }}"><i
+                                                                class="fa-solid fa-trash-can"></i></a>
+                                                        <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                            id="default-id{{ $item->id }}" href="#"
+                                                            data-name="{{ $item->form_field }}"
+                                                            data-id="{{ $item->id }}">
+                                                            @if ($item->default_form === 1)
+                                                                <i class="fa-solid fa-link-slash"></i>
+                                                            @else
+                                                                <i class="fa-solid fa-link"></i>
+                                                            @endif
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                    <a type="button"
+                                        class="d-flex justify-content-center align-items-center p-2 position-sticky bg-white addDateFormquote"
+                                        data-toggle="modal" data-target="#formModalquote" style="bottom: 0;">
+                                        <span class="text-table text-center font-weight-bold">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30" />
+                                            </svg>
+                                            Thêm mới
+                                        </span>
                                     </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <div class="">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div
-                        class="d-flex align-items-center position-relative justify-content-between border border border-left-0 py-1 px-1 border-top-0">
-                        <span class="text-table mr-4">Hàng hóa</span>
-                        <input type="text" placeholder="Chọn thông tin" name="goods"
-                            class="border-0 bg w-50 bg-input-guest py-0" autocomplete="off" id="myInput-goods"
-                            value="{{ isset($dataForm['goods']) ? $dataForm['goods']->form_desc : '' }}">
-                        <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[goods]"
-                            value="{{ isset($dataForm['goods']) ? $dataForm['goods']->id : '' }}">
-                        <input type="hidden" class="nameDateForm" autocomplete="off" name="fieldDate[goods]"
-                            value="{{ isset($dataForm['goods']) ? $dataForm['goods']->form_field : '' }}">
-                        <ul id="myUL4" class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                            style="z-index: 99;top: 33px;">
-                            @foreach ($date_form as $item)
-                                @if ($item->form_field == 'goods')
-                                    <li class="item-{{ $item->id }}">
-                                        <a href="#"
-                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
-                                            id="{{ $item->id }}" name="search-date-form" data-name="goods">
-                                            <span class="w-50"
-                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
-                                        </a>
-                                        <div class="dropdown">
-                                            <button type="button" data-toggle="dropdown"
-                                                class="btn-save-print d-flex align-items-center h-100"
-                                                style="margin-right:10px">
-                                                <i class="fa-solid fa-ellipsis"></i>
-                                            </button>
-                                            <div class="dropdown-menu date-form-setting" style="z-index: 100;">
-                                                <a class="dropdown-item search-date-form" data-toggle="modal"
-                                                    data-target="#formModalgoods" data-name="goods"
-                                                    data-id="{{ $item->id }}" id="{{ $item->id }}"><i
-                                                        class="fa-regular fa-pen-to-square"></i></a>
-                                                <a class="dropdown-item delete-item" href="#"
-                                                    data-id="{{ $item->id }}"
-                                                    data-name="{{ $item->form_field }}"><i
-                                                        class="fa-solid fa-trash-can"></i></a>
-                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                    id="default-id{{ $item->id }}" href="#"
-                                                    data-name="{{ $item->form_field }}"
-                                                    data-id="{{ $item->id }}">
-                                                    @if ($item->default_form === 1)
-                                                        <i class="fa-solid fa-link-slash"></i>
-                                                    @else
-                                                        <i class="fa-solid fa-link"></i>
-                                                    @endif
-                                                </a>
-                                            </div>
+                                </ul>
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div
+                                class="position-relative d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                                <input type="text" placeholder="Chọn thông tin" name="terms_pay"
+                                    class="border-0 bg w-100 bg-input-guest py-0" autocomplete="off"
+                                    id="myInput-payment"
+                                    value="{{ isset($dataForm['payment']) ? $dataForm['payment']->form_desc : '' }}">
+                                <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[payment]"
+                                    value="{{ isset($dataForm['payment']) ? $dataForm['payment']->id : '' }}">
+                                <input type="hidden" class="nameDateForm" autocomplete="off"
+                                    name="fieldDate[payment]"
+                                    value="{{ isset($dataForm['payment']) ? $dataForm['payment']->form_field : '' }}">
+                                <ul id="myUL1"
+                                    class="w-100 bg-white position-absolute rounded shadow p-0 scroll-data list-guest z-index-block"
+                                    style="z-index: 99;top: 33px;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập điều khoản"
+                                                class="pr-4 w-100 input-search" id="companyFilter1">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
                                         </div>
-                                    </li>
-                                @endif
-                            @endforeach
-                            <a type="button"
-                                class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormgoods"
-                                data-toggle="modal" data-target="#formModalgoods" style="bottom: 0;">
-                                <span class="text-white">Thêm mới</span>
-                            </a>
-                        </ul>
-                        <div class="">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div
-                        class="d-flex align-items-center position-relative justify-content-between border border border-left-0 py-1 px-1 border-top-0">
-                        <span class="text-table mr-4">Giao hàng</span>
-                        <input type="text" placeholder="Chọn thông tin" name="delivery"
-                            class="border-0 bg w-50 bg-input-guest py-0" autocomplete="off" id="myInput-delivery"
-                            value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->form_desc : '' }}">
-                        <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[delivery]"
-                            value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->id : '' }}">
-                        <input type="hidden" class="nameDateForm" autocomplete="off" name="fieldDate[delivery]"
-                            value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->form_field : '' }}">
-                        <ul id="myUL5" class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                            style="z-index: 99;top: 33px;">
-                            @foreach ($date_form as $item)
-                                @if ($item->form_field == 'delivery')
-                                    <li class="item-{{ $item->id }}">
-                                        <a href="#"
-                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
-                                            id="{{ $item->id }}" name="search-date-form" data-name="delivery">
-                                            <span class="w-50"
-                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
-                                        </a>
-                                        <div class="dropdown">
-                                            <button type="button" data-toggle="dropdown"
-                                                class="btn-save-print d-flex align-items-center h-100"
-                                                style="margin-right:10px">
-                                                <i class="fa-solid fa-ellipsis"></i>
-                                            </button>
-                                            <div class="dropdown-menu date-form-setting" style="z-index: 100;">
-                                                <a class="dropdown-item search-date-form" data-toggle="modal"
-                                                    data-target="#formModaldelivery" data-name="delivery"
-                                                    data-id="{{ $item->id }}" id="{{ $item->id }}"><i
-                                                        class="fa-regular fa-pen-to-square"></i></a>
-                                                <a class="dropdown-item delete-item" href="#"
-                                                    data-id="{{ $item->id }}"
-                                                    data-name="{{ $item->form_field }}"><i
-                                                        class="fa-solid fa-trash-can"></i></a>
-                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                    id="default-id{{ $item->id }}" href="#"
-                                                    data-name="{{ $item->form_field }}"
-                                                    data-id="{{ $item->id }}">
-                                                    @if ($item->default_form === 1)
-                                                        <i class="fa-solid fa-link-slash"></i>
-                                                    @else
-                                                        <i class="fa-solid fa-link"></i>
-                                                    @endif
+                                    </div>
+                                    @foreach ($date_form as $item)
+                                        @if ($item->form_field == 'payment')
+                                            <li class="item-{{ $item->id }} border">
+                                                <a href="#" title="{{ $item->form_name }}"
+                                                    class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                    id="{{ $item->id }}" name="search-date-form"
+                                                    data-name="payment">
+                                                    <span class="w-100 text-nav text-dark overflow-hidden"
+                                                        id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                 </a>
-                                            </div>
+                                                <div class="dropdown">
+                                                    <button type="button" data-toggle="dropdown"
+                                                        class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
+                                                        style="margin-right:10px">
+                                                        <i class="fa-solid fa-ellipsis"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu date-form-setting"
+                                                        style="z-index: 1000;">
+                                                        <a class="dropdown-item search-date-form" data-toggle="modal"
+                                                            data-target="#formModalpayment" data-name="payment"
+                                                            data-id="{{ $item->id }}"
+                                                            id="{{ $item->id }}"><i
+                                                                class="fa-regular fa-pen-to-square"></i></a>
+                                                        <a class="dropdown-item delete-item" href="#"
+                                                            data-id="{{ $item->id }}"
+                                                            data-name="{{ $item->form_field }}"><i
+                                                                class="fa-solid fa-trash-can"></i></a>
+                                                        <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                            id="default-id{{ $item->id }}" href="#"
+                                                            data-name="{{ $item->form_field }}"
+                                                            data-id="{{ $item->id }}">
+                                                            @if ($item->default_form === 1)
+                                                                <i class="fa-solid fa-link-slash"></i>
+                                                            @else
+                                                                <i class="fa-solid fa-link"></i>
+                                                            @endif
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                    <a type="button"
+                                        class="d-flex justify-content-center align-items-center p-2 position-sticky bg-white addDateFormpayment"
+                                        data-toggle="modal" data-target="#formModalpayment" style="bottom: 0;">
+                                        <span class="text-table text-center font-weight-bold">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30" />
+                                            </svg>
+                                            Thêm mới
+                                        </span>
+                                    </a>
+                                </ul>
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div
+                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                                <input type="text" placeholder="Chọn thông tin" id="ProjectInput"
+                                    class="border-0 bg w-100 bg-input-guest py-0">
+                                <input type="hidden" class="idProject" autocomplete="off" name="project_id">
+                                <ul id="listProject"
+                                    class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                    style="z-index: 99;">
+                                    @foreach ($project as $project_value)
+                                        <li class="d-block">
+                                            <a href="#"
+                                                class="text-dark d-flex justify-content-between p-2 search-project"
+                                                id="{{ $project_value->id }}">
+                                                <span class="w-100">{{ $project_value->project_name }}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div
+                                class="position-relative d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                                <input type="text" placeholder="Chọn thông tin" name="goods"
+                                    class="border-0 bg w-100 bg-input-guest py-0" autocomplete="off"
+                                    id="myInput-goods"
+                                    value="{{ isset($dataForm['goods']) ? $dataForm['goods']->form_desc : '' }}">
+                                <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[goods]"
+                                    value="{{ isset($dataForm['goods']) ? $dataForm['goods']->id : '' }}">
+                                <input type="hidden" class="nameDateForm" autocomplete="off"
+                                    name="fieldDate[goods]"
+                                    value="{{ isset($dataForm['goods']) ? $dataForm['goods']->form_field : '' }}">
+                                <ul id="myUL4"
+                                    class="w-100 bg-white position-absolute rounded shadow p-0 scroll-data list-guest z-index-block"
+                                    style="z-index: 99;top: 33px;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập hàng hóa"
+                                                class="pr-4 w-100 input-search" id="companyFilter4">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
                                         </div>
-                                    </li>
-                                @endif
-                            @endforeach
-                            <a type="button"
-                                class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormdelivery"
-                                data-toggle="modal" data-target="#formModaldelivery" style="bottom: 0;">
-                                <span class="text-white">Thêm mới</span>
-                            </a>
-                        </ul>
-                        <div class="">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div
-                        class="d-flex align-items-center position-relative justify-content-between border border border-left-0 py-1 px-1 border-top-0">
-                        <span class="text-table mr-4">Địa điểm</span>
-                        <input type="text" placeholder="Chọn thông tin" name="location"
-                            class="border-0 bg w-50 bg-input-guest py-0" autocomplete="off" id="myInput-location"
-                            value="{{ isset($dataForm['location']) ? $dataForm['location']->form_desc : '' }}">
-                        <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[location]"
-                            value="{{ isset($dataForm['location']) ? $dataForm['location']->id : '' }}">
-                        <input type="hidden" class="nameDateForm" autocomplete="off" name="fieldDate[location]"
-                            value="{{ isset($dataForm['location']) ? $dataForm['location']->form_field : '' }}">
-                        <ul id="myUL6" class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                            style="z-index: 99;top: 33px;">
-                            @foreach ($date_form as $item)
-                                @if ($item->form_field == 'location')
-                                    <li class="item-{{ $item->id }}">
-                                        <a href="#"
-                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
-                                            id="{{ $item->id }}" name="search-date-form" data-name="location">
-                                            <span class="w-50"
-                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
-                                        </a>
-                                        <div class="dropdown">
-                                            <button type="button" data-toggle="dropdown"
-                                                class="btn-save-print d-flex align-items-center h-100"
-                                                style="margin-right:10px">
-                                                <i class="fa-solid fa-ellipsis"></i>
-                                            </button>
-                                            <div class="dropdown-menu date-form-setting" style="z-index: 100;">
-                                                <a class="dropdown-item search-date-form" data-toggle="modal"
-                                                    data-target="#formModallocation" data-name="location"
-                                                    data-id="{{ $item->id }}" id="{{ $item->id }}"><i
-                                                        class="fa-regular fa-pen-to-square"></i></a>
-                                                <a class="dropdown-item delete-item" href="#"
-                                                    data-id="{{ $item->id }}"
-                                                    data-name="{{ $item->form_field }}"><i
-                                                        class="fa-solid fa-trash-can"></i></a>
-                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                    id="default-id{{ $item->id }}" href="#"
-                                                    data-name="{{ $item->form_field }}"
-                                                    data-id="{{ $item->id }}">
-                                                    @if ($item->default_form === 1)
-                                                        <i class="fa-solid fa-link-slash"></i>
-                                                    @else
-                                                        <i class="fa-solid fa-link"></i>
-                                                    @endif
+                                    </div>
+                                    @foreach ($date_form as $item)
+                                        @if ($item->form_field == 'goods')
+                                            <li class="item-{{ $item->id }} border">
+                                                <a href="#" title="{{ $item->form_name }}"
+                                                    class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                    id="{{ $item->id }}" name="search-date-form"
+                                                    data-name="goods">
+                                                    <span class="w-100 text-nav text-dark overflow-hidden"
+                                                        id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                 </a>
-                                            </div>
+                                                <div class="dropdown">
+                                                    <button type="button" data-toggle="dropdown"
+                                                        class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
+                                                        style="margin-right:10px">
+                                                        <i class="fa-solid fa-ellipsis"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu date-form-setting"
+                                                        style="z-index: 1000;">
+                                                        <a class="dropdown-item search-date-form" data-toggle="modal"
+                                                            data-target="#formModalgoods" data-name="goods"
+                                                            data-id="{{ $item->id }}"
+                                                            id="{{ $item->id }}"><i
+                                                                class="fa-regular fa-pen-to-square"></i></a>
+                                                        <a class="dropdown-item delete-item" href="#"
+                                                            data-id="{{ $item->id }}"
+                                                            data-name="{{ $item->form_field }}"><i
+                                                                class="fa-solid fa-trash-can"></i></a>
+                                                        <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                            id="default-id{{ $item->id }}" href="#"
+                                                            data-name="{{ $item->form_field }}"
+                                                            data-id="{{ $item->id }}">
+                                                            @if ($item->default_form === 1)
+                                                                <i class="fa-solid fa-link-slash"></i>
+                                                            @else
+                                                                <i class="fa-solid fa-link"></i>
+                                                            @endif
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                    <a type="button"
+                                        class="d-flex justify-content-center align-items-center p-2 position-sticky bg-white addDateFormgoods"
+                                        data-toggle="modal" data-target="#formModalgoods" style="bottom: 0;">
+                                        <span class="text-table text-center font-weight-bold">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30" />
+                                            </svg>
+                                            Thêm mới
+                                        </span>
+                                    </a>
+                                </ul>
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div
+                                class="position-relative d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                                <input type="text" placeholder="Chọn thông tin" name="delivery"
+                                    class="border-0 bg w-100 bg-input-guest py-0" autocomplete="off"
+                                    id="myInput-delivery"
+                                    value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->form_desc : '' }}">
+                                <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[delivery]"
+                                    value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->id : '' }}">
+                                <input type="hidden" class="nameDateForm" autocomplete="off"
+                                    name="fieldDate[delivery]"
+                                    value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->form_field : '' }}">
+                                <ul id="myUL5"
+                                    class="w-100 bg-white position-absolute rounded shadow p-0 scroll-data list-guest z-index-block"
+                                    style="z-index: 99;top: 33px;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập giao hàng"
+                                                class="pr-4 w-100 input-search" id="companyFilter5">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
                                         </div>
-                                    </li>
-                                @endif
-                            @endforeach
-                            <a type="button"
-                                class="bg-dark d-flex justify-content-between p-2 position-sticky addDateFormlocation"
-                                data-toggle="modal" data-target="#formModallocation" style="bottom: 0;">
-                                <span class="text-white">Thêm mới</span>
-                            </a>
-                        </ul>
-                        <div class="">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
+                                    </div>
+                                    @foreach ($date_form as $item)
+                                        @if ($item->form_field == 'delivery')
+                                            <li class="item-{{ $item->id }} border">
+                                                <a href="#" title="{{ $item->form_name }}"
+                                                    class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                    id="{{ $item->id }}" name="search-date-form"
+                                                    data-name="delivery">
+                                                    <span class="w-100 text-nav text-dark overflow-hidden"
+                                                        id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
+                                                </a>
+                                                <div class="dropdown">
+                                                    <button type="button" data-toggle="dropdown"
+                                                        class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
+                                                        style="margin-right:10px">
+                                                        <i class="fa-solid fa-ellipsis"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu date-form-setting"
+                                                        style="z-index: 1000;">
+                                                        <a class="dropdown-item search-date-form" data-toggle="modal"
+                                                            data-target="#formModaldelivery" data-name="delivery"
+                                                            data-id="{{ $item->id }}"
+                                                            id="{{ $item->id }}"><i
+                                                                class="fa-regular fa-pen-to-square"></i></a>
+                                                        <a class="dropdown-item delete-item" href="#"
+                                                            data-id="{{ $item->id }}"
+                                                            data-name="{{ $item->form_field }}"><i
+                                                                class="fa-solid fa-trash-can"></i></a>
+                                                        <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                            id="default-id{{ $item->id }}" href="#"
+                                                            data-name="{{ $item->form_field }}"
+                                                            data-id="{{ $item->id }}">
+                                                            @if ($item->default_form === 1)
+                                                                <i class="fa-solid fa-link-slash"></i>
+                                                            @else
+                                                                <i class="fa-solid fa-link"></i>
+                                                            @endif
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                    <a type="button"
+                                        class="d-flex justify-content-center align-items-center p-2 position-sticky bg-white addDateFormdelivery"
+                                        data-toggle="modal" data-target="#formModaldelivery" style="bottom: 0;">
+                                        <span class="text-table text-center font-weight-bold">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30" />
+                                            </svg>
+                                            Thêm mới
+                                        </span>
+                                    </a>
+                                </ul>
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div
+                                class="position-relative d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                                <input type="text" placeholder="Chọn thông tin" name="location"
+                                    class="border-0 bg w-100 bg-input-guest py-0" autocomplete="off"
+                                    id="myInput-location"
+                                    value="{{ isset($dataForm['location']) ? $dataForm['location']->form_desc : '' }}">
+                                <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[location]"
+                                    value="{{ isset($dataForm['location']) ? $dataForm['location']->id : '' }}">
+                                <input type="hidden" class="nameDateForm" autocomplete="off"
+                                    name="fieldDate[location]"
+                                    value="{{ isset($dataForm['location']) ? $dataForm['location']->form_field : '' }}">
+                                <ul id="myUL6"
+                                    class="w-100 bg-white position-absolute rounded shadow p-0 scroll-data list-guest z-index-block"
+                                    style="z-index: 99;top: 33px;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập địa điểm"
+                                                class="pr-4 w-100 input-search" id="companyFilter6">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                    @foreach ($date_form as $item)
+                                        @if ($item->form_field == 'location')
+                                            <li class="item-{{ $item->id }} border">
+                                                <a href="#" title="{{ $item->form_name }}"
+                                                    class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                    id="{{ $item->id }}" name="search-date-form"
+                                                    data-name="location">
+                                                    <span class="w-100 text-nav text-dark overflow-hidden"
+                                                        id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
+                                                </a>
+                                                <div class="dropdown">
+                                                    <button type="button" data-toggle="dropdown"
+                                                        class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
+                                                        style="margin-right:10px">
+                                                        <i class="fa-solid fa-ellipsis"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu date-form-setting"
+                                                        style="z-index: 1000;">
+                                                        <a class="dropdown-item search-date-form" data-toggle="modal"
+                                                            data-target="#formModallocation" data-name="location"
+                                                            data-id="{{ $item->id }}"
+                                                            id="{{ $item->id }}"><i
+                                                                class="fa-regular fa-pen-to-square"></i></a>
+                                                        <a class="dropdown-item delete-item" href="#"
+                                                            data-id="{{ $item->id }}"
+                                                            data-name="{{ $item->form_field }}"><i
+                                                                class="fa-solid fa-trash-can"></i></a>
+                                                        <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                            id="default-id{{ $item->id }}" href="#"
+                                                            data-name="{{ $item->form_field }}"
+                                                            data-id="{{ $item->id }}">
+                                                            @if ($item->default_form === 1)
+                                                                <i class="fa-solid fa-link-slash"></i>
+                                                            @else
+                                                                <i class="fa-solid fa-link"></i>
+                                                            @endif
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                    <a type="button"
+                                        class="d-flex justify-content-center align-items-center p-2 position-sticky bg-white addDateFormlocation"
+                                        data-toggle="modal" data-target="#formModallocation" style="bottom: 0;">
+                                        <span class="text-table text-center font-weight-bold">
+                                            <svg width="16" height="16" viewBox="0 0 16 16"
+                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30" />
+                                            </svg>
+                                            Thêm mới
+                                        </span>
+                                    </a>
+                                </ul>
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1073,11 +1135,11 @@
         }
 
         toggleListGuest($("#myInput"), $("#myUL"), $("#companyFilter"));
-        toggleList($("#myInput-payment"), $("#myUL1"));
-        toggleList($("#myInput-quote"), $("#myUL2"));
-        toggleList($("#myInput-goods"), $("#myUL4"));
-        toggleList($("#myInput-delivery"), $("#myUL5"));
-        toggleList($("#myInput-location"), $("#myUL6"));
+        toggleListGuest($("#myInput-quote"), $("#myUL2"), $("#companyFilter2"));
+        toggleListGuest($("#myInput-payment"), $("#myUL1"), $("#companyFilter1"));
+        toggleListGuest($("#myInput-goods"), $("#myUL4"), $("#companyFilter4"));
+        toggleListGuest($("#myInput-delivery"), $("#myUL5"), $("#companyFilter5"));
+        toggleListGuest($("#myInput-location"), $("#myUL6"), $("#companyFilter6"));
     });
 
     $(document).ready(function() {
@@ -1223,7 +1285,7 @@
                             '</span></a><div class="dropdown">' +
                             '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">' +
                             '<i class="fa-solid fa-ellipsis"></i>' + '</button>' +
-                            '<div class="dropdown-menu date-form-setting" style="z-index: 100;">' +
+                            '<div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
                             '<a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModal' +
                             name + '" data-name="' +
                             name + '" data-id="' + data.new_date_form.id +
@@ -1351,7 +1413,7 @@
                 "@foreach ($product as $product_value)" +
                 "<li>" +
                 "<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 idProduct w-100' id='{{ $product_value->id }}' name='idProduct'>" +
-                "<span class='w-50'>{{ $product_value->product_name }}</span>" +
+                "<span class='w-100'>{{ $product_value->product_name }}</span>" +
                 "</a>" +
                 "</li>" +
                 "@endforeach" +
@@ -1411,16 +1473,6 @@
                 "</td>" +
                 "<td style='display:none;'><input type='text' class='product_tax1'></td>"
             );
-            // const heSoNhan = $(
-            //     "<td class='border border-top-0 border-bottom-0 position-relative product_ratio'>" +
-            //     "<input type='text' class='border-0 px-2 py-1 w-100 heSoNhan' autocomplete='off' name='product_ratio[]'>" +
-            //     "</td>"
-            // );
-            // const giaNhap = $(
-            //     "<td class='border border-top-0 border-bottom-0 position-relative price_import'>" +
-            //     "<input type='text' class='border-0 px-2 py-1 w-100 giaNhap' autocomplete='off' required name='price_import[]'>" +
-            //     "</td>"
-            // );
             const ghiChu = $(
                 "<td class='border border-bottom-0 position-relative note p-1'>" +
                 "<input type='text' class='border-0 py-1 w-100' placeholder='Nhập ghi chú' name='product_note[]'>" +
@@ -1557,10 +1609,10 @@
                                 .product_inventory == null ? 0 :
                                 data.product_inventory));
                             infoProduct.show();
-
                             if (data.product_inventory > 0) {
                                 inventory.show();
                             }
+                            thue.prop('disabled', true);
                         }
                     });
                 });
@@ -1599,6 +1651,7 @@
     //Lấy thông tin khách hàng
     $(document).ready(function() {
         $('#show-info-guest').hide();
+        $('#show-title-guest').hide();
         $(document).on('click', '.search-info', function(e) {
             var idGuest = $(this).attr('id');
             $.ajax({
@@ -1638,6 +1691,7 @@
                                 $('#myInput-' + key).val(formDesc);
                             });
                             $('#show-info-guest').show();
+                            $('#show-title-guest').show();
                         }
                     });
 
@@ -1647,66 +1701,72 @@
     });
     //Thêm thông tin khách hàng
     $(document).on('click', '#addGuest', function(e) {
-        var guest_name_display = $('input[name="guest_name_display"]').val();
-        var guest_name = $('#guest_name').val();
-        var guest_address = $('#guest_address').val();
-        var guest_code = $('#guest_code').val();
-        var guest_email = $('#guest_email').val();
-        var guest_phone = $('#guest_phone').val();
-        var guest_receiver = $('#guest_receiver').val();
-        var guest_email_personal = $('#guest_email_personal').val();
-        var guest_phone_receiver = $('#guest_phone_receiver').val();
-        var guest_note = $('#guest_note').val();
-        var key = $("input[name='key']").val().trim();
-        $('.nameGuest').val(null);
-        $('.idGuest').val(null);
-        $.ajax({
-            url: "{{ route('addGuest') }}",
-            type: "get",
-            data: {
-                guest_name_display: guest_name_display,
-                guest_name: guest_name,
-                guest_address: guest_address,
-                guest_code: guest_code,
-                guest_email: guest_email,
-                guest_phone: guest_phone,
-                guest_receiver: guest_receiver,
-                guest_email_personal: guest_email_personal,
-                guest_phone_receiver: guest_phone_receiver,
-                guest_note: guest_note,
-                key: key,
-            },
-            success: function(data) {
-                if (data.success) {
-                    quotation = getQuotation(data.key, '1')
-                    $('input[name="quotation_number"]').val(quotation);
-                    $('.nameGuest').val(data.guest_name_display);
-                    alert(data.msg);
-                    $('.idGuest').val(data.id);
-                    $('.modal [data-dismiss="modal"]').click();
-                    // Nếu thành công, tạo một mục mới
-                    var newGuestInfo = data;
-                    var guestList = $('#myUL'); // Danh sách hiện có
-                    var newListItem =
-                        '<li><a href="#" class="text-dark d-flex justify-content-between p-2 search-info" id="' +
-                        newGuestInfo.id + '" name="search-info">' +
-                        '<span class="w-50">' + newGuestInfo.guest_name_display +
-                        '</span></a></li>';
-                    // Thêm mục mới vào danh sách
-                    var addButton = $(".addGuestNew");
-                    $(newListItem).insertBefore(addButton);
-                    //clear
-                    $('#guest_name_display').val('');
-                    $("input[name='key']").val('');
-                    $('#guest_address').val(null);
-                    $('#guest_code').val(null);
-                    //
-                    $('#show-info-guest').show();
-                } else {
-                    alert(data.msg);
+        var guest_name_display = $('input[name="guest_name_display"]').val().trim();
+        var guest_name = $('#guest_name').val().trim();
+        var guest_address = $('#guest_address').val().trim();
+        var guest_code = $('#guest_code').val().trim();
+        // var guest_email = $('#guest_email').val().trim();
+        // var guest_phone = $('#guest_phone').val().trim();
+        // var guest_receiver = $('#guest_receiver').val().trim();
+        // var guest_email_personal = $('#guest_email_personal').val().trim();
+        // var guest_phone_receiver = $('#guest_phone_receiver').val().trim();
+        // var guest_note = $('#guest_note').val().trim();
+        var key = $("input[name='key']").val().trim().trim();
+        if (!guest_name_display || !guest_address || !guest_code) {
+            alert('Vui lòng điền đủ thông tin khách hàng!');
+        } else {
+            $('.nameGuest').val(null);
+            $('.idGuest').val(null);
+            $.ajax({
+                url: "{{ route('addGuest') }}",
+                type: "get",
+                data: {
+                    guest_name_display: guest_name_display,
+                    guest_name: guest_name,
+                    guest_address: guest_address,
+                    guest_code: guest_code,
+                    // guest_email: guest_email,
+                    // guest_phone: guest_phone,
+                    // guest_receiver: guest_receiver,
+                    // guest_email_personal: guest_email_personal,
+                    // guest_phone_receiver: guest_phone_receiver,
+                    // guest_note: guest_note,
+                    key: key,
+                },
+                success: function(data) {
+                    if (data.success) {
+                        quotation = getQuotation(data.key, '1')
+                        $('input[name="quotation_number"]').val(quotation);
+                        $('.nameGuest').val(data.guest_name_display);
+                        alert(data.msg);
+                        $('.idGuest').val(data.id);
+                        $('.modal [data-dismiss="modal"]').click();
+                        // Nếu thành công, tạo một mục mới
+                        var newGuestInfo = data;
+                        var guestList = $('#myUL'); // Danh sách hiện có
+                        var newListItem =
+                            '<li><a href="#" title="' + newGuestInfo.guest_name_display +
+                            '" class="text-dark d-flex justify-content-between p-2 search-info w-100 border" id="' +
+                            newGuestInfo.id + '" name="search-info">' +
+                            '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
+                            .guest_name_display +
+                            '</span></a></li>';
+                        // Thêm mục mới vào danh sách
+                        var addButton = $(".addGuestNew");
+                        $(newListItem).insertBefore(addButton);
+                        //clear
+                        $('#guest_name_display').val('');
+                        $("input[name='key']").val('');
+                        $('#guest_address').val(null);
+                        $('#guest_code').val(null);
+                        //
+                        $('#show-info-guest').show();
+                    } else {
+                        alert(data.msg);
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 
     //tính thành tiền của sản phẩm
@@ -1891,6 +1951,7 @@
         // Kiểm tra số báo giá tồn tại bằng Ajax
         if (hasProducts && shouldSubmit) {
             var quotetion_number = $('input[name="quotation_number"]').val();
+            $('.product_tax').prop('disabled', false);
             $.ajax({
                 url: "{{ route('checkQuotetionExport') }}",
                 type: "get",

@@ -95,7 +95,7 @@ class DetailExport extends Model
         $detailExport = DetailExport::where('detailexport.id', $id)
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('guest', 'detailexport.guest_id', 'guest.id')
-            ->select('*', 'guest.id as maKH', 'detailexport.id as maBG', 'detailexport.status as tinhTrang')
+            ->select('*', 'guest.id as maKH', 'detailexport.id as maBG', 'detailexport.status as tinhTrang', 'detailexport.created_at as ngayBG')
             ->first();
         return $detailExport;
     }

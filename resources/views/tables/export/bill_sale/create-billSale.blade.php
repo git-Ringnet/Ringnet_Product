@@ -5,10 +5,10 @@
     <input type="hidden" name="detailexport_id" id="detailexport_id"
         value="@isset($yes) {{ $data['detailexport_id'] }} @endisset">
     <input type="hidden" name="delivery_id" id="delivery_id">
-    <div class="content-wrapper1 py-0 border-bottom px-4">
-        <div class="d-flex justify-content-between align-items-center">
+    <div class="content-wrapper1 py-2">
+        <div class="d-flex justify-content-between align-items-center pl-4 ml-1">
             <div class="container-fluided">
-                <div class="mb-3">
+                <div class="mb">
                     <span class="font-weight-bold">Bán hàng</span>
                     <span class="mx-2"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="container-fluided z-index-block">
-                <div class="row m-0 mb-1">
+                <div class="row m-0">
                     <div class="dropdown">
                         <a href="{{ route('delivery.index', $workspacename) }}">
                             <button type="button" class="btn-save-print rounded d-flex align-items-center h-100"
@@ -40,7 +40,7 @@
                                         d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
                                         fill="#6D7075" />
                                 </svg>
-                                <span>Hủy</span>
+                                <span class="text-button">Hủy</span>
                             </button>
                         </a>
                     </div>
@@ -54,28 +54,30 @@
                                     d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                     fill="#6D7075" />
                             </svg>
-                            <span>Lưu</span>
+                            <span class="text-button">In</span>
                         </button>
                         <div class="dropdown-menu" style="z-index: 9999;">
                             <a class="dropdown-item" href="#">Xuất Excel</a>
                             <a class="dropdown-item" href="#">Xuất PDF</a>
                         </div>
                     </div>
-                    <button type="submit" name="action" value="2"
-                        class="btn-save-print d-flex align-items-center py-1 px-3 rounded" style="margin-right:10px"
-                        onclick="kiemTraFormGiaoHang(event);">
-                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                            viewBox="0 0 16 16" fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
-                                fill="#6D7075" />
-                        </svg>
-                        <span>Xác nhận</span>
-                    </button>
+                    <div class="dropdown">
+                        <button type="submit" name="action" value="2"
+                            class="btn-save-print rounded d-flex align-items-center h-100 dropdown-toggle px-2"
+                            style="margin-right:10px" onclick="kiemTraFormGiaoHang(event);">
+                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 16 16" fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                    fill="#6D7075" />
+                            </svg>
+                            <span class="text-button">Xác nhận</span>
+                        </button>
+                    </div>
                     <button type="submit" name="action" value="1"
-                        class="custom-btn d-flex align-items-center h-100" style="margin-right:10px"
+                        class="custom-btn d-flex align-items-center h-100 py-1 px-2" style="margin-right:10px"
                         onclick="kiemTraFormGiaoHang(event);">
-                        <svg class="mx-1" width="18" height="18" viewBox="0 0 16 16" fill="none"
+                        <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
@@ -99,144 +101,126 @@
     </div>
     {{-- Thông tin sản phẩm --}}
     <div class="content-wrapper1 py-0 pl-0 px-0" id="main">
-        <div class="bg-filter-search border-top-0 text-center py-2">
+        <div class="bg-filter-search text-center py-2 border-right-0">
             <span class="font-weight-bold text-secondary text-nav">THÔNG TIN SẢN PHẨM</span>
         </div>
         <section class="content">
             <div class="container-fluided">
-                <div class="col-12">
-                    <section class="content">
-                        <div class="container-fluided order_content">
-                            <section class="multiple_action" style="display: none;">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="count_checkbox mr-5">Đã chọn 1</span>
-                                    <div class="row action">
-                                        <div class="btn-chotdon my-2 ml-3">
-                                            <button type="button" id="btn-chot"
-                                                class="btn-group btn-light d-flex align-items-center h-100">
-                                                <svg width="18" height="18" viewBox="0 0 18 18"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
-                                                        fill="#42526E" />
-                                                </svg>
-                                                <span class="px-1">Nhân hệ số</span>
-                                            </button>
-                                        </div>
-                                        <div class="btn-xoahang my-2 ml-1">
-                                            <button id="deleteExports" type="button"
-                                                class="btn-group btn-light d-flex align-items-center h-100">
-                                                <svg width="18" height="18" viewBox="0 0 18 18"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
-                                                        fill="#42526E" />
-                                                </svg>
-                                                <span class="px-1">Thuế</span>
-                                            </button>
-                                        </div>
-                                        <div class="btn-huy my-2 ml-3">
-                                            <button id="cancelBillExport"
-                                                class="btn-group btn-light d-flex align-items-center h-100">
-                                                <svg width="18" height="18" viewBox="0 0 18 18"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M15.75 15.75L2.25 2.25" stroke="#42526E"
-                                                        stroke-width="1.5" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                    <path d="M15.75 2.25L2.25 15.75" stroke="#42526E"
-                                                        stroke-width="1.5" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </svg>
-                                                <span class="px-1">Xóa</span>
-                                            </button>
-                                        </div>
+                <section class="content">
+                    <div class="container-fluided order_content">
+                        <section class="multiple_action" style="display: none;">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="count_checkbox mr-5">Đã chọn 1</span>
+                                <div class="row action">
+                                    <div class="btn-chotdon my-2 ml-3">
+                                        <button type="button" id="btn-chot"
+                                            class="btn-group btn-light d-flex align-items-center h-100">
+                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
+                                                    fill="#42526E" />
+                                            </svg>
+                                            <span class="px-1">Nhân hệ số</span>
+                                        </button>
                                     </div>
-                                    <div class="btn ml-auto cancal_action">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <path d="M18 18L6 6" stroke="white" stroke-width="1.5"
-                                                stroke-linecap="round" stroke-linejoin="round"></path>
-                                            <path d="M18 6L6 18" stroke="white" stroke-width="1.5"
-                                                stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
+                                    <div class="btn-xoahang my-2 ml-1">
+                                        <button id="deleteExports" type="button"
+                                            class="btn-group btn-light d-flex align-items-center h-100">
+                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
+                                                    fill="#42526E" />
+                                            </svg>
+                                            <span class="px-1">Thuế</span>
+                                        </button>
+                                    </div>
+                                    <div class="btn-huy my-2 ml-3">
+                                        <button id="cancelBillExport"
+                                            class="btn-group btn-light d-flex align-items-center h-100">
+                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M15.75 15.75L2.25 2.25" stroke="#42526E" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M15.75 2.25L2.25 15.75" stroke="#42526E" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            <span class="px-1">Xóa</span>
+                                        </button>
                                     </div>
                                 </div>
-                            </section>
-                            <table class="table table-hover bg-white rounded">
-                                <thead>
-                                    <tr>
-                                        <th class="border-right p-1">
-                                            <input class="ml-4" id="checkall" type="checkbox">
-                                            <span class="text-table text-secondary">Mã sản phẩm</span>
-                                        </th>
-                                        <th class="border-right p-1">
-                                            <span class="text-table text-secondary">Tên sản phẩm</span>
-                                        </th>
-                                        <th class="border-right p-1">
-                                            <span class="text-table text-secondary">Đơn vị</span>
-                                        </th>
-                                        <th class="border-right p-1">
-                                            <span class="text-table text-secondary">Số lượng</span>
-                                        </th>
-                                        <th class="border-right p-1">
-                                            <span class="text-table text-secondary">Đơn giá</span>
-                                        </th>
-                                        <th class="border-right p-1">
-                                            <span class="text-table text-secondary">Thuế</span>
-                                        </th>
-                                        <th class="border-right p-1">
-                                            <span class="text-table text-secondary">Thành tiền</span>
-                                        </th>
-                                        <th class="border-right note p-1">
-                                            <span class="text-table text-secondary">Ghi chú</span>
-                                        </th>
-                                        <th class="p-1"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr id="dynamic-fields" class="bg-white"></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-                    <div class="content">
-                        <div class="container-fluided">
-                            <div class="row position-relative footer-total">
-                                <div class="col-sm-6"></div>
-                                <div class="col-sm-6">
-                                    <div class="mt-4 w-50" style="float: right;">
-                                        <div class="d-flex justify-content-between">
-                                            <span class="text-table"><b>Giá trị trước thuế:</b></span>
-                                            <span id="total-amount-sum" class="text-table"></span>
-                                        </div>
-                                        <div class="d-flex justify-content-between mt-2 align-items-center">
-                                            <span class="text-table"><b>Thuế VAT:</b></span>
-                                            <span id="product-tax">
+                                <div class="btn ml-auto cancal_action">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none">
+                                        <path d="M18 18L6 6" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                        <path d="M18 6L6 18" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </section>
+                        <table class="table table-hover bg-white rounded">
+                            <thead>
+                                <tr>
+                                    <th class="border-right p-1 border-top-0">
+                                        <input class="ml-4" id="checkall" type="checkbox">
+                                        <span class="text-table text-secondary">Mã sản phẩm</span>
+                                    </th>
+                                    <th class="border-right p-1 border-top-0">
+                                        <span class="text-table text-secondary">Tên sản phẩm</span>
+                                    </th>
+                                    <th class="border-right p-1 border-top-0">
+                                        <span class="text-table text-secondary">Đơn vị</span>
+                                    </th>
+                                    <th class="border-right p-1 border-top-0">
+                                        <span class="text-table text-secondary">Số lượng</span>
+                                    </th>
+                                    <th class="border-right p-1 border-top-0">
+                                        <span class="text-table text-secondary">Đơn giá</span>
+                                    </th>
+                                    <th class="border-right p-1 border-top-0">
+                                        <span class="text-table text-secondary">Thuế</span>
+                                    </th>
+                                    <th class="border-right p-1 border-top-0">
+                                        <span class="text-table text-secondary">Thành tiền</span>
+                                    </th>
+                                    <th class="border-right note p-1 border-top-0">
+                                        <span class="text-table text-secondary">Ghi chú</span>
+                                    </th>
+                                    <th class="p-1 border-top-0"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="dynamic-fields" class="bg-white"></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <div class="content">
+                    <div class="container-fluided">
+                        <div class="row position-relative footer-total">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6">
+                                <div class="mt-4 w-50" style="float: right;">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-table"><b>Giá trị trước thuế:</b></span>
+                                        <span id="total-amount-sum" class="text-table"></span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 align-items-center">
+                                        <span class="text-table"><b>Thuế VAT:</b></span>
+                                        <span id="product-tax">
 
-                                            </span>
-                                        </div>
-                                        {{-- <div class="d-flex justify-content-between align-items-center mt-2">
-                                            <span class="text-primary">Giảm giá:</span>
-                                            <div class="w-50">
-                                                <input type="text" class="form-control text-right border-0 p-0"
-                                                    name="discount" id="voucher" value="">
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-2">
-                                            <span class="text-primary">Phí vận chuyển:</span>
-                                            <div class="w-50">
-                                                <input type="text" class="form-control text-right border-0 p-0"
-                                                    name="transport_fee" id="transport_fee">
-                                            </div>
-                                        </div> --}}
-                                        <div class="d-flex justify-content-between mt-2">
-                                            <span class="text-lg"><b>Tổng cộng:</b></span>
-                                            <span><b id="grand-total" data-value="0">
-
-                                                </b></span>
-                                            <input type="text" hidden="" name="totalValue" value=""
-                                                id="total">
-                                        </div>
+                                        </span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <span class="text-lg"><b>Tổng cộng:</b></span>
+                                        <span>
+                                            <b id="grand-total" data-value="0"></b>
+                                        </span>
+                                        <input type="text" hidden="" name="totalValue" value=""
+                                            id="total">
                                     </div>
                                 </div>
                             </div>

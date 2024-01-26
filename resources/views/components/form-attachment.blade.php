@@ -15,7 +15,7 @@
                 <th class="border-right p-1 border-bottom">
                     <span class="text-table text-secondary">Kích cỡ</span>
                 </th>
-                <th class="border-right p-1 border-bottom"></th>
+                <th class="p-1 border-bottom"></th>
             </tr>
         </thead>
         <tbody>

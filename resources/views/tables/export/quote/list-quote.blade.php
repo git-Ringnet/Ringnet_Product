@@ -1,7 +1,5 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="quote" :workspacename="$workspacename"></x-navbar>
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper1 py-2">
-    <!-- Content Header (Page header) -->
     <div class="d-flex justify-content-between align-items-center pl-4 ml-1">
         <div class="container-fluided">
             <div class="mb">

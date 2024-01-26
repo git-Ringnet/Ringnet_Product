@@ -190,23 +190,22 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
 /* .nav-item:hover svg{
     fill: #EBEFFF !important;
 } */
+.nav-treeview > .nav-item > .nav-link {
+    color: #282A30 !important;
+}
 .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
 .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active,
 .nav-treeview > .nav-item > .nav-link.active {
-    background-color: #ebefff !important;
-    color: #0095f6 !important;
+    background-color: #f0f3f9 !important;
     box-shadow: none !important;
-    border-left: 4px solid !important;
     border-radius: 0 !important;
 }
 
 .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link:hover,
 .nav-treeview > .nav-item > .nav-link:hover {
-    background-color: #ebefff !important;
+    background-color: #f0f3f9 !important;
     border-radius: 0 !important;
-    color: #0095f6 !important;
     box-shadow: none !important;
-    border-left: 4px solid !important;
     transition: border-left 0.2s ease-in-out;
 }
 
@@ -661,7 +660,11 @@ td p {
 }
 
 #guestModal .modal-dialog {
-    max-width: 65% !important;
+    max-width: 20% !important;
+}
+
+#guestModal .modal-dialog input:focus{
+    outline: none;
 }
 
 #list_modal .modal.fade.show {
@@ -904,6 +907,7 @@ input[type="number"] {
 }
 
 .custom-btn span,
+.custom-btn-danger span,
 .btn-light span {
     font-weight: 500;
     font-size: 13px;
@@ -917,6 +921,20 @@ input[type="number"] {
     border-radius: 5px;
 }
 
+.custom-btn-danger {
+    padding: 4px 11px;
+    background-color: #DC3545;
+    border: 1px solid #DC3545;
+    color: white;
+    border-radius: 5px;
+}
+
+.custom-btn-danger:hover {
+    color: #DC3545;
+    background-color: white;
+    border: 1px solid #DC3545;
+}
+
 .custom-btn:hover {
     color: #6e79d6;
     background-color: white;
@@ -925,6 +943,10 @@ input[type="number"] {
 
 .custom-btn:hover path {
     fill: #6e79d6;
+}
+
+.custom-btn-danger:hover path {
+    fill: #DC3545;
 }
 
 .btn-save-print {
@@ -1587,6 +1609,7 @@ input[type="checkbox"] {
 
 .main-sidebar {
     background-color: #fafbfc !important;
+    width: 200px !important;
 }
 
 .card-body > .table > thead > tr > th {
@@ -1661,7 +1684,10 @@ input[type="checkbox"] {
 @media (min-width: 768px) {
     .content-wrapper1 {
         transition: margin-left 0.3s ease-in-out;
-        margin-left: 250px;
+        margin-left: 200px;
+    }
+    .content-wrapper {
+        margin-left: 200px !important;
     }
 }
 @media (max-width: 991.98px) {
@@ -1692,7 +1718,7 @@ input[type="checkbox"] {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 41px;
+    top: 45px;
     right: 0;
     background-color: #ffff;
     transition: 0.5s;
@@ -1702,7 +1728,7 @@ input[type="checkbox"] {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 99px;
+    top: 99.5px;
     right: 0;
     background-color: #ffff;
     transition: 0.5s;
@@ -1712,7 +1738,7 @@ input[type="checkbox"] {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 99px;
+    top: 97px;
     right: 0;
     background-color: #ffff;
     transition: 0.5s;
@@ -1722,7 +1748,7 @@ input[type="checkbox"] {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 45px;
+    top: 37px;
     right: 0;
     background-color: #ffff;
     transition: 0.5s;
@@ -1736,7 +1762,7 @@ input[type="checkbox"] {
     opacity: 1;
     transition: opacity 1s ease;
 }
-#show_info_Guest input::placeholder {
+#show_info_Guest input{
     font-size: 14px;
 }
 /* .bg-input-guest {
@@ -1761,7 +1787,7 @@ input[type="checkbox"] {
 .list-guest {
     top: 41px;
     right: 300px;
-    width: 65%;
+    width: 70%;
 }
 .list-guest .position-relative input::placeholder {
     font-size: 13px;
@@ -1775,7 +1801,7 @@ input[type="checkbox"] {
     color: #000 !important;
     box-shadow: 0px 1px 2px 1px #888888;
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: 4px 10px;
 }
 .table-hover tbody tr:hover {
     background-color: #f2f2f2;
@@ -1787,4 +1813,7 @@ input[type="checkbox"] {
     margin-left: 0 !important;
     content: "";
     border: none !important;
+}
+.table thead th{
+    border-bottom: 1px solid #dee2e6;
 }

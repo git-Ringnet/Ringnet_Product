@@ -1,8 +1,8 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="delivery" :workspacename="$workspacename"></x-navbar>
-<div class="content-wrapper1 py-0 border-bottom px-4">
-    <div class="d-flex justify-content-between align-items-center">
+<div class="content-wrapper1 py-2">
+    <div class="d-flex justify-content-between align-items-center pl-4 ml-1">
         <div class="container-fluided">
-            <div class="mb-3">
+            <div class="mb">
                 <span class="font-weight-bold">Bán hàng</span>
                 <span class="mx-2"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -15,10 +15,10 @@
             </div>
         </div>
         <div class="container-fluided z-index-block">
-            <div class="row m-0 mb-1">
+            <div class="row m-0">
                 <a href="{{ route('delivery.create', ['workspace' => $workspacename]) }}">
                     <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
-                        <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                        <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
@@ -27,7 +27,7 @@
                                 d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
                                 fill="white" />
                         </svg>
-                        <span>Tạo mới</span>
+                        <span class="text-button-add">Tạo mới</span>
                     </button>
                 </a>
                 <button class="btn-option bg-white border-0">
@@ -49,19 +49,19 @@
     </div>
 </div>
 <div class="bg-filter-search pl-4">
-    <div class="content-wrapper1 py-1">
+    <div class="content-wrapper1 py-2">
         <div class="row m-auto filter p-0">
             <div class="w-100">
                 <div class="row mr-0">
                     <div class="col-md-5 d-flex align-items-center">
                         <form action="" method="get" id='search-filter' class="p-0 m-0">
-                            <div class="position-relative">
+                            <div class="position-relative ml-1">
                                 <input type="text" placeholder="Tìm kiếm" name="keywords"
                                     class="pr-4 w-100 input-search" value="{{ request()->keywords }}">
                                 <span id="search-icon" class="search-icon"><i class="fas fa-search"></i></span>
                             </div>
                         </form>
-                        <div class="dropdown">
+                        <div class="dropdown ml-1">
                             <button class="filter-btn ml-2 align-items-center d-flex border" data-toggle="dropdown">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -108,9 +108,9 @@
                             <table id="example2" class="table table-hover">
                                 <thead class="sticky-head">
                                     <tr>
-                                        <th class="border-top-0"><input type="checkbox" name="all"
+                                        <th class="border-top-0 my-0 py-2"><input type="checkbox" name="all"
                                                 id="checkall"></th>
-                                        <th scope="col" class="border-top-0">
+                                        <th scope="col" class="border-top-0 my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="id"
                                                     data-sort-type="#">
@@ -121,7 +121,7 @@
                                                 <div class="icon" id="icon-id"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0">
+                                        <th scope="col" class="border-top-0 my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="export_code"
                                                     data-sort-type="">
@@ -132,7 +132,7 @@
                                                 <div class="icon" id="icon-export_code"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0">
+                                        <th scope="col" class="border-top-0 my-0 py-2">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="created_at"
                                                     data-sort-type="">
@@ -143,7 +143,7 @@
                                                 <div class="icon" id="icon-created_at"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0">
+                                        <th scope="col" class="border-top-0 my-0 py-2">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link" data-sort-by="created_at"
                                                     data-sort-type="">
@@ -154,7 +154,7 @@
                                                 <div class="icon" id="icon-created_at"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0">
+                                        <th scope="col" class="border-top-0 my-0 py-2">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link" data-sort-by="created_at"
                                                     data-sort-type="">
@@ -165,7 +165,7 @@
                                                 <div class="icon" id="icon-created_at"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0">
+                                        <th scope="col" class="border-top-0 my-0 py-2">
                                             <span class="d-flex justify-content-center">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type="">
@@ -176,7 +176,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border-top-0">
+                                        <th scope="col" class="border-top-0 my-0 py-2">
                                             <span class="d-flex justify-content-center">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type="">
@@ -192,13 +192,13 @@
                                 <tbody>
                                     @foreach ($delivery as $item_delivery)
                                         <tr onclick="handleRowClick('checkbox', event);">
-                                            <td class="bg-white"><input type="checkbox" class="cb-element"
+                                            <td class="py-2"><input type="checkbox" class="cb-element"
                                                     name="ids[]" id="checkbox" value=""
                                                     onclick="event.stopPropagation();"></td>
-                                            <td class="bg-white">
+                                            <td class="py-2">
                                                 {{ $item_delivery->maGiaoHang }}
                                             </td>
-                                            <td class="bg-white">
+                                            <td class="py-2">
                                                 <div class="">
                                                     <a href="{{ route('watchDelivery', ['workspace' => $workspacename, 'id' => $item_delivery->maGiaoHang]) }}"
                                                         class="duongDan">
@@ -206,23 +206,23 @@
                                                     </a>
                                                 </div>
                                             </td>
-                                            <td class="bg-white">
+                                            <td class="py-2">
                                                 {{ $item_delivery->guest_name_display }}
                                             </td>
-                                            <td class="text-left bg-white">
+                                            <td class="text-left py-2">
                                                 {{ $item_delivery->shipping_unit }}
                                             </td>
-                                            <td class="text-left bg-white">
+                                            <td class="text-left py-2">
                                                 {{ number_format($item_delivery->shipping_fee) }}
                                             </td>
-                                            <td class="text-center bg-white">
+                                            <td class="text-center py-2">
                                                 @if ($item_delivery->status == 1)
                                                     <span>Chưa giao</span>
                                                 @else
                                                     <span class="text-success">Đã giao</span>
                                                 @endif
                                             </td>
-                                            <td class="bg-white text-center">
+                                            <td class="py-2 text-center">
                                                 {{ date_format(new DateTime($item_delivery->ngayGiao), 'd/m/Y') }}
                                             </td>
                                         </tr>
