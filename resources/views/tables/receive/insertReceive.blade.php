@@ -216,180 +216,209 @@
                     <div class="bg-filter-search border-top-0 py-2 text-center">
                         <span class="font-weight-bold text-secondary text-nav">THÔNG TIN NHÀ CUNG CẤP</span>
                     </div>
-                    {{-- Đơn nhận hàng --}}
-                    <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                        <span class="text-table mr-3">Đơn mua hàng</span>
-                        <input readonly id="myInput" type="text" placeholder="Nhập thông tin"
-                            name="quotation_number"
-                            class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest search_quotation"
-                            autocomplete="off" required>
-                        <input type="hidden" name="detail_id" id="detail_id"
-                            value="@isset($yes) {{ $show_receive['id'] }} @endisset">
-                        <ul id="listReceive"
-                            class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
-                            style="z-index: 99; display: block;">
-                            <div class="p-1">
-                                <div class="position-relative">
-                                    <input type="text" placeholder="Nhập đơn mua hàng" class="pr-4 w-100 input-search"
-                                        id="provideFilter">
-                                    <span id="search-icon" class="search-icon"><i class="fas fa-search text-table"
-                                            aria-hidden="true"></i></span>
+                    <div class="d-flex">
+                        <div style="width:55%;">
+                            <div class="border border-right-0 py-1 border-left-0">
+                                <span class="text-table ml-2">Đơn mua hàng</span>
+                            </div>
+                            <div id="more_info1" style="display:none;">
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Nhà cung cấp</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Người đại diện</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Mã thanh toán</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Đơn vị vận chuyển</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Phí giao hàng</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Ngày nhận hàng</span>
                                 </div>
                             </div>
-                            @foreach ($listDetail as $value)
-                                <li>
-                                    <a href="javascript:void(0)"
-                                        class="text-dark d-flex justify-content-between p-2 search-receive"
-                                        id="{{ $value->id }}" name="search-info">
-                                        <span
-                                            class="w-50">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
+                        </div>
                         <div class="">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div id="more_info" style="display:none;">
-                        {{-- Nhà cung cấp --}}
-                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                            <span class="text-table mr-3">Nhà cung cấp</span>
-                            <input readonly type="text" id="provide_name" placeholder="Nhập thông tin"
-                                class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest"
-                                value="@isset($yes){{ $show_receive['provide_name'] }}@endisset">
-                            <div class="">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                        fill="#42526E"></path>
-                                </svg>
+                            <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                <input readonly id="myInput" type="text" placeholder="Nhập thông tin"
+                                    name="quotation_number"
+                                    class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0 search_quotation"
+                                    autocomplete="off" required>
+                                <input type="hidden" name="detail_id" id="detail_id"
+                                    value="@isset($yes) {{ $show_receive['id'] }} @endisset">
+                                <ul id="listReceive"
+                                    class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
+                                    style="z-index: 99; display: block;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập đơn mua hàng"
+                                                class="pr-4 w-100 input-search" id="provideFilter">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                    @foreach ($listDetail as $value)
+                                        <li>
+                                            <a href="javascript:void(0)"
+                                                class="text-dark d-flex justify-content-between p-2 search-receive"
+                                                id="{{ $value->id }}" name="search-info">
+                                                <span
+                                                    class="w-50">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <div class="">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                            fill="#42526E"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                            fill="#42526E"></path>
+                                    </svg>
+                                </div>
                             </div>
-                        </div>
-                        {{-- Người đại diện --}}
-                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                            <span class="text-table mr-3">Người đại diện</span>
-                            <input name="represent" type="text" placeholder="Chọn thông tin"
-                                class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest" autocomplete="off"
-                                id="represent">
-                            <div class="">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                        fill="#42526E"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        {{-- Mã thanh toán --}}
-                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                            <span class="text-table mr-3">Mã thanh toán</span>
-                            <input type="text" placeholder="Chọn thông tin" name="reference_number"
-                                class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest" autocomplete="off">
-                            <div class="">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                        fill="#42526E"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        {{-- Đơn vị vận chuyển --}}
-                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                            <span class="text-table mr-3">Đơn vị vận chuyển</span>
-                            <input type="text" placeholder="Nhập thông tin" name="shipping_unit"
-                                class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest">
-                            <div class="">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                        fill="#42526E"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        {{-- Phí giao hàng --}}
-                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                            <span class="text-table mr-3">Phí giao hàng</span>
-                            <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
-                                class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest">
-                            <div class="">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                        fill="#42526E"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        {{-- Ngày giao hàng --}}
-                        <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                            <span class="text-table mr-3">Ngày nhận hàng</span>
-                            <input type="date" placeholder="Nhập thông tin" name="received_date"
-                                class="border-0 bg w-50 bg-input-guest py-0 px-0 nameGuest"
-                                value="{{ date('Y-m-d') }}">
-                            <div class="">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                        fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                        fill="#42526E"></path>
-                                </svg>
+                            <div id="more_info" style="display:none;">
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                    <input readonly type="text" id="provide_name" placeholder="Nhập thông tin"
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                        value="@isset($yes){{ $show_receive['provide_name'] }}@endisset">
+                                    <div class="">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                    <input name="represent" type="text" placeholder="Chọn thông tin"
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                        autocomplete="off" id="represent">
+                                    <div class="">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                    <input type="text" placeholder="Chọn thông tin" name="reference_number"
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                        autocomplete="off">
+                                    <div class="">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                    <input type="text" placeholder="Nhập thông tin" name="shipping_unit"
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0">
+                                    <div class="">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                    <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0">
+                                    <div class="">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                    <input type="date" placeholder="Nhập thông tin" name="received_date"
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                        value="{{ date('Y-m-d') }}">
+                                    <div class="">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <?php $product = []; ?>
@@ -560,6 +589,7 @@
                                 createModal(element.id)
                             });
                             $('#more_info').show();
+                            $('#more_info1').show();
                         }
                     })
                 }
