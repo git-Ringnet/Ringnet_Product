@@ -4,6 +4,10 @@
 @endif
 @if (Auth::check())
     <!-- Kiểm tra xem người dùng đã đăng nhập chưa -->
+    @if (Auth::user()->current_workspace)
+        <?php header('Location: ' . route('dashboard'));
+        exit(); ?>
+    @endif
     @php
         $currentWorkspace = Auth::user()->current_workspace;
         $workspacename = App\Models\Workspace::where('id', Auth::user()->current_workspace)->first();
@@ -13,7 +17,6 @@
             ->where('user_id', $idUser)
             ->exists();
     @endphp
-
     {{-- @if ($workspaceExists)
         <!-- Hiển thị nội dung navbar dựa trên việc current_workspace của người dùng có tồn tại trong Workspace hay không -->
         <p>User's current workspace exists in Workspace.</p>
@@ -28,6 +31,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="google-site-verification" content="K1w-WrdYbh4UE0ZLNP8lot6xN-tkavJTByQY-Hd4t-0" />
     <title>
         @if (!empty($title))
             {{ $title }}
