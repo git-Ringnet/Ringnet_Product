@@ -933,6 +933,7 @@
                         $("input[name='provide_phone']").val('');
                         $("input[name='provide_address_delivery']").val('');
                         $('#more_info').show();
+                        $('#more_info1').show();
                     } else {
                         alert(data.msg);
                     }
