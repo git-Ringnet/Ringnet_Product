@@ -16,9 +16,10 @@ class InvitationEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public $invitation;
+    public function __construct($invitation)
     {
-        //
+        $this->invitation = $invitation;
     }
 
     /**
@@ -34,11 +35,15 @@ class InvitationEmail extends Mailable
     /**
      * Get the message content definition.
      */
-    public function content(): Content
+    public function build()
     {
-        return new Content(
-            view: 'emails.invitation',
-        );
+        // return new Content(
+        //     view: 'emails.invitation',
+        // );
+        return $this->markdown('emails.invitation')
+            ->with([
+                'invitation' => $this->invitation,
+            ]);
     }
 
     /**

@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
+use App\Mail\SampleMail;
+
 class InvitationController extends Controller
 {
     public function inviteUser($token, $workspace_id)
@@ -41,16 +43,35 @@ class InvitationController extends Controller
         $token = Str::random(32);
 
         // Lưu thông tin lời mời vào database
-        Invitation::create([
-            'workspace_id' => $workspace_id,
-            'email' => $email,
-            'token' => $token,
-        ]);
+        // Invitation::create([
+        //     'workspace_id' => $workspace_id,
+        //     'email' => $email,
+        //     'token' => $token,
+        // ]);
 
-        Mail::to($email)->send(new InvitationEmail($token));
+        // Mail::to($email)->send(new InvitationEmail($token));
 
         return redirect('/')->with('success', 'Invitation sent successfully!');
     }
+
+    public function index(Request $request)
+    {
+        $content = [
+            'subject' => 'This is the mail subject',
+            'body' => 'This is the email body of how to send email from laravel 10 with mailtrap.'
+        ];
+        $email = $request->input('email');
+
+        $workspace_id = Auth::user()->current_workspace;
+
+        $invitation = Invitation::where('workspace_id', Auth::user()->current_workspace)->first();
+
+        // dd($invitation);
+        Mail::to($email)->send(new InvitationEmail($invitation));
+
+        return redirect('/')->with('success', 'Invitation sent successfully!');
+    }
+
 
     public function updateInvitations(Request $request)
     {

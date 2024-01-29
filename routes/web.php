@@ -78,8 +78,8 @@ Route::get('/getDataForm', [DetailImportController::class, 'getDataForm'])->name
 Route::get('/addNewForm', [DetailImportController::class, 'addNewForm'])->name('addNewForm');
 Route::get('/updateForm', [DetailImportController::class, 'updateForm'])->name('updateForm');
 Route::get('/deleteForm', [DetailImportController::class, 'deleteForm'])->name('deleteForm');
-Route::get('/setDefault',[DetailImportController::class, 'setDefault'])->name('setDefault');
-Route::get('/showData',[DetailImportController::class,'showData'])->name('showData');
+Route::get('/setDefault', [DetailImportController::class, 'setDefault'])->name('setDefault');
+Route::get('/showData', [DetailImportController::class, 'showData'])->name('showData');
 
 
 
@@ -158,9 +158,11 @@ Route::get('/searchHistory', [HistoryController::class, 'searchHistory'])->name(
 
 // Invite workspace
 Route::get('/login/{token}/invite/{workspace_id}', [InvitationController::class, 'inviteUser'])->name('invite');
-Route::post('/invite', [InvitationController::class, 'sendInvitation'])->name('sendInvitation');
+
 Route::get('/updateInvitations', [InvitationController::class, 'updateInvitations'])->name('updateInvitations');
 
+Route::post('/invite', [InvitationController::class, 'index'])->name('sendInvitation');
+Route::get('/send-mail', [InvitationController::class, 'index']);
 
 
 
