@@ -247,7 +247,7 @@
                                                 @endif
                                             </td>
                                             <td class="py-2">
-                                                {{ date_format(new DateTime($item->payment_date), 'd-m-Y') }}</td>
+                                                {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }}</td>
                                             <td class="py-2">{{ number_format($item->total) }}</td>
                                             <td class="py-2">
                                                 {{ fmod($item->payment, 2) > 0 ? number_format($item->payment, 2, '.', ',') : number_format($item->payment) }}

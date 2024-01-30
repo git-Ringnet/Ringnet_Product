@@ -50,6 +50,7 @@ $("#myUL").hide();
 $('#listProject').hide();
 $('#listRepresent').hide();
 $('#listPriceEffect').hide();
+$('#listTermsPay').hide();
 function showForm(id, list) {
     $(id).on('click', function () {
         $(list).show();
@@ -59,6 +60,7 @@ showForm('#inputProject', '#listProject')
 showForm('#myInput', '#myUL')
 showForm('#represent', '#listRepresent')
 showForm('#price_effect','#listPriceEffect')
+showForm('#terms_pay','#listTermsPay')
 // $("#inputProject").on("click", function () {
 //     $("#listProject").show();
 // });
@@ -74,6 +76,7 @@ function showListProductCode() {
 
 function showListProductName() {
     $('#inputcontent tbody').on('click', '.searchProductName', function () {
+        console.log(123);
         $(this).closest('tr').find('#listProductName').show();
     });
 }
@@ -342,21 +345,21 @@ function addRowTable(status) {
         '<path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>' +
         '</svg>' +
         '<input type="checkbox">' +
-        '<input type="text" id="searchProduct" class="border-0 px-3 py-2 w-75 searchProduct" name="product_code[]" autocomplete="off" ' + (status == 2 ? 'readonly' : "") + ' >' +
+        '<input type="text" id="searchProduct" class="border-0 px-2 py-1 w-75 searchProduct" name="product_code[]" autocomplete="off" ' + (status == 2 ? 'readonly' : "") + ' >' +
         '<ul id="listProductCode" class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 24%; top: 75%;"> ' +
         '</ul>' +
         '</div>' +
         '</td>' +
         '<td class="border border-bottom-0 position-relative"> ' +
-        '<input autocomplete="off" required type="text" id="searchProductName" class="searchProductName border-0 px-3 py-2 w-100" name="product_name[]">' +
+        '<input autocomplete="off" required type="text" id="searchProductName" class="searchProductName border-0 px-2 py-1 w-100" name="product_name[]">' +
         '<ul id="listProductName" class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 1%; top: 74%;"> ' +
         '</ul>' +
         '</td>' +
         '<td class="border border-bottom-0">' +
-        '<input type="text" required class="border-0 px-3 py-2 w-100 product_unit" name="product_unit[]" ' + (status == 2 ? 'readonly' : '') + ' >' +
+        '<input type="text" required class="border-0 px-2 py-1 w-100 product_unit" name="product_unit[]" ' + (status == 2 ? 'readonly' : '') + ' >' +
         '</td>' +
         '<td class="border border-bottom-0">' +
-        '<div class="d-flex"><input type="text" required oninput="validateQtyInput1(this)" class="border-0 px-3 py-2 w-100 quantity-input" name="product_qty[]">';
+        '<div class="d-flex"><input type="text" required oninput="validateQtyInput1(this)" class="border-0 px-2 py-1 w-100 quantity-input" name="product_qty[]">';
     if (status == 2) {
         tr += '<button type="button" class="btn btn-primary" data-toggle="modal" ' +
             'data-target="#exampleModal' + rowCount + '" ' +
@@ -384,15 +387,15 @@ function addRowTable(status) {
         '</div>' +
         '</td>' +
         '<td class="border border-bottom-0">' +
-        '<input type="text" required class="border-0 px-3 py-2 w-100 price_export" name="price_export[]">' +
+        '<input type="text" required class="border-0 px-2 py-1 w-100 price_export" name="price_export[]">' +
         '</td>' +
         '<td class="border border-bottom-0">';
     if (status == 2) {
         tr +=
-            '<input type="text" class="border-0 px-3 py-2 w-100 product_tax" name="product_tax[]" readonly >';
+            '<input type="text" class="border-0 px-2 py-1 w-100 product_tax" name="product_tax[]" readonly >';
     } else {
         tr +=
-            '<select class="product_tax" name="product_tax[]"> ' +
+            '<select class="product_tax border-0" name="product_tax[]"> ' +
             '<option value="0">0%</option>' +
             '<option value="8">8%</option>' +
             '<option value="10">10%</option>' +
@@ -403,10 +406,10 @@ function addRowTable(status) {
         '</td>' +
         '<input type="hidden" class="product_tax1">' +
         '<td class="border border-bottom-0">' +
-        '<input type="text" class="border-0 px-3 py-2 w-100 total_price" readonly name="total_price[]">' +
+        '<input type="text" class="border-0 px-2 py-1 w-100 total_price" readonly name="total_price[]">' +
         '</td>' +
         '<td class="border border-bottom-0">' +
-        '<input type="text" placeholder="Nhập ghi chú" class="border-0 px-3 py-2 w-100" name="product_note[]" ' + (status == 2 ? 'readonly' : '') + ' >' +
+        '<input type="text" placeholder="Nhập ghi chú" class="border-0 px-2 py-1 w-100" name="product_note[]" ' + (status == 2 ? 'readonly' : '') + ' >' +
         '</td>' +
         '<td class="border deleteRow">' +
         '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.3687 6.09375C12.6448 6.09375 12.8687 6.30362 12.8687 6.5625C12.8687 6.59865 12.8642 6.63468 12.8554 6.66986L11.3628 12.617C11.1502 13.4639 10.3441 14.0625 9.41597 14.0625H6.58403C5.65593 14.0625 4.84977 13.4639 4.6372 12.617L3.14459 6.66986C3.08135 6.41786 3.24798 6.16551 3.51678 6.10621C3.55431 6.09793 3.59274 6.09375 3.6313 6.09375H12.3687ZM8.5 0.9375C9.88071 0.9375 11 1.98683 11 3.28125H13C13.5523 3.28125 14 3.70099 14 4.21875V4.6875C14 4.94638 13.7761 5.15625 13.5 5.15625H2.5C2.22386 5.15625 2 4.94638 2 4.6875V4.21875C2 3.70099 2.44772 3.28125 3 3.28125H5C5 1.98683 6.11929 0.9375 7.5 0.9375H8.5ZM8.5 2.34375H7.5C6.94772 2.34375 6.5 2.76349 6.5 3.28125H9.5C9.5 2.76349 9.05228 2.34375 8.5 2.34375Z" fill="#6B6F76"/></svg>' +
@@ -507,7 +510,7 @@ function checkDuplicateRows() {
 
         if (values.includes(combinedValue)) {
             hasDuplicate = true;
-            emptyData($(this), 'searchProductName', 'product_unit', 'price_export', 'product_tax', 'total_price', 'product_ratio', 'price_import')
+            emptyData($(this), 'searchProductName', 'searchProduct','product_unit', 'price_export', 'product_tax', 'total_price', 'product_ratio', 'price_import')
             return false;
         } else {
             values.push(combinedValue);
@@ -524,8 +527,9 @@ function checkInput() {
     })
 }
 
-function emptyData(position, name, unit, price_export, tax, total_price, ratio, price_import) {
+function emptyData(position, code,name, unit, price_export, tax, total_price, ratio, price_import) {
     $(position).find('.' + name).val('');
+    $(position).find('.' + code).val('');
     $(position).find('.' + unit).val('');
     $(position).find('.' + price_export).val('');
     $(position).find('.' + tax).val(0);

@@ -102,29 +102,29 @@
                         <table id="inputcontent" class="table table-hover bg-white rounded">
                             <thead>
                                 <tr>
-                                    <th class="border-right p-1 border-bottom">
+                                    <th class="border-right p-1 border-bottom" style="width:15%;">
                                         <input type="checkbox" class="ml-4 border-danger">
                                         <span class="text-table text-secondary">Mã sản phẩm</span>
                                     </th>
-                                    <th class="border-right p-1 border-bottom">
+                                    <th class="border-right p-1 border-bottom" style="width:25%;">
                                         <span class="text-table text-secondary"> Tên sản phẩm</span>
                                     </th>
-                                    <th class="border-right p-1 border-bottom">
+                                    <th class="border-right p-1 border-bottom" style="width:10%;">
                                         <span class="text-table text-secondary">Đơn vị</span>
                                     </th>
-                                    <th class="border-right p-1 border-bottom">
+                                    <th class="border-right p-1 border-bottom" style="width:10%;">
                                         <span class="text-table text-secondary">Số lượng</span>
                                     </th>
-                                    <th class="border-right p-1 border-bottom">
+                                    <th class="border-right p-1 border-bottom" style="width:10%;">
                                         <span class="text-table text-secondary">Đơn giá</span>
                                     </th>
-                                    <th class="border-right p-1 border-bottom">
+                                    <th class="border-right p-1 border-bottom" style="width:10%;">
                                         <span class="text-table text-secondary">Thuế</span>
                                     </th>
-                                    <th class="border-right p-1 border-bottom">
+                                    <th class="border-right p-1 border-bottom" style="width:10%;">
                                         <span class="text-table text-secondary">Thành tiền</span>
                                     </th>
-                                    <th class="border-right p-1 border-bottom">
+                                    <th class="border-right p-1 border-bottom" style="width:10%;">
                                         <span class="text-table text-secondary">Ghi chú</span>
                                     </th>
                                     <th class="border-top p-1 border-bottom border-right"></th>
@@ -428,7 +428,6 @@
                                             </span>
                                         </a>
                                     </ul>
-
                                     <div class="">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -559,7 +558,36 @@
                                 <div
                                     class="d-flex align-items-center justify-content-between border border-left-0 py-1">
                                     <input type="text" placeholder="Chọn thông tin" name="terms_pay"
-                                        class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off" readonly>
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                        autocomplete="off" readonly id="terms_pay">
+                                    <ul id="listTermsPay"
+                                        class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
+                                        style="z-index: 99;">
+                                        <div class="p-1">
+                                            <div class="position-relative">
+                                                <input type="text" placeholder="Nhập thông tin"
+                                                    class="pr-4 w-100 input-search" id="searchTermsPay">
+                                                <span id="search-icon" class="search-icon"><i
+                                                        class="fas fa-search text-table"
+                                                        aria-hidden="true"></i></span>
+                                            </div>
+                                        </div>
+                                        <a type="button"
+                                            class="d-flex justify-content-center align-items-center p-2 position-sticky addRepresent"
+                                            data-toggle="modal" data-target="#formModalTermPay" style="bottom: 0;">
+                                            <span class="text-table text-center font-weight-bold">
+                                                <svg width="16" height="16" viewBox="0 0 16 16"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                        fill="#282A30"></path>
+                                                </svg>
+                                                Thêm mới
+                                            </span>
+                                        </a>
+                                    </ul>
+
+
                                     <div class="">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -579,16 +607,17 @@
                                 <div
                                     class="d-flex align-items-center justify-content-between border border-left-0 py-1">
                                     <input type="text" placeholder="Chọn thông tin" id="inputProject"
-                                        class="border-0 bg w-50 bg-input-guest py-0 px-0" autocomplete="off">
+                                        class="border-0 bg w-100 bg-input-guest py-0 px-0 nameGuest"
+                                        autocomplete="off">
                                     <ul id="listProject"
-                                        class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                                        style="z-index: 99;left: 23%;top: 96%;">
+                                        class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
+                                        style="z-index: 99;">
                                         @foreach ($project as $va)
                                             <li>
                                                 <a href="javascript:void(0)"
                                                     class="text-dark d-flex justify-content-between p-2 project_name w-100"
                                                     id="{{ $va->id }}" name="project_name">
-                                                    <span class="w-50">{{ $va->project_name }}</span>
+                                                    <span class="w-100">{{ $va->project_name }}</span>
                                                 </a>
                                             </li>
                                         @endforeach
@@ -621,6 +650,8 @@
     <x-form-modal-import title="Thêm mới người đại diện" name="addRepresent"
         idModal="modalAddRepresent"></x-form-modal-import>
     <x-form-modal-import title="Hiệu lực báo giá" name="import" idModal="formModalquote"></x-form-modal-import>
+    <x-form-modal-import title="Điều khoản thanh toán" name="termpay"
+        idModal="formModalTermPay"></x-form-modal-import>
     {{-- <x-date-form-modal title="Hiệu lực báo giá" name="import" idModal="formModalquote"></x-date-form-modal> --}}
 </form>
 </div>
@@ -638,6 +669,10 @@
         if ((!$(event.target).closest('#price_effect').length && !$(event.target).closest('#searchPriceEffect')
                 .length) && !$(event.target).closest('.dropdown').length) {
             $('#listPriceEffect').hide();
+        }
+        if ((!$(event.target).closest('#terms_pay').length && !$(event.target).closest('#searchTermsPay')
+                .length) && !$(event.target).closest('.dropdown').length) {
+            $('#listTermsPay').hide();
         }
     });
 
@@ -668,6 +703,7 @@
                         status: 'add'
                     },
                     success: function(data) {
+                        console.log(data);
                         $('#listRepresent li').empty();
                         $('#listPriceEffect li').empty();
                         data['represent'].forEach(function(element) {
@@ -740,7 +776,7 @@
                                             class="fa-solid fa-trash-can"></i></a>
                                         <a class="dropdown-item set-default default-id ` + element.form_desc + `"
                                             id="default-id` + element.id + `" href="#"
-                                            data-name="represent"
+                                            data-name="import"
                                             data-id="` + element.id + `">
                                             ` + (element.default_form === 1 ?
                                     '<i class="fa-solid fa-link-slash"></i>' :
@@ -753,6 +789,49 @@
                             $('#listPriceEffect .p-1').after(li);
                             if (element.default_form == 1) {
                                 $('#price_effect').val(element.form_desc);
+                            }
+                        });
+
+                        data['terms_pay'].forEach(function(element) {
+                            var li =
+                                `
+                            <li class="border">
+                                <a href="javascript:void(0)"
+                                    class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay"
+                                    id="` + element.id + `" name="search-term-pay">
+                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_desc + `</span>
+                                </a>
+
+                                <div class="dropdown">
+                                    <button type="button" data-toggle="dropdown"
+                                        class="btn-save-print d-flex align-items-center h-100"
+                                        style="margin-right:10px">
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </button>
+                                    <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal"
+                                            data-target="#formModalquote" data-name="import"
+                                            data-id="` + element.id + `" id="` + element.id + `"><i
+                                            class="fa-regular fa-pen-to-square"></i></a>
+                                        <a class="dropdown-item delete-item" href="#"
+                                            data-id="` + element.id + `"
+                                            data-name="represent"><i
+                                            class="fa-solid fa-trash-can"></i></a>
+                                        <a class="dropdown-item set-default default-id ` + element.form_desc + `"
+                                            id="default-id` + element.id + `" href="#"
+                                            data-name="termpay"
+                                            data-id="` + element.id + `">
+                                            ` + (element.default_form === 1 ?
+                                    '<i class="fa-solid fa-link-slash"></i>' :
+                                    '<i class="fa-solid fa-link"></i>') + ` 
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            `;
+                            $('#listTermsPay .p-1').after(li);
+                            if (element.default_form == 1) {
+                                $('#terms_pay').val(element.form_desc);
                             }
                         });
                     }
@@ -779,8 +858,10 @@
                     if (data['table'] == "search-represent") {
                         $('#' + inputShow).val(data[table].represent_name)
                         $('#' + inputHide).val(data[table].id)
-                    } else if (data['table'] == "search-price-effect") {
-                        $('#price_effect').val(data[table].form_desc)
+                    } else {
+                        console.log(data);
+                        $(data['table'] == "search-price-effect" ? '#price_effect' : '#terms_pay')
+                            .val(data[table].form_desc)
                     }
                 }
             })
@@ -791,12 +872,12 @@
 
     showData('search-represent', 'represent', 'represent_id')
     showData('search-price-effect', 'price_effect', '')
-
+    showData('search-term-pay', 'terms_pay', '')
     // Ghim 
     $(document).on('click', '.set-default', function() {
         id = $(this).attr('data-id');
         form = $(this).attr('data-name');
-        provides_id = $('#provides_id').val()
+        provides_id = $('#provides_id').val();
         $.ajax({
             url: "{{ route('setDefault') }}",
             type: "get",
@@ -806,13 +887,16 @@
                 form: form
             },
             success: function(data) {
+                console.log(data);
                 if (data['represent']) {
-                    // console.log(data['represent']);
                     $('#represent').val(data['represent'].represent_name)
                     $('#represent_id').val(data['represent'].id)
                     $('#listRepresent').hide()
                 } else {
-                    // console.log(321);
+                    $(data['price_effect'] ? '#price_effect' : '#terms_pay').val((data[
+                            'price_effect'] ?
+                        data['price_effect'] : data['termpay']).form_desc)
+                    $(data['price_effect'] ? '#listPriceEffect' : '#listTermsPay').hide()
                 }
 
             }
@@ -835,6 +919,7 @@
             }
         })
     })
+
     // Chỉnh sửa thông tin
     $(document).on('click', '.search-date-form', function() {
         var id = $(this).data('id');
@@ -859,7 +944,6 @@
                         $('#modalAddRepresent #exampleModalLabel').text('Cập nhật')
                         $('#addRepresent').attr('data-id', data['represent'].id).text('Cập nhật')
                     } else {
-                        //console.log(data);
                         $('#form-name-' + data['table']).val(data[data['table']].form_name)
                         $('#form-desc-' + data['table']).val(data[data['table']].form_desc)
                         $('#form_field').val(data[data['table']].form_field)
@@ -872,8 +956,8 @@
             })
 
         }
-
     })
+
     $('#addProvide').click(function() {
         var check = false;
         var provide_name_display = $("input[name='provide_name_display']").val().trim();
@@ -945,21 +1029,20 @@
     function actionForm(id, routeAdd, routeEdit) {
         $('#' + id).click(function() {
             var status = $(this).text().trim();
-            // if (id == 'addRepresent') {
-            provide_represent = $("input[name='provide_represent_new']").val().trim();
-            provide_email = $("input[name='provide_email_new']").val().trim();
-            provide_phone = $("input[name='provide_phone_new']").val().trim();
-            provide_address_delivery = $("input[name='provide_address_delivery_new']").val().trim();
+            var provide_represent = $("input[name='provide_represent_new']").val().trim();
+            var provide_email = $("input[name='provide_email_new']").val().trim();
+            var provide_phone = $("input[name='provide_phone_new']").val().trim();
+            var provide_address_delivery = $("input[name='provide_address_delivery_new']").val().trim();
 
             if (status == 'Thêm mới') {
                 if ((provides_id == "" || provide_represent == "") && id == 'addRepresent') {
                     alert('Vui lòng nhập tên người đại diện')
                 } else {
                     if (id == 'addRepresent') {
+                        provides_id = $('#provides_id').val();
                         $.ajax({
                             url: routeAdd,
                             type: "get",
-
                             data: {
                                 table: id,
                                 provides_id: provides_id,
@@ -974,14 +1057,15 @@
                                     $("input[name='provide_email_new']").val('')
                                     $("input[name='provide_phone_new']").val('')
                                     $("input[name='provide_address_delivery_new']").val('')
-                                    alert(data.msg);
+                                    $('.btn.btn-default').click();
+                                    $('#represent').val(data.data)
                                 }
+                                alert(data.msg);
                             }
                         })
                     } else {
                         inputName = $('#form-name-' + id).val().trim();
                         inputDesc = $('#form-desc-' + id).val()
-
                         $.ajax({
                             url: routeAdd,
                             type: "get",
@@ -991,13 +1075,17 @@
                                 inputDesc: inputDesc,
                             },
                             success: function(data) {
+                                $('.btn.btn-default').click();
+                                $('#form-name-' + id).val('')
+                                $('#form-desc-' + id).val('')
                                 if (data.success) {
-                                    alert(data.msg);
+                                    $(id == "import" ? '#price_effect' : '#terms_pay').val(data
+                                        .data);
                                 }
+                                alert(data.msg);
                             }
                         })
                     }
-
                 }
             } else {
                 present_id = $(this).attr('data-id');
@@ -1014,8 +1102,8 @@
                             provide_address_delivery: provide_address_delivery
                         },
                         success: function(data) {
-                            console.log(data);
-                            // alert(data.msg);
+                            $('.btn.btn-default').click()
+                            alert(data.msg);
                         }
                     })
                 } else {
@@ -1041,13 +1129,9 @@
             }
         })
 
-        // $(id).click(function() {
-
-        // })
     }
 
     function getAc(button) {
-        // console.log($(button).attr('id'));
         return $(button).attr('id');
     }
 
@@ -1055,56 +1139,12 @@
 
     actionForm('addRepresent', '{{ route('addNewForm') }}', '{{ route('updateForm') }}')
     actionForm('import', '{{ route('addNewForm') }}', '{{ route('updateForm') }}')
-    // $('#addRepresent').click(function() {
-    //     var status = $(this).text().trim();
-    //     provide_represent = $("input[name='provide_represent_new']").val().trim();
-    //     provide_email = $("input[name='provide_email_new']").val().trim();
-    //     provide_phone = $("input[name='provide_phone_new']").val().trim();
-    //     provide_address_delivery = $("input[name='provide_address_delivery_new']").val().trim();
-    //     if (status == 'Thêm mới') {
-    //         provides_id = $('#provides_id').val()
-    //         if (provides_id == "" || provide_represent == "") {
-    //             alert('Vui lòng nhập tên người đại diện')
-    //         } else {
-    //             $.ajax({
-    //                 url: "{{ route('addNewForm') }}",
-    //                 type: "get",
-    //                 data: {
-    //                     provides_id: provides_id,
-    //                     provide_represent: provide_represent,
-    //                     provide_email: provide_email,
-    //                     provide_phone: provide_phone,
-    //                     provide_address_delivery: provide_address_delivery
-    //                 },
-    //                 success: function(data) {
-    //                     if (data.success) {
-    //                         alert(data.msg);
-    //                     }
-    //                 }
-    //             })
-    //         }
-    //     } else {
-    //         present_id = $(this).attr('data-id');
-    //         $.ajax({
-    //             url: "{{ route('updateForm') }}",
-    //             type: "get",
-    //             data: {
-    //                 present_id: present_id,
-    //                 provide_represent: provide_represent,
-    //                 provide_email: provide_email,
-    //                 provide_phone: provide_phone,
-    //                 provide_address_delivery: provide_address_delivery
-    //             },
-    //             success: function(data) {
-    //                 alert(data.msg);
-    //             }
-    //         })
-    //     }
-    // })
+    actionForm('termpay', '{{ route('addNewForm') }}', '{{ route('updateForm') }}')
 
     function getProduct(name) {
         $('#inputcontent tbody tr .' + name).on('click', function() {
             listProductName = $(this).closest('tr').find('#listProductName');
+            inputCode = $(this).closest('tr').find('.searchProduct');
             inputName = $(this).closest('tr').find('.searchProductName');
             inputUnit = $(this).closest('tr').find('.product_unit');
             inputPriceExprot = $(this).closest('tr').find('.price_export');
@@ -1120,6 +1160,8 @@
                         var UL = '<li class="w-100">' +
                             '<a data-unit="' + element
                             .product_unit +
+                            '" data-code="' + element
+                            .product_code +
                             '" data-priceExport= "' +
                             element.product_price_export +
                             '" data-ratio="' + element
@@ -1139,6 +1181,8 @@
                         listProductName.append(UL);
                     })
                     $('.search-name').on('click', function() {
+                        inputCode.val($(this).attr('data-code') == "null" ? "" : $(this)
+                            .attr('data-code'));
                         inputName.val($(this).closest('li').find('span').text());
                         inputUnit.val($(this).attr('data-unit') == "null" ? "" : $(this)
                             .attr('data-unit'));
@@ -1189,11 +1233,13 @@
 
         var quotetion_number = $('input[name="quotation_number"]').val();
         if (formSubmit) {
+            provide_id = $('#provides_id').val();
             $.ajax({
                 url: "{{ route('checkQuotetion') }}",
                 type: "get",
                 data: {
                     quotetion_number: quotetion_number,
+                    provide_id: provide_id
                 },
                 success: function(data) {
                     if (!data['status']) {

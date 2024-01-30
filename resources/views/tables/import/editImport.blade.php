@@ -7,6 +7,7 @@
         @csrf
         <input type="hidden" id="provides_id" name="provides_id" value="{{ $import->provide_id }}">
         <input type="hidden" id="project_id" name="project_id" value="{{ $import->project_id }}">
+        <input type="hidden" id="represent_id" name="represent_id" value="{{ $import->represent_id }}">
         <div class="d-flex justify-content-between align-items-center pl-4 ml-1">
             <div class="container-fluided">
                 <div class="mb">
@@ -89,142 +90,6 @@
         </div>
     </div>
     <!-- Main content -->
-    {{-- <section>
-        <div class="container-fluided">
-            <div class="row">
-                <div class="col-12">
-                    <div class="info-chung">
-                        <p class="font-weight-bold ml-2 px-2">Th1ng tin chung</p>
-                        <div class="content-info">
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-2 req1ired-label text-danger">Nhà cung cấp</p>
-                                </div>
-                                <input id="myInput" type="text" placeholder="Nhập thông tin"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-2" au1ocomplete="off"
-                                    value="{{ $import->getProvideName->provide_name_display }}">
-                                <ul id="myUL"
-                                    class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                                    style="z-index: 99;left: 24%;top: 20%;">
-                                    @foreach ($provides as $item)
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                class="text-dark d-flex justify-content-between p-2 search-info"
-                                                id="{{ $item->id }}" name="search-info">
-                                                <span class="w-50">{{ $item->provide_name_display }}</span>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                    <a type="button"
-                                        class="bg-dark d-flex justify-content-between p-2 position-sticky"
-                                        data-toggle="modal" data-target="#provideModal" style="bottom: 0;">
-                                        <span class="w-50 text-white">Thêm mới</span>
-                                    </a>
-                                </ul>
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-2">Số1báo giá#</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="quotation_number"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-2"
-1                                 value="{{ $import->quotation_number }}">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-2">Số1tham chiếu#</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="reference_number"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-2"
-1                                 value="{{ $import->reference_number }}">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-2">Ng1y báo giá</p>
-                                </div>
-                                <input type="date" placeholder="Nhập thông tin" name="date_quote"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-2"
-1                                 value="{{ $import->created_at->toDateString() }}">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-2">Hi1u lực báo giá</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="price_effect"
-                                    class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-2"
-1                                 value="{{ $import->price_effect }}">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center">
-                                <div class="title-info py-2 border-top-0 border border-left-0">
-                                    <p class="p-0 m-0 px-2">Đi1u khoản thanh toán</p>
-                                </div>
-                                <input type="text" placeholder="Nhập thông tin" name="terms_pay"
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-2"
-1                                 value="{{ $import->terms_pay }}">
-                            </div>
-                            <div class="d-flex ml-2 align-items-center position-relative">
-                                <div class="title-info py-2 border-top-0 border border-left-0">
-                                    <p class="p-0 m-0 px-2">Dự1án</p>
-                                </div>
-                                <input id="inputProject" required type="text" placeholder="Nhập thông tin"
-                                    class="border border-top-0 w-100 py-2 border-right-0 border-left-0 px-2"
-1                                 value="@if ($import->getProjectName) {{ $import->getProjectName->project_name }} @endif">
-                                <ul id="listProject"
-                                    class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
-                                    style="z-index: 99;left: 23%;top: 96%;">
-                                    @foreach ($project as $va)
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                class="text-dark d-flex justify-content-between p-2 project_name"
-                                                id="{{ $va->id }}" name="project_name">
-                                                <span class="w-50">{{ $va->project_name }}</span>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between mt-5">
-                        <div class="d-flex align-items-center btn-basic pb-3 px-2">
-                            <svg class="mr-1" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.25 15.75H3.75C3.35218 15.75 2.97064 15.592 2.68934 15.3107C2.40804 15.0294 2.25 14.6478 2.25 14.25V3.75C2.25 3.35218 2.40804 2.97064 2.68934 2.68934C2.97064 2.40804 3.35218 2.25 3.75 2.25H14.25C14.6478 2.25 15.0294 2.40804 15.3107 2.68934C15.592 2.97064 15.75 3.35218 15.75 3.75V14.25C15.75 14.6478 15.592 15.0294 15.3107 15.3107C15.0294 15.592 14.6478 15.75 14.25 15.75Z"
-                                    stroke="#42526E" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path d="M4.5 4.5H13.5V11.25H4.5V4.5Z" stroke="#42526E" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M4.5 13.5H9.75" stroke="#42526E" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path d="M12 13.5H13.5" stroke="#42526E" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                            <p class="p-0 m-0 change_colum">Đầy đủ</p>
-                            <svg class="ml-1" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
-                                    fill="#42526E" />
-                            </svg>
-                        </div>
-                        <div class="btn-add-product m-0 pt-2 px-2 text-white">
-                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M13.1221 7.74957H17.7085C17.7639 7.74959 17.8182 7.76654 17.8649 7.79842C17.9117 7.83031 17.949 7.87581 17.9725 7.92961C17.996 7.9834 18.0047 8.04326 17.9976 8.10218C17.9905 8.16109 17.9679 8.21662 17.9325 8.26226L15.6393 11.2133C15.6119 11.2485 15.5777 11.2768 15.539 11.2963C15.5003 11.3157 15.4581 11.3257 15.4153 11.3257C15.3726 11.3257 15.3304 11.3157 15.2917 11.2963C15.253 11.2768 15.2187 11.2485 15.1914 11.2133L12.8982 8.26226C12.8627 8.21662 12.8401 8.16109 12.833 8.10218C12.8259 8.04326 12.8347 7.9834 12.8582 7.92961C12.8817 7.87581 12.919 7.83031 12.9657 7.79842C13.0125 7.76654 13.0667 7.74959 13.1221 7.74957ZM0.291496 10.2505H4.87787C4.93328 10.2505 4.98753 10.2335 5.03428 10.2016C5.08103 10.1698 5.11834 10.1243 5.14184 10.0705C5.16534 10.0167 5.17405 9.9568 5.16697 9.89789C5.15988 9.83898 5.13728 9.78345 5.10182 9.7378L2.80863 6.78672C2.78127 6.75154 2.74702 6.72323 2.70832 6.70381C2.66962 6.68438 2.62741 6.67432 2.58468 6.67432C2.54195 6.67432 2.49974 6.68438 2.46104 6.70381C2.42234 6.72323 2.3881 6.75154 2.36073 6.78672L0.0675433 9.7378C0.0320814 9.78345 0.00948352 9.83898 0.00239575 9.89789C-0.00469202 9.9568 0.00402372 10.0167 0.0275224 10.0705C0.0510212 10.1243 0.0883301 10.1698 0.13508 10.2016C0.181831 10.2335 0.236087 10.2505 0.291496 10.2505Z"
-                                    fill="white" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M8.99998 2.7477C7.1897 2.7477 5.5707 3.63177 4.5011 5.02104C4.45333 5.0874 4.39361 5.14279 4.32548 5.18392C4.25735 5.22505 4.1822 5.25106 4.1045 5.26043C4.0268 5.26979 3.94814 5.26231 3.87319 5.23843C3.79824 5.21455 3.72854 5.17476 3.66822 5.12142C3.6079 5.06808 3.55821 5.00229 3.52209 4.92794C3.48597 4.8536 3.46416 4.77223 3.45796 4.68867C3.45177 4.60512 3.4613 4.52107 3.48601 4.44155C3.51072 4.36202 3.55009 4.28863 3.60178 4.22574C4.45583 3.11724 5.58889 2.29505 6.86621 1.85694C8.14352 1.41883 9.51134 1.38326 10.807 1.75444C12.1026 2.12563 13.2715 2.88795 14.1747 3.95075C15.0779 5.01355 15.6773 6.33208 15.9017 7.74954H14.7154C14.4461 6.33753 13.7303 5.06854 12.6888 4.15715C11.6474 3.24575 10.3443 2.74787 8.99998 2.7477ZM3.28452 10.2505C3.50533 11.4067 4.02677 12.4723 4.78859 13.3243C5.55041 14.1762 6.52152 14.7797 7.58974 15.0651C8.65795 15.3504 9.77967 15.306 10.8253 14.9368C11.8709 14.5677 12.7978 13.8889 13.4989 12.979C13.5466 12.9126 13.6064 12.8572 13.6745 12.8161C13.7426 12.775 13.8178 12.7489 13.8955 12.7396C13.9732 12.7302 14.0518 12.7377 14.1268 12.7616C14.2017 12.7854 14.2714 12.8252 14.3317 12.8786C14.3921 12.9319 14.4418 12.9977 14.4779 13.0721C14.514 13.1464 14.5358 13.2278 14.542 13.3113C14.5482 13.3949 14.5387 13.4789 14.514 13.5585C14.4892 13.638 14.4499 13.7114 14.3982 13.7743C13.5441 14.8828 12.4111 15.705 11.1338 16.1431C9.85644 16.5812 8.48862 16.6167 7.19299 16.2456C5.89736 15.8744 4.72844 15.112 3.82526 14.0492C2.92208 12.9865 2.32265 11.6679 2.09827 10.2505H3.28452Z"
-                                    fill="white" />
-                            </svg>
-                            Thêm sản phẩm mới
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
     <x-formprovides> </x-formprovides>
 
     <div class="content-wrapper1 py-0 pl-0 px-0" id="main">
@@ -299,7 +164,7 @@
                                                                 fill="#42526E" />
                                                         </svg>
                                                         <input type="checkbox">
-                                                        <input readonly type="text" name="product_code[]"
+                                                        <input type="text" name="product_code[]"
                                                             class="border-0 px-2 py-1 w-75 searchProduct"
                                                             value="{{ $item->product_code }}"
                                                             @if ($import->status == 2) echo readonly @endif>
@@ -310,7 +175,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="border border-bottom-0 position-relative">
-                                                    <input readonly id="searchProductName" type="text"
+                                                    <input id="searchProductName" type="text"
                                                         name="product_name[]"
                                                         class="searchProductName border-0 px-2 py-1 w-100"
                                                         value="{{ $item->product_name }}"
@@ -323,24 +188,26 @@
                                                 <td class="border border-bottom-0">
                                                     <input type="text" name="product_unit[]"
                                                         class="border-0 px-2 py-1 w-100 product_unit"
-                                                        value="{{ $item->product_unit }}" readonly>
+                                                        value="{{ $item->product_unit }}"
+                                                        @if ($import->status == 2) echo readonly @endif>
                                                 </td>
                                                 <td class="border border-bottom-0 border-right-0">
-                                                    <input readonly oninput="checkQty(this,{{ $item->product_qty }})"
+                                                    <input oninput="checkQty(this,{{ $item->product_qty }})"
                                                         type="text" name="product_qty[]"
                                                         class="border-0 px-2 py-1 w-100 quantity-input"
-                                                        value="{{ number_format($item->product_qty) }}">
+                                                        value="{{ number_format($item->product_qty) }}"
+                                                        @if ($import->status == 2) echo readonly @endif>
                                                 </td>
                                                 <td class="border border-bottom-0 border-right-0">
                                                     <input type="text" name="price_export[]"
                                                         class="border-0 px-2 py-1 w-100 price_export"
                                                         value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
-                                                        readonly>
+                                                        @if ($import->status == 2) echo readonly @endif>
                                                 </td>
                                                 <input type="hidden" class="product_tax1">
                                                 <td class="border border-bottom-0 border-right-0">
-                                                    <select name="product_tax[]" id="product_tax"
-                                                        class="product_tax">
+                                                    <select name="product_tax[]" id=""
+                                                        class="product_tax border-0">
                                                         <option value="0"
                                                             @if ($item->product_tax == 0) selected @endif>
                                                             0%
@@ -361,14 +228,14 @@
                                                 </td>
                                                 <td class="border border-bottom-0 border-right-0">
                                                     <input type="text" name="total_price[]"
-                                                        class="border-0 px-2 py-1 w-100 total_price" readonly readonly
-                                                        value="{{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
-                                                        @if ($import->status == 2) echo readonly @endif>
+                                                        class="border-0 px-2 py-1 w-100 total_price" readonly
+                                                        value="{{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                                 </td>
                                                 <td class="border border-bottom-0">
-                                                    <input placeholder="Nhập ghi chú" readonly type="text"
+                                                    <input placeholder="Nhập ghi chú" type="text"
                                                         name="product_note[]" class="border-0 px-2 py-1 w-100"
-                                                        value="{{ $item->product_note }}">
+                                                        value="{{ $item->product_note }}"
+                                                        @if ($import->status == 2) echo readonly @endif>
                                                 </td>
                                                 <td class="border border">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -550,9 +417,37 @@
                         </div>
 
                         <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                            <input type="text" placeholder="Chọn thông tin"
+                            <input readonly type="text" placeholder="Chọn thông tin"
                                 class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
-                                id="represent">
+                                id="represent"
+                                value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif">
+                            <ul id="listRepresent"
+                                class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
+                                style="z-index: 99;">
+                                <div class="p-1">
+                                    <div class="position-relative">
+                                        <input type="text" placeholder="Nhập thông tin"
+                                            class="pr-4 w-100 input-search" id="searchRepresent">
+                                        <span id="search-icon" class="search-icon">
+                                            <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <a type="button"
+                                    class="d-flex justify-content-center align-items-center p-2 position-sticky addRepresent"
+                                    data-toggle="modal" data-target="#modalAddRepresent" style="bottom: 0;">
+                                    <span class="text-table text-center font-weight-bold">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                fill="#282A30"></path>
+                                        </svg>
+                                        Thêm mới
+                                    </span>
+                                </a>
+                            </ul>
+
                             <div class="">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -810,7 +705,7 @@
         }
     })
 
-    getProduct('searchProduct');
+    getProduct('searchProductName ');
 
     function getProduct(name) {
         $('#inputcontent tbody tr .' + name).on('click', function() {
@@ -827,7 +722,8 @@
                 url: "{{ route('getAllProducts') }}",
                 type: "get",
                 success: function(result) {
-                    listProductCode.empty()
+                    console.log(result);
+                    listProductName.empty()
                     inputUnit.val('');
                     inputPriceExprot.val('')
                     inputRatio.val('')
@@ -839,80 +735,119 @@
                         '</a>';
                     result.forEach(element => {
                         var UL = '<li>' +
-                            '<a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-product" id="' +
-                            element.id + '" name="search-product">' +
+                            '<a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-name" id="' +
+                            element.id + ' "data-code="' + element.product_code +
+                            '"data-tax="' + element
+                            .product_tax +
+                            '"data-priceExport= "' +
+                            element.product_price_export +
+                            '"data-unit="' + element.product_unit + '" "data-name="' +
+                            element.product_name +
+                            '""name="search-product">' +
                             '<span class="w-100" data-id="' + element.id + '">' + element
-                            .product_code + '</span>' +
+                            .product_name + '</span>' +
                             '</a>' +
                             '</li>';
-                        listProductCode.append(UL);
+                        listProductName.append(UL);
                     });
-                    listProductCode.append(createLi);
-                    $('.search-product').on('click', function() {
-                        inputName.val('');
-                        inputCode.val($(this).closest('li').find('span').text())
-                        var dataId = $(this).attr('id'); // Lấy giá trị data-id
-                        listProductCode.hide();
-                        $.ajax({
-                            url: "{{ route('showProductName') }}",
-                            type: "get",
-                            data: {
-                                dataId: dataId
-                            },
-                            success: function(data) {
-                                listProductName.empty();
-                                data.forEach(element => {
-                                    var UL = '<li>' +
-                                        '<a data-unit="' + element
-                                        .product_unit +
-                                        '" data-priceExport= "' +
-                                        element.product_price_export +
-                                        '" data-ratio="' + element
-                                        .product_ratio +
-                                        '" data-priceImport="' + element
-                                        .product_price_import +
-                                        '" href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-name" id="' +
-                                        element.id +
-                                        '" data-tax="' + element
-                                        .product_tax +
-                                        '" name="search-product">' +
-                                        '<span class="w-100" data-id="' +
-                                        element.id + '">' + element
-                                        .product_name + '</span>' +
-                                        '</a>' +
-                                        '</li>';
-                                    listProductName.append(UL);
-                                })
-                                $('.search-name').on('click', function() {
-                                    inputName.val($(this).closest('li')
-                                        .find('span')
-                                        .text());
-                                    inputUnit.val($(this).attr(
-                                            'data-unit') == null ?
-                                        "" : $(this).attr(
-                                            'data-unit'));
-                                    inputPriceExprot.val($(this).attr(
-                                            'data-priceExport') ==
-                                        "null" ? "" :
-                                        formatCurrency($(this).attr(
-                                            'data-priceExport')))
-                                    inputRatio.val($(this).attr(
-                                            'data-ratio') ==
-                                        "null" ? "" : $(this).attr(
-                                            'data-ratio'))
-                                    inputPriceImport.val($(this).attr(
-                                            'data-priceImport') ==
-                                        "null" ? "" :
-                                        formatCurrency($(this).attr(
-                                            'data-priceImport')))
-                                    selectTax.val($(this).attr(
-                                        'data-tax'))
-                                    listProductName.hide();
-                                    checkDuplicateRows()
-                                })
-                            }
-                        })
+
+                    $('.search-name').on('click', function() {
+                        inputCode.val($(this).attr(
+                                'data-code') == null ?
+                            "" : $(this).attr(
+                                'data-code'))
+                        inputName.val($(this).closest('li')
+                            .find('span')
+                            .text());
+                        inputUnit.val($(this).attr(
+                                'data-unit') == null ?
+                            "" : $(this).attr(
+                                'data-unit'));
+                        inputPriceExprot.val($(this).attr(
+                                'data-priceExport') ==
+                            "null" ? "" :
+                            formatCurrency($(this).attr(
+                                'data-priceExport')))
+                        inputRatio.val($(this).attr(
+                                'data-ratio') ==
+                            "null" ? "" : $(this).attr(
+                                'data-ratio'))
+                        inputPriceImport.val($(this).attr(
+                                'data-priceImport') ==
+                            "null" ? "" :
+                            formatCurrency($(this).attr(
+                                'data-priceImport')))
+                        selectTax.val($(this).attr(
+                            'data-tax'))
+                        listProductName.hide();
+                        checkDuplicateRows()
                     })
+
+
+                    // $('.search-product').on('click', function() {
+                    //     inputName.val('');
+                    //     inputCode.val($(this).closest('li').find('span').text())
+                    //     var dataId = $(this).attr('id'); // Lấy giá trị data-id
+                    //     $.ajax({
+                    //         url: "{{ route('showProductName') }}",
+                    //         type: "get",
+                    //         data: {
+                    //             dataId: dataId
+                    //         },
+                    //         success: function(data) {
+                    //             listProductName.empty();
+                    //             data.forEach(element => {
+                    //                 var UL = '<li>' +
+                    //                     '<a data-unit="' + element
+                    //                     .product_unit +
+                    //                     '" data-priceExport= "' +
+                    //                     element.product_price_export +
+                    //                     '" data-ratio="' + element
+                    //                     .product_ratio +
+                    //                     '" data-priceImport="' + element
+                    //                     .product_price_import +
+                    //                     '" href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-name" id="' +
+                    //                     element.id +
+                    //                     '" data-tax="' + element
+                    //                     .product_tax +
+                    //                     '" name="search-product">' +
+                    //                     '<span class="w-100" data-id="' +
+                    //                     element.id + '">' + element
+                    //                     .product_name + '</span>' +
+                    //                     '</a>' +
+                    //                     '</li>';
+                    //                 listProductName.append(UL);
+                    //             })
+                    //             $('.search-name').on('click', function() {
+                    //                 inputName.val($(this).closest('li')
+                    //                     .find('span')
+                    //                     .text());
+                    //                 inputUnit.val($(this).attr(
+                    //                         'data-unit') == null ?
+                    //                     "" : $(this).attr(
+                    //                         'data-unit'));
+                    //                 inputPriceExprot.val($(this).attr(
+                    //                         'data-priceExport') ==
+                    //                     "null" ? "" :
+                    //                     formatCurrency($(this).attr(
+                    //                         'data-priceExport')))
+                    //                 inputRatio.val($(this).attr(
+                    //                         'data-ratio') ==
+                    //                     "null" ? "" : $(this).attr(
+                    //                         'data-ratio'))
+                    //                 inputPriceImport.val($(this).attr(
+                    //                         'data-priceImport') ==
+                    //                     "null" ? "" :
+                    //                     formatCurrency($(this).attr(
+                    //                         'data-priceImport')))
+                    //                 selectTax.val($(this).attr(
+                    //                     'data-tax'))
+                    //                 listProductName.hide();
+                    //                 checkDuplicateRows()
+                    //             })
+                    //         }
+                    //     })
+                    // })
                 }
             })
         })
@@ -937,12 +872,14 @@
         e.preventDefault();
         var quotetion_number = $('input[name="quotation_number"]').val();
         var detail_id = {{ $import->id }}
+        var provide_id = $('#provides_id').val()
         $.ajax({
             url: "{{ route('checkQuotetion') }}",
             type: "get",
             data: {
                 quotetion_number: quotetion_number,
-                detail_id: detail_id
+                detail_id: detail_id,
+                provide_id: provide_id
             },
             success: function(data) {
                 if (!data['status']) {

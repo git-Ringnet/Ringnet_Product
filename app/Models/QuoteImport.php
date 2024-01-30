@@ -89,6 +89,8 @@ class QuoteImport extends Model
 
     public function updateImport($data, $id)
     {
+
+      
         // Xóa sản phẩm khi chỉnh sửa đơn hàng
         if ($data['action'] == 'action_1') {
             $id_detail = DB::table($this->table)->where('detailimport_id', $id)
@@ -101,8 +103,8 @@ class QuoteImport extends Model
             $dataUpdate = QuoteImport::where('id', $data['listProduct'][$i])
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
-            $price_export = str_replace(',', '', $data['price_export'][$i]);
-            $total_price = $data['product_qty'][$i] * $price_export;
+            $price_export = floatval(str_replace(',', '', $data['price_export'][$i]));
+            $total_price = floatval(str_replace(',','',$data['product_qty'][$i])) * $price_export;
             if ($dataUpdate) {
                 if (
                     $dataUpdate->product_code != $data['product_code'][$i] || $dataUpdate->product_name != $data['product_name'][$i] || $dataUpdate->product_unit != $data['product_unit'][$i] ||

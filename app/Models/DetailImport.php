@@ -33,6 +33,10 @@ class DetailImport extends Model
     {
         return $this->hasOne(Provides::class, 'id', 'provide_id');
     }
+    public function getNameRepresent()
+    {
+        return $this->hasOne(ProvideRepesent::class, 'id', 'represent_id');
+    }
     public function getProjectName()
     {
         return $this->hasOne(Project::class, 'id', 'project_id');
@@ -93,9 +97,11 @@ class DetailImport extends Model
             'status_reciept' => 0,
             'status_pay' => 0,
             'terms_pay' => $data['terms_pay'],
-            'workspace_id' => Auth::user()->current_workspace
+            'workspace_id' => Auth::user()->current_workspace,
+            'represent_id' => $data['represent_id']
         ];
-        $checkQuotation = DetailImport::where('quotation_number', $data['quotation_number'])->first();
+        $checkQuotation = DetailImport::where('provide_id', $data['provides_id'])
+            ->where('quotation_number', $data['quotation_number'])->first();
         if ($checkQuotation) {
             $result = [
                 'status' => false,
@@ -132,12 +138,12 @@ class DetailImport extends Model
                     $price_import = 0;
                     $price_export = 0;
                     isset($data['product_ratio']) ? $product_ratio = $data['product_ratio'][$i] : $product_ratio = 0;
-                    isset($data['price_import']) ? $$price_import = str_replace(',', '', $data['price_import'][$i]) : $price_import = 0;
+                    isset($data['price_import']) ? $price_import = str_replace(',', '', $data['price_import'][$i]) : $price_import = 0;
                     if ($product_ratio > 0 && $price_import > 0) {
                         $price_export = (($product_ratio + 100) * $price_import) / 100;
                         $total += $price_export * str_replace(',', '', $data['product_qty'][$i]);
                     } else {
-                        $price_export = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
+                        $price_export = floatval(str_replace(',', '', $data['product_qty'][$i])) * floatval(str_replace(',', '', $data['price_export'][$i]));
                         $total += $price_export;
                     }
                     // $total_tax += $data['product_tax'][$i] * $total;

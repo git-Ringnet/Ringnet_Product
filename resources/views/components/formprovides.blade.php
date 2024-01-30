@@ -17,7 +17,7 @@
                                 placeholder="Nhập thông tin">
                         </div>
                         <div class="form-group">
-                            <label for="form-name" class="col-form-label">Mã só thuế</label>
+                            <label for="form-name" class="col-form-label">Mã số thuế</label>
                             <input id="getKeyProvide" type="text" class="form-control" name="provide_code"
                                 oninput="validateNumberInput(this)" autocomplete="off" placeholder="Nhập thông tin">
                         </div>

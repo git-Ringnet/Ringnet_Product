@@ -46,7 +46,7 @@
             <div class="container-fluided z-index-block">
                 <div class="row m-0">
                     <a href="{{ route('receive.index', $workspacename) }}" style="margin-right:10px;">
-                        <button class="btn-save-print rounded d-flex align-items-center h-100">
+                        <button class="btn-save-print rounded d-flex align-items-center h-100" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                                 fill="none">
                                 <path
@@ -87,7 +87,7 @@
                         <span>Đính kèm file</span><input type="file" style="display: none;" id="file_restore"
                             accept="*" name="file">
                     </label>
-
+                    {{-- @if($receive->status == 1) --}}
                     <a href="#" onclick="getAction(this)">
                         <button value="2" type="submit" class="custom-btn d-flex align-items-center h-100 rounded"
                             style="margin-right:10px">
@@ -100,7 +100,7 @@
                             <span>Nhận hàng</span>
                         </button>
                     </a>
-
+                    {{-- @endif --}}
                     <a href="#" id="delete_receive"
                         class="custom-btn-danger d-flex align-items-center h-100 py-1 px-2"
                         style="margin-right: 10px;">

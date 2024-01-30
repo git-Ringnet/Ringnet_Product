@@ -129,7 +129,8 @@ class DetailImportController extends Controller
     public function edit(string $workspace, string $id)
     {
         $import = DetailImport::findOrFail($id);
-        $provides = Provides::all();
+        // $provides = Provides::all();
+        $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         $title = $import->quotation_number;
         $product = QuoteImport::where('detailimport_id', $import->id)->get();
         $project = Project::all();
@@ -222,7 +223,7 @@ class DetailImportController extends Controller
     // Hiển thị thông tin nhà cung cấp theo id đã chọn
     public function show_provide(Request $request)
     {
-        $data = [];
+        $result = [];
         $data = $request->all();
         $provide = Provides::where('id', $data['provides_id'])
             ->where('workspace_id', Auth::user()->current_workspace)
@@ -238,14 +239,14 @@ class DetailImportController extends Controller
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [$date])
                 ->count();
-            $data = [
+            $result = [
                 'provide' => $provide,
                 'count' => $count,
                 'key' => $provide->key,
-                'date' => $date
+                'date' => ($date == "" ? Carbon::now()->format('dmy') : $date)
             ];
         }
-        return $data;
+        return $result;
     }
 
     public function checkQuotetion(Request $request)
@@ -253,6 +254,7 @@ class DetailImportController extends Controller
         $result = [];
         $data = $request->all();
         $checkQuotetion = DetailImport::where('quotation_number', $data['quotetion_number'])
+            ->where('provide_id', $data['provide_id'])
             ->where('workspace_id', Auth::user()->current_workspace);
         if (isset($data['detail_id'])) {
             $checkQuotetion->where('id', '!=', $data['detail_id']);
@@ -426,7 +428,7 @@ class DetailImportController extends Controller
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->get();
 
-            $terms_pay = DateForm::where('form_field', 'terms_pay')
+            $terms_pay = DateForm::where('form_field', 'termpay')
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->get();
             $data['represent'] = $represent;
@@ -452,7 +454,7 @@ class DetailImportController extends Controller
     }
     public function addNewForm(Request $request)
     {
-        if ($request->id == "addRepresent") {
+        if ($request->table == "addRepresent") {
             $dataRepresent = [
                 'provide_id' => $request->provides_id,
                 'represent_name' => $request->provide_represent,
@@ -468,12 +470,12 @@ class DetailImportController extends Controller
                     ->where('represent_phone', $request->provide_phone)->first();
                 if ($check) {
                     $msg = response()->json([
-                        'success' => true, 'msg' => 'Thêm mới người đại diện thành công'
+                        'success' => true, 'msg' => 'Người đại diện dã tồn tại'
                     ]);
                 } else {
                     $new = DB::table('represent_provide')->insertGetId($dataRepresent);
                     $msg = response()->json([
-                        'success' => true, 'msg' => 'Thêm mới người đại diện thành công'
+                        'success' => true, 'msg' => 'Thêm mới người đại diện thành công', 'data' => $request->provide_represent
                     ]);
                 }
             }
@@ -485,7 +487,7 @@ class DetailImportController extends Controller
                 ->first();
             if ($checkF) {
                 $msg = response()->json([
-                    'success' => false, 'msg' => 'Báo giá đã tồn tại'
+                    'success' => false, 'msg' => $request->table == "import" ? 'Hiệu lực báo giá đã tồn tại' : "Điều khoản thanh toán đã tồn tại"
                 ]);
             } else {
                 $dataForm = [
@@ -499,7 +501,7 @@ class DetailImportController extends Controller
                 ];
                 DB::table('date_form')->insertGetId($dataForm);
                 $msg = response()->json([
-                    'success' => true, 'msg' => 'Tạo mới báo giá thành công'
+                    'success' => true, 'msg' => $request->table == "import" ? 'Tạo mới hiệu lực báo giá thành công' : 'Tạo mới điều khoản thanh toán thành công', 'data' => $request->inputDesc
                 ]);
             }
         }
@@ -528,7 +530,7 @@ class DetailImportController extends Controller
                     ->where('id', $request->present_id)
                     ->update($dataRepresent);
                 $msg = response()->json([
-                    'success' => true, 'msg' => 'Chỉnh sửa thông tin thành công'
+                    'success' => true, 'msg' => 'Chỉnh sửa thông tin thành công', 'data' => $request->provide_represent
                 ]);
             }
         } else {
@@ -583,9 +585,9 @@ class DetailImportController extends Controller
         $data = [];
         $checkF = GuestFormDate::where('guest_id', $request->provides_id)
             ->where('form_field', $request->form)
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->first();
+            ->where('workspace_id', Auth::user()->current_workspace);
         if ($request->form == 'represent') {
+            $checkF = $checkF->first();
             if ($checkF) {
                 DB::table('represent_provide')
                     ->where('id', $checkF->date_form_id)
@@ -608,10 +610,42 @@ class DetailImportController extends Controller
                     'workspace_id' => Auth::user()->current_workspace
                 ];
                 GuestFormDate::insert($dataForm);
+                DB::table('represent_provide')
+                    ->where('id', $request->id)
+                    ->update(['default' => 1]);
             }
             $data[$request->form] = ProvideRepesent::where('id', $request->id)->first();
         } else {
-            return 2;
+            $checkF = $checkF->where('form_field', $request->form)->first();
+            if ($checkF) {
+                DB::table('date_form')
+                    ->where('id', $checkF->date_form_id)
+                    ->where('form_field', $request->form)
+                    ->update(['default_form' => 0]);
+                if ($checkF->date_form_id == $request->id) {
+                    $checkF->date_form_id = 0;
+                    $checkF->save();
+                } else {
+                    DB::table('date_form')
+                        ->where('id', $request->id)
+                        ->where('form_field', $request->form)
+                        ->update(['default_form' => 1]);
+                    $checkF->date_form_id = $request->id;
+                    $checkF->save();
+                }
+            } else {
+                $dataForm = [
+                    'form_field' => $request->form,
+                    'guest_id' => $request->provides_id,
+                    'date_form_id' => $request->id,
+                    'workspace_id' => Auth::user()->current_workspace
+                ];
+                GuestFormDate::insert($dataForm);
+                DB::table('date_form')
+                    ->where('id', $request->id)
+                    ->update(['default_form' => 1]);
+            }
+            $data[$request->form] = DateForm::where('id', $request->id)->first();
         }
 
         return $data;
@@ -625,6 +659,10 @@ class DetailImportController extends Controller
             $data[$request->table] = $represent;
             $data['table'] = $request->table;
         } else if ($request->table == "search-price-effect") {
+            $price_effect = DateForm::where('id', $request->id)->first();
+            $data[$request->table] = $price_effect;
+            $data['table'] = $request->table;
+        } else {
             $price_effect = DateForm::where('id', $request->id)->first();
             $data[$request->table] = $price_effect;
             $data['table'] = $request->table;
