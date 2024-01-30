@@ -215,7 +215,7 @@
                                                     class="border-0 px-3 py-2 w-100 total_price" readonly=""
                                                     name="total_price[]">
                                             </td>
-                                            <td class="border border-bottom-0 p-0 bg-secondary"></td>
+                                            {{-- <td class="border border-bottom-0 p-0 bg-secondary"></td> --}}
                                             <td class="border border-top-0 border-bottom-0"><input type="text"
                                                     class="border-0 px-3 py-2 w-100" name="product_note[]"></td>
                                             <td class="border border-top-0 border deleteRow">

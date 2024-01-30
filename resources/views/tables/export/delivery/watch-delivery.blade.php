@@ -552,7 +552,7 @@
                                         <input type="text" readonly value="{{ $delivery->quotation_number }}"
                                             class="border-0 bg w-100 bg-input-guest py-0 numberQute px-0"
                                             id="myInput" autocomplete="off" name="quotation_number">
-                                        <div class="">
+                                        <div class="opacity-0">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -573,7 +573,7 @@
                                             class="border-0 bg w-100 bg-input-guest py-0 px-0" id="myInput"
                                             autocomplete="off">
                                         <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
-                                        <div class="">
+                                        <div class="opacity-0">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -594,7 +594,7 @@
                                             placeholder="Nhập thông tin"
                                             class="border-0 bg w-100 bg-input-guest py-0 px-0" autocomplete="off"
                                             name="shipping_unit">
-                                        <div class="">
+                                        <div class="opacity-0">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -616,7 +616,7 @@
                                             placeholder="Nhập thông tin"
                                             class="border-0 bg w-100 bg-input-guest py-0 px-0 fee_ship"
                                             autocomplete="off">
-                                        <div class="">
+                                        <div class="opacity-0">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -636,7 +636,7 @@
                                         <input type="text" readonly
                                             value="{{ date_format(new DateTime($delivery->ngayGiao), 'd/m/Y') }}"
                                             name="date_deliver" class="border-0 bg w-100 bg-input-guest py-0 px-0">
-                                        <div class="">
+                                        <div class="opacity-0">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"

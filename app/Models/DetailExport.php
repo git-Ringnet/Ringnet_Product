@@ -16,6 +16,7 @@ class DetailExport extends Model
         'product_id',
         'user_id',
         'quotation_number',
+        'represent_id',
         'reference_number',
         'price_effect',
         'status',
@@ -60,6 +61,7 @@ class DetailExport extends Model
             'guest_id' => $data['guest_id'],
             'project_id' => 1,
             'user_id' => 1,
+            'represent_id' => $data['represent_guest_id'],
             'reference_number' => $data['reference_number'],
             'price_effect' => $data['price_effect'],
             'status' => 1,
@@ -95,6 +97,7 @@ class DetailExport extends Model
         $detailExport = DetailExport::where('detailexport.id', $id)
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('guest', 'detailexport.guest_id', 'guest.id')
+            ->leftJoin('represent_guest', 'detailexport.represent_id', 'represent_guest.id')
             ->select('*', 'guest.id as maKH', 'detailexport.id as maBG', 'detailexport.status as tinhTrang', 'detailexport.created_at as ngayBG')
             ->first();
         return $detailExport;

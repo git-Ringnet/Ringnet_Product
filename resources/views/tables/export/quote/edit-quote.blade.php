@@ -68,7 +68,7 @@
             </div>
         </div>
     </div>
-    <div class="content-wrapper1 py-0 pl-0 px-0" id="main">
+    <div class="content-wrapper1 py-0 pl-0 px-0 position-relative" id="main">
         <div class="bg-filter-search border-top-0 text-center py-2 border-bottom-0 border-right-0">
             <span class="font-weight-bold text-secondary text-nav">THÔNG TIN SẢN PHẨM</span>
         </div>
@@ -145,13 +145,13 @@
                                     <th class="border-right p-1" style="width: 8%;">
                                         <span class="text-table text-secondary">Số lượng</span>
                                     </th>
-                                    <th class="border-right p-1" style="width: 10%;">
+                                    <th class="border-right p-1" style="width: 15%;">
                                         <span class="text-table text-secondary">Đơn giá</span>
                                     </th>
                                     <th class="border-right p-1" style="width: 8%;">
                                         <span class="text-table text-secondary">Thuế</span>
                                     </th>
-                                    <th class="border-right p-1" style="width: 10%;">
+                                    <th class="border-right p-1" style="width: 15%;">
                                         <span class="text-table text-secondary">Thành
                                             tiền</span>
                                     </th>
@@ -342,46 +342,31 @@
                 </section>
                 <section class="content">
                     <div class="container-fluided">
-                        <div class="d-flex">
+                        <div class="d-flex ml-3">
                             <button type="button" data-toggle="dropdown" id="add-field-btn"
                                 class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                 style="margin-right:10px">
-                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                    viewBox="0 0 18 18" fill="none">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                        fill="#42526E" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                        fill="#42526E" />
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 18 18" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z" fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z" fill="#42526E"></path>
                                 </svg>
                                 <span class="text-table">Thêm sản phẩm</span>
                             </button>
                             <button type="button" data-toggle="dropdown" id="add-field-btn"
                                 class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                 style="margin-right:10px">
-                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                    viewBox="0 0 18 18" fill="none">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                        fill="#42526E" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                        fill="#42526E" />
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 18 18" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z" fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z" fill="#42526E"></path>
                                 </svg>
                                 <span class="text-table">Thêm đầu mục</span>
                             </button>
                             <button type="button" data-toggle="dropdown"
                                 class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                 style="margin-right:10px">
-                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                    viewBox="0 0 18 18" fill="none">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                        fill="#42526E" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                        fill="#42526E" />
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 18 18" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z" fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z" fill="#42526E"></path>
                                 </svg>
                                 <span class="text-table">Thêm hàng loạt</span>
                             </button>
@@ -517,7 +502,7 @@
                                         </span>
                                     </a>
                                 </ul>
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -534,9 +519,9 @@
                             </div>
                             <div
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
-                                <input type="text" placeholder="Chọn thông tin"
+                                <input type="text" placeholder="Chọn thông tin" value="{{$detailExport->represent_name}}"
                                     class="border-0 bg w-100 bg-input-guest py-0 px-0" autocomplete="off">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -556,7 +541,7 @@
                                 <input type="text" placeholder="Nhập thông tin" autocomplete="off"
                                     value="{{ $detailExport->quotation_number }}" name="quotation_number"
                                     class="border-0 bg w-100 bg-input-guest py-0 px-0">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -576,7 +561,7 @@
                                 <input type="text" placeholder="Nhập thông tin"
                                     value="{{ $detailExport->reference_number }}" name="reference_number"
                                     class="border-0 bg w-100 bg-input-guest py-0 px-0">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -596,7 +581,7 @@
                                 <input type="date" placeholder="Nhập thông tin" name="date_quote"
                                     value="{{ date_format(new DateTime($detailExport->ngayBG), 'Y-m-d') }}"
                                     class="border-0 bg w-100 bg-input-guest py-0">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -690,7 +675,7 @@
                                         </span>
                                     </a>
                                 </ul>
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -779,7 +764,7 @@
                                         </span>
                                     </a>
                                 </ul>
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -798,7 +783,7 @@
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
                                 <input type="text" placeholder="Nhập thông tin"
                                     class="border-0 bg w-100 bg-input-guest py-0">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -886,7 +871,7 @@
                                         </span>
                                     </a>
                                 </ul>
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -975,7 +960,7 @@
                                         </span>
                                     </a>
                                 </ul>
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1064,7 +1049,7 @@
                                         </span>
                                     </a>
                                 </ul>
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"

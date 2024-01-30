@@ -206,29 +206,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($representGuest as $itemRepresent)
-                                        <tr id="dynamic-row-1" class="bg-white addProduct">
-                                            <td class="border border-top-0 border-bottom-0 border-left-0">
-                                                <input type="text" autocomplete="off" value="{{ $countDetail }}"
-                                                    readonly class="border-0 px-2 py-1 w-100">
-                                            </td>
-                                            <td class="border border-top-0 border-bottom-0 border-left-0">
-                                                <input type="text" autocomplete="off"
-                                                    value="{{ number_format($sumSell) }} vnd" readonly
-                                                    class="border-0 px-2 py-1 w-100">
-                                            </td>
-                                            <td class="border border-top-0 border-bottom-0 border-left-0">
-                                                <input type="text" autocomplete="off"
-                                                    value="{{ number_format($sumPay) }} vnd" readonly
-                                                    class="border-0 px-2 py-1 w-100">
-                                            </td>
-                                            <td class="border border-top-0 border-bottom-0 border-left-0">
-                                                <input type="text" autocomplete="off"
-                                                    value="{{ number_format($sumDebt) }} vnd" readonly
-                                                    class="border-0 px-2 py-1 w-100">
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    <tr id="dynamic-row-1" class="bg-white addProduct">
+                                        <td class="border border-top-0 border-bottom-0 border-left-0">
+                                            <input type="text" autocomplete="off" value="{{ $countDetail }}"
+                                                readonly class="border-0 px-2 py-1 w-100">
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0 border-left-0">
+                                            <input type="text" autocomplete="off"
+                                                value="{{ number_format($sumSell) }} vnd" readonly
+                                                class="border-0 px-2 py-1 w-100">
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0 border-left-0">
+                                            <input type="text" autocomplete="off"
+                                                value="{{ number_format($sumPay) }} vnd" readonly
+                                                class="border-0 px-2 py-1 w-100">
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0 border-left-0">
+                                            <input type="text" autocomplete="off"
+                                                value="{{ number_format($sumDebt) }} vnd" readonly
+                                                class="border-0 px-2 py-1 w-100">
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

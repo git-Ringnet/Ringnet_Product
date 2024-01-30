@@ -516,9 +516,9 @@
                                     <div class="">
                                         <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
                                             <input type="text" readonly value="{{ $billSale->quotation_number }}"
-                                                class="border-0 bg w-50 bg-input-guest py-0 numberQute px-0"
+                                                class="border-0 bg w-100 bg-input-guest py-0 numberQute px-0"
                                                 id="myInput" autocomplete="off" name="quotation_number">
-                                            <div class="">
+                                            <div class="opacity-0">
                                                 <svg width="18" height="18" viewBox="0 0 24 24"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -536,11 +536,11 @@
                                         <div class="border-top-0 d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
                                             <input type="text" readonly
                                                 value="{{ $billSale->guest_name_display }}"
-                                                class="border-0 bg w-50 bg-input-guest py-0 nameGuest px-0"
+                                                class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
                                                 autocomplete="off">
                                             <input type="hidden" class="idGuest" autocomplete="off"
                                                 name="guest_id">
-                                            <div class="">
+                                            <div class="opacity-0">
                                                 <svg width="18" height="18" viewBox="0 0 24 24"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -558,8 +558,8 @@
                                         <div class="border-top-0 d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
                                             <input type="text" readonly
                                                 value="{{ date_format(new DateTime($billSale->ngayHD), 'd/m/Y') }}"
-                                                name="date_bill" class="border-0 bg w-50 bg-input-guest py-0 px-0">
-                                            <div class="">
+                                                name="date_bill" class="border-0 bg w-100 bg-input-guest py-0 px-0">
+                                            <div class="opacity-0">
                                                 <svg width="18" height="18" viewBox="0 0 24 24"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -577,8 +577,8 @@
                                         <div class="border-top-0 d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
                                             <input type="text" name="number_bill" readonly
                                                 value="{{ $billSale->number_bill }}"
-                                                class="border-0 bg w-50 bg-input-guest py-0 px-0">
-                                            <div class="">
+                                                class="border-0 bg w-100 bg-input-guest py-0 px-0">
+                                            <div class="opacity-0">
                                                 <svg width="18" height="18" viewBox="0 0 24 24"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"

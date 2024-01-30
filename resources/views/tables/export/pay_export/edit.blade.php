@@ -391,7 +391,7 @@
                                     <input type="text" readonly value="{{ $payExport->quotation_number }}"
                                         class="border-0 bg w-100 bg-input-guest py-0 numberQute px-0" id="myInput"
                                         autocomplete="off" name="quotation_number">
-                                    <div class="">
+                                    <div class="opacity-0">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -413,7 +413,7 @@
                                         class="border-0 bg w-100 bg-input-guest py-0 numberQute px-0" id="myInput"
                                         autocomplete="off" required>
                                     <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
-                                    <div class="">
+                                    <div class="opacity-0">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -434,7 +434,7 @@
                                         value="{{ date_format(new DateTime($payExport->payment_date), 'd/m/Y') }}"
                                         name="date_pay" required id="customDateInput"
                                         class="border-0 bg w-100 bg-input-guest py-0 px-0">
-                                    <div class="">
+                                    <div class="opacity-0">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -454,7 +454,7 @@
                                     <input type="text" placeholder="Nhập thông tin" readonly name="total"
                                         value="{{ number_format($payExport->tongTienNo) }}"
                                         class="border-0 bg w-100 bg-input-guest py-0 px-0 tongTien">
-                                    <div class="">
+                                    <div class="opacity-0">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -474,7 +474,7 @@
                                     <input type="text" value="{{ number_format($thanhToan->tongThanhToan) }}"
                                         readonly name="daThanhToan"
                                         class="border-0 bg w-100 bg-input-guest py-0 px-0 daThanhToan">
-                                    <div class="">
+                                    <div class="opacity-0">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -493,7 +493,7 @@
                                     class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
                                     <input type="text" value="{{ number_format($noConLaiValue) }}" readonly
                                         class="border-0 bg w-100 bg-input-guest py-0 px-0 duNo">
-                                    <div class="">
+                                    <div class="opacity-0">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -513,7 +513,7 @@
                                     <input type="text" placeholder="Nhập thông tin" name="payment" required
                                         oninput="validateInput();"
                                         class="border-0 bg w-100 bg-input-guest py-0 px-0 payment">
-                                    <div class="">
+                                    <div class="opacity-0">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"

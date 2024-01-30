@@ -417,7 +417,7 @@
                                     </li>
                                 @endforeach
                             </ul>
-                            <div class="">
+                            <div class="opacity-0">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -433,14 +433,15 @@
                             </div>
                         </div>
                         <div id="show-info-guest">
-                            <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                            <div
+                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
                                 <input type="text" placeholder="Nhập thông tin" readonly
                                     class="border-0 bg w-100 bg-input-guest py-0 px-0 nameGuest" autocomplete="off"
                                     required
                                     value="@isset($yes){{ $getGuestbyId[0]->guest_name_display }}@endisset">
                                 <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
                                     value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -455,11 +456,12 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                            <div
+                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
                                 <input type="text" placeholder="Nhập thông tin"
                                     class="border-0 bg w-100 bg-input-guest py-0 px-0 unit_ship" autocomplete="off"
                                     name="shipping_unit">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -474,10 +476,11 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                            <div
+                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
                                 <input type="text" placeholder="Nhập thông tin" name="shipping_fee"
                                     class="border-0 bg w-100 bg-input-guest py-0 px-0 fee_ship" autocomplete="off">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -492,10 +495,11 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                            <div
+                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
                                 <input type="date" placeholder="Nhập thông tin" value="{{ date('Y-m-d') }}"
                                     name="date_deliver" required class="border-0 bg w-100 bg-input-guest py-0 px-0">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -626,7 +630,7 @@
                 "<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 75%;left: 10%;'>" +
                 "@foreach ($product as $product_value)" +
                 "<li>" +
-                "<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 idProduct' id='{{ $product_value->id }}' name='idProduct'>" +
+                "<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 idProduct w-100' id='{{ $product_value->id }}' name='idProduct'>" +
                 "<span class='w-50'>{{ $product_value->product_name }}</span>" +
                 "</a>" +
                 "</li>" +
@@ -803,6 +807,7 @@
                     var productCode = $(this).closest('tr').find('.product_code');
                     var productName = $(this).closest('tr').find('.product_name');
                     var productUnit = $(this).closest('tr').find('.product_unit');
+                    var productPrice = $(this).closest('tr').find('.product_price');
                     var thue = $(this).closest('tr').find('.product_tax');
                     var product_id = $(this).closest('tr').find('.product_id');
                     var tonkho = $(this).closest('tr').find('.tonkho');
@@ -817,11 +822,13 @@
                         },
                         success: function(data) {
                             if (Array.isArray(data) && data.length > 0) {
+                                console.log(data);
                                 var productData = data[0];
                                 var seriProArray = productData.seri_pro;
                                 productCode.val(productData.product_code);
                                 productName.val(productData.product_name);
                                 productUnit.val(productData.product_unit);
+                                productPrice.val(productData.product_price_export)
                                 thue.val(productData.product_tax);
                                 product_id.val(productData.id);
                                 tonkho.val(productData.product_inventory);
@@ -2438,89 +2445,95 @@
         }
     });
     //tính thành tiền của sản phẩm
-    $(document).on('input', '.quantity-input, [name^="product_price"]', function(e) {
-        var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;
-        var productPrice = parseFloat($(this).closest('tr').find('input[name^="product_price"]').val()
-            .replace(
-                /[^0-9.-]+/g, "")) || 0;
-        updateTaxAmount($(this).closest('tr'));
-        if (!isNaN(productQty) && !isNaN(productPrice)) {
-            var totalAmount = productQty * productPrice;
-            $(this).closest('tr').find('.total-amount').val(formatCurrency(totalAmount));
-            calculateTotalAmount();
-            calculateTotalTax();
-        }
+    $(document).ready(function() {
+        calculateTotals();
     });
 
-    $(document).on('change', '.product_tax', function() {
-        updateTaxAmount($(this).closest('tr'));
-        calculateTotalAmount();
-        calculateTotalTax();
+    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax, .heSoNhan, .giaNhap', function() {
+        calculateTotals();
     });
 
-    function updateTaxAmount(row) {
-        var productQty = parseFloat(row.find('.quantity-input').val());
-        var productPrice = parseFloat(row.find('input[name^="product_price"]').val().replace(/[^0-9.-]+/g, ""));
-        var taxValue = parseFloat(row.find('.product_tax').val());
-        if (taxValue == 99) {
-            taxValue = 0;
-        }
-        if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
-            var totalAmount = productQty * productPrice;
-            var taxAmount = (totalAmount * taxValue) / 100;
-
-            row.find('.product_tax1').text(Math.round(taxAmount));
-        }
-    }
-
-    function calculateTotalAmount() {
+    function calculateTotals() {
         var totalAmount = 0;
-        $('tr').each(function() {
-            var rowTotal = parseFloat(String($(this).find('.total-amount').val()).replace(/[^0-9.-]+/g, ""));
-            if (!isNaN(rowTotal)) {
-                totalAmount += rowTotal;
-            }
-        });
-        totalAmount = Math.round(totalAmount);
-        $('#total-amount-sum').text(formatCurrency(totalAmount));
-        calculateTotalTax();
-        calculateGrandTotal();
-    }
-
-    function calculateTotalTax() {
         var totalTax = 0;
+
+        // Lặp qua từng hàng
         $('tr').each(function() {
-            var rowTax = parseFloat($(this).find('.product_tax1').text().replace(/[^0-9.-]+/g, ""));
-            if (!isNaN(rowTax)) {
+            var productQty = parseFloat($(this).find('.quantity-input').val());
+            var productPriceElement = $(this).find('[name^="product_price"]');
+            var productPrice = 0;
+            var giaNhap = 0;
+            var taxValue = parseFloat($(this).find('.product_tax option:selected').val());
+            var heSoNhan = parseFloat($(this).find('.heSoNhan').val()) || 0;
+            var giaNhapElement = $(this).find('.giaNhap');
+            if (taxValue == 99) {
+                taxValue = 0;
+            }
+            if (productPriceElement.length > 0) {
+                var rawPrice = productPriceElement.val();
+                if (rawPrice !== "") {
+                    productPrice = parseFloat(rawPrice.replace(/,/g, ''));
+                }
+            }
+            if (giaNhapElement.length > 0) {
+                var rawGiaNhap = giaNhapElement.val();
+                if (rawGiaNhap !== "") {
+                    giaNhap = parseFloat(rawGiaNhap.replace(/,/g, ''));
+                }
+            }
+
+            if (!isNaN(productQty) && !isNaN(taxValue)) {
+                if (giaNhap > 0) {
+                    var donGia = ((heSoNhan + 100) * giaNhap) / 100;
+                } else {
+                    var donGia = productPrice;
+                }
+                var rowTotal = productQty * donGia;
+                var rowTax = (rowTotal * taxValue) / 100;
+
+                // Làm tròn từng thuế
+                rowTax = Math.round(rowTax);
+                $(this).find('.product_tax1').val(formatCurrency(rowTax));
+
+                // Hiển thị kết quả
+                $(this).find('.total-amount').val(formatCurrency(Math.round(rowTotal)));
+                $(this).find('.product_price').val(formatCurrency(donGia));
+
+                // Cộng dồn vào tổng totalAmount và totalTax
+                totalAmount += rowTotal;
                 totalTax += rowTax;
             }
         });
-        totalTax = Math.round(totalTax); // Làm tròn thành số nguyên
-        $('#product-tax').text(formatCurrency(totalTax));
 
-        calculateGrandTotal();
+        // Hiển thị tổng totalAmount và totalTax
+        $('#total-amount-sum').text(formatCurrency(Math.round(totalAmount)));
+        $('#product-tax').text(formatCurrency(Math.round(totalTax)));
+
+        // Tính tổng thành tiền và thuế
+        calculateGrandTotal(totalAmount, totalTax);
     }
 
-    function calculateGrandTotal() {
-        var totalAmount = parseFloat($('#total-amount-sum').text().replace(/[^0-9.-]+/g, ""));
-        var totalTax = parseFloat($('#product-tax').text().replace(/[^0-9.-]+/g, ""));
+    function calculateGrandTotal(totalAmount, totalTax) {
+        if (!isNaN(totalAmount) || !isNaN(totalTax)) {
+            var grandTotal = totalAmount + totalTax;
+            $('#grand-total').text(formatCurrency(Math.round(grandTotal)));
+        }
 
-        var grandTotal = totalAmount + totalTax;
-        grandTotal = Math.round(grandTotal); // Làm tròn thành số nguyên
-        $('#grand-total').text(formatCurrency(grandTotal));
-
-        // Update data-value attribute
+        // Cập nhật giá trị data-value
         $('#grand-total').attr('data-value', grandTotal);
         $('#total').val(totalAmount);
     }
 
     function formatCurrency(value) {
+        // Làm tròn đến 2 chữ số thập phân
         value = Math.round(value * 100) / 100;
 
+        // Xử lý phần nguyên
         var parts = value.toString().split(".");
         var integerPart = parts[0];
         var formattedValue = "";
 
+        // Định dạng phần nguyên
         var count = 0;
         for (var i = integerPart.length - 1; i >= 0; i--) {
             formattedValue = integerPart.charAt(i) + formattedValue;
@@ -2530,27 +2543,13 @@
             }
         }
 
+        // Nếu có phần thập phân, thêm vào sau phần nguyên
         if (parts.length > 1) {
             formattedValue += "." + parts[1];
         }
+
         return formattedValue;
     }
-
-    //Tính đơn giá
-    $(document).on('input', '.heSoNhan, .giaNhap', function(e) {
-        var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;
-        var heSoNhan = parseFloat($(this).closest('tr').find('.heSoNhan').val()) || 0;
-        var giaNhap = parseFloat($(this).closest('tr').find('.giaNhap').val().replace(/[^0-9.-]+/g, "")) || 0;
-        updateTaxAmount($(this).closest('tr'));
-        if (!isNaN(heSoNhan) && !isNaN(giaNhap)) {
-            var donGia = ((heSoNhan + 100) * giaNhap) / 100;
-            var totalAmount = productQty * donGia;
-            $(this).closest('tr').find('.product_price').val(formatCurrency(donGia));
-            $(this).closest('tr').find('.total-amount').val(formatCurrency(totalAmount));
-            calculateTotalAmount();
-            calculateTotalTax();
-        }
-    });
 
     //format giá
     var inputElement = document.getElementById('product_price');

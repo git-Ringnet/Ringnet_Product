@@ -116,14 +116,24 @@ Route::resource('{workspace}/detailExport', DetailExportController::class);
 Route::get('{workspace}/seeInfo/{id}', [DetailExportController::class, 'seeInfo'])->name('seeInfo');
 //tìm kiếm tên khách hàng
 Route::get('/searchExport', [DetailExportController::class, 'searchGuest'])->name('searchExport');
+//người đại diện
+Route::get('/searchRepresent', [DetailExportController::class, 'searchRepresent'])->name('searchRepresent');
+//Xóa người đại diện
+Route::get('/deleteRepresentGuest', [DetailExportController::class, 'deleteRepresentGuest'])->name('deleteRepresentGuest');
+//thông tin chi tiết người đại diện
+Route::get('/editRepresent', [DetailExportController::class, 'editRepresent'])->name('editRepresent');
 //tìm kiếm tên project
 Route::get('/searchProject', [DetailExportController::class, 'searchProject'])->name('searchProject');
 //Thêm khách hàng
 Route::get('/addGuest', [DetailExportController::class, 'addGuest'])->name('addGuest');
+//Thêm người đại diện
+Route::get('/addRepresentGuest', [DetailExportController::class, 'addRepresentGuest'])->name('addRepresentGuest');
 //Lấy thông tin sản phẩm
 Route::get('/getProduct', [DetailExportController::class, 'getProduct'])->name('getProduct');
 //Lấy mã sản phẩm
 Route::get('/getProductCode', [DetailExportController::class, 'getProductCode'])->name('getProductCode');
+//Lấy người đại diện theo khách hàng
+Route::get('/getRepresentGuest', [DetailExportController::class, 'getRepresentGuest'])->name('getRepresentGuest');
 
 //Giao hàng
 Route::resource('{workspace}/delivery', DeliveryController::class);

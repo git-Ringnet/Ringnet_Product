@@ -316,7 +316,7 @@
                                     </li>
                                 @endforeach
                             </ul>
-                            <div class="">
+                            <div class="opacity-0">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -338,7 +338,7 @@
                                     value="@isset($yes){{ $getGuestbyId[0]->guest_name_display }}@endisset">
                                 <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
                                     value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -356,7 +356,7 @@
                             <div class="d-flex align-items-center border-top-0 justify-content-between border border-left-0 py-1 px-1">
                                 <input type="date" placeholder="Nhập thông tin" required value="{{ date('Y-m-d') }}"
                                     name="date_bill" class="border-0 bg w-100 bg-input-guest py-0 px-0">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -374,7 +374,7 @@
                             <div class="d-flex align-items-center border-top-0 justify-content-between border border-left-0 py-1 px-1">
                                 <input type="number" placeholder="Nhập thông tin" name="number_bill" required
                                     class="border-0 bg w-100 bg-input-guest py-0 px-0">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"

@@ -218,7 +218,7 @@
                         </div>
                     </div>
                 </div>
-                <section class="multiple_action" style="display: none;">
+                <section class="multiple_action border box-shadow" style="display: none;">
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="count_checkbox mr-5">Đã chọn 1</span>
                         <div class="row action">
@@ -273,6 +273,7 @@
                 </section>
             </div>
         </section>
+        {{-- Modal khách hàng --}}
         <div class="modal fade" id="guestModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document" style="margin-top: 10%;">
@@ -330,6 +331,59 @@
                 </div>
             </div>
         </div>
+        {{-- Modal người đại diện --}}
+        <div class="modal fade" id="representModal" tabindex="-1" role="dialog"
+            aria-labelledby="productModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="margin-top: 10%;">
+                <div class="modal-content">
+                    <div class="modal-body pb-0 px-2 pt-0">
+                        <div class="content-info">
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 text-nav">
+                                    Người đại diện
+                                </p>
+                                <input name="represent_name" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    id="represent_name" autocomplete="off">
+                            </div>
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 text-nav">
+                                    Số điện thoại
+                                </p>
+                                <input name="represent_phone" type="number" placeholder="Nhập thông tin"
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    id="represent_phone" autocomplete="off">
+                            </div>
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 text-nav">
+                                    Email
+                                </p>
+                                <input name="represent_email" type="email" placeholder="Nhập thông tin"
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    id="represent_email" autocomplete="off">
+                            </div>
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 text-nav">
+                                    Địa chỉ nhận
+                                </p>
+                                <input name="represent_address" type="text" placeholder="Nhập thông tin"
+                                    id="represent_address"
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top-0 py-1 px-1">
+                        <button type="button" class="btn-save-print rounded h-100 text-table py-1"
+                            data-dismiss="modal">Trở về</button>
+                        <button type="button" class="custom-btn align-items-center h-100 py-1 px-2 text-table"
+                            id="addRepresent">Thêm người đại diện</button>
+                        <button type="button" class="custom-btn h-100 py-1 px-2 text-table" id="updateRepresent">Cập
+                            nhật người đại diện</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     {{-- Thông tin khách hàng --}}
     <div class="content-wrapper2 px-0 py-0">
@@ -343,7 +397,7 @@
                         <div class="border border-right-0 py-1 border-left-0">
                             <span class="text-table ml-2">Khách hàng</span>
                         </div>
-                        <div id="show-title-guest">
+                        <div id="show-title-guest" style="display: none;">
                             <div class="border border-right-0 py-1 border-left-0 border-top-0">
                                 <span class="text-table ml-2">Người đại diện</span>
                             </div>
@@ -384,7 +438,7 @@
                             <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
                             <ul id="myUL"
                                 class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest z-index-block"
-                                style="z-index: 99;">
+                                style="z-index: 99;display: none;">
                                 <div class="p-1">
                                     <div class="position-relative">
                                         <input type="text" placeholder="Nhập công ty"
@@ -417,7 +471,7 @@
                                     </span>
                                 </a>
                             </ul>
-                            <div class="">
+                            <div class="opacity-0">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -432,12 +486,41 @@
                                 </svg>
                             </div>
                         </div>
-                        <div id="show-info-guest">
+                        <div id="show-info-guest" style="display: none;">
                             <div
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
                                 <input type="text" placeholder="Chọn thông tin"
-                                    class="border-0 bg w-100 bg-input-guest py-0 px-0" autocomplete="off">
-                                <div class="">
+                                    class="border-0 bg w-100 bg-input-guest py-0 px-0" autocomplete="off"
+                                    id="represent_guest">
+                                <input type="hidden" class="represent_guest_id" autocomplete="off"
+                                    name="represent_guest_id">
+                                <ul id="myUL7"
+                                    class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest z-index-block"
+                                    style="z-index: 99;top: 72px;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập người đại diện"
+                                                class="pr-4 w-100 input-search" id="companyFilter7">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                    <div id="representativeList"></div>
+                                    <a type="button"
+                                        class="d-flex justify-content-center align-items-center p-2 position-sticky addRepresentNew bg-white"
+                                        data-toggle="modal" data-target="#representModal" style="bottom: 0;">
+                                        <span class="text-table text-center font-weight-bold">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30" />
+                                            </svg>
+                                            Thêm người đại diện
+                                        </span>
+                                    </a>
+                                </ul>
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -456,7 +539,7 @@
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
                                 <input type="text" placeholder="Chọn thông tin" name="quotation_number"
                                     class="border-0 bg w-100 bg-input-guest py-0" autocomplete="off">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -475,7 +558,7 @@
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
                                 <input type="text" placeholder="Chọn thông tin" name="reference_number"
                                     class="border-0 bg w-100 bg-input-guest py-0" autocomplete="off">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -495,7 +578,7 @@
                                 <input type="date" placeholder="Chọn thông tin" value="{{ date('Y-m-d') }}"
                                     name="date_quote" class="border-0 bg w-100 bg-input-guest py-0"
                                     style="height: 20px;">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -588,7 +671,7 @@
                                         </span>
                                     </a>
                                 </ul>
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -681,7 +764,7 @@
                                         </span>
                                     </a>
                                 </ul>
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -714,7 +797,7 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -807,7 +890,7 @@
                                         </span>
                                     </a>
                                 </ul>
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -900,7 +983,7 @@
                                         </span>
                                     </a>
                                 </ul>
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -921,7 +1004,8 @@
                                     class="border-0 bg w-100 bg-input-guest py-0" autocomplete="off"
                                     id="myInput-location"
                                     value="{{ isset($dataForm['location']) ? $dataForm['location']->form_desc : '' }}">
-                                <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[location]"
+                                <input type="hidden" class="idDateForm" autocomplete="off"
+                                    name="idDate[location]"
                                     value="{{ isset($dataForm['location']) ? $dataForm['location']->id : '' }}">
                                 <input type="hidden" class="nameDateForm" autocomplete="off"
                                     name="fieldDate[location]"
@@ -955,9 +1039,9 @@
                                                     </button>
                                                     <div class="dropdown-menu date-form-setting"
                                                         style="z-index: 1000;">
-                                                        <a class="dropdown-item search-date-form" data-toggle="modal"
-                                                            data-target="#formModallocation" data-name="location"
-                                                            data-id="{{ $item->id }}"
+                                                        <a class="dropdown-item search-date-form"
+                                                            data-toggle="modal" data-target="#formModallocation"
+                                                            data-name="location" data-id="{{ $item->id }}"
                                                             id="{{ $item->id }}"><i
                                                                 class="fa-regular fa-pen-to-square"></i></a>
                                                         <a class="dropdown-item delete-item" href="#"
@@ -993,7 +1077,7 @@
                                         </span>
                                     </a>
                                 </ul>
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1042,7 +1126,7 @@
 </div>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 <script type="text/javascript">
-    // Số báo giáo
+    // Số báo giá
     getKeyGuest($('#guest_name_display'));
     //hiện danh sách project khi click trường tìm kiếm
     $("#listProject").hide();
@@ -1083,12 +1167,12 @@
         });
     });
     //hiện danh sách khách hàng khi click trường tìm kiếm
-    $("#myUL").hide();
     $("#myUL1").hide();
     $("#myUL2").hide();
     $("#myUL4").hide();
     $("#myUL5").hide();
     $("#myUL6").hide();
+    $("#myUL7").hide();
     $(document).ready(function() {
         function toggleList(input, list) {
             input.on("click", function() {
@@ -1135,6 +1219,7 @@
         }
 
         toggleListGuest($("#myInput"), $("#myUL"), $("#companyFilter"));
+        toggleListGuest($("#represent_guest"), $("#myUL7"), $("#companyFilter7"));
         toggleListGuest($("#myInput-quote"), $("#myUL2"), $("#companyFilter2"));
         toggleListGuest($("#myInput-payment"), $("#myUL1"), $("#companyFilter1"));
         toggleListGuest($("#myInput-goods"), $("#myUL4"), $("#companyFilter4"));
@@ -1650,8 +1735,6 @@
     });
     //Lấy thông tin khách hàng
     $(document).ready(function() {
-        $('#show-info-guest').hide();
-        $('#show-title-guest').hide();
         $(document).on('click', '.search-info', function(e) {
             var idGuest = $(this).attr('id');
             $.ajax({
@@ -1694,7 +1777,121 @@
                             $('#show-title-guest').show();
                         }
                     });
-
+                    $.ajax({
+                        url: '{{ route('getRepresentGuest') }}',
+                        type: 'GET',
+                        data: {
+                            idGuest: idGuest
+                        },
+                        success: function(data) {
+                            $('#representativeList').empty();
+                            $.each(data, function(index, representative) {
+                                var listItem = $('<li class="border">')
+                                    .append(
+                                        $('<a>').attr({
+                                            href: '#',
+                                            title: representative
+                                                .represent_name,
+                                            class: 'text-dark d-flex justify-content-between search-represent p-2 w-100',
+                                            id: representative.id,
+                                            name: 'search-represent',
+                                        }).append(
+                                            $('<span>').addClass(
+                                                'w-100 text-nav text-dark overflow-hidden'
+                                            ).text(representative
+                                                .represent_name)
+                                        )
+                                    ).append(
+                                        $('<div>').addClass('dropdown')
+                                        .append(
+                                            $('<button>').attr({
+                                                type: 'button',
+                                                'data-toggle': 'dropdown',
+                                                class: 'btn-save-print d-flex align-items-center h-100 border-0 bg-transparent',
+                                                style: 'margin-right:10px'
+                                            }).append(
+                                                $('<i>').addClass(
+                                                    'fa-solid fa-ellipsis'
+                                                ).attr(
+                                                    'aria-hidden',
+                                                    'true')
+                                            )
+                                        ).append(
+                                            $('<div>').addClass(
+                                                'dropdown-menu date-form-setting'
+                                            ).css('z-index', '1000')
+                                            .append(
+                                                $('<a>').addClass(
+                                                    'dropdown-item edit-represent-form'
+                                                ).attr({
+                                                    'data-toggle': 'modal',
+                                                    'data-target': '#representModal',
+                                                    'data-name': 'representGuest',
+                                                    'data-id': representative
+                                                        .id
+                                                }).append(
+                                                    $('<i>').addClass(
+                                                        'fa-regular fa-pen-to-square'
+                                                    ).attr(
+                                                        'aria-hidden',
+                                                        'true')
+                                                )
+                                            ).append(
+                                                $('<a>').addClass(
+                                                    'dropdown-item delete-item-represent'
+                                                ).attr({
+                                                    href: '#',
+                                                    'data-id': representative
+                                                        .id,
+                                                    'data-name': 'representGuest'
+                                                }).append(
+                                                    $('<i>').addClass(
+                                                        'fa-solid fa-trash-can'
+                                                    ).attr(
+                                                        'aria-hidden',
+                                                        'true')
+                                                )
+                                            ).append(
+                                                $('<a>').addClass(
+                                                    'dropdown-item set-default default-idgoods'
+                                                ).attr({
+                                                    id: 'default-id' +
+                                                        representative
+                                                        .id,
+                                                    href: '#',
+                                                    'data-name': 'representGuest',
+                                                    'data-id': representative
+                                                        .id
+                                                }).append(
+                                                    $('<i>').addClass(
+                                                        'fa-solid fa-link'
+                                                    ).attr(
+                                                        'aria-hidden',
+                                                        'true')
+                                                )
+                                            )
+                                        )
+                                    );
+                                $('#representativeList').append(
+                                    listItem);
+                            });
+                        }
+                    });
+                }
+            });
+        });
+        //lấy thông tin người đại diện
+        $(document).on('click', '.search-represent', function(e) {
+            var idGuest = $(this).attr('id');
+            $.ajax({
+                url: '{{ route('searchRepresent') }}',
+                type: 'GET',
+                data: {
+                    idGuest: idGuest
+                },
+                success: function(data) {
+                    $('#represent_guest').val(data.represent_name);
+                    $('.represent_guest_id').val(data.id);
                 }
             });
         });
@@ -1761,6 +1958,7 @@
                         $('#guest_code').val(null);
                         //
                         $('#show-info-guest').show();
+                        $('#show-title-guest').show();
                     } else {
                         alert(data.msg);
                     }
@@ -1769,6 +1967,117 @@
         }
     });
 
+    //Thêm người đại diện
+    $(document).on('click', '.addRepresentNew', function(e) {
+        $('#updateRepresent').hide();
+    });
+    $(document).on('click', '#addRepresent', function(e) {
+        var represent_name = $('input[name="represent_name"]').val().trim();
+        var represent_email = $('#represent_email').val().trim();
+        var represent_phone = $('#represent_phone').val().trim();
+        var represent_address = $('#represent_address').val().trim();
+        var guest_id = $('.idGuest').val();
+        if (!represent_name) {
+            alert('Vui lòng điền thông tin người đại diện!');
+        } else {
+            $.ajax({
+                url: "{{ route('addRepresentGuest') }}",
+                type: "get",
+                data: {
+                    represent_name: represent_name,
+                    represent_email: represent_email,
+                    represent_phone: represent_phone,
+                    represent_address: represent_address,
+                    guest_id: guest_id,
+                },
+                success: function(data) {
+                    if (data.success) {
+                        $('#represent_guest').val(data.represent_name);
+                        $('.represent_guest_id').val(data.id);
+                        $('.modal [data-dismiss="modal"]').click();
+                        alert(data.msg);
+                        // Nếu thành công, tạo một mục mới
+                        var newGuestInfo = data;
+                        var guestList = $('#myUL7'); // Danh sách hiện có
+                        var newListItem =
+                            '<li class="border"><a href="#" title="' + newGuestInfo.represent_name +
+                            '" class="text-dark d-flex justify-content-between p-2 search-represent w-100" id="' +
+                            newGuestInfo.id + '" name="search-represent">' +
+                            '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
+                            .represent_name +
+                            '</span></a>' +
+                            '<div class="dropdown">' +
+                            '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">' +
+                            '<i class="fa-solid fa-ellipsis" aria-hidden="true"></i>' +
+                            '</button><div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
+                            '<a class="dropdown-item edit-represent-form" data-toggle="modal" data-target="#representModal" data-name="representGuest" data-id="' +
+                            newGuestInfo.id + '">' +
+                            '<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>' +
+                            '</a><a class="dropdown-item delete-item-represent" href="#" data-id="' +
+                            newGuestInfo.id + '" data-name="representGuest">' +
+                            '<i class="fa-solid fa-trash-can" aria-hidden="true"></i></a><a class="dropdown-item set-default default-idgoods" id="default-id' +
+                            newGuestInfo.id + '" href="#" data-name="representGuest" data-id="' +
+                            newGuestInfo.id + '">' +
+                            '<i class="fa-solid fa-link" aria-hidden="true"></i></a></div></div>' +
+                            '</li>';
+                        // Thêm mục mới vào danh sách
+                        var addButton = $(".addRepresentNew");
+                        $(newListItem).insertBefore(addButton);
+                        //clear
+                        $('#represent_name').val('');
+                        $("#represent_email").val('');
+                        $('#represent_phone').val('');
+                        $('#represent_address').val('');
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        }
+    });
+    //Xóa người đại diện
+    $(document).on('click', '.delete-item-represent', function(e) {
+        e.preventDefault();
+        var itemId = $(this).data('id');
+        $.ajax({
+            url: "{{ route('deleteRepresentGuest') }}",
+            type: "get",
+            data: {
+                itemId: itemId,
+            },
+            success: function(data) {
+                if (data.success) {
+                    $(e.target).closest('li').remove();
+                    $('#represent_guest').val('');
+                    $('.represent_guest_id').val('');
+                    alert(data.message);
+                } else {
+                    alert(data.message);
+                }
+            }
+        });
+    });
+    //Cập nhật thông tin người đại diện
+    $(document).on('click', '.edit-represent-form', function(e) {
+        e.preventDefault();
+        $('#addRepresent').hide();
+        $('#updateRepresent').show();
+        var itemId = $(this).data('id');
+        $.ajax({
+            url: '{{ route('editRepresent') }}',
+            type: 'GET',
+            data: {
+                itemId: itemId
+            },
+            success: function(data) {
+                $('#represent_name').val(data.represent_name);
+                $("#represent_email").val(data.represent_email);
+                $('#represent_phone').val(data.represent_phone);
+                $('#represent_address').val(data.represent_address);
+            }
+        });
+        
+    });
     //tính thành tiền của sản phẩm
     $(document).on('input', '.quantity-input, [name^="product_price"]', function(e) {
         var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;

@@ -383,7 +383,7 @@
                                     </li>
                                 @endforeach
                             </ul>
-                            <div class="">
+                            <div class="opacity-0">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -407,7 +407,7 @@
                                     value="@isset($yes){{ $getGuestbyId[0]->guest_name_display }}@endisset">
                                 <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
                                     value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -427,7 +427,7 @@
                                 <input type="date" placeholder="Nhập thông tin" value="{{ date('Y-m-d') }}"
                                     name="date_pay" required class="border-0 bg w-100 bg-input-guest py-0 px-0"
                                     id="customDateInput">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -446,7 +446,7 @@
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
                                 <input type="text" placeholder="Nhập thông tin" readonly name="total"
                                     value="" class="border-0 bg w-100 bg-input-guest py-0 px-0 tongTien">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -465,7 +465,7 @@
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
                                 <input type="text" value="" readonly
                                     class="border-0 bg w-100 bg-input-guest py-0 px-0 daThanhToan">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -484,7 +484,7 @@
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
                                 <input type="text" value="" readonly
                                     class="border-0 bg w-100 bg-input-guest py-0 px-0 duNo">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -503,7 +503,7 @@
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
                                 <input type="text" placeholder="Nhập thông tin" name="payment"
                                     class="border-0 bg w-100 bg-input-guest py-0 px-0 payment">
-                                <div class="">
+                                <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"

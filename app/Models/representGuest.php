@@ -18,6 +18,7 @@ class representGuest extends Model
         'represent_email',
         'represent_phone',
         'represent_address',
+        'default_guest',
         'workspace_id',
         'created_at',
         'updated_at'
@@ -25,7 +26,9 @@ class representGuest extends Model
 
     public function getRepresentGuest($id)
     {
-        $representGuest = representGuest::where('guest_id', $id)->get();
+        $representGuest = representGuest::where('guest_id', $id)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
         return $representGuest;
     }
 
@@ -50,5 +53,21 @@ class representGuest extends Model
                 DB::table('represent_guest')->insert($dataRepresent);
             }
         }
+    }
+    public function deleteRepresentGuest($id)
+    {
+        $representGuest = representGuest::find($id);
+        if ($representGuest) {
+            $representGuest->delete();
+            return response()->json(['success' => true, 'message' => 'Xóa thành công người đại diện']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Không tìm thấy người đại diện'], 404);
+        }
+        return $representGuest;
+    }
+    public function editRepresentGuest($id)
+    {
+        $representGuest = representGuest::find($id);
+        return $representGuest;
     }
 }

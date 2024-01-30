@@ -667,6 +667,14 @@ td p {
     outline: none;
 }
 
+#representModal .modal-dialog {
+    max-width: 20% !important;
+}
+
+#representModal .modal-dialog input:focus{
+    outline: none;
+}
+
 #list_modal .modal.fade.show {
     z-index: 9999;
 }
@@ -1291,9 +1299,10 @@ input[type="checkbox"] {
 
 .multiple_action {
     position: absolute;
-    width: 100%;
     z-index: 9999;
     height: auto;
+    left: 30%;
+    bottom: 10%;
 }
 
 #section_products .multiple_action .count_checkbox,
@@ -1816,4 +1825,7 @@ input[type="checkbox"] {
 }
 .table thead th{
     border-bottom: 1px solid #dee2e6;
+}
+.opacity-0{
+    opacity: 0;
 }

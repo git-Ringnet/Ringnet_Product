@@ -96,7 +96,7 @@ class Delivery extends Model
         $delivery = Delivery::where('delivery.id', $id)
             ->where('delivery.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('guest', 'delivery.guest_id', 'guest.id')
-            ->select('*', 'delivery.id as soGiaoHang', 'delivery.status as tinhTrang')
+            ->select('*', 'delivery.id as soGiaoHang', 'delivery.status as tinhTrang','delivery.created_at as ngayGiao')
             ->first();
         return $delivery;
     }

@@ -18,6 +18,7 @@ use App\Models\Project;
 use App\Models\Provides;
 use App\Models\QuoteExport;
 use App\Models\DateForm;
+use App\Models\representGuest;
 use App\Models\Workspace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -44,6 +45,7 @@ class DetailExportController extends Controller
     protected $date_form;
     protected $guest_dateForm;
     private $workspaces;
+    private $represent_guest;
 
     public function __construct()
     {
@@ -62,6 +64,7 @@ class DetailExportController extends Controller
         $this->payExport = new PayExport();
         $this->productPay = new productPay();
         $this->workspaces = new Workspace();
+        $this->represent_guest = new representGuest();
     }
     public function index()
     {
@@ -286,7 +289,7 @@ class DetailExportController extends Controller
             $title = "Tạo đơn mua hàng";
             $provides = Provides::all();
             $project = Project::all();
-            return view('tables.import.insertImport', ['dataImport' => $dataImport, 'title' => $title, 'provides' => $provides, 'project' => $project]);
+            return view('tables.import.insertImport', ['dataImport' => $dataImport, 'title' => $title, 'provides' => $provides, 'project' => $project, 'workspacename' => $workspace]);
         }
     }
 
@@ -318,6 +321,12 @@ class DetailExportController extends Controller
             ];
         }
         return $data;
+    }
+    public function searchRepresent(Request $request)
+    {
+        $data = $request->all();
+        $guest = representGuest::findOrFail($data['idGuest']);
+        return $guest;
     }
     //Tìm kiếm project
     public function searchProject(Request $request)
@@ -422,6 +431,37 @@ class DetailExportController extends Controller
         }
         return $msg;
     }
+    //Thêm người đại diện
+    public function addRepresentGuest(Request $request)
+    {
+        $check = representGuest::where('workspace_id', Auth::user()->current_workspace)
+            ->where(function ($query) use ($request) {
+                $query->where('represent_name', $request->represent_name)
+                    ->where('guest_id', $request->guest_id);
+            })
+            ->first();
+        if ($check == null) {
+            $data = [
+                'represent_name' => $request->represent_name,
+                'represent_email' => $request->represent_email,
+                'represent_phone' => $request->represent_phone,
+                'represent_address' => $request->represent_address,
+                'guest_id' => $request->guest_id,
+                'default_guest' => 0,
+                'workspace_id' => Auth::user()->current_workspace,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+            $new_guest = DB::table('represent_guest')->insertGetId($data);
+            $msg = response()->json([
+                'success' => true, 'msg' => 'Thêm mới người đại diện thành công', 'id' => $new_guest,
+                'represent_name' => $request->represent_name,
+            ]);
+        } else {
+            $msg = response()->json(['success' => false, 'msg' => 'Thông tin người đại diện đã tồn tại']);
+        }
+        return $msg;
+    }
     //Lấy thông tin sản phẩm
     public function getProduct(Request $request)
     {
@@ -435,5 +475,26 @@ class DetailExportController extends Controller
         $data = $request->all();
         $productCode = ProductCode::where('id', $data['idCode'])->first();
         return $productCode;
+    }
+    //lấy danh sách người đại diện từ khách hàng
+    public function getRepresentGuest(Request $request)
+    {
+        $data = $request->all();
+        $represent_guest = $this->represent_guest->getRepresentGuest($data['idGuest']);
+        return $represent_guest;
+    }
+    //Xóa người đại diện
+    public function deleteRepresentGuest(Request $request)
+    {
+        $data = $request->all();
+        $represent_guest = $this->represent_guest->deleteRepresentGuest($data['itemId']);
+        return $represent_guest;
+    }
+    //Thông tin chi tiết người đại diện
+    public function editRepresent(Request $request)
+    {
+        $data = $request->all();
+        $represent_guest = $this->represent_guest->editRepresentGuest($data['itemId']);
+        return $represent_guest;
     }
 }
