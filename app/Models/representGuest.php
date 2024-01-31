@@ -70,4 +70,27 @@ class representGuest extends Model
         $representGuest = representGuest::find($id);
         return $representGuest;
     }
+    public function updateRepresent($id, $data)
+    {
+        $representGuest = representGuest::find($id);
+        if (!$representGuest) {
+            return response()->json(['success' => false, 'message' => 'Không tìm thấy người đại diện'], 404);
+        }
+        $representGuest->represent_name = $data['represent_name'];
+        $representGuest->represent_email = $data['represent_email'];
+        $representGuest->represent_phone = $data['represent_phone'];
+        $representGuest->represent_address = $data['represent_address'];
+        $representGuest->save();
+        return response()->json(['success' => true, 'representGuest' => $representGuest]);
+    }
+    public function defaultRepresent($id, $id_guest)
+    {
+        $representGuest = representGuest::find($id);
+        representGuest::where('guest_id', $id_guest)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->update(['default_guest' => 0]);
+        $representGuest->default_guest = 1;
+        $representGuest->save();
+        return response()->json(['success' => true, 'representGuest' => $representGuest]);
+    }
 }

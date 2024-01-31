@@ -338,6 +338,9 @@
                 <div class="modal-content">
                     <div class="modal-body pb-0 px-2 pt-0">
                         <div class="content-info">
+                            <input type="hidden"
+                                class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                id="represent_id" autocomplete="off">
                             <div class="mt-2">
                                 <p class="p-0 m-0 px-2 text-nav">
                                     Người đại diện
@@ -780,19 +783,28 @@
                                 </div>
                             </div>
                             <div
-                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                                class="position-relative d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
                                 <input type="text" placeholder="Chọn thông tin" id="ProjectInput"
                                     class="border-0 bg w-100 bg-input-guest py-0">
                                 <input type="hidden" class="idProject" autocomplete="off" name="project_id">
                                 <ul id="listProject"
-                                    class="bg-white position-absolute w-50 rounded shadow p-0 scroll-data"
+                                    class="w-100 bg-white position-absolute rounded shadow p-0 scroll-data list-guest z-index-block"
                                     style="z-index: 99;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập dự án"
+                                                class="pr-4 w-100 input-search" id="companyFilter8">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
                                     @foreach ($project as $project_value)
-                                        <li class="d-block">
+                                        <li class="border">
                                             <a href="#"
-                                                class="text-dark d-flex justify-content-between p-2 search-project"
+                                                class="text-dark d-flex justify-content-between p-2 search-project w-100"
                                                 id="{{ $project_value->id }}">
-                                                <span class="w-100">{{ $project_value->project_name }}</span>
+                                                <span
+                                                    class="w-100 text-nav text-dark overflow-hidden">{{ $project_value->project_name }}</span>
                                             </a>
                                         </li>
                                     @endforeach
@@ -973,8 +985,8 @@
                                         class="d-flex justify-content-center align-items-center p-2 position-sticky bg-white addDateFormdelivery"
                                         data-toggle="modal" data-target="#formModaldelivery" style="bottom: 0;">
                                         <span class="text-table text-center font-weight-bold">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
+                                            <svg width="16" height="16" viewBox="0 0 16 16"
+                                                fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
                                                     fill="#282A30" />
@@ -1128,27 +1140,6 @@
 <script type="text/javascript">
     // Số báo giá
     getKeyGuest($('#guest_name_display'));
-    //hiện danh sách project khi click trường tìm kiếm
-    $("#listProject").hide();
-    $("#ProjectInput").on("click", function() {
-        $("#listProject").show();
-    });
-    //ẩn danh sách project
-    $(document).click(function(event) {
-        if (!$(event.target).closest("#ProjectInput").length) {
-            $("#listProject").hide();
-        }
-    });
-    //search thông tin project
-    $(document).ready(function() {
-        $("#ProjectInput").on("keyup", function() {
-            var value = $(this).val().toUpperCase();
-            $("#listProject li").each(function() {
-                var text = $(this).find("a").text().toUpperCase();
-                $(this).toggle(text.indexOf(value) > -1);
-            });
-        });
-    });
     //Lấy thông tin project
     $(document).ready(function() {
         $('.search-project').click(function() {
@@ -1173,6 +1164,7 @@
     $("#myUL5").hide();
     $("#myUL6").hide();
     $("#myUL7").hide();
+    $("#listProject").hide();
     $(document).ready(function() {
         function toggleList(input, list) {
             input.on("click", function() {
@@ -1225,6 +1217,7 @@
         toggleListGuest($("#myInput-goods"), $("#myUL4"), $("#companyFilter4"));
         toggleListGuest($("#myInput-delivery"), $("#myUL5"), $("#companyFilter5"));
         toggleListGuest($("#myInput-location"), $("#myUL6"), $("#companyFilter6"));
+        toggleListGuest($("#ProjectInput"), $("#listProject"), $("#companyFilter8"));
     });
 
     $(document).ready(function() {
@@ -1786,7 +1779,9 @@
                         success: function(data) {
                             $('#representativeList').empty();
                             $.each(data, function(index, representative) {
-                                var listItem = $('<li class="border">')
+                                var listItem = $(
+                                        '<li class="border" data-id = ' +
+                                        representative.id + '>')
                                     .append(
                                         $('<a>').attr({
                                             href: '#',
@@ -1853,7 +1848,7 @@
                                                 )
                                             ).append(
                                                 $('<a>').addClass(
-                                                    'dropdown-item set-default default-idgoods'
+                                                    'dropdown-item default-represent'
                                                 ).attr({
                                                     id: 'default-id' +
                                                         representative
@@ -1875,6 +1870,31 @@
                                 $('#representativeList').append(
                                     listItem);
                             });
+                        }
+                    });
+                    //
+                    $.ajax({
+                        url: '{{ route('getRepresentGuest') }}',
+                        type: 'GET',
+                        data: {
+                            idGuest: idGuest
+                        },
+                        success: function(data) {
+                            var defaultGuestItem = data.find(item => item
+                                .default_guest === 1);
+                            if (data.length > 1 && defaultGuestItem) {
+                                $('#represent_guest').val(defaultGuestItem
+                                    .represent_name);
+                                $('.represent_guest_id').val(defaultGuestItem
+                                    .id);
+                            } else if (data.length === 1) {
+                                $('#represent_guest').val(data[0]
+                                    .represent_name);
+                                $('.represent_guest_id').val(data[0].id);
+                            } else {
+                                $('#represent_guest').val('');
+                                $('.represent_guest_id').val('');
+                            }
                         }
                     });
                 }
@@ -1970,6 +1990,7 @@
     //Thêm người đại diện
     $(document).on('click', '.addRepresentNew', function(e) {
         $('#updateRepresent').hide();
+        $('#addRepresent').show();
     });
     $(document).on('click', '#addRepresent', function(e) {
         var represent_name = $('input[name="represent_name"]').val().trim();
@@ -2000,7 +2021,8 @@
                         var newGuestInfo = data;
                         var guestList = $('#myUL7'); // Danh sách hiện có
                         var newListItem =
-                            '<li class="border"><a href="#" title="' + newGuestInfo.represent_name +
+                            '<li class="border" data-id="' + newGuestInfo.id +
+                            '"><a href="#" title="' + newGuestInfo.represent_name +
                             '" class="text-dark d-flex justify-content-between p-2 search-represent w-100" id="' +
                             newGuestInfo.id + '" name="search-represent">' +
                             '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
@@ -2015,7 +2037,7 @@
                             '<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>' +
                             '</a><a class="dropdown-item delete-item-represent" href="#" data-id="' +
                             newGuestInfo.id + '" data-name="representGuest">' +
-                            '<i class="fa-solid fa-trash-can" aria-hidden="true"></i></a><a class="dropdown-item set-default default-idgoods" id="default-id' +
+                            '<i class="fa-solid fa-trash-can" aria-hidden="true"></i></a><a class="dropdown-item default-represent" id="default-id' +
                             newGuestInfo.id + '" href="#" data-name="representGuest" data-id="' +
                             newGuestInfo.id + '">' +
                             '<i class="fa-solid fa-link" aria-hidden="true"></i></a></div></div>' +
@@ -2070,14 +2092,76 @@
                 itemId: itemId
             },
             success: function(data) {
+                $('#represent_id').val(data.id);
                 $('#represent_name').val(data.represent_name);
                 $("#represent_email").val(data.represent_email);
                 $('#represent_phone').val(data.represent_phone);
                 $('#represent_address').val(data.represent_address);
             }
         });
-        
     });
+    $(document).ready(function() {
+        $(document).on('click', '#updateRepresent', function(e) {
+            var represent_id = $('#represent_id').val().trim();
+            var represent_name = $('input[name="represent_name"]').val().trim();
+            var represent_email = $('#represent_email').val().trim();
+            var represent_phone = $('#represent_phone').val().trim();
+            var represent_address = $('#represent_address').val().trim();
+            if (!represent_name) {
+                alert('Vui lòng điền thông tin người đại diện!');
+            } else {
+                $.ajax({
+                    url: '{{ route('updateRepresent') }}',
+                    type: 'GET',
+                    data: {
+                        represent_id: represent_id,
+                        represent_name: represent_name,
+                        represent_email: represent_email,
+                        represent_phone: represent_phone,
+                        represent_address: represent_address,
+                    },
+                    success: function(data) {
+                        if (data.success) {
+                            var representId = data.representGuest.id;
+                            $('li[data-id="' + representId +
+                                '"] .text-nav').text(
+                                data.representGuest.represent_name);
+                            $('#represent_guest').val(data.representGuest.represent_name);
+                            $('.represent_guest_id').val(data.representGuest.id);
+                            $('.modal [data-dismiss="modal"]').click();
+                            alert('Cập nhật người đại diện thành công!');
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                });
+            }
+        });
+    });
+    //Chọn mặc định người đại diện
+    $(document).on('click', '.default-represent', function(e) {
+        e.preventDefault();
+        var represent_id = $(this).data('id');
+        var guest_id = $('.idGuest').val();
+        $.ajax({
+            url: '{{ route('defaultRepresent') }}',
+            type: 'GET',
+            data: {
+                represent_id: represent_id,
+                guest_id: guest_id,
+            },
+            success: function(data) {
+                if (data.success) {
+                    $('#represent_guest').val(data.representGuest.represent_name);
+                    $('.represent_guest_id').val(data.representGuest.id);
+                    alert('Chọn mặc định người đại diện thành công!');
+                } else {
+                    alert(data.message);
+                }
+            }
+        });
+    });
+
     //tính thành tiền của sản phẩm
     $(document).on('input', '.quantity-input, [name^="product_price"]', function(e) {
         var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;

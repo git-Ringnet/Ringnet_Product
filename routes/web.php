@@ -122,6 +122,10 @@ Route::get('/searchRepresent', [DetailExportController::class, 'searchRepresent'
 Route::get('/deleteRepresentGuest', [DetailExportController::class, 'deleteRepresentGuest'])->name('deleteRepresentGuest');
 //thông tin chi tiết người đại diện
 Route::get('/editRepresent', [DetailExportController::class, 'editRepresent'])->name('editRepresent');
+//Cập nhật thông tin người đại diện
+Route::get('/updateRepresent', [DetailExportController::class, 'updateRepresent'])->name('updateRepresent');
+//Mặc định thông tin người đại diện
+Route::get('/defaultRepresent', [DetailExportController::class, 'defaultRepresent'])->name('defaultRepresent');
 //tìm kiếm tên project
 Route::get('/searchProject', [DetailExportController::class, 'searchProject'])->name('searchProject');
 //Thêm khách hàng

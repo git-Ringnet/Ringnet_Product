@@ -828,7 +828,7 @@
                                         </div>
                                         <div
                                             class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
-                                            <input type="text" value=""
+                                            <input type="text" value="{{ $detailExport->project_name }}"
                                                 class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
                                                 autocomplete="off" id="myInput" readonly>
                                             <div class="opacity-0">

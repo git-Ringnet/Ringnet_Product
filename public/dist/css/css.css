@@ -1829,3 +1829,13 @@ input[type="checkbox"] {
 .opacity-0{
     opacity: 0;
 }
+.table-hover tbody tr:hover .bg-hover-icon{
+    display: block;
+}
+.bg-hover-icon{
+    background-color: #F2F2F2;
+    display: none;
+}
+.bg-hover-icon a div:hover{
+    background-color: #D9D9D9;
+}

@@ -168,7 +168,7 @@ class DetailExportController extends Controller
         }
         $quoteExport = $this->detailExport->getProductToId($id);
         $date_form = $this->date_form->getDateForm();
-
+        $project = $this->project->getAllProject();
         $dataForm = [
             'location' => $this->date_form->findFormByField('location'),
             'quote' => $this->date_form->findFormByField('quote'),
@@ -178,7 +178,7 @@ class DetailExportController extends Controller
         ];
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.export.quote.edit-quote', compact('title', 'guest', 'product', 'detailExport', 'quoteExport', 'date_form', 'dataForm', 'workspacename'));
+        return view('tables.export.quote.edit-quote', compact('project','title', 'guest', 'product', 'detailExport', 'quoteExport', 'date_form', 'dataForm', 'workspacename'));
     }
 
     /**
@@ -495,6 +495,19 @@ class DetailExportController extends Controller
     {
         $data = $request->all();
         $represent_guest = $this->represent_guest->editRepresentGuest($data['itemId']);
+        return $represent_guest;
+    }
+    //Cập nhật thông tin người đại diện
+    public function updateRepresent(Request $request)
+    {
+        $data = $request->all();
+        $represent_guest = $this->represent_guest->updateRepresent($data['represent_id'], $data);
+        return $represent_guest;
+    }
+    public function defaultRepresent(Request $request)
+    {
+        $data = $request->all();
+        $represent_guest = $this->represent_guest->defaultRepresent($data['represent_id'], $data['guest_id']);
         return $represent_guest;
     }
 }

@@ -98,7 +98,8 @@ class DetailExport extends Model
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('guest', 'detailexport.guest_id', 'guest.id')
             ->leftJoin('represent_guest', 'detailexport.represent_id', 'represent_guest.id')
-            ->select('*', 'guest.id as maKH', 'detailexport.id as maBG', 'detailexport.status as tinhTrang', 'detailexport.created_at as ngayBG')
+            ->leftJoin('project', 'detailexport.project_id', 'project.id')
+            ->select('*', 'guest.id as maKH', 'detailexport.id as maBG', 'detailexport.status as tinhTrang', 'detailexport.created_at as ngayBG','project.id as id_project')
             ->first();
         return $detailExport;
     }

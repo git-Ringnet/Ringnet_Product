@@ -346,27 +346,42 @@
                             <button type="button" data-toggle="dropdown" id="add-field-btn"
                                 class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                 style="margin-right:10px">
-                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 18 18" fill="none">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z" fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z" fill="#42526E"></path>
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                    viewBox="0 0 18 18" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                        fill="#42526E"></path>
                                 </svg>
                                 <span class="text-table">Thêm sản phẩm</span>
                             </button>
                             <button type="button" data-toggle="dropdown" id="add-field-btn"
                                 class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                 style="margin-right:10px">
-                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 18 18" fill="none">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z" fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z" fill="#42526E"></path>
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                    viewBox="0 0 18 18" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                        fill="#42526E"></path>
                                 </svg>
                                 <span class="text-table">Thêm đầu mục</span>
                             </button>
                             <button type="button" data-toggle="dropdown"
                                 class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                 style="margin-right:10px">
-                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 18 18" fill="none">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z" fill="#42526E"></path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z" fill="#42526E"></path>
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                    viewBox="0 0 18 18" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                        fill="#42526E"></path>
                                 </svg>
                                 <span class="text-table">Thêm hàng loạt</span>
                             </button>
@@ -519,8 +534,39 @@
                             </div>
                             <div
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
-                                <input type="text" placeholder="Chọn thông tin" value="{{$detailExport->represent_name}}"
+                                <input type="text" placeholder="Chọn thông tin" id="represent_guest"
+                                    value="{{ $detailExport->represent_name }}"
                                     class="border-0 bg w-100 bg-input-guest py-0 px-0" autocomplete="off">
+                                <input type="hidden" class="represent_guest_id" autocomplete="off"
+                                    value="{{ $detailExport->represent_id }}" name="represent_guest_id">
+                                <ul id="myUL7"
+                                    class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest z-index-block"
+                                    style="z-index: 99;top: 72px;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập người đại diện"
+                                                class="pr-4 w-100 input-search" id="companyFilter7">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                    <div id="representativeList">
+
+                                    </div>
+                                    <a type="button"
+                                        class="d-flex justify-content-center align-items-center p-2 position-sticky addRepresentNew bg-white"
+                                        data-toggle="modal" data-target="#representModal" style="bottom: 0;">
+                                        <span class="text-table text-center font-weight-bold">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30" />
+                                            </svg>
+                                            Thêm người đại diện
+                                        </span>
+                                    </a>
+                                </ul>
                                 <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -707,8 +753,10 @@
                                     style="z-index: 99;">
                                     <div class="p-1">
                                         <div class="position-relative">
-                                            <input type="text" placeholder="Nhập điều khoản" class="pr-4 w-100 input-search" id="companyFilter1">
-                                            <span id="search-icon" class="search-icon"><i class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                            <input type="text" placeholder="Nhập điều khoản"
+                                                class="pr-4 w-100 input-search" id="companyFilter1">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
                                         </div>
                                     </div>
                                     @foreach ($date_form as $item)
@@ -757,8 +805,11 @@
                                         class="d-flex justify-content-center align-items-center p-2 position-sticky bg-white addDateFormpayment"
                                         data-toggle="modal" data-target="#formModalpayment" style="bottom: 0;">
                                         <span class="text-table text-center font-weight-bold">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"></path>
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30"></path>
                                             </svg>
                                             Thêm mới
                                         </span>
@@ -780,9 +831,32 @@
                                 </div>
                             </div>
                             <div
-                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
-                                <input type="text" placeholder="Nhập thông tin"
+                                class="position-relative d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
+                                <input type="text" placeholder="Chọn thông tin" id="ProjectInput" value="{{ $detailExport->project_name }}"
                                     class="border-0 bg w-100 bg-input-guest py-0">
+                                <input type="hidden" class="idProject" autocomplete="off" name="project_id" value="{{ $detailExport->id_project }}">
+                                <ul id="listProject"
+                                    class="w-100 bg-white position-absolute rounded shadow p-0 scroll-data list-guest z-index-block"
+                                    style="z-index: 99;">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập dự án"
+                                                class="pr-4 w-100 input-search" id="companyFilter8">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                    @foreach ($project as $project_value)
+                                        <li class="border">
+                                            <a href="#"
+                                                class="text-dark d-flex justify-content-between p-2 search-project w-100"
+                                                id="{{ $project_value->id }}">
+                                                <span
+                                                    class="w-100 text-nav text-dark overflow-hidden">{{ $project_value->project_name }}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
                                 <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -814,8 +888,10 @@
                                     style="z-index: 99;">
                                     <div class="p-1">
                                         <div class="position-relative">
-                                            <input type="text" placeholder="Nhập hàng hóa" class="pr-4 w-100 input-search" id="companyFilter4">
-                                            <span id="search-icon" class="search-icon"><i class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                            <input type="text" placeholder="Nhập hàng hóa"
+                                                class="pr-4 w-100 input-search" id="companyFilter4">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
                                         </div>
                                     </div>
                                     @foreach ($date_form as $item)
@@ -864,8 +940,11 @@
                                         class="d-flex justify-content-center align-items-center p-2 position-sticky bg-white addDateFormgoods"
                                         data-toggle="modal" data-target="#formModalgoods" style="bottom: 0;">
                                         <span class="text-table text-center font-weight-bold">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"></path>
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30"></path>
                                             </svg>
                                             Thêm mới
                                         </span>
@@ -903,8 +982,10 @@
                                     style="z-index: 99;">
                                     <div class="p-1">
                                         <div class="position-relative">
-                                            <input type="text" placeholder="Nhập hàng hóa" class="pr-4 w-100 input-search" id="companyFilter5">
-                                            <span id="search-icon" class="search-icon"><i class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                            <input type="text" placeholder="Nhập hàng hóa"
+                                                class="pr-4 w-100 input-search" id="companyFilter5">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
                                         </div>
                                     </div>
                                     @foreach ($date_form as $item)
@@ -953,8 +1034,11 @@
                                         class="d-flex justify-content-center align-items-center p-2 position-sticky bg-white addDateFormdelivery"
                                         data-toggle="modal" data-target="#formModaldelivery" style="bottom: 0;">
                                         <span class="text-table text-center font-weight-bold">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"></path>
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30"></path>
                                             </svg>
                                             Thêm mới
                                         </span>
@@ -982,7 +1066,8 @@
                                     class="border-0 bg w-100 bg-input-guest py-0" autocomplete="off"
                                     id="myInput-location"
                                     value="{{ isset($dataForm['location']) ? $dataForm['location']->form_desc : '' }}">
-                                <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[location]"
+                                <input type="hidden" class="idDateForm" autocomplete="off"
+                                    name="idDate[location]"
                                     value="{{ isset($dataForm['location']) ? $dataForm['location']->id : '' }}">
                                 <input type="hidden" class="nameDateForm" autocomplete="off"
                                     name="fieldDate[location]"
@@ -992,8 +1077,10 @@
                                     style="z-index: 99;">
                                     <div class="p-1">
                                         <div class="position-relative">
-                                            <input type="text" placeholder="Nhập địa điểm" class="pr-4 w-100 input-search" id="companyFilter6">
-                                            <span id="search-icon" class="search-icon"><i class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                            <input type="text" placeholder="Nhập địa điểm"
+                                                class="pr-4 w-100 input-search" id="companyFilter6">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
                                         </div>
                                     </div>
                                     @foreach ($date_form as $item)
@@ -1014,9 +1101,9 @@
                                                     </button>
                                                     <div class="dropdown-menu date-form-setting"
                                                         style="z-index: 100;">
-                                                        <a class="dropdown-item search-date-form" data-toggle="modal"
-                                                            data-target="#formModallocation" data-name="location"
-                                                            data-id="{{ $item->id }}"
+                                                        <a class="dropdown-item search-date-form"
+                                                            data-toggle="modal" data-target="#formModallocation"
+                                                            data-name="location" data-id="{{ $item->id }}"
                                                             id="{{ $item->id }}"><i
                                                                 class="fa-regular fa-pen-to-square"></i></a>
                                                         <a class="dropdown-item delete-item" href="#"
@@ -1042,8 +1129,11 @@
                                         class="d-flex justify-content-center align-items-center p-2 position-sticky bg-white addDateFormlocation"
                                         data-toggle="modal" data-target="#formModallocation" style="bottom: 0;">
                                         <span class="text-table text-center font-weight-bold">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"></path>
+                                            <svg width="16" height="16" viewBox="0 0 16 16"
+                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30"></path>
                                             </svg>
                                             Thêm mới
                                         </span>
@@ -1069,8 +1159,8 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="guestModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="guestModal" tabindex="-1" role="dialog"
+            aria-labelledby="productModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document" style="margin-top: 10%;">
                 <div class="modal-content">
                     <div class="modal-body pb-0 px-2 pt-0">
@@ -1120,8 +1210,66 @@
                     <div class="modal-footer border-top-0 py-1 px-1">
                         <button type="button" class="btn-save-print rounded h-100 text-table py-1"
                             data-dismiss="modal">Trở về</button>
-                        <button type="button" class="custom-btn d-flex align-items-center h-100 py-1 px-2 text-table"
+                        <button type="button"
+                            class="custom-btn d-flex align-items-center h-100 py-1 px-2 text-table"
                             id="addGuest">Thêm khách hàng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- Modal người đại diện --}}
+        <div class="modal fade" id="representModal" tabindex="-1" role="dialog"
+            aria-labelledby="productModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="margin-top: 10%;">
+                <div class="modal-content">
+                    <div class="modal-body pb-0 px-2 pt-0">
+                        <div class="content-info">
+                            <input type="hidden"
+                                class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                id="represent_id" autocomplete="off">
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 text-nav">
+                                    Người đại diện
+                                </p>
+                                <input name="represent_name" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    id="represent_name" autocomplete="off">
+                            </div>
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 text-nav">
+                                    Số điện thoại
+                                </p>
+                                <input name="represent_phone" type="number" placeholder="Nhập thông tin"
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    id="represent_phone" autocomplete="off">
+                            </div>
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 text-nav">
+                                    Email
+                                </p>
+                                <input name="represent_email" type="email" placeholder="Nhập thông tin"
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    id="represent_email" autocomplete="off">
+                            </div>
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 text-nav">
+                                    Địa chỉ nhận
+                                </p>
+                                <input name="represent_address" type="text" placeholder="Nhập thông tin"
+                                    id="represent_address"
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top-0 py-1 px-1">
+                        <button type="button" class="btn-save-print rounded h-100 text-table py-1"
+                            data-dismiss="modal">Trở về</button>
+                        <button type="button" class="custom-btn align-items-center h-100 py-1 px-2 text-table"
+                            id="addRepresent">Thêm người đại diện</button>
+                        <button type="button" class="custom-btn h-100 py-1 px-2 text-table"
+                            id="updateRepresent">Cập
+                            nhật người đại diện</button>
                     </div>
                 </div>
             </div>
@@ -1159,6 +1307,23 @@
         axis: "y",
         handle: "td",
     });
+    //Lấy thông tin project
+    $(document).ready(function() {
+        $('.search-project').click(function() {
+            var idProject = $(this).attr('id');
+            $.ajax({
+                url: '{{ route('searchProject') }}',
+                type: 'GET',
+                data: {
+                    idProject: idProject
+                },
+                success: function(data) {
+                    $('#ProjectInput').val(data.project_name);
+                    $('.idProject').val(data.id);
+                }
+            });
+        });
+    });
     getKeyGuest($('#guest_name_display'));
 
     $("#myUL").hide();
@@ -1167,6 +1332,8 @@
     $("#myUL4").hide();
     $("#myUL5").hide();
     $("#myUL6").hide();
+    $("#myUL7").hide();
+    $("#listProject").hide();
     $(document).ready(function() {
         function toggleList(input, list) {
             input.on("click", function() {
@@ -1210,10 +1377,12 @@
         }
         toggleListGuest($("#myInput"), $("#myUL"), $("#companyFilter"));
         toggleListGuest($("#myInput-quote"), $("#myUL2"), $("#companyFilter2"));
+        toggleListGuest($("#represent_guest"), $("#myUL7"), $("#companyFilter7"));
         toggleListGuest($("#myInput-payment"), $("#myUL1"), $("#companyFilter1"));
         toggleListGuest($("#myInput-goods"), $("#myUL4"), $("#companyFilter4"));
         toggleListGuest($("#myInput-delivery"), $("#myUL5"), $("#companyFilter5"));
         toggleListGuest($("#myInput-location"), $("#myUL6"), $("#companyFilter6"));
+        toggleListGuest($("#ProjectInput"), $("#listProject"), $("#companyFilter8"));
     });
 
     $(document).ready(function() {
@@ -1354,7 +1523,8 @@
                             data.new_date_form.id +
                             '" name="search-date-form" data-name="' +
                             name + '">' +
-                            '<span class="w-100 text-nav text-dark overflow-hidden" id="' + data.new_date_form.form_field + data
+                            '<span class="w-100 text-nav text-dark overflow-hidden" id="' +
+                            data.new_date_form.form_field + data
                             .new_date_form.id + '">' + data.new_date_form.form_name +
                             '</span></a><div class="dropdown">' +
                             '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">' +
@@ -1770,7 +1940,133 @@
                             });
                         }
                     });
-
+                    $.ajax({
+                        url: '{{ route('getRepresentGuest') }}',
+                        type: 'GET',
+                        data: {
+                            idGuest: idGuest
+                        },
+                        success: function(data) {
+                            $('#representativeList').empty();
+                            $.each(data, function(index, representative) {
+                                var listItem = $(
+                                        '<li class="border" data-id = ' +
+                                        representative.id + '>')
+                                    .append(
+                                        $('<a>').attr({
+                                            href: '#',
+                                            title: representative
+                                                .represent_name,
+                                            class: 'text-dark d-flex justify-content-between search-represent p-2 w-100',
+                                            id: representative.id,
+                                            name: 'search-represent',
+                                        }).append(
+                                            $('<span>').addClass(
+                                                'w-100 text-nav text-dark overflow-hidden'
+                                            ).text(representative
+                                                .represent_name)
+                                        )
+                                    ).append(
+                                        $('<div>').addClass('dropdown')
+                                        .append(
+                                            $('<button>').attr({
+                                                type: 'button',
+                                                'data-toggle': 'dropdown',
+                                                class: 'btn-save-print d-flex align-items-center h-100 border-0 bg-transparent',
+                                                style: 'margin-right:10px'
+                                            }).append(
+                                                $('<i>').addClass(
+                                                    'fa-solid fa-ellipsis'
+                                                ).attr(
+                                                    'aria-hidden',
+                                                    'true')
+                                            )
+                                        ).append(
+                                            $('<div>').addClass(
+                                                'dropdown-menu date-form-setting'
+                                            ).css('z-index', '1000')
+                                            .append(
+                                                $('<a>').addClass(
+                                                    'dropdown-item edit-represent-form'
+                                                ).attr({
+                                                    'data-toggle': 'modal',
+                                                    'data-target': '#representModal',
+                                                    'data-name': 'representGuest',
+                                                    'data-id': representative
+                                                        .id
+                                                }).append(
+                                                    $('<i>').addClass(
+                                                        'fa-regular fa-pen-to-square'
+                                                    ).attr(
+                                                        'aria-hidden',
+                                                        'true')
+                                                )
+                                            ).append(
+                                                $('<a>').addClass(
+                                                    'dropdown-item delete-item-represent'
+                                                ).attr({
+                                                    href: '#',
+                                                    'data-id': representative
+                                                        .id,
+                                                    'data-name': 'representGuest'
+                                                }).append(
+                                                    $('<i>').addClass(
+                                                        'fa-solid fa-trash-can'
+                                                    ).attr(
+                                                        'aria-hidden',
+                                                        'true')
+                                                )
+                                            ).append(
+                                                $('<a>').addClass(
+                                                    'dropdown-item default-represent'
+                                                ).attr({
+                                                    id: 'default-id' +
+                                                        representative
+                                                        .id,
+                                                    href: '#',
+                                                    'data-name': 'representGuest',
+                                                    'data-id': representative
+                                                        .id
+                                                }).append(
+                                                    $('<i>').addClass(
+                                                        'fa-solid fa-link'
+                                                    ).attr(
+                                                        'aria-hidden',
+                                                        'true')
+                                                )
+                                            )
+                                        )
+                                    );
+                                $('#representativeList').append(
+                                    listItem);
+                            });
+                        }
+                    });
+                    //
+                    $.ajax({
+                        url: '{{ route('getRepresentGuest') }}',
+                        type: 'GET',
+                        data: {
+                            idGuest: idGuest
+                        },
+                        success: function(data) {
+                            var defaultGuestItem = data.find(item => item
+                                .default_guest === 1);
+                            if (data.length > 1 && defaultGuestItem) {
+                                $('#represent_guest').val(defaultGuestItem
+                                    .represent_name);
+                                $('.represent_guest_id').val(defaultGuestItem
+                                    .id);
+                            } else if (data.length === 1) {
+                                $('#represent_guest').val(data[0]
+                                    .represent_name);
+                                $('.represent_guest_id').val(data[0].id);
+                            } else {
+                                $('#represent_guest').val('');
+                                $('.represent_guest_id').val('');
+                            }
+                        }
+                    });
                 }
             });
         });
@@ -1821,7 +2117,8 @@
                     var newListItem =
                         '<li><a href="#" class="text-dark d-flex justify-content-between p-2 search-info" id="' +
                         newGuestInfo.id + '" name="search-info">' +
-                        '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo.guest_name_display +
+                        '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
+                        .guest_name_display +
                         '</span></a></li>';
                     // Thêm mục mới vào danh sách
                     var addButton = $(".addGuestNew");
@@ -1833,6 +2130,312 @@
                     $('#guest_code').val(null);
                 } else {
                     alert(data.msg);
+                }
+            }
+        });
+    });
+
+    //Danh sách người đại diện
+    $(document).ready(function() {
+        var idGuest = $('.idGuest').val();
+        $.ajax({
+            url: '{{ route('getRepresentGuest') }}',
+            type: 'GET',
+            data: {
+                idGuest: idGuest
+            },
+            success: function(data) {
+                $('#representativeList').empty();
+                $.each(data, function(index, representative) {
+                    var listItem = $(
+                            '<li class="border" data-id = ' +
+                            representative.id + '>')
+                        .append(
+                            $('<a>').attr({
+                                href: '#',
+                                title: representative
+                                    .represent_name,
+                                class: 'text-dark d-flex justify-content-between search-represent p-2 w-100',
+                                id: representative.id,
+                                name: 'search-represent',
+                            }).append(
+                                $('<span>').addClass(
+                                    'w-100 text-nav text-dark overflow-hidden'
+                                ).text(representative
+                                    .represent_name)
+                            )
+                        ).append(
+                            $('<div>').addClass('dropdown')
+                            .append(
+                                $('<button>').attr({
+                                    type: 'button',
+                                    'data-toggle': 'dropdown',
+                                    class: 'btn-save-print d-flex align-items-center h-100 border-0 bg-transparent',
+                                    style: 'margin-right:10px'
+                                }).append(
+                                    $('<i>').addClass(
+                                        'fa-solid fa-ellipsis'
+                                    ).attr(
+                                        'aria-hidden',
+                                        'true')
+                                )
+                            ).append(
+                                $('<div>').addClass(
+                                    'dropdown-menu date-form-setting'
+                                ).css('z-index', '1000')
+                                .append(
+                                    $('<a>').addClass(
+                                        'dropdown-item edit-represent-form'
+                                    ).attr({
+                                        'data-toggle': 'modal',
+                                        'data-target': '#representModal',
+                                        'data-name': 'representGuest',
+                                        'data-id': representative
+                                            .id
+                                    }).append(
+                                        $('<i>').addClass(
+                                            'fa-regular fa-pen-to-square'
+                                        ).attr(
+                                            'aria-hidden',
+                                            'true')
+                                    )
+                                ).append(
+                                    $('<a>').addClass(
+                                        'dropdown-item delete-item-represent'
+                                    ).attr({
+                                        href: '#',
+                                        'data-id': representative
+                                            .id,
+                                        'data-name': 'representGuest'
+                                    }).append(
+                                        $('<i>').addClass(
+                                            'fa-solid fa-trash-can'
+                                        ).attr(
+                                            'aria-hidden',
+                                            'true')
+                                    )
+                                ).append(
+                                    $('<a>').addClass(
+                                        'dropdown-item default-represent'
+                                    ).attr({
+                                        id: 'default-id' +
+                                            representative
+                                            .id,
+                                        href: '#',
+                                        'data-name': 'representGuest',
+                                        'data-id': representative
+                                            .id
+                                    }).append(
+                                        $('<i>').addClass(
+                                            'fa-solid fa-link'
+                                        ).attr(
+                                            'aria-hidden',
+                                            'true')
+                                    )
+                                )
+                            )
+                        );
+                    $('#representativeList').append(
+                        listItem);
+                });
+            }
+        });
+        //
+        $.ajax({
+            url: '{{ route('getRepresentGuest') }}',
+            type: 'GET',
+            data: {
+                idGuest: idGuest
+            },
+            success: function(data) {
+                var defaultGuestItem = data.find(item => item
+                    .default_guest === 1);
+                if (data.length > 1 && defaultGuestItem) {
+                    $('#represent_guest').val(defaultGuestItem
+                        .represent_name);
+                    $('.represent_guest_id').val(defaultGuestItem
+                        .id);
+                } else if (data.length === 1) {
+                    $('#represent_guest').val(data[0]
+                        .represent_name);
+                    $('.represent_guest_id').val(data[0].id);
+                } else {
+                    $('#represent_guest').val('');
+                    $('.represent_guest_id').val('');
+                }
+            }
+        });
+    });
+    //Thêm người đại diện
+    $(document).on('click', '.addRepresentNew', function(e) {
+        $('#updateRepresent').hide();
+        $('#addRepresent').show();
+    });
+    $(document).on('click', '#addRepresent', function(e) {
+        var represent_name = $('input[name="represent_name"]').val().trim();
+        var represent_email = $('#represent_email').val().trim();
+        var represent_phone = $('#represent_phone').val().trim();
+        var represent_address = $('#represent_address').val().trim();
+        var guest_id = $('.idGuest').val();
+        if (!represent_name) {
+            alert('Vui lòng điền thông tin người đại diện!');
+        } else {
+            $.ajax({
+                url: "{{ route('addRepresentGuest') }}",
+                type: "get",
+                data: {
+                    represent_name: represent_name,
+                    represent_email: represent_email,
+                    represent_phone: represent_phone,
+                    represent_address: represent_address,
+                    guest_id: guest_id,
+                },
+                success: function(data) {
+                    if (data.success) {
+                        $('#represent_guest').val(data.represent_name);
+                        $('.represent_guest_id').val(data.id);
+                        $('.modal [data-dismiss="modal"]').click();
+                        alert(data.msg);
+                        // Nếu thành công, tạo một mục mới
+                        var newGuestInfo = data;
+                        var guestList = $('#myUL7'); // Danh sách hiện có
+                        var newListItem =
+                            '<li class="border" data-id="' + newGuestInfo.id +
+                            '"><a href="#" title="' + newGuestInfo.represent_name +
+                            '" class="text-dark d-flex justify-content-between p-2 search-represent w-100" id="' +
+                            newGuestInfo.id + '" name="search-represent">' +
+                            '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
+                            .represent_name +
+                            '</span></a>' +
+                            '<div class="dropdown">' +
+                            '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">' +
+                            '<i class="fa-solid fa-ellipsis" aria-hidden="true"></i>' +
+                            '</button><div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
+                            '<a class="dropdown-item edit-represent-form" data-toggle="modal" data-target="#representModal" data-name="representGuest" data-id="' +
+                            newGuestInfo.id + '">' +
+                            '<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>' +
+                            '</a><a class="dropdown-item delete-item-represent" href="#" data-id="' +
+                            newGuestInfo.id + '" data-name="representGuest">' +
+                            '<i class="fa-solid fa-trash-can" aria-hidden="true"></i></a><a class="dropdown-item default-represent" id="default-id' +
+                            newGuestInfo.id + '" href="#" data-name="representGuest" data-id="' +
+                            newGuestInfo.id + '">' +
+                            '<i class="fa-solid fa-link" aria-hidden="true"></i></a></div></div>' +
+                            '</li>';
+                        // Thêm mục mới vào danh sách
+                        var addButton = $(".addRepresentNew");
+                        $(newListItem).insertBefore(addButton);
+                        //clear
+                        $('#represent_name').val('');
+                        $("#represent_email").val('');
+                        $('#represent_phone').val('');
+                        $('#represent_address').val('');
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        }
+    });
+    //Xóa người đại diện
+    $(document).on('click', '.delete-item-represent', function(e) {
+        e.preventDefault();
+        var itemId = $(this).data('id');
+        $.ajax({
+            url: "{{ route('deleteRepresentGuest') }}",
+            type: "get",
+            data: {
+                itemId: itemId,
+            },
+            success: function(data) {
+                if (data.success) {
+                    $(e.target).closest('li').remove();
+                    $('#represent_guest').val('');
+                    $('.represent_guest_id').val('');
+                    alert(data.message);
+                } else {
+                    alert(data.message);
+                }
+            }
+        });
+    });
+    //Cập nhật thông tin người đại diện
+    $(document).on('click', '.edit-represent-form', function(e) {
+        e.preventDefault();
+        $('#addRepresent').hide();
+        $('#updateRepresent').show();
+        var itemId = $(this).data('id');
+        $.ajax({
+            url: '{{ route('editRepresent') }}',
+            type: 'GET',
+            data: {
+                itemId: itemId
+            },
+            success: function(data) {
+                $('#represent_id').val(data.id);
+                $('#represent_name').val(data.represent_name);
+                $("#represent_email").val(data.represent_email);
+                $('#represent_phone').val(data.represent_phone);
+                $('#represent_address').val(data.represent_address);
+            }
+        });
+    });
+    $(document).ready(function() {
+        $(document).on('click', '#updateRepresent', function(e) {
+            var represent_id = $('#represent_id').val().trim();
+            var represent_name = $('input[name="represent_name"]').val().trim();
+            var represent_email = $('#represent_email').val().trim();
+            var represent_phone = $('#represent_phone').val().trim();
+            var represent_address = $('#represent_address').val().trim();
+            if (!represent_name) {
+                alert('Vui lòng điền thông tin người đại diện!');
+            } else {
+                $.ajax({
+                    url: '{{ route('updateRepresent') }}',
+                    type: 'GET',
+                    data: {
+                        represent_id: represent_id,
+                        represent_name: represent_name,
+                        represent_email: represent_email,
+                        represent_phone: represent_phone,
+                        represent_address: represent_address,
+                    },
+                    success: function(data) {
+                        if (data.success) {
+                            var representId = data.representGuest.id;
+                            $('li[data-id="' + representId +
+                                '"] .text-nav').text(
+                                data.representGuest.represent_name);
+                            $('#represent_guest').val(data.representGuest.represent_name);
+                            $('.represent_guest_id').val(data.representGuest.id);
+                            $('.modal [data-dismiss="modal"]').click();
+                            alert('Cập nhật người đại diện thành công!');
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                });
+            }
+        });
+    });
+    //Chọn mặc định người đại diện
+    $(document).on('click', '.default-represent', function(e) {
+        e.preventDefault();
+        var represent_id = $(this).data('id');
+        var guest_id = $('.idGuest').val();
+        $.ajax({
+            url: '{{ route('defaultRepresent') }}',
+            type: 'GET',
+            data: {
+                represent_id: represent_id,
+                guest_id: guest_id,
+            },
+            success: function(data) {
+                if (data.success) {
+                    $('#represent_guest').val(data.representGuest.represent_name);
+                    $('.represent_guest_id').val(data.representGuest.id);
+                    alert('Chọn mặc định người đại diện thành công!');
+                } else {
+                    alert(data.message);
                 }
             }
         });
