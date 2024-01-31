@@ -248,7 +248,7 @@
                                                 </p>
                                             </td>
                                             <td class="border border-top-0 border-bottom-0 px-4">
-                                                <select name="product_tax[]" class="border-0 text-center product_tax"
+                                                <select name="product_tax[]" class="border-0 text-center product_tax" disabled
                                                     required="" readonly>
                                                     <option value="0" {{ $item->product_tax == 0 ? 'selected' : '' }}>
                                                         0%</option>
@@ -926,7 +926,7 @@
                                 <p class="text-primary text-right position-absolute transaction" style="top: 68%; right: 5%; display: none;">Giao dịch gần đây</p>
                             </td>
                             <td class="border border-top-0 border-bottom-0 px-4">
-                                <select name="product_tax[]" class="border-0 text-center product_tax" required="" readonly>
+                                <select name="product_tax[]" class="border-0 text-center product_tax" required="" disabled>
                                     <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                     <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
                                     <option value="10" ${(item.product_tax == 10) ? 'selected' : ''}>10%</option>

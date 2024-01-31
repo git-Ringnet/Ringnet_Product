@@ -177,7 +177,7 @@ class PayExport extends Model
             ->get();
         return $delivery;
     }
-    public function deletePayExport($data, $id)
+    public function deletePayExport($id)
     {
         $payExport = PayExport::find($id);
         QuoteExport::where('detailexport_id', $payExport->detailexport_id)

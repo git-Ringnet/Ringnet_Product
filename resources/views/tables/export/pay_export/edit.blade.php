@@ -430,7 +430,7 @@
                                 </div>
                                 <div
                                     class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
-                                    <input type="text" placeholder="Nhập thông tin"
+                                    <input type="text" placeholder="Nhập thông tin" readonly
                                         value="{{ date_format(new DateTime($payExport->payment_date), 'd/m/Y') }}"
                                         name="date_pay" required id="customDateInput"
                                         class="border-0 bg w-100 bg-input-guest py-0 px-0">

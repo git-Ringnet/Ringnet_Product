@@ -159,9 +159,10 @@ class DeliveryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Delivery $delivery)
+    public function destroy(string $workspace, string $id)
     {
-        //
+        $this->delivery->deleteDeliveryItem($id);
+        return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn giao hàng thành công!');
     }
 
     public function getInfoQuote(Request $request)

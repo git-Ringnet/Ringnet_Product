@@ -154,11 +154,99 @@ class BillSale extends Model
         $billSale = BillSale::find($id);
         for ($i = 0; $i < count($data['product_name']); $i++) {
             if (!empty($data['product_id'][$i])) {
-                QuoteExport::where('detailexport_id', $billSale->detailexport_id)
-                    ->where('product_id', $data['product_id'][$i])
+                $quoteExport = QuoteExport::where('detailexport_id', $billSale->detailexport_id)
+                    ->where('product_id', $data['product_id'][$i])->first();
+                $quoteExport->qty_bill_sale = $quoteExport->qty_bill_sale - $data['product_qty'][$i];
+                $quoteExport->save();
+            }
+        }
+        if ($billSale->status == 1) {
+            productBill::where('billSale_id', $id)->delete();
+        } elseif ($billSale->status == 2) {
+            productBill::where('billSale_id', $id)->delete();
+            $BillCount = productBill::where('bill_sale.detailexport_id', $billSale->detailexport_id)
+                ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
+                ->where('bill_sale.status', 2)
+                ->count();
+            if ($BillCount > 0) {
+                DetailExport::where('id', $billSale->detailexport_id)
                     ->update([
-                        'qty_bill_sale' => 0,
+                        'status_reciept' => 3,
                     ]);
+            } else {
+                DetailExport::where('id', $billSale->detailexport_id)
+                    ->update([
+                        'status_reciept' => 1,
+                    ]);
+            }
+        }
+        $BillCount = productBill::where('bill_sale.detailexport_id', $billSale->detailexport_id)
+            ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
+            ->count();
+        $deliveredCount = Delivered::where('delivery.detailexport_id', $billSale->detailexport_id)
+            ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
+            ->count();
+        $PayCount = productPay::where('pay_export.detailexport_id', $billSale->detailexport_id)
+            ->leftJoin('pay_export', 'product_pay.pay_id', 'pay_export.id')
+            ->count();
+        if ($deliveredCount == 0 && $BillCount == 0 && $PayCount == 0) {
+            DetailExport::where('id', $billSale->detailexport_id)
+                ->update([
+                    'status' => 1,
+                ]);
+        } else {
+            DetailExport::where('id', $billSale->detailexport_id)
+                ->update([
+                    'status' => 2,
+                ]);
+        }
+        BillSale::find($id)->delete();
+    }
+    public function deleteBillSaleItem($id)
+    {
+        $billSale = BillSale::find($id);
+        $product = BillSale::join('quoteexport', 'bill_sale.detailexport_id', '=', 'quoteexport.detailexport_id')
+            ->leftJoin('product_bill', function ($join) {
+                $join->on('product_bill.billSale_id', '=', 'bill_sale.id');
+                $join->on('product_bill.product_id', '=', 'quoteexport.product_id');
+            })
+            ->where('bill_sale.id', $id)
+            ->join('products', 'products.id', 'product_bill.product_id')
+            ->select(
+                'quoteexport.product_id',
+                'quoteexport.product_code',
+                'quoteexport.product_name',
+                'quoteexport.product_unit',
+                'quoteexport.price_export',
+                'quoteexport.product_tax',
+                'quoteexport.product_note',
+                'quoteexport.product_total',
+                'quoteexport.product_ratio',
+                'quoteexport.price_import',
+                'product_bill.billSale_qty'
+            )
+            ->groupBy(
+                'quoteexport.product_id',
+                'quoteexport.product_code',
+                'quoteexport.product_name',
+                'quoteexport.product_unit',
+                'quoteexport.price_export',
+                'quoteexport.product_tax',
+                'quoteexport.product_note',
+                'quoteexport.product_total',
+                'quoteexport.product_ratio',
+                'quoteexport.price_import',
+                'product_bill.billSale_qty'
+            )
+            ->get();
+        foreach ($product as $item) {
+            $quoteExport = QuoteExport::where('detailexport_id', $billSale->detailexport_id)
+                ->where('product_id', $item->product_id)
+                ->first();
+
+            if ($quoteExport) {
+                $quoteExport->qty_bill_sale = $quoteExport->qty_bill_sale - $item->billSale_qty;
+                $quoteExport->save();
             }
         }
         if ($billSale->status == 1) {

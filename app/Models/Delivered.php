@@ -64,13 +64,21 @@ class Delivered extends Model
             //thêm giá xuất và thành tiền có thuế của mỗi sản phẩm giao
             $productExport = QuoteExport::where('detailexport_id', $data['detailexport_id'])
                 ->where('product_id', $data['product_id'][$i])->first();
-            $priceTax = ($data['product_qty'][$i] * $productExport->price_export *  $productExport->product_tax) / 100;
-            $tolTax = ($data['product_qty'][$i] * $productExport->price_export) + $priceTax;
+            $product_tax = 0;
+            if ($productExport) {
+                if ($productExport->product_tax == 99) {
+                    $product_tax = 0;
+                } else {
+                    $product_tax = $productExport->product_tax;
+                }
+            }
+            $priceTax = ($data['product_qty'][$i] * ($productExport ? $productExport->price_export : 0) *  $product_tax) / 100;
+            $tolTax = ($data['product_qty'][$i] * ($productExport ? $productExport->price_export : 0)) + $priceTax;
             $dataDelivered = [
                 'delivery_id' => $id,
                 'product_id' => $data['product_id'][$i],
                 'deliver_qty' => $data['product_qty'][$i],
-                'price_export' => $productExport->price_export,
+                'price_export' => $productExport ? $productExport->price_export : 0,
                 'product_total_vat' => $tolTax,
                 'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),

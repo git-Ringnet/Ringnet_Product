@@ -178,7 +178,7 @@ class DetailExportController extends Controller
         ];
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.export.quote.edit-quote', compact('project','title', 'guest', 'product', 'detailExport', 'quoteExport', 'date_form', 'dataForm', 'workspacename'));
+        return view('tables.export.quote.edit-quote', compact('project', 'title', 'guest', 'product', 'detailExport', 'quoteExport', 'date_form', 'dataForm', 'workspacename'));
     }
 
     /**
@@ -296,9 +296,25 @@ class DetailExportController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $workspace, string $id)
     {
-        //
+        $delivery = Delivery::where('detailexport_id', $id)->get();
+        $billSale = BillSale::where('detailexport_id', $id)->get();
+        $pay = PayExport::where('detailexport_id', $id)->get();
+
+        if ($delivery->isEmpty() && $billSale->isEmpty() && $pay->isEmpty()) {
+            $detailExport = DetailExport::find($id);
+
+            if ($detailExport) {
+                QuoteExport::where('detailexport_id', $id)->delete();
+                $detailExport->delete();
+                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn bán hàng thành công!');
+            } else {
+                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Không tìm thấy đơn bán hàng để xóa!');
+            }
+        } else {
+            return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Xóa đơn bán hàng thất bại!');
+        }
     }
     //Tìm kiếm khách hàng
     public function searchGuest(Request $request)

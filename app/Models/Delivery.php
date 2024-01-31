@@ -96,7 +96,7 @@ class Delivery extends Model
         $delivery = Delivery::where('delivery.id', $id)
             ->where('delivery.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('guest', 'delivery.guest_id', 'guest.id')
-            ->select('*', 'delivery.id as soGiaoHang', 'delivery.status as tinhTrang','delivery.created_at as ngayGiao')
+            ->select('*', 'delivery.id as soGiaoHang', 'delivery.status as tinhTrang', 'delivery.created_at as ngayGiao')
             ->first();
         return $delivery;
     }
@@ -279,10 +279,123 @@ class Delivery extends Model
                 'detailexport_id' => 0,
                 'delivery_id' => 0,
             ]);
-        QuoteExport::where('detailexport_id', $delivery->detailexport_id)
+        for ($i = 0; $i < count($data['product_name']); $i++) {
+            if (!empty($data['product_id'][$i])) {
+                $quoteExport = QuoteExport::where('detailexport_id', $delivery->detailexport_id)
+                    ->where('product_id', $data['product_id'][$i])->first();
+                $quoteExport->qty_delivery = $quoteExport->qty_delivery - $data['product_qty'][$i];
+                $quoteExport->save();
+            }
+        }
+        if ($delivery->status == 1) {
+            Delivered::where('delivery_id', $id)->delete();
+        } elseif ($delivery->status == 2) {
+            $deliveredItems = Delivered::where('delivery_id', $id)->get();
+            foreach ($deliveredItems as $deliveredItem) {
+                $product = Products::find($deliveredItem->product_id);
+                if ($product) {
+                    $product->product_inventory += $deliveredItem->deliver_qty;
+                    $product->save();
+                }
+            }
+            Delivered::where('delivery_id', $id)->delete();
+            $deliveredCount = Delivered::where('delivery.detailexport_id', $delivery->detailexport_id)
+                ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
+                ->where('delivery.status', 2)
+                ->count();
+            if ($deliveredCount > 0) {
+                DetailExport::where('id', $delivery->detailexport_id)
+                    ->update([
+                        'status_receive' => 3,
+                    ]);
+            } else {
+                DetailExport::where('id', $delivery->detailexport_id)
+                    ->update([
+                        'status_receive' => 1,
+                    ]);
+            }
+        }
+        $deliveredCount = Delivered::where('delivery.detailexport_id', $delivery->detailexport_id)
+            ->leftJoin('delivery', 'delivered.delivery_id', 'delivery.id')
+            ->count();
+        $BillCount = productBill::where('bill_sale.detailexport_id', $delivery->detailexport_id)
+            ->leftJoin('bill_sale', 'product_bill.billSale_id', 'bill_sale.id')
+            ->count();
+        $PayCount = productPay::where('pay_export.detailexport_id', $delivery->detailexport_id)
+            ->leftJoin('pay_export', 'product_pay.pay_id', 'pay_export.id')
+            ->count();
+        if ($deliveredCount == 0 && $BillCount == 0 && $PayCount == 0) {
+            DetailExport::where('id', $delivery->detailexport_id)
+                ->update([
+                    'status' => 1,
+                ]);
+        } else {
+            DetailExport::where('id', $delivery->detailexport_id)
+                ->update([
+                    'status' => 2,
+                ]);
+        }
+        QuoteExport::where('product_delivery', $id)->delete();
+        Delivery::find($id)->delete();
+    }
+    public function deleteDeliveryItem($id)
+    {
+        $delivery = Delivery::find($id);
+        Serialnumber::where('detailexport_id', $delivery->detailexport_id)
             ->update([
-                'qty_delivery' => 0,
+                'status' => 1,
+                'detailexport_id' => 0,
+                'delivery_id' => 0,
             ]);
+        $product = Delivery::join('quoteexport', 'delivery.detailexport_id', '=', 'quoteexport.detailexport_id')
+            ->leftJoin('delivered', function ($join) {
+                $join->on('delivered.delivery_id', '=', 'delivery.id');
+                $join->on('delivered.product_id', '=', 'quoteexport.product_id');
+            })
+            ->join('products', 'products.id', 'delivered.product_id')
+            ->where('delivery.id', $id)
+            ->select(
+                'quoteexport.product_id',
+                'quoteexport.product_code',
+                'quoteexport.product_name',
+                'quoteexport.product_unit',
+                'quoteexport.product_note',
+                'quoteexport.product_note',
+                'quoteexport.price_export',
+                'quoteexport.product_ratio',
+                'products.product_inventory',
+                'quoteexport.product_tax',
+                'quoteexport.price_import',
+                'quoteexport.product_total',
+                'delivered.deliver_qty',
+                'delivery.created_at as ngayGiao'
+            )
+            ->groupBy(
+                'quoteexport.product_code',
+                'quoteexport.product_name',
+                'quoteexport.product_unit',
+                'delivered.deliver_qty',
+                'products.product_inventory',
+                'quoteexport.product_id',
+                'quoteexport.product_note',
+                'quoteexport.price_export',
+                'quoteexport.product_ratio',
+                'quoteexport.product_tax',
+                'quoteexport.price_import',
+                'quoteexport.product_total',
+                'delivery.created_at'
+            )
+            ->get();
+        foreach ($product as $item) {
+            $quoteExport = QuoteExport::where('detailexport_id', $delivery->detailexport_id)
+                ->where('product_id', $item->product_id)
+                ->first();
+
+            if ($quoteExport) {
+                $quoteExport->qty_delivery = $quoteExport->qty_delivery - $item->deliver_qty;
+                $quoteExport->save();
+            }
+        }
         if ($delivery->status == 1) {
             Delivered::where('delivery_id', $id)->delete();
         } elseif ($delivery->status == 2) {

@@ -239,7 +239,7 @@
                 <div class="row m-auto filter pt-1 pl-4">
                     <div class="w-100">
                         <div class="row mr-0">
-                            <div class="col-md-5 d-flex">
+                            <div class="col-md-5 d-flex align-items-center"">
                                 <form action="" method="get" id='search-filter'>
                                     <div class="position-relative">
                                         <input type="text" placeholder="Tìm kiếm" name="keywords"

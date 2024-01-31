@@ -217,7 +217,7 @@
                                                     </div>
                                                 </a>
                                                 <a href="#">
-                                                    <div class="">
+                                                    <div class="rounded">
                                                         <form onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                                                             action="{{ route('guests.destroy', ['workspace' => $workspacename, 'guest' => $item->id]) }}"
                                                             method="POST" class="d-inline">

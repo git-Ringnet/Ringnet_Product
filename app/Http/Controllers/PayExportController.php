@@ -200,7 +200,7 @@ class PayExportController extends Controller
             }
         }
         if ($request->action == "action_2") {
-            $this->payExport->deletePayExport($request->all(), $id);
+            $this->payExport->deletePayExport($id);
             return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn thanh toán thành công!');
         }
     }
@@ -208,9 +208,10 @@ class PayExportController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PayExport $payExport)
+    public function destroy(string $workspace, string $id)
     {
-        //
+        $this->payExport->deletePayExport($id);
+        return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn thanh toán thành công!');
     }
 
     public function getInfoPay(Request $request)

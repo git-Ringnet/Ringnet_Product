@@ -168,9 +168,10 @@ class BillSaleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(BillSaleController $billSaleController)
+    public function destroy(string $workspace, string $id)
     {
-        //
+        $this->billSale->deleteBillSaleItem($id);
+        return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xóa hóa đơn bán hàng thành công!');
     }
     public function getInfoDelivery(Request $request)
     {
