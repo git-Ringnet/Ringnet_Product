@@ -109,7 +109,7 @@
                         <table id="example2" class="table table-hover">
                             <thead class="sticky-head">
                                 <tr>
-                                    <th class="my-0 py-2"></th>
+                                    <th class="my-0 py-2" style="width: 1%"></th>
                                     <th class="bg-white pl-0 my-0 py-2" style="width: 2%">
                                         <input type="checkbox" name="all" id="checkall">
                                     </th>
