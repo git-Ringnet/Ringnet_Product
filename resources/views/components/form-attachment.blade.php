@@ -32,7 +32,7 @@
                         </td>
                         <td class="p-1 border-right">{{ date_format(new DateTime($item->created_at), 'd-m-Y') }}</td>
                         <td class="p-1 border-right">
-                            {{-- {{ filesize(storage_path('backup/DMH/' . $item->file_name)) }} --}}
+                            {{ $item->size }} KB
                         </td>
                         <td class="p-1 border-right">
                             <a href="{{ route('downloadFile', ['folder' => $name, 'file' => $item->file_name]) }}"
