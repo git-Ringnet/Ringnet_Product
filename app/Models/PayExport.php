@@ -161,7 +161,7 @@ class PayExport extends Model
         $history->save();
         //payment
         $payExport->payment += $payment;
-        $payExport->debt += $detailExport->amount_owed;
+        $payExport->debt = $detailExport->amount_owed;
         $payExport->save();
         return $detailExport;
     }

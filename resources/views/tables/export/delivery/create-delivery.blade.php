@@ -1623,7 +1623,7 @@
                                 <p class="text-primary text-right position-absolute transaction" style="top: 68%; right: 5%; display: none;">Giao dịch gần đây</p>
                             </td>
                             <td class="border border-bottom-0 px-4 d-none">
-                                <select name="product_tax[]" class="border-0 text-center product_tax" required="" disabled>
+                                <select name="product_tax[]" class="border-0 text-center product_tax" required="">
                                     <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                     <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
                                     <option value="10" ${(item.product_tax == 10) ? 'selected' : ''}>10%</option>

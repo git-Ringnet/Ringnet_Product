@@ -594,8 +594,7 @@
                                     <div
                                         class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
                                         <input type="text" readonly value="{{ $delivery->represent_name }}"
-                                            class="border-0 bg w-100 bg-input-guest py-0 px-0"
-                                            autocomplete="off">
+                                            class="border-0 bg w-100 bg-input-guest py-0 px-0" autocomplete="off">
                                         <div class="opacity-0">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -740,36 +739,12 @@
         $('input[name="_method"][value="put"]').remove();
     });
 
-    //Mở rộng
-    var status_form = 0;
-    $('.change_colum').off('click').on('click', function() {
-        if (status_form == 0) {
-            $(this).text('Tối giản');
-            $('.product_price').attr('readonly', false);
-            $('.product-ratio').hide();
-            $('.product_ratio').hide()
-            $('.price_import').hide();
-            $('.note').hide();
-            $('.Daydu').hide();
-            $('.heSoNhan').val('');
-            $('.giaNhap').val('');
-            status_form = 1;
-        } else {
-            $(this).text('Đầy đủ');
-            $('.product_price').attr('readonly', true);
-            $('.product_ratio').show();
-            $('.price_import').show();
-            $('.note').show();
-            $('.Daydu').show();
-            status_form = 0;
-        }
-    });
     //tính thành tiền của sản phẩm
     $(document).ready(function() {
         calculateTotals();
     });
 
-    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax, .heSoNhan, .giaNhap', function() {
+    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax', function() {
         calculateTotals();
     });
 
@@ -782,10 +757,7 @@
             var productQty = parseFloat($(this).find('.quantity-input').val());
             var productPriceElement = $(this).find('[name^="product_price"]');
             var productPrice = 0;
-            var giaNhap = 0;
             var taxValue = parseFloat($(this).find('.product_tax option:selected').val());
-            var heSoNhan = parseFloat($(this).find('.heSoNhan').val()) || 0;
-            var giaNhapElement = $(this).find('.giaNhap');
             if (taxValue == 99) {
                 taxValue = 0;
             }
@@ -795,19 +767,9 @@
                     productPrice = parseFloat(rawPrice.replace(/,/g, ''));
                 }
             }
-            if (giaNhapElement.length > 0) {
-                var rawGiaNhap = giaNhapElement.val();
-                if (rawGiaNhap !== "") {
-                    giaNhap = parseFloat(rawGiaNhap.replace(/,/g, ''));
-                }
-            }
 
             if (!isNaN(productQty) && !isNaN(taxValue)) {
-                if (giaNhap > 0) {
-                    var donGia = ((heSoNhan + 100) * giaNhap) / 100;
-                } else {
-                    var donGia = productPrice;
-                }
+                var donGia = productPrice;
                 var rowTotal = productQty * donGia;
                 var rowTax = (rowTotal * taxValue) / 100;
 
@@ -817,11 +779,7 @@
 
                 // Hiển thị kết quả
                 $(this).find('.total-amount').val(formatCurrency(Math.round(rowTotal)));
-
-                if (status_form == 0) {
-                    // Đơn giá
-                    $(this).find('.product_price').val(formatCurrency(donGia));
-                }
+                $(this).find('.product_price').val(formatCurrency(donGia));
 
                 // Cộng dồn vào tổng totalAmount và totalTax
                 totalAmount += rowTotal;

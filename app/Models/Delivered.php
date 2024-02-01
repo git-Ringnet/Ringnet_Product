@@ -33,6 +33,11 @@ class Delivered extends Model
             } else {
                 $priceImport = null;
             }
+            if (!empty($data['product_price'][$i])) {
+                $priceExport = str_replace(',', '', $data['product_price'][$i]);
+            } else {
+                $priceExport = 0;
+            }
             if ($data['product_id'][$i] == null) {
                 $dataProduct = [
                     'product_code' => $data['product_code'][$i],
@@ -62,24 +67,19 @@ class Delivered extends Model
                 }
             }
             //thêm giá xuất và thành tiền có thuế của mỗi sản phẩm giao
-            dd($data['product_id'][$i]);
-            $productExport = QuoteExport::where('detailexport_id', $data['detailexport_id'])
-                ->where('product_id', $data['product_id'][$i])->first();
             $product_tax = 0;
-            if ($productExport) {
-                if ($productExport->product_tax == 99) {
-                    $product_tax = 0;
-                } else {
-                    $product_tax = $productExport->product_tax;
-                }
+            if ($data['product_tax'][$i] == 99) {
+                $product_tax = 0;
+            } else {
+                $product_tax = $data['product_tax'][$i];
             }
-            $priceTax = ($data['product_qty'][$i] * ($productExport ? $productExport->price_export : 0) *  $product_tax) / 100;
-            $tolTax = ($data['product_qty'][$i] * ($productExport ? $productExport->price_export : 0)) + $priceTax;
+            $priceTax = ($data['product_qty'][$i] * $priceExport *  $product_tax) / 100;
+            $tolTax = ($data['product_qty'][$i] * $priceExport) + $priceTax;
             $dataDelivered = [
                 'delivery_id' => $id,
                 'product_id' => $data['product_id'][$i],
                 'deliver_qty' => $data['product_qty'][$i],
-                'price_export' => $productExport ? $productExport->price_export : 0,
+                'price_export' => $priceExport,
                 'product_total_vat' => $tolTax,
                 'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),
@@ -105,7 +105,7 @@ class Delivered extends Model
                         'product_name' => $data['product_name'][$i],
                         'product_unit' => $data['product_unit'][$i],
                         'product_qty' => $data['product_qty'][$i],
-                        'product_tax' => 0,
+                        'product_tax' => $data['product_tax'][$i],
                         'product_total' => 0,
                         'price_export' => 0,
                         'product_ratio' => 0,
