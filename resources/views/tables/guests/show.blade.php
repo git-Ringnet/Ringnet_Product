@@ -90,53 +90,56 @@
     <div class="tab-content mt-3">
         <div id="info" class="content tab-pane in active">
             <div class="bg-filter-search border-bottom-0 py-2">
-                <span class="font-weight-bold text-secondary text-nav ml-4">THÔNG TIN CHUNG</span>
+                <span class="font-weight-bold text-secondary text-nav ml-3">THÔNG TIN CHUNG</span>
             </div>
-            <section class="content">
-                <div class="container-fluided">
-                    <div class="info-chung">
-                        <div class="content-info">
-                            <div class="d-flex align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3 ml-2">Tên khách hàng</p>
-                                </div>
-                                <input type="text" name="guest_name" value="{{ $guest->guest_name }}" readonly
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="title-info py-2 border border-left-0">
-                                    <p class="p-0 m-0 px-3 required-label text-danger ml-2">Tên hiển thị</p>
-                                </div>
-                                <input type="text" required readonly name="guest_name_display"
-                                    value="{{ $guest->guest_name_display }}"
-                                    class="border w-100 py-2 border-left-0 border-right-0 px-3">
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3 required-label text-danger ml-2">Địa chỉ</p>
-                                </div>
-                                <input type="text" required name="guest_address"
-                                    value="{{ $guest->guest_address }}" readonly
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3 ml-2">Tên viết tắt</p>
-                                </div>
-                                <input type="text" name="key" value="{{ $guest->key }}" readonly
-                                    class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="title-info py-2 border border-top-0 border-left-0">
-                                    <p class="p-0 m-0 px-3 required-label text-danger ml-2">Mã số thuế</p>
-                                </div>
-                                <input type="text" required name="guest_code" value="{{ $guest->guest_code }}"
-                                    readonly class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <table class="table bg-white rounded m-0">
+                <tr>
+                    <th class="border-right" style="width: 25%">
+                        <span class="ml-2 text-nav font-weight-normal text-secondary">Tên khách hàng</span>
+                    </th>
+                    <td>
+                        <input type="text" name="guest_name" value="{{ $guest->guest_name }}" readonly
+                            class="border-0 w-100 px-3 focus-0">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="border-right" style="width: 25%">
+                        <span class="ml-2 text-nav font-weight-normal text-secondary">Tên hiển thị</span>
+                    </th>
+                    <td>
+                        <input type="text" required readonly name="guest_name_display"
+                            value="{{ $guest->guest_name_display }}"
+                            class="border-0 w-100 px-3 focus-0">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="border-right" style="width: 25%">
+                        <span class="ml-2 text-nav font-weight-normal text-secondary">Địa chỉ</span>
+                    </th>
+                    <td>
+                        <input type="text" required name="guest_address" value="{{ $guest->guest_address }}"
+                            readonly class="border-0 w-100 px-3 focus-0">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="border-right" style="width: 25%">
+                        <span class="ml-2 text-nav font-weight-normal text-secondary">Tên viết tắt</span>
+                    </th>
+                    <td>
+                        <input type="text" name="key" value="{{ $guest->key }}" readonly
+                            class="w-100 border-0 px-3 focus-0">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="border-right" style="width: 25%">
+                        <span class="ml-2 text-nav font-weight-normal text-secondary">Mã số thuế</span>
+                    </th>
+                    <td>
+                        <input type="text" required name="guest_code" value="{{ $guest->guest_code }}" readonly
+                            class="border-0 w-100 px-3 focus-0">
+                    </td>
+                </tr>
+            </table>
             <div class="bg-filter-search border-bottom-0 py-2 border-top-0">
                 <span class="font-weight-bold text-secondary text-nav ml-3">THÔNG TIN NGƯỜI ĐẠI DIỆN</span>
             </div>

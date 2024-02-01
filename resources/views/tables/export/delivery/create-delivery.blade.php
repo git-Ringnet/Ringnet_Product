@@ -194,7 +194,7 @@
                 </section>
                 <section class="content">
                     <div class="container-fluided">
-                        <div class="d-flex">
+                        <div class="d-flex ml-3">
                             <button type="button" data-toggle="dropdown" id="add-field-btn"
                                 class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                 style="margin-right:10px">
@@ -2477,7 +2477,7 @@
         calculateTotals();
     });
 
-    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax, .heSoNhan, .giaNhap', function() {
+    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax', function() {
         calculateTotals();
     });
 
@@ -2490,10 +2490,7 @@
             var productQty = parseFloat($(this).find('.quantity-input').val());
             var productPriceElement = $(this).find('[name^="product_price"]');
             var productPrice = 0;
-            var giaNhap = 0;
             var taxValue = parseFloat($(this).find('.product_tax option:selected').val());
-            var heSoNhan = parseFloat($(this).find('.heSoNhan').val()) || 0;
-            var giaNhapElement = $(this).find('.giaNhap');
             if (taxValue == 99) {
                 taxValue = 0;
             }
@@ -2503,19 +2500,9 @@
                     productPrice = parseFloat(rawPrice.replace(/,/g, ''));
                 }
             }
-            if (giaNhapElement.length > 0) {
-                var rawGiaNhap = giaNhapElement.val();
-                if (rawGiaNhap !== "") {
-                    giaNhap = parseFloat(rawGiaNhap.replace(/,/g, ''));
-                }
-            }
 
             if (!isNaN(productQty) && !isNaN(taxValue)) {
-                if (giaNhap > 0) {
-                    var donGia = ((heSoNhan + 100) * giaNhap) / 100;
-                } else {
-                    var donGia = productPrice;
-                }
+                var donGia = productPrice;
                 var rowTotal = productQty * donGia;
                 var rowTax = (rowTotal * taxValue) / 100;
 

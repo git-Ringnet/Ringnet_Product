@@ -28,10 +28,28 @@
                         </svg>
                     </span>
                     <span class="font-weight-bold text-secondary">{{ $payExport->quotation_number }}</span>
-                    @if ($payExport->tinhTrang == 1)
-                        <span class="border ml-2 p-1 text-nav text-secondary shadow-sm rounded">Nháp</span>
+                    @if ($payExport->trangThai == 1)
+                        @if ($payExport->payment > 0)
+                            <span class="border ml-2 p-1 text-nav text-secondary shadow-sm rounded"
+                                style="color: #858585">Một phần</span>
+                        @else
+                            <span class="border ml-2 p-1 text-nav text-secondary shadow-sm rounded"
+                                style="color: #858585">Chưa thanh toán</span>
+                        @endif
+                    @elseif($payExport->trangThai == 2)
+                        <span class="border ml-2 p-1 text-nav text-success shadow-sm rounded">Thanh toán đủ</span>
+                    @elseif($payExport->trangThai == 3)
+                        <span class="border ml-2 p-1 text-nav text-warning shadow-sm rounded">Đến hạn trong
+                            {{ $payExport->formatDate($payExport->payment_date)->diffInDays($today) + 1 }}
+                            ngày
+                        </span>
+                    @elseif($payExport->trangThai == 4)
+                        <span class="border ml-2 p-1 text-nav text-danger shadow-sm rounded">Quá hạn trong
+                            {{ $payExport->formatDate($payExport->payment_date)->diffInDays($today) }}
+                            ngày
+                        </span>
                     @else
-                        <span class="border ml-2 p-1 text-nav text-primary shadow-sm rounded">Đã thanh toán</span>
+                        <span class="border ml-2 p-1 text-nav text-warning shadow-sm rounded">Đến hạn</span>
                     @endif
                 </div>
             </div>
@@ -343,7 +361,8 @@
                                 @foreach ($history as $htr)
                                     <tr class="bg-white">
                                         <td class="border-right">{{ $htr->id }}</td>
-                                        <td class="border-right">{{ date_format(new DateTime($htr->created_at), 'd-m-Y') }}</td>
+                                        <td class="border-right">
+                                            {{ date_format(new DateTime($htr->created_at), 'd-m-Y') }}</td>
                                         <td class="border-right">{{ number_format($htr->total) }}</td>
                                         <td class="border-right">{{ number_format($htr->payment) }}</td>
                                         <td>{{ number_format($htr->debt) }}</td>

@@ -52,8 +52,14 @@ class DetailExport extends Model
         $totalTax = 0;
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
+            $tax = 0;
+            if ($data['product_tax'][$i] == 99) {
+                $tax = 0;
+            } else {
+                $tax = $data['product_tax'][$i];
+            }
             $subtotal = $data['product_qty'][$i] * (float) $price;
-            $subTax = ($subtotal * $data['product_tax'][$i]) / 100;
+            $subTax = ($subtotal * $tax) / 100;
             $totalBeforeTax += $subtotal;
             $totalTax += $subTax;
         }

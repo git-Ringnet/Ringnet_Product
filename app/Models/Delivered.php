@@ -62,6 +62,7 @@ class Delivered extends Model
                 }
             }
             //thêm giá xuất và thành tiền có thuế của mỗi sản phẩm giao
+            dd($data['product_id'][$i]);
             $productExport = QuoteExport::where('detailexport_id', $data['detailexport_id'])
                 ->where('product_id', $data['product_id'][$i])->first();
             $product_tax = 0;

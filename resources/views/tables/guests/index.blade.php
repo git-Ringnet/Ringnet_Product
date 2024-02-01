@@ -113,7 +113,7 @@
                                     <th class="bg-white pl-0 my-0 py-2" style="width: 2%">
                                         <input type="checkbox" name="all" id="checkall">
                                     </th>
-                                    <th class="py-2" scope="col" style="width: 20%;">
+                                    <th class="py-2" scope="col" style="width: 25%;">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link" data-sort-by="guest_name_display"
                                                 data-sort-type="ASC">
@@ -124,7 +124,7 @@
                                             <div class="icon" id="icon-guest_name_display"></div>
                                         </span>
                                     </th>
-                                    <th class="py-2" scope="col" style="width: 20%;">
+                                    <th class="py-2" scope="col" style="width: 25%;">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link" data-sort-by="guest_name_display"
                                                 data-sort-type="ASC">
@@ -135,7 +135,7 @@
                                             <div class="icon" id="icon-guest_name_display"></div>
                                         </span>
                                     </th>
-                                    <th class="py-2" scope="col" style="width: 15%;">
+                                    {{-- <th class="py-2" scope="col" style="width: 15%;">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link" data-sort-by="guest_email"
                                                 data-sort-type="ASC">
@@ -144,8 +144,8 @@
                                                 </button></a>
                                             <div class="icon" id="icon-guest_email"></div>
                                         </span>
-                                    </th>
-                                    <th class="py-2" scope="col" style="width: 15%;">
+                                    </th> --}}
+                                    {{-- <th class="py-2" scope="col" style="width: 15%;">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link" data-sort-by="guest_phone"
                                                 data-sort-type="ASC">
@@ -155,8 +155,8 @@
                                             </a>
                                             <div class="icon" id="icon-guest_phone"></div>
                                         </span>
-                                    </th>
-                                    <th class="py-2" scope="col" style="width: 15%;">
+                                    </th> --}}
+                                    <th class="py-2" scope="col">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                 data-sort-type="ASC">
@@ -192,8 +192,8 @@
                                                 onclick="event.stopPropagation();"></td>
                                         <td class="py-2">{{ $item->guest_name_display }}</td>
                                         <td class="py-2">{{ $item->guest_code }}</td>
-                                        <td class="py-2">{{ $item->guest_email }}</td>
-                                        <td class="py-2">{{ $item->guest_phone }}</td>
+                                        {{-- <td class="py-2">{{ $item->guest_email }}</td>
+                                        <td class="py-2">{{ $item->guest_phone }}</td> --}}
                                         <td class="py-2">
                                             {{ number_format($item->sumDebt) }}
                                         </td>
