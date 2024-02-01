@@ -59,7 +59,7 @@ class DetailExport extends Model
         }
         $dataExport = [
             'guest_id' => $data['guest_id'],
-            'project_id' => 1,
+            'project_id' => !empty($data['project_id']) ? $data['project_id'] : 1,
             'user_id' => 1,
             'represent_id' => $data['represent_guest_id'],
             'reference_number' => $data['reference_number'],
@@ -99,7 +99,7 @@ class DetailExport extends Model
             ->leftJoin('guest', 'detailexport.guest_id', 'guest.id')
             ->leftJoin('represent_guest', 'detailexport.represent_id', 'represent_guest.id')
             ->leftJoin('project', 'detailexport.project_id', 'project.id')
-            ->select('*', 'guest.id as maKH', 'detailexport.id as maBG', 'detailexport.status as tinhTrang', 'detailexport.created_at as ngayBG','project.id as id_project')
+            ->select('*', 'guest.id as maKH', 'represent_guest.id as maNDD', 'detailexport.id as maBG', 'detailexport.status as tinhTrang', 'detailexport.created_at as ngayBG', 'project.id as id_project')
             ->first();
         return $detailExport;
     }
@@ -129,7 +129,7 @@ class DetailExport extends Model
             }
             $detailExport->update([
                 'guest_id' => $data['guest_id'],
-                'project_id' => 1,
+                'project_id' => !empty($data['project_id']) ? $data['project_id'] : 1,
                 'user_id' => 1,
                 'quotation_number' => $data['quotation_number'],
                 'reference_number' => $data['reference_number'],

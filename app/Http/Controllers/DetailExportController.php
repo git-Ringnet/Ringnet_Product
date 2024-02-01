@@ -215,15 +215,16 @@ class DetailExportController extends Controller
             $quoteExport = $this->quoteExport->getProductsbyId($request->product_id);
             $data = $request->all();
             $getGuestbyId = $this->guest->getGuestbyId($request->guest_id);
+            $getRepresentbyId = $this->represent_guest->getRepresentbyId($request->represent_id);
             $yes = true;
             $getInfoQuote = $this->delivery->getInfoQuote($request->detailexport_id);
             $getProductQuote = $this->delivery->getProductQuote($request->detailexport_id);
             if ($getProductQuote->isEmpty()) {
-                return redirect()->route('delivery.index')->with('warning', 'Đơn giao hàng đã tạo hết!');
+                return redirect()->route('delivery.index', ['workspace' => $workspace])->with('warning', 'Đơn giao hàng đã tạo hết!');
             } else {
                 return view('tables.export.delivery.create-delivery', [
-                    'active' => 'active', 'yes' => $yes, 'getInfoQuote' => $getInfoQuote, 'getGuestbyId' => $getGuestbyId, 'data' => $data, 'title' => $title, 'numberQuote' => $numberQuote,
-                    'product' => $product, 'getProductQuote' => $getProductQuote
+                    'active' => 'active', 'yes' => $yes, 'getInfoQuote' => $getInfoQuote, 'getGuestbyId' => $getGuestbyId, 'getRepresentbyId' => $getRepresentbyId, 'data' => $data, 'title' => $title, 'numberQuote' => $numberQuote,
+                    'product' => $product, 'getProductQuote' => $getProductQuote, 'workspacename' => $workspace
                 ]);
             }
         }
@@ -238,12 +239,13 @@ class DetailExportController extends Controller
             $product = $this->product->getAllProducts();
             $quoteExport = $this->quoteExport->getProductsbyId($request->product_id);
             $getGuestbyId = $this->guest->getGuestbyId($request->guest_id);
+            $getRepresentbyId = $this->represent_guest->getRepresentbyId($request->represent_id);
             $yes = true;
             $getInfoDelivery = $this->billSale->getProductDelivery($request->detailexport_id);
             if ($getInfoDelivery->isEmpty()) {
-                return redirect()->route('billSale.index')->with('warning', 'Hóa đơn bán hàng đã được tạo hết!');
+                return redirect()->route('billSale.index', ['workspace' => $workspace])->with('warning', 'Hóa đơn bán hàng đã được tạo hết!');
             } else {
-                return view('tables.export.bill_sale.create-billSale', ['yes' => $yes, 'getInfoDelivery' => $getInfoDelivery, 'getGuestbyId' => $getGuestbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
+                return view('tables.export.bill_sale.create-billSale', ['yes' => $yes, 'getInfoDelivery' => $getInfoDelivery, 'getGuestbyId' => $getGuestbyId, 'getRepresentbyId' => $getRepresentbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport, 'workspacename' => $workspace]);
             }
         }
         if ($request->action == "action_4") {
@@ -257,12 +259,13 @@ class DetailExportController extends Controller
             $data = $request->all();
             $quoteExport = $this->quoteExport->getProductsbyId($request->product_id);
             $getGuestbyId = $this->guest->getGuestbyId($request->guest_id);
+            $getRepresentbyId = $this->represent_guest->getRepresentbyId($request->represent_id);
             $yes = true;
             $delivery = $this->payExport->getProductPay($request->detailexport_id);
             if ($delivery->isEmpty()) {
-                return redirect()->route('payExport.index')->with('warning', 'Thanh toán bán hàng đã được tạo hết!');
+                return redirect()->route('payExport.index', ['workspace' => $workspace])->with('warning', 'Thanh toán bán hàng đã được tạo hết!');
             } else {
-                return view('tables.export.pay_export.create-payExport', ['yes' => $yes, 'delivery' => $delivery, 'getGuestbyId' => $getGuestbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport]);
+                return view('tables.export.pay_export.create-payExport', ['yes' => $yes, 'delivery' => $delivery, 'getGuestbyId' => $getGuestbyId, 'getRepresentbyId' => $getRepresentbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport, 'workspacename' => $workspace]);
             }
         }
         if ($request->action == "action_5") {
@@ -351,7 +354,6 @@ class DetailExportController extends Controller
         $project = Project::where('id', $data['idProject'])->first();
         return $project;
     }
-
 
     public function checkQuotetionExport(Request $request)
     {
@@ -446,6 +448,38 @@ class DetailExportController extends Controller
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế hoặc tên khách hàng đã tồn tại']);
         }
         return $msg;
+    }
+    //Thêm dự án
+    public function addProject(Request $request)
+    {
+        $check = Project::where('workspace_id', Auth::user()->current_workspace)
+            ->where(function ($query) use ($request) {
+                $query->where('project_name', $request->project_name);
+            })
+            ->first();
+        if ($check == null) {
+            $data = [
+                'project_name' => $request->project_name,
+                'workspace_id' => Auth::user()->current_workspace,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+            $new_guest = DB::table('project')->insertGetId($data);
+            $msg = response()->json([
+                'success' => true, 'msg' => 'Thêm mới dự án thành công', 'id' => $new_guest,
+                'project_name' => $request->project_name,
+            ]);
+        } else {
+            $msg = response()->json(['success' => false, 'msg' => 'Thông tin dự án đã tồn tại']);
+        }
+        return $msg;
+    }
+    //Xóa dự án
+    public function deleteProject(Request $request)
+    {
+        $data = $request->all();
+        $project = $this->project->deleteProject($data['itemId']);
+        return $project;
     }
     //Thêm người đại diện
     public function addRepresentGuest(Request $request)

@@ -1015,7 +1015,7 @@ input[type="search"] {
 
 /*Checkbox*/
 input[type="checkbox"] {
-    accent-color: #555555;
+    accent-color: #6E79D6;
 }
 
 .labelform {
@@ -1838,4 +1838,8 @@ input[type="checkbox"] {
 }
 .bg-hover-icon a div:hover{
     background-color: #D9D9D9;
+}
+.border-dott{
+    border-style: dotted;
+    border-color: #D9D9D9;
 }

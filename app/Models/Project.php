@@ -18,4 +18,15 @@ class Project extends Model
         $project = Project::where('workspace_id', Auth::user()->current_workspace)->get();
         return $project;
     }
+    public function deleteProject($id)
+    {
+        $project = Project::find($id);
+        if ($project) {
+            $project->delete();
+            return response()->json(['success' => true, 'message' => 'Xóa thành công dự án']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Không tìm thấy dự án'], 404);
+        }
+        return $project;
+    }
 }

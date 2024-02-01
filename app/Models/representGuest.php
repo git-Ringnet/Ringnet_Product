@@ -24,6 +24,13 @@ class representGuest extends Model
         'updated_at'
     ];
 
+    public function getRepresentbyId($id) {
+        $representGuest = DB::table($this->table);
+        $representGuest = $representGuest->where('represent_guest.id', $id)->get();
+
+        return $representGuest;
+    }
+
     public function getRepresentGuest($id)
     {
         $representGuest = representGuest::where('guest_id', $id)

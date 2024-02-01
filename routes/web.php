@@ -120,6 +120,8 @@ Route::get('/searchExport', [DetailExportController::class, 'searchGuest'])->nam
 Route::get('/searchRepresent', [DetailExportController::class, 'searchRepresent'])->name('searchRepresent');
 //Xóa người đại diện
 Route::get('/deleteRepresentGuest', [DetailExportController::class, 'deleteRepresentGuest'])->name('deleteRepresentGuest');
+//Xóa dự án
+Route::get('/deleteProject', [DetailExportController::class, 'deleteProject'])->name('deleteProject');
 //thông tin chi tiết người đại diện
 Route::get('/editRepresent', [DetailExportController::class, 'editRepresent'])->name('editRepresent');
 //Cập nhật thông tin người đại diện
@@ -132,6 +134,8 @@ Route::get('/searchProject', [DetailExportController::class, 'searchProject'])->
 Route::get('/addGuest', [DetailExportController::class, 'addGuest'])->name('addGuest');
 //Thêm người đại diện
 Route::get('/addRepresentGuest', [DetailExportController::class, 'addRepresentGuest'])->name('addRepresentGuest');
+//Thêm dự án
+Route::get('/addProject', [DetailExportController::class, 'addProject'])->name('addProject');
 //Lấy thông tin sản phẩm
 Route::get('/getProduct', [DetailExportController::class, 'getProduct'])->name('getProduct');
 //Lấy mã sản phẩm

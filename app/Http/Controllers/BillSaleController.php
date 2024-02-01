@@ -101,6 +101,7 @@ class BillSaleController extends Controller
             ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'bill_sale.guest_id', 'guest.id')
+            ->leftJoin('represent_guest', 'detailexport.represent_id', 'represent_guest.id')
             ->select('*', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD', 'bill_sale.status as tinhTrang')
             ->first();
         if (!$billSale) {
@@ -179,8 +180,9 @@ class BillSaleController extends Controller
         $delivery = DetailExport::where('detailexport.id', $data['idQuote'])
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
             ->leftJoin('delivery', 'delivery.detailexport_id', 'detailexport.id')
-            ->select('*', 'delivery.id as maGiaoHang', 'detailexport.quotation_number as soBG')
+            ->select('*', 'delivery.id as maGiaoHang', 'detailexport.quotation_number as soBG','represent_guest.id as represent_id')
             ->first();
         return $delivery;
     }

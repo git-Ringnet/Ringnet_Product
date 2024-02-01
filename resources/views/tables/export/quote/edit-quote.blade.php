@@ -832,9 +832,11 @@
                             </div>
                             <div
                                 class="position-relative d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
-                                <input type="text" placeholder="Chọn thông tin" id="ProjectInput" value="{{ $detailExport->project_name }}"
+                                <input type="text" placeholder="Chọn thông tin" id="ProjectInput"
+                                    value="{{ $detailExport->project_name }}"
                                     class="border-0 bg w-100 bg-input-guest py-0">
-                                <input type="hidden" class="idProject" autocomplete="off" name="project_id" value="{{ $detailExport->id_project }}">
+                                <input type="hidden" class="idProject" autocomplete="off" name="project_id"
+                                    value="{{ $detailExport->id_project }}">
                                 <ul id="listProject"
                                     class="w-100 bg-white position-absolute rounded shadow p-0 scroll-data list-guest z-index-block"
                                     style="z-index: 99;">
@@ -854,8 +856,25 @@
                                                 <span
                                                     class="w-100 text-nav text-dark overflow-hidden">{{ $project_value->project_name }}</span>
                                             </a>
+                                            <a class="dropdown-item delete-project w-25" href="#"
+                                                data-id="{{ $project_value->id }}">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </a>
                                         </li>
                                     @endforeach
+                                    <a type="button"
+                                        class="d-flex justify-content-center align-items-center p-2 position-sticky addProjectNew bg-white"
+                                        data-toggle="modal" data-target="#projectModal" style="bottom: 0;">
+                                        <span class="text-table text-center font-weight-bold">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30" />
+                                            </svg>
+                                            Thêm dự án
+                                        </span>
+                                    </a>
                                 </ul>
                                 <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -1006,9 +1025,9 @@
                                                     </button>
                                                     <div class="dropdown-menu date-form-setting"
                                                         style="z-index: 100;">
-                                                        <a class="dropdown-item search-date-form" data-toggle="modal"
-                                                            data-target="#formModaldelivery" data-name="delivery"
-                                                            data-id="{{ $item->id }}"
+                                                        <a class="dropdown-item search-date-form"
+                                                            data-toggle="modal" data-target="#formModaldelivery"
+                                                            data-name="delivery" data-id="{{ $item->id }}"
                                                             id="{{ $item->id }}"><i
                                                                 class="fa-regular fa-pen-to-square"></i></a>
                                                         <a class="dropdown-item delete-item" href="#"
@@ -1034,8 +1053,8 @@
                                         class="d-flex justify-content-center align-items-center p-2 position-sticky bg-white addDateFormdelivery"
                                         data-toggle="modal" data-target="#formModaldelivery" style="bottom: 0;">
                                         <span class="text-table text-center font-weight-bold">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
+                                            <svg width="16" height="16" viewBox="0 0 16 16"
+                                                fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
                                                     fill="#282A30"></path>
@@ -1274,6 +1293,36 @@
                 </div>
             </div>
         </div>
+        {{-- Modal dự án --}}
+        <div class="modal fade" id="projectModal" tabindex="-1" role="dialog"
+            aria-labelledby="productModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="margin-top: 10%;">
+                <div class="modal-content">
+                    <div class="modal-body pb-0 px-2 pt-0">
+                        <div class="content-info">
+                            <input type="hidden"
+                                class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                id="represent_id" autocomplete="off">
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 text-nav">
+                                    Tên dự án
+                                </p>
+                                <input name="project_name" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    id="project_name" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top-0 py-1 px-1">
+                        <button type="button" class="btn-save-print rounded h-100 text-table py-1"
+                            data-dismiss="modal">Trở về</button>
+                        <button type="button" class="custom-btn align-items-center h-100 py-1 px-2 text-table"
+                            id="addProject">Thêm dự án
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 </form>
 <x-date-form-modal title="Điều khoản thanh toán" name="payment" idModal="formModalpayment"></x-date-form-modal>
 <x-date-form-modal title="Hiệu lực báo giá" name="quote" idModal="formModalquote"></x-date-form-modal>
@@ -1322,6 +1371,73 @@
                     $('.idProject').val(data.id);
                 }
             });
+        });
+    });
+    //Thêm dự án
+    $(document).on('click', '#addProject', function(e) {
+        var project_name = $('#project_name').val().trim();
+        if (!project_name) {
+            alert('Vui lòng điền thông tin người đại diện!');
+        } else {
+            $.ajax({
+                url: "{{ route('addProject') }}",
+                type: "get",
+                data: {
+                    project_name: project_name,
+                },
+                success: function(data) {
+                    if (data.success) {
+                        $('#ProjectInput').val(data.project_name);
+                        $('.idProject').val(data.id);
+                        $('.modal [data-dismiss="modal"]').click();
+                        alert(data.msg);
+                        // Nếu thành công, tạo một mục mới
+                        var newGuestInfo = data;
+                        var guestList = $('#myUL7'); // Danh sách hiện có
+                        var newListItem =
+                            '<li class="border" data-id="' + newGuestInfo.id + '">' +
+                            '<a href="#" class="text-dark d-flex justify-content-between p-2 search-project w-100" id="' +
+                            newGuestInfo.id + '" name="search-project">' +
+                            '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
+                            .project_name + '</span>' +
+                            '</a>' +
+                            '<a class="dropdown-item delete-item-represent w-25" href="#" data-id="' +
+                            newGuestInfo.id + '" data-name="project">' +
+                            '<i class="fa-solid fa-trash-can" aria-hidden="true"></i>' +
+                            '</a>' +
+                            '</li>';
+                        // Thêm mục mới vào danh sách
+                        var addButton = $(".addProjectNew");
+                        $(newListItem).insertBefore(addButton);
+                        //clear
+                        $('#project_name').val('');
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        }
+    });
+    //Xóa dự án
+    $(document).on('click', '.delete-project', function(e) {
+        e.preventDefault();
+        var itemId = $(this).data('id');
+        $.ajax({
+            url: "{{ route('deleteProject') }}",
+            type: "get",
+            data: {
+                itemId: itemId,
+            },
+            success: function(data) {
+                if (data.success) {
+                    $(e.target).closest('li').remove();
+                    $('#ProjectInput').val('');
+                    $('.idProject').val('');
+                    alert(data.message);
+                } else {
+                    alert(data.message);
+                }
+            }
         });
     });
     getKeyGuest($('#guest_name_display'));

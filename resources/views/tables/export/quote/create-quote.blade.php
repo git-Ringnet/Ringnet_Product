@@ -218,49 +218,69 @@
                         </div>
                     </div>
                 </div>
-                <section class="multiple_action border box-shadow" style="display: none;">
+                <section class="multiple_action border shadow" style="display: none;">
                     <div class="d-flex justify-content-between align-items-center">
-                        <span class="count_checkbox mr-5">Đã chọn 1</span>
+                        <div class="d-flex mx-4 align-items-center">
+                            <div class="count_checkbox text-table border-dott m-0 p-0 border-right-0"></div>
+                            <svg style="height: 24px;" class="border-dott cancal_action" width="16"
+                                height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
+                                    fill="#6D7075" />
+                            </svg>
+                        </div>
                         <div class="row action">
-                            <div class="btn-chotdon my-2 ml-3">
+                            <div class="btn-chotdon my-2 mr-3">
                                 <button type="button" id="btn-chot"
-                                    class="btn-group btn-light d-flex align-items-center h-100">
-                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                    class="border bg-transparent rounded d-flex align-items-center h-100">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
-                                            fill="#42526E" />
+                                        <path
+                                            d="M4.75 2.00007C2.67893 2.00007 1 3.679 1 5.75007V11.25C1 13.3211 2.67893 15 4.75 15H10.2501C12.3212 15 14.0001 13.3211 14.0001 11.25V8.00007C14.0001 7.58586 13.6643 7.25007 13.2501 7.25007C12.8359 7.25007 12.5001 7.58586 12.5001 8.00007V11.25C12.5001 12.4927 11.4927 13.5 10.2501 13.5H4.75C3.50736 13.5 2.5 12.4927 2.5 11.25V5.75007C2.5 4.50743 3.50736 3.50007 4.75 3.50007H7C7.41421 3.50007 7.75 3.16428 7.75 2.75007C7.75 2.33586 7.41421 2.00007 7 2.00007H4.75Z"
+                                            fill="#6D7075" />
+                                        <path
+                                            d="M12.1339 5.19461L10.7197 3.7804L6.52812 7.97196C5.77185 8.72823 5.25635 9.69144 5.0466 10.7402C5.03144 10.816 5.09828 10.8828 5.17409 10.8677C6.22285 10.6579 7.18606 10.1424 7.94233 9.38618L12.1339 5.19461Z"
+                                            fill="#6D7075" />
+                                        <path
+                                            d="M13.4559 1.45679C13.2663 1.39356 13.0571 1.44293 12.9158 1.58431L11.7803 2.71974L13.1945 4.13395L14.33 2.99852C14.4714 2.85714 14.5207 2.64802 14.4575 2.45834C14.2999 1.98547 13.9288 1.61441 13.4559 1.45679Z"
+                                            fill="#6D7075" />
                                     </svg>
-                                    <span class="px-1">Nhân hệ số</span>
+                                    <span class="px-1 text-table text-secondary">Nhân hệ số</span>
                                 </button>
                             </div>
-                            <div class="btn-xoahang my-2 ml-1">
+                            <div class="btn-xoahang my-2 mr-3">
                                 <button id="deleteExports" type="button"
-                                    class="btn-group btn-light d-flex align-items-center h-100">
-                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                    class="border bg-transparent rounded d-flex align-items-center h-100">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
-                                            fill="#42526E" />
+                                        <path
+                                            d="M4.75 2.00007C2.67893 2.00007 1 3.679 1 5.75007V11.25C1 13.3211 2.67893 15 4.75 15H10.2501C12.3212 15 14.0001 13.3211 14.0001 11.25V8.00007C14.0001 7.58586 13.6643 7.25007 13.2501 7.25007C12.8359 7.25007 12.5001 7.58586 12.5001 8.00007V11.25C12.5001 12.4927 11.4927 13.5 10.2501 13.5H4.75C3.50736 13.5 2.5 12.4927 2.5 11.25V5.75007C2.5 4.50743 3.50736 3.50007 4.75 3.50007H7C7.41421 3.50007 7.75 3.16428 7.75 2.75007C7.75 2.33586 7.41421 2.00007 7 2.00007H4.75Z"
+                                            fill="#6D7075" />
+                                        <path
+                                            d="M12.1339 5.19461L10.7197 3.7804L6.52812 7.97196C5.77185 8.72823 5.25635 9.69144 5.0466 10.7402C5.03144 10.816 5.09828 10.8828 5.17409 10.8677C6.22285 10.6579 7.18606 10.1424 7.94233 9.38618L12.1339 5.19461Z"
+                                            fill="#6D7075" />
+                                        <path
+                                            d="M13.4559 1.45679C13.2663 1.39356 13.0571 1.44293 12.9158 1.58431L11.7803 2.71974L13.1945 4.13395L14.33 2.99852C14.4714 2.85714 14.5207 2.64802 14.4575 2.45834C14.2999 1.98547 13.9288 1.61441 13.4559 1.45679Z"
+                                            fill="#6D7075" />
                                     </svg>
-                                    <span class="px-1">Thuế</span>
+                                    <span class="px-1 text-table text-secondary">Thuế</span>
                                 </button>
                             </div>
-                            <div class="btn-huy my-2 ml-3">
+                            <div class="btn-huy my-2">
                                 <button id="cancelBillExport"
-                                    class="btn-group btn-light d-flex align-items-center h-100">
-                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                    class="border bg-transparent rounded d-flex align-items-center h-100">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M15.75 15.75L2.25 2.25" stroke="#42526E" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M15.75 2.25L2.25 15.75" stroke="#42526E" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
+                                        <path
+                                            d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
+                                            fill="#6D7075" />
                                     </svg>
-                                    <span class="px-1">Xóa</span>
+                                    <span class="px-1 text-table text-secondary">Xóa</span>
                                 </button>
                             </div>
                         </div>
-                        <div class="btn ml-auto cancal_action">
+                        <div class="btn ml-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none">
                                 <path d="M18 18L6 6" stroke="white" stroke-width="1.5" stroke-linecap="round"
@@ -383,6 +403,36 @@
                             id="addRepresent">Thêm người đại diện</button>
                         <button type="button" class="custom-btn h-100 py-1 px-2 text-table" id="updateRepresent">Cập
                             nhật người đại diện</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- Modal dự án --}}
+        <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document" style="margin-top: 10%;">
+                <div class="modal-content">
+                    <div class="modal-body pb-0 px-2 pt-0">
+                        <div class="content-info">
+                            <input type="hidden"
+                                class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                id="represent_id" autocomplete="off">
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 text-nav">
+                                    Tên dự án
+                                </p>
+                                <input name="project_name" type="text" placeholder="Nhập thông tin"
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    id="project_name" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top-0 py-1 px-1">
+                        <button type="button" class="btn-save-print rounded h-100 text-table py-1"
+                            data-dismiss="modal">Trở về</button>
+                        <button type="button" class="custom-btn align-items-center h-100 py-1 px-2 text-table"
+                            id="addProject">Thêm dự án
+                        </button>
                     </div>
                 </div>
             </div>
@@ -806,8 +856,25 @@
                                                 <span
                                                     class="w-100 text-nav text-dark overflow-hidden">{{ $project_value->project_name }}</span>
                                             </a>
+                                            <a class="dropdown-item delete-project w-25" href="#"
+                                                data-id="{{ $project_value->id }}">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </a>
                                         </li>
                                     @endforeach
+                                    <a type="button"
+                                        class="d-flex justify-content-center align-items-center p-2 position-sticky addProjectNew bg-white"
+                                        data-toggle="modal" data-target="#projectModal" style="bottom: 0;">
+                                        <span class="text-table text-center font-weight-bold">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30" />
+                                            </svg>
+                                            Thêm dự án
+                                        </span>
+                                    </a>
                                 </ul>
                                 <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -957,9 +1024,9 @@
                                                     </button>
                                                     <div class="dropdown-menu date-form-setting"
                                                         style="z-index: 1000;">
-                                                        <a class="dropdown-item search-date-form" data-toggle="modal"
-                                                            data-target="#formModaldelivery" data-name="delivery"
-                                                            data-id="{{ $item->id }}"
+                                                        <a class="dropdown-item search-date-form"
+                                                            data-toggle="modal" data-target="#formModaldelivery"
+                                                            data-name="delivery" data-id="{{ $item->id }}"
                                                             id="{{ $item->id }}"><i
                                                                 class="fa-regular fa-pen-to-square"></i></a>
                                                         <a class="dropdown-item delete-item" href="#"
@@ -1612,7 +1679,8 @@
             function updateMultipleActionVisibility() {
                 if ($('.cb-element:checked').length > 0) {
                     $('.multiple_action').show();
-                    $('.count_checkbox').text('Đã chọn ' + $('.cb-element:checked').length);
+                    $('.count_checkbox').html($('.cb-element:checked').length +
+                        '<span class="ml-1">chọn</span>');
                 } else {
                     $('.multiple_action').hide();
                 }
@@ -1979,6 +2047,10 @@
                         //
                         $('#show-info-guest').show();
                         $('#show-title-guest').show();
+                        //reset 
+                        $('#representativeList').empty();
+                        $('#represent_guest').val('');
+                        $('.represent_guest_id').val('');
                     } else {
                         alert(data.msg);
                     }
@@ -1986,7 +2058,73 @@
             });
         }
     });
-
+    //Thêm dự án
+    $(document).on('click', '#addProject', function(e) {
+        var project_name = $('#project_name').val().trim();
+        if (!project_name) {
+            alert('Vui lòng điền thông tin người đại diện!');
+        } else {
+            $.ajax({
+                url: "{{ route('addProject') }}",
+                type: "get",
+                data: {
+                    project_name: project_name,
+                },
+                success: function(data) {
+                    if (data.success) {
+                        $('#ProjectInput').val(data.project_name);
+                        $('.idProject').val(data.id);
+                        $('.modal [data-dismiss="modal"]').click();
+                        alert(data.msg);
+                        // Nếu thành công, tạo một mục mới
+                        var newGuestInfo = data;
+                        var guestList = $('#myUL7'); // Danh sách hiện có
+                        var newListItem =
+                            '<li class="border" data-id="' + newGuestInfo.id + '">' +
+                            '<a href="#" class="text-dark d-flex justify-content-between p-2 search-project w-100" id="' +
+                            newGuestInfo.id + '" name="search-project">' +
+                            '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
+                            .project_name + '</span>' +
+                            '</a>' +
+                            '<a class="dropdown-item delete-item-represent w-25" href="#" data-id="' +
+                            newGuestInfo.id + '" data-name="project">' +
+                            '<i class="fa-solid fa-trash-can" aria-hidden="true"></i>' +
+                            '</a>' +
+                            '</li>';
+                        // Thêm mục mới vào danh sách
+                        var addButton = $(".addProjectNew");
+                        $(newListItem).insertBefore(addButton);
+                        //clear
+                        $('#project_name').val('');
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        }
+    });
+    //Xóa dự án
+    $(document).on('click', '.delete-project', function(e) {
+        e.preventDefault();
+        var itemId = $(this).data('id');
+        $.ajax({
+            url: "{{ route('deleteProject') }}",
+            type: "get",
+            data: {
+                itemId: itemId,
+            },
+            success: function(data) {
+                if (data.success) {
+                    $(e.target).closest('li').remove();
+                    $('#ProjectInput').val('');
+                    $('.idProject').val('');
+                    alert(data.message);
+                } else {
+                    alert(data.message);
+                }
+            }
+        });
+    });
     //Thêm người đại diện
     $(document).on('click', '.addRepresentNew', function(e) {
         $('#updateRepresent').hide();

@@ -507,6 +507,9 @@
                                             <span class="text-table ml-2">Khách hàng</span>
                                         </div>
                                         <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                            <span class="text-table ml-2">Người đại diện</span>
+                                        </div>
+                                        <div class="border border-right-0 py-1 border-left-0 border-top-0">
                                             <span class="text-table ml-2">Ngày hóa đơn</span>
                                         </div>
                                         <div class="border border-right-0 py-1 border-left-0 border-top-0">
@@ -540,6 +543,26 @@
                                                 autocomplete="off">
                                             <input type="hidden" class="idGuest" autocomplete="off"
                                                 name="guest_id">
+                                            <div class="opacity-0">
+                                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="border-top-0 d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
+                                            <input type="text" readonly
+                                                value="{{ $billSale->represent_name }}"
+                                                class="border-0 bg w-100 bg-input-guest py-0 px-0"
+                                                autocomplete="off">
                                             <div class="opacity-0">
                                                 <svg width="18" height="18" viewBox="0 0 24 24"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">

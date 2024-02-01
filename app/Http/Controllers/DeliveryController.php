@@ -170,7 +170,9 @@ class DeliveryController extends Controller
         $data = $request->all();
         $delivery = DetailExport::where('detailexport.id', $data['idQuote'])
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')->first();
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
+            ->first();
         return $delivery;
     }
 

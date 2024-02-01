@@ -220,6 +220,7 @@ class PayExportController extends Controller
         $delivery = DetailExport::where('detailexport.id', $data['idQuote'])
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
             ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
             ->leftJoin('history_payment_export', 'history_payment_export.pay_id', 'pay_export.id')
@@ -227,6 +228,7 @@ class PayExportController extends Controller
                 'detailexport.guest_id',
                 'guest.guest_name_display',
                 'detailexport.quotation_number',
+                'represent_guest.represent_name',
                 DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
                 DB::raw('SUM(history_payment_export.payment) as tongThanhToan')
             )
@@ -236,6 +238,7 @@ class PayExportController extends Controller
                 'detailexport.total_price',
                 'detailexport.total_tax',
                 'detailexport.quotation_number',
+                'represent_guest.represent_name',
             )
             ->first();
         return $delivery;
