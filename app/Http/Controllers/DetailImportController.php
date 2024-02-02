@@ -520,9 +520,9 @@ class DetailImportController extends Controller
                     'workspace_id' => Auth::user()->current_workspace,
                     'created_at' => Carbon::now(),
                 ];
-                DB::table('date_form')->insertGetId($dataForm);
+                $newId = DB::table('date_form')->insertGetId($dataForm);
                 $msg = response()->json([
-                    'success' => true, 'msg' => $request->table == "import" ? 'Tạo mới hiệu lực báo giá thành công' : 'Tạo mới điều khoản thanh toán thành công', 'data' => $request->inputDesc
+                    'success' => true, 'msg' => $request->table == "import" ? 'Tạo mới hiệu lực báo giá thành công' : 'Tạo mới điều khoản thanh toán thành công', 'data' => $request->inputDesc,'id' => $newId
                 ]);
             }
         }
@@ -583,18 +583,15 @@ class DetailImportController extends Controller
     }
     public function deleteForm(Request $request)
     {
-
         // return $request->all();
         if ($request->table == "represent") {
             $check = ProvideRepesent::where('id', $request->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($check) {
-                if ($request->table == 'represent') {
-                    $msg = response()->json([
-                        'success' => true, 'msg' => 'Xóa người đại diện thành công'
-                    ]);
-                }
+                $msg = response()->json([
+                    'success' => true, 'msg' => 'Xóa người đại diện thành công','id' => $check->id, 'list' => "listRepresent"
+                ]);
             } else {
                 $msg = response()->json([
                     'success' => false, 'msg' => 'Không tìm thấy dữ liệu cần xóa'
@@ -606,7 +603,7 @@ class DetailImportController extends Controller
                 ->first();
             if ($check) {
                 $msg = response()->json([
-                    'success' => true, 'msg' => 'Xóa thành công', 'id' => $check->id, 'list' => $request->table == 'priceeffect' ? "listRepresent" : "listTermsPay"
+                    'success' => true, 'msg' => 'Xóa thành công', 'id' => $check->id, 'list' => $request->table == 'priceeffect' ? "listPriceEffect" : "listTermsPay"
                 ]);
                 $check->delete();
             } else {

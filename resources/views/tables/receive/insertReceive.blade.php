@@ -465,7 +465,6 @@
                             id: data.id
                         },
                         success: function(product) {
-                            console.log(product);
                             $('#product').html(product)
                             $('#inputcontent tbody').empty();
                             product.quoteImport.forEach((element, index) => {

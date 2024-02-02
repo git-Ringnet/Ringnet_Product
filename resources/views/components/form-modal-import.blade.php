@@ -94,9 +94,9 @@
                             <input type="hidden" id="form_field">
                         @endif
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Trở về</button>
-                        <button type="button" class="btn btn-primary" id="{{ $name }}">Thêm mới</button>
+                    <div class="modal-footer border-top-0 py-1 px-1">
+                        <button type="button" class="btn-save-print rounded h-100 text-table py-1 closeModal" data-dismiss="modal">Trở về</button>
+                        <button type="button" class="custom-btn align-items-center h-100 py-1 px-2 text-table" id="{{ $name }}">Thêm mới</button>
                     </div>
                 </div>
             </div>

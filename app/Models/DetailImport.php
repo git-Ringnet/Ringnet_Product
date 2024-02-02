@@ -147,7 +147,7 @@ class DetailImport extends Model
                         $total += $price_export;
                     }
                     // $total_tax += $data['product_tax'][$i] * $total;
-                    $total_tax += $data['product_tax'][$i] * $price_export / 100;
+                    $total_tax += ($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export / 100;
                 }
             } else {
                 $product = QuoteImport::where('detailimport_id', $id)
@@ -160,7 +160,7 @@ class DetailImport extends Model
                         $total += $item->product_qty * $item->price_export;
                     }
                     // $total_tax += $item->product_tax * $total;
-                    $total_tax += $item->product_tax * ($item->product_qty * $item->price_export / 100);
+                    $total_tax += ($item->product_tax == 99 ? 0 : $item->product_tax) * ($item->product_qty * $item->price_export / 100);
 
                     $check_status = $check_status || (
                         ($data['action'] == "action_2" && $item->product_qty != $item->receive_qty) ||

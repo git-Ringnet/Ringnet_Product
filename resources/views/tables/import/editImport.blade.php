@@ -226,7 +226,6 @@
                                                         </option>
                                                     </select>
                                                 </td>
-                                                <input type="hidden" class="product_tax1">
                                                 <td class="border border-bottom-0 border-right-0">
                                                     <input type="text" name="total_price[]"
                                                         class="border-0 px-2 py-1 w-100 total_price" readonly
@@ -436,7 +435,7 @@
                                 </div>
                                 @if ($represent)
                                     @foreach ($represent as $value)
-                                        <li class="border">
+                                        <li class="border" id="{{ $value->id }}">
                                             <a href="javascript:void(0)"
                                                 class="text-dark d-flex justify-content-between p-2 search-represent w-100 search-represent"
                                                 id="{{ $value->id }}" name="search-represent">
@@ -567,7 +566,7 @@
                                 class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
                                 value="" id="price_effect"> --}}
 
-                            <input readonly type="text" placeholder="Chọn thông tin"
+                            <input readonly="" type="text" placeholder="Chọn thông tin"
                                 class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
                                 id="price_effect" value="{{ $import->price_effect }}" name="price_effect">
 
@@ -578,7 +577,7 @@
                                 <div class="p-1">
                                     <div class="position-relative">
                                         <input type="text" placeholder="Nhập thông tin"
-                                            class="pr-4 w-100 input-search" id="searchRepresent">
+                                            class="pr-4 w-100 input-search" id="searchPriceEffect">
                                         <span id="search-icon" class="search-icon">
                                             <i class="fas fa-search text-table" aria-hidden="true"></i>
                                         </span>
@@ -586,7 +585,7 @@
                                 </div>
                                 @if ($price_effect)
                                     @foreach ($price_effect as $price)
-                                        <li class="border">
+                                        <li class="border" id="{{ $price->id }}">
                                             <a href="javascript:void(0)"
                                                 class="text-dark d-flex justify-content-between p-2 search-priceeffect w-100 search-price-effect"
                                                 id="{{ $price->id }}" name="search-price-effect">
@@ -606,12 +605,12 @@
                                                         data-id="{{ $price->id }}" id="{{ $price->id }}"><i
                                                             class="fa-regular fa-pen-to-square"></i></a>
                                                     <a class="dropdown-item delete-item" href="#"
-                                                        data-id="{{ $price->id }}" data-name="represent"><i
+                                                        data-id="{{ $price->id }}" data-name="priceeffect"><i
                                                             class="fa-solid fa-trash-can"></i></a>
                                                     <a class="dropdown-item set-default default-id{{ $price->form_desc }}"
                                                         id="default-id{{ $price->id }}" href="#"
                                                         data-name="import" data-id="{{ $price->id }}">
-                                                        @if ($price->default_form == 0)
+                                                        @if ($price->default_form == 1)
                                                             <i class="fa-solid fa-link-slash"></i>
                                                         @else
                                                             <i class="fa-solid fa-link"></i>
@@ -653,7 +652,7 @@
                         </div>
 
                         <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                            <input readonly type="text" placeholder="Chọn thông tin" name="terms_pay"
+                            <input readonly="" type="text" placeholder="Chọn thông tin" name="terms_pay"
                                 class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
                                 value="{{ $import->terms_pay }}" id="terms_pay">
                             <ul id="listTermsPay"
@@ -669,7 +668,7 @@
                                 </div>
                                 @if ($terms_pay)
                                     @foreach ($terms_pay as $term)
-                                        <li class="border">
+                                        <li class="border" id="{{ $term->id }}">
                                             <a href="javascript:void(0)"
                                                 class="text-dark d-flex justify-content-between p-2 search-termpay w-100 search-term-pay"
                                                 id="{{ $term->id }}" name="search-term-pay">
@@ -689,12 +688,12 @@
                                                         data-id="{{ $term->id }}" id="{{ $term->id }}"><i
                                                             class="fa-regular fa-pen-to-square"></i></a>
                                                     <a class="dropdown-item delete-item" href="#"
-                                                        data-id="{{ $term->id }}" data-name="represent"><i
+                                                        data-id="{{ $term->id }}" data-name="termpay"><i
                                                             class="fa-solid fa-trash-can"></i></a>
                                                     <a class="dropdown-item set-default default-id{{ $term->form_desc }}"
                                                         id="default-id{{ $term->id }}" href="#"
                                                         data-name="termpay" data-id="{{ $term->id }}">
-                                                        @if ($term->default_form == 0)
+                                                        @if ($term->default_form == 1)
                                                             <i class="fa-solid fa-link-slash"></i>
                                                         @else
                                                             <i class="fa-solid fa-link"></i>
@@ -749,7 +748,7 @@
                                         <a href="javascript:void(0)"
                                             class="text-dark d-flex justify-content-between p-2 project_name w-100"
                                             id="{{ $va->id }}" name="project_name">
-                                            <span class="w-50">{{ $va->project_name }}</span>
+                                            <span class="w-100">{{ $va->project_name }}</span>
                                         </a>
                                     </li>
                                 @endforeach
@@ -842,7 +841,6 @@
                         status: 'add'
                     },
                     success: function(data) {
-                        console.log(data);
                         $('#listRepresent li').empty()
                         $('#listPriceEffect li').empty()
                         $('#listTermsPay li').empty()
@@ -1030,16 +1028,14 @@
                 form: form
             },
             success: function(data) {
-                console.log(data);
                 if (data['represent']) {
                     $('#represent').val(data['represent'].represent_name)
                     $('#represent_id').val(data['represent'].id)
                     $('#listRepresent').hide()
                 } else {
-                    $(data['price_effect'] ? '#price_effect' : '#terms_pay').val((data[
-                            'price_effect'] ?
-                        data['price_effect'] : data['termpay']).form_desc)
-                    $(data['price_effect'] ? '#listPriceEffect' : '#listTermsPay').hide()
+                    $(data['import'] ? '#price_effect' : '#terms_pay').val(
+                        (data['import'] ? data['import'] : data['termpay']).form_desc)
+                    $(data['import'] ? '#listPriceEffect' : '#listTermsPay').hide()
                 }
 
             }
@@ -1058,7 +1054,8 @@
                 table: table
             },
             success: function(data) {
-                // console.log(data);
+                $('#' + data.list + ' li#' + data.id).remove();
+                alert(data.msg)
             }
         })
     })
@@ -1134,7 +1131,7 @@
                                     $("input[name='provide_email_new']").val('')
                                     $("input[name='provide_phone_new']").val('')
                                     $("input[name='provide_address_delivery_new']").val('')
-                                    $('.btn.btn-default').click();
+                                    $('.closeModal').click();
                                     $('#represent_id').val(data.id);
                                     $('#represent').val(data.data)
                                 }
@@ -1159,6 +1156,7 @@
                                 if (data.success) {
                                     $(id == "import" ? '#price_effect' : '#terms_pay').val(data
                                         .data);
+                                    $('.closeModal').click();
                                 }
                                 alert(data.msg);
                             }
@@ -1180,7 +1178,7 @@
                             provide_address_delivery: provide_address_delivery
                         },
                         success: function(data) {
-                            $('.btn.btn-default').click()
+                            $('.closeModal').click()
                             alert(data.msg);
                         }
                     })
@@ -1199,6 +1197,7 @@
                             inputField: inputField
                         },
                         success: function(data) {
+                            $('.closeModal').click()
                             alert(data.msg);
                         }
                     })

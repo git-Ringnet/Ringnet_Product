@@ -188,7 +188,9 @@ $(document).on(
 );
 
 function updateTaxAmount() {
+    console.log(123);
     $("#inputcontent tbody tr").each(function () {
+     
         var productQty = parseFloat($(this).find(".quantity-input").val());
         var productPrice = parseFloat(
             $(this)

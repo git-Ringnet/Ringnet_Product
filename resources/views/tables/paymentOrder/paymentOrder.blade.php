@@ -225,7 +225,7 @@
                                             <td class="py-2">
                                                 @if ($item->status == 1)
                                                     @if ($item->payment > 0)
-                                                        <span style="color: #858585">Đặt cọc</span>
+                                                        <span style="color: #858585">Thanh toán một phần</span>
                                                     @else
                                                         <span style="color: #858585">Chưa thanh toán</span>
                                                     @endif

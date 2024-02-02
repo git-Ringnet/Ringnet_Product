@@ -354,7 +354,7 @@
                         </div>
                         <section class="content">
                             <div class="container-fluided order_content">
-                                <table class="table table-hover bg-white rounded">
+                                <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr>
                                             <th class="border-right p-1 border-bottom" style="width: 15%;">

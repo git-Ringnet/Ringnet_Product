@@ -409,8 +409,8 @@
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <input readonly type="text" name="product_tax[]" class="border-0 px-2 py-1 w-100 product_tax" value="` +
-                                        element.product_tax +
-                                        `%">
+                                        (element.product_tax == 99 ? "NOVAT" : element.product_tax + "%") +
+                                        `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <input readonly type="text" name="total_price[]" class="border-0 px-2 py-1 w-100 total_price" readonly="" value="` +

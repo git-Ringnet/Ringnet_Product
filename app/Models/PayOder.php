@@ -65,7 +65,8 @@ class PayOder extends Model
             // Tính công nợ nhà cung cấp
             $this->calculateDebt($payment->provide_id, $prepay);
             // Cập nhật trạng thái thanh toán
-            $this->updateStatusDebt($data, $payment->id);
+            $status = $this->updateStatusDebt($data, $payment->id);
+            dd($status);
             // Cập nhật trạng thái đơn hàng
             $this->updateStatus($payment->detailimport_id, PayOder::class, 'payment_qty', 'status_pay');
         } else {
@@ -117,9 +118,7 @@ class PayOder extends Model
                                 ->where('payOrder_id', 0)
                                 ->where('workspace_id', Auth::user()->current_workspace)
                                 ->first();
-                                // dd($productImport);
                             if ($productImport) {
-                                // dd(1);
                                 DB::table('products_import')->where('id', $productImport->id)
                                     ->where('workspace_id', Auth::user()->current_workspace)
                                     ->update($dataupdate);
@@ -132,7 +131,6 @@ class PayOder extends Model
                             }
                         }
                         $sum = $total + $total_tax;
-                        // dd($sum);
                         DB::table($this->table)->where('id', $payment_id)
                             ->where('workspace_id', Auth::user()->current_workspace)
                             ->update([
@@ -229,21 +227,27 @@ class PayOder extends Model
             $daysDiff = $daysDiffss;
         }
 
+
         if ($daysDiff <= 3 && $daysDiff > 0) {
-            $status = 3;
+            $status = 3; //Đến hạn
         } elseif ($daysDiff == 0) {
-            $status = 5;
+            $status = 5; //Đến hạn
         } elseif ($daysDiff < 0) {
-            $status = 4;
+            $status = 4; //Quá hạn
         } else {
-            $status = 1;
+            $status = 1; //Chưa thanh toán
         }
         $payorder = PayOder::where('detailimport_id', $id)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($payorder) {
+            $getStatus = HistoryPaymentOrder::where('payment_id', $payorder->id)->count();
+            return $getStatus;
+            if ($getStatus == 2) {
+                $status = 6;
+            }
             if (($payorder->total - $payorder->payment) == 0) {
-                $status = 2;
+                $status = 2; //Thanh toán đủ
             }
             DB::table('pay_order')->where('id', $id)
                 ->where('workspace_id', Auth::user()->current_workspace)

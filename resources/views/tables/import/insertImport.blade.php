@@ -719,7 +719,7 @@
                         data['represent'].forEach(function(element) {
                             var li =
                                 `
-                            <li class="border">
+                            <li class="border" id="` + element.id + `">
                                 <a href="javascript:void(0)"
                                     class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent"
                                     id="` + element.id + `" name="search-represent">
@@ -762,7 +762,7 @@
                         data['price_effect'].forEach(function(element) {
                             var li =
                                 `
-                            <li class="border" id="`+ element.id+`">
+                            <li class="border" id="` + element.id + `">
                                 <a href="javascript:void(0)"
                                     class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect"
                                     id="` + element.id + `" name="search-price-effect">
@@ -802,7 +802,7 @@
                         data['terms_pay'].forEach(function(element) {
                             var li =
                                 `
-                            <li class="border">
+                            <li class="border" id="` + element.id + `">
                                 <a href="javascript:void(0)"
                                     class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay"
                                     id="` + element.id + `" name="search-term-pay">
@@ -837,9 +837,6 @@
                             </li>
                             `;
                             $('#listTermsPay .p-1').after(li);
-                            // if (element.default_form == 1) {
-                            //     $('#terms_pay').val(element.form_desc);
-                            // }
                         });
                     }
                 })
@@ -866,7 +863,6 @@
                         $('#' + inputShow).val(data[table].represent_name)
                         $('#' + inputHide).val(data[table].id)
                     } else {
-                        console.log(data);
                         $(data['table'] == "search-price-effect" ? '#price_effect' : '#terms_pay')
                             .val(data[table].form_desc)
                     }
@@ -880,6 +876,7 @@
     showData('search-represent', 'represent', 'represent_id')
     showData('search-price-effect', 'price_effect', '')
     showData('search-term-pay', 'terms_pay', '')
+
     // Ghim 
     $(document).on('click', '.set-default', function() {
         id = $(this).attr('data-id');
@@ -894,7 +891,6 @@
                 form: form
             },
             success: function(data) {
-                console.log(data);
                 if (data['represent']) {
                     $('#represent').val(data['represent'].represent_name)
                     $('#represent_id').val(data['represent'].id)
@@ -922,12 +918,8 @@
                 table: table
             },
             success: function(data) {
-              
-                if (data.list == "listRepresent") {
-                    console.log($('#' + data.list).find('li #' + data.id))
-                }
+                $('#' + data.list + ' li#' + data.id).remove();
                 alert(data.msg)
-               
             }
         })
     })
@@ -1069,9 +1061,36 @@
                                     $("input[name='provide_email_new']").val('')
                                     $("input[name='provide_phone_new']").val('')
                                     $("input[name='provide_address_delivery_new']").val('')
-                                    $('.btn.btn-default').click();
-                                    $('#represent_id').val(data.id);
+                                    $('.closeModal').click()
+                                    $('#represent_id').val(data.id)
                                     $('#represent').val(data.data)
+                                    var newli = `
+                                    <li class="border" id="` + data.id +
+                                        `">
+                                    <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent" id="` +
+                                        data.id + `" name="search-represent">
+                                        <span class="w-100 text-nav text-dark overflow-hidden">` + data.data +
+                                        `</span>
+                                    </a>
+
+                                    <div class="dropdown">
+                                        <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                            <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                        </button>
+                                    <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#modalAddRepresent" data-name="represent" data-id="` +
+                                        data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item delete-item" href="#" data-id="` + data.id + `" data-name="represent"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item set-default default-id ` + data.data +
+                                        `" id="default-id` + data.id +
+                                        `" href="#" data-name="represent" data-id="` + data.id + `">
+                                            <i class="fa-solid fa-link-slash" aria-hidden="true"></i> 
+                                        </a>
+                                    </div>
+                                    </div>
+                                    </li>
+                                    `
+                                    $('#listRepresent .p-1').after(newli)
                                 }
                                 alert(data.msg);
                             }
@@ -1088,12 +1107,69 @@
                                 inputDesc: inputDesc,
                             },
                             success: function(data) {
-                                $('.btn.btn-default').click();
+                                $('.btn.btn-default').click()
                                 $('#form-name-' + id).val('')
                                 $('#form-desc-' + id).val('')
+                                $('.closeModal').click()
                                 if (data.success) {
                                     $(id == "import" ? '#price_effect' : '#terms_pay').val(data
                                         .data);
+                                    if (id == "import") {
+                                        var price_effect = `
+                                        <li class="border" id="` + data.id + `">
+                                            <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="16" name="search-price-effect">
+                                                <span class="w-100 text-nav text-dark overflow-hidden">` + data.data +
+                                                        `</span>
+                                            </a>
+
+                                            <div class="dropdown">
+                                                <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                                    <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                </button>
+                                                <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                                    <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
+                                                        data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                                    <a class="dropdown-item delete-item" href="#" data-id="` + data.id + `" data-name="priceeffect"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                                    <a class="dropdown-item set-default default-id ` + data.data +
+                                                        `" id="default-id` + data.id +
+                                                        `" href="#" data-name="import" data-id="` + data.id + `">
+                                                        <i class="fa-solid fa-link" aria-hidden="true"></i> 
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        `
+                                    } else {
+                                        var term_pay = `
+                                        <li class="border" id="` + data.id +
+                                            `">
+                                            <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay" id="` +
+                                                        data.id + `" name="search-term-pay">
+                                                <span class="w-100 text-nav text-dark overflow-hidden">` + data.data +
+                                                        `</span>
+                                            </a>
+
+                                            <div class="dropdown">
+                                                <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                                    <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                </button>
+                                                <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                                    <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
+                                                        data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                                    <a class="dropdown-item delete-item" href="#" data-id="` + data.id + `" data-name="termpay"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                                    <a class="dropdown-item set-default default-id ` + data.data +
+                                                        `" id="default-id` + data.id +
+                                                        `" href="#" data-name="termpay" data-id="` + data.id + `">
+                                                        <i class="fa-solid fa-link" aria-hidden="true"></i> 
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        `
+                                    }
+                                    $(id == "import" ? $('#listPriceEffect .p-1').after(
+                                        price_effect) : $('#listTermsPay .p-1').after(
+                                        term_pay))
                                 }
                                 alert(data.msg);
                             }
@@ -1115,7 +1191,7 @@
                             provide_address_delivery: provide_address_delivery
                         },
                         success: function(data) {
-                            $('.btn.btn-default').click()
+                            $('.closeModal').click()
                             alert(data.msg);
                         }
                     })
@@ -1134,6 +1210,7 @@
                             inputField: inputField
                         },
                         success: function(data) {
+                            $('.closeModal').click()
                             alert(data.msg);
                         }
                     })
@@ -1147,8 +1224,6 @@
     function getAc(button) {
         return $(button).attr('id');
     }
-
-
 
     actionForm('addRepresent', '{{ route('addNewForm') }}', '{{ route('updateForm') }}')
     actionForm('import', '{{ route('addNewForm') }}', '{{ route('updateForm') }}')
