@@ -30,7 +30,7 @@
                                                 @if ($pro->quoteImport_id == $item->quoteImport_id)
                                                     <td><input type="checkbox"></td>
                                                     <td>1</td>
-                                                    <td><input class="form-control w-25" type="text"
+                                                    <td><input class="form-control w-100" type="text"
                                                             name="seri{{ $stt }}[]"
                                                             value="{{ $item->serinumber }}" readonly></td>
                                                     <td class="deleteRow1">
@@ -48,7 +48,7 @@
                                         <tr>
                                             <td><input type="checkbox"></td>
                                             <td>1</td>
-                                            <td><input class="form-control w-25" type="text"
+                                            <td><input class="form-control w-100" type="text"
                                                     name="seri{{ $stt }}[]"></td>
                                             <td class="deleteRow1"><svg xmlns="http://www.w3.org/2000/svg"
                                                     width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -91,7 +91,7 @@
                         <div class="modal-footer">
 
                             {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Lưu</button>
                         </div>
                     </div>
                 </div>

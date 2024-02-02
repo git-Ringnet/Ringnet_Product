@@ -117,7 +117,7 @@ function createRowInput(name) {
                 checkbox.setAttribute("type", "checkbox");
                 newtd1.append(checkbox);
                 newDiv.setAttribute("type", "text");
-                newDiv.setAttribute("class", "form-control w-25");
+                newDiv.setAttribute("class", "form-control w-100");
                 newDiv.setAttribute("name", name + i + "[]");
                 newtd3.append(newDiv);
                 newtd4.setAttribute("class", "deleteRow1");
@@ -149,7 +149,9 @@ function searchInput(input, list) {
 }
 searchInput("#provideFilter", "#myUL li");
 searchInput(".input-search", "#listReceive li");
-
+searchInput("#searchRepresent", "#listRepresent li");
+searchInput("#searchPriceEffect", "#listPriceEffect li");
+searchInput("#searchTermsPay", "#listTermsPay li");
 // Tính thuế, tổng tiền,...
 $(document).on(
     "input",

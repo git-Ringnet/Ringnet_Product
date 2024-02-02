@@ -226,6 +226,7 @@
                                                         </option>
                                                     </select>
                                                 </td>
+                                                <input type="hidden" class="product_tax1">
                                                 <td class="border border-bottom-0 border-right-0">
                                                     <input type="text" name="total_price[]"
                                                         class="border-0 px-2 py-1 w-100 total_price" readonly
@@ -417,7 +418,7 @@
                         </div>
 
                         <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                            <input readonly type="text" placeholder="Chọn thông tin"
+                            <input readonly="" type="text" placeholder="Chọn thông tin"
                                 class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
                                 id="represent"
                                 value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif">
@@ -433,6 +434,44 @@
                                         </span>
                                     </div>
                                 </div>
+                                @if ($represent)
+                                    @foreach ($represent as $value)
+                                        <li class="border">
+                                            <a href="javascript:void(0)"
+                                                class="text-dark d-flex justify-content-between p-2 search-represent w-100 search-represent"
+                                                id="{{ $value->id }}" name="search-represent">
+                                                <span
+                                                    class="w-100 text-nav text-dark overflow-hidden">{{ $value->represent_name }}</span>
+                                            </a>
+
+                                            <div class="dropdown">
+                                                <button type="button" data-toggle="dropdown"
+                                                    class="btn-save-print d-flex align-items-center h-100"
+                                                    style="margin-right:10px">
+                                                    <i class="fa-solid fa-ellipsis"></i>
+                                                </button>
+                                                <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                                    <a class="dropdown-item search-date-form" data-toggle="modal"
+                                                        data-target="#modalAddRepresent" data-name="represent"
+                                                        data-id="{{ $value->id }}" id="{{ $value->id }}"><i
+                                                            class="fa-regular fa-pen-to-square"></i></a>
+                                                    <a class="dropdown-item delete-item" href="#"
+                                                        data-id="{{ $value->id }}" data-name="represent"><i
+                                                            class="fa-solid fa-trash-can"></i></a>
+                                                    <a class="dropdown-item set-default default-id {{ $value->represent_name }}"
+                                                        id="default-id{{ $value->id }}" href="#"
+                                                        data-name="represent" data-id="{{ $value->id }}">
+                                                        @if ($value->default == 0)
+                                                            <i class="fa-solid fa-link-slash"></i>
+                                                        @else
+                                                            <i class="fa-solid fa-link"></i>
+                                                        @endif
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                @endif
                                 <a type="button"
                                     class="d-flex justify-content-center align-items-center p-2 position-sticky addRepresent"
                                     data-toggle="modal" data-target="#modalAddRepresent" style="bottom: 0;">
@@ -447,7 +486,6 @@
                                     </span>
                                 </a>
                             </ul>
-
                             <div class="">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -525,9 +563,79 @@
                         </div>
 
                         <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                            <input type="text" placeholder="Chọn thông tin" name="price_effect"
+                            {{-- <input readonly type="text" placeholder="Chọn thông tin" name="price_effect"
                                 class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
-                                value="{{ $import->price_effect }}">
+                                value="" id="price_effect"> --}}
+
+                            <input readonly type="text" placeholder="Chọn thông tin"
+                                class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
+                                id="price_effect" value="{{ $import->price_effect }}" name="price_effect">
+
+
+                            <ul id="listPriceEffect"
+                                class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
+                                style="z-index: 99;">
+                                <div class="p-1">
+                                    <div class="position-relative">
+                                        <input type="text" placeholder="Nhập thông tin"
+                                            class="pr-4 w-100 input-search" id="searchRepresent">
+                                        <span id="search-icon" class="search-icon">
+                                            <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                @if ($price_effect)
+                                    @foreach ($price_effect as $price)
+                                        <li class="border">
+                                            <a href="javascript:void(0)"
+                                                class="text-dark d-flex justify-content-between p-2 search-priceeffect w-100 search-price-effect"
+                                                id="{{ $price->id }}" name="search-price-effect">
+                                                <span
+                                                    class="w-100 text-nav text-dark overflow-hidden">{{ $price->form_desc }}</span>
+                                            </a>
+
+                                            <div class="dropdown">
+                                                <button type="button" data-toggle="dropdown"
+                                                    class="btn-save-print d-flex align-items-center h-100"
+                                                    style="margin-right:10px">
+                                                    <i class="fa-solid fa-ellipsis"></i>
+                                                </button>
+                                                <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                                    <a class="dropdown-item search-date-form" data-toggle="modal"
+                                                        data-target="#formModalquote" data-name="import"
+                                                        data-id="{{ $price->id }}" id="{{ $price->id }}"><i
+                                                            class="fa-regular fa-pen-to-square"></i></a>
+                                                    <a class="dropdown-item delete-item" href="#"
+                                                        data-id="{{ $price->id }}" data-name="represent"><i
+                                                            class="fa-solid fa-trash-can"></i></a>
+                                                    <a class="dropdown-item set-default default-id{{ $price->form_desc }}"
+                                                        id="default-id{{ $price->id }}" href="#"
+                                                        data-name="import" data-id="{{ $price->id }}">
+                                                        @if ($price->default_form == 0)
+                                                            <i class="fa-solid fa-link-slash"></i>
+                                                        @else
+                                                            <i class="fa-solid fa-link"></i>
+                                                        @endif
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                @endif
+                                <a type="button"
+                                    class="d-flex justify-content-center align-items-center p-2 position-sticky addRepresent"
+                                    data-toggle="modal" data-target="#formModalquote" style="bottom: 0;">
+                                    <span class="text-table text-center font-weight-bold">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                fill="#282A30"></path>
+                                        </svg>
+                                        Thêm mới
+                                    </span>
+                                </a>
+                            </ul>
                             <div class="">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -545,9 +653,74 @@
                         </div>
 
                         <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                            <input type="text" placeholder="Chọn thông tin" name="terms_pay"
+                            <input readonly type="text" placeholder="Chọn thông tin" name="terms_pay"
                                 class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
-                                value="{{ $import->terms_pay }}">
+                                value="{{ $import->terms_pay }}" id="terms_pay">
+                            <ul id="listTermsPay"
+                                class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
+                                style="z-index: 99;">
+                                <div class="p-1">
+                                    <div class="position-relative">
+                                        <input type="text" placeholder="Nhập thông tin"
+                                            class="pr-4 w-100 input-search" id="searchTermsPay">
+                                        <span id="search-icon" class="search-icon"><i
+                                                class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                    </div>
+                                </div>
+                                @if ($terms_pay)
+                                    @foreach ($terms_pay as $term)
+                                        <li class="border">
+                                            <a href="javascript:void(0)"
+                                                class="text-dark d-flex justify-content-between p-2 search-termpay w-100 search-term-pay"
+                                                id="{{ $term->id }}" name="search-term-pay">
+                                                <span
+                                                    class="w-100 text-nav text-dark overflow-hidden">{{ $term->form_desc }}</span>
+                                            </a>
+
+                                            <div class="dropdown">
+                                                <button type="button" data-toggle="dropdown"
+                                                    class="btn-save-print d-flex align-items-center h-100"
+                                                    style="margin-right:10px">
+                                                    <i class="fa-solid fa-ellipsis"></i>
+                                                </button>
+                                                <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                                    <a class="dropdown-item search-date-form" data-toggle="modal"
+                                                        data-target="#formModalquote" data-name="import"
+                                                        data-id="{{ $term->id }}" id="{{ $term->id }}"><i
+                                                            class="fa-regular fa-pen-to-square"></i></a>
+                                                    <a class="dropdown-item delete-item" href="#"
+                                                        data-id="{{ $term->id }}" data-name="represent"><i
+                                                            class="fa-solid fa-trash-can"></i></a>
+                                                    <a class="dropdown-item set-default default-id{{ $term->form_desc }}"
+                                                        id="default-id{{ $term->id }}" href="#"
+                                                        data-name="termpay" data-id="{{ $term->id }}">
+                                                        @if ($term->default_form == 0)
+                                                            <i class="fa-solid fa-link-slash"></i>
+                                                        @else
+                                                            <i class="fa-solid fa-link"></i>
+                                                        @endif
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                @endif
+
+                                <a type="button"
+                                    class="d-flex justify-content-center align-items-center p-2 position-sticky addRepresent"
+                                    data-toggle="modal" data-target="#formModalTermPay" style="bottom: 0;">
+                                    <span class="text-table text-center font-weight-bold">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                fill="#282A30"></path>
+                                        </svg>
+                                        Thêm mới
+                                    </span>
+                                </a>
+                            </ul>
+
                             <div class="">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -604,6 +777,10 @@
     </div>
 </form>
 </div>
+<x-form-modal-import title="Thêm mới người đại diện" name="addRepresent"
+    idModal="modalAddRepresent"></x-form-modal-import>
+<x-form-modal-import title="Hiệu lực báo giá" name="import" idModal="formModalquote"></x-form-modal-import>
+<x-form-modal-import title="Điều khoản thanh toán" name="termpay" idModal="formModalTermPay"></x-form-modal-import>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
@@ -612,9 +789,25 @@
         addRowTable(1);
     })
 
+    $(document).click(function(event) {
+        if ((!$(event.target).closest("#searchRepresent").length && !$(event.target).closest('#represent')
+                .length) && !$(event.target).closest('.dropdown').length) {
+            $('#listRepresent').hide();
+        }
+        if ((!$(event.target).closest('#price_effect').length && !$(event.target).closest('#searchPriceEffect')
+                .length) && !$(event.target).closest('.dropdown').length) {
+            $('#listPriceEffect').hide();
+        }
+        if ((!$(event.target).closest('#terms_pay').length && !$(event.target).closest('#searchTermsPay')
+                .length) && !$(event.target).closest('.dropdown').length) {
+            $('#listTermsPay').hide();
+        }
+    });
+
     function getAction(e) {
         $('#getAction').val($(e).find('button').val());
     }
+
     $('.search-info').click(function() {
         var provides_id = $(this).attr('id');
         var quotation_number = "{{ $import->quotation_number }}"
@@ -639,9 +832,389 @@
                 $('input[name="quotation_number"]').val(quotation);
                 $('#myInput').val(data['provide'].provide_name_display);
                 $('#provides_id').val(data['provide'].id);
+
+
+                $.ajax({
+                    url: "{{ route('getDataForm') }}",
+                    type: "get",
+                    data: {
+                        id: data['provide'].id,
+                        status: 'add'
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        $('#listRepresent li').empty()
+                        $('#listPriceEffect li').empty()
+                        $('#listTermsPay li').empty()
+                        $('#represent_id').val('')
+                        $('#price_effect').val("")
+                        $('#represent').val('')
+                        $('#terms_pay').val("")
+                        if (data['default_price'][0]) {
+                            $('#price_effect').val(data['default_price'][0].form_desc)
+                        }
+                        if (data['default_term'][0]) {
+                            $('#terms_pay').val(data['default_term'][0].form_desc)
+                        }
+
+                        data['represent'].forEach(function(element) {
+                            var li =
+                                `
+                            <li class="border">
+                                <a href="javascript:void(0)"
+                                    class="text-dark d-flex justify-content-between p-2 search-represent w-100 search-represent"
+                                    id="` + element.id + `" name="search-represent">
+                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.represent_name + `</span>
+                                </a>
+
+                                <div class="dropdown">
+                                    <button type="button" data-toggle="dropdown"
+                                        class="btn-save-print d-flex align-items-center h-100"
+                                        style="margin-right:10px">
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </button>
+                                    <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal"
+                                            data-target="#modalAddRepresent" data-name="represent"
+                                            data-id="` + element.id + `" id="` + element.id + `"><i
+                                            class="fa-regular fa-pen-to-square"></i></a>
+                                        <a class="dropdown-item delete-item" href="#"
+                                            data-id="` + element.id + `"
+                                            data-name="represent"><i
+                                            class="fa-solid fa-trash-can"></i></a>
+                                        <a class="dropdown-item set-default default-id ` + element.represent_name + `"
+                                            id="default-id` + element.id + `" href="#"
+                                            data-name="represent"
+                                            data-id="` + element.id + `">
+                                            ` + (element.default === 1 ? '<i class="fa-solid fa-link-slash"></i>' :
+                                    '<i class="fa-solid fa-link"></i>') + ` 
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            `;
+                            $('#listRepresent .p-1').after(li);
+                            if (element.default == 1) {
+                                $('#represent').val(element.represent_name);
+                                $('#represent_id').val(element.id);
+                            }
+                        });
+
+                        data['price_effect'].forEach(function(element) {
+                            var li =
+                                `
+                            <li class="border">
+                                <a href="javascript:void(0)"
+                                    class="text-dark d-flex justify-content-between p-2 search-priceeffect w-100 search-price-effect"
+                                    id="` + element.id + `" name="search-price-effect">
+                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_desc + `</span>
+                                </a>
+
+                                <div class="dropdown">
+                                    <button type="button" data-toggle="dropdown"
+                                        class="btn-save-print d-flex align-items-center h-100"
+                                        style="margin-right:10px">
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </button>
+                                    <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal"
+                                            data-target="#formModalquote" data-name="import"
+                                            data-id="` + element.id + `" id="` + element.id + `"><i
+                                            class="fa-regular fa-pen-to-square"></i></a>
+                                        <a class="dropdown-item delete-item" href="#"
+                                            data-id="` + element.id + `"
+                                            data-name="priceeffect"><i
+                                            class="fa-solid fa-trash-can"></i></a>
+                                        <a class="dropdown-item set-default default-id ` + element.form_desc + `"
+                                            id="default-id` + element.id + `" href="#"
+                                            data-name="import"
+                                            data-id="` + element.id + `">
+                                            ` + (element.default_form === 1 ?
+                                    '<i class="fa-solid fa-link-slash"></i>' :
+                                    '<i class="fa-solid fa-link"></i>') + ` 
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            `;
+                            $('#listPriceEffect .p-1').after(li);
+                        });
+
+                        data['terms_pay'].forEach(function(element) {
+                            var li =
+                                `
+                            <li class="border">
+                                <a href="javascript:void(0)"
+                                    class="text-dark d-flex justify-content-between p-2 search-termpay w-100 search-term-pay"
+                                    id="` + element.id + `" name="search-term-pay">
+                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_desc + `</span>
+                                </a>
+
+                                <div class="dropdown">
+                                    <button type="button" data-toggle="dropdown"
+                                        class="btn-save-print d-flex align-items-center h-100"
+                                        style="margin-right:10px">
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </button>
+                                    <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal"
+                                            data-target="#formModalquote" data-name="import"
+                                            data-id="` + element.id + `" id="` + element.id + `"><i
+                                            class="fa-regular fa-pen-to-square"></i></a>
+                                        <a class="dropdown-item delete-item" href="#"
+                                            data-id="` + element.id + `"
+                                            data-name="termpay"><i
+                                            class="fa-solid fa-trash-can"></i></a>
+                                        <a class="dropdown-item set-default default-id ` + element.form_desc + `"
+                                            id="default-id` + element.id + `" href="#"
+                                            data-name="termpay"
+                                            data-id="` + element.id + `">
+                                            ` + (element.default_form === 1 ?
+                                    '<i class="fa-solid fa-link-slash"></i>' :
+                                    '<i class="fa-solid fa-link"></i>') + ` 
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            `;
+                            $('#listTermsPay .p-1').after(li);
+                        });
+                    }
+                })
             }
         });
     });
+
+    function showData(classname, inputShow, inputHide) {
+        $(document).on('click', '.' + classname, function(e) {
+            e.preventDefault();
+            id = $(this).attr('id');
+            table = $(this).attr('name');
+            $.ajax({
+                url: "{{ route('showData') }}",
+                type: "get",
+                data: {
+                    id: id,
+                    table: table,
+                },
+                success: function(data) {
+                    if (data['table'] == "search-represent") {
+                        $('#' + inputShow).val(data[table].represent_name)
+                        $('#' + inputHide).val(data[table].id)
+                    } else {
+                        $(data['table'] == "search-price-effect" ? '#price_effect' : '#terms_pay')
+                            .val(data[table].form_desc)
+                    }
+                }
+            })
+        })
+    }
+
+    showData('search-represent', 'represent', 'represent_id')
+    showData('search-price-effect', 'price_effect', '')
+    showData('search-term-pay', 'terms_pay', '')
+
+
+
+    // Ghim 
+    $(document).on('click', '.set-default', function() {
+        id = $(this).attr('data-id');
+        form = $(this).attr('data-name');
+        provides_id = $('#provides_id').val();
+        $.ajax({
+            url: "{{ route('setDefault') }}",
+            type: "get",
+            data: {
+                id: id,
+                provides_id: provides_id,
+                form: form
+            },
+            success: function(data) {
+                console.log(data);
+                if (data['represent']) {
+                    $('#represent').val(data['represent'].represent_name)
+                    $('#represent_id').val(data['represent'].id)
+                    $('#listRepresent').hide()
+                } else {
+                    $(data['price_effect'] ? '#price_effect' : '#terms_pay').val((data[
+                            'price_effect'] ?
+                        data['price_effect'] : data['termpay']).form_desc)
+                    $(data['price_effect'] ? '#listPriceEffect' : '#listTermsPay').hide()
+                }
+
+            }
+        })
+    })
+
+    // Xóa người đại diện
+    $(document).on('click', '.delete-item', function() {
+        id = $(this).attr('data-id')
+        table = $(this).attr('data-name')
+        $.ajax({
+            url: "{{ route('deleteForm') }}",
+            type: "get",
+            data: {
+                id: id,
+                table: table
+            },
+            success: function(data) {
+                // console.log(data);
+            }
+        })
+    })
+
+
+    // Chỉnh sửa thông tin
+    $(document).on('click', '.search-date-form', function() {
+        var id = $(this).data('id');
+        var table = $(this).attr('data-name')
+        if (id) {
+            $.ajax({
+                url: "{{ route('getDataForm') }}",
+                type: "get",
+                data: {
+                    id: id,
+                    status: 'eidt',
+                    table: table
+                },
+                success: function(data) {
+                    if (data['represent']) {
+                        $('input[name="provide_represent_new"]').val(data['represent']
+                            .represent_name)
+                        $('input[name="provide_email_new"]').val(data['represent'].represent_email)
+                        $('input[name="provide_phone_new"]').val(data['represent'].represent_phone)
+                        $('input[name="provide_address_delivery_new"]').val(data['represent']
+                            .represent_address)
+                        $('#modalAddRepresent #exampleModalLabel').text('Cập nhật')
+                        $('#addRepresent').attr('data-id', data['represent'].id).text('Cập nhật')
+                    } else {
+                        $('#form-name-' + data['table']).val(data[data['table']].form_name)
+                        $('#form-desc-' + data['table']).val(data[data['table']].form_desc)
+                        $('#form_field').val(data[data['table']].form_field)
+                        $('#formModalquote #exampleModalLabel').text('Cập nhật')
+                        $('#' + data['table']).attr('data-id', data[data['table']].id).text(
+                            'Cập nhật')
+                    }
+
+                }
+            })
+
+        }
+    })
+
+    function actionForm(id, routeAdd, routeEdit) {
+        $('#' + id).click(function() {
+            var status = $(this).text().trim();
+            var provide_represent = $("input[name='provide_represent_new']").val().trim();
+            var provide_email = $("input[name='provide_email_new']").val().trim();
+            var provide_phone = $("input[name='provide_phone_new']").val().trim();
+            var provide_address_delivery = $("input[name='provide_address_delivery_new']").val().trim();
+
+            if (status == 'Thêm mới') {
+                if ((provides_id == "" || provide_represent == "") && id == 'addRepresent') {
+                    alert('Vui lòng nhập tên người đại diện')
+                } else {
+                    if (id == 'addRepresent') {
+                        provides_id = $('#provides_id').val();
+                        $.ajax({
+                            url: routeAdd,
+                            type: "get",
+                            data: {
+                                table: id,
+                                provides_id: provides_id,
+                                provide_represent: provide_represent,
+                                provide_email: provide_email,
+                                provide_phone: provide_phone,
+                                provide_address_delivery: provide_address_delivery
+                            },
+                            success: function(data) {
+                                if (data.success) {
+                                    console.log(data);
+                                    $("input[name='provide_represent_new']").val('')
+                                    $("input[name='provide_email_new']").val('')
+                                    $("input[name='provide_phone_new']").val('')
+                                    $("input[name='provide_address_delivery_new']").val('')
+                                    $('.btn.btn-default').click();
+                                    $('#represent_id').val(data.id);
+                                    $('#represent').val(data.data)
+                                }
+                                alert(data.msg);
+                            }
+                        })
+                    } else {
+                        inputName = $('#form-name-' + id).val().trim();
+                        inputDesc = $('#form-desc-' + id).val()
+                        $.ajax({
+                            url: routeAdd,
+                            type: "get",
+                            data: {
+                                table: id,
+                                inputName: inputName,
+                                inputDesc: inputDesc,
+                            },
+                            success: function(data) {
+                                $('.btn.btn-default').click();
+                                $('#form-name-' + id).val('')
+                                $('#form-desc-' + id).val('')
+                                if (data.success) {
+                                    $(id == "import" ? '#price_effect' : '#terms_pay').val(data
+                                        .data);
+                                }
+                                alert(data.msg);
+                            }
+                        })
+                    }
+                }
+            } else {
+                present_id = $(this).attr('data-id');
+                if (id == 'addRepresent') {
+                    $.ajax({
+                        url: routeEdit,
+                        type: "get",
+                        data: {
+                            table: id,
+                            present_id: present_id,
+                            provide_represent: provide_represent,
+                            provide_email: provide_email,
+                            provide_phone: provide_phone,
+                            provide_address_delivery: provide_address_delivery
+                        },
+                        success: function(data) {
+                            $('.btn.btn-default').click()
+                            alert(data.msg);
+                        }
+                    })
+                } else {
+                    inputName = $('#form-name-' + id).val().trim();
+                    inputDesc = $('#form-desc-' + id).val()
+                    inputField = $('#form_field').val()
+                    $.ajax({
+                        url: routeEdit,
+                        type: "get",
+                        data: {
+                            table: id,
+                            present_id: present_id,
+                            inputName: inputName,
+                            inputDesc: inputDesc,
+                            inputField: inputField
+                        },
+                        success: function(data) {
+                            alert(data.msg);
+                        }
+                    })
+
+                }
+            }
+        })
+
+    }
+
+
+    actionForm('addRepresent', '{{ route('addNewForm') }}', '{{ route('updateForm') }}')
+    actionForm('import', '{{ route('addNewForm') }}', '{{ route('updateForm') }}')
+    actionForm('termpay', '{{ route('addNewForm') }}', '{{ route('updateForm') }}')
+
+
 
     $('#addProvide').click(function() {
         var check = false;

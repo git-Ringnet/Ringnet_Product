@@ -47,8 +47,9 @@ class Receive_bill extends Model
                 'shipping_unit' => isset($data['shipping_unit']) ? $data['shipping_unit'] : "",
                 'delivery_charges' => isset($data['delivery_charges']) ? str_replace(',', '', $data['delivery_charges']) : 0,
                 'status' => 1,
-                'created_at' => Carbon::now(),
-                'workspace_id' => Auth::user()->current_workspace
+                'created_at' => isset($data['received_date']) ? $data['received_date'] : Carbon::now(),
+                'workspace_id' => Auth::user()->current_workspace,
+                'delivery_code' => $data['delivery_code']
             ];
             $receive_id = DB::table($this->table)->insertGetId($dataReceive);
             for ($i = 0; $i < count($data['product_name']); $i++) {

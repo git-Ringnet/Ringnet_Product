@@ -19,6 +19,10 @@ class DateForm extends Model
             ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
     }
+
+    public function getDefault(){
+        return $this->hasOne(GuestFormDate::class, 'date_form_id', 'id');
+    }
     public function createDateForm($data)
     {
         return self::create($data);

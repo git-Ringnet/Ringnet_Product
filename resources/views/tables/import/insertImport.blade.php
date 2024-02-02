@@ -703,9 +703,19 @@
                         status: 'add'
                     },
                     success: function(data) {
-                        console.log(data);
                         $('#listRepresent li').empty();
                         $('#listPriceEffect li').empty();
+                        $('#listTermsPay li').empty();
+                        $('#represent').val('');
+                        $('#price_effect').val('');
+                        $('#terms_pay').val('')
+                        if (data['default_price'][0]) {
+                            $('#price_effect').val(data['default_price'][0].form_desc)
+                        }
+                        if (data['default_term'][0]) {
+                            $('#terms_pay').val(data['default_term'][0].form_desc)
+                        }
+
                         data['represent'].forEach(function(element) {
                             var li =
                                 `
@@ -752,7 +762,7 @@
                         data['price_effect'].forEach(function(element) {
                             var li =
                                 `
-                            <li class="border">
+                            <li class="border" id="`+ element.id+`">
                                 <a href="javascript:void(0)"
                                     class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect"
                                     id="` + element.id + `" name="search-price-effect">
@@ -772,7 +782,7 @@
                                             class="fa-regular fa-pen-to-square"></i></a>
                                         <a class="dropdown-item delete-item" href="#"
                                             data-id="` + element.id + `"
-                                            data-name="represent"><i
+                                            data-name="priceeffect"><i
                                             class="fa-solid fa-trash-can"></i></a>
                                         <a class="dropdown-item set-default default-id ` + element.form_desc + `"
                                             id="default-id` + element.id + `" href="#"
@@ -787,9 +797,6 @@
                             </li>
                             `;
                             $('#listPriceEffect .p-1').after(li);
-                            if (element.default_form == 1) {
-                                $('#price_effect').val(element.form_desc);
-                            }
                         });
 
                         data['terms_pay'].forEach(function(element) {
@@ -815,7 +822,7 @@
                                             class="fa-regular fa-pen-to-square"></i></a>
                                         <a class="dropdown-item delete-item" href="#"
                                             data-id="` + element.id + `"
-                                            data-name="represent"><i
+                                            data-name="termpay"><i
                                             class="fa-solid fa-trash-can"></i></a>
                                         <a class="dropdown-item set-default default-id ` + element.form_desc + `"
                                             id="default-id` + element.id + `" href="#"
@@ -830,9 +837,9 @@
                             </li>
                             `;
                             $('#listTermsPay .p-1').after(li);
-                            if (element.default_form == 1) {
-                                $('#terms_pay').val(element.form_desc);
-                            }
+                            // if (element.default_form == 1) {
+                            //     $('#terms_pay').val(element.form_desc);
+                            // }
                         });
                     }
                 })
@@ -915,7 +922,12 @@
                 table: table
             },
             success: function(data) {
-                // console.log(data);
+              
+                if (data.list == "listRepresent") {
+                    console.log($('#' + data.list).find('li #' + data.id))
+                }
+                alert(data.msg)
+               
             }
         })
     })
@@ -1058,6 +1070,7 @@
                                     $("input[name='provide_phone_new']").val('')
                                     $("input[name='provide_address_delivery_new']").val('')
                                     $('.btn.btn-default').click();
+                                    $('#represent_id').val(data.id);
                                     $('#represent').val(data.data)
                                 }
                                 alert(data.msg);

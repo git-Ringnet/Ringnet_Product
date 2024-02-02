@@ -386,7 +386,7 @@
                                         class="d-flex align-items-center justify-content-between border border-left-0 py-1">
                                         <input readonly type="text" placeholder="Chọn thông tin"
                                             class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                            autocomplete="off" id="represent">
+                                            autocomplete="off" id="represent" @if($nameRepresent) value="{{$nameRepresent}}" @endif>
                                         <div class="">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">

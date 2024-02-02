@@ -186,13 +186,13 @@
                                     <th class="border-right p-1" style="width:10%;">
                                         <span class="text-table text-secondary">Đơn vị</span>
                                     </th>
-                                    <th class="border-right p-1" style="width:15%;">
+                                    <th class="border-right p-1" style="width:10%;">
                                         <span class="text-table text-secondary">Số lượng</span>
                                     </th>
                                     <th class="border-right p-1" style="width:10%;">
                                         <span class="text-table text-secondary">Quản lý S/N</span>
                                     </th>
-                                    <th class="border-right p-1" style="width:10%;">
+                                    <th class="border-right p-1" style="width:15%;">
                                         <span class="text-table text-secondary">Ghi chú</span>
                                     </th>
                                     <th class="border-top border-right p-1" style="width:1%;"></th>
@@ -224,7 +224,7 @@
                                     <span class="text-table ml-2">Người đại diện</span>
                                 </div>
                                 <div class="border border-right-0 py-1 border-left-0">
-                                    <span class="text-table ml-2">Mã thanh toán</span>
+                                    <span class="text-table ml-2">Mã nhận hàng</span>
                                 </div>
                                 <div class="border border-right-0 py-1 border-left-0">
                                     <span class="text-table ml-2">Đơn vị vận chuyển</span>
@@ -262,7 +262,7 @@
                                                 class="text-dark d-flex justify-content-between p-2 search-receive"
                                                 id="{{ $value->id }}" name="search-info">
                                                 <span
-                                                    class="w-50">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
+                                                    class="w-100">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
                                             </a>
                                         </li>
                                     @endforeach
@@ -306,7 +306,7 @@
 
                                 <div
                                     class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                    <input name="represent" type="text" placeholder="Chọn thông tin"
+                                    <input readonly name="represent" type="text" placeholder="Chọn thông tin"
                                         class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
                                         autocomplete="off" id="represent">
                                     <div class="">
@@ -327,7 +327,7 @@
 
                                 <div
                                     class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                    <input type="text" placeholder="Chọn thông tin" name="reference_number"
+                                    <input type="text" placeholder="Chọn thông tin" name="delivery_code"
                                         class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
                                         autocomplete="off">
                                     <div class="">
@@ -454,6 +454,7 @@
                         data
                         .quotation_number);
                     $('#provide_name').val(data.provide_name);
+                    $('#represent').val(data.represent)
                     $('#detailimport_id').val(data.id)
                     $('#listReceive').hide();
                     $('#list_modal').empty();
@@ -473,7 +474,7 @@
                                     var tr =
                                         `
                                 <tr class="bg-white">
-                                    <td class="border border-left-0 border-top-0 border-bottom-0">
+                                    <td class="border border-left-0 border-top-0 border-bottom-0 py-1">
                                     <input type="hidden" readonly value="` + element.id +
                                         `" name="listProduct[]">
                                         <div class="d-flex w-100 justify-content-between align-items-center position-relative">
@@ -486,7 +487,7 @@
                                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>
                                             </svg>
                                         <input type="checkbox">
-                                        <input type="text" readonly name="product_code[]" class="border-0 px-3 py-2 w-75 searchProduct" value="` +
+                                        <input type="text" readonly name="product_code[]" class="border-0 px-2 py-1 w-75 searchProduct" value="` +
                                         (element.product_code == null ?
                                             "" : element
                                             .product_code) +
@@ -495,9 +496,9 @@
                                         </ul>
                                         </div>
                                     </td> 
-                                    <td class="border border-top-0 border-bottom-0 position-relative">
+                                    <td class="border border-top-0 border-bottom-0 position-relative py-1">
                                         <div class="d-flex w-100 justify-content-between align-items-center">
-                                        <input readonly id="searchProductName" type="text" name="product_name[]" class="searchProductName border-0 px-3 py-2 w-100" value='` +
+                                        <input readonly id="searchProductName" type="text" name="product_name[]" class="searchProductName border-0 px-2 py-1 w-100" value='` +
                                         element.product_name +
                                         `'>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -513,41 +514,23 @@
                                         </svg>
                                         </div>
                                     </td>   
-                                    <td> 
-                                        <input readonly type="text" name="product_unit[]" class="border-0 px-3 py-2 w-100 product_unit" value="` +
+                                    <td class="border border-top-0 border-bottom-0 border-right-0 py-1"> 
+                                        <input readonly type="text" name="product_unit[]" class="border-0 px-2 py-1 w-100 product_unit" value="` +
                                         element.product_unit + `">
                                     </td>
-                                    <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <div class="d-flex">
+                                    <td class="border border-top-0 border-bottom-0 border-right-0 py-1">
+                                    <div>
                                         <input oninput="checkQty(this,` + (element.product_qty - element.receive_qty) +
-                                        `)" type="text" name="product_qty[]" class="border-0 px-3 py-2 w-100 quantity-input" value="` +
+                                        `)" type="text" name="product_qty[]" class="border-0 px-2 py-1 w-100 quantity-input" value="` +
                                         formatCurrency(element
                                             .product_qty - element
                                             .receive_qty) +
                                         `">
-                                        <button type="button" class="btn btn-primary"
-                                                data-toggle="modal" data-target="#exampleModal` + element.id + `"
-                                                style="background:transparent; border:none;">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="32"
-                                                    height="32" viewBox="0 0 32 32" fill="none">
-                                                        <rect width="32" height="32" rx="4" fill="white"></rect>
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z"
-                                                                fill="#0095F6"></path>
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z"
-                                                                 fill="#0095F6"></path>
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z"
-                                                                fill="#0095F6"></path>
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z"
-                                                                fill="#0095F6"></path>
-                                                </svg>
-                                        </button>
+                                        <a class="duongdan" data-toggle="modal" data-target="#exampleModal` + element.id + `">Serial Number </a>
+                                       
                                     </div>
                                     </td>
-                                    <td class="border border-top-0 border-bottom-0 text-center">
+                                    <td class="border border-top-0 border-bottom-0 text-center py-1">
                                         <input onclick="getDataCheckbox(this)" type="checkbox" ` + (product.checked[
                                                 index] == 'endable' ||
                                             product.cb[index] == 1 ?
@@ -558,19 +541,19 @@
                                                 index] == 1 ? 1 : 0) +
                                         `">
                                     </td>
-                                    <td class="border border-top-0 border-bottom-0">
-                                        <input readonly type="text" name="product_note[]" class="border-0 px-3 py-2 w-100" value="` +
+                                    <td class="border border-top-0 border-bottom-0 py-1">
+                                        <input readonly type="text" name="product_note[]" class="border-0 px-2 py-1 w-100" value="` +
                                         (element.product_note == null ?
                                             "" : element.product_note) + `">
                                     </td>
-                                    <input type="hidden" class="border-0 px-3 py-2 w-100 price_export"
+                                    <input type="hidden" class="border-0 px-2 py-1 w-100 price_export"
                                         name="price_export[]" value="` + formatCurrency(element.price_export) + `" readonly>
-                                    <input type="hidden" class="border-0 px-3 py-2 w-100 product_tax"
+                                    <input type="hidden" class="border-0 px-2 py-1 w-100 product_tax"
                                         name="product_tax[]" value="` + element.product_tax + `" readonly>
                                     <input type="hidden" class="product_tax1">  
-                                    <input type="hidden" class="border-0 px-3 py-2 w-100 total_price"
+                                    <input type="hidden" class="border-0 px-2 py-1 w-100 total_price"
                                         name="total_price[]" value="` + formatCurrency(element.product_total) + `" readonly>             
-                                    <td class="border border-top-0 border deleteRow">
+                                    <td class="border border-top-0 border deleteRow py-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.3687 6.09375C12.6448 6.09375 12.8687 6.30362 12.8687 6.5625C12.8687 6.59865 12.8642 6.63468 12.8554 6.66986L11.3628 12.617C11.1502 13.4639 10.3441 14.0625 9.41597 14.0625H6.58403C5.65593 14.0625 4.84977 13.4639 4.6372 12.617L3.14459 6.66986C3.08135 6.41786 3.24798 6.16551 3.51678 6.10621C3.55431 6.09793 3.59274 6.09375 3.6313 6.09375H12.3687ZM8.5 0.9375C9.88071 0.9375 11 1.98683 11 3.28125H13C13.5523 3.28125 14 3.70099 14 4.21875V4.6875C14 4.94638 13.7761 5.15625 13.5 5.15625H2.5C2.22386 5.15625 2 4.94638 2 4.6875V4.21875C2 3.70099 2.44772 3.28125 3 3.28125H5C5 1.98683 6.11929 0.9375 7.5 0.9375H8.5ZM8.5 2.34375H7.5C6.94772 2.34375 6.5 2.76349 6.5 3.28125H9.5C9.5 2.76349 9.05228 2.34375 8.5 2.34375Z" fill="#6B6F76"></path></svg>
                                     </td>
                                 </tr>`;
@@ -609,10 +592,12 @@
         var isChecked = $(element).is(':checked');
         if (isChecked) {
             $(element).closest('tr').find('input[name^="cbSeri"]').val(1)
-            $(element).closest('tr').find('button').show()
+            // $(element).closest('tr').find('a').show()
+            $(element).closest('tr').find('a').css('opacity',1)
         } else {
             $(element).closest('tr').find('input[name^="cbSeri"]').val(0)
-            $(element).closest('tr').find('button').hide();
+            // $(element).closest('tr').find('a').hide();
+            $(element).closest('tr').find('a').css('opacity',0)
         }
     }
 

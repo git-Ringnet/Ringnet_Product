@@ -172,6 +172,7 @@ class DetailImport extends Model
             if ($check_status && $detail->status == 1) {
                 $dataImport = [
                     'provide_id' => $data['provides_id'],
+                    'represent_id' => $data['represent_id'],
                     'project_id' => isset($data['project_id']) ? $data['project_id'] : 1,
                     'user_id' => 1,
                     'quotation_number' => $data['quotation_number'],

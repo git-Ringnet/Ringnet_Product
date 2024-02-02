@@ -652,7 +652,7 @@ td p {
 }
 
 #list_modal .modal-dialog {
-    max-width: 85% !important;
+    max-width: 20% !important;
 }
 
 /* #provideModal .modal-dialog {
@@ -663,9 +663,13 @@ td p {
     max-width: 20% !important;
 }
 
-#guestModal .modal-dialog input:focus{
+#guestModal .modal-dialog input:focus,
+#formModalTermPay .modal-dialog input:focus,
+#formModalquote .modal-dialog input:focus,
+#modalAddRepresent .modal-dialog input:focus{
     outline: none;
 }
+
 
 #representModal .modal-dialog {
     max-width: 20% !important;

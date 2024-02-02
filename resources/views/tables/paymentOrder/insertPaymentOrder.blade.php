@@ -287,7 +287,7 @@
                                                 class="text-dark d-flex justify-content-between p-2 search-receive"
                                                 id="{{ $value->id }}" name="search-info">
                                                 <span
-                                                    class="w-50">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
+                                                    class="w-100">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
                                             </a>
                                         </li>
                                     @endforeach
@@ -330,9 +330,9 @@
                                 </div>
                                 <div
                                     class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                    <input type="text" placeholder="Chọn thông tin" name="quotation_number"
+                                    <input readonly type="text" placeholder="Chọn thông tin" name="represent"
                                         class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                        autocomplete="off">
+                                        autocomplete="off" id="represent">
                                     <div class="">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -485,6 +485,7 @@
                     $('#search_quotation').val(data.quotation_number == null ? data.id :
                         data
                         .quotation_number);
+                    $('#represent').val(data.represent)
                     $('#provide_name').val(data.provide_name);
                     $('#detailimport_id').val(data.id)
                     $('#listReceive').hide();

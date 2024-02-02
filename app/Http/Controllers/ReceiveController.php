@@ -128,6 +128,10 @@ class ReceiveController extends Controller
     public function edit(string $workspace, string $id)
     {
         $receive = Receive_bill::findOrFail($id);
+        $detail = DetailImport::where('id',$receive->detailimport_id)->first();
+        if($detail){
+            $nameRepresent = $detail->getNameRepresent->represent_name;
+        }
         $title = $receive->quotation_number;
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
@@ -149,7 +153,7 @@ class ReceiveController extends Controller
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
             )
             ->with('getSerialNumber')->get();
-        return view('tables.receive.editReceive', compact('receive', 'title', 'product', 'workspacename'));
+        return view('tables.receive.editReceive', compact('receive', 'title', 'product', 'workspacename','nameRepresent'));
     }
 
     /**
@@ -191,10 +195,15 @@ class ReceiveController extends Controller
         // $detail = DetailImport::FindOrFail($request->detail_id);
         $detail = DetailImport::where('id', $request->detail_id)
             ->where('workspace_id', Auth::user()->current_workspace)->first();
-        $name =  $detail->getProvideName->provide_name_display;
+        if ($detail->getProvideName || $detail->getNameRepresent) {
+            $nameProvide =  $detail->getProvideName->provide_name_display;
+            $nameRepresent = $detail->getNameRepresent->represent_name;
+        }
+
         $data = [
             'quotation_number' => $detail->quotation_number,
-            'provide_name' => $name,
+            'represent' => $nameRepresent,
+            'provide_name' => $nameProvide,
             'id' => $detail->id
         ];
         return $data;

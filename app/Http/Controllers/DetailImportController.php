@@ -129,6 +129,11 @@ class DetailImportController extends Controller
     public function edit(string $workspace, string $id)
     {
         $import = DetailImport::findOrFail($id);
+        if ($import) {
+            $represent = ProvideRepesent::where('provide_id', $import->provide_id)->get();
+            $price_effect = DateForm::where('workspace_id', Auth::user()->current_workspace)->where('form_field', 'import')->get();
+            $terms_pay = DateForm::where('workspace_id', Auth::user()->current_workspace)->where('form_field', 'termpay')->get();
+        }
         // $provides = Provides::all();
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         $title = $import->quotation_number;
@@ -137,7 +142,7 @@ class DetailImportController extends Controller
         $history = HistoryImport::where('detailImport_id', $id)->get();
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename'));
+        return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename', 'represent', 'price_effect', 'terms_pay'));
     }
 
     /**
@@ -431,6 +436,22 @@ class DetailImportController extends Controller
             $terms_pay = DateForm::where('form_field', 'termpay')
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->get();
+
+            $defaltPrice = DateForm::join('guest_dateform', 'date_form.id', 'guest_dateform.date_form_id')
+                ->where('date_form.default_form', 1)
+                ->where('date_form.form_field', 'import')
+                ->where('guest_dateform.guest_id', $request->id)
+                ->get();
+            $defaltTerm = DateForm::join('guest_dateform', 'date_form.id', 'guest_dateform.date_form_id')
+                ->where('date_form.default_form', 1)
+                ->where('date_form.form_field', 'termpay')
+                ->where('guest_dateform.guest_id', $request->id)
+                ->get();
+            if ($defaltPrice || $defaltTerm) {
+                $data['default_price'] = $defaltPrice;
+                $data['default_term'] = $defaltTerm;
+            }
+
             $data['represent'] = $represent;
             $data['price_effect'] = $price_effect;
             $data['terms_pay'] = $terms_pay;
@@ -475,7 +496,7 @@ class DetailImportController extends Controller
                 } else {
                     $new = DB::table('represent_provide')->insertGetId($dataRepresent);
                     $msg = response()->json([
-                        'success' => true, 'msg' => 'Thêm mới người đại diện thành công', 'data' => $request->provide_represent
+                        'success' => true, 'msg' => 'Thêm mới người đại diện thành công', 'data' => $request->provide_represent, 'id' => $new
                     ]);
                 }
             }
@@ -562,21 +583,39 @@ class DetailImportController extends Controller
     }
     public function deleteForm(Request $request)
     {
-        $check = ProvideRepesent::where('id', $request->id)
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->first();
-        if ($check) {
-            if ($request->table == 'represent') {
-                // ProvideRepesent::where('id',$check->id)->delete();
+
+        // return $request->all();
+        if ($request->table == "represent") {
+            $check = ProvideRepesent::where('id', $request->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+            if ($check) {
+                if ($request->table == 'represent') {
+                    $msg = response()->json([
+                        'success' => true, 'msg' => 'Xóa người đại diện thành công'
+                    ]);
+                }
+            } else {
                 $msg = response()->json([
-                    'success' => true, 'msg' => 'Xóa người đại diện thành công'
+                    'success' => false, 'msg' => 'Không tìm thấy dữ liệu cần xóa'
                 ]);
             }
         } else {
-            $msg = response()->json([
-                'success' => false, 'msg' => 'Không tìm thấy dữ liệu cần xóa'
-            ]);
+            $check = DateForm::where('id', $request->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+            if ($check) {
+                $msg = response()->json([
+                    'success' => true, 'msg' => 'Xóa thành công', 'id' => $check->id, 'list' => $request->table == 'priceeffect' ? "listRepresent" : "listTermsPay"
+                ]);
+                $check->delete();
+            } else {
+                $msg = response()->json([
+                    'success' => false, 'msg' => 'Không tìm thấy dữ liệu cần xóa'
+                ]);
+            }
         }
+
         return $msg;
     }
 

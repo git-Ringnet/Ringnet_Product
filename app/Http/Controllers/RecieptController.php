@@ -48,6 +48,7 @@ class RecieptController extends Controller
         $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
             // ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
             ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.reciept_qty,0)'))
+            ->where('quoteimport.workspace_id',Auth::user()->current_workspace)
             ->distinct()
             ->select('detailimport.quotation_number', 'detailimport.id')
             ->get();
@@ -99,6 +100,10 @@ class RecieptController extends Controller
     {
         $reciept = Reciept::findOrFail($id);
         $title = $reciept->id;
+        $detail = DetailImport::where('id',$reciept->detailimport_id)->first();
+        if($detail){
+            $nameRepresent = $detail->getNameRepresent->represent_name;
+        }
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         // $product = QuoteImport::where('receive_id', $reciept->receive_id)->get();
@@ -117,7 +122,7 @@ class RecieptController extends Controller
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
             )
             ->get();
-        return view('tables.reciept.editReciept', compact('title', 'reciept', 'product', 'workspacename'));
+        return view('tables.reciept.editReciept', compact('title', 'reciept', 'product', 'workspacename','nameRepresent'));
     }
 
     /**
