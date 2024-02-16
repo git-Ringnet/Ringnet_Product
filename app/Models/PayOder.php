@@ -65,7 +65,7 @@ class PayOder extends Model
             // Tính công nợ nhà cung cấp
             $this->calculateDebt($payment->provide_id, $prepay);
             // Cập nhật trạng thái thanh toán
-            $status = $this->updateStatusDebt($data, $payment->id);
+            $status = $this->updateStatusDebt($data, $payment->id,2);
             dd($status);
             // Cập nhật trạng thái đơn hàng
             $this->updateStatus($payment->detailimport_id, PayOder::class, 'payment_qty', 'status_pay');
@@ -141,7 +141,7 @@ class PayOder extends Model
                 }
             }
             // Cập nhật tình trạng thanh toán
-            $status = $this->updateStatusDebt($data, $payment_id);
+            $status = $this->updateStatusDebt($data, $payment_id,1);
             // Cập nhật trạng thái đơn hàng
             if ($detail->status == 1) {
                 $detail->status = 2;
@@ -214,7 +214,7 @@ class PayOder extends Model
         return Carbon::parse($data);
     }
 
-    public function updateStatusDebt($data, $id)
+    public function updateStatusDebt($data, $id ,$check)
     {
         $startDate = Carbon::now()->startOfDay();
         $endDate = isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now();
@@ -235,7 +235,12 @@ class PayOder extends Model
         } elseif ($daysDiff < 0) {
             $status = 4; //Quá hạn
         } else {
-            $status = 1; //Chưa thanh toán
+            // if($check == 1 && $data['payment'] > 0){
+            //     $status = 6; // Đặt cọc
+            // }else{
+                $status = 1; //Chưa thanh toán
+            // }
+           
         }
         $payorder = PayOder::where('detailimport_id', $id)
             ->where('workspace_id', Auth::user()->current_workspace)

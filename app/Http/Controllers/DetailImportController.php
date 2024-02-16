@@ -279,10 +279,17 @@ class DetailImportController extends Controller
     // Thêm mới nhà cung cấp
     public function addNewProvide(Request $request)
     {
-        $check = Provides::where('provide_code', $request->provide_code)
-            ->orwhere('provide_name_display', $request->provide_name_display)
-            ->where('workspace_id', Auth::user()->current_workspace)
+
+        $check = Provides::where('workspace_id', Auth::user()->current_workspace)
+            ->where(function ($query) use ($request) {
+                $query->where('provide_code', $request->provide_code)
+                    ->orWhere('provide_name_display', $request->provide_name_display);
+            })
             ->first();
+        // $check = Provides::where('provide_code', $request->provide_code)
+        //     ->orwhere('provide_name_display', $request->provide_name_display)
+        //     ->where('workspace_id', Auth::user()->current_workspace)
+        //     ->first();
 
         if ($check == null) {
             if (isset($request->key)) {
@@ -330,7 +337,7 @@ class DetailImportController extends Controller
             $msg = response()->json([
                 'success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công',
                 'id' => $new_provide, 'name' => $provide->provide_name_display, 'key' => $key,
-                'id_represent' => $id_represent, 'represent_name' => $request->provide_represent
+                'id_represent' => isset($id_represent) ? $id_represent : "" , 'represent_name' => $request->provide_represent
             ]);
         } else {
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế hoặc tên hiển thị đã tồn tại']);

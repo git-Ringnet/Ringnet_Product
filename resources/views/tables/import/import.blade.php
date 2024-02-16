@@ -132,7 +132,7 @@
                                 <thead class="sticky-head">
                                     <tr>
                                         <th class="border-top-0 my-0 py-2"></th>
-                                        <th class="border-top-0 bg-white my-0 py-2">
+                                        <th class="border-top-0 bg-white pl-0 my-0 py-2">
                                             <input type="checkbox" name="all" id="checkall">
                                         </th>
                                         <th scope="col" class="border-top-0 bg-white my-0 py-2">

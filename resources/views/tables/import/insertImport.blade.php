@@ -1022,6 +1022,35 @@
                         $("input[name='provide_email']").val('');
                         $("input[name='provide_phone']").val('');
                         $("input[name='provide_address_delivery']").val('');
+                        if(data.id_represent){
+                            var newli = `
+                                    <li class="border" id="` + data.id_represent +
+                                        `">
+                                    <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent" id="` +
+                                        data.id_represent + `" name="search-represent">
+                                        <span class="w-100 text-nav text-dark overflow-hidden">` + data.represent_name +
+                                        `</span>
+                                    </a>
+
+                                    <div class="dropdown">
+                                        <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                            <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                        </button>
+                                    <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#modalAddRepresent" data-name="represent" data-id="` +
+                                        data.id_represent + `" id="` + data.id_represent + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item delete-item" href="#" data-id="` + data.id_represent + `" data-name="represent"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item set-default default-id ` + data.represent_name +
+                                        `" id="default-id` + data.id_represent +
+                                        `" href="#" data-name="represent" data-id="` + data.id_represent + `">
+                                            <i class="fa-solid fa-link-slash" aria-hidden="true"></i> 
+                                        </a>
+                                    </div>
+                                    </div>
+                                    </li>
+                                    `
+                                    $('#listRepresent .p-1').after(newli)
+                        }
                         $('#more_info').show();
                         $('#more_info1').show();
                     } else {
