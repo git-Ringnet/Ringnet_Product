@@ -12,7 +12,7 @@
                                 </p>
                                 <input name="provide_name_display" type="text" placeholder="Nhập thông tin"
                                     class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                    id="guest_name_display" autocomplete="off">
+                                    id="getKeyProvide" autocomplete="off">
                             </div>
                             <div class="mt-2">
                                 <p class="p-0 m-0 px-2 text-nav">
@@ -36,7 +36,7 @@
                                 </p>
                                 <input name="key" type="text" placeholder="Nhập thông tin"
                                     class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                    autocomplete="off" id="getKeyProvide">
+                                    autocomplete="off" id="">
                             </div>
                             <div class="mt-2">
                                 <p class="p-0 m-0 px-2 text-nav">

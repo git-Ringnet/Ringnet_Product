@@ -323,13 +323,14 @@ class DetailImportController extends Controller
                 ];
                 if ($request->provide_represent != null || $request->provide_email != null || $request->provide_phone != null) {
                     // Thêm người đại diện
-                    DB::table('represent_provide')->insertGetId($dataRepresent);
+                    $id_represent = DB::table('represent_provide')->insertGetId($dataRepresent);
                 }
             }
             $provide = Provides::findOrFail($new_provide);
             $msg = response()->json([
                 'success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công',
-                'id' => $new_provide, 'name' => $provide->provide_name_display, 'key' => $key
+                'id' => $new_provide, 'name' => $provide->provide_name_display, 'key' => $key,
+                'id_represent' => $id_represent, 'represent_name' => $request->provide_represent
             ]);
         } else {
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế hoặc tên hiển thị đã tồn tại']);
@@ -522,7 +523,7 @@ class DetailImportController extends Controller
                 ];
                 $newId = DB::table('date_form')->insertGetId($dataForm);
                 $msg = response()->json([
-                    'success' => true, 'msg' => $request->table == "import" ? 'Tạo mới hiệu lực báo giá thành công' : 'Tạo mới điều khoản thanh toán thành công', 'data' => $request->inputDesc,'id' => $newId
+                    'success' => true, 'msg' => $request->table == "import" ? 'Tạo mới hiệu lực báo giá thành công' : 'Tạo mới điều khoản thanh toán thành công', 'data' => $request->inputDesc, 'id' => $newId
                 ]);
             }
         }
@@ -590,7 +591,7 @@ class DetailImportController extends Controller
                 ->first();
             if ($check) {
                 $msg = response()->json([
-                    'success' => true, 'msg' => 'Xóa người đại diện thành công','id' => $check->id, 'list' => "listRepresent"
+                    'success' => true, 'msg' => 'Xóa người đại diện thành công', 'id' => $check->id, 'list' => "listRepresent"
                 ]);
             } else {
                 $msg = response()->json([

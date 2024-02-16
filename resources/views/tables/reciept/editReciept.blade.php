@@ -255,7 +255,7 @@
                                             <td class="border border-top-0 border-bottom-0 border-right-0">
                                                 <input readonly type="text"
                                                     class="border-0 px-2 py-1 w-100 product_tax"
-                                                    value="{{ $item->product_tax }}" disabled>
+                                                    value="{{ $item->product_tax == 99 ? "NOVAT" : $item->product_tax }}" disabled>
                                             </td>
                                             <input type="hidden" class="product_tax1">
                                             <td class="border border-top-0 border-bottom-0 border-right-0">

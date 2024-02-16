@@ -95,8 +95,10 @@ class Products extends Model
         $return = 0;
         $product = Products::where('id', $id)->first();
         if ($product) {
-            // isset($data['check_seri']) ? $check = 1 : $check = 0;
-            isset($data['check_seri']) ? $check = 1 : $check = $product->check_seri;
+            isset($data['check_seri']) ? $check = 1 : $check = 0;
+            // isset($data['check_seri']) ? $check = 1 : $check = $product->check_seri;
+
+
             $dataUpdate = [
                 'product_code' => $data['product_code'],
                 'product_name' => $data['product_name'],
@@ -122,9 +124,9 @@ class Products extends Model
                 $updateProduct = DB::table($this->table)
                     ->where('id', $id)
                     ->update($dataUpdate);
-                if ($updateProduct) {
+                // if ($updateProduct) {
                     $return = 1;
-                }
+                // }
             }
         }
         return $return;

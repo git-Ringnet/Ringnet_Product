@@ -208,7 +208,7 @@
                                                 <input type="checkbox" class="p-0 m-0">
                                             </td>
                                             <td class="py-2">
-                                                {{ $item->id }}
+                                                {{ $item->delivery_code }}
                                             </td>
                                             <td class="py-2">
                                                 {{-- <a href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}"

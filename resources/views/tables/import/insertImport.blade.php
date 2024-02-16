@@ -490,7 +490,9 @@
                                     class="d-flex align-items-center justify-content-between border border-left-0 py-1">
                                     <input type="date" placeholder="Chọn thông tin" name="date_quote"
                                         class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                        autocomplete="off" value="{{ date('Y-m-d') }}">
+                                        autocomplete="off" 
+                                        value="{{ date('Y-m-d') }}"
+                                         id="date_quote" >
                                     <div class="">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -1119,7 +1121,7 @@
                                         <li class="border" id="` + data.id + `">
                                             <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="16" name="search-price-effect">
                                                 <span class="w-100 text-nav text-dark overflow-hidden">` + data.data +
-                                                        `</span>
+                                            `</span>
                                             </a>
 
                                             <div class="dropdown">
@@ -1128,11 +1130,12 @@
                                                 </button>
                                                 <div class="dropdown-menu date-form-setting" style="z-index: 100;">
                                                     <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
-                                                        data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
-                                                    <a class="dropdown-item delete-item" href="#" data-id="` + data.id + `" data-name="priceeffect"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                            data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                                    <a class="dropdown-item delete-item" href="#" data-id="` + data
+                                            .id + `" data-name="priceeffect"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
                                                     <a class="dropdown-item set-default default-id ` + data.data +
-                                                        `" id="default-id` + data.id +
-                                                        `" href="#" data-name="import" data-id="` + data.id + `">
+                                            `" id="default-id` + data.id +
+                                            `" href="#" data-name="import" data-id="` + data.id + `">
                                                         <i class="fa-solid fa-link" aria-hidden="true"></i> 
                                                     </a>
                                                 </div>
@@ -1144,9 +1147,9 @@
                                         <li class="border" id="` + data.id +
                                             `">
                                             <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay" id="` +
-                                                        data.id + `" name="search-term-pay">
+                                            data.id + `" name="search-term-pay">
                                                 <span class="w-100 text-nav text-dark overflow-hidden">` + data.data +
-                                                        `</span>
+                                            `</span>
                                             </a>
 
                                             <div class="dropdown">
@@ -1155,11 +1158,12 @@
                                                 </button>
                                                 <div class="dropdown-menu date-form-setting" style="z-index: 100;">
                                                     <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
-                                                        data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
-                                                    <a class="dropdown-item delete-item" href="#" data-id="` + data.id + `" data-name="termpay"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                            data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                                    <a class="dropdown-item delete-item" href="#" data-id="` + data
+                                            .id + `" data-name="termpay"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
                                                     <a class="dropdown-item set-default default-id ` + data.data +
-                                                        `" id="default-id` + data.id +
-                                                        `" href="#" data-name="termpay" data-id="` + data.id + `">
+                                            `" id="default-id` + data.id +
+                                            `" href="#" data-name="termpay" data-id="` + data.id + `">
                                                         <i class="fa-solid fa-link" aria-hidden="true"></i> 
                                                     </a>
                                                 </div>
@@ -1339,6 +1343,12 @@
             })
         }
     })
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = String(date.getMonth() + 1).padStart(2, '0');
+    var todayDate = String(date.getDate()).padStart(2, '0');
+    var datePattern = year + '-' + month + '-' + todayDate;
+    document.getElementById("date_quote").value = datePattern;
 </script>
 
 </body>
