@@ -128,8 +128,8 @@ class ReceiveController extends Controller
     public function edit(string $workspace, string $id)
     {
         $receive = Receive_bill::findOrFail($id);
-        $detail = DetailImport::where('id',$receive->detailimport_id)->first();
-        if($detail){
+        $detail = DetailImport::where('id', $receive->detailimport_id)->first();
+        if ($detail) {
             $nameRepresent = $detail->getNameRepresent->represent_name;
         }
         $title = $receive->quotation_number;
@@ -153,7 +153,7 @@ class ReceiveController extends Controller
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
             )
             ->with('getSerialNumber')->get();
-        return view('tables.receive.editReceive', compact('receive', 'title', 'product', 'workspacename','nameRepresent'));
+        return view('tables.receive.editReceive', compact('receive', 'title', 'product', 'workspacename', 'nameRepresent'));
     }
 
     /**
@@ -195,16 +195,21 @@ class ReceiveController extends Controller
         // $detail = DetailImport::FindOrFail($request->detail_id);
         $detail = DetailImport::where('id', $request->detail_id)
             ->where('workspace_id', Auth::user()->current_workspace)->first();
-        if ($detail->getProvideName || $detail->getNameRepresent) {
-            $nameProvide =  $detail->getProvideName->provide_name_display;
-            $nameRepresent = $detail->getNameRepresent->represent_name;
+        if ($detail) {
+            if ($detail->getProvideName) {
+                $nameProvide =  $detail->getProvideName->provide_name_display;
+            }
+            if ($detail->getNameRepresent) {
+                $nameRepresent = $detail->getNameRepresent->represent_name;
+            }
         }
 
+
         $data = [
-            'quotation_number' => $detail->quotation_number,
-            'represent' => $nameRepresent,
-            'provide_name' => $nameProvide,
-            'id' => $detail->id
+            'quotation_number' => isset($detail) ? $detail->quotation_number : "",
+            'represent' => isset($nameRepresent) ? $nameRepresent : "",
+            'provide_name' => isset($nameProvide) ? $nameProvide : "",
+            'id' => isset($detail) ? $detail->id : ""
         ];
         return $data;
     }

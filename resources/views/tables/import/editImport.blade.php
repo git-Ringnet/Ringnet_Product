@@ -542,9 +542,11 @@
                         </div>
 
                         <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                            <input type="date" placeholder="Chọn thông tin" name="date_quote"
+                            <input id="datePicker" type="text" placeholder="Chọn thông tin"
                                 class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
-                                value="{{ $import->created_at->toDateString() }}">
+                                value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}" >
+                                {{-- value="{{ $import->created_at->toDateString() }}" readonly> --}}
+                                <input type="hidden" id="hiddenDateInput" name="date_quote" value="{{ $import->created_at->toDateString() }}">
                             <div class="">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -783,6 +785,16 @@
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    flatpickr("#datePicker", {
+    locale: "vn",
+    dateFormat: "d/m/Y",
+    onChange: function(selectedDates, dateStr, instance) {
+        // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+        document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
+            "Y-m-d");
+    }
+});
+
     getKeyProvide($('#myInput'));
     $('#addRowTable').off('click').on('click', function() {
         addRowTable(1);

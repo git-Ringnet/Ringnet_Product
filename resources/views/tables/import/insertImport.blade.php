@@ -488,11 +488,12 @@
 
                                 <div
                                     class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                    <input type="date" placeholder="Chọn thông tin" name="date_quote"
-                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                        autocomplete="off" 
-                                        value="{{ date('Y-m-d') }}"
-                                         id="date_quote" >
+                                    <input type="date" placeholder="Chọn thông tin" name=""
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0 flatpickr-input"
+                                        autocomplete="off" value="{{ date('Y-m-d') }}" {{-- id="date_quote" --}}
+                                        id="datePicker">
+                                    <input type="hidden" name="date_quote" id="hiddenDateInput"
+                                        value="{{ date('Y-m-d') }}">
                                     <div class="">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -661,6 +662,16 @@
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    flatpickr("#datePicker", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        defaultDate: new Date(),
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
     getKeyProvide($('#getKeyProvide'));
 
     $(document).click(function(event) {
@@ -1022,14 +1033,15 @@
                         $("input[name='provide_email']").val('');
                         $("input[name='provide_phone']").val('');
                         $("input[name='provide_address_delivery']").val('');
-                        if(data.id_represent){
+                        if (data.id_represent) {
                             var newli = `
                                     <li class="border" id="` + data.id_represent +
-                                        `">
+                                `">
                                     <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent" id="` +
-                                        data.id_represent + `" name="search-represent">
-                                        <span class="w-100 text-nav text-dark overflow-hidden">` + data.represent_name +
-                                        `</span>
+                                data.id_represent + `" name="search-represent">
+                                        <span class="w-100 text-nav text-dark overflow-hidden">` + data
+                                .represent_name +
+                                `</span>
                                     </a>
 
                                     <div class="dropdown">
@@ -1038,18 +1050,18 @@
                                         </button>
                                     <div class="dropdown-menu date-form-setting" style="z-index: 100;">
                                         <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#modalAddRepresent" data-name="represent" data-id="` +
-                                        data.id_represent + `" id="` + data.id_represent + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                data.id_represent + `" id="` + data.id_represent + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
                                         <a class="dropdown-item delete-item" href="#" data-id="` + data.id_represent + `" data-name="represent"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
                                         <a class="dropdown-item set-default default-id ` + data.represent_name +
-                                        `" id="default-id` + data.id_represent +
-                                        `" href="#" data-name="represent" data-id="` + data.id_represent + `">
+                                `" id="default-id` + data.id_represent +
+                                `" href="#" data-name="represent" data-id="` + data.id_represent + `">
                                             <i class="fa-solid fa-link-slash" aria-hidden="true"></i> 
                                         </a>
                                     </div>
                                     </div>
                                     </li>
                                     `
-                                    $('#listRepresent .p-1').after(newli)
+                            $('#listRepresent .p-1').after(newli)
                         }
                         $('#more_info').show();
                         $('#more_info1').show();

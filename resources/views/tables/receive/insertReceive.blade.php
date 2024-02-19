@@ -387,9 +387,11 @@
 
                                 <div
                                     class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                    <input type="date" placeholder="Nhập thông tin" name="received_date"
-                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                        value="{{ date('Y-m-d') }}">
+                                    <input type="text" placeholder="Nhập thông tin"
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0 flatpickr-input"
+                                        value="{{ date('Y-m-d') }}" id="datePicker">
+                                    <input id="hiddenDateInput" type="hidden" value="{{ date('Y-m-d') }}"
+                                        name="received_date">
                                     <div class="">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -424,6 +426,17 @@
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+
+flatpickr("#datePicker", {
+    locale: "vn",
+    dateFormat: "d/m/Y",
+    defaultDate: new Date(),
+    onChange: function(selectedDates, dateStr, instance) {
+        // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+        document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
+            "Y-m-d");
+    }
+});
     function getAction(e) {
         $('#getAction').val($(e).find('button').val());
     }
