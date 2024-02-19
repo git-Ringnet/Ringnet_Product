@@ -347,7 +347,7 @@ class DetailExportController extends Controller
         $guest = representGuest::findOrFail($data['idGuest']);
         return $guest;
     }
-    
+
     //Tìm kiếm project
     public function searchProject(Request $request)
     {
@@ -405,31 +405,17 @@ class DetailExportController extends Controller
                     ->orWhere('guest_name_display', $request->guest_name_display);
             })
             ->first();
-        if ($check == null) {
-            if (isset($request->key)) {
-                $key = $request->key;
-            } else {
-                $key = preg_match_all('/[A-ZĐ]/u', $request->guest_name_display, $matches);
-                if ($key > 0) {
-                    $key = implode('', $matches[0]);
-                } else {
-                    $key =  ucfirst($request->guest_name_display);
-                    $key = preg_match_all('/[A-ZĐ]/u', $key, $matches);
-                    $key = implode('', $matches[0]);
-                    if ($key) {
-                        $key = $key;
-                    } else {
-                        $key = "RN";
-                    }
-                }
-            }
+
+        if ($check === null) {
+            $key = isset($request->key) ? $request->key : $this->generateKey($request->guest_name_display);
+
             $data = [
                 'guest_name_display' => $request->guest_name_display,
                 'guest_name' => $request->guest_name,
                 'guest_address' => $request->guest_address,
                 'guest_code' => $request->guest_code,
                 'guest_email' => $request->guest_email,
-                'key' => $request->key,
+                'key' => $key,
                 'guest_phone' => $request->guest_phone,
                 'guest_receiver' => $request->guest_receiver,
                 'guest_email_personal' => $request->guest_email_personal,
@@ -437,28 +423,55 @@ class DetailExportController extends Controller
                 'guest_debt' => 0,
                 'workspace_id' => Auth::user()->current_workspace,
                 'guest_note' => $request->guest_note,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ];
-            $new_guest = DB::table('guest')->insertGetId($data);
-            //
-            $dataRepresent = [
-                'guest_id' => $new_guest,
-                'represent_name' => $request->represent_guest_name,
-                'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
-            $newRepresentId = DB::table('represent_guest')->insertGetId($dataRepresent);
-            $msg = response()->json([
-                'success' => true, 'msg' => 'Thêm mới khách hàng thành công', 'id' => $new_guest,
-                'guest_name_display' => $request->guest_name_display, 'key' => $request->key, 
-                'represent_name' => $request->represent_guest_name, 'id_represent' => $newRepresentId,
-            ]);
+
+            $new_guest = DB::table('guest')->insertGetId($data);
+
+            if (!empty($request->represent_guest_name)) {
+                $dataRepresent = [
+                    'guest_id' => $new_guest,
+                    'represent_name' => $request->represent_guest_name,
+                    'workspace_id' => Auth::user()->current_workspace,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+
+                $newRepresentId = DB::table('represent_guest')->insertGetId($dataRepresent);
+            } else {
+                $newRepresentId = null;
+            }
+
+            $response = [
+                'success' => true,
+                'msg' => 'Thêm mới khách hàng thành công',
+                'id' => $new_guest,
+                'guest_name_display' => $request->guest_name_display,
+                'key' => $key,
+                'represent_name' => $request->represent_guest_name,
+                'id_represent' => $newRepresentId,
+            ];
         } else {
-            $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế hoặc tên khách hàng đã tồn tại']);
+            $response = ['success' => false, 'msg' => 'Mã số thuế hoặc tên khách hàng đã tồn tại'];
         }
-        return $msg;
+
+        return response()->json($response);
+    }
+
+    private function generateKey($name)
+    {
+        $key = preg_match_all('/[A-ZĐ]/u', $name, $matches);
+        if ($key > 0) {
+            $key = implode('', $matches[0]);
+        } else {
+            $key = ucfirst($name);
+            $key = preg_match_all('/[A-ZĐ]/u', $key, $matches);
+            $key = implode('', $matches[0]);
+            $key = $key ?: "RN";
+        }
+
+        return $key;
     }
     //Thông tin chi tiết khách
     public function editGuest(Request $request)
@@ -468,7 +481,8 @@ class DetailExportController extends Controller
         return $guest;
     }
     //Cập nhật thông tin khách hàng
-    public function updateGuest(Request $request) {
+    public function updateGuest(Request $request)
+    {
         $data = $request->all();
         $updateGuest = $this->guest->updateGuestRepresent($data);
         return $updateGuest;

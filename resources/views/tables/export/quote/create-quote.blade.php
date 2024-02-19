@@ -2061,12 +2061,13 @@
                 },
                 success: function(data) {
                     if (data.success) {
-                        quotation = getQuotation(data.key, '1')
+                        quotation = getQuotation(data.key, '1');
                         $('input[name="quotation_number"]').val(quotation);
                         $('.nameGuest').val(data.guest_name_display);
                         alert(data.msg);
                         $('.idGuest').val(data.id);
                         $('.modal [data-dismiss="modal"]').click();
+
                         // Nếu thành công, tạo một mục mới
                         var newGuestInfo = data;
                         var guestList = $('#myUL'); // Danh sách hiện có
@@ -2083,56 +2084,67 @@
                             '<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>' +
                             '</a>' +
                             '</li>';
+
                         // Thêm mục mới vào danh sách
                         var addButton = $(".addGuestNew");
                         $(newListItem).insertBefore(addButton);
+
                         //clear
                         $('#guest_name_display').val('');
                         $("input[name='key']").val('');
                         $('#guest_address').val(null);
                         $('#guest_code').val(null);
                         $('#represent_guest_name').val(null);
-                        //
+
+                        // Nếu có người đại diện, thêm vào danh sách
+                        if (data.represent_name !== null && data.represent_name !== '') {
+                            //reset 
+                            $('#representativeList').empty();
+                            $('#represent_guest').val('');
+                            $('.represent_guest_id').val('');
+
+                            // Thêm người đại diện mới
+                            var newGuestInfo1 = data;
+                            var guestList1 = $('#myUL7'); // Danh sách hiện có
+                            var newListItem1 =
+                                '<li class="border" data-id="' + newGuestInfo1.id +
+                                '"><a href="#" title="' + newGuestInfo1.represent_name +
+                                '" class="text-dark d-flex justify-content-between p-2 search-represent w-100" id="' +
+                                newGuestInfo1.id + '" name="search-represent">' +
+                                '<span class="w-100 text-nav text-dark overflow-hidden">' +
+                                newGuestInfo1
+                                .represent_name +
+                                '</span></a>' +
+                                '<div class="dropdown">' +
+                                '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">' +
+                                '<i class="fa-solid fa-ellipsis" aria-hidden="true"></i>' +
+                                '</button><div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
+                                '<a class="dropdown-item edit-represent-form" data-toggle="modal" data-target="#representModal" data-name="representGuest" data-id="' +
+                                newGuestInfo1.id + '">' +
+                                '<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>' +
+                                '</a><a class="dropdown-item delete-item-represent" href="#" data-id="' +
+                                newGuestInfo1.id + '" data-name="representGuest">' +
+                                '<i class="fa-solid fa-trash-can" aria-hidden="true"></i></a><a class="dropdown-item default-represent" id="default-id' +
+                                newGuestInfo1.id +
+                                '" href="#" data-name="representGuest" data-id="' +
+                                newGuestInfo1.id + '">' +
+                                '<i class="fa-solid fa-link" aria-hidden="true"></i></a></div></div>' +
+                                '</li>';
+
+                            // Thêm mục mới vào danh sách
+                            var addButton1 = $(".addRepresentNew");
+                            $(newListItem1).insertBefore(addButton1);
+
+                            $('#represent_guest').val(data.represent_name);
+                            $('.represent_guest_id').val(data.id);
+                        }
+
                         $('#show-info-guest').show();
                         $('#show-title-guest').show();
-                        //reset 
-                        $('#representativeList').empty();
-                        $('#represent_guest').val('');
-                        $('.represent_guest_id').val('');
-                        //Thêm người đại diện mới
-                        var newGuestInfo1 = data;
-                        var guestList1 = $('#myUL7'); // Danh sách hiện có
-                        var newListItem1 =
-                            '<li class="border" data-id="' + newGuestInfo1.id +
-                            '"><a href="#" title="' + newGuestInfo1.represent_name +
-                            '" class="text-dark d-flex justify-content-between p-2 search-represent w-100" id="' +
-                            newGuestInfo1.id + '" name="search-represent">' +
-                            '<span class="w-100 text-nav text-dark overflow-hidden">' +
-                            newGuestInfo1
-                            .represent_name +
-                            '</span></a>' +
-                            '<div class="dropdown">' +
-                            '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">' +
-                            '<i class="fa-solid fa-ellipsis" aria-hidden="true"></i>' +
-                            '</button><div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
-                            '<a class="dropdown-item edit-represent-form" data-toggle="modal" data-target="#representModal" data-name="representGuest" data-id="' +
-                            newGuestInfo1.id + '">' +
-                            '<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>' +
-                            '</a><a class="dropdown-item delete-item-represent" href="#" data-id="' +
-                            newGuestInfo1.id + '" data-name="representGuest">' +
-                            '<i class="fa-solid fa-trash-can" aria-hidden="true"></i></a><a class="dropdown-item default-represent" id="default-id' +
-                            newGuestInfo1.id + '" href="#" data-name="representGuest" data-id="' +
-                            newGuestInfo1.id + '">' +
-                            '<i class="fa-solid fa-link" aria-hidden="true"></i></a></div></div>' +
-                            '</li>';
-                        // Thêm mục mới vào danh sách
-                        var addButton1 = $(".addRepresentNew");
-                        $(newListItem1).insertBefore(addButton1);
-                        $('#represent_guest').val(data.represent_name);
-                        $('.represent_guest_id').val(data.id);
                     } else {
                         alert(data.msg);
                     }
+
                 }
             });
         }
