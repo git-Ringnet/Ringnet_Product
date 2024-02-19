@@ -187,7 +187,7 @@ class DetailExportController extends Controller
     public function update(string $workspace, Request $request, string $id)
     {
         $detailExport = DetailExport::find($id);
-        // dd($request->all());
+        //Đơn báo giá
         if ($request->action == "action_1") {
             if ($detailExport->status == 1) {
                 $export_id = $this->detailExport->updateExport($request->all(), $id);
@@ -204,6 +204,7 @@ class DetailExportController extends Controller
                 return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Cập nhật không thành công!');
             }
         }
+        //Đơn giao hàng
         if ($request->action == "action_2") {
             $title = "Tạo đơn giao hàng";
             $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
@@ -228,6 +229,7 @@ class DetailExportController extends Controller
                 ]);
             }
         }
+        //Hóa đơn
         if ($request->action == "action_3") {
             $title = "Tạo Hóa đơn bán hàng";
             $data = $request->all();
@@ -248,6 +250,7 @@ class DetailExportController extends Controller
                 return view('tables.export.bill_sale.create-billSale', ['yes' => $yes, 'getInfoDelivery' => $getInfoDelivery, 'getGuestbyId' => $getGuestbyId, 'getRepresentbyId' => $getRepresentbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport, 'workspacename' => $workspace]);
             }
         }
+        //Thanh toán
         if ($request->action == "action_4") {
             $title = "Tạo đơn thanh toán";
             $product = $this->product->getAllProducts();
@@ -268,6 +271,7 @@ class DetailExportController extends Controller
                 return view('tables.export.pay_export.create-payExport', ['yes' => $yes, 'delivery' => $delivery, 'getGuestbyId' => $getGuestbyId, 'getRepresentbyId' => $getRepresentbyId, 'title' => $title, 'data' => $data, 'numberQuote' => $numberQuote, 'product' => $product, 'quoteExport' => $quoteExport, 'workspacename' => $workspace]);
             }
         }
+        //Xóa đơn báo giá
         if ($request->action == "action_5") {
             $delivery = Delivery::where('detailexport_id', $id)->get();
             $billSale = BillSale::where('detailexport_id', $id)->get();
@@ -287,6 +291,7 @@ class DetailExportController extends Controller
                 return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Xóa đơn bán hàng thất bại!');
             }
         }
+        //Đơn mua hàng
         if ($request->action == "action_6") {
             $dataImport = $this->detailImport->dataImport($request->all());
             $title = "Tạo đơn mua hàng";
