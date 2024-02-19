@@ -1,284 +1,297 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="paymentorder"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
-<form action="{{ route('paymentOrder.update', ['workspace' => $workspacename, 'paymentOrder' => $payment->id]) }}"
-    method="POST" id="formSubmit" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
-
-    <div class="content-wrapper1 py-2 border border-top-0 border-left-0 border-right-0">
-        <!-- Content Header (Page header) -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <form action="{{ route('paymentOrder.update', ['workspace' => $workspacename, 'paymentOrder' => $payment->id]) }}"
+        method="POST" id="formSubmit" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
         <input type="hidden" name="detailimport_id" id="detailimport_id" value="{{ $payment->detailimport_id }}">
         <input type="hidden" name="detail_id" value="{{ $payment->id }}">
         <input type="hidden" name="table_name" value="TTMH">
-        <div class="d-flex justify-content-between align-items-center pl-4 ml-1">
+        <section class="content-header p-0">
             <div class="container-fluided">
-                <div class="mb">
-                    <span class="font-weight-bold">Mua hàng</span>
-                    <span class="mx-2">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
-                                fill="#26273B" fill-opacity="0.8"></path>
-                        </svg>
-                    </span>
-                    <span class="font-weight-bold">Thanh toán mua hàng</span>
-                    <span class="mx-2">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
-                                fill="#26273B" fill-opacity="0.8"></path>
-                        </svg>
-                    </span>
-                    <span>Chỉnh sửa thanh toán mua hang</span>
-                    <span class="border ml-2 p-1 text-nav text-secondary shadow-sm rounded">
-                        @if ($payment->status == 1)
-                            Chưa thanh toán
-                        @elseif($payment->status == 2)
-                            Thanh toán đủ
-                        @elseif($payment->status == 3)
-                            Đến hạn
-                        @elseif($payment->status == 4)
-                            Quá hạn
-                        @else
-                            Đặt cọc
-                        @endif
-                    </span>
-
+                <div class="mb-3">
+                    <span>Mua hàng</span>
+                    <span>/</span>
+                    <span class="font-weight-bold">Đơn nhận hàng</span>
                 </div>
-            </div>
-            <div class="container-fluided z-index-block">
-                <div class="row m-0">
-                    <a href="{{ route('paymentOrder.index', $workspacename) }}" style="margin-right:10px;">
-                        <button class="btn-save-print rounded d-flex align-items-center h-100">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                fill="none">
-                                <path
-                                    d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
-                                    fill="#6D7075"></path>
-                            </svg>
-                            <span class="">Trở về</span>
-                        </button>
-                    </a>
-
-                    <div class="dropdown">
-                        <button type="button" data-toggle="dropdown"
-                            class="btn-save-print rounded d-flex align-items-center h-100 dropdown-toggle px-2"
+                <div class="row m-0 mb-1">
+                    @if ($payment->status != 2)
+                        <button type="submit" class="custom-btn d-flex align-items-center h-100"
                             style="margin-right:10px">
-                            <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                            <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
-                                    fill="#6D7075"></path>
-                            </svg>
-                            <span class="text-button">In</span>
-                        </button>
-                        <div class="dropdown-menu" style="z-index: 9999;">
-                            <a class="dropdown-item text-nav" href="http://127.0.0.1:8000/excel/4">Xuất
-                                Excel</a>
-                            <a class="dropdown-item text-nav border-top" href="http://127.0.0.1:8000/pdf/4">Xuất
-                                PDF</a>
-                        </div>
-                    </div>
-
-                    <label class="custom-btn d-flex align-items-center h-100 m-0 mr-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                            fill="none" class="mx-1">
-                            <path
-                                d="M8.30541 9.20586C8.57207 9.47246 8.5943 9.89106 8.37208 10.183L8.30541 10.2593L5.84734 12.7174C4.58675 13.978 2.54294 13.978 1.28235 12.7174C0.0652319 11.5003 0.0232719 9.55296 1.15644 8.2855L1.28235 8.15237L3.74042 5.69429C4.03133 5.40339 4.50298 5.40339 4.79388 5.69429C5.06054 5.96096 5.08277 6.37949 4.86055 6.67147L4.79388 6.74775L2.33581 9.20586C1.65703 9.88456 1.65703 10.9852 2.33581 11.6639C2.98065 12.3088 4.00611 12.341 4.68901 11.7607L4.79388 11.6639L7.25195 9.20586C7.54286 8.91492 8.01451 8.91492 8.30541 9.20586ZM8.82965 5.17005C9.12053 5.46095 9.12053 5.9326 8.82965 6.22351L6.34904 8.70413C6.05813 8.99504 5.58648 8.99504 5.29558 8.70413C5.00467 8.41323 5.00467 7.94158 5.29558 7.65067L7.7762 5.17005C8.0671 4.87914 8.53875 4.87914 8.82965 5.17005ZM12.7173 1.28236C13.9344 2.49948 13.9764 4.44674 12.8432 5.71422L12.7173 5.84735L10.2592 8.30543C9.96833 8.59633 9.49673 8.59633 9.20583 8.30543C8.93914 8.03877 8.91692 7.62023 9.13913 7.32825L9.20583 7.25197L11.6638 4.79389C12.3426 4.11511 12.3426 3.0146 11.6638 2.33582C11.019 1.69098 9.99363 1.65874 9.31073 2.23909L9.20583 2.33582L6.74774 4.79389C6.45683 5.0848 5.98518 5.0848 5.69428 4.79389C5.42762 4.52723 5.40539 4.10869 5.62761 3.81672L5.69428 3.74043L8.15235 1.28236C9.41293 0.0217665 11.4567 0.0217665 12.7173 1.28236Z"
-                                fill="white"></path>
-                        </svg>
-                        <span>Đính kèm file</span><input type="file" style="display: none;" id="file_restore"
-                            accept="*" name="file">
-                    </label>
-
-                    @if ($payment->status != 2)
-                        <button type="submit" class="btn-save-print d-flex align-items-center h-100 rounded"
-                            style="margin-right:10px">
-                            <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                viewBox="0 0 14 14" fill="none">
+                                    d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                    fill="white" />
                                 <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
-                                    fill="#6D7075" />
+                                    d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                    fill="white" />
                             </svg>
-                            <span>Xác nhận</span>
+                            <span>Thanh toán hóa đơn</span>
                         </button>
+                    @else
+                        <a href="{{ route('paymentOrder.index',$workspacename) }}">
+                            <span class="btn btn-secondary d-flex align-items-center h-100">
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="6" height="10"
+                                    viewBox="0 0 6 10" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M5.76877 0.231232C6.07708 0.53954 6.07708 1.03941 5.76877 1.34772L2.11648 5L5.76877 8.65228C6.07708 8.96059 6.07708 9.46046 5.76877 9.76877C5.46046 10.0771 4.96059 10.0771 4.65228 9.76877L0.441758 5.55824C0.13345 5.24993 0.13345 4.75007 0.441758 4.44176L4.65228 0.231231C4.96059 -0.0770772 5.46046 -0.0770772 5.76877 0.231232Z"
+                                        fill="#42526E" />
+                                </svg>
+                                <span>Trở về</span>
+                            </span>
+                        </a>
                     @endif
 
-                    <a href="#" id="delete_payment"
-                        class="custom-btn-danger d-flex align-items-center h-100 py-1 px-2"
-                        style="margin-right: 10px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"
-                            fill="none" class="mx-1">
+                    <label class="custom-btn d-flex align-items-center h-100 m-0 mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" class="mr-1">
                             <path
-                                d="M0.96967 0.969668C1.26256 0.676777 1.73744 0.676777 2.03033 0.969668L6 4.939L9.9697 0.969668C10.2626 0.676777 10.7374 0.676777 11.0303 0.969668C11.3232 1.26256 11.3232 1.73744 11.0303 2.03033L7.061 6L11.0303 9.9697C11.2966 10.2359 11.3208 10.6526 11.1029 10.9462L11.0303 11.0303C10.7374 11.3232 10.2626 11.3232 9.9697 11.0303L6 7.061L2.03033 11.0303C1.73744 11.3232 1.26256 11.3232 0.96967 11.0303C0.67678 10.7374 0.67678 10.2626 0.96967 9.9697L4.939 6L0.96967 2.03033C0.7034 1.76406 0.6792 1.3474 0.89705 1.05379L0.96967 0.969668Z"
-                                fill="white"></path>
+                                d="M6.78565 11.9915C7.26909 11.9915 7.71035 11.9915 8.1516 11.9915C8.23486 11.9915 8.31812 11.9899 8.40082 11.9926C8.5923 11.9987 8.72995 12.0903 8.80599 12.2657C8.88425 12.445 8.84429 12.6071 8.71108 12.7425C8.40082 13.0589 8.08666 13.3713 7.77362 13.6855C7.28519 14.1762 6.79731 14.6679 6.30721 15.1569C6.03135 15.4322 5.81489 15.4322 5.54125 15.158C4.75809 14.3737 3.97771 13.5873 3.19344 12.8047C3.03969 12.6509 2.94423 12.4861 3.03581 12.2679C3.13016 12.0431 3.31666 11.9871 3.54367 11.9899C4.02822 11.996 4.51221 11.9915 5.01619 11.9915C5.03173 11.7812 5.04227 11.5769 5.0617 11.3732C5.33145 8.55805 6.6752 6.39617 9.13957 5.02744C14.0156 2.31941 19.6492 5.27333 20.8021 10.2814C21.7784 14.5225 19.0442 18.8202 14.7788 19.7643C12.3693 20.2977 10.1664 19.8015 8.1838 18.3334C7.74531 18.0087 7.65762 17.4681 7.964 17.0546C8.26983 16.6422 8.80821 16.5761 9.25003 16.9114C10.4556 17.825 11.811 18.2396 13.3223 18.1885C16.042 18.0969 18.502 16.0228 19.0726 13.3219C19.8113 9.82465 17.4652 6.4217 13.9246 5.85334C10.641 5.32605 7.4134 7.66055 6.89777 10.9414C6.84504 11.28 6.8245 11.6241 6.78565 11.9915Z"
+                                fill="#0095F6" />
+                            <path
+                                d="M12.129 10.7643C12.129 10.2315 12.1274 9.69806 12.1296 9.16522C12.1312 8.74062 12.406 8.44811 12.7945 8.44922C13.183 8.45033 13.4567 8.74339 13.4578 9.17022C13.4606 10.091 13.4617 11.0118 13.4556 11.9326C13.4545 12.0675 13.4955 12.143 13.6132 12.2118C14.4075 12.6758 15.1973 13.1476 15.9876 13.6183C16.238 13.7676 16.3568 13.9952 16.3246 14.281C16.2935 14.5602 16.1342 14.7733 15.8572 14.8244C15.6868 14.8555 15.4692 14.8433 15.3238 14.7606C14.398 14.2344 13.485 13.6855 12.5714 13.1382C12.2767 12.9611 12.1279 12.6925 12.129 12.3434C12.1301 11.8166 12.129 11.2905 12.129 10.7643Z"
+                                fill="#0095F6" />
                         </svg>
-                        <span>Xóa</span>
-                    </a>
+                        Attachment<input type="file" style="display: none;" id="file_restore" accept="*"
+                            name="file">
+                    </label>
 
-                    <span id="sideProvide" class="d-flex align-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
+                    <a href="#" id="delete_payment" class="d-flex align-items-center h-100 btn-danger"
+                        style="padding: 3px 16px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34"
                             fill="none">
                             <path
-                                d="M14 10C14 12.2091 12.2091 14 10 14L4 14C1.7909 14 0 12.2091 0 10L0 4C0 1.79086 1.7909 0 4 0L10 0C12.2091 0 14 1.79086 14 4L14 10ZM9 12.5L9 1.5L4 1.5C2.6193 1.5 1.5 2.61929 1.5 4L1.5 10C1.5 11.3807 2.6193 12.5 4 12.5H9Z"
-                                fill="#26273B" fill-opacity="0.8"></path>
+                                d="M22.981 10.9603C26.3005 14.2798 26.3005 19.6617 22.981 22.9811C19.6615 26.3006 14.2796 26.3006 10.9602 22.9811C7.64073 19.6617 7.64073 14.2798 10.9602 10.9603C14.2796 7.64084 19.6615 7.64084 22.981 10.9603Z"
+                                stroke="#E4E4E4" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12.728 12.7281C13.0023 12.4538 13.447 12.4538 13.7213 12.7281L21.2133 20.22C21.4876 20.4943 21.4876 20.9391 21.2133 21.2133C20.939 21.4876 20.4943 21.4876 20.22 21.2133L12.728 13.7214C12.4537 13.4471 12.4537 13.0024 12.728 12.7281Z"
+                                fill="#E4E4E4" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M21.2133 12.7281C21.4876 13.0024 21.4876 13.4471 21.2133 13.7214L13.7213 21.2133C13.447 21.4876 13.0023 21.4876 12.728 21.2133C12.4537 20.9391 12.4537 20.4943 12.728 20.22L20.22 12.7281C20.4943 12.4538 20.939 12.4538 21.2133 12.7281Z"
+                                fill="#E4E4E4" />
                         </svg>
-                    </span>
+                        <span>Xóa đơn nhận hàng</span>
+                    </a>
+
 
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+        <hr class="mt-3">
 
-
-    <section class="content-wrapper1 p-2 position-relative">
-        <div class="d-flex justify-content-between">
-            <ul class="nav nav-tabs bg-filter-search border-0 py-2 rounded ml-3">
-                <li class="text-nav"><a data-toggle="tab" href="#info" class="active text-secondary">Thông
-                        tin</a>
-                </li>
-                <li class="text-nav"><a data-toggle="tab" href="#histpry" class="text-secondary mx-4">Lịch
-                        sử</a>
-                </li>
-                <li class="text-nav">
-                    <a data-toggle="tab" href="#files" class="text-secondary">File đính kèm</a>
-                </li>
+        <section class="content-header p-0">
+            <ul class="nav nav-tabs">
+                <li class="active mr-2 mb-3"><a data-toggle="tab" href="#info">Thông tin</a></li>
+                <li class="mr-2 mb-3"><a data-toggle="tab" href="#histpry">Lịch sử thanh toán</a></li>
+                <li class="mr-2 mb-3"><a data-toggle="tab" href="#attachment">Attachment</a></li>
             </ul>
-            <div class="d-flex position-sticky" style="right: 10px; top: 80px;">
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <div class="content-wrapper1 py-0 pl-0 px-0" id="main">
-        <div class="container-fluided">
-            <div class="tab-content">
-                <div id="info" class="content tab-pane in active">
-                    <div class="bg-filter-search text-center py-2 border-right-0 border-left-0">
-                        <span class="font-weight-bold text-secondary text-nav">THÔNG TIN SẢN PHẨM</span>
+        <div class="tab-content">
+            <div id="info" class="content tab-pane in active">
+                <section class="content">
+                    <div class="container-fluided">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="info-chung">
+                                    <div class="content-info">
+                                        <div class="d-flex ml-2 align-items-center position-relative">
+                                            <div class="title-info py-2 border border-left-0">
+                                                <p class="p-0 m-0 px-3 required-label text-danger">Đơn mua hàng</p>
+                                            </div>
+                                            <input id="search_quotation" type="text" placeholder="Nhập thông tin"
+                                                name="quotation_number"
+                                                class="border w-100 py-2 border-left-0 border-right-0 px-3 search_quotation"
+                                                autocomplete="off" required readonly
+                                                value="{{ $payment->getQuotation->quotation_number }}">
+                                        </div>
+                                        <div class="d-flex ml-2 align-items-center">
+                                            <div class="title-info py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 px-3">Nhà cung cấp</p>
+                                            </div>
+                                            <input readonly type="text" id="provide_name"
+                                                placeholder="Nhập thông tin"
+                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                                readonly value="{{ $payment->getProvideName->provide_name_display }}">
+                                        </div>
+                                        <div class="d-flex ml-2 align-items-center">
+                                            <div class="title-info py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 px-3">Hạn thanh toán</p>
+                                            </div>
+                                            <input type="date" placeholder="Nhập thông tin" name="payment_date"
+                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                                value="{{ $payment->formatDate($payment->payment_date)->format('Y-m-d') }}">
+                                        </div>
+                                        <div class="d-flex ml-2 align-items-center">
+                                            <div class="title-info py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 px-3">Tổng tiền</p>
+                                            </div>
+                                            <input type="text" placeholder="Nhập thông tin"
+                                                name="delivery_charges"
+                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                                readonly value="{{ number_format($payment->total) }}">
+                                        </div>
+                                        <div class="d-flex ml-2 align-items-center">
+                                            <div class="title-info py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 px-3">Đã thanh toán</p>
+                                            </div>
+                                            <input readonly type="text" placeholder="Nhập thông tin"
+                                                name="payment"
+                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                                value="{{ number_format($payment->payment) }}">
+                                        </div>
+                                        <div class="d-flex ml-2 align-items-center">
+                                            <div class="title-info py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 px-3">Dư nợ</p>
+                                            </div>
+                                            <input type="text" placeholder="Nhập thông tin" name="debt"
+                                                readonly
+                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3"
+                                                value="{{ number_format($payment->debt) }}">
+                                        </div>
+                                        <div class="d-flex ml-2 align-items-center">
+                                            <div class="title-info py-2 border border-top-0 border-left-0">
+                                                <p class="p-0 m-0 px-3">Thanh toán trước</p>
+                                            </div>
+                                            <input oninput="checkQty(this,{{ $payment->debt }})" type="text"
+                                                placeholder="Nhập thông tin" name="payment"
+                                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 payment_input">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <section class="content">
-                        <div class="container-fluided order_content">
-                            <table id="inputcontent" class="table table-hover bg-white rounded">
-                                <thead>
-                                    <tr>
-                                        <th class="border-right p-1" style="width:15%;">
-                                            <input type="checkbox" class="ml-4 border-danger">
-                                            <span class="text-table text-secondary">Mã sản phẩm</span>
-                                        </th>
-                                        <th class="border-right p-1" style="width:25%;">
-                                            <span class="text-table text-secondary"> Tên sản phẩm</span>
-                                        </th>
-                                        <th class="border-right p-1" style="width:10%;">
-                                            <span class="text-table text-secondary">Đơn vị</span>
-                                        </th>
-                                        <th class="border-right p-1" style="width:10%;">
-                                            <span class="text-table text-secondary">Số lượng</span>
-                                        </th>
-                                        <th class="border-right p-1" style="width:10%;">
-                                            <span class="text-table text-secondary">Đơn giá</span>
-                                        </th>
-                                        <th class="border-right p-1" style="width:10%;">
-                                            <span class="text-table text-secondary">Thuế</span>
-                                        </th>
-                                        <th class="border-right p-1" style="width:10%;">
-                                            <span class="text-table text-secondary">Thành tiền</span>
-                                        </th>
-                                        <th class="border-right p-1" style="width:10%;">
-                                            <span class="text-table text-secondary">Ghi chú</span>
-                                        </th>
+                </section>
+
+                <section class="content mt-5">
+                    <div class="container-fluided">
+                        <table class="table table-hover bg-white rounded" id="inputcontent">
+                            <thead>
+                                <tr>
+                                    <th class="border-right"><input type="checkbox"> Mã sản phẩm
+                                    </th>
+                                    <th class="border-right">Tên sản phẩm</th>
+                                    <th class="border-right">Đơn vị</th>
+                                    <th class="border-right">Số lượng</th>
+                                    <th class="border-right">Đơn giá</th>
+                                    <th class="border-right">Thuế</th>
+                                    <th class="border-right">Thành tiền</th>
+                                    <th class="p-0 bg-secondary" style="width:1%;"></th>
+                                    <th class="border-right product_ratio">Hệ số nhân</th>
+                                    <th class="border-right price_import">Giá nhập</th>
+                                    <th class="border-right">Ghi chú</th>
+                                    {{-- <th class="border-top border-right"></th> --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($product as $item)
+                                    <tr class="bg-white">
+                                        <td class="border-right">
+                                            <input type="checkbox">
+                                            <input type="text" name="product_code[]" readonly
+                                                class="border-0 px-3 py-2 w-75 searchProduct">{{ $item->product_code }}
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0 position-relative">
+                                            <input readonly name="product_name[]" type="text"
+                                                class="searchProductName border-0 px-3 py-2 w-100"
+                                                value=" {{ $item->product_name }}">
+                                        </td>
+                                        <td class="border-right">
+                                            <input readonly type="text" name="product_unit[]"
+                                                class="border-0 px-3 py-2 w-100 product_unit"
+                                                value="  {{ $item->product_unit }}">
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0 border-right-0">
+                                            <input type="text" name="product_qty[]"
+                                                class="border-0 px-3 py-2 w-100 quantity-input"
+                                                value=" {{ number_format($item->product_qty) }}">
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0 border-right-0">
+                                            <input type="text" name="price_export[]"
+                                                class="border-0 px-3 py-2 w-100 price_export"
+                                                value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}">
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0 border-right-0">
+                                            <input type="text" class="border-0 px-3 py-2 w-100 product_tax"
+                                                name="product_tax[]" value=" {{ $item->product_tax }}">
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0 border-right-0">
+                                            <input type="text" name="total_price[]"
+                                                class="border-0 px-3 py-2 w-100 total_price"
+                                                value=" {{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
+                                        </td>
+                                        <td class="border border-bottom-0 p-0 bg-secondary"></td>
+                                        <td class="border border-top-0 border-bottom-0 product-ratio">
+                                            <input type="text" name="product_ratio[]"
+                                                class="border-0 px-3 py-2 w-100 product_ratio"
+                                                value=" {{ $item->product_ratio }}">
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0 price_import">
+                                            <input type="text" name="price_import[]"
+                                                class="border-0 px-3 py-2 w-100 price_import"
+                                                value="{{ number_format($item->price_import) }}">
+                                        </td>
+                                        <td class="border border-top-0 border-bottom-0">
+                                            <input type="text" name="product_note[]"
+                                                class="border-0 px-3 py-2 w-100" value="{{ $item->product_note }}">
+                                        </td>
+                                        {{-- <td class="border border-top-0 border"></td> --}}
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($product as $item)
-                                        <tr class="bg-white">
-                                            <td class="border-right">
-                                                <div
-                                                    class="d-flex w-100 justify-content-between align-items-center position-relative">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24"
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <?php $import = '123'; ?>
+                <x-formsynthetic :import="$import"></x-formsynthetic>
+            </div>
+
+            <div id="histpry" class="tab-pane fade">
+                <section class="content">
+                    <div class="container-fluided">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row m-auto filter pt-4 pb-4">
+                                    <form class="w-100" action="" method="get" id="search-filter">
+                                        <div class="row mr-0 w-100">
+                                            <div class="col-md-5 d-flex">
+                                                <div class="position-relative" style="width: 55%;">
+                                                    <input type="text" placeholder="Tìm kiếm" name="keywords"
+                                                        class="pr-4 w-100 input-search" value="">
+                                                    <span id="search-icon" class="search-icon"><i
+                                                            class="fas fa-search" aria-hidden="true"></i></span>
+                                                </div>
+                                                <button class="filter-btn ml-2">Bộ lọc
+                                                    <svg width="18" height="18" viewBox="0 0 18 18"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z"
-                                                            fill="#42526E"></path>
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z"
-                                                            fill="#42526E"></path>
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z"
-                                                            fill="#42526E"></path>
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z"
-                                                            fill="#42526E"></path>
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z"
-                                                            fill="#42526E"></path>
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z"
-                                                            fill="#42526E"></path>
+                                                            d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
+                                                            fill="white"></path>
                                                     </svg>
-                                                    <input type="checkbox">
-                                                    <input type="text" name="product_code[]" readonly
-                                                        class="border-0 px-2 py-1 w-75 searchProduct"
-                                                        value="{{ $item->product_code }}">
-                                                </div>
-                                            </td>
-                                            <td class="border border-top-0 border-bottom-0 position-relative">
-                                                <input readonly name="product_name[]" type="text"
-                                                    class="searchProductName border-0 px-2 py-1 w-100"
-                                                    value=" {{ $item->product_name }}">
-                                            </td>
-                                            <td class="border-right">
-                                                <input readonly type="text" name="product_unit[]"
-                                                    class="border-0 px-2 py-1 w-100 product_unit"
-                                                    value="  {{ $item->product_unit }}">
-                                            </td>
-                                            <td class="border border-top-0 border-bottom-0 border-right-0">
-                                                <input type="text" name="product_qty[]"
-                                                    class="border-0 px-2 py-1 w-100 quantity-input"
-                                                    value=" {{ number_format($item->product_qty) }}">
-                                            </td>
-                                            <td class="border border-top-0 border-bottom-0 border-right-0">
-                                                <input type="text" name="price_export[]"
-                                                    class="border-0 px-2 py-1 w-100 price_export"
-                                                    value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}">
-                                            </td>
-                                            <td class="border border-top-0 border-bottom-0 border-right-0">
-                                                <input type="text" class="border-0 px-2 py-1 w-100 product_tax"
-                                                    name="product_tax[]" value=" {{ $item->product_tax }}">
-                                            </td>
-                                            <td class="border border-top-0 border-bottom-0 border-right-0">
-                                                <input type="text" name="total_price[]"
-                                                    class="border-0 px-2 py-1 w-100 total_price"
-                                                    value=" {{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
-                                            </td>
-                                            <td class="border border-top-0 border-bottom-0">
-                                                <input type="text" name="product_note[]"
-                                                    class="border-0 px-2 py-1 w-100"
-                                                    value="{{ $item->product_note }}">
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                    </section>
-                    <?php $import = '123'; ?>
-                    <x-formsynthetic :import="$import"></x-formsynthetic>
-                </div>
-                <div id="histpry" class="tab-pane fade">
-                    <div class="bg-filter-search border-bottom-0 text-center py-2">
-                        <span class="font-weight-bold text-secondary text-nav">LỊCH SỬ</span>
                     </div>
+                </section>
+
+                <section class="content mt-2">
                     <div class="container-fluided">
                         <table class="table table-hover bg-white rounded" id="inputcontent1">
                             <thead>
                                 <tr>
-                                    <th class="text-table text-secondary">Mã thanh toán</th>
-                                    <th class="text-table text-secondary">Ngày thanh toán</th>
-                                    <th class="text-table text-secondary">Tổng tiền</th>
-                                    <th class="text-table text-secondary">Thanh toán</th>
-                                    <th class="text-table text-secondary">Dư nợ</th>
+                                    <th>Mã thanh toán</th>
+                                    <th>Ngày thanh toán</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Thanh toán</th>
+                                    <th>Dư nợ</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -294,233 +307,17 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-
-                <div id="files" class="tab-pane fade">
-                    <div class="bg-filter-search border-bottom-0 text-center py-2">
-                        <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
-                    </div>
-                    <x-form-attachment :value="$payment" name="TTMH"></x-form-attachment>
-                </div>
-
-                <div class="content-wrapper2 px-0 py-0">
-                    <div id="mySidenav" class="sidenavshow border" style="top: 98px;">
-                        <div id="show_info_Guest">
-                            <div class="bg-filter-search border-top-0 py-2 text-center">
-                                <span class="font-weight-bold text-secondary">THÔNG TIN NHÀ
-                                    CUNG CẤP</span>
-                            </div>
-
-                            <div class="d-flex">
-                                <div style="width:55%;">
-                                    <div class="border border-right-0 py-1 border-left-0">
-                                        <span class="text-table ml-2">Đơn mua hàng</span>
-                                    </div>
-                                    <div class="border border-right-0 py-1 border-left-0">
-                                        <span class="text-table ml-2">Nhà cung cấp</span>
-                                    </div>
-                                    <div class="border border-right-0 py-1 border-left-0">
-                                        <span class="text-table ml-2">Người đại diện</span>
-                                    </div>
-                                    <div class="border border-right-0 py-1 border-left-0">
-                                        <span class="text-table ml-2">Hạn thanh toán</span>
-                                    </div>
-                                    <div class="border border-right-0 py-1 border-left-0">
-                                        <span class="text-table ml-2">Tổng tiền</span>
-                                    </div>
-                                    <div class="border border-right-0 py-1 border-left-0">
-                                        <span class="text-table ml-2">Đã thanh toán</span>
-                                    </div>
-                                    <div class="border border-right-0 py-1 border-left-0">
-                                        <span class="text-table ml-2">Dư nợ</span>
-                                    </div>
-                                    <div class="border border-right-0 py-1 border-left-0">
-                                        <span class="text-table ml-2">Thanh toán trước</span>
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <div
-                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input id="search_quotation" type="text" placeholder="Nhập thông tin"
-                                            name="quotation_number"
-                                            class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0 search_quotation"
-                                            autocomplete="off" required readonly
-                                            value="{{ $payment->getQuotation->quotation_number }}">
-                                        <div class="">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input readonly type="text" id="provide_name" placeholder="Nhập thông tin"
-                                            class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" readonly
-                                            value="{{ $payment->getProvideName->provide_name_display }}">
-                                        <div class="">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input readonly type="text" placeholder="Chọn thông tin"
-                                            class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                            autocomplete="off" id="represent" @if($nameRepresent) value="{{$nameRepresent}}" @endif>
-                                        <div class="">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input type="date" placeholder="Nhập thông tin" name="payment_date"
-                                            class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                            value="{{ $payment->formatDate($payment->payment_date)->format('Y-m-d') }}">
-                                        <div class="">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </div>
-
-                                    </div>
-
-                                    <div
-                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
-                                            class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" readonly
-                                            value="{{ number_format($payment->total) }}">
-                                        <div class="">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </div>
-
-                                    </div>
-
-                                    <div
-                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input readonly type="text" placeholder="Nhập thông tin" name="payment"
-                                            class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                            value="{{ number_format($payment->payment) }}">
-                                        <div class="">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </div>
-
-                                    </div>
-
-                                    <div
-                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input type="text" placeholder="Nhập thông tin" name="debt" readonly
-                                            class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                            value="{{ number_format($payment->debt) }}">
-                                        <div class="">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input oninput="checkQty(this,{{ $payment->debt }})" type="text"
-                                            placeholder="Nhập thông tin" name="payment"
-                                            class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0 payment_input">
-                                        <div class="">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </section>
             </div>
-        </div>
+    </form>
+    <div id="attachment" class="tab-pane fade">
+        <x-form-attachment :value="$payment" name="TTMH"></x-form-attachment>
     </div>
-</form>
 </div>
+
+
 </div>
+
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
     // Xóa đơn hàng
@@ -576,56 +373,56 @@
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>
                                         </svg>
                                         <input type="checkbox">
-                                        <input type="text" readonly name="product_code[]" class="border-0 px-2 py-1 w-75 searchProduct" value="">
+                                        <input type="text" readonly name="product_code[]" class="border-0 px-3 py-2 w-75 searchProduct" value="">
                                         <ul id="listProductCode" class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 24%; top: 75%;">
                                         </ul>
                                     </div>
                                 </td> 
                                 <td class="border border-top-0 border-bottom-0 position-relative">
-                                    <input readonly id="searchProductName" type="text" name="product_name[]" class="searchProductName border-0 px-2 py-1 w-100" value="` +
+                                    <input readonly id="searchProductName" type="text" name="product_name[]" class="searchProductName border-0 px-3 py-2 w-100" value="` +
                                 element.product_name +
                                 `">
                                 </td>   
                                 <td> 
-                                    <input readonly type="text" name="product_unit[]" class="border-0 px-2 py-1 w-100 product_unit" value="` +
+                                    <input readonly type="text" name="product_unit[]" class="border-0 px-3 py-2 w-100 product_unit" value="` +
                                 element
                                 .product_unit +
                                 `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input readonly type="text" name="product_qty[]" class="border-0 px-2 py-1 w-100 quantity-input" value="` +
+                                    <input readonly type="text" name="product_qty[]" class="border-0 px-3 py-2 w-100 quantity-input" value="` +
                                 formatCurrency(element.product_qty) +
                                 `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input readonly type="text" name="price_export[]" class="border-0 px-2 py-1 w-100 price_export" value="` +
+                                    <input readonly type="text" name="price_export[]" class="border-0 px-3 py-2 w-100 price_export" value="` +
                                 formatCurrency(element
                                     .price_export) +
                                 `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input readonly type="text" name="product_tax[]" class="border-0 px-2 py-1 w-100 product_tax" value="` +
+                                    <input readonly type="text" name="product_tax[]" class="border-0 px-3 py-2 w-100 product_tax" value="` +
                                 element.product_tax +
                                 `%">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input readonly type="text" name="total_price[]" class="border-0 px-2 py-1 w-100 total_price" readonly="" value="` +
+                                    <input readonly type="text" name="total_price[]" class="border-0 px-3 py-2 w-100 total_price" readonly="" value="` +
                                 formatCurrency(element.product_total) +
                                 `">
                                 </td>
                                 <td class="border border-bottom-0 p-0 bg-secondary"></td>
                                 <td class="border border-top-0 border-bottom-0 product-ratio">
-                                    <input readonly required="" type="text" name="product_ratio[]" class="border-0 px-2 py-1 w-100 product_ratio" value="` +
+                                    <input readonly required="" type="text" name="product_ratio[]" class="border-0 px-3 py-2 w-100 product_ratio" value="` +
                                 element.product_ratio +
                                 `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 price_import">
-                                    <input readonly required="" type="text" name="price_import[]" class="border-0 px-2 py-1 w-100 price_import" value="` +
+                                    <input readonly required="" type="text" name="price_import[]" class="border-0 px-3 py-2 w-100 price_import" value="` +
                                 formatCurrency(element.price_import) +
                                 `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0">
-                                    <input readonly type="text" name="product_note[]" class="border-0 px-2 py-1 w-100" value="` +
+                                    <input readonly type="text" name="product_note[]" class="border-0 px-3 py-2 w-100" value="` +
                                 (element.product_note == null ? "" : element
                                     .product_note) + `">
                                 </td>

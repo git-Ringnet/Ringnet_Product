@@ -1,237 +1,286 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="guest" :workspacename="$workspacename"></x-navbar>
-<form action="{{ route('guests.store', $workspacename) }}" method="POST">
-    @csrf
-    <div class="content-wrapper1 py-2 border-bottom">
-        <div class="d-flex justify-content-between align-items-center pl-4 ml-1">
-            <div class="container-fluided">
-                <div class="mb">
-                    <span class="font-weight-bold">Bán hàng</span>
-                    <span class="mx-2"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
-                                fill="#26273B" fill-opacity="0.8" />
-                        </svg>
-                    </span>
-                    <span class="font-weight-bold">Khách hàng</span>
-                    <span class="mx-2"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
-                                fill="#26273B" fill-opacity="0.8" />
-                        </svg>
-                    </span>
-                    <span class="font-weight-bold text-secondary">Tạo khách hàng</span>
-                </div>
+<div class="content-wrapper" style="background: none;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header-fixed p-0 margin-250">
+        <div class="content__header--inner margin-left32">
+            <div class="content__heading--left text-long-special">
+                <span>Bán hàng</span>
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z" fill="#26273B" fill-opacity="0.8"/>
+                    </svg>
+                </span>
+                <span>
+                    <a class="text-dark" href="{{ route('guests.create', $workspacename) }}">Khách hàng</a>
+                </span>
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z" fill="#26273B" fill-opacity="0.8"/>
+                    </svg>
+                </span>
+                <span class="font-weight-bold">{{ $title }}</span>
             </div>
-            <div class="container-fluided z-index-block">
-                <div class="row m-0">
-                    <div class="dropdown">
-                        <a href="{{ route('guests.index', $workspacename) }}">
-                            <button type="button" class="btn-save-print rounded d-flex align-items-center h-100"
-                                style="margin-right:10px">
-                                <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
-                                        fill="#6D7075" />
-                                </svg>
-                                <span class="text-button">Hủy</span>
-                            </button>
-                        </a>
-                    </div>
-                    <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
-                        <svg class="mx-1" width="18" height="18" viewBox="0 0 16 16" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
-                                fill="white" />
+        </div><!-- /.container-fluided -->
+    </section>
+    <form action="{{ route('guests.store', $workspacename) }}" method="POST" class="margin-top-fixed2">
+        @csrf
+        <div class="content__heading--rightFixed">
+                <a href="#">
+                    <button type="reset" class="btn-destroy btn-light mx-2 d-flex align-items-center h-100" >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z" fill="#6D7075"/>
                         </svg>
-                        <span>Lưu khách hàng</span>
+                        <span class="text-btnIner-primary ml-2">Hủy</span>
                     </button>
-                    <div>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                fill="#42526E"></path>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                fill="#42526E"></path>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                fill="#42526E"></path>
+                </a>
+                <a href="#">
+                    <button type="submit" class="custom-btn d-flex mx-2 align-items-center h-100" style="margin-right:10px">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z" fill="white"/>
                         </svg>
-                    </div>
-                </div>
-            </div>
+                        <span class="text-btnIner-primary ml-2">Lưu khách hàng</span>
+                    </button>
+                </a>
+                <button class="btn-option">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                            fill="#42526E" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                            fill="#42526E" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                            fill="#42526E" />
+                    </svg>
+                </button>
         </div>
-    </div>
-    <div class="content-wrapper1 px-0 py-0" style="background: none;">
-        <section class="content">
+        <section class="content-header--TopNone border border-top-1 border-left-0 border-right-0 border-bottom-0">
             <div class="container-fluided">
-                <div class="bg-filter-search border-top-0 py-2">
-                    <span class="font-weight-bold text-secondary text-nav ml-4">THÔNG TIN CHUNG</span>
-                </div>
-                <div class="info-chung">
-                    <div class="content-info">
-                        <div class="d-flex align-items-center">
-                            <div class="title-info py-2 border border-top-0 border-left-0">
-                                <p class="p-0 m-0 px-3 ml-2">Tên khách hàng</p>
+                <div class="row">
+                    <div class="col-12 padding-none">
+                        <div class="info-chung">
+                            <p class="font-weight-bold text-uppercase info-chung--heading">Thông tin chung</p>
+                            <div class="content-info">
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info height-100 py-2 border border-left-0">
+                                        <p class="p-0 m-0 required-label margin-left32 text-13">Tên khách hàng</p>
+                                    </div>
+                                    <input type="text" required placeholder="Nhập thông tin"
+                                        name="guest_name_display"
+                                        class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                </div>
+                                <div class="d-flex  align-items-center height-60-mobile ">
+                                    <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 margin-left32 text-13">Tên hiển thị</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin"
+                                        name="key"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                </div>
+                                <div class="d-flex  align-items-center height-60-mobile">
+                                    <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 margin-left32 text-13">Địa chỉ</p>
+                                    </div>
+                                    <input type="text" required placeholder="Nhập thông tin"
+                                        name="guest_address"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                </div>
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 margin-left32 text-13">Email khách hàng</p>
+                                    </div>
+                                    <input type="text" required placeholder="Nhập thông tin" 
+                                        name="guest_code"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                </div>
+                                <div class="d-flex align-items-center height-60-mobile">
+                                    <div class="title-info height-100 py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 margin-left32 text-13">Mã số thuế</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin"
+                                        name="guest_name"
+                                        class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                                </div>
+
+                                <!-- {{-- <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Email</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="guest_email"
+                                        class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Số diện thoại </p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="guest_phone"
+                                        class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Người nhận hàng</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="guest_receiver"
+                                        class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Email nhận hàng</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="guest_email_personal"
+                                        class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Số điện thoại nhận hàng</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="guest_phone_receiver"
+                                        class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Dư nợ</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="guest_debt"
+                                        class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
+                                </div>
+                                <div class="d-flex ml-2 align-items-center">
+                                    <div class="title-info py-2 border border-top-0 border-left-0">
+                                        <p class="p-0 m-0 px-3">Ghi chú</p>
+                                    </div>
+                                    <input type="text" placeholder="Nhập thông tin" name="guest_note"
+                                        class="border w-100 border-top-0 py-2 border-left-0 border-right-0 px-3">
+                                </div> --}} -->
                             </div>
-                            <input type="text" placeholder="Nhập thông tin" name="guest_name"
-                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
                         </div>
-                        <div class="d-flex align-items-center">
-                            <div class="title-info py-2 border border-left-0">
-                                <p class="p-0 m-0 px-3 required-label text-danger ml-2">Tên hiển thị</p>
+                        <div class="info-chung">
+                            <p class="font-weight-bold text-uppercase info-chung--heading">Thông tin người đại diện</p>
+                            <div class="container-fluided order_content">
+                                <section class="multiple_action" style="display: none;">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="count_checkbox mr-5">Đã chọn 1</span>
+                                        <div class="row action">
+                                            <div class="btn-chotdon my-2 ml-3">
+                                                <button type="button" id="btn-chot"
+                                                    class="btn-group btn-light d-flex align-items-center h-100">
+                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
+                                                            fill="#42526E"></path>
+                                                    </svg>
+                                                    <span class="px-1">Nhân hệ số</span>
+                                                </button>
+                                            </div>
+                                            <div class="btn-xoahang my-2 ml-1">
+                                                <button id="deleteExports" type="button"
+                                                    class="btn-group btn-light d-flex align-items-center h-100">
+                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
+                                                            fill="#42526E"></path>
+                                                    </svg>
+                                                    <span class="px-1">Thuế</span>
+                                                </button>
+                                            </div>
+                                            <div class="btn-huy my-2 ml-3">
+                                                <button id="cancelBillExport"
+                                                    class="btn-group btn-light d-flex align-items-center h-100">
+                                                    <svg width="18" height="18" viewBox="0 0 18 18"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M15.75 15.75L2.25 2.25" stroke="#42526E"
+                                                            stroke-width="1.5" stroke-linecap="round"
+                                                            stroke-linejoin="round"></path>
+                                                        <path d="M15.75 2.25L2.25 15.75" stroke="#42526E"
+                                                            stroke-width="1.5" stroke-linecap="round"
+                                                            stroke-linejoin="round"></path>
+                                                    </svg>
+                                                    <span class="px-1">Xóa</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="btn ml-auto cancal_action">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <path d="M18 18L6 6" stroke="white" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                <path d="M18 6L6 18" stroke="white" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </section>
+                                <table class="table table-hover bg-white rounded">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-right height-52 padding-left35 text-13 " style="width: 18%;">Người đại diện</th>
+                                            <th class="border-right height-52 padding-left35 text-13" style="width: 20%;">Số điện thoại</th>
+                                            <th class="border-right height-52 padding-left35 text-13" style="width: 20%;">Email</th>
+                                            <th class="border-right height-52 padding-left35 text-13" style="width: 20%;">Địa chỉ nhận</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="dynamic-fields" class="bg-white"></tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <input type="text" required placeholder="Nhập thông tin" name="guest_name_display"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3">
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="title-info py-2 border border-top-0 border-left-0">
-                                <p class="p-0 m-0 px-3 required-label text-danger ml-2">Địa chỉ</p>
-                            </div>
-                            <input type="text" required placeholder="Nhập thông tin" name="guest_address"
-                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="title-info py-2 border border-top-0 border-left-0">
-                                <p class="p-0 m-0 px-3 ml-2">Tên viết tắt</p>
-                            </div>
-                            <input type="text" placeholder="Nhập thông tin" name="key"
-                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="title-info py-2 border border-top-0 border-left-0">
-                                <p class="p-0 m-0 px-3 required-label text-danger ml-2">Mã số thuế</p>
-                            </div>
-                            <input type="number" required placeholder="Nhập thông tin" name="guest_code"
-                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3">
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-filter-search border-top-0 py-2">
-                    <span class="font-weight-bold text-secondary text-nav ml-4">THÔNG TIN NGƯỜI ĐẠI DIỆN</span>
-                </div>
-                <div class="info-chung">
-                    <div class="container-fluided order_content">
-                        <section class="multiple_action" style="display: none;">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="count_checkbox mr-5">Đã chọn 1</span>
-                                <div class="row action">
-                                    <div class="btn-chotdon my-2 ml-3">
-                                        <button type="button" id="btn-chot"
-                                            class="btn-group btn-light d-flex align-items-center h-100">
-                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                            <section class="content margin-left32">
+                                <div class="container-fluided">
+                                    <div class="d-flex">
+                                        <!-- <button type="button" data-toggle="dropdown" id="add-field-btn"
+                                            class="btn-save-print d-flex align-items-center h-100 py-1 px-2"
+                                            style="margin-right:10px">
+                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="18"
+                                                height="18" viewBox="0 0 18 18" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                                    fill="#42526E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                                    fill="#42526E">
+                                                </path>
+                                            </svg>
+                                            <span>Thêm dòng</span>
+                                        </button> -->
+                                        <button type="button" data-toggle="dropdown"
+                                            class="btn-save-print d-flex align-items-center h-100 py-1 px-2"
+                                            style="margin-right:10px; border-radius:4px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#6D7075"/>
+                                            </svg>
+                                            <span class="text-13 pl-2">Thêm người đại diện</span>
+                                        </button>
+                                        <button class="btn-option py-1 px-2">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                            <span class="px-1">Nhân hệ số</span>
-                                        </button>
-                                    </div>
-                                    <div class="btn-xoahang my-2 ml-1">
-                                        <button id="deleteExports" type="button"
-                                            class="btn-group btn-light d-flex align-items-center h-100">
-                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
+                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                    fill="#42526E">
+                                                </path>
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M11.6511 0.123503C11.8471 0.0419682 12.0573 0 12.2695 0C12.4818 0 12.6919 0.0419682 12.888 0.123503C13.084 0.205038 13.2621 0.32454 13.4121 0.475171L14.7065 1.77321C14.8567 1.92366 14.9758 2.10232 15.0571 2.29897C15.1384 2.49564 15.1803 2.70643 15.1803 2.91931C15.1803 3.13219 15.1384 3.34299 15.0571 3.53965C14.9758 3.73631 14.8567 3.91497 14.7065 4.06542L13.0911 5.68531C13.0818 5.69595 13.072 5.70637 13.0618 5.71655C13.0517 5.72673 13.0413 5.73653 13.0307 5.74594L4.70614 14.094C4.57631 14.2241 4.40022 14.2973 4.21661 14.2973H1.61538C1.23302 14.2973 0.923067 13.9865 0.923067 13.603V10.9945C0.923067 10.8103 0.996015 10.6337 1.12586 10.5035L9.44489 2.16183C9.45594 2.149 9.46754 2.13648 9.47969 2.1243C9.49185 2.11211 9.50435 2.10046 9.51716 2.08936L11.127 0.475171C11.2768 0.324749 11.4552 0.20496 11.6511 0.123503ZM9.97051 3.59834L2.30768 11.2821V12.9088H3.92984L11.5923 5.22471L9.97051 3.59834ZM12.5714 4.24288L10.9496 2.61656L12.1069 1.45617C12.1282 1.43472 12.1536 1.41771 12.1815 1.4061C12.2094 1.39449 12.2393 1.38852 12.2695 1.38852C12.2997 1.38852 12.3297 1.39449 12.3576 1.4061C12.3855 1.41771 12.4113 1.43514 12.4326 1.45658L13.7277 2.75531C13.7491 2.77681 13.7664 2.8026 13.778 2.83069C13.7897 2.85878 13.7956 2.8889 13.7956 2.91931C13.7956 2.94973 13.7897 2.97985 13.778 3.00793C13.7664 3.03603 13.7491 3.06182 13.7277 3.08332L12.5714 4.24288ZM0 17.3057C0 16.9223 0.309957 16.6115 0.692308 16.6115H17.3077C17.69 16.6115 18 16.9223 18 17.3057C18 17.6892 17.69 18 17.3077 18H0.692308C0.309957 18 0 17.6892 0 17.3057Z"
-                                                    fill="#42526E"></path>
+                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                    fill="#42526E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                    fill="#42526E">
+                                                </path>
                                             </svg>
-                                            <span class="px-1">Thuế</span>
-                                        </button>
-                                    </div>
-                                    <div class="btn-huy my-2 ml-3">
-                                        <button id="cancelBillExport"
-                                            class="btn-group btn-light d-flex align-items-center h-100">
-                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M15.75 15.75L2.25 2.25" stroke="#42526E" stroke-width="1.5"
-                                                    stroke-linecap="round" stroke-linejoin="round"></path>
-                                                <path d="M15.75 2.25L2.25 15.75" stroke="#42526E" stroke-width="1.5"
-                                                    stroke-linecap="round" stroke-linejoin="round"></path>
-                                            </svg>
-                                            <span class="px-1">Xóa</span>
                                         </button>
                                     </div>
                                 </div>
-                                <div class="btn ml-auto cancal_action">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none">
-                                        <path d="M18 18L6 6" stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round"></path>
-                                        <path d="M18 6L6 18" stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </section>
-                        <table class="table table-hover bg-white rounded">
-                            <thead>
-                                <tr>
-                                    <th class="border-right border-top-0" style="width: 23%;">
-                                        <span class="ml-3 text-nav text-secondary">Người đại diện</span>
-                                    </th>
-                                    <th class="border-right border-top-0" style="width: 23%;">
-                                        <span class="ml-3 text-nav text-secondary">Số điện thoại</span>
-                                    </th>
-                                    <th class="border-right border-top-0" style="width: 23%;">
-                                        <span class="ml-3 text-nav text-secondary">Email</span>
-                                    </th>
-                                    <th class="border-right border-top-0" style="width: 23%;">
-                                        <span class="ml-3 text-nav text-secondary">Địa chỉ nhận</span>
-                                    </th>
-                                    <th class="border-top-0" style="width: 8%;"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr id="dynamic-fields" class="bg-white"></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <section class="content">
-                        <div class="container-fluided">
-                            <div class="d-flex">
-                                <button type="button" data-toggle="dropdown" id="add-field-btn"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 ml-4 rounded"
-                                    style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                        height="14" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                    <span class="text-table">Thêm người đại diện</span>
-                                </button>
-                                <button type="button" class="btn-option py-1 px-2 bg-white border-0">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                </button>
-                            </div>
+                            </section>
                         </div>
-                    </section>
+                    </div>
                 </div>
             </div>
         </section>
-    </div>
-</form>
+    </form>
+</div>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 <script>
     getKeyGuest($('input[name="guest_name_display"]'))
@@ -247,10 +296,10 @@
             "<td class='border border-top-0 border-bottom-0 border-left-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_name' required name='represent_name[]'></td>"
         );
         const email = $(
-            "<td class='border border-top-0 border-bottom-0'><input type='email' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_email' name='represent_email[]'></td>"
+            "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_email' name='represent_email[]'></td>"
         );
         const soDT = $(
-            "<td class='border border-top-0 border-bottom-0'><input type='number' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_phone' name='represent_phone[]'></td>"
+            "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_phone' name='represent_phone[]'></td>"
         );
         const diaChi = $(
             "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_address' name='represent_address[]'></td>"
@@ -263,7 +312,7 @@
             "</td>"
         );
         // Gắn các phần tử vào hàng mới
-        newRow.append(hoTen, soDT, email, diaChi, option);
+        newRow.append(hoTen, email, soDT, diaChi, option);
         $("#dynamic-fields").before(newRow);
         // Tăng giá trị fieldCounter
         fieldCounter++;
