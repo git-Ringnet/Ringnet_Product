@@ -624,9 +624,11 @@
                             </div>
                             <div
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
-                                <input type="date" placeholder="Nhập thông tin" name="date_quote"
-                                    value="{{ date_format(new DateTime($detailExport->ngayBG), 'Y-m-d') }}"
+                                <input type="text" placeholder="Nhập thông tin" id="datePicker"
+                                    value="{{ date_format(new DateTime($detailExport->ngayBG), 'd/m/Y') }}"
                                     class="border-0 bg w-100 bg-input-guest py-0">
+                                <input type="hidden" id="hiddenDateInput" name="date_quote"
+                                    value="{{ date_format(new DateTime($detailExport->ngayBG), 'Y-m-d') }}">
                                 <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -834,7 +836,7 @@
                                 class="position-relative d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
                                 <input type="text" placeholder="Chọn thông tin" id="ProjectInput"
                                     value="{{ $detailExport->project_name }}"
-                                    class="border-0 bg w-100 bg-input-guest py-0">
+                                    class="border-0 bg w-100 bg-input-guest py-0" autocomplete="off">
                                 <input type="hidden" class="idProject" autocomplete="off" name="project_id"
                                     value="{{ $detailExport->id_project }}">
                                 <ul id="listProject"
@@ -1352,6 +1354,16 @@
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 
 <script type="text/javascript">
+    //
+    flatpickr("#datePicker", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
     $("table tbody").sortable({
         axis: "y",
         handle: "td",

@@ -58,6 +58,18 @@ class Guest extends Model
 
         return $guests;
     }
+    public function getGuestRepresentbyId($id)
+    {
+        $guests = Guest::select('guest.*', 'represent_guest.*', 'guest.id as idGuest', 'represent_guest.id as representID')
+            ->where('guest.id', $id)
+            ->leftJoin('represent_guest', function ($join) {
+                $join->on('represent_guest.guest_id', '=', 'guest.id');
+            })
+            ->where('guest.workspace_id', Auth::user()->current_workspace)
+            ->first();
+
+        return $guests;
+    }
     public function ajax($data)
     {
         $guests =  DB::table($this->table);
@@ -137,6 +149,27 @@ class Guest extends Model
         }
         return $exist;
     }
+
+    public function updateGuestRepresent($data)
+    {
+        $checkGuest = DB::table($this->table)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->where(function ($query) use ($data) {
+                $query->where('guest_code', $data['guest_code'])
+                    ->orWhere('guest_name_display', $data['guest_name_display']);
+            })
+            ->where('id', '!=', $data['guest_id'])
+            ->first();
+        // if($checkGuest)   
+        // {
+
+        // }
+        // else{
+
+        // }
+        return $checkGuest;
+    }
+
     public function updateProvide($data, $id)
     {
         return DB::table($this->table)->where('id', $id)->update($data);

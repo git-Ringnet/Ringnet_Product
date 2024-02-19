@@ -284,34 +284,35 @@
                                 value="@isset($yes) {{ $data['quotation_number'] }} @endisset">
                             <input type="hidden" name="detail_id" id="detail_id"
                                 value="@isset($yes) {{ $data['detail_id'] }} @endisset">
-                            <ul id="myUL" class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
+                            <ul id="myUL"
+                                class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
                                 style="z-index: 99;">
                                 <div class="p-1">
                                     <div class="position-relative">
-                                        <input type="text" placeholder="Nhập số báo giá" class="pr-4 w-100 input-search"
-                                            id="companyFilter">
-                                        <span id="search-icon" class="search-icon"><i class="fas fa-search text-table"
-                                                aria-hidden="true"></i></span>
+                                        <input type="text" placeholder="Nhập số báo giá"
+                                            class="pr-4 w-100 input-search" id="companyFilter">
+                                        <span id="search-icon" class="search-icon"><i
+                                                class="fas fa-search text-table" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
                                 @foreach ($numberQuote as $quote_value)
                                     <li>
-                                        <a href="#" class="text-dark p-2 search-info w-100" id="{{ $quote_value->id }}"
-                                            name="search-info">
+                                        <a href="#" class="text-dark p-2 search-info w-100"
+                                            id="{{ $quote_value->id }}" name="search-info">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <span
                                                     class="text-table font-weight-bold">{{ $quote_value->quotation_number }}</span>
                                                 <span>
-                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                                             d="M8 2.92308C5.19582 2.92308 2.92308 5.19582 2.92308 8C2.92308 10.8042 5.19582 13.0769 8 13.0769C10.8042 13.0769 13.0769 10.8042 13.0769 8C13.0769 5.19582 10.8042 2.92308 8 2.92308ZM8 14C4.68602 14 2 11.314 2 8C2 4.68602 4.68602 2 8 2C11.314 2 14 4.68602 14 8C14 11.314 11.314 14 8 14Z"
                                                             fill="#26273B" fill-opacity="0.8" />
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                                             d="M8.00011 4.76904C8.25501 4.76904 8.46165 4.97568 8.46165 5.23058V8.3075C8.46165 8.56241 8.25501 8.76904 8.00011 8.76904C7.74521 8.76904 7.53857 8.56241 7.53857 8.3075V5.23058C7.53857 4.97568 7.74521 4.76904 8.00011 4.76904Z"
                                                             fill="#26273B" fill-opacity="0.8" />
-                                                        <circle cx="7.99991" cy="10.4616" r="0.615385" fill="#26273B"
-                                                            fill-opacity="0.8" />
+                                                        <circle cx="7.99991" cy="10.4616" r="0.615385"
+                                                            fill="#26273B" fill-opacity="0.8" />
                                                     </svg>
                                                 </span>
                                             </div>
@@ -335,9 +336,11 @@
                             </div>
                         </div>
                         <div id="show-info-guest">
-                            <div class="d-flex align-items-center border-top-0 justify-content-between border border-left-0 py-1 px-1">
+                            <div
+                                class="d-flex align-items-center border-top-0 justify-content-between border border-left-0 py-1 px-1">
                                 <input type="text" placeholder="Nhập thông tin" readonly
-                                    class="border-0 bg w-100 bg-input-guest py-0 px-0 nameGuest" autocomplete="off" required
+                                    class="border-0 bg w-100 bg-input-guest py-0 px-0 nameGuest" autocomplete="off"
+                                    required
                                     value="@isset($yes){{ $getGuestbyId[0]->guest_name_display }}@endisset">
                                 <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
                                     value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset">
@@ -356,9 +359,11 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center border-top-0 justify-content-between border border-left-0 py-1 px-1">
+                            <div
+                                class="d-flex align-items-center border-top-0 justify-content-between border border-left-0 py-1 px-1">
                                 <input type="text" placeholder="Nhập thông tin" readonly
-                                    class="border-0 bg w-100 bg-input-guest py-0 px-0 represent_name" autocomplete="off" required
+                                    class="border-0 bg w-100 bg-input-guest py-0 px-0 represent_name"
+                                    autocomplete="off" required
                                     value="@isset($yes){{ $getRepresentbyId[0]->represent_name }}@endisset">
                                 <input type="hidden" class="idRepresent" autocomplete="off" name="represent_id"
                                     value="@isset($yes){{ $getRepresentbyId[0]->id }}@endisset">
@@ -377,9 +382,11 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center border-top-0 justify-content-between border border-left-0 py-1 px-1">
-                                <input type="date" placeholder="Nhập thông tin" required value="{{ date('Y-m-d') }}"
-                                    name="date_bill" class="border-0 bg w-100 bg-input-guest py-0 px-0">
+                            <div
+                                class="d-flex align-items-center border-top-0 justify-content-between border border-left-0 py-1 px-1">
+                                <input type="text" id="datePicker" placeholder="Nhập thông tin" required
+                                    class="border-0 bg w-100 bg-input-guest py-0 px-0">
+                                <input type="hidden" id="hiddenDateInput" value="" name="date_bill">
                                 <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -395,7 +402,8 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center border-top-0 justify-content-between border border-left-0 py-1 px-1">
+                            <div
+                                class="d-flex align-items-center border-top-0 justify-content-between border border-left-0 py-1 px-1">
                                 <input type="number" placeholder="Nhập thông tin" name="number_bill" required
                                     class="border-0 bg w-100 bg-input-guest py-0 px-0">
                                 <div class="opacity-0">
@@ -421,6 +429,16 @@
     </div>
 </form>
 <script>
+    flatpickr("#datePicker", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        defaultDate: new Date(),
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
     $('.deleteProduct').click(function() {
         $(this).closest("tr")
             .remove();

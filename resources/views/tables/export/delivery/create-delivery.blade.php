@@ -462,8 +462,8 @@
                             <div
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
                                 <input type="text" placeholder="Nhập thông tin" readonly
-                                    class="border-0 bg w-100 bg-input-guest py-0 px-0 represent_name" autocomplete="off"
-                                    required
+                                    class="border-0 bg w-100 bg-input-guest py-0 px-0 represent_name"
+                                    autocomplete="off" required
                                     value="@isset($yes){{ $getRepresentbyId[0]->represent_name }}@endisset">
                                 <input type="hidden" class="idRepresent" autocomplete="off" name="represent_id"
                                     value="@isset($yes){{ $getRepresentbyId[0]->id }}@endisset">
@@ -523,8 +523,9 @@
                             </div>
                             <div
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
-                                <input type="date" placeholder="Nhập thông tin" value="{{ date('Y-m-d') }}"
-                                    name="date_deliver" required class="border-0 bg w-100 bg-input-guest py-0 px-0">
+                                <input type="text" placeholder="Nhập thông tin" id="datePicker" required
+                                    class="border-0 bg w-100 bg-input-guest py-0 px-0">
+                                <input type="hidden" id="hiddenDateInput" name="date_deliver" value="">
                                 <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -548,6 +549,17 @@
     </div>
 </form>
 <script>
+    //
+    flatpickr("#datePicker", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        defaultDate: new Date(),
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
     $('#checkall').change(function() {
         $('.cb-element').prop(
             'checked', this
@@ -854,7 +866,8 @@
                                 productCode.val(productData.product_code);
                                 productName.val(productData.product_name);
                                 productUnit.val(productData.product_unit);
-                                productPrice.val(productData.product_price_export)
+                                productPrice.val(productData
+                                    .product_price_export)
                                 thue.val(productData.product_tax);
                                 product_id.val(productData.id);
                                 tonkho.val(productData.product_inventory);

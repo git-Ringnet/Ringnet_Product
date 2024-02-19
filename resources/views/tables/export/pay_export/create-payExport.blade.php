@@ -450,9 +450,10 @@
                             </div>
                             <div
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
-                                <input type="date" placeholder="Nhập thông tin" value="{{ date('Y-m-d') }}"
-                                    name="date_pay" required class="border-0 bg w-100 bg-input-guest py-0 px-0"
-                                    id="customDateInput">
+                                <input type="text" placeholder="Nhập thông tin"
+                                    required class="border-0 bg w-100 bg-input-guest py-0 px-0"
+                                    id="datePicker">
+                                <input type="hidden" id="hiddenDateInput" value="" name="date_pay">
                                 <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -552,6 +553,16 @@
     </div>
 </form>
 <script>
+    flatpickr("#datePicker", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        defaultDate: new Date(),
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
     //thêm sản phẩm
     let fieldCounter = 1;
     $(document).ready(function() {
@@ -560,7 +571,7 @@
             // Tạo các phần tử HTML mới
             const newRow = $("<tr>", {
                 "id": `dynamic-row-${fieldCounter}`,
-                "class": `bg-whit   e`,
+                "class": `bg-white`,
             });
             const maSanPham = $(
                 "<td class='border border-left-0 border-top-0 border-bottom-0 position-relative'>" +
@@ -1506,36 +1517,6 @@
             alert("Không có sản phẩm để thanh toán");
             event.preventDefault();
         }
-    }
-
-    // Lấy thẻ input theo ID
-    var dateInput = document.getElementById('customDateInput');
-    // Người dùng thay đổi giá trị
-    dateInput.addEventListener('input', function() {
-        // Lấy giá trị của thẻ input
-        var inputValue = dateInput.value;
-
-        // Định dạng lại ngày tháng năm
-        var formattedDate = formatDate(inputValue);
-
-        // Gán giá trị đã định dạng lại cho thẻ input
-        dateInput.value = formattedDate;
-    });
-
-    // Hàm để định dạng lại ngày tháng năm
-    function formatDate(inputDate) {
-        // Chuyển đổi thành đối tượng Date JavaScript
-        var dateObject = new Date(inputDate + 'T00:00:00');
-
-        // Lấy ngày, tháng, năm
-        var day = dateObject.getDate();
-        var month = dateObject.getMonth() + 1;
-        var year = dateObject.getFullYear();
-
-        // Định dạng lại thành 'YYYY-MM-DD'
-        var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
-
-        return formattedDate;
     }
 </script>
 </body>

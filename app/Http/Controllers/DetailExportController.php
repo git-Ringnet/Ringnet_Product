@@ -347,6 +347,7 @@ class DetailExportController extends Controller
         $guest = representGuest::findOrFail($data['idGuest']);
         return $guest;
     }
+    
     //Tìm kiếm project
     public function searchProject(Request $request)
     {
@@ -440,14 +441,37 @@ class DetailExportController extends Controller
                 'updated_at' => Carbon::now(),
             ];
             $new_guest = DB::table('guest')->insertGetId($data);
+            //
+            $dataRepresent = [
+                'guest_id' => $new_guest,
+                'represent_name' => $request->represent_guest_name,
+                'workspace_id' => Auth::user()->current_workspace,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+            $newRepresentId = DB::table('represent_guest')->insertGetId($dataRepresent);
             $msg = response()->json([
                 'success' => true, 'msg' => 'Thêm mới khách hàng thành công', 'id' => $new_guest,
-                'guest_name_display' => $request->guest_name_display, 'key' => $request->key
+                'guest_name_display' => $request->guest_name_display, 'key' => $request->key, 
+                'represent_name' => $request->represent_guest_name, 'id_represent' => $newRepresentId,
             ]);
         } else {
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế hoặc tên khách hàng đã tồn tại']);
         }
         return $msg;
+    }
+    //Thông tin chi tiết khách
+    public function editGuest(Request $request)
+    {
+        $data = $request->all();
+        $guest = $this->guest->getGuestRepresentbyId($data['itemId']);
+        return $guest;
+    }
+    //Cập nhật thông tin khách hàng
+    public function updateGuest(Request $request) {
+        $data = $request->all();
+        $updateGuest = $this->guest->updateGuestRepresent($data);
+        return $updateGuest;
     }
     //Thêm dự án
     public function addProject(Request $request)

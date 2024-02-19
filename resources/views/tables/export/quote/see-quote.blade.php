@@ -115,28 +115,28 @@
                             <span class="text-button">Tạo nhanh</span>
                         </button>
                         <div class="dropdown-menu" style="z-index: 9999;">
-                            <a href="#" onclick="getAction(this)" id="btnThanhToan" class="border-bottom">
+                            <a href="#" onclick="getAction(this)" id="btnThanhToan">
                                 <button name="action" value="action_4" type="submit"
-                                    class="btn-save-print d-flex align-items-center h-100 border-0 px-2">
-                                    <span class="text-nav text-dark">Tạo đơn thanh toán</span>
+                                    class="btn-save-print d-flex align-items-center h-100 border-top-0 w-100 rounded hover-button">
+                                    <span class="text-nav text-dark mt-1">Tạo đơn thanh toán</span>
                                 </button>
                             </a>
                             <a href="#" onclick="getAction(this)" id="btnHoaDon">
                                 <button name="action" value="action_3" type="submit"
-                                    class="btn-save-print d-flex align-items-center h-100 border-0 px-2">
-                                    <span class="text-nav text-dark">Tạo hóa đơn bán hàng</span>
+                                    class="btn-save-print d-flex align-items-center h-100 border-top-0 w-100 rounded hover-button">
+                                    <span class="text-nav text-dark mt-1">Tạo hóa đơn bán hàng</span>
                                 </button>
                             </a>
                             <a href="#" onclick="getAction(this)" id="btnNhan">
                                 <button name="action" value="action_2" type="submit"
-                                    class="btn-save-print d-flex align-items-center h-100 border-0 px-2">
-                                    <span class="text-nav text-dark">Tạo đơn giao hàng</span>
+                                    class="btn-save-print d-flex align-items-center h-100 border-top-0 w-100 rounded hover-button">
+                                    <span class="text-nav text-dark mt-1">Tạo đơn giao hàng</span>
                                 </button>
                             </a>
                             <a href="#" onclick="getAction(this)" id="btnMuaHang">
                                 <button name="action" value="action_6" type="submit"
-                                    class="btn-save-print d-flex align-items-center h-100 border-0 px-2">
-                                    <span class="text-nav text-dark">Tạo đơn mua hàng</span>
+                                    class="btn-save-print d-flex align-items-center h-100 border-top-0 w-100 rounded hover-button">
+                                    <span class="text-nav text-dark mt-1">Tạo đơn mua hàng</span>
                                 </button>
                             </a>
                         </div>
@@ -182,7 +182,7 @@
             </ul>
             <div class="d-flex position-sticky" style="right: 10px; top: 80px;">
                 @if ($detailExport->status_receive == 1)
-                    <div class="border text-secondary p-1">
+                    <div class="border text-secondary p-1 rounded">
                         <span>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -194,7 +194,7 @@
                         <span class="text-table">Giao hàng: Chưa giao</span>
                     </div>
                 @elseif($detailExport->status_receive == 2)
-                    <div class="border text-success p-1">
+                    <div class="border text-success p-1 rounded">
                         <span>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -206,7 +206,7 @@
                         <span class="text-table">Giao hàng: Đã giao</span>
                     </div>
                 @else
-                    <div class="border text-warning p-1">
+                    <div class="border text-warning p-1 rounded">
                         <span>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -230,7 +230,7 @@
                 @endif
                 <div class="line-vertical mx-2 my-1"></div>
                 @if ($detailExport->status_reciept == 1)
-                    <div class="border text-secondary p-1">
+                    <div class="border text-secondary p-1 rounded">
                         <span>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -242,7 +242,7 @@
                         <span class="text-table">Hóa đơn: Chưa chính thức</span>
                     </div>
                 @elseif($detailExport->status_reciept == 2)
-                    <div class="border text-success p-1">
+                    <div class="border text-success p-1 rounded">
                         <span>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -254,7 +254,7 @@
                         <span class="text-table">Hóa đơn: Chính thức</span>
                     </div>
                 @else
-                    <div class="border text-warning p-1">
+                    <div class="border text-warning p-1 rounded">
                         <span>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -278,7 +278,7 @@
                 @endif
                 <div class="line-vertical mx-2 my-1"></div>
                 @if ($detailExport->status_pay == 1)
-                    <div class="border text-secondary p-1">
+                    <div class="border text-secondary p-1 rounded">
                         <span>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -290,7 +290,7 @@
                         <span class="text-table">Thanh toán: Chưa thanh toán</span>
                     </div>
                 @elseif($detailExport->status_pay == 2)
-                    <div class="border text-success p-1">
+                    <div class="border text-success p-1 rounded">
                         <span>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -302,7 +302,7 @@
                         <span class="text-table">Thanh toán: Đã thanh toán</span>
                     </div>
                 @else
-                    <div class="border text-warning p-1">
+                    <div class="border text-warning p-1 rounded">
                         <span>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -353,13 +353,13 @@
                                             <th class="border-right p-1 border-top-0" style="width: 8%;">
                                                 <span class="text-table text-secondary">Số lượng</span>
                                             </th>
-                                            <th class="border-right p-1 border-top-0" style="width: 10%;">
+                                            <th class="border-right p-1 border-top-0" style="width: 15%;">
                                                 <span class="text-table text-secondary">Đơn giá</span>
                                             </th>
                                             <th class="border-right p-1 border-top-0" style="width: 8%;">
                                                 <span class="text-table text-secondary">Thuế</span>
                                             </th>
-                                            <th class="border-right p-1 border-top-0" style="width: 10%;">
+                                            <th class="border-right p-1 border-top-0" style="width: 15%;">
                                                 <span class="text-table text-secondary">
                                                     Thành tiền
                                                 </span>
@@ -594,7 +594,7 @@
                                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                                     <input type="text"
                                                         value="{{ number_format($item_quote->price_export) }}"
-                                                        class="border-0 px-2 py-1 w-100 product_price"
+                                                        class="border-0 px-2 py-1 w-100"
                                                         autocomplete="off" readonly>
                                                     <p class="text-primary text-right position-absolute transaction"
                                                         style="top: 68%; right: 5%; display: none;">Giao dịch
@@ -602,7 +602,7 @@
                                                     </p>
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 px-4">
-                                                    <select class="border-0 text-center product_tax" disabled>
+                                                    <select class="border-0 text-center" disabled>
                                                         <option value="0" <?php if ($item_quote->product_tax == 0) {
                                                             echo 'selected';
                                                         } ?>>0%</option>
@@ -621,7 +621,7 @@
                                                 <td class="border border-top-0 border-bottom-0">
                                                     <input type="text" readonly=""
                                                         value="{{ number_format($item_quote->product_total) }}"
-                                                        class="border-0 px-2 py-1 w-100 total-amount">
+                                                        class="border-0 px-2 py-1 w-100">
                                                 </td>
                                                 <td
                                                     class="border border-top-0 border-bottom-0 position-relative note p-1 border-right-0">
@@ -1029,7 +1029,6 @@
             var productPriceElement = $(this).find('[name^="product_price"]');
             var productPrice = 0;
             var taxValue = parseFloat($(this).find('.product_tax option:selected').val());
-            console.log(productPriceElement);
             if (taxValue == 99) {
                 taxValue = 0;
             }

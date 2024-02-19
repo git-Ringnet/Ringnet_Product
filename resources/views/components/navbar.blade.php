@@ -9,9 +9,7 @@
         $workspacename = App\Models\Workspace::where('id', Auth::user()->current_workspace)->first();
         $workspacename = $workspacename->workspace_name;
         $idUser = Auth::user()->id;
-        $workspaceExists = App\Models\Workspace::where('id', $currentWorkspace)
-            ->where('user_id', $idUser)
-            ->exists();
+        $workspaceExists = App\Models\Workspace::where('id', $currentWorkspace)->where('user_id', $idUser)->exists();
     @endphp
     {{-- @if ($workspaceExists)
         <!-- Hiển thị nội dung navbar dựa trên việc current_workspace của người dùng có tồn tại trong Workspace hay không -->
@@ -61,6 +59,10 @@
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="{{ asset('dist/js/scripts.js') }}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/vn.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

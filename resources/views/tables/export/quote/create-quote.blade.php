@@ -301,6 +301,7 @@
                     <div class="modal-body pb-0 px-2 pt-0">
                         <div class="content-info">
                             <div class="mt-2">
+                                <input type="hidden" id="id_guest" autocomplete="off">
                                 <p class="p-0 m-0 px-2 required-label text-danger text-nav">
                                     Tên hiển thị
                                 </p>
@@ -340,13 +341,25 @@
                                     class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
                                     id="guest_name" autocomplete="off">
                             </div>
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 text-nav">
+                                    Người đại diện
+                                </p>
+                                <input type="hidden" id="represent_guest_id">
+                                <input name="guest_name" type="text" placeholder="Nhập thông tin"
+                                    id="represent_guest_name"
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    autocomplete="off">
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer border-top-0 py-1 px-1">
                         <button type="button" class="btn-save-print rounded h-100 text-table py-1"
                             data-dismiss="modal">Trở về</button>
-                        <button type="button" class="custom-btn d-flex align-items-center h-100 py-1 px-2 text-table"
+                        <button type="button" class="custom-btn align-items-center h-100 py-1 px-2 text-table"
                             id="addGuest">Thêm khách hàng</button>
+                        <button type="button" class="custom-btn align-items-center h-100 py-1 px-2 text-table"
+                            id="updateGuest">Sửa khách hàng</button>
                     </div>
                 </div>
             </div>
@@ -501,12 +514,16 @@
                                     </div>
                                 </div>
                                 @foreach ($guest as $guest_value)
-                                    <li>
+                                    <li class="border">
                                         <a href="#" title="{{ $guest_value->guest_name_display }}"
-                                            class="text-dark d-flex justify-content-between p-2 search-info w-100 border"
+                                            class="text-dark d-flex justify-content-between p-2 search-info w-100"
                                             id="{{ $guest_value->id }}" name="search-info">
                                             <span
                                                 class="w-100 text-nav text-dark overflow-hidden">{{ $guest_value->guest_name_display }}</span>
+                                        </a>
+                                        <a class="dropdown-item edit-guest w-25" href="#" data-toggle="modal"
+                                            data-target="#guestModal" data-id="{{ $guest_value->id }}">
+                                            <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
                                         </a>
                                     </li>
                                 @endforeach
@@ -628,9 +645,9 @@
                             </div>
                             <div
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
-                                <input type="date" placeholder="Chọn thông tin" value="{{ date('Y-m-d') }}"
-                                    name="date_quote" class="border-0 bg w-100 bg-input-guest py-0"
-                                    style="height: 20px;">
+                                <input type="text" id="datePicker" placeholder="Chọn thông tin"
+                                    class="border-0 bg w-100 bg-input-guest py-0" style="height: 20px;">
+                                <input type="hidden" id="hiddenDateInput" name="date_quote" value="">
                                 <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -835,7 +852,7 @@
                             <div
                                 class="position-relative d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
                                 <input type="text" placeholder="Chọn thông tin" id="ProjectInput"
-                                    class="border-0 bg w-100 bg-input-guest py-0">
+                                    class="border-0 bg w-100 bg-input-guest py-0" autocomplete="off">
                                 <input type="hidden" class="idProject" autocomplete="off" name="project_id">
                                 <ul id="listProject"
                                     class="w-100 bg-white position-absolute rounded shadow p-0 scroll-data list-guest z-index-block"
@@ -990,7 +1007,8 @@
                                     class="border-0 bg w-100 bg-input-guest py-0" autocomplete="off"
                                     id="myInput-delivery"
                                     value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->form_desc : '' }}">
-                                <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[delivery]"
+                                <input type="hidden" class="idDateForm" autocomplete="off"
+                                    name="idDate[delivery]"
                                     value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->id : '' }}">
                                 <input type="hidden" class="nameDateForm" autocomplete="off"
                                     name="fieldDate[delivery]"
@@ -1205,6 +1223,17 @@
 </div>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 <script type="text/javascript">
+    //
+    flatpickr("#datePicker", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        defaultDate: new Date(),
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
     // Số báo giá
     getKeyGuest($('#guest_name_display'));
     //Lấy thông tin project
@@ -1985,6 +2014,16 @@
         });
     });
     //Thêm thông tin khách hàng
+    $(document).on('click', '.addGuestNew', function(e) {
+        $('#addGuest').show();
+        $('#updateGuest').hide();
+        $('#id_guest').val('');
+        $('#guest_name_display').val('');
+        $("input[name='key']").val('');
+        $('#guest_address').val(null);
+        $('#guest_code').val(null);
+        $('#represent_guest_name').val(null);
+    });
     $(document).on('click', '#addGuest', function(e) {
         var guest_name_display = $('input[name="guest_name_display"]').val().trim();
         var guest_name = $('#guest_name').val().trim();
@@ -1997,6 +2036,7 @@
         // var guest_phone_receiver = $('#guest_phone_receiver').val().trim();
         // var guest_note = $('#guest_note').val().trim();
         var key = $("input[name='key']").val().trim().trim();
+        var represent_guest_name = $('#represent_guest_name').val().trim();
         if (!guest_name_display || !guest_address || !guest_code) {
             alert('Vui lòng điền đủ thông tin khách hàng!');
         } else {
@@ -2017,6 +2057,7 @@
                     // guest_phone_receiver: guest_phone_receiver,
                     // guest_note: guest_note,
                     key: key,
+                    represent_guest_name: represent_guest_name,
                 },
                 success: function(data) {
                     if (data.success) {
@@ -2030,12 +2071,18 @@
                         var newGuestInfo = data;
                         var guestList = $('#myUL'); // Danh sách hiện có
                         var newListItem =
-                            '<li><a href="#" title="' + newGuestInfo.guest_name_display +
-                            '" class="text-dark d-flex justify-content-between p-2 search-info w-100 border" id="' +
+                            '<li class="border"><a href="#" title="' + newGuestInfo
+                            .guest_name_display +
+                            '" class="text-dark d-flex justify-content-between p-2 search-info w-100" id="' +
                             newGuestInfo.id + '" name="search-info">' +
                             '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
                             .guest_name_display +
-                            '</span></a></li>';
+                            '</span></a>' +
+                            '<a class="dropdown-item edit-guest w-25" href="#" data-toggle="modal" data-target="#guestModal" data-id="' +
+                            newGuestInfo.id + '">' +
+                            '<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>' +
+                            '</a>' +
+                            '</li>';
                         // Thêm mục mới vào danh sách
                         var addButton = $(".addGuestNew");
                         $(newListItem).insertBefore(addButton);
@@ -2044,6 +2091,7 @@
                         $("input[name='key']").val('');
                         $('#guest_address').val(null);
                         $('#guest_code').val(null);
+                        $('#represent_guest_name').val(null);
                         //
                         $('#show-info-guest').show();
                         $('#show-title-guest').show();
@@ -2051,12 +2099,95 @@
                         $('#representativeList').empty();
                         $('#represent_guest').val('');
                         $('.represent_guest_id').val('');
+                        //Thêm người đại diện mới
+                        var newGuestInfo1 = data;
+                        var guestList1 = $('#myUL7'); // Danh sách hiện có
+                        var newListItem1 =
+                            '<li class="border" data-id="' + newGuestInfo1.id +
+                            '"><a href="#" title="' + newGuestInfo1.represent_name +
+                            '" class="text-dark d-flex justify-content-between p-2 search-represent w-100" id="' +
+                            newGuestInfo1.id + '" name="search-represent">' +
+                            '<span class="w-100 text-nav text-dark overflow-hidden">' +
+                            newGuestInfo1
+                            .represent_name +
+                            '</span></a>' +
+                            '<div class="dropdown">' +
+                            '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">' +
+                            '<i class="fa-solid fa-ellipsis" aria-hidden="true"></i>' +
+                            '</button><div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
+                            '<a class="dropdown-item edit-represent-form" data-toggle="modal" data-target="#representModal" data-name="representGuest" data-id="' +
+                            newGuestInfo1.id + '">' +
+                            '<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>' +
+                            '</a><a class="dropdown-item delete-item-represent" href="#" data-id="' +
+                            newGuestInfo1.id + '" data-name="representGuest">' +
+                            '<i class="fa-solid fa-trash-can" aria-hidden="true"></i></a><a class="dropdown-item default-represent" id="default-id' +
+                            newGuestInfo1.id + '" href="#" data-name="representGuest" data-id="' +
+                            newGuestInfo1.id + '">' +
+                            '<i class="fa-solid fa-link" aria-hidden="true"></i></a></div></div>' +
+                            '</li>';
+                        // Thêm mục mới vào danh sách
+                        var addButton1 = $(".addRepresentNew");
+                        $(newListItem1).insertBefore(addButton1);
+                        $('#represent_guest').val(data.represent_name);
+                        $('.represent_guest_id').val(data.id);
                     } else {
                         alert(data.msg);
                     }
                 }
             });
         }
+    });
+    //Cập nhật khách hàng
+    $(document).ready(function() {
+        $(document).on('click', '.edit-guest', function(e) {
+            $('#addGuest').hide();
+            $('#updateGuest').show();
+            var itemId = $(this).data('id');
+            $.ajax({
+                url: '{{ route('editGuest') }}',
+                type: 'GET',
+                data: {
+                    itemId: itemId
+                },
+                success: function(data) {
+                    $('#id_guest').val(data.idGuest);
+                    $('#guest_name_display').val(data.guest_name_display);
+                    $('#guest_code').val(data.guest_code);
+                    $('#guest_address').val(data.guest_address);
+                    $('#key').val(data.key);
+                    $('#guest_name').val(data.guest_name);
+                    $('#represent_guest_name').val(data.represent_name);
+                    $('#represent_guest_id').val(data.representID);
+                }
+            });
+        });
+        $(document).on('click', '#updateGuest', function(e) {
+            var guest_id = $('#id_guest').val().trim();
+            var represent_id = $('#represent_guest_id').val().trim();
+            var guest_name = $('#guest_name').val().trim();
+            var guest_address = $('#guest_address').val().trim();
+            var guest_code = $('#guest_code').val().trim();
+            var key = $("input[name='key']").val().trim().trim();
+            var guest_name_display = $('input[name="guest_name_display"]').val().trim();
+            var represent_guest_name = $('#represent_guest_name').val().trim();
+            $.ajax({
+                url: '{{ route('updateGuest') }}',
+                type: 'GET',
+                data: {
+                    guest_id: guest_id,
+                    represent_id: represent_id,
+                    guest_name: guest_name,
+                    guest_address: guest_address,
+                    guest_code: guest_code,
+                    key: key,
+                    guest_name_display: guest_name_display,
+                    represent_guest_name: represent_guest_name,
+                },
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+        });
     });
     //Thêm dự án
     $(document).on('click', '#addProject', function(e) {
@@ -2129,6 +2260,11 @@
     $(document).on('click', '.addRepresentNew', function(e) {
         $('#updateRepresent').hide();
         $('#addRepresent').show();
+        $('#represent_id').val('');
+        $('#represent_name').val('');
+        $("#represent_email").val('');
+        $('#represent_phone').val('');
+        $('#represent_address').val('');
     });
     $(document).on('click', '#addRepresent', function(e) {
         var represent_name = $('input[name="represent_name"]').val().trim();
@@ -2445,8 +2581,6 @@
 
         return formattedNumber;
     }
-    //Mở rộng
-    var status_form = 0;
 
     function kiemTraFormGiaoHang(event) {
         event.preventDefault();

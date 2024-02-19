@@ -84,7 +84,6 @@ class DeliveryController extends Controller
         }
         if ($request->action == 2) {
             $this->delivery->acceptDelivery($request->all());
-            // dd($request->all());
             return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
         }
     }
