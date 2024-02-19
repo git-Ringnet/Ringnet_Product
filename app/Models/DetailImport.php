@@ -77,7 +77,7 @@ class DetailImport extends Model
                 $price_export = str_replace(',', '', $data['product_qty'][$i]) * str_replace(',', '', $data['price_export'][$i]);
                 $total += $price_export;
             }
-            $total_tax +=  (($data['product_tax'][$i] * $price_export) / 100);
+            $total_tax +=  ((($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export) / 100);
         }
         $total_tax = $total_tax + $total;
         $dataImport = [

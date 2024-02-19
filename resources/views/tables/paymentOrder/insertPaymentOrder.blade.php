@@ -264,11 +264,11 @@
 
                         <div class="">
                             <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                <input id="search_quotation" type="text" placeholder="Nhập thông tin"
+                                <input readonly id="search_quotation" type="text" placeholder="Nhập thông tin"
                                     name="quotation_number"
                                     class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0 search_quotation"
-                                    autocomplete="off" required> <input type="hidden" name="detail_id"
-                                    id="detail_id"
+                                    autocomplete="off" required>
+                                <input type="hidden" name="detail_id" id="detail_id"
                                     value="@isset($yes) {{ $show_receive['id'] }} @endisset">
                                 <ul id="listReceive"
                                     class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
@@ -284,10 +284,9 @@
                                     @foreach ($reciept as $value)
                                         <li>
                                             <a href="javascript:void(0)"
-                                                class="text-dark d-flex justify-content-between p-2 search-receive"
+                                                class="text-dark d-flex justify-content-between p-2 search-receive w-100"
                                                 id="{{ $value->id }}" name="search-info">
-                                                <span
-                                                    class="w-100">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
+                                                <span>{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
                                             </a>
                                         </li>
                                     @endforeach

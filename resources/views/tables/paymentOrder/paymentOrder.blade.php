@@ -239,8 +239,10 @@
                                                     <span style="color:#EC212D">Quá hạn trong
                                                         {{ $item->formatDate($item->payment_date)->diffInDays($today) }}
                                                         ngày</span>
-                                                @else
+                                                @elseif($item->status == 5)
                                                     <span style="color: #0052CC">Đến hạn</span>
+                                                @else
+                                                    <span style="color: #0052CC">Đặt cọc</span>
                                                 @endif
                                             </td>
                                             <td class="py-2">

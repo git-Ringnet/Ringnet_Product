@@ -65,8 +65,8 @@ class PayOder extends Model
             // Tính công nợ nhà cung cấp
             $this->calculateDebt($payment->provide_id, $prepay);
             // Cập nhật trạng thái thanh toán
-            $status = $this->updateStatusDebt($data, $payment->id,2);
-            dd($status);
+            $status = $this->updateStatusDebt($data, $payment->id, 2);
+
             // Cập nhật trạng thái đơn hàng
             $this->updateStatus($payment->detailimport_id, PayOder::class, 'payment_qty', 'status_pay');
         } else {
@@ -96,7 +96,7 @@ class PayOder extends Model
                 $dataReciept = [
                     'detailimport_id' => $detail->id,
                     'provide_id' => $detail->provide_id,
-                    'status' => 1,
+                    'status' => ($data['payment'] > 0 ? 6 : 1),
                     'payment_date' => isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now(),
                     'total' => 0,
                     'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
@@ -141,7 +141,7 @@ class PayOder extends Model
                 }
             }
             // Cập nhật tình trạng thanh toán
-            $status = $this->updateStatusDebt($data, $payment_id,1);
+            $status = $this->updateStatusDebt($data, $payment_id, 1);
             // Cập nhật trạng thái đơn hàng
             if ($detail->status == 1) {
                 $detail->status = 2;
@@ -214,8 +214,9 @@ class PayOder extends Model
         return Carbon::parse($data);
     }
 
-    public function updateStatusDebt($data, $id ,$check)
+    public function updateStatusDebt($data, $id, $check)
     {
+        // dd($id);
         $startDate = Carbon::now()->startOfDay();
         $endDate = isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now();
         $endDate = Carbon::parse($endDate);
@@ -227,38 +228,42 @@ class PayOder extends Model
             $daysDiff = $daysDiffss;
         }
 
-
         if ($daysDiff <= 3 && $daysDiff > 0) {
-            $status = 3; //Đến hạn
+            $status = 3; //Đến hạn trong
         } elseif ($daysDiff == 0) {
             $status = 5; //Đến hạn
         } elseif ($daysDiff < 0) {
             $status = 4; //Quá hạn
         } else {
-            // if($check == 1 && $data['payment'] > 0){
-            //     $status = 6; // Đặt cọc
-            // }else{
+            if ($check == 1 && $data['payment'] > 0) {
+                $status = 6; // Đặt cọc
+            } else {
                 $status = 1; //Chưa thanh toán
-            // }
-           
+            }
         }
-        $payorder = PayOder::where('detailimport_id', $id)
+        // $payorder = PayOder::where('detailimport_id', $id)
+        //     ->where('workspace_id', Auth::user()->current_workspace)
+        //     ->first();
+        $payorder = PayOder::where('id', $id)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($payorder) {
-            $getStatus = HistoryPaymentOrder::where('payment_id', $payorder->id)->count();
-            return $getStatus;
-            if ($getStatus == 2) {
-                $status = 6;
-            }
+            // dd(1);
+            // $getStatus = HistoryPaymentOrder::where('payment_id', $payorder->id)->count();
+            // return $getStatus;
+            // if ($getStatus == 2) {
+            //     $status = 6;
+            // }
             if (($payorder->total - $payorder->payment) == 0) {
                 $status = 2; //Thanh toán đủ
             }
-            DB::table('pay_order')->where('id', $id)
-                ->where('workspace_id', Auth::user()->current_workspace)
-                ->update([
-                    'status' => $status,
-                ]);
+            if ($data['payment'] > 0) {
+                DB::table('pay_order')->where('id', $id)
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->update([
+                        'status' => $status,
+                    ]);
+            }
         }
 
         return $status;

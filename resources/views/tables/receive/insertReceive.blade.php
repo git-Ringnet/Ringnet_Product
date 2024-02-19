@@ -259,10 +259,9 @@
                                     @foreach ($listDetail as $value)
                                         <li>
                                             <a href="javascript:void(0)"
-                                                class="text-dark d-flex justify-content-between p-2 search-receive"
+                                                class="text-dark d-flex justify-content-between p-2 search-receive w-100"
                                                 id="{{ $value->id }}" name="search-info">
-                                                <span
-                                                    class="w-100">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
+                                                <span>{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
                                             </a>
                                         </li>
                                     @endforeach
@@ -525,7 +524,8 @@
                                             .product_qty - element
                                             .receive_qty) +
                                         `">
-                                        <a class="duongdan" data-toggle="modal" data-target="#exampleModal` + element.id + `">Serial Number </a>
+                                        <a class="duongdan" data-toggle="modal" data-target="#exampleModal` + element
+                                        .id + `">Serial Number </a>
                                        
                                     </div>
                                     </td>
@@ -592,11 +592,11 @@
         if (isChecked) {
             $(element).closest('tr').find('input[name^="cbSeri"]').val(1)
             // $(element).closest('tr').find('a').show()
-            $(element).closest('tr').find('a').css('opacity',1)
+            $(element).closest('tr').find('a').css('opacity', 1)
         } else {
             $(element).closest('tr').find('input[name^="cbSeri"]').val(0)
             // $(element).closest('tr').find('a').hide();
-            $(element).closest('tr').find('a').css('opacity',0)
+            $(element).closest('tr').find('a').css('opacity', 0)
         }
     }
 
