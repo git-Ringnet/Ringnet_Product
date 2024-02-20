@@ -163,7 +163,7 @@
                                         <th class="border-right p-1 border-top-0" style="width:10%;">
                                             <span class="text-table text-secondary">Đơn vị</span>
                                         </th>
-                                        <th class="border-right p-1 border-top-0" style="width:15%;">
+                                        <th class="border-right p-1 border-top-0" style="width:10%;">
                                             <span class="text-table text-secondary">Số lượng</span>
                                         </th>
                                         <th class="border-right p-1 border-top-0" style="width:10%;">
@@ -235,12 +235,19 @@
                                             </td>
                                             <td class="border border-top-0 border-bottom-0 border-right-0">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <input @if ($receive->status == 2) readonly @endif
-                                                        type="text" class="border-0 px-2 py-1 w-100 quantity-input"
-                                                        name="product_qty[]" {{-- oninput="checkQty(this,{{ $item->product_qty }})"  --}} readonly
-                                                        value="{{ number_format($item->product_qty) }}">
-                                                    @if ($item->cbSN == 1)
-                                                        <button type="button" class="btn btn-primary"
+                                                    <div>
+                                                        <input @if ($receive->status == 2) readonly @endif
+                                                            type="text"
+                                                            class="border-0 px-2 py-1 w-100 quantity-input"
+                                                            name="product_qty[]" {{-- oninput="checkQty(this,{{ $item->product_qty }})"  --}} readonly
+                                                            value="{{ number_format($item->product_qty) }}">
+                                                        @if ($item->cbSN == 1)
+                                                            <a href="#" class="duongdan" data-toggle="modal"
+                                                                data-target="#exampleModal{{ $st }}">
+                                                                Serial Number
+                                                            </a>
+                                                    </div>
+                                                    {{-- <button type="button" class="btn btn-primary"
                                                             data-toggle="modal"
                                                             data-target="#exampleModal{{ $st }}"
                                                             style="background:transparent; border:none;">
@@ -266,251 +273,249 @@
                                                                     fill="#0095F6">
                                                                 </path>
                                                             </svg>
-                                                        </button>
-                                                    @endif
-                                                </div>
-                                            </td>
-                                            <td class="border border-top-0 border-bottom-0 border-right-0 text-center">
-                                                <input type="checkbox" name="cbSeri[]" disabled
-                                                    value="{{ $item->cbSN }}"
-                                                    @if ($item->cbSN == 1) {{ 'checked' }} @endif>
-                                            </td>
-                                            <td class="border border-top-0 border-bottom-0 d-none">
-                                                <input type="text" class="border-0 px-2 py-1 w-100 price_export"
-                                                    name="price_export[]"
-                                                    value="{{ fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
-                                                    readonly>
-                                            </td>
-                                            <td class="d-none">
-                                                <input type="text" class="border-0 px-2 py-1 w-100 product_tax"
-                                                    name="product_tax[]" value="{{ $item->product_tax }}" readonly>
-                                            </td>
-                                            <input type="hidden" class="product_tax1">
-                                            <td class="border border-top-0 border-bottom-0 border-right-0 d-none">
-                                                <input type="text" class="border-0 px-2 py-1 w-100 total_price"
-                                                    name="total_price[]"
-                                                    value="{{ fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
-                                                    readonly>
-                                            </td>
-                                            <td class="border border-top-0 border-bottom-0">
-                                                <input type="text" class="border-0 px-2 py-1 w-100"
-                                                    name="product_note[]" value="{{ $item->product_note }}" readonly>
-                                            </td>
-                                            <td
-                                                class="border border-top-0 @if ($receive->status == 3) deleteRow @endif">
-                                                <svg width="17" height="17" viewBox="0 0 17 17"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z"
-                                                        fill="#6B6F76"></path>
-                                                </svg>
-                                            </td>
-                                        </tr>
-                                        <?php $st++; ?>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                        </button> --}}
+                                    @endif
                         </div>
-                    </section>
-                    <?php $import = '123'; ?>
-                    <x-formsynthetic :import="$import"></x-formsynthetic>
+                        </td>
+                        <td class="border border-top-0 border-bottom-0 border-right-0 text-center">
+                            <input type="checkbox" name="cbSeri[]" disabled value="{{ $item->cbSN }}"
+                                @if ($item->cbSN == 1) {{ 'checked' }} @endif>
+                        </td>
+                        <td class="border border-top-0 border-bottom-0 d-none">
+                            <input type="text" class="border-0 px-2 py-1 w-100 price_export" name="price_export[]"
+                                value="{{ fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
+                                readonly>
+                        </td>
+                        <td class="d-none">
+                            <input type="text" class="border-0 px-2 py-1 w-100 product_tax" name="product_tax[]"
+                                value="{{ $item->product_tax }}" readonly>
+                        </td>
+                        <input type="hidden" class="product_tax1">
+                        <td class="border border-top-0 border-bottom-0 border-right-0 d-none">
+                            <input type="text" class="border-0 px-2 py-1 w-100 total_price" name="total_price[]"
+                                value="{{ fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
+                                readonly>
+                        </td>
+                        <td class="border border-top-0 border-bottom-0">
+                            <input type="text" class="border-0 px-2 py-1 w-100" name="product_note[]"
+                                value="{{ $item->product_note }}" readonly>
+                        </td>
+                        <td class="border border-top-0 @if ($receive->status == 3) deleteRow @endif">
+                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z"
+                                    fill="#6B6F76"></path>
+                            </svg>
+                        </td>
+                        </tr>
+                        <?php $st++; ?>
+                        @endforeach
+                        </tbody>
+                        </table>
                 </div>
-
-                <section id="files" class="tab-pane fade">
-                    <div class="bg-filter-search border-bottom-0 text-center py-2">
-                        <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
-                    </div>
-                    <x-form-attachment :value="$receive" name="DNH"></x-form-attachment>
                 </section>
+                <?php $import = '123'; ?>
+                <x-formsynthetic :import="$import"></x-formsynthetic>
+            </div>
+
+            <section id="files" class="tab-pane fade">
+                <div class="bg-filter-search border-bottom-0 text-center py-2">
+                    <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
+                </div>
+                <x-form-attachment :value="$receive" name="DNH"></x-form-attachment>
+            </section>
 
 
-                <div class="content-wrapper2 px-0 py-0">
-                    <div id="mySidenav" class="sidenavshow border" style="top : 98px;">
-                        <div id="show_info_Guest">
-                            <div class="bg-filter-search border-top-0 py-2 text-center">
-                                <span class="font-weight-bold text-secondary">
-                                    THÔNG TIN NHÀ CUNG CẤP
-                                </span>
+            <div class="content-wrapper2 px-0 py-0">
+                <div id="mySidenav" class="sidenavshow border" style="top : 98px;">
+                    <div id="show_info_Guest">
+                        <div class="bg-filter-search border-top-0 py-2 text-center">
+                            <span class="font-weight-bold text-secondary">
+                                THÔNG TIN NHÀ CUNG CẤP
+                            </span>
+                        </div>
+
+                        <div class="d-flex">
+                            <div style="width:55%;">
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Đơn mua hàng</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Nhà cung cấp</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Người đại diện</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Mã thanh toán</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Đơn vị vận chuyển</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Phí giao hàng</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Ngày nhận hàng</span>
+                                </div>
                             </div>
 
-                            <div class="d-flex">
-                                <div style="width:55%;">
-                                    <div class="border border-right-0 py-1 border-left-0">
-                                        <span class="text-table ml-2">Đơn mua hàng</span>
+                            <div class="">
+                                {{-- @dd($receive->getQuotation->quotation_number) --}}
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                    <input id="search_quotation" type="text" placeholder="Nhập thông tin"
+                                        name="quotation_number"
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0 search_quotation"
+                                        autocomplete="off" required {{-- value="{{ $receive->quotation_number == null ? $receive->id : $receive->quotation_number }}" --}}
+                                        value="@if($receive->getQuotation){{$receive->getQuotation->quotation_number }}@else{{$receive->id}}@endif"
+                                        readonly>
+                                    <div class="">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
                                     </div>
-                                    <div class="border border-right-0 py-1 border-left-0">
-                                        <span class="text-table ml-2">Nhà cung cấp</span>
-                                    </div>
-                                    <div class="border border-right-0 py-1 border-left-0">
-                                        <span class="text-table ml-2">Người đại diện</span>
-                                    </div>
-                                    <div class="border border-right-0 py-1 border-left-0">
-                                        <span class="text-table ml-2">Mã thanh toán</span>
-                                    </div>
-                                    <div class="border border-right-0 py-1 border-left-0">
-                                        <span class="text-table ml-2">Đơn vị vận chuyển</span>
-                                    </div>
-                                    <div class="border border-right-0 py-1 border-left-0">
-                                        <span class="text-table ml-2">Phí giao hàng</span>
-                                    </div>
-                                    <div class="border border-right-0 py-1 border-left-0">
-                                        <span class="text-table ml-2">Ngày nhận hàng</span>
+                                </div>
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                    <input readonly type="text" id="provide_name" placeholder="Nhập thông tin"
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                        value="{{ $receive->getNameProvide->provide_name_display }}">
+                                    <div class="">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
                                     </div>
                                 </div>
 
-                                <div class="">
-                                    <div
-                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input id="search_quotation" type="text" placeholder="Nhập thông tin"
-                                            name="quotation_number"
-                                            class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0 search_quotation"
-                                            autocomplete="off" required
-                                            value="{{ $receive->quotation_number == null ? $receive->id : $receive->quotation_number }}"
-                                            readonly>
-                                        <div class="">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </div>
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                    <input readonly type="text" placeholder="Chọn thông tin"
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                        autocomplete="off" id="represent"
+                                        @if ($nameRepresent) value="{{ $nameRepresent }}" @endif>
+                                    <div class="">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
                                     </div>
-                                    <div
-                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input readonly type="text" id="provide_name" placeholder="Nhập thông tin"
-                                            class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                            value="{{ $receive->getNameProvide->provide_name_display }}">
-                                        <div class="">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
+                                </div>
 
-                                    <div
-                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input readonly type="text" placeholder="Chọn thông tin"
-                                            class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                            autocomplete="off" id="represent"
-                                            @if ($nameRepresent) value="{{ $nameRepresent }}" @endif>
-                                        <div class="">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </div>
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                    <input readonly type="text" placeholder="Chọn thông tin" name="delivery_code"
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                        autocomplete="off" value="{{ $receive->delivery_code }}">
+                                    <div class="">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
                                     </div>
+                                </div>
 
-                                    <div
-                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input readonly type="text" placeholder="Chọn thông tin"
-                                            name="delivery_code"
-                                            class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                            autocomplete="off" value="{{ $receive->delivery_code }}">
-                                        <div class="">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </div>
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                    <input type="text" placeholder="Nhập thông tin" name="shipping_unit"
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                        value="{{ $receive->shipping_unit }}"
+                                        @if ($receive->status == 2) readonly @endif>
+                                    <div class="">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
                                     </div>
+                                </div>
 
-                                    <div
-                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input type="text" placeholder="Nhập thông tin" name="shipping_unit"
-                                            class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                            value="{{ $receive->shipping_unit }}"
-                                            @if ($receive->status == 2) readonly @endif>
-                                        <div class="">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </div>
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                    <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                        value="{{ number_format($receive->delivery_charges) }}"
+                                        @if ($receive->status == 2) readonly @endif>
+                                    <div class="">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
                                     </div>
+                                </div>
 
-                                    <div
-                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
-                                            class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                            value="{{ number_format($receive->delivery_charges) }}"
-                                            @if ($receive->status == 2) readonly @endif>
-                                        <div class="">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input type="date" placeholder="Nhập thông tin" name="received_date"
-                                            class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                            value="{{ $receive->created_at->toDateString() }}"
-                                            @if ($receive->status == 2) readonly @endif>
-                                        <div class="">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </div>
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                    <input id="datePicker" type="text" placeholder="Nhập thông tin"
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                        {{-- value="{{ $receive->created_at->toDateString() }}" --}}
+                                        value="{{ date_format(new DateTime($receive->created_at), 'd/m/Y') }}"
+                                        @if ($receive->status == 2) readonly @endif>
+                                    <input type="hidden" name="received_date" id="hiddenDateInput"
+                                        value="{{ $receive->created_at->toDateString() }}">
+                                    <div class="">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
                                     </div>
                                 </div>
                             </div>
@@ -520,12 +525,23 @@
             </div>
         </div>
     </div>
+    </div>
     <x-formmodalseri :product="$product"></x-formmodalseri>
 </form>
 
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    flatpickr("#datePicker", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
+
     function getAction(e) {
         $('#getAction').val($(e).find('button').val());
     }

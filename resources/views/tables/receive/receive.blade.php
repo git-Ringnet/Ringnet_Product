@@ -211,13 +211,12 @@
                                                 {{ $item->delivery_code }}
                                             </td>
                                             <td class="py-2">
-                                                {{-- <a href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}"
-                                                    class="duongdan"> --}}
-                                                @if ($item->getQuotation)
-                                                    {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
-                                                @endif
-                                                {{-- </a> --}}
-
+                                                <a
+                                                    href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}">
+                                                    @if ($item->getQuotation)
+                                                        {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
+                                                    @endif
+                                                </a>
                                             </td>
                                             <td class="py-2">{{ $item->getNameProvide->provide_name_display }}</td>
                                             <td class="py-2">{{ $item->shipping_unit }}</td>

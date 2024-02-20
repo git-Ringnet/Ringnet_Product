@@ -255,7 +255,8 @@
                                             <td class="border border-top-0 border-bottom-0 border-right-0">
                                                 <input readonly type="text"
                                                     class="border-0 px-2 py-1 w-100 product_tax"
-                                                    value="{{ $item->product_tax == 99 ? "NOVAT" : $item->product_tax }}" disabled>
+                                                    value="{{ $item->product_tax == 99 ? 'NOVAT' : $item->product_tax }}"
+                                                    disabled>
                                             </td>
                                             <input type="hidden" class="product_tax1">
                                             <td class="border border-top-0 border-bottom-0 border-right-0">
@@ -361,7 +362,8 @@
                                         class="d-flex align-items-center justify-content-between border border-left-0 py-1">
                                         <input readonly type="text" placeholder="Chọn thông tin"
                                             class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                            autocomplete="off" id="represent" @if($nameRepresent) value="{{$nameRepresent}}" @endif>
+                                            autocomplete="off" id="represent"
+                                            @if ($nameRepresent) value="{{ $nameRepresent }}" @endif>
                                         <div class="">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -403,9 +405,11 @@
 
                                     <div
                                         class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                        <input required type="date" placeholder="Nhập thông tin" name="date_bill"
+                                        <input id="datePicker" required type="text" placeholder="Nhập thông tin"
                                             class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
                                             @if ($reciept->status == 2) readonly @endif
+                                            value="{{ date_format(new DateTime($reciept->date_bill), 'd/m/Y') }}">
+                                        <input type="hidden" name="date_bill" id="hiddenDateInput"
                                             value="{{ Carbon\Carbon::parse($reciept->date_bill)->toDateString() }}">
                                         <div class="">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -441,6 +445,15 @@
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    flatpickr("#datePicker", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
     // Xóa đơn hàng
     deleteImport('#delete_reciept',
         '{{ route('reciept.destroy', ['workspace' => $workspacename, 'reciept' => $reciept->id]) }}')

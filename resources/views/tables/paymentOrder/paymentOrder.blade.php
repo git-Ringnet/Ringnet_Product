@@ -219,7 +219,10 @@
                                             </td>
                                             <td class="py-2">{{ $item->id }}</td>
                                             <td class="py-2">
-                                                {{ $item->getQuotation->quotation_number }}
+                                                <a
+                                                    href="{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => $item->id]) }}">
+                                                    {{ $item->getQuotation->quotation_number }}
+                                                </a>
                                             </td>
                                             <td class="py-2">{{ $item->getProvideName->provide_name_display }}</td>
                                             <td class="py-2">

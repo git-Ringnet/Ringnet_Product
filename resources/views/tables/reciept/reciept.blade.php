@@ -198,9 +198,12 @@
                                                 {{ date_format(new DateTime($item->date_bill), 'd/m/Y') }}</td>
                                             <td class="py-2">{{ $item->number_bill }}</td>
                                             <td class="py-2">
+                                                <a
+                                                    href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}">
                                                     @if ($item->getQuotation)
                                                         {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
                                                     @endif
+                                                </a>
                                             </td>
                                             <td class="py-2">{{ $item->getProvideName->provide_name_display }}</td>
                                             <td class="py-2">
@@ -216,7 +219,8 @@
                                             <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                 style="right: 10px; top: 3px;">
                                                 <div class="d-flex align-items-center">
-                                                    <a href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}">
+                                                    <a
+                                                        href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}">
                                                         <div class="m-0 px-2 py-1 mx-2 rounded">
                                                             <svg width="16" height="16" viewBox="0 0 16 16"
                                                                 fill="none" xmlns="http://www.w3.org/2000/svg">

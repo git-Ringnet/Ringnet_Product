@@ -50,6 +50,7 @@ class PayOder extends Model
                 'payment_date' => $data['payment_date'],
                 'payment' => $prepay,
                 'debt' => ($payment->total - $prepay),
+                'payment_code' => $data['payment_code']
             ];
             PayOder::where('id', $payment->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
@@ -102,7 +103,8 @@ class PayOder extends Model
                     'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
                     'debt' => 0,
                     'created_at' => Carbon::now(),
-                    'workspace_id' => Auth::user()->current_workspace
+                    'workspace_id' => Auth::user()->current_workspace,
+                    'payment_code' => $data['payment_code']
                 ];
                 $payment_id = DB::table($this->table)->insertGetId($dataReciept);
                 for ($i = 0; $i < count($data['product_name']); $i++) {
