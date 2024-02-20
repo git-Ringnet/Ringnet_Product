@@ -525,6 +525,10 @@
                                             data-target="#guestModal" data-id="{{ $guest_value->id }}">
                                             <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
                                         </a>
+                                        <a class="dropdown-item delete-guest w-25" href="#"
+                                            data-id="{{ $guest_value->id }}" data-name="guest">
+                                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                                        </a>
                                     </li>
                                 @endforeach
                                 <a type="button"
@@ -880,9 +884,9 @@
                                                         class="fa-solid fa-ellipsis" aria-hidden="true"></i>
                                                 </button>
                                                 <div class="dropdown-menu date-form-setting" style="z-index: 1000;">
-                                                    <a class="dropdown-item edit-project-form w-50" data-toggle="modal"
-                                                        data-target="#projectModal" data-name=""
-                                                        data-id="">
+                                                    <a class="dropdown-item edit-project-form w-50"
+                                                        data-toggle="modal" data-target="#projectModal"
+                                                        data-name="" data-id="">
                                                         <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
                                                     </a>
                                                     <a class="dropdown-item delete-project w-50" href="#"
@@ -1385,6 +1389,7 @@
                         id: id
                     },
                     success: function(data) {
+                        showNotification('success', data.msg);
                         $(".item-" + id).remove();
                         $('#myInput-' + name).val('');
                         $("input[name='idDate[" + name + "]']").val(null);
@@ -1443,7 +1448,7 @@
                     },
                     success: function(data) {
                         $('#myInput-' + name).val(data.new_date_form.form_desc);
-                        alert(data.msg);
+                        showNotification('success', data.msg);
                         $("input[name='idDate[" + data.new_date_form.form_field + "]']")
                             .val(data.new_date_form
                                 .id);
@@ -1556,7 +1561,8 @@
                                 .form_field);
                         $("#" + name + id).text(data.new_date_form.form_name)
                         $('#myInput-' + name).val(data.new_date_form.form_desc);
-                        alert(data.msg);
+
+                        showNotification('success', data.msg);
                     }
                 });
             }
@@ -2052,7 +2058,7 @@
         var key = $("input[name='key']").val().trim().trim();
         var represent_guest_name = $('#represent_guest_name').val().trim();
         if (!guest_name_display || !guest_address || !guest_code) {
-            alert('Vui lòng điền đủ thông tin khách hàng!');
+            showNotification('warning', 'Vui lòng điền đủ thông tin khách hàng!');
         } else {
             $('.nameGuest').val(null);
             $('.idGuest').val(null);
@@ -2097,6 +2103,10 @@
                             newGuestInfo.id + '">' +
                             '<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>' +
                             '</a>' +
+                            '<a class="dropdown-item delete-guest w-25" href="#" data-id="' +
+                            newGuestInfo.id + '" data-name="guest">' +
+                            '<i class="fa-solid fa-trash-can" aria-hidden="true"></i>' +
+                            '</a>' +
                             '</li>';
 
                         // Thêm mục mới vào danh sách
@@ -2124,7 +2134,7 @@
                                 '<li class="border" data-id="' + newGuestInfo1.id +
                                 '"><a href="#" title="' + newGuestInfo1.represent_name +
                                 '" class="text-dark d-flex justify-content-between p-2 search-represent w-100" id="' +
-                                newGuestInfo1.id + '" name="search-represent">' +
+                                newGuestInfo1.id_represent + '" name="search-represent">' +
                                 '<span class="w-100 text-nav text-dark overflow-hidden">' +
                                 newGuestInfo1
                                 .represent_name +
@@ -2134,14 +2144,14 @@
                                 '<i class="fa-solid fa-ellipsis" aria-hidden="true"></i>' +
                                 '</button><div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
                                 '<a class="dropdown-item edit-represent-form" data-toggle="modal" data-target="#representModal" data-name="representGuest" data-id="' +
-                                newGuestInfo1.id + '">' +
+                                newGuestInfo1.id_represent + '">' +
                                 '<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>' +
                                 '</a><a class="dropdown-item delete-item-represent" href="#" data-id="' +
-                                newGuestInfo1.id + '" data-name="representGuest">' +
+                                newGuestInfo1.id_represent + '" data-name="representGuest">' +
                                 '<i class="fa-solid fa-trash-can" aria-hidden="true"></i></a><a class="dropdown-item default-represent" id="default-id' +
-                                newGuestInfo1.id +
+                                newGuestInfo1.id_represent +
                                 '" href="#" data-name="representGuest" data-id="' +
-                                newGuestInfo1.id + '">' +
+                                newGuestInfo1.id_represent + '">' +
                                 '<i class="fa-solid fa-link" aria-hidden="true"></i></a></div></div>' +
                                 '</li>';
 
@@ -2150,7 +2160,10 @@
                             $(newListItem1).insertBefore(addButton1);
 
                             $('#represent_guest').val(data.represent_name);
-                            $('.represent_guest_id').val(data.id);
+                            $('.represent_guest_id').val(data.id_represent);
+                        } else {
+                            $('#represent_guest').val('');
+                            $('.represent_guest_id').val('');
                         }
                         $('#show-info-guest').show();
                         $('#show-title-guest').show();
@@ -2229,11 +2242,36 @@
             });
         });
     });
+    //Xóa khách hàng
+    $(document).on('click', '.delete-guest', function(e) {
+        e.preventDefault();
+        var itemId = $(this).data('id');
+        $.ajax({
+            url: "{{ route('deleteGuest') }}",
+            type: "get",
+            data: {
+                itemId: itemId,
+            },
+            success: function(data) {
+                if (data.success) {
+                    $(e.target).closest('li').remove();
+                    $('#myInput').val('');
+                    $('.idGuest').val('');
+                    $('#represent_guest').val('');
+                    $('.represent_guest_id').val('');
+                    $('#representativeList').empty();
+                    showNotification('success', data.message);
+                } else {
+                    showNotification('warning', data.message);
+                }
+            }
+        });
+    });
     //Thêm dự án
     $(document).on('click', '#addProject', function(e) {
         var project_name = $('#project_name').val().trim();
         if (!project_name) {
-            alert('Vui lòng điền thông tin người đại diện!');
+            alert('Vui lòng điền thông tin dự án!');
         } else {
             $.ajax({
                 url: "{{ route('addProject') }}",
@@ -2313,7 +2351,7 @@
         var represent_address = $('#represent_address').val().trim();
         var guest_id = $('.idGuest').val();
         if (!represent_name) {
-            alert('Vui lòng điền thông tin người đại diện!');
+            showNotification('warning', 'Vui lòng điền thông tin người đại diện!');
         } else {
             $.ajax({
                 url: "{{ route('addRepresentGuest') }}",
@@ -2333,7 +2371,7 @@
                         showNotification('success', data.msg);
                         // Nếu thành công, tạo một mục mới
                         var newGuestInfo = data;
-                        var guestList = $('#myUL7'); // Danh sách hiện có
+                        var guestList = $('#representativeList'); // Danh sách hiện có
                         var newListItem =
                             '<li class="border" data-id="' + newGuestInfo.id +
                             '"><a href="#" title="' + newGuestInfo.represent_name +
@@ -2357,8 +2395,7 @@
                             '<i class="fa-solid fa-link" aria-hidden="true"></i></a></div></div>' +
                             '</li>';
                         // Thêm mục mới vào danh sách
-                        var addButton = $(".addRepresentNew");
-                        $(newListItem).insertBefore(addButton);
+                        guestList.append(newListItem);
                         //clear
                         $('#represent_name').val('');
                         $("#represent_email").val('');
@@ -2387,7 +2424,7 @@
                     $('#represent_guest').val('');
                     $('.represent_guest_id').val('');
                     showNotification('success', data.message);
-                } else {
+                } else if(data.success == false) {
                     showNotification('warning', data.message);
                 }
             }
@@ -2439,7 +2476,7 @@
                     success: function(data) {
                         if (data.success) {
                             var representId = data.representGuest.id;
-                            $('#representativeList li[data-id="' + representId +
+                            $('#myUL7 li[data-id="' + representId +
                                 '"] .text-nav').text(
                                 data.representGuest.represent_name);
                             $('#represent_guest').val(data.representGuest.represent_name);

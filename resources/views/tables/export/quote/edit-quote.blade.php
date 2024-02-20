@@ -1407,7 +1407,7 @@
     $(document).on('click', '#addProject', function(e) {
         var project_name = $('#project_name').val().trim();
         if (!project_name) {
-            alert('Vui lòng điền thông tin người đại diện!');
+            alert('Vui lòng điền thông tin dự án!');
         } else {
             $.ajax({
                 url: "{{ route('addProject') }}",
@@ -1420,7 +1420,7 @@
                         $('#ProjectInput').val(data.project_name);
                         $('.idProject').val(data.id);
                         $('.modal [data-dismiss="modal"]').click();
-                        alert(data.msg);
+                        showNotification('success', data.msg);
                         // Nếu thành công, tạo một mục mới
                         var newGuestInfo = data;
                         var guestList = $('#myUL7'); // Danh sách hiện có
@@ -1431,7 +1431,7 @@
                             '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
                             .project_name + '</span>' +
                             '</a>' +
-                            '<a class="dropdown-item delete-item-represent w-25" href="#" data-id="' +
+                            '<a class="dropdown-item delete-project w-25" href="#" data-id="' +
                             newGuestInfo.id + '" data-name="project">' +
                             '<i class="fa-solid fa-trash-can" aria-hidden="true"></i>' +
                             '</a>' +
@@ -1442,7 +1442,7 @@
                         //clear
                         $('#project_name').val('');
                     } else {
-                        alert(data.msg);
+                        showNotification('warning', data.msg);
                     }
                 }
             });
@@ -1463,9 +1463,9 @@
                     $(e.target).closest('li').remove();
                     $('#ProjectInput').val('');
                     $('.idProject').val('');
-                    alert(data.message);
+                    showNotification('success', data.message);
                 } else {
-                    alert(data.message);
+                    showNotification('warning', data.message);
                 }
             }
         });
@@ -1644,7 +1644,7 @@
                     },
                     success: function(data) {
                         $('#myInput-' + name).val(data.new_date_form.form_desc);
-                        alert(data.msg);
+                        showNotification('success', data.msg);
                         $("input[name='idDate[" + data.new_date_form.form_field + "]']")
                             .val(data.new_date_form
                                 .id);
@@ -1763,7 +1763,7 @@
                         $("#" + name + id).text(data.new_date_form.form_name)
                         console.log(name, id);
                         $('#myInput-' + name).val(data.new_date_form.form_desc);
-                        alert(data.msg);
+                        showNotification('success', data.msg);
                     }
                 });
             }
@@ -2230,65 +2230,134 @@
         $('#represent_guest_name').val(null);
     });
     $(document).on('click', '#addGuest', function(e) {
-        var guest_name_display = $('input[name="guest_name_display"]').val();
-        var guest_name = $('#guest_name').val();
-        var guest_address = $('#guest_address').val();
-        var guest_code = $('#guest_code').val();
-        var guest_email = $('#guest_email').val();
-        var guest_phone = $('#guest_phone').val();
-        var guest_receiver = $('#guest_receiver').val();
-        var guest_email_personal = $('#guest_email_personal').val();
-        var guest_phone_receiver = $('#guest_phone_receiver').val();
-        var guest_note = $('#guest_note').val();
-        var key = $("input[name='key']").val().trim();
-        $('.nameGuest').val(null);
-        $('.idGuest').val(null);
-        $.ajax({
-            url: "{{ route('addGuest') }}",
-            type: "get",
-            data: {
-                guest_name_display: guest_name_display,
-                guest_name: guest_name,
-                guest_address: guest_address,
-                guest_code: guest_code,
-                guest_email: guest_email,
-                guest_phone: guest_phone,
-                guest_receiver: guest_receiver,
-                guest_email_personal: guest_email_personal,
-                guest_phone_receiver: guest_phone_receiver,
-                guest_note: guest_note,
-                key: key,
-            },
-            success: function(data) {
-                if (data.success) {
-                    quotation = getQuotation(data.key, '1')
-                    $('input[name="quotation_number"]').val(quotation);
-                    $('.nameGuest').val(data.guest_name_display);
-                    alert(data.msg);
-                    $('.idGuest').val(data.id);
-                    $('.modal [data-dismiss="modal"]').click();
-                    // Nếu thành công, tạo một mục mới
-                    var newGuestInfo = data;
-                    var guestList = $('#myUL'); // Danh sách hiện có
-                    var newListItem =
-                        '<li><a href="#" class="text-dark d-flex justify-content-between p-2 search-info" id="' +
-                        newGuestInfo.id + '" name="search-info">' +
-                        '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
-                        .guest_name_display +
-                        '</span></a></li>';
-                    // Thêm mục mới vào danh sách
-                    var addButton = $(".addGuestNew");
-                    $(newListItem).insertBefore(addButton);
-                    //clear
-                    $('#guest_name_display').val('');
-                    $("input[name='key']").val('');
-                    $('#guest_address').val(null);
-                    $('#guest_code').val(null);
-                } else {
-                    alert(data.msg);
+        var guest_name_display = $('input[name="guest_name_display"]').val().trim();
+        var guest_name = $('#guest_name').val().trim();
+        var guest_address = $('#guest_address').val().trim();
+        var guest_code = $('#guest_code').val().trim();
+        // var guest_email = $('#guest_email').val().trim();
+        // var guest_phone = $('#guest_phone').val().trim();
+        // var guest_receiver = $('#guest_receiver').val().trim();
+        // var guest_email_personal = $('#guest_email_personal').val().trim();
+        // var guest_phone_receiver = $('#guest_phone_receiver').val().trim();
+        // var guest_note = $('#guest_note').val().trim();
+        var key = $("input[name='key']").val().trim().trim();
+        var represent_guest_name = $('#represent_guest_name').val().trim();
+        if (!guest_name_display || !guest_address || !guest_code) {
+            showNotification('warning', 'Vui lòng điền đủ thông tin khách hàng!');
+        } else {
+            $('.nameGuest').val(null);
+            $('.idGuest').val(null);
+            $.ajax({
+                url: "{{ route('addGuest') }}",
+                type: "get",
+                data: {
+                    guest_name_display: guest_name_display,
+                    guest_name: guest_name,
+                    guest_address: guest_address,
+                    guest_code: guest_code,
+                    // guest_email: guest_email,
+                    // guest_phone: guest_phone,
+                    // guest_receiver: guest_receiver,
+                    // guest_email_personal: guest_email_personal,
+                    // guest_phone_receiver: guest_phone_receiver,
+                    // guest_note: guest_note,
+                    key: key,
+                    represent_guest_name: represent_guest_name,
+                },
+                success: function(data) {
+                    if (data.success) {
+                        quotation = getQuotation(data.key, '1');
+                        $('input[name="quotation_number"]').val(quotation);
+                        $('.nameGuest').val(data.guest_name_display);
+                        showNotification('success', data.msg);
+                        $('.idGuest').val(data.id);
+                        $('.modal [data-dismiss="modal"]').click();
+
+                        // Nếu thành công, tạo một mục mới
+                        var newGuestInfo = data;
+                        var guestList = $('#myUL'); // Danh sách hiện có
+                        var newListItem =
+                            '<li class="border"><a href="#" title="' + newGuestInfo
+                            .guest_name_display +
+                            '" class="text-dark d-flex justify-content-between p-2 search-info w-100" id="' +
+                            newGuestInfo.id + '" name="search-info">' +
+                            '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
+                            .guest_name_display +
+                            '</span></a>' +
+                            '<a class="dropdown-item edit-guest w-25" href="#" data-toggle="modal" data-target="#guestModal" data-id="' +
+                            newGuestInfo.id + '">' +
+                            '<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>' +
+                            '</a>' +
+                            '<a class="dropdown-item delete-guest w-25" href="#" data-id="' +
+                            newGuestInfo.id + '" data-name="guest">' +
+                            '<i class="fa-solid fa-trash-can" aria-hidden="true"></i>' +
+                            '</a>' +
+                            '</li>';
+
+                        // Thêm mục mới vào danh sách
+                        var addButton = $(".addGuestNew");
+                        $(newListItem).insertBefore(addButton);
+
+                        //clear
+                        $('#guest_name_display').val('');
+                        $("input[name='key']").val('');
+                        $('#guest_address').val(null);
+                        $('#guest_code').val(null);
+                        $('#represent_guest_name').val(null);
+
+                        // Nếu có người đại diện, thêm vào danh sách
+                        if (data.represent_name !== null && data.represent_name !== '') {
+                            //reset 
+                            $('#representativeList').empty();
+                            $('#represent_guest').val('');
+                            $('.represent_guest_id').val('');
+
+                            // Thêm người đại diện mới
+                            var newGuestInfo1 = data;
+                            var guestList1 = $('#myUL7'); // Danh sách hiện có
+                            var newListItem1 =
+                                '<li class="border" data-id="' + newGuestInfo1.id +
+                                '"><a href="#" title="' + newGuestInfo1.represent_name +
+                                '" class="text-dark d-flex justify-content-between p-2 search-represent w-100" id="' +
+                                newGuestInfo1.id_represent + '" name="search-represent">' +
+                                '<span class="w-100 text-nav text-dark overflow-hidden">' +
+                                newGuestInfo1
+                                .represent_name +
+                                '</span></a>' +
+                                '<div class="dropdown">' +
+                                '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">' +
+                                '<i class="fa-solid fa-ellipsis" aria-hidden="true"></i>' +
+                                '</button><div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
+                                '<a class="dropdown-item edit-represent-form" data-toggle="modal" data-target="#representModal" data-name="representGuest" data-id="' +
+                                newGuestInfo1.id_represent + '">' +
+                                '<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>' +
+                                '</a><a class="dropdown-item delete-item-represent" href="#" data-id="' +
+                                newGuestInfo1.id_represent + '" data-name="representGuest">' +
+                                '<i class="fa-solid fa-trash-can" aria-hidden="true"></i></a><a class="dropdown-item default-represent" id="default-id' +
+                                newGuestInfo1.id_represent +
+                                '" href="#" data-name="representGuest" data-id="' +
+                                newGuestInfo1.id_represent + '">' +
+                                '<i class="fa-solid fa-link" aria-hidden="true"></i></a></div></div>' +
+                                '</li>';
+
+                            // Thêm mục mới vào danh sách
+                            var addButton1 = $(".addRepresentNew");
+                            $(newListItem1).insertBefore(addButton1);
+
+                            $('#represent_guest').val(data.represent_name);
+                            $('.represent_guest_id').val(data.id_represent);
+                        } else {
+                            $('#represent_guest').val('');
+                            $('.represent_guest_id').val('');
+                        }
+                        $('#show-info-guest').show();
+                        $('#show-title-guest').show();
+                    } else {
+                        showNotification('warning', data.msg);
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 
     //Cập nhật khách hàng
@@ -2357,6 +2426,32 @@
                     }
                 }
             });
+        });
+    });
+
+    //Xóa khách hàng
+    $(document).on('click', '.delete-guest', function(e) {
+        e.preventDefault();
+        var itemId = $(this).data('id');
+        $.ajax({
+            url: "{{ route('deleteGuest') }}",
+            type: "get",
+            data: {
+                itemId: itemId,
+            },
+            success: function(data) {
+                if (data.success) {
+                    $(e.target).closest('li').remove();
+                    $('#myInput').val('');
+                    $('.idGuest').val('');
+                    $('#represent_guest').val('');
+                    $('.represent_guest_id').val('');
+                    $('#representativeList').empty();
+                    showNotification('success', data.message);
+                } else {
+                    showNotification('warning', data.message);
+                }
+            }
         });
     });
 
@@ -2491,10 +2586,16 @@
             }
         });
     });
+
     //Thêm người đại diện
     $(document).on('click', '.addRepresentNew', function(e) {
         $('#updateRepresent').hide();
         $('#addRepresent').show();
+        $('#represent_id').val('');
+        $('#represent_name').val('');
+        $("#represent_email").val('');
+        $('#represent_phone').val('');
+        $('#represent_address').val('');
     });
     $(document).on('click', '#addRepresent', function(e) {
         var represent_name = $('input[name="represent_name"]').val().trim();
@@ -2503,7 +2604,7 @@
         var represent_address = $('#represent_address').val().trim();
         var guest_id = $('.idGuest').val();
         if (!represent_name) {
-            alert('Vui lòng điền thông tin người đại diện!');
+            showNotification('warning', 'Vui lòng điền thông tin người đại diện!');
         } else {
             $.ajax({
                 url: "{{ route('addRepresentGuest') }}",
@@ -2520,10 +2621,10 @@
                         $('#represent_guest').val(data.represent_name);
                         $('.represent_guest_id').val(data.id);
                         $('.modal [data-dismiss="modal"]').click();
-                        alert(data.msg);
+                        showNotification('success', data.msg);
                         // Nếu thành công, tạo một mục mới
                         var newGuestInfo = data;
-                        var guestList = $('#myUL7'); // Danh sách hiện có
+                        var guestList = $('#representativeList'); // Danh sách hiện có
                         var newListItem =
                             '<li class="border" data-id="' + newGuestInfo.id +
                             '"><a href="#" title="' + newGuestInfo.represent_name +
@@ -2547,15 +2648,14 @@
                             '<i class="fa-solid fa-link" aria-hidden="true"></i></a></div></div>' +
                             '</li>';
                         // Thêm mục mới vào danh sách
-                        var addButton = $(".addRepresentNew");
-                        $(newListItem).insertBefore(addButton);
+                        guestList.append(newListItem);
                         //clear
                         $('#represent_name').val('');
                         $("#represent_email").val('');
                         $('#represent_phone').val('');
                         $('#represent_address').val('');
                     } else {
-                        alert(data.msg);
+                        showNotification('warning', data.msg);
                     }
                 }
             });
@@ -2576,9 +2676,9 @@
                     $(e.target).closest('li').remove();
                     $('#represent_guest').val('');
                     $('.represent_guest_id').val('');
-                    alert(data.message);
-                } else {
-                    alert(data.message);
+                    showNotification('success', data.message);
+                } else if (data.success == false) {
+                    showNotification('warning', data.message);
                 }
             }
         });
@@ -2606,6 +2706,7 @@
     });
     $(document).ready(function() {
         $(document).on('click', '#updateRepresent', function(e) {
+            var guest_id = $('.idGuest').val().trim();
             var represent_id = $('#represent_id').val().trim();
             var represent_name = $('input[name="represent_name"]').val().trim();
             var represent_email = $('#represent_email').val().trim();
@@ -2618,6 +2719,7 @@
                     url: '{{ route('updateRepresent') }}',
                     type: 'GET',
                     data: {
+                        guest_id: guest_id,
                         represent_id: represent_id,
                         represent_name: represent_name,
                         represent_email: represent_email,
@@ -2627,15 +2729,15 @@
                     success: function(data) {
                         if (data.success) {
                             var representId = data.representGuest.id;
-                            $('li[data-id="' + representId +
+                            $('#myUL7 li[data-id="' + representId +
                                 '"] .text-nav').text(
                                 data.representGuest.represent_name);
                             $('#represent_guest').val(data.representGuest.represent_name);
                             $('.represent_guest_id').val(data.representGuest.id);
                             $('.modal [data-dismiss="modal"]').click();
-                            alert('Cập nhật người đại diện thành công!');
+                            showNotification('success', data.msg);
                         } else {
-                            alert(data.message);
+                            showNotification('warning', data.msg);
                         }
                     }
                 });
@@ -2658,9 +2760,9 @@
                 if (data.success) {
                     $('#represent_guest').val(data.representGuest.represent_name);
                     $('.represent_guest_id').val(data.representGuest.id);
-                    alert('Chọn mặc định người đại diện thành công!');
+                    showNotification('success', 'Chọn mặc định người đại diện thành công!');
                 } else {
-                    alert(data.message);
+                    showNotification('warning', 'Không tìm thấy người đại diện');
                 }
             }
         });

@@ -184,12 +184,24 @@ class Guest extends Model
             if ($checkRepresent) {
                 return response()->json(['success' => false, 'msg' => 'Thông tin người đại diện đã tồn tại']);
             } else {
-                $represent = representGuest::where('id', $data['represent_id'])
-                    ->where('guest_id', $data['guest_id'])
-                    ->where('workspace_id', Auth::user()->current_workspace)
-                    ->first();
-                if ($represent) {
-                    $represent->represent_name = $data['represent_guest_name'];
+                $represent = null;
+
+                $representGuestName = $data['represent_guest_name'];
+
+                if (!empty($representGuestName)) {
+                    $represent = representGuest::where('id', $data['represent_id'])
+                        ->where('guest_id', $data['guest_id'])
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->firstOrNew();
+
+                    if (!$represent->exists) {
+                        // Nếu không tìm thấy, đây là lần đầu tiên sử dụng firstOrNew
+                        $represent->id = $data['represent_id'];
+                        $represent->guest_id = $data['guest_id'];
+                        $represent->workspace_id = Auth::user()->current_workspace;
+                    }
+
+                    $represent->represent_name = $representGuestName;
                     $represent->save();
                 }
             }
@@ -216,5 +228,16 @@ class Guest extends Model
             'guest_name_display' => $row['A'], // Thay $row[0] bằng cột tương ứng trong file Excel
             'guest_code' => $row['B'],
         ]);
+    }
+    public function deleteGuest($id)
+    {
+        $guest = Guest::find($id);
+        if ($guest) {
+            $guest->delete();
+            $represent = representGuest::where('guest_id', $id)->delete();
+            return response()->json(['success' => true, 'message' => 'Xóa thành công khách hàng']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Không tìm thấy khách hàng'], 404);
+        }
     }
 }

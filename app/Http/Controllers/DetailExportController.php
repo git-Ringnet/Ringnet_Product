@@ -492,6 +492,13 @@ class DetailExportController extends Controller
         $updateGuest = $this->guest->updateGuestRepresent($data);
         return $updateGuest;
     }
+    //Xóa khách hàng
+    public function deleteGuest(Request $request)
+    {
+        $data = $request->all();
+        $guest = $this->guest->deleteGuest($data['itemId']);
+        return $guest;
+    }
     //Thêm dự án
     public function addProject(Request $request)
     {

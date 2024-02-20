@@ -136,6 +136,8 @@ Route::get('/defaultRepresent', [DetailExportController::class, 'defaultRepresen
 Route::get('/searchProject', [DetailExportController::class, 'searchProject'])->name('searchProject');
 //Thêm khách hàng
 Route::get('/addGuest', [DetailExportController::class, 'addGuest'])->name('addGuest');
+//
+Route::get('/deleteGuest', [DetailExportController::class, 'deleteGuest'])->name('deleteGuest');
 //Thêm người đại diện
 Route::get('/addRepresentGuest', [DetailExportController::class, 'addRepresentGuest'])->name('addRepresentGuest');
 //Thêm dự án

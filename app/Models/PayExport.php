@@ -151,6 +151,9 @@ class PayExport extends Model
                 $detailExport->update([
                     'status_pay' => 3,
                 ]);
+                $payExport->update([
+                    'status' => 5,
+                ]);
             }
         }
         $history = new history_Pay_Export;
