@@ -160,14 +160,46 @@ class Guest extends Model
             })
             ->where('id', '!=', $data['guest_id'])
             ->first();
-        // if($checkGuest)   
-        // {
-
-        // }
-        // else{
-
-        // }
-        return $checkGuest;
+        if ($checkGuest) {
+            return response()->json(['success' => false, 'msg' => 'Thông tin khách hàng đã tồn tại']);
+        } else {
+            $guest = Guest::where('id', $data['guest_id'])
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+            if ($guest) {
+                $guest->guest_name_display = $data['guest_name_display'];
+                $guest->key = $data['key'];
+                $guest->guest_name = $data['guest_name'];
+                $guest->guest_address = $data['guest_address'];
+                $guest->guest_code = $data['guest_code'];
+                $guest->save();
+            }
+            $checkRepresent = representGuest::where(function ($query) use ($data) {
+                $query->where('represent_name', $data['represent_guest_name']);
+            })
+                ->where('id', '!=', $data['represent_id'])
+                ->where('guest_id', $data['guest_id'])
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+            if ($checkRepresent) {
+                return response()->json(['success' => false, 'msg' => 'Thông tin người đại diện đã tồn tại']);
+            } else {
+                $represent = representGuest::where('id', $data['represent_id'])
+                    ->where('guest_id', $data['guest_id'])
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->first();
+                if ($represent) {
+                    $represent->represent_name = $data['represent_guest_name'];
+                    $represent->save();
+                }
+            }
+        }
+        return response()->json([
+            'success' => true,
+            'msg' => 'Cập nhật thông tin khách hàng thành công!',
+            'updated_guest' => $guest,
+            'updated_represent' => $represent,
+        ]);
     }
 
     public function updateProvide($data, $id)

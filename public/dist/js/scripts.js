@@ -2,14 +2,29 @@ function handleSmallScreen() {
     let countClick = 1;
     $("#sideGuest").on("click", function () {
         if (countClick === 1) {
-            $("#mySidenav").css({"width": "300px", "cssText": "width: 300px !important"});
-            $("#main").css({"marginRight": "300px", "cssText": "margin-right: 300px !important"});
-            $("#show_info_Guest").css({"opacity": "1", "cssText": "opacity: 1 !important"});
+            $("#mySidenav").css({
+                width: "300px",
+                cssText: "width: 300px !important",
+            });
+            $("#main").css({
+                marginRight: "300px",
+                cssText: "margin-right: 300px !important",
+            });
+            $("#show_info_Guest").css({
+                opacity: "1",
+                cssText: "opacity: 1 !important",
+            });
             countClick += 1;
         } else if (countClick === 2) {
-            $("#mySidenav").css({"width": "0", "cssText": "width: 0 !important"});
-            $("#main").css({"marginRight": "0", "cssText": "margin-right: 0 !important"});
-            $("#show_info_Guest").css({"opacity": "0", "cssText": "opacity: 0 !important"});
+            $("#mySidenav").css({ width: "0", cssText: "width: 0 !important" });
+            $("#main").css({
+                marginRight: "0",
+                cssText: "margin-right: 0 !important",
+            });
+            $("#show_info_Guest").css({
+                opacity: "0",
+                cssText: "opacity: 0 !important",
+            });
             countClick = 1;
         }
     });
@@ -19,14 +34,29 @@ function handleLargeScreen() {
     let countClick = 1;
     $("#sideGuest").on("click", function () {
         if (countClick === 1) {
-            $("#mySidenav").css({"width": "0", "cssText": "width: 0 !important"});
-            $("#main").css({"marginRight": "0", "cssText": "margin-right: 0 !important"});
-            $("#show_info_Guest").css({"opacity": "0", "cssText": "opacity: 0 !important"});
+            $("#mySidenav").css({ width: "0", cssText: "width: 0 !important" });
+            $("#main").css({
+                marginRight: "0",
+                cssText: "margin-right: 0 !important",
+            });
+            $("#show_info_Guest").css({
+                opacity: "0",
+                cssText: "opacity: 0 !important",
+            });
             countClick += 1;
         } else if (countClick === 2) {
-            $("#mySidenav").css({"width": "300px", "cssText": "width: 300px !important"});
-            $("#main").css({"marginRight": "300px", "cssText": "margin-right: 300px !important"});
-            $("#show_info_Guest").css({"opacity": "1", "cssText": "opacity: 1 !important"});
+            $("#mySidenav").css({
+                width: "300px",
+                cssText: "width: 300px !important",
+            });
+            $("#main").css({
+                marginRight: "300px",
+                cssText: "margin-right: 300px !important",
+            });
+            $("#show_info_Guest").css({
+                opacity: "1",
+                cssText: "opacity: 1 !important",
+            });
             countClick = 1;
         }
     });
@@ -58,3 +88,51 @@ $(document).ready(function () {
         handleLargeScreen();
     }
 });
+//Thông báo
+function showNotification(type, message) {
+    // Create the notification element
+    var notification = document.createElement("div");
+    notification.className =
+        "alert alert-" + type + " alert-dismissible fade show";
+    notification.setAttribute("role", "alert");
+    notification.style.position = "absolute";
+    notification.style.top = "0";
+    notification.style.left = "50%";
+    notification.style.transform = "translate(-50%, 0%)";
+    notification.style.zIndex = "999999";
+
+    // Create the message content
+    var messageDiv = document.createElement("div");
+    messageDiv.className = "message pl-3";
+    messageDiv.innerHTML = message;
+
+    // Create the close button
+    var closeButton = document.createElement("button");
+    closeButton.type = "button";
+    closeButton.className = "close";
+    closeButton.setAttribute("data-dismiss", "alert");
+    closeButton.setAttribute("aria-label", "Close");
+    var closeSpan = document.createElement("span");
+    closeSpan.className = "d-flex";
+    closeSpan.innerHTML =
+        '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+        '<path d="M18 18L6 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />' +
+        '<path d="M18 6L6 18" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />' +
+        "</svg>";
+    closeButton.appendChild(closeSpan);
+
+    // Append the elements to the notification
+    notification.appendChild(messageDiv);
+    notification.appendChild(closeButton);
+
+    // Append the notification to the document body
+    document.body.appendChild(notification);
+
+    // Show the notification
+    notification.style.display = "block";
+
+    // Hide the notification after a certain duration (e.g., 5 seconds)
+    setTimeout(function () {
+        document.body.removeChild(notification);
+    }, 3000); // Adjust the duration as needed
+}

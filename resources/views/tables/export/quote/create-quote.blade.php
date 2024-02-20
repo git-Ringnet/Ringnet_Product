@@ -514,7 +514,7 @@
                                     </div>
                                 </div>
                                 @foreach ($guest as $guest_value)
-                                    <li class="border">
+                                    <li class="border" data-id="{{ $guest_value->id }}">
                                         <a href="#" title="{{ $guest_value->guest_name_display }}"
                                             class="text-dark d-flex justify-content-between p-2 search-info w-100"
                                             id="{{ $guest_value->id }}" name="search-info">
@@ -873,10 +873,24 @@
                                                 <span
                                                     class="w-100 text-nav text-dark overflow-hidden">{{ $project_value->project_name }}</span>
                                             </a>
-                                            <a class="dropdown-item delete-project w-25" href="#"
-                                                data-id="{{ $project_value->id }}">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </a>
+                                            <div class="dropdown">
+                                                <button type="button" data-toggle="dropdown"
+                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
+                                                    style="margin-right:10px" aria-expanded="false"><i
+                                                        class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                </button>
+                                                <div class="dropdown-menu date-form-setting" style="z-index: 1000;">
+                                                    <a class="dropdown-item edit-project-form w-50" data-toggle="modal"
+                                                        data-target="#projectModal" data-name=""
+                                                        data-id="">
+                                                        <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a class="dropdown-item delete-project w-50" href="#"
+                                                        data-id="{{ $project_value->id }}">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </li>
                                     @endforeach
                                     <a type="button"
@@ -976,8 +990,8 @@
                                         class="d-flex justify-content-center align-items-center p-2 position-sticky bg-white addDateFormgoods"
                                         data-toggle="modal" data-target="#formModalgoods" style="bottom: 0;">
                                         <span class="text-table text-center font-weight-bold">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
+                                            <svg width="16" height="16" viewBox="0 0 16 16"
+                                                fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
                                                     fill="#282A30" />
@@ -2064,7 +2078,7 @@
                         quotation = getQuotation(data.key, '1');
                         $('input[name="quotation_number"]').val(quotation);
                         $('.nameGuest').val(data.guest_name_display);
-                        alert(data.msg);
+                        showNotification('success', data.msg);
                         $('.idGuest').val(data.id);
                         $('.modal [data-dismiss="modal"]').click();
 
@@ -2138,13 +2152,11 @@
                             $('#represent_guest').val(data.represent_name);
                             $('.represent_guest_id').val(data.id);
                         }
-
                         $('#show-info-guest').show();
                         $('#show-title-guest').show();
                     } else {
-                        alert(data.msg);
+                        showNotification('warning', data.msg);
                     }
-
                 }
             });
         }
@@ -2196,7 +2208,23 @@
                     represent_guest_name: represent_guest_name,
                 },
                 success: function(data) {
-                    console.log(data);
+                    if (data.success) {
+                        quotation = getQuotation(data.updated_guest.key, '1');
+                        $('input[name="quotation_number"]').val(quotation);
+                        $('.nameGuest').val(data.updated_guest.guest_name_display);
+                        showNotification('success', data.msg);
+                        $('.idGuest').val(data.updated_guest.id);
+                        $('.modal [data-dismiss="modal"]').click();
+                        $('#myUL li[data-id="' + data.updated_guest.id + '"] .text-nav')
+                            .text(data
+                                .updated_guest.guest_name_display);
+                        $('#representativeList li[data-id="' + data.updated_represent.id +
+                            '"] .text-nav').text(
+                            data.updated_represent.represent_name);
+                        $('#represent_guest').val(data.updated_represent.represent_name);
+                    } else {
+                        showNotification('warning', data.msg);
+                    }
                 }
             });
         });
@@ -2218,7 +2246,7 @@
                         $('#ProjectInput').val(data.project_name);
                         $('.idProject').val(data.id);
                         $('.modal [data-dismiss="modal"]').click();
-                        alert(data.msg);
+                        showNotification('success', data.msg);
                         // Nếu thành công, tạo một mục mới
                         var newGuestInfo = data;
                         var guestList = $('#myUL7'); // Danh sách hiện có
@@ -2229,7 +2257,7 @@
                             '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
                             .project_name + '</span>' +
                             '</a>' +
-                            '<a class="dropdown-item delete-item-represent w-25" href="#" data-id="' +
+                            '<a class="dropdown-item delete-project w-25" href="#" data-id="' +
                             newGuestInfo.id + '" data-name="project">' +
                             '<i class="fa-solid fa-trash-can" aria-hidden="true"></i>' +
                             '</a>' +
@@ -2240,7 +2268,7 @@
                         //clear
                         $('#project_name').val('');
                     } else {
-                        alert(data.msg);
+                        showNotification('warning', data.msg);
                     }
                 }
             });
@@ -2261,9 +2289,9 @@
                     $(e.target).closest('li').remove();
                     $('#ProjectInput').val('');
                     $('.idProject').val('');
-                    alert(data.message);
+                    showNotification('success', data.message);
                 } else {
-                    alert(data.message);
+                    showNotification('warning', data.message);
                 }
             }
         });
@@ -2302,7 +2330,7 @@
                         $('#represent_guest').val(data.represent_name);
                         $('.represent_guest_id').val(data.id);
                         $('.modal [data-dismiss="modal"]').click();
-                        alert(data.msg);
+                        showNotification('success', data.msg);
                         // Nếu thành công, tạo một mục mới
                         var newGuestInfo = data;
                         var guestList = $('#myUL7'); // Danh sách hiện có
@@ -2337,7 +2365,7 @@
                         $('#represent_phone').val('');
                         $('#represent_address').val('');
                     } else {
-                        alert(data.msg);
+                        showNotification('warning', data.msg);
                     }
                 }
             });
@@ -2358,9 +2386,9 @@
                     $(e.target).closest('li').remove();
                     $('#represent_guest').val('');
                     $('.represent_guest_id').val('');
-                    alert(data.message);
+                    showNotification('success', data.message);
                 } else {
-                    alert(data.message);
+                    showNotification('warning', data.message);
                 }
             }
         });
@@ -2388,6 +2416,7 @@
     });
     $(document).ready(function() {
         $(document).on('click', '#updateRepresent', function(e) {
+            var guest_id = $('.idGuest').val().trim();
             var represent_id = $('#represent_id').val().trim();
             var represent_name = $('input[name="represent_name"]').val().trim();
             var represent_email = $('#represent_email').val().trim();
@@ -2400,6 +2429,7 @@
                     url: '{{ route('updateRepresent') }}',
                     type: 'GET',
                     data: {
+                        guest_id: guest_id,
                         represent_id: represent_id,
                         represent_name: represent_name,
                         represent_email: represent_email,
@@ -2409,15 +2439,15 @@
                     success: function(data) {
                         if (data.success) {
                             var representId = data.representGuest.id;
-                            $('li[data-id="' + representId +
+                            $('#representativeList li[data-id="' + representId +
                                 '"] .text-nav').text(
                                 data.representGuest.represent_name);
                             $('#represent_guest').val(data.representGuest.represent_name);
                             $('.represent_guest_id').val(data.representGuest.id);
                             $('.modal [data-dismiss="modal"]').click();
-                            alert('Cập nhật người đại diện thành công!');
+                            showNotification('success', data.msg);
                         } else {
-                            alert(data.message);
+                            showNotification('warning', data.msg);
                         }
                     }
                 });
@@ -2440,9 +2470,9 @@
                 if (data.success) {
                     $('#represent_guest').val(data.representGuest.represent_name);
                     $('.represent_guest_id').val(data.representGuest.id);
-                    alert('Chọn mặc định người đại diện thành công!');
+                    showNotification('success', 'Chọn mặc định người đại diện thành công!');
                 } else {
-                    alert(data.message);
+                    showNotification('warning', 'Không tìm thấy người đại diện');
                 }
             }
         });

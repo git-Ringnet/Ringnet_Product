@@ -494,12 +494,17 @@
                                         </div>
                                     </div>
                                     @foreach ($guest as $guest_value)
-                                        <li>
+                                        <li class="border" data-id="{{ $guest_value->id }}">
                                             <a href="#" title="{{ $guest_value->guest_name_display }}"
-                                                class="text-dark d-flex justify-content-between p-2 search-info w-100 border"
+                                                class="text-dark d-flex justify-content-between p-2 search-info w-100"
                                                 id="{{ $guest_value->id }}" name="search-info">
                                                 <span
                                                     class="w-100 text-nav text-dark overflow-hidden">{{ $guest_value->guest_name_display }}</span>
+                                            </a>
+                                            <a class="dropdown-item edit-guest w-25" href="#"
+                                                data-toggle="modal" data-target="#guestModal"
+                                                data-id="{{ $guest_value->id }}">
+                                                <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
                                             </a>
                                         </li>
                                     @endforeach
@@ -1180,6 +1185,7 @@
                 </div>
             </div>
         </div>
+        {{-- Modal khách hàng --}}
         <div class="modal fade" id="guestModal" tabindex="-1" role="dialog"
             aria-labelledby="productModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document" style="margin-top: 10%;">
@@ -1187,6 +1193,7 @@
                     <div class="modal-body pb-0 px-2 pt-0">
                         <div class="content-info">
                             <div class="mt-2">
+                                <input type="hidden" id="id_guest" autocomplete="off">
                                 <p class="p-0 m-0 px-2 required-label text-danger text-nav">
                                     Tên hiển thị
                                 </p>
@@ -1226,14 +1233,25 @@
                                     class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
                                     id="guest_name" autocomplete="off">
                             </div>
+                            <div class="mt-2">
+                                <p class="p-0 m-0 px-2 text-nav">
+                                    Người đại diện
+                                </p>
+                                <input type="hidden" id="represent_guest_id">
+                                <input name="guest_name" type="text" placeholder="Nhập thông tin"
+                                    id="represent_guest_name"
+                                    class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                    autocomplete="off">
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer border-top-0 py-1 px-1">
                         <button type="button" class="btn-save-print rounded h-100 text-table py-1"
                             data-dismiss="modal">Trở về</button>
-                        <button type="button"
-                            class="custom-btn d-flex align-items-center h-100 py-1 px-2 text-table"
+                        <button type="button" class="custom-btn align-items-center h-100 py-1 px-2 text-table"
                             id="addGuest">Thêm khách hàng</button>
+                        <button type="button" class="custom-btn align-items-center h-100 py-1 px-2 text-table"
+                            id="updateGuest">Sửa khách hàng</button>
                     </div>
                 </div>
             </div>
@@ -2201,6 +2219,16 @@
     });
 
     //Thêm thông tin khách hàng
+    $(document).on('click', '.addGuestNew', function(e) {
+        $('#addGuest').show();
+        $('#updateGuest').hide();
+        $('#id_guest').val('');
+        $('#guest_name_display').val('');
+        $("input[name='key']").val('');
+        $('#guest_address').val(null);
+        $('#guest_code').val(null);
+        $('#represent_guest_name').val(null);
+    });
     $(document).on('click', '#addGuest', function(e) {
         var guest_name_display = $('input[name="guest_name_display"]').val();
         var guest_name = $('#guest_name').val();
@@ -2260,6 +2288,75 @@
                     alert(data.msg);
                 }
             }
+        });
+    });
+
+    //Cập nhật khách hàng
+    $(document).ready(function() {
+        $(document).on('click', '.edit-guest', function(e) {
+            $('#addGuest').hide();
+            $('#updateGuest').show();
+            var itemId = $(this).data('id');
+            $.ajax({
+                url: '{{ route('editGuest') }}',
+                type: 'GET',
+                data: {
+                    itemId: itemId
+                },
+                success: function(data) {
+                    $('#id_guest').val(data.idGuest);
+                    $('#guest_name_display').val(data.guest_name_display);
+                    $('#guest_code').val(data.guest_code);
+                    $('#guest_address').val(data.guest_address);
+                    $('#key').val(data.key);
+                    $('#guest_name').val(data.guest_name);
+                    $('#represent_guest_name').val(data.represent_name);
+                    $('#represent_guest_id').val(data.representID);
+                }
+            });
+        });
+        $(document).on('click', '#updateGuest', function(e) {
+            var guest_id = $('#id_guest').val().trim();
+            var represent_id = $('#represent_guest_id').val().trim();
+            var guest_name = $('#guest_name').val().trim();
+            var guest_address = $('#guest_address').val().trim();
+            var guest_code = $('#guest_code').val().trim();
+            var key = $("input[name='key']").val().trim().trim();
+            var guest_name_display = $('input[name="guest_name_display"]').val().trim();
+            var represent_guest_name = $('#represent_guest_name').val().trim();
+            $.ajax({
+                url: '{{ route('updateGuest') }}',
+                type: 'GET',
+                data: {
+                    guest_id: guest_id,
+                    represent_id: represent_id,
+                    guest_name: guest_name,
+                    guest_address: guest_address,
+                    guest_code: guest_code,
+                    key: key,
+                    guest_name_display: guest_name_display,
+                    represent_guest_name: represent_guest_name,
+                },
+                success: function(data) {
+                    if (data.success) {
+                        quotation = getQuotation(data.updated_guest.key, '1');
+                        $('input[name="quotation_number"]').val(quotation);
+                        $('.nameGuest').val(data.updated_guest.guest_name_display);
+                        showNotification('success', data.msg);
+                        $('.idGuest').val(data.updated_guest.id);
+                        $('.modal [data-dismiss="modal"]').click();
+                        $('#myUL li[data-id="' + data.updated_guest.id + '"] .text-nav')
+                            .text(data
+                                .updated_guest.guest_name_display);
+                        $('#representativeList li[data-id="' + data.updated_represent.id +
+                            '"] .text-nav').text(
+                            data.updated_represent.represent_name);
+                        $('#represent_guest').val(data.updated_represent.represent_name);
+                    } else {
+                        showNotification('warning', data.msg);
+                    }
+                }
+            });
         });
     });
 
