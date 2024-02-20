@@ -175,7 +175,7 @@
                     <p class="s4" style="padding-left: 2px;text-indent: 0px;line-height: 18px;text-align: left;">Địa
                         chỉ: L17-11, Tầng 17, Vincom Center, 72 Lê Thánh Tôn, P. Bến Nghé, Q. 1, TP. HCM <span
                             class="s5" style="margin-left:22%">Ngày báo giá:
-                            {{ $data['detailExport']->created_at->format('d.m.Y') }}</span>
+                            {{ $data['detailExport']->created_at ? $data['detailExport']->created_at->format('d.m.Y') : 'N/A' }}</span>
                     </p>
                 </td>
             </tr>

@@ -125,7 +125,7 @@
         <td style="border: none;background-color: #FDE9D9;"></td>
         <td style="border: none;background-color: #FDE9D9;font-style: italic;;width: 90px">Ngày báo giá:</td>
         <td style="border: none;background-color: #FDE9D9;font-style: italic;">
-            {{ $data['detailExport']->created_at->format('d.m.Y') }}</td>
+            {{ $data['detailExport']->created_at ? $data['detailExport']->created_at->format('d.m.Y') : 'N/A' }}</td>
         <td style="border: none;background-color: #FDE9D9;"></td>
         <td></td>
         <td></td>
