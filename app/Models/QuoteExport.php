@@ -67,7 +67,9 @@ class QuoteExport extends Model
                     'check_seri' => 1,
                     'workspace_id' => Auth::user()->current_workspace,
                 ];
-                $checkProduct = Products::where('product_name', $data['product_name'][$i])->first();
+                $checkProduct = Products::where('product_name', $data['product_name'][$i])
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->first();
                 if (!$checkProduct) {
                     $product = new Products($dataProduct);
                     $product->save();

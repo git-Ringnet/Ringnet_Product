@@ -365,7 +365,7 @@ class DetailExportController extends Controller
     {
         $result = [];
         $data = $request->all();
-        $checkQuotetion = DetailExport::where('quotation_number', $data['quotetion_number']);
+        $checkQuotetion = DetailExport::where('quotation_number', $data['quotetion_number'])->where('workspace_id', Auth::user()->current_workspace);
         if (isset($data['detail_id'])) {
             $checkQuotetion->where('id', '!=', $data['detail_id']);
         }
@@ -385,7 +385,7 @@ class DetailExportController extends Controller
     {
         $result = [];
         $data = $request->all();
-        $checkQuotetion = DetailExport::where('quotation_number', $data['quotetion_number']);
+        $checkQuotetion = DetailExport::where('quotation_number', $data['quotetion_number'])->where('workspace_id', Auth::user()->current_workspace);
         if (isset($data['detailexport_id'])) {
             $checkQuotetion->where('id', '!=', $data['detailexport_id']);
         }
