@@ -92,7 +92,7 @@ class PdfController extends Controller
             'delivery' => $billSale,
             'product' => $product,
             'serinumber' => $serinumber,
-            'date' => $billSale->created_at,
+            'date' => $billSale->ngayGiao,
             'bg' => $bg,
         ];
         // dd($serinumber);

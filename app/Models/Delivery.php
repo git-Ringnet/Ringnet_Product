@@ -75,7 +75,7 @@ class Delivery extends Model
             'detailexport_id' => $data['detailexport_id'],
             'status' => 1,
             'workspace_id' => Auth::user()->current_workspace,
-            'created_at' => $date_deliver,
+            'created_at' => $date_deliver == null ? now() : $date_deliver,
         ];
         $detaiExport = DetailExport::where('id', $data['detailexport_id'])->first();
         if ($detaiExport) {

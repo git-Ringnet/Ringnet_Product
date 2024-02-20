@@ -75,7 +75,7 @@ class DetailExport extends Model
             'status_reciept' => 1,
             'status_pay' => 1,
             'workspace_id' => Auth::user()->current_workspace,
-            'created_at' => $data['date_quote'],
+            'created_at' => $data['date_quote'] == null ? now() : $data['date_quote'],
             'total_price' => $totalBeforeTax,
             'terms_pay' => $data['terms_pay'],
             'total_tax' => $totalTax,
