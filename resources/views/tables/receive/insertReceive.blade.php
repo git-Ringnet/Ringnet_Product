@@ -670,6 +670,7 @@
             }).get();
             productSN[oldValue].sn.push(...SerialNumbers)
         });
+        console.log(productSN);
         // Kiểm tra số lượng sn và số lượng sản phẩm
         $.ajax({
             url: "{{ route('checkSN') }}",
@@ -682,7 +683,9 @@
             },
             success: function(data) {
                 if (data['status'] == 'false') {
-                    alert('Vui lòng nhập đủ số lượng seri sản phẩm ' + data['productName'])
+                    showNotification('warning', 'Vui lòng nhập đủ số lượng seri sản phẩm ' + data[
+                        'productName'])
+                    // alert('Vui lòng nhập đủ số lượng seri sản phẩm ' + data['productName'])
                 } else {
                     // Kiểm tra sản phẩm đã tồn tại seri chưa
                     $.ajax({
@@ -692,9 +695,12 @@
                             value: productSN,
                         },
                         success: function(data) {
+                            console.log(data);
                             if (data['success'] == false) {
-                                alert('Sản phảm' + data['msg'] + 'đã tồn tại seri' +
-                                    data['data'])
+                                showNotification('warning', 'Sản phảm' + data['msg'] +
+                                    'đã tồn tại seri' + data['data'])
+                                // alert('Sản phảm' + data['msg'] + 'đã tồn tại seri' +
+                                //     data['data'])
                             } else {
                                 updateProductSN()
                                 $('form')[0].submit();

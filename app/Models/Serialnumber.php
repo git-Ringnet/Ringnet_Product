@@ -60,6 +60,7 @@ class Serialnumber extends Model
 
     public function checkSN($data)
     {
+        // return $data;
         foreach ($data as $value) {
             foreach ($value as $SN => $productName) {
                 $product = Products::where('product_name', $SN)

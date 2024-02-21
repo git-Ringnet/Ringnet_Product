@@ -400,7 +400,7 @@
                                                 <div>
                                                     <a
                                                         href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->getReceive->id]) }}">
-                                                        {{ $item->getReceive->id }}
+                                                        {{ $item->getReceive->delivery_code }}
                                                     </a>
                                                 </div>
                                                 {{ date_format(new DateTime($sn->created_at), 'd-m-Y') }}

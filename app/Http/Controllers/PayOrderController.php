@@ -52,6 +52,7 @@ class PayOrderController extends Controller
         $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
             ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
+            ->where('detailimport.status_pay', '!=', 2)
             ->distinct()
             ->select('detailimport.quotation_number', 'detailimport.id')
             ->get();
@@ -100,8 +101,10 @@ class PayOrderController extends Controller
         if ($payment) {
             $title = $payment->id;
             $detail = DetailImport::where('id',$payment->detailimport_id)->first();
-            if($detail){
+            if($detail && $detail->getNameRepresent){
                 $nameRepresent = $detail->getNameRepresent->represent_name;
+            }else{
+                $nameRepresent = "";
             }
             $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
                 ->where('products_import.detailimport_id', $payment->detailimport_id)

@@ -1068,7 +1068,7 @@
             },
             success: function(data) {
                 $('#' + data.list + ' li#' + data.id).remove();
-                alert(data.msg)
+                showNotification('success', data.msg)
             }
         })
     })
@@ -1122,7 +1122,7 @@
 
             if (status == 'Thêm mới') {
                 if ((provides_id == "" || provide_represent == "") && id == 'addRepresent') {
-                    alert('Vui lòng nhập tên người đại diện')
+                    showNotification('warning', 'Vui lòng nhập tên người đại diện')
                 } else {
                     if (id == 'addRepresent') {
                         provides_id = $('#provides_id').val();
@@ -1139,7 +1139,6 @@
                             },
                             success: function(data) {
                                 if (data.success) {
-                                    console.log(data);
                                     $("input[name='provide_represent_new']").val('')
                                     $("input[name='provide_email_new']").val('')
                                     $("input[name='provide_phone_new']").val('')
@@ -1147,8 +1146,10 @@
                                     $('.closeModal').click();
                                     $('#represent_id').val(data.id);
                                     $('#represent').val(data.data)
+                                    showNotification('success', data.msg)
+                                } else {
+                                    showNotification('warning', data.msg)
                                 }
-                                alert(data.msg);
                             }
                         })
                     } else {
@@ -1170,8 +1171,11 @@
                                     $(id == "import" ? '#price_effect' : '#terms_pay').val(data
                                         .data);
                                     $('.closeModal').click();
+                                    showNotification('success', data.msg)
+                                } else {
+                                    showNotification('warning', data.msg)
+
                                 }
-                                alert(data.msg);
                             }
                         })
                     }
@@ -1192,7 +1196,11 @@
                         },
                         success: function(data) {
                             $('.closeModal').click()
-                            alert(data.msg);
+                            if (data.success) {
+                                showNotification('suscess', data.msg)
+                            } else {
+                                showNotification('warning', data.msg)
+                            }
                         }
                     })
                 } else {
@@ -1211,7 +1219,11 @@
                         },
                         success: function(data) {
                             $('.closeModal').click()
-                            alert(data.msg);
+                            if (data.success) {
+                                showNotification('suscess', data.msg)
+                            } else {
+                                showNotification('warning', data.msg)
+                            }
                         }
                     })
 
@@ -1239,17 +1251,17 @@
         var provide_phone = $("input[name='provide_phone']").val().trim();
         var provide_address_delivery = $("input[name='provide_address_delivery']").val().trim();
         if (provide_name_display == '') {
-            alert("Vui lòng nhập Tên hiển thị");
+            showNotification('warning','Vui lòng nhập Tên hiển thị')
             check = true;
             return false;
         }
         if (provide_code == '') {
-            alert("Vui lòng nhập Mã số thuế");
+            showNotification('warning','Vui lòng nhập Mã số thuế')
             check = true;
             return false;
         }
         if (provide_address == '') {
-            alert("Vui lòng nhập Địa chỉ nhà cung cấp");
+            showNotification('warning','Vui lòng nhập Địa chỉ nhà cung cấp')
             check = true;
             return false;
         }
@@ -1271,7 +1283,7 @@
                     if (data.success == true) {
                         $('#myInput').val(data.name);
                         $('#provides_id').val(data.id);
-                        alert(data.msg);
+                        showNotification('success',data.msg)
                         $('.modal [data-dismiss="modal"]').click();
                         $("input[name='provide_name_display']").val('');
                         $("input[name='provide_code']").val('');
@@ -1283,7 +1295,7 @@
                         $("input[name='provide_address_delivery']").val('');
                         $('#more_info').show();
                     } else {
-                        alert(data.msg);
+                        showNotification('warning',data.msg)
                     }
                 }
             });
@@ -1307,7 +1319,6 @@
                 url: "{{ route('getAllProducts') }}",
                 type: "get",
                 success: function(result) {
-                    console.log(result);
                     listProductName.empty()
                     inputUnit.val('');
                     inputPriceExprot.val('')
@@ -1468,7 +1479,7 @@
             },
             success: function(data) {
                 if (!data['status']) {
-                    alert('Số báo giá đã tồn tại')
+                    showNotification('warning','Số báo giá đã tồn tại')
                 } else {
                     $('form')[0].submit();
                 }

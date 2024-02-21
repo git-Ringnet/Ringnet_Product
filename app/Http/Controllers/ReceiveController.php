@@ -129,8 +129,10 @@ class ReceiveController extends Controller
     {
         $receive = Receive_bill::findOrFail($id);
         $detail = DetailImport::where('id', $receive->detailimport_id)->first();
-        if ($detail) {
+        if ($detail && $detail->getNameRepresent) {
             $nameRepresent = $detail->getNameRepresent->represent_name;
+        }else{
+            $nameRepresent = "";
         }
         $title = $receive->quotation_number;
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);

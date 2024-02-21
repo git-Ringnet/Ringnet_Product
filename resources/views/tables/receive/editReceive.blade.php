@@ -369,7 +369,7 @@
                                         name="quotation_number"
                                         class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0 search_quotation"
                                         autocomplete="off" required {{-- value="{{ $receive->quotation_number == null ? $receive->id : $receive->quotation_number }}" --}}
-                                        value="@if($receive->getQuotation){{$receive->getQuotation->quotation_number }}@else{{$receive->id}}@endif"
+                                        value="@if ($receive->getQuotation) {{ $receive->getQuotation->quotation_number }}@else{{ $receive->id }} @endif"
                                         readonly>
                                     <div class="">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -613,7 +613,8 @@
                 },
                 success: function(data) {
                     if (data['status'] == 'false') {
-                        alert('Vui lòng nhập đủ số lượng seri sản phẩm ' + data['productName'])
+                        showNotification('warning', 'Vui lòng nhập đủ số lượng seri sản phẩm ' +
+                            data['productName'])
                     } else {
                         // Kiểm tra sản phẩm đã tồn tại seri chưa
                         $.ajax({
@@ -624,7 +625,8 @@
                             },
                             success: function(data) {
                                 if (data['success'] == false) {
-                                    alert('Sản phảm' + data['msg'] + 'đã tồn tại seri' +
+                                    showNotification('warning', 'Sản phảm' + data[
+                                        'msg'] + 'đã tồn tại seri' +
                                         data['data'])
                                 } else {
                                     updateProductSN()

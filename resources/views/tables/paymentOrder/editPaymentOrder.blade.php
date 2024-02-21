@@ -56,7 +56,7 @@
             </div>
             <div class="container-fluided z-index-block">
                 <div class="row m-0">
-                    <a href="{{ route('paymentOrder.index', $workspacename) }}" style="margin-right:10px;">
+                    {{-- <a href="{{ route('paymentOrder.index', $workspacename) }}" style="margin-right:10px;">
                         <button class="btn-save-print rounded d-flex align-items-center h-100">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                                 fill="none">
@@ -66,7 +66,21 @@
                             </svg>
                             <span class="">Trở về</span>
                         </button>
+                    </a> --}}
+
+                    <a href="{{ route('paymentOrder.index', $workspacename) }}"
+                        class="btn-save-print rounded d-flex align-items-center h-100 py-1 px-2"
+                        style="margin-right: 10px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                            fill="none">
+                            <path
+                                d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
+                                fill="#6D7075">
+                            </path>
+                        </svg>
+                        <span style="color: #42526e">Trở về</span>
                     </a>
+
 
                     <div class="dropdown">
                         <button type="button" data-toggle="dropdown"
@@ -477,7 +491,6 @@
                                                     fill="#42526E"></path>
                                             </svg>
                                         </div>
-
                                     </div>
 
                                     <div
@@ -499,7 +512,6 @@
                                                     fill="#42526E"></path>
                                             </svg>
                                         </div>
-
                                     </div>
 
                                     <div

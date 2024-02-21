@@ -259,7 +259,7 @@ class PayOder extends Model
             if (($payorder->total - $payorder->payment) == 0) {
                 $status = 2; //Thanh toán đủ
             }
-            if ($data['payment'] > 0) {
+            if ($data['payment'] > 0 || $payorder->status != $status) {
                 DB::table('pay_order')->where('id', $id)
                     ->where('workspace_id', Auth::user()->current_workspace)
                     ->update([

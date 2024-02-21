@@ -82,7 +82,7 @@
                     </div>
                     <div class="modal-footer border-top-0 py-1 px-1">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Trở về</button>
-                        <button type="button" class="btn btn-primary" id="addProvide">Thêm khách hàng</button>
+                        <button type="button" class="btn btn-primary" id="addProvide">Thêm nhà cung cấp</button>
                     </div>
                 </div>
                 {{-- <div class="modal-body pb-0 px-2 pt-0">
