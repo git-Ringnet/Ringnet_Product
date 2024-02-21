@@ -133,6 +133,9 @@ function showNotification(type, message) {
 
     // Hide the notification after a certain duration (e.g., 5 seconds)
     setTimeout(function () {
-        document.body.removeChild(notification);
-    }, 3000); // Adjust the duration as needed
+        // Check if the notification is a child of any parent node before attempting to remove it
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+        }
+    }, 3000);
 }

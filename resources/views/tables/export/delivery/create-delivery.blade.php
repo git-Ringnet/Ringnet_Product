@@ -1094,8 +1094,8 @@
                                                                 if (checkedCheckboxes <
                                                                     qty_enter
                                                                 ) {
-                                                                    alert
-                                                                        (
+                                                                    showNotification
+                                                                        ('warning',
                                                                             'Vui lòng chọn đủ serial number theo số lượng xuất!'
                                                                         );
                                                                     // Không cho phép đóng modal khi có lỗi
@@ -1152,10 +1152,10 @@
                                                                 if (checkedCheckboxes <
                                                                     qty_enter
                                                                 ) {
-                                                                    alert
-                                                                        (
+                                                                    showNotification
+                                                                        ('warning',
                                                                             'Vui lòng chọn đủ serial number theo số lượng xuất!'
-                                                                        );
+                                                                            );
                                                                     // Không cho phép đóng modal khi có lỗi
                                                                     return false;
                                                                 } else if (
@@ -2623,12 +2623,12 @@
         var inputValue = $('.idGuest').val();
 
         if ($.trim(inputValue) === '') {
-            alert('Vui lòng chọn số báo giá từ danh sách!');
+            showNotification('warning', 'Vui lòng chọn số báo giá từ danh sách!');
             event.preventDefault();
         } else {
             // Hiển thị thông báo nếu không có sản phẩm
             if (!hasProducts) {
-                alert("Không có sản phẩm để báo giá");
+                showNotification('warning', 'Không có sản phẩm để báo giá');
                 event.preventDefault();
             }
         }

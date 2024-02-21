@@ -1407,7 +1407,7 @@
     $(document).on('click', '#addProject', function(e) {
         var project_name = $('#project_name').val().trim();
         if (!project_name) {
-            alert('Vui lòng điền thông tin dự án!');
+            showNotification('warning', 'Vui lòng điền thông tin dự án!');
         } else {
             $.ajax({
                 url: "{{ route('addProject') }}",
@@ -2713,7 +2713,7 @@
             var represent_phone = $('#represent_phone').val().trim();
             var represent_address = $('#represent_address').val().trim();
             if (!represent_name) {
-                alert('Vui lòng điền thông tin người đại diện!');
+                showNotification('warning', 'Vui lòng điền thông tin người đại diện!');
             } else {
                 $.ajax({
                     url: '{{ route('updateRepresent') }}',
@@ -2991,7 +2991,7 @@
                 var inputs = rows[i].querySelectorAll('input[required]');
                 for (var j = 0; j < inputs.length; j++) {
                     if (inputs[j].value.trim() === '') {
-                        alert('Vui lòng điền đủ thông tin sản phẩm');
+                        showNotification('warning', 'Vui lòng điền đủ thông tin sản phẩm');
                         return;
                     }
                 }
@@ -3004,10 +3004,10 @@
         var shouldSubmit = true;
 
         if ($.trim(inputValue) === '') {
-            alert('Vui lòng chọn khách hàng từ danh sách hoặc thêm mới khách hàng!');
+            showNotification('warning', 'Vui lòng chọn khách hàng từ danh sách hoặc thêm mới khách hàng!');
             shouldSubmit = false;
         } else if (!hasProducts) {
-            alert("Không có sản phẩm để báo giá");
+            showNotification('warning', 'Không có sản phẩm để báo giá');
             shouldSubmit = false;
         }
 
@@ -3025,7 +3025,7 @@
                 },
                 success: function(data) {
                     if (!data['status']) {
-                        alert('Số báo giá đã tồn tại');
+                        showNotification('warning', 'Số báo giá đã tồn tại');
                     } else {
                         // Nếu số báo giá không tồn tại, thực hiện submit form
                         $('form')[0].submit();
