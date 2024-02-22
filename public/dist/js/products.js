@@ -21,18 +21,16 @@ function formatCurrency(value) {
     return formattedValue;
 }
 
-
-
-$(document).on('change', '.list_products', function (e) {
+$(document).on("change", ".list_products", function (e) {
     if (checkAllValuesEntered()) {
         checkDuplicateRows();
     }
-})
+});
 
 // Hàm lấy dữ liệu khi người dùng chọn sản phẩm con
 function setValueOfInput(e) {
     var selectedProductName = $(e).text();
-    var row = $(e).closest('tr');
+    var row = $(e).closest("tr");
     var productNameInput = row.find('input[name="product_name[]"]');
     productNameInput.val(selectedProductName);
     $(".dropdown-values").removeClass("show1");
@@ -47,20 +45,20 @@ $(document).click(function (event) {
 
 //hiện danh sách khách hàng khi click trường tìm kiếm
 $("#myUL").hide();
-$('#listProject').hide();
-$('#listRepresent').hide();
-$('#listPriceEffect').hide();
-$('#listTermsPay').hide();
+$("#listProject").hide();
+$("#listRepresent").hide();
+$("#listPriceEffect").hide();
+$("#listTermsPay").hide();
 function showForm(id, list) {
-    $(id).on('click', function () {
+    $(id).on("click", function () {
         $(list).show();
-    })
+    });
 }
-showForm('#inputProject', '#listProject')
-showForm('#myInput', '#myUL')
-showForm('#represent', '#listRepresent')
-showForm('#price_effect','#listPriceEffect')
-showForm('#terms_pay','#listTermsPay')
+showForm("#inputProject", "#listProject");
+showForm("#myInput", "#myUL");
+showForm("#represent", "#listRepresent");
+showForm("#price_effect", "#listPriceEffect");
+showForm("#terms_pay", "#listTermsPay");
 // $("#inputProject").on("click", function () {
 //     $("#listProject").show();
 // });
@@ -69,44 +67,40 @@ showForm('#terms_pay','#listTermsPay')
 // });
 
 function showListProductCode() {
-    $('#inputcontent tbody').on('click', '.searchProduct', function () {
-        $(this).closest('tr').find('#listProductCode').show();
+    $("#inputcontent tbody").on("click", ".searchProduct", function () {
+        $(this).closest("tr").find("#listProductCode").show();
     });
 }
 
 function showListProductName() {
-    $('#inputcontent tbody').on('click', '.searchProductName', function () {
-        console.log(123);
-        $(this).closest('tr').find('#listProductName').show();
+    $("#inputcontent tbody").on("click", ".searchProductName", function () {
+        $(this).closest("tr").find("#listProductName").show();
     });
 }
 
-
-
 //ẩn danh sách Mã sản phẩm khi clich ra ngoài
 $(document).click(function (event) {
-    if ($(event.target).closest('.searchProduct').length == 0) {
-        $('.listProductCode').hide();
+    if ($(event.target).closest(".searchProduct").length == 0) {
+        $(".listProductCode").hide();
     }
-    if ($(event.target).closest('.searchProductName').length == 0) {
-        $('.listProductName').hide();
+    if ($(event.target).closest(".searchProductName").length == 0) {
+        $(".listProductName").hide();
     }
-    if ($(event.target).closest('#inputProject').length == 0) {
-        $('#listProject').hide();
+    if ($(event.target).closest("#inputProject").length == 0) {
+        $("#listProject").hide();
     }
 });
-
 
 //ẩn danh sách khách hàng
 $(document).click(function (event) {
-    if (!$(event.target).closest("#myInput").length && !$(event.target).closest("#provideFilter").length
+    if (
+        !$(event.target).closest("#myInput").length &&
+        !$(event.target).closest("#provideFilter").length
     ) {
         $("#myUL").hide();
-        $('#listReceive').hide();
+        $("#listReceive").hide();
     }
-
 });
-
 
 // Tìm kiếm thông tin nhà cung cấp
 // $(document).ready(function () {
@@ -129,7 +123,6 @@ function searchProductName() {
     });
 }
 
-
 // Hàm search thông tin nhà cung cấp
 function filterFunction() {
     var filter = $(".search_product").val().toUpperCase();
@@ -144,19 +137,18 @@ function filterFunction() {
     });
 }
 
-
-// Hàm chỉ cho phép nhập số và ký tự - 
+// Hàm chỉ cho phép nhập số và ký tự -
 function validateNumberInput(input) {
     var regex = /^[0-9][0-9-]*$/;
     if (!regex.test(input.value)) {
-        input.value = input.value.replace(/[^0-9]/g, '');
+        input.value = input.value.replace(/[^0-9]/g, "");
     }
 }
 
 function validateBillInput(input) {
     var regex = /^[0-9]*$/;
     if (!regex.test(input.value)) {
-        input.value = input.value.replace(/[^0-9]/g, '');
+        input.value = input.value.replace(/[^0-9]/g, "");
     }
 }
 
@@ -168,25 +160,23 @@ function handlePaste(e) {
 function validatQtyInput(input) {
     var regex = /^[1-9][0-9]*$/;
     if (!regex.test(input.value)) {
-        input.value = input.value.replace(/[^1-9]/g, '');
+        input.value = input.value.replace(/[^1-9]/g, "");
     }
 }
 
 function validateQtyInput1(input) {
     var regex = /^[0-9]*\.?[0-9]*$/;
     if (!regex.test(input.value)) {
-        input.value = input.value.replace(/[^\d.]/g, '');
+        input.value = input.value.replace(/[^\d.]/g, "");
 
-        var parts = input.value.split('.');
+        var parts = input.value.split(".");
         if (parts.length > 2) {
-            input.value = parts[0] + '.' + parts.slice(1).join('');
+            input.value = parts[0] + "." + parts.slice(1).join("");
         }
     }
 }
 
-
-var rowCount = $('#inputContainer tbody tr').length + 1;
-
+var rowCount = $("#inputContainer tbody tr").length + 1;
 
 // // Tạo INPUT SERI
 // createRowInput('seri');
@@ -226,32 +216,41 @@ var rowCount = $('#inputContainer tbody tr').length + 1;
 //     }
 // }
 
-
-$('#addRowTable').off('click').on('click', function () {
-    addRowTable(1);
-    $('.listProductCode').hide();
-    $('.listProductName').hide();
-})
+$("#addRowTable")
+    .off("click")
+    .on("click", function () {
+        addRowTable(1);
+        $(".listProductCode").hide();
+        $(".listProductName").hide();
+    });
 
 // Hàm xử lý paste cột từ file excel
 function handlePaste(input) {
-    var SLProduct = parseInt($(input).closest('.modal-dialog').find('.qty_product').text());
-    var rowCount = $(input).attr('name').match(/\d+/)[0];
+    var SLProduct = parseInt(
+        $(input).closest(".modal-dialog").find(".qty_product").text()
+    );
+    var rowCount = $(input).attr("name").match(/\d+/)[0];
     var clipboardData = event.clipboardData || window.clipboardData;
-    var pastedData = clipboardData.getData('Text');
-    var rows = pastedData.trim().split('\n');
+    var pastedData = clipboardData.getData("Text");
+    var rows = pastedData.trim().split("\n");
 
-    var table = document.querySelector('.div_value' + rowCount).querySelector('table');
+    var table = document
+        .querySelector(".div_value" + rowCount)
+        .querySelector("table");
     var currentInput = 2;
     if (rows.length > 1) {
         for (var i = 0; i < rows.length; i++) {
             var rowData = rows[i].trim();
-            var SLTR = $(input).closest('.modal-dialog').find('#table_SNS tbody tr').length;
-            if (rowData === '') {
+            var SLTR = $(input)
+                .closest(".modal-dialog")
+                .find("#table_SNS tbody tr").length;
+            if (rowData === "") {
                 continue;
             }
             if (SLTR <= SLProduct) {
-                var newRow = table.insertRow($(input).closest('tr').index() + currentInput);
+                var newRow = table.insertRow(
+                    $(input).closest("tr").index() + currentInput
+                );
                 var cell1 = newRow.insertCell(0);
                 var cell2 = newRow.insertCell(1);
                 var cell3 = newRow.insertCell(2);
@@ -260,8 +259,11 @@ function handlePaste(input) {
                 // Tạo checkbox
                 var checkbox = document.createElement("input");
                 checkbox.setAttribute("type", "checkbox");
-                var checkboxes = document.querySelectorAll('.div_value' + rowCount +
-                    ' table tbody input[type="checkbox"]');
+                var checkboxes = document.querySelectorAll(
+                    ".div_value" +
+                        rowCount +
+                        ' table tbody input[type="checkbox"]'
+                );
                 var checkboxCount = checkboxes.length;
                 checkbox.setAttribute("id", "checkbox_" + checkboxCount);
 
@@ -270,7 +272,7 @@ function handlePaste(input) {
                 stt.innerHTML = checkboxCount;
 
                 // Tạo input
-                var newDiv = document.createElement('input');
+                var newDiv = document.createElement("input");
                 newDiv.setAttribute("type", "text");
                 newDiv.setAttribute("class", "form-control w-100");
                 newDiv.setAttribute("name", "product_SN" + rowCount + "[]");
@@ -278,7 +280,7 @@ function handlePaste(input) {
                 newDiv.value = rows[i].trim();
 
                 // Tạo svg delete
-                cell4.setAttribute('class', 'deleteRow1');
+                cell4.setAttribute("class", "deleteRow1");
                 cell4.innerHTML =
                     '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.0606 6.66675C13.6589 6.66675 13.3333 6.99236 13.3333 7.39402C13.3333 7.79568 13.6589 8.12129 14.0606 8.12129H17.9394C18.341 8.12129 18.6667 7.79568 18.6667 7.39402C18.6667 6.99236 18.341 6.66675 17.9394 6.66675H14.0606ZM8 10.3031C8 9.90143 8.32561 9.57582 8.72727 9.57582H10.1818H21.8182H23.2727C23.6744 9.57582 24 9.90143 24 10.3031C24 10.7048 23.6744 11.0304 23.2727 11.0304H22.5455V22.6667C22.5455 24.2819 21.2158 25.5758 19.6179 25.5758H12.3452C11.9637 25.5755 11.5854 25.4997 11.2333 25.3528C10.8812 25.2059 10.5617 24.9908 10.2931 24.7199C10.0244 24.449 9.81206 24.1276 9.66816 23.7743C9.52463 23.4219 9.45204 23.0447 9.45455 22.6642V11.0304H8.72727C8.32561 11.0304 8 10.7048 8 10.3031ZM10.9091 22.6723V11.0304H21.0909V22.6667C21.0909 23.4623 20.4288 24.1213 19.6179 24.1213H12.3458C12.1562 24.1211 11.9684 24.0834 11.7934 24.0104C11.6183 23.9374 11.4595 23.8304 11.3259 23.6958C11.1924 23.5611 11.0868 23.4013 11.0153 23.2257C10.9437 23.05 10.9076 22.8619 10.9091 22.6723ZM17.9394 13.4546C18.3411 13.4546 18.6667 13.7802 18.6667 14.1819V20.9698C18.6667 21.3714 18.3411 21.6971 17.9394 21.6971C17.5377 21.6971 17.2121 21.3714 17.2121 20.9698V14.1819C17.2121 13.7802 17.5377 13.4546 17.9394 13.4546ZM14.7879 14.1819C14.7879 13.7802 14.4623 13.4546 14.0606 13.4546C13.6589 13.4546 13.3333 13.7802 13.3333 14.1819V20.9698C13.3333 21.3714 13.6589 21.6971 14.0606 21.6971C14.4623 21.6971 14.7879 21.3714 14.7879 20.9698V14.1819Z" fill="#555555"/></svg>';
 
@@ -290,12 +292,15 @@ function handlePaste(input) {
             }
         }
 
-        var parentTable = $(input).closest('table');
-        $(input).closest('.modal-dialog').find('.SNCount').text(SLTR);
+        var parentTable = $(input).closest("table");
+        $(input).closest(".modal-dialog").find(".SNCount").text(SLTR);
         $(input).parent().parent().remove();
-        var remainingRows = parentTable.find('tbody tr');
+        var remainingRows = parentTable.find("tbody tr");
         remainingRows.each(function (index) {
-            $(this).find('td').eq(1).text(index + 1);
+            $(this)
+                .find("td")
+                .eq(1)
+                .text(index + 1);
         });
     }
 }
@@ -323,16 +328,16 @@ function addRowRepesent() {
             </td>
         </tr>
     `;
-    $('#listrepesent').append(tr)
-    deleteRowRepesent()
+    $("#listrepesent").append(tr);
+    deleteRowRepesent();
 }
-$('#addRowRepesent').on('click', function () {
+$("#addRowRepesent").on("click", function () {
     addRowRepesent();
-})
-
+});
 
 function addRowTable(status) {
-    var tr = '<tr class="bg-white">' +
+    var tr =
+        '<tr class="bg-white">' +
         '<td class="border border-left-0 border-bottom-0">' +
         '<input type="hidden" name="listProduct[]" value="0">' +
         '<div class="d-flex w-100 justify-content-between align-items-center position-relative">' +
@@ -343,31 +348,38 @@ function addRowTable(status) {
         '<path fill-rule="evenodd" clip-rule="evenodd" d="M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z" fill="#42526E"></path>' +
         '<path fill-rule="evenodd" clip-rule="evenodd" d="M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z" fill="#42526E"></path> ' +
         '<path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>' +
-        '</svg>' +
+        "</svg>" +
         '<input type="checkbox">' +
-        '<input type="text" id="searchProduct" class="border-0 px-2 py-1 w-75 searchProduct" name="product_code[]" autocomplete="off" ' + (status == 2 ? 'readonly' : "") + ' >' +
+        '<input type="text" id="searchProduct" class="border-0 px-2 py-1 w-75 searchProduct" name="product_code[]" autocomplete="off" ' +
+        (status == 2 ? "readonly" : "") +
+        " >" +
         '<ul id="listProductCode" class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 24%; top: 75%;"> ' +
-        '</ul>' +
-        '</div>' +
-        '</td>' +
+        "</ul>" +
+        "</div>" +
+        "</td>" +
         '<td class="border border-bottom-0 position-relative"> ' +
         '<input autocomplete="off" required type="text" id="searchProductName" class="searchProductName border-0 px-2 py-1 w-100" name="product_name[]">' +
         '<ul id="listProductName" class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 1%; top: 74%;"> ' +
-        '</ul>' +
-        '</td>' +
+        "</ul>" +
+        "</td>" +
         '<td class="border border-bottom-0">' +
-        '<input type="text" required class="border-0 px-2 py-1 w-100 product_unit" name="product_unit[]" ' + (status == 2 ? 'readonly' : '') + ' >' +
-        '</td>' +
+        '<input type="text" required class="border-0 px-2 py-1 w-100 product_unit" name="product_unit[]" ' +
+        (status == 2 ? "readonly" : "") +
+        " >" +
+        "</td>" +
         '<td class="border border-bottom-0">' +
         '<div class="d-flex"><input type="text" required oninput="validateQtyInput1(this)" class="border-0 px-2 py-1 w-100 quantity-input" name="product_qty[]">';
     if (status == 2) {
-        tr += '<button type="button" class="btn btn-primary" data-toggle="modal" ' +
-            'data-target="#exampleModal' + rowCount + '" ' +
+        tr +=
+            '<button type="button" class="btn btn-primary" data-toggle="modal" ' +
+            'data-target="#exampleModal' +
+            rowCount +
+            '" ' +
             'style="background:transparent; border:none;"> ' +
             '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" ' +
             'viewBox="0 0 32 32" fill="none"> ' +
             '<rect width="32" height="32" rx="4" fill="white"> ' +
-            '</rect> ' +
+            "</rect> " +
             '<path fill-rule="evenodd" clip-rule="evenodd" ' +
             'd="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z" ' +
             'fill="#0095F6"></path> ' +
@@ -380,15 +392,15 @@ function addRowTable(status) {
             '<path fill-rule="evenodd" clip-rule="evenodd" ' +
             'd="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z"' +
             'fill="#0095F6"></path>' +
-            '</svg>' +
-            '</button>';
+            "</svg>" +
+            "</button>";
     }
     tr +=
-        '</div>' +
-        '</td>' +
+        "</div>" +
+        "</td>" +
         '<td class="border border-bottom-0">' +
         '<input type="text" required class="border-0 px-2 py-1 w-100 price_export" name="price_export[]">' +
-        '</td>' +
+        "</td>" +
         '<td class="border border-bottom-0">';
     if (status == 2) {
         tr +=
@@ -400,37 +412,42 @@ function addRowTable(status) {
             '<option value="8">8%</option>' +
             '<option value="10">10%</option>' +
             '<option value="99">NOVAT</option>' +
-            '</select>';
+            "</select>";
     }
     tr +=
-        '</td>' +
+        "</td>" +
         '<input type="hidden" class="product_tax1">' +
         '<td class="border border-bottom-0">' +
         '<input type="text" class="border-0 px-2 py-1 w-100 total_price" readonly name="total_price[]">' +
-        '</td>' +
+        "</td>" +
         '<td class="border border-bottom-0">' +
-        '<input type="text" placeholder="Nhập ghi chú" class="border-0 px-2 py-1 w-100" name="product_note[]" ' + (status == 2 ? 'readonly' : '') + ' >' +
-        '</td>' +
+        '<input type="text" placeholder="Nhập ghi chú" class="border-0 px-2 py-1 w-100" name="product_note[]" ' +
+        (status == 2 ? "readonly" : "") +
+        " >" +
+        "</td>" +
         '<td class="border deleteRow">' +
         '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.3687 6.09375C12.6448 6.09375 12.8687 6.30362 12.8687 6.5625C12.8687 6.59865 12.8642 6.63468 12.8554 6.66986L11.3628 12.617C11.1502 13.4639 10.3441 14.0625 9.41597 14.0625H6.58403C5.65593 14.0625 4.84977 13.4639 4.6372 12.617L3.14459 6.66986C3.08135 6.41786 3.24798 6.16551 3.51678 6.10621C3.55431 6.09793 3.59274 6.09375 3.6313 6.09375H12.3687ZM8.5 0.9375C9.88071 0.9375 11 1.98683 11 3.28125H13C13.5523 3.28125 14 3.70099 14 4.21875V4.6875C14 4.94638 13.7761 5.15625 13.5 5.15625H2.5C2.22386 5.15625 2 4.94638 2 4.6875V4.21875C2 3.70099 2.44772 3.28125 3 3.28125H5C5 1.98683 6.11929 0.9375 7.5 0.9375H8.5ZM8.5 2.34375H7.5C6.94772 2.34375 6.5 2.76349 6.5 3.28125H9.5C9.5 2.76349 9.05228 2.34375 8.5 2.34375Z" fill="#6B6F76"/></svg>' +
-        '</td>' +
-        '</tr>';
-    $('#inputcontent tbody').append(tr)
-    showListProductCode()
-    showListProductName()
-    searchProductName()
-    deleteRow()
-    checkInput()
+        "</td>" +
+        "</tr>";
+    $("#inputcontent tbody").append(tr);
+    showListProductCode();
+    showListProductName();
+    searchProductName();
+    deleteRow();
+    checkInput();
     if (status == 2) {
-        createModal(rowCount)
+        createModal(rowCount);
     }
-    getProduct('searchProductName')
+    getProduct("searchProductName");
     rowCount++;
 }
 
 function createModal(stt) {
-    var newModal = `
-    <div class="modal fade" id="exampleModal`+ stt + `" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    var newModal =
+        `
+    <div class="modal fade" id="exampleModal` +
+        stt +
+        `" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -472,70 +489,103 @@ function createModal(stt) {
         </div>
     </div>
     </div>`;
-    $('#list_modal').append(newModal);
-    createRowInput('seri')
+    $("#list_modal").append(newModal);
+    createRowInput("seri");
     // <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 }
 
-
 function deleteRow() {
-    $('.deleteRow').off('click').on('click', function () {
-        id = $(this).closest('tr').find('button').attr('data-target');
-        $('#list_modal ' + id).remove();
-        $(this).closest('tr').remove();
-    })
+    $(".deleteRow")
+        .off("click")
+        .on("click", function () {
+            id = $(this).closest("tr").find("button").attr("data-target");
+            $("#list_modal " + id).remove();
+            $(this).closest("tr").remove();
+        });
 }
-deleteRowRepesent()
+deleteRowRepesent();
 function deleteRowRepesent() {
-    $('.deleteRepesent').on('click', function () {
-        $(this).closest('tr').remove();
-    })
+    $(".deleteRepesent").on("click", function () {
+        $(this).closest("tr").remove();
+    });
 }
 
-searchProductName()
-deleteRow()
-showListProductCode()
-showListProductName()
-
-
+searchProductName();
+deleteRow();
+showListProductCode();
+showListProductName();
 
 function checkDuplicateRows() {
     var values = [];
     var hasDuplicate = false;
-    $('#inputcontent tbody tr').each(function () {
-        var productValue = $(this).find('.searchProduct').val().trim()
-        var productNameValue = $(this).find('.searchProductName').val().trim()
+    $("#inputcontent tbody tr").each(function () {
+        var productValue = $(this).find(".searchProduct").val().trim();
+        var productNameValue = $(this).find(".searchProductName").val().trim();
 
         var combinedValue = productValue + productNameValue;
 
         if (values.includes(combinedValue)) {
             hasDuplicate = true;
-            emptyData($(this), 'searchProductName', 'searchProduct','product_unit', 'price_export', 'product_tax', 'total_price', 'product_ratio', 'price_import')
+            emptyData(
+                $(this),
+                "searchProductName",
+                "searchProduct",
+                "product_unit",
+                "price_export",
+                "product_tax",
+                "total_price",
+                "product_ratio",
+                "price_import"
+            );
             return false;
         } else {
             values.push(combinedValue);
         }
-    })
+    });
     return hasDuplicate;
 }
 
-
-
 function checkInput() {
-    $('.searchProductName').on('input', function () {
-        checkDuplicateRows()
-    })
+    $(".searchProductName").on("input", function () {
+        checkDuplicateRows();
+    });
 }
 
-function emptyData(position, code,name, unit, price_export, tax, total_price, ratio, price_import) {
-    $(position).find('.' + name).val('');
-    $(position).find('.' + code).val('');
-    $(position).find('.' + unit).val('');
-    $(position).find('.' + price_export).val('');
-    $(position).find('.' + tax).val(0);
-    $(position).find('.' + total_price).val('');
-    $(position).find('.' + ratio).val('');
-    $(position).find('.' + price_import).val('');
+function emptyData(
+    position,
+    code,
+    name,
+    unit,
+    price_export,
+    tax,
+    total_price,
+    ratio,
+    price_import
+) {
+    $(position)
+        .find("." + name)
+        .val("");
+    $(position)
+        .find("." + code)
+        .val("");
+    $(position)
+        .find("." + unit)
+        .val("");
+    $(position)
+        .find("." + price_export)
+        .val("");
+    $(position)
+        .find("." + tax)
+        .val(0);
+    $(position)
+        .find("." + total_price)
+        .val("");
+    $(position)
+        .find("." + ratio)
+        .val("");
+    $(position)
+        .find("." + price_import)
+        .val("");
 }
 
 // jQuery(document).ready(function ($) {
@@ -555,8 +605,6 @@ function emptyData(position, code,name, unit, price_export, tax, total_price, ra
 //     });
 // });
 
-
-
 // function updateProductSN() {
 //     $('#list_modal .modal-body').each(function (index) {
 //         var productSN = $(this).find('input[name^="seri"]');
@@ -566,7 +614,3 @@ function emptyData(position, code,name, unit, price_export, tax, total_price, ra
 //         idSN.attr('name', 'seri' + index + '[]');
 //     });
 // }
-
-
-
-
