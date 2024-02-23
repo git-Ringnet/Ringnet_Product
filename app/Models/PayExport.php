@@ -161,6 +161,7 @@ class PayExport extends Model
         $history->total = $total;
         $history->payment = $payment;
         $history->debt = $detailExport->amount_owed;
+        $history->workspace_id = Auth::user()->current_workspace;
         $history->save();
         //payment
         $payExport->payment += $payment;
