@@ -630,9 +630,10 @@
                                 $('#inputcontent tbody').append(tr);
                                 deleteRow()
                                 total_tax += (element.price_export *
-                                        element
-                                        .product_qty) * (element
-                                    .product_tax == 99 ? 0 : element.product_tax) / 100
+                                    element
+                                    .product_qty) * (element
+                                    .product_tax == 99 ? 0 : element
+                                    .product_tax) / 100
                                 total += element.price_export * element
                                     .product_qty
                             })
@@ -640,15 +641,18 @@
                                 formatCurrency(product[0].payment));
                             $('#debt').val(product[0].payment == null ?
                                 formatCurrency(
-                                    (total + total_tax)) : formatCurrency(
-                                    (total + total_tax) - product[0].payment
+                                    (total + Math.round(total_tax))) :
+                                formatCurrency(
+                                    (total + Math.round(total_tax)) -
+                                    product[0].payment
                                 ))
                             $('#total_bill').val(formatCurrency(total +
-                                total_tax))
+                                Math.round(total_tax)))
                             $('#prepayment').on('input', function() {
                                 checkQty(this, product[0].payment ==
-                                    null ? (total + total_tax) :
-                                    (total + total_tax) - product[0]
+                                    null ? (total + Math.round(total_tax)) :
+                                    (total + Math.round(
+                                        total_tax)) - product[0]
                                     .payment);
                             })
                             updateTaxAmount()
