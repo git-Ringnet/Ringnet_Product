@@ -238,7 +238,7 @@
                                                         value="{{ $item->product_note }}"
                                                         @if ($import->status == 2) echo readonly @endif>
                                                 </td>
-                                                <td class="border border">
+                                                <td class="border deleteRow">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                         height="15" viewBox="0 0 16 15" fill="none">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
