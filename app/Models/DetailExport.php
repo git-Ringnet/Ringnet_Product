@@ -135,6 +135,7 @@ class DetailExport extends Model
             }
             $detailExport->update([
                 'guest_id' => $data['guest_id'],
+                'represent_id' => $data['represent_guest_id'],
                 'project_id' => !empty($data['project_id']) ? $data['project_id'] : 1,
                 'user_id' => 1,
                 'quotation_number' => $data['quotation_number'],

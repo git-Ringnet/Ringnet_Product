@@ -1,5 +1,5 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="guest" :workspacename="$workspacename"></x-navbar>
-<form action="{{ route('guests.store', $workspacename) }}" method="POST">
+<form action="{{ route('guests.store', $workspacename) }}" method="POST" onsubmit="return checkDuplicateRepresentatives()">
     @csrf
     <div class="content-wrapper1 py-2 border-bottom">
         <div class="d-flex justify-content-between align-items-center pl-4 ml-1">
@@ -40,7 +40,8 @@
                             </button>
                         </a>
                     </div>
-                    <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                    <button onclick="checkDuplicateRepresentatives()" type="submit"
+                        class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
                         <svg class="mx-1" width="18" height="18" viewBox="0 0 16 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -241,7 +242,7 @@
         // Tạo các phần tử HTML mới
         const newRow = $("<tr>", {
             "id": `dynamic-row-${fieldCounter}`,
-            "class": `bg-white addProduct`,
+            "class": `bg-white addProduct representative-row`,
         });
         const hoTen = $(
             "<td class='border border-top-0 border-bottom-0 border-left-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_name' required name='represent_name[]'></td>"
@@ -273,4 +274,40 @@
             fieldCounter--;
         });
     });
+
+    function checkDuplicateRepresentatives() {
+        var rows = document.querySelectorAll('.representative-row');
+        var uniqueNames = new Set();
+        var hasError = false;
+
+        for (var i = 0; i < rows.length; i++) {
+            var nameInput = rows[i].querySelector('.represent_name');
+            var phoneInput = rows[i].querySelector('.represent_phone');
+            var emailInput = rows[i].querySelector('.represent_email');
+
+            var name = nameInput.value.trim().toLowerCase();
+            var phone = phoneInput.value.trim();
+            var email = emailInput.value.trim().toLowerCase();
+
+            var entry = name + '-' + phone + '-' + email;
+
+            // Kiểm tra xem đã tồn tại entry trong danh sách chưa
+            if (uniqueNames.has(entry)) {
+                showNotification('warning', 'Người đại diện: ' + name + ' đang bị trùng');
+                hasError = true;
+                break; // Dừng vòng lặp khi phát hiện lỗi
+            }
+
+            // Nếu chưa tồn tại, thêm entry vào danh sách
+            uniqueNames.add(entry);
+        }
+
+        if (hasError) {
+            // Ngăn chặn việc submit khi có lỗi
+            return false;
+        }
+
+        // Cho phép submit nếu không có lỗi
+        return true;
+    }
 </script>

@@ -1,5 +1,6 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="guest"></x-navbar>
-<form action="{{ route('guests.update', ['workspace' => $workspacename, 'guest' => $guest->id]) }}" method="POST">
+<form action="{{ route('guests.update', ['workspace' => $workspacename, 'guest' => $guest->id]) }}" method="POST"
+    onsubmit="return checkDuplicateRepresentatives()">
     @csrf
     @method('PUT')
     <div class="content-wrapper1 py-2 border-bottom">
@@ -137,8 +138,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($representGuest as $itemRepresent)
-                                        <tr id="dynamic-row-1" class="bg-white addProduct">
+                                        <tr id="dynamic-row-1" class="bg-white addProduct representative-row">
                                             <td class="border border-top-0 border-bottom-0 border-left-0">
+                                                <input type="hidden" value="{{ $itemRepresent->id }}" name="represent_id[]">
                                                 <input type="text" autocomplete="off"
                                                     value="{{ $itemRepresent->represent_name }}"
                                                     class="border-0 px-2 py-1 w-100 represent_name" required=""
@@ -162,8 +164,8 @@
                                                     class="border-0 px-2 py-1 w-100 represent_address"
                                                     name="represent_address[]">
                                             </td>
-                                            <td
-                                                class="border border-top-0 border-bottom-0 border-right-0 text-right deleteProduct">
+                                            <td class="border border-top-0 border-bottom-0 border-right-0 text-right deleteProduct"
+                                                data-id="{{ $itemRepresent->id }}">
                                                 <svg width="24" height="24" viewBox="0 0 24 24"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -440,10 +442,10 @@
         // Tạo các phần tử HTML mới
         const newRow = $("<tr>", {
             "id": `dynamic-row-${fieldCounter}`,
-            "class": `bg-white addProduct`,
+            "class": `bg-white addProduct representative-row`,
         });
         const hoTen = $(
-            "<td class='border border-top-0 border-bottom-0 border-left-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_name' required name='represent_name[]'></td>"
+            "<td class='border border-top-0 border-bottom-0 border-left-0'><input type='hidden' name='represent_id[]'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_name' required name='represent_name[]'></td>"
         );
         const email = $(
             "<td class='border border-top-0 border-bottom-0'><input type='email' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_email' name='represent_email[]'></td>"
@@ -473,7 +475,59 @@
         });
     });
     $(".deleteProduct").click(function() {
-        $(this).closest("tr").remove();
-        fieldCounter--;
+        var itemId = $(this).data('id');
+        $.ajax({
+            url: "{{ route('deleteRepresentGuest') }}",
+            type: "get",
+            data: {
+                itemId: itemId,
+            },
+            success: function(data) {
+                if (data.success) {
+                    $(this).closest("tr").remove();
+                    fieldCounter--;
+                    showNotification('success', data.message);
+                    window.location.reload();
+                } else if (data.success == false) {
+                    showNotification('warning', data.message);
+                }
+            }
+        });
     });
+
+    function checkDuplicateRepresentatives() {
+        var rows = document.querySelectorAll('.representative-row');
+        var uniqueNames = new Set();
+        var hasError = false;
+
+        for (var i = 0; i < rows.length; i++) {
+            var nameInput = rows[i].querySelector('.represent_name');
+            var phoneInput = rows[i].querySelector('.represent_phone');
+            var emailInput = rows[i].querySelector('.represent_email');
+
+            var name = nameInput.value.trim().toLowerCase();
+            var phone = phoneInput.value.trim();
+            var email = emailInput.value.trim().toLowerCase();
+
+            var entry = name + '-' + phone + '-' + email;
+
+            // Kiểm tra xem đã tồn tại entry trong danh sách chưa
+            if (uniqueNames.has(entry)) {
+                showNotification('warning', 'Người đại diện: ' + name + ' đang bị trùng');
+                hasError = true;
+                break; // Dừng vòng lặp khi phát hiện lỗi
+            }
+
+            // Nếu chưa tồn tại, thêm entry vào danh sách
+            uniqueNames.add(entry);
+        }
+
+        if (hasError) {
+            // Ngăn chặn việc submit khi có lỗi
+            return false;
+        }
+
+        // Cho phép submit nếu không có lỗi
+        return true;
+    }
 </script>

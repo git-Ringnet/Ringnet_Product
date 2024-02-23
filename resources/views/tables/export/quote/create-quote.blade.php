@@ -521,14 +521,24 @@
                                             <span
                                                 class="w-100 text-nav text-dark overflow-hidden">{{ $guest_value->guest_name_display }}</span>
                                         </a>
-                                        <a class="dropdown-item edit-guest w-25" href="#" data-toggle="modal"
-                                            data-target="#guestModal" data-id="{{ $guest_value->id }}">
-                                            <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
-                                        </a>
-                                        <a class="dropdown-item delete-guest w-25" href="#"
-                                            data-id="{{ $guest_value->id }}" data-name="guest">
-                                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
-                                        </a>
+                                        <div class="dropdown">
+                                            <button type="button" data-toggle="dropdown"
+                                                class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
+                                                style="margin-right:10px">
+                                                <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                            </button>
+                                            <div class="dropdown-menu date-form-setting" style="z-index: 1000;">
+                                                <a class="dropdown-item edit-guest w-50" href="#"
+                                                    data-toggle="modal" data-target="#guestModal"
+                                                    data-id="{{ $guest_value->id }}">
+                                                    <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
+                                                </a>
+                                                <a class="dropdown-item delete-guest w-50" href="#"
+                                                    data-id="{{ $guest_value->id }}" data-name="guest">
+                                                    <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </li>
                                 @endforeach
                                 <a type="button"
@@ -966,9 +976,9 @@
                                                     </button>
                                                     <div class="dropdown-menu date-form-setting"
                                                         style="z-index: 1000;">
-                                                        <a class="dropdown-item search-date-form" data-toggle="modal"
-                                                            data-target="#formModalgoods" data-name="goods"
-                                                            data-id="{{ $item->id }}"
+                                                        <a class="dropdown-item search-date-form"
+                                                            data-toggle="modal" data-target="#formModalgoods"
+                                                            data-name="goods" data-id="{{ $item->id }}"
                                                             id="{{ $item->id }}"><i
                                                                 class="fa-regular fa-pen-to-square"></i></a>
                                                         <a class="dropdown-item delete-item" href="#"
@@ -1605,7 +1615,7 @@
                 "<td class='border border-bottom-0 position-relative'>" +
                 "<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 75%;left: 10%;'>" +
                 "@foreach ($product as $product_value)" +
-                "<li>" +
+                "<li data-id='{{ $product_value->id }}'>" +
                 "<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 idProduct w-100' id='{{ $product_value->id }}' name='idProduct'>" +
                 "<span class='w-100'>{{ $product_value->product_name }}</span>" +
                 "</a>" +
@@ -1776,16 +1786,31 @@
             });
             //lấy thông tin sản phẩm
             $(document).ready(function() {
-                $('.idProduct').click(function() {
-                    var productName = $(this).closest('tr').find('.product_name');
-                    var productUnit = $(this).closest('tr').find('.product_unit');
-                    var thue = $(this).closest('tr').find('.product_tax');
-                    var product_id = $(this).closest('tr').find('.product_id');
-                    var tonkho = $(this).closest('tr').find('.tonkho');
+                $('.idProduct').off('click').on('click', function(event) {
+                    event.stopPropagation();
+
+                    var clickedRow = $(this).closest('tr');
+                    var productCode = clickedRow.find('.product_code');
+                    var productName = clickedRow.find('.product_name');
+                    var productUnit = clickedRow.find('.product_unit');
+                    var thue = clickedRow.find('.product_tax');
+                    var product_id = clickedRow.find('.product_id');
+                    var tonkho = clickedRow.find('.tonkho');
                     var idProduct = $(this).attr('id');
-                    var soTonKho = $(this).closest('tr').find('.soTonKho');
-                    var infoProduct = $(this).closest('tr').find('.info-product');
-                    var inventory = $(this).closest('tr').find('.inventory');
+                    var soTonKho = clickedRow.find('.soTonKho');
+                    var infoProduct = clickedRow.find('.info-product');
+                    var inventory = clickedRow.find('.inventory');
+                    var clickedProductId = $(this).parent().data('id');
+
+                    if (clickedProductId !== product_id.val()) {
+                        if (clickedRow.siblings().find('.product_id[value="' +
+                                clickedProductId + '"]').length > 0) {
+                            alert(
+                                'Không thể chọn sản phẩm này. Vui lòng chọn sản phẩm khác.'
+                                );
+                            return;
+                        }
+                    }
 
                     $.ajax({
                         url: '{{ route('getProduct') }}',
@@ -1794,6 +1819,7 @@
                             idProduct: idProduct
                         },
                         success: function(data) {
+                            productCode.val(data.product_code);
                             productName.val(data.product_name);
                             productUnit.val(data.product_unit);
                             thue.val(data.product_tax);
@@ -1808,10 +1834,12 @@
                                 inventory.show();
                             }
                             thue.prop('disabled', true);
+                            $(".list_product").hide();
                         }
                     });
                 });
             });
+
             //lấy thông tin mã sản phẩm
             // $(document).ready(function() {
             //     $('.maSP').click(function() {
@@ -2092,23 +2120,29 @@
                         var newGuestInfo = data;
                         var guestList = $('#myUL'); // Danh sách hiện có
                         var newListItem =
-                            '<li class="border"><a href="#" title="' + newGuestInfo
-                            .guest_name_display +
+                            '<li class="border" data-id="' + newGuestInfo.id + '">' +
+                            '<a href="#" title="' + newGuestInfo.guest_name_display +
                             '" class="text-dark d-flex justify-content-between p-2 search-info w-100" id="' +
                             newGuestInfo.id + '" name="search-info">' +
                             '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
-                            .guest_name_display +
-                            '</span></a>' +
-                            '<a class="dropdown-item edit-guest w-25" href="#" data-toggle="modal" data-target="#guestModal" data-id="' +
+                            .guest_name_display + '</span>' +
+                            '</a>' +
+                            '<div class="dropdown">' +
+                            '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px" aria-expanded="false">' +
+                            '<i class="fa-solid fa-ellipsis" aria-hidden="true"></i>' +
+                            '</button>' +
+                            '<div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
+                            '<a class="dropdown-item edit-guest w-50" href="#" data-toggle="modal" data-target="#guestModal" data-id="' +
                             newGuestInfo.id + '">' +
                             '<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>' +
                             '</a>' +
-                            '<a class="dropdown-item delete-guest w-25" href="#" data-id="' +
+                            '<a class="dropdown-item delete-guest w-50" href="#" data-id="' +
                             newGuestInfo.id + '" data-name="guest">' +
                             '<i class="fa-solid fa-trash-can" aria-hidden="true"></i>' +
                             '</a>' +
+                            '</div>' +
+                            '</div>' +
                             '</li>';
-
                         // Thêm mục mới vào danh sách
                         var addButton = $(".addGuestNew");
                         $(newListItem).insertBefore(addButton);
@@ -2119,6 +2153,7 @@
                         $('#guest_address').val(null);
                         $('#guest_code').val(null);
                         $('#represent_guest_name').val(null);
+                        $('#representativeList').empty();
 
                         // Nếu có người đại diện, thêm vào danh sách
                         if (data.represent_name !== null && data.represent_name !== '') {
@@ -2350,62 +2385,68 @@
         var represent_phone = $('#represent_phone').val().trim();
         var represent_address = $('#represent_address').val().trim();
         var guest_id = $('.idGuest').val();
-        if (!represent_name) {
-            showNotification('warning', 'Vui lòng điền thông tin người đại diện!');
+        if (!guest_id) {
+            showNotification('warning', 'Vui lòng chọn khách hàng trước khi tạo người đại diện!');
         } else {
-            $.ajax({
-                url: "{{ route('addRepresentGuest') }}",
-                type: "get",
-                data: {
-                    represent_name: represent_name,
-                    represent_email: represent_email,
-                    represent_phone: represent_phone,
-                    represent_address: represent_address,
-                    guest_id: guest_id,
-                },
-                success: function(data) {
-                    if (data.success) {
-                        $('#represent_guest').val(data.represent_name);
-                        $('.represent_guest_id').val(data.id);
-                        $('.modal [data-dismiss="modal"]').click();
-                        showNotification('success', data.msg);
-                        // Nếu thành công, tạo một mục mới
-                        var newGuestInfo = data;
-                        var guestList = $('#representativeList'); // Danh sách hiện có
-                        var newListItem =
-                            '<li class="border" data-id="' + newGuestInfo.id +
-                            '"><a href="#" title="' + newGuestInfo.represent_name +
-                            '" class="text-dark d-flex justify-content-between p-2 search-represent w-100" id="' +
-                            newGuestInfo.id + '" name="search-represent">' +
-                            '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
-                            .represent_name +
-                            '</span></a>' +
-                            '<div class="dropdown">' +
-                            '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">' +
-                            '<i class="fa-solid fa-ellipsis" aria-hidden="true"></i>' +
-                            '</button><div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
-                            '<a class="dropdown-item edit-represent-form" data-toggle="modal" data-target="#representModal" data-name="representGuest" data-id="' +
-                            newGuestInfo.id + '">' +
-                            '<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>' +
-                            '</a><a class="dropdown-item delete-item-represent" href="#" data-id="' +
-                            newGuestInfo.id + '" data-name="representGuest">' +
-                            '<i class="fa-solid fa-trash-can" aria-hidden="true"></i></a><a class="dropdown-item default-represent" id="default-id' +
-                            newGuestInfo.id + '" href="#" data-name="representGuest" data-id="' +
-                            newGuestInfo.id + '">' +
-                            '<i class="fa-solid fa-link" aria-hidden="true"></i></a></div></div>' +
-                            '</li>';
-                        // Thêm mục mới vào danh sách
-                        guestList.append(newListItem);
-                        //clear
-                        $('#represent_name').val('');
-                        $("#represent_email").val('');
-                        $('#represent_phone').val('');
-                        $('#represent_address').val('');
-                    } else {
-                        showNotification('warning', data.msg);
+            if (!represent_name) {
+                showNotification('warning', 'Vui lòng điền thông tin người đại diện!');
+            } else {
+                $.ajax({
+                    url: "{{ route('addRepresentGuest') }}",
+                    type: "get",
+                    data: {
+                        represent_name: represent_name,
+                        represent_email: represent_email,
+                        represent_phone: represent_phone,
+                        represent_address: represent_address,
+                        guest_id: guest_id,
+                    },
+                    success: function(data) {
+                        if (data.success) {
+                            $('#represent_guest').val(data.represent_name);
+                            $('.represent_guest_id').val(data.id);
+                            $('.modal [data-dismiss="modal"]').click();
+                            showNotification('success', data.msg);
+                            // Nếu thành công, tạo một mục mới
+                            var newGuestInfo = data;
+                            var guestList = $('#representativeList'); // Danh sách hiện có
+                            var newListItem =
+                                '<li class="border" data-id="' + newGuestInfo.id +
+                                '"><a href="#" title="' + newGuestInfo.represent_name +
+                                '" class="text-dark d-flex justify-content-between p-2 search-represent w-100" id="' +
+                                newGuestInfo.id + '" name="search-represent">' +
+                                '<span class="w-100 text-nav text-dark overflow-hidden">' +
+                                newGuestInfo
+                                .represent_name +
+                                '</span></a>' +
+                                '<div class="dropdown">' +
+                                '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">' +
+                                '<i class="fa-solid fa-ellipsis" aria-hidden="true"></i>' +
+                                '</button><div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
+                                '<a class="dropdown-item edit-represent-form" data-toggle="modal" data-target="#representModal" data-name="representGuest" data-id="' +
+                                newGuestInfo.id + '">' +
+                                '<i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>' +
+                                '</a><a class="dropdown-item delete-item-represent" href="#" data-id="' +
+                                newGuestInfo.id + '" data-name="representGuest">' +
+                                '<i class="fa-solid fa-trash-can" aria-hidden="true"></i></a><a class="dropdown-item default-represent" id="default-id' +
+                                newGuestInfo.id +
+                                '" href="#" data-name="representGuest" data-id="' +
+                                newGuestInfo.id + '">' +
+                                '<i class="fa-solid fa-link" aria-hidden="true"></i></a></div></div>' +
+                                '</li>';
+                            // Thêm mục mới vào danh sách
+                            guestList.append(newListItem);
+                            //clear
+                            $('#represent_name').val('');
+                            $("#represent_email").val('');
+                            $('#represent_phone').val('');
+                            $('#represent_address').val('');
+                        } else {
+                            showNotification('warning', data.msg);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     });
     //Xóa người đại diện
@@ -2424,7 +2465,7 @@
                     $('#represent_guest').val('');
                     $('.represent_guest_id').val('');
                     showNotification('success', data.message);
-                } else if(data.success == false) {
+                } else if (data.success == false) {
                     showNotification('warning', data.message);
                 }
             }

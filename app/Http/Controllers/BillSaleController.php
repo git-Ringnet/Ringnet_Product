@@ -142,7 +142,7 @@ class BillSaleController extends Controller
             )
             ->get();
         $quoteExport = $this->detailExport->getProductToId($billSale->detailexport_id);
-        return view('tables.export.bill_sale.edit', compact('quoteExport','billSale', 'title', 'product', 'workspacename'));
+        return view('tables.export.bill_sale.edit', compact('quoteExport', 'billSale', 'title', 'product', 'workspacename'));
     }
 
     /**
@@ -182,7 +182,7 @@ class BillSaleController extends Controller
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
             ->leftJoin('delivery', 'delivery.detailexport_id', 'detailexport.id')
-            ->select('*', 'delivery.id as maGiaoHang', 'detailexport.quotation_number as soBG','represent_guest.id as represent_id')
+            ->select('*', 'delivery.id as maGiaoHang', 'detailexport.quotation_number as soBG', 'represent_guest.id as represent_id')
             ->first();
         return $delivery;
     }
@@ -207,5 +207,21 @@ class BillSaleController extends Controller
         $data = $request->all();
         $product = Products::where('id', $data['idProduct'])->first();
         return $product;
+    }
+    //Kiểm tra số hóa đơn
+    public function checkNumberBill(Request $request)
+    {
+        $check = BillSale::where('number_bill', $request['numberValue'])
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
+
+        if ($check) {
+            $response = ['success' => false, 'msg' => 'Số hóa đơn đã tồn tại!'];
+        }
+        else{
+            $response = ['success' => true];
+        }
+
+        return response()->json($response);
     }
 }

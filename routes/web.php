@@ -162,6 +162,8 @@ Route::resource('{workspace}/billSale', BillSaleController::class);
 //lấy thông tin từ số báo giá trong hóa đơn
 Route::get('/getInfoDelivery', [BillSaleController::class, 'getInfoDelivery'])->name('getInfoDelivery');
 Route::get('/getProductDelivery', [BillSaleController::class, 'getProductDelivery'])->name('getProductDelivery');
+//Kiểm tra số hóa đơn
+Route::get('/checkNumberBill', [BillSaleController::class, 'checkNumberBill'])->name('checkNumberBill');
 
 //thanh toán bán hàng
 Route::resource('{workspace}/payExport', PayExportController::class);

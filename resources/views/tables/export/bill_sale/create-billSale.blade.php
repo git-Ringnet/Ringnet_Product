@@ -1,6 +1,7 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="billsale" :workspacename="$workspacename">
 </x-navbar>
-<form action="{{ route('billSale.store', ['workspace' => $workspacename]) }}" method="POST">
+<form onsubmit="return kiemTraFormGiaoHang();" action="{{ route('billSale.store', ['workspace' => $workspacename]) }}"
+    method="POST">
     @csrf
     <input type="hidden" name="detailexport_id" id="detailexport_id"
         value="@isset($yes) {{ $data['detailexport_id'] }} @endisset">
@@ -64,7 +65,7 @@
                     <div class="dropdown">
                         <button type="submit" name="action" value="2"
                             class="btn-save-print rounded d-flex align-items-center h-100 dropdown-toggle px-2"
-                            style="margin-right:10px" onclick="kiemTraFormGiaoHang(event);">
+                            style="margin-right:10px">
                             <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 viewBox="0 0 16 16" fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -75,8 +76,7 @@
                         </button>
                     </div>
                     <button type="submit" name="action" value="1"
-                        class="custom-btn d-flex align-items-center h-100 py-1 px-2" style="margin-right:10px"
-                        onclick="kiemTraFormGiaoHang(event);">
+                        class="custom-btn d-flex align-items-center h-100 py-1 px-2" style="margin-right:10px">
                         <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1099,20 +1099,44 @@
         return formattedNumber;
     }
 
-    function kiemTraFormGiaoHang(event) {
-        var rows = document.querySelectorAll('tr');
-        var hasProducts = false;
+    function kiemTraFormGiaoHang() {
+        var numberValue = $('input[name="number_bill"]').val();
+        var ajaxSuccess = false;
 
+        $.ajax({
+            url: '{{ route('checkNumberBill') }}',
+            type: 'GET',
+            async: false, // Chuyển thành đồng bộ
+            data: {
+                numberValue: numberValue
+            },
+            success: function(data) {
+                if (!data.success) {
+                    showNotification('warning', 'Số báo giá đã tồn tại');
+                } else {
+                    ajaxSuccess = true;
+                }
+            }
+        });
+
+        if (!ajaxSuccess) {
+            return false;
+        }
+
+        var hasProducts = false;
+        var rows = document.querySelectorAll('tr');
         for (var i = 1; i < rows.length; i++) {
             if (rows[i].classList.contains('sanPhamGiao')) {
                 hasProducts = true;
+                break;
             }
         }
 
-        // Hiển thị thông báo nếu không có sản phẩm
         if (!hasProducts) {
-            alert("Không có sản phẩm để tạo hóa đơn");
-            event.preventDefault();
+            showNotification('warning', 'Không có sản phẩm để tạo hóa đơn');
+            return false;
+        } else {
+            return true;
         }
     }
 </script>

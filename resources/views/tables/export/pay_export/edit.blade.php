@@ -31,7 +31,7 @@
                     @if ($payExport->trangThai == 1)
                         @if ($payExport->payment > 0)
                             <span class="border ml-2 p-1 text-nav text-secondary shadow-sm rounded"
-                                style="color: #858585">Một phần</span>
+                                style="color: #858585">Đặt cọc</span>
                         @else
                             <span class="border ml-2 p-1 text-nav text-secondary shadow-sm rounded"
                                 style="color: #858585">Chưa thanh toán</span>
@@ -535,7 +535,7 @@
                                 </div>
                                 <div
                                     class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
-                                    <input type="text" placeholder="Nhập thông tin" name="payment" required
+                                    <input type="text" @if($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif name="payment" required
                                         oninput="validateInput();"
                                         class="border-0 bg w-100 bg-input-guest py-0 px-0 payment">
                                     <div class="opacity-0">

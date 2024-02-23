@@ -235,12 +235,17 @@ class Guest extends Model
     public function deleteGuest($id)
     {
         $guest = Guest::find($id);
-        if ($guest) {
-            $guest->delete();
-            $represent = representGuest::where('guest_id', $id)->delete();
-            return response()->json(['success' => true, 'message' => 'Xóa thành công khách hàng']);
+        $check = DetailExport::where('guest_id', $id)->first();
+        if (!$check) {
+            if ($guest) {
+                $guest->delete();
+                representGuest::where('guest_id', $id)->delete();
+                return response()->json(['success' => true, 'message' => 'Xóa thành công khách hàng']);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Không tìm thấy khách hàng'], 404);
+            }
         } else {
-            return response()->json(['success' => false, 'message' => 'Không tìm thấy khách hàng'], 404);
+            return response()->json(['success' => false, 'message' => 'Xóa thất bại do khách hàng này đang báo giá!']);
         }
     }
 }
