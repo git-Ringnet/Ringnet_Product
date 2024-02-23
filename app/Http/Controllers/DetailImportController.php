@@ -183,10 +183,11 @@ class DetailImportController extends Controller
             $show_receive = $this->receiver_bill->show_receive($request->detail_id);
             $title = "Tạo mới hóa đơn mua hàng";
             if ($recieptProduct->isEmpty()) {
-                return redirect()->route('import.index')->with('warning', 'Hóa đơn đã được tạo hết !');
+                return redirect()->route('import.index', $workspacename)->with('warning', 'Hóa đơn đã được tạo hết !');
             } else {
                 $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
                     ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.reciept_qty,0)'))
+                    ->where('detailimport.id', $request->detail_id)
                     ->distinct()
                     ->select('detailimport.quotation_number', 'detailimport.id')
                     ->get();
@@ -203,6 +204,7 @@ class DetailImportController extends Controller
                 $title = "Tạo mới hóa đơn thanh toán";
                 $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
                     ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
+                    ->where('detailimport.id', $request->detail_id)
                     ->distinct()
                     ->select('detailimport.quotation_number', 'detailimport.id')
                     ->get();
@@ -259,21 +261,59 @@ class DetailImportController extends Controller
     {
         $result = [];
         $data = $request->all();
-        $checkQuotetion = DetailImport::where('quotation_number', $data['quotetion_number'])
-            ->where('provide_id', $data['provide_id'])
-            ->where('workspace_id', Auth::user()->current_workspace);
-        if (isset($data['detail_id'])) {
-            $checkQuotetion->where('id', '!=', $data['detail_id']);
-        }
-        $checkQuotetion = $checkQuotetion->first();
-        if ($checkQuotetion) {
-            $result = [
-                'status' => false,
-            ];
+        if (isset($data['quotetion_number'])) {
+            $checkQuotetion = DetailImport::where('quotation_number', $data['quotetion_number'])
+                ->where('provide_id', $data['provide_id'])
+                ->where('workspace_id', Auth::user()->current_workspace);
+            if (isset($data['detail_id'])) {
+                $checkQuotetion->where('id', '!=', $data['detail_id']);
+            }
+            $checkQuotetion = $checkQuotetion->first();
+            if ($checkQuotetion) {
+                $result = [
+                    'status' => false,
+                ];
+            } else {
+                $result = [
+                    'status' => true,
+                ];
+            }
+        } elseif (isset($data['delivery_code'])) {
+            $delivery_code = Receive_bill::where('delivery_code', $data['delivery_code'])
+                ->where('workspace_id', Auth::user()->current_workspace)->first();
+            if ($delivery_code) {
+                $result = [
+                    'status' => false,
+                ];
+            } else {
+                $result = [
+                    'status' => true,
+                ];
+            }
+        } elseif (isset($data['number_bill'])) {
+            $number_bill = Reciept::where('number_bill', $data['number_bill'])
+                ->where('workspace_id', Auth::user()->current_workspace)->first();
+            if ($number_bill) {
+                $result = [
+                    'status' => false,
+                ];
+            } else {
+                $result = [
+                    'status' => true,
+                ];
+            }
         } else {
-            $result = [
-                'status' => true,
-            ];
+            $payment_code = PayOder::where('payment_code', $data['payment_code'])
+                ->where('workspace_id', Auth::user()->current_workspace)->first();
+            if ($payment_code) {
+                $result = [
+                    'status' => false,
+                ];
+            } else {
+                $result = [
+                    'status' => true,
+                ];
+            }
         }
         return $result;
     }
@@ -338,7 +378,7 @@ class DetailImportController extends Controller
             $msg = response()->json([
                 'success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công',
                 'id' => $new_provide, 'name' => $provide->provide_name_display, 'key' => $key,
-                'id_represent' => isset($id_represent) ? $id_represent : "" , 'represent_name' => $request->provide_represent
+                'id_represent' => isset($id_represent) ? $id_represent : "", 'represent_name' => $request->provide_represent
             ]);
         } else {
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế hoặc tên hiển thị đã tồn tại']);

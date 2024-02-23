@@ -129,6 +129,7 @@
                             </thead>
                             <tbody>
                                 @isset($dataImport)
+                                    @dd($dataImport)
                                     @foreach ($dataImport as $item)
                                         <tr class="bg-white">
                                             <td class="border border-left-0 border-top-0 border-bottom-0">
@@ -366,25 +367,25 @@
                                     </div>
                                 </div>
                                 <div
-                                class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                <input type="text" placeholder="Chọn thông tin" name="payment_code"
-                                    class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                    autocomplete="off" required>
-                                <div class="">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
+                                    <input type="text" placeholder="Chọn thông tin" name="payment_code"
+                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
+                                        autocomplete="off" required>
+                                    <div class="">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
+                                    </div>
                                 </div>
-                            </div>
                                 <div
                                     class="d-flex align-items-center justify-content-between border border-left-0 py-1">
                                     <input id="datePicker" type="text" placeholder="Nhập thông tin"
@@ -603,9 +604,13 @@
                                     `">
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
-                                    <input readonly type="text" name="product_tax[]" class="border-0 px-2 py-1 w-100 product_tax" value="` +
-                                    element.product_tax +
-                                    `%">
+                                    <input readonly type="text" name="product_tax[]" class="border-0 px-2 py-1 w-100 product_tax"
+                                    value="` +
+                                    (element.product_tax == 99 ?
+                                        "NOVAT" : element
+                                        .product_tax + "%") +
+                                    `"
+                                    >
                                 </td>
                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <input readonly type="text" name="total_price[]" class="border-0 px-2 py-1 w-100 total_price" readonly="" value="` +
@@ -626,8 +631,8 @@
                                 deleteRow()
                                 total_tax += (element.price_export *
                                         element
-                                        .product_qty) * element
-                                    .product_tax / 100
+                                        .product_qty) * (element
+                                    .product_tax == 99 ? 0 : element.product_tax) / 100
                                 total += element.price_export * element
                                     .product_qty
                             })
@@ -662,4 +667,23 @@
             $('.search-receive').trigger('click', detail_id);
         }
     });
+
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+        var payment_code = $("input[name='payment_code']").val();
+        $.ajax({
+            url: "{{ route('checkQuotetion') }}",
+            type: "get",
+            data: {
+                payment_code: payment_code,
+            },
+            success: function(data) {
+                if (!data['status']) {
+                    showNotification('warning', 'Mã thanh toán đã tồn tại')
+                } else {
+                    $('form')[0].submit();
+                }
+            }
+        })
+    })
 </script>

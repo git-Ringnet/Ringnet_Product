@@ -478,4 +478,24 @@
             $('.search-receive').trigger('click', detail_id);
         }
     });
+
+
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+        var number_bill = $("input[name='number_bill']").val();
+        $.ajax({
+            url: "{{ route('checkQuotetion') }}",
+            type: "get",
+            data: {
+                number_bill: number_bill,
+            },
+            success: function(data) {
+                if (!data['status']) {
+                    showNotification('warning', 'Mã nhận hàng đã tồn tại')
+                } else {
+                    $('form')[0].submit();
+                }
+            }
+        })
+    })
 </script>

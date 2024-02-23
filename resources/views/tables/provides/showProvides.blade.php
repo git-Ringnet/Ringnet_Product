@@ -256,16 +256,16 @@
                                             </td>
                                             <td class="border border-top-0 border-bottom-0 border-left-0">
                                                 @if ($provide->getAllDetail)
-                                                    {{ number_format($provide->getAllDetail->where('status', 2)->sum('total_tax')) }} vnd
+                                                    {{ number_format($provide->getAllDetail->where('status', 2)->sum('total_tax')) }}
                                                 @endif
                                             </td>
                                             <td class="border border-top-0 border-bottom-0 border-left-0">
                                                 @if ($provide->getPayment && $provide->getPayment->getHistoryPayment)
-                                                    {{ number_format($provide->getPayment->getHistoryPayment->sum('payment')) }}@else{{ 0 }} vnd
+                                                    {{ number_format($provide->getPayment->getHistoryPayment->sum('payment')) }}@else{{ 0 }}
                                                 @endif
                                             </td>
                                             <td class="border border-top-0 border-bottom-0 border-left-0">
-                                                {{ number_format($provide->provide_debt) }} vnd
+                                                {{ number_format($provide->provide_debt) }}
                                             </td>
                                         </tr>
                                     </tbody>

@@ -484,7 +484,7 @@
                                                 <td class="border border-bottom-0 border-right-0">
                                                     <input type="text" name="price_export[]"
                                                         class="border-0 px-2 py-1 w-100 price_export"
-                                                        value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
+                                                        value="{{ (fmod($item->price_export, 2) > 0 && fmod($item->price_export,1) > 0) ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
                                                         readonly>
                                                 </td>
                                                 <input type="hidden" class="product_tax1">
@@ -512,7 +512,7 @@
                                                 <td class="border border-bottom-0 border-right-0">
                                                     <input type="text" name="total_price[]"
                                                         class="border-0 px-2 py-1 w-100 total_price" readonly readonly
-                                                        value="{{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
+                                                        value="{{ (fmod($item->product_total, 2) > 0 && fmod($item->product_total,1) > 0 ) ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
                                                         @if ($import->status == 2) echo readonly @endif>
                                                 </td>
                                                 <td class="border border-bottom-0">
@@ -619,19 +619,20 @@
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                                     <input type="text" class="border-0 px-2 py-1 w-100" readonly
-                                                        value="{{ fmod($item->product_qty, 2) > 0 ? number_format($item->product_qty, 2, '.', ',') : number_format($item->product_qty) }}">
+                                                        value="{{ fmod($item->product_qty, 2) > 0 && fmod($item->product_qty, 1) > 0 ? number_format($item->product_qty, 2, '.', ',') : number_format($item->product_qty, 0, '.', ',') }}">
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                                     <input type="text" class="border-0 px-2 py-1 w-100" readonly
-                                                        value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}">
+                                                        value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export, 0, '.', ',') }}">
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                                     <input type="text" class="product_tax border-0 px-2 py-1 w-100"
-                                                        readonly value="{{ $item->product_tax }}">
+                                                        readonly
+                                                        value="@if ($item->product_tax == 99) NOVAT @else{{ $item->product_tax }} % @endif">
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                                     <input type="text" class="border-0 px-2 py-1 w-100" readonly
-                                                        value="{{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
+                                                        value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total, 0, '.', ',') }}">
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0">
                                                     <input placeholder="Nhập ghi chú" type="text"
@@ -725,7 +726,7 @@
                                             <input type="text" placeholder="Chọn thông tin"
                                                 class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
                                                 autocomplete="off" id="represent" readonly
-                                                value="@if($import->getNameRepresent) {{$import->getNameRepresent->represent_name}} @endif">
+                                                value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif">
                                             <div class="">
                                                 <svg width="18" height="18" viewBox="0 0 24 24"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -788,13 +789,12 @@
 
                                         <div
                                             class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                            <input id="datePicker" readonly type="text" placeholder="Chọn thông tin"
-                                                name="date_quote"
+                                            <input id="datePicker" readonly type="text"
+                                                placeholder="Chọn thông tin" name="date_quote"
                                                 class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                                autocomplete="off" 
-                                                value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}" 
-                                                {{-- value="{{ $import->created_at->toDateString() }}" --}}
-                                                >
+                                                autocomplete="off"
+                                                value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}"
+                                                {{-- value="{{ $import->created_at->toDateString() }}" --}}>
                                             <div class="">
                                                 <svg width="18" height="18" viewBox="0 0 24 24"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -895,14 +895,14 @@
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
     flatpickr("#datePicker", {
-    locale: "vn",
-    dateFormat: "d/m/Y",
-    onChange: function(selectedDates, dateStr, instance) {
-        // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
-        document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
-            "Y-m-d");
-    }
-});
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
     // Xóa đơn hàng
     deleteImport('#delete_import',
         '{{ route('import.destroy', ['workspace' => $workspacename, 'import' => $import->id]) }}')

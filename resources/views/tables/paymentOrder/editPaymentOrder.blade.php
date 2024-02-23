@@ -261,7 +261,7 @@
                                             <td class="border border-top-0 border-bottom-0 border-right-0">
                                                 <input readonly type="text" name="price_export[]"
                                                     class="border-0 px-2 py-1 w-100 price_export"
-                                                    value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}">
+                                                    value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}">
                                             </td>
                                             <td class="border border-top-0 border-bottom-0 border-right-0">
                                                 <input type="text" class="border-0 px-2 py-1 w-100 product_tax"
@@ -270,7 +270,7 @@
                                             <td class="border border-top-0 border-bottom-0 border-right-0">
                                                 <input readonly type="text" name="total_price[]"
                                                     class="border-0 px-2 py-1 w-100 total_price"
-                                                    value=" {{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
+                                                    value=" {{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                             </td>
                                             <td class="border border-top-0 border-bottom-0">
                                                 <input type="text" name="product_note[]"

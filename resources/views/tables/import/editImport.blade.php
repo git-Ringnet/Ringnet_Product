@@ -192,7 +192,8 @@
                                                         @if ($import->status == 2) echo readonly @endif>
                                                 </td>
                                                 <td class="border border-bottom-0 border-right-0">
-                                                    <input oninput="checkQty(this,{{ $item->product_qty }})"
+                                                    <input
+                                                     {{-- oninput="checkQty(this,{{ $item->product_qty }})" --}}
                                                         type="text" name="product_qty[]"
                                                         class="border-0 px-2 py-1 w-100 quantity-input"
                                                         value="{{ number_format($item->product_qty) }}"
@@ -201,7 +202,7 @@
                                                 <td class="border border-bottom-0 border-right-0">
                                                     <input type="text" name="price_export[]"
                                                         class="border-0 px-2 py-1 w-100 price_export"
-                                                        value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
+                                                        value="{{ (fmod($item->price_export, 2) > 0 && fmod($item->price_export,1) > 0) ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
                                                         @if ($import->status == 2) echo readonly @endif>
                                                 </td>
                                                 <input type="hidden" class="product_tax1">
@@ -229,7 +230,7 @@
                                                 <td class="border border-bottom-0 border-right-0">
                                                     <input type="text" name="total_price[]"
                                                         class="border-0 px-2 py-1 w-100 total_price" readonly
-                                                        value="{{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
+                                                        value="{{ (fmod($item->product_total, 2) > 0 && fmod($item->product_total,1) > 0) ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                                 </td>
                                                 <td class="border border-bottom-0">
                                                     <input placeholder="Nhập ghi chú" type="text"

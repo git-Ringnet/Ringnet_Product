@@ -217,7 +217,7 @@
                                             <td class="pl-0 py-2">
                                                 <input type="checkbox" class="p-0 m-0">
                                             </td>
-                                            <td class="py-2">{{ $item->id }}</td>
+                                            <td class="py-2">{{ $item->payment_code }}</td>
                                             <td class="py-2">
                                                 <a
                                                     href="{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => $item->id]) }}">

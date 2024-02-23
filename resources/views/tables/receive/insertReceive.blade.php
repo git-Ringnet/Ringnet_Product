@@ -494,6 +494,7 @@
                             $('#product').html(product)
                             $('#inputcontent tbody').empty();
                             product.quoteImport.forEach((element, index) => {
+                                console.log(product.cb);
                                 if (element.product_qty - element
                                     .receive_qty > 0) {
                                     var tr =
@@ -551,9 +552,12 @@
                                             .product_qty - element
                                             .receive_qty) +
                                         `">
-                                        <a class="duongdan" data-toggle="modal" data-target="#exampleModal` + element
-                                        .id + `">Serial Number </a>
-                                       
+                                        <a class="duongdan" data-toggle="modal" data-target="#exampleModal` +
+                                        element.id + `" 
+                                        ` + (product.checked[index] == 'endable' || product.cb[index] == 1 ?
+                                            "style='opacity : 1;'" :
+                                            "style='opacity : 0;'") + `
+                                        >Serial Number</a>
                                     </div>
                                     </td>
                                     <td class="border border-top-0 border-bottom-0 text-center py-1">
@@ -630,26 +634,33 @@
     // Tạo INPUT SERI
     createRowInput('seri');
 
+    // Hàm kiểm tra seri trùng
+    function checkDuplicateSerialNumbers(serialNumbers) {
+        var uniqueSerialNumbers = new Set();
+        for (var i = 0; i < serialNumbers.length; i++) {
+            var serial = serialNumbers[i];
+            if (uniqueSerialNumbers.has(serial)) {
+                return serial;
+            } else {
+                uniqueSerialNumbers.add(serial);
+            }
+        }
+        return null;
+    }
 
     // Kiểm tra Serial Number
     $('form').on('submit', function(e) {
         e.preventDefault();
         var productSN = {}
-        var formSubmit = false;
+        var formSubmit = true;
         var listProductName = [];
         var listQty = [];
         var listSN = [];
         var checkSN = [];
-        // if ($('#getAction').val() == 2) {
         $('.searchProductName').each(function() {
             checkSN.push($(this).closest('tr').find('input[name^="cbSeri"]').val())
             listProductName.push($(this).val().trim());
             listQty.push($(this).closest('tr').find('.quantity-input').val().trim());
-            // var count = $($(this).closest('tr').find('button').attr('data-target')).find(
-            //     'input[name^="seri"]').filter(
-            //     function() {
-            //         return $(this).val() !== '';
-            //     }).length;
             var count = $($(this).closest('tr').find('.duongdan').attr('data-target')).find(
                 'input[name^="seri"]').filter(
                 function() {
@@ -660,59 +671,76 @@
             productSN[oldValue] = {
                 sn: []
             };
-            // SerialNumbers = $($(this).closest('tr').find('button').attr('data-target')).find(
-            //     'input[name^="seri"]').map(function() {
-            //     return $(this).val().trim();
-            // }).get();
             SerialNumbers = $($(this).closest('tr').find('.duongdan').attr('data-target')).find(
                 'input[name^="seri"]').map(function() {
                 return $(this).val().trim();
             }).get();
-            productSN[oldValue].sn.push(...SerialNumbers)
-        });
-        console.log(productSN);
-        // Kiểm tra số lượng sn và số lượng sản phẩm
-        $.ajax({
-            url: "{{ route('checkSN') }}",
-            type: "get",
-            data: {
-                listProductName: listProductName,
-                listQty: listQty,
-                listSN: listSN,
-                checkSN: checkSN,
-            },
-            success: function(data) {
-                if (data['status'] == 'false') {
-                    showNotification('warning', 'Vui lòng nhập đủ số lượng seri sản phẩm ' + data[
-                        'productName'])
-                    // alert('Vui lòng nhập đủ số lượng seri sản phẩm ' + data['productName'])
-                } else {
-                    // Kiểm tra sản phẩm đã tồn tại seri chưa
-                    $.ajax({
-                        url: "{{ route('checkduplicateSN') }}",
-                        type: "get",
-                        data: {
-                            value: productSN,
-                        },
-                        success: function(data) {
-                            console.log(data);
-                            if (data['success'] == false) {
-                                showNotification('warning', 'Sản phảm' + data['msg'] +
-                                    'đã tồn tại seri' + data['data'])
-                                // alert('Sản phảm' + data['msg'] + 'đã tồn tại seri' +
-                                //     data['data'])
-                            } else {
-                                updateProductSN()
-                                $('form')[0].submit();
-                            }
-                        }
-                    })
-                }
+            // Kiểm tra trùng seri 1 sản phẩm
+            if (checkDuplicateSerialNumbers(SerialNumbers) !== null) {
+                showNotification('warning', 'Sản phảm' + $(this).val() + 'đã trùng seri' +
+                    checkDuplicateSerialNumbers(SerialNumbers))
+                formSubmit = false
+            } else {
+                productSN[oldValue].sn.push(...SerialNumbers)
             }
-        })
-        // }
-        // else {
-        //     $('form')[0].submit();
-        // }
+
+        });
+        if (formSubmit) {
+            $.ajax({
+                url: "{{ route('checkSN') }}",
+                type: "get",
+                data: {
+                    listProductName: listProductName,
+                    listQty: listQty,
+                    listSN: listSN,
+                    checkSN: checkSN,
+                },
+                success: function(data) {
+                    if (data['status'] == 'false') {
+                        showNotification('warning', 'Vui lòng nhập đủ số lượng seri sản phẩm ' +
+                            data[
+                                'productName'])
+                    } else {
+                        // Kiểm tra sản phẩm đã tồn tại seri chưa
+                        $.ajax({
+                            url: "{{ route('checkduplicateSN') }}",
+                            type: "get",
+                            data: {
+                                value: productSN,
+                            },
+                            success: function(data) {
+                                if (data['success'] == false) {
+                                    showNotification('warning', 'Sản phảm' + data[
+                                            'msg'] +
+                                        'đã tồn tại seri' + data['data'])
+                                } else {
+                                    // Kiểm tra Mã nhận hàng
+                                    var delivery_code = $("input[name='delivery_code']")
+                                        .val();
+                                    $.ajax({
+                                        url: "{{ route('checkQuotetion') }}",
+                                        type: "get",
+                                        data: {
+                                            delivery_code: delivery_code,
+                                        },
+                                        success: function(data) {
+                                            if (!data['status']) {
+                                                showNotification('warning',
+                                                    'Mã nhận hàng đã tồn tại'
+                                                )
+                                            } else {
+                                                updateProductSN()
+                                                $('form')[0].submit();
+                                                // console.log('submit');
+                                            }
+                                        }
+                                    })
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        }
     })
 </script>

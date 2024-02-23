@@ -101,8 +101,10 @@ class RecieptController extends Controller
         $reciept = Reciept::findOrFail($id);
         $title = $reciept->id;
         $detail = DetailImport::where('id',$reciept->detailimport_id)->first();
-        if($detail){
+        if($detail && $detail->getNameRepresent){
             $nameRepresent = $detail->getNameRepresent->represent_name;
+        }else{
+            $nameRepresent = "";
         }
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;

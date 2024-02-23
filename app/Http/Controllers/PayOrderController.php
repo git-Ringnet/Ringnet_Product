@@ -52,7 +52,7 @@ class PayOrderController extends Controller
         $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
             ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
-            ->where('detailimport.status_pay', '!=', 2)
+            ->where('detailimport.status_pay', '=', 0)
             ->distinct()
             ->select('detailimport.quotation_number', 'detailimport.id')
             ->get();
