@@ -25,7 +25,25 @@ function handleCancelClick(cancelBtn, input, options) {
 handleFilterClick($("#btn-email"), $("#email-options"), $(".email-input"));
 handleFilterClick($("#btn-debt"), $("#debt-options"), $(".debt-input"));
 handleFilterClick($("#btn-name"), $("#name-options"), $(".name-input"));
+handleFilterClick($("#btn-tensp"), $("#tensp-options"), $(".tensp-input"));
+handleFilterClick(
+    $("#btn-price_import"),
+    $("#price_import-options"),
+    $(".price_import-input")
+);
+
+handleFilterClick(
+    $("#btn-product_qty"),
+    $("#product_qty-options"),
+    $(".product_qty-input")
+);
 handleFilterClick($("#btn-code"), $("#code-options"), $(".code-input"));
+handleFilterClick($("#btn-guests"), $("#guests-options"), $(".guests-input"));
+handleFilterClick(
+    $("#btn-provides"),
+    $("#provides-options"),
+    $(".provides-input")
+);
 handleFilterClick(
     $("#btn-inventory"),
     $("#inventory-options"),
@@ -43,7 +61,28 @@ handleCancelClick($("#cancel-email"), $(".email-input"), $("#email-options"));
 handleCancelClick($("#cancel-debt"), $(".debt-input"), $("#debt-options"));
 handleCancelClick($("#cancel-phone"), $(".phone-input"), $("#phone-options"));
 handleCancelClick($("#cancel-code"), $(".code-input"), $("#code-options"));
+handleCancelClick(
+    $("#cancel-price_import"),
+    $(".price_import-input"),
+    $("#price_import-options")
+);
+handleCancelClick(
+    $("#cancel-product_qty"),
+    $(".product_qty-input"),
+    $("#product_qty-options")
+);
+handleCancelClick(
+    $("#cancel-guests"),
+    $(".guests-input"),
+    $("#guests-options")
+);
+handleCancelClick(
+    $("#cancel-provides"),
+    $(".provides-input"),
+    $("#provides-options")
+);
 handleCancelClick($("#cancel-name"), $(".name-input"), $("#name-options"));
+handleCancelClick($("#cancel-tensp"), $(".tensp-input"), $("#tensp-options"));
 handleCancelClick(
     $("#cancel-inventory"),
     $(".inventory-input"),

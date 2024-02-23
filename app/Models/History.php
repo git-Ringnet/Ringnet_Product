@@ -10,34 +10,36 @@ class History extends Model
 {
     protected $table = 'history';
     protected $fillable = [
-        'detailimport_id', 'detailexport_id', 'delivered_id',
+        'detailimport_id', 'detailexport_id', 'delivered_id', 'provide_id',
+        'tax_import', 'price_import', 'total_import', 'history_import'
     ];
     use HasFactory;
     public function getAllHistory()
     {
         $history = History::leftJoin('delivered', 'history.delivered_id', 'delivered.id')
-            ->leftJoin('delivery', 'delivery.id', 'delivered.id')
+            ->leftJoin('delivery', 'delivery.id', 'delivered.delivery_id')
             ->leftJoin('products', 'products.id', 'delivered.product_id')
-            ->leftJoin('products_import', 'products.id', 'products_import.product_id')
-            ->leftJoin('detailimport', 'detailimport.id', 'products_import.detailimport_id')
-            ->leftJoin('quoteimport', 'quoteimport.product_name', 'products.product_name')
-            ->leftJoin('history_import', 'history_import.product_name', 'products.product_name')
+            ->leftJoin('history_import', 'history_import.id', 'history.history_import')
             ->leftJoin('detailexport', 'history.detailexport_id', 'detailexport.id')
             ->leftJoin('bill_sale', 'bill_sale.detailexport_id', 'history.detailexport_id')
+            ->leftJoin('reciept', 'reciept.detailimport_id', 'history.detailimport_id')
+            ->leftJoin('provides', 'provides.id', 'history.provide_id')
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->select(
                 'history.*',
                 'delivered.*',
                 'delivery.*',
-                'products.*',
-                'products_import.*',
-                'detailimport.*',
+                'delivered.price_export as giaban',
+                'delivered.created_at as time',
+                'products.product_name as tensp',
                 'history_import.*',
                 'detailexport.*',
-                'bill_sale.*',
-                'quoteimport.price_export as giadonnhap',
-                'quoteimport.product_total as tongnhap',
-                'quoteimport.product_qty as slnhap'
+                'bill_sale.number_bill as hdra',
+                'reciept.number_bill as hdvao',
+                'guest.guest_name_display as tenKhach',
+                'provides.provide_name_display as tenNCC',
             )->get();
+        // dd($history);
         return $history;
     }
     public function getProductToId($id_delivery, $idproduct)
@@ -92,27 +94,27 @@ class History extends Model
     public function ajax($data)
     {
         $history = History::leftJoin('delivered', 'history.delivered_id', 'delivered.id')
-            ->leftJoin('delivery', 'delivery.id', 'delivered.id')
+            ->leftJoin('delivery', 'delivery.id', 'delivered.delivery_id')
             ->leftJoin('products', 'products.id', 'delivered.product_id')
-            ->leftJoin('products_import', 'products.id', 'products_import.product_id')
-            ->leftJoin('detailimport', 'detailimport.id', 'products_import.detailimport_id')
-            ->leftJoin('quoteimport', 'quoteimport.product_name', 'products.product_name')
-            ->leftJoin('history_import', 'history_import.product_name', 'products.product_name')
+            ->leftJoin('history_import', 'history_import.id', 'history.history_import')
             ->leftJoin('detailexport', 'history.detailexport_id', 'detailexport.id')
             ->leftJoin('bill_sale', 'bill_sale.detailexport_id', 'history.detailexport_id')
+            ->leftJoin('reciept', 'reciept.detailimport_id', 'history.detailimport_id')
+            ->leftJoin('provides', 'provides.id', 'history.provide_id')
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->select(
                 'history.*',
                 'delivered.*',
                 'delivery.*',
-                'products.*',
-                'products_import.*',
-                'detailimport.*',
+                'delivered.price_export as giaban',
+                'delivered.created_at as time',
+                'products.product_name as tensp',
                 'history_import.*',
                 'detailexport.*',
-                'bill_sale.*',
-                'quoteimport.price_export as giadonnhap',
-                'quoteimport.product_total as tongnhap',
-                'quoteimport.product_qty as slnhap'
+                'bill_sale.number_bill as hdra',
+                'reciept.number_bill as hdvao',
+                'guest.guest_name_display as tenKhach',
+                'provides.provide_name_display as tenNCC',
             );
 
         if (isset($data['search'])) {
@@ -122,8 +124,26 @@ class History extends Model
             // dd($product);
             $history = $history->where(function ($query) use ($data, $product) {
                 $query->orWhere('products.product_name', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('provides.provide_name_display', 'like', '%' . $data['search'] . '%');
                 $query->orWhereIn('delivered.id', $product);
             });
+        }
+        if (isset($data['filters']['tensp'])) {
+            $history = $history->where('products.product_name', 'like', '%' . $data['filters']['tensp'] . '%');
+        }
+
+        if (isset($data['filters']['product_qty'][0]) && isset($data['filters']['product_qty'][1])) {
+            $history = $history->where('history_import.product_qty', $data['filters']['product_qty'][0], $data['filters']['product_qty'][1]);
+        }
+        if (isset($data['filters']['price_import'][0]) && isset($data['filters']['price_import'][1])) {
+            $history = $history->where('history_import.price_export', $data['filters']['price_import'][0], $data['filters']['price_import'][1]);
+        }
+        if (isset($data['filters']['idGuests'])) {
+            $history = $history->whereIn('guest.id', $data['filters']['idGuests']);
+        }
+        if (isset($data['filters']['idProvides'])) {
+            $history = $history->whereIn('provides.id', $data['filters']['idProvides']);
         }
         // dd($data);
         if (isset($data['sort'])) {

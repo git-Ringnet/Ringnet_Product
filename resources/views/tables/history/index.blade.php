@@ -58,17 +58,57 @@
                                         fill="#6D7075" />
                                 </svg>
                             </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="dropdown-menu"id="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <div class="search-container px-2">
+                                    <input type="text" placeholder="Tìm kiếm" id="myInput"
+                                        onkeyup="filterFunction()">
+                                    <span class="search-icon"><i class="fas fa-search"></i></span>
+                                </div>
+                                <div class="scrollbar">
+                                    <button class="dropdown-item btndropdown" id="btn-code" data-button="code"
+                                        type="button">Thời gian</button>
+                                    <button class="dropdown-item btndropdown" id="btn-provides" data-button="provides"
+                                        type="button">Nhà cung cấp
+                                    </button>
+                                    <button class="dropdown-item btndropdown" id="btn-tensp" data-button="tensp"
+                                        type="button">Mặt hàng</button>
+                                    <button class="dropdown-item btndropdown" id="btn-product_qty"
+                                        data-button="product_qty" type="button">Số lượng nhập</button>
+                                    <button class="dropdown-item btndropdown" id="btn-price_import"
+                                        data-button="price_import" type="button">Giá nhập</button>
+                                    <button class="dropdown-item btndropdown" id="btn-guests" data-button="guests"
+                                        type="button">Khách hàng</button>
+
+                                    <button class="dropdown-item btndropdown" id="btn-guests" data-button="guests"
+                                        type="button">Thành tiền nhập</button>
+                                    <button class="dropdown-item btndropdown" id="btn-guests" data-button="guests"
+                                        type="button">Giá bán</button>
+                                    <button class="dropdown-item btndropdown" id="btn-guests" data-button="guests"
+                                        type="button">Thành tiền bán</button>
+                                </div>
                             </div>
+
+                            <x-filter-checkbox :dataa='$provides' name="provides" title="Nhà cung cấp"
+                                namedisplay="provide_name_display" />
+                            <x-filter-checkbox :dataa='$guests' name="guests" title="Khách hàng"
+                                namedisplay="guest_name_display" />
+                            <x-filter-text name="tensp" title="Mặt hàng" />
+                            <x-filter-compare name="product_qty" title="Số lượng nhập" />
+                            <x-filter-compare name="price_import" title="Giá nhập" />
+                            <x-filter-compare name="inventory" title="Số lượng tồn" />
+                            <x-filter-compare name="inventory" title="Số lượng tồn" />
+                            {{--   <x-filter-checkbox :dataa='$provides' name="name" title="Tên hàng hóa"
+                                namedisplay="product_name" />
+                            <x-filter-compare name="inventory" title="Số lượng tồn" /> --}}
+                        </div>
+                        <div class="filter-results d-flex m-0">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <div class="content-wrapper1 py-1 pl-4 border-bottom">
     <div class="row m-auto filter pt-1">
@@ -123,18 +163,18 @@
                                     {{-- SortType --}}
                                     <input type="hidden" id="perPageinput" name="perPageinput"
                                         value="{{ request()->perPageinput ?? 25 }}">
-                                    <input type="hidden" id="sortByInput" name="sort-by" value="history.id">
+                                    <input type="hidden" id="sortByInput" name="sort-by" value="">
                                     <input type="hidden" id="sortTypeInput" name="sort-type">
                                     <tr>
                                         <th scope="col" style="width:2%">
                                             <span class="d-flex align-items-center">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="history.id" data-sort-type="DESC"><button
-                                                        class="btn-sort" type="submit">STT</button></a>
-                                                <div class="icon" id="icon-id"></div>
+                                                <a href="#" class="sort-link" data-sort-by=""
+                                                    data-sort-type="DESC"><button class="btn-sort"
+                                                        type="submit">STT</button></a>
+                                                <div class="icon" id="icon_"></div>
                                             </span>
                                         </th>
-                                        <th scope="col">
+                                        {{-- <th scope="col">
                                             <span class="d-flex align-items-center" style="width:100px;">
                                                 <a href="#" class="sort-link btn-submit" data-sort-by="name"
                                                     data-sort-type="DESC"><button class="btn-sort"
@@ -142,69 +182,68 @@
                                                         viên</button></a>
                                                 <div class="icon" id="icon-name"></div>
                                             </span>
-                                        </th>
+                                        </th> --}}
                                         <th scope="col">
                                             <span class="d-flex align-items-center" style="width:110px;">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="date_time" data-sort-type="DESC"><button
-                                                        class="btn-sort" type="submit">Thời
+                                                <a href="#" class="sort-link btn-submit" data-sort-by="time"
+                                                    data-sort-type="DESC"><button class="btn-sort"
+                                                        type="submit">Thời
                                                         gian</button></a>
-                                                <div class="icon" id="icon-date_time"></div>
+                                                <div class="icon" id="icon-time"></div>
                                             </span>
                                         </th>
                                         <th scope="col" class="text-left">
                                             <span class="d-flex justify-content-start" style="width:300px;">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="provide_name" data-sort-type="DESC"><button
-                                                        class="btn-sort" type="submit">NCC</button></a>
-                                                <div class="icon" id="icon-provide_name"></div>
+                                                <a href="#" class="sort-link btn-submit" data-sort-by="tenNCC"
+                                                    data-sort-type="DESC"><button class="btn-sort"
+                                                        type="submit">NCC</button></a>
+                                                <div class="icon" id="icon-tenNCC"></div>
                                             </span>
                                         </th>
                                         <th scope="col" class="text-left">
                                             <span class="d-flex justify-content-start" style="width:300px;">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="product_name" data-sort-type="DESC"><button
-                                                        class="btn-sort" type="submit">Mặt
+                                                <a href="#" class="sort-link btn-submit" data-sort-by="tensp"
+                                                    data-sort-type="DESC"><button class="btn-sort" type="submit">Mặt
                                                         hàng</button></a>
-                                                <div class="icon" id="icon-product_name"></div>
+                                                <div class="icon" id="icon-tensp"></div>
                                             </span>
                                         </th>
                                         <th scope="col">
                                             <span class="d-flex justify-content-end align-items-end">
-                                                <a href="#" class="sort-link btn-submit" data-sort-by="slnhap"
-                                                    data-sort-type="DESC"><button class="btn-sort" type="submit">SL
+                                                <a href="#" class="sort-link btn-submit"
+                                                    data-sort-by="product_qty" data-sort-type="DESC"><button
+                                                        class="btn-sort" type="submit">SL
                                                         nhập</button></a>
-                                                <div class="icon" id="icon-slnhap"></div>
+                                                <div class="icon" id="icon-product_qty"></div>
                                             </span>
                                         </th>
                                         <th scope="col">
                                             <span class="d-flex justify-content-end align-items-center">
                                                 <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="giadonnhap" data-sort-type="DESC"><button
+                                                    data-sort-by="price_import" data-sort-type="DESC"><button
                                                         class="btn-sort" type="submit">Giá
                                                         nhập</button></a>
-                                                <div class="icon" id="icon-giadonnhap"></div>
+                                                <div class="icon" id="icon-price_import"></div>
                                             </span>
                                         </th>
                                         <th scope="col">
                                             <span class="d-flex justify-content-end align-items-end">
                                                 <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="tongnhap" data-sort-type="DESC"><button
+                                                    data-sort-by="total_import" data-sort-type="DESC"><button
                                                         class="btn-sort" type="submit">Thành
                                                         tiền nhập</button></a>
-                                                <div class="icon" id="icon-tongnhap"></div>
+                                                <div class="icon" id="icon-total_import"></div>
                                             </span>
                                         </th>
                                         <th scope="col">
                                             <span class="d-flex justify-content-center align-items-center">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="import_code" data-sort-type="DESC"><button
-                                                        class="btn-sort" type="submit">HĐ
+                                                <a href="#" class="sort-link btn-submit" data-sort-by="hdvao"
+                                                    data-sort-type="DESC"><button class="btn-sort" type="submit">HĐ
                                                         vào</button></a>
-                                                <div class="icon" id="icon-import_code"></div>
+                                                <div class="icon" id="icon-hdvao"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="text-center">
+                                        {{-- <th scope="col" class="text-center">
                                             <span class="d-flex justify-content-center align-items-center"
                                                 style="width:135px;">
                                                 <a href="#" class="sort-link btn-submit"
@@ -213,62 +252,60 @@
                                                         trạng nhập</button></a>
                                                 <div class="icon" id="icon-import_status"></div>
                                             </span>
-                                        </th>
+                                        </th> --}}
                                         <th scope="col" class="text-center">
                                             <span class="d-flex justify-content-start align-items-center"
                                                 style="width:300px;">
                                                 <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_name" data-sort-type="DESC"><button
+                                                    data-sort-by="tenKhach" data-sort-type="DESC"><button
                                                         class="btn-sort" type="submit">Khách
                                                         hàng</button></a>
-                                                <div class="icon" id="icon-guest_name"></div>
+                                                <div class="icon" id="icon-tenKhach"></div>
                                             </span>
                                         </th>
                                         <th scope="col">
                                             <span class="d-flex justify-content-end align-items-center">
                                                 <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="export_qty" data-sort-type="DESC"><button
+                                                    data-sort-by="deliver_qty" data-sort-type="DESC"><button
                                                         class="btn-sort" type="submit">SL
                                                         xuất</button></a>
-                                                <div class="icon" id="icon-export_qty"></div>
+                                                <div class="icon" id="icon-deliver_qty"></div>
                                             </span>
                                         </th>
                                         <th scope="col">
                                             <span class="d-flex align-items-center">
                                                 <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="export_unit" data-sort-type="DESC"><button
+                                                    data-sort-by="product_unit" data-sort-type="DESC"><button
                                                         class="btn-sort" type="submit">ĐVT</button></a>
-                                                <div class="icon" id="icon-export_unit"></div>
+                                                <div class="icon" id="icon-product_unit"></div>
                                             </span>
                                         </th>
                                         <th scope="col">
                                             <span class="d-flex justify-content-end align-items-center">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="price_export" data-sort-type="DESC"><button
-                                                        class="btn-sort" type="submit">Giá
+                                                <a href="#" class="sort-link btn-submit" data-sort-by="giaban"
+                                                    data-sort-type="DESC"><button class="btn-sort" type="submit">Giá
                                                         bán</button></a>
-                                                <div class="icon" id="icon-price_export"></div>
+                                                <div class="icon" id="icon-giaban"></div>
                                             </span>
                                         </th>
                                         <th scope="col">
                                             <span class="d-flex justify-content-end align-items-center">
                                                 <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="export_total" data-sort-type="DESC"><button
+                                                    data-sort-by="product_total_vat" data-sort-type="DESC"><button
                                                         class="btn-sort" type="submit">Thành
                                                         tiền xuất</button></a>
-                                                <div class="icon" id="icon-export_total"></div>
+                                                <div class="icon" id="icon-product_total_vat"></div>
                                             </span>
                                         </th>
                                         <th scope="col">
                                             <span class="d-flex justify-content-center align-items-center">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="export_code" data-sort-type="DESC"><button
-                                                        class="btn-sort" type="submit">HĐ
+                                                <a href="#" class="sort-link btn-submit" data-sort-by="hdra"
+                                                    data-sort-type="DESC"><button class="btn-sort" type="submit">HĐ
                                                         ra</button></a>
-                                                <div class="icon" id="icon-export_code"></div>
+                                                <div class="icon" id="icon-hdra"></div>
                                             </span>
                                         </th>
-                                        <th scope="col">
+                                        {{-- <th scope="col">
                                             <span class="d-flex align-items-center" style="width:135px;">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="export_status" data-sort-type="DESC"><button
@@ -276,8 +313,8 @@
                                                         trạng xuất</button></a>
                                                 <div class="icon" id="icon-export_status"></div>
                                             </span>
-                                        </th>
-                                        <th scope="col">
+                                        </th> --}}
+                                        {{-- <th scope="col">
                                             <span class="d-flex justify-content-end align-items-center">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="total_difference" data-sort-type="DESC"><button
@@ -285,7 +322,7 @@
                                                         nhuận</button></a>
                                                 <div class="icon" id="icon-total_difference"></div>
                                             </span>
-                                        </th>
+                                        </th> --}}
                                         <th scope="col">
                                             <span class="d-flex justify-content-end align-items-center">
                                                 <a href="#" class="sort-link btn-submit"
@@ -313,24 +350,23 @@
                                     @isset($history)
                                         @foreach ($history as $index => $item)
                                             <tr>
-                                                <td>{{ $index }}</td>
-                                                <td>{{ $item->user_id }}</td>
-                                                <td>{{ $item->updated_at }}</td>
-                                                <td>{{ $item->provide_id }}</td>
-                                                <td>{{ $item->product_name }}</td>
-                                                <td>{{ number_format($item->slnhap) }}</td>
+                                                <td>{{ $index + 1 }}</td>
+                                                {{-- <td>{{ $item->user_id }}</td> --}}
+                                                <td>{{ date('d-m-Y', strtotime($item->time)) }}</td>
+                                                <td>{{ $item->tenNCC }}</td>
+                                                <td>{{ $item->tensp }}</td>
+                                                <td>{{ number_format($item->product_qty) }}</td>
                                                 {{-- Này đặt sai tên cột nha --}}
-                                                <td>{{ number_format($item->giadonnhap) }}</td>
-                                                <td>{{ number_format($item->tongnhap) }}</td>
-                                                <td>Hoá đơn vào</td>
-                                                <td>Tình trạng nhập</td>
-                                                <td>{{ $item->guest_id }}</td>
+                                                <td>{{ number_format($item->price_import) }}</td>
+                                                <td>{{ number_format($item->total_import) }}</td>
+                                                <td>{{ $item->hdvao }}</td>
+                                                {{-- <td>Tình trạng nhập</td> --}}
+                                                <td>{{ $item->tenKhach }}</td>
                                                 <td>{{ number_format($item->deliver_qty) }}</td>
                                                 <td>{{ $item->product_unit }}</td>
-                                                <td>{{ number_format($item->price_export) }}</td>
-                                                <td>{{ number_format($item->product_total) }}</td>
-                                                <td>Tình trạng xuất</td>
-                                                <td>Lợi nhuận</td>
+                                                <td>{{ number_format($item->giaban) }}</td>
+                                                <td>{{ number_format($item->product_total_vat) }}</td>
+                                                <td>{{ $item->hdra }}</td>
                                                 <td>{{ number_format($item->transfer_fee) }}</td>
                                                 <td data-toggle="modal" data-target="#snModal"
                                                     data-delivery-id="{{ $item->delivery_id }}"
@@ -408,9 +444,16 @@
     </section>
 </div>
 </body>
+<script src="{{ asset('/dist/js/filter.js') }}"></script>
 <script>
     $(document).ready(function() {
+        function filterguests() {
+            filterButtons("myInput-guests", "ks-cboxtags-guests");
+        }
 
+        function filterprovides() {
+            filterButtons("myInput-provides", "ks-cboxtags-provides");
+        }
 
         $('#snModal').on('hidden.bs.modal', function() {
             // Xóa nội dung của các phần tử
@@ -422,19 +465,134 @@
 
         // Khai báo biến
         var sort = [];
-
-        // Func ajax 
-        function sendAjaxRequest(search, sort) {
+        var filters = [];
+        var idProvides = [];
+        var idGuests = [];
+        var filter = [];
+        var buttonNamee;
+        var titlee;
+        var tensp;
+        var product_qty;
+        var product_qty_op;
+        var product_qty_val;
+        var price_import;
+        var price_import_op;
+        var price_import_val;
+        // Func ajax    
+        function sendAjaxRequest(search, filters, sort, buttonName, title) {
+            buttonNamee = buttonName;
+            titlee = title;
             $.ajax({
                 type: 'get',
                 url: '{{ URL::to('searchHistory') }}',
                 data: {
                     'search': search,
                     'sort': sort,
+                    'filters': filters,
                 },
                 success: function(data) {
-                    // console.log(data);
-                    $('.history-body').html(data);
+                    $('.history-body').html(data.output);
+                    console.log(data);
+                    var dataValues = {
+                        guests: data.guests.join(', '),
+                        provides: data.provides.join(', '),
+                        tensp: data.tensp,
+                        product_qty: data.product_qty,
+                        price_import: data.price_import,
+                    };
+                    var value = dataValues[buttonName];
+                    if (value !== '' && value !== null) {
+                        var existingFilterItem = filter.find(item => item.name ===
+                            buttonName);
+                        existingFilterItem
+                            ?
+                            (existingFilterItem.title = title, existingFilterItem.value =
+                                value) :
+                            filter.push({
+                                name: buttonName,
+                                title: title,
+                                value: value
+                            });
+                    } else {
+                        // Xóa mục khỏi filter nếu tồn tại
+                        const existingFilterIndex = filter.findIndex(item => item.name ===
+                            buttonName);
+                        if (existingFilterIndex !== -1) {
+                            filter.splice(existingFilterIndex, 1);
+                        }
+                    }
+                    updateFilterResults();
+                }
+            });
+            $.ajaxSetup({
+                headers: {
+                    'csrftoken': '{{ csrf_token() }}'
+                }
+            });
+        }
+
+        function updateFilterResults() {
+            $('.filter-results').empty();
+            // Tạo và thêm các phần tử mới vào .filter-results
+            filter.forEach(function(item) {
+                // Kiểm tra nếu 'name' không phải là undefined
+                if (item.name !== undefined) {
+                    console.log(item.value);
+                    var filterItemElement = $(
+                        '<div class="filter-item filter-item' + item.name + '">' +
+                        '<span class="filter-title">' + (item.name === 'inventory' ? item.title :
+                            item
+                            .title + ':') + ' </span>' +
+                        '<span class="filter-value">' +
+                        (item.name === 'product_qty' ? item.value[0][0] + item.value[0][1] : " " +
+                            item
+                            .value) +
+                        '</span>' +
+                        '<button class="btn-delete" data-button-name="' + item.name +
+                        '"><i class="fa-solid fa-xmark"></i></button>' +
+                        '</div>'
+                    );
+
+                    // Xóa item filter
+                    filterItemElement.find('.btn-delete').on('click', function() {
+                        var nameToDelete = $(this).data('button-name');
+                        filter = filter.filter(function(item) {
+                            return item.name !== nameToDelete;
+                        });
+                        if (nameToDelete === 'guests') {
+                            $('.deselect-all-guests').click();
+                            idGuests = [];
+                        } else if (nameToDelete === 'provides') {
+                            $('.deselect-all-provides').click();
+                            idProvides = [];
+                        } else if (nameToDelete === 'tensp') {
+                            $('#tensp').val('');
+                            tensp = '';
+                        } else if (nameToDelete === 'product_qty') {
+                            $('.product_qty-quantity').val('');
+                            product_qty_op = '';
+                            product_qty_val = '';
+                            product_qty = [];
+                        } else if (nameToDelete === 'price_import') {
+                            $('.price_import-quantity').val('');
+                            price_import_op = '';
+                            price_import_val = '';
+                            price_import = [];
+                        }
+                        updateFilterResults();
+                        var search = $('#search').val();
+                        filters = {
+                            'idProvides': idProvides,
+                            'idGuests': idGuests,
+                            'tensp': tensp,
+                            'product_qty': product_qty,
+                            'price_import': price_import,
+                        };
+                        sendAjaxRequest(search, filters, sort, nameToDelete, item.title)
+                        // $('.btn-submit').click();
+                    });
+                    // Load filter results
+                    $('.filter-results').append(filterItemElement);
                 }
             });
         }
@@ -442,8 +600,55 @@
         // Filter ajxx
         $(document).on('click', '.btn-submit', function(e) {
             e.preventDefault();
+            var buttonName = $(this).data('button-name');
+            var title = $(this).data('title');
+            $('#' + buttonName + '-options').hide();
+            $(".filter-btn").prop("disabled", false);
+
+            if (buttonName === 'guests') {
+                $('.ks-cboxtags-guests input[type="checkbox"]').each(function() {
+                    const value = $(this).val();
+                    if ($(this).is(':checked') && idGuests.indexOf(value) === -1) {
+                        idGuests.push(value);
+                    } else if (!$(this).is(':checked')) {
+                        const index = idGuests.indexOf(value);
+                        if (index !== -1) {
+                            idGuests.splice(index, 1);
+                        }
+                    }
+                });
+            }
+
+            if (buttonName === 'provides') {
+                $('.ks-cboxtags-provides input[type="checkbox"]').each(function() {
+                    const value = $(this).val();
+                    if ($(this).is(':checked') && idProvides.indexOf(value) === -1) {
+                        idProvides.push(value);
+                    } else if (!$(this).is(':checked')) {
+                        const index = idProvides.indexOf(value);
+                        if (index !== -1) {
+                            idProvides.splice(index, 1);
+                        }
+                    }
+                });
+            }
+
+            // Số lượng nhập
+            product_qty_op = $('.product_qty-operator').val();
+            product_qty_val = $('.product_qty-quantity').val();
+            product_qty = [product_qty_op, product_qty_val];
+            // Giá nhập
+            price_import_op = $('.price_import-operator').val();
+            price_import_val = $('.price_import-quantity').val();
+            price_import = [price_import_op, price_import_val];
+
+            tensp = $('#tensp').val();
             var search = $('#search').val();
-            var sort_by = $(this).data('sort-by');
+            var sort_by = 'history.id';
+            // var sort_by;
+            if (typeof $(this).data('sort-by') !== 'undefined') {
+                sort_by = $(this).data('sort-by');
+            }
             var sort_type = $(this).data('sort-type');
 
             sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
@@ -456,11 +661,19 @@
             var svgbot =
                 "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 5C11.6332 5 11.7604 5.05268 11.8542 5.14645C11.948 5.24021 12.0006 5.36739 12.0006 5.5V17.293L15.1466 14.146C15.2405 14.0521 15.3679 13.9994 15.5006 13.9994C15.6334 13.9994 15.7607 14.0521 15.8546 14.146C15.9485 14.2399 16.0013 14.3672 16.0013 14.5C16.0013 14.6328 15.9485 14.7601 15.8546 14.854L11.8546 18.854C11.8082 18.9006 11.753 18.9375 11.6923 18.9627C11.6315 18.9879 11.5664 19.0009 11.5006 19.0009C11.4349 19.0009 11.3697 18.9879 11.309 18.9627C11.2483 18.9375 11.1931 18.9006 11.1466 18.854L7.14663 14.854C7.05274 14.7601 7 14.6328 7 14.5C7 14.3672 7.05274 14.2399 7.14663 14.146C7.24052 14.0521 7.36786 13.9994 7.50063 13.9994C7.63341 13.9994 7.76075 14.0521 7.85463 14.146L11.0006 17.293V5.5C11.0006 5.36739 11.0533 5.24021 11.1471 5.14645C11.2408 5.05268 11.368 5 11.5006 5Z' fill='#555555'/></svg>"
             iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
+
             sort = [
                 sort_by, sort_type
             ];
+            filters = {
+                'idProvides': idProvides,
+                'idGuests': idGuests,
+                'tensp': tensp,
+                'product_qty': product_qty,
+                'price_import': price_import,
+            };
 
-            sendAjaxRequest(search, sort);
+            sendAjaxRequest(search, filters, sort, buttonName, title)
         });
 
         // Load SN cho từng sản phẩm

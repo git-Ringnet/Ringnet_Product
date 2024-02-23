@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Delivery;
 use App\Models\Guest;
 use App\Models\History;
+use App\Models\Provides;
 use App\Models\Serialnumber;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ class HistoryController extends Controller
      * Display a listing of the resource.
      */
     private $guests;
+    private $provides;
     private $workspaces;
     private $history;
     private $delivery;
@@ -23,6 +25,7 @@ class HistoryController extends Controller
     public function __construct()
     {
         $this->guests = new Guest();
+        $this->provides = new Provides();
         $this->workspaces = new Workspace();
         $this->history = new History();
         $this->delivery = new Delivery();
@@ -33,8 +36,10 @@ class HistoryController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $history = $this->history->getAllHistory();
+        $guests = $this->guests->getAllGuest();
+        $provides = $this->provides->getAllProvide();
         // dd($history);
-        return view('tables.history.index', compact('title', 'workspacename', 'history'));
+        return view('tables.history.index', compact('title', 'workspacename', 'history', 'guests', 'provides'));
     }
 
     public function getSN(Request $request)
@@ -59,33 +64,51 @@ class HistoryController extends Controller
     public function searchHistory(Request $request)
     {
         $data = $request->all();
-        // dd($data);
+        // dd($data['filters']);
+        $nameGuests = [];
+        $nameProvides = [];
+        $productQtyArray = [];
+        $priceImportArray = [];
         if ($request->ajax()) {
             $output = '';
+            if (!empty($data['filters']['idGuests'])) {
+                $nameGuests = $this->guests->getGuestbyName($data);
+            }
+            if (!empty($data['filters']['idProvides'])) {
+                $nameProvides = $this->provides->getprovidebyName($data);
+            }
+            $filters = $request->input('filters');
+
+            if (isset($filters['product_qty'])) {
+                $productQtyArray[] = $filters['product_qty'];
+            } else {
+                $productQtyArray[] = null;
+                $productQtyArray[] = null;
+            }
+            if (isset($filters['price_import'])) {
+                $priceImportArray[] = $filters['price_import'];
+            } else {
+                $priceImportArray[] = null;
+                $priceImportArray[] = null;
+            }
             $history = $this->history->ajax($data);
             if ($history) {
                 foreach ($history as $index => $item) {
                     $output .= ' <tr>
-                                    <td>' . $index . '</td>
-                                    <td>' . $item->user_id . '</td>
-                                    <td>' . $item->updated_at . '</td>
-                                    <td>' . $item->provide_id . '</td>
-                                    <td>' . $item->product_name . '</td>
-                                    <td>' . number_format($item->slnhap) . '</td>
-                                    <td>' . number_format($item->giadonnhap) . '</td>
-                                    <td>' . number_format($item->tongnhap) . '</td>
-                                    <td>Hoá đơn vào</td>
-                                    <td>Công nợ nhập</td>
-                                    <td>Tình trạng nhập</td>
-                                    <td>' . $item->guest_id . '</td>
+                                    <td>' . $index + 1 . '</td>
+                                    <td>' . date('d-m-Y', strtotime($item->time)) . '</td>
+                                    <td>' . $item->tenNCC . '</td>
+                                    <td>' . $item->tensp . '</td>
+                                    <td>' . number_format($item->product_qty) . '</td>
+                                    <td>' . number_format($item->price_import) . '</td>
+                                    <td>' . number_format($item->total_import) . '</td>
+                                    <td>' . $item->hdvao . '</td>
+                                    <td>' . $item->tenKhach . '</td>
                                     <td>' . number_format($item->deliver_qty) . '</td>
                                     <td>' . $item->product_unit . '</td>
-                                    <td>' . number_format($item->price_export) . '</td>
-                                    <td>' . number_format($item->product_total) . '</td>
-                                    <td>' . $item->number_bill . '</td>
-                                    <td>Công nợ xuất</td>
-                                    <td>Tình trạng xuất</td>
-                                    <td>Lợi nhuận</td>
+                                    <td>' . number_format($item->giaban) . '</td>
+                                    <td>' . number_format($item->product_total_vat) . '</td>
+                                    <td>' . $item->hdra . '</td>
                                     <td>' . number_format($item->transfer_fee) . '</td>
                                     <td data-toggle="modal" data-target="#snModal"
                                         data-delivery-id="' . $item->delivery_id . '"
@@ -94,7 +117,15 @@ class HistoryController extends Controller
                             </tr>';
                 }
             }
-            return $output;
+            return [
+                'output' => $output,
+                'guests' => $nameGuests,
+                'tensp' => $data['filters']['tensp'],
+                'product_qty' => $productQtyArray,
+                'price_import' => $priceImportArray,
+                // 'product_qty' => [$request->input('filters')['product_qty'], $request->input('filters')['product_qty'][0]],
+                'provides' => $nameProvides,
+            ];
         }
     }
     /**

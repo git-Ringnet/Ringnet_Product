@@ -198,6 +198,7 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
 .nav-treeview > .nav-item > .nav-link.active {
     background-color: #f0f3f9 !important;
     box-shadow: none !important;
+    color: #282A30 !important;
     border-radius: 0 !important;
 }
 
@@ -987,7 +988,7 @@ input[type="number"] {
 }
 
 .filter-btn {
-    border-radius: 5px;
+    border-radius: 4px;
     padding: 3px 1px;
     background-color: #ffffff;
 }

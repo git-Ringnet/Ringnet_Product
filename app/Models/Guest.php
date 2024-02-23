@@ -48,6 +48,9 @@ class Guest extends Model
         if (isset($data['idName'])) {
             $guests = $guests->whereIn('guest.id', $data['idName']);
         }
+        if (isset($data['filters']['idGuests'])) {
+            $guests = $guests->whereIn('guest.id', $data['filters']['idGuests']);
+        }
         $guests = $guests->pluck('guest_name_display')->all();
         return $guests;
     }

@@ -13,8 +13,14 @@ return new class extends Migration
     {
         Schema::create('history', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('detailexport_id');
-            $table->unsignedBigInteger('delivered_id');
+            $table->unsignedBigInteger('detailexport_id')->nullable();
+            $table->unsignedBigInteger('delivered_id')->nullable();
+            $table->unsignedBigInteger('provide_id')->nullable();
+            $table->unsignedBigInteger('detailimport_id')->nullable();
+            $table->unsignedBigInteger('history_import')->nullable();
+            $table->string('tax_import')->nullable();
+            $table->string('price_import')->nullable();
+            $table->string('total_import')->nullable();
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ use App\Http\Controllers\DateFormController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ReceiveController;
 use App\Http\Controllers\RecieptController;
+use App\Http\Controllers\SettingController;
 use App\Models\DetailImport;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -197,6 +198,7 @@ Route::post('/create-workspace', [ProviderController::class, 'createWorkspace'])
 Route::resource('workspace', WorkspaceController::class);
 Route::get('/updateWorkspaceUser', [WorkspaceController::class, 'updateWorkspaceUser'])->name('updateWorkspaceUser');
 
+Route::resource('{workspace}/settings', SettingController::class);
 
 Route::middleware([
     'auth:sanctum',

@@ -545,11 +545,21 @@ class Delivery extends Model
                 'product_total_vat' => $tolTax,
             ];
             $delivered_id = DB::table('delivered')->insertGetId($dataDelivered);
+
+            $de = Delivered::where('delivery_id', $deliveryId)->get();
+            $history_import = HistoryImport::where('product_id', $data['product_id'][$i])->first();
+            // dd($history_import);
             // Add lịch sử giao dịch
             $history = new History();
             $dataHistory = [
                 'detailexport_id' => $data['detailexport_id'],
                 'delivered_id' => $delivered_id,
+                'provide_id' => $history_import->provide_id,
+                'detailimport_id' => $history_import->detailImport_id,
+                'tax_import' => $history_import->product_tax,
+                'price_import' => $history_import->price_export,
+                'total_import' => $history_import->product_total,
+                'history_import' => $history_import->id,
             ];
             $history->addHistory($dataHistory);
 
@@ -602,6 +612,7 @@ class Delivery extends Model
                 }
             }
         }
+
         //xác nhận giao hàng
         $quoteExports = QuoteExport::where('detailexport_id', $data['detailexport_id'])->get();
 

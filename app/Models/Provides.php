@@ -165,6 +165,9 @@ class Provides extends Model
         if (isset($data['idName'])) {
             $provides = $provides->whereIn('provides.id', $data['idName']);
         }
+        if (isset($data['filters']['idProvides'])) {
+            $provides = $provides->whereIn('provides.id', $data['filters']['idProvides']);
+        }
         $provides = $provides->pluck('provide_name_display')->all();
         return $provides;
     }

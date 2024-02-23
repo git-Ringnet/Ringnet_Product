@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class UserWorkspaces extends Model
 {
@@ -22,5 +23,12 @@ class UserWorkspaces extends Model
     public function workspace()
     {
         return $this->belongsTo(Workspace::class, 'workspace_id');
+    }
+    public function getUsersWorkspace()
+    {
+        return self::join('users', 'user_workspaces.user_id', '=', 'users.id')
+            ->where('user_workspaces.workspace_id', Auth::user()->current_workspace)
+            ->select('user_workspaces.*', 'users.*')
+            ->get();
     }
 }
