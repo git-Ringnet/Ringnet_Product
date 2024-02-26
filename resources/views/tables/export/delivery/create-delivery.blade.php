@@ -164,23 +164,24 @@
                         <table class="table table-hover bg-white rounded">
                             <thead>
                                 <tr>
-                                    <th class="border-right p-1 border-top-0 border-bottom-0">
+                                    <th class="border-right p-1 border-top-0 border-bottom-0" style="width: 20%;">
                                         <input class="ml-4" id="checkall" type="checkbox">
                                         <span class="text-table text-secondary">Mã sản phẩm</span>
                                     </th>
-                                    <th class="border-right p-1 border-top-0 border-bottom-0">
+                                    <th class="border-right p-1 border-top-0 border-bottom-0" style="width: 25%;">
                                         <span class="text-table text-secondary">Tên sản phẩm</span>
                                     </th>
-                                    <th class="border-right p-1 border-top-0 border-bottom-0">
+                                    <th class="border-right p-1 border-top-0 border-bottom-0" style="width: 15%;">
                                         <span class="text-table text-secondary">Đơn vị</span>
                                     </th>
-                                    <th class="border-right p-1 border-top-0 border-bottom-0">
+                                    <th class="border-right p-1 border-top-0 border-bottom-0" style="width: 15%;">
                                         <span class="text-table text-secondary">Số lượng</span>
                                     </th>
                                     <th class="border-right d-none">
                                         <span class="text-table text-secondary">Quản lý S/N</span>
                                     </th>
-                                    <th class="border-right note p-1 border-top-0 border-bottom-0">
+                                    <th class="border-right note p-1 border-top-0 border-bottom-0"
+                                        style="width: 20%;">
                                         <span class="text-table text-secondary">Ghi chú</span>
                                     </th>
                                     <th class="border-top-0 border-bottom-0"></th>
@@ -607,26 +608,24 @@
         }
     }
     $('.deleteProduct1').click(function() {
-        $(this).closest("tr")
-            .remove();
+        var deletedRow = $(this).closest("tr");
+        var deletedProductAmount = parseFloat(deletedRow.find('.total-amount').val().replace(/,/g, ''));
+        var deletedProductTax = parseFloat(deletedRow.find('.product_tax1').val().replace(/,/g, ''));
+
+        deletedRow.remove();
         fieldCounter--;
-        calculateGrandTotal();
-        var productTaxText = $(
-                '#product-tax')
-            .text();
-        var productTaxValue =
-            parseFloat(
-                productTaxText
-                .replace(/,/g, ''));
-        var taxAmount = parseFloat((
-                '.product_tax1')
-            .val());
-        var totalTax =
-            productTaxValue -
-            taxAmount;
-        $('#product-tax').text(
-            totalTax);
+
+        // Subtract the deleted product values from totalAmount and totalTax
+        var totalAmount = parseFloat($('#total-amount-sum').text().replace(/,/g, '')) - deletedProductAmount;
+        var totalTax = parseFloat($('#product-tax').text().replace(/,/g, '')) - deletedProductTax;
+
+        // Call calculateGrandTotal with updated values
+        calculateGrandTotal(totalAmount, totalTax);
+
+        // Update the displayed totalTax value
+        $('#product-tax').text(formatCurrency(Math.round(totalTax)));
     });
+
     //thêm sản phẩm
     let fieldCounter = 1;
     $(document).ready(function() {
@@ -772,20 +771,33 @@
             fieldCounter++;
 
             //kéo thả vị trí sản phẩm
-            $("table tbody").sortable({
-                axis: "y",
-                handle: "td",
-            });
+            // $("table tbody").sortable({
+            //     axis: "y",
+            //     handle: "td",
+            // });
             //Xóa sản phẩm
             option.click(function() {
-                $(this).closest("tr").remove();
+                var deletedRow = $(this).closest("tr");
+                var deletedProductAmount = parseFloat(deletedRow.find('.total-amount').val()
+                    .replace(/,/g, ''));
+                var deletedProductTax = parseFloat(deletedRow.find('.product_tax1').val()
+                    .replace(/,/g, ''));
+
+                deletedRow.remove();
                 fieldCounter--;
-                calculateGrandTotal();
-                var productTaxText = $('#product-tax').text();
-                var productTaxValue = parseFloat(productTaxText.replace(/,/g, ''));
-                var taxAmount = parseFloat(('.product_tax1').val());
-                var totalTax = productTaxValue - taxAmount;
-                $('#product-tax').text(totalTax);
+
+                // Subtract the deleted product values from totalAmount and totalTax
+                var totalAmount = parseFloat($('#total-amount-sum').text().replace(/,/g, '')) -
+                    deletedProductAmount;
+                var totalTax = parseFloat($('#product-tax').text().replace(/,/g, '')) -
+                    deletedProductTax;
+
+                // Call calculateGrandTotal with updated values
+                calculateGrandTotal(totalAmount, totalTax);
+
+                // Update the displayed totalTax value
+                $('#product-tax').text(formatCurrency(Math.round(totalTax)));
+                $('#total-amount-sum').text(formatCurrency(Math.round(totalAmount)));
             });
             // Checkbox
             $('#checkall').change(function() {
@@ -931,6 +943,8 @@
                                             success: function(
                                                 response
                                             ) {
+                                                var currentIndex =
+                                                    1;
                                                 response
                                                     .forEach(
                                                         function(
@@ -961,11 +975,12 @@
                         <td class="ui-sortable-handle">
                             <input type="checkbox" class="check-item" value="${sn.id}" ${isChecked ? 'checked' : ''}>
                         </td>
-                        <td class="ui-sortable-handle">${sn.id}</td>
+                        <td class="ui-sortable-handle">${currentIndex}</td>
                         <td class="ui-sortable-handle">
                             <input readonly class="form-control w-25" type="text" value="${sn.serinumber}">
                         </td>
                     </tr>`;
+                                                            currentIndex++;
                                                             $("#exampleModal0 .modal-body tbody")
                                                                 .append(
                                                                     newRow
@@ -1554,7 +1569,6 @@
                             idQuote: idQuote
                         },
                         success: function(data) {
-                            console.log(data);
                             $(".addProduct").remove();
                             $.each(data, function(index, item) {
                                 var totalTax = parseFloat(item
@@ -2057,40 +2071,59 @@
                                             );
                                         }
                                     });
-                                //kéo thả vị trí sản phẩm
-                                $("table tbody").sortable({
-                                    axis: "y",
-                                    handle: "td",
-                                });
                                 //Xóa sản phẩm
                                 $('.deleteProduct').off('click').on(
                                     'click',
                                     function() {
                                         var deletedRow = $(this)
                                             .closest("tr");
-                                        var taxAmount = parseFloat(
-                                            deletedRow.find(
-                                                '.product_tax1')
-                                            .val());
+                                        var deletedProductAmount =
+                                            parseFloat(deletedRow
+                                                .find(
+                                                    '.total-amount')
+                                                .val().replace(/,/g,
+                                                    ''));
+                                        var deletedProductTax =
+                                            parseFloat(deletedRow
+                                                .find(
+                                                    '.product_tax1')
+                                                .val().replace(/,/g,
+                                                    ''));
 
                                         deletedRow.remove();
                                         fieldCounter--;
-                                        calculateGrandTotal();
 
-                                        var productTaxText = $(
-                                                '#product-tax')
-                                            .text();
-                                        var productTaxValue =
-                                            parseFloat(
-                                                productTaxText
-                                                .replace(/,/g, ''));
-                                        var totalTax =
-                                            productTaxValue -
-                                            taxAmount;
+                                        // Subtract the deleted product values from totalAmount and totalTax
+                                        var totalAmount =
+                                            parseFloat($(
+                                                    '#total-amount-sum'
+                                                    ).text()
+                                                .replace(/,/g, '')
+                                                ) -
+                                            deletedProductAmount;
+                                        var totalTax = parseFloat($(
+                                                    '#product-tax')
+                                                .text().replace(
+                                                    /,/g, '')) -
+                                            deletedProductTax;
 
+                                        // Call calculateGrandTotal with updated values
+                                        calculateGrandTotal(
+                                            totalAmount,
+                                            totalTax);
+
+                                        // Update the displayed totalTax value
                                         $('#product-tax').text(
-                                            formatCurrency(
-                                                totalTax));
+                                            formatCurrency(Math
+                                                .round(totalTax)
+                                                ));
+
+                                        // Update the displayed total-amount-sum value
+                                        $('#total-amount-sum').text(
+                                            formatCurrency(Math
+                                                .round(
+                                                    totalAmount)
+                                                ));
                                     });
 
                                 // Checkbox
@@ -2233,6 +2266,8 @@
                                             success: function(
                                                 response
                                             ) {
+                                                var currentIndex =
+                                                    1;
                                                 response
                                                     .forEach(
                                                         function(
@@ -2264,11 +2299,12 @@
                         <td class="ui-sortable-handle">
                             <input type="checkbox" class="check-item" value="${sn.id}" ${isChecked ? 'checked' : ''}>
                         </td>
-                        <td class="ui-sortable-handle">${sn.id}</td>
+                        <td class="ui-sortable-handle">${currentIndex}</td>
                         <td class="ui-sortable-handle">
                             <input readonly class="form-control w-25" type="text" value="${sn.serinumber}">
                         </td>
                     </tr>`;
+                                                            currentIndex++;
                                                             $("#exampleModal0 .modal-body tbody")
                                                                 .append(
                                                                     newRow
