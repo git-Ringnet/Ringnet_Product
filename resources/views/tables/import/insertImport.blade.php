@@ -226,75 +226,75 @@
                                     @endisset
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="ml-3">
-                            <span class="text-perpage">
-                                <section class="content">
-                                    <div class="container-fluided">
-                                        <div class="d-flex">
-                                            <button type="button" data-toggle="dropdown"
-                                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                                id="addRowTable" style="margin-right:10px">
-                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
-                                                    height="12" viewBox="0 0 18 18" fill="none">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                                        fill="#42526E"></path>
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                                        fill="#42526E"></path>
-                                                </svg>
-                                                <span class="text-table">Thêm sản phẩm</span>
-                                            </button>
-    
-                                            <button type="button" data-toggle="dropdown"
-                                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                                id="" style="margin-right:10px">
-                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
-                                                    height="12" viewBox="0 0 18 18" fill="none">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                                        fill="#42526E"></path>
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                                        fill="#42526E"></path>
-                                                </svg>
-                                                <span class="text-table">Thêm đầu mục</span>
-                                            </button>
-    
-                                            <button type="button" data-toggle="dropdown"
-                                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                                id="" style="margin-right:10px">
-                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
-                                                    height="12" viewBox="0 0 18 18" fill="none">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                                        fill="#42526E"></path>
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                                        fill="#42526E"></path>
-                                                </svg>
-                                                <span class="text-table">Thêm hàng loạt</span>
-                                            </button>
-    
-                                            <button type="button" class="btn-option py-1 px-2 bg-white border-0">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                        fill="#42526E"></path>
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                        fill="#42526E"></path>
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                        fill="#42526E"></path>
-                                                </svg>
-                                            </button>
+                            <div class="ml-3">
+                                <span class="text-perpage">
+                                    <section class="content">
+                                        <div class="container-fluided">
+                                            <div class="d-flex">
+                                                <button type="button" data-toggle="dropdown"
+                                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                                    id="addRowTable" style="margin-right:10px">
+                                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
+                                                        height="12" viewBox="0 0 18 18" fill="none">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                                            fill="#42526E"></path>
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                                            fill="#42526E"></path>
+                                                    </svg>
+                                                    <span class="text-table">Thêm sản phẩm</span>
+                                                </button>
+        
+                                                <button type="button" data-toggle="dropdown"
+                                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                                    id="" style="margin-right:10px">
+                                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
+                                                        height="12" viewBox="0 0 18 18" fill="none">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                                            fill="#42526E"></path>
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                                            fill="#42526E"></path>
+                                                    </svg>
+                                                    <span class="text-table">Thêm đầu mục</span>
+                                                </button>
+        
+                                                <button type="button" data-toggle="dropdown"
+                                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                                    id="" style="margin-right:10px">
+                                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
+                                                        height="12" viewBox="0 0 18 18" fill="none">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                                            fill="#42526E"></path>
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                                            fill="#42526E"></path>
+                                                    </svg>
+                                                    <span class="text-table">Thêm hàng loạt</span>
+                                                </button>
+        
+                                                <button type="button" class="btn-option py-1 px-2 bg-white border-0">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                            fill="#42526E"></path>
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                            fill="#42526E"></path>
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                            fill="#42526E"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </section>
-                            </span>
+                                    </section>
+                                </span>
+                            </div>
                         </div>
                     </section>
                 </div>
@@ -307,335 +307,175 @@
                     <div class="bg-filter-search border-top-0 text-center border-custom">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN nhà cung cấp</p>
                     </div>
-                    <div class="d-flex">
-                        <div style="width: 55%;">
-                            <div class="border border-right-0 py-1 border-left-0">
-                                <span class="text-table ml-2">Nhà cung cấp</span>
-                            </div>
-                            <div id="more_info1" style="display:none;">
-                                <div class="border border-right-0 py-1 border-left-0">
-                                    <span class="text-table ml-2">Người đại diện</span>
-                                </div>
-                                <div class="border border-right-0 py-1 border-left-0">
-                                    <span class="text-table ml-2">Đơn mua hàng</span>
-                                </div>
-                                <div class="border border-right-0 py-1 border-left-0">
-                                    <span class="text-table ml-2">Số tham chiếu</span>
-                                </div>
-                                <div class="border border-right-0 py-1 border-left-0">
-                                    <span class="text-table ml-2">Ngày báo giá</span>
-                                </div>
-                                <div class="border border-right-0 py-1 border-left-0">
-                                    <span class="text-table ml-2">Hiệu lực báo giá</span>
-                                </div>
-                                <div class="border border-right-0 py-1 border-left-0">
-                                    <span class="text-table ml-2">Điều khoản</span>
-                                </div>
-                                <div class="border border-right-0 py-1 border-left-0">
-                                    <span class="text-table ml-2">Dự án</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
+                        style="height:44px;" style="height:44px;">
+
+                        <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
+
+                        <span class="mx-1 text-13" style="flex: 2;">
+                            <input type="text" placeholder="Chọn thông tin" name="quotation_number"
+                                class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest"  id="myInput"
+                                style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" >
+                        </span>
                         <div class="">
-                            <div class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                <input readonly type="text" placeholder="Chọn thông tin"
-                                    class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0" autocomplete="off"
-                                    id="myInput">
-                                <ul id="myUL"
-                                    class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
-                                    style="z-index: 99;">
-                                    <div class="p-1">
-                                        <div class="position-relative">
-                                            <input type="text" placeholder="Nhập công ty"
-                                                class="pr-4 w-100 input-search" id="provideFilter">
-                                            <span id="search-icon" class="search-icon"><i
-                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
-                                        </div>
-                                    </div>
-                                    @foreach ($provides as $item)
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                class="text-dark d-flex justify-content-between p-2 search-info w-100 border"
-                                                id="{{ $item->id }}" name="search-info">
-                                                <span
-                                                    class="w-100 text-nav text-dark overflow-hidden">{{ $item->provide_name_display }}</span>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                    <a type="button"
-                                        class="d-flex justify-content-center align-items-center p-2 position-sticky addGuestNew"
-                                        data-toggle="modal" data-target="#provideModal" style="bottom: 0;">
-                                        <span class="text-table text-center font-weight-bold">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                    fill="#282A30"></path>
-                                            </svg>
-                                            Thêm nhà cung cấp
-                                        </span>
-                                    </a>
-                                </ul>
-                                <div class="">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div id="more_info" style="display:none;">
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                    <input type="text" placeholder="Chọn thông tin"
-                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                        autocomplete="off" id="represent" readonly>
-                                    <ul id="listRepresent"
-                                        class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
-                                        style="z-index: 99;">
+                            <div id="myUL" class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block list-guest"
+                                        style="z-index: 99;display: none;">
                                         <div class="p-1">
                                             <div class="position-relative">
-                                                <input type="text" placeholder="Nhập thông tin"
-                                                    class="pr-4 w-100 input-search" id="searchRepresent">
-                                                <span id="search-icon" class="search-icon"><i
-                                                        class="fas fa-search text-table"
-                                                        aria-hidden="true"></i></span>
+                                                <input type="text" placeholder="Nhập nhà cung cấp"
+                                                    class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
+                                                <span id="search-icon" class="search-icon">
+                                                    <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                                </span>
                                             </div>
                                         </div>
+                                        <ul class="m-0 p-0 scroll-data">
+                                            @foreach ($provides as $item)
+                                                <li class="p-2 align-items-center text-wrap"
+                                                    style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                    <a href="javascript:void(0)" style="flex:2" 
+                                                        id="{{ $item->id }}" name="search-info"
+                                                        class="search-info">
+                                                        <span class="text-13-black">{{ $item->provide_name_display }}</span></span>
+                                                    </a>
+                                                    <a id="" class="search-infoEdit" type="button" data-toggle="modal"
+                                                        data-target="#guestModalEdit">
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                                viewBox="0 0 14 14" fill="none">
+                                                                <path
+                                                                    d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                                    fill="black" />
+                                                                <path
+                                                                    d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                                    fill="black" />
+                                                                <path
+                                                                    d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                                    fill="black" />
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
                                         <a type="button"
-                                            class="d-flex justify-content-center align-items-center p-2 position-sticky addRepresent"
-                                            data-toggle="modal" data-target="#modalAddRepresent" style="bottom: 0;">
-                                            <span class="text-table text-center font-weight-bold">
-                                                <svg width="16" height="16" viewBox="0 0 16 16"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
+                                            data-toggle="modal" data-target="#provideModal"
+                                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    viewBox="0 0 16 16" fill="none">
                                                     <path
                                                         d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30"></path>
+                                                        fill="#282A30" />
                                                 </svg>
-                                                Thêm mới
                                             </span>
+                                            <span class="text-13-black pl-3 pt-1"
+                                                style="font-weight: 600 !important;">Thêm nhà cung cấp</span>
                                         </a>
-                                    </ul>
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
                                     </div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div id="more_info" style="display:none;">
+                                    <ul class="p-0 m-0">
 
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                    <input type="text" placeholder="Chọn thông tin" name="quotation_number"
-                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                        autocomplete="off">
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                    <input type="text" placeholder="Chọn thông tin" name="reference_number"
-                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                        autocomplete="off">
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                    <input type="date" placeholder="Chọn thông tin" name=""
-                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0 flatpickr-input"
-                                        autocomplete="off" value="{{ date('Y-m-d') }}" {{-- id="date_quote" --}}
-                                        id="datePicker">
-                                    <input type="hidden" name="date_quote" id="hiddenDateInput"
-                                        value="{{ date('Y-m-d') }}">
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                    <input type="text" placeholder="Chọn thông tin" name="price_effect"
-                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                        autocomplete="off" id="price_effect" readonly>
-
-                                    <ul id="listPriceEffect"
-                                        class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
-                                        style="z-index: 99;">
-                                        <div class="p-1">
-                                            <div class="position-relative">
-                                                <input type="text" placeholder="Nhập thông tin"
-                                                    class="pr-4 w-100 input-search" id="searchPriceEffect">
-                                                <span id="search-icon" class="search-icon"><i
-                                                        class="fas fa-search text-table"
-                                                        aria-hidden="true"></i></span>
-                                            </div>
-                                        </div>
-                                        <a type="button"
-                                            class="d-flex justify-content-center align-items-center p-2 position-sticky addRepresent"
-                                            data-toggle="modal" data-target="#formModalquote" style="bottom: 0;">
-                                            <span class="text-table text-center font-weight-bold">
-                                                <svg width="16" height="16" viewBox="0 0 16 16"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30"></path>
-                                                </svg>
-                                                Thêm mới
-                                            </span>
-                                        </a>
-                                    </ul>
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                    <input type="text" placeholder="Chọn thông tin" name="terms_pay"
-                                        class="border-0 bg w-100 bg-input-guest py-0 nameGuest px-0"
-                                        autocomplete="off" readonly id="terms_pay">
-                                    <ul id="listTermsPay"
-                                        class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
-                                        style="z-index: 99;">
-                                        <div class="p-1">
-                                            <div class="position-relative">
-                                                <input type="text" placeholder="Nhập thông tin"
-                                                    class="pr-4 w-100 input-search" id="searchTermsPay">
-                                                <span id="search-icon" class="search-icon"><i
-                                                        class="fas fa-search text-table"
-                                                        aria-hidden="true"></i></span>
-                                            </div>
-                                        </div>
-                                        <a type="button"
-                                            class="d-flex justify-content-center align-items-center p-2 position-sticky addRepresent"
-                                            data-toggle="modal" data-target="#formModalTermPay" style="bottom: 0;">
-                                            <span class="text-table text-center font-weight-bold">
-                                                <svg width="16" height="16" viewBox="0 0 16 16"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                        fill="#282A30"></path>
-                                                </svg>
-                                                Thêm mới
-                                            </span>
-                                        </a>
-                                    </ul>
-
-
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1">
-                                    <input type="text" placeholder="Chọn thông tin" id="inputProject"
-                                        class="border-0 bg w-100 bg-input-guest py-0 px-0 nameGuest"
-                                        autocomplete="off">
-                                    <ul id="listProject"
-                                        class="bg-white position-absolute rounded shadow p-0 scroll-data list-guest"
-                                        style="z-index: 99;">
-                                        @foreach ($project as $va)
-                                            <li>
-                                                <a href="javascript:void(0)"
-                                                    class="text-dark d-flex justify-content-between p-2 project_name w-100"
-                                                    id="{{ $va->id }}" name="project_name">
-                                                    <span class="w-100">{{ $va->project_name }}</span>
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
+                                            <input class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
+                                                    id="represent" />
+                                            <div id="listRepresent"
+                                                class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
+                                                style="z-index: 99;">
+                                                <div class="p-1">
+                                                        <div class="position-relative">
+                                                            <input type="text" placeholder="Nhập công ty"
+                                                                class="pr-4 w-100 input-search bg-input-guest" id="searchRepresent">
+                                                            <span id="search-icon" class="search-icon">
+                                                                <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                </div>
+                                                <ul class="m-0 p-0 scroll-data"></ul>
+                                                <a type="button"
+                                                    class="d-flex align-items-center p-2 position-sticky addRepresent mt-2"
+                                                    data-toggle="modal" data-target="#modalAddRepresent" style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                            <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"/>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm người đại diện</span>
                                                 </a>
-                                            </li>
-                                        @endforeach
+                                            </div>
+                                        </li>
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số báo giá</span>
+
+                                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest represent_name"
+                                                value="{{ $getRepresentbyId[0]->represent_name ?? '' }}"
+                                                style="flex:2;" placeholder="Chọn thông tin" readonly>
+
+                                            <input type="hidden" class="idRepresent" autocomplete="off" name="represent_id"
+                                                value="{{ $getRepresentbyId[0]->id ?? '' }}">
+                                            <!-- <div id="myUL7"
+                                                class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
+                                                style="z-index: 99;">
+                                                <div class="p-1">
+                                                        <div class="position-relative">
+                                                            <input type="text" placeholder="Nhập công ty"
+                                                                class="pr-4 w-100 input-search bg-input-guest" id="companyFilter7">
+                                                            <span id="search-icon" class="search-icon"><i
+                                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                                        </div>
+                                                </div>
+                                                <ul class="m-0 p-0 scroll-data">
+                                                    <li class="p-2 align-items-center" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                            <a href="#" title="" id="" name="search-info" class="search-info">
+                                                                <span class="text-13-black">Nguyễn Văn A</span>
+                                                            </a>
+                                                    </li>
+                                                </ul>
+                                                <a type="button"
+                                                    class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
+                                                    data-toggle="modal" data-target="#guestModal" style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                            <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"/>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm người đại diện</span>
+                                                </a>
+                                            </div> -->
+                                        </li>
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
+                                            <input class="text-13-black w-50 border-0 bg-input-guest"
+                                                placeholder="Chọn thông tin" style="flex:2;" name="" />
+                                        </li>
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
+                                            <input class="text-13-black w-50 border-0 bg-input-guest unit_ship " name="shipping_unit"
+                                                placeholder="Chọn thông tin" style="flex:2;" />
+                                        </li>
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
+                                            <input class="text-13-black w-50 border-0 bg-input-guest fee_ship" name="shipping_fee"
+                                                placeholder="Chọn thông tin" style="flex:2;" />
+                                        </li>
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
+                                            <input class="text-13-black w-50 border-0 bg-input-guest " id="datePicker" required
+                                                placeholder="Chọn thông tin" style="flex:2;" />
+                                            <input type="hidden" id="hiddenDateInput" name="date_deliver" value="">
+                                        </li>
                                     </ul>
-                                    <div class="">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -727,41 +567,49 @@
 
                         data['represent'].forEach(function(element) {
                             var li =
-                                `
-                            <li class="border" id="` + element.id + `">
-                                <a href="javascript:void(0)"
-                                    class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent"
-                                    id="` + element.id + `" name="search-represent">
-                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.represent_name + `</span>
-                                </a>
+                                `<li class="p-2 align-items-center" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" id="` + element.id + `">
+                                    <a href="javascript:void(0)"
+                                        class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent"
+                                        id="` + element.id + `" name="search-represent">
+                                        <span class="w-100 text-13-black">` + element.represent_name + `</span>
+                                    </a>
+                                </li>`;
+                            // var li =
+                            //     `
+                            // <li class="border" id="` + element.id + `">
+                            //     <a href="javascript:void(0)"
+                            //         class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent"
+                            //         id="` + element.id + `" name="search-represent">
+                            //         <span class="w-100 text-nav text-dark overflow-hidden">` + element.represent_name + `</span>
+                            //     </a>
 
-                                <div class="dropdown">
-                                    <button type="button" data-toggle="dropdown"
-                                        class="btn-save-print d-flex align-items-center h-100"
-                                        style="margin-right:10px">
-                                        <i class="fa-solid fa-ellipsis"></i>
-                                    </button>
-                                    <div class="dropdown-menu date-form-setting" style="z-index: 100;">
-                                        <a class="dropdown-item search-date-form" data-toggle="modal"
-                                            data-target="#modalAddRepresent" data-name="represent"
-                                            data-id="` + element.id + `" id="` + element.id + `"><i
-                                            class="fa-regular fa-pen-to-square"></i></a>
-                                        <a class="dropdown-item delete-item" href="#"
-                                            data-id="` + element.id + `"
-                                            data-name="represent"><i
-                                            class="fa-solid fa-trash-can"></i></a>
-                                        <a class="dropdown-item set-default default-id ` + element.represent_name + `"
-                                            id="default-id` + element.id + `" href="#"
-                                            data-name="represent"
-                                            data-id="` + element.id + `">
-                                            ` + (element.default === 1 ? '<i class="fa-solid fa-link-slash"></i>' :
-                                    '<i class="fa-solid fa-link"></i>') + ` 
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                            `;
-                            $('#listRepresent .p-1').after(li);
+                            //     <div class="dropdown">
+                            //         <button type="button" data-toggle="dropdown"
+                            //             class="btn-save-print d-flex align-items-center h-100"
+                            //             style="margin-right:10px">
+                            //             <i class="fa-solid fa-ellipsis"></i>
+                            //         </button>
+                            //         <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                            //             <a class="dropdown-item search-date-form" data-toggle="modal"
+                            //                 data-target="#modalAddRepresent" data-name="represent"
+                            //                 data-id="` + element.id + `" id="` + element.id + `"><i
+                            //                 class="fa-regular fa-pen-to-square"></i></a>
+                            //             <a class="dropdown-item delete-item" href="#"
+                            //                 data-id="` + element.id + `"
+                            //                 data-name="represent"><i
+                            //                 class="fa-solid fa-trash-can"></i></a>
+                            //             <a class="dropdown-item set-default default-id ` + element.represent_name + `"
+                            //                 id="default-id` + element.id + `" href="#"
+                            //                 data-name="represent"
+                            //                 data-id="` + element.id + `">
+                            //                 ` + (element.default === 1 ? '<i class="fa-solid fa-link-slash"></i>' :
+                            //         '<i class="fa-solid fa-link"></i>') + ` 
+                            //             </a>
+                            //         </div>
+                            //     </div>
+                            // </li>
+                            // `;
+                            $('#listRepresent .scroll-data').after(li);
                             if (element.default == 1) {
                                 $('#represent').val(element.represent_name);
                                 $('#represent_id').val(element.id);
