@@ -79,15 +79,6 @@ function formatCurrency(value) {
     return formattedValue;
 }
 
-function deleteRow() {
-    $(".deleteRow")
-        .off("click")
-        .on("click", function () {
-            id = $(this).closest("tr").find("button").attr("data-target");
-            $("#list_modal " + id).remove();
-            $(this).closest("tr").remove();
-        });
-}
 
 function createRowInput(name) {
     var addRow = $(".addRow");
@@ -460,4 +451,18 @@ function showNotification(type, message) {
     setTimeout(function () {
         document.body.removeChild(notification);
     }, 3000); // Adjust the duration as needed
+}
+
+
+function deleteRow() {
+    $(".deleteRow").off("click").on("click", function () {
+        id = $(this).closest("tr").find("button").attr("data-target");
+        $("#list_modal " + id).remove();
+        $(this).closest("tr").remove();
+        updateTaxAmount()
+        calculateTotalAmount()
+        calculateTotalTax()
+        calculateGrandTotal()
+    });
+
 }

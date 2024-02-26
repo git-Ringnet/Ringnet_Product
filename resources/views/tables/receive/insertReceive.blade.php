@@ -455,7 +455,7 @@
     function getAction(e) {
         $('#getAction').val($(e).find('button').val());
     }
-    deleteRow()
+    // deleteRow()
     $('#listReceive').hide();
     $('.search_quotation').on('click', function() {
         $('#listReceive').show();
@@ -588,13 +588,14 @@
                                 </tr>`;
                                     $('#inputcontent tbody').append(tr);
                                 }
-                                deleteRow()
+                                // deleteRow()
                                 updateTaxAmount()
                                 calculateTotalAmount()
                                 calculateTotalTax()
                                 calculateGrandTotal()
                                 createModal(element.id)
                             });
+                            deleteRow()
                             $('#more_info').show();
                             $('#more_info1').show();
                         }
@@ -609,13 +610,17 @@
     });
 
 
-    function deleteRow() {
-        $('.deleteRow').off('click').on('click', function() {
-            id = $(this).closest('tr').find('button').attr('data-target');
-            $('#list_modal ' + id).remove();
-            $(this).closest('tr').remove();
-        })
-    }
+    // function deleteRow() {
+    //     $('.deleteRow').off('click').on('click', function() {
+    //         id = $(this).closest('tr').find('button').attr('data-target');
+    //         $('#list_modal ' + id).remove();
+    //         $(this).closest('tr').remove();
+    //         updateTaxAmount()
+    //         calculateTotalAmount()
+    //         calculateTotalTax()
+    //         calculateGrandTotal()
+    //     })
+    // }
 
     function getDataCheckbox(element) {
         var isChecked = $(element).is(':checked');
@@ -627,6 +632,10 @@
             $(element).closest('tr').find('input[name^="cbSeri"]').val(0)
             // $(element).closest('tr').find('a').hide();
             $(element).closest('tr').find('a').css('opacity', 0)
+            var id = $(element).closest('tr').find('.duongdan').attr('data-target')
+            if (id) {
+                $(id).find('#table_SNS tbody .form-control.w-100').val('')
+            }
         }
     }
 
@@ -638,10 +647,12 @@
         var uniqueSerialNumbers = new Set();
         for (var i = 0; i < serialNumbers.length; i++) {
             var serial = serialNumbers[i];
-            if (uniqueSerialNumbers.has(serial)) {
-                return serial;
-            } else {
-                uniqueSerialNumbers.add(serial);
+            if (serialNumbers[i] !== "") {
+                if (uniqueSerialNumbers.has(serial)) {
+                    return serial;
+                } else {
+                    uniqueSerialNumbers.add(serial);
+                }
             }
         }
         return null;

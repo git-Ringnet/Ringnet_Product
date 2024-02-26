@@ -132,7 +132,7 @@ class Provides extends Model
                         'represent_email' => $data['represent_email'][$i],
                         'represent_phone' => $data['represent_phone'][$i],
                         'represent_address' => $data['represent_address'][$i],
-                        'workspace_id' => Auth::user()->current_workspace
+                        // 'workspace_id' => Auth::user()->current_workspace
                     ];
                     if ($represent) {
                         ProvideRepesent::where('id', $represent->id)->update($dataRepresent);
@@ -147,8 +147,6 @@ class Provides extends Model
             $exist = false;
         }
         return $exist;
-        // dd($data);
-        // return DB::table($this->table)->where('id', $id)->update($data);
     }
     public function getprovidebyCode($data)
     {

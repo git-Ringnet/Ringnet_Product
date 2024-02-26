@@ -483,6 +483,10 @@ function deleteRow() {
         id = $(this).closest('tr').find('button').attr('data-target');
         $('#list_modal ' + id).remove();
         $(this).closest('tr').remove();
+        updateTaxAmount()
+        calculateTotalAmount()
+        calculateTotalTax()
+        calculateGrandTotal()
     })
 }
 deleteRowRepesent()
