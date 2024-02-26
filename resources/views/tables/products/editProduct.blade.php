@@ -199,7 +199,7 @@
                                             <p class="p-0 m-0 margin-left32 text-13">Thuế</p>
                                         </div>
                                         <div class="border border-top-0 w-100 border-left-0 border-right-0 px-3 height-100 pt-2 pb-1">
-                                            <select disabled name="product_tax" id=""
+                                            <select name="product_tax" id=""
                                                 class="w-25 text-13-black border-0" style="background-color:white;">
                                                 <option value="0" 
                                                     @if ($product->product_tax == 0) selected @endif>0%

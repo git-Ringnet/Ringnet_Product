@@ -89,7 +89,7 @@
         <section class="content margin-250">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card scroll-custom mt-3">
+                        <div class="card scroll-custom">
                             <!-- /.card-header -->
                             <div class="card-body table-responsive text-nowrap border-custom">
                                 <table id="example2" class="table table-hover bg-white rounded">

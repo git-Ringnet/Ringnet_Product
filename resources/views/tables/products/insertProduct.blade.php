@@ -155,12 +155,12 @@
                             <input type="text" value="Theo hệ thống" name="product_ratio" readonly
                                 class="border w-100 py-2 border-left-0 height-100  px-3 text-13-blue">
                         </div>
-                        <div class="d-flex align-items-center height-60-mobile">
-                            <div class="title-info py-2 border border-left-0 height-100">
+                        <div class="d-flex align-items-center">
+                            <div class="title-info py-2 border border-top-0 border-left-0">
                                 <p class="p-0 m-0 margin-left32 text-13">Thuế</p>
                             </div>
-                            <div class="border w-100 py-2 border-left-0 height-100  px-3 text-13-black">
-                                <select name="product_tax" id="" class="form-control border-0">
+                            <div class="border border-top-0 w-100 border-left-0 border-right-0 px-3 text-13-black">
+                                <select name="product_tax" id="" class="form-control w-25 text-13-black border-0">
                                     <option value="0">0%</option>
                                     <option value="8">8%</option>
                                     <option value="10">10%</option>

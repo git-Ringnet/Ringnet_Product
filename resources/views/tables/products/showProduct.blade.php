@@ -382,7 +382,9 @@
                         <tbody>
                             @foreach ($history as $htr)
                                 <tr class="bg-white">
-                                    <td class="padding-left35">{{ date_format(new DateTime($htr->created_at), 'd/m/Y') }}</td>
+                                    <td class="padding-left35">
+                                        {{ date_format(new DateTime($htr->created_at), 'd/m/Y') }}
+                                    </td>
                                     <td class="text-13-blue">
                                         @if ($htr->getQuotetion)
                                             {{ $htr->getQuotetion->quotation_number }}
