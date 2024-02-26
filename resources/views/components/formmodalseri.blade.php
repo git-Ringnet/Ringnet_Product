@@ -24,12 +24,12 @@
                                 </thead>
                                 <tbody>
                                     @if ($pro->getSerialNumber && count($pro->getSerialNumber) > 0)
+                                        @php $st = 1; @endphp
                                         @foreach ($pro->getSerialNumber as $item)
                                             <tr>
-
                                                 @if ($pro->quoteImport_id == $item->quoteImport_id)
                                                     <td><input type="checkbox"></td>
-                                                    <td>1</td>
+                                                    <td>{{$st ++}}</td>
                                                     <td><input class="form-control w-100" type="text"
                                                             name="seri{{ $stt }}[]"
                                                             value="{{ $item->serinumber }}" readonly></td>
@@ -43,6 +43,7 @@
                                                     </td>
                                                 @endif
                                             </tr>
+
                                         @endforeach
                                     @else
                                         <tr>
