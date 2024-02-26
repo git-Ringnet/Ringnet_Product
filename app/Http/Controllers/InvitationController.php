@@ -56,20 +56,46 @@ class InvitationController extends Controller
 
     public function index(Request $request)
     {
+        // $content = [
+        //     'subject' => 'This is the mail subject',
+        //     'body' => 'This is the email body of how to send email from laravel 10 with mailtrap.'
+        // ];
+        // $email = $request->input('email');
+
+        // $workspace_id = Auth::user()->current_workspace;
+
+        // $invitation = Invitation::where('workspace_id', Auth::user()->current_workspace)->first();
+
+        // // dd($invitation);
+        // Mail::to($email)->send(new InvitationEmail($invitation));
+
+        // return redirect('/')->with('success', 'Invitation sent successfully!');
         $content = [
             'subject' => 'This is the mail subject',
             'body' => 'This is the email body of how to send email from laravel 10 with mailtrap.'
         ];
-        $email = $request->input('email');
 
+        // Lấy danh sách các email từ yêu cầu
+        $emails = $request->input('emails');
+        // dd($emails);
         $workspace_id = Auth::user()->current_workspace;
 
-        $invitation = Invitation::where('workspace_id', Auth::user()->current_workspace)->first();
+        // Tìm kiếm thông tin lời mời từ cơ sở dữ liệu
+        $invitation = Invitation::where('workspace_id', $workspace_id)->first();
 
-        // dd($invitation);
-        Mail::to($email)->send(new InvitationEmail($invitation));
-
-        return redirect('/')->with('success', 'Invitation sent successfully!');
+        // Kiểm tra xem có email để gửi hay không
+        if ($emails) {
+            // Lặp qua mỗi email và gửi email
+            foreach ($emails as $email) {
+                // Gửi email đến từng địa chỉ email
+                Mail::to($email)->send(new InvitationEmail($invitation));
+            }
+            // Gửi thông báo thành công và quay trở lại trang trước đó
+            return back()->with('success', 'Invitations sent successfully!');
+        } else {
+            // Nếu không có email nào được cung cấp, quay trở lại trang trước đó
+            return back()->with('error', 'No emails provided for sending invitations.');
+        }
     }
 
 

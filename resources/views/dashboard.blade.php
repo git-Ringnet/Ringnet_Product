@@ -75,6 +75,17 @@
                 transform: translateX(0);
             }
         }
+
+        .url_link,
+        #email,
+        .search-input,
+        #roles-option {
+            height: 30px;
+            padding: 6px 20px 7px 16px !important;
+            border-radius: 4px !important;
+            border: 1px solid #DFE1E4;
+            font-size: 12px;
+        }
     </style>
     <x-app-layout>
         <x-slot name="header">
@@ -92,6 +103,7 @@
                         <button>Gửi</button>
                     </form>
                 @endif
+                <h2 class="text-dark">Danh sách workspaces</h2>
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     {{-- <x-welcome /> --}}
                     {{-- @dd($workspaceNames) --}}
@@ -103,32 +115,34 @@
                     <input type="hidden" id="idUser" name="idUser" value="{{ Auth::user()->id }}">
                 </div>
                 <br>
-                @if ($invitation)
-                    <label for="">Bật tắt Invite </label>
-                    <div class="toggle">
-                        <input type="checkbox" id="toggle2" name="toggle_invitation"
-                            {{ $invitation->status ? 'checked' : '' }} />
-                        <label for="toggle2"></label>
-                    </div>
-                    <input type="hidden" name="invi_workspace_id" value="{{ $invitation->workspace_id }}">
-                    <input type="hidden" name="invi_token" value="{{ $invitation->token }}">
-                    <br>
-                    <div class="div-url"
-                        style="{{ $invitation && $invitation->status == 1 ? 'display: block;' : 'display: none;' }}">
-                        <label for="">URL LINK</label>
-                        <input class="url_link" style="width: 100%" type="text"
-                            value="{{ route('invite', ['token' => $invitation->token, 'workspace_id' => $invitation->workspace_id]) }}">
-                        <button id="toggle1">Random</button>
-                    </div>
-                    <br>
-                @endif
+                <div class="d-none" style="display: none">
+                    @if ($invitation)
+                        <label for="">Bật tắt Invite</label>
+                        <div class="toggle">
+                            <input type="checkbox" id="toggle2" name="toggle_invitation"
+                                {{ $invitation->status ? 'checked' : '' }} />
+                            <label for="toggle2"></label>
+                        </div>
+                        <input type="hidden" name="invi_workspace_id" value="{{ $invitation->workspace_id }}">
+                        <input type="hidden" name="invi_token" value="{{ $invitation->token }}">
+                        <br>
+                        <div class="div-url"
+                            style="{{ $invitation && $invitation->status == 1 ? 'display: block;' : 'display: none;' }}">
+                            <label for="">URL LINK</label>
+                            <input class="url_link" style="width: 100%" type="text"
+                                value="{{ route('invite', ['token' => $invitation->token, 'workspace_id' => $invitation->workspace_id]) }}">
+                            <button id="toggle1">Random</button>
+                        </div>
+                        <br>
+                    @endif
 
-                <form action="{{ route('sendInvitation') }}" method="post">
-                    @csrf
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" required>
-                    <button type="submit">Send Invitation</button>
-                </form>
+                    <form action="{{ route('sendInvitation') }}" method="post">
+                        @csrf
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" required>
+                        <button type="submit">Send Invitation</button>
+                    </form>
+                </div>
             </div>
         </div>
 

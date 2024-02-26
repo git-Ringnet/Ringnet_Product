@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             WareHouse::class,
             Project::class,
             Workspace::class,
+            RolesSeeder::class,
         ]);
     }
 }

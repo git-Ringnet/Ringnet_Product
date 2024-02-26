@@ -12,4 +12,8 @@ class Role extends Model
     {
         return $this->belongsToMany(User::class);
     }
+    public function getAll()
+    {
+        return self::where('id', '!=', 1)->get();
+    }
 }

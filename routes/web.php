@@ -201,6 +201,8 @@ Route::resource('workspace', WorkspaceController::class);
 Route::get('/updateWorkspaceUser', [WorkspaceController::class, 'updateWorkspaceUser'])->name('updateWorkspaceUser');
 
 Route::resource('{workspace}/settings', SettingController::class);
+Route::get('/searchUser', [SettingController::class, 'search'])->name('searchUser');
+
 
 Route::middleware([
     'auth:sanctum',

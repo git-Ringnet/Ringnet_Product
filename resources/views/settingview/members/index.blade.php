@@ -79,7 +79,7 @@
 
     .form-group label,
     .label {
-        font-family: Inter;
+
         font-size: 20px !important;
         font-weight: 500 !important;
     }
@@ -92,7 +92,6 @@
         padding: 6px 20px 7px 16px;
         border-radius: 4px;
         border: 1px solid #DFE1E4;
-        font-family: Inter;
         font-size: 12px;
     }
 
@@ -123,7 +122,7 @@
         gap: 6px;
         box-shadow: 0px 1px 2px 0px #00000017;
         color: #FFFFFF;
-        font-family: Inter;
+
         font-size: 13px;
         font-weight: 500;
         border-radius: 4px;
@@ -150,14 +149,14 @@
     }
 
     .count-member {
-        font-family: Inter;
+
         font-size: 14px;
         font-weight: 500;
         color: #282A30;
     }
 
     .name {
-        font-family: Inter;
+
         font-size: 12px;
         font-weight: 500;
         color: #282A30;
@@ -165,21 +164,20 @@
 
     .email,
     .role {
-        font-family: Inter;
+
         font-size: 12px;
         font-weight: 500;
         color: #6B6F76;
     }
 
     .filter-dropdown {
-        font-family: Inter;
+
         font-size: 13px;
         font-weight: 500;
     }
 
-    .modal-body label {
+    .modal-body .title {
         color: #282A30;
-        font-family: Inter;
         font-size: 12px;
         font-weight: 500;
     }
@@ -306,30 +304,43 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body w-100 d-flex">
-                                        <div class="email-invite w-75">
-                                            <label for="email">Email</label>
-                                            <div class="info-invite">
-                                                <input class="w-100" type="email" id="email" name="email"
-                                                    required>
+
+                                    <div class="modal-body w-100">
+                                        <div class="w-100 d-flex">
+                                            <div class="w-75 title">
+                                                Email
+                                            </div>
+                                            <div class="title">
+                                                Vai trò
                                             </div>
                                         </div>
-                                        <div class="role-invite pl-2">
-                                            <label for="roles">Vai trò</label>
-                                            <div class="info-invite w-100">
-                                                <select name="roles-option" id="roles-option">
-                                                    <option value="volvo">Volvo</option>
-                                                    <option value="saab">Saab</option>
-                                                    <option value="opel">Opel</option>
-                                                </select>
+                                        <div class="w-100 d-flex" id="input-invite-form">
+                                            <div class="email-invite w-75">
+                                                <div class="info-invite-mail">
+                                                    <input class="w-100 email-input mb-1" type="email"
+                                                        id="email" name="emails[]">
+                                                </div>
+                                            </div>
+                                            <div class="role-invite pl-2">
+                                                <div class="info-invite-roles w-100">
+                                                    <select name="roles[]" id="roles-option" class="mb-1">
+                                                        @isset($roles)
+                                                            @foreach ($roles as $role)
+                                                                <option value="{{ $role->id }}">{{ $role->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endisset
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <button id="add-email-btn" class="btn btn-primary">Thêm dòng</button>
                                     <div class="modal-footer border-0">
                                         <button type="submit" type="button"
                                             class="btn-send-invites btn btn-primary">Send
-                                            invites</button>
-
+                                            invites
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -394,6 +405,20 @@
                     '</svg>';
                 $('#copyButton').html(svgIcon + ' Copy');
             }, 3000);
+        });
+
+    });
+    $(document).ready(function() {
+        $('#add-email-btn').click(function() {
+            event.preventDefault();
+
+            var newLine = $('#input-invite-form').first().clone();
+
+            // Xóa giá trị của trường email mới
+            newLine.find('.email-input').val('');
+
+            // Thêm dòng mới vào cuối danh sách
+            $('.modal-body').append(newLine);
         });
     });
 </script>

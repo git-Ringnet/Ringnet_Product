@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -76,5 +77,29 @@ class User extends Authenticatable
             return $user;
         }
         return null;
+    }
+    public function ajax($data)
+    {
+        $users =  DB::table($this->table);
+        if (isset($data['search'])) {
+            $users = $users->where(function ($query) use ($data) {
+                $query->orWhere('guest_name', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['idName'])) {
+            $users = $users->whereIn('guest.id', $data['idName']);
+        }
+        if (isset($data['idCompany'])) {
+            $users = $users->whereIn('guest.id', $data['idCompany']);
+        }
+        if (isset($data['email'])) {
+            $users = $users->where('guest_email', 'like', '%' . $data['email'] . '%');
+        }
+        if (isset($data['sort_by']) && $data['sort_type']) {
+            $users = $users->orderBy($data['sort_by'], $data['sort_type']);
+        }
+        $users = $users->get();
+        return $users;
     }
 }
