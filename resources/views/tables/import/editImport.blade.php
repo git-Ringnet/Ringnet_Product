@@ -1321,11 +1321,11 @@
                 type: "get",
                 success: function(result) {
                     listProductName.empty()
-                    inputUnit.val('');
-                    inputPriceExprot.val('')
-                    inputRatio.val('')
-                    inputPriceImport.val('')
-                    selectTax.val('0')
+                    // inputUnit.val('');
+                    // inputPriceExprot.val('')
+                    // inputRatio.val('')
+                    // inputPriceImport.val('')
+                    // selectTax.val('0')
                     var createLi =
                         '<a class="bg-dark d-flex justify-content-between p-2 position-sticky">' +
                         '<span class="w-100 text-white">Thêm mới</span>' +
