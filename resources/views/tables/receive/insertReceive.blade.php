@@ -494,7 +494,6 @@
                             $('#product').html(product)
                             $('#inputcontent tbody').empty();
                             product.quoteImport.forEach((element, index) => {
-                                console.log(product.cb);
                                 if (element.product_qty - element
                                     .receive_qty > 0) {
                                     var tr =
@@ -731,7 +730,6 @@
                                             } else {
                                                 updateProductSN()
                                                 $('form')[0].submit();
-                                                // console.log('submit');
                                             }
                                         }
                                     })
