@@ -115,8 +115,6 @@ class Provides extends Model
                 'provide_code' => $data['provide_code'],
             ];
             Provides::where('id', $id)->update($dataUpdate);
-
-
             if (isset($data['represent_name'])) {
                 // Xóa các id không tòn tại
                 if (isset($data['repesent_id'])) {
@@ -138,6 +136,7 @@ class Provides extends Model
                         ProvideRepesent::where('id', $represent->id)->update($dataRepresent);
                     } else {
                         $dataRepresent['provide_id'] = $id;
+                        $dataRepresent['workspace_id'] =  Auth::user()->current_workspace;
                         DB::table('represent_provide')->insert($dataRepresent);
                     }
                 }

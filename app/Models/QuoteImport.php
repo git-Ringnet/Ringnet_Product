@@ -89,8 +89,6 @@ class QuoteImport extends Model
 
     public function updateImport($data, $id)
     {
-
-      
         // Xóa sản phẩm khi chỉnh sửa đơn hàng
         if ($data['action'] == 'action_1') {
             $id_detail = DB::table($this->table)->where('detailimport_id', $id)

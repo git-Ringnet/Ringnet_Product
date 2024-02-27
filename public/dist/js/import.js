@@ -276,6 +276,7 @@ function updateTaxAmount() {
         if (taxValue == 99) {
             taxValue = 0;
         }
+
         if (!isNaN(productQty) && !isNaN(productPrice) && !isNaN(taxValue)) {
             var totalAmount = productQty * productPrice;
             var taxAmount = (totalAmount * taxValue) / 100;
