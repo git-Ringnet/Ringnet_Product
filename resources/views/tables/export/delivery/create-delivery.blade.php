@@ -870,7 +870,6 @@
                         },
                         success: function(data) {
                             if (Array.isArray(data) && data.length > 0) {
-                                console.log(data);
                                 var productData = data[0];
                                 var seriProArray = productData.seri_pro;
                                 productCode.val(productData.product_code);
@@ -881,10 +880,10 @@
                                 thue.val(productData.product_tax);
                                 product_id.val(productData.id);
                                 tonkho.val(productData.product_inventory);
-                                soTonKho.text(productData
+                                soTonKho.text(formatNumber(productData
                                     .product_inventory == null ? 0 :
                                     productData
-                                    .product_inventory);
+                                    .product_inventory));
                                 // Cập nhật ID của hàng (row)
                                 var newRowID = 'dynamic-row-' + productData
                                     .id;
@@ -1502,7 +1501,7 @@
                 var tonKho = $(this).closest('tr').find('.tonkho').val();
                 $('#productModal').find('.modal-body').html('<b>Tên sản phẩm: </b> ' +
                     productName + '<br>' +
-                    '<b>Đơn vị: </b>' + dvt + '<br>' + '<b>Tồn kho: </b>' + tonKho +
+                    '<b>Đơn vị: </b>' + dvt + '<br>' + '<b>Tồn kho: </b>' + formatNumber(tonKho) +
                     '<br>' + '<b>Thuế: </b>' +
                     (thue == 99 || thue == null ? "NOVAT" : thue + '%'));
             });
@@ -1627,9 +1626,9 @@
                             <td class="border border-bottom-0 position-relative">
                                 <div class="d-flex align-items-center">
                                     <div>
-                                <input type="number" value="${item.soLuongCanGiao}" data-product-id="${item.maSP}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
+                                <input type="number" value="${formatNumber(item.soLuongCanGiao)}" data-product-id="${item.maSP}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
-                                <p class="text-primary text-center position-absolute inventory" style="top: 68%;">Tồn kho: <span class="soTonKho">${item.product_inventory == null ? 0 : item.product_inventory}</span></p>
+                                <p class="text-primary text-center position-absolute inventory" style="top: 68%;">Tồn kho: <span class="soTonKho">${formatNumber(item.product_inventory == null ? 0 : item.product_inventory)}</span></p>
                                 </div>  
                                 <div>
                                 <button type="button" class="btn btn-primary open-modal-btn" data-toggle="modal" data-target="#exampleModal0" style="background:transparent; border:none;">
@@ -2097,9 +2096,9 @@
                                         var totalAmount =
                                             parseFloat($(
                                                     '#total-amount-sum'
-                                                    ).text()
+                                                ).text()
                                                 .replace(/,/g, '')
-                                                ) -
+                                            ) -
                                             deletedProductAmount;
                                         var totalTax = parseFloat($(
                                                     '#product-tax')
@@ -2116,14 +2115,14 @@
                                         $('#product-tax').text(
                                             formatCurrency(Math
                                                 .round(totalTax)
-                                                ));
+                                            ));
 
                                         // Update the displayed total-amount-sum value
                                         $('#total-amount-sum').text(
                                             formatCurrency(Math
                                                 .round(
                                                     totalAmount)
-                                                ));
+                                            ));
                                     });
 
                                 // Checkbox
@@ -2214,13 +2213,14 @@
                                                         .product_unit +
                                                         '<br>' +
                                                         '<b>Tồn kho: </b>' +
-                                                        (productData
+                                                        (formatNumber(
+                                                            productData
                                                             .product_inventory ==
                                                             null ?
                                                             0 :
                                                             productData
                                                             .product_inventory
-                                                        ) +
+                                                            )) +
                                                         '<br>' +
                                                         '<b>Thuế: </b>' +
                                                         (productData
@@ -2653,6 +2653,21 @@
             formattedIntegerPart;
 
         return formattedNumber;
+    }
+
+    function formatNumber(number) {
+        // Check if the input number is undefined, null, or not a number
+        if (number === undefined || number === null || isNaN(number)) {
+            return '';
+        }
+
+        // If it's a decimal with .00, convert to integer
+        if (Number.isInteger(number)) {
+            return number.toString();
+        } else {
+            // If it's a decimal with more than two decimal places, round to two decimal places
+            return Number(number).toFixed(2).replace(/\.?0+$/, '');
+        }
     }
 
     function kiemTraFormGiaoHang(event) {
