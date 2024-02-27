@@ -535,7 +535,7 @@
                                 </div>
                                 <div
                                     class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
-                                    <input type="text" @if($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif name="payment" required
+                                    <input type="text" @if($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif name="payment"
                                         oninput="validateInput();"
                                         class="border-0 bg w-100 bg-input-guest py-0 px-0 payment">
                                     <div class="opacity-0">

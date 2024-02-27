@@ -554,12 +554,12 @@ class Delivery extends Model
             $dataHistory = [
                 'detailexport_id' => $data['detailexport_id'],
                 'delivered_id' => $delivered_id,
-                'provide_id' => $history_import->provide_id,
-                'detailimport_id' => $history_import->detailImport_id,
-                'tax_import' => $history_import->product_tax,
-                'price_import' => $history_import->price_export,
-                'total_import' => $history_import->product_total,
-                'history_import' => $history_import->id,
+                'provide_id' => $history_import ? $history_import->provide_id : null,
+                'detailimport_id' => $history_import ? $history_import->detailImport_id : null,
+                'tax_import' => $history_import ? $history_import->product_tax : null,
+                'price_import' => $history_import ? $history_import->price_export : null,
+                'total_import' => $history_import ? $history_import->product_total : null,
+                'history_import' => $history_import ? $history_import->id : null,
             ];
             $history->addHistory($dataHistory);
 

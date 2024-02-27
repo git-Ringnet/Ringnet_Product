@@ -151,9 +151,11 @@ class PayExport extends Model
                 $detailExport->update([
                     'status_pay' => 3,
                 ]);
-                $payExport->update([
-                    'status' => 5,
-                ]);
+                if ($payment > 0) {
+                    $payExport->update([
+                        'status' => 5,
+                    ]);
+                }
             }
         }
         $history = new history_Pay_Export;
@@ -162,6 +164,7 @@ class PayExport extends Model
         $history->payment = $payment;
         $history->debt = $detailExport->amount_owed;
         $history->workspace_id = Auth::user()->current_workspace;
+        $history->created_at = now();
         $history->save();
         //payment
         $payExport->payment += $payment;
