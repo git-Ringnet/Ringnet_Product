@@ -329,7 +329,7 @@
                                                     {{ number_format($value_export->total_price + $value_export->total_tax) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
-                                                    style="right: 10px; top: 15px; border-radius:4px;">
+                                                    style="right: 10px; top: 10%; border-radius:4px;">
                                                     <div class="d-flex w-100">
                                                         <a
                                                             href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $value_export->maBG]) }}">

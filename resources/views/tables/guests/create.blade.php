@@ -179,7 +179,7 @@
             "<td class='border border-top-0 border-bottom-0 border-left-0 padding-left35'><input type='text' autocomplete='off' class='text-13-black border-0 pl-0 pr-2 py-1 w-100 represent_name' required name='represent_name[]'></td>"
         );
         const email = $(
-            "<td class='border border-top-0 border-bottom-0 padding-left35'><input type='text' autocomplete='off' class='text-13-black border-0 pl-0 pr-2 py-1 w-100 represent_email' name='represent_email[]'></td>"
+            "<td class='border border-top-0 border-bottom-0 padding-left35'><input type='email' autocomplete='off' class='text-13-black border-0 pl-0 pr-2 py-1 w-100 represent_email' name='represent_email[]'></td>"
         );
         const soDT = $(
             "<td class='border border-top-0 border-bottom-0 padding-left35'><input type='text' autocomplete='off' class='text-13-black border-0 pl-0 pr-2 py-1 w-100 represent_phone' name='represent_phone[]'></td>"

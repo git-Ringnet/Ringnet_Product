@@ -180,15 +180,18 @@
                                                         value="{{ $item->product_unit }}">
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0">
-                                                    <div class="d-flex"><input type="text" required=""
+                                                    <div class="d-flex">
+                                                        <input type="text" required=""
                                                             oninput="validateQtyInput1(this)"
                                                             class="border-0 px-3 py-2 w-100 quantity-input"
                                                             name="product_qty[]">
                                                     </div>
                                                 </td>
-                                                <td class="border border-top-0 border-bottom-0"><input type="text"
+                                                <td class="border border-top-0 border-bottom-0">
+                                                    <input type="text"
                                                         required="" class="border-0 px-3 py-2 w-100 price_export"
-                                                        name="price_export[]"></td>
+                                                        name="price_export[]">
+                                                </td>
                                                 <input type="hidden" class="product_tax1">
                                                 <td class="border border-top-0 border-bottom-0 border-right-0">
                                                     <select name="product_tax[]" id="" class="product_tax">
@@ -226,7 +229,7 @@
                                     @endisset
                                 </tbody>
                             </table>
-                            <div class="ml-3">
+                            <div class="ml-4">
                                 <span class="text-perpage">
                                     <section class="content">
                                         <div class="container-fluided">
@@ -379,14 +382,13 @@
                     <div class="">
                         <div id="more_info" style="display:none;">
                                     <ul class="p-0 m-0">
-
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                             <input class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
                                                     id="represent" />
-                                            <div id="listRepresent"
-                                                class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
+                                            <ul id="listRepresent"
+                                                class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
                                                 style="z-index: 99;">
                                                 <div class="p-1">
                                                         <div class="position-relative">
@@ -397,7 +399,6 @@
                                                             </span>
                                                         </div>
                                                 </div>
-                                                <ul class="m-0 p-0 scroll-data"></ul>
                                                 <a type="button"
                                                     class="d-flex align-items-center p-2 position-sticky addRepresent mt-2"
                                                     data-toggle="modal" data-target="#modalAddRepresent" style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
@@ -408,72 +409,65 @@
                                                     </span>
                                                     <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm người đại diện</span>
                                                 </a>
-                                            </div>
+                                            </ul>
                                         </li>
+
                                         <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số báo giá</span>
 
-                                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest represent_name"
-                                                value="{{ $getRepresentbyId[0]->represent_name ?? '' }}"
-                                                style="flex:2;" placeholder="Chọn thông tin" readonly>
-
-                                            <input type="hidden" class="idRepresent" autocomplete="off" name="represent_id"
-                                                value="{{ $getRepresentbyId[0]->id ?? '' }}">
-                                            <!-- <div id="myUL7"
-                                                class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
-                                                style="z-index: 99;">
-                                                <div class="p-1">
-                                                        <div class="position-relative">
-                                                            <input type="text" placeholder="Nhập công ty"
-                                                                class="pr-4 w-100 input-search bg-input-guest" id="companyFilter7">
-                                                            <span id="search-icon" class="search-icon"><i
-                                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
-                                                        </div>
-                                                </div>
-                                                <ul class="m-0 p-0 scroll-data">
-                                                    <li class="p-2 align-items-center" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                            <a href="#" title="" id="" name="search-info" class="search-info">
-                                                                <span class="text-13-black">Nguyễn Văn A</span>
-                                                            </a>
-                                                    </li>
-                                                </ul>
-                                                <a type="button"
-                                                    class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
-                                                    data-toggle="modal" data-target="#guestModal" style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                                    <span>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                            <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"/>
-                                                        </svg>
-                                                    </span>
-                                                    <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm người đại diện</span>
-                                                </a>
-                                            </div> -->
+                                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
+                                                name="quotation_number" style="flex:2;" placeholder="Chọn thông tin">
+                                           
                                         </li>
                                         <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
                                             <input class="text-13-black w-50 border-0 bg-input-guest"
-                                                placeholder="Chọn thông tin" style="flex:2;" name="" />
+                                                placeholder="Chọn thông tin" style="flex:2;" name="reference_number" />
                                         </li>
                                         <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
-                                            <input class="text-13-black w-50 border-0 bg-input-guest unit_ship " name="shipping_unit"
-                                                placeholder="Chọn thông tin" style="flex:2;" />
+                                            <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input" name=""
+                                                placeholder="Chọn thông tin" style="flex:2;" id="datePicker" value="{{ date('Y-m-d') }}"/>
+                                            <input type="hidden" name="date_quote" id="hiddenDateInput"
+                                                value="{{ date('Y-m-d') }}">
                                         </li>
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
-                                            <input class="text-13-black w-50 border-0 bg-input-guest fee_ship" name="shipping_fee"
-                                                placeholder="Chọn thông tin" style="flex:2;" />
+                                            <input class="text-13-black w-50 border-0 bg-input-guest" name="price_effect"
+                                                placeholder="Chọn thông tin" style="flex:2;" id="price_effect"/>
+                                            <ul id="listPriceEffect"
+                                                class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
+                                                style="z-index: 99;">
+                                                <div class="p-1">
+                                                        <div class="position-relative">
+                                                            <input type="text" placeholder="Nhập hiệu lực"
+                                                                class="pr-4 w-100 input-search bg-input-guest" id="searchPriceEffect">
+                                                            <span id="search-icon" class="search-icon">
+                                                                <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                </div>
+                                                <a type="button"
+                                                    class="d-flex align-items-center p-2 position-sticky addRepresent mt-2"
+                                                    data-toggle="modal" data-target="#formModalquote" style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                            <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"/>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm hiệu lực báo giá</span>
+                                                </a>
+                                            </ul>
                                         </li>
                                         <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
-                                            <input class="text-13-black w-50 border-0 bg-input-guest " id="datePicker" required
+                                            <input class="text-13-black w-50 border-0 bg-input-guest " name="terms_pay" id="terms_pay"
                                                 placeholder="Chọn thông tin" style="flex:2;" />
-                                            <input type="hidden" id="hiddenDateInput" name="date_deliver" value="">
                                         </li>
                                     </ul>
                         </div>
@@ -568,12 +562,12 @@
                         data['represent'].forEach(function(element) {
                             var li =
                                 `<li class="p-2 align-items-center" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" id="` + element.id + `">
-                                    <a href="javascript:void(0)"
-                                        class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent"
-                                        id="` + element.id + `" name="search-represent">
-                                        <span class="w-100 text-13-black">` + element.represent_name + `</span>
-                                    </a>
-                                </li>`;
+                                        <a href="javascript:void(0)"
+                                            class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent"
+                                            id="` + element.id + `" name="search-represent">
+                                            <span class="w-100 text-13-black">` + element.represent_name + `</span>
+                                        </a>
+                                    </li>`;
                             // var li =
                             //     `
                             // <li class="border" id="` + element.id + `">
@@ -609,7 +603,7 @@
                             //     </div>
                             // </li>
                             // `;
-                            $('#listRepresent .scroll-data').after(li);
+                            $('#listRepresent .p-1').after(li);
                             if (element.default == 1) {
                                 $('#represent').val(element.represent_name);
                                 $('#represent_id').val(element.id);

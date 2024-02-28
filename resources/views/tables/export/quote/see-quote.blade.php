@@ -780,7 +780,7 @@
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border">
+                                                <th scope="col" class="border p-1">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13" type="submit">Ghi chú sản phẩm</button>
@@ -816,7 +816,7 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="border bg-white align-top text-13-black p-1">
+                                                    <td class="border bg-white align-top text-13-black p-1" style="width:8%">
                                                         <input type="text" autocomplete="off" readonly
                                                             value="{{ $item_quote->product_unit }}"
                                                             class="border-0 px-2 py-1 w-100 product_unit"

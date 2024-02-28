@@ -101,7 +101,7 @@ class PayOrderController extends Controller
             $title = $payment->id;
             $detail = DetailImport::where('id',$payment->detailimport_id)->first();
             if($detail){
-                $nameRepresent = $detail->getNameRepresent->represent_name;
+                $nameRepresent = $detail->getNameRepresent?->represent_name;
             }
             $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
                 ->where('products_import.detailimport_id', $payment->detailimport_id)

@@ -362,7 +362,7 @@
                                                         <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm khách hàng</span>
                                                     </a>
                                                 </div>
-                                            </div>
+                            </div>
                         </div>
                         <div class="">
                             <div class="content-info--common" id="show-info-guest">
