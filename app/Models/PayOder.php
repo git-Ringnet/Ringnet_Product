@@ -129,7 +129,7 @@ class PayOder extends Model
                                     ->first();
                                 $price_export = $product->price_export;
                                 $total += $price_export * $productImport->product_qty;
-                                $total_tax += ($price_export * $productImport->product_qty) * $product->product_tax / 100;
+                                $total_tax += ($price_export * $productImport->product_qty) * ($product->product_tax == 99 ? 0 : $product->product_tax) / 100;
                             }
                         }
                         $sum = $total + $total_tax;
@@ -223,7 +223,9 @@ class PayOder extends Model
         $endDate = isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now();
         $endDate = Carbon::parse($endDate);
         $daysDiffss = $startDate->diffInDays($endDate);
-
+        $payorder = PayOder::where('id', $id)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
         if ($endDate < $startDate) {
             $daysDiff = -$daysDiffss;
         } else {
@@ -231,31 +233,26 @@ class PayOder extends Model
         }
 
         if ($daysDiff <= 3 && $daysDiff > 0) {
-            $status = 3; //Đến hạn trong
+            $status = 3; // Đến hạn trong
         } elseif ($daysDiff == 0) {
-            $status = 5; //Đến hạn
+            $status = 5; // Đến hạn
         } elseif ($daysDiff < 0) {
-            $status = 4; //Quá hạn
+            $status = 4; // Quá hạn
         } else {
             if ($check == 1 && $data['payment'] > 0) {
                 $status = 6; // Đặt cọc
             } else {
-                $status = 1; //Chưa thanh toán
+                if ($data['payment'] > 0 && $payorder->payment_date == $endDate) {
+                    $status = 1; // Chưa thanh toán
+                } else {
+                    $status = 6; // Đặt cọc
+                }
             }
         }
         // $payorder = PayOder::where('detailimport_id', $id)
         //     ->where('workspace_id', Auth::user()->current_workspace)
         //     ->first();
-        $payorder = PayOder::where('id', $id)
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->first();
         if ($payorder) {
-            // dd(1);
-            // $getStatus = HistoryPaymentOrder::where('payment_id', $payorder->id)->count();
-            // return $getStatus;
-            // if ($getStatus == 2) {
-            //     $status = 6;
-            // }
             if (($payorder->total - $payorder->payment) == 0) {
                 $status = 2; //Thanh toán đủ
             }

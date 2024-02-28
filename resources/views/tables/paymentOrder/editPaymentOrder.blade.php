@@ -265,13 +265,13 @@
                                             </td>
                                             <td class="border border-top-0 border-bottom-0 border-right-0">
                                                 <input type="text" class="border-0 px-2 py-1 w-100 product_tax"
-                                                    name="product_tax[]" value="{{$item->product_tax }}" readonly>
+                                                    name="product_tax[]" value="{{$item->product_tax == 99 ? "NOVAT" : $item->product_tax }}" readonly>
                                             </td>
                                             <input type="hidden" class="product_tax1">
                                             <td class="border border-top-0 border-bottom-0 border-right-0">
                                                 <input readonly type="text" name="total_price[]"
                                                     class="border-0 px-2 py-1 w-100 total_price"
-                                                    value=" {{ (fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0) ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
+                                                    value=" {{ (fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0) ? round(number_format($item->product_total, 2, '.', ',')) : round(number_format($item->product_total,1,'.',',')) }}">
                                             </td>
                                             <td class="border border-top-0 border-bottom-0">
                                                 <input type="text" name="product_note[]"

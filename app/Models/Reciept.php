@@ -71,8 +71,8 @@ class Reciept extends Model
                                 ->where('workspace_id', Auth::user()->current_workspace)
                                 ->update($dataupdate);
                             $product = QuoteImport::where('id', $productImport->quoteImport_id)
-                            ->where('workspace_id', Auth::user()->current_workspace)
-                            ->first();
+                                ->where('workspace_id', Auth::user()->current_workspace)
+                                ->first();
                             if ($product->product_ratio > 0 && $product->price_import > 0) {
                                 $price_export = ($product->product_ratio + 100) * $product->price_import / 100;
                                 $total += $price_export * $productImport->product_qty;
@@ -80,7 +80,7 @@ class Reciept extends Model
                                 $price_export = $product->price_export;
                                 $total += $price_export * $productImport->product_qty;
                             }
-                            $total_tax += (($price_export * $productImport->product_qty) * $product->product_tax) / 100;
+                            $total_tax += (($price_export * $productImport->product_qty) * ($product->product_tax == 99 ? 0 : $product->product_tax)) / 100;
                         }
                     }
                     $sum = $total_tax + $total;

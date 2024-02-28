@@ -117,7 +117,7 @@ class Receive_bill extends Model
                     $price_export = $getProduct->price_export;
                     $total += $price_export * $item->product_qty;
                 }
-                $total_tax += ($price_export * $item->product_qty) * $getProduct->product_tax / 100;
+                $total_tax += ($price_export * $item->product_qty) * ($getProduct->product_tax == 99 ? 0 : $getProduct->product_tax) / 100;
             }
             $sum = $total + $total_tax;
             $getDebt = Provides::where('id', $detail->provide_id)
@@ -212,7 +212,7 @@ class Receive_bill extends Model
                             ->first();
                         if ($quoteImport) {
                             $total += $item->product_qty * $quoteImport->price_export;
-                            $total_tax += ($item->product_qty * $quoteImport->price_export) * $quoteImport->product_tax / 100;
+                            $total_tax += ($item->product_qty * $quoteImport->price_export) * ($quoteImport->product_tax == 99 ? 0 : $quoteImport->product_tax) / 100;
                             $dataUpdate = [
                                 'receive_qty' => $quoteImport->receive_qty - $item->product_qty
                             ];
@@ -306,15 +306,15 @@ class Receive_bill extends Model
         $checked = [];
         $value = [];
         $quote = QuoteImport::where('detailimport_id', $id)->where('product_qty', '>', DB::raw('COALESCE(receive_qty,0)'))
-        ->where('workspace_id', Auth::user()->current_workspace)
-        ->get();
-        foreach ($quote as $qt) {
-            $product = Products::where('product_name', $qt->product_name)
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->first();
-            $productImport = QuoteImport::where('product_name', $qt->product_name)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
+        foreach ($quote as $qt) {
+            $product = Products::where('product_name', $qt->product_name)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+            $productImport = QuoteImport::where('product_name', $qt->product_name)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->get();
             foreach ($productImport as $ip) {
                 array_push($id_quote, $ip->id);
             }
