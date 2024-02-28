@@ -191,7 +191,8 @@
                                             </td>
                                             <td class="border border-top-0 border-bottom-0"><input type="text"
                                                     required="" class="border-0 px-2 py-1 w-100 price_export"
-                                                    name="price_export[]"></td>
+                                                    name="price_export[]">
+                                            </td>
                                             <input type="hidden" class="product_tax1">
                                             <td class="border border-top-0 border-bottom-0 border-right-0">
                                                 <select name="product_tax[]" id="" class="product_tax">
@@ -209,12 +210,14 @@
                                                     </option>
                                                 </select>
                                             </td>
-                                            <td class="border border-top-0 border-bottom-0"><input type="text"
-                                                    class="border-0 px-2 py-1 w-100 total_price" readonly=""
-                                                    name="total_price[]">
+
+                                            <td class="border border-top-0 border-bottom-0">
+                                                <input type="text" class="border-0 px-2 py-1 w-100 total_price"
+                                                    readonly="" name="total_price[]">
                                             </td>
                                             <td class="border border-top-0 border-bottom-0"><input type="text"
-                                                    class="border-0 px-2 py-1 w-100" name="product_note[]"></td>
+                                                    class="border-0 px-2 py-1 w-100" name="product_note[]">
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @endisset
@@ -546,6 +549,7 @@
                             id: data.id
                         },
                         success: function(product) {
+                            console.log(product);
                             $('#prepayment').removeAttr('readonly')
                             var total = 0;
                             var total_tax = 0;
@@ -567,7 +571,9 @@
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>
                                         </svg>
                                         <input type="checkbox">
-                                        <input type="text" readonly name="product_code[]" class="border-0 px-2 py-1 w-75 searchProduct" value="">
+                                        <input type="text" readonly name="product_code[]" class="border-0 px-2 py-1 w-75 searchProduct" value="` +
+                                    element.product_code +
+                                    `">
                                         <ul id="listProductCode" class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 24%; top: 75%;">
                                         </ul>
                                     </div>
@@ -641,19 +647,25 @@
                                 formatCurrency(product[0].payment));
                             $('#debt').val(product[0].payment == null ?
                                 formatCurrency(
-                                    (total + Math.round(total_tax))) :
+                                    (Math.round(total) + Math.round(
+                                        total_tax))) :
                                 formatCurrency(
-                                    (total + Math.round(total_tax)) -
+                                    (Math.round(total) + Math.round(
+                                        total_tax)) -
                                     product[0].payment
                                 ))
-                            $('#total_bill').val(formatCurrency(total +
+                            $('#total_bill').val(formatCurrency(Math.round(
+                                    total) +
                                 Math.round(total_tax)))
                             $('#prepayment').on('input', function() {
                                 checkQty(this, product[0].payment ==
-                                    null ? (total + Math.round(total_tax)) :
-                                    (total + Math.round(
+                                    null ? (Math.round(total) + Math
+                                        .round(
+                                            total_tax)) :
+                                    (Math.round(total) + Math.round(
                                         total_tax)) - product[0]
-                                    .payment);
+                                    .payment
+                                );
                             })
                             updateTaxAmount()
                             calculateTotalAmount()

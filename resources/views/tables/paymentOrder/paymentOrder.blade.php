@@ -228,14 +228,14 @@
                                             <td class="py-2">
                                                 @if ($item->status == 1)
                                                     @if ($item->payment > 0)
-                                                        <span style="color: #858585">Thanh toán một phần</span>
+                                                        <span style="color: #858585">Một phần</span>
                                                     @else
                                                         <span style="color: #858585">Chưa thanh toán</span>
                                                     @endif
                                                 @elseif($item->status == 2)
                                                     <span style="color: #08AA36">Thanh toán đủ</span>
                                                 @elseif($item->status == 3)
-                                                    <span style="color: #0052CC">Đến hạn trong
+                                                    <span style="color: #E8B600">Đến hạn trong
                                                         {{ $item->formatDate($item->payment_date)->diffInDays($today) + 1 }}
                                                         ngày</span>
                                                 @elseif($item->status == 4)
@@ -243,7 +243,7 @@
                                                         {{ $item->formatDate($item->payment_date)->diffInDays($today) }}
                                                         ngày</span>
                                                 @elseif($item->status == 5)
-                                                    <span style="color: #0052CC">Đến hạn</span>
+                                                    <span style="color: #E8B600">Đến hạn</span>
                                                 @else
                                                     <span style="color: #0052CC">Đặt cọc</span>
                                                 @endif
