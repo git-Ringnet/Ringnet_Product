@@ -142,7 +142,7 @@
                                     <th class="border-right p-1" style="width: 8%;">
                                         <span class="text-table text-secondary">Đơn vị</span>
                                     </th>
-                                    <th class="border-right p-1" style="width: 8%;">
+                                    <th class="border-right p-1" style="width: 10%;">
                                         <span class="text-table text-secondary">Số lượng</span>
                                     </th>
                                     <th class="border-right p-1" style="width: 15%;">
@@ -215,7 +215,7 @@
                                                 @foreach ($product as $product_value)
                                                     <li data-id={{ $product_value->id }}>
                                                         <a href="javascript:void(0);"
-                                                            class="text-dark d-flex justify-content-between p-2 idProduct"
+                                                            class="text-dark d-flex justify-content-between p-2 idProduct w-100"
                                                             id="{{ $product_value->id }}" name="idProduct">
                                                             <span
                                                                 class="w-100">{{ $product_value->product_name }}</span>
@@ -1395,10 +1395,10 @@
                 "Y-m-d");
         }
     });
-    $("table tbody").sortable({
-        axis: "y",
-        handle: "td",
-    });
+    // $("table tbody").sortable({
+    //     axis: "y",
+    //     handle: "td",
+    // });
     //Lấy thông tin project
     $(document).ready(function() {
         $('.search-project').click(function() {
@@ -1820,7 +1820,7 @@
                 "<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 75%;left: 10%;'>" +
                 "@foreach ($product as $product_value)" +
                 "<li data-id='{{ $product_value->id }}'>" +
-                "<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 idProduct' id='{{ $product_value->id }}' name='idProduct'>" +
+                "<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 idProduct w-100' id='{{ $product_value->id }}' name='idProduct'>" +
                 "<span class='w-100'>{{ $product_value->product_name }}</span>" +
                 "</a>" +
                 "</li>" +
@@ -1904,10 +1904,10 @@
             // Tăng giá trị fieldCounter
             fieldCounter++;
             //kéo thả vị trí sản phẩm
-            $("table tbody").sortable({
-                axis: "y",
-                handle: "td",
-            });
+            // $("table tbody").sortable({
+            //     axis: "y",
+            //     handle: "td",
+            // });
             //Xóa sản phẩm
             option.click(function() {
                 $(this).closest("tr").remove();
@@ -2068,7 +2068,7 @@
                 var tonKho = $(this).closest('tr').find('.tonkho').val();
                 $('#productModal').find('.modal-body').html('<b>Tên sản phẩm: </b> ' +
                     productName + '<br>' +
-                    '<b>Đơn vị: </b>' + dvt + '<br>' + '<b>Tồn kho: </b>' + tonKho +
+                    '<b>Đơn vị: </b>' + dvt + '<br>' + '<b>Tồn kho: </b>' + formatNumber(tonKho) +
                     '<br>' + '<b>Thuế: </b>' +
                     (thue == 99 || thue == null ? "NOVAT" : thue + '%'));
             });
@@ -2928,8 +2928,8 @@
                     productUnit.val(data.product_unit);
                     thue.val(data.product_tax);
                     product_id.val(data.id);
-                    tonkho.val(data.product_inventory == null ? 0 :
-                        data.product_inventory)
+                    tonkho.val(formatNumber(data.product_inventory == null ? 0 :
+                        data.product_inventory))
                     soTonKho.text(parseFloat(data
                         .product_inventory == null ? 0 :
                         data.product_inventory));
@@ -3129,9 +3129,9 @@
                     var productData = data[0];
                     $('#productModal').find('.modal-body').html('<b>Tên sản phẩm: </b> ' +
                         productData.product_name + '<br>' + '<b>Đơn vị: </b>' + productData
-                        .product_unit + '<br>' + '<b>Tồn kho: </b>' + (productData
+                        .product_unit + '<br>' + '<b>Tồn kho: </b>' + (formatNumber(productData
                             .product_inventory == null ? 0 : productData
-                            .product_inventory) + '<br>' + '<b>Thuế: </b>' + (productData
+                            .product_inventory)) + '<br>' + '<b>Thuế: </b>' + (productData
                             .product_tax == 99 || productData.product_tax == null ? "NOVAT" :
                             productData.product_tax + '%'
                         ));

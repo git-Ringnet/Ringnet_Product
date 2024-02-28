@@ -530,8 +530,9 @@
                                     .total_price) || 0;
                                 var grandTotal = totalTax + totalPrice;
                                 var tax = (item.price_export * item
-                                    .soLuongHoaDon * item
-                                    .product_tax) / 100;
+                                    .soLuongHoaDon * (item
+                                        .product_tax == 99 ? 0 :
+                                        item.product_tax)) / 100;
                                 $(".idGuest").val(item.guest_id);
                                 $("#detailexport_id").val(item
                                     .detailexport_id);
@@ -589,7 +590,7 @@
                                 <input type="text" readonly value="${item.product_unit}" autocomplete="off" class="border-0 px-2 py-1 w-100 product_unit" required="" name="product_unit[]">
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative">
-                                <input type="text" value="${item.soLuongHoaDon}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
+                                <input type="text" value="${formatNumber(item.soLuongHoaDon)}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
                                 <p class="text-primary text-center position-absolute inventory" style="top: 68%; display: none;">Tồn kho: 35</p>
                             </td>

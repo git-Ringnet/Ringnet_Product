@@ -594,8 +594,7 @@
                                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                                     <input type="text"
                                                         value="{{ number_format($item_quote->price_export) }}"
-                                                        class="border-0 px-2 py-1 w-100"
-                                                        autocomplete="off" readonly>
+                                                        class="border-0 px-2 py-1 w-100" autocomplete="off" readonly>
                                                     <p class="text-primary text-right position-absolute transaction"
                                                         style="top: 68%; right: 5%; display: none;">Giao dịch
                                                         gần đây
@@ -709,8 +708,8 @@
                                             <input type="text" readonly
                                                 value="{{ $detailExport->represent_name }}"
                                                 class="border-0 bg w-100 bg-input-guest py-0 px-0" autocomplete="off">
-                                            <input type="hidden" class="idGuest" autocomplete="off" name="represent_id"
-                                                value="{{ $detailExport->maNDD }}">
+                                            <input type="hidden" class="idGuest" autocomplete="off"
+                                                name="represent_id" value="{{ $detailExport->maNDD }}">
                                             <div class="opacity-0">
                                                 <svg width="18" height="18" viewBox="0 0 24 24"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -750,8 +749,8 @@
                                         <div
                                             class="d-flex align-items-center justify-content-between border border-left-0 py-1 border-top-0">
                                             <input type="text" value="{{ $detailExport->reference_number }}"
-                                                class="border-0 bg w-100 bg-input-guest py-0 px-0"
-                                                autocomplete="off" id="myInput" readonly>
+                                                class="border-0 bg w-100 bg-input-guest py-0 px-0" autocomplete="off"
+                                                id="myInput" readonly>
                                             <div class="opacity-0">
                                                 <svg width="18" height="18" viewBox="0 0 24 24"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -969,9 +968,9 @@
                     var productData = data[0];
                     $('#productModal').find('.modal-body').html('<b>Tên sản phẩm: </b> ' +
                         productData.product_name + '<br>' + '<b>Đơn vị: </b>' + productData
-                        .product_unit + '<br>' + '<b>Tồn kho: </b>' + (productData
+                        .product_unit + '<br>' + '<b>Tồn kho: </b>' + (formatNumber(productData
                             .product_inventory == null ? 0 : productData
-                            .product_inventory) + '<br>' + '<b>Thuế: </b>' + (productData
+                            .product_inventory)) + '<br>' + '<b>Thuế: </b>' + (productData
                             .product_tax == 99 || productData.product_tax == null ? "NOVAT" :
                             productData.product_tax + '%'
                         ));

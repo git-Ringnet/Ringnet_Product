@@ -104,7 +104,7 @@
                                     <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 8%;">
                                         <span class="text-table text-secondary">Đơn vị</span>
                                     </th>
-                                    <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 8%;">
+                                    <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 10%;">
                                         <span class="text-table text-secondary">Số lượng</span>
                                     </th>
                                     <th class="border-right p-1 border-bottom-0 border-top-0" style="width: 15%;">
@@ -1690,10 +1690,10 @@
             // Tăng giá trị fieldCounter
             fieldCounter++;
             //kéo thả vị trí sản phẩm
-            $("table tbody").sortable({
-                axis: "y",
-                handle: "td",
-            });
+            // $("table tbody").sortable({
+            //     axis: "y",
+            //     handle: "td",
+            // });
             //Change
             var productNameInputs = document.querySelectorAll('.product_name');
             productNameInputs.forEach(function(input) {
@@ -1807,7 +1807,7 @@
                                 clickedProductId + '"]').length > 0) {
                             alert(
                                 'Không thể chọn sản phẩm này. Vui lòng chọn sản phẩm khác.'
-                                );
+                            );
                             return;
                         }
                     }
@@ -1824,8 +1824,9 @@
                             productUnit.val(data.product_unit);
                             thue.val(data.product_tax);
                             product_id.val(data.id);
-                            tonkho.val(data.product_inventory == null ? 0 :
-                                data.product_inventory)
+                            tonkho.val(formatNumber(data
+                                .product_inventory == null ? 0 :
+                                data.product_inventory))
                             soTonKho.text(parseFloat(data
                                 .product_inventory == null ? 0 :
                                 data.product_inventory));

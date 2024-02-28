@@ -209,7 +209,7 @@
                                                     name="ids[]" id="checkbox" value=""
                                                     onclick="event.stopPropagation();"></td>
                                             <td class="py-2">
-                                                {{ $item_delivery->maGiaoHang }}
+                                                {{ $item_delivery->code_delivery }}
                                             </td>
                                             <td class="py-2">
                                                 <div class="">

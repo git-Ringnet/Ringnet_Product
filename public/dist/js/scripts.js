@@ -139,3 +139,19 @@ function showNotification(type, message) {
         }
     }, 3000);
 }
+function formatNumber(number) {
+    // Check if the input number is undefined, null, or not a number
+    if (number === undefined || number === null || isNaN(number)) {
+        return "";
+    }
+
+    // Convert the number to a string
+    var numberString = number.toString();
+
+    // If it's a decimal with .00, convert to integer
+    if (numberString.indexOf(".") !== -1 && /\.\d*0$/.test(numberString)) {
+        return numberString.replace(/\.?0+$/, "");
+    }
+
+    return numberString;
+}

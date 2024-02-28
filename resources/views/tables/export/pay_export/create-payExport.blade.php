@@ -248,8 +248,8 @@
                                                 </p>
                                             </td>
                                             <td class="border border-top-0 border-bottom-0 px-4">
-                                                <select name="product_tax[]" class="border-0 text-center product_tax" disabled
-                                                    required="" readonly>
+                                                <select name="product_tax[]" class="border-0 text-center product_tax"
+                                                    disabled required="" readonly>
                                                     <option value="0" {{ $item->product_tax == 0 ? 'selected' : '' }}>
                                                         0%</option>
                                                     <option value="8"
@@ -428,8 +428,8 @@
                             <div
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
                                 <input type="text"
-                                    class="border-0 bg w-100 bg-input-guest py-0 px-0 represent_name" autocomplete="off"
-                                    required readonly
+                                    class="border-0 bg w-100 bg-input-guest py-0 px-0 represent_name"
+                                    autocomplete="off" required readonly
                                     value="{{ $getRepresentbyId[0]->represent_name ?? '' }}">
                                 <input type="hidden" class="idRepresent" autocomplete="off"
                                     value="{{ $getRepresentbyId[0]->id ?? '' }}">
@@ -450,9 +450,8 @@
                             </div>
                             <div
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
-                                <input type="text" placeholder="Nhập thông tin"
-                                    required class="border-0 bg w-100 bg-input-guest py-0 px-0"
-                                    id="datePicker">
+                                <input type="text" placeholder="Nhập thông tin" required
+                                    class="border-0 bg w-100 bg-input-guest py-0 px-0" id="datePicker">
                                 <input type="hidden" id="hiddenDateInput" value="" name="date_pay">
                                 <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -956,7 +955,7 @@
                                 <input type="text" value="${item.product_unit}" readonly autocomplete="off" class="border-0 px-2 py-1 w-100 product_unit" required="" name="product_unit[]">
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative">
-                                <input type="text" value="${item.product_qty}" readonly class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
+                                <input type="text" value="${formatNumber(item.product_qty)}" readonly class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
                                 <p class="text-primary text-center position-absolute inventory" style="top: 68%; display: none;">Tồn kho: 35</p>
                             </td>
