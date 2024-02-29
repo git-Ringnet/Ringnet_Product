@@ -32,7 +32,7 @@
             <div class="container-fluided z-index-block">
                 <div class="row m-0">
                     <div class="dropdown">
-                        <a href="{{ route('delivery.index', $workspacename) }}">
+                        <a href="{{ route('billSale.index', $workspacename) }}">
                             <button type="button" class="btn-save-print rounded d-flex align-items-center h-100"
                                 style="margin-right:10px">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
