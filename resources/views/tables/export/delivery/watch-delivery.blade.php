@@ -422,7 +422,7 @@
                                             <td class="border border-top-0 border-bottom-0 position-relative">
                                                 <input type="text"
                                                     value="{{ number_format($item_quote->price_export) }}"
-                                                    class="border-0 px-2 py-1 w-100 product_price" autocomplete="off"
+                                                    class="border-0 px-2 py-1 w-100" autocomplete="off"
                                                     readonly>
                                                 <p class="text-primary text-right position-absolute transaction"
                                                     style="top: 68%; right: 5%; display: none;">Giao dịch
@@ -449,7 +449,7 @@
                                             <td class="border border-top-0 border-bottom-0">
                                                 <input type="text" readonly=""
                                                     value="{{ number_format($item_quote->product_total) }}"
-                                                    class="border-0 px-2 py-1 w-100 total-amount">
+                                                    class="border-0 px-2 py-1 w-100">
                                             </td>
                                             <td
                                                 class="border border-top-0 border-bottom-0 border-right-0 position-relative note p-1">
@@ -771,7 +771,7 @@
         calculateTotals();
     });
 
-    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax', function() {
+    $(document).on('input', '.quantity-input, [name^="product_price"], .product_tax, .heSoNhan, .giaNhap', function() {
         calculateTotals();
     });
 
