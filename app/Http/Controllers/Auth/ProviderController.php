@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Invitation;
 use App\Models\User;
+use App\Models\User_Role;
 use App\Models\UserWorkspaces;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
@@ -33,7 +34,12 @@ class ProviderController extends Controller
         $workspaceId = Session::get('workspace_id');
         $token = Session::get('token');
 
-        $invitation = Invitation::where('token', $token)->where('workspace_id', $workspaceId)->first();
+        $emailExists = Invitation::where('email', $getInfo->email)->exists();
+        if ($emailExists) {
+            $invitation = Invitation::where('workspace_id', $workspaceId)->where('email', $getInfo->email)->first();
+        } else {
+            $invitation = Invitation::where('token', $token)->where('workspace_id', $workspaceId)->first();
+        }
         // dd(!$invitation->status);
 
         if ($workspaceId && $invitation->status != 0) {
@@ -46,6 +52,7 @@ class ProviderController extends Controller
                 UserWorkspaces::create([
                     'workspace_id' => $workspaceId,
                     'user_id' => $user->id,
+                    'roleid' => $invitation->roleid,
                 ]);
             }
         }
@@ -63,7 +70,15 @@ class ProviderController extends Controller
 
         $workspaceId = Session::get('workspace_id');
         $token = Session::get('token');
-        $invitation = Invitation::where('token', $token)->where('workspace_id', $workspaceId)->first();
+
+
+        $emailExists = Invitation::where('email', $getInfo->email)->exists();
+        if ($emailExists) {
+            $invitation = Invitation::where('workspace_id', $workspaceId)->where('email', $getInfo->email)->first();
+        } else {
+            $invitation = Invitation::where('token', $token)->where('workspace_id', $workspaceId)->first();
+        }
+
 
         if (!$user) {
             // Tạo người dùng mới
@@ -90,6 +105,7 @@ class ProviderController extends Controller
         UserWorkspaces::create([
             'workspace_id' => $workspace->id,
             'user_id' => Auth::user()->id,
+            'roleid' => 2,
         ]);
 
         $userId = Auth::user()->id;

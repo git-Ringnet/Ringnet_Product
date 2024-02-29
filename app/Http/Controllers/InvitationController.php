@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 use App\Mail\SampleMail;
+use App\Models\User_Role;
 
 class InvitationController extends Controller
 {
@@ -77,19 +78,33 @@ class InvitationController extends Controller
 
         // Lấy danh sách các email từ yêu cầu
         $emails = $request->input('emails');
-        // dd($emails);
+        $roles = $request->input('roles');
+        // dd($emails, $roles);
         $workspace_id = Auth::user()->current_workspace;
 
         // Tìm kiếm thông tin lời mời từ cơ sở dữ liệu
         $invitation = Invitation::where('workspace_id', $workspace_id)->first();
-
+        $token = Str::random(32);
         // Kiểm tra xem có email để gửi hay không
+
         if ($emails) {
             // Lặp qua mỗi email và gửi email
-            foreach ($emails as $email) {
-                // Gửi email đến từng địa chỉ email
+            foreach ($emails as $index => $email) {
+                $existingInvitation = Invitation::where('email', $email)->first();
+                $role = $roles[$index];
+                // Nếu email chưa tồn tại trong bảng Invitation, thêm mới
+                if (!$existingInvitation) {
+                    Invitation::create([
+                        'workspace_id' => $workspace_id,
+                        'token' => $token,
+                        'email' => $email,
+                        'roleid' => $role,
+                    ]);
+                }
+
                 Mail::to($email)->send(new InvitationEmail($invitation));
             }
+
             // Gửi thông báo thành công và quay trở lại trang trước đó
             return back()->with('success', 'Invitations sent successfully!');
         } else {

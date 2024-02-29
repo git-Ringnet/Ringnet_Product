@@ -20,6 +20,7 @@ use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ReceiveController;
 use App\Http\Controllers\RecieptController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UserWorkspacesController;
 use App\Models\DetailImport;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -199,6 +200,11 @@ Route::post('/create-workspace', [ProviderController::class, 'createWorkspace'])
 
 Route::resource('workspace', WorkspaceController::class);
 Route::get('/updateWorkspaceUser', [WorkspaceController::class, 'updateWorkspaceUser'])->name('updateWorkspaceUser');
+
+Route::resource('{workspace}/userWorkspace', UserWorkspacesController::class);
+Route::get('/updateRoleWorkspace', [UserWorkspacesController::class, 'updateRoleWorkspace'])->name('updateRoleWorkspace');
+Route::get('/searchUserWorkspace', [UserWorkspacesController::class, 'searchUserWorkspace'])->name('searchUserWorkspace');
+Route::get('/deleteUserWorkspace', [UserWorkspacesController::class, 'deleteUserWorkspace'])->name('deleteUserWorkspace');
 
 Route::resource('{workspace}/settings', SettingController::class);
 Route::get('/searchUser', [SettingController::class, 'search'])->name('searchUser');

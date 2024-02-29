@@ -185,6 +185,26 @@
     #exampleModal {
         top: 20% !important;
     }
+
+    #add-email-btn {
+        border: 1px solid #DFE1E4;
+        border-radius: 4px;
+        padding: 6px 20px 7px 16px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #6D7075;
+    }
+
+    .info-invite-mail {
+        position: relative;
+    }
+
+    .clear-input {
+        position: absolute;
+        right: 5px;
+        top: 10%;
+        cursor: pointer;
+    }
 </style>
 <div class="container">
     <div class="container">
@@ -233,10 +253,12 @@
                     <div class="form-group d-flex align-items-center w-100 justify-content-between">
                         <div class="d-flex w-75">
                             <div class="position-relative ml-1 w-50">
-                                <input type="text" placeholder="Tìm kiếm bằng tên hoặc email" name="keywords"
-                                    class="pr-4 pl-4 w-100 search-input" value="">
-                                <span id="icon-search" class="icon-search"><i class="fas fa-search"
+                                <input type="text" placeholder="Tìm kiếm bằng tên hoặc email" id="search"
+                                    name="keywords" class="pr-4 pl-4 w-100 search-input" value="">
+                                <span id="icon-search" class="icon-search btn-submit"><i class="fas fa-search"
                                         aria-hidden="true"></i></span>
+                                <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
+                                    style="display: none;">
                             </div>
                             <div class="dropdown ml-1">
                                 <button class="filter-btn ml-2 align-items-center d-flex border h-100"
@@ -266,27 +288,83 @@
                     <br>
                     @isset($user_workspaces)
                         @foreach ($user_workspaces as $item)
-                            <div
-                                class="row row-user d-flex align-items-center justify-content-center pt-2 m-0 border-bottom w-100">
-                                <div class="col">
-                                    <div class="info-user">
-                                        <div class="name">{{ $item->name }}</div>
-                                        <p class="email"> {{ $item->email }}</p>
+                            <div class="user-workspaces">
+                                <input type="hidden" name="id-info" class="id-info" id="id-info"
+                                    value="{{ $item->id }}">
+                                <div
+                                    class="row row-user d-flex align-items-center justify-content-center pt-2 m-0 border-bottom w-100">
+                                    <div class="col">
+                                        <div class="info-user">
+                                            <div class="name">{{ $item->name }}</div>
+                                            <p class="email"> {{ $item->email }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col role d-flex justify-content-center">
+                                        <input type="hidden" name="idUser" value="{{ $item->user_id }}" />
+                                        <select name="role-user-workspace" id="roles-option"
+                                            class="role-user-workspace mb-1">
+                                            @isset($roles)
+                                                @foreach ($roles as $role)
+                                                    <option {{ $item->vaitro == $role->name ? 'selected' : '' }}
+                                                        value="{{ $role->id }}">{{ $role->name }}{{ $role->id }}
+                                                    </option>
+                                                @endforeach
+                                            @endisset
+                                        </select>
+                                    </div>
+                                    <div class="col d-flex justify-content-end">
+                                        <div class="dropdown ml-1">
+                                            <button class="filter-btn ml-2 align-items-center d-flex border-0 h-100"
+                                                data-toggle="dropdown" aria-expanded="false">
+                                                <span class="text-secondary mx-1 filter-dropdown"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                            fill="#42526E"></path>
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                            fill="#42526E"></path>
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                            fill="#42526E"></path>
+                                                    </svg></span>
+
+                                            </button>
+                                            <div class="dropdown-menu" style="">
+                                                <div class="delete-user-workspace">
+                                                    <form onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
+                                                        action="{{ route('userWorkspace.destroy', ['workspace' => $item->nameWP, 'userWorkspace' => $item->user_id]) }}"
+                                                        method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm">
+                                                            <svg width="16" height="16" viewBox="0 0 16 16"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path opacity="0.936" fill-rule="evenodd"
+                                                                    clip-rule="evenodd"
+                                                                    d="M6.40625 0.968766C7.44813 0.958304 8.48981 0.968772 9.53125 1.00016C9.5625 1.03156 9.59375 1.06296 9.625 1.09436C9.65625 1.49151 9.66663 1.88921 9.65625 2.28746C10.7189 2.277 11.7814 2.28747 12.8438 2.31886C12.875 2.35025 12.9063 2.38165 12.9375 2.41305C12.9792 2.99913 12.9792 3.58522 12.9375 4.17131C12.9063 4.24457 12.8542 4.2969 12.7813 4.32829C12.6369 4.35948 12.4911 4.36995 12.3438 4.35969C12.3542 7.45762 12.3438 10.5555 12.3125 13.6533C12.1694 14.3414 11.7632 14.7914 11.0938 15.0034C9.01044 15.0453 6.92706 15.0453 4.84375 15.0034C4.17433 14.7914 3.76808 14.3414 3.625 13.6533C3.59375 10.5555 3.58333 7.45762 3.59375 4.35969C3.3794 4.3844 3.18148 4.34254 3 4.2341C2.95833 3.62708 2.95833 3.02007 3 2.41305C3.03125 2.38165 3.0625 2.35025 3.09375 2.31886C4.15605 2.28747 5.21855 2.277 6.28125 2.28746C6.27088 1.88921 6.28125 1.49151 6.3125 1.09436C6.35731 1.06018 6.38856 1.01832 6.40625 0.968766ZM6.96875 1.65951C7.63544 1.65951 8.30206 1.65951 8.96875 1.65951C8.96875 1.86882 8.96875 2.07814 8.96875 2.28746C8.30206 2.28746 7.63544 2.28746 6.96875 2.28746C6.96875 2.07814 6.96875 1.86882 6.96875 1.65951ZM3.65625 2.9782C6.53125 2.9782 9.40625 2.9782 12.2813 2.9782C12.2813 3.18752 12.2813 3.39684 12.2813 3.60615C9.40625 3.60615 6.53125 3.60615 3.65625 3.60615C3.65625 3.39684 3.65625 3.18752 3.65625 2.9782ZM4.34375 4.35969C6.76044 4.35969 9.17706 4.35969 11.5938 4.35969C11.6241 7.5032 11.5929 10.643 11.5 13.7789C11.3553 14.05 11.1366 14.2279 10.8438 14.3127C8.92706 14.3546 7.01044 14.3546 5.09375 14.3127C4.80095 14.2279 4.5822 14.05 4.4375 13.7789C4.34462 10.643 4.31337 7.5032 4.34375 4.35969Z"
+                                                                    fill="#6C6F74" />
+                                                                <path opacity="0.891" fill-rule="evenodd"
+                                                                    clip-rule="evenodd"
+                                                                    d="M5.78125 5.28118C6.0306 5.2259 6.20768 5.30924 6.3125 5.53118C6.35419 8.052 6.35419 10.5729 6.3125 13.0937C6.08333 13.427 5.85417 13.427 5.625 13.0937C5.58333 10.552 5.58333 8.01037 5.625 5.46868C5.69031 5.4141 5.7424 5.3516 5.78125 5.28118Z"
+                                                                    fill="#6C6F74" />
+                                                                <path opacity="0.891" fill-rule="evenodd"
+                                                                    clip-rule="evenodd"
+                                                                    d="M7.78125 5.28118C8.03063 5.2259 8.20769 5.30924 8.3125 5.53118C8.35419 8.052 8.35419 10.5729 8.3125 13.0937C8.08331 13.427 7.85419 13.427 7.625 13.0937C7.58331 10.552 7.58331 8.01037 7.625 5.46868C7.69031 5.4141 7.74238 5.3516 7.78125 5.28118Z"
+                                                                    fill="#6C6F74" />
+                                                                <path opacity="0.891" fill-rule="evenodd"
+                                                                    clip-rule="evenodd"
+                                                                    d="M9.78125 5.28118C10.0306 5.2259 10.2077 5.30924 10.3125 5.53118C10.3542 8.052 10.3542 10.5729 10.3125 13.0937C10.0833 13.427 9.85419 13.427 9.625 13.0937C9.58331 10.552 9.58331 8.01037 9.625 5.46868C9.69031 5.4141 9.74238 5.3516 9.78125 5.28118Z"
+                                                                    fill="#6C6F74" />
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col role d-flex justify-content-center">Admin{{ $item->roleid }}</div>
-                                <div class="col d-flex justify-content-end"><svg xmlns="http://www.w3.org/2000/svg"
-                                        width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg></div>
                             </div>
                             {{-- @dd($user_workspaces); --}}
                         @endforeach
@@ -314,11 +392,19 @@
                                                 Vai trò
                                             </div>
                                         </div>
-                                        <div class="w-100 d-flex" id="input-invite-form">
+                                        <div class="w-100 d-flex input-invite-form">
                                             <div class="email-invite w-75">
                                                 <div class="info-invite-mail">
                                                     <input class="w-100 email-input mb-1" type="email"
                                                         id="email" name="emails[]">
+                                                    <span class="clear-input"><svg width="12" height="12"
+                                                            viewBox="0 0 12 12" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M2.22725 2.22725C2.44692 2.00758 2.80308 2.00758 3.02275 2.22725L6 5.20425L8.97727 2.22725C9.19695 2.00758 9.55305 2.00758 9.77272 2.22725C9.9924 2.44692 9.9924 2.80308 9.77272 3.02275L6.79575 6L9.77272 8.97727C9.97245 9.17692 9.9906 9.48945 9.82717 9.70965L9.77272 9.77272C9.55305 9.9924 9.19695 9.9924 8.97727 9.77272L6 6.79575L3.02275 9.77272C2.80308 9.9924 2.44692 9.9924 2.22725 9.77272C2.00759 9.55305 2.00759 9.19695 2.22725 8.97727L5.20425 6L2.22725 3.02275C2.02755 2.82304 2.0094 2.51055 2.17279 2.29034L2.22725 2.22725Z"
+                                                                fill="#8E8E8E" />
+                                                        </svg>
+                                                    </span>
                                                 </div>
                                             </div>
                                             <div class="role-invite pl-2">
@@ -334,8 +420,17 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="w-100 btn-add-more">
+                                            <button id="add-email-btn" class="btn"><svg width="16"
+                                                    height="16" viewBox="0 0 16 16" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                        fill="#6D7075" />
+                                                </svg>
+                                                Thêm email</button>
+                                        </div>
                                     </div>
-                                    <button id="add-email-btn" class="btn btn-primary">Thêm dòng</button>
                                     <div class="modal-footer border-0">
                                         <button type="submit" type="button"
                                             class="btn-send-invites btn btn-primary">Send
@@ -355,6 +450,8 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ asset('/dist/js/import.js') }}"></script>
+
 <script>
     $(document).ready(function() {
         $('#toggle2,#toggle1').on('click', function() {
@@ -411,15 +508,76 @@
     $(document).ready(function() {
         $('#add-email-btn').click(function() {
             event.preventDefault();
-
-            var newLine = $('#input-invite-form').first().clone();
-
-            // Xóa giá trị của trường email mới
+            var newLine = $('.input-invite-form').first().clone();
             newLine.find('.email-input').val('');
-
-            // Thêm dòng mới vào cuối danh sách
-            $('.modal-body').append(newLine);
+            $('.btn-add-more').before(newLine);
         });
+
+    });
+    $(document).ready(function() {
+        $(document).on('click', '.clear-input', function() {
+            var $inputForm = $(this).closest('.input-invite-form');
+            var $emailInputs = $inputForm.siblings('.input-invite-form')
+                .addBack();
+            if ($emailInputs.length > 1) {
+                $inputForm.remove();
+            }
+        });
+    });
+
+
+    //Cập nhật role cho user trong workspace
+    $(document).ready(function() {
+        $('.role-user-workspace').change(function() {
+            var selectedRoleId = $(this).val();
+            // Lấy giá trị của idUser/Role tương ứng
+            var idUser = $(this).closest('.role').find('input[name="idUser"]').val();
+            $.ajax({
+                url: "{{ route('updateRoleWorkspace') }}",
+                type: "get",
+                data: {
+                    roleid: selectedRoleId,
+                    idUser: idUser,
+                },
+                success: function(data) {
+                    $('.message-success-text').text(data.msg);
+                    $('.message-success').fadeIn();
+                    $('.messagesss').fadeIn();
+                    setTimeout(function() {
+                        $('.message-success').fadeOut();
+                    }, 4000);
+                }
+            })
+
+        });
+        $(document).on('click', '.btn-submit', function(e) {
+            e.preventDefault();
+            var search = $('#search').val();
+            $.ajax({
+                url: "{{ route('searchUserWorkspace') }}",
+                type: "get",
+                data: {
+                    search: search,
+                },
+                success: function(data) {
+                    var userIds = [];
+                    data.forEach(function(item) {
+                        var userId = item.id;
+                        userIds.push(userId);
+                    });
+                    $('.user-workspaces').each(function() {
+                        var value = parseInt($(this).find('.id-info').val());
+                        if (userIds.includes(value)) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
+            })
+        });
+
+
     });
 </script>
 </body>
