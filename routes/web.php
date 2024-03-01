@@ -19,6 +19,7 @@ use App\Http\Controllers\DateFormController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ReceiveController;
 use App\Http\Controllers\RecieptController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserWorkspacesController;
 use App\Models\DetailImport;
@@ -205,6 +206,9 @@ Route::resource('{workspace}/userWorkspace', UserWorkspacesController::class);
 Route::get('/updateRoleWorkspace', [UserWorkspacesController::class, 'updateRoleWorkspace'])->name('updateRoleWorkspace');
 Route::get('/searchUserWorkspace', [UserWorkspacesController::class, 'searchUserWorkspace'])->name('searchUserWorkspace');
 Route::get('/deleteUserWorkspace', [UserWorkspacesController::class, 'deleteUserWorkspace'])->name('deleteUserWorkspace');
+
+// Report
+Route::resource('{workspace}/report', ReportController::class);
 
 Route::resource('{workspace}/settings', SettingController::class);
 Route::get('/searchUser', [SettingController::class, 'search'])->name('searchUser');

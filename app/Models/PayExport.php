@@ -238,4 +238,20 @@ class PayExport extends Model
             ->sum('pay_export.payment');
         return $sumPay;
     }
+    public function guestStatistics()
+    {
+        $report_guest = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
+            ->where('detailexport.status', 2)
+            ->select(
+                'detailexport.guest_id',
+                'guest.guest_name_display',
+                'guest.guest_code',
+                DB::raw('SUM(detailexport.total_price + detailexport.total_tax) as sumSell'),
+                DB::raw('SUM(detailexport.amount_owed) as sumAmountOwed')
+            )
+            ->groupBy('detailexport.guest_id', 'guest.guest_name_display', 'guest.guest_code')
+            ->get();
+        return $report_guest;
+    }
 }

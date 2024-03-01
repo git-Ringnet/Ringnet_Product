@@ -361,4 +361,20 @@ class PayOder extends Model
             // ->where('product_qty', '>', DB::raw('COALESCE(payment_qty,0)'))
             ->get();
     }
+    public function provideStatistics()
+    {
+        $report_provide = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('provides', 'provides.id', '=', 'detailimport.provide_id')
+            ->where('detailimport.status', 2)
+            ->select(
+                'detailimport.provide_id',
+                'provides.provide_name_display',
+                'provides.provide_code',
+                DB::raw('SUM(detailimport.total_price + detailimport.total_tax) as sumSell'),
+                DB::raw('SUM(provides.provide_debt) as sumAmountOwed')
+            )
+            ->groupBy('detailimport.provide_id', 'provides.provide_name_display', 'provides.provide_code')
+            ->get();
+        return $report_provide;
+    }
 }
