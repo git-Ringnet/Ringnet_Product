@@ -478,8 +478,16 @@
         </div>
         <!-- /.sidebar -->
     </aside>
-    <div class="alert notification d-flex justify-content-center align-items-center m-0 w-100"
-        style="position: absolute;">
+    <div class="w-100 messagesss">
+        <div class="container message-success justify-content-center align-items-center m-0 w-100"
+            style="display:flex !important;z-index: 99999; position: fixed;top:5%;left:15%;">
+            <div class="alert alert-success">
+                <div class="message-success-text"></div>
+            </div>
+        </div>
+    </div>
+    <div class="alert notification d-flex justify-content-center align-items-center m-0"
+        style="position: absolute;left:40%">
         <div class="success">
             @if (Session::has('msg'))
                 <div id="notification" class="alert alert-success alert-dismissible fade show" role="alert"
@@ -550,8 +558,9 @@
                 $('#notification').fadeOut('slow', function() {
                     $(this).remove();
                 });
-            }, 4000);
+            }, 10000);
         });
+
 
         // $(document).ready(function() {
         //     $("li.nav-item:has(ul.nav.nav-treeview)").each(function() {

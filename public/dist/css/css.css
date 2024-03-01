@@ -508,6 +508,9 @@ td p {
     left: auto;
     right: 0;
 }
+.dropdown-menu.show{
+    min-width: 2rem!important;
+}
 
 .box .small-box {
     border-radius: 24px;
@@ -992,7 +995,9 @@ input[type="number"] {
 .btn-block + .btn-block {
     margin: 0;
 }
-
+.messagesss{
+    display: none;
+}
 #notification .icon {
     position: absolute;
     left: 5px;
@@ -1005,7 +1010,7 @@ input[type="number"] {
     opacity: 1;
 }
 
-#notification .message {
+#notification .message,.message-success-text {
     font-weight: 600;
     color: #ffff;
     font-size: 16px;

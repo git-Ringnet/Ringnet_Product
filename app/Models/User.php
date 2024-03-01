@@ -29,7 +29,7 @@ class User extends Authenticatable
         'email',
         'password',
         'provider',
-        'provider_id', 'origin_workspace', 'current_workspace'
+        'provider_id', 'origin_workspace', 'current_workspace', 'roleid'
     ];
 
     /**

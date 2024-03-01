@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('workspace_id')->constrained('workspaces');
             $table->string('email')->nullable();
             $table->string('token');
-            $table->boolean('status')->default(false);
+            $table->boolean('status')->default(true);
+            $table->foreignId('roleid')->default(0);
             $table->timestamps();
         });
     }

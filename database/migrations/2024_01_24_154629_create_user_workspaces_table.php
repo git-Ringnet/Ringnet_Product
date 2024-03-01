@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('workspace_id')->nullable();
+            $table->unsignedBigInteger('roleid')->nullable();
             $table->timestamps();
         });
     }
