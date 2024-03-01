@@ -180,6 +180,12 @@ Route::get('/getProductSeriEdit', [ProductController::class, 'getProductSeriEdit
 Route::get('exportDatabase', [ProductController::class, 'exportDatabase'])->name('exportDatabase');
 Route::post('import', [ProductController::class, 'import'])->name('import');
 
+
+Route::get('/report', function () {
+    return view('tables.report.report');
+});
+
+
 // Lịch sử giao dịch
 Route::resource('{workspace}/history', HistoryController::class);
 Route::get('getSN', [HistoryController::class, 'getSN'])->name('getSN');

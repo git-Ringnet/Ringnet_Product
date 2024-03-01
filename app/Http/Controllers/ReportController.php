@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\PayExport;
 use App\Models\PayOder;
 use Illuminate\Http\Request;
@@ -75,4 +74,3 @@ class ReportController extends Controller
     {
         //
     }
-}
