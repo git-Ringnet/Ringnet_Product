@@ -155,3 +155,27 @@ function formatNumber(number) {
 
     return numberString;
 }
+function allowNumericInput(input) {
+    // Lọc giá trị để chỉ giữ lại số và một dấu chấm thập phân
+    input.value = input.value.replace(/[^\d.]/g, '');
+
+    // Kiểm tra xem có nhiều hơn một dấu chấm không
+    var parts = input.value.split('.');
+    if (parts.length > 2) {
+        // Nếu có nhiều hơn một dấu chấm, giữ lại phần thập phân của phần cuối cùng
+        input.value = parts.slice(0, -1).join('') + '.' + parts.slice(-1);
+    }
+
+    // Nếu đang nhập dấu chấm thập phân và số 0 đầu tiên
+    if (input.value.startsWith('0') && input.value !== '0.') {
+        // Loại bỏ các số 0 ở đầu
+        input.value = parseFloat(input.value);
+    }
+}
+
+function validateDecimalInput(event, input) {
+    // Kiểm tra nếu người dùng đang thêm dấu chấm thập phân và giá trị hiện tại đã chứa một dấu chấm
+    if ((event.key === '.' && input.value.includes('.')) || isNaN(event.key) && event.key !== '.') {
+        event.preventDefault();
+    }
+}   
