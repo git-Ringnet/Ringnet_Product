@@ -132,7 +132,7 @@ class PayOder extends Model
                                 $total_tax += ($price_export * $productImport->product_qty) * ($product->product_tax == 99 ? 0 : $product->product_tax) / 100;
                             }
                         }
-                        $sum = $total + $total_tax;
+                        $sum = round($total) + round($total_tax);
                         DB::table($this->table)->where('id', $payment_id)
                             ->where('workspace_id', Auth::user()->current_workspace)
                             ->update([
