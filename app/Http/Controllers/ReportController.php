@@ -24,7 +24,7 @@ class ReportController extends Controller
         $title = 'Báo cáo';
         $guests = $this->payExport->guestStatistics();
         $provides = $this->payOrder->provideStatistics();
-        dd($guests, $provides);
+        // dd($guests, $provides);
         return view('report.index', compact('title', 'guests', 'provides'));
     }
 

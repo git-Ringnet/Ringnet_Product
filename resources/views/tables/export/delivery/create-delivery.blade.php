@@ -133,7 +133,6 @@
                                             <th class="border-right p-0 px-1 text-center text-13" style="width:15%;">Thành tiền</th>
                                             <th class="border-right p-0 px-2 text-center note text-13">Ghi chú sản phẩm
                                             </th>
-                                            <th class="border-right p-0 px-2"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
