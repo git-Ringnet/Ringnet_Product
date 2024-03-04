@@ -6,6 +6,7 @@
         <!-- Content Header (Page header) -->
         <input type="hidden" name="detailimport_id" id="detailimport_id"
             value="@isset($yes){{ $show_receive['id'] }}@endisset">
+        <input type="hidden" name="action" id="getAction">
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">

@@ -188,7 +188,7 @@ class ReceiveController extends Controller
         if ($result) {
             return redirect()->route('receive.index', $workspacename)->with('msg', 'Xóa đơn nhận hàng thành công !');
         } else {
-            return redirect()->route('receive.index', $workspacename)->with('warning', 'Sản phẩm đã được tạo trong đơn mua hàng !');
+            return redirect()->route('receive.index', $workspacename)->with('warning', 'Sản phẩm đã được tạo trong đơn bán hàng !');
         }
     }
     public function show_receive(Request $request)

@@ -799,7 +799,7 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                 <input class="text-13-black w-50 border-0 bg-input-guest"
                                     value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif"
-                                    style="flex:2;" id="represent">
+                                    style="flex:2;" id="represent" readonly>
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
@@ -827,7 +827,7 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
                                 <input type="text" class="text-13-black w-50 border-0" style="flex:2;"
                                     name="price_effect" placeholder="Nhập thông tin"
-                                    value="{{ $import->price_effect }}" />
+                                    value="{{ $import->price_effect }}" readonly />
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
@@ -839,7 +839,7 @@
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
                                 <input type="text" class="text-13-black w-50 border-0" style="flex:2;"
-                                    placeholder="Nhập thông tin" id="inputProject"
+                                    placeholder="Nhập thông tin" id="inputProject" readonly
                                     value="@if ($import->getProjectName) {{ $import->getProjectName->project_name }} @endif">
                             </li>
                         </ul>

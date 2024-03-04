@@ -92,8 +92,8 @@
         {{-- Content --}}
         <section class="content margin-250">
             <div class="container-fluided">
-                <div class="row">
-                    <div class="col-12">
+                <div class="row p-0 m-0">
+                    <div class="col-12 p-0">
                         <div class="card scroll-custom">
                             <!-- /.card-header -->
                             <div class="content-info position-relative table-responsive text-nowrap">

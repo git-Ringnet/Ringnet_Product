@@ -11,16 +11,22 @@
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
-                    <span >Mua hàng</span>
+                    <span>Mua hàng</span>
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z" fill="#26273B" fill-opacity="0.8"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                            fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
+                                fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
                     <span class="nearLast-span">Đơn mua hàng</span>
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z" fill="#26273B" fill-opacity="0.8"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                            fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
+                                fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
                     <span class="last-span">Chỉnh sửa đơn mua hàng</span>
@@ -28,45 +34,52 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <a href="{{ route('import.index', $workspacename) }}">
-                                <button type="button"  class="btn-destroy btn-light mx-2 d-flex align-items-center h-100"
-                                    style="margin-right:10px">
-                                    <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
-                                            fill="#6D7075" />
-                                    </svg>
-                                    <span class="text-btnIner-primary ml-2">Hủy</span>
-                                </button>
+                            <button type="button" class="btn-destroy btn-light mx-2 d-flex align-items-center h-100"
+                                style="margin-right:10px">
+                                <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
+                                        fill="#6D7075" />
+                                </svg>
+                                <span class="text-btnIner-primary ml-2">Hủy</span>
+                            </button>
                         </a>
-    
+
                         @if ($import->status == 1)
                             <a href="#" onclick="getAction(this)">
                                 <button name="action" value="action_1" type="submit"
                                     class="custom-btn d-flex align-items-center h-100">
                                     <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z" fill="white"/>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 16 16" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
+                                                fill="white" />
                                         </svg>
                                     </span>
                                     <span class="text-btnIner-primary ml-2">Lưu</span>
                                 </button>
                             </a>
                         @endif
-    
+
                         @if ($import->status == 2)
                             <a href="{{ route('import.index', $workspacename) }}" class="">
-                                <button type="button" class="btn-destroy btn-light mx-2 d-flex align-items-center h-100">
+                                <button type="button"
+                                    class="btn-destroy btn-light mx-2 d-flex align-items-center h-100">
                                     <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z" fill="#6D7075"/>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 16 16" fill="none">
+                                            <path
+                                                d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
+                                                fill="#6D7075" />
                                         </svg>
                                     </span>
                                     <span class="text-btnIner-primary ml-2">Trở về</span>
                                 </button>
                             </a>
                         @endif
-    
+
                         <button id="sideGuest" type="button" class="btn-option border-0">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -82,88 +95,100 @@
                 </div>
             </div>
         </div>
-         <!-- Main content -->
+        <!-- Main content -->
         <x-formprovides> </x-formprovides>
-    
+
         <div class="content" style="margin-top: 3.8rem;" id="main">
             <section class="content margin-250">
                 <div class="container-fluided">
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active">
                             <div class="bg-filter-search border-top-0 text-center border-custom">
-                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
-                            </div> 
+                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN
+                                    SẢN PHẨM</p>
+                            </div>
                             <section class="content">
                                 <div class="content-info position-relative table-responsive text-nowrap">
                                     <table id="inputcontent" class="table table-hover bg-white rounded">
                                         <thead>
                                             <tr style="height:44px;">
-                                                <th class="border-right px-2 p-0" style="width: 15%;padding-left:2rem;">
+                                                <th class="border-right px-2 p-0"
+                                                    style="width: 15%;padding-left:2rem;">
                                                     <span class="ml-1 mr-0">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                                            <path d="M6.37 7.63C6.49289 7.75305 6.56192 7.91984 6.56192 8.09375C6.56192 8.26766 6.49289 8.43445 6.37 8.5575L4.375 10.5L5.46875 11.5938C5.46875 11.7678 5.39961 11.9347 5.27654 12.0578C5.15347 12.1809 4.98655 12.25 4.8125 12.25H2.40625C2.2322 12.25 2.06528 12.1809 1.94221 12.0578C1.81914 11.9347 1.75 11.7678 1.75 11.5938V9.1875C1.75 9.01345 1.81914 8.84653 1.94221 8.72346C2.06528 8.60039 2.2322 8.53125 2.40625 8.53125L3.5 9.625L5.4425 7.63C5.56555 7.50711 5.73234 7.43808 5.90625 7.43808C6.08016 7.43808 6.24695 7.50711 6.37 7.63ZM7.63 6.37C7.50711 6.24695 7.43808 6.08016 7.43808 5.90625C7.43808 5.73234 7.50711 5.56555 7.63 5.4425L9.625 3.5L8.53125 2.40625C8.53125 2.2322 8.60039 2.06528 8.72346 1.94221C8.84653 1.81914 9.01345 1.75 9.1875 1.75H11.5938C11.7678 1.75 11.9347 1.81914 12.0578 1.94221C12.1809 2.06528 12.25 2.2322 12.25 2.40625V4.8125C12.25 4.98655 12.1809 5.15347 12.0578 5.27654C11.9347 5.39961 11.7678 5.46875 11.5938 5.46875L10.5 4.375L8.5575 6.37C8.43445 6.49289 8.26766 6.56192 8.09375 6.56192C7.91984 6.56192 7.75305 6.49289 7.63 6.37Z" fill="#26273B" fill-opacity="0.8"/>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                            height="14" viewBox="0 0 14 14" fill="none">
+                                                            <path
+                                                                d="M6.37 7.63C6.49289 7.75305 6.56192 7.91984 6.56192 8.09375C6.56192 8.26766 6.49289 8.43445 6.37 8.5575L4.375 10.5L5.46875 11.5938C5.46875 11.7678 5.39961 11.9347 5.27654 12.0578C5.15347 12.1809 4.98655 12.25 4.8125 12.25H2.40625C2.2322 12.25 2.06528 12.1809 1.94221 12.0578C1.81914 11.9347 1.75 11.7678 1.75 11.5938V9.1875C1.75 9.01345 1.81914 8.84653 1.94221 8.72346C2.06528 8.60039 2.2322 8.53125 2.40625 8.53125L3.5 9.625L5.4425 7.63C5.56555 7.50711 5.73234 7.43808 5.90625 7.43808C6.08016 7.43808 6.24695 7.50711 6.37 7.63ZM7.63 6.37C7.50711 6.24695 7.43808 6.08016 7.43808 5.90625C7.43808 5.73234 7.50711 5.56555 7.63 5.4425L9.625 3.5L8.53125 2.40625C8.53125 2.2322 8.60039 2.06528 8.72346 1.94221C8.84653 1.81914 9.01345 1.75 9.1875 1.75H11.5938C11.7678 1.75 11.9347 1.81914 12.0578 1.94221C12.1809 2.06528 12.25 2.2322 12.25 2.40625V4.8125C12.25 4.98655 12.1809 5.15347 12.0578 5.27654C11.9347 5.39961 11.7678 5.46875 11.5938 5.46875L10.5 4.375L8.5575 6.37C8.43445 6.49289 8.26766 6.56192 8.09375 6.56192C7.91984 6.56192 7.75305 6.49289 7.63 6.37Z"
+                                                                fill="#26273B" fill-opacity="0.8" />
                                                         </svg>
                                                     </span>
-                                                    <input type='checkbox' class='checkall-btn'id="checkall"/>
+                                                    <input type='checkbox' class='checkall-btn'id="checkall" />
                                                     <span class="text-table text-secondary">Mã sản phẩm</span>
                                                 </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="created_at"
-                                                                data-sort-type="">
-                                                                <button class="btn-sort text-13" type="submit">Tên sản phẩm</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-created_at"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="created_at"
-                                                                data-sort-type=""><button class="btn-sort text-13" type="submit">Đơn vị</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-created_at"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex justify-content-start">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13" type="submit">Số lượng</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13" type="submit">Đơn giá</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13" type="submit">Thuế</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13" type="submit">Thành tiền</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13" type="submit">Ghi chú sản phẩm</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
+                                                <th scope="col" class="border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="created_at"
+                                                            data-sort-type="">
+                                                            <button class="btn-sort text-13" type="submit">Tên sản
+                                                                phẩm</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-created_at"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="created_at"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Đơn vị</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-created_at"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border">
+                                                    <span class="d-flex justify-content-start">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Số lượng</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Đơn giá</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Thuế</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Thành tiền</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Ghi chú sản phẩm</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -173,13 +198,17 @@
                                                         <input type="hidden" readonly value="{{ $item->id }}"
                                                             name="listProduct[]">
                                                         <span class="ml-2 mr-1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="6"
+                                                                height="10" viewBox="0 0 6 10" fill="none">
                                                                 <g clip-path="url(#clip0_1710_10941)">
-                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z" fill="#282A30"/>
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                        d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
+                                                                        fill="#282A30" />
                                                                 </g>
                                                                 <defs>
                                                                     <clipPath id="clip0_1710_10941">
-                                                                        <rect width="6" height="10" fill="white"/>
+                                                                        <rect width="6" height="10"
+                                                                            fill="white" />
                                                                     </clipPath>
                                                                 </defs>
                                                             </svg>
@@ -218,7 +247,8 @@
                                                                 class="border-0 px-2 py-1 w-100 quantity-input text-right"
                                                                 value="{{ number_format($item->product_qty) }}"
                                                                 @if ($import->status == 2) echo readonly @endif>
-                                                            <div class='mt-3 text-13-blue inventory text-right' tyle="top: 68%;">Tồn kho:  
+                                                            <div class='mt-3 text-13-blue inventory text-right'
+                                                                tyle="top: 68%;">Tồn kho:
                                                                 <span class='pl-1 soTonKho'>32</span>
                                                             </div>
                                                         </div>
@@ -228,7 +258,8 @@
                                                             class="border-0 px-2 py-1 w-100 price_export text-right"
                                                             value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
                                                             @if ($import->status == 2) echo readonly @endif>
-                                                        <div class='mt-3 text-13-blue text-right'>Giao dịch gần đây</div>
+                                                        <div class='mt-3 text-13-blue text-right'>Giao dịch gần đây
+                                                        </div>
                                                     </td>
                                                     <input type="hidden" class="product_tax1">
                                                     <td class="border-right pt-0 p-2 text-13 align-top">
@@ -254,7 +285,8 @@
                                                     </td>
                                                     <td class="border-right p-2 text-13 align-top position-relative">
                                                         <input type="text" name="total_price[]"
-                                                            class="text-right border-0 px-2 py-1 w-100 total_price" readonly
+                                                            class="text-right border-0 px-2 py-1 w-100 total_price"
+                                                            readonly
                                                             value="{{ fmod($item->product_total, 2) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                                     </td>
                                                     <td class="border-right p-2 text-13 align-top">
@@ -283,8 +315,9 @@
                                                         <button type="button" data-toggle="dropdown"
                                                             class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                                             id="addRowTable" style="margin-right:10px">
-                                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                                                height="14" viewBox="0 0 18 18" fill="none">
+                                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
+                                                                width="14" height="14" viewBox="0 0 18 18"
+                                                                fill="none">
                                                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                                                     d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
                                                                     fill="#42526E"></path>
@@ -294,12 +327,13 @@
                                                             </svg>
                                                             <span class="text-table">Thêm sản phẩm</span>
                                                         </button>
-            
+
                                                         <button type="button" data-toggle="dropdown"
                                                             class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                                             id="" style="margin-right:10px">
-                                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                                                height="14" viewBox="0 0 18 18" fill="none">
+                                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
+                                                                width="14" height="14" viewBox="0 0 18 18"
+                                                                fill="none">
                                                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                                                     d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
                                                                     fill="#42526E"></path>
@@ -309,12 +343,13 @@
                                                             </svg>
                                                             <span class="text-table">Thêm đầu mục</span>
                                                         </button>
-            
+
                                                         <button type="button" data-toggle="dropdown"
                                                             class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                                             id="" style="margin-right:10px">
-                                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
-                                                                height="14" viewBox="0 0 18 18" fill="none">
+                                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
+                                                                width="14" height="14" viewBox="0 0 18 18"
+                                                                fill="none">
                                                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                                                     d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
                                                                     fill="#42526E"></path>
@@ -324,8 +359,9 @@
                                                             </svg>
                                                             <span class="text-table">Thêm hàng loạt</span>
                                                         </button>
-            
-                                                        <button type="button" class="btn-option py-1 px-2 bg-white border-0">
+
+                                                        <button type="button"
+                                                            class="btn-option py-1 px-2 bg-white border-0">
                                                             <svg width="24" height="24" viewBox="0 0 24 24"
                                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -355,101 +391,126 @@
         <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
-                        <div class="bg-filter-search border-top-0 text-center border-custom">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
-                        </div> 
-                        <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative" style="height:44px;" style="height:44px;">
-                            <span class="text-13 btn-click" style="flex: 1.5;">
-                                Nhà cung cấp
-                            </span>
-                            <span class="mx-1 text-13" style="flex: 2;">
-                                <input type="text" placeholder="Chọn thông tin"
-                                    value="{{ $import->getProvideName->provide_name_display }}" 
-                                    class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest" id="myInput"
-                                    style="background-color:#F0F4FF; border-radius:4px;"
-                                    autocomplete="off" required >
-                            </span>
-                            <div class="d-flex align-items-center justify-content-between border-0">
-                                <div id="myUL"
-                                    class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
-                                    style="z-index: 99;display: none;">
-                                    <div class="p-1">
-                                        <div class="position-relative">
-                                            <input type="text" placeholder="Nhập thông tin"
-                                                class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
-                                            <span id="search-icon" class="search-icon"><i
-                                                     class="fas fa-search text-table" aria-hidden="true"></i></span>
-                                        </div>
-                                     </div>
-                                    <ul class="m-0 p-0 scroll-data">
-                                        @foreach ($provides as $item)
-                                            <li class="p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                <a href="javascript:void(0)" style="flex:2;"
-                                                    id="{{ $item->id }}" name="search-info" class="search-info" > 
-                                                        <span class="text-13-black">{{ $item->provide_name_display }}</span>
-                                                </a>
-                                                <a type="button" data-toggle="modal" data-target="#guestModal" 
-                                                    data-id="{{ $item->id }}" class="edit-guest">
-                                                     <span>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                                              <path d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z" fill="black"/>
-                                                              <path d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z" fill="black"/>
-                                                               <path d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z" fill="black"/>
-                                                         </svg>
-                                                    </span>
-                                                 </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                    <a type="button"
-                                         class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
-                                         data-toggle="modal" data-target="#provideModal" style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                         <span>
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                 <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"/>
-                                              </svg>
-                                        </span>
-                                         <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm nhà cung cấp</span>
-                                     </a>
+                    <div class="bg-filter-search border-top-0 text-center border-custom">
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM
+                        </p>
+                    </div>
+                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
+                        style="height:44px;" style="height:44px;">
+                        <span class="text-13 btn-click" style="flex: 1.5;">
+                            Nhà cung cấp
+                        </span>
+                        <span class="mx-1 text-13" style="flex: 2;">
+                            <input type="text" placeholder="Chọn thông tin"
+                                value="{{ $import->getProvideName->provide_name_display }}"
+                                class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest" id="myInput"
+                                style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required>
+                        </span>
+                        <div class="d-flex align-items-center justify-content-between border-0">
+                            <div id="myUL"
+                                class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
+                                style="z-index: 99;display: none;">
+                                <div class="p-1">
+                                    <div class="position-relative">
+                                        <input type="text" placeholder="Nhập thông tin"
+                                            class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
+                                        <span id="search-icon" class="search-icon"><i
+                                                class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                    </div>
                                 </div>
+                                <ul class="m-0 p-0 scroll-data">
+                                    @foreach ($provides as $item)
+                                        <li class="p-2 align-items-center text-wrap"
+                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                            <a href="javascript:void(0)" style="flex:2;" id="{{ $item->id }}"
+                                                name="search-info" class="search-info">
+                                                <span class="text-13-black">{{ $item->provide_name_display }}</span>
+                                            </a>
+                                            <a type="button" data-toggle="modal" data-target="#guestModal"
+                                                data-id="{{ $item->id }}" class="edit-guest">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                        height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path
+                                                            d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                            fill="black" />
+                                                        <path
+                                                            d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                            fill="black" />
+                                                        <path
+                                                            d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                            fill="black" />
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <a type="button"
+                                    class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
+                                    data-toggle="modal" data-target="#provideModal"
+                                    style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 16 16" fill="none">
+                                            <path
+                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                fill="#282A30" />
+                                        </svg>
+                                    </span>
+                                    <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm
+                                        nhà cung cấp</span>
+                                </a>
                             </div>
                         </div>
-                        <div class="">
+                    </div>
+                    <div class="">
                         <ul class="p-0 m-0">
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                            style="height:44px;">
+                                style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest nameGuest" 
-                                        style="flex:2;" id="represent"
-                                        value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif"/>
+                                <input class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
+                                    id="represent"
+                                    value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" />
                                 <ul id="listRepresent"
                                     class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
                                     style="z-index: 99;">
                                     <div class="p-1">
-                                            <div class="position-relative">
-                                                   <input type="text" placeholder="Nhập thông tin"
-                                                    class="pr-4 w-100 input-search bg-input-guest" id="searchRepresent">
-                                                   <span id="search-icon" class="search-icon">
-                                                       <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                                   </span>
-                                               </div>
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập thông tin"
+                                                class="pr-4 w-100 input-search bg-input-guest" id="searchRepresent">
+                                            <span id="search-icon" class="search-icon">
+                                                <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                     <ul class="m-0 p-0 scroll-data">
                                         @if ($represent)
                                             @foreach ($represent as $value)
-                                                <li class="p-2 align-items-center text-wrap" 
+                                                <li class="p-2 align-items-center text-wrap"
                                                     style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                     <a href="javascript:void(0)" style="flex:2;"
-                                                            id="{{ $value->id }}" name="search-represent" class="search-represent" > 
-                                                            <span class="text-13-black">{{ $value->represent_name }}</span>
+                                                        id="{{ $value->id }}" name="search-represent"
+                                                        class="search-represent">
+                                                        <span
+                                                            class="text-13-black">{{ $value->represent_name }}</span>
                                                     </a>
-                                                    <a data-toggle="modal" data-target="#modalAddRepresent" data-name="represent"
-                                                        data-id="{{ $value->id }}" id="{{ $value->id }}" class="search-date-form" style="flex:0;">
+                                                    <a data-toggle="modal" data-target="#modalAddRepresent"
+                                                        data-name="represent" data-id="{{ $value->id }}"
+                                                        id="{{ $value->id }}" class="search-date-form"
+                                                        style="flex:0;">
                                                         <span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                                                <path d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z" fill="black"/>
-                                                                <path d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z" fill="black"/>
-                                                                <path d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z" fill="black"/>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                                height="14" viewBox="0 0 14 14" fill="none">
+                                                                <path
+                                                                    d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                                    fill="black" />
+                                                                <path
+                                                                    d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                                    fill="black" />
+                                                                <path
+                                                                    d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                                    fill="black" />
                                                             </svg>
                                                         </span>
                                                     </a>
@@ -459,13 +520,18 @@
                                     </ul>
                                     <a type="button"
                                         class="d-flex align-items-center p-2 position-sticky addRepresent mt-2"
-                                        data-toggle="modal" data-target="#modalAddRepresent" style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                         <span>
-                                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                  <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"/>
+                                        data-toggle="modal" data-target="#modalAddRepresent"
+                                        style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                viewBox="0 0 16 16" fill="none">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30" />
                                             </svg>
                                         </span>
-                                        <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm người đại diện</span>
+                                        <span class="text-13-black pl-3 pt-1"
+                                            style="font-weight: 600 !important;">Thêm người đại diện</span>
                                     </a>
                                 </ul>
                             </li>
@@ -476,30 +542,31 @@
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
                                     name="quotation_number" style="flex:2;" placeholder="Chọn thông tin"
                                     value="{{ $import->quotation_number }}">
-                                           
+
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                 style="height:44px;">
+                                style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
-                                        name="reference_number" style="flex:2;" placeholder="Chọn thông tin"
-                                      value="{{ $import->reference_number }}">
-                                           
+                                    name="reference_number" style="flex:2;" placeholder="Chọn thông tin"
+                                    value="{{ $import->reference_number }}">
+
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                 style="height:44px;">
+                                style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
 
-                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest" id="datePicker"
-                                    name="quotation_number" style="flex:2;" placeholder="Chọn thông tin"
+                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
+                                    id="datePicker" name="quotation_number" style="flex:2;"
+                                    placeholder="Chọn thông tin"
                                     value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}">
                                 <input type="hidden" id="hiddenDateInput" name="date_quote"
                                     value="{{ $import->created_at->toDateString() }}">
-                                           
+
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                 style="height:44px;">
+                                style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
@@ -511,29 +578,39 @@
                                     class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
                                     style="z-index: 99;">
                                     <div class="p-1">
-                                            <div class="position-relative">
-                                                   <input type="text" placeholder="Nhập thông tin"
-                                                    class="pr-4 w-100 input-search bg-input-guest" id="searchPriceEffect">
-                                                   <span id="search-icon" class="search-icon">
-                                                       <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                                   </span>
-                                               </div>
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập thông tin"
+                                                class="pr-4 w-100 input-search bg-input-guest" id="searchPriceEffect">
+                                            <span id="search-icon" class="search-icon">
+                                                <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                     <ul class="m-0 p-0 scroll-data">
                                         @if ($price_effect)
                                             @foreach ($price_effect as $price)
-                                                <li class="p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                <li class="p-2 align-items-center text-wrap"
+                                                    style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                     <a href="javascript:void(0)" style="flex:2;"
-                                                            id="{{ $price->id }}" name="search-price-effect" class="search-priceeffect search-price-effect" > 
-                                                            <span class="text-13-black">{{ $price->form_desc }}</span>
+                                                        id="{{ $price->id }}" name="search-price-effect"
+                                                        class="search-priceeffect search-price-effect">
+                                                        <span class="text-13-black">{{ $price->form_desc }}</span>
                                                     </a>
-                                                    <a type="button" data-target="#formModalquote" data-name="import"
-                                                        data-id="{{ $price->id }}" id="{{ $price->id }}" class="edit-guest">
+                                                    <a type="button" data-target="#formModalquote"
+                                                        data-name="import" data-id="{{ $price->id }}"
+                                                        id="{{ $price->id }}" class="edit-guest">
                                                         <span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                                                <path d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z" fill="black"/>
-                                                                <path d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z" fill="black"/>
-                                                                <path d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z" fill="black"/>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                                height="14" viewBox="0 0 14 14" fill="none">
+                                                                <path
+                                                                    d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                                    fill="black" />
+                                                                <path
+                                                                    d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                                    fill="black" />
+                                                                <path
+                                                                    d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                                    fill="black" />
                                                             </svg>
                                                         </span>
                                                     </a>
@@ -543,51 +620,66 @@
                                     </ul>
                                     <a type="button"
                                         class="d-flex align-items-center p-2 position-sticky addRepresent mt-2"
-                                        data-toggle="modal" data-target="#formModalquote" style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                         <span>
-                                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                  <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"/>
+                                        data-toggle="modal" data-target="#formModalquote"
+                                        style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                viewBox="0 0 16 16" fill="none">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30" />
                                             </svg>
                                         </span>
-                                        <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm hiệu lực báo giá</span>
+                                        <span class="text-13-black pl-3 pt-1"
+                                            style="font-weight: 600 !important;">Thêm hiệu lực báo giá</span>
                                     </a>
                                 </ul>
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                 style="height:44px;">
+                                style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
-                                    value="{{ $import->terms_pay }}" id="terms_pay"
-                                    name="terms_pay" style="flex:2;" placeholder="Chọn thông tin">
+                                    value="{{ $import->terms_pay }}" id="terms_pay" name="terms_pay"
+                                    style="flex:2;" placeholder="Chọn thông tin">
 
                                 <ul id="listTermsPay"
                                     class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
                                     style="z-index: 99;">
                                     <div class="p-1">
-                                            <div class="position-relative">
-                                                   <input type="text" placeholder="Nhập thông tin"
-                                                    class="pr-4 w-100 input-search bg-input-guest" id="searchTermsPay">
-                                                   <span id="search-icon" class="search-icon">
-                                                       <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                                   </span>
-                                               </div>
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập thông tin"
+                                                class="pr-4 w-100 input-search bg-input-guest" id="searchTermsPay">
+                                            <span id="search-icon" class="search-icon">
+                                                <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                     <ul class="m-0 p-0 scroll-data">
                                         @if ($terms_pay)
                                             @foreach ($terms_pay as $term)
-                                                <li class="p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                <li class="p-2 align-items-center text-wrap"
+                                                    style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                     <a href="javascript:void(0)" style="flex:2;"
-                                                            id="{{ $term->id }}" name="search-term-pay" class="search-termpay search-term-pay" > 
-                                                            <span class="text-13-black">{{ $term->form_desc }}</span>
+                                                        id="{{ $term->id }}" name="search-term-pay"
+                                                        class="search-termpay search-term-pay">
+                                                        <span class="text-13-black">{{ $term->form_desc }}</span>
                                                     </a>
-                                                    <a type="button" data-target="#formModalquote" data-name="import"
-                                                        data-id="{{ $term->id }}" id="{{ $term->id }}" class="edit-guest">
+                                                    <a type="button" data-target="#formModalquote"
+                                                        data-name="import" data-id="{{ $term->id }}"
+                                                        id="{{ $term->id }}" class="edit-guest">
                                                         <span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                                                <path d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z" fill="black"/>
-                                                                <path d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z" fill="black"/>
-                                                                <path d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z" fill="black"/>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                                height="14" viewBox="0 0 14 14" fill="none">
+                                                                <path
+                                                                    d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                                    fill="black" />
+                                                                <path
+                                                                    d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                                    fill="black" />
+                                                                <path
+                                                                    d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                                    fill="black" />
                                                             </svg>
                                                         </span>
                                                     </a>
@@ -597,44 +689,52 @@
                                     </ul>
                                     <a type="button"
                                         class="d-flex align-items-center p-2 position-sticky addRepresent mt-2"
-                                        data-toggle="modal" data-target="#formModalTermPay" style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                         <span>
-                                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                  <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"/>
+                                        data-toggle="modal" data-target="#formModalTermPay"
+                                        style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                viewBox="0 0 16 16" fill="none">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30" />
                                             </svg>
                                         </span>
-                                        <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm điều khoản</span>
+                                        <span class="text-13-black pl-3 pt-1"
+                                            style="font-weight: 600 !important;">Thêm điều khoản</span>
                                     </a>
                                 </ul>
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                 style="height:44px;">
+                                style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
 
-                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest" id="inputProject"
+                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
+                                    id="inputProject"
                                     value="@if ($import->getProjectName) {{ $import->getProjectName->project_name }} @endif"
                                     name="quotation_number" style="flex:2;" placeholder="Chọn thông tin">
-                                    
+
                                 <ul id="listProject"
                                     class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
                                     style="z-index: 99;">
                                     <div class="p-1">
-                                            <div class="position-relative">
-                                                   <input type="text" placeholder="Nhập thông tin"
-                                                    class="pr-4 w-100 input-search bg-input-guest" id="searchTermsPay">
-                                                   <span id="search-icon" class="search-icon">
-                                                       <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                                   </span>
-                                               </div>
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập thông tin"
+                                                class="pr-4 w-100 input-search bg-input-guest" id="searchTermsPay">
+                                            <span id="search-icon" class="search-icon">
+                                                <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                     <ul class="m-0 p-0 scroll-data">
                                         @foreach ($project as $va)
-                                                <li class="p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                    <a href="javascript:void(0)" style="flex:2;"
-                                                        id="{{ $va->id }}" name="project_name" class="project_name" > 
-                                                        <span class="text-13-black">{{ $va->project_name }}</span>
-                                                    </a>
-                                                    <!-- <a type="button" data-target="#formModalquote" data-name="import"
+                                            <li class="p-2 align-items-center text-wrap"
+                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                <a href="javascript:void(0)" style="flex:2;"
+                                                    id="{{ $va->id }}" name="project_name"
+                                                    class="project_name">
+                                                    <span class="text-13-black">{{ $va->project_name }}</span>
+                                                </a>
+                                                <!-- <a type="button" data-target="#formModalquote" data-name="import"
                                                         data-id="" id="" class="edit-guest">
                                                         <span>
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -644,20 +744,25 @@
                                                             </svg>
                                                         </span>
                                                     </a> -->
-                                                </li>
+                                            </li>
                                         @endforeach
                                     </ul>
                                     <a type="button"
                                         class="d-flex align-items-center p-2 position-sticky addRepresent mt-2"
-                                        data-toggle="modal" data-target="#formModalTermPay" style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                         <span>
-                                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                  <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"/>
+                                        data-toggle="modal" data-target="#formModalTermPay"
+                                        style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                viewBox="0 0 16 16" fill="none">
+                                                <path
+                                                    d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                                    fill="#282A30" />
                                             </svg>
                                         </span>
-                                        <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm điều khoản</span>
+                                        <span class="text-13-black pl-3 pt-1"
+                                            style="font-weight: 600 !important;">Thêm điều khoản</span>
                                     </a>
-                                </ul>  
+                                </ul>
                             </li>
                         </ul>
                     </div>
@@ -1139,17 +1244,17 @@
         var provide_phone = $("input[name='provide_phone']").val().trim();
         var provide_address_delivery = $("input[name='provide_address_delivery']").val().trim();
         if (provide_name_display == '') {
-            showNotification('warning','Vui lòng nhập Tên hiển thị')
+            showNotification('warning', 'Vui lòng nhập Tên hiển thị')
             check = true;
             return false;
         }
         if (provide_code == '') {
-            showNotification('warning','Vui lòng nhập Mã số thuế')
+            showNotification('warning', 'Vui lòng nhập Mã số thuế')
             check = true;
             return false;
         }
         if (provide_address == '') {
-            showNotification('warning','Vui lòng nhập Địa chỉ nhà cung cấp')
+            showNotification('warning', 'Vui lòng nhập Địa chỉ nhà cung cấp')
             check = true;
             return false;
         }
@@ -1171,7 +1276,7 @@
                     if (data.success == true) {
                         $('#myInput').val(data.name);
                         $('#provides_id').val(data.id);
-                        showNotification('success',data.msg)
+                        showNotification('success', data.msg)
                         $('.modal [data-dismiss="modal"]').click();
                         $("input[name='provide_name_display']").val('');
                         $("input[name='provide_code']").val('');
@@ -1183,7 +1288,7 @@
                         $("input[name='provide_address_delivery']").val('');
                         $('#more_info').show();
                     } else {
-                        showNotification('warning',data.msg)
+                        showNotification('warning', data.msg)
                     }
                 }
             });
@@ -1367,7 +1472,7 @@
             },
             success: function(data) {
                 if (!data['status']) {
-                    showNotification('warning','Số báo giá đã tồn tại')
+                    showNotification('warning', 'Số báo giá đã tồn tại')
                 } else {
                     $('form')[0].submit();
                 }

@@ -17,14 +17,20 @@
                 <div class="content__heading--left">
                     <span>Mua hàng</span>
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z" fill="#26273B" fill-opacity="0.8"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                            fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
+                                fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
                     <span class="nearLast-span">Đơn nhận hàng</span>
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z" fill="#26273B" fill-opacity="0.8"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                            fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
+                                fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
                     <span class="last-span">{{ $receive->id }}</span>
@@ -39,8 +45,8 @@
                         <a href="{{ route('receive.index', $workspacename) }}">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
                                 <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                        fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        viewBox="0 0 16 16" fill="none">
                                         <path
                                             d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
                                             fill="#6D7075" />
@@ -69,7 +75,7 @@
                                 </a>
                             </div>
                         </div>
-    
+
                         <!-- <label class="custom-btn d-flex align-items-center h-100 m-0 mr-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
                                 fill="none" class="mx-1">
@@ -86,21 +92,28 @@
                                 <button value="2" type="submit"
                                     class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                     <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z" fill="#6D7075"/>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 16 16" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                                fill="#6D7075" />
                                         </svg>
                                     </span>
                                     <span class="text-btnIner-primary ml-2">Xác nhận</span>
                                 </button>
                             </a>
-                        @endif 
+                        @endif
                         <a href="#" id="delete_receive">
                             <button name="action" value="action_2" type="submit" id="xoaBtn"
                                 onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                class="btn--remove d-flex align-items-center h-100 mx-1" style="background-color:red;">
+                                class="btn--remove d-flex align-items-center h-100 mx-1"
+                                style="background-color:red;">
                                 <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                        <path d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z" fill="white"/>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        viewBox="0 0 16 16" fill="none">
+                                        <path
+                                            d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
+                                            fill="white" />
                                     </svg>
                                 </span>
                                 <span class="text-btnIner-primary ml-2">Xóa</span>
@@ -109,8 +122,8 @@
                         <button id="sideProvide" type="button" class="btn-option border-0 mx-1">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <rect x="16" width="16" height="16" rx="5" transform="rotate(90 16 0)"
-                                    fill="#ECEEFA" />
+                                <rect x="16" width="16" height="16" rx="5"
+                                    transform="rotate(90 16 0)" fill="#ECEEFA" />
                                 <path
                                     d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
                                     fill="#26273B" fill-opacity="0.8" />
@@ -139,110 +152,145 @@
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
                         <div class="bg-filter-search border-top-0 text-center border-custom">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
-                        </div> 
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
+                                PHẨM</p>
+                        </div>
                         <section class="content">
                             <div class="content-info position-relative table-responsive text-nowrap">
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr style="height:44px;">
-                                                    <th class="border-right" style="width: 15%;padding-left:2rem;">
-                                                        <span class="text-table text-secondary">Mã sản phẩm</span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="created_at"
-                                                                data-sort-type="">
-                                                                <button class="btn-sort text-13" type="submit">Tên sản phẩm</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-created_at"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="created_at"
-                                                                data-sort-type=""><button class="btn-sort text-13" type="submit">Đơn vị</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-created_at"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex justify-content-start">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13" type="submit">Số lượng</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13" type="submit">Đơn giá</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13" type="submit">Thuế</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13" type="submit">Thành tiền</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13" type="submit">Ghi chú sản phẩm</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
+                                            <th class="border-right" style="width: 15%;padding-left:2rem;">
+                                                <span class="text-table text-secondary">Mã sản phẩm</span>
+                                            </th>
+                                            <th scope="col" class="border">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="created_at"
+                                                        data-sort-type="">
+                                                        <button class="btn-sort text-13" type="submit">Tên sản
+                                                            phẩm</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-created_at"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="created_at"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Đơn vị</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-created_at"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Số lượng</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Quản lý SN</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
+                                            {{-- <th scope="col" class="border">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Đơn giá</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th> --}}
+                                            {{-- <th scope="col" class="border">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Thuế</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th> --}}
+                                            {{-- <th scope="col" class="border">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Thành tiền</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th> --}}
+                                            <th scope="col" class="border">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Ghi chú sản phẩm</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $st = 0; ?>
                                         @foreach ($product as $item)
                                             <tr class="bg-white" style="height:80px;">
-                                                <td class="border bg-white align-top text-13-black" style="width:5%;padding-left: 2rem !important;">
+                                                <td class="border bg-white align-top text-13-black"
+                                                    style="width:5%;padding-left: 2rem !important;">
                                                     <input readonly type="text" name="product_code[]"
                                                         id="" class="border-0 py-1 w-75 searchProduct"
                                                         value="{{ $item->product_code }}">
                                                 </td>
-                                                <td  class="border bg-white align-top text-13-black" style="width:15%">
+                                                <td class="border bg-white align-top text-13-black" style="width:15%">
                                                     <div class="d-flex align-items-center">
                                                         <input type="text"
                                                             class="searchProductName w-100 border-0 px-2 py-1"
                                                             name="product_name[]" value="{{ $item->product_name }}"
                                                             readonly>
-                                                        <div class='info-product' data-toggle='modal' data-target='#productModal'> 
-                                                            <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'>                                     
-                                                                <g clip-path='url(#clip0_2559_39956)'>                                         
-                                                                <path d='M6.99999 1.48362C5.53706 1.48362 4.13404 2.06477 3.09959 3.09922C2.06514 4.13367 1.48399 5.53669 1.48399 6.99963C1.48399 8.46256 2.06514 9.86558 3.09959 10.9C4.13404 11.9345 5.53706 12.5156 6.99999 12.5156C8.46292 12.5156 9.86594 11.9345 10.9004 10.9C11.9348 9.86558 12.516 8.46256 12.516 6.99963C12.516 5.53669 11.9348 4.13367 10.9004 3.09922C9.86594 2.06477 8.46292 1.48362 6.99999 1.48362ZM0.265991 6.99963C0.265991 5.21366 0.975464 3.50084 2.23833 2.23797C3.5012 0.975098 5.21402 0.265625 6.99999 0.265625C8.78596 0.265625 10.4988 0.975098 11.7616 2.23797C13.0245 3.50084 13.734 5.21366 13.734 6.99963C13.734 8.78559 13.0245 10.4984 11.7616 11.7613C10.4988 13.0242 8.78596 13.7336 6.99999 13.7336C5.21402 13.7336 3.5012 13.0242 2.23833 11.7613C0.975464 10.4984 0.265991 8.78559 0.265991 6.99963Z' fill='#282A30'/>                                         <path d='M7.07004 4.34488C6.92998 4.33528 6.78944 4.35459 6.65715 4.40161C6.52487 4.44863 6.40367 4.52236 6.30109 4.61821C6.19851 4.71406 6.11674 4.82999 6.06087 4.95878C6.00499 5.08757 5.9762 5.22648 5.97629 5.36688C5.97629 5.52851 5.91208 5.68352 5.79779 5.79781C5.6835 5.91211 5.52849 5.97631 5.36685 5.97631C5.20522 5.97631 5.05021 5.91211 4.93592 5.79781C4.82162 5.68352 4.75742 5.52851 4.75742 5.36688C4.75733 4.9557 4.87029 4.55241 5.08394 4.2011C5.2976 3.84979 5.60373 3.56398 5.96886 3.37492C6.33399 3.18585 6.74408 3.10081 7.15428 3.12909C7.56449 3.15737 7.95902 3.29788 8.29475 3.53526C8.63049 3.77265 8.8945 4.09776 9.05792 4.47507C9.22135 4.85237 9.2779 5.26735 9.22139 5.67462C9.16487 6.0819 8.99748 6.4658 8.7375 6.78436C8.47753 7.10292 8.13497 7.34387 7.74729 7.48088C7.70694 7.49534 7.67207 7.52196 7.64747 7.55706C7.62287 7.59216 7.60975 7.63402 7.60992 7.67688V8.22463C7.60992 8.38626 7.54571 8.54127 7.43142 8.65557C7.31712 8.76986 7.16211 8.83407 7.00048 8.83407C6.83885 8.83407 6.68383 8.76986 6.56954 8.65557C6.45525 8.54127 6.39104 8.38626 6.39104 8.22463V7.67688C6.39096 7.38197 6.48229 7.0943 6.65247 6.85345C6.82265 6.6126 7.0633 6.43042 7.34129 6.332C7.56313 6.25339 7.7511 6.10073 7.87356 5.89975C7.99603 5.69877 8.0455 5.46172 8.01366 5.22853C7.98181 4.99534 7.87059 4.78025 7.69872 4.61946C7.52685 4.45867 7.30483 4.36114 7.07004 4.34488Z' fill='#282A30'/>                                         <path d='M7.04382 10.1242C7.00228 10.1242 6.96245 10.1408 6.93307 10.1701C6.9037 10.1995 6.8872 10.2393 6.8872 10.2809C6.8872 10.3224 6.9037 10.3623 6.93307 10.3916C6.96245 10.421 7.00228 10.4375 7.04382 10.4375C7.08536 10.4375 7.1252 10.421 7.15457 10.3916C7.18395 10.3623 7.20045 10.3224 7.20045 10.2809C7.20045 10.2393 7.18395 10.1995 7.15457 10.1701C7.1252 10.1408 7.08536 10.1242 7.04382 10.1242ZM7.04382 10.9371C7.13 10.9371 7.21534 10.9201 7.29496 10.8872C7.37458 10.8542 7.44692 10.8059 7.50786 10.7449C7.5688 10.684 7.61714 10.6116 7.65012 10.532C7.6831 10.4524 7.70007 10.3671 7.70007 10.2809C7.70007 10.1947 7.6831 10.1094 7.65012 10.0297C7.61714 9.95012 7.5688 9.87777 7.50786 9.81684C7.44692 9.7559 7.37458 9.70756 7.29496 9.67458C7.21534 9.6416 7.13 9.62462 7.04382 9.62462C6.86977 9.62462 6.70286 9.69376 6.57978 9.81684C6.45671 9.93991 6.38757 10.1068 6.38757 10.2809C6.38757 10.4549 6.45671 10.6218 6.57978 10.7449C6.70286 10.868 6.86977 10.9371 7.04382 10.9371Z' fill='#282A30'/>                                     </g>                                     <defs>                                         <clipPath id='clip0_2559_39956'>                                             <rect width='14' height='14' fill='white'/>                                         </clipPath>                                     </defs>                                 
-                                                            </svg>                             
+                                                        <div class='info-product' data-toggle='modal'
+                                                            data-target='#productModal'>
+                                                            <svg xmlns='http://www.w3.org/2000/svg' width='14'
+                                                                height='14' viewBox='0 0 14 14' fill='none'>
+                                                                <g clip-path='url(#clip0_2559_39956)'>
+                                                                    <path
+                                                                        d='M6.99999 1.48362C5.53706 1.48362 4.13404 2.06477 3.09959 3.09922C2.06514 4.13367 1.48399 5.53669 1.48399 6.99963C1.48399 8.46256 2.06514 9.86558 3.09959 10.9C4.13404 11.9345 5.53706 12.5156 6.99999 12.5156C8.46292 12.5156 9.86594 11.9345 10.9004 10.9C11.9348 9.86558 12.516 8.46256 12.516 6.99963C12.516 5.53669 11.9348 4.13367 10.9004 3.09922C9.86594 2.06477 8.46292 1.48362 6.99999 1.48362ZM0.265991 6.99963C0.265991 5.21366 0.975464 3.50084 2.23833 2.23797C3.5012 0.975098 5.21402 0.265625 6.99999 0.265625C8.78596 0.265625 10.4988 0.975098 11.7616 2.23797C13.0245 3.50084 13.734 5.21366 13.734 6.99963C13.734 8.78559 13.0245 10.4984 11.7616 11.7613C10.4988 13.0242 8.78596 13.7336 6.99999 13.7336C5.21402 13.7336 3.5012 13.0242 2.23833 11.7613C0.975464 10.4984 0.265991 8.78559 0.265991 6.99963Z'
+                                                                        fill='#282A30' />
+                                                                    <path
+                                                                        d='M7.07004 4.34488C6.92998 4.33528 6.78944 4.35459 6.65715 4.40161C6.52487 4.44863 6.40367 4.52236 6.30109 4.61821C6.19851 4.71406 6.11674 4.82999 6.06087 4.95878C6.00499 5.08757 5.9762 5.22648 5.97629 5.36688C5.97629 5.52851 5.91208 5.68352 5.79779 5.79781C5.6835 5.91211 5.52849 5.97631 5.36685 5.97631C5.20522 5.97631 5.05021 5.91211 4.93592 5.79781C4.82162 5.68352 4.75742 5.52851 4.75742 5.36688C4.75733 4.9557 4.87029 4.55241 5.08394 4.2011C5.2976 3.84979 5.60373 3.56398 5.96886 3.37492C6.33399 3.18585 6.74408 3.10081 7.15428 3.12909C7.56449 3.15737 7.95902 3.29788 8.29475 3.53526C8.63049 3.77265 8.8945 4.09776 9.05792 4.47507C9.22135 4.85237 9.2779 5.26735 9.22139 5.67462C9.16487 6.0819 8.99748 6.4658 8.7375 6.78436C8.47753 7.10292 8.13497 7.34387 7.74729 7.48088C7.70694 7.49534 7.67207 7.52196 7.64747 7.55706C7.62287 7.59216 7.60975 7.63402 7.60992 7.67688V8.22463C7.60992 8.38626 7.54571 8.54127 7.43142 8.65557C7.31712 8.76986 7.16211 8.83407 7.00048 8.83407C6.83885 8.83407 6.68383 8.76986 6.56954 8.65557C6.45525 8.54127 6.39104 8.38626 6.39104 8.22463V7.67688C6.39096 7.38197 6.48229 7.0943 6.65247 6.85345C6.82265 6.6126 7.0633 6.43042 7.34129 6.332C7.56313 6.25339 7.7511 6.10073 7.87356 5.89975C7.99603 5.69877 8.0455 5.46172 8.01366 5.22853C7.98181 4.99534 7.87059 4.78025 7.69872 4.61946C7.52685 4.45867 7.30483 4.36114 7.07004 4.34488Z'
+                                                                        fill='#282A30' />
+                                                                    <path
+                                                                        d='M7.04382 10.1242C7.00228 10.1242 6.96245 10.1408 6.93307 10.1701C6.9037 10.1995 6.8872 10.2393 6.8872 10.2809C6.8872 10.3224 6.9037 10.3623 6.93307 10.3916C6.96245 10.421 7.00228 10.4375 7.04382 10.4375C7.08536 10.4375 7.1252 10.421 7.15457 10.3916C7.18395 10.3623 7.20045 10.3224 7.20045 10.2809C7.20045 10.2393 7.18395 10.1995 7.15457 10.1701C7.1252 10.1408 7.08536 10.1242 7.04382 10.1242ZM7.04382 10.9371C7.13 10.9371 7.21534 10.9201 7.29496 10.8872C7.37458 10.8542 7.44692 10.8059 7.50786 10.7449C7.5688 10.684 7.61714 10.6116 7.65012 10.532C7.6831 10.4524 7.70007 10.3671 7.70007 10.2809C7.70007 10.1947 7.6831 10.1094 7.65012 10.0297C7.61714 9.95012 7.5688 9.87777 7.50786 9.81684C7.44692 9.7559 7.37458 9.70756 7.29496 9.67458C7.21534 9.6416 7.13 9.62462 7.04382 9.62462C6.86977 9.62462 6.70286 9.69376 6.57978 9.81684C6.45671 9.93991 6.38757 10.1068 6.38757 10.2809C6.38757 10.4549 6.45671 10.6218 6.57978 10.7449C6.70286 10.868 6.86977 10.9371 7.04382 10.9371Z'
+                                                                        fill='#282A30' />
+                                                                </g>
+                                                                <defs>
+                                                                    <clipPath id='clip0_2559_39956'>
+                                                                        <rect width='14' height='14'
+                                                                            fill='white' />
+                                                                    </clipPath>
+                                                                </defs>
+                                                            </svg>
                                                         </div>
                                                     </div>
-    
                                                 </td>
-                                                <td  class="border bg-white align-top text-13-black">
+                                                <td class="border bg-white align-top text-13-black">
                                                     <input type="text" autocomplete="off" readonly
-                                                            value="{{ $item->product_unit }}"
-                                                            class="border-0 px-2 py-1 w-100 product_unit"
-                                                            name="product_unit[]">
+                                                        value="{{ $item->product_unit }}"
+                                                        class="border-0 px-2 py-1 w-100 product_unit"
+                                                        name="product_unit[]">
                                                 </td>
 
                                                 <td class="border bg-white align-top text-13-black">
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <input @if ($receive->status == 2) readonly @endif
-                                                            type="text" class="border-0 px-2 py-1 w-100 quantity-input text-right"
+                                                            type="text"
+                                                            class="border-0 px-2 py-1 w-100 quantity-input text-right"
                                                             name="product_qty[]" {{-- oninput="checkQty(this,{{ $item->product_qty }})"  --}} readonly
                                                             value="{{ number_format($item->product_qty) }}">
                                                         @if ($item->cbSN == 1)
@@ -251,9 +299,10 @@
                                                                 data-target="#exampleModal{{ $st }}"
                                                                 style="background:transparent; border:none;">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="32"
-                                                                    height="32" viewBox="0 0 32 32" fill="none">
-                                                                    <rect width="32" height="32" rx="4"
-                                                                        fill="white">
+                                                                    height="32" viewBox="0 0 32 32"
+                                                                    fill="none">
+                                                                    <rect width="32" height="32"
+                                                                        rx="4" fill="white">
                                                                     </rect>
                                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                                         d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z"
@@ -275,58 +324,61 @@
                                                             </button>
                                                         @endif
                                                     </div>
-                                                    <div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='pl-1 soTonKho'>35</span></div>
+                                                    <div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span
+                                                            class='pl-1 soTonKho'>35</span></div>
                                                 </td>
-                                                <!-- <td class="border border-top-0 border-bottom-0 border-right-0 text-center">
+                                                <td
+                                                    class="border border-top-0 border-bottom-0 border-right-0 text-center">
                                                     <input type="checkbox" name="cbSeri[]" disabled
                                                         value="{{ $item->cbSN }}"
                                                         @if ($item->cbSN == 1) {{ 'checked' }} @endif>
-                                                </td> -->
-                                                <td class="border bg-white align-top text-13-black" style="width:12%">
+                                                </td>
+                                                {{-- <td class="border bg-white align-top text-13-black" style="width:12%">
                                                     <div>
-                                                        <input type="text" class="border-0 px-2 py-1 w-100 price_export text-right"
+                                                        <input type="text"
+                                                            class="border-0 px-2 py-1 w-100 price_export text-right"
                                                             name="price_export[]"
                                                             value="{{ fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
                                                             readonly>
                                                     </div>
-                                                    <div class='mt-3 text-13-blue transaction text-right'>Giao dịch gần đây</div>
-                                                </td>
-                                                <td class="border bg-white align-top">
-                                                    <!-- <input type="text" class="border-0 px-2 py-1 w-100 product_tax"
-                                                        name="product_tax[]" value="{{ $item->product_tax }}" readonly> -->
-                                                        <select name="product_tax[]"
-                                                            class="border-0 text-center product_tax text-13-black" disabled>
-                                                            <option value="0" <?php if ($item->product_tax == 0) {
-                                                                echo 'selected';
-                                                            } ?>>0%</option>
-                                                            <option value="8" <?php if ($item->product_tax == 8) {
-                                                                echo 'selected';
-                                                            } ?>>8%</option>
-                                                            <option value="10" <?php if ($item->product_tax == 10) {
-                                                                echo 'selected';
-                                                            } ?>>10%</option>
-                                                            <option value="99" <?php if ($item->product_tax == 99) {
-                                                                echo 'selected';
-                                                            } ?>>NOVAT
-                                                            </option>
-                                                        </select>
-                                                </td>
+                                                    <div class='mt-3 text-13-blue transaction text-right'>Giao dịch gần
+                                                        đây</div>
+                                                </td> --}}
+                                                  <!-- <td class="border bg-white align-top">
+                                                    <input type="text" class="border-0 px-2 py-1 w-100 product_tax"
+                                                        name="product_tax[]" value="{{ $item->product_tax }}" readonly> 
+                                                    <select name="product_tax[]"
+                                                        class="border-0 text-center product_tax text-13-black"
+                                                        disabled>
+                                                        <option value="0" <?php if ($item->product_tax == 0) {
+                                                            echo 'selected';
+                                                        } ?>>0%</option>
+                                                        <option value="8" <?php if ($item->product_tax == 8) {
+                                                            echo 'selected';
+                                                        } ?>>8%</option>
+                                                        <option value="10" <?php if ($item->product_tax == 10) {
+                                                            echo 'selected';
+                                                        } ?>>10%</option>
+                                                        <option value="99" <?php if ($item->product_tax == 99) {
+                                                            echo 'selected';
+                                                        } ?>>NOVAT
+                                                        </option>
+                                                    </select>
+                                                </td>-->
                                                 <input type="hidden" class="product_tax1">
-
-
-                                                <td class="border bg-white align-top text-13-black text-left">
+                                                {{-- <td class="border bg-white align-top text-13-black text-left">
                                                     <input type="text" class="border-0 px-2 py-1 w-100 total_price"
                                                         name="total_price[]"
                                                         value="{{ fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
                                                         readonly>
-                                                </td>
+                                                </td> --}}
                                                 <td class="text-center border bg-white align-top text-13-black">
-                                                        <input type="text" class="border-0 py-1 w-100" readonly
-                                                            name="product_note[]"
-                                                            placeholder='Nhập ghi chú'
-                                                            value="{{ $item->product_note }}">
+                                                    <input type="text" class="border-0 py-1 w-100" readonly
+                                                        name="product_note[]" placeholder='Nhập ghi chú'
+                                                        value="{{ $item->product_note }}">
                                                 </td>
-                                                <td class="text-center border bg-white align-top text-13-black @if ($receive->status == 3) deleteRow @endif">
+                                                <td
+                                                    class="text-center border bg-white align-top text-13-black @if ($receive->status == 3) deleteRow @endif">
                                                     <svg width="17" height="17" viewBox="0 0 17 17"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -357,17 +409,19 @@
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-top-0 text-center border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG CÂP</p>
-                    </div> 
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG
+                            CÂP</p>
+                    </div>
 
-                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap" style="height:44px;" style="height:44px;">
+                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
+                        style="height:44px;" style="height:44px;">
                         <span class="text-13 btn-click" style="flex: 1.5;">Đơn mua hàng
                         </span>
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin"
                                 class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest " id="search_quotation"
                                 style="background-color:#F0F4FF; border-radius:4px;" name="quotation_number"
-                                autocomplete="off" required 
+                                autocomplete="off" required
                                 value="@if ($receive->getQuotation) {{ $receive->getQuotation->quotation_number }}@else{{ $receive->id }} @endif">
                         </span>
                         <!-- <div class="d-flex align-items-center justify-content-between border-0">
@@ -412,64 +466,64 @@
                     <div class="">
                         <div class="">
                             <ul class="p-0 m-0">
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
-                                <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest" 
-                                        style="flex:2;" readonly placeholder="Chọn thông tin"
-                                        id="provide_name" value="{{ $receive->getNameProvide->provide_name_display }}"/>
-                            </li>
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
+                                    <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest"
+                                        style="flex:2;" readonly placeholder="Chọn thông tin" id="provide_name"
+                                        value="{{ $receive->getNameProvide->provide_name_display }}" />
+                                </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
-                                        id="represent" placeholder="Chọn thông tin" readonly
-                                        @if ($nameRepresent) value="{{ $nameRepresent }}" @endif/>
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã nhận hàng</span>
-                                <input type="text" placeholder="Chọn thông tin" name="delivery_code" readonly
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
-                                    value="{{ $receive->delivery_code }}"/>
-                            </li>
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
+                                    <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest"
+                                        style="flex:2;" id="represent" placeholder="Chọn thông tin" readonly
+                                        @if ($nameRepresent) value="{{ $nameRepresent }}" @endif />
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã nhận hàng</span>
+                                    <input type="text" placeholder="Chọn thông tin" name="delivery_code" readonly
+                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
+                                        value="{{ $receive->delivery_code }}" />
+                                </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn vị vận chuyển</span>
-                                <input type="text" placeholder="Chọn thông tin"
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn vị vận chuyển</span>
+                                    <input type="text" placeholder="Chọn thông tin"
                                         class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
                                         name="shipping_unit" value="{{ $receive->shipping_unit }}"
-                                        @if ($receive->status == 2) readonly @endif/>
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
-                                <input  type="text" placeholder="Nhập thông tin" name="delivery_charges"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
-                                    value="{{ number_format($receive->delivery_charges) }}"
-                                    @if ($receive->status == 2) readonly @endif >
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày nhận hàng</span>
-                                <input type="text" placeholder="Nhập thông tin" 
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest flatpickr-input" 
-                                        style="flex:2;" id="datePicker" 
+                                        @if ($receive->status == 2) readonly @endif />
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
+                                    <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
+                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
+                                        value="{{ number_format($receive->delivery_charges) }}"
+                                        @if ($receive->status == 2) readonly @endif>
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày nhận hàng</span>
+                                    <input type="text" placeholder="Nhập thông tin"
+                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest flatpickr-input"
+                                        style="flex:2;" id="datePicker"
                                         value="{{ date_format(new DateTime($receive->created_at), 'd/m/Y') }}"
                                         @if ($receive->status == 2) readonly @endif>
-                                <input type="hidden" name="received_date" id="hiddenDateInput"
+                                    <input type="hidden" name="received_date" id="hiddenDateInput"
                                         value="{{ $receive->created_at->toDateString() }}">
-                            </li>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-            </section>
+                </section>
+            </div>
         </div>
-    </div>
-    <x-formmodalseri :product="$product"></x-formmodalseri>
+        <x-formmodalseri :product="$product"></x-formmodalseri>
 </form>
 
 <script src="{{ asset('/dist/js/products.js') }}"></script>
