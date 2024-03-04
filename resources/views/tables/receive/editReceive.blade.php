@@ -531,7 +531,7 @@
             </div>
         </div>
     </div>
-    <x-formmodalseri :product="$product"></x-formmodalseri>
+    <x-formmodalseri :product="$product" :receive="$receive"></x-formmodalseri>
 </form>
 
 <script src="{{ asset('/dist/js/products.js') }}"></script>

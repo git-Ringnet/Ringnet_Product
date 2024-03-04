@@ -549,7 +549,6 @@
                             id: data.id
                         },
                         success: function(product) {
-                            console.log(product);
                             $('#prepayment').removeAttr('readonly')
                             var total = 0;
                             var total_tax = 0;
@@ -557,7 +556,7 @@
                             product.forEach(function(element) {
                                 var tr =
                                     `
-                                <tr class="bg-white">
+                                    <tr class="bg-white">
                                     <td class="border border-left-0 border-top-0 border-bottom-0">
                                     <input type="hidden" readonly value="` + element.id +
                                     `" name="listProduct[]">
@@ -577,8 +576,8 @@
                                         <ul id="listProductCode" class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 24%; top: 75%;">
                                         </ul>
                                     </div>
-                                </td> 
-                                <td class="border border-top-0 border-bottom-0 position-relative">
+                                    </td> 
+                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                     <div class="d-flex w-100 justify-content-between align-items-center">
                                     <input readonly id="searchProductName" type="text" name="product_name[]" class="searchProductName border-0 px-2 py-1 w-100" value='` +
                                     element.product_name +
@@ -589,27 +588,27 @@
                                         <path d="M8.05029 11.5707C8.00282 11.5707 7.95729 11.5896 7.92372 11.6231C7.89015 11.6567 7.87129 11.7022 7.87129 11.7497C7.87129 11.7972 7.89015 11.8427 7.92372 11.8763C7.95729 11.9099 8.00282 11.9287 8.05029 11.9287C8.09777 11.9287 8.1433 11.9099 8.17686 11.8763C8.21043 11.8427 8.22929 11.7972 8.22929 11.7497C8.22929 11.7022 8.21043 11.6567 8.17686 11.6231C8.1433 11.5896 8.09777 11.5707 8.05029 11.5707ZM8.05029 12.4997C8.14878 12.4997 8.24631 12.4803 8.33731 12.4426C8.4283 12.4049 8.51098 12.3497 8.58062 12.28C8.65027 12.2104 8.70551 12.1277 8.7432 12.0367C8.78089 11.9457 8.80029 11.8482 8.80029 11.7497C8.80029 11.6512 8.78089 11.5537 8.7432 11.4627C8.70551 11.3717 8.65027 11.289 8.58062 11.2194C8.51098 11.1497 8.4283 11.0945 8.33731 11.0568C8.24631 11.0191 8.14878 10.9997 8.05029 10.9997C7.85138 10.9997 7.66061 11.0787 7.51996 11.2194C7.37931 11.36 7.30029 11.5508 7.30029 11.7497C7.30029 11.9486 7.37931 12.1394 7.51996 12.28C7.66061 12.4207 7.85138 12.4997 8.05029 12.4997Z" fill="#282A30"></path>
                                     </svg>
                                     </div>
-                                </td>   
-                                <td> 
+                                    </td>   
+                                    <td> 
                                     <input readonly type="text" name="product_unit[]" class="border-0 px-2 py-1 w-100 product_unit" value="` +
                                     element
                                     .product_unit +
                                     `">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
+                                    </td>
+                                    <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <input readonly oninput="checkQty(this,` + (element.product_qty) +
                                     `)" type="text" name="product_qty[]" class="border-0 px-2 py-1 w-100 quantity-input" value="` +
                                     formatCurrency(element
                                         .product_qty) +
                                     `">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
+                                    </td>
+                                    <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <input readonly type="text" name="price_export[]" class="border-0 px-2 py-1 w-100 price_export" value="` +
                                     formatCurrency(element
                                         .price_export) +
                                     `">
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
+                                    </td>
+                                    <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <input readonly type="text" name="product_tax[]" class="border-0 px-2 py-1 w-100 product_tax"
                                     value="` +
                                     (element.product_tax == 99 ?
@@ -617,8 +616,8 @@
                                         .product_tax + "%") +
                                     `"
                                     >
-                                </td>
-                                <td class="border border-top-0 border-bottom-0 border-right-0">
+                                    </td>
+                                    <td class="border border-top-0 border-bottom-0 border-right-0">
                                     <input readonly type="text" name="total_price[]" class="border-0 px-2 py-1 w-100 total_price" readonly="" value="` +
                                     formatCurrency(element
                                         .product_total) +

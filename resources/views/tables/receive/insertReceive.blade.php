@@ -638,7 +638,7 @@
             }
         }
     }
-
+ 
     // Tạo INPUT SERI
     createRowInput('seri');
 
