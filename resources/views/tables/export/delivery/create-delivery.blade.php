@@ -27,7 +27,7 @@
                     </span>
                     <span class="font-weight-bold last-span">Tạo đơn giao hàng</span>
                 </div>
-                <div class="container-fluided z-index-block">
+                <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <a href="{{ route('delivery.index', $workspacename) }}">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
@@ -294,7 +294,7 @@
             </div>
         </div>
         {{-- Thông tin khách hàng --}}
-        <div class="content-wrapper px-0 py-0">
+        <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-0 text-center border-custom">

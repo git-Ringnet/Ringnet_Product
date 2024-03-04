@@ -244,7 +244,7 @@
             </div>
         </div>
         {{-- Thông tin khách hàng --}}
-        <div class="content-wrapper px-0 py-0">
+        <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-0 text-center border-custom">

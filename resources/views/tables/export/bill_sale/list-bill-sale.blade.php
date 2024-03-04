@@ -100,14 +100,14 @@
                 <div class="row">
                     <div class="col-12 p-0">
                         <div class="mt-3">
-                            <div class="text-nowrap">
+                            <div class="outer table-responsive text-nowrap">
                                 <table id="example2" class="table table-hover">
-                                    <thead class="table--header-fixed">
+                                    <thead >
                                         <tr>
-                                            <th scope="col" style="padding-left: 2rem;" class="height-52">
+                                            <th scope="col" style="padding-left: 2rem;" class="height-52 border-0">
                                                 <input type="checkbox" name="all" id="checkall" class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="id"
                                                         data-sort-type="#">
@@ -116,7 +116,7 @@
                                                     <div class="icon" id="icon-id"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type="">
@@ -125,7 +125,7 @@
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type=""><button class="btn-sort text-13" type="submit">Số báo giá</button>
@@ -133,7 +133,7 @@
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13" type="submit">Khách hàng</button>
@@ -141,7 +141,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13" type="submit">Trạng thái</button>
@@ -149,7 +149,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13" type="submit">Tổng tiền</button>
@@ -159,9 +159,9 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody class="table--body-srcoll">
+                                    <tbody>
                                         @foreach ($billSale as $item_bill)
-                                            <tr class="position-relative w-100 d-table" onclick="handleRowClick('checkbox', event);">
+                                            <tr class="position-relative" onclick="handleRowClick('checkbox', event);">
                                                 <td class="height-52">
                                                     <span class="margin-Right10">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">

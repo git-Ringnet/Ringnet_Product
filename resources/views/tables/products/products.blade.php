@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="products" activeName="product"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper m-0">
+<div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->
     <div class="content-header-fixed p-0 margin-250">
         <div class="content__header--inner margin-left32">
@@ -125,11 +125,11 @@
         <!-- Main content -->
         <section class="content margin-250">
             <div class="container-fluided">
-                <div class="row">
-                    <div class="col-md-12 p-0 m-0 pl-2">
-                        <div class="card scroll-custom mt-3">
+                <div class="row p-0 m-0">
+                    <div class="col-12">
+                        <div class="mt-3">
                             <!-- /.card-header -->
-                            <div class="card-body">
+                            <div class="outer table-responsive text-nowrap">
                                 <table id="example2" class="table table-hover">
                                     <thead class="sticky-head">
                                         <tr>

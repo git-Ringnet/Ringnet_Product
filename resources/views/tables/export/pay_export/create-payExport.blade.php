@@ -419,8 +419,8 @@
         <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
-                    <div class="bg-filter-search border-0 py-2 text-center">
-                        <span class="font-weight-bold text-secondary text-nav">THÔNG TIN KHÁCH HÀNG</span>
+                    <div class="bg-filter-search border-top-0 text-center border-custom">
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH HÀNG</p>
                     </div>
                     <div class="d-flex">
                         <div style="width: 55%;">

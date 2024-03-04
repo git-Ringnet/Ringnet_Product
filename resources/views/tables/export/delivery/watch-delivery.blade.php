@@ -109,18 +109,18 @@
                 </div>
             </div>
             <!-- <section class="content-wrapper1 p-2 position-relative">
-                <div class="d-flex justify-content-between">
-                    <ul class="nav nav-tabs bg-filter-search border-0 py-2 rounded ml-3">
-                        <li class="text-nav"><a data-toggle="tab" href="#info" class="active text-secondary">Thông tin</a>
+                <div class="content-header--options p-0 border-0">
+                     <ul class="header-options--nav nav nav-tabs margin-left32">
+                         <li>
+                             <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông tin</a>
                         </li>
-                        <li class="text-nav"><a data-toggle="tab" href="#history" class="text-secondary mx-4">Lịch sử</a>
+                         <li>
+                               <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử giao dịch</a>
                         </li>
-                        <li class="text-nav">
-                            <a data-toggle="tab" href="#files" class="text-secondary">File đính kèm</a>
+                        <li>
+                              <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#">File đính kèm</a>
                         </li>
                     </ul>
-                    <div class="d-flex position-sticky" style="right: 10px; top: 80px;">
-                    </div>
                 </div>
             </section> -->
         </div>
@@ -495,7 +495,7 @@
             </div>
         </div>
         {{-- Thông tin khách hàng --}}
-        <div class="content-wrapper px-0 py-0">
+        <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin nhà cung cấp</p>
@@ -553,15 +553,15 @@
                 </div>
             </div>
         </div>
+        <div id="files" class="tab-pane fade">
+            <div class="bg-filter-search border-bottom-0 text-center py-2 border-right-0">
+                <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
+            </div>
+            <x-form-attachment :value="$delivery" name="GH"></x-form-attachment>
+        </div>
     </div>
 
 </form>
-<div id="files" class="tab-pane fade">
-    <div class="bg-filter-search border-bottom-0 text-center py-2 border-right-0">
-        <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
-    </div>
-    <x-form-attachment :value="$delivery" name="GH"></x-form-attachment>
-</div>
 
 {{-- Thông tin sản phẩm --}}
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">

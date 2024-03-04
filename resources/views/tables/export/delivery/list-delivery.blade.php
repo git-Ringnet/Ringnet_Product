@@ -1,5 +1,5 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="delivery" :workspacename="$workspacename"></x-navbar>
-<div class="content-wrapper m-0">
+<div class="content-wrapper m-0 min-height--none">
     <div class="content-header-fixed p-0 margin-250">
         <div class="content__header--inner margin-left32">
             <div class="content__heading--left">
@@ -94,20 +94,20 @@
             </div>
         </div>
     </div>
-    <div class="content " style="margin-top:6.8rem;">
+    <div class="content margin-top--53">
         <section class="content margin-250">
             <div class="container-fluided">
                 <div class="row m-0 p-0">
                     <div class="col-12 p-0">
-                        <div class="card scroll-custom">
-                            <div class="card-body table-responsive text-nowrap">
+                        <div class="mt-4">
+                            <div class="outer table-responsive text-nowrap">
                                 <table id="example2" class="table table-hover">
-                                    <thead class="sticky-head">
+                                    <thead>
                                         <tr>
-                                            <th scope="col" style="width:5%;padding-left: 2rem;" class="height-52">
+                                            <th scope="col" style="width:5%;padding-left: 2rem;" class="height-52 border-0">
                                                 <input type="checkbox" name="all" id="checkall" class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="id"
                                                         data-sort-type="#">
@@ -116,7 +116,7 @@
                                                     <div class="icon" id="icon-id"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type="" >
@@ -125,7 +125,7 @@
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type=""><button class="btn-sort text-13" type="submit">Khách hàng</button>
@@ -133,7 +133,7 @@
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13" type="submit">Đơn vị vận chuyển</button>
@@ -141,7 +141,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13" type="submit">Phí giao hàng</button>
@@ -149,7 +149,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13" type="submit">Trạng thái</button>
@@ -157,7 +157,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13" type="submit">Ngày giao hàng</button>
@@ -199,7 +199,7 @@
                                                         </a>
                                                     </div>
                                                 </td>
-                                                <td class="text-13-black max-width180">
+                                                <td class="text-13-black max-width120">
                                                     {{ $item_delivery->guest_name_display }}
                                                 </td>
                                                 <td class="text-13-black">
