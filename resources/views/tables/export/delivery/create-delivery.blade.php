@@ -1482,11 +1482,13 @@
                                 $(".idGuest").val(item.guest_id);
                                 $("#detailexport_id").val(item.maXuat);
                                 $("#total-amount-sum").text(
-                                    formatCurrency(totalPrice));
+                                    formatCurrency(Math.round(
+                                        totalPrice)));
                                 $("#product-tax").text(formatCurrency(
-                                    totalTax));
+                                    Math.round(totalTax)));
                                 $("#grand-total").text(formatCurrency(
-                                    grandTotal));
+                                    Math.round(
+                                        grandTotal)));
                                 $("#voucher").val(formatCurrency(item
                                     .discount == null ? 0 : item
                                     .discount));

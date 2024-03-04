@@ -599,7 +599,8 @@
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
-                                    <input type="text" id="datePicker" style="flex:2;" placeholder="Chọn thông tin"
+                                    <input type="text" id="datePicker" style="flex:2;"
+                                        placeholder="Chọn thông tin"
                                         class="text-13-black w-50 border-0 bg-input-guest">
                                     <input type="hidden" id="hiddenDateInput" name="date_quote" value="">
                                 </li>
@@ -1011,8 +1012,8 @@
                                             data-toggle="modal" data-target="#formModaldelivery"
                                             style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
                                             <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                    height="16" viewBox="0 0 16 16" fill="none">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    viewBox="0 0 16 16" fill="none">
                                                     <path
                                                         d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
                                                         fill="#282A30" />
@@ -2466,7 +2467,7 @@
         updateTaxAmount($(this).closest('tr'));
         if (!isNaN(productQty) && !isNaN(productPrice)) {
             var totalAmount = productQty * productPrice;
-            $(this).closest('tr').find('.total-amount').val(formatCurrency(totalAmount));
+            $(this).closest('tr').find('.total-amount').val(formatCurrency(Math.round(totalAmount)));
             calculateTotalAmount();
             calculateTotalTax();
         }

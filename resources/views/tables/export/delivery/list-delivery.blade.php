@@ -192,7 +192,7 @@
                                                 </td>
                                                 
                                                 <td class="text-13-black">
-                                                    {{ $item_delivery->maGiaoHang }}
+                                                    {{ $item_delivery->code_delivery }}
                                                 </td>
                                                 <td class="text-13-black max-width120">
                                                     <div class="">

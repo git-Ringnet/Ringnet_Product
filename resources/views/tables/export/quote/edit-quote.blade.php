@@ -1746,7 +1746,7 @@
                 "<input type='text' class='text-right border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "</div>" +
-                "<div class='mt-3 text-13-blue inventory'>Tồn kho: <span class='pl-1 soTonKho'>35</span></div>" +
+                "<div class='mt-3 text-13-blue inventory'>Tồn kho: <span class='pl-1 soTonKho'></span></div>" +
                 "</td>"
             );
             const donGia = $(
@@ -1754,7 +1754,6 @@
                 "<div>" +
                 "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
                 "</div>" +
-                "<div class='mt-3 text-13-blue transaction'>Giao dịch gần đây</div>" +
                 "</td>"
             );
             const thue = $(
