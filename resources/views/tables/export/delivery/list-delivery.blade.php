@@ -168,7 +168,6 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <td scope="col" class="height-52"></td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -223,7 +222,7 @@
                                                     {{ date_format(new DateTime($item_delivery->ngayGiao), 'd/m/Y') }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
-                                                    style="right: 10px; top: 15px;">
+                                                    style="right: 10px; top: 10px;">
                                                     <div class="d-flex w-100">
                                                         <a href="{{ route('watchDelivery', ['workspace' => $workspacename, 'id' => $item_delivery->maGiaoHang]) }}">
                                                             <div class="m-0 px-2 py-1 mx-2 rounded">

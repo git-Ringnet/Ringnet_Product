@@ -160,7 +160,6 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <td></td>
                                         </tr>
                                     </thead>
                                     <tbody>

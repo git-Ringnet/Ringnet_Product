@@ -26,7 +26,7 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('delivery.index', $workspacename) }}">
+                        <a href="{{ route('billSale.index', $workspacename) }}">
                             <button type="button" 
                             class="btn-destroy btn-light mx-2 d-flex align-items-center h-100">
                                     <span>
@@ -529,12 +529,13 @@
                                             
                                             </td>
                                             <td class="border-right p-2 text-13 align-top">
-                                                <select name="product_tax[]" class="border-0 text-center product_tax" required="" disabled>
+                                                <select class="border-0 text-center product_tax" required="" disabled>
                                                     <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                                     <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
                                                     <option value="10" ${(item.product_tax == 10) ? 'selected' : ''}>10%</option>
                                                     <option value="99" ${(item.product_tax == 99) ? 'selected' : ''}>NOVAT</option>
                                                 </select>
+                                                <input type="hidden" class="product_tax" value="${(item.product_tax)}" name="product_tax[]">
                                             </td>
 
                                             <td class="border-right p-2 text-13 align-top">
