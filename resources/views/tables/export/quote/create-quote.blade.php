@@ -815,12 +815,12 @@
                                                         </button>
                                                         <div class="dropdown-menu date-form-setting"
                                                             style="z-index: 1000;">
-                                                            <a class="dropdown-item edit-project-form w-50"
+                                                            {{-- <a class="dropdown-item edit-project-form w-50"
                                                                 data-toggle="modal" data-target="#projectModal"
                                                                 data-name="" data-id="">
                                                                 <i class="fa-regular fa-pen-to-square"
                                                                     aria-hidden="true"></i>
-                                                            </a>
+                                                            </a> --}}
                                                             <a class="dropdown-item delete-project w-50"
                                                                 href="#" data-id="{{ $project_value->id }}">
                                                                 <i class="fa-solid fa-trash-can"></i>

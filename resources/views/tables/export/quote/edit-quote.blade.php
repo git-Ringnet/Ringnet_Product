@@ -767,41 +767,37 @@
                                                 </div>
                                             </div>
                                             <ul class="m-0 p-0 scroll-data">
-                                                @foreach ($date_form as $item)
-                                                    @if ($item->form_field == 'payment')
-                                                        <li class="p-2 align-items-center text-wrap"
-                                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                            <a href="#"
-                                                                class="text-dark d-flex justify-content-between p-2 search-date-form"
-                                                                name="search-date-form" data-name="payment">
-                                                                <span
-                                                                    class="w-100 text-13-black overflow-hidden">form_name</span>
-                                                            </a>
-                                                            <div class="dropdown">
-                                                                <button type="button" data-toggle="dropdown"
-                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
-                                                                    <i class="fa-solid fa-ellipsis"></i>
-                                                                </button>
-                                                                <div class="dropdown-menu date-form-setting p-0"
-                                                                    style="z-index: 100;">
-                                                                    <a class="dropdown-item search-date-form"
-                                                                        data-toggle="modal"
-                                                                        data-target="#formModalpayment"
-                                                                        data-name="payment">
-                                                                        <i class="fa-regular fa-pen-to-square"></i>
-                                                                    </a>
-                                                                    <a class="dropdown-item delete-item"
-                                                                        href="#">
-                                                                        <i class="fa-solid fa-trash-can"></i>
-                                                                    </a>
-                                                                    <a class="dropdown-item set-default"
-                                                                        href="#">
-                                                                        <i class="fa-solid fa-link"></i>
-                                                                    </a>
-                                                                </div>
+                                                @foreach ($project as $project_value)
+                                                    <li class="border">
+                                                        <a href="#"
+                                                            class="text-dark d-flex justify-content-between p-2 search-project w-100"
+                                                            id="{{ $project_value->id }}">
+                                                            <span
+                                                                class="text-13-black">{{ $project_value->project_name }}</span>
+                                                        </a>
+                                                        <div class="dropdown">
+                                                            <button type="button" data-toggle="dropdown"
+                                                                class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
+                                                                style="margin-right:10px" aria-expanded="false"><i
+                                                                    class="fa-solid fa-ellipsis"
+                                                                    aria-hidden="true"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu date-form-setting"
+                                                                style="z-index: 1000;">
+                                                                {{-- <a class="dropdown-item edit-project-form w-50"
+                                                                    data-toggle="modal" data-target="#projectModal"
+                                                                    data-name="" data-id="">
+                                                                    <i class="fa-regular fa-pen-to-square"
+                                                                        aria-hidden="true"></i>
+                                                                </a> --}}
+                                                                <a class="dropdown-item delete-project w-50"
+                                                                    href="#"
+                                                                    data-id="{{ $project_value->id }}">
+                                                                    <i class="fa-solid fa-trash-can"></i>
+                                                                </a>
                                                             </div>
-                                                        </li>
-                                                    @endif
+                                                        </div>
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                             <a type="button"
