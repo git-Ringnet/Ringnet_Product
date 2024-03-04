@@ -367,9 +367,9 @@ class PayOder extends Model
             ->leftJoin('provides', 'provides.id', '=', 'detailimport.provide_id')
             ->where('detailimport.status', 2)
             ->select(
-                'detailimport.provide_id',
-                'provides.provide_name_display',
-                'provides.provide_code',
+                'detailimport.provide_id as provide_id',
+                'provides.provide_name_display as provide_name',
+                'provides.provide_code as provide_code',
                 DB::raw('SUM(detailimport.total_price + detailimport.total_tax) as sumSell'),
                 DB::raw('SUM(provides.provide_debt) as sumAmountOwed')
             )

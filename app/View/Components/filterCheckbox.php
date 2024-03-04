@@ -15,12 +15,15 @@ class filterCheckbox extends Component
     public $title;
     public $dataa;
     public $namedisplay;
-    public function __construct($dataa = null, $name = null, $title = null, $namedisplay = null)
+    public $button;
+
+    public function __construct($dataa = null, $name = null, $title = null, $namedisplay = null, $button = null)
     {
         $this->dataa = $dataa;
         $this->name = $name;
         $this->title = $title;
         $this->namedisplay = $namedisplay;
+        $this->button = $button;
     }
 
     /**

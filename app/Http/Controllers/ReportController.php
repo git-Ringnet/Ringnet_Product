@@ -24,7 +24,7 @@ class ReportController extends Controller
         $title = 'Báo cáo';
         $guests = $this->payExport->guestStatistics();
         $provides = $this->payOrder->provideStatistics();
-        dd($guests, $provides);
+        // dd($guests, $provides);
         return view('report.index', compact('title', 'guests', 'provides'));
     }
 
@@ -74,5 +74,25 @@ class ReportController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function searchReportGuests(Request $request)
+    {
+        $data = $request->all();
+        if ($request->ajax()) {
+            $guests = $this->payExport->ajax($data);
+
+            return $guests;
+        }
+        return false;
+    }
+    public function searchReportProvides(Request $request)
+    {
+        $data = $request->all();
+        if ($request->ajax()) {
+            // $provides = $this->payOrder->ajax();
+
+            // return $provides;
+        }
+        return false;
     }
 }

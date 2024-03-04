@@ -46,7 +46,7 @@ class UserWorkspaces extends Model
     }
     public function ajax($data)
     {
-        $user_workspaces = DB::table($this->table)
+        $user_workspaces = DB::table($this->table)->join('users', 'user_workspaces.user_id', '=', 'users.id')
             ->leftJoin('roles', 'user_workspaces.roleid', '=', 'roles.id')
             ->leftJoin('workspaces', 'workspaces.id', '=', 'user_workspaces.workspace_id')
             ->where('user_workspaces.workspace_id', Auth::user()->current_workspace)
