@@ -30,11 +30,11 @@
                                             <tr>
                                                 @if ($pro->quoteImport_id == $item->quoteImport_id)
                                                     <td><input type="checkbox"></td>
-                                                    <td>{{$st ++}}</td>
+                                                    <td>{{ $st++ }}</td>
                                                     <td><input class="form-control w-100" type="text"
                                                             name="seri{{ $stt }}[]"
                                                             value="{{ $item->serinumber }}" readonly></td>
-                                                    <td @if(!$receive) class="deleteRow1" @endif>
+                                                    <td @if (!$receive) class="deleteRow1" @endif>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="32"
                                                             height="32" viewBox="0 0 32 32" fill="none">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -44,7 +44,6 @@
                                                     </td>
                                                 @endif
                                             </tr>
-
                                         @endforeach
                                     @else
                                         <tr>
@@ -85,10 +84,10 @@
                                 </tbody>
                             </table>
                             <div class="mt-4">
-                                @if(!$receive)
-                                <button type="button" class="btn btn-primary addRow">Thêm
-                                    dòng</button>
-                                    @endif
+                                @if (!$receive)
+                                    <button type="button" class="btn btn-primary addRow">Thêm
+                                        dòng</button>
+                                @endif
                             </div>
 
                         </div>

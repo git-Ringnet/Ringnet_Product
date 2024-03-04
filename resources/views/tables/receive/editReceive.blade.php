@@ -344,9 +344,9 @@
                                                     <div class='mt-3 text-13-blue transaction text-right'>Giao dịch gần
                                                         đây</div>
                                                 </td> --}}
-                                                  <!-- <td class="border bg-white align-top">
+                                                <!-- <td class="border bg-white align-top">
                                                     <input type="text" class="border-0 px-2 py-1 w-100 product_tax"
-                                                        name="product_tax[]" value="{{ $item->product_tax }}" readonly> 
+                                                        name="product_tax[]" value="{{ $item->product_tax }}" readonly>
                                                     <select name="product_tax[]"
                                                         class="border-0 text-center product_tax text-13-black"
                                                         disabled>
@@ -523,7 +523,7 @@
                 </section>
             </div>
         </div>
-        <x-formmodalseri :product="$product"></x-formmodalseri>
+        <x-formmodalseri :product="$product" :receive="$receive"></x-formmodalseri>
 </form>
 
 <script src="{{ asset('/dist/js/products.js') }}"></script>
