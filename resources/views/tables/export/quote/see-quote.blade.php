@@ -172,7 +172,7 @@
                                 <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử giao dịch</a>
                             </li>
                             <li>
-                                <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#">File đính kèm</a>
+                                <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#files">File đính kèm</a>
                             </li>
                         </ul>
                     </div>
@@ -725,6 +725,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div id="history" class="tab-pane fade">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center  border-custom">Lịch sử giao dịch</p>
                             <section class="content">
@@ -889,6 +890,13 @@
                                 </div>
                             </section>
                         </div>
+
+                        <div id="files" class="tab-pane fade">
+                            <div class="bg-filter-search border-top-0 text-center py-2">
+                                <span class="font-weight-bold text-secondary text-nav">File đính kèm</span>
+                            </div>
+                            <x-form-attachment :value="$detailExport" name="BG"></x-form-attachment>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1023,13 +1031,6 @@
         </div>
     </div>
 </form>
-<div id="files" class="tab-pane fade">
-    <div class="bg-filter-search border-top-0 text-center py-2">
-        <span class="font-weight-bold text-secondary text-nav">File đính kèm</span>
-    </div>
-    <x-form-attachment :value="$detailExport" name="BG"></x-form-attachment>
-</div>
-
 
 {{-- Thông tin sản phẩm --}}
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">

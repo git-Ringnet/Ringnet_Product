@@ -229,7 +229,7 @@ class DetailExportController extends Controller
                 ]);
             }
         }
-        //Hóa đơn
+         //Hóa đơn
         if ($request->action == "action_3") {
             $title = "Tạo Hóa đơn bán hàng";
             $data = $request->all();
@@ -385,7 +385,7 @@ class DetailExportController extends Controller
     {
         $result = [];
         $data = $request->all();
-        $checkQuotetion = DetailExport::where('quotation_number', $data['quotetion_number'])->where('workspace_id', Auth::user()->current_workspace);
+        $checkQuotetion = DetailExport::where('quotation_number', $data['quotetion_number']);
         if (isset($data['detailexport_id'])) {
             $checkQuotetion->where('id', '!=', $data['detailexport_id']);
         }

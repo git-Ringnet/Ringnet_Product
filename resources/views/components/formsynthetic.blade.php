@@ -1,16 +1,16 @@
 <div>
     <div class="content">
         <div class="container-fluided">
-            <div class="row position-relative footer-total">
-                <div class="col-sm-6"></div>
-                <div class="col-sm-6">
-                    <div class="mt-4 w-50" style="float: right;">
+            <div class="row footer-total" style="width:95%;">
+                <div class="position-relative col-lg-4 px-0"></div>
+                <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
+                    <div class="m-3 ">
                         <div class="d-flex justify-content-between">
-                            <span class="text-table"><b>Giá trị trước thuế:</b></span>
+                            <span class="text-13-black">Giá trị trước thuế:</span>
                             <span id="total-amount-sum" class="text-table">0đ</span>
                         </div>
                         <div class="d-flex justify-content-between mt-2 align-items-center">
-                            <span class="text-table"><b>Thuế VAT:</b></span>
+                            <span class="text-13-black">Thuế VAT:</span>
                             <span id="product-tax" class="text-table">0đ</span>
                         </div>
                         @if($import != "123")
@@ -47,9 +47,12 @@
                         @endif --}}
                         @endif
                         <div class="d-flex justify-content-between mt-2">
-                            <span class="text-lg"><b>Tổng cộng:</b></span>
-                            <span><b id="grand-total" data-value="0">0đ</b></span>
-                            <input type="text" hidden="" name="totalValue" value="0" id="total">
+                            <span class="text-13-bold text-lg font-weight-bold">Tổng cộng:</span>
+                            <span id="grand-total" data-value="0"  
+                                class="text-13-bold text-lg font-weight-bold text-right">
+                                0đ
+                            </span>
+                            <input type="text" hidden="" name="totalValue" value="0"id="total">
                         </div>
                     </div>
                 </div>
