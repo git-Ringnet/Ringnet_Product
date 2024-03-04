@@ -97,8 +97,8 @@
     <div class="content " style="margin-top:6.8rem;">
         <section class="content margin-250">
             <div class="container-fluided">
-                <div class="row">
-                    <div class="col-12">
+                <div class="row m-0 p-0">
+                    <div class="col-12 p-0">
                         <div class="card scroll-custom">
                             <div class="card-body table-responsive text-nowrap">
                                 <table id="example2" class="table table-hover">

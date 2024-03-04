@@ -141,8 +141,8 @@
     <!-- Main content -->
     <section class="content margin-250">
         <div class="container-fluided">
-            <div class="row">
-                <div class="col-md-12 p-0 m-0 pl-2">
+            <div class="row p-0 m-0">
+                <div class="col-12 p-0">
                     <div class="card scroll-custom mt-3">
                         <!-- /.card-header -->
                         <div class="card-body table-responsive text-nowrap border-custom">
