@@ -9,12 +9,14 @@ use Illuminate\View\Component;
 class formmodalseri extends Component
 {
     public $product;
+    public $receive;
     /**
      * Create a new component instance.
      */
-    public function __construct($product = "")
+    public function __construct($product = "", $receive ="")
     {
         $this->product = $product;
+        $this->receive = $receive;
     }
 
     /**
