@@ -301,8 +301,9 @@
                                             </td>
 
                                             <td class='border-right p-2 align-top'>
-                                                <svg class="delete-product" width='17' height='17' viewBox='0 0 17 17'
-                                                    fill='none' xmlns='http://www.w3.org/2000/svg'>
+                                                <svg class="delete-product" width='17' height='17'
+                                                    viewBox='0 0 17 17' fill='none'
+                                                    xmlns='http://www.w3.org/2000/svg'>
                                                     <path fill-rule='evenodd' clip-rule='evenodd'
                                                         d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z'
                                                         fill='#6B6F76' />
@@ -446,31 +447,33 @@
                                     </div>
                                     <ul class="m-0 p-0 scroll-data">
                                         @foreach ($guest as $guest_value)
-                                            <li class="p-2 align-items-center text-wrap"
-                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                            <li class="border" data-id="{{ $guest_value->id }}">
                                                 <a href="#" title="{{ $guest_value->guest_name_display }}"
-                                                    style="flex:2;" id="{{ $guest_value->id }}" name="search-info"
-                                                    class="search-info">
+                                                    class="text-dark d-flex justify-content-between p-2 search-info w-100"
+                                                    id="{{ $guest_value->id }}" name="search-info">
                                                     <span
-                                                        class="text-13-black">{{ $guest_value->guest_name_display }}</span>
+                                                        class="w-100 text-nav text-dark overflow-hidden">{{ $guest_value->guest_name_display }}</span>
                                                 </a>
-                                                <a type="button" data-toggle="modal" data-target="#guestModal"
-                                                    data-id="{{ $guest_value->id }}" class="edit-guest">
-                                                    <span>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                            height="14" viewBox="0 0 14 14" fill="none">
-                                                            <path
-                                                                d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                                fill="black" />
-                                                            <path
-                                                                d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                                fill="black" />
-                                                            <path
-                                                                d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                                fill="black" />
-                                                        </svg>
-                                                    </span>
-                                                </a>
+                                                <div class="dropdown">
+                                                    <button type="button" data-toggle="dropdown"
+                                                        class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
+                                                        style="margin-right:10px">
+                                                        <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu date-form-setting"
+                                                        style="z-index: 1000;">
+                                                        <a class="dropdown-item edit-guest w-50" href="#"
+                                                            data-toggle="modal" data-target="#guestModal"
+                                                            data-id="{{ $guest_value->id }}">
+                                                            <i class="fa-regular fa-pen-to-square"
+                                                                aria-hidden="true"></i>
+                                                        </a>
+                                                        <a class="dropdown-item delete-guest w-50" href="#"
+                                                            data-id="{{ $guest_value->id }}" data-name="guest">
+                                                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </li>
                                         @endforeach
                                     </ul>

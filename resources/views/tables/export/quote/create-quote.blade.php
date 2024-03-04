@@ -599,8 +599,9 @@
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest " id="customDateInput"
-                                        name="date_quote" style="flex:2;" value="{{ date('Y-m-d') }}" />
+                                    <input type="text" id="datePicker" style="flex:2;" placeholder="Chọn thông tin"
+                                        class="text-13-black w-50 border-0 bg-input-guest">
+                                    <input type="hidden" id="hiddenDateInput" name="date_quote" value="">
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                     style="height:44px;">
@@ -631,35 +632,43 @@
                                         <ul class="m-0 p-0 scroll-data">
                                             @foreach ($date_form as $item)
                                                 @if ($item->form_field == 'quote')
-                                                    <li class="p-2 align-items-center text-wrap item-{{ $item->id }}"
-                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                    <li class="item-{{ $item->id }} border">
                                                         <a href="#" title="{{ $item->form_name }}"
-                                                            style="flex:2;" id="{{ $item->id }}"
-                                                            name="search-date-form" data-name="quote" class="search-date-form">
+                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
+                                                            id="{{ $item->id }}" name="search-date-form"
+                                                            data-name="quote">
                                                             <span class="text-13-black"
-                                                                id="{{ $item->form_field . $item->id }}">
-                                                                {{ $item->form_name }}
-                                                            </span>
+                                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                         </a>
-                                                        <a id="{{ $item->id }}" class="search-infoEdit"
-                                                            type="button" data-toggle="modal"
-                                                            data-target="#guestModalEdit">
-                                                            <span>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                                    height="14" viewBox="0 0 14 14"
-                                                                    fill="none">
-                                                                    <path
-                                                                        d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                                        fill="black" />
-                                                                </svg>
-                                                            </span>
-                                                        </a>
+                                                        <div class="dropdown">
+                                                            <button type="button" data-toggle="dropdown"
+                                                                class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
+                                                                style="margin-right:10px">
+                                                                <i class="fa-solid fa-ellipsis"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu date-form-setting"
+                                                                style="z-index: 1000;">
+                                                                <a class="dropdown-item search-date-form"
+                                                                    data-toggle="modal" data-target="#formModalquote"
+                                                                    data-name="quote" data-id="{{ $item->id }}"
+                                                                    id="{{ $item->id }}"><i
+                                                                        class="fa-regular fa-pen-to-square"></i></a>
+                                                                <a class="dropdown-item delete-item" href="#"
+                                                                    data-id="{{ $item->id }}"
+                                                                    data-name="{{ $item->form_field }}"><i
+                                                                        class="fa-solid fa-trash-can"></i></a>
+                                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                    id="default-id{{ $item->id }}" href="#"
+                                                                    data-name="{{ $item->form_field }}"
+                                                                    data-id="{{ $item->id }}">
+                                                                    @if ($item->default_form === 1)
+                                                                        <i class="fa-solid fa-link-slash"></i>
+                                                                    @else
+                                                                        <i class="fa-solid fa-link"></i>
+                                                                    @endif
+                                                                </a>
+                                                            </div>
+                                                        </div>
                                                     </li>
                                                 @endif
                                             @endforeach
@@ -710,36 +719,44 @@
                                         <ul class="m-0 p-0 scroll-data">
                                             @foreach ($date_form as $item)
                                                 @if ($item->form_field == 'payment')
-                                                    <li class="p-2 align-items-center text-wrap item-{{ $item->id }}"
-                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                    <li class="item-{{ $item->id }} border">
                                                         <a href="#" title="{{ $item->form_name }}"
-                                                            style="flex:2;" data-name="payment"
+                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                             id="{{ $item->id }}" name="search-date-form"
-                                                            class="search-date-form">
+                                                            data-name="payment">
                                                             <span class="text-13-black"
-                                                                id="{{ $item->form_field . $item->id }}">
-                                                                {{ $item->form_name }}
-                                                            </span>
+                                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                         </a>
-                                                        <a id="{{ $item->id }}" class="search-infoEdit"
-                                                            type="button" data-toggle="modal"
-                                                            data-target="#guestModalEdit">
-                                                            <span>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                                    height="14" viewBox="0 0 14 14"
-                                                                    fill="none">
-                                                                    <path
-                                                                        d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                                        fill="black" />
-                                                                </svg>
-                                                            </span>
-                                                        </a>
+                                                        <div class="dropdown">
+                                                            <button type="button" data-toggle="dropdown"
+                                                                class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
+                                                                style="margin-right:10px">
+                                                                <i class="fa-solid fa-ellipsis"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu date-form-setting"
+                                                                style="z-index: 1000;">
+                                                                <a class="dropdown-item search-date-form"
+                                                                    data-toggle="modal"
+                                                                    data-target="#formModalpayment"
+                                                                    data-name="payment" data-id="{{ $item->id }}"
+                                                                    id="{{ $item->id }}"><i
+                                                                        class="fa-regular fa-pen-to-square"></i></a>
+                                                                <a class="dropdown-item delete-item" href="#"
+                                                                    data-id="{{ $item->id }}"
+                                                                    data-name="{{ $item->form_field }}"><i
+                                                                        class="fa-solid fa-trash-can"></i></a>
+                                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                    id="default-id{{ $item->id }}" href="#"
+                                                                    data-name="{{ $item->form_field }}"
+                                                                    data-id="{{ $item->id }}">
+                                                                    @if ($item->default_form === 1)
+                                                                        <i class="fa-solid fa-link-slash"></i>
+                                                                    @else
+                                                                        <i class="fa-solid fa-link"></i>
+                                                                    @endif
+                                                                </a>
+                                                            </div>
+                                                        </div>
                                                     </li>
                                                 @endif
                                             @endforeach
@@ -783,32 +800,33 @@
                                         </div>
                                         <ul class="m-0 p-0 scroll-data">
                                             @foreach ($project as $project_value)
-                                                <li class="p-2 align-items-center text-wrap"
-                                                    style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                    <a href="#" style="flex:2;" data-name="payment"
-                                                        id="{{ $project_value->id }}" class="search-project">
-                                                        <span class="text-13-black">
-                                                            {{ $project_value->project_name }}
-                                                        </span>
+                                                <li class="border">
+                                                    <a href="#"
+                                                        class="text-dark d-flex justify-content-between p-2 search-project w-100"
+                                                        id="{{ $project_value->id }}">
+                                                        <span
+                                                            class="text-13-black">{{ $project_value->project_name }}</span>
                                                     </a>
-                                                    <a id="{{ $project_value->id }}" class="search-infoEdit"
-                                                        type="button" data-toggle="modal"
-                                                        data-target="#guestModalEdit">
-                                                        <span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                                height="14" viewBox="0 0 14 14" fill="none">
-                                                                <path
-                                                                    d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                                    fill="black" />
-                                                                <path
-                                                                    d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                                    fill="black" />
-                                                                <path
-                                                                    d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                                    fill="black" />
-                                                            </svg>
-                                                        </span>
-                                                    </a>
+                                                    <div class="dropdown">
+                                                        <button type="button" data-toggle="dropdown"
+                                                            class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
+                                                            style="margin-right:10px" aria-expanded="false"><i
+                                                                class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu date-form-setting"
+                                                            style="z-index: 1000;">
+                                                            <a class="dropdown-item edit-project-form w-50"
+                                                                data-toggle="modal" data-target="#projectModal"
+                                                                data-name="" data-id="">
+                                                                <i class="fa-regular fa-pen-to-square"
+                                                                    aria-hidden="true"></i>
+                                                            </a>
+                                                            <a class="dropdown-item delete-project w-50"
+                                                                href="#" data-id="{{ $project_value->id }}">
+                                                                <i class="fa-solid fa-trash-can"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                             @endforeach
                                         </ul>
@@ -858,35 +876,43 @@
                                         <ul class="m-0 p-0 scroll-data">
                                             @foreach ($date_form as $item)
                                                 @if ($item->form_field == 'goods')
-                                                    <li class="p-2 align-items-center text-wrap item-{{ $item->id }}"
-                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                        <a href="#" style="flex:2;" data-name="goods"
+                                                    <li class="item-{{ $item->id }} border">
+                                                        <a href="#" title="{{ $item->form_name }}"
+                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                             id="{{ $item->id }}" name="search-date-form"
-                                                            class="search-date-form">
+                                                            data-name="goods">
                                                             <span class="text-13-black"
-                                                                id="{{ $item->form_field . $item->id }}">
-                                                                {{ $item->form_name }}
-                                                            </span>
+                                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                         </a>
-                                                        <a id="{{ $item->id }}" class="search-infoEdit"
-                                                            type="button" data-toggle="modal"
-                                                            data-target="#guestModalEdit">
-                                                            <span>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                                    height="14" viewBox="0 0 14 14"
-                                                                    fill="none">
-                                                                    <path
-                                                                        d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                                        fill="black" />
-                                                                </svg>
-                                                            </span>
-                                                        </a>
+                                                        <div class="dropdown">
+                                                            <button type="button" data-toggle="dropdown"
+                                                                class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
+                                                                style="margin-right:10px">
+                                                                <i class="fa-solid fa-ellipsis"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu date-form-setting"
+                                                                style="z-index: 1000;">
+                                                                <a class="dropdown-item search-date-form"
+                                                                    data-toggle="modal" data-target="#formModalgoods"
+                                                                    data-name="goods" data-id="{{ $item->id }}"
+                                                                    id="{{ $item->id }}"><i
+                                                                        class="fa-regular fa-pen-to-square"></i></a>
+                                                                <a class="dropdown-item delete-item" href="#"
+                                                                    data-id="{{ $item->id }}"
+                                                                    data-name="{{ $item->form_field }}"><i
+                                                                        class="fa-solid fa-trash-can"></i></a>
+                                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                    id="default-id{{ $item->id }}" href="#"
+                                                                    data-name="{{ $item->form_field }}"
+                                                                    data-id="{{ $item->id }}">
+                                                                    @if ($item->default_form === 1)
+                                                                        <i class="fa-solid fa-link-slash"></i>
+                                                                    @else
+                                                                        <i class="fa-solid fa-link"></i>
+                                                                    @endif
+                                                                </a>
+                                                            </div>
+                                                        </div>
                                                     </li>
                                                 @endif
                                             @endforeach
@@ -938,36 +964,45 @@
                                         <ul class="m-0 p-0 scroll-data">
                                             @foreach ($date_form as $item)
                                                 @if ($item->form_field == 'delivery')
-                                                    <li class="p-2 align-items-center text-wrap item-{{ $item->id }}"
-                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                    <li class="item-{{ $item->id }} border">
                                                         <a href="#" title="{{ $item->form_name }}"
-                                                            style="flex:2;" data-name="delivery"
+                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                             id="{{ $item->id }}" name="search-date-form"
-                                                            class="search-date-form">
+                                                            data-name="delivery">
                                                             <span class="text-13-black"
-                                                                id="{{ $item->form_field . $item->id }}">
-                                                                {{ $item->form_name }}
-                                                            </span>
+                                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                         </a>
-                                                        <a id="{{ $item->id }}" class="search-infoEdit"
-                                                            type="button" data-toggle="modal"
-                                                            data-target="#guestModalEdit">
-                                                            <span>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                                    height="14" viewBox="0 0 14 14"
-                                                                    fill="none">
-                                                                    <path
-                                                                        d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                                        fill="black" />
-                                                                </svg>
-                                                            </span>
-                                                        </a>
+                                                        <div class="dropdown">
+                                                            <button type="button" data-toggle="dropdown"
+                                                                class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
+                                                                style="margin-right:10px">
+                                                                <i class="fa-solid fa-ellipsis"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu date-form-setting"
+                                                                style="z-index: 1000;">
+                                                                <a class="dropdown-item search-date-form"
+                                                                    data-toggle="modal"
+                                                                    data-target="#formModaldelivery"
+                                                                    data-name="delivery"
+                                                                    data-id="{{ $item->id }}"
+                                                                    id="{{ $item->id }}"><i
+                                                                        class="fa-regular fa-pen-to-square"></i></a>
+                                                                <a class="dropdown-item delete-item" href="#"
+                                                                    data-id="{{ $item->id }}"
+                                                                    data-name="{{ $item->form_field }}"><i
+                                                                        class="fa-solid fa-trash-can"></i></a>
+                                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                    id="default-id{{ $item->id }}" href="#"
+                                                                    data-name="{{ $item->form_field }}"
+                                                                    data-id="{{ $item->id }}">
+                                                                    @if ($item->default_form === 1)
+                                                                        <i class="fa-solid fa-link-slash"></i>
+                                                                    @else
+                                                                        <i class="fa-solid fa-link"></i>
+                                                                    @endif
+                                                                </a>
+                                                            </div>
+                                                        </div>
                                                     </li>
                                                 @endif
                                             @endforeach
@@ -976,8 +1011,8 @@
                                             data-toggle="modal" data-target="#formModaldelivery"
                                             style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
                                             <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                    height="16" viewBox="0 0 16 16" fill="none">
                                                     <path
                                                         d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
                                                         fill="#282A30" />
@@ -1018,36 +1053,46 @@
                                         <ul class="m-0 p-0 scroll-data">
                                             @foreach ($date_form as $item)
                                                 @if ($item->form_field == 'location')
-                                                    <li class="p-2 align-items-center text-wrap item-{{ $item->id }}"
-                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                    <li class="item-{{ $item->id }} border">
                                                         <a href="#" title="{{ $item->form_name }}"
-                                                            style="flex:2;" data-name="location"
+                                                            class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                             id="{{ $item->id }}" name="search-date-form"
-                                                            class="search-date-form">
+                                                            data-name="location">
                                                             <span class="text-13-black"
-                                                                id="{{ $item->form_field . $item->id }}">
-                                                                {{ $item->form_name }}
-                                                            </span>
+                                                                id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                         </a>
-                                                        <a id="{{ $item->id }}" class="search-infoEdit"
-                                                            type="button" data-toggle="modal"
-                                                            data-target="#guestModalEdit">
-                                                            <span>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                                                    height="14" viewBox="0 0 14 14"
-                                                                    fill="none">
-                                                                    <path
-                                                                        d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                                        fill="black" />
-                                                                    <path
-                                                                        d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                                        fill="black" />
-                                                                </svg>
-                                                            </span>
-                                                        </a>
+                                                        <div class="dropdown">
+                                                            <button type="button" data-toggle="dropdown"
+                                                                class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
+                                                                style="margin-right:10px">
+                                                                <i class="fa-solid fa-ellipsis"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu date-form-setting"
+                                                                style="z-index: 1000;">
+                                                                <a class="dropdown-item search-date-form"
+                                                                    data-toggle="modal"
+                                                                    data-target="#formModallocation"
+                                                                    data-name="location"
+                                                                    data-id="{{ $item->id }}"
+                                                                    id="{{ $item->id }}"><i
+                                                                        class="fa-regular fa-pen-to-square"></i></a>
+                                                                <a class="dropdown-item delete-item" href="#"
+                                                                    data-id="{{ $item->id }}"
+                                                                    data-name="{{ $item->form_field }}"><i
+                                                                        class="fa-solid fa-trash-can"></i></a>
+                                                                <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                    id="default-id{{ $item->id }}"
+                                                                    href="#"
+                                                                    data-name="{{ $item->form_field }}"
+                                                                    data-id="{{ $item->id }}">
+                                                                    @if ($item->default_form === 1)
+                                                                        <i class="fa-solid fa-link-slash"></i>
+                                                                    @else
+                                                                        <i class="fa-solid fa-link"></i>
+                                                                    @endif
+                                                                </a>
+                                                            </div>
+                                                        </div>
                                                     </li>
                                                 @endif
                                             @endforeach
@@ -1792,7 +1837,7 @@
                                             name: 'search-represent',
                                         }).append(
                                             $('<span>').addClass(
-                                                'w-100 text-nav text-dark overflow-hidden'
+                                                'text-13-black'
                                             ).text(representative
                                                 .represent_name)
                                         )
@@ -2026,7 +2071,7 @@
                                 '"><a href="#" title="' + newGuestInfo1.represent_name +
                                 '" class="text-dark d-flex justify-content-between p-2 search-represent w-100" id="' +
                                 newGuestInfo1.id_represent + '" name="search-represent">' +
-                                '<span class="w-100 text-nav text-dark overflow-hidden">' +
+                                '<span class="text-13-black">' +
                                 newGuestInfo1
                                 .represent_name +
                                 '</span></a>' +
@@ -2183,7 +2228,7 @@
                             '<li class="border" data-id="' + newGuestInfo.id + '">' +
                             '<a href="#" class="text-dark d-flex justify-content-between p-2 search-project w-100" id="' +
                             newGuestInfo.id + '" name="search-project">' +
-                            '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
+                            '<span class="text-13-black">' + newGuestInfo
                             .project_name + '</span>' +
                             '</a>' +
                             '<a class="dropdown-item delete-project w-25" href="#" data-id="' +
@@ -2271,7 +2316,7 @@
                                 '"><a href="#" title="' + newGuestInfo.represent_name +
                                 '" class="text-dark d-flex justify-content-between p-2 search-represent w-100" id="' +
                                 newGuestInfo.id + '" name="search-represent">' +
-                                '<span class="w-100 text-nav text-dark overflow-hidden">' +
+                                '<span class="text-13-black">' +
                                 newGuestInfo
                                 .represent_name +
                                 '</span></a>' +

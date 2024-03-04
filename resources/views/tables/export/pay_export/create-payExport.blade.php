@@ -902,9 +902,10 @@
                     // $("#billSale_id").val(data.maThanhToan);
                     $('.numberQute').val(data.quotation_number);
                     $('.nameGuest').val(data.guest_name_display);
-                    $('.tongTien').val(formatCurrency(data.tongTienNo));
+                    $('.tongTien').val(formatCurrency(Math.round(data.tongTienNo)));
                     $('.daThanhToan').val(formatCurrency(data.tongThanhToan));
-                    $('.duNo').val(formatCurrency(data.tongTienNo - data.tongThanhToan));
+                    $('.duNo').val(formatCurrency(Math.round(data.tongTienNo - data
+                        .tongThanhToan)));
                     $.ajax({
                         url: '{{ route('getProductPay') }}',
                         type: 'GET',
@@ -912,6 +913,7 @@
                             idQuote: idQuote
                         },
                         success: function(data) {
+                            console.log(data);
                             $(".sanPhamGiao").remove();
                             $.each(data, function(index, item) {
                                 $("#detailexport_id").val(item
@@ -921,6 +923,11 @@
                                 var totalPrice = parseFloat(item
                                     .total_price) || 0;
                                 var grandTotal = totalTax + totalPrice;
+                                var tax = (item.price_export * item
+                                    .product_qty * (item
+                                        .product_tax == 99 ? 0 :
+                                        item
+                                        .product_tax)) / 100;
                                 $(".idGuest").val(item.guest_id);
                                 var newRow = `
                                 <tr id="dynamic-row-${item.id}" class="bg-white sanPhamGiao">
@@ -972,13 +979,12 @@
                                 </select>
                             </td>
                             <td class="border border-top-0 border-bottom-0">
-                                <input type="text" value="${formatCurrency(item.product_total)}" readonly="" class="border-0 px-2 py-1 w-100 total-amount">
+                                <input type="text" value="${formatCurrency(Math.round(item.product_total))}" readonly="" class="border-0 px-2 py-1 w-100 total-amount">
                             </td>
                             <td class="border border-top-0 border-bottom-0 border-right-0 position-relative note p-1">
                                 <input type="text" readonly value="${(item.product_note == null) ? '' : item.product_note}" class="border-0 py-1 w-100" name="product_note[]">
                             </td>
-                            <td style="display:none;" class="><input type="text" class="product_tax1"></td>
-                            <td style="display:none;"><input type="text" class="product_tax1"></td>
+                            <td style="display:none;"><input type="text" class="product_tax1" value="${tax}"></td>
                             </tr>`;
                                 $("#dynamic-fields").before(newRow);
                                 //kéo thả vị trí sản phẩm
