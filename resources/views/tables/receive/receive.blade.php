@@ -108,8 +108,8 @@
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="id"
                                                         data-sort-type="#">
-                                                        <button class="btn-sort text-13" type="submit">Ngày hóa
-                                                            đơn</button>
+                                                        <button class="btn-sort text-13" type="submit">Mã nhận
+                                                            hàng</button>
                                                     </a>
                                                     <div class="icon" id="icon-id"></div>
                                                 </span>
@@ -118,8 +118,8 @@
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type="">
-                                                        <button class="btn-sort text-13" type="submit">Số hóa
-                                                            đơn</button>
+                                                        <button class="btn-sort text-13" type="submit">Đơn mua
+                                                            hàng</button>
                                                     </a>
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
@@ -128,7 +128,7 @@
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Đơn mua hàng</button>
+                                                            type="submit">Nhà cung cấp</button>
                                                     </a>
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
@@ -137,11 +137,21 @@
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Nhà cung cấp</button>
+                                                            type="submit">Đơn vị vận chuyển</button>
                                                     </a>
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Phí nhận hàng</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
+
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
@@ -152,6 +162,15 @@
                                                 </span>
                                             </th>
 
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Ngày giao hàng</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
@@ -186,24 +205,25 @@
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
                                                 <td class=" text-13-black">
-                                                    {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
-                                                </td>
-                                                <td class=" text-13-black">
-                                                    DNH-0001
+                                                    {{ $item->delivery_code }}
                                                 </td>
                                                 <td class="">
                                                     <a href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}"
-                                                        class="duongdan text-13-black">
+                                                        class="duongdan">
                                                         @if ($item->getQuotation)
                                                             {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
                                                         @endif
                                                     </a>
-
                                                 </td>
                                                 <td class=" text-13-black">
-                                                    {{ $item->getNameProvide->provide_name_display }}</td>
-                                                <!-- <td class=" text-13-black">{{ $item->shipping_unit }}</td> -->
-                                                <!-- <td class=" text-13-black">{{ number_format($item->delivery_charges) }}</td> -->
+                                                    {{ $item->getNameProvide->provide_name_display }}
+                                                </td>
+                                                <td class=" text-13-black">
+                                                    {{ $item->shipping_unit }}
+                                                </td>
+                                                <td class=" text-13-black">
+                                                    {{ number_format($item->delivery_charges) }}
+                                                </td>
                                                 <td class=" text-13-black">
                                                     @if ($item->status == 1)
                                                         <span style="color: #858585">Chưa nhận</span>
@@ -211,9 +231,17 @@
                                                         <span style="color: #08AA36">Đã nhận</span>
                                                     @endif
                                                 </td>
-                                                <td class="py-2">
-                                                    {{ number_format($item->getQuotation->total_tax) }}
+                                                <td class=" text-13-black">
+                                                    {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td>
+                                                <td class=" text-13-black">
+                                                    Tổng tiền
+                                                </td>
+                                              
+
+                                                {{-- <td class="py-2">
+                                                    {{ number_format($item->getQuotation->total_tax) }}
+                                                </td> --}}
                                                 <!-- <td class="py-2">
                                                     {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td> -->

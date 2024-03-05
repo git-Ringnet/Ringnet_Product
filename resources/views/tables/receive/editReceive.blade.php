@@ -333,7 +333,7 @@
                                                         value="{{ $item->cbSN }}"
                                                         @if ($item->cbSN == 1) {{ 'checked' }} @endif>
                                                 </td>
-                                                {{-- <td class="border bg-white align-top text-13-black" style="width:12%">
+                                                <td class="border bg-white align-top text-13-black d-none">
                                                     <div>
                                                         <input type="text"
                                                             class="border-0 px-2 py-1 w-100 price_export text-right"
@@ -343,8 +343,8 @@
                                                     </div>
                                                     <div class='mt-3 text-13-blue transaction text-right'>Giao dịch gần
                                                         đây</div>
-                                                </td> --}}
-                                                <!-- <td class="border bg-white align-top">
+                                                </td>
+                                                <td class="border bg-white align-top d-none">
                                                     <input type="text" class="border-0 px-2 py-1 w-100 product_tax"
                                                         name="product_tax[]" value="{{ $item->product_tax }}" readonly>
                                                     <select name="product_tax[]"
@@ -364,14 +364,14 @@
                                                         } ?>>NOVAT
                                                         </option>
                                                     </select>
-                                                </td>-->
+                                                </td>
                                                 <input type="hidden" class="product_tax1">
-                                                {{-- <td class="border bg-white align-top text-13-black text-left">
+                                                <td class="border bg-white align-top text-13-black text-left d-none">
                                                     <input type="text" class="border-0 px-2 py-1 w-100 total_price"
                                                         name="total_price[]"
                                                         value="{{ fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
                                                         readonly>
-                                                </td> --}}
+                                                </td>
                                                 <td class="text-center border bg-white align-top text-13-black">
                                                     <input type="text" class="border-0 py-1 w-100" readonly
                                                         name="product_note[]" placeholder='Nhập ghi chú'

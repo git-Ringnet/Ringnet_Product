@@ -477,6 +477,15 @@
 </div>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    flatpickr("#datePicker", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
     // Xóa đơn hàng
     deleteImport('#delete_payment',
         '{{ route('paymentOrder.destroy', ['workspace' => $workspacename, 'paymentOrder' => $payment->id]) }}')

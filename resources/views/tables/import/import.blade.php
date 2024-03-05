@@ -254,12 +254,12 @@
                                                     {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td>
                                                 <td class=" text-13-black">
-                                                    {{-- <div class="">
+                                                    <div class="">
                                                         <a href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->id]) }}"
-                                                            class="duongDan"> --}}
+                                                            class="duongDan">
                                                     {{ $item->quotation_number == null ? $item->id : $item->quotation_number }}
-                                                    {{-- </a>
-                                                    </div> --}}
+                                                    </a>
+                                                    </div>
                                                 </td>
                                                 <td class=" text-13-black">{{ $item->reference_number }}</td>
                                                 <td class=" text-13-black">

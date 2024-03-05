@@ -119,7 +119,7 @@
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type="">
                                                         <button class="btn-sort text-13" type="submit">Đơn mua
-                                                            hàng#</button>
+                                                            hàng</button>
                                                     </a>
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
@@ -204,7 +204,10 @@
                                                 </td>
                                                 <td class="py-2 text-13-black">{{ $item->payment_code }}</td>
                                                 <td class="py-2 text-13-black">
-                                                    {{ $item->getQuotation->quotation_number }}
+                                                    <a
+                                                        href="{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => $item->id]) }}">
+                                                        {{ $item->getQuotation->quotation_number }}
+                                                    </a>
                                                 </td>
                                                 <td class="py-2 text-13-black">
                                                     {{ $item->getProvideName->provide_name_display }}</td>

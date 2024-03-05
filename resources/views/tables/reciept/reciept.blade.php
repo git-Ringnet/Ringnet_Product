@@ -189,9 +189,12 @@
                                                     {{ date_format(new DateTime($item->date_bill), 'd/m/Y') }}</td>
                                                 <td class="py-2 text-13-black">{{ $item->number_bill }}</td>
                                                 <td class="py-2 text-13-black">
-                                                    @if ($item->getQuotation)
-                                                        {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
-                                                    @endif
+                                                    <a
+                                                        href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}">
+                                                        @if ($item->getQuotation)
+                                                            {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
+                                                        @endif
+                                                    </a>
                                                 </td>
                                                 <td class="py-2 text-13-black">
                                                     {{ $item->getProvideName->provide_name_display }}</td>

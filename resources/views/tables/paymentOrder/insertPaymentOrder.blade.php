@@ -69,7 +69,7 @@
                                     d="M4.75 0V5.75C4.75 6.5297 5.34489 7.17045 6.10554 7.24313L6.25 7.25H12V12C12 13.1046 11.1046 14 10 14H2C0.89543 14 0 13.1046 0 12V2C0 0.89543 0.89543 0 2 0H4.75ZM6 0L12 6.03022H7C6.44772 6.03022 6 5.5825 6 5.03022V0Z"
                                     fill="white" />
                             </svg>
-                            <span class="text-btnIner-primary ml-2">Lưu nháp</span>
+                            <span class="text-btnIner-primary ml-2">Xác nhận</span>
                         </button>
 
                         <button id="sideProvide" type="button" class="btn-option border-0 mx-1">
@@ -400,7 +400,7 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
-                                <input type="text" placeholder="Chọn thông tin" id="total_bill" required
+                                <input readonly type="text" placeholder="Chọn thông tin" id="total_bill" required
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
                                     value="@isset($yes){{ number_format($getPaymentOrder[0]->total_price) }}@endisset">
                             </li>
@@ -408,7 +408,7 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đã thanh toán</span>
-                                <input id="payment" type="text" placeholder="Chọn thông tin"
+                                <input readonly id="payment" type="text" placeholder="Chọn thông tin"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
                                     value="@isset($yes){{ $getPaymentOrder[0]->payment == null ? 0 : number_format($getPaymentOrder[0]->payment) }}@endisset">
                             </li>
@@ -553,10 +553,8 @@
                                             <td class="border-right p-2 text-13 align-top">
                                                     <div>
                                                         <input type='text' oninput="checkQty(this,` + (element
-                                        .product_qty - element
-                                        .reciept_qty) + `)"
-                                                            value="` + formatCurrency(element.product_qty - element
-                                        .reciept_qty) + `"
+                                        .product_qty) + `)"
+                                                            value="` + formatCurrency(element.product_qty) + `"
                                                             class='border-0 px-2 py-1 w-100 quantity-input text-right' autocomplete='off'
                                                             name='product_qty[]'>
                                                         <input type='hidden' class='tonkho'>
