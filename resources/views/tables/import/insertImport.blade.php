@@ -508,7 +508,7 @@
                                         </div>
                                         <a type="button"
                                             class="d-flex align-items-center p-2 position-sticky addRepresent mt-2"
-                                            data-toggle="modal" data-target="#formModalquote"
+                                            data-toggle="modal" data-target="#formModalTermPay"
                                             style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
