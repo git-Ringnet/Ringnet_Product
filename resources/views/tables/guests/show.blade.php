@@ -210,17 +210,17 @@
                                             </td>
                                             <td class="border-right text-13-black px-0 py-2 padding-left35" style="width: 20%;">
                                                 <input type="text" autocomplete="off"
-                                                    value="{{ number_format($sumSell) }} vnd" readonly
+                                                    value="{{ number_format($sumSell) }}" readonly
                                                     class="border-0 px-2 py-1 w-100 text-13-black">
                                             </td>
                                             <td class="border-right text-13-black px-0 py-2 padding-left35" style="width: 20%;">
                                                 <input type="text" autocomplete="off"
-                                                    value="{{ number_format($sumPay) }} vnd" readonly
+                                                    value="{{ number_format($sumPay) }}" readonly
                                                     class="border-0 px-2 py-1 w-100 text-13-black">
                                             </td>
                                             <td class="border-right text-13-black px-0 py-2 padding-left35" style="width: 20%;">
                                                 <input type="text" autocomplete="off"
-                                                    value="{{ number_format($sumDebt) }} vnd" readonly
+                                                    value="{{ number_format($sumDebt) }}" readonly
                                                     class="border-0 px-2 py-1 w-100 text-13-black">
                                             </td>
                                         </tr>

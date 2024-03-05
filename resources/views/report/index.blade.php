@@ -84,15 +84,23 @@
                                                     </span>
                                                 </div>
                                                 <div class="scrollbar">
-                                                    <button class="dropdown-item btndropdown text-13-black" id="btn-code" data-button="code"
-                                                        type="button">Mã hàng hóa
+                                                    <button class="dropdown-item btndropdown text-13-black btn-code"
+                                                        id="btn-code-import" data-button="code" data-button="import"
+                                                        type="button">Mã nhà cung cấp
                                                     </button>
-                                                    <button class="dropdown-item btndropdown text-13-black" id="btn-name" data-button="name"
-                                                        type="button">Tên hàng hóa
+                                                    <button class="dropdown-item btndropdown text-13-black btn-name"
+                                                        id="btn-name-import" data-button="name" data-button="import"
+                                                        type="button">Công ty
                                                     </button>
-                                                    <button class="dropdown-item btndropdown text-13-black" id="btn-inventory"
-                                                        data-button="inventory" type="button">
-                                                        Số lượng tồn
+                                                    <button class="dropdown-item btndropdown text-13-black btn-total"
+                                                        id="btn-total-import" data-button="import" data-button="total"
+                                                        type="button">
+                                                        Tổng thanh toán
+                                                    </button>
+                                                    <button class="dropdown-item btndropdown text-13-black btn-debt"
+                                                        id="btn-debt-import" data-button="import" data-button="debt"
+                                                        type="button">
+                                                        Công nợ
                                                     </button>
                                                 </div>
                                             </div>
@@ -113,7 +121,7 @@
                                 <div class="mt-5">
                                     <div class="outer table-responsive text-nowrap">
                                         <table id="example2" class="table table-hover">
-                                            <thead class="sticky-head">
+                                            <thead>
                                                 <tr>
                                                     <th scope="col" style="padding-left: 2rem;width:100px;" class="height-52 pr-0">
                                                         <input type="checkbox" name="all" id="checkall" class="checkall-btn">

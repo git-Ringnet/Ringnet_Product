@@ -416,7 +416,7 @@
                                     fill="#26273B" fill-opacity="0.8" />
                             </svg>
                             <div class="d-flex align-items-center justify-content-between w-100">
-                                <p class="text-nav ml-2">Báo cáo</p>
+                                <p class="text-nav">Báo cáo</p>
                             </div>
                         </a>
                     </li>
