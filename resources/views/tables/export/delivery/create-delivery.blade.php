@@ -1454,10 +1454,12 @@
                     idQuote: idQuote
                 },
                 success: function(data) {
+                    console.log(data);
                     $('.idRepresent').val(data.represent_id)
                     $('.numberQute').val(data.quotation_number)
                     $('.nameGuest').val(data.guest_name_display)
                     $('.represent_name').val(data.represent_name)
+                    $('input[name="code_delivery"]').val('GH-' + (data.lastDeliveryId + 1));
                     $('#show-info-guest').show();
                     $('#show-title-guest').show();
                     $.ajax({
