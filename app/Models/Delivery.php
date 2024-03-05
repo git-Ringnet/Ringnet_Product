@@ -475,6 +475,7 @@ class Delivery extends Model
         $dataDelivery = [
             'guest_id' => $data['guest_id'],
             'quotation_number' => $data['quotation_number'],
+            'code_delivery' => $data['code_delivery'],
             'shipping_unit' => $shipping_unit,
             'shipping_fee' => $shipping_fee,
             'detailexport_id' => $data['detailexport_id'],

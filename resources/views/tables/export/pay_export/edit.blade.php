@@ -504,6 +504,7 @@
                                         </svg>
                                     </div>
                                 </div>
+
                                 <div
                                     class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
                                     <input type="text" placeholder="Nhập thông tin"

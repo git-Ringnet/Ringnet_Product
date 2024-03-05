@@ -455,6 +455,7 @@
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
                                 <input type="text" placeholder="Nhập thông tin" name="code_payment"
                                     class="border-0 bg w-100 bg-input-guest py-0 px-0" autocomplete="off" required>
+
                                 <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">

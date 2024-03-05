@@ -13,10 +13,12 @@ class filterText extends Component
      */
     public $name;
     public $title;
+    public $button;
 
-    public function __construct($name = null, $title = null)
+    public function __construct($name = null, $title = null, $button = null)
     {
         $this->name = $name;
+        $this->button = $button;
         $this->title = $title;
     }
 
