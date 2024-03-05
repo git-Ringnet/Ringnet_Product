@@ -503,7 +503,7 @@
         <!-- /.sidebar -->
     </aside>
     <div class="alert notification d-flex justify-content-center align-items-center m-0 w-100"
-        style="position: absolute;">
+        style="position: absolute;top: 0;">
         <div class="success">
             @if (Session::has('msg'))
                 <div id="notification" class="alert alert-success alert-dismissible fade show" role="alert"

@@ -14,6 +14,7 @@ class PayExport extends Model
     protected $fillable = [
         'detailexport_id',
         'guest_id',
+        'code_payment',
         'payment_date',
         'total',
         'payment',
@@ -63,6 +64,7 @@ class PayExport extends Model
         $dataPay = [
             'detailexport_id' => $data['detailexport_id'],
             'guest_id' => $data['guest_id'],
+            'code_payment' => $data['code_payment'],
             'payment_date' =>  $date_pay,
             'total' => $total,
             'payment' => $payment,

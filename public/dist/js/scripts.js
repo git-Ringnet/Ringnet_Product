@@ -8,7 +8,7 @@ function handleSmallScreen() {
             });
             $("#main").css({
                 marginRight: "300px",
-                cssText: "margin-right: 300px !important; margin-top:3.8rem !important;",
+                cssText: "margin-right: 300px !important;",
             });
             $("#show_info_Guest").css({
                 opacity: "1",
@@ -19,7 +19,7 @@ function handleSmallScreen() {
             $("#mySidenav").css({ width: "0", cssText: "width: 0 !important" });
             $("#main").css({
                 marginRight: "0",
-                cssText: "margin-right: 0 !important; margin-top:3.8rem !important;",
+                cssText: "margin-right: 0 !important;",
             });
             $("#show_info_Guest").css({
                 opacity: "0",
@@ -37,7 +37,7 @@ function handleLargeScreen() {
             $("#mySidenav").css({ width: "0", cssText: "width: 0 !important" });
             $("#main").css({
                 marginRight: "0",
-                cssText: "margin-right: 0 !important; margin-top:3.8rem !important;",
+                cssText: "margin-right: 0 !important;",
             });
             $("#show_info_Guest").css({
                 opacity: "0",
@@ -51,7 +51,7 @@ function handleLargeScreen() {
             });
             $("#main").css({
                 marginRight: "300px",
-                cssText: "margin-right: 300px !important; margin-top:3.8rem !important;",
+                cssText: "margin-right: 300px !important;",
             });
             $("#show_info_Guest").css({
                 opacity: "1",
