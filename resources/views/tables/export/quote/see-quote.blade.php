@@ -86,7 +86,7 @@
                                 </svg>
                                 <span class="text-button">Tạo nhanh</span>
                             </button>
-                            <div class="dropdown-menu" style="z-index: 9999;">
+                            <div class="dropdown-menu" style="z-index: 9999;width:165px!important;">
                                 <ul class="m-0 p-0 scroll-data">
                                     <li class="p-2 align-items-left text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                         <a href="#" onclick="getAction(this)" id="btnThanhToan">
@@ -172,7 +172,7 @@
                                 <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử giao dịch</a>
                             </li>
                             <li>
-                                <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#">File đính kèm</a>
+                                <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#files">File đính kèm</a>
                             </li>
                         </ul>
                     </div>
@@ -889,6 +889,12 @@
                                 </div>
                             </section>
                         </div>
+                        <div id="files" class="tab-pane fade">
+                            <div class="bg-filter-search border-top-0 text-center py-2">
+                                <span class="font-weight-bold text-secondary text-nav">File đính kèm</span>
+                            </div>
+                            <x-form-attachment :value="$detailExport" name="BG"></x-form-attachment>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1023,12 +1029,6 @@
         </div>
     </div>
 </form>
-<div id="files" class="tab-pane fade">
-    <div class="bg-filter-search border-top-0 text-center py-2">
-        <span class="font-weight-bold text-secondary text-nav">File đính kèm</span>
-    </div>
-    <x-form-attachment :value="$detailExport" name="BG"></x-form-attachment>
-</div>
 
 
 {{-- Thông tin sản phẩm --}}
