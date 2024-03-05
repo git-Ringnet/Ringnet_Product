@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="products" activeName="product"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper m-0">
+<div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->
     <div class="content-header-fixed p-0 margin-250">
         <div class="content__header--inner margin-left32">

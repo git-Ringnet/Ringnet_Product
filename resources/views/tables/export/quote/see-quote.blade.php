@@ -99,7 +99,7 @@
                                 </svg>
                                 <span class="text-button">Tạo nhanh</span>
                             </button>
-                            <div class="dropdown-menu" style="z-index: 9999;">
+                            <div class="dropdown-menu" style="z-index: 9999;width:165px!important;">
                                 <ul class="m-0 p-0 scroll-data">
                                     <li class="p-2 align-items-left text-wrap"
                                         style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">

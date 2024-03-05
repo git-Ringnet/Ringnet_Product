@@ -29,7 +29,7 @@
                     </span>
                     <span class="font-weight-bold last-span">Tạo đơn giao hàng</span>
                 </div>
-                <div class="container-fluided z-index-block">
+                <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <a href="{{ route('delivery.index', $workspacename) }}">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
@@ -298,7 +298,7 @@
             </div>
         </div>
         {{-- Thông tin khách hàng --}}
-        <div class="content-wrapper px-0 py-0">
+        <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-0 text-center border-custom">
@@ -1470,17 +1470,15 @@
                         },
                         success: function(data) {
                             $(".addProduct").remove();
+                            var totalProductTotal = 0;
+                            var totalTax1 = 0;
                             $.each(data, function(index, item) {
-                                var totalTax = parseFloat(item
-                                    .total_tax) || 0;
-                                var totalPrice = parseFloat(item
-                                    .total_price) || 0;
+                                var totalTax = parseFloat(item.total_tax) || 0;
+                                var totalPrice = parseFloat(item.total_price) || 0;
                                 var grandTotal = totalTax + totalPrice;
-                                var tax = (item.price_export * item
-                                    .soLuongCanGiao * (item
-                                        .product_tax == 99 ? 0 :
-                                        item
-                                        .product_tax)) / 100;
+                                var tax = (item.price_export * item.soLuongCanGiao * (item.product_tax == 99 ? 0 :item.product_tax)) / 100;
+                                totalProductTotal += parseFloat(item.product_total) || 0;
+                                totalTax1 += tax;
                                 $(".idGuest").val(item.guest_id);
                                 $("#detailexport_id").val(item.maXuat);
                                 $("#total-amount-sum").text(
@@ -1556,12 +1554,13 @@
                                 <p class="text-primary text-right position-absolute transaction" style="top: 68%; right: 5%; display: none;">Giao dịch gần đây</p>
                             </td>
                             <td class="border border-bottom-0 px-4 d-none">
-                                <select name="product_tax[]" class="border-0 text-center product_tax" required="">
+                                <select class="border-0 text-center product_tax" required="">
                                     <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                     <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
                                     <option value="10" ${(item.product_tax == 10) ? 'selected' : ''}>10%</option>
                                     <option value="99" ${(item.product_tax == 99) ? 'selected' : ''}>NOVAT</option>
                                 </select>
+                                <input type="hidden" class="product_tax" value="${(item.product_tax)}" name="product_tax[]">
                             </td>
                             <td class="border border-bottom-0 d-none">
                                 <input type="text" value="${formatCurrency(item.product_total)}" readonly class="border-0 px-2 py-1 w-100 total-amount">

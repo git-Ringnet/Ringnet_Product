@@ -610,6 +610,12 @@
                 </ul>
             </div>
         </div>
+        <div id="files" class="tab-pane fade">
+            <div class="bg-filter-search border-bottom-0 text-center py-2 border-right-0">
+                <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
+            </div>
+            <x-form-attachment :value="$delivery" name="GH"></x-form-attachment>
+        </div>
     </div>
 </div>
 </div>
