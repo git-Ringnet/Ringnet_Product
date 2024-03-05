@@ -765,6 +765,20 @@ td p {
     border-radius: 7px;
     background-color: #F4F5F8;
 }
+
+.header-options--nav2{
+    width: 199px;
+    height: 34px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 13px;
+    align-items: center;
+    border-radius: 7px;
+    background-color: #F4F5F8;
+}
+
+
+
 .header-options--nav li:first-child{
     color: #6c757d!important;
 }
