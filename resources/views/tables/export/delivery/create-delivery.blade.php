@@ -103,7 +103,7 @@
             </div>
         </div>
         {{-- Thông tin sản phẩm --}}
-        <div class="content " style="margin-top:3.8rem;" id="main">
+        <div class="content margin-top-38" id="main">
             <section class="content margin-250">
                 <div class="bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>

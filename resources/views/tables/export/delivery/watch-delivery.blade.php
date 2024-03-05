@@ -50,18 +50,17 @@
                                 <span class="text-btnIner-primary ml-2">Trở về</span>
                             </button>
                         </a>
-                        <!-- <a href="#">
-                            <button class="custom-btn rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
-                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 0 14 14" fill="none">
-                                    <path
-                                        d="M8.30541 9.20586C8.57207 9.47246 8.5943 9.89106 8.37208 10.183L8.30541 10.2593L5.84734 12.7174C4.58675 13.978 2.54294 13.978 1.28235 12.7174C0.0652319 11.5003 0.0232719 9.55296 1.15644 8.2855L1.28235 8.15237L3.74042 5.69429C4.03133 5.40339 4.50298 5.40339 4.79388 5.69429C5.06054 5.96096 5.08277 6.37949 4.86055 6.67147L4.79388 6.74775L2.33581 9.20586C1.65703 9.88456 1.65703 10.9852 2.33581 11.6639C2.98065 12.3088 4.00611 12.341 4.68901 11.7607L4.79388 11.6639L7.25195 9.20586C7.54286 8.91492 8.01451 8.91492 8.30541 9.20586ZM8.82965 5.17005C9.12053 5.46095 9.12053 5.9326 8.82965 6.22351L6.34904 8.70413C6.05813 8.99504 5.58648 8.99504 5.29558 8.70413C5.00467 8.41323 5.00467 7.94158 5.29558 7.65067L7.7762 5.17005C8.0671 4.87914 8.53875 4.87914 8.82965 5.17005ZM12.7173 1.28236C13.9344 2.49948 13.9764 4.44674 12.8432 5.71422L12.7173 5.84735L10.2592 8.30543C9.96833 8.59633 9.49673 8.59633 9.20583 8.30543C8.93914 8.03877 8.91692 7.62023 9.13913 7.32825L9.20583 7.25197L11.6638 4.79389C12.3426 4.11511 12.3426 3.0146 11.6638 2.33582C11.019 1.69098 9.99363 1.65874 9.31073 2.23909L9.20583 2.33582L6.74774 4.79389C6.45683 5.0848 5.98518 5.0848 5.69428 4.79389C5.42762 4.52723 5.40539 4.10869 5.62761 3.81672L5.69428 3.74043L8.15235 1.28236C9.41293 0.0217665 11.4567 0.0217665 12.7173 1.28236Z"
-                                        fill="white" />
-                                </svg>
-                                <span class="text-btnIner-primary ml-2">Đính kèm file</span>
-                                <input type="file" style="display: none;" id="file_restore" accept="*" name="file">
-                            </button>
-                        </a> -->
+                        <label class="custom-btn d-flex align-items-center h-100 m-0 mx-1">
+                            <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 14 14" fill="none">
+                                <path
+                                    d="M8.30541 9.20586C8.57207 9.47246 8.5943 9.89106 8.37208 10.183L8.30541 10.2593L5.84734 12.7174C4.58675 13.978 2.54294 13.978 1.28235 12.7174C0.0652319 11.5003 0.0232719 9.55296 1.15644 8.2855L1.28235 8.15237L3.74042 5.69429C4.03133 5.40339 4.50298 5.40339 4.79388 5.69429C5.06054 5.96096 5.08277 6.37949 4.86055 6.67147L4.79388 6.74775L2.33581 9.20586C1.65703 9.88456 1.65703 10.9852 2.33581 11.6639C2.98065 12.3088 4.00611 12.341 4.68901 11.7607L4.79388 11.6639L7.25195 9.20586C7.54286 8.91492 8.01451 8.91492 8.30541 9.20586ZM8.82965 5.17005C9.12053 5.46095 9.12053 5.9326 8.82965 6.22351L6.34904 8.70413C6.05813 8.99504 5.58648 8.99504 5.29558 8.70413C5.00467 8.41323 5.00467 7.94158 5.29558 7.65067L7.7762 5.17005C8.0671 4.87914 8.53875 4.87914 8.82965 5.17005ZM12.7173 1.28236C13.9344 2.49948 13.9764 4.44674 12.8432 5.71422L12.7173 5.84735L10.2592 8.30543C9.96833 8.59633 9.49673 8.59633 9.20583 8.30543C8.93914 8.03877 8.91692 7.62023 9.13913 7.32825L9.20583 7.25197L11.6638 4.79389C12.3426 4.11511 12.3426 3.0146 11.6638 2.33582C11.019 1.69098 9.99363 1.65874 9.31073 2.23909L9.20583 2.33582L6.74774 4.79389C6.45683 5.0848 5.98518 5.0848 5.69428 4.79389C5.42762 4.52723 5.40539 4.10869 5.62761 3.81672L5.69428 3.74043L8.15235 1.28236C9.41293 0.0217665 11.4567 0.0217665 12.7173 1.28236Z"
+                                    fill="white" />
+                            </svg>
+                            <span>Đính kèm file</span>
+                            <input type="file" style="display: none;" id="file_restore" accept="*"
+                                name="file">
+                        </label>
                         <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 dropdown-toggle">
@@ -124,23 +123,27 @@
                     </div>
                 </div>
             </div>
-            <!-- <section class="content-wrapper1 p-2 position-relative">
-                <div class="d-flex justify-content-between">
-                    <ul class="nav nav-tabs bg-filter-search border-0 py-2 rounded ml-3">
-                        <li class="text-nav"><a data-toggle="tab" href="#info" class="active text-secondary">Thông tin</a>
-                        </li>
-                        <li class="text-nav"><a data-toggle="tab" href="#history" class="text-secondary mx-4">Lịch sử</a>
-                        </li>
-                        <li class="text-nav">
-                            <a data-toggle="tab" href="#files" class="text-secondary">File đính kèm</a>
-                        </li>
-                    </ul>
-                    <div class="d-flex position-sticky" style="right: 10px; top: 80px;">
+            <section class="border-custom" style="height:50px">
+                <div class="d-flex justify-content-between align-items-center h-100">
+                    <div class="content-header--options p-0 border-0">
+                        <ul class="header-options--nav nav nav-tabs margin-left32">
+                            <li>
+                                <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông
+                                    tin</a>
+                            </li>
+                            <li>
+                                <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử
+                                    giao dịch</a>
+                            </li>
+                            <li>
+                                <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#files">File đính kèm</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </section> -->
+            </section>
         </div>
-        <div class="content" id="main" style="margin-top:3.8rem;">
+        <div class="content margin-top-68" id="main">
             <div class="container-fluided margin-250">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
@@ -355,7 +358,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div id="history" class="tab-pane fade">
+                    <div id="history" class="tab-pane fade">
                         <div class="bg-filter-search border-bottom-0 border-right-0 text-center py-2">
                             <span class="font-weight-bold text-secondary text-nav">LỊCH SỬ</span>
                         </div>
@@ -378,10 +381,11 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($quoteExport as $item_quote)
-<tr class="bg-white">
+                                            <tr class="bg-white">
                                                 <td
                                                     class="border border-left-0 border-top-0 border-bottom-0 position-relative">
-                                                    <div class="d-flex w-100 justify-content-between align-items-center">
+                                                    <div
+                                                        class="d-flex w-100 justify-content-between align-items-center">
                                                         <input type="text" autocomplete="off" readonly
                                                             value="{{ $item_quote->product_code }}"
                                                             class="border-0 px-2 py-1 w-75 product_code">
@@ -433,8 +437,8 @@
                                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                                     <input type="text"
                                                         value="{{ number_format($item_quote->price_export) }}"
-                                                        class="border-0 px-2 py-1 w-100 product_price" autocomplete="off"
-                                                        readonly>
+                                                        class="border-0 px-2 py-1 w-100 product_price"
+                                                        autocomplete="off" readonly>
                                                     <p class="text-primary text-right position-absolute transaction"
                                                         style="top: 68%; right: 5%; display: none;">Giao dịch
                                                         gần đây
@@ -468,12 +472,12 @@
                                                         value="{{ $item_quote->product_note }}">
                                                 </td>
                                             </tr>
-@endforeach
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </section>
-                    </div> -->
+                    </div>
                     {{-- Modal seri --}}
                     @foreach ($product as $item)
                         <div id="list_modal">
@@ -607,13 +611,141 @@
             </div>
         </div>
     </div>
-
+    </div>
 </form>
 <div id="files" class="tab-pane fade">
     <div class="bg-filter-search border-bottom-0 text-center py-2 border-right-0">
         <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
     </div>
     <x-form-attachment :value="$delivery" name="GH"></x-form-attachment>
+</div>
+{{-- Modal seri --}}
+@foreach ($product as $item)
+    <div id="list_modal">
+        <div class="modal fade my-custom-modal" id="exampleModal{{ $item->product_id }}" tabindex="-1"
+            aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number
+                        </h5>
+                        <a href="#" class="close btnclose" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </a>
+                    </div>
+                    <div class="modal-body">
+                        <table id="table_SNS">
+                            <thead>
+                                <tr>
+                                    <td style="width:2%"></td>
+                                    <th style="width:5%">STT</th>
+                                    <th style="width:100%">Serial number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $stt = 1;
+                                @endphp
+                                @foreach ($serinumber as $item_seri)
+                                    @if ($item->product_id == $item_seri->product_id)
+                                        <tr>
+                                            <td>
+                                                <input name="id_seri[]"
+                                                    {{ $item_seri->detailexport_id == $delivery->detailexport_id ? 'checked' : '' }}
+                                                    type="checkbox" class="check-item" disabled
+                                                    data-product-id={{ $item_seri->product_id }}
+                                                    value="{{ $item_seri->idSeri }}">
+                                            </td>
+                                            <td>{{ $stt++ }}</td>
+                                            <td>
+                                                <input readonly class="form-control w-25" type="text"
+                                                    value="{{ $item_seri->serinumber }}">
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    {{-- <div class="modal-footer">
+                                <a href="#" class="btn btn-primary check-seri" data-dismiss=""
+                                    data-row="row{{ $item->product_id }}"
+                                    data-target="#exampleModal{{ $item->product_id }}">
+                                    Save changes
+                                </a>
+                            </div> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+</div>
+</div>
+</div>
+{{-- Thông tin khách hàng --}}
+<div class="content-wrapper px-0 py-0">
+    <div id="mySidenav" class="sidenav border top-109">
+        <div id="show_info_Guest">
+            <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin nhà cung cấp
+            </p>
+            <div class="content-info">
+                <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
+                    style="height:44px;" style="height:44px;">
+                    <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
+                    <span class="mx-1 text-13" style="flex: 2;">
+                        <input type="text" placeholder="Chọn thông tin" readonly
+                            value="{{ $delivery->quotation_number }}"
+                            class="border-0 w-100 bg-input-guest py-0 py-2 px-2 numberQute"
+                            style="background-color:#F0F4FF; border-radius:4px;" id="myInput" autocomplete="off"
+                            name="quotation_number">
+                    </span>
+                </div>
+            </div>
+            <div class="content-info--common" id="show-info-guest">
+                <ul class="p-0 m-0 ">
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
+                        <input class="text-13-black w-50 border-0 bg-input-guest"
+                            value="{{ $delivery->guest_name_display }}" style="flex:2;" id="myInput">
+                        <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
+                        <input class="text-13-black w-50 border-0" style="flex:2;" placeholder="Nhập thông tin"
+                            value="{{ $delivery->represent_name }}" readonly />
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã giao hàng</span>
+                        <input class="text-13-black w-50 border-0" style="flex:2;" placeholder="Nhập thông tin"
+                            value="{{ $delivery->soGiaoHang }}" readonly />
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn vị vận chuyển</span>
+                        <input type="text" class="text-13-black w-50 border-0" placeholder="Nhập thông tin"
+                            name="shipping_unit" style="flex:2;" value="{{ $delivery->shipping_unit }}" />
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí giao hàng</span>
+                        <input type="text" class="text-13-black w-50 border-0" style="flex:2;"
+                            placeholder="Nhập thông tin" name="shipping_fee" placeholder="Nhập thông tin"
+                            value="{{ number_format($delivery->shipping_fee) }}" />
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao hàng</span>
+                        <input type="text" readonly class="text-13-black w-50 border-0" name="date_deliver"
+                            style="flex:2;" value="{{ date_format(new DateTime($delivery->ngayGiao), 'd/m/Y') }}" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 {{-- Thông tin sản phẩm --}}

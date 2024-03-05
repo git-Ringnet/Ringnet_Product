@@ -113,7 +113,7 @@
             </div>
         </div>
     </div>
-    <div class="content" style="margin-top: 6.8rem;">
+    <div class="content margin-top-68">
         <section class="content margin-250">
             <div class="container-fluided">
                 <div class="row">

@@ -215,6 +215,8 @@ Route::get('/deleteUserWorkspace', [UserWorkspacesController::class, 'deleteUser
 
 // Report
 Route::resource('{workspace}/report', ReportController::class);
+Route::get('searchReportGuests', [ReportController::class, 'searchReportGuests'])->name('searchReportGuests');
+Route::get('searchReportProvides', [ReportController::class, 'searchReportProvides'])->name('searchReportProvides');
 
 Route::resource('{workspace}/settings', SettingController::class);
 Route::get('/searchUser', [SettingController::class, 'search'])->name('searchUser');

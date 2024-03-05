@@ -51,7 +51,7 @@ function handleLargeScreen() {
             });
             $("#main").css({
                 marginRight: "300px",
-                cssText: "margin-right: 300px !important",
+                cssText: "margin-right: 300px !important;",
             });
             $("#show_info_Guest").css({
                 opacity: "1",

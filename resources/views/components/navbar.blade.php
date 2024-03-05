@@ -386,7 +386,8 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('report.index', $workspacename) }}" class="nav-link">
+                        <a href="{{ route('report.index', $workspacename) }}"
+                            class="nav-link @if (!empty($activeName) && $activeName == 'report') active @endif">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -502,7 +503,7 @@
         <!-- /.sidebar -->
     </aside>
     <div class="alert notification d-flex justify-content-center align-items-center m-0 w-100"
-        style="position: absolute;">
+        style="position: absolute;top: 0;">
         <div class="success">
             @if (Session::has('msg'))
                 <div id="notification" class="alert alert-success alert-dismissible fade show" role="alert"

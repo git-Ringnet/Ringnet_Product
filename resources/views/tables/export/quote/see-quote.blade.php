@@ -356,7 +356,7 @@
             </section>
         </div>
         {{-- Thông tin sản phẩm --}}
-        <div class="content" id="main" style="margin-top: 6.8rem;">
+        <div class="content margin-top-68" id="main">
             <section class="content margin-250">
                 <div class="container-fluided">
                     <div class="tab-content">
@@ -1002,7 +1002,7 @@
         </div>
         {{-- Thông tin khách hàng --}}
         <div class="content">
-            <div id="mySidenav" class="sidenav border" style="top:109px !important;">
+            <div id="mySidenav" class="sidenav border top-109">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-0 text-center border-custom">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH HÀNG
@@ -1082,8 +1082,9 @@
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest"
                                         value="{{ $detailExport->represent_name }}" id="represent_guest"
-                                        style="flex:2;" <input type="hidden" class="represent_guest_id"
-                                        name="represent_guest_id" autocomplete="off">
+                                        style="flex:2;">
+                                    <input type="hidden" class="represent_guest_id" name="represent_guest_id"
+                                        autocomplete="off">
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                     style="height:44px;">
