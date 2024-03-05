@@ -1481,25 +1481,20 @@
                         },
                         success: function(data) {
                             $(".addProduct").remove();
+                            var totalProductTotal = 0;
+                            var totalTax1 = 0;
                             $.each(data, function(index, item) {
-                                var totalTax = parseFloat(item
-                                    .total_tax) || 0;
-                                var totalPrice = parseFloat(item
-                                    .total_price) || 0;
+                                var totalTax = parseFloat(item.total_tax) || 0;
+                                var totalPrice = parseFloat(item.total_price) || 0;
                                 var grandTotal = totalTax + totalPrice;
-                                var tax = (item.price_export * item
-                                    .soLuongCanGiao * (item
-                                        .product_tax == 99 ? 0 :
-                                        item
-                                        .product_tax)) / 100;
+                                var tax = (item.price_export * item.soLuongCanGiao * (item.product_tax == 99 ? 0 :item.product_tax)) / 100;
+                                totalProductTotal += parseFloat(item.product_total) || 0;
+                                totalTax1 += tax;
                                 $(".idGuest").val(item.guest_id);
                                 $("#detailexport_id").val(item.maXuat);
-                                $("#total-amount-sum").text(
-                                    formatCurrency(totalPrice));
-                                $("#product-tax").text(formatCurrency(
-                                    totalTax));
-                                $("#grand-total").text(formatCurrency(
-                                    grandTotal));
+                                $("#total-amount-sum").text(formatCurrency(totalPrice));
+                                $("#product-tax").text(formatCurrency(totalTax));
+                                $("#grand-total").text(formatCurrency(grandTotal));
                                 $("#voucher").val(formatCurrency(item
                                     .discount == null ? 0 : item
                                     .discount));
@@ -1565,12 +1560,13 @@
                                 <p class="text-primary text-right position-absolute transaction" style="top: 68%; right: 5%; display: none;">Giao dịch gần đây</p>
                             </td>
                             <td class="border border-bottom-0 px-4 d-none">
-                                <select name="product_tax[]" class="border-0 text-center product_tax" required="">
+                                <select class="border-0 text-center product_tax" required="">
                                     <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                     <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
                                     <option value="10" ${(item.product_tax == 10) ? 'selected' : ''}>10%</option>
                                     <option value="99" ${(item.product_tax == 99) ? 'selected' : ''}>NOVAT</option>
                                 </select>
+                                <input type="hidden" class="product_tax" value="${(item.product_tax)}" name="product_tax[]">
                             </td>
                             <td class="border border-bottom-0 d-none">
                                 <input type="text" value="${formatCurrency(item.product_total)}" readonly class="border-0 px-2 py-1 w-100 total-amount">
