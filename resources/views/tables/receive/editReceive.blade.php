@@ -105,7 +105,6 @@
                         @endif
                         <a href="#" id="delete_receive">
                             <button name="action" value="action_2" type="submit" id="xoaBtn"
-                                onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                                 class="btn--remove d-flex align-items-center h-100 mx-1"
                                 style="background-color:red;">
                                 <span>

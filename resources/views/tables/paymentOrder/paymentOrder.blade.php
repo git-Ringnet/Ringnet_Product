@@ -266,6 +266,7 @@
                                                         <a href="#">
                                                             <div class="m-0 mx-2 rounded">
                                                                 <form
+                                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                                                                     action="{{ route('paymentOrder.destroy', ['workspace' => $workspacename, 'paymentOrder' => $item->id]) }}"
                                                                     method="post" id="search-filter">
                                                                     @csrf

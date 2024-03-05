@@ -932,6 +932,7 @@
                         $("input[name='provide_phone']").val('');
                         $("input[name='provide_address_delivery']").val('');
                         if (data.id_represent) {
+                            $('#represent').val(data.represent_name)
                             var newli = `
                                     <li class="border" id="` + data.id_represent +
                                 `">

@@ -237,7 +237,7 @@
                                                 <td class=" text-13-black">
                                                     Tổng tiền
                                                 </td>
-                                              
+
 
                                                 {{-- <td class="py-2">
                                                     {{ number_format($item->getQuotation->total_tax) }}
@@ -268,6 +268,7 @@
                                                         <a href="#">
                                                             <div class="m-0 mx-2 rounded">
                                                                 <form
+                                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                                                                     action="{{ route('receive.destroy', ['workspace' => $workspacename, 'receive' => $item->id]) }}"
                                                                     method="post">
                                                                     @csrf

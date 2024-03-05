@@ -117,8 +117,7 @@
                         @endif
 
                         <a href="#" id="delete_payment">
-                            <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                class="btn--remove d-flex align-items-center h-100 mx-1"
+                            <button type="submit" class="btn--remove d-flex align-items-center h-100 mx-1"
                                 style="background-color:red;">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"

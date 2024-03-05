@@ -231,6 +231,7 @@
                                                         <a href="#">
                                                             <div class="m-0 mx-2 rounded">
                                                                 <form
+                                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                                                                     action="{{ route('reciept.destroy', ['workspace' => $workspacename, 'reciept' => $item->id]) }}"
                                                                     method="post">
                                                                     @csrf

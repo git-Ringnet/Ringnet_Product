@@ -77,7 +77,8 @@ class ReceiveController extends Controller
         $workspacename = $workspacename->workspace_name;
         if ($request->action == 'action_1') {
             // Tạo sản phẩm theo đơn nhận hàng
-            $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
+            // $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
+            $status = true;
             if ($status) {
                 // Tạo đơn nhận hàng mới
                 $receive_id = $this->receive->addReceiveBill($request->all(), $id);

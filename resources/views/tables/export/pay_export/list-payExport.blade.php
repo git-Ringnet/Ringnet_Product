@@ -227,7 +227,7 @@
                                                     onclick="event.stopPropagation();">
                                             </td>
                                             <td class="py-2">
-                                                {{ $item_pay->idThanhToan }}
+                                                {{ $item_pay->code_payment }}
                                             </td>
                                             <td class="py-2">
                                                 <a

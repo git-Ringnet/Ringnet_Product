@@ -143,7 +143,7 @@
                 </div>
             </section> -->
         </div>
-        <div class="content" id="main" style="margin-top:3.8rem;">
+        <div class="content margin-top-38" id="main">
             <section class="content margin-250">
                 <div class="container-fluided">
                     <div class="tab-content">
@@ -293,10 +293,6 @@
                                                             class='text-right border-0 pl-2 pr-0 py-1 w-100 quantity-input'
                                                             autocomplete="off" name="product_qty[]">
                                                         <input type="hidden" class="tonkho">
-                                                        <div class='mt-3 text-13-blue inventory text-right'
-                                                            tyle="top: 68%;">Tồn kho:
-                                                            <span class='pl-1 soTonKho'>35</span>
-                                                        </div>
                                                     </td>
                                                     <td class='border-right p-2 text-13 align-top'>
                                                         <input type="text"
@@ -689,7 +685,7 @@
                             <td class="border border-top-0 border-bottom-0 position-relative">
                                 <input type="text" readonly value="${item.soLuongHoaDon}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
-                                <p class="text-primary text-center position-absolute inventory" style="top: 68%; display: none;">Tồn kho: 35</p>
+                                <p class="text-primary text-center position-absolute inventory" style="top: 68%; display: none;"></p>
                             </td>
                             <td class="border border-top-0 border-bottom-0 position-relative">
                                 <input type="text" readonly value="${formatCurrency(item.price_export)}" class="border-0 px-2 py-1 w-100 product_price" autocomplete="off" name="product_price[]" required="" readonly="readonly">

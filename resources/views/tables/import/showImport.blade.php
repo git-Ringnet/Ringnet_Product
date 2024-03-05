@@ -871,16 +871,6 @@
         toggleList($("#btnCreateFast"), $("#listBtnCreateFast"));
     })
 
-
-
-
-
-
-
-
-
-
-
     flatpickr("#datePicker", {
         locale: "vn",
         dateFormat: "d/m/Y",
