@@ -201,7 +201,13 @@ class DetailExportController extends Controller
                 }
                 return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Cập nhật đơn báo giá thành công!');
             } else {
-                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Cập nhật không thành công!');
+                if ($detailExport) {
+                    $detailExport->reference_number = $request->reference_number;
+                    $detailExport->save();
+                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Cập nhật đơn báo giá thành công!');
+                } else {
+                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Không tìm thấy đơn báo giá!');
+                }
             }
         }
         //Đơn giao hàng
