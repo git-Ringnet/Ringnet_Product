@@ -201,7 +201,13 @@ class DetailExportController extends Controller
                 }
                 return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Cập nhật đơn báo giá thành công!');
             } else {
-                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Cập nhật không thành công!');
+                if ($detailExport) {
+                    $detailExport->reference_number = $request->reference_number;
+                    $detailExport->save();
+                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Cập nhật đơn báo giá thành công!');
+                } else {
+                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Không tìm thấy đơn báo giá!');
+                }
             }
         }
         //Đơn giao hàng
@@ -229,7 +235,7 @@ class DetailExportController extends Controller
                 ]);
             }
         }
-        //Hóa đơn
+         //Hóa đơn
         if ($request->action == "action_3") {
             $title = "Tạo Hóa đơn bán hàng";
             $data = $request->all();
@@ -385,7 +391,7 @@ class DetailExportController extends Controller
     {
         $result = [];
         $data = $request->all();
-        $checkQuotetion = DetailExport::where('quotation_number', $data['quotetion_number'])->where('workspace_id', Auth::user()->current_workspace);
+        $checkQuotetion = DetailExport::where('quotation_number', $data['quotetion_number']);
         if (isset($data['detailexport_id'])) {
             $checkQuotetion->where('id', '!=', $data['detailexport_id']);
         }

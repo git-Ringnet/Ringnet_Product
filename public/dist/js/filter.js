@@ -26,6 +26,49 @@ handleFilterClick($("#btn-email"), $("#email-options"), $(".email-input"));
 handleFilterClick($("#btn-debt"), $("#debt-options"), $(".debt-input"));
 handleFilterClick($("#btn-name"), $("#name-options"), $(".name-input"));
 handleFilterClick($("#btn-tensp"), $("#tensp-options"), $(".tensp-input"));
+// Báo cáo
+handleFilterClick(
+    $("#btn-code-import"),
+    $("#code-import-options"),
+    $(".code-import-input")
+);
+handleFilterClick(
+    $("#btn-name-import"),
+    $("#name-import-options"),
+    $(".name-import-input")
+);
+handleFilterClick(
+    $("#btn-total-import"),
+    $("#total-import-options"),
+    $(".total-import-input")
+);
+handleFilterClick(
+    $("#btn-debt-import"),
+    $("#debt-import-options"),
+    $(".debt-import-input")
+);
+//
+handleFilterClick(
+    $("#btn-code-export"),
+    $("#code-export-options"),
+    $(".code-export-input")
+);
+handleFilterClick(
+    $("#btn-name-export"),
+    $("#name-export-options"),
+    $(".name-export-input")
+);
+handleFilterClick(
+    $("#btn-total-export"),
+    $("#total-export-options"),
+    $(".total-export-input")
+);
+handleFilterClick(
+    $("#btn-debt-export"),
+    $("#debt-export-options"),
+    $(".debt-export-input")
+);
+//
 handleFilterClick(
     $("#btn-price_import"),
     $("#price_import-options"),
@@ -93,6 +136,49 @@ handleCancelClick(
     $(".company-input"),
     $("#company-options")
 );
+// Báo cáo
+handleCancelClick(
+    $("#cancel-code-import"),
+    $(".code-import-input"),
+    $("#code-import-options")
+);
+handleCancelClick(
+    $("#cancel-name-import"),
+    $(".name-import-input"),
+    $("#name-import-options")
+);
+handleCancelClick(
+    $("#cancel-total-import"),
+    $(".total-import-input"),
+    $("#total-import-options")
+);
+handleCancelClick(
+    $("#cancel-debt-import"),
+    $(".debt-import-input"),
+    $("#debt-import-options")
+);
+//
+handleCancelClick(
+    $("#cancel-code-export"),
+    $(".code-export-input"),
+    $("#code-export-options")
+);
+handleCancelClick(
+    $("#cancel-name-export"),
+    $(".name-export-input"),
+    $("#name-export-options")
+);
+handleCancelClick(
+    $("#cancel-total-export"),
+    $(".total-export-input"),
+    $("#total-export-options")
+);
+handleCancelClick(
+    $("#cancel-debt-export"),
+    $(".debt-export-input"),
+    $("#debt-export-options")
+);
+//
 
 function filterFunction() {
     var input = $("#myInput");

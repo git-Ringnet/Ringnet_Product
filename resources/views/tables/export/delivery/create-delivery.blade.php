@@ -11,7 +11,8 @@
                 <div class="content__heading--left">
                     <span>Bán hàng</span>
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                            fill="none">
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
                                 fill="#26273B" fill-opacity="0.8" />
@@ -19,7 +20,8 @@
                     </span>
                     <span class="nearLast-span">Đơn giao hàng</span>
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                            fill="none">
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
                                 fill="#26273B" fill-opacity="0.8" />
@@ -32,11 +34,11 @@
                         <a href="{{ route('delivery.index', $workspacename) }}">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                        fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        viewBox="0 0 16 16" fill="none">
                                         <path
-                                        d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
-                                        fill="#6D7075" />
+                                            d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
+                                            fill="#6D7075" />
                                     </svg>
                                 </span>
                                 <span class="text-btnIner-primary ml-2">Hủy</span>
@@ -44,7 +46,7 @@
                         </a>
                         <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
-                            class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 dropdown-toggle">
+                                class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 dropdown-toggle">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -63,8 +65,8 @@
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100"
                                 onclick="kiemTraFormGiaoHang(event);" id="giaoHang">
                                 <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                        fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        viewBox="0 0 16 16" fill="none">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                             d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
                                             fill="#6D7075" />
@@ -77,8 +79,8 @@
                             class="custom-btn mx-1 d-flex align-items-center h-100"
                             onclick="kiemTraFormGiaoHang(event);" id="luuNhap">
                             <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                    fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 16 16" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                         fill="white" />
@@ -89,8 +91,8 @@
                         <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <rect x="16" width="16" height="16" rx="5" transform="rotate(90 16 0)"
-                                    fill="#ECEEFA" />
+                                <rect x="16" width="16" height="16" rx="5"
+                                    transform="rotate(90 16 0)" fill="#ECEEFA" />
                                 <path
                                     d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
                                     fill="#26273B" fill-opacity="0.8" />
@@ -101,7 +103,7 @@
             </div>
         </div>
         {{-- Thông tin sản phẩm --}}
-        <div class="content " style="margin-top:3.8rem;" id="main">
+        <div class="content margin-top-38" id="main">
             <section class="content margin-250">
                 <div class="bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
@@ -112,27 +114,27 @@
                             <table class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">
-                                            <th class="border-right p-0 px-2 text-13" style="width:10%;">
-                                                <span class="mx-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                        viewBox="0 0 14 14" fill="none">
-                                                        <path
-                                                            d="M6.37 7.63C6.49289 7.75305 6.56192 7.91984 6.56192 8.09375C6.56192 8.26766 6.49289 8.43445 6.37 8.5575L4.375 10.5L5.46875 11.5938C5.46875 11.7678 5.39961 11.9347 5.27654 12.0578C5.15347 12.1809 4.98655 12.25 4.8125 12.25H2.40625C2.2322 12.25 2.06528 12.1809 1.94221 12.0578C1.81914 11.9347 1.75 11.7678 1.75 11.5938V9.1875C1.75 9.01345 1.81914 8.84653 1.94221 8.72346C2.06528 8.60039 2.2322 8.53125 2.40625 8.53125L3.5 9.625L5.4425 7.63C5.56555 7.50711 5.73234 7.43808 5.90625 7.43808C6.08016 7.43808 6.24695 7.50711 6.37 7.63ZM7.63 6.37C7.50711 6.24695 7.43808 6.08016 7.43808 5.90625C7.43808 5.73234 7.50711 5.56555 7.63 5.4425L9.625 3.5L8.53125 2.40625C8.53125 2.2322 8.60039 2.06528 8.72346 1.94221C8.84653 1.81914 9.01345 1.75 9.1875 1.75H11.5938C11.7678 1.75 11.9347 1.81914 12.0578 1.94221C12.1809 2.06528 12.25 2.2322 12.25 2.40625V4.8125C12.25 4.98655 12.1809 5.15347 12.0578 5.27654C11.9347 5.39961 11.7678 5.46875 11.5938 5.46875L10.5 4.375L8.5575 6.37C8.43445 6.49289 8.26766 6.56192 8.09375 6.56192C7.91984 6.56192 7.75305 6.49289 7.63 6.37Z"
-                                                            fill="#26273B" fill-opacity="0.8" />
-                                                    </svg>
-                                                </span>
-                                                <input type='checkbox' class='checkall-btn mx-1' id="checkall">
-                                                <span>Mã sản phẩm</span>
-                                            </th>
-                                            <th class="border-right p-0 px-2 text-13" style="width:15%;">Tên sản phẩm
-                                            </th>
-                                            <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
-                                            <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">Số lượng</th>
-                                            <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Đơn giá</th>
-                                            <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">Thuế</th>
-                                            <th class="border-right p-0 px-1 text-center text-13" style="width:15%;">Thành tiền</th>
-                                            <th class="border-right p-0 px-2 text-center note text-13">Ghi chú sản phẩm
-                                            </th>
+                                        <th class="border-right p-0 px-2 text-13" style="width:20%;">
+                                            <span class="mx-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                    viewBox="0 0 14 14" fill="none">
+                                                    <path
+                                                        d="M6.37 7.63C6.49289 7.75305 6.56192 7.91984 6.56192 8.09375C6.56192 8.26766 6.49289 8.43445 6.37 8.5575L4.375 10.5L5.46875 11.5938C5.46875 11.7678 5.39961 11.9347 5.27654 12.0578C5.15347 12.1809 4.98655 12.25 4.8125 12.25H2.40625C2.2322 12.25 2.06528 12.1809 1.94221 12.0578C1.81914 11.9347 1.75 11.7678 1.75 11.5938V9.1875C1.75 9.01345 1.81914 8.84653 1.94221 8.72346C2.06528 8.60039 2.2322 8.53125 2.40625 8.53125L3.5 9.625L5.4425 7.63C5.56555 7.50711 5.73234 7.43808 5.90625 7.43808C6.08016 7.43808 6.24695 7.50711 6.37 7.63ZM7.63 6.37C7.50711 6.24695 7.43808 6.08016 7.43808 5.90625C7.43808 5.73234 7.50711 5.56555 7.63 5.4425L9.625 3.5L8.53125 2.40625C8.53125 2.2322 8.60039 2.06528 8.72346 1.94221C8.84653 1.81914 9.01345 1.75 9.1875 1.75H11.5938C11.7678 1.75 11.9347 1.81914 12.0578 1.94221C12.1809 2.06528 12.25 2.2322 12.25 2.40625V4.8125C12.25 4.98655 12.1809 5.15347 12.0578 5.27654C11.9347 5.39961 11.7678 5.46875 11.5938 5.46875L10.5 4.375L8.5575 6.37C8.43445 6.49289 8.26766 6.56192 8.09375 6.56192C7.91984 6.56192 7.75305 6.49289 7.63 6.37Z"
+                                                        fill="#26273B" fill-opacity="0.8" />
+                                                </svg>
+                                            </span>
+                                            <input type='checkbox' class='checkall-btn mx-1' id="checkall">
+                                            <span>Mã sản phẩm</span>
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-13" style="width:22%;">Tên sản phẩm
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-13" style="width:15%;">Đơn vị</th>
+                                        <th class="border-right p-0 px-2 text-center text-13" style="width:15%;">Số
+                                            lượng</th>
+                                        <th class="border-right p-0 px-2 text-center note text-13" style="width:20%;">
+                                            Ghi chú sản phẩm
+                                        </th>
+                                        <th class="border-right p-0 px-2"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -145,8 +147,8 @@
                                         <button type="button" data-toggle="dropdown" id="add-field-btn"
                                             class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                             style="margin-right:10px">
-                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                viewBox="0 0 18 18" fill="none">
+                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
+                                                height="14" viewBox="0 0 18 18" fill="none">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                                     d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
                                                     fill="#42526E"></path>
@@ -159,8 +161,8 @@
                                         <button type="button" data-toggle="dropdown" id="add-field-btn"
                                             class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                             style="margin-right:10px">
-                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                viewBox="0 0 18 18" fill="none">
+                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
+                                                height="14" viewBox="0 0 18 18" fill="none">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                                     d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
                                                     fill="#42526E"></path>
@@ -173,8 +175,8 @@
                                         <button type="button" data-toggle="dropdown"
                                             class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                             style="margin-right:10px">
-                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                viewBox="0 0 18 18" fill="none">
+                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
+                                                height="14" viewBox="0 0 18 18" fill="none">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                                     d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
                                                     fill="#42526E"></path>
@@ -205,37 +207,39 @@
                     </section>
                     <div class="content">
                         <div class="row footer-total" style="width:95%;">
-                                    <div class="position-relative col-lg-4 px-0"></div>
-                                    <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
-                                        <div class="m-3 ">
-                                            <div class="d-flex justify-content-between">
-                                                <span class="text-13-black">Giá trị trước thuế:</span>
-                                                <span id="total-amount-sum" class="text-table">
-                                                    @isset($yes)
-                                                        {{ number_format($getInfoQuote->total_price) }}
-                                                    @endisset
-                                                </span>
-                                            </div>
-                                            <div class="d-flex justify-content-between mt-2 align-items-center">
-                                                <span class="text-13-black">Thuế VAT:</span>
-                                                <span id="product-tax" class="text-table">
-                                                    @isset($yes)
-                                                        {{ number_format($getInfoQuote->total_tax) }}
-                                                    @endisset
-                                                </span>
-                                            </div>
-                                        
-                                            <div class="d-flex justify-content-between mt-2">
-                                                <span class="text-13-bold text-lg font-weight-bold">Tổng cộng:</span>
-                                                <span id="grand-total" data-value="0"  class="text-13-bold text-lg font-weight-bold text-right">
-                                                    @isset($yes)
-                                                        {{ number_format($getInfoQuote->total_tax + $getInfoQuote->total_price) }}
-                                                    @endisset
-                                                </span>
-                                                <input type="text" hidden="" name="totalValue" value="0"id="total">
-                                            </div>
-                                        </div>
+                            <div class="position-relative col-lg-4 px-0"></div>
+                            <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
+                                <div class="m-3 ">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-13-black">Giá trị trước thuế:</span>
+                                        <span id="total-amount-sum" class="text-table">
+                                            @isset($yes)
+                                                {{ number_format($getInfoQuote->total_price) }}
+                                            @endisset
+                                        </span>
                                     </div>
+                                    <div class="d-flex justify-content-between mt-2 align-items-center">
+                                        <span class="text-13-black">Thuế VAT:</span>
+                                        <span id="product-tax" class="text-table">
+                                            @isset($yes)
+                                                {{ number_format($getInfoQuote->total_tax) }}
+                                            @endisset
+                                        </span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <span class="text-13-bold text-lg font-weight-bold">Tổng cộng:</span>
+                                        <span id="grand-total" data-value="0"
+                                            class="text-13-bold text-lg font-weight-bold text-right">
+                                            @isset($yes)
+                                                {{ number_format($getInfoQuote->total_tax + $getInfoQuote->total_price) }}
+                                            @endisset
+                                        </span>
+                                        <input type="text" hidden="" name="totalValue"
+                                            value="0"id="total">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -284,7 +288,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-    
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
@@ -298,7 +302,8 @@
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-0 text-center border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH HÀNG</p>
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH HÀNG
+                        </p>
                     </div>
                     <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
                         style="height:44px;" style="height:44px;">
@@ -308,53 +313,54 @@
                             <input type="text" placeholder="Chọn thông tin" name="quotation_number"
                                 class="border-0 w-100 bg-input-guest py-0 py-2 px-2 numberQute " id="myInput"
                                 style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
-                                value="@isset($yes) {{ $data['quotation_number'] }} @endisset" required>
-                                <input type="hidden" name="detail_id" id="detail_id"
-                                    value="@isset($yes) {{ $data['detail_id'] }} @endisset">
+                                value="@isset($yes) {{ $data['quotation_number'] }} @endisset"
+                                required>
+                            <input type="hidden" name="detail_id" id="detail_id"
+                                value="@isset($yes) {{ $data['detail_id'] }} @endisset">
                         </span>
                         <div class="">
-                                    <div id="myUL"
-                                        class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block"
-                                        style="z-index: 99;display: none;">
-                                        <div class="p-1">
-                                            <div class="position-relative">
-                                                <input type="text" placeholder="Nhập số báo giá"
-                                                    class="pr-4 w-100 input-search bg-input-guest" id="companyFilter">
-                                                <span id="search-icon" class="search-icon">
-                                                    <i class="fas fa-search text-table" aria-hidden="true"></i>
+                            <div id="myUL"
+                                class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block"
+                                style="z-index: 99;display: none;">
+                                <div class="p-1">
+                                    <div class="position-relative">
+                                        <input type="text" placeholder="Nhập số báo giá"
+                                            class="pr-4 w-100 input-search bg-input-guest" id="companyFilter">
+                                        <span id="search-icon" class="search-icon">
+                                            <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <ul class="m-0 p-0 scroll-data">
+                                    @foreach ($numberQuote as $quote_value)
+                                        <li class="p-2 align-items-center text-wrap"
+                                            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                            <a href="#" title="" style="flex:2"
+                                                id="{{ $quote_value->id }}" name="search-info" class="search-info">
+                                                <span
+                                                    class="text-13-black">{{ $quote_value->quotation_number }}</span></span>
+                                            </a>
+                                            <a id="" class="search-infoEdit" type="button"
+                                                data-toggle="modal" data-target="#guestModalEdit">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                        height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path
+                                                            d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                            fill="black" />
+                                                        <path
+                                                            d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                            fill="black" />
+                                                        <path
+                                                            d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                            fill="black" />
+                                                    </svg>
                                                 </span>
-                                            </div>
-                                        </div>
-                                        <ul class="m-0 p-0 scroll-data">
-                                            @foreach ($numberQuote as $quote_value)
-                                                <li class="p-2 align-items-center text-wrap"
-                                                    style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                                    <a href="#" title="" style="flex:2" 
-                                                        id="{{ $quote_value->id }}" name="search-info"
-                                                        class="search-info">
-                                                        <span class="text-13-black">{{ $quote_value->quotation_number }}</span></span>
-                                                    </a>
-                                                    <a id="" class="search-infoEdit" type="button" data-toggle="modal"
-                                                        data-target="#guestModalEdit">
-                                                        <span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                                viewBox="0 0 14 14" fill="none">
-                                                                <path
-                                                                    d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                                    fill="black" />
-                                                                <path
-                                                                    d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                                    fill="black" />
-                                                                <path
-                                                                    d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                                    fill="black" />
-                                                            </svg>
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                        <!-- <a type="button"
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <!-- <a type="button"
                                             class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
                                             data-toggle="modal" data-target="#guestModal"
                                             style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
@@ -369,32 +375,34 @@
                                             <span class="text-13-black pl-3 pt-1"
                                                 style="font-weight: 600 !important;">Thêm khách hàng</span>
                                         </a> -->
-                                    </div>
+                            </div>
                         </div>
                     </div>
                     <div class="">
                         <div class="content-info--common" id="show-info-guest">
-                                    <ul class="p-0 m-0">
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                            style="height:44px;">
-                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
-                                            <input class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
-                                                value="@isset($yes){{ $getGuestbyId[0]->guest_name_display }}@endisset" />
+                            <ul class="p-0 m-0">
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
+                                    <input class="text-13-black w-50 border-0 bg-input-guest nameGuest"
+                                        style="flex:2;"
+                                        value="@isset($yes){{ $getGuestbyId[0]->guest_name_display }}@endisset" />
 
-                                            <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
-                                                value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset">
-                                        </li>
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                            style="height:44px;">
-                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
+                                    <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
+                                        value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset">
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
 
-                                            <input tye="text" class="text-13-black w-50 border-0 bg-input-guest represent_name"
-                                                value="{{ $getRepresentbyId[0]->represent_name ?? '' }}"
-                                                style="flex:2;" placeholder="Chọn thông tin" readonly>
+                                    <input tye="text"
+                                        class="text-13-black w-50 border-0 bg-input-guest represent_name"
+                                        value="{{ $getRepresentbyId[0]->represent_name ?? '' }}" style="flex:2;"
+                                        placeholder="Chọn thông tin" readonly>
 
-                                            <input type="hidden" class="idRepresent" autocomplete="off" name="represent_id"
-                                                value="{{ $getRepresentbyId[0]->id ?? '' }}">
-                                            <!-- <div id="myUL7"
+                                    <input type="hidden" class="idRepresent" autocomplete="off" name="represent_id"
+                                        value="{{ $getRepresentbyId[0]->id ?? '' }}">
+                                    <!-- <div id="myUL7"
                                                 class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
                                                 style="z-index: 99;">
                                                 <div class="p-1">
@@ -423,34 +431,34 @@
                                                     <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm người đại diện</span>
                                                 </a>
                                             </div> -->
-                                        </li>
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                            style="height:44px;">
-                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã Giao Hàng</span>
-                                            <input class="text-13-black w-50 border-0 bg-input-guest"
-                                                placeholder="Chọn thông tin" style="flex:2;" name="code_delivery" />
-                                        </li>
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                            style="height:44px;">
-                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn vị vận chuyển</span>
-                                            <input class="text-13-black w-50 border-0 bg-input-guest unit_ship " name="shipping_unit"
-                                                placeholder="Chọn thông tin" style="flex:2;" />
-                                        </li>
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                            style="height:44px;">
-                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí giao hàng</span>
-                                            <input class="text-13-black w-50 border-0 bg-input-guest fee_ship" name="shipping_fee"
-                                                placeholder="Chọn thông tin" style="flex:2;" />
-                                        </li>
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                            style="height:44px;">
-                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao  hàng</span>
-                                            <input class="text-13-black w-50 border-0 bg-input-guest " id="datePicker" required
-                                                placeholder="Chọn thông tin" style="flex:2;" />
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã Giao Hàng</span>
+                                    <input class="text-13-black w-50 border-0 bg-input-guest"
+                                        placeholder="Chọn thông tin" style="flex:2;" name="code_delivery" />
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn vị vận chuyển</span>
+                                    <input class="text-13-black w-50 border-0 bg-input-guest unit_ship "
+                                        name="shipping_unit" placeholder="Chọn thông tin" style="flex:2;" />
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí giao hàng</span>
+                                    <input class="text-13-black w-50 border-0 bg-input-guest fee_ship"
+                                        name="shipping_fee" placeholder="Chọn thông tin" style="flex:2;" />
+                                </li>
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                    style="height:44px;">
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao hàng</span>
+                                    <input class="text-13-black w-50 border-0 bg-input-guest " id="datePicker"
+                                        required placeholder="Chọn thông tin" style="flex:2;" />
 
-                                            <input type="hidden" id="hiddenDateInput" name="date_deliver" value="">
-                                        </li>
-                                    </ul>
+                                    <input type="hidden" id="hiddenDateInput" name="date_deliver" value="">
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -548,18 +556,18 @@
             });
             const maSanPham = $(
                 "<td class='border-right p-2 text-13 align-top'>" +
-                "<span class='ml-1 mr-2'>"+
-                "<svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>"+
-                "<g clip-path='url(#clip0_1710_10941)'>"+
-                "<path fill-rule='evenodd' clip-rule='evenodd' d='M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z' fill='#282A30'/>"+
-                "</g>"+
-                "<defs>"+
-                "<clipPath id='clip0_1710_10941'>"+
-                "<rect width='6' height='10' fill='white'/>"+
-                "</clipPath>"+
-                "</defs>"+
-                "</svg>"+
-                "</span>"+
+                "<span class='ml-1 mr-2'>" +
+                "<svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>" +
+                "<g clip-path='url(#clip0_1710_10941)'>" +
+                "<path fill-rule='evenodd' clip-rule='evenodd' d='M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z' fill='#282A30'/>" +
+                "</g>" +
+                "<defs>" +
+                "<clipPath id='clip0_1710_10941'>" +
+                "<rect width='6' height='10' fill='white'/>" +
+                "</clipPath>" +
+                "</defs>" +
+                "</svg>" +
+                "</span>" +
                 "<input type='checkbox' class='cb-element checkall-btn ml-1 mr-1'>" +
                 "<input type='text' autocomplete='off' class='border-0 pl-1 pr-2 py-1 w-50 product_code' name='product_code[]'>" +
                 "</td>"
@@ -568,7 +576,7 @@
                 "<td class='border border-bottom-0 position-relative'>" +
                 "<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 75%;left: 10%;'>" +
                 "@foreach ($product as $product_value)" +
-                "<li>" +
+                "<li data-id='{{ $product_value->id }}'>" +
                 "<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 idProduct w-100' id='{{ $product_value->id }}' name='idProduct'>" +
                 "<span class='w-50'>{{ $product_value->product_name }}</span>" +
                 "</a>" +
@@ -594,8 +602,8 @@
                 "</div></div></td>"
             );
             const dvTinh = $(
-                "<td class='border-right p-2 text-13 align-top'>"+
-                    "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit' required name='product_unit[]'>"+
+                "<td class='border-right p-2 text-13 align-top'>" +
+                "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit' required name='product_unit[]'>" +
                 "</td>"
             );
             const soLuong = $(
@@ -624,45 +632,23 @@
                 "<input class='check-add-sn' type='checkbox' name='cbSeri[]' value='1'>" +
                 "</td>"
             );
-            const donGia = $(
-                "<td class='border-right p-2 text-13 align-top'>" +
-                "<div>"+
-                    "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
-                "</div>"+
-                    "<div class='mt-3 text-13-blue transaction'>Giao dịch gần đây</div>"+
-                "</td>"
-            );
-            const thue = $(
-                "<td class='border-right p-2 text-13 align-top'>" +
-                    "<select name='product_tax[]' class='border-0 px-2 py-1 w-100 text-left product_tax' required>" +
-                        "<option value='0'>0%</option>" +
-                        "<option value='8'>8%</option>" +
-                        "<option value='10'>10%</option>" +
-                        "<option value='99'>NOVAT</option>" +
-                    "</select>" +
-                "</td>"
-            );
-            const thanhTien = $(
-                "<td class='border-right p-2 text-13 align-top'>"+
-                    "<input type='text' readonly class='text-right border-0 px-2 py-1 w-100 total-amount'>" +
-                "</td>"
-            );
             const ghiChu = $(
                 "<td class='border border-bottom-0 position-relative note p-1 align-top'>" +
                 "<input type='text' class='border-0 py-1 w-100' placeholder='Nhập ghi chú' name='product_note[]'>" +
                 "</td>"
             );
             const option = $(
-                "<td class='border-right p-2 align-top'>" +
-                    "<svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
-                    "<path fill-rule='evenodd' clip-rule='evenodd' d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z' fill='#6B6F76'/>" +
-                    "</svg>" +
+                "<td class='border border-bottom-0 border-right-0 text-right deleteProduct'>" +
+                "<svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
+                "<path fill-rule='evenodd' clip-rule='evenodd' d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z' fill='#6B6F76'/>" +
+                "</svg>" +
                 "</td>" +
                 "<td style='display:none;'><input type='text' class='product_tax1'></td>"
             );
             // 
             // Gắn các phần tử vào hàng mới
-            newRow.append(maSanPham, tenSanPham, dvTinh, soLuong, donGia, thue, thanhTien,ghiChu,option);
+            newRow.append(maSanPham, tenSanPham, dvTinh, soLuong, ghiChu,
+                option);
             $("#dynamic-fields").before(newRow);
             // Tăng giá trị fieldCounter
             fieldCounter++;
@@ -795,6 +781,7 @@
                                     .product_inventory == null ? 0 :
                                     productData
                                     .product_inventory));
+                                $('.list_product').hide();
                                 // Cập nhật ID của hàng (row)
                                 var newRowID = 'dynamic-row-' + productData
                                     .id;
@@ -1467,10 +1454,12 @@
                     idQuote: idQuote
                 },
                 success: function(data) {
+                    console.log(data);
                     $('.idRepresent').val(data.represent_id)
                     $('.numberQute').val(data.quotation_number)
                     $('.nameGuest').val(data.guest_name_display)
                     $('.represent_name').val(data.represent_name)
+                    $('input[name="code_delivery"]').val('GH-' + (data.lastDeliveryId + 1));
                     $('#show-info-guest').show();
                     $('#show-title-guest').show();
                     $.ajax({
@@ -1492,9 +1481,14 @@
                                 totalTax1 += tax;
                                 $(".idGuest").val(item.guest_id);
                                 $("#detailexport_id").val(item.maXuat);
-                                $("#total-amount-sum").text(formatCurrency(totalPrice));
-                                $("#product-tax").text(formatCurrency(totalTax));
-                                $("#grand-total").text(formatCurrency(grandTotal));
+                                $("#total-amount-sum").text(
+                                    formatCurrency(Math.round(
+                                        totalPrice)));
+                                $("#product-tax").text(formatCurrency(
+                                    Math.round(totalTax)));
+                                $("#grand-total").text(formatCurrency(
+                                    Math.round(
+                                        grandTotal)));
                                 $("#voucher").val(formatCurrency(item
                                     .discount == null ? 0 : item
                                     .discount));

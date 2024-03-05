@@ -13,11 +13,14 @@ class filterCompare extends Component
      */
     public $name;
     public $title;
+    public $button;
 
-    public function __construct($name = null, $title = null)
+
+    public function __construct($name = null, $title = null, $button = null)
     {
         $this->name = $name;
         $this->title = $title;
+        $this->button = $button;
     }
     /**
      * Get the view / contents that represent the component.

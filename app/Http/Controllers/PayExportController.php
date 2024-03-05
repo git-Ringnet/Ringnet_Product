@@ -54,6 +54,7 @@ class PayExportController extends Controller
                     'pay_export.debt',
                     'pay_export.status',
                     'pay_export.payment',
+                    'pay_export.code_payment',
                     DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
                     DB::raw('SUM(history_payment_export.payment) as tongThanhToan')
                 )
@@ -68,6 +69,7 @@ class PayExportController extends Controller
                     'pay_export.debt',
                     'pay_export.status',
                     'pay_export.payment',
+                    'pay_export.code_payment',
                 )
                 ->get();
             return view('tables.export.pay_export.list-payExport', compact('title', 'payExport', 'workspacename'));
@@ -124,6 +126,7 @@ class PayExportController extends Controller
             ->where('pay_export.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'pay_export.guest_id', 'guest.id')
+            ->leftJoin('represent_guest', 'detailexport.represent_id', 'represent_guest.id')
             ->select(
                 '*',
                 'pay_export.id as idTT',
@@ -241,6 +244,8 @@ class PayExportController extends Controller
                 'represent_guest.represent_name',
             )
             ->first();
+        $lastPayExportId = DB::table('pay_export')->orderBy('id', 'desc')->value('id');
+        $delivery['lastPayExportId'] = $lastPayExportId == null ? 0 : $lastPayExportId;
         return $delivery;
     }
     public function getProductPay(Request $request)

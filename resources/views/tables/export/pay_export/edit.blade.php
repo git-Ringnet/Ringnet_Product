@@ -7,26 +7,31 @@
     <input type="hidden" name="table_name" value="TT">
     <input type="hidden" name="detailexport_id" id="detailexport_id">
     <input type="hidden" name="billSale_id" id="billSale_id">
-    <div class="content-wrapper--2Column m-0">
-        <div class="content-header-fixed p-0 margin-250">
-            <div class="content__header--inner margin-left32">
-                <div class="content__heading--left">
-                    <span class="">Bán hàng</span>
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z" fill="#26273B" fill-opacity="0.8"/>
+    <div class="content-wrapper1 py-2 border border-top-0 border-left-0 border-right-0">
+        <div class="d-flex justify-content-between align-items-center pl-4 ml-1">
+            <div class="container-fluided">
+                <div class="mb">
+                    <span class="font-weight-bold">Bán hàng</span>
+                    <span class="mx-2"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
+                                fill="#26273B" fill-opacity="0.8"></path>
                         </svg>
                     </span>
-                    <span class="">Thanh toán bán hàng</span>
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z" fill="#26273B" fill-opacity="0.8"/>
+                    <span class="font-weight-bold">Thanh toán bán hàng</span>
+                    <span class="mx-2"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
+                                fill="#26273B" fill-opacity="0.8"></path>
                         </svg>
                     </span>
-                    <span class="font-weight-bold last-span">{{ $payExport->quotation_number }}</span>
+                    <span class="font-weight-bold text-secondary">{{ $payExport->quotation_number }}</span>
                     @if ($payExport->trangThai == 1)
                         @if ($payExport->payment > 0)
-                            <span style="color: #858585; font-size:13px;" class="btn-status">Đặt cọc</span>
+                            <span class="border ml-2 p-1 text-nav text-secondary shadow-sm rounded"
+                                style="color: #858585">Đặt cọc</span>
                         @else
                             <span class="border ml-2 p-1 text-nav text-secondary shadow-sm rounded"
                                 style="color: #858585">Chưa thanh toán</span>
@@ -208,27 +213,45 @@
                                                 </svg>
                                             </div>
                                         </div>
-                                    </section>
-                                    <table class="table table-hover bg-white rounded">
-                                        <thead>
-                                            <tr style="height:44px;">
-                                                <th class="border-right p-0 px-2 text-13" style="width:15%; padding-left: 2rem !important;">
-                                                    <span>Mã sản phẩm</span>
-                                                </th>
-                                                <th class="border-right p-0 px-2 text-13" style="width:17%;" >Tên sản phẩm</th>
-                                                <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
-                                                <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">Số lượng</th>
-                                                <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Đơn giá</th>
-                                                <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">Thuế</th>
-                                                <th class="border-right p-0 px-1 text-center text-13"style="width:15%;">Thành tiền</th>
-                                                <th class="border-right p-0 px-2 text-center note text-13">Ghi chú sản phẩm</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($product as $item_quote)
-                                                <tr class="bg-white">
-                                                    <td class='border-right p-2 text-13 align-top' style="padding-left: 2rem !important;">
-                                                         <input type="text" autocomplete="off" readonly
+                                        <div class="btn ml-auto cancal_action">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <path d="M18 18L6 6" stroke="white" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                <path d="M18 6L6 18" stroke="white" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </section>
+                                <table class="table table-hover bg-white rounded">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-right text-table text-secondary p-1"
+                                                style="width: 16%;">
+                                                <input class="ml-4" id="checkall" type="checkbox">
+                                                Mã sản phẩm
+                                            </th>
+                                            <th class="border-right text-table text-secondary p-1"
+                                                style="width: 16%;">Tên sản phẩm</th>
+                                            <th class="border-right text-table text-secondary p-1"
+                                                style="width: 10%;">Đơn vị</th>
+                                            <th class="border-right text-table text-secondary p-1"
+                                                style="width: 10%;">Số lượng</th>
+                                            <th class="border-right text-table text-secondary p-1">Đơn giá</th>
+                                            <th class="border-right text-table text-secondary p-1">Thuế</th>
+                                            <th class="border-right text-table text-secondary p-1">Thành tiền</th>
+                                            <th class="note text-table text-secondary p-1">Ghi chú</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($product as $item_quote)
+                                            <tr class="bg-white">
+                                                <td
+                                                    class="border border-left-0 border-top-0 border-bottom-0 position-relative">
+                                                    <div
+                                                        class="d-flex w-100 justify-content-between align-items-center">
+                                                        <input type="text" autocomplete="off" readonly
                                                             value="{{ $item_quote->product_code }}"
                                                             class="border-0 px-2 py-1 w-75 product_code w-100 "
                                                             name="product_code[]">
@@ -415,25 +438,34 @@
                                 <span class="text-table ml-2">Thanh toán trước</span>
                             </div>
                         </div>
-                        <div class="">
-                            <div
-                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1">
-                                <input type="text" readonly value="{{ $payExport->quotation_number }}"
-                                    class="border-0 bg w-100 bg-input-guest py-0 numberQute px-0 text-13-black" id="myInput"
-                                    autocomplete="off" name="quotation_number">
-                                <div class="opacity-0">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
+                        <div class="d-flex">
+                            <div style="width: 55%;">
+                                <div class="border border-right-0 py-1 border-left-0">
+                                    <span class="text-table ml-2">Số báo giá</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                    <span class="text-table ml-2">Khách hàng</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                    <span class="text-table ml-2">Người đại diện</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                    <span class="text-table ml-2">Mã thanh toán</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                    <span class="text-table ml-2">Hạn thanh toán</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                    <span class="text-table ml-2">Tổng tiền</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                    <span class="text-table ml-2">Đã thanh toán</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                    <span class="text-table ml-2">Dư nợ</span>
+                                </div>
+                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
+                                    <span class="text-table ml-2">Thanh toán trước</span>
                                 </div>
                             </div>
                             <div
@@ -457,28 +489,68 @@
                                             fill="#42526E"></path>
                                     </svg>
                                 </div>
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
-                                <input type="text" placeholder="Nhập thông tin"
-                                    @if ($payExport->trangThai != 2) id="datePicker" @endif
-                                    value="{{ date_format(new DateTime($payExport->payment_date), 'd/m/Y') }}"
-                                    class="border-0 bg w-100 bg-input-guest py-0 text-13-black">
-                                <input type="hidden" id="hiddenDateInput" name="date_pay"
-                                    value="{{ date_format(new DateTime($payExport->payment_date), 'Y-m-d') }}">
-                                <div class="opacity-0">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
+                                    <input type="text" readonly value="{{ $payExport->represent_name }}"
+                                        class="border-0 bg w-100 bg-input-guest py-0 numberQute px-0"
+                                        autocomplete="off">
+                                    <div class="opacity-0">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
+                                    <input type="text" readonly value="{{ $payExport->code_payment }}"
+                                        class="border-0 bg w-100 bg-input-guest py-0 px-0" autocomplete="off">
+                                    <div class="opacity-0">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
+                                    <input type="text" placeholder="Nhập thông tin"
+                                        @if ($payExport->trangThai != 2) id="datePicker" @endif
+                                        value="{{ date_format(new DateTime($payExport->payment_date), 'd/m/Y') }}"
+                                        class="border-0 bg w-100 bg-input-guest py-0">
+                                    <input type="hidden" id="hiddenDateInput" name="date_pay"
+                                        value="{{ date_format(new DateTime($payExport->payment_date), 'Y-m-d') }}">
+                                    <div class="opacity-0">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                fill="#42526E"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                fill="#42526E"></path>
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
                             <div

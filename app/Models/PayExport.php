@@ -14,6 +14,7 @@ class PayExport extends Model
     protected $fillable = [
         'detailexport_id',
         'guest_id',
+        'code_payment',
         'payment_date',
         'total',
         'payment',
@@ -63,6 +64,7 @@ class PayExport extends Model
         $dataPay = [
             'detailexport_id' => $data['detailexport_id'],
             'guest_id' => $data['guest_id'],
+            'code_payment' => $data['code_payment'],
             'payment_date' =>  $date_pay,
             'total' => $total,
             'payment' => $payment,
@@ -244,14 +246,39 @@ class PayExport extends Model
             ->leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
             ->where('detailexport.status', 2)
             ->select(
-                'detailexport.guest_id',
-                'guest.guest_name_display',
-                'guest.guest_code',
+                'detailexport.guest_id as guest_id',
+                'guest.guest_name_display as guest_name',
+                'guest.guest_code as guest_code',
                 DB::raw('SUM(detailexport.total_price + detailexport.total_tax) as sumSell'),
                 DB::raw('SUM(detailexport.amount_owed) as sumAmountOwed')
             )
             ->groupBy('detailexport.guest_id', 'guest.guest_name_display', 'guest.guest_code')
             ->get();
+        return $report_guest;
+    }
+    public function ajax($data)
+    {
+        $report_guest = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
+            ->where('detailexport.status', 2)
+            ->select(
+                'detailexport.guest_id as guest_id',
+                'guest.guest_name_display as guest_name',
+                'guest.guest_code as guest_code',
+                DB::raw('SUM(detailexport.total_price + detailexport.total_tax) as sumSell'),
+                DB::raw('SUM(detailexport.amount_owed) as sumAmountOwed')
+            );
+        if (isset($data['search'])) {
+            $report_guest = $report_guest->where(function ($query) use ($data) {
+                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest_code', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['code'])) {
+            $report_guest = $report_guest->where('guest_code', 'like', '%' . $data['code'] . '%');
+        }
+        $report_guest = $report_guest->groupBy('detailexport.guest_id', 'guest.guest_name_display', 'guest.guest_code');
+        $report_guest = $report_guest->get();
         return $report_guest;
     }
 }

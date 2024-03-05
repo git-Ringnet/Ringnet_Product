@@ -312,14 +312,16 @@ $(document).on("click", ".deleteRow1", function () {
 });
 
 function deleteImport(name, route) {
-    $(name)
-        .off("click")
-        .on("click", function (e) {
-            e.preventDefault();
+    $(name).off("click").on("click", function (e) {
+        e.preventDefault();
+
+        var confirmation = confirm("Bạn có chắc chắn muốn xóa không?");
+        if (confirmation) {
             $("#formSubmit").attr("action", route);
             $('input[name="_method"]').val("DELETE");
             $("#formSubmit")[0].submit();
-        });
+        }
+    });
 }
 
 // Lấy thông tin key

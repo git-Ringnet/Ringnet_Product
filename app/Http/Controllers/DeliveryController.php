@@ -46,6 +46,7 @@ class DeliveryController extends Controller
             $delivery = Delivery::leftJoin('guest', 'guest.id', 'delivery.guest_id')
                 ->select('*', 'delivery.id as maGiaoHang', 'delivery.created_at as ngayGiao')
                 ->where('delivery.workspace_id', Auth::user()->current_workspace)
+                ->orderBy('delivery.id', 'desc')
                 ->get();
             return view('tables.export.delivery.list-delivery', compact('title', 'delivery', 'workspacename'));
         } else {
@@ -172,6 +173,8 @@ class DeliveryController extends Controller
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
             ->first();
+        $lastDeliveryId = DB::table('delivery')->orderBy('id', 'desc')->value('id');
+        $delivery['lastDeliveryId'] = $lastDeliveryId == null ? 0 : $lastDeliveryId;
         return $delivery;
     }
 
