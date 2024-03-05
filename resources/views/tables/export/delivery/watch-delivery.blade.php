@@ -586,7 +586,7 @@
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã giao hàng</span>
                         <input class="text-13-black w-50 border-0" style="flex:2;" placeholder="Nhập thông tin"
-                            value="{{ $delivery->soGiaoHang }}" readonly />
+                            value="{{ $delivery->code_delivery }}" readonly />
                     </li>
                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                         style="height:44px;">

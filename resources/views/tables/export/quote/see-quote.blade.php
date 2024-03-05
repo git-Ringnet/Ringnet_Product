@@ -70,26 +70,24 @@
                                     PDF</a>
                             </div>
                         </div>
-                        @if ($detailExport->tinhTrang == 1)
-                            <a
-                                href="{{ route('detailExport.edit', ['workspace' => $workspacename, 'detailExport' => $detailExport->maBG]) }}">
-                                <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none">
-                                        <path
-                                            d="M4.75 2.00007C2.67893 2.00007 1 3.679 1 5.75007V11.25C1 13.3211 2.67893 15 4.75 15H10.2501C12.3212 15 14.0001 13.3211 14.0001 11.25V8.00007C14.0001 7.58586 13.6643 7.25007 13.2501 7.25007C12.8359 7.25007 12.5001 7.58586 12.5001 8.00007V11.25C12.5001 12.4927 11.4927 13.5 10.2501 13.5H4.75C3.50736 13.5 2.5 12.4927 2.5 11.25V5.75007C2.5 4.50743 3.50736 3.50007 4.75 3.50007H7C7.41421 3.50007 7.75 3.16428 7.75 2.75007C7.75 2.33586 7.41421 2.00007 7 2.00007H4.75Z"
-                                            fill="white" />
-                                        <path
-                                            d="M12.1339 5.19461L10.7197 3.7804L6.52812 7.97196C5.77185 8.72823 5.25635 9.69144 5.0466 10.7402C5.03144 10.816 5.09828 10.8828 5.17409 10.8677C6.22285 10.6579 7.18606 10.1424 7.94233 9.38618L12.1339 5.19461Z"
-                                            fill="white" />
-                                        <path
-                                            d="M13.4559 1.45679C13.2663 1.39356 13.0571 1.44293 12.9158 1.58431L11.7803 2.71974L13.1945 4.13395L14.33 2.99852C14.4714 2.85714 14.5207 2.64802 14.4575 2.45834C14.2999 1.98547 13.9288 1.61441 13.4559 1.45679Z"
-                                            fill="white" />
-                                    </svg>
-                                    <span class="text-btnIner-primary ml-1">Sửa</span>
-                                </button>
-                            </a>
-                        @endif
+                        <a
+                            href="{{ route('detailExport.edit', ['workspace' => $workspacename, 'detailExport' => $detailExport->maBG]) }}">
+                            <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 16 16" fill="none">
+                                    <path
+                                        d="M4.75 2.00007C2.67893 2.00007 1 3.679 1 5.75007V11.25C1 13.3211 2.67893 15 4.75 15H10.2501C12.3212 15 14.0001 13.3211 14.0001 11.25V8.00007C14.0001 7.58586 13.6643 7.25007 13.2501 7.25007C12.8359 7.25007 12.5001 7.58586 12.5001 8.00007V11.25C12.5001 12.4927 11.4927 13.5 10.2501 13.5H4.75C3.50736 13.5 2.5 12.4927 2.5 11.25V5.75007C2.5 4.50743 3.50736 3.50007 4.75 3.50007H7C7.41421 3.50007 7.75 3.16428 7.75 2.75007C7.75 2.33586 7.41421 2.00007 7 2.00007H4.75Z"
+                                        fill="white" />
+                                    <path
+                                        d="M12.1339 5.19461L10.7197 3.7804L6.52812 7.97196C5.77185 8.72823 5.25635 9.69144 5.0466 10.7402C5.03144 10.816 5.09828 10.8828 5.17409 10.8677C6.22285 10.6579 7.18606 10.1424 7.94233 9.38618L12.1339 5.19461Z"
+                                        fill="white" />
+                                    <path
+                                        d="M13.4559 1.45679C13.2663 1.39356 13.0571 1.44293 12.9158 1.58431L11.7803 2.71974L13.1945 4.13395L14.33 2.99852C14.4714 2.85714 14.5207 2.64802 14.4575 2.45834C14.2999 1.98547 13.9288 1.61441 13.4559 1.45679Z"
+                                        fill="white" />
+                                </svg>
+                                <span class="text-btnIner-primary ml-1">Sửa</span>
+                            </button>
+                        </a>
                         <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
                                 class="custom-btn rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
@@ -150,20 +148,17 @@
                                 </ul>
                             </div>
                         </div>
-                        <a href="#">
-                            <button
-                                class="custom-btn rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
-                                <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16"
-                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M9.30639 10.2061C9.57305 10.4727 9.59528 10.8913 9.37306 11.1832L9.30639 11.2595L6.84832 13.7176C5.58773 14.9782 3.54392 14.9782 2.28333 13.7176C1.06621 12.5005 1.02425 10.5532 2.15742 9.28574L2.28333 9.15261L4.7414 6.69453C5.03231 6.40363 5.50396 6.40363 5.79486 6.69453C6.06152 6.9612 6.08375 7.37973 5.86153 7.67171L5.79486 7.74799L3.33679 10.2061C2.65801 10.8848 2.65801 11.9854 3.33679 12.6641C3.98163 13.309 5.00709 13.3412 5.68999 12.7609L5.79486 12.6641L8.25293 10.2061C8.54384 9.91516 9.01549 9.91516 9.30639 10.2061ZM9.83063 6.17029C10.1215 6.46119 10.1215 6.93284 9.83063 7.22375L7.35002 9.70437C7.05911 9.99528 6.58746 9.99528 6.29656 9.70437C6.00565 9.41347 6.00565 8.94182 6.29656 8.65091L8.77718 6.17029C9.06808 5.87938 9.53973 5.87938 9.83063 6.17029ZM13.7183 2.2826C14.9354 3.49972 14.9774 5.44698 13.8442 6.71446L13.7183 6.84759L11.2602 9.30567C10.9693 9.59657 10.4977 9.59657 10.2068 9.30567C9.94012 9.03901 9.9179 8.62047 10.1401 8.32849L10.2068 8.25221L12.6648 5.79413C13.3436 5.11535 13.3436 4.01484 12.6648 3.33606C12.02 2.69122 10.9946 2.65898 10.3117 3.23933L10.2068 3.33606L7.74872 5.79413C7.45781 6.08504 6.98616 6.08504 6.69526 5.79413C6.4286 5.52747 6.40637 5.10893 6.62859 4.81696L6.69526 4.74067L9.15333 2.2826C10.4139 1.02201 12.4577 1.02201 13.7183 2.2826Z"
-                                        fill="white" />
-                                </svg>
-                                <span>Đính kèm file</span>
-                            </button>
-                            <input type="file" style="display: none;" id="file_restore"
-                                accept="*"name="file">
-                        </a>
+                        <label class="custom-btn d-flex align-items-center h-100 m-0 mx-1">
+                            <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.30639 10.2061C9.57305 10.4727 9.59528 10.8913 9.37306 11.1832L9.30639 11.2595L6.84832 13.7176C5.58773 14.9782 3.54392 14.9782 2.28333 13.7176C1.06621 12.5005 1.02425 10.5532 2.15742 9.28574L2.28333 9.15261L4.7414 6.69453C5.03231 6.40363 5.50396 6.40363 5.79486 6.69453C6.06152 6.9612 6.08375 7.37973 5.86153 7.67171L5.79486 7.74799L3.33679 10.2061C2.65801 10.8848 2.65801 11.9854 3.33679 12.6641C3.98163 13.309 5.00709 13.3412 5.68999 12.7609L5.79486 12.6641L8.25293 10.2061C8.54384 9.91516 9.01549 9.91516 9.30639 10.2061ZM9.83063 6.17029C10.1215 6.46119 10.1215 6.93284 9.83063 7.22375L7.35002 9.70437C7.05911 9.99528 6.58746 9.99528 6.29656 9.70437C6.00565 9.41347 6.00565 8.94182 6.29656 8.65091L8.77718 6.17029C9.06808 5.87938 9.53973 5.87938 9.83063 6.17029ZM13.7183 2.2826C14.9354 3.49972 14.9774 5.44698 13.8442 6.71446L13.7183 6.84759L11.2602 9.30567C10.9693 9.59657 10.4977 9.59657 10.2068 9.30567C9.94012 9.03901 9.9179 8.62047 10.1401 8.32849L10.2068 8.25221L12.6648 5.79413C13.3436 5.11535 13.3436 4.01484 12.6648 3.33606C12.02 2.69122 10.9946 2.65898 10.3117 3.23933L10.2068 3.33606L7.74872 5.79413C7.45781 6.08504 6.98616 6.08504 6.69526 5.79413C6.4286 5.52747 6.40637 5.10893 6.62859 4.81696L6.69526 4.74067L9.15333 2.2826C10.4139 1.02201 12.4577 1.02201 13.7183 2.2826Z"
+                                    fill="white" />
+                            </svg>
+                            <span>Đính kèm file</span>
+                            <input type="file" style="display: none;" id="file_restore" accept="*"
+                                name="file">
+                        </label>
                         <a href="#">
                             <button name="action" value="action_5" type="submit"
                                 onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
@@ -990,168 +985,167 @@
                                 </div>
                             </section>
                         </div>
-                        <div id="files" class="tab-pane fade">
-                            <div class="bg-filter-search border-top-0 text-center py-2">
-                                <span class="font-weight-bold text-secondary text-nav">File đính kèm</span>
+</form>
+<div id="files" class="tab-pane fade">
+    <div class="bg-filter-search border-top-0 text-center py-2">
+        <span class="font-weight-bold text-secondary text-nav">File đính kèm</span>
+    </div>
+    <x-form-attachment :value="$detailExport" name="BG"></x-form-attachment>
+</div>
+</div>
+</div>
+</section>
+</div>
+{{-- Thông tin khách hàng --}}
+<div class="content">
+    <div id="mySidenav" class="sidenav border top-109">
+        <div id="show_info_Guest">
+            <div class="bg-filter-search border-0 text-center border-custom">
+                <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH HÀNG
+                </p>
+            </div>
+            <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
+                style="height:44px;" style="height:44px;">
+                <span class="text-13 btn-click" style="flex: 1.5;"> Khách hàng
+                </span>
+                <span class="mx-1 text-13" style="flex: 2;">
+                    <input type="text" class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest"
+                        id="myInput" style="background-color:#F0F4FF; border-radius:4px;" readonly
+                        autocomplete="off" required value="{{ $detailExport->guest_name_display }}">
+                    <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
+                        value="{{ $detailExport->maKH }}">
+                </span>
+            </div>
+            <div class="">
+                <div class="d-flex align-items-center justify-content-between border-0">
+                    <ul id="myUL"
+                        class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
+                        style="z-index: 99;display: none;">
+                        <div class="p-1">
+                            <div class="position-relative">
+                                <input type="text" placeholder="Nhập công ty"
+                                    class="pr-4 w-100 input-search bg-input-guest" id="companyFilter">
+                                <span id="search-icon" class="search-icon"><i class="fas fa-search text-table"
+                                        aria-hidden="true"></i></span>
                             </div>
-                            <x-form-attachment :value="$detailExport" name="BG"></x-form-attachment>
                         </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        {{-- Thông tin khách hàng --}}
-        <div class="content">
-            <div id="mySidenav" class="sidenav border top-109">
-                <div id="show_info_Guest">
-                    <div class="bg-filter-search border-0 text-center border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH HÀNG
-                        </p>
-                    </div>
-                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
-                        style="height:44px;" style="height:44px;">
-                        <span class="text-13 btn-click" style="flex: 1.5;"> Khách hàng
-                        </span>
-                        <span class="mx-1 text-13" style="flex: 2;">
-                            <input type="text" class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest"
-                                id="myInput" style="background-color:#F0F4FF; border-radius:4px;" readonly
-                                autocomplete="off" required value="{{ $detailExport->guest_name_display }}">
-                            <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
-                                value="{{ $detailExport->maKH }}">
-                        </span>
-                    </div>
-                    <div class="">
-                        <div class="d-flex align-items-center justify-content-between border-0">
-                            <ul id="myUL"
-                                class="bg-white position-absolute rounded shadow p-1 scroll-data list-guest z-index-block"
-                                style="z-index: 99;display: none;">
-                                <div class="p-1">
-                                    <div class="position-relative">
-                                        <input type="text" placeholder="Nhập công ty"
-                                            class="pr-4 w-100 input-search bg-input-guest" id="companyFilter">
-                                        <span id="search-icon" class="search-icon"><i
-                                                class="fas fa-search text-table" aria-hidden="true"></i></span>
-                                    </div>
-                                </div>
-                                @foreach ($guest as $guest_value)
-                                    <li class="p-2 align-items-center"
-                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                        <a href="#" title="{{ $guest_value->guest_name_display }}"
-                                            id="{{ $guest_value->id }}" name="search-info" class="search-info">
-                                            <span class="text-13-black">{{ $guest_value->guest_name_display }}</span>
-                                        </a>
-                                        <a type="button" data-toggle="modal" data-target="#guestModalEdit">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                    viewBox="0 0 14 14" fill="none">
-                                                    <path
-                                                        d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
-                                                        fill="black" />
-                                                    <path
-                                                        d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
-                                                        fill="black" />
-                                                    <path
-                                                        d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
-                                                        fill="black" />
-                                                </svg>
-                                            </span>
-                                        </a>
-                                    </li>
-                                @endforeach
-                                <a type="button"
-                                    class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
-                                    data-toggle="modal" data-target="#guestModal"
-                                    style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                        @foreach ($guest as $guest_value)
+                            <li class="p-2 align-items-center"
+                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                <a href="#" title="{{ $guest_value->guest_name_display }}"
+                                    id="{{ $guest_value->id }}" name="search-info" class="search-info">
+                                    <span class="text-13-black">{{ $guest_value->guest_name_display }}</span>
+                                </a>
+                                <a type="button" data-toggle="modal" data-target="#guestModalEdit">
                                     <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 0 16 16" fill="none">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14" fill="none">
                                             <path
-                                                d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
-                                                fill="#282A30" />
+                                                d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z"
+                                                fill="black" />
+                                            <path
+                                                d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z"
+                                                fill="black" />
+                                            <path
+                                                d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z"
+                                                fill="black" />
                                         </svg>
                                     </span>
-                                    <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm
-                                        khách hàng</span>
                                 </a>
-                            </ul>
-                        </div>
-                        <div class="content-info--common" id="show-info-guest">
-                            <ul class="p-0 m-0">
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest"
-                                        value="{{ $detailExport->represent_name }}" id="represent_guest"
-                                        style="flex:2;"> <input type="hidden" class="represent_guest_id"
-                                        name="represent_guest_id" autocomplete="off">
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3"style="flex: 1.5;">Số báo giá</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
-                                        name="quotation_number" value="{{ $detailExport->quotation_number }}" />
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
-                                        name="reference_number" value="{{ $detailExport->reference_number }}" />
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest " id="customDateInput"
-                                        name="date_quote" style="flex:2;"
-                                        value="{{ date_format(new DateTime($detailExport->ngayBG), 'd/m/Y') }}" />
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo
-                                        giá</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest " name="price_effect"
-                                        id="myInput" style="flex:2;" value="{{ $detailExport->price_effect }}" />
+                            </li>
+                        @endforeach
+                        <a type="button" class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
+                            data-toggle="modal" data-target="#guestModal"
+                            style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 16 16" fill="none">
+                                    <path
+                                        d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
+                                        fill="#282A30" />
+                                </svg>
+                            </span>
+                            <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm
+                                khách hàng</span>
+                        </a>
+                    </ul>
+                </div>
+                <div class="content-info--common" id="show-info-guest">
+                    <ul class="p-0 m-0">
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            style="height:44px;">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest" readonly
+                                value="{{ $detailExport->represent_name }}" id="represent_guest" style="flex:2;">
+                            <input type="hidden" class="represent_guest_id" name="represent_guest_id"
+                                autocomplete="off">
+                        </li>
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            style="height:44px;">
+                            <span class="text-13 text-nowrap mr-3"style="flex: 1.5;">Số báo giá</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
+                                name="quotation_number" value="{{ $detailExport->quotation_number }}" />
+                        </li>
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            style="height:44px;">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
+                                name="reference_number" value="{{ $detailExport->reference_number }}" />
+                        </li>
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            style="height:44px;">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest " id="customDateInput"
+                                name="date_quote" style="flex:2;" readonly
+                                value="{{ date_format(new DateTime($detailExport->ngayBG), 'd/m/Y') }}" />
+                        </li>
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            style="height:44px;">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo
+                                giá</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest" name="price_effect" readonly
+                                id="myInput" style="flex:2;" value="{{ $detailExport->price_effect }}" />
 
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest" id="myInput"
-                                        style="flex:2;" name="terms_pay" value="{{ $detailExport->terms_pay }}" />
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
-                                        id="ProjectInput" value="{{ $detailExport->project_name }}" />
+                        </li>
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            style="height:44px;">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest" id="myInput" style="flex:2;" readonly
+                                name="terms_pay" value="{{ $detailExport->terms_pay }}" />
+                        </li>
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            style="height:44px;">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
+                                id="ProjectInput" value="{{ $detailExport->project_name }}" />
 
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hàng hóa</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;"
-                                        id="myInput" name="goods" value="{{ $detailExport->goods }}" />
+                        </li>
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            style="height:44px;">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hàng hóa</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" id="myInput" readonly
+                                name="goods" value="{{ $detailExport->goods }}" />
 
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Giao hàng</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;"
-                                        name="delivery" id="myInput" value="{{ $detailExport->delivery }}" />
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa điểm</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;"
-                                        name="location" id="myInput" value="{{ $detailExport->location }}" />
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                        </li>
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            style="height:44px;">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Giao hàng</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
+                                name="delivery" id="myInput" value="{{ $detailExport->delivery }}" />
+                        </li>
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            style="height:44px;">
+                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa điểm</span>
+                            <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;" readonly
+                                name="location" id="myInput" value="{{ $detailExport->location }}" />
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-</form>
+</div>
+</div>
 
 {{-- Thông tin sản phẩm --}}
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">

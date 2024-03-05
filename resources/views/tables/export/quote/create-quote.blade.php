@@ -2047,7 +2047,7 @@
                             '</li>';
                         // Thêm mục mới vào danh sách
                         var addButton = $(".addGuestNew");
-                        $(".m-0.p-0.scroll-data").append(newListItem);
+                        $("#myUL .m-0.p-0.scroll-data").append(newListItem);
 
                         //clear
                         $('#guest_name_display').val('');

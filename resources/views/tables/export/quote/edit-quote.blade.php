@@ -162,7 +162,9 @@
                                             tiền</th>
                                         <th class="border-right p-0 px-2 text-center note text-13">Ghi chú sản phẩm
                                         </th>
-                                        <th class="border-right p-0 px-2 text-center note text-13"></th>
+                                        @if ($detailExport->tinhTrang == 1)
+                                            <th class="border-right p-0 px-2 text-center note text-13"></th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -185,7 +187,9 @@
                                                     </svg>
                                                 </span>
                                                 <input type="checkbox" class="cb-element checkall-btn">
-                                                <input type="text" autocomplete="off"
+                                                <input type="text" autocomplete="off" <?php if ($detailExport->tinhTrang != 1) {
+                                                    echo 'readonly';
+                                                } ?>
                                                     value="{{ $item_quote->product_code }}"
                                                     class="border-0 px-2  py-1 w-75 product_code"
                                                     name="product_code[]">
@@ -206,7 +210,9 @@
                                                     @endforeach
                                                 </ul>
                                                 <div class='d-flex align-items-center'>
-                                                    <input type='text'
+                                                    <input type='text' <?php if ($detailExport->tinhTrang != 1) {
+                                                        echo 'disabled';
+                                                    } ?>
                                                         class='border-0 px-2 py-1 w-100 product_name'
                                                         autocomplete='off' required name='product_name[]'
                                                         value="{{ $item_quote->product_name }}">
@@ -249,20 +255,21 @@
 
                                             <td class='border-right p-2 text-13 align-top'>
                                                 <div>
-                                                    <input type='text'
+                                                    <input type='text' <?php if ($detailExport->tinhTrang != 1) {
+                                                        echo 'readonly';
+                                                    } ?>
                                                         class='text-right border-0 px-2 py-1 w-100 quantity-input'
                                                         value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
                                                         autocomplete='off' required name='product_qty[]'>
                                                     <input type='hidden' class='tonkho'>
                                                 </div>
-                                                <div class='mt-3 text-13-blue inventory'>Tồn kho:
-                                                    <span class='pl-1 soTonKho'></span>
-                                                </div>
                                             </td>
 
                                             <td class='border-right p-2 text-13 align-top'>
                                                 <div>
-                                                    <input type='text'
+                                                    <input type='text' <?php if ($detailExport->tinhTrang != 1) {
+                                                        echo 'readonly';
+                                                    } ?>
                                                         class='text-right border-0 px-2 py-1 w-100 product_price'
                                                         autocomplete='off' name='product_price[]' required
                                                         value="{{ number_format($item_quote->price_export) }}">
@@ -270,7 +277,7 @@
                                             </td>
 
                                             <td class='border-right p-2 text-13 align-top'>
-                                                <select name='product_tax[]'
+                                                <select name='product_tax[]' disabled
                                                     class='border-0 px-2 py-1 w-100 text-left product_tax'
                                                     required="">
                                                     <option value="0" <?php if ($item_quote->product_tax == 0) {
@@ -295,20 +302,23 @@
                                             </td>
 
                                             <td class='border-right p-2 note text-13 align-top'>
-                                                <input type='text' name="product_note[]"
+                                                <input type='text' name="product_note[]" <?php if ($detailExport->tinhTrang != 1) {
+                                                    echo 'readonly';
+                                                } ?>
                                                     value="{{ $item_quote->product_note }}"
                                                     class='border-0 py-1 w-100' placeholder='Nhập ghi chú'>
                                             </td>
-
-                                            <td class='border-right p-2 align-top'>
-                                                <svg class="delete-product" width='17' height='17'
-                                                    viewBox='0 0 17 17' fill='none'
-                                                    xmlns='http://www.w3.org/2000/svg'>
-                                                    <path fill-rule='evenodd' clip-rule='evenodd'
-                                                        d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z'
-                                                        fill='#6B6F76' />
-                                                </svg>
-                                            </td>
+                                            @if ($detailExport->tinhTrang == 1)
+                                                <td class='border-right p-2 align-top'>
+                                                    <svg class="delete-product" width='17' height='17'
+                                                        viewBox='0 0 17 17' fill='none'
+                                                        xmlns='http://www.w3.org/2000/svg'>
+                                                        <path fill-rule='evenodd' clip-rule='evenodd'
+                                                            d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z'
+                                                            fill='#6B6F76' />
+                                                    </svg>
+                                                </td>
+                                            @endif
                                             <td style="display:none;" class="">
                                                 <input type="text" class="product_tax1">
                                             </td>
@@ -317,68 +327,70 @@
                                     <tr id="dynamic-fields" class="bg-white"></tr>
                                 </tbody>
                             </table>
-                            <section class="content">
-                                <div class="container-fluided">
-                                    <div class="d-flex ml-3">
-                                        <button type="button" data-toggle="dropdown" id="add-field-btn"
-                                            class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                            style="margin-right:10px">
-                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
-                                                height="12" viewBox="0 0 18 18" fill="none">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                            <span class="text-table">Thêm sản phẩm</span>
-                                        </button>
-                                        <button type="button" data-toggle="dropdown" id="add-field-btn"
-                                            class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                            style="margin-right:10px">
-                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
-                                                height="12" viewBox="0 0 18 18" fill="none">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                            <span class="text-table">Thêm đầu mục</span>
-                                        </button>
-                                        <button type="button" data-toggle="dropdown"
-                                            class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                            style="margin-right:10px">
-                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
-                                                height="12" viewBox="0 0 18 18" fill="none">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                            <span class="text-table">Thêm hàng loạt</span>
-                                        </button>
-                                        <button type="button" class="btn-option py-1 px-2 bg-white border-0">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                    fill="#42526E"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                    fill="#42526E"></path>
-                                            </svg>
-                                        </button>
+                            @if ($detailExport->tinhTrang == 1)
+                                <section class="content">
+                                    <div class="container-fluided">
+                                        <div class="d-flex ml-3">
+                                            <button type="button" data-toggle="dropdown" id="add-field-btn"
+                                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                                style="margin-right:10px">
+                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
+                                                    height="12" viewBox="0 0 18 18" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                                <span class="text-table">Thêm sản phẩm</span>
+                                            </button>
+                                            <button type="button" data-toggle="dropdown" id="add-field-btn"
+                                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                                style="margin-right:10px">
+                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
+                                                    height="12" viewBox="0 0 18 18" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                                <span class="text-table">Thêm đầu mục</span>
+                                            </button>
+                                            <button type="button" data-toggle="dropdown"
+                                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                                style="margin-right:10px">
+                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
+                                                    height="12" viewBox="0 0 18 18" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                                <span class="text-table">Thêm hàng loạt</span>
+                                            </button>
+                                            <button type="button" class="btn-option py-1 px-2 bg-white border-0">
+                                                <svg width="24" height="24" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                                        fill="#42526E"></path>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                                        fill="#42526E"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            </section>
+                                </section>
+                            @endif
                         </div>
                     </section>
                     <div class="content">
@@ -426,7 +438,9 @@
                                 Khách hàng
                             </span>
                             <span class="mx-1 text-13" style="flex: 2;">
-                                <input type="text" placeholder="Chọn thông tin"
+                                <input type="text" placeholder="Chọn thông tin" <?php if ($detailExport->tinhTrang != 1) {
+                                    echo 'disabled';
+                                } ?>
                                     value="{{ $detailExport->guest_name_display }}"
                                     class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest" id="myInput"
                                     style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required>
@@ -504,8 +518,11 @@
                                             diện</span>
 
                                         <input class="text-13-black w-50 border-0 bg-input-guest" type="text"
-                                            placeholder="Chọn thông tin" id="represent_guest" style="flex:2;"
-                                            value="{{ $detailExport->represent_name }}" autocomplete="off">
+                                            <?php if ($detailExport->tinhTrang != 1) {
+                                                echo 'disabled';
+                                            } ?> placeholder="Chọn thông tin" id="represent_guest"
+                                            style="flex:2;" value="{{ $detailExport->represent_name }}"
+                                            autocomplete="off">
 
                                         <input type="hidden" class="represent_guest_id" autocomplete="off"
                                             value="{{ $detailExport->represent_id }}" name="represent_guest_id">
@@ -545,7 +562,10 @@
                                         style="height:44px;">
                                         <span class="text-13 text-nowrap mr-3"style="flex: 1.5;">Số báo giá</span>
                                         <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
-                                            value="{{ $detailExport->quotation_number }}" name="quotation_number" />
+                                            <?php if ($detailExport->tinhTrang != 1) {
+                                                echo 'readonly';
+                                            } ?> value="{{ $detailExport->quotation_number }}"
+                                            name="quotation_number" />
                                     </li>
                                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                         style="height:44px;">
@@ -557,7 +577,11 @@
                                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                         style="height:44px;">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
-                                        <input class="text-13-black w-50 border-0 bg-input-guest "id="datePicker"
+                                        <input class="text-13-black w-50 border-0 bg-input-guest" <?php if ($detailExport->tinhTrang == 1) {
+                                            echo 'id="datePicker"';
+                                        } else {
+                                            echo 'readonly';
+                                        } ?>
                                             name="date_quote" style="flex:2;"
                                             value="{{ date_format(new DateTime($detailExport->ngayBG), 'd/m/Y') }}" />
                                         <input type="hidden" id="hiddenDateInput" name="date_quote"
@@ -568,7 +592,9 @@
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo
                                             giá</span>
 
-                                        <input class="text-13-black w-50 border-0 bg-input-guest "
+                                        <input class="text-13-black w-50 border-0 bg-input-guest" <?php if ($detailExport->tinhTrang != 1) {
+                                            echo 'disabled';
+                                        } ?>
                                             placeholder="Chọn thông tin" name="price_effect" id="myInput-quote"
                                             style="flex:2;" value="{{ $detailExport->price_effect }}"
                                             value="{{ isset($dataForm['quote']) ? $dataForm['quote']->form_desc : '' }}" />
@@ -667,7 +693,9 @@
 
                                         <input class="text-13-black w-50 border-0 bg-input-guest" id="myInput-payment"
                                             placeholder="Chọn thông tin" style="flex:2;" name="terms_pay"
-                                            value="{{ $detailExport->terms_pay }}"
+                                            <?php if ($detailExport->tinhTrang != 1) {
+                                                echo 'disabled';
+                                            } ?> value="{{ $detailExport->terms_pay }}"
                                             value="{{ isset($dataForm['payment']) ? $dataForm['payment']->form_desc : '' }}" />
 
                                         <input type="hidden" class="idDateForm" autocomplete="off"
@@ -749,7 +777,9 @@
                                         style="height:44px;">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
                                         <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
-                                            placeholder="Chọn thông tin" id="ProjectInput"
+                                            placeholder="Chọn thông tin" id="ProjectInput" <?php if ($detailExport->tinhTrang != 1) {
+                                                echo 'disabled';
+                                            } ?>
                                             value="{{ $detailExport->project_name }}" />
                                         <input type="hidden" class="idProject" autocomplete="off" name="project_id"
                                             class="idProject" value="{{ $detailExport->id_project }}">
@@ -820,8 +850,11 @@
                                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                         style="height:44px;">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hàng hóa</span>
-                                        <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;"
+                                        <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
                                             id="myInput-goods" placeholder="Chọn thông tin" name="goods"
+                                            <?php if ($detailExport->tinhTrang != 1) {
+                                                echo 'disabled';
+                                            } ?>
                                             value="{{ isset($dataForm['goods']) ? $dataForm['goods']->form_desc : '' }}" />
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDate[goods]"
@@ -911,6 +944,9 @@
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Giao hàng</span>
                                         <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;"
                                             placeholder="Chọn thông tin" name="delivery" id="myInput-delivery"
+                                            <?php if ($detailExport->tinhTrang != 1) {
+                                                echo 'disabled';
+                                            } ?>
                                             value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->form_desc : '' }}" />
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDate[delivery]"
@@ -998,8 +1034,11 @@
                                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                         style="height:44px;">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa điểm</span>
-                                        <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;"
-                                            placeholder="Chọn thông tin" name="location" id="myInput-location"
+                                        <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
+                                            <?php if ($detailExport->tinhTrang != 1) {
+                                                echo 'disabled';
+                                            } ?> placeholder="Chọn thông tin" name="location"
+                                            id="myInput-location"
                                             value="{{ isset($dataForm['location']) ? $dataForm['location']->form_desc : '' }}" />
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDate[location]"
