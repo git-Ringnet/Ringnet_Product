@@ -128,14 +128,17 @@ class DateFormController extends Controller
             $name = $request->name;
 
             if ($form->default_form != 1) {
-                DateForm::where('form_field', $name)->update(['default_form' => 0]);
+                DateForm::where('form_field', $name)->update(['default_form' => 0])
+                    ->where('workspace_id', Auth::user()->current_workspace);
                 $form->update(['default_form' => 1]);
                 $text = 'Đã cài mặc định';
             } else {
                 $form->update(['default_form' => 0]);
                 $text = 'Đã bỏ mặc định';
             }
-            $update_form = DateForm::where('form_field', $name)->get();
+            $update_form = DateForm::where('form_field', $name)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->get();
             $msg = response()->json([
                 'id' => $id,
                 'success' => true,
