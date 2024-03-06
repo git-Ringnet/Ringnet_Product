@@ -17,8 +17,7 @@
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
                     <a href="{{ route('delivery.create', ['workspace' => $workspacename]) }}">
-                        <button type="button" class="custom-btn d-flex align-items-center h-100"
-                            style="margin-right:10px">
+                        <button type="button" class="custom-btn d-flex mx-1 align-items-center h-100">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                                 fill="none">
                                 <path
@@ -114,13 +113,13 @@
             </div>
         </div>
     </div>
-    <div class="content margin-top-68">
+    <div class="content margin-top-67">
         <section class="content margin-250">
             <div class="container-fluided">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card scroll-custom">
-                            <div class="card-body table-responsive text-nowrap">
+                        <div class="card">
+                            <div class="outer2 text-nowrap">
                                 <table id="example2" class="table table-hover">
                                     <thead>
                                         <tr>

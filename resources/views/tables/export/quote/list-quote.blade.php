@@ -154,15 +154,15 @@
             </div>
         </div>
     </div>
-    <div class="content" style="margin-top:8.9rem;">
+    <div class="content margin-top-88">
         <!-- Main content -->
         <section class="content margin-250">
             <div class="container-fluided">
                 <div class="row">
                     <div class="col-md-12 p-0 m-0 pl-2">
-                        <div class="card scroll-custom mt-3">
+                        <div class="card mt-3">
                             <!-- /.card-header -->
-                            <div class="card-body table-responsive text-nowrap border-custom">
+                            <div class="outer text-nowrap">
                                 <table id="example2" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr>
@@ -424,7 +424,7 @@
                                                         </svg>
                                                     @endif
                                                 </td>
-                                                <td cclass="text-13-black">
+                                                <td class="text-13-black">
                                                     {{ number_format($value_export->total_price + $value_export->total_tax) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
@@ -484,6 +484,7 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        
                                     </tbody>
                                 </table>
                             </div>

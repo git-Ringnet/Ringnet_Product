@@ -7,12 +7,13 @@
     <input type="hidden" name="table_name" value="TT">
     <input type="hidden" name="detailexport_id" id="detailexport_id">
     <input type="hidden" name="billSale_id" id="billSale_id">
-    <div class="content-wrapper1 py-2 border border-top-0 border-left-0 border-right-0">
-        <div class="d-flex justify-content-between align-items-center pl-4 ml-1">
-            <div class="container-fluided">
-                <div class="mb">
+    <div class="content-wrapper--2Column m-0">
+        <div class="content-header-fixed p-0 margin-250">
+            <div class="content__header--inner margin-left32">
+                <div class="content__heading--left">
                     <span class="font-weight-bold">Bán hàng</span>
-                    <span class="mx-2"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                    <span class="mx-2">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
@@ -20,7 +21,8 @@
                         </svg>
                     </span>
                     <span class="font-weight-bold">Thanh toán bán hàng</span>
-                    <span class="mx-2"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                    <span class="mx-2">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
@@ -70,7 +72,7 @@
                                 <span class="text-button">Trở về</span>
                             </button>
                         </a>
-                        <label class="custom-btn d-flex align-items-center h-100 m-0 mr-2">
+                        <label class="custom-btn d-flex align-items-center h-100 m-0 mx-1 ">
                             <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 viewBox="0 0 14 14" fill="none">
                                 <path
@@ -82,7 +84,7 @@
                         </label>
                         <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
-                                class="btn-save-print d-flex align-items-center h-100 dropdown-toggle rounded">
+                                class="btn-save-print mx-1 d-flex align-items-center h-100 dropdown-toggle rounded">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -100,7 +102,7 @@
                         @if ($payExport->trangThai != 2)
                             <div class="dropdown">
                                 <button type="submit" name="action" value="action_1"
-                                    class="btn-save-print rounded d-flex align-items-center h-100">
+                                    class="btn-save-print rounded mx-1 d-flex align-items-center h-100">
                                     <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -113,7 +115,7 @@
                         @endif
                         <button name="action" value="action_2" type="submit" id="btnThanhToan"
                             onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                            class="btn--remove d-flex align-items-center h-100 mx-2" style="background-color:red;">
+                            class="btn--remove d-flex mx-1 align-items-center h-100 mx-2" style="background-color:red;">
                             <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -138,7 +140,7 @@
             <section class="content-header--options p-0 border-custom">
                 <ul class="header-options--nav nav nav-tabs margin-left32">
                     <li class="active">
-                        <a class="text-secondary pl-3" data-toggle="tab" href="#info">Thông tin</a>
+                        <a class="text-secondary pl-3 active" data-toggle="tab" href="#info">Thông tin</a>
                     </li>
                     <li>
                         <a class="text-secondary" data-toggle="tab" href="#history">Lịch sử giao dịch</a>
@@ -402,238 +404,85 @@
                     </section>
                 </div>
                 <div id="files" class="tab-pane fade">
-                <div class="bg-filter-search border-top-0 text-center border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM</p>
+                    <div class="bg-filter-search border-top-0 text-center border-custom">
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM</p>
+                        </div>
+                        <x-form-attachment :value="$payExport" name="TT"></x-form-attachment>
                     </div>
-                    <x-form-attachment :value="$payExport" name="TT"></x-form-attachment>
                 </div>
             </div>
-        </div>
         {{-- Thông tin khách hàng --}}
         <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border" style="top:119px;">
                 <div id="show_info_Guest">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin khách hàng</p>
-                    <div class="d-flex">
-                        <div style="width: 55%;">
-                            <div class="border border-right-0 py-1 border-left-0">
-                                <span class="text-table ml-2">Số báo giá</span>
-                            </div>
-                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
-                                <span class="text-table ml-2">Khách hàng</span>
-                            </div>
-                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
-                                <span class="text-table ml-2">Hạn thanh toán</span>
-                            </div>
-                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
-                                <span class="text-table ml-2">Tổng tiền</span>
-                            </div>
-                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
-                                <span class="text-table ml-2">Đã thanh toán</span>
-                            </div>
-                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
-                                <span class="text-table ml-2">Dư nợ</span>
-                            </div>
-                            <div class="border border-right-0 py-1 border-left-0 border-top-0">
-                                <span class="text-table ml-2">Thanh toán trước</span>
-                            </div>
+                    <div class="content-info">
+                        <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap" style="height:44px;" style="height:44px;">
+                            <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
+                            <span class="mx-1 text-13" style="flex: 2;">
+                                <input type="text" placeholder="Chọn thông tin" readonly 
+                                    value="{{ $payExport->quotation_number }}"
+                                    class="text-13-black w-100 border-0 numberQute bg-input-guest" id="myInput"
+                                    style="background-color:#F0F4FF; border-radius:4px;"
+                                    autocomplete="off"  name="quotation_number">
+                            </span>
                         </div>
-                        <div class="d-flex">
-                            <div style="width: 55%;">
-                                <div class="border border-right-0 py-1 border-left-0">
-                                    <span class="text-table ml-2">Số báo giá</span>
-                                </div>
-                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
-                                    <span class="text-table ml-2">Khách hàng</span>
-                                </div>
-                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
-                                    <span class="text-table ml-2">Người đại diện</span>
-                                </div>
-                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
-                                    <span class="text-table ml-2">Mã thanh toán</span>
-                                </div>
-                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
-                                    <span class="text-table ml-2">Hạn thanh toán</span>
-                                </div>
-                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
-                                    <span class="text-table ml-2">Tổng tiền</span>
-                                </div>
-                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
-                                    <span class="text-table ml-2">Đã thanh toán</span>
-                                </div>
-                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
-                                    <span class="text-table ml-2">Dư nợ</span>
-                                </div>
-                                <div class="border border-right-0 py-1 border-left-0 border-top-0">
-                                    <span class="text-table ml-2">Thanh toán trước</span>
-                                </div>
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
-                                <input type="text" placeholder="Nhập thông tin" readonly
+                    </div>
+                    <div class="content-info--common" id="show-info-guest">
+                        <ul class="p-0 m-0 ">
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left" style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
+                                <input class="text-13-black w-50 border-0 bg-input-guest"
                                     value="{{ $payExport->guest_name_display }}"
-                                    class="border-0 bg w-100 bg-input-guest py-0 numberQute px-0 text-13-black" id="myInput"
-                                    autocomplete="off" required>
-                                <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
-                                <div class="opacity-0">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                </div>
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
-                                    <input type="text" readonly value="{{ $payExport->represent_name }}"
-                                        class="border-0 bg w-100 bg-input-guest py-0 numberQute px-0"
-                                        autocomplete="off">
-                                    <div class="opacity-0">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
-                                    <input type="text" readonly value="{{ $payExport->code_payment }}"
-                                        class="border-0 bg w-100 bg-input-guest py-0 px-0" autocomplete="off">
-                                    <div class="opacity-0">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-
-                                <div
-                                    class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
-                                    <input type="text" placeholder="Nhập thông tin"
+                                    style="flex:2;outline:none;">
+                                <input type="hidden" class="idGuest" value="{{ $payExport->guest_id }}"
+                                    autocomplete="off" name="guest_id">
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left" style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
+                                <input class="text-13-black w-50 border-0 represent_guest" style="flex:2;outline:none;" 
+                                         readonly />
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left" style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh toán</span>
+                                <input class="text-13-black w-50 border-0" style="flex:2;outline:none;" 
+                                        value="{{ $payExport->idTT }}"  readonly />
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left" style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hạn thanh toán</span>
+                                <input type="text" placeholder="Nhập thông tin" style="flex:2;outline:none;"  
                                         @if ($payExport->trangThai != 2) id="datePicker" @endif
                                         value="{{ date_format(new DateTime($payExport->payment_date), 'd/m/Y') }}"
-                                        class="border-0 bg w-100 bg-input-guest py-0">
-                                    <input type="hidden" id="hiddenDateInput" name="date_pay"
+                                        class="text-13-black w-50 border-0" >
+                                <input type="hidden" id="hiddenDateInput" name="date_pay"
                                         value="{{ date_format(new DateTime($payExport->payment_date), 'Y-m-d') }}">
-                                    <div class="opacity-0">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
-                                <input type="text" placeholder="Nhập thông tin" readonly name="total"
-                                    value="{{ number_format($payExport->tongTienNo) }}"
-                                    class="border-0 bg w-100 bg-input-guest py-0 px-0 tongTien text-13-black">
-                                <div class="opacity-0">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
-                                <input type="text" value="{{ number_format($thanhToan->tongThanhToan) }}"
-                                    readonly name="daThanhToan"
-                                    class="border-0 bg w-100 bg-input-guest py-0 px-0 daThanhToan text-13-black">
-                                <div class="opacity-0">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
-                                <input type="text" value="{{ number_format($noConLaiValue) }}" readonly
-                                    class="border-0 bg w-100 bg-input-guest py-0 px-0 duNo text-13-black">
-                                <div class="opacity-0">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
-                                <input type="text"
-                                    @if ($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif
-                                    name="payment" oninput="validateInput();"
-                                    class="border-0 bg w-100 bg-input-guest py-0 px-0 payment text-13-black">
-                                <div class="opacity-0">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left" style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
+                                <input class="text-13-black w-50 border-0 tongTien" 
+                                        name="total" style="flex:2;outline:none;" 
+                                        value="{{ number_format($payExport->tongTienNo) }}" readonly />
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left" style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đã thanh toán</span>
+                                <input type="text" class="text-13-black w-50 border-0 daThanhToan" 
+                                        style="flex:2; outline:none;" readonly name="daThanhToan"
+                                        value="{{ number_format($thanhToan->tongThanhToan) }}"  />
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left" style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
+                                <input class="text-13-black w-50 border-0 duNo" style="flex:2; outline:none;" 
+                                        name="number_bill"
+                                        value="{{ number_format($noConLaiValue) }}"  readonly />
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left" style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
+                                <input type="text" class="text-13-black w-50 border-0 payment"
+                                        oninput="validateInput();"
+                                        @if($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif name="payment" required
+                                        style="flex:2; outline:none;" name="payment" />
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
