@@ -95,11 +95,11 @@
                                         data-button="inventory" type="button">Số lượng tồn
                                     </button>
                                 </div>
-                                <x-filter-checkbox :dataa='$product' name="code" title="Mã hàng hóa"
+                                {{-- <x-filter-checkbox :dataa='$product' name="code" title="Mã hàng hóa"
                                     namedisplay="product_code" />
                                 <x-filter-checkbox :dataa='$product' name="name" title="Tên hàng hóa"
                                     namedisplay="product_name" />
-                                <x-filter-compare name="inventory" title="Số lượng tồn" />
+                                <x-filter-compare name="inventory" title="Số lượng tồn" /> --}}
                                 <div class="filter-results d-flex m-0"></div>
                             </div>
                         </div>
