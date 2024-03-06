@@ -124,11 +124,11 @@ class Receive_bill extends Model
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             $sum += $getDebt->provide_debt;
-            DB::table('provides')->where('id', $detail->provide_id)
-                ->where('workspace_id', Auth::user()->current_workspace)
-                ->update([
-                    'provide_debt' => $sum
-                ]);
+            // DB::table('provides')->where('id', $detail->provide_id)
+            //     ->where('workspace_id', Auth::user()->current_workspace)
+            //     ->update([
+            //         'provide_debt' => $sum
+            //     ]);
 
             // Cập nhật trạng thái nhận hàng
             $this->updateStatus($detail->id, Receive_bill::class, 'receive_qty', 'status_receive');
@@ -277,19 +277,19 @@ class Receive_bill extends Model
                             'status' => $stDetail
                         ]);
                     // Cập nhật dư nợ
-                    if ($receive->status == 2) {
-                        $provide = Provides::where('id', $receive->provide_id)
-                            ->where('workspace_id', Auth::user()->current_workspace)
-                            ->first();
-                        if ($provide) {
-                            $dataProvide = [
-                                'provide_debt' => ($provide->provide_debt - ($total + $total_tax)),
-                            ];
-                            DB::table('provides')->where('id', $provide->id)
-                                ->where('workspace_id', Auth::user()->current_workspace)
-                                ->update($dataProvide);
-                        }
-                    }
+                    // if ($receive->status == 2) {
+                    //     $provide = Provides::where('id', $receive->provide_id)
+                    //         ->where('workspace_id', Auth::user()->current_workspace)
+                    //         ->first();
+                    //     if ($provide) {
+                    //         $dataProvide = [
+                    //             'provide_debt' => ($provide->provide_debt - ($total + $total_tax)),
+                    //         ];
+                    //         DB::table('provides')->where('id', $provide->id)
+                    //             ->where('workspace_id', Auth::user()->current_workspace)
+                    //             ->update($dataProvide);
+                    //     }
+                    // }
                     $status = true;
                 }
             }
