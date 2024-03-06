@@ -479,7 +479,7 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
                                 <input type="text" class="text-13-black w-50 border-0 payment"
                                         oninput="validateInput();"
-                                        @if($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif name="payment" required
+                                        @if($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif name="payment"
                                         style="flex:2; outline:none;" name="payment" />
                             </li>
                         </ul>

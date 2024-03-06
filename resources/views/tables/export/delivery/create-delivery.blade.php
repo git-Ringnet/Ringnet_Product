@@ -436,7 +436,7 @@
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã Giao Hàng</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest"
+                                    <input class="text-13-black w-50 border-0 bg-input-guest" required
                                         placeholder="Chọn thông tin" style="flex:2;" name="code_delivery" />
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
@@ -1459,6 +1459,7 @@
                     $('.numberQute').val(data.quotation_number)
                     $('.nameGuest').val(data.guest_name_display)
                     $('.represent_name').val(data.represent_name)
+                    $('input[name="code_delivery"]').val('GH-' + (data.lastDeliveryId + 1));
                     $('#show-info-guest').show();
                     $('#show-title-guest').show();
                     $.ajax({

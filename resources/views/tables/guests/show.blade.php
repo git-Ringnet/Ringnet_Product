@@ -71,15 +71,12 @@
             </div>
         </div>
         <section class="content-header--options p-0">
-            <ul class="header-options--nav nav nav-tabs margin-left32">
+            <ul class="header-options--nav-1 nav nav-tabs margin-left32">
                 <li>
                     <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông tin</a>
                 </li>
                 <li>
                     <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử giao dịch</a>
-                </li>
-                <li>
-                     <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#">File đính kèm</a>
                 </li>
             </ul>
         </section>
