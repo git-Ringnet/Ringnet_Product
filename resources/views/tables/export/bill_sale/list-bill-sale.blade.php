@@ -1,5 +1,5 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="billsale" :workspacename="$workspacename"></x-navbar>
-<div class="content-wrapper m-0">
+<div class="content-wrapper m-0 min-height--none">
     <div class="content-header-fixed p-0 margin-250">
         <div class="content__header--inner margin-left32">
             <div class="content__heading--left">
@@ -113,15 +113,15 @@
             </div>
         </div>
     </div>
-    <div class="content margin-top-68">
+    <div class="content margin-top-67">
         <section class="content margin-250">
             <div class="container-fluided">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card scroll-custom">
-                            <div class="card-body table-responsive text-nowrap">
+                        <div class="card ">
+                            <div class="outer2 text-nowrap">
                                 <table id="example2" class="table table-hover">
-                                    <thead class="sticky-head">
+                                    <thead>
                                         <tr style="height:44px;">
                                             <th scope="col" style="width:5%;padding-left: 2rem;"
                                                 class="height-52">

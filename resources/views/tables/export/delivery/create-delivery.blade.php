@@ -32,7 +32,8 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <a href="{{ route('delivery.index', $workspacename) }}">
-                            <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
+                            <button type="button" 
+                                class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">

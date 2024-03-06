@@ -148,8 +148,7 @@
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
                         <div class="bg-filter-search border-top-0 text-center border-custom">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
-                                PHẨM</p>
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                         </div>
                         <section class="content">
                             <div class="container-fluided order_content">
@@ -359,24 +358,23 @@
                         </div>
                     </div>
                     <div id="history" class="tab-pane fade">
-                        <div class="font-weight-bold text-uppercase info-chung--heading text-center">
-                            <span class="font-weight-bold text-secondary text-nav">LỊCH SỬ</span>
+                        <div class="bg-filter-search border-top-0 text-center border-custom">
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">LỊCH SỬ</p>
                         </div>
                         <section class="content">
                             <div class="container-fluided order_content">
                                 <table class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr>
-                                            <th class="border-right text-table text-secondary">
-                                                Mã sản phẩm
+                                            <th class="border-right text-13 padding-left35" style="width:15%;">Mã sản phẩm
                                             </th>
-                                            <th class="border-right text-table text-secondary">Tên sản phẩm</th>
-                                            <th class="border-right text-table text-secondary">Đơn vị</th>
-                                            <th class="border-right text-table text-secondary">Số lượng</th>
-                                            <th class="border-right text-table text-secondary">Đơn giá</th>
-                                            <th class="border-right text-table text-secondary">Thuế</th>
-                                            <th class="border-right text-table text-secondary">Thành tiền</th>
-                                            <th class="note text-table text-secondary">Ghi chú</th>
+                                            <th class="border-right text-13" style="width:17%;">Tên sản phẩm</th>
+                                            <th class="border-right text-13" style="width:7%;">Đơn vị</th>
+                                            <th class="border-right text-13" style="width:10%;">Số lượng</th>
+                                            <th class="border-right text-13" style="width:15%;">Đơn giá</th>
+                                            <th class="border-right text-13" style="width:10%;">Thuế</th>
+                                            <th class="border-right text-13" style="width:10%;">Thành tiền</th>
+                                            <th class="note text-13">Ghi chú</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -391,7 +389,7 @@
                                                             class="border-0 px-2 py-1 w-75 product_code">
                                                     </div>
                                                 </td>
-                                                <td class="border border-top-0 border-bottom-0 position-relative">
+                                                <td class="align-top border border-top-0 border-bottom-0 position-relative">
                                                     <div class="d-flex align-items-center">
                                                         <input type="text" value="{{ $item_product->product_name }}"
                                                             class="border-0 px-2 py-1 w-100 product_name" readonly
@@ -418,12 +416,12 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="border border-top-0 border-bottom-0">
+                                                <td class="align-top border border-top-0 border-bottom-0">
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item_product->product_unit }}"
                                                         class="border-0 px-2 py-1 w-100 product_unit">
                                                 </td>
-                                                <td class="border border-top-0 border-bottom-0 position-relative">
+                                                <td class="align-top border border-top-0 border-bottom-0 position-relative">
                                                     <input type="text" readonly
                                                         value="{{ is_int($item_product->deliver_qty) ? $item_product->deliver_qty : rtrim(rtrim(number_format($item_product->deliver_qty, 4, '.', ''), '0'), '.') }}"
                                                         class="border-0 px-2 py-1 w-100 quantity-input"
@@ -434,7 +432,7 @@
                                                         <span class="soTonKho"></span>
                                                     </p>
                                                 </td>
-                                                <td class="border border-top-0 border-bottom-0 position-relative">
+                                                <td class="align-top border border-top-0 border-bottom-0 position-relative">
                                                     <input type="text"
                                                         value="{{ number_format($item_product->price_export) }}"
                                                         class="border-0 px-2 py-1 w-100"
@@ -457,7 +455,7 @@
                                                         </option>
                                                     </select>
                                                 </td>
-                                                <td class="border border-top-0 border-bottom-0">
+                                                <td class="align-top border border-top-0 border-bottom-0">
                                                     <input type="text" readonly=""
                                                         value="{{ number_format($item_product->product_total) }}"
                                                         class="border-0 px-2 py-1 w-100">
@@ -476,8 +474,8 @@
                     </div>
 </form>
 <div id="files" class="tab-pane fade">
-    <div class="font-weight-bold text-uppercase info-chung--heading text-center">
-        <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
+    <div class="bg-filter-search border-top-0 text-center border-custom">
+        <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM</p>
     </div>
     <x-form-attachment :value="$delivery" name="GH"></x-form-attachment>
 </div>
@@ -545,7 +543,7 @@
 </div>
 </div>
 {{-- Thông tin khách hàng --}}
-<div class="content-wrapper px-0 py-0">
+<div class="content-wrapper2 px-0 py-0">
     <div id="mySidenav" class="sidenav border top-109">
         <div id="show_info_Guest">
             <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin nhà cung cấp
