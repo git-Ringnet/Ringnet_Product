@@ -198,7 +198,7 @@
                                         <tr>
                                              <th class="border-right text-13 px-0 py-2 padding-left35 height-52" style="width: 18%;">Tổng số đơn đã bán</th>
                                              <th class="border-right text-13 px-0 py-2 padding-left35 height-52" style="width: 20%;">Tổng số tiền đã bán</th>
-                                             <th class="border-right text-13 px-0 py-2 padding-left35 height-52" style="width: 20%;">Tổng số dự án đã thanh toán</th>
+                                             <th class="border-right text-13 px-0 py-2 padding-left35 height-52" style="width: 20%;">Tổng số tiền đã thanh toán</th>
                                              <th class="border-right text-13 px-0 py-2 padding-left35 height-52" style="width: 20%;">Dư nợ</th>
                                         </tr>
                                     </thead>
