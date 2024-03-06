@@ -244,8 +244,6 @@ class PayExportController extends Controller
                 'represent_guest.represent_name',
             )
             ->first();
-        $lastPayExportId = DB::table('pay_export')->orderBy('id', 'desc')->value('id');
-        $delivery['lastPayExportId'] = $lastPayExportId == null ? 0 : $lastPayExportId;
         return $delivery;
     }
     public function getProductPay(Request $request)

@@ -173,8 +173,6 @@ class DeliveryController extends Controller
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
             ->first();
-        $lastDeliveryId = DB::table('delivery')->orderBy('id', 'desc')->value('id');
-        $delivery['lastDeliveryId'] = $lastDeliveryId == null ? 0 : $lastDeliveryId;
         return $delivery;
     }
 
