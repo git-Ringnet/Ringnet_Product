@@ -245,7 +245,15 @@ class PayOder extends Model
                 if ($data['payment'] > 0 && $payorder->payment_date == $endDate) {
                     $status = 1; // Chưa thanh toán
                 } else {
-                    $status = 6; // Đặt cọc
+                    if ($check == 1) {
+                        $status = 1; // Đặt cọc
+                    } else {
+                        if ($payorder->status != 1) {
+                            $status = 6; // Đặt cọc
+                        }else{
+                            $status = $payorder->status;
+                        }
+                    }
                 }
             }
         }
@@ -370,11 +378,55 @@ class PayOder extends Model
                 'detailimport.provide_id as provide_id',
                 'provides.provide_name_display as provide_name',
                 'provides.provide_code as provide_code',
+                'provides.id',
                 DB::raw('SUM(detailimport.total_price + detailimport.total_tax) as sumSell'),
                 DB::raw('SUM(provides.provide_debt) as sumAmountOwed')
             )
-            ->groupBy('detailimport.provide_id', 'provides.provide_name_display', 'provides.provide_code')
+            ->groupBy('detailimport.provide_id', 'provides.provide_name_display', 'provides.provide_code', 'provides.id')
             ->get();
+        return $report_provide;
+    }
+
+    public function ajax($data)
+    {
+        $report_provide = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('provides', 'provides.id', '=', 'detailimport.provide_id')
+            ->where('detailimport.status', 2)
+            ->select(
+                'detailimport.provide_id as provide_id',
+                'provides.provide_name_display as provide_name',
+                'provides.provide_code as provide_code',
+                'provides.id',
+                DB::raw('SUM(detailimport.total_price + detailimport.total_tax) as sumSell'),
+                DB::raw('SUM(provides.provide_debt) as sumAmountOwed')
+            );
+        if (isset($data['search'])) {
+            $report_provide = $report_provide->where(function ($query) use ($data) {
+                $query->orWhere('provides.provide_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('provides.provide_code', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        // Mã nhà cung cấp
+        if (isset($data['code'])) {
+            $report_provide = $report_provide->where('provides.provide_code', 'like', '%' . $data['code'] . '%');
+        }
+        // Công ty
+        if (isset($data['name'])) {
+            $report_provide = $report_provide->whereIn('provides.id', $data['name']);
+        }
+        // Tổng doanh số
+        if (isset($data['total'][0]) && isset($data['total'][1])) {
+            $report_provide = $report_provide->having('sumSell', $data['total'][0], $data['total'][1]);
+        }
+        // Công nợ
+        if (isset($data['debt'][0]) && isset($data['debt'][1])) {
+            $report_provide = $report_provide->having('sumAmountOwed', $data['debt'][0], $data['debt'][1]);
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $report_provide = $report_provide->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+        $report_provide = $report_provide->groupBy('detailimport.provide_id', 'provides.provide_name_display', 'provides.provide_code', 'provides.id');
+        $report_provide = $report_provide->get();
         return $report_provide;
     }
 }

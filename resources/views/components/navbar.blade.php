@@ -576,25 +576,4 @@
                 });
             }, 4000);
         });
-
-        // $(document).ready(function() {
-        //     $("li.nav-item:has(ul.nav.nav-treeview)").each(function() {
-        //         var navItem = $(this);
-        //         var ulElement = navItem.find("ul.nav.nav-treeview");
-        //         var iconElement = navItem.find(".fas.fa-angle-left.right");
-
-        //         if (ulElement.css("display") === "block") {
-        //             iconElement.css("transform", "rotate(-90deg)");
-        //         }
-
-        //         ulElement.on("change", function() {
-        //             if (ulElement.css("display") === "block") {
-        //                 iconElement.css("transform", "rotate(-90deg)");
-        //             }
-        //             elseif(ulElement.css("display") === "none") {
-        //                 iconElement.css("transform", "rotate(0deg)");
-        //             }
-        //         });
-        //     });
-        // });
     </script>

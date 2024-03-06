@@ -173,8 +173,6 @@ class DeliveryController extends Controller
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
             ->first();
-        $lastDeliveryId = DB::table('delivery')->orderBy('id', 'desc')->value('id');
-        $delivery['lastDeliveryId'] = $lastDeliveryId == null ? 0 : $lastDeliveryId;
         return $delivery;
     }
 
@@ -184,7 +182,7 @@ class DeliveryController extends Controller
 
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('products', 'products.id', 'quoteexport.product_id')
-            ->select('*', 'detailexport.id as maXuat', 'quoteexport.product_id as maSP')
+            ->select('*', 'detailexport.id as maXuat', 'quoteexport.product_id as maSP', 'quoteexport.product_code as maCode')
             ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) as soLuongCanGiao')
             ->leftJoin('serialnumber', function ($join) {
                 $join->on('serialnumber.product_id', '=', 'products.id');
@@ -241,5 +239,19 @@ class DeliveryController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
+    public function checkCodeDelivery(Request $request)
+    {
+        $check = Delivery::where('code_delivery', $request['numberValue'])
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
+
+        if ($check) {
+            $response = ['success' => false, 'msg' => 'Mã giao hàng đã tồn tại!'];
+        } else {
+            $response = ['success' => true];
+        }
+
+        return response()->json($response);
     }
 }

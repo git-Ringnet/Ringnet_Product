@@ -571,7 +571,8 @@ class DetailImportController extends Controller
                 ];
                 $newId = DB::table('date_form')->insertGetId($dataForm);
                 $msg = response()->json([
-                    'success' => true, 'msg' => $request->table == "import" ? 'Tạo mới hiệu lực báo giá thành công' : 'Tạo mới điều khoản thanh toán thành công', 'data' => $request->inputDesc, 'id' => $newId
+                    'success' => true, 'msg' => $request->table == "import" ? 'Tạo mới hiệu lực báo giá thành công' : 'Tạo mới điều khoản thanh toán thành công',
+                    'data' => $request->inputDesc, 'id' => $newId, 'inputName' => $request->inputName
                 ]);
             }
         }
@@ -623,7 +624,8 @@ class DetailImportController extends Controller
                     ->where('id', $request->present_id)
                     ->update($dataForm);
                 $msg = response()->json([
-                    'success' => true, 'msg' => 'Chỉnh sửa thông tin thành công'
+                    'success' => true, 'msg' => 'Chỉnh sửa thông tin thành công', 'id' => $request->present_id,
+                    'form_name' => $request->inputName, 'form_desc' => $request->inputDesc
                 ]);
             }
         }

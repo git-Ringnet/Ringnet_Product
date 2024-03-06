@@ -74,7 +74,7 @@ Route::resource('DateForm', DateFormController::class);
 Route::get('/addDateForm', [DateFormController::class, 'addDateForm'])->name('addDateForm');
 Route::get('/updateDateForm', [DateFormController::class, 'updateDateForm'])->name('updateDateForm');
 Route::get('/deleteDateForm', [DateFormController::class, 'deleteDateForm'])->name('deleteDateForm');
-Route::get('/setDefault', [DateFormController::class, 'setDefault'])->name('setDefault');
+Route::get('/setDefaultGuest', [DateFormController::class, 'setDefault'])->name('setDefaultGuest');
 Route::get('/searchDateForm', [DateFormController::class, 'searchDateForm'])->name('searchDateForm');
 Route::get('/searchFormByGuestId', [DetailExportController::class, 'searchFormByGuestId'])->name('searchFormByGuestId');
 Route::get('/getDataForm', [DetailImportController::class, 'getDataForm'])->name('getDataForm');
@@ -166,6 +166,8 @@ Route::get('/getInfoDelivery', [BillSaleController::class, 'getInfoDelivery'])->
 Route::get('/getProductDelivery', [BillSaleController::class, 'getProductDelivery'])->name('getProductDelivery');
 //Kiểm tra số hóa đơn
 Route::get('/checkNumberBill', [BillSaleController::class, 'checkNumberBill'])->name('checkNumberBill');
+//Kiểm tra mã giao hàng
+Route::get('/checkCodeDelivery', [DeliveryController::class, 'checkCodeDelivery'])->name('checkCodeDelivery');
 
 //thanh toán bán hàng
 Route::resource('{workspace}/payExport', PayExportController::class);
@@ -217,6 +219,8 @@ Route::get('/deleteUserWorkspace', [UserWorkspacesController::class, 'deleteUser
 Route::resource('{workspace}/report', ReportController::class);
 Route::get('searchReportGuests', [ReportController::class, 'searchReportGuests'])->name('searchReportGuests');
 Route::get('searchReportProvides', [ReportController::class, 'searchReportProvides'])->name('searchReportProvides');
+Route::get('/view', [ReportController::class, 'view'])->name('view');
+
 
 Route::resource('{workspace}/settings', SettingController::class);
 Route::get('/searchUser', [SettingController::class, 'search'])->name('searchUser');

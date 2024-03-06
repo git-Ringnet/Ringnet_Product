@@ -248,4 +248,13 @@ class Guest extends Model
             return response()->json(['success' => false, 'message' => 'Xóa thất bại do khách hàng này đang báo giá!']);
         }
     }
+    public function guestName($data)
+    {
+        $guests = DB::table($this->table);
+        if (isset($data['name'])) {
+            $guests = $guests->whereIn('guest.id', $data['name']);
+        }
+        $guests = $guests->pluck('guest_name_display')->all();
+        return $guests;
+    }
 }

@@ -61,7 +61,8 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <a href="{{ route('payExport.index', ['workspace' => $workspacename]) }}">
-                            <button type="button" class="btn-save-print d-flex align-items-center h-100 mx-1 rounded">
+                            <button type="button" class="btn-save-print d-flex align-items-center h-100 mr-2 rounded"
+                                style="margin-right:10px;">
                                 <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 16 16" fill="none">
                                     <path

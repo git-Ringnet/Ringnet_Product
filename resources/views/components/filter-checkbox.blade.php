@@ -26,13 +26,13 @@
             </ul>
         </div>
     </div>
-    <div class="d-flex justify-contents-center align-items-baseline p-2">
+    {{-- <div class="d-flex justify-contents-center align-items-baseline p-2">
         <button type="submit" class="btn btn-primary btn-block btn-submit" id="btn-submit-{{ $name }}"
             data-title="{{ $title }}" data-button-name="{{ $name }}"
             data-button="{{ $button }}">Xác
             Nhận</button>
         <button type="button" id="cancel-{{ $name }}" class="btn btn-default btn-block">Hủy</button>
-    </div>
+    </div> --}}
 </div>
 <script>
     $(document).ready(function() {

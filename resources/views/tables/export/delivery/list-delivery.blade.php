@@ -128,7 +128,7 @@
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="id"
                                                         data-sort-type="#">
@@ -138,7 +138,7 @@
                                                     <div class="icon" id="icon-id"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type="">
@@ -148,7 +148,7 @@
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -157,7 +157,7 @@
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -166,7 +166,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -175,7 +175,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -184,7 +184,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-0">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
