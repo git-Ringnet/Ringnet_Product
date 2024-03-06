@@ -83,7 +83,7 @@ class Reciept extends Model
                             $total_tax += (($price_export * $productImport->product_qty) * ($product->product_tax == 99 ? 0 : $product->product_tax)) / 100;
                         }
                     }
-                    $sum = $total_tax + $total;
+                    $sum =  round($total_tax) + round($total);
                 }
             }
             DB::table($this->table)->where('id', $reciept_id)

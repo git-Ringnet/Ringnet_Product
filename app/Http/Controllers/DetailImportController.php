@@ -571,7 +571,8 @@ class DetailImportController extends Controller
                 ];
                 $newId = DB::table('date_form')->insertGetId($dataForm);
                 $msg = response()->json([
-                    'success' => true, 'msg' => $request->table == "import" ? 'Tạo mới hiệu lực báo giá thành công' : 'Tạo mới điều khoản thanh toán thành công', 'data' => $request->inputDesc, 'id' => $newId
+                    'success' => true, 'msg' => $request->table == "import" ? 'Tạo mới hiệu lực báo giá thành công' : 'Tạo mới điều khoản thanh toán thành công',
+                    'data' => $request->inputDesc, 'id' => $newId, 'inputName' => $request->inputName
                 ]);
             }
         }
@@ -623,7 +624,8 @@ class DetailImportController extends Controller
                     ->where('id', $request->present_id)
                     ->update($dataForm);
                 $msg = response()->json([
-                    'success' => true, 'msg' => 'Chỉnh sửa thông tin thành công'
+                    'success' => true, 'msg' => 'Chỉnh sửa thông tin thành công', 'id' => $request->present_id,
+                    'form_name' => $request->inputName, 'form_desc' => $request->inputDesc
                 ]);
             }
         }
@@ -638,9 +640,19 @@ class DetailImportController extends Controller
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($check) {
-                $msg = response()->json([
-                    'success' => true, 'msg' => 'Xóa người đại diện thành công', 'id' => $check->id, 'list' => "listRepresent"
-                ]);
+                $check_exist = DetailImport::where('represent_id', $request->id)
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->first();
+                if ($check_exist) {
+                    $msg = response()->json([
+                        'success' => false, 'msg' => 'Người đại diện đã tồn tại trong đơn mua hàng khác'
+                    ]);
+                } else {
+                    $msg = response()->json([
+                        'success' => true, 'msg' => 'Xóa người đại diện thành công', 'id' => $check->id, 'list' => "listRepresent"
+                    ]);
+                    $check->delete();
+                }
             } else {
                 $msg = response()->json([
                     'success' => false, 'msg' => 'Không tìm thấy dữ liệu cần xóa'

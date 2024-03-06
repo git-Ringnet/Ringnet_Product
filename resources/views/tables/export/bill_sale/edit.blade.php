@@ -496,7 +496,7 @@
             </section>
         </div>
         {{-- Thông tin khách hàng --}}
-        <div class="content-wrapper px-0 py-0">
+        <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin nhà cung cấp
@@ -548,14 +548,14 @@
                 </div>
             </div>
         </div>
+        <div id="files" class="tab-pane fade">
+            <div class="bg-filter-search border-top-0 text-center py-2">
+                <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
+            </div>
+            <x-form-attachment :value="$billSale" name="HDBH"></x-form-attachment>
+        </div>
     </div>
 </form>
-<div id="files" class="tab-pane fade">
-    <div class="bg-filter-search border-top-0 text-center py-2">
-        <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
-    </div>
-    <x-form-attachment :value="$billSale" name="HDBH"></x-form-attachment>
-</div>
 
 {{-- Thông tin sản phẩm --}}
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">

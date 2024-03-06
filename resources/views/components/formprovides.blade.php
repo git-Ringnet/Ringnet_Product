@@ -7,7 +7,7 @@
                     <div class="modal-body pb-0 px-2 pt-0">
                         <div class="content-info">
                             <div class="mt-2">
-                                <p class="p-0 m-0 px-2 text-nav">
+                                <p class="p-0 m-0 px-2 text-nav required-label text-danger">
                                     Tên hiển thị
                                 </p>
                                 <input name="provide_name_display" type="text" placeholder="Nhập thông tin"
@@ -15,7 +15,7 @@
                                     id="getKeyProvide" autocomplete="off">
                             </div>
                             <div class="mt-2">
-                                <p class="p-0 m-0 px-2 text-nav">
+                                <p class="p-0 m-0 px-2 text-nav required-label text-danger">
                                     Mã số thuế
                                 </p>
                                 <input name="provide_code" type="text" placeholder="Nhập thông tin"
@@ -23,7 +23,7 @@
                                     id="guest_name_display" autocomplete="off" oninput="validateNumberInput(this)">
                             </div>
                             <div class="mt-2">
-                                <p class="p-0 m-0 px-2 text-nav">
+                                <p class="p-0 m-0 px-2 text-nav required-label text-danger">
                                     Địa chỉ
                                 </p>
                                 <input name="provide_address" type="text" placeholder="Nhập thông tin"

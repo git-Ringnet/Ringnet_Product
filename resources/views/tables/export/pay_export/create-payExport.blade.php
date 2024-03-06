@@ -455,6 +455,7 @@
                                 class="d-flex align-items-center justify-content-between border border-left-0 py-1 px-1 border-top-0">
                                 <input type="text" placeholder="Nhập thông tin" name="code_payment"
                                     class="border-0 bg w-100 bg-input-guest py-0 px-0" autocomplete="off" required>
+
                                 <div class="opacity-0">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -568,9 +569,74 @@
                             </div>
                         </div>
                     </div>
+                    <div class="content-info--common" id="show-info-guest">
+                        <ul class="p-0 m-0 ">
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
+
+                                <input class="text-13-black w-50 border-0 nameGuest bg-input-guest"
+                                    value="@isset($yes){{ $getGuestbyId[0]->guest_name_display }}@endisset"
+                                    style="flex:2;outline:none;">
+
+                                <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
+                                    value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset">
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
+                                <input class="text-13-black w-50 border-0 represent_name"
+                                    style="flex:2; outline:none;"
+                                    value="{{ $getRepresentbyId[0]->represent_name ?? '' }}" required readonly />
+                                <input type="hidden" class="idRepresent" autocomplete="off"
+                                    value="{{ $getRepresentbyId[0]->id ?? '' }}">
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh toán</span>
+                                <input class="text-13-black w-50 border-0" placeholder="Nhập thông tin"
+                                    name="code_payment" style="flex:2;outline:none;" />
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hạn thanh toán</span>
+
+                                <input class="text-13-black w-50 border-0 bg-input-guest" id="datePicker"
+                                    style="flex:2;outline:none;" />
+
+                                <input type="hidden" id="hiddenDateInput" value="" name="date_pay">
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
+                                <input class="text-13-black w-50 border-0 bg-input-guest tongTien" name="total"
+                                    style="flex:2;outline:none;" value="" />
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đã thanh toán</span>
+
+                                <input type="text" class="text-13-black w-50 border-0 bg-input-guest daThanhToan"
+                                    value="" readonly style="flex:2;" />
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
+                                <input type="text" value="" readonly
+                                    class="text-13-black w-50 border-0 duNo" style="flex:2;" />
+                            </li>
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                style="height:44px;">
+                                <span class="text-13 text-nowrap mr-2" style="flex: 1.5;">Thanh toán trước</span>
+                                <input type="text" placeholder="Nhập thông tin" name="payment"
+                                    class="text-13-black w-50 border-0 bg-input-guest payment" style="flex:2;" />
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </form>
 <script>
@@ -929,7 +995,8 @@
                     $('.duNo').val(formatCurrency(Math.round(data.tongTienNo - data
                         .tongThanhToan)));
                     $('input[name="code_payment"]').val('MTT-' + (data.lastPayExportId +
-                    1));
+                        1));
+
                     $.ajax({
                         url: '{{ route('getProductPay') }}',
                         type: 'GET',
