@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="delivery">
 </x-navbar>
-<form action="{{ route('delivery.store', ['workspace' => $workspacename]) }}" method="POST">
+<form onsubmit="return kiemTraFormGiaoHang();" action="{{ route('delivery.store', ['workspace' => $workspacename]) }}" method="POST">
     @csrf
     <input type="hidden" name="detailexport_id" id="detailexport_id"
         value="@isset($yes) {{ $data['detailexport_id'] }} @endisset">
@@ -63,7 +63,7 @@
                         <div class="dropdown">
                             <button type="submit" name="action" value="2"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100"
-                                onclick="kiemTraFormGiaoHang(event);" id="giaoHang">
+                                id="giaoHang">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
@@ -77,7 +77,7 @@
                         </div>
                         <button type="submit" name="action" value="1"
                             class="custom-btn mx-1 d-flex align-items-center h-100"
-                            onclick="kiemTraFormGiaoHang(event);" id="luuNhap">
+                            id="luuNhap">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 16 16" fill="none">
@@ -1454,7 +1454,6 @@
                     idQuote: idQuote
                 },
                 success: function(data) {
-                    console.log(data);
                     $('.idRepresent').val(data.represent_id)
                     $('.numberQute').val(data.quotation_number)
                     $('.nameGuest').val(data.guest_name_display)
@@ -1469,6 +1468,7 @@
                             idQuote: idQuote
                         },
                         success: function(data) {
+                            console.log(data);
                             $(".addProduct").remove();
                             $.each(data, function(index, item) {
                                 var totalTax = parseFloat(item
@@ -1510,7 +1510,7 @@
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>
                                     </svg>
                                     <input type="checkbox" class="cb-element">
-                                    <input type="text" value="${item.product_code == null ? '' : item.product_code}" readonly autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
+                                    <input type="text" value="${item.maCode == null ? '' : item.maCode}" readonly autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
                                 </div>
                             </td>
                             <td class="border border-bottom-0 position-relative">
@@ -2562,7 +2562,29 @@
 
     function kiemTraFormGiaoHang(event) {
         var rows = document.querySelectorAll('tr');
+        var numberValue = $('input[name="code_delivery"]').val();
         var hasProducts = false;
+        var ajaxSuccess = false;
+
+        $.ajax({
+            url: '{{ route('checkCodeDelivery') }}',
+            type: 'GET',
+            async: false, // Chuyển thành đồng bộ
+            data: {
+                numberValue: numberValue
+            },
+            success: function(data) {
+                if (!data.success) {
+                    showNotification('warning', 'Mã giao hàng đã tồn tại!');
+                } else {
+                    ajaxSuccess = true;
+                }
+            }
+        });
+
+        if (!ajaxSuccess) {
+            return false;
+        }
 
         for (var i = 1; i < rows.length; i++) {
             if (rows[i].classList.contains('addProduct')) {
