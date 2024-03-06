@@ -77,7 +77,8 @@ class ReceiveController extends Controller
         $workspacename = $workspacename->workspace_name;
         if ($request->action == 'action_1') {
             // Tạo sản phẩm theo đơn nhận hàng
-            $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
+            // $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
+            $status = true;
             if ($status) {
                 // Tạo đơn nhận hàng mới
                 $receive_id = $this->receive->addReceiveBill($request->all(), $id);
@@ -188,7 +189,7 @@ class ReceiveController extends Controller
         if ($result) {
             return redirect()->route('receive.index', $workspacename)->with('msg', 'Xóa đơn nhận hàng thành công !');
         } else {
-            return redirect()->route('receive.index', $workspacename)->with('warning', 'Sản phẩm đã được tạo trong đơn mua hàng !');
+            return redirect()->route('receive.index', $workspacename)->with('warning', 'Sản phẩm đã được tạo trong đơn bán hàng !');
         }
     }
     public function show_receive(Request $request)

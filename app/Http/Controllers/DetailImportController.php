@@ -638,9 +638,19 @@ class DetailImportController extends Controller
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($check) {
-                $msg = response()->json([
-                    'success' => true, 'msg' => 'Xóa người đại diện thành công', 'id' => $check->id, 'list' => "listRepresent"
-                ]);
+                $check_exist = DetailImport::where('represent_id', $request->id)
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->first();
+                if ($check_exist) {
+                    $msg = response()->json([
+                        'success' => false, 'msg' => 'Người đại diện đã tồn tại trong đơn mua hàng khác'
+                    ]);
+                } else {
+                    $msg = response()->json([
+                        'success' => true, 'msg' => 'Xóa người đại diện thành công', 'id' => $check->id, 'list' => "listRepresent"
+                    ]);
+                    $check->delete();
+                }
             } else {
                 $msg = response()->json([
                     'success' => false, 'msg' => 'Không tìm thấy dữ liệu cần xóa'

@@ -7,8 +7,8 @@ function handleSmallScreen() {
                 cssText: "width: 300px !important",
             });
             $("#main").css({
-                marginRight: "300px",
-                cssText: "margin-right: 300px !important;",
+                marginRight: "290px",
+                cssText: "margin-right: 290px !important",
             });
             $("#show_info_Guest").css({
                 opacity: "1",
