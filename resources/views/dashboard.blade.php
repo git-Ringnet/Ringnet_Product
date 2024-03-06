@@ -99,7 +99,7 @@
                 @if (!$issetworkspace)
                     <form action="{{ route('createWorkspace') }}" method="POST">
                         @csrf
-                        <input class="form-control" type="text" name="workspace_name">
+                        <input class="form-control" type="text" name="workspace_name" required>
                         <button>Gửi</button>
                     </form>
                 @endif

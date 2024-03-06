@@ -260,7 +260,7 @@
                                 <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
                                     style="display: none;">
                             </div>
-                            <div class="dropdown ml-1">
+                            <div class="dropdown ml-1 d-none">
                                 <button class="filter-btn ml-2 align-items-center d-flex border h-100"
                                     data-toggle="dropdown" aria-expanded="false">
                                     <span class="text-secondary mx-1 filter-dropdown">Tất cả</span>

@@ -49,17 +49,15 @@
             </div>
         </div>
 
-        <section class="border-custom d-flex" style="height: 50px;">
-            <div class="toggle">
-                <ul class="header-options--nav nav nav-tabs margin-left32">
-                    <li>
-                        <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#import">Mua hàng</a>
-                    </li>
-                    <li>
-                        <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#export">Bán hàng</a>
-                    </li>
-                </ul>
-            </div>
+        <section class="content-header--options p-0 border-custom">
+            <ul class="header-options--nav nav justify-content-evenly nav-tabs margin-left32" style="width: 199px;">
+                <li class="active">
+                    <a class="text-secondary pl-3" data-toggle="tab" href="#import">Mua hàng</a>
+                </li>
+                <li style="margin-left: 11px;">
+                    <a class="text-secondary pr-3" data-toggle="tab" href="#export">Bán hàng</a>
+                </li>
+            </ul>
         </section>
         <div class="import">
             <div class="bg-filter-search pl-4">
@@ -98,7 +96,7 @@
                                                     d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
                                                     fill="#6D7075" />
                                             </svg>
-                                            <span class="text-btnIner">Bộc lọc</span>
+                                            <span class="text-btnIner">Bộ lọc</span>
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -141,10 +139,13 @@
                                         </div>
                                         {{-- Nhập --}}
                                         <x-filter-text name="code-import" button="import" title="Mã nhà cung cấp" />
-                                        <x-filter-checkbox :dataa='$provides' name="name-import"
-                                            title="Tên nhà cung cấp" namedisplay="provide_name" />
-                                        <x-filter-compare name="total-import" title="Tổng thanh toán" />
-                                        <x-filter-compare name="debt-import" title="Công nợ" />
+                                        <x-filter-checkbox :dataa='$provides' button="import" name="name-import"
+                                            title="Tên nhà cung cấp" button="import" namedisplay="provide_name" />
+                                        <x-filter-compare name="total-import" button="import"
+                                            title="Tổng thanh toán" />
+                                        <x-filter-compare name="debt-import" button="import" title="Công nợ" />
+                                    </div>
+                                    <div class="result-filter-import d-flex">
                                     </div>
                                 </div>
                             </div>
@@ -152,7 +153,7 @@
                     </div>
                 </div>
             </div>
-            <div class="cac">Import</div>
+            {{-- <div class="cac">Import</div> --}}
         </div>
         <div class="export" style="display: none">
             <div class="bg-filter-search pl-4">
@@ -191,7 +192,7 @@
                                                     d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
                                                     fill="#6D7075" />
                                             </svg>
-                                            <span class="text-btnIner">Bộc lọc</span>
+                                            <span class="text-btnIner">Bộ lọc</span>
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -233,10 +234,13 @@
                                         </div>
                                         {{-- Bán --}}
                                         <x-filter-text name="code-export" button="export" title="Mã khách hàng" />
-                                        <x-filter-checkbox :dataa='$guests' name="name-export" title="Tên khách hàng"
-                                            namedisplay="guest_name" />
-                                        <x-filter-compare name="total-export" title="Tổng doanh số" />
-                                        <x-filter-compare name="debt-export" title="Công nợ" />
+                                        <x-filter-checkbox :dataa='$guests' button="export" name="name-export"
+                                            title="Tên khách hàng" namedisplay="guest_name" />
+                                        <x-filter-compare name="total-export" button="export"
+                                            title="Tổng doanh số" />
+                                        <x-filter-compare name="debt-export" button="export" title="Công nợ" />
+                                    </div>
+                                    <div class="result-filter-export d-flex">
                                     </div>
                                 </div>
                             </div>
@@ -244,7 +248,7 @@
                     </div>
                 </div>
             </div>
-            <div class="cac">Export</div>
+            {{-- <div class="cac">Export</div> --}}
         </div>
     </div>
     <div class="tab-content">
@@ -269,53 +273,57 @@
                                                     </th>
                                                     <th scope="col" class="border-top-0 bg-white pl-0">
                                                         <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="id"
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="import" data-sort-by="provide_code"
                                                                 data-sort-type="#">
                                                                 <button class="btn-sort" type="submit"><span
                                                                         class="text-13">Mã nhà cung cấp
                                                                     </span></button>
                                                             </a>
-                                                            <div class="icon" id="icon-id"></div>
+                                                            <div class="icon" id="icon-import-provide_code"></div>
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border-top-0 bg-white pl-0">
                                                         <span class="d-flex">
-                                                            <a href="#" class="sort-link"
-                                                                data-sort-by="export_code" data-sort-type="">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="import" data-sort-by="provide_name"
+                                                                data-sort-type="DESC">
                                                                 <button class="btn-sort" type="submit">
                                                                     <span class="text-13">Công ty</span>
                                                                 </button>
                                                             </a>
-                                                            <div class="icon" id="icon-export_code"></div>
+                                                            <div class="icon" id="icon-import-provide_name"></div>
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border-top-0 bg-white pl-0">
                                                         <span class="d-flex">
-                                                            <a href="#" class="sort-link"
-                                                                data-sort-by="guest_receiver" data-sort-type="">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="import" data-sort-by="sumSell"
+                                                                data-sort-type="DESC">
                                                                 <button class="btn-sort" type="submit">
                                                                     <span class="text-13">Tổng thanh toán</span>
                                                                 </button>
                                                             </a>
-                                                            <div class="icon" id="icon-guest_receiver"></div>
+                                                            <div class="icon" id="icon-import-sumSell"></div>
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border-top-0 bg-white pl-0">
                                                         <span class="d-flex">
-                                                            <a href="#" class="sort-link"
-                                                                data-sort-by="guest_receiver" data-sort-type="">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="import" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
                                                                 <button class="btn-sort" type="submit">
                                                                     <span class="text-13">Công nợ</span>
                                                                 </button>
                                                             </a>
-                                                            <div class="icon" id="icon-guest_receiver"></div>
+                                                            <div class="icon" id="icon-import-sumAmountOwed"></div>
                                                         </span>
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="import">
+                                            <tbody id="import" class="tbody-import">
                                                 @foreach ($provides as $item)
-                                                    <tr class="position-relative provide-info"
+                                                    <tr class="position-relative provides-info"
                                                         onclick="handleRowClick('checkbox', event);">
                                                         <input type="hidden" name="id-provide" class="id-provide"
                                                             id="id-provide" value="{{ $item->provide_id }}">
@@ -355,7 +363,6 @@
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                             style="right: 10px; top: 7px;">
                                                             <div class="d-flex w-100">
-                                                                cac
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -394,51 +401,55 @@
                                                     </th>
                                                     <th scope="col" class="border-top-0 bg-white pl-0">
                                                         <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="id"
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="guest_code"
                                                                 data-sort-type="#">
                                                                 <button class="btn-sort" type="submit"><span
                                                                         class="text-13">Mã khách hàng
                                                                     </span></button>
                                                             </a>
-                                                            <div class="icon" id="icon-id"></div>
+                                                            <div class="icon" id="icon-export-guest_code"></div>
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border-top-0 bg-white pl-0">
                                                         <span class="d-flex">
-                                                            <a href="#" class="sort-link"
-                                                                data-sort-by="export_code" data-sort-type="">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="guest_name"
+                                                                data-sort-type="DESC">
                                                                 <button class="btn-sort" type="submit">
                                                                     <span class="text-13">Công ty</span>
                                                                 </button>
                                                             </a>
-                                                            <div class="icon" id="icon-export_code"></div>
+                                                            <div class="icon" id="icon-export-guest_name"></div>
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border-top-0 bg-white pl-0">
                                                         <span class="d-flex">
-                                                            <a href="#" class="sort-link"
-                                                                data-sort-by="guest_receiver" data-sort-type="">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumSell"
+                                                                data-sort-type="DESC">
                                                                 <button class="btn-sort" type="submit">
                                                                     <span class="text-13">Tổng doanh số</span>
                                                                 </button>
                                                             </a>
-                                                            <div class="icon" id="icon-guest_receiver"></div>
+                                                            <div class="icon" id="icon-export-sumSell"></div>
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border-top-0 bg-white pl-0">
                                                         <span class="d-flex">
-                                                            <a href="#" class="sort-link"
-                                                                data-sort-by="guest_receiver" data-sort-type="">
+                                                            <a href="#" class="sort-link btn-submit"
+                                                                data-button="export" data-sort-by="sumAmountOwed"
+                                                                data-sort-type="DESC">
                                                                 <button class="btn-sort" type="submit">
                                                                     <span class="text-13">Công nợ</span>
                                                                 </button>
                                                             </a>
-                                                            <div class="icon" id="icon-guest_receiver"></div>
+                                                            <div class="icon" id="icon-export-sumAmountOwed"></div>
                                                         </span>
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="import">
+                                            <tbody id="import" class="tbody-export">
                                                 @foreach ($guests as $item)
                                                     <tr class="position-relative guests-info"
                                                         onclick="handleRowClick('checkbox', event);">
@@ -480,7 +491,6 @@
                                                         <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                             style="right: 10px; top: 7px;">
                                                             <div class="d-flex w-100">
-                                                                CAC
                                                             </div>
                                                         </td>
 
@@ -513,68 +523,235 @@
         $('.export').toggle(targetId === '#export');
     });
 
+    var idGuests = [];
+    var idProvides = [];
+    var filtersProvides = [];
+    var filters = [];
+    var svgtop =
+        "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 19.0009C11.6332 19.0009 11.7604 18.9482 11.8542 18.8544C11.9480 18.7607 12.0006 18.6335 12.0006 18.5009V6.70789L15.1466 9.85489C15.2405 9.94878 15.3679 10.0015 15.5006 10.0015C15.6334 10.0015 15.7607 9.94878 15.8546 9.85489C15.9485 9.76101 16.0013 9.63367 16.0013 9.50089C16.0013 9.36812 15.9485 9.24078 15.8546 9.14689L11.8546 5.14689C11.8082 5.10033 11.7530 5.06339 11.6923 5.03818C11.6315 5.01297 11.5664 5 11.5006 5C11.4349 5 11.3697 5.01297 11.3090 5.03818C11.2483 5.06339 11.1931 5.10033 11.1466 5.14689L7.14663 9.14689C7.10014 9.19338 7.06327 9.24857 7.03811 9.30931C7.01295 9.37005 7 9.43515 7 9.50089C7 9.63367 7.05274 9.76101 7.14663 9.85489C7.24052 9.94878 7.36786 10.0015 7.50063 10.0015C7.63341 10.0015 7.76075 9.94878 7.85463 9.85489L11.0006 6.70789V18.5009C11.0006 18.6335 11.0533 18.7607 11.1471 18.8544C11.2408 18.9482 11.3680 19.0009 11.5006 19.0009Z' fill='#555555'/></svg>";
+    var svgbot =
+        "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 5C11.6332 5 11.7604 5.05268 11.8542 5.14645C11.948 5.24021 12.0006 5.36739 12.0006 5.5V17.293L15.1466 14.146C15.2405 14.0521 15.3679 13.9994 15.5006 13.9994C15.6334 13.9994 15.7607 14.0521 15.8546 14.146C15.9485 14.2399 16.0013 14.3672 16.0013 14.5C16.0013 14.6328 15.9485 14.7601 15.8546 14.854L11.8546 18.854C11.8082 18.9006 11.753 18.9375 11.6923 18.9627C11.6315 18.9879 11.5664 19.0009 11.5006 19.0009C11.4349 19.0009 11.3697 18.9879 11.309 18.9627C11.2483 18.9375 11.1931 18.9006 11.1466 18.854L7.14663 14.854C7.05274 14.7601 7 14.6328 7 14.5C7 14.3672 7.05274 14.2399 7.14663 14.146C7.24052 14.0521 7.36786 13.9994 7.50063 13.9994C7.63341 13.9994 7.76075 14.0521 7.85463 14.146L11.0006 17.293V5.5C11.0006 5.36739 11.0533 5.24021 11.1471 5.14645C11.2408 5.05268 11.368 5 11.5006 5Z' fill='#555555'/></svg>"
+
 
     $(document).on('click', '.btn-submit', function(e) {
         e.preventDefault();
         var buttonname = $(this).data('button') || 'import';
         var code = $('#code-' + buttonname).val();
         var name = $('#name-' + buttonname).val();
-        var total = $('#total-' + buttonname).val();
-        var debt = $('#debt-' + buttonname).val();
+        var operator_total = $('.total-' + buttonname + '-operator').val();
+        var val_total = $('.total-' + buttonname + '-quantity').val();
+        var total = [operator_total, val_total];
+        var operator_debt = $('.debt-' + buttonname + '-operator').val();
+        var val_debt = $('.debt-' + buttonname + '-quantity').val();
+        var debt = [operator_debt, val_debt];
         var search = $('#search-' + buttonname).val();
+
+        // Sort
+        var sort_by = '';
+        if (typeof $(this).data('sort-by') !== 'undefined') {
+            sort_by = $(this).data('sort-by');
+        }
+        var sort_type = $(this).data('sort-type');
+        sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
+        $(this).data('sort-type', sort_type);
+        $('.icon').text('');
+        var iconId = 'icon-' + buttonname + '-' + sort_by;
+        var iconDiv = $('#' + iconId);
+        iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
+        sort = [
+            sort_by, sort_type
+        ];
+
+        // Xử lí dữ liệu
         if (buttonname == 'import') {
-            console.log('import');
+            // console.log('import');
+            if ($(this).data('button-name') === 'name-import') {
+                $('.ks-cboxtags-name-import input[type="checkbox"]').each(function() {
+                    const value = $(this).val();
+                    if ($(this).is(':checked') && idProvides.indexOf(value) === -1) {
+                        idProvides.push(value);
+                    } else if (!$(this).is(':checked')) {
+                        const index = idProvides.indexOf(value);
+                        if (index !== -1) {
+                            idProvides.splice(index, 1);
+                        }
+                    }
+                });
+            }
+            if ($(this).data('delete') === 'code') {
+                code = null;
+                $('#code-' + buttonname).val('');
+            }
+            if ($(this).data('delete') === 'name') {
+                idProvides = [];
+                $('.deselect-all-name-import').click();
+            }
+            if ($(this).data('delete') === 'total') {
+                total = null;
+                $('.total-' + buttonname + '-quantity').val('');
+            }
+            if ($(this).data('delete') === 'debt') {
+                debt = null;
+                $('.debt-' + buttonname + '-quantity').val('');
+            }
             $.ajax({
                 url: "{{ route('searchReportProvides') }}",
                 type: "get",
                 data: {
                     search: search,
                     code: code,
-                    name: name,
+                    name: idProvides,
                     debt: debt,
                     total: total,
+                    sort: sort,
                 },
                 success: function(data) {
-                    // var userIds = [];
-                    // data.forEach(function(item) {
-                    //     var userId = item.id;
-                    //     userIds.push(userId);
-                    // });
-                    // $('.user-workspaces').each(function() {
-                    //     var value = parseInt($(this).find('.id-info').val());
-                    //     if (userIds.includes(value)) {
-                    //         $(this).show();
-                    //     } else {
-                    //         $(this).hide();
-                    //     }
-                    // });
+                    // console.log(data.filtersProvides);
+                    // Hiển thị label dữ liệu tìm kiếm ...
+                    var existingNames = [];
+                    data.filtersProvides.forEach(function(item) {
+                        // Kiểm tra xem item.name đã tồn tại trong mảng filtersProvides chưa
+                        if (filtersProvides.indexOf(item.name) === -1) {
+                            filtersProvides.push(item.name);
+                        }
+                        existingNames.push(item.name);
+                    });
+
+                    filtersProvides = filtersProvides.filter(function(name) {
+                        return existingNames.includes(name);
+                    });
+                    $('.result-filter-import').empty();
+                    // Lặp qua mảng filtersProvides để tạo và render các phần tử
+                    data.filtersProvides.forEach(function(item) {
+                        var index = filtersProvides.indexOf(item.name);
+                        // Tạo thẻ item-filter
+                        var itemFilter = $('<div>').addClass(
+                            'item-filter span d-flex justify-content-center align-items-baseline'
+                        );
+                        itemFilter.css('order', index);
+                        // Thêm nội dung và thuộc tính data vào thẻ item-filter
+                        itemFilter.append('<p class="text">' + item.value +
+                            '</p><i class="fa-solid fa-xmark btn-submit" data-delete="' +
+                            item.name + '" data-button="' + buttonname + '"></i>');
+                        // Thêm thẻ item-filter vào resultFilterimport
+                        $('.result-filter-import').append(itemFilter);
+                    });
+
+                    // Ẩn hiện dữ liệu khi đã filtersProvides
+                    var provideIds = [];
+                    // Lặp qua mảng provides và thu thập các provideIds
+                    data.provides.forEach(function(item) {
+                        var provideId = item.provide_id;
+                        provideIds.push(provideId);
+                    });
+
+                    // Ẩn tất cả các phần tử .provides-info
+                    $('.provides-info').hide();
+                    // Lặp qua từng phần tử .provides-info để hiển thị và cập nhật data-position
+                    $('.provides-info').each(function() {
+                        var value = parseInt($(this).find('.id-provide').val());
+                        var index = provideIds.indexOf(value);
+                        if (index !== -1) {
+                            $(this).show();
+                            // Cập nhật data-position và chèn vào vị trí tương ứng
+                            $(this).attr('data-position', index + 1);
+                            $(".tbody-import tr:nth-child(" + (index + 1) + ")").after(
+                                this);
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+
                 }
             })
         }
         if (buttonname == 'export') {
             console.log('export');
-            console.log(code);
+            if ($(this).data('button-name') === 'name-export') {
+                $('.ks-cboxtags-name-export input[type="checkbox"]').each(function() {
+                    const value = $(this).val();
+                    if ($(this).is(':checked') && idGuests.indexOf(value) === -1) {
+                        idGuests.push(value);
+                    } else if (!$(this).is(':checked')) {
+                        const index = idGuests.indexOf(value);
+                        if (index !== -1) {
+                            idGuests.splice(index, 1);
+                        }
+                    }
+                });
+            }
+            if ($(this).data('delete') === 'code') {
+                code = null;
+                $('#code-' + buttonname).val('');
+            }
+            if ($(this).data('delete') === 'name') {
+                idGuests = [];
+                $('.deselect-all-name-export').click();
+            }
+            if ($(this).data('delete') === 'total') {
+                total = null;
+                $('.total-' + buttonname + '-quantity').val('');
+            }
+            if ($(this).data('delete') === 'debt') {
+                debt = null;
+                $('.debt-' + buttonname + '-quantity').val('');
+            }
             $.ajax({
                 url: "{{ route('searchReportGuests') }}",
                 type: "get",
                 data: {
                     search: search,
                     code: code,
-                    name: name,
+                    name: idGuests,
                     debt: debt,
                     total: total,
+                    sort: sort,
                 },
                 success: function(data) {
-                    // console.log(data);
+                    // Hiển thị label dữ liệu tìm kiếm ...
+                    var existingNames = [];
+                    data.filters.forEach(function(item) {
+                        // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
+                        if (filters.indexOf(item.name) === -1) {
+                            filters.push(item.name);
+                        }
+                        existingNames.push(item.name);
+                    });
+
+                    filters = filters.filter(function(name) {
+                        return existingNames.includes(name);
+                    });
+                    $('.result-filter-export').empty();
+                    // Lặp qua mảng filters để tạo và render các phần tử
+                    data.filters.forEach(function(item) {
+                        var index = filters.indexOf(item.name);
+                        // Tạo thẻ item-filter
+                        var itemFilter = $('<div>').addClass(
+                            'item-filter span d-flex justify-content-center align-items-baseline'
+                        );
+                        itemFilter.css('order', index);
+                        // Thêm nội dung và thuộc tính data vào thẻ item-filter
+                        itemFilter.append('<p class="text">' + item.value +
+                            '</p><i class="fa-solid fa-xmark btn-submit" data-delete="' +
+                            item.name + '" data-button="' + buttonname + '"></i>');
+                        // Thêm thẻ item-filter vào resultFilterExport
+                        $('.result-filter-export').append(itemFilter);
+                    });
+
+                    // Ẩn hiện dữ liệu khi đã filters
                     var guestIds = [];
-                    data.forEach(function(item) {
+                    data.guests.forEach(function(item) {
                         var guestId = item.guest_id;
                         guestIds.push(guestId);
                     });
                     $('.guests-info').each(function() {
                         var value = parseInt($(this).find('.id-guest').val());
+                        var index = guestIds.indexOf(value);
                         if (guestIds.includes(value)) {
                             $(this).show();
+                            $(this).attr('data-position', index + 1);
+                            $(".tbody-export tr:nth-child(" + (index + 1) + ")").after(
+                                this);
                         } else {
                             $(this).hide();
                         }
@@ -582,6 +759,11 @@
                 }
             })
         }
+        $.ajaxSetup({
+            headers: {
+                'csrftoken': '{{ csrf_token() }}'
+            }
+        });
 
     });
 </script>

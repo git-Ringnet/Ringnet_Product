@@ -249,10 +249,11 @@ class PayExport extends Model
                 'detailexport.guest_id as guest_id',
                 'guest.guest_name_display as guest_name',
                 'guest.guest_code as guest_code',
+                'guest.id',
                 DB::raw('SUM(detailexport.total_price + detailexport.total_tax) as sumSell'),
                 DB::raw('SUM(detailexport.amount_owed) as sumAmountOwed')
             )
-            ->groupBy('detailexport.guest_id', 'guest.guest_name_display', 'guest.guest_code')
+            ->groupBy('detailexport.guest_id', 'guest.guest_name_display', 'guest.guest_code', 'guest.id')
             ->get();
         return $report_guest;
     }
@@ -265,6 +266,7 @@ class PayExport extends Model
                 'detailexport.guest_id as guest_id',
                 'guest.guest_name_display as guest_name',
                 'guest.guest_code as guest_code',
+                'guest.id',
                 DB::raw('SUM(detailexport.total_price + detailexport.total_tax) as sumSell'),
                 DB::raw('SUM(detailexport.amount_owed) as sumAmountOwed')
             );
@@ -274,10 +276,27 @@ class PayExport extends Model
                 $query->orWhere('guest_code', 'like', '%' . $data['search'] . '%');
             });
         }
+        // Mã khách hàng
         if (isset($data['code'])) {
             $report_guest = $report_guest->where('guest_code', 'like', '%' . $data['code'] . '%');
         }
-        $report_guest = $report_guest->groupBy('detailexport.guest_id', 'guest.guest_name_display', 'guest.guest_code');
+        // Công ty
+        if (isset($data['name'])) {
+            $report_guest = $report_guest->whereIn('guest.id', $data['name']);
+        }
+        // Tổng doanh số
+        if (isset($data['total'][0]) && isset($data['total'][1])) {
+            $report_guest = $report_guest->having('sumSell', $data['total'][0], $data['total'][1]);
+        }
+        // Công nợ
+        if (isset($data['debt'][0]) && isset($data['debt'][1])) {
+            $report_guest = $report_guest->having('sumAmountOwed', $data['debt'][0], $data['debt'][1]);
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $report_guest = $report_guest->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+        $report_guest = $report_guest->groupBy('detailexport.guest_id', 'guest.guest_name_display', 'guest.guest_code', 'guest.id');
+
         $report_guest = $report_guest->get();
         return $report_guest;
     }
