@@ -460,7 +460,7 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán trước</span>
                                 <input type="text" placeholder="Chọn thông tin" name="payment"
                                     oninput="checkQty(this,{{ $payment->debt }})"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;" />
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest payment_input" style="flex:2;" />
                             </li>
                         </ul>
                     </div>

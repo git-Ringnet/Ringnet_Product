@@ -245,7 +245,15 @@ class PayOder extends Model
                 if ($data['payment'] > 0 && $payorder->payment_date == $endDate) {
                     $status = 1; // Chưa thanh toán
                 } else {
-                    $status = 6; // Đặt cọc
+                    if ($check == 1) {
+                        $status = 1; // Đặt cọc
+                    } else {
+                        if ($payorder->status != 1) {
+                            $status = 6; // Đặt cọc
+                        }else{
+                            $status = $payorder->status;
+                        }
+                    }
                 }
             }
         }
