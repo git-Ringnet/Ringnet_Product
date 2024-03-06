@@ -992,7 +992,8 @@
                     $('.daThanhToan').val(formatCurrency(data.tongThanhToan));
                     $('.duNo').val(formatCurrency(Math.round(data.tongTienNo - data
                         .tongThanhToan)));
-                    $('input[name="code_payment"]').val('MTT-' + (data.lastPayExportId + 1));
+                    $('input[name="code_payment"]').val('MTT-' + (data.lastPayExportId +
+                    1));
                     $.ajax({
                         url: '{{ route('getProductPay') }}',
                         type: 'GET',

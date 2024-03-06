@@ -181,7 +181,7 @@
                                                 <td class='border-right p-2 text-13 align-top'
                                                     style="padding-left: 2rem !important;">
                                                     <input type="text" autocomplete="off" readonly
-                                                        value="MSP-0001"
+                                                        value="{{$item_quote->product_code}}"
                                                         class='border-0 pl-0 pr-2 py-1 w-75 product_code'
                                                         name="product_code[]">
                                                 </td>
@@ -359,7 +359,7 @@
                         </div>
                     </div>
                     <div id="history" class="tab-pane fade">
-                        <div class="bg-filter-search border-bottom-0 border-right-0 text-center py-2">
+                        <div class="font-weight-bold text-uppercase info-chung--heading text-center">
                             <span class="font-weight-bold text-secondary text-nav">LỊCH SỬ</span>
                         </div>
                         <section class="content">
@@ -380,24 +380,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($quoteExport as $item_quote)
+                                        @foreach ($product as $item_product)
                                             <tr class="bg-white">
                                                 <td
                                                     class="border border-left-0 border-top-0 border-bottom-0 position-relative">
                                                     <div
                                                         class="d-flex w-100 justify-content-between align-items-center">
                                                         <input type="text" autocomplete="off" readonly
-                                                            value="{{ $item_quote->product_code }}"
+                                                            value="{{ $item_product->product_code }}"
                                                             class="border-0 px-2 py-1 w-75 product_code">
                                                     </div>
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                                     <div class="d-flex align-items-center">
-                                                        <input type="text" value="{{ $item_quote->product_name }}"
+                                                        <input type="text" value="{{ $item_product->product_name }}"
                                                             class="border-0 px-2 py-1 w-100 product_name" readonly
                                                             autocomplete="off">
                                                         <input type="hidden" class="product_id"
-                                                            value="{{ $item_quote->product_id }}" autocomplete="off">
+                                                            value="{{ $item_product->product_id }}" autocomplete="off">
                                                         <div class="info-product" data-toggle="modal"
                                                             data-target="#productModal">
                                                             <svg width="18" height="18" viewBox="0 0 18 18"
@@ -420,42 +420,38 @@
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0">
                                                     <input type="text" autocomplete="off" readonly
-                                                        value="{{ $item_quote->product_unit }}"
+                                                        value="{{ $item_product->product_unit }}"
                                                         class="border-0 px-2 py-1 w-100 product_unit">
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                                     <input type="text" readonly
-                                                        value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
+                                                        value="{{ is_int($item_product->deliver_qty) ? $item_product->deliver_qty : rtrim(rtrim(number_format($item_product->deliver_qty, 4, '.', ''), '0'), '.') }}"
                                                         class="border-0 px-2 py-1 w-100 quantity-input"
                                                         autocomplete="off">
                                                     <input type="hidden" class="tonkho">
                                                     <p class="text-primary text-center position-absolute inventory"
                                                         style="top: 68%; display: none;">Tồn kho:
-                                                        <span class="soTonKho">35</span>
+                                                        <span class="soTonKho"></span>
                                                     </p>
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                                     <input type="text"
-                                                        value="{{ number_format($item_quote->price_export) }}"
-                                                        class="border-0 px-2 py-1 w-100 product_price"
+                                                        value="{{ number_format($item_product->price_export) }}"
+                                                        class="border-0 px-2 py-1 w-100"
                                                         autocomplete="off" readonly>
-                                                    <p class="text-primary text-right position-absolute transaction"
-                                                        style="top: 68%; right: 5%; display: none;">Giao dịch
-                                                        gần đây
-                                                    </p>
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 px-4">
                                                     <select class="border-0 text-center product_tax" disabled>
-                                                        <option value="0" <?php if ($item_quote->product_tax == 0) {
+                                                        <option value="0" <?php if ($item_product->product_tax == 0) {
                                                             echo 'selected';
                                                         } ?>>0%</option>
-                                                        <option value="8" <?php if ($item_quote->product_tax == 8) {
+                                                        <option value="8" <?php if ($item_product->product_tax == 8) {
                                                             echo 'selected';
                                                         } ?>>8%</option>
-                                                        <option value="10" <?php if ($item_quote->product_tax == 10) {
+                                                        <option value="10" <?php if ($item_product->product_tax == 10) {
                                                             echo 'selected';
                                                         } ?>>10%</option>
-                                                        <option value="99" <?php if ($item_quote->product_tax == 99) {
+                                                        <option value="99" <?php if ($item_product->product_tax == 99) {
                                                             echo 'selected';
                                                         } ?>>NOVAT
                                                         </option>
@@ -463,13 +459,13 @@
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0">
                                                     <input type="text" readonly=""
-                                                        value="{{ number_format($item_quote->product_total) }}"
-                                                        class="border-0 px-2 py-1 w-100 total-amount">
+                                                        value="{{ number_format($item_product->product_total) }}"
+                                                        class="border-0 px-2 py-1 w-100">
                                                 </td>
                                                 <td
                                                     class="border border-top-0 border-bottom-0 border-right-0 position-relative note p-1">
                                                     <input type="text" class="border-0 py-1 w-100" readonly
-                                                        value="{{ $item_quote->product_note }}">
+                                                        value="{{ $item_product->product_note }}">
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -480,7 +476,7 @@
                     </div>
 </form>
 <div id="files" class="tab-pane fade">
-    <div class="bg-filter-search border-bottom-0 text-center py-2 border-right-0">
+    <div class="font-weight-bold text-uppercase info-chung--heading text-center">
         <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
     </div>
     <x-form-attachment :value="$delivery" name="GH"></x-form-attachment>
