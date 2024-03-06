@@ -1,8 +1,10 @@
 <div>
     <table class="table table-hover bg-white rounded">
         <thead>
-            <tr>
-                <th class="border-right p-1 border-bottom"><input type="checkbox"></th>
+            <tr style="height:44px;">
+                <th class="border-right p-1 border-bottom padding-left35">
+                    <input type="checkbox" class="checkall-btn">
+                </th>
                 <th class="border-right p-1 border-bottom">
                     <span class="text-table text-secondary">Tên file</span>
                 </th>
@@ -23,7 +25,9 @@
             @if ($value->getAttachment($name))
                 @foreach ($value->getAttachment($name) as $item)
                     <tr>
-                        <td class="p-1 border-right"><input type="checkbox"></td>
+                        <td class="p-1 border-right padding-left35">
+                            <input type="checkbox" class="checkall-btn">
+                        </td>
                         <td class="p-1 border-right">{{ $item->file_name }}</td>
                         <td class="p-1 border-right">
                             @if ($item->getUsers)

@@ -108,8 +108,7 @@
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="id"
                                                         data-sort-type="#">
-                                                        <button class="btn-sort text-13" type="submit">Mã thanh
-                                                            toan</button>
+                                                        <button class="btn-sort text-13" type="submit">Mã thanh toán</button>
                                                     </a>
                                                     <div class="icon" id="icon-id"></div>
                                                 </span>

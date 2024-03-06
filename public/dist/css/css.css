@@ -29,7 +29,6 @@ li {
 }
 
 /* SỬ DỤNG CHUNG */
-
 .table-responsive {
     overflow: auto;
     scrollbar-width: none;
@@ -110,6 +109,7 @@ li {
 /* Table Scroll */
 .outer {
     overflow: auto;
+    scrollbar-width: none;
     max-height: 500px;
 }
 
@@ -124,7 +124,26 @@ li {
     position: sticky;
     background-color: white;
     z-index: 99;
-  }
+}
+
+.outer2 {
+    overflow: auto;
+    scrollbar-width: none;
+    max-height: 550px;
+}
+
+.outer2 {
+    width: 100%;
+    -layout: fixed;
+}
+
+.outer2 th {
+    text-align: left;
+    top: 0;
+    position: sticky;
+    background-color: white;
+    z-index: 99;
+}
 
 /* ----------------------------------- */
 .heading-title h5 {
@@ -772,13 +791,13 @@ td p {
 .header-options--nav li:first-child {
     color: #6c757d !important;
 
-
+}
 .header-options--nav2{
-    width: 199px;
+    width: 206px;
     height: 34px;
     display: flex;
     justify-content: space-between;
-    margin-top: 13px;
+    margin-top: 8px;
     align-items: center;
     border-radius: 7px;
     background-color: #F4F5F8;
@@ -2202,6 +2221,12 @@ input[type="checkbox"] {
 }
 .margin-top-68 {
     margin-top: 6.8rem;
+}
+.margin-top-67 {
+    margin-top: 6.7rem;
+}
+.margin-top-88 {
+    margin-top: 8.8rem;
 }
 .top-109 {
     top: 109px !important;
