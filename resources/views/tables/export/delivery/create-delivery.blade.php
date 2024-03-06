@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="delivery">
 </x-navbar>
-<form action="{{ route('delivery.store', ['workspace' => $workspacename]) }}" method="POST">
+<form onsubmit="return kiemTraFormGiaoHang();" action="{{ route('delivery.store', ['workspace' => $workspacename]) }}" method="POST">
     @csrf
     <input type="hidden" name="detailexport_id" id="detailexport_id"
         value="@isset($yes) {{ $data['detailexport_id'] }} @endisset">
@@ -29,7 +29,7 @@
                     </span>
                     <span class="font-weight-bold last-span">Tạo đơn giao hàng</span>
                 </div>
-                <div class="container-fluided z-index-block">
+                <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <a href="{{ route('delivery.index', $workspacename) }}">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
@@ -63,7 +63,7 @@
                         <div class="dropdown">
                             <button type="submit" name="action" value="2"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100"
-                                onclick="kiemTraFormGiaoHang(event);" id="giaoHang">
+                                id="giaoHang">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
@@ -77,7 +77,7 @@
                         </div>
                         <button type="submit" name="action" value="1"
                             class="custom-btn mx-1 d-flex align-items-center h-100"
-                            onclick="kiemTraFormGiaoHang(event);" id="luuNhap">
+                            id="luuNhap">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 16 16" fill="none">
@@ -298,7 +298,7 @@
             </div>
         </div>
         {{-- Thông tin khách hàng --}}
-        <div class="content-wrapper px-0 py-0">
+        <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-0 text-center border-custom">
@@ -1454,12 +1454,10 @@
                     idQuote: idQuote
                 },
                 success: function(data) {
-                    console.log(data);
                     $('.idRepresent').val(data.represent_id)
                     $('.numberQute').val(data.quotation_number)
                     $('.nameGuest').val(data.guest_name_display)
                     $('.represent_name').val(data.represent_name)
-                    $('input[name="code_delivery"]').val('GH-' + (data.lastDeliveryId + 1));
                     $('#show-info-guest').show();
                     $('#show-title-guest').show();
                     $.ajax({
@@ -1469,18 +1467,17 @@
                             idQuote: idQuote
                         },
                         success: function(data) {
+                            console.log(data);
                             $(".addProduct").remove();
+                            var totalProductTotal = 0;
+                            var totalTax1 = 0;
                             $.each(data, function(index, item) {
-                                var totalTax = parseFloat(item
-                                    .total_tax) || 0;
-                                var totalPrice = parseFloat(item
-                                    .total_price) || 0;
+                                var totalTax = parseFloat(item.total_tax) || 0;
+                                var totalPrice = parseFloat(item.total_price) || 0;
                                 var grandTotal = totalTax + totalPrice;
-                                var tax = (item.price_export * item
-                                    .soLuongCanGiao * (item
-                                        .product_tax == 99 ? 0 :
-                                        item
-                                        .product_tax)) / 100;
+                                var tax = (item.price_export * item.soLuongCanGiao * (item.product_tax == 99 ? 0 :item.product_tax)) / 100;
+                                totalProductTotal += parseFloat(item.product_total) || 0;
+                                totalTax1 += tax;
                                 $(".idGuest").val(item.guest_id);
                                 $("#detailexport_id").val(item.maXuat);
                                 $("#total-amount-sum").text(
@@ -1510,7 +1507,7 @@
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>
                                     </svg>
                                     <input type="checkbox" class="cb-element">
-                                    <input type="text" value="${item.product_code == null ? '' : item.product_code}" readonly autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
+                                    <input type="text" value="${item.maCode == null ? '' : item.maCode}" readonly autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
                                 </div>
                             </td>
                             <td class="border border-bottom-0 position-relative">
@@ -1556,12 +1553,13 @@
                                 <p class="text-primary text-right position-absolute transaction" style="top: 68%; right: 5%; display: none;">Giao dịch gần đây</p>
                             </td>
                             <td class="border border-bottom-0 px-4 d-none">
-                                <select name="product_tax[]" class="border-0 text-center product_tax" required="">
+                                <select class="border-0 text-center product_tax" required="">
                                     <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                     <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
                                     <option value="10" ${(item.product_tax == 10) ? 'selected' : ''}>10%</option>
                                     <option value="99" ${(item.product_tax == 99) ? 'selected' : ''}>NOVAT</option>
                                 </select>
+                                <input type="hidden" class="product_tax" value="${(item.product_tax)}" name="product_tax[]">
                             </td>
                             <td class="border border-bottom-0 d-none">
                                 <input type="text" value="${formatCurrency(item.product_total)}" readonly class="border-0 px-2 py-1 w-100 total-amount">
@@ -2562,7 +2560,29 @@
 
     function kiemTraFormGiaoHang(event) {
         var rows = document.querySelectorAll('tr');
+        var numberValue = $('input[name="code_delivery"]').val();
         var hasProducts = false;
+        var ajaxSuccess = false;
+
+        $.ajax({
+            url: '{{ route('checkCodeDelivery') }}',
+            type: 'GET',
+            async: false, // Chuyển thành đồng bộ
+            data: {
+                numberValue: numberValue
+            },
+            success: function(data) {
+                if (!data.success) {
+                    showNotification('warning', 'Mã giao hàng đã tồn tại!');
+                } else {
+                    ajaxSuccess = true;
+                }
+            }
+        });
+
+        if (!ajaxSuccess) {
+            return false;
+        }
 
         for (var i = 1; i < rows.length; i++) {
             if (rows[i].classList.contains('addProduct')) {

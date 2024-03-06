@@ -550,7 +550,7 @@
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest" id="represent_guest"
-                                        style="flex:2;" placeholder="Chọn thông tin">
+                                        autocomplete="off" style="flex:2;" placeholder="Chọn thông tin">
                                     <input type="hidden" class="represent_guest_id" name="represent_guest_id"
                                         autocomplete="off">
                                     <div id="myUL7"
@@ -607,7 +607,7 @@
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest "
+                                    <input class="text-13-black w-50 border-0 bg-input-guest" autocomplete="off"
                                         placeholder="Chọn thông tin" name="price_effect" id="myInput-quote"
                                         style="flex:2;"
                                         value="{{ isset($dataForm['quote']) ? $dataForm['quote']->form_desc : '' }}" />
@@ -630,7 +630,7 @@
                                                         aria-hidden="true"></i></span>
                                             </div>
                                         </div>
-                                        <ul class="m-0 p-0 scroll-data">
+                                        <ul class="m-0 p-0 scroll-data addDateFormquote">
                                             @foreach ($date_form as $item)
                                                 @if ($item->form_field == 'quote')
                                                     <li class="item-{{ $item->id }} border">
@@ -696,6 +696,7 @@
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest" id="myInput-payment"
                                         placeholder="Chọn thông tin" style="flex:2;" name="terms_pay"
+                                        autocomplete="off"
                                         value="{{ isset($dataForm['payment']) ? $dataForm['payment']->form_desc : '' }}" />
                                     <input type="hidden" class="idDateForm" autocomplete="off"
                                         name="idDate[payment]"
@@ -717,7 +718,7 @@
                                                         aria-hidden="true"></i></span>
                                             </div>
                                         </div>
-                                        <ul class="m-0 p-0 scroll-data">
+                                        <ul class="m-0 p-0 scroll-data addDateFormpayment">
                                             @foreach ($date_form as $item)
                                                 @if ($item->form_field == 'payment')
                                                     <li class="item-{{ $item->id }} border">
@@ -783,7 +784,7 @@
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
-                                        placeholder="Chọn thông tin" id="ProjectInput" />
+                                        autocomplete="off" placeholder="Chọn thông tin" id="ProjectInput" />
                                     <input type="hidden" class="idProject" autocomplete="off" name="project_id">
 
                                     <div id="listProject"
@@ -799,7 +800,7 @@
                                                         aria-hidden="true"></i></span>
                                             </div>
                                         </div>
-                                        <ul class="m-0 p-0 scroll-data">
+                                        <ul class="m-0 p-0 scroll-data addProjectNew">
                                             @foreach ($project as $project_value)
                                                 <li class="border">
                                                     <a href="#"
@@ -854,6 +855,7 @@
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hàng hóa</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;"
                                         id="myInput-goods" placeholder="Chọn thông tin" name="goods"
+                                        autocomplete="off"
                                         value="{{ isset($dataForm['goods']) ? $dataForm['goods']->form_desc : '' }}" />
                                     <input type="hidden" class="idDateForm" autocomplete="off" name="idDate[goods]"
                                         value="{{ isset($dataForm['goods']) ? $dataForm['goods']->id : '' }}">
@@ -874,7 +876,7 @@
                                                         aria-hidden="true"></i></span>
                                             </div>
                                         </div>
-                                        <ul class="m-0 p-0 scroll-data">
+                                        <ul class="m-0 p-0 scroll-data addDateFormgoods">
                                             @foreach ($date_form as $item)
                                                 @if ($item->form_field == 'goods')
                                                     <li class="item-{{ $item->id }} border">
@@ -941,6 +943,7 @@
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Giao hàng</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;"
                                         placeholder="Chọn thông tin" name="delivery" id="myInput-delivery"
+                                        autocomplete="off"
                                         value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->form_desc : '' }}" />
                                     <input type="hidden" class="idDateForm" autocomplete="off"
                                         name="idDate[delivery]"
@@ -962,7 +965,7 @@
                                                         aria-hidden="true"></i></span>
                                             </div>
                                         </div>
-                                        <ul class="m-0 p-0 scroll-data">
+                                        <ul class="m-0 p-0 scroll-data addDateFormdelivery">
                                             @foreach ($date_form as $item)
                                                 @if ($item->form_field == 'delivery')
                                                     <li class="item-{{ $item->id }} border">
@@ -1030,6 +1033,7 @@
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa điểm</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;"
                                         placeholder="Chọn thông tin" name="location" id="myInput-location"
+                                        autocomplete="off"
                                         value="{{ isset($dataForm['location']) ? $dataForm['location']->form_desc : '' }}" />
                                     <input type="hidden" class="idDateForm" autocomplete="off"
                                         name="idDate[location]"
@@ -1051,7 +1055,7 @@
                                                         aria-hidden="true"></i></span>
                                             </div>
                                         </div>
-                                        <ul class="m-0 p-0 scroll-data">
+                                        <ul class="m-0 p-0 scroll-data addDateFormlocation">
                                             @foreach ($date_form as $item)
                                                 @if ($item->form_field == 'location')
                                                     <li class="item-{{ $item->id }} border">
@@ -1312,22 +1316,25 @@
             var id = $(this).data('id');
             var name = $(this).data('name');
             $.ajax({
-                url: '{{ route('setDefault') }}',
+                url: '{{ route('setDefaultGuest') }}',
                 type: 'GET',
                 data: {
                     id: id,
                     name: name,
                 },
                 success: function(data) {
-                    // $("input[name='idDate[" + name + "]']").val(id);
-                    // $("input[name='fieldDate[" + name + "]']").val(name);
+                    console.log(data);
+                    $("input[name='idDate[" + name + "]']").val(data.id);
+                    $("#myInput-" + name).val(data.form.form_desc);
                     data.update_form.forEach(item => {
                         if (item.default_form === 1) {
                             $('#default-id' + item.id).html(
                                 '<i class="fa-solid fa-link-slash"></i>');
+                            showNotification('success', data.msg);
                         } else {
                             $('#default-id' + item.id).html(
                                 '<i class="fa-solid fa-link"></i>');
+                            showNotification('success', data.msg);
                         }
                     });
                 }
@@ -1375,15 +1382,16 @@
                             '</a>';
                         // Thêm phần tử mới vào trong form tìm kiếm
                         var newListItem =
-                            '<li class="item-' + data.new_date_form.id +
+                            '<li class="border item-' + data.new_date_form.id +
                             '"><a href="#" class="text-dark d-flex justify-content-between p-2 search-date-form" id="' +
                             data.new_date_form.id +
                             '" name="search-date-form" data-name="' +
                             name + '">' +
-                            '<span class="w-50" id="' + data.new_date_form.form_field + data
+                            '<span class="text-13-black" id="' + data.new_date_form
+                            .form_field + data
                             .new_date_form.id + '">' + data.new_date_form.form_name +
                             '</span></a><div class="dropdown">' +
-                            '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">' +
+                            '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">' +
                             '<i class="fa-solid fa-ellipsis"></i>' + '</button>' +
                             '<div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
                             '<a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModal' +
@@ -1399,7 +1407,8 @@
                             '</div></li>';
                         // Thêm mục mới vào danh sách
                         var addButton = $(".addDateForm" + name);
-                        $(newListItem).insertBefore(addButton);
+                        $(addButton).append(newListItem);
+                        showNotification('success', data.msg);
                         //clear
                         $('.search-date-form').click(function() {
                             $('.modal').on('hidden.bs.modal', function() {
@@ -2068,7 +2077,7 @@
                             var newGuestInfo1 = data;
                             var guestList1 = $('#myUL7'); // Danh sách hiện có
                             var newListItem1 =
-                                '<li class="border" data-id="' + newGuestInfo1.id +
+                                '<li class="border d-flex" data-id="' + newGuestInfo1.id +
                                 '"><a href="#" title="' + newGuestInfo1.represent_name +
                                 '" class="text-dark d-flex justify-content-between p-2 search-represent w-100" id="' +
                                 newGuestInfo1.id_represent + '" name="search-represent">' +
@@ -2229,17 +2238,23 @@
                             '<li class="border" data-id="' + newGuestInfo.id + '">' +
                             '<a href="#" class="text-dark d-flex justify-content-between p-2 search-project w-100" id="' +
                             newGuestInfo.id + '" name="search-project">' +
-                            '<span class="text-13-black">' + newGuestInfo
-                            .project_name + '</span>' +
+                            '<span class="text-13-black">' + newGuestInfo.project_name + '</span>' +
                             '</a>' +
-                            '<a class="dropdown-item delete-project w-25" href="#" data-id="' +
+                            '<div class="dropdown">' +
+                            '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px" aria-expanded="false">' +
+                            '<i class="fa-solid fa-ellipsis" aria-hidden="true"></i>' +
+                            '</button>' +
+                            '<div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
+                            '<a class="dropdown-item delete-project w-100" href="#" data-id="' +
                             newGuestInfo.id + '" data-name="project">' +
                             '<i class="fa-solid fa-trash-can" aria-hidden="true"></i>' +
                             '</a>' +
+                            '</div>' +
+                            '</div>' +
                             '</li>';
                         // Thêm mục mới vào danh sách
                         var addButton = $(".addProjectNew");
-                        $(newListItem).insertBefore(addButton);
+                        $(addButton).append(newListItem);
                         //clear
                         $('#project_name').val('');
                     } else {
