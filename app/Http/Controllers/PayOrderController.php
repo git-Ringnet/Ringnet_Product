@@ -100,10 +100,10 @@ class PayOrderController extends Controller
         $workspacename = $workspacename->workspace_name;
         if ($payment) {
             $title = $payment->id;
-            $detail = DetailImport::where('id',$payment->detailimport_id)->first();
-            if($detail && $detail->getNameRepresent){
+            $detail = DetailImport::where('id', $payment->detailimport_id)->first();
+            if ($detail && $detail->getNameRepresent) {
                 $nameRepresent = $detail->getNameRepresent->represent_name;
-            }else{
+            } else {
                 $nameRepresent = "";
             }
             $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
@@ -122,7 +122,7 @@ class PayOrderController extends Controller
                 )
                 ->get();
             $history = HistoryPaymentOrder::where('payment_id', $payment->id)->get();
-            return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product', 'history', 'workspacename','nameRepresent'));
+            return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product', 'history', 'workspacename', 'nameRepresent'));
         }
     }
 

@@ -77,8 +77,7 @@ class ReceiveController extends Controller
         $workspacename = $workspacename->workspace_name;
         if ($request->action == 'action_1') {
             // Tạo sản phẩm theo đơn nhận hàng
-            // $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
-            $status = true;
+            $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
             if ($status) {
                 // Tạo đơn nhận hàng mới
                 $receive_id = $this->receive->addReceiveBill($request->all(), $id);
@@ -132,7 +131,7 @@ class ReceiveController extends Controller
         $detail = DetailImport::where('id', $receive->detailimport_id)->first();
         if ($detail && $detail->getNameRepresent) {
             $nameRepresent = $detail->getNameRepresent->represent_name;
-        }else{
+        } else {
             $nameRepresent = "";
         }
         $title = $receive->quotation_number;
@@ -206,13 +205,16 @@ class ReceiveController extends Controller
                 $nameRepresent = $detail->getNameRepresent->represent_name;
             }
         }
-
+        $getSTT = Receive_bill::where('workspace_id', Auth::user()->current_workspace)
+            ->orderBy('id', 'desc')
+            ->first();
 
         $data = [
             'quotation_number' => isset($detail) ? $detail->quotation_number : "",
             'represent' => isset($nameRepresent) ? $nameRepresent : "",
             'provide_name' => isset($nameProvide) ? $nameProvide : "",
-            'id' => isset($detail) ? $detail->id : ""
+            'id' => isset($detail) ? $detail->id : "",
+            'stt' => isset($getSTT) ? $getSTT->id : 1
         ];
         return $data;
     }

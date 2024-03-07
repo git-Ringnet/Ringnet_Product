@@ -248,6 +248,7 @@ class PayOder extends Model
             $daysDiff = $daysDiffss;
         }
 
+
         if ($daysDiff <= 3 && $daysDiff > 0) {
             $status = 3; // Đến hạn trong
         } elseif ($daysDiff == 0) {
@@ -255,24 +256,56 @@ class PayOder extends Model
         } elseif ($daysDiff < 0) {
             $status = 4; // Quá hạn
         } else {
-            if ($check == 1 && $data['payment'] > 0) {
-                $status = 6; // Đặt cọc
-            } else {
-                if ($data['payment'] > 0 && $payorder->payment_date == $endDate) {
-                    $status = 1; // Chưa thanh toán
+            if ($check == 1) {
+                if ($data['payment'] > 0) {
+                    $status = 6;
                 } else {
-                    if ($check == 1) {
-                        $status = 1; // Đặt cọc
+                    $status = 1;
+                }
+            } else {
+                if ($payorder->status == 6) {
+                    if ($data['payment'] > 0) {
+                        $status = 1;
                     } else {
-                        if ($payorder->status != 1) {
-                            $status = 6; // Đặt cọc
-                        } else {
-                            $status = $payorder->status;
-                        }
+                        $status = 6;
                     }
+                } else {
+                    $status = 1;
                 }
             }
         }
+
+
+
+
+
+        // if ($daysDiff <= 3 && $daysDiff > 0) {
+        //     $status = 3; // Đến hạn trong
+        // } elseif ($daysDiff == 0) {
+        //     $status = 5; // Đến hạn
+        // } elseif ($daysDiff < 0) {
+        //     $status = 4; // Quá hạn
+        // } else {
+        //     if ($check == 1 && $data['payment'] > 0) {
+        //         $status = 6; // Đặt cọc
+        //     } else {
+        //         if ($data['payment'] > 0 && $payorder->payment_date == $endDate) {
+        //             $status = 1; // Chưa thanh toán
+        //         } else {
+        //             if ($check == 1) {
+        //                 $status = 1; // Đặt cọc
+        //             } else {
+        //                 if ($payorder->status != 1) {
+        //                     $status = 6; // Đặt cọc
+        //                 } else {
+        //                     $status = $payorder->status;
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+
+
         // $payorder = PayOder::where('detailimport_id', $id)
         //     ->where('workspace_id', Auth::user()->current_workspace)
         //     ->first();

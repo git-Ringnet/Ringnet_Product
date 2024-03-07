@@ -372,9 +372,11 @@
                     detail_id: detail_id
                 },
                 success: function(data) {
+                    console.log(data);
                     $('#myInput').val(data.quotation_number == null ? data.id :
                         data
                         .quotation_number);
+                    $('input[name^="number_bill"]').val("SHD-"+data.id)
                     $('#provide_name').val(data.provide_name);
                     $('#represent').val(data.represent)
                     $('#detailimport_id').val(data.id)
