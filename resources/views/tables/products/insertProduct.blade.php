@@ -1,7 +1,7 @@
 <x-navbar :title="$title" activeGroup="products" activeName="product"></x-navbar>
 <form action="{{ route('inventory.store', $workspacename) }}" method="POST">
     @csrf
-    <div class="content-wrapper m-0" style="background: none;">
+    <div class="content-wrapper m-0 min-height--none" style="background: none;">
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
@@ -21,8 +21,8 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <a href="{{ route('inventory.index', $workspacename) }}">
-                        <button type="button" class="btn-destroy btn-light mx-2 d-flex align-items-center h-100 rounded"
-                            style="margin-right:10px">
+                        <button type="button" 
+                            class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 rounded">
                             <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -33,7 +33,7 @@
                         </button>
                     </a>
     
-                    <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                    <button type="submit" class="custom-btn mx-1 d-flex align-items-center h-100" >
                         <svg class="mx-1" width="18" height="18" viewBox="0 0 16 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"

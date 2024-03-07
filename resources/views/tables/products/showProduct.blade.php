@@ -1,5 +1,5 @@
 <x-navbar :title="$title" activeGroup="products" activeName="product"></x-navbar>
-<div class="content-wrapper" style="background: none;">
+<div class="content-wrapper min-height--none" style="background: none;">
     <div class="content-header-fixed p-0 margin-250">
         <div class="content__header--inner margin-left32">
             <div class="content__heading--left">
@@ -27,8 +27,7 @@
             </div>
             <div class="d-flex content__heading--right">
                 <a href="{{ route('inventory.index', $workspacename) }}">
-                    <button type="button" class="btn-destroy btn-light mx-2 d-flex align-items-center h-100 rounded"
-                        style="margin-right:10px;">
+                    <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 rounded">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                             fill="none">
                             <path
@@ -41,8 +40,7 @@
                 @if ($display == 1)
                     <a
                         href="{{ route('inventory.edit', ['workspace' => $workspacename, 'inventory' => $product->id]) }}">
-                        <button type="button" class="custom-btn d-flex mx-2 align-items-center h-100"
-                            style="margin-right:10px">
+                        <button type="button" class="custom-btn d-flex mx-1 align-items-center h-100">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
                                 fill="none">
                                 <path
@@ -93,8 +91,8 @@
         </div>
         <section class="content-header--options p-0">
             <ul class="header-options--nav nav nav-tabs margin-left32">
-                <li class="active">
-                    <a class="text-secondary pl-3" data-toggle="tab" href="#info">Thông tin</a>
+                <li>
+                    <a class="text-secondary pl-3 active" data-toggle="tab" href="#info">Thông tin</a>
                 </li>
                 <li>
                     <a class="text-secondary" data-toggle="tab" href="#history">Lịch sử giao dịch</a>
@@ -105,7 +103,7 @@
             </ul>
         </section>
     </div>
-    <div class="tab-content editGuest" style="margin-top: 7.5rem;">
+    <div class="tab-content editGuest margin-top-75">
         <div id="info" class="content tab-pane in active">
             <section class="content">
                 <div class="container-fluided">
@@ -317,16 +315,16 @@
                 <div class="container-fluided">
                     <div class="row">
                         <div class="col-12">
-                            <div
-                                class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed margin-250">
+                            <div class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed margin-250">
                                 <form class="w-100" action="" method="get" id="search-filter">
                                     <div class="row mr-0">
                                         <div class="col-md-5 d-flex">
                                             <div class="position-relative" style="width: 55%;">
                                                 <input type="text" placeholder="Tìm kiếm" name="keywords"
-                                                    class="pr-4 w-100 input-search" value="">
-                                                <span id="search-icon" class="search-icon"><i class="fas fa-search"
-                                                        aria-hidden="true"></i></span>
+                                                    class="pr-4 w-100 input-search text-13-black" value="">
+                                                <span id="search-icon" class="search-icon">
+                                                    <i class="fas fa-search" aria-hidden="true"></i>
+                                                </span>
                                             </div>
                                             <button class="btn-filter_searh mx-2" type="button"
                                                 id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
@@ -366,10 +364,10 @@
             </section>
 
             <section class="content margin-top-fixed3">
-                <div class="container-fluided table-responsive">
+                <div class="outer text-nowrap">
                     <table class="table table-hover bg-white rounded" id="inputcontent">
                         <thead>
-                            <tr>
+                            <tr class="height-52">
                                 <th scope="col" class="text-13 text-nowrap padding-left35">
                                     <span>Ngày báo giá</span>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
@@ -465,38 +463,42 @@
                         <tbody>
                             @foreach ($history as $htr)
                                 <tr class="bg-white">
-                                    <td class="padding-left35">
+                                    <td class="padding-left35 text-13-black">
                                         {{ date_format(new DateTime($htr->created_at), 'd/m/Y') }}
                                     </td>
-                                    <td class="text-13-blue">
+                                    <td class="text-13-black">
                                         @if ($htr->getQuotetion)
                                             {{ $htr->getQuotetion->quotation_number }}
                                         @endif
                                     </td>
-                                    <td>
+                                    <td class="text-13-black">
                                         @if ($htr->getQuotetion->getProvideName)
                                             {{ $htr->getQuotetion->getProvideName->provide_name_display }}
                                         @endif
                                     </td>
-                                    <td>{{ number_format($htr->product_qty) }}</td>
-                                    <td>
+                                    <td class="text-13-black">
+                                        {{ number_format($htr->product_qty) }}
+                                    </td>
+                                    <td class="text-13-black" >
                                         @if ($htr->getQuoteImport)
                                             {{ $htr->getQuoteImport->product_name }}
                                         @endif
                                     </td>
-                                    <td>
+                                    <td class="text-13-black" >
                                         @if ($htr->getQuoteImport)
                                             {{ $htr->getQuoteImport->price_export * $htr->product_qty }}
                                         @endif
                                     </td>
-                                    <td>Chiết khấu</td>
-                                    <td>
+                                    <td class="text-13-black">Chiết khấu</td>
+                                    <td class="text-13-black">
                                         @if ($htr->getQuoteImport)
                                             {{ ($htr->getQuoteImport->price_export * $htr->product_qty * $htr->getQuoteImport->product_tax) / 100 }}
                                         @endif
                                     </td>
-                                    <td>Tổng tiền</td>
-                                    <td class="text-success">Close</td>
+                                    <td class="text-13-black">Tổng tiền</td>
+                                    <td class="text-13-black">
+                                        <span class="text-success">Close</span>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -517,7 +519,7 @@
                                         <div class="col-md-5 d-flex">
                                             <div class="position-relative" style="width: 55%;">
                                                 <input type="text" placeholder="Tìm kiếm" name="keywords"
-                                                    class="pr-4 w-100 input-search" value="" />
+                                                    class="pr-4 w-100 input-search text-13-black" value="" />
                                                 <span id="search-icon" class="search-icon">
                                                     <i class="fas fa-search" aria-hidden="true"></i>
                                                 </span>

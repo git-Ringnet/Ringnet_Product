@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeName="report"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper m-0">
+<div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->
     <div class="content-header-fixed p-0 margin-250">
         <div class="content__header--inner margin-left32">
@@ -48,11 +48,10 @@
                 </div>
             </div>
         </div>
-
         <section class="content-header--options p-0 border-custom">
             <ul class="header-options--nav nav justify-content-evenly nav-tabs margin-left32" style="width: 199px;">
                 <li class="active">
-                    <a class="text-secondary pl-3" data-toggle="tab" href="#import">Mua hàng</a>
+                    <a class="text-secondary pl-3 active" data-toggle="tab" href="#import">Mua hàng</a>
                 </li>
                 <li style="margin-left: 11px;">
                     <a class="text-secondary pr-3" data-toggle="tab" href="#export">Bán hàng</a>
@@ -117,13 +116,11 @@
                                             <div class="scrollbar">
                                                 <button class="dropdown-item btndropdown text-13-black btn-code"
                                                     id="btn-code-import" data-button="code" data-button="import"
-                                                    type="button">Mã nhà
-                                                    cung cấp
+                                                    type="button">Mã nhà cung cấp
                                                 </button>
                                                 <button class="dropdown-item btndropdown text-13-black btn-name"
                                                     id="btn-name-import" data-button="name" data-button="import"
-                                                    type="button">Công
-                                                    ty
+                                                    type="button">Công ty
                                                 </button>
                                                 <button class="dropdown-item btndropdown text-13-black btn-total"
                                                     id="btn-total-import" data-button="import" data-button="total"
@@ -145,8 +142,7 @@
                                             title="Tổng thanh toán" />
                                         <x-filter-compare name="debt-import" button="import" title="Công nợ" />
                                     </div>
-                                    <div class="result-filter-import d-flex">
-                                    </div>
+                                    <div class="result-filter-import w-50"></div>
                                 </div>
                             </div>
                         </div>
@@ -217,8 +213,7 @@
                                                 </button>
                                                 <button class="dropdown-item btndropdown text-13-black btn-name"
                                                     id="btn-name-export" data-button="name" data-button="export"
-                                                    type="button">Công
-                                                    ty
+                                                    type="button">Công ty
                                                 </button>
                                                 <button class="dropdown-item btndropdown text-13-black btn-total"
                                                     id="btn-total-export" data-button="export" data-button="total"
@@ -240,7 +235,7 @@
                                             title="Tổng doanh số" />
                                         <x-filter-compare name="debt-export" button="export" title="Công nợ" />
                                     </div>
-                                    <div class="result-filter-export d-flex">
+                                    <div class="result-filter-export w-50">
                                     </div>
                                 </div>
                             </div>
@@ -254,15 +249,15 @@
     <div class="tab-content">
         {{-- Mua hàng --}}
         <div id="import" class="content tab-pane in active">
-            <div class="content margin-top-fixed6">
+            <div class="content margin-top-fixed10">
                 <!-- Main content -->
                 <section class="content margin-250">
                     <div class="container-fluided">
                         <div class="row">
                             <div class="col-md-12 p-0 m-0 pl-2">
-                                <div class="card scroll-custom mt-3">
+                                <div class="card">
                                     <!-- /.card-header -->
-                                    <div class="card-body">
+                                    <div class="outer text-nowrap">
                                         <table id="example2" class="table table-hover">
                                             <thead class="sticky-head">
                                                 <tr>
@@ -371,8 +366,6 @@
                                         </table>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -381,16 +374,16 @@
         </div>
         {{-- Bán hàng --}}
         <div id="export" class="tab-pane fade">
-            <div class="content margin-top-fixed6">
+            <div class="content margin-top-fixed10">
                 <!-- Main content -->
                 <section class="content margin-250">
                     <div class="container-fluided">
                         <div class="row">
                             <div class="col-md-12 p-0 m-0 pl-2">
 
-                                <div class="card scroll-custom mt-3">
+                                <div class="card">
                                     <!-- /.card-header -->
-                                    <div class="card-body">
+                                    <div class="outer text-nowrap">
                                         <table id="example2" class="table table-hover">
                                             <thead class="sticky-head">
                                                 <tr>
@@ -626,12 +619,12 @@
                         var index = filtersProvides.indexOf(item.name);
                         // Tạo thẻ item-filter
                         var itemFilter = $('<div>').addClass(
-                            'item-filter span d-flex justify-content-center align-items-baseline'
+                            'item-filter span input-search d-flex justify-content-center align-items-center'
                         );
                         itemFilter.css('order', index);
                         // Thêm nội dung và thuộc tính data vào thẻ item-filter
-                        itemFilter.append('<p class="text">' + item.value +
-                            '</p><i class="fa-solid fa-xmark btn-submit" data-delete="' +
+                        itemFilter.append('<span class="text text-13-black m-0" style="flex:2;">' + item.value +
+                            '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
                             item.name + '" data-button="' + buttonname + '"></i>');
                         // Thêm thẻ item-filter vào resultFilterimport
                         $('.result-filter-import').append(itemFilter);
@@ -727,12 +720,12 @@
                         var index = filters.indexOf(item.name);
                         // Tạo thẻ item-filter
                         var itemFilter = $('<div>').addClass(
-                            'item-filter span d-flex justify-content-center align-items-baseline'
+                            'item-filter span input-search d-flex justify-content-center align-items-center'
                         );
                         itemFilter.css('order', index);
                         // Thêm nội dung và thuộc tính data vào thẻ item-filter
-                        itemFilter.append('<p class="text">' + item.value +
-                            '</p><i class="fa-solid fa-xmark btn-submit" data-delete="' +
+                        itemFilter.append('<span class="text text-13-black m-0" style="flex:2;">' + item.value +
+                            '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
                             item.name + '" data-button="' + buttonname + '"></i>');
                         // Thêm thẻ item-filter vào resultFilterExport
                         $('.result-filter-export').append(itemFilter);

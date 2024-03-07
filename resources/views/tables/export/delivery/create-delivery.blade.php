@@ -1453,6 +1453,7 @@
                     idQuote: idQuote
                 },
                 success: function(data) {
+                    console.log(data);
                     $('.idRepresent').val(data.represent_id)
                     $('.numberQute').val(data.quotation_number)
                     $('.nameGuest').val(data.guest_name_display)

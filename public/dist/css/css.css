@@ -74,8 +74,8 @@ li {
     padding-top: 19px !important;
     padding-bottom: 19px !important;
 }
-.margin-top-fixed6 {
-    margin-top: 12.9rem;
+.margin-top-fixed10 {
+    margin-top: 10.5rem;
 }
 .margin-top-fixed5 {
     margin-top: 5.9rem;
@@ -84,7 +84,7 @@ li {
     margin-top: 4.3rem;
 }
 .margin-top-fixed3 {
-    margin-top: 3.2rem;
+    margin-top: 3.1rem;
 }
 .margin-top-fixed2 {
     margin-top: 2.2rem;
@@ -110,7 +110,7 @@ li {
 .outer {
     overflow: auto;
     scrollbar-width: none;
-    max-height: 500px;
+    max-height: 470px;
 }
 
 .outer {
@@ -1361,7 +1361,37 @@ input[type="checkbox"] {
 
 .scroll-data {
     overflow-y: auto;
-    max-height: 200px;
+    max-height: 170px;
+}
+
+.scroll-data li:hover {
+    background: #ececec;
+}
+
+.scroll-data li {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: baseline;
+}
+.scroll-data li .search-date-form {
+    width: 90%;
+}
+
+.scroll-data2 {
+    overflow-y: auto;
+    max-height: 92px;
+}
+.scroll-data2 li:hover {
+    background: #ececec;
+}
+
+.scroll-data2 li {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: baseline;
+}
+.scroll-data2 li .search-date-form {
+    width: 90%;
 }
 
 .text-custom {
@@ -1568,10 +1598,6 @@ input[type="checkbox"] {
 }
 
 /**/
-
-.scroll-data li:hover {
-    background: #ececec;
-}
 
 .text-perpage {
     font-size: 14px;
@@ -2057,20 +2083,14 @@ input[type="checkbox"] {
 #product_tax {
     pointer-events: none;
 }
-.scroll-data li {
-    display: flex;
-    /* justify-content: space-between; */
-    align-items: baseline;
-}
+
 .editGuest .content-header .nav-tabs .active {
     color: #0052cc !important;
     padding-bottom: 20px;
     border-bottom: 3px solid;
 }
 
-.scroll-data li .search-date-form {
-    width: 90%;
-}
+
 .dropdown-menu.show.date-form-setting {
     display: flex !important;
     justify-items: baseline;
@@ -2181,6 +2201,11 @@ input[type="checkbox"] {
     right: 320px;
     width: 65%;
 }
+.list-guest--special {
+    top: -40px;
+    right: 320px;
+    width: 65%;
+}
 .list-guest .position-relative input::placeholder {
     font-size: 13px;
 }
@@ -2241,6 +2266,9 @@ input[type="checkbox"] {
 }
 .margin-top-67 {
     margin-top: 6.7rem;
+}
+.margin-top-75 {
+    margin-top: 7.5rem;
 }
 .margin-top-88 {
     margin-top: 8.8rem;

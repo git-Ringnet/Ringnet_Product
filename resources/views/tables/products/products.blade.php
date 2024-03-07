@@ -134,13 +134,13 @@
         <div class="container-fluided margin-250">
             <div class="row">
                 <div class="col-12 ">
-                    <div class="card scroll-custom mt-3">
+                    <div class="card mt-3">
                         <!-- /.card-header -->
-                        <div class="card-body ">
+                        <div class="outer text-nowrap">
                             <table id="example2" class="table table-hover">
-                                <thead class="sticky-head">
+                                <thead>
                                     <tr>
-                                        <th scope="col" style="padding-left: 2rem;" class="border-top-0 bg-white">
+                                        <th scope="col" style="width:10%;padding-left: 2rem;" class="border-top-0 bg-white">
                                             <input type="checkbox" name="all" id="checkall" class="checkall-btn">
                                         </th>
                                         <th scope="col" class="border-top-0 bg-white pl-0">
