@@ -327,7 +327,7 @@
                         <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
 
                         <span class="mx-1 text-13" style="flex: 2;">
-                            <input type="text" placeholder="Chọn thông tin" name="quotation_number"
+                            <input type="text" placeholder="Chọn thông tin"
                                 class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest" id="myInput"
                                 style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" readonly>
                         </span>
@@ -623,41 +623,6 @@
                                             <span class="w-100 text-13-black">` + element.represent_name + `</span>
                                         </a>
                                     </li>`;
-                            // var li =
-                            //     `
-                            // <li class="border" id="` + element.id + `">
-                            //     <a href="javascript:void(0)"
-                            //         class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent"
-                            //         id="` + element.id + `" name="search-represent">
-                            //         <span class="w-100 text-nav text-dark overflow-hidden">` + element.represent_name + `</span>
-                            //     </a>
-
-                            //     <div class="dropdown">
-                            //         <button type="button" data-toggle="dropdown"
-                            //             class="btn-save-print d-flex align-items-center h-100"
-                            //             style="margin-right:10px">
-                            //             <i class="fa-solid fa-ellipsis"></i>
-                            //         </button>
-                            //         <div class="dropdown-menu date-form-setting" style="z-index: 100;">
-                            //             <a class="dropdown-item search-date-form" data-toggle="modal"
-                            //                 data-target="#modalAddRepresent" data-name="represent"
-                            //                 data-id="` + element.id + `" id="` + element.id + `"><i
-                            //                 class="fa-regular fa-pen-to-square"></i></a>
-                            //             <a class="dropdown-item delete-item" href="#"
-                            //                 data-id="` + element.id + `"
-                            //                 data-name="represent"><i
-                            //                 class="fa-solid fa-trash-can"></i></a>
-                            //             <a class="dropdown-item set-default default-id ` + element.represent_name + `"
-                            //                 id="default-id` + element.id + `" href="#"
-                            //                 data-name="represent"
-                            //                 data-id="` + element.id + `">
-                            //                 ` + (element.default === 1 ? '<i class="fa-solid fa-link-slash"></i>' :
-                            //         '<i class="fa-solid fa-link"></i>') + ` 
-                            //             </a>
-                            //         </div>
-                            //     </div>
-                            // </li>
-                            // `;
                             $('#listRepresent .p-1').after(li);
                             if (element.default == 1) {
                                 $('#represent').val(element.represent_name);
@@ -672,7 +637,7 @@
                                 <a href="javascript:void(0)"
                                     class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect"
                                     id="` + element.id + `" name="search-price-effect">
-                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_desc + `</span>
+                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_name + `</span>
                                 </a>
 
                                 <div class="dropdown">
@@ -712,7 +677,7 @@
                                 <a href="javascript:void(0)"
                                     class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay"
                                     id="` + element.id + `" name="search-term-pay">
-                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_desc + `</span>
+                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_name + `</span>
                                 </a>
 
                                 <div class="dropdown">
@@ -770,7 +735,7 @@
                         $('#' + inputHide).val(data[table].id)
                     } else {
                         $(data['table'] == "search-price-effect" ? '#price_effect' : '#terms_pay')
-                            .val(data[table].form_desc)
+                            .val(data[table].form_desc).attr('data-id', id)
                     }
                 }
             })
@@ -1060,7 +1025,8 @@
                                         var price_effect = `
                                         <li class="border" id="` + data.id + `">
                                             <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="16" name="search-price-effect">
-                                                <span class="w-100 text-nav text-dark overflow-hidden">` + data.data +
+                                                <span class="w-100 text-nav text-dark overflow-hidden">` + data
+                                            .inputName +
                                             `</span>
                                             </a>
 
@@ -1088,7 +1054,8 @@
                                             `">
                                             <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay" id="` +
                                             data.id + `" name="search-term-pay">
-                                                <span class="w-100 text-nav text-dark overflow-hidden">` + data.data +
+                                                <span class="w-100 text-nav text-dark overflow-hidden">` + data
+                                            .inputName +
                                             `</span>
                                             </a>
 
@@ -1158,8 +1125,18 @@
                             inputField: inputField
                         },
                         success: function(data) {
-                            $('.closeModal').click()
+
                             if (data.success) {
+                                var get_dataID = $('#price_effect').data('id')
+                                if (get_dataID != null) {
+                                    if (get_dataID == data.id) {
+                                        $('#' + (id == "import" ? "price_effect" : "terms_pay"))
+                                            .val(data.form_desc)
+                                    }
+                                }
+                                $('#' + (id == "import" ? "listPriceEffect" : "listTermsPay")).find(
+                                    'li#' + data.id + " span").text(data.form_name)
+                                $('.closeModal').click()
                                 showNotification('success', data.msg)
                             } else {
                                 showNotification('warning', data.msg)

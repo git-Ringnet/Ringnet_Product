@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HistoryPaymentOrder extends Model
@@ -25,10 +26,11 @@ class HistoryPaymentOrder extends Model
             $dataHistory = [
                 'payment_id' => $payment->id,
                 'total' => $payment->total,
-                // 'payment' => $payment->payment,ư
+                // 'payment' => $payment->payment,
                 'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
                 'debt' => $payment->debt,
                 'created_at' => Carbon::now(),
+                'workspace_id', Auth::user()->current_workspace,
             ];
             $checkHistory = HistoryPaymentOrder::where('payment_id', $payment->id)
                 ->where('total', $payment->total)
