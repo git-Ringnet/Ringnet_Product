@@ -237,6 +237,7 @@
                                                         </td>
                                                         <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
                                                             @if ($provide->getAllDetail)
+                                                            {{-- @dd($provide->getAllDetail) --}}
                                                                 <span class="px-1">
                                                                     {{ number_format($provide->getAllDetail->where('status', 2)->sum('total_tax')) }} 
                                                                 </span>
@@ -244,6 +245,7 @@
                                                         </td>
                                                         <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
                                                             @if ($provide->getPayment && $provide->getPayment->getHistoryPayment)
+                                                            {{-- @dd($provide->getPayment->getHistoryPayment) --}}
                                                                 <span class="px-1">
                                                                     {{ number_format($provide->getPayment->getHistoryPayment->sum('payment')) }}@else{{ 0 }} 
                                                                 </span>
@@ -445,8 +447,8 @@
                                                 </td>
                                                 <td class="text-13-black ">{{ number_format($detail->total_tax) }}</td>
                                                 <td class="text-13-black">
-                                                    @if ($detail->getPayOrder && $detail->getPayOrder->getHistoryPayment)
-                                                        {{ number_format($detail->total_tax - $detail->getPayOrder->getHistoryPayment->sum('payment')) }}
+                                                    @if ($detail->getPayOrder && $detail->getPayOrder->getHistoryPaymentByID)
+                                                        {{ number_format($detail->total_tax - $detail->getPayOrder->getHistoryPaymentByID->sum('payment')) }}
                                                     @else
                                                         {{ number_format($detail->total_tax) }}
                                                     @endif

@@ -30,12 +30,14 @@ class HistoryPaymentOrder extends Model
                 'payment' => isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0,
                 'debt' => $payment->debt,
                 'created_at' => Carbon::now(),
-                'workspace_id', Auth::user()->current_workspace,
+                'workspace_id'=> Auth::user()->current_workspace,
+                'provide_id' => $payment->provide_id
             ];
             $checkHistory = HistoryPaymentOrder::where('payment_id', $payment->id)
                 ->where('total', $payment->total)
                 ->where('payment', $payment->payment)
                 ->where('debt', $payment->debt)
+                ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if (!$checkHistory) {
                 DB::table($this->table)->insert($dataHistory);

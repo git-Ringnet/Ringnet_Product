@@ -34,6 +34,12 @@ class PayOder extends Model
     }
     public function getHistoryPayment()
     {
+        // return $this->hasMany(HistoryPaymentOrder::class, 'payment_id', 'id');
+        return $this->hasMany(HistoryPaymentOrder::class, 'provide_id', 'provide_id');
+    }
+
+    public function getHistoryPaymentByID()
+    {
         return $this->hasMany(HistoryPaymentOrder::class, 'payment_id', 'id');
     }
 
@@ -139,8 +145,8 @@ class PayOder extends Model
                             ->where('workspace_id', Auth::user()->current_workspace)
                             ->update([
                                 'total' => $sum,
-                                // 'debt' => $sum - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0),
-                                'debt' => $sum,
+                                'debt' => $sum - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0),
+                                // 'debt' => $sum,
                             ]);
                     }
                 }
@@ -155,12 +161,12 @@ class PayOder extends Model
             $prepay = isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0;
             // tính dư nợ
             $this->calculateDebt($detail->provide_id, $temp, $prepay);
-            $temp = $temp - $prepay;
-            DB::table($this->table)->where('id', $payment_id)
-                ->where('workspace_id', Auth::user()->current_workspace)
-                ->update([
-                    'debt' => $temp,
-                ]);
+            // $temp = $temp - $prepay;
+            // DB::table($this->table)->where('id', $payment_id)
+            //     ->where('workspace_id', Auth::user()->current_workspace)
+            //     ->update([
+            //         'debt' => $temp,
+            //     ]);
 
             // Cập nhật trạng thái
             $this->updateStatus($detail->id, PayOder::class, 'payment_qty', 'status_pay');
@@ -338,7 +344,7 @@ class PayOder extends Model
             HistoryPaymentOrder::where('payment_id', $payment->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->delete();
-        
+
             // Xóa thanh toán
             DB::table('pay_order')->where('id', $payment->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
