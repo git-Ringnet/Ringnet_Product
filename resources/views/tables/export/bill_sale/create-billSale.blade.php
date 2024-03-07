@@ -306,6 +306,80 @@
                 </div>
             </div>
         </div>
+        {{-- Modal giao dịch gần đây --}}
+        <div class="modal fade" id="recentModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-bold">Giao dịch gần đây</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="outer text-nowrap">
+                            <table id="example2" class="table table-hover bg-white rounded">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="height-52">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="id"
+                                                    data-sort-type="#">
+                                                    <button class="btn-sort text-13" type="submit">
+                                                        Tên sản phẩm
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-id"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="height-52">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="id"
+                                                    data-sort-type="#">
+                                                    <button class="btn-sort text-13" type="submit">
+                                                        Giá bán
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-id"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="height-52">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="id"
+                                                    data-sort-type="#">
+                                                    <button class="btn-sort text-13" type="submit">
+                                                        Thuế
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-id"></div>
+                                            </span>
+                                        </th>
+                                        <th scope="col" class="height-52">
+                                            <span class="d-flex">
+                                                <a href="#" class="sort-link" data-sort-by="id"
+                                                    data-sort-type="#">
+                                                    <button class="btn-sort text-13" type="submit">
+                                                        Ngày bán
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-id"></div>
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </form>
 <script>
@@ -414,7 +488,8 @@
                                         .product_tax == 99 ? 0 :
                                         item.product_tax)) / 100;
                                 totalProductTotal += parseFloat(item
-                                    .product_total) || 0;
+                                    .price_export * item
+                                    .soLuongHoaDon) || 0;
                                 totalTax1 += tax;
                                 $(".idGuest").val(item.guest_id);
                                 $("#detailexport_id").val(item
@@ -486,8 +561,7 @@
                                                         value="${formatCurrency(item.price_export)}"
                                                         autocomplete='off' name='product_price[]' required>
                                                 </div>
-                                                <div class='mt-3 text-13-blue transaction'>Giao dịch gần đây</div>
-                                            
+                                                <div class='mt-3 text-13-blue transaction recentModal' data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</div>
                                             </td>
                                             <td class="border-right p-2 text-13 align-top">
                                                 <select class="border-0 text-center product_tax" required="" disabled>
@@ -519,6 +593,102 @@
                                             <td style='display:none;'><ul class ='seri_pro'></ul></td>
                                     </tr>`;
                                 $("#dynamic-fields").before(newRow);
+                                //Xem giao dịch gần đây
+                                $('.recentModal').click(function() {
+                                    var idProduct = $(this)
+                                        .closest('tr').find(
+                                            '.product_id')
+                                        .val();
+                                    $.ajax({
+                                        url: '{{ route('getRecentTransaction') }}',
+                                        type: 'GET',
+                                        data: {
+                                            idProduct: idProduct
+                                        },
+                                        success: function(
+                                            data) {
+                                            console
+                                                .log(
+                                                    data
+                                                );
+                                            if (Array
+                                                .isArray(
+                                                    data
+                                                ) &&
+                                                data
+                                                .length >
+                                                0) {
+                                                $('#recentModal .modal-body tbody')
+                                                    .empty();
+                                                data.forEach(
+                                                    function(
+                                                        productData
+                                                    ) {
+                                                        var newRow =
+                                                            $(
+                                                                '<tr class="position-relative">' +
+                                                                '<td class="text-13-black" id="productName"></td>' +
+                                                                '<td class="text-13-black" id="productPrice"></td>' +
+                                                                '<td class="text-13-black" id="productTax"></td>' +
+                                                                '<td class="text-13-black" id="dateProduct"></td>' +
+                                                                '</tr>'
+                                                            );
+                                                        newRow
+                                                            .find(
+                                                                '#productName'
+                                                            )
+                                                            .text(
+                                                                productData
+                                                                .product_name
+                                                            );
+                                                        newRow
+                                                            .find(
+                                                                '#productPrice'
+                                                            )
+                                                            .text(
+                                                                formatCurrency(
+                                                                    productData
+                                                                    .price_export
+                                                                )
+                                                            );
+                                                        newRow
+                                                            .find(
+                                                                '#productTax'
+                                                            )
+                                                            .text(
+                                                                productData
+                                                                .product_tax ==
+                                                                99 ?
+                                                                'NOVAT' :
+                                                                productData
+                                                                .product_tax +
+                                                                '%'
+                                                            );
+                                                        var formattedDate =
+                                                            new Date(
+                                                                productData
+                                                                .created_at
+                                                            )
+                                                            .toLocaleDateString(
+                                                                'vi-VN'
+                                                            );
+                                                        newRow
+                                                            .find(
+                                                                '#dateProduct'
+                                                            )
+                                                            .text(
+                                                                formattedDate
+                                                            );
+                                                        newRow
+                                                            .appendTo(
+                                                                '#recentModal .modal-body tbody'
+                                                            );
+                                                    }
+                                                );
+                                            }
+                                        }
+                                    });
+                                });
                                 //kéo thả vị trí sản phẩm
                                 // $("table tbody").sortable({
                                 //     axis: "y",
@@ -666,7 +836,6 @@
                                 //lấy thông tin sản phẩm
                                 $(document).ready(function() {
                                     $('.inventory').hide();
-                                    $('.transaction').hide();
                                     $('.info-product').hide();
                                     $('.idProduct').click(
                                         function() {
@@ -748,8 +917,6 @@
                                                         null
                                                     ) {
                                                         $('.inventory')
-                                                            .show();
-                                                        $('.transaction')
                                                             .show();
                                                     }
                                                 }

@@ -252,12 +252,12 @@
                                                         <span style="color: #08AA36">Thanh toán đủ</span>
                                                     @elseif($item_pay->status == 3)
                                                         <span style="color: #E8B600">Đến hạn trong
-                                                            {{ $item_pay->formatDate($item_pay->payment_date)->diffInDays($today) + 1 }}
+                                                            {{ Carbon\Carbon::parse($item_pay->payment_date)->diffInDays(now()) + 1 }}
                                                             ngày
                                                         </span>
                                                     @elseif($item_pay->status == 4)
-                                                        <span style="color:#EC212D">Quá hạn trong
-                                                            {{ $item_pay->formatDate($item_pay->payment_date)->diffInDays($today) }}
+                                                        <span style="color:#EC212D">Quá hạn
+                                                            {{ Carbon\Carbon::parse($item_pay->payment_date)->diffInDays(now()) }}
                                                             ngày
                                                         </span>
                                                     @elseif($item_pay->status == 5)

@@ -151,6 +151,8 @@ Route::get('/getProduct', [DetailExportController::class, 'getProduct'])->name('
 Route::get('/getProductCode', [DetailExportController::class, 'getProductCode'])->name('getProductCode');
 //Lấy người đại diện theo khách hàng
 Route::get('/getRepresentGuest', [DetailExportController::class, 'getRepresentGuest'])->name('getRepresentGuest');
+//
+Route::get('/getRecentTransaction', [DetailExportController::class, 'getRecentTransaction'])->name('getRecentTransaction');
 
 //Giao hàng
 Route::resource('{workspace}/delivery', DeliveryController::class);

@@ -450,6 +450,80 @@
                     </div>
                 </div>
             </div>
+            {{-- Modal giao dịch gần đây --}}
+            <div class="modal fade" id="recentModal" tabindex="-1" role="dialog"
+                aria-labelledby="productModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-bold">Giao dịch gần đây</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="outer text-nowrap">
+                                <table id="example2" class="table table-hover bg-white rounded">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="id"
+                                                        data-sort-type="#">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Tên sản phẩm
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-id"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="id"
+                                                        data-sort-type="#">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Giá bán
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-id"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="id"
+                                                        data-sort-type="#">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Thuế
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-id"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="id"
+                                                        data-sort-type="#">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Ngày bán
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-id"></div>
+                                                </span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         {{-- Thông tin khách hàng --}}
         <div class="content-wrapper2 px-0 py-0">
@@ -996,7 +1070,8 @@
                                                                     data-name="{{ $item->form_field }}"><i
                                                                         class="fa-solid fa-trash-can"></i></a>
                                                                 <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                                    id="default-id{{ $item->id }}" href="#"
+                                                                    id="default-id{{ $item->id }}"
+                                                                    href="#"
                                                                     data-name="{{ $item->form_field }}"
                                                                     data-id="{{ $item->id }}">
                                                                     @if ($item->default_form === 1)
@@ -1015,8 +1090,8 @@
                                             data-toggle="modal" data-target="#formModaldelivery"
                                             style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
                                             <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                    height="16" viewBox="0 0 16 16" fill="none">
                                                     <path
                                                         d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
                                                         fill="#282A30" />
@@ -1323,7 +1398,6 @@
                     name: name,
                 },
                 success: function(data) {
-                    console.log(data);
                     $("input[name='idDate[" + name + "]']").val(data.id);
                     $("#myInput-" + name).val(data.form.form_desc);
                     data.update_form.forEach(item => {
@@ -1561,6 +1635,7 @@
                 "<div>" +
                 "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
                 "</div>" +
+                "<div class='mt-3 text-13-blue recentModal' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div>" +
                 "</td>"
             );
             const thue = $(
@@ -1708,6 +1783,7 @@
                     var idProduct = $(this).attr('id');
                     var soTonKho = clickedRow.find('.soTonKho');
                     var infoProduct = clickedRow.find('.info-product');
+                    var recentModal = clickedRow.find('.recentModal');
                     var inventory = clickedRow.find('.inventory');
                     var clickedProductId = $(this).parent().data('id');
 
@@ -1740,6 +1816,7 @@
                                 .product_inventory == null ? 0 :
                                 data.product_inventory));
                             infoProduct.show();
+                            recentModal.show();
                             if (data.product_inventory > 0) {
                                 inventory.show();
                             }
@@ -1779,6 +1856,48 @@
                     '<br>' + '<b>Thuế: </b>' +
                     (thue == 99 || thue == null ? "NOVAT" : thue + '%'));
             });
+            //Xem giao dịch gần đây
+            $('.recentModal').click(function() {
+                var idProduct = $(this).closest('tr').find('.product_id').val();
+                $.ajax({
+                    url: '{{ route('getRecentTransaction') }}',
+                    type: 'GET',
+                    data: {
+                        idProduct: idProduct
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        if (Array.isArray(data) && data.length > 0) {
+                            $('#recentModal .modal-body tbody').empty();
+                            data.forEach(function(productData) {
+                                var newRow = $(
+                                    '<tr class="position-relative">' +
+                                    '<td class="text-13-black" id="productName"></td>' +
+                                    '<td class="text-13-black" id="productPrice"></td>' +
+                                    '<td class="text-13-black" id="productTax"></td>' +
+                                    '<td class="text-13-black" id="dateProduct"></td>' +
+                                    '</tr>');
+                                newRow.find('#productName').text(productData
+                                    .product_name);
+                                newRow.find('#productPrice').text(
+                                    formatCurrency(productData
+                                        .price_export));
+                                newRow.find('#productTax').text(
+                                    productData.product_tax == 99 ?
+                                    'NOVAT' : productData.product_tax +
+                                    '%');
+                                var formattedDate = new Date(productData
+                                    .created_at).toLocaleDateString(
+                                    'vi-VN');
+                                newRow.find('#dateProduct').text(
+                                    formattedDate);
+                                newRow.appendTo(
+                                    '#recentModal .modal-body tbody');
+                            });
+                        }
+                    }
+                });
+            });
         });
     });
     //Lấy thông tin khách hàng
@@ -1811,8 +1930,10 @@
                             Object.keys(data).forEach(function(key) {
                                 var formField = data[key].form
                                     .form_field;
-                                var dateFormId = data[key].date_form_id;
-                                var formDesc = data[key].form.form_desc;
+                                var dateFormId = data[key]
+                                    .date_form_id;
+                                var formDesc = data[key].form
+                                    .form_desc;
                                 $("input[name='fieldDate[" + key +
                                         "]']")
                                     .val(key);
@@ -1843,7 +1964,8 @@
                                             title: representative
                                                 .represent_name,
                                             class: 'text-dark d-flex justify-content-between search-represent p-2 w-100',
-                                            id: representative.id,
+                                            id: representative
+                                                .id,
                                             name: 'search-represent',
                                         }).append(
                                             $('<span>').addClass(
@@ -1852,7 +1974,8 @@
                                                 .represent_name)
                                         )
                                     ).append(
-                                        $('<div>').addClass('dropdown')
+                                        $('<div>').addClass(
+                                            'dropdown')
                                         .append(
                                             $('<button>').attr({
                                                 type: 'button',
@@ -1880,7 +2003,8 @@
                                                     'data-id': representative
                                                         .id
                                                 }).append(
-                                                    $('<i>').addClass(
+                                                    $('<i>')
+                                                    .addClass(
                                                         'fa-regular fa-pen-to-square'
                                                     ).attr(
                                                         'aria-hidden',
@@ -1895,7 +2019,8 @@
                                                         .id,
                                                     'data-name': 'representGuest'
                                                 }).append(
-                                                    $('<i>').addClass(
+                                                    $('<i>')
+                                                    .addClass(
                                                         'fa-solid fa-trash-can'
                                                     ).attr(
                                                         'aria-hidden',
@@ -1913,7 +2038,8 @@
                                                     'data-id': representative
                                                         .id
                                                 }).append(
-                                                    $('<i>').addClass(
+                                                    $('<i>')
+                                                    .addClass(
                                                         'fa-solid fa-link'
                                                     ).attr(
                                                         'aria-hidden',
@@ -1940,7 +2066,8 @@
                             if (data.length > 1 && defaultGuestItem) {
                                 $('#represent_guest').val(defaultGuestItem
                                     .represent_name);
-                                $('.represent_guest_id').val(defaultGuestItem
+                                $('.represent_guest_id').val(
+                                    defaultGuestItem
                                     .id);
                             } else if (data.length === 1) {
                                 $('#represent_guest').val(data[0]
@@ -2177,10 +2304,12 @@
                         $('#myUL li[data-id="' + data.updated_guest.id +
                             '"] .text-13-black').text(data
                             .updated_guest.guest_name_display);
-                        $('#representativeList li[data-id="' + data.updated_represent.id +
+                        $('#representativeList li[data-id="' + data.updated_represent
+                            .id +
                             '"] .text-nav').text(
                             data.updated_represent.represent_name);
-                        $('#represent_guest').val(data.updated_represent.represent_name);
+                        $('#represent_guest').val(data.updated_represent
+                            .represent_name);
                     } else {
                         showNotification('warning', data.msg);
                     }
@@ -2238,7 +2367,8 @@
                             '<li class="border" data-id="' + newGuestInfo.id + '">' +
                             '<a href="#" class="text-dark d-flex justify-content-between p-2 search-project w-100" id="' +
                             newGuestInfo.id + '" name="search-project">' +
-                            '<span class="text-13-black">' + newGuestInfo.project_name + '</span>' +
+                            '<span class="text-13-black">' + newGuestInfo.project_name +
+                            '</span>' +
                             '</a>' +
                             '<div class="dropdown">' +
                             '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px" aria-expanded="false">' +
@@ -2437,7 +2567,8 @@
                             $('#myUL7 li[data-id="' + representId +
                                 '"] .text-nav').text(
                                 data.representGuest.represent_name);
-                            $('#represent_guest').val(data.representGuest.represent_name);
+                            $('#represent_guest').val(data.representGuest
+                                .represent_name);
                             $('.represent_guest_id').val(data.representGuest.id);
                             $('.modal [data-dismiss="modal"]').click();
                             showNotification('success', data.msg);
@@ -2512,7 +2643,8 @@
     function calculateTotalAmount() {
         var totalAmount = 0;
         $('tr').each(function() {
-            var rowTotal = parseFloat(String($(this).find('.total-amount').val()).replace(/[^0-9.-]+/g, ""));
+            var rowTotal = parseFloat(String($(this).find('.total-amount').val()).replace(/[^0-9.-]+/g,
+                ""));
             if (!isNaN(rowTotal)) {
                 totalAmount += rowTotal;
             }
@@ -2576,7 +2708,8 @@
     $(document).on('input', '.heSoNhan, .giaNhap', function(e) {
         var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;
         var heSoNhan = parseFloat($(this).closest('tr').find('.heSoNhan').val()) || 0;
-        var giaNhap = parseFloat($(this).closest('tr').find('.giaNhap').val().replace(/[^0-9.-]+/g, "")) || 0;
+        var giaNhap = parseFloat($(this).closest('tr').find('.giaNhap').val().replace(/[^0-9.-]+/g, "")) ||
+            0;
         updateTaxAmount($(this).closest('tr'));
         if (!isNaN(heSoNhan) && !isNaN(giaNhap)) {
             var donGia = ((heSoNhan + 100) * giaNhap) / 100;
@@ -2590,18 +2723,20 @@
 
     //format giá
     var inputElement = document.getElementById('product_price');
-    $('body').on('input', '.product_price, #transport_fee, .giaNhap, #voucher', function(event) {
-        // Lấy giá trị đã nhập
-        var value = event.target.value;
+    $('body').on('input',
+        '.product_price, #transport_fee, .giaNhap, #voucher',
+        function(event) {
+            // Lấy giá trị đã nhập
+            var value = event.target.value;
 
-        // Xóa các ký tự không phải số và dấu phân thập phân từ giá trị
-        var formattedValue = value.replace(/[^0-9.]/g, '');
+            // Xóa các ký tự không phải số và dấu phân thập phân từ giá trị
+            var formattedValue = value.replace(/[^0-9.]/g, '');
 
-        // Định dạng số với dấu phân cách hàng nghìn và giữ nguyên số thập phân
-        var formattedNumber = numberWithCommas(formattedValue);
+            // Định dạng số với dấu phân cách hàng nghìn và giữ nguyên số thập phân
+            var formattedNumber = numberWithCommas(formattedValue);
 
-        event.target.value = formattedNumber;
-    });
+            event.target.value = formattedNumber;
+        });
 
     function numberWithCommas(number) {
         // Chia số thành phần nguyên và phần thập phân

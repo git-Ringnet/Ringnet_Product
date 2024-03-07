@@ -1,6 +1,7 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="delivery">
 </x-navbar>
-<form onsubmit="return kiemTraFormGiaoHang();" action="{{ route('delivery.store', ['workspace' => $workspacename]) }}" method="POST">
+<form onsubmit="return kiemTraFormGiaoHang();" action="{{ route('delivery.store', ['workspace' => $workspacename]) }}"
+    method="POST">
     @csrf
     <input type="hidden" name="detailexport_id" id="detailexport_id"
         value="@isset($yes) {{ $data['detailexport_id'] }} @endisset">
@@ -32,8 +33,7 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <a href="{{ route('delivery.index', $workspacename) }}">
-                            <button type="button" 
-                                class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
+                            <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
@@ -63,8 +63,7 @@
                         </div>
                         <div class="dropdown">
                             <button type="submit" name="action" value="2"
-                                class="btn-destroy btn-light mx-1 d-flex align-items-center h-100"
-                                id="giaoHang">
+                                class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" id="giaoHang">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
@@ -77,8 +76,7 @@
                             </button>
                         </div>
                         <button type="submit" name="action" value="1"
-                            class="custom-btn mx-1 d-flex align-items-center h-100"
-                            id="luuNhap">
+                            class="custom-btn mx-1 d-flex align-items-center h-100" id="luuNhap">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 16 16" fill="none">
@@ -1469,27 +1467,25 @@
                             idQuote: idQuote
                         },
                         success: function(data) {
-                            console.log(data);
                             $(".addProduct").remove();
                             var totalProductTotal = 0;
                             var totalTax1 = 0;
                             $.each(data, function(index, item) {
-                                var totalTax = parseFloat(item.total_tax) || 0;
-                                var totalPrice = parseFloat(item.total_price) || 0;
+                                var totalTax = parseFloat(item
+                                    .total_tax) || 0;
+                                var totalPrice = parseFloat(item
+                                    .total_price) || 0;
                                 var grandTotal = totalTax + totalPrice;
-                                var tax = (item.price_export * item.soLuongCanGiao * (item.product_tax == 99 ? 0 :item.product_tax)) / 100;
-                                totalProductTotal += parseFloat(item.product_total) || 0;
+                                var tax = (item.price_export * item
+                                    .soLuongCanGiao * (item
+                                        .product_tax == 99 ? 0 :
+                                        item.product_tax)) / 100;
+                                totalProductTotal += parseFloat(item
+                                    .price_export * item
+                                    .soLuongCanGiao) || 0;
                                 totalTax1 += tax;
                                 $(".idGuest").val(item.guest_id);
                                 $("#detailexport_id").val(item.maXuat);
-                                $("#total-amount-sum").text(
-                                    formatCurrency(Math.round(
-                                        totalPrice)));
-                                $("#product-tax").text(formatCurrency(
-                                    Math.round(totalTax)));
-                                $("#grand-total").text(formatCurrency(
-                                    Math.round(
-                                        grandTotal)));
                                 $("#voucher").val(formatCurrency(item
                                     .discount == null ? 0 : item
                                     .discount));
@@ -2423,8 +2419,14 @@
                                             }
                                         });
                                     });
-
                             });
+                            //
+                            $("#total-amount-sum").text(
+                                formatCurrency(totalProductTotal));
+                            $("#grand-total").text(formatCurrency(
+                                totalProductTotal + totalTax1));
+                            $("#product-tax").text(formatCurrency(
+                                totalTax1));
                         }
                     });
                 }

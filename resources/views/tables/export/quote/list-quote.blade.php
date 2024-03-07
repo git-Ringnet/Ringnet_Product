@@ -195,7 +195,7 @@
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Số tham chiều</button>
+                                                            type="submit">Số tham chiếu</button>
                                                     </a>
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>

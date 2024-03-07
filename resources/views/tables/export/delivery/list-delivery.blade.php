@@ -193,6 +193,15 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
+                                            <th scope="col" class="height-52 border-0">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="total"
+                                                        data-sort-type=""><button class="btn-sort text-13"
+                                                            type="submit">Tổng tiền</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-total"></div>
+                                                </span>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -250,6 +259,8 @@
                                                 </td>
                                                 <td class="text-13-black">
                                                     {{ date_format(new DateTime($item_delivery->ngayGiao), 'd/m/Y') }}
+                                                </td>
+                                                <td>{{ number_format($item_delivery->product_total_vat) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 10px;">

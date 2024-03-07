@@ -235,7 +235,7 @@ class DetailExportController extends Controller
                 ]);
             }
         }
-         //Hóa đơn
+        //Hóa đơn
         if ($request->action == "action_3") {
             $title = "Tạo Hóa đơn bán hàng";
             $data = $request->all();
@@ -615,5 +615,12 @@ class DetailExportController extends Controller
         $data = $request->all();
         $represent_guest = $this->represent_guest->defaultRepresent($data['represent_id'], $data['guest_id']);
         return $represent_guest;
+    }
+    public function getRecentTransaction(Request $data)
+    {
+        $recentTransaction = QuoteExport::where('product_id', $data['idProduct'])
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->get();
+        return $recentTransaction;
     }
 }
