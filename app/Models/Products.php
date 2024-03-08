@@ -223,7 +223,7 @@ class Products extends Model
     }
     public function ajax($data)
     {
-        $products =  DB::table($this->table);
+        $products =  DB::table($this->table)->where('workspace_id', Auth::user()->current_workspace);
         if (isset($data['search'])) {
             $products = $products->where(function ($query) use ($data) {
                 $query->orWhere('product_code', 'like', '%' . $data['search'] . '%');
@@ -239,8 +239,8 @@ class Products extends Model
         if (isset($data['inventory'][0]) && isset($data['inventory'][1])) {
             $products = $products->where('product_inventory', $data['inventory'][0], $data['inventory'][1]);
         }
-        if (isset($data['sort_by']) && $data['sort_type']) {
-            $products = $products->orderBy($data['sort_by'], $data['sort_type']);
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $products = $products->orderBy($data['sort'][0], $data['sort'][1]);
         }
         $products = $products->get();
         return $products;

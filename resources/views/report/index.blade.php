@@ -626,7 +626,9 @@
                         );
                         itemFilter.css('order', index);
                         // Thêm nội dung và thuộc tính data vào thẻ item-filter
-                        itemFilter.append('<span class="text text-13-black m-0" style="flex:2;">' + item.value +
+                        itemFilter.append(
+                            '<span class="text text-13-black m-0" style="flex:2;">' +
+                            item.value +
                             '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
                             item.name + '" data-button="' + buttonname + '"></i>');
                         // Thêm thẻ item-filter vào resultFilterimport
@@ -642,7 +644,6 @@
                     });
 
                     // Ẩn tất cả các phần tử .provides-info
-                    $('.provides-info').hide();
                     // Lặp qua từng phần tử .provides-info để hiển thị và cập nhật data-position
                     $('.provides-info').each(function() {
                         var value = parseInt($(this).find('.id-provide').val());
@@ -727,7 +728,9 @@
                         );
                         itemFilter.css('order', index);
                         // Thêm nội dung và thuộc tính data vào thẻ item-filter
-                        itemFilter.append('<span class="text text-13-black m-0" style="flex:2;">' + item.value +
+                        itemFilter.append(
+                            '<span class="text text-13-black m-0" style="flex:2;">' +
+                            item.value +
                             '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
                             item.name + '" data-button="' + buttonname + '"></i>');
                         // Thêm thẻ item-filter vào resultFilterExport

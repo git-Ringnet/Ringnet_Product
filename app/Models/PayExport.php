@@ -256,6 +256,7 @@ class PayExport extends Model
                 DB::raw('SUM(detailexport.total_price + detailexport.total_tax) as sumSell'),
                 DB::raw('SUM(detailexport.amount_owed) as sumAmountOwed')
             );
+        $report_guest = $report_guest->groupBy('detailexport.guest_id', 'guest.guest_name_display', 'guest.guest_code', 'guest.id');
         if (isset($data['search'])) {
             $report_guest = $report_guest->where(function ($query) use ($data) {
                 $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
@@ -281,7 +282,7 @@ class PayExport extends Model
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $report_guest = $report_guest->orderBy($data['sort'][0], $data['sort'][1]);
         }
-        $report_guest = $report_guest->groupBy('detailexport.guest_id', 'guest.guest_name_display', 'guest.guest_code', 'guest.id');
+
 
         $report_guest = $report_guest->get();
         return $report_guest;

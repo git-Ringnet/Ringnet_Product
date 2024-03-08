@@ -12,7 +12,7 @@ class History extends Model
     protected $table = 'history';
     protected $fillable = [
         'detailimport_id', 'detailexport_id', 'delivered_id', 'provide_id',
-        'tax_import', 'price_import', 'total_import', 'history_import'
+        'tax_import', 'price_import', 'total_import', 'history_import', 'workspace_id',
     ];
     use HasFactory;
     public function getAllHistory()

@@ -315,7 +315,8 @@
                 <div class="container-fluided">
                     <div class="row">
                         <div class="col-12">
-                            <div class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed margin-250">
+                            <div
+                                class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed margin-250">
                                 <form class="w-100" action="" method="get" id="search-filter">
                                     <div class="row mr-0">
                                         <div class="col-md-5 d-flex">
@@ -479,12 +480,12 @@
                                     <td class="text-13-black">
                                         {{ number_format($htr->product_qty) }}
                                     </td>
-                                    <td class="text-13-black" >
+                                    <td class="text-13-black">
                                         @if ($htr->getQuoteImport)
                                             {{ $htr->getQuoteImport->product_name }}
                                         @endif
                                     </td>
-                                    <td class="text-13-black" >
+                                    <td class="text-13-black">
                                         @if ($htr->getQuoteImport)
                                             {{ $htr->getQuoteImport->price_export * $htr->product_qty }}
                                         @endif

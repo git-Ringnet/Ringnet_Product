@@ -438,7 +438,7 @@ class PayOder extends Model
                 'provides.provide_name_display as provide_name',
                 'provides.provide_code as provide_code',
                 'provides.id',
-                DB::raw('SUM(detailimport.total_price + detailimport.total_tax) as sumSell'),
+                DB::raw('SUM(detailimport.total_tax) as sumSell'),
                 DB::raw('SUM(provides.provide_debt) as sumAmountOwed')
             )
             ->groupBy('detailimport.provide_id', 'provides.provide_name_display', 'provides.provide_code', 'provides.id')
@@ -456,9 +456,11 @@ class PayOder extends Model
                 'provides.provide_name_display as provide_name',
                 'provides.provide_code as provide_code',
                 'provides.id',
-                DB::raw('SUM(detailimport.total_price + detailimport.total_tax) as sumSell'),
+                DB::raw('SUM(detailimport.total_tax) as sumSell'),
                 DB::raw('SUM(provides.provide_debt) as sumAmountOwed')
             );
+        $report_provide = $report_provide->groupBy('detailimport.provide_id', 'provides.provide_name_display', 'provides.provide_code', 'provides.id');
+
         if (isset($data['search'])) {
             $report_provide = $report_provide->where(function ($query) use ($data) {
                 $query->orWhere('provides.provide_name_display', 'like', '%' . $data['search'] . '%');
@@ -484,7 +486,6 @@ class PayOder extends Model
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $report_provide = $report_provide->orderBy($data['sort'][0], $data['sort'][1]);
         }
-        $report_provide = $report_provide->groupBy('detailimport.provide_id', 'provides.provide_name_display', 'provides.provide_code', 'provides.id');
         $report_provide = $report_provide->get();
         return $report_provide;
     }
