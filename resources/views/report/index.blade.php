@@ -555,6 +555,9 @@
             sort_by, sort_type
         ];
 
+        var btn_submit = $(this).data('button-name');
+        $('#' + btn_submit + '-options').hide();
+        $(".text-btnIner").prop("disabled", false);
         // Xử lí dữ liệu
         if (buttonname == 'import') {
             // console.log('import');

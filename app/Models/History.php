@@ -25,6 +25,7 @@ class History extends Model
             ->leftJoin('reciept', 'reciept.detailimport_id', 'history.detailimport_id')
             ->leftJoin('provides', 'provides.id', 'history.provide_id')
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->where('delivery.status', 2)
             ->select(
                 'history.*',
                 'delivered.*',
@@ -102,8 +103,11 @@ class History extends Model
             ->leftJoin('reciept', 'reciept.detailimport_id', 'history.detailimport_id')
             ->leftJoin('provides', 'provides.id', 'history.provide_id')
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->where('delivery.status', 2)
             ->select(
                 'history.*',
+                'history.price_import as price_import',
+                'history.total_import as total_import',
                 'delivered.*',
                 'delivery.*',
                 'delivered.price_export as giaban',
@@ -129,24 +133,49 @@ class History extends Model
                 $query->orWhereIn('delivered.id', $product);
             });
         }
-        if (isset($data['filters']['tensp'])) {
-            $history = $history->where('products.product_name', 'like', '%' . $data['filters']['tensp'] . '%');
+        if (isset($data['tensp'])) {
+            $history = $history->where('products.product_name', 'like', '%' . $data['tensp'] . '%');
         }
-
-        if (isset($data['filters']['product_qty'][0]) && isset($data['filters']['product_qty'][1])) {
-            $history = $history->where('history_import.product_qty', $data['filters']['product_qty'][0], $data['filters']['product_qty'][1]);
+        if (isset($data['hdvao'])) {
+            $history = $history->having('hdvao', 'like', '%' . $data['hdvao'] . '%');
         }
-        if (isset($data['filters']['price_import'][0]) && isset($data['filters']['price_import'][1])) {
-            $history = $history->where('history_import.price_export', $data['filters']['price_import'][0], $data['filters']['price_import'][1]);
+        if (isset($data['hdra'])) {
+            $history = $history->having('hdra', 'like', '%' . $data['hdra'] . '%');
         }
-        if (isset($data['filters']['idGuests'])) {
-            $history = $history->whereIn('guest.id', $data['filters']['idGuests']);
+        // Nhập
+        if (isset($data['product_qty'][0]) && isset($data['product_qty'][1])) {
+            $history = $history->where('history_import.product_qty', $data['product_qty'][0], $data['product_qty'][1]);
         }
-        if (isset($data['filters']['idProvides'])) {
-            $history = $history->whereIn('provides.id', $data['filters']['idProvides']);
+        if (isset($data['price_import'][0]) && isset($data['price_import'][1])) {
+            $history = $history->where('history_import.price_export', $data['price_import'][0], $data['price_import'][1]);
+        }
+        if (isset($data['total_import'][0]) && isset($data['total_import'][1])) {
+            $history = $history->where('history.total_import', $data['total_import'][0], $data['total_import'][1]);
+        }
+        // Xuất
+        if (isset($data['slxuat'][0]) && isset($data['slxuat'][1])) {
+            $history = $history->where('delivered.deliver_qty', $data['slxuat'][0], $data['slxuat'][1]);
+        }
+        if (isset($data['total_export'][0]) && isset($data['total_export'][1])) {
+            $history = $history->where('delivered.product_total_vat', $data['total_export'][0], $data['total_export'][1]);
+        }
+        if (isset($data['price_export'][0]) && isset($data['price_export'][1])) {
+            $history = $history->where('delivered.price_export', $data['price_export'][0], $data['price_export'][1]);
+        }
+        if (isset($data['shipping_fee'][0]) && isset($data['shipping_fee'][1])) {
+            $history = $history->where('delivery.shipping_fee', $data['shipping_fee'][0], $data['shipping_fee'][1]);
+        }
+        if (isset($data['product_unit'])) {
+            $history = $history->whereIn('delivered.product_id', $data['product_unit']);
+        }
+        if (isset($data['idGuests'])) {
+            $history = $history->whereIn('guest.id', $data['idGuests']);
+        }
+        if (isset($data['idProvides'])) {
+            $history = $history->whereIn('provides.id', $data['idProvides']);
         }
         // dd($data);
-        if (isset($data['sort'])) {
+        if (isset($data['sort']) && isset($data['sort'][0])) {
             $history = $history->orderBy($data['sort'][0], $data['sort'][1]);
         }
         $history = $history->get();

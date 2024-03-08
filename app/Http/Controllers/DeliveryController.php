@@ -137,17 +137,17 @@ class DeliveryController extends Controller
                     'status' => 2,
                 ]);
                 $this->delivery->updateDetailExport($request->all(), $delivery->detailexport_id);
-
+                // dd($request->all());
                 // Add lịch sử giao dịch
-                $delivered = DB::table('delivered')->where('delivery_id', $id)->get();
-                foreach ($delivered as $item) {
-                    $history = new History();
-                    $dataHistory = [
-                        'detailexport_id' => $delivery->detailexport_id,
-                        'delivered_id' => $item->id,
-                    ];
-                    $history->addHistory($dataHistory);
-                }
+                // $delivered = DB::table('delivered')->where('delivery_id', $id)->get();
+                // foreach ($delivered as $item) {
+                //     $history = new History();
+                //     $dataHistory = [
+                //         'detailexport_id' => $delivery->detailexport_id,
+                //         'delivered_id' => $item->id,
+                //     ];
+                //     $history->addHistory($dataHistory);
+                // }
                 return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
             }
         }

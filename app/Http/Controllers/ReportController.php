@@ -98,7 +98,7 @@ class ReportController extends Controller
             $filters[] = ['value' => 'Mã khách hàng: ' . $data['code'], 'name' => 'code'];
         }
         if (isset($data['name']) && $data['name'] !== null) {
-            $guests = $this->guest->guestName($data);
+            $guests = $this->guest->guestName($data['name']);
             $guestsString = implode(', ', $guests);
             $filters[] = ['value' => 'Công ty: ' . $guestsString, 'name' => 'name'];
         }
@@ -125,9 +125,9 @@ class ReportController extends Controller
             $filters[] = ['value' => 'Mã nhà cung cấp: ' . $data['code'], 'name' => 'code'];
         }
         if (isset($data['name']) && $data['name'] !== null) {
-            $guests = $this->guest->guestName($data);
-            $guestsString = implode(', ', $guests);
-            $filters[] = ['value' => 'Công ty: ' . $guestsString, 'name' => 'name'];
+            $provides = $this->provide->provideName($data['name']);
+            $providesString = implode(', ', $provides);
+            $filters[] = ['value' => 'Công ty: ' . $providesString, 'name' => 'name'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
             $filters[] = ['value' => 'Tổng thanh toán: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];

@@ -125,7 +125,7 @@ class Products extends Model
                     ->where('id', $id)
                     ->update($dataUpdate);
                 // if ($updateProduct) {
-                    $return = 1;
+                $return = 1;
                 // }
             }
         }
@@ -261,6 +261,15 @@ class Products extends Model
             $products = $products->whereIn('products.id', $data['idName']);
         }
         $products = $products->pluck('product_name')->all();
+        return $products;
+    }
+    public function getProductUnit($data)
+    {
+        $products = DB::table($this->table);
+        if (isset($data)) {
+            $products = $products->whereIn('products.id', $data);
+        }
+        $products = $products->pluck('product_unit')->all();
         return $products;
     }
 }

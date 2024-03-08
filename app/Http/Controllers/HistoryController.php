@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Delivery;
 use App\Models\Guest;
 use App\Models\History;
+use App\Models\Products;
 use App\Models\Provides;
 use App\Models\Serialnumber;
 use App\Models\Workspace;
@@ -21,6 +22,7 @@ class HistoryController extends Controller
     private $workspaces;
     private $history;
     private $delivery;
+    private $products;
 
     public function __construct()
     {
@@ -29,6 +31,7 @@ class HistoryController extends Controller
         $this->workspaces = new Workspace();
         $this->history = new History();
         $this->delivery = new Delivery();
+        $this->products = new Products();
     }
     public function index()
     {
@@ -38,8 +41,9 @@ class HistoryController extends Controller
         $history = $this->history->getAllHistory();
         $guests = $this->guests->getAllGuest();
         $provides = $this->provides->getAllProvide();
+        $products = $this->products->getAllProducts();
         // dd($history);
-        return view('tables.history.index', compact('title', 'workspacename', 'history', 'guests', 'provides'));
+        return view('tables.history.index', compact('title', 'workspacename', 'history', 'guests', 'provides', 'products'));
     }
 
     public function getSN(Request $request)
@@ -64,70 +68,62 @@ class HistoryController extends Controller
     public function searchHistory(Request $request)
     {
         $data = $request->all();
-        // dd($data['filters']);
-        $nameGuests = [];
-        $nameProvides = [];
-        $productQtyArray = [];
-        $priceImportArray = [];
-        if ($request->ajax()) {
-            $output = '';
-            if (!empty($data['filters']['idGuests'])) {
-                $nameGuests = $this->guests->getGuestbyName($data);
-            }
-            if (!empty($data['filters']['idProvides'])) {
-                $nameProvides = $this->provides->getprovidebyName($data);
-            }
-            $filters = $request->input('filters');
-
-            if (isset($filters['product_qty'])) {
-                $productQtyArray[] = $filters['product_qty'];
-            } else {
-                $productQtyArray[] = null;
-                $productQtyArray[] = null;
-            }
-            if (isset($filters['price_import'])) {
-                $priceImportArray[] = $filters['price_import'];
-            } else {
-                $priceImportArray[] = null;
-                $priceImportArray[] = null;
-            }
-            $history = $this->history->ajax($data);
-            if ($history) {
-                foreach ($history as $index => $item) {
-                    $output .= ' <tr>
-                                    <td>' . $index + 1 . '</td>
-                                    <td>' . date('d-m-Y', strtotime($item->time)) . '</td>
-                                    <td>' . $item->tenNCC . '</td>
-                                    <td>' . $item->tensp . '</td>
-                                    <td>' . number_format($item->product_qty) . '</td>
-                                    <td>' . number_format($item->price_import) . '</td>
-                                    <td>' . number_format($item->total_import) . '</td>
-                                    <td>' . $item->hdvao . '</td>
-                                    <td>' . $item->tenKhach . '</td>
-                                    <td>' . number_format($item->deliver_qty) . '</td>
-                                    <td>' . $item->product_unit . '</td>
-                                    <td>' . number_format($item->giaban) . '</td>
-                                    <td>' . number_format($item->product_total_vat) . '</td>
-                                    <td>' . $item->hdra . '</td>
-                                    <td>' . number_format($item->transfer_fee) . '</td>
-                                    <td data-toggle="modal" data-target="#snModal"
-                                        data-delivery-id="' . $item->delivery_id . '"
-                                        data-product-id="' . $item->product_id . '" class="sn"><img
-                                        src="../../dist/img/icon/list.png"></td>
-                            </tr>';
-                }
-            }
-            return [
-                'output' => $output,
-                'guests' => $nameGuests,
-                'tensp' => $data['filters']['tensp'],
-                'product_qty' => $productQtyArray,
-                'price_import' => $priceImportArray,
-                // 'product_qty' => [$request->input('filters')['product_qty'], $request->input('filters')['product_qty'][0]],
-                'provides' => $nameProvides,
-            ];
+        $filters = [];
+        if (isset($data['tensp']) && $data['tensp'] !== null) {
+            $filters[] = ['value' => 'Mặt hàng: ' . $data['tensp'], 'name' => 'tensp'];
         }
+        if (isset($data['hdvao']) && $data['hdvao'] !== null) {
+            $filters[] = ['value' => 'Hoá đơn vào: ' . $data['hdvao'], 'name' => 'hdvao'];
+        }
+        if (isset($data['hdra']) && $data['hdra'] !== null) {
+            $filters[] = ['value' => 'Hoá đơn ra: ' . $data['hdra'], 'name' => 'hdra'];
+        }
+        if (isset($data['idProvides']) && $data['idProvides'] !== null) {
+            $provides = $this->provides->provideName($data['idProvides']);
+            $providesString = implode(', ', $provides);
+            $filters[] = ['value' => 'Nhà cung cấp: ' . $providesString, 'name' => 'provides'];
+        }
+        if (isset($data['idGuests']) && $data['idGuests'] !== null) {
+            $guests = $this->guests->guestName($data['idGuests']);
+            $guestsString = implode(', ', $guests);
+            $filters[] = ['value' => 'Khách hàng: ' . $guestsString, 'name' => 'guests'];
+        }
+        if (isset($data['product_unit']) && $data['product_unit'] !== null) {
+            $product_unit = $this->products->getProductUnit($data['product_unit']);
+            $product_unitString = implode(', ', $product_unit);
+            $filters[] = ['value' => 'Đơn vị tính: ' . $product_unitString, 'name' => 'product_unit'];
+        }
+        if (isset($data['product_qty']) && $data['product_qty'][1] !== null) {
+            $filters[] = ['value' => 'Số lượng nhập: ' . $data['product_qty'][0] . $data['product_qty'][1], 'name' => 'product_qty'];
+        }
+        if (isset($data['price_import']) && $data['price_import'][1] !== null) {
+            $filters[] = ['value' => 'Giá nhập: ' . $data['price_import'][0] . $data['price_import'][1], 'name' => 'price_import'];
+        }
+        if (isset($data['total_import']) && $data['total_import'][1] !== null) {
+            $filters[] = ['value' => 'Tổng nhập: ' . $data['total_import'][0] . $data['total_import'][1], 'name' => 'total_import'];
+        }
+        if (isset($data['slxuat']) && $data['slxuat'][1] !== null) {
+            $filters[] = ['value' => 'Số lượng xuất: ' . $data['slxuat'][0] . $data['slxuat'][1], 'name' => 'slxuat'];
+        }
+        if (isset($data['total_export']) && $data['total_export'][1] !== null) {
+            $filters[] = ['value' => 'Tổng giá bán: ' . $data['total_export'][0] . $data['total_export'][1], 'name' => 'total_export'];
+        }
+        if (isset($data['price_export']) && $data['price_export'][1] !== null) {
+            $filters[] = ['value' => 'Giá bán: ' . $data['price_export'][0] . $data['price_export'][1], 'name' => 'price_export'];
+        }
+        if (isset($data['shipping_fee']) && $data['shipping_fee'][1] !== null) {
+            $filters[] = ['value' => 'Chi phí vận chuyển: ' . $data['shipping_fee'][0] . $data['shipping_fee'][1], 'name' => 'shipping_fee'];
+        }
+        if ($request->ajax()) {
+            $history = $this->history->ajax($data);
+            return response()->json([
+                'history' => $history,
+                'filterHistory' => $filters,
+            ]);
+        }
+        return false;
     }
+
     /**
      * Show the form for creating a new resource.
      */

@@ -205,4 +205,13 @@ class Provides extends Model
             'provide_code' => $row['D'],
         ]);
     }
+    public function provideName($data)
+    {
+        $provides = DB::table($this->table);
+        if (isset($data)) {
+            $provides = $provides->whereIn('provides.id', $data);
+        }
+        $provides = $provides->pluck('provide_name_display')->all();
+        return $provides;
+    }
 }

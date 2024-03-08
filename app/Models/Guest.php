@@ -251,8 +251,8 @@ class Guest extends Model
     public function guestName($data)
     {
         $guests = DB::table($this->table);
-        if (isset($data['name'])) {
-            $guests = $guests->whereIn('guest.id', $data['name']);
+        if (isset($data)) {
+            $guests = $guests->whereIn('guest.id', $data);
         }
         $guests = $guests->pluck('guest_name_display')->all();
         return $guests;

@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('provide_id')->nullable();
             $table->unsignedBigInteger('detailimport_id')->nullable();
             $table->unsignedBigInteger('history_import')->nullable();
-            $table->string('tax_import')->nullable();
-            $table->string('price_import')->nullable();
-            $table->string('total_import')->nullable();
+            $table->decimal('tax_import', 20, 4)->nullable();
+            $table->decimal('price_import', 20, 4)->nullable();
+            $table->decimal('total_import', 20, 4)->nullable();
             $table->timestamps();
         });
     }

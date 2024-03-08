@@ -5,8 +5,11 @@
             <div class="content__heading--left">
                 <span>Bán hàng</span>
                 <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z" fill="#26273B" fill-opacity="0.8"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                        fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
+                            fill="#26273B" fill-opacity="0.8" />
                     </svg>
                 </span>
                 <span class="nearLast-span">
@@ -14,8 +17,11 @@
                     </a>
                 </span>
                 <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z" fill="#26273B" fill-opacity="0.8"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                        fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
+                            fill="#26273B" fill-opacity="0.8" />
                     </svg>
                 </span>
                 <span class="last-span">{{ $title }}</span>
@@ -37,7 +43,8 @@
                         </a>
                     </div>
                     <a href="{{ route('guests.edit', ['workspace' => $workspacename, 'guest' => $guest->id]) }}">
-                        <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
+                        <button type="button" class="custom-btn d-flex align-items-center h-100"
+                            style="margin-right:10px">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                                 class="mx-1" fill="none">
                                 <path
@@ -78,61 +85,62 @@
                 <li>
                     <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử giao dịch</a>
                 </li>
+                <li>
+                    <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#">File đính kèm</a>
+                </li>
             </ul>
         </section>
     </div>
     <div class="content editGuest" style="margin-top: 7.5rem;">
         <div class="tab-content mt-3">
             <div id="info" class="content tab-pane in active">
-                {{--THÔNG TIN CHUNG--}}
+                {{-- THÔNG TIN CHUNG --}}
                 <div class="bg-filter-search border-0 text-left border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-left">THÔNG TIN CHUNG</p>
                 </div>
                 <div class="content-info">
-                        <div class="d-flex align-items-center height-60-mobile">
-                            <div class="title-info py-2 border border-left-0 height-100">
-                                <p class="p-0 m-0 required-label margin-left32 text-13">Tên khách hàng</p>
-                            </div>
-                            <input type="text" required readonly
-                                name="guest_name_display" value="{{ $guest->guest_name_display }}"
-                                class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                    <div class="d-flex align-items-center height-60-mobile">
+                        <div class="title-info py-2 border border-left-0 height-100">
+                            <p class="p-0 m-0 required-label margin-left32 text-13">Tên khách hàng</p>
                         </div>
-                        <div class="d-flex align-items-center height-60-mobile">
-                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                <p class="p-0 m-0  margin-left32 text-13">Tên hiển thị</p>
-                            </div>
-                            <input type="text" name="key"
-                                value="{{ $guest->key }}" readonly
-                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                        <input type="text" required readonly name="guest_name_display"
+                            value="{{ $guest->guest_name_display }}"
+                            class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                    </div>
+                    <div class="d-flex align-items-center height-60-mobile">
+                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                            <p class="p-0 m-0  margin-left32 text-13">Tên hiển thị</p>
                         </div>
-                        <div class="d-flex align-items-center height-60-mobile">
-                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                <p class="p-0 m-0  margin-left32 text-13">Địa chỉ</p>
-                            </div>
-                            <input type="text" required name="guest_address"
-                                value="{{ $guest->guest_address }}" readonly
-                                class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                        <input type="text" name="key" value="{{ $guest->key }}" readonly
+                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                    </div>
+                    <div class="d-flex align-items-center height-60-mobile">
+                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                            <p class="p-0 m-0  margin-left32 text-13">Địa chỉ</p>
                         </div>
-                        <div class="d-flex align-items-center height-60-mobile">
-                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                <p class="p-0 m-0  margin-left32 text-13">Email khách hàng</p>
-                            </div>
-                            <input type="text" required name="guest_email"
-                                value="{{ $guest->guest_email }}" readonly
-                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                        <input type="text" required name="guest_address" value="{{ $guest->guest_address }}"
+                            readonly
+                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                    </div>
+                    <div class="d-flex align-items-center height-60-mobile">
+                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                            <p class="p-0 m-0  margin-left32 text-13">Email khách hàng</p>
                         </div>
-                        <div class="d-flex align-items-center height-60-mobile">
-                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                <p class="p-0 m-0  margin-left32 text-13">Mã số thuế</p>
-                            </div>
-                            <input type="text" name="guest_code"
-                                 value="{{ $guest->guest_code }}" readonly
-                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                        <input type="text" required name="guest_email" value="{{ $guest->guest_email }}" readonly
+                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                    </div>
+                    <div class="d-flex align-items-center height-60-mobile">
+                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                            <p class="p-0 m-0  margin-left32 text-13">Mã số thuế</p>
                         </div>
+                        <input type="text" name="guest_code" value="{{ $guest->guest_code }}" readonly
+                            class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
+                    </div>
                 </div>
-                {{--THÔNG TIN NGƯỜI ĐẠI DIỆN--}}
+                {{-- THÔNG TIN NGƯỜI ĐẠI DIỆN --}}
                 <div class="bg-filter-search border-0 text-left border-custom">
-                    <p class="font-weight-bold text-uppercase info-chung--heading text-left">THÔNG TIN NGƯỜI ĐẠI DIỆN</p>
+                    <p class="font-weight-bold text-uppercase info-chung--heading text-left">THÔNG TIN NGƯỜI ĐẠI DIỆN
+                    </p>
                 </div>
                 <section class="content">
                     <div class="container-fluided">
@@ -140,35 +148,43 @@
                             <div class="container-fluided order_content">
                                 <table class="table table-hover bg-white rounded m-0">
                                     <thead>
-                                        <tr> 
-                                             <th class="border-right text-13 px-0 py-2 padding-left35 height-52" style="width: 18%;">Người đại diện</th>
-                                             <th class="border-right text-13 px-0 py-2 padding-left35 height-52" style="width: 20%;">Số điện thoại</th>
-                                             <th class="border-right text-13 px-0 py-2 padding-left35 height-52" style="width: 20%;">Email</th>
-                                             <th class="border-right text-13 px-0 py-2 padding-left35 height-52" style="width: 20%;">Địa chỉ nhận</th>
-                                        </tr> 
+                                        <tr>
+                                            <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
+                                                style="width: 18%;">Người đại diện</th>
+                                            <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
+                                                style="width: 20%;">Số điện thoại</th>
+                                            <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
+                                                style="width: 20%;">Email</th>
+                                            <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
+                                                style="width: 20%;">Địa chỉ nhận</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($representGuest as $itemRepresent)
                                             <tr id="dynamic-row-1" class="bg-white addProduct">
-                                                <td class="border-right text-13-black px-0 py-2 padding-left35 height-52" style="width: 18%;">
+                                                <td class="border-right text-13-black px-0 py-2 padding-left35 height-52"
+                                                    style="width: 18%;">
                                                     <input type="text" autocomplete="off"
                                                         value="{{ $itemRepresent->represent_name }}" readonly
                                                         class="border-0  py-1 w-100 represent_name" required=""
                                                         name="represent_name[]">
                                                 </td>
-                                                <td class="border-right text-13-black px-0 py-2 padding-left35 height-52" style="width: 20%;">
+                                                <td class="border-right text-13-black px-0 py-2 padding-left35 height-52"
+                                                    style="width: 20%;">
                                                     <input type="text" autocomplete="off"
                                                         value="{{ $itemRepresent->represent_email }}" readonly
                                                         class="border-0 py-1 w-100 represent_email"
                                                         name="represent_email[]">
                                                 </td>
-                                                <td class="border-right text-13-black px-0 py-2 padding-left35 height-52" style="width: 20%;">
+                                                <td class="border-right text-13-black px-0 py-2 padding-left35 height-52"
+                                                    style="width: 20%;">
                                                     <input type="text" autocomplete="off"
                                                         value="{{ $itemRepresent->represent_phone }}" readonly
                                                         class="border-0 py-1 w-100 represent_phone"
                                                         name="represent_phone[]">
                                                 </td>
-                                                <td class="border-right text-13-black px-0 py-2 padding-left35 height-52" style="width: 20%;">
+                                                <td class="border-right text-13-black px-0 py-2 padding-left35 height-52"
+                                                    style="width: 20%;">
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $itemRepresent->represent_address }}"
                                                         class="border-0 py-1 w-100 represent_address"
@@ -182,7 +198,7 @@
                         </div>
                     </div>
                 </section>
-                {{--THÔNG TIN BÁN HÀNG--}}
+                {{-- THÔNG TIN BÁN HÀNG --}}
                 <div class="bg-filter-search border-0 text-left border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-left">THÔNG TIN BÁN HÀNG</p>
                 </div>
@@ -193,29 +209,37 @@
                                 <table class="table table-hover bg-white rounded m-0">
                                     <thead>
                                         <tr>
-                                             <th class="border-right text-13 px-0 py-2 padding-left35 height-52" style="width: 18%;">Tổng số đơn đã bán</th>
-                                             <th class="border-right text-13 px-0 py-2 padding-left35 height-52" style="width: 20%;">Tổng số tiền đã bán</th>
-                                             <th class="border-right text-13 px-0 py-2 padding-left35 height-52" style="width: 20%;">Tổng số tiền đã thanh toán</th>
-                                             <th class="border-right text-13 px-0 py-2 padding-left35 height-52" style="width: 20%;">Dư nợ</th>
+                                            <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
+                                                style="width: 18%;">Tổng số đơn đã bán</th>
+                                            <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
+                                                style="width: 20%;">Tổng số tiền đã bán</th>
+                                            <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
+                                                style="width: 20%;">Tổng số tiền đã thanh toán</th>
+                                            <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
+                                                style="width: 20%;">Dư nợ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr id="dynamic-row-1" class="bg-white addProduct">
-                                            <td class="border-right text-13-black px-0 py-2 padding-left35" style="width: 18%;">
+                                            <td class="border-right text-13-black px-0 py-2 padding-left35"
+                                                style="width: 18%;">
                                                 <input type="text" autocomplete="off" value="{{ $countDetail }}"
                                                     readonly class="border-0 px-2 py-1 w-100 text-13-black">
                                             </td>
-                                            <td class="border-right text-13-black px-0 py-2 padding-left35" style="width: 20%;">
+                                            <td class="border-right text-13-black px-0 py-2 padding-left35"
+                                                style="width: 20%;">
                                                 <input type="text" autocomplete="off"
                                                     value="{{ number_format($sumSell) }}" readonly
                                                     class="border-0 px-2 py-1 w-100 text-13-black">
                                             </td>
-                                            <td class="border-right text-13-black px-0 py-2 padding-left35" style="width: 20%;">
+                                            <td class="border-right text-13-black px-0 py-2 padding-left35"
+                                                style="width: 20%;">
                                                 <input type="text" autocomplete="off"
                                                     value="{{ number_format($sumPay) }}" readonly
                                                     class="border-0 px-2 py-1 w-100 text-13-black">
                                             </td>
-                                            <td class="border-right text-13-black px-0 py-2 padding-left35" style="width: 20%;">
+                                            <td class="border-right text-13-black px-0 py-2 padding-left35"
+                                                style="width: 20%;">
                                                 <input type="text" autocomplete="off"
                                                     value="{{ number_format($sumDebt) }}" readonly
                                                     class="border-0 px-2 py-1 w-100 text-13-black">
@@ -229,14 +253,16 @@
                 </section>
             </div>
             <div id="history" class="tab-pane fade">
-                <div class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed margin-250 border-custom">
+                <div
+                    class="row m-auto filter pt-2 pb-4 height-50 content__heading--searchFixed margin-250 border-custom">
                     <div class="w-100">
                         <div class="row mr-0">
                             <div class="col-md-5 d-flex align-items-center">
                                 <form action="" method="get" id='search-filter' class="p-0 m-0">
                                     <div class="position-relative ml-1">
-                                        <input type="text" placeholder="Tìm kiếm" name="keywords" style="outline: none;"
-                                            class="pr-4 w-100 input-search text-13" value="{{ request()->keywords }}">
+                                        <input type="text" placeholder="Tìm kiếm" name="keywords"
+                                            style="outline: none;" class="pr-4 w-100 input-search text-13"
+                                            value="{{ request()->keywords }}">
                                         <span id="search-icon" class="search-icon">
                                             <i class="fas fa-search"></i>
                                         </span>
@@ -245,19 +271,28 @@
                                 <div class="dropdown ml-1">
                                     <button class="btn-filter_searh" type="button" id="dropdownMenuButton"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z" fill="#6D7075"/>
-                                            <path d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z" fill="#6D7075"/>
-                                            <path d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z" fill="#6D7075"/>
-                                            <path d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z" fill="#6D7075"/>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 16 16" fill="none">
+                                            <path
+                                                d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
+                                                fill="#6D7075" />
+                                            <path
+                                                d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
+                                                fill="#6D7075" />
+                                            <path
+                                                d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
+                                                fill="#6D7075" />
+                                            <path
+                                                d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
+                                                fill="#6D7075" />
                                         </svg>
-                                        <span class="text-btnIner">Bộc lọc</span>
-                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
-                                                    fill="#6B6F76" />
-                                            </svg>
+                                        <span class="text-btnIner">Bộ lọc</span>
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
+                                                fill="#6B6F76" />
+                                        </svg>
                                         </span>
                                     </button>
                                     <div class="dropdown-menu">
@@ -277,50 +312,74 @@
                                 <tr>
                                     <th scope="col" class="text-13 text-nowrap padding-left35">
                                         <span>Ngày báo giá</span>
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'>
-                                            <path d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z' fill='#6B6F76'/>
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
+                                            viewBox='0 0 16 16' fill='none'>
+                                            <path
+                                                d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
+                                                fill='#6B6F76' />
                                         </svg>
                                     </th>
                                     <th scope="col" class="text-13 text-nowrap">
                                         <span>Số báo giá</span>
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'>
-                                            <path d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z' fill='#6B6F76'/>
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
+                                            viewBox='0 0 16 16' fill='none'>
+                                            <path
+                                                d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
+                                                fill='#6B6F76' />
                                         </svg>
                                     </th>
                                     <th scope="col" class="text-13 text-nowrap">
                                         <span>Trạng thái</span>
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'>
-                                            <path d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z' fill='#6B6F76'/>
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
+                                            viewBox='0 0 16 16' fill='none'>
+                                            <path
+                                                d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
+                                                fill='#6B6F76' />
                                         </svg>
                                     </th>
                                     <th scope="col" class="text-13 text-nowrap text-center">
                                         <span>Giao hàng</span>
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'>
-                                            <path d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z' fill='#6B6F76'/>
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
+                                            viewBox='0 0 16 16' fill='none'>
+                                            <path
+                                                d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
+                                                fill='#6B6F76' />
                                         </svg>
                                     </th>
                                     <th scope="col" class="text-13 text-nowrap text-center">
-                                    <span> Xuất hóa đơn</span>
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'>
-                                            <path d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z' fill='#6B6F76'/>
+                                        <span> Xuất hóa đơn</span>
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
+                                            viewBox='0 0 16 16' fill='none'>
+                                            <path
+                                                d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
+                                                fill='#6B6F76' />
                                         </svg>
                                     </th>
                                     <th scope="col" class="text-13 text-nowrap text-center">
                                         <span>Thanh toán</span>
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'>
-                                            <path d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z' fill='#6B6F76'/>
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
+                                            viewBox='0 0 16 16' fill='none'>
+                                            <path
+                                                d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
+                                                fill='#6B6F76' />
                                         </svg>
                                     </th>
                                     <th scope="col" class="text-13 text-nowrap">
                                         <span>Tổng tiền</span>
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'>
-                                            <path d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z' fill='#6B6F76'/>
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
+                                            viewBox='0 0 16 16' fill='none'>
+                                            <path
+                                                d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
+                                                fill='#6B6F76' />
                                         </svg>
                                     </th>
                                     <th scope="col" class="text-13 text-nowrap">
                                         <span>Dư nợ</span>
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'>
-                                            <path d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z' fill='#6B6F76'/>
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
+                                            viewBox='0 0 16 16' fill='none'>
+                                            <path
+                                                d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
+                                                fill='#6B6F76' />
                                         </svg>
                                     </th>
                                 </tr>
@@ -345,15 +404,15 @@
                                         </td>
                                         <td class="text-13-black text-center">
                                             @if ($itemGuest->status_receive === 1)
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
+                                                <svg width="16" height="16" viewBox="0 0 16 16"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                         d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
                                                         fill="#858585" />
                                                 </svg>
                                             @elseif ($itemGuest->status_receive === 3)
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
+                                                <svg width="16" height="16" viewBox="0 0 16 16"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <g clip-path="url(#clip0_1699_20021)">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                                             d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
@@ -369,8 +428,8 @@
                                                     </defs>
                                                 </svg>
                                             @elseif($itemGuest->status_receive === 2)
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
+                                                <svg width="16" height="16" viewBox="0 0 16 16"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                         d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
                                                         fill="#08AA36" fill-opacity="0.75" />
@@ -379,15 +438,15 @@
                                         </td>
                                         <td class="text-center">
                                             @if ($itemGuest->status_reciept === 1)
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
+                                                <svg width="16" height="16" viewBox="0 0 16 16"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                         d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
                                                         fill="#858585" />
                                                 </svg>
                                             @elseif ($itemGuest->status_reciept === 3)
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
+                                                <svg width="16" height="16" viewBox="0 0 16 16"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <g clip-path="url(#clip0_1699_20021)">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                                             d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
@@ -403,8 +462,8 @@
                                                     </defs>
                                                 </svg>
                                             @elseif($itemGuest->status_reciept === 2)
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
+                                                <svg width="16" height="16" viewBox="0 0 16 16"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                         d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
                                                         fill="#08AA36" fill-opacity="0.75" />
@@ -413,15 +472,15 @@
                                         </td>
                                         <td class="text-13-black text-center">
                                             @if ($itemGuest->status_pay === 1)
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
+                                                <svg width="16" height="16" viewBox="0 0 16 16"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                         d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
                                                         fill="#858585" />
                                                 </svg>
                                             @elseif ($itemGuest->status_pay === 3)
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
+                                                <svg width="16" height="16" viewBox="0 0 16 16"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <g clip-path="url(#clip0_1699_20021)">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                                             d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
@@ -437,16 +496,18 @@
                                                     </defs>
                                                 </svg>
                                             @elseif($itemGuest->status_pay === 2)
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
+                                                <svg width="16" height="16" viewBox="0 0 16 16"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                         d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
                                                         fill="#08AA36" fill-opacity="0.75" />
                                                 </svg>
                                             @endif
                                         </td>
-                                        <td class="text-13-black text-nowrap">{{ number_format($itemGuest->total_price + $itemGuest->total_tax) }}</td>
-                                        <td class="text-13-black text-nowrap">{{ number_format($itemGuest->amount_owed) }}</td>
+                                        <td class="text-13-black text-nowrap">
+                                            {{ number_format($itemGuest->total_price + $itemGuest->total_tax) }}</td>
+                                        <td class="text-13-black text-nowrap">
+                                            {{ number_format($itemGuest->amount_owed) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

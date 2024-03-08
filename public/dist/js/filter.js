@@ -26,6 +26,34 @@ handleFilterClick($("#btn-email"), $("#email-options"), $(".email-input"));
 handleFilterClick($("#btn-debt"), $("#debt-options"), $(".debt-input"));
 handleFilterClick($("#btn-name"), $("#name-options"), $(".name-input"));
 handleFilterClick($("#btn-tensp"), $("#tensp-options"), $(".tensp-input"));
+handleFilterClick($("#btn-hdvao"), $("#hdvao-options"), $(".hdvao-input"));
+handleFilterClick($("#btn-hdra"), $("#hdra-options"), $(".hdra-input"));
+handleFilterClick($("#btn-slxuat"), $("#slxuat-options"), $(".slxuat-input"));
+handleFilterClick(
+    $("#btn-shipping_fee"),
+    $("#shipping_fee-options"),
+    $(".shipping_fee-input")
+);
+handleFilterClick(
+    $("#btn-product_unit"),
+    $("#product_unit-options"),
+    $(".product_unit-input")
+);
+handleFilterClick(
+    $("#btn-price_export"),
+    $("#price_export-options"),
+    $(".price_export-input")
+);
+handleFilterClick(
+    $("#btn-total_export"),
+    $("#total_export-options"),
+    $(".total_export-input")
+);
+handleFilterClick(
+    $("#btn-total_import"),
+    $("#total_import-options"),
+    $(".total_import-input")
+);
 // Báo cáo
 handleFilterClick(
     $("#btn-code-import"),
@@ -104,6 +132,38 @@ handleCancelClick($("#cancel-email"), $(".email-input"), $("#email-options"));
 handleCancelClick($("#cancel-debt"), $(".debt-input"), $("#debt-options"));
 handleCancelClick($("#cancel-phone"), $(".phone-input"), $("#phone-options"));
 handleCancelClick($("#cancel-code"), $(".code-input"), $("#code-options"));
+handleCancelClick($("#cancel-hdvao"), $(".hdvao-input"), $("#hdvao-options"));
+handleCancelClick($("#cancel-hdra"), $(".hdra-input"), $("#hdra-options"));
+handleCancelClick(
+    $("#cancel-shipping_fee"),
+    $(".shipping_fee-input"),
+    $("#shipping_fee-options")
+);
+handleCancelClick(
+    $("#cancel-product_unit"),
+    $(".product_unit-input"),
+    $("#product_unit-options")
+);
+handleCancelClick(
+    $("#cancel-slxuat"),
+    $(".slxuat-input"),
+    $("#slxuat-options")
+);
+handleCancelClick(
+    $("#cancel-price_export"),
+    $(".price_export-input"),
+    $("#price_export-options")
+);
+handleCancelClick(
+    $("#cancel-total_export"),
+    $(".total_export-input"),
+    $("#total_export-options")
+);
+handleCancelClick(
+    $("#cancel-total_import"),
+    $(".total_import-input"),
+    $("#total_import-options")
+);
 handleCancelClick(
     $("#cancel-price_import"),
     $(".price_import-input"),
