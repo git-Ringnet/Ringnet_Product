@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('tax_import', 20, 4)->nullable();
             $table->decimal('price_import', 20, 4)->nullable();
             $table->decimal('total_import', 20, 4)->nullable();
+            $table->foreignId('workspace_id')->constrained('workspaces');
             $table->timestamps();
         });
     }

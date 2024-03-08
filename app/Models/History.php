@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class History extends Model
@@ -104,6 +105,7 @@ class History extends Model
             ->leftJoin('provides', 'provides.id', 'history.provide_id')
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->where('delivery.status', 2)
+            ->where('history.workspace_id', Auth::user()->current_workspace)
             ->select(
                 'history.*',
                 'history.price_import as price_import',

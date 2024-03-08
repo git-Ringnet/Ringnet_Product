@@ -103,6 +103,7 @@ class Delivered extends Model
                 'price_import' => $history_import ? $history_import->price_export : null,
                 'total_import' => $history_import ? $history_import->product_total : null,
                 'history_import' => $history_import ? $history_import->id : null,
+                'workspace_id' => Auth::user()->current_workspace,
             ];
             $history->addHistory($dataHistory);
 
