@@ -43,13 +43,19 @@ class DeliveryController extends Controller
             $title = 'Giao hàng';
             $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
             $workspacename = $workspacename->workspace_name;
-            $delivery = Delivery::leftJoin('guest', 'guest.id', 'delivery.guest_id')
+            $deliveries = Delivery::leftJoin('guest', 'guest.id', 'delivery.guest_id')
                 ->select('*', 'delivery.id as maGiaoHang', 'delivery.created_at as ngayGiao')
-                ->leftJoin('delivered', 'delivered.delivery_id', 'delivery.id')
                 ->where('delivery.workspace_id', Auth::user()->current_workspace)
                 ->orderBy('delivery.id', 'desc')
                 ->get();
-            return view('tables.export.delivery.list-delivery', compact('title', 'delivery', 'workspacename'));
+
+            foreach ($deliveries as $delivery) {
+                $totalProductVat = Delivered::where('delivery_id', $delivery->maGiaoHang)
+                    ->sum('product_total_vat');
+                    
+                $delivery->totalProductVat = $totalProductVat;
+            }
+            return view('tables.export.delivery.list-delivery', compact('title', 'deliveries', 'workspacename'));
         } else {
             return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
         }

@@ -177,6 +177,8 @@ Route::get('/checkNumberBill', [BillSaleController::class, 'checkNumberBill'])->
 Route::get('/searchBillSale', [BillSaleController::class, 'searchBillSale'])->name('searchBillSale');
 //Kiểm tra mã giao hàng
 Route::get('/checkCodeDelivery', [DeliveryController::class, 'checkCodeDelivery'])->name('checkCodeDelivery');
+//Kiểm tra mã thanh toán
+Route::get('/checkCodePayment', [PayExportController::class, 'checkCodePayment'])->name('checkCodePayment');
 
 //thanh toán bán hàng
 Route::resource('{workspace}/payExport', PayExportController::class);

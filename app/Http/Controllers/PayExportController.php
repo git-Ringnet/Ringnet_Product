@@ -275,4 +275,18 @@ class PayExportController extends Controller
         }
         return false;
     }
+    public function checkCodePayment(Request $request)
+    {
+        $check = PayExport::where('code_payment', $request['numberValue'])
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
+
+        if ($check) {
+            $response = ['success' => false, 'msg' => 'Mã thanh toán đã tồn tại!'];
+        } else {
+            $response = ['success' => true];
+        }
+
+        return response()->json($response);
+    }
 }

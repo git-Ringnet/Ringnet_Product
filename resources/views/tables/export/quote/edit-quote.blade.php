@@ -274,6 +274,8 @@
                                                         autocomplete='off' name='product_price[]' required
                                                         value="{{ number_format($item_quote->price_export) }}">
                                                 </div>
+                                                <div class="mt-3 text-13-blue recentModal" data-toggle="modal"
+                                                    data-target="#recentModal" style="">Giao dịch gần đây</div>
                                             </td>
 
                                             <td class='border-right p-2 text-13 align-top'>
@@ -1150,7 +1152,7 @@
                                 <p class="p-0 m-0 px-2 required-label text-danger text-nav">
                                     Mã số thuế
                                 </p>
-                                <input name="guest_code" type="number" placeholder="Nhập thông tin"
+                                <input name="guest_code" type="text" placeholder="Nhập thông tin" oninput="validateInput(this)"
                                     class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
                                     id="guest_code" autocomplete="off">
                             </div>
@@ -1316,6 +1318,80 @@
         </div>
     </div>
 </div>
+{{-- Modal giao dịch gần đây --}}
+<div class="modal fade" id="recentModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-bold">Giao dịch gần đây</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="outer text-nowrap">
+                    <table id="example2" class="table table-hover bg-white rounded">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id"
+                                            data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Tên sản phẩm
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id"
+                                            data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Giá bán
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id"
+                                            data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Thuế
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id"
+                                            data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Ngày bán
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 
 <script type="text/javascript">
@@ -1333,6 +1409,49 @@
     //     axis: "y",
     //     handle: "td",
     // });
+    //Xem giao dịch gần đây
+    $('.recentModal').click(function() {
+        var idProduct = $(this).closest('tr').find('.product_id').val();
+        $.ajax({
+            url: '{{ route('getRecentTransaction') }}',
+            type: 'GET',
+            data: {
+                idProduct: idProduct
+            },
+            success: function(data) {
+                if (Array.isArray(data) && data.length > 0) {
+                    $('#recentModal .modal-body tbody').empty();
+                    data.forEach(function(productData) {
+                        var newRow = $(
+                            '<tr class="position-relative">' +
+                            '<td class="text-13-black" id="productName"></td>' +
+                            '<td class="text-13-black" id="productPrice"></td>' +
+                            '<td class="text-13-black" id="productTax"></td>' +
+                            '<td class="text-13-black" id="dateProduct"></td>' +
+                            '</tr>');
+                        newRow.find('#productName').text(productData
+                            .product_name);
+                        newRow.find('#productPrice').text(
+                            formatCurrency(productData
+                                .price_export));
+                        newRow.find('#productTax').text(
+                            productData.product_tax == 99 ?
+                            'NOVAT' : productData.product_tax +
+                            '%');
+                        var formattedDate = new Date(productData
+                            .created_at).toLocaleDateString(
+                            'vi-VN');
+                        newRow.find('#dateProduct').text(
+                            formattedDate);
+                        newRow.appendTo(
+                            '#recentModal .modal-body tbody');
+                    });
+                } else {
+                    $('#recentModal .modal-body tbody').empty();
+                }
+            }
+        });
+    });
     //Lấy thông tin project
     $(document).ready(function() {
         $('.search-project').click(function() {
@@ -1546,7 +1665,6 @@
             e.preventDefault();
             var id = $(this).data('id');
             var name = $(this).data('name');
-            console.log(id);
             $.ajax({
                 url: '{{ route('setDefault') }}',
                 type: 'GET',
@@ -1793,6 +1911,7 @@
                 "<div>" +
                 "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
                 "</div>" +
+                "<div class='mt-3 text-13-blue recentModal' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div>" +
                 "</td>"
             );
             const thue = $(
@@ -1845,6 +1964,49 @@
             //     axis: "y",
             //     handle: "td",
             // });
+            //Xem giao dịch gần đây
+            $('.recentModal').click(function() {
+                var idProduct = $(this).closest('tr').find('.product_id').val();
+                $.ajax({
+                    url: '{{ route('getRecentTransaction') }}',
+                    type: 'GET',
+                    data: {
+                        idProduct: idProduct
+                    },
+                    success: function(data) {
+                        if (Array.isArray(data) && data.length > 0) {
+                            $('#recentModal .modal-body tbody').empty();
+                            data.forEach(function(productData) {
+                                var newRow = $(
+                                    '<tr class="position-relative">' +
+                                    '<td class="text-13-black" id="productName"></td>' +
+                                    '<td class="text-13-black" id="productPrice"></td>' +
+                                    '<td class="text-13-black" id="productTax"></td>' +
+                                    '<td class="text-13-black" id="dateProduct"></td>' +
+                                    '</tr>');
+                                newRow.find('#productName').text(productData
+                                    .product_name);
+                                newRow.find('#productPrice').text(
+                                    formatCurrency(productData
+                                        .price_export));
+                                newRow.find('#productTax').text(
+                                    productData.product_tax == 99 ?
+                                    'NOVAT' : productData.product_tax +
+                                    '%');
+                                var formattedDate = new Date(productData
+                                    .created_at).toLocaleDateString(
+                                    'vi-VN');
+                                newRow.find('#dateProduct').text(
+                                    formattedDate);
+                                newRow.appendTo(
+                                    '#recentModal .modal-body tbody');
+                            });
+                        } else {
+                            $('#recentModal .modal-body tbody').empty();
+                        }
+                    }
+                });
+            });
             //Xóa sản phẩm
             option.click(function() {
                 $(this).closest("tr").remove();
@@ -1971,6 +2133,7 @@
                                 .product_inventory == null ? 0 :
                                 data.product_inventory));
                             infoProduct.show();
+                            $('.recentModal').show();
                             if (data.product_inventory > 0) {
                                 inventory.show();
                             }
@@ -2997,6 +3160,14 @@
             productIdInput.value = '';
         });
     });
+
+    function validateInput(input) {
+        // Loại bỏ tất cả các ký tự ngoại trừ số và dấu "-"
+        input.value = input.value.replace(/[^0-9-]/g, '');
+
+        // Loại bỏ các dấu "-" liên tiếp
+        input.value = input.value.replace(/-{2,}/g, '');
+    }
 
     function kiemTraFormGiaoHang(event) {
         event.preventDefault();

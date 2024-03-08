@@ -85,9 +85,6 @@
                 <li>
                     <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử giao dịch</a>
                 </li>
-                <li>
-                    <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#">File đính kèm</a>
-                </li>
             </ul>
         </section>
     </div>

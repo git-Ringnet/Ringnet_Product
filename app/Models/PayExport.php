@@ -46,7 +46,7 @@ class PayExport extends Model
         // Ensure numeric values
         $total = isset($data['total']) ? str_replace(',', '', $data['total']) : $detailExport->amount_owed;
         $payment = isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0;
-        $date_pay = $data['date_pay'] ?? Carbon::now();
+        $date_pay = isset($data['date_pay']) ? Carbon::parse($data['date_pay']) : Carbon::now();
 
         $result = $total - $payment;
 
@@ -58,7 +58,7 @@ class PayExport extends Model
             'total' => $total,
             'payment' => $payment,
             'debt' => $result,
-            'status' => $date_pay > Carbon::now() ? 3 : ($date_pay->isToday() ? 6 : 4),
+            'status' => ($payment == 0 && $result > 0) ? 1 : (($payment > 0 && $result > 0) ? 1 : ($result == 0 ? 2 : ($date_pay->isToday() ? 6 : ($date_pay->greaterThan(Carbon::now()) ? 3 : 4)))),
             'workspace_id' => Auth::user()->current_workspace,
             'created_at' => Carbon::now(),
         ];

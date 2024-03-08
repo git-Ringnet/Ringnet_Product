@@ -312,7 +312,7 @@
                                     <p class="p-0 m-0 px-2 required-label text-danger text-nav">
                                         Mã số thuế
                                     </p>
-                                    <input name="guest_code" type="number" placeholder="Nhập thông tin"
+                                    <input name="guest_code" type="text" placeholder="Nhập thông tin" oninput="validateInput(this)"
                                         class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
                                         id="guest_code" autocomplete="off">
                                 </div>
@@ -1870,7 +1870,6 @@
                         idProduct: idProduct
                     },
                     success: function(data) {
-                        console.log(data);
                         if (Array.isArray(data) && data.length > 0) {
                             $('#recentModal .modal-body tbody').empty();
                             data.forEach(function(productData) {
@@ -1898,6 +1897,8 @@
                                 newRow.appendTo(
                                     '#recentModal .modal-body tbody');
                             });
+                        } else {
+                            $('#recentModal .modal-body tbody').empty();
                         }
                     }
                 });
@@ -2756,6 +2757,14 @@
             formattedIntegerPart;
 
         return formattedNumber;
+    }
+
+    function validateInput(input) {
+        // Loại bỏ tất cả các ký tự ngoại trừ số và dấu "-"
+        input.value = input.value.replace(/[^0-9-]/g, '');
+
+        // Loại bỏ các dấu "-" liên tiếp
+        input.value = input.value.replace(/-{2,}/g, '');
     }
 
     function kiemTraFormGiaoHang(event) {

@@ -113,27 +113,34 @@
                             <table class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">
-                                        <th class="border-right p-0 px-2 text-13" style="width:20%;">
+                                        <th class="border-right p-0 px-2 text-13" style="width:13%;">
                                             <span class="mx-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                     viewBox="0 0 14 14" fill="none">
                                                     <path
                                                         d="M6.37 7.63C6.49289 7.75305 6.56192 7.91984 6.56192 8.09375C6.56192 8.26766 6.49289 8.43445 6.37 8.5575L4.375 10.5L5.46875 11.5938C5.46875 11.7678 5.39961 11.9347 5.27654 12.0578C5.15347 12.1809 4.98655 12.25 4.8125 12.25H2.40625C2.2322 12.25 2.06528 12.1809 1.94221 12.0578C1.81914 11.9347 1.75 11.7678 1.75 11.5938V9.1875C1.75 9.01345 1.81914 8.84653 1.94221 8.72346C2.06528 8.60039 2.2322 8.53125 2.40625 8.53125L3.5 9.625L5.4425 7.63C5.56555 7.50711 5.73234 7.43808 5.90625 7.43808C6.08016 7.43808 6.24695 7.50711 6.37 7.63ZM7.63 6.37C7.50711 6.24695 7.43808 6.08016 7.43808 5.90625C7.43808 5.73234 7.50711 5.56555 7.63 5.4425L9.625 3.5L8.53125 2.40625C8.53125 2.2322 8.60039 2.06528 8.72346 1.94221C8.84653 1.81914 9.01345 1.75 9.1875 1.75H11.5938C11.7678 1.75 11.9347 1.81914 12.0578 1.94221C12.1809 2.06528 12.25 2.2322 12.25 2.40625V4.8125C12.25 4.98655 12.1809 5.15347 12.0578 5.27654C11.9347 5.39961 11.7678 5.46875 11.5938 5.46875L10.5 4.375L8.5575 6.37C8.43445 6.49289 8.26766 6.56192 8.09375 6.56192C7.91984 6.56192 7.75305 6.49289 7.63 6.37Z"
-                                                        fill="#26273B" fill-opacity="0.8" />
+                                                        fill="#26273B" fill-opacity="0.8"></path>
                                                 </svg>
                                             </span>
-                                            <input type='checkbox' class='checkall-btn mx-1' id="checkall">
-                                            <span>Mã sản phẩm</span>
+                                            <input class="checkall-btn mx-1" id="checkall" type="checkbox">
+                                            <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-13" style="width:22%;">Tên sản phẩm
+                                        <th class="border-right p-0 px-2 text-13" style="width:15%;">Tên sản phẩm</th>
+                                        <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                            Số lượng
                                         </th>
-                                        <th class="border-right p-0 px-2 text-13" style="width:15%;">Đơn vị</th>
-                                        <th class="border-right p-0 px-2 text-center text-13" style="width:15%;">Số
-                                            lượng</th>
-                                        <th class="border-right p-0 px-2 text-center note text-13" style="width:20%;">
-                                            Ghi chú sản phẩm
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                            Đơn giá
                                         </th>
-                                        <th class="border-right p-0 px-2"></th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                            Thuế
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">
+                                            Thành tiền
+                                        </th>
+                                        <th class="border-right p-0 px-2 note text-13">Ghi chú sản phẩm</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -288,6 +295,80 @@
                         </div>
                         <div class="modal-body">
 
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Modal giao dịch gần đây --}}
+            <div class="modal fade" id="recentModal" tabindex="-1" role="dialog"
+                aria-labelledby="productModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-bold">Giao dịch gần đây</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="outer text-nowrap">
+                                <table id="example2" class="table table-hover bg-white rounded">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="id"
+                                                        data-sort-type="#">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Tên sản phẩm
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-id"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="id"
+                                                        data-sort-type="#">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Giá bán
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-id"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="id"
+                                                        data-sort-type="#">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Thuế
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-id"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="id"
+                                                        data-sort-type="#">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Ngày bán
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-id"></div>
+                                                </span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
@@ -572,8 +653,8 @@
                 "</td>"
             );
             const tenSanPham = $(
-                "<td class='border border-bottom-0 position-relative'>" +
-                "<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 75%;left: 10%;'>" +
+                "<td class='border-right p-2 text-13 align-top position-relative'>" +
+                "<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 44%;left: 0%;'>" +
                 "@foreach ($product as $product_value)" +
                 "<li data-id='{{ $product_value->id }}'>" +
                 "<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 idProduct w-100' id='{{ $product_value->id }}' name='idProduct'>" +
@@ -606,12 +687,12 @@
                 "</td>"
             );
             const soLuong = $(
-                "<td class='border border-bottom-0 position-relative'>" +
-                "<div class='d-flex align-items-center'>" +
+                "<td class='border-right p-2 text-13 align-top'>" +
+                "<div class=''>" +
                 "<div>" +
                 "<input type='number' value='' data-product-id='' class='border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required='' name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
-                "<p class='text-primary text-center position-absolute inventory' style='top: 68%;'>Tồn kho: <span class='soTonKho'></span></p>" +
+                "<p class='mt-3 text-13-blue inventory'>Tồn kho: <span class='soTonKho'></span></p>" +
                 "</div>" +
                 "<div>" +
                 "<button type='button' class='btn btn-primary open-modal-btn d-none' data-toggle='modal' data-target='#exampleModal0' style='background:transparent; border:none;'>" +
@@ -631,6 +712,29 @@
                 "<input class='check-add-sn' type='checkbox' name='cbSeri[]' value='1'>" +
                 "</td>"
             );
+            const donGia = $(
+                "<td class='border-right p-2 text-13 align-top'>" +
+                "<div>" +
+                "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
+                "</div>" +
+                "<div class='mt-3 text-13-blue recentModal' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div>" +
+                "</td>"
+            );
+            const thue = $(
+                "<td class='border-right p-2 text-13 align-top'>" +
+                "<select name='product_tax[]' class='border-0 px-2 py-1 w-100 text-left product_tax' required>" +
+                "<option value='0'>0%</option>" +
+                "<option value='8'>8%</option>" +
+                "<option value='10'>10%</option>" +
+                "<option value='99'>NOVAT</option>" +
+                "</select>" +
+                "</td>"
+            );
+            const thanhTien = $(
+                "<td class='border-right p-2 text-13 align-top'>" +
+                "<input type='text' readonly class='text-right border-0 px-2 py-1 w-100 total-amount'>" +
+                "</td>"
+            );
             const ghiChu = $(
                 "<td class='border border-bottom-0 position-relative note p-1 align-top'>" +
                 "<input type='text' class='border-0 py-1 w-100' placeholder='Nhập ghi chú' name='product_note[]'>" +
@@ -646,7 +750,7 @@
             );
             // 
             // Gắn các phần tử vào hàng mới
-            newRow.append(maSanPham, tenSanPham, dvTinh, soLuong, ghiChu,
+            newRow.append(maSanPham, tenSanPham, dvTinh, soLuong, donGia, thue, thanhTien, ghiChu,
                 option);
             $("#dynamic-fields").before(newRow);
             // Tăng giá trị fieldCounter
@@ -732,7 +836,6 @@
             });
             //lấy thông tin sản phẩm
             $(document).ready(function() {
-                $('.transaction').hide();
                 $('.idProduct').off('click').on('click', function(event) {
                     event.stopPropagation();
 
@@ -771,8 +874,8 @@
                                 productCode.val(productData.product_code);
                                 productName.val(productData.product_name);
                                 productUnit.val(productData.product_unit);
-                                productPrice.val(productData
-                                    .product_price_export)
+                                productPrice.val(formatCurrency(productData
+                                    .product_price_export))
                                 thue.val(productData.product_tax);
                                 product_id.val(productData.id);
                                 tonkho.val(productData.product_inventory);
@@ -781,6 +884,7 @@
                                     productData
                                     .product_inventory));
                                 $('.list_product').hide();
+                                $('.recentModal').show();
                                 // Cập nhật ID của hàng (row)
                                 var newRowID = 'dynamic-row-' + productData
                                     .id;
@@ -1403,6 +1507,49 @@
                     '<br>' + '<b>Thuế: </b>' +
                     (thue == 99 || thue == null ? "NOVAT" : thue + '%'));
             });
+            //Xem giao dịch gần đây
+            $('.recentModal').click(function() {
+                var idProduct = $(this).closest('tr').find('.product_id').val();
+                $.ajax({
+                    url: '{{ route('getRecentTransaction') }}',
+                    type: 'GET',
+                    data: {
+                        idProduct: idProduct
+                    },
+                    success: function(data) {
+                        if (Array.isArray(data) && data.length > 0) {
+                            $('#recentModal .modal-body tbody').empty();
+                            data.forEach(function(productData) {
+                                var newRow = $(
+                                    '<tr class="position-relative">' +
+                                    '<td class="text-13-black" id="productName"></td>' +
+                                    '<td class="text-13-black" id="productPrice"></td>' +
+                                    '<td class="text-13-black" id="productTax"></td>' +
+                                    '<td class="text-13-black" id="dateProduct"></td>' +
+                                    '</tr>');
+                                newRow.find('#productName').text(productData
+                                    .product_name);
+                                newRow.find('#productPrice').text(
+                                    formatCurrency(productData
+                                        .price_export));
+                                newRow.find('#productTax').text(
+                                    productData.product_tax == 99 ?
+                                    'NOVAT' : productData.product_tax +
+                                    '%');
+                                var formattedDate = new Date(productData
+                                    .created_at).toLocaleDateString(
+                                    'vi-VN');
+                                newRow.find('#dateProduct').text(
+                                    formattedDate);
+                                newRow.appendTo(
+                                    '#recentModal .modal-body tbody');
+                            });
+                        } else {
+                            $('#recentModal .modal-body tbody').empty();
+                        }
+                    }
+                });
+            });
         });
     });
     //hiện, tìm kiếm, ẩn danh sách số báo giá khi click trường tìm kiếm
@@ -1495,7 +1642,7 @@
                                     0 : item.transfer_fee));
                                 var newRow = `
                                 <tr id="dynamic-row-${item.maSP}" class="bg-white addProduct">
-                            <td class="border border-left-0 border-bottom-0 position-relative">
+                            <td class="border-right p-2 text-13 align-top">
                                 <div class="d-flex w-100 justify-content-between align-items-center">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z" fill="#42526E"></path>
@@ -1509,7 +1656,7 @@
                                     <input type="text" value="${item.maCode == null ? '' : item.maCode}" readonly autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
                                 </div>
                             </td>
-                            <td class="border border-bottom-0 position-relative">
+                            <td class="border-right p-2 text-13 align-top">
                                 <div class="d-flex align-items-center">
                                     <input type="text" value="${item.product_name}" readonly class="border-0 px-2 py-1 w-100 product_name" autocomplete="off" required="" name="product_name[]">
                                     <input type="hidden" class="product_id" value="${item.maSP}" autocomplete="off" name="product_id[]">
@@ -1521,15 +1668,15 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="border border-bottom-0">
+                            <td class="border-right p-2 text-13 align-top">
                                 <input type="text" value="${item.product_unit}" readonly autocomplete="off" class="border-0 px-2 py-1 w-100 product_unit" required="" name="product_unit[]">
                             </td>
-                            <td class="border border-bottom-0 position-relative">
+                            <td class="border-right p-2 text-13 align-top">
                                 <div class="d-flex align-items-center">
                                     <div>
                                 <input type="number" value="${formatNumber(item.soLuongCanGiao)}" data-product-id="${item.maSP}" class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
-                                <p class="text-primary text-center position-absolute inventory" style="top: 68%;">Tồn kho: <span class="soTonKho">${formatNumber(item.product_inventory == null ? 0 : item.product_inventory)}</span></p>
+                                <p class="mt-3 text-13-blue inventory">Tồn kho: <span class="soTonKho">${formatNumber(item.product_inventory == null ? 0 : item.product_inventory)}</span></p>
                                 </div>  
                                 <div>
                                 <button type="button" class="btn btn-primary open-modal-btn" data-toggle="modal" data-target="#exampleModal0" style="background:transparent; border:none;">
@@ -1547,12 +1694,12 @@
                             <td class="text-center d-none">
                                 <input class="check-add-sn" data-seri="${item.maSP}" type="checkbox" name="cbSeri[]" value="1" ${(item.check_seri == 1) ? 'checked' : ''}>    
                             </td>
-                            <td class="border border-bottom-0 position-relative d-none">
+                            <td class="border-right p-2 text-13 align-top">
                                 <input type="text" value="${formatCurrency(item.price_export)}" readonly class="border-0 px-2 py-1 w-100 product_price" autocomplete="off" name="product_price[]" required="" readonly="readonly">
-                                <p class="text-primary text-right position-absolute transaction" style="top: 68%; right: 5%; display: none;">Giao dịch gần đây</p>
+                                <p class="mt-3 text-13-blue recentModal" data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</p>
                             </td>
-                            <td class="border border-bottom-0 px-4 d-none">
-                                <select class="border-0 text-center product_tax" required="">
+                            <td class="border-right p-2 text-13 align-top">
+                                <select class="border-0 px-2 py-1 w-100 text-left product_tax" required="" disabled>
                                     <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                     <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
                                     <option value="10" ${(item.product_tax == 10) ? 'selected' : ''}>10%</option>
@@ -1560,7 +1707,7 @@
                                 </select>
                                 <input type="hidden" class="product_tax" value="${(item.product_tax)}" name="product_tax[]">
                             </td>
-                            <td class="border border-bottom-0 d-none">
+                            <td class="border-right p-2 text-13 align-top">
                                 <input type="text" value="${formatCurrency(item.product_total)}" readonly class="border-0 px-2 py-1 w-100 total-amount">
                             </td>
                             <td class="border-top border-secondary p-0 bg-secondary Daydu d-none" style="width:1%;"></td>
@@ -1570,7 +1717,7 @@
                             <td class="border border-bottom-0 position-relative price_import d-none">
                                 <input type="text" value="${formatCurrency(item.price_import)}" readonly class="border-0 px-2 py-1 w-100 giaNhap" autocomplete="off" required="required" name="price_import[]">
                             </td>
-                            <td class="border border-bottom-0 position-relative note p-1">
+                            <td class="border-right p-2 text-13 align-top note p-1">
                                 <input type="text" readonly value="${(item.product_note == null) ? '' : item.product_note}" class="border-0 py-1 w-100" name="product_note[]">
                             </td>
                             <td class="border border-bottom-0 border-right-0 text-right deleteProduct">
@@ -1580,6 +1727,101 @@
                             <td style='display:none;'><ul class ='seri_pro'></ul></td>
                             </tr>`;
                                 $("#dynamic-fields").before(newRow);
+                                //Xem giao dịch gần đây
+                                $('.recentModal').click(function() {
+                                    var idProduct = $(this)
+                                        .closest('tr').find(
+                                            '.product_id')
+                                        .val();
+                                    $.ajax({
+                                        url: '{{ route('getRecentTransaction') }}',
+                                        type: 'GET',
+                                        data: {
+                                            idProduct: idProduct
+                                        },
+                                        success: function(
+                                            data) {
+                                            if (Array
+                                                .isArray(
+                                                    data
+                                                ) &&
+                                                data
+                                                .length >
+                                                0) {
+                                                $('#recentModal .modal-body tbody')
+                                                    .empty();
+                                                data.forEach(
+                                                    function(
+                                                        productData
+                                                    ) {
+                                                        var newRow =
+                                                            $(
+                                                                '<tr class="position-relative">' +
+                                                                '<td class="text-13-black" id="productName"></td>' +
+                                                                '<td class="text-13-black" id="productPrice"></td>' +
+                                                                '<td class="text-13-black" id="productTax"></td>' +
+                                                                '<td class="text-13-black" id="dateProduct"></td>' +
+                                                                '</tr>'
+                                                            );
+                                                        newRow
+                                                            .find(
+                                                                '#productName'
+                                                            )
+                                                            .text(
+                                                                productData
+                                                                .product_name
+                                                            );
+                                                        newRow
+                                                            .find(
+                                                                '#productPrice'
+                                                            )
+                                                            .text(
+                                                                formatCurrency(
+                                                                    productData
+                                                                    .price_export
+                                                                )
+                                                            );
+                                                        newRow
+                                                            .find(
+                                                                '#productTax'
+                                                            )
+                                                            .text(
+                                                                productData
+                                                                .product_tax ==
+                                                                99 ?
+                                                                'NOVAT' :
+                                                                productData
+                                                                .product_tax +
+                                                                '%'
+                                                            );
+                                                        var formattedDate =
+                                                            new Date(
+                                                                productData
+                                                                .created_at
+                                                            )
+                                                            .toLocaleDateString(
+                                                                'vi-VN'
+                                                            );
+                                                        newRow
+                                                            .find(
+                                                                '#dateProduct'
+                                                            )
+                                                            .text(
+                                                                formattedDate
+                                                            );
+                                                        newRow
+                                                            .appendTo(
+                                                                '#recentModal .modal-body tbody'
+                                                            );
+                                                    }
+                                                );
+                                            } else {
+                                                $('#recentModal .modal-body tbody')
+                                                    .empty();
+                                            }
+                                        }
+                                    });
+                                });
                                 //Check S/N
                                 var rowId = $(this.currentTarget)
                                     .closest('tr').attr('id');

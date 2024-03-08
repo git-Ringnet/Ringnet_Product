@@ -148,7 +148,8 @@
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
                         <div class="bg-filter-search border-top-0 text-center border-custom">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
+                                PHẨM</p>
                         </div>
                         <section class="content">
                             <div class="container-fluided order_content">
@@ -180,7 +181,7 @@
                                                 <td class='border-right p-2 text-13 align-top'
                                                     style="padding-left: 2rem !important;">
                                                     <input type="text" autocomplete="off" readonly
-                                                        value="{{$item_quote->product_code}}"
+                                                        value="{{ $item_quote->product_code }}"
                                                         class='border-0 pl-0 pr-2 py-1 w-75 product_code'
                                                         name="product_code[]">
                                                 </td>
@@ -277,6 +278,9 @@
                                                         value="{{ number_format($item_quote->price_export) }}"
                                                         class="text-right border-0 px-2 py-1 w-100 product_price"
                                                         autocomplete="off" name="product_price[]" readonly>
+                                                    <div class="mt-3 text-13-blue recentModal" data-toggle="modal"
+                                                        data-target="#recentModal" style="">Giao dịch gần đây
+                                                    </div>
                                                 </td>
                                                 <td class="border-right p-2 text-13 align-top">
                                                     <select name="product_tax[]"
@@ -366,7 +370,8 @@
                                 <table class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr>
-                                            <th class="border-right text-13 padding-left35" style="width:15%;">Mã sản phẩm
+                                            <th class="border-right text-13 padding-left35" style="width:15%;">Mã sản
+                                                phẩm
                                             </th>
                                             <th class="border-right text-13" style="width:17%;">Tên sản phẩm</th>
                                             <th class="border-right text-13" style="width:7%;">Đơn vị</th>
@@ -380,8 +385,7 @@
                                     <tbody>
                                         @foreach ($product as $item_product)
                                             <tr class="bg-white">
-                                                <td
-                                                    class="border border-left-0 border-top-0 border-bottom-0 position-relative">
+                                                <td class="border-right p-2 text-13 align-top">
                                                     <div
                                                         class="d-flex w-100 justify-content-between align-items-center">
                                                         <input type="text" autocomplete="off" readonly
@@ -389,13 +393,15 @@
                                                             class="border-0 px-2 py-1 w-75 product_code">
                                                     </div>
                                                 </td>
-                                                <td class="align-top border border-top-0 border-bottom-0 position-relative">
+                                                <td class="border-right p-2 text-13 align-top">
                                                     <div class="d-flex align-items-center">
-                                                        <input type="text" value="{{ $item_product->product_name }}"
+                                                        <input type="text"
+                                                            value="{{ $item_product->product_name }}"
                                                             class="border-0 px-2 py-1 w-100 product_name" readonly
                                                             autocomplete="off">
                                                         <input type="hidden" class="product_id"
-                                                            value="{{ $item_product->product_id }}" autocomplete="off">
+                                                            value="{{ $item_product->product_id }}"
+                                                            autocomplete="off">
                                                         <div class="info-product" data-toggle="modal"
                                                             data-target="#productModal">
                                                             <svg width="18" height="18" viewBox="0 0 18 18"
@@ -416,12 +422,12 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="align-top border border-top-0 border-bottom-0">
+                                                <td class="border-right p-2 text-13 align-top">
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item_product->product_unit }}"
                                                         class="border-0 px-2 py-1 w-100 product_unit">
                                                 </td>
-                                                <td class="align-top border border-top-0 border-bottom-0 position-relative">
+                                                <td class="border-right p-2 text-13 align-top">
                                                     <input type="text" readonly
                                                         value="{{ is_int($item_product->deliver_qty) ? $item_product->deliver_qty : rtrim(rtrim(number_format($item_product->deliver_qty, 4, '.', ''), '0'), '.') }}"
                                                         class="border-0 px-2 py-1 w-100 quantity-input"
@@ -432,13 +438,15 @@
                                                         <span class="soTonKho"></span>
                                                     </p>
                                                 </td>
-                                                <td class="align-top border border-top-0 border-bottom-0 position-relative">
+                                                <td class="border-right p-2 text-13 align-top">
                                                     <input type="text"
                                                         value="{{ number_format($item_product->price_export) }}"
-                                                        class="border-0 px-2 py-1 w-100"
-                                                        autocomplete="off" readonly>
+                                                        class="border-0 px-2 py-1 w-100" autocomplete="off" readonly>
+                                                    <div class="mt-3 text-13-blue recentModal" data-toggle="modal"
+                                                        data-target="#recentModal" style="">Giao dịch gần đây
+                                                    </div>
                                                 </td>
-                                                <td class="border border-top-0 border-bottom-0 px-4">
+                                                <td class="border-right p-2 text-13 align-top">
                                                     <select class="border-0 text-center product_tax" disabled>
                                                         <option value="0" <?php if ($item_product->product_tax == 0) {
                                                             echo 'selected';
@@ -455,13 +463,12 @@
                                                         </option>
                                                     </select>
                                                 </td>
-                                                <td class="align-top border border-top-0 border-bottom-0">
+                                                <td class="border-right p-2 text-13 align-top">
                                                     <input type="text" readonly=""
                                                         value="{{ number_format($item_product->product_total) }}"
                                                         class="border-0 px-2 py-1 w-100">
                                                 </td>
-                                                <td
-                                                    class="border border-top-0 border-bottom-0 border-right-0 position-relative note p-1">
+                                                <td class="border-right p-2 text-13 align-top">
                                                     <input type="text" class="border-0 py-1 w-100" readonly
                                                         value="{{ $item_product->product_note }}">
                                                 </td>
@@ -633,6 +640,76 @@
         </div>
     </div>
 </div>
+{{-- Modal giao dịch gần đây --}}
+<div class="modal fade" id="recentModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-bold">Giao dịch gần đây</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="outer text-nowrap">
+                    <table id="example2" class="table table-hover bg-white rounded">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Tên sản phẩm
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Giá bán
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Thuế
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Ngày bán
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $('#file_restore').on('change', function(e) {
         e.preventDefault();
@@ -641,6 +718,49 @@
         $('input[name="_method"]').remove();
         $('#deliveryForm')[0].submit();
     })
+    //Xem giao dịch gần đây
+    $('.recentModal').click(function() {
+        var idProduct = $(this).closest('tr').find('.product_id').val();
+        $.ajax({
+            url: '{{ route('getRecentTransaction') }}',
+            type: 'GET',
+            data: {
+                idProduct: idProduct
+            },
+            success: function(data) {
+                if (Array.isArray(data) && data.length > 0) {
+                    $('#recentModal .modal-body tbody').empty();
+                    data.forEach(function(productData) {
+                        var newRow = $(
+                            '<tr class="position-relative">' +
+                            '<td class="text-13-black" id="productName"></td>' +
+                            '<td class="text-13-black" id="productPrice"></td>' +
+                            '<td class="text-13-black" id="productTax"></td>' +
+                            '<td class="text-13-black" id="dateProduct"></td>' +
+                            '</tr>');
+                        newRow.find('#productName').text(productData
+                            .product_name);
+                        newRow.find('#productPrice').text(
+                            formatCurrency(productData
+                                .price_export));
+                        newRow.find('#productTax').text(
+                            productData.product_tax == 99 ?
+                            'NOVAT' : productData.product_tax +
+                            '%');
+                        var formattedDate = new Date(productData
+                            .created_at).toLocaleDateString(
+                            'vi-VN');
+                        newRow.find('#dateProduct').text(
+                            formattedDate);
+                        newRow.appendTo(
+                            '#recentModal .modal-body tbody');
+                    });
+                } else {
+                    $('#recentModal .modal-body tbody').empty();
+                }
+            }
+        });
+    });
     //Kiểm tra số lượng SN được checked
     // $('.check-seri').on('click', function() {
     //     // Lấy giá trị của data-target và data-row từ button

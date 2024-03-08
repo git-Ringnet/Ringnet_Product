@@ -1,5 +1,5 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="payexport"></x-navbar>
-<form action="{{ route('payExport.store', ['workspace' => $workspacename]) }}" method="POST">
+<form onsubmit="return kiemTraFormGiaoHang();" action="{{ route('payExport.store', ['workspace' => $workspacename]) }}" method="POST">
     @csrf
     <input type="hidden" name="detailexport_id" id="detailexport_id"
         value="@isset($yes) {{ $data['detailexport_id'] }} @endisset">
@@ -32,7 +32,7 @@
                     <div class="row m-0">
                         <div class="dropdown">
                             <a href="{{ route('payExport.index', $workspacename) }}">
-                                <button type="button" 
+                                <button type="button"
                                     class="btn-destroy btn-light mx-1 rounded d-flex align-items-center h-100">
                                     <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +60,7 @@
                                 <a class="dropdown-item text-13-black" href="#">Xuất PDF</a>
                             </div>
                         </div>
-                        <button type="submit" onclick="kiemTraFormGiaoHang(event);"
+                        <button type="submit"
                             class="custom-btn mx-1 d-flex align-items-center h-100">
                             <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -73,8 +73,8 @@
                         <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <rect x="16" width="16" height="16" rx="5"
-                                    transform="rotate(90 16 0)" fill="#ECEEFA" />
+                                <rect x="16" width="16" height="16" rx="5" transform="rotate(90 16 0)"
+                                    fill="#ECEEFA" />
                                 <path
                                     d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
                                     fill="#26273B" fill-opacity="0.8" />
@@ -93,7 +93,7 @@
                 <div class="container-fluided">
                     <section class="info-chung">
                         <div class="container-fluided position-relative table-responsive text-nowrap">
-                            <section class="multiple_action" style="display: none;">
+                            {{-- <section class="multiple_action" style="display: none;">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span class="count_checkbox mr-5">Đã chọn 1</span>
                                     <div class="row action">
@@ -145,7 +145,7 @@
                                         </svg>
                                     </div>
                                 </div>
-                            </section>
+                            </section> --}}
                             <table class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">
@@ -163,10 +163,14 @@
                                         </th>
                                         <th class="border-right p-0 px-2 text-13" style="width:15%;">Tên sản phẩm</th>
                                         <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Số lượng</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Đơn giá</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Thuế</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Thành tiền</th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Số
+                                            lượng</th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Đơn
+                                            giá</th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Thuế
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Thành
+                                            tiền</th>
                                         <th class="border-right p-0 px-2 note text-13">Ghi chú sản phẩm</th>
                                     </tr>
                                 </thead>
@@ -210,8 +214,8 @@
                                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                                     <div class="d-flex align-items-center">
                                                         <input type="text" readonly value="{{ $item->product_name }}"
-                                                            class="border-0 px-2 py-1 w-100 product_name" autocomplete="off"
-                                                            required="" name="product_name[]">
+                                                            class="border-0 px-2 py-1 w-100 product_name"
+                                                            autocomplete="off" required="" name="product_name[]">
                                                         <input type="hidden" class="product_id"
                                                             value="{{ $item->product_id }}" autocomplete="off"
                                                             name="product_id[]">
@@ -251,14 +255,15 @@
                                                         autocomplete="off" name="product_price[]" required=""
                                                         readonly="readonly">
                                                     <p class="text-primary text-right position-absolute transaction"
-                                                        style="top: 68%; right: 5%; display: none;">Giao dịch gần
+                                                        style="top: 68%; right: 5%;">Giao dịch gần
                                                         đây
                                                     </p>
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 px-4">
                                                     <select name="product_tax[]" class="border-0 text-center product_tax"
                                                         disabled required="" readonly>
-                                                        <option value="0" {{ $item->product_tax == 0 ? 'selected' : '' }}>
+                                                        <option value="0"
+                                                            {{ $item->product_tax == 0 ? 'selected' : '' }}>
                                                             0%</option>
                                                         <option value="8"
                                                             {{ $item->product_tax == 8 ? 'selected' : '' }}>
@@ -272,8 +277,9 @@
                                                     </select>
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0">
-                                                    <input type="text" value="{{ number_format($item->product_total) }}"
-                                                        readonly="" class="border-0 px-2 py-1 w-100 total-amount">
+                                                    <input type="text"
+                                                        value="{{ number_format($item->product_total) }}" readonly=""
+                                                        class="border-0 px-2 py-1 w-100 total-amount">
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 position-relative note p-1">
                                                     <input type="text" readonly
@@ -305,7 +311,81 @@
                             </button>
                         </div>
                         <div class="modal-body">
-    
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Modal giao dịch gần đây --}}
+            <div class="modal fade" id="recentModal" tabindex="-1" role="dialog"
+                aria-labelledby="productModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-bold">Giao dịch gần đây</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="outer text-nowrap">
+                                <table id="example2" class="table table-hover bg-white rounded">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="id"
+                                                        data-sort-type="#">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Tên sản phẩm
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-id"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="id"
+                                                        data-sort-type="#">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Giá bán
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-id"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="id"
+                                                        data-sort-type="#">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Thuế
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-id"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="id"
+                                                        data-sort-type="#">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Ngày bán
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-id"></div>
+                                                </span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
@@ -352,12 +432,13 @@
                                     @foreach ($numberQuote as $quote_value)
                                         <li class="p-2 align-items-center text-wrap"
                                             style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                            <a href="#" style="flex:2"
-                                                id="{{ $quote_value->id }}" name="search-info" class="search-info">
+                                            <a href="#" style="flex:2" id="{{ $quote_value->id }}"
+                                                name="search-info" class="search-info">
                                                 <span
                                                     class="text-13-black">{{ $quote_value->quotation_number }}</span></span>
                                             </a>
-                                            <a id="" class="" type="button" data-toggle="" data-target="">
+                                            <a id="" class="" type="button" data-toggle=""
+                                                data-target="">
                                                 <span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                         height="14" viewBox="0 0 14 14" fill="none">
@@ -668,7 +749,6 @@
             //lấy thông tin sản phẩm
             $(document).ready(function() {
                 $('.inventory').hide();
-                $('.transaction').hide();
                 $('.info-product').hide();
                 $('.idProduct').click(function() {
                     var productName = $(this).closest('tr').find('.product_name');
@@ -846,7 +926,7 @@
                                 $(".idGuest").val(item.guest_id);
                                 var newRow = `
                                 <tr id="dynamic-row-${item.id}" class="bg-white sanPhamGiao">
-                            <td class="border border-left-0 border-top-0 border-bottom-0 position-relative">
+                            <td class="border-right p-2 text-13 align-top">
                                 <div class="d-flex w-100 justify-content-between align-items-center">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z" fill="#42526E"></path>
@@ -860,7 +940,7 @@
                                     <input type="text" value="${item.product_code == null ? '' : item.product_code}" readonly autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
                                 </div>
                             </td>
-                            <td class="border border-top-0 border-bottom-0 position-relative">
+                            <td class="border-right p-2 text-13 align-top">
                                 <div class="d-flex align-items-center">
                                     <input type="text" readonly value="${item.product_name}" class="border-0 px-2 py-1 w-100 product_name" autocomplete="off" required="" name="product_name[]">
                                     <input type="hidden" class="product_id" value="${item.product_id}" autocomplete="off" name="product_id[]">
@@ -873,19 +953,19 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="border border-top-0 border-bottom-0">
+                            <td class="border-right p-2 text-13 align-top">
                                 <input type="text" value="${item.product_unit}" readonly autocomplete="off" class="border-0 px-2 py-1 w-100 product_unit" required="" name="product_unit[]">
                             </td>
-                            <td class="border border-top-0 border-bottom-0 position-relative">
+                            <td class="border-right p-2 text-13 align-top">
                                 <input type="text" value="${formatNumber(item.product_qty)}" readonly class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
                                 <p class="text-primary text-center position-absolute inventory" style="top: 68%; display: none;">Tồn kho: 35</p>
                             </td>
-                            <td class="border border-top-0 border-bottom-0 position-relative">
+                            <td class="border-right p-2 text-13 align-top">
                                 <input type="text" value="${formatCurrency(item.price_export)}" readonly class="border-0 px-2 py-1 w-100 product_price" autocomplete="off" name="product_price[]" required="" readonly="readonly">
-                                <p class="text-primary text-right position-absolute transaction" style="top: 68%; right: 5%; display: none;">Giao dịch gần đây</p>
+                                <p class="mt-3 text-13-blue transaction recentModal" data-toggle="modal" data-target="#recentModal">Giao dịch gần đây</p>
                             </td>
-                            <td class="border border-top-0 border-bottom-0 px-4">
+                            <td class="border-right p-2 text-13 align-top">
                                 <select name="product_tax[]" class="border-0 text-center product_tax" required="" disabled>
                                     <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                     <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
@@ -893,20 +973,115 @@
                                     <option value="99" ${(item.product_tax == 99) ? 'selected' : ''}>NOVAT</option>
                                 </select>
                             </td>
-                            <td class="border border-top-0 border-bottom-0">
+                            <td class="border-right p-2 text-13 align-top">
                                 <input type="text" value="${formatCurrency(Math.round(item.product_total))}" readonly="" class="border-0 px-2 py-1 w-100 total-amount">
                             </td>
-                            <td class="border border-top-0 border-bottom-0 border-right-0 position-relative note p-1">
+                            <td class="border-right p-2 text-13 align-top border-right-0 position-relative note p-1">
                                 <input type="text" readonly value="${(item.product_note == null) ? '' : item.product_note}" class="border-0 py-1 w-100" name="product_note[]">
                             </td>
                             <td style="display:none;"><input type="text" class="product_tax1" value="${tax}"></td>
                             </tr>`;
                                 $("#dynamic-fields").before(newRow);
-                                //kéo thả vị trí sản phẩm
-                                $("table tbody").sortable({
-                                    axis: "y",
-                                    handle: "td",
+                                //Xem giao dịch gần đây
+                                $('.recentModal').click(function() {
+                                    var idProduct = $(this)
+                                        .closest('tr').find(
+                                            '.product_id')
+                                        .val();
+                                    $.ajax({
+                                        url: '{{ route('getRecentTransaction') }}',
+                                        type: 'GET',
+                                        data: {
+                                            idProduct: idProduct
+                                        },
+                                        success: function(
+                                            data) {
+                                            if (Array
+                                                .isArray(
+                                                    data
+                                                ) &&
+                                                data
+                                                .length >
+                                                0) {
+                                                $('#recentModal .modal-body tbody')
+                                                    .empty();
+                                                data.forEach(
+                                                    function(
+                                                        productData
+                                                    ) {
+                                                        var newRow =
+                                                            $(
+                                                                '<tr class="position-relative">' +
+                                                                '<td class="text-13-black" id="productName"></td>' +
+                                                                '<td class="text-13-black" id="productPrice"></td>' +
+                                                                '<td class="text-13-black" id="productTax"></td>' +
+                                                                '<td class="text-13-black" id="dateProduct"></td>' +
+                                                                '</tr>'
+                                                            );
+                                                        newRow
+                                                            .find(
+                                                                '#productName'
+                                                            )
+                                                            .text(
+                                                                productData
+                                                                .product_name
+                                                            );
+                                                        newRow
+                                                            .find(
+                                                                '#productPrice'
+                                                            )
+                                                            .text(
+                                                                formatCurrency(
+                                                                    productData
+                                                                    .price_export
+                                                                )
+                                                            );
+                                                        newRow
+                                                            .find(
+                                                                '#productTax'
+                                                            )
+                                                            .text(
+                                                                productData
+                                                                .product_tax ==
+                                                                99 ?
+                                                                'NOVAT' :
+                                                                productData
+                                                                .product_tax +
+                                                                '%'
+                                                            );
+                                                        var formattedDate =
+                                                            new Date(
+                                                                productData
+                                                                .created_at
+                                                            )
+                                                            .toLocaleDateString(
+                                                                'vi-VN'
+                                                            );
+                                                        newRow
+                                                            .find(
+                                                                '#dateProduct'
+                                                            )
+                                                            .text(
+                                                                formattedDate
+                                                            );
+                                                        newRow
+                                                            .appendTo(
+                                                                '#recentModal .modal-body tbody'
+                                                            );
+                                                    }
+                                                );
+                                            } else {
+                                                $('#recentModal .modal-body tbody')
+                                                    .empty();
+                                            }
+                                        }
+                                    });
                                 });
+                                //kéo thả vị trí sản phẩm
+                                // $("table tbody").sortable({
+                                //     axis: "y",
+                                //     handle: "td",
+                                // });
                                 //Giới hạn số tiền
                                 document.querySelector('.payment')
                                     .addEventListener('input',
@@ -1044,7 +1219,6 @@
                                 //lấy thông tin sản phẩm
                                 $(document).ready(function() {
                                     $('.inventory').hide();
-                                    $('.transaction').hide();
                                     $('.info-product').hide();
                                     $('.idProduct').click(
                                         function() {
@@ -1424,7 +1598,30 @@
 
     function kiemTraFormGiaoHang(event) {
         var rows = document.querySelectorAll('tr');
+        var numberValue = $('input[name="code_payment"]').val();
         var hasProducts = false;
+        var ajaxSuccess = false;
+
+        $.ajax({
+            url: '{{ route('checkCodePayment') }}',
+            type: 'GET',
+            async: false, // Chuyển thành đồng bộ
+            data: {
+                numberValue: numberValue
+            },
+            success: function(data) {
+                if (!data.success) {
+                    showNotification('warning', 'Mã thanh toán đã tồn tại!');
+                } else {
+                    ajaxSuccess = true;
+                }
+            }
+        });
+
+        if (!ajaxSuccess) {
+            return false;
+        }
+
 
         for (var i = 1; i < rows.length; i++) {
             if (rows[i].classList.contains('sanPhamGiao')) {

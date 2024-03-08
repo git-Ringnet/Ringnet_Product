@@ -209,9 +209,9 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody class="tbody-delivery">
-                                        @foreach ($delivery as $item_delivery)
-                                            <tr class="position-relative delivery-info"
+                                    <tbody>
+                                        @foreach ($deliveries as $item_delivery)
+                                            <tr class="position-relative"
                                                 onclick="handleRowClick('checkbox', event);">
                                                 <input type="hidden" name="id-delivery" class="id-delivery"
                                                     id="id-delivery" value="{{ $item_delivery->id }}">
@@ -267,7 +267,7 @@
                                                 <td class="text-13-black">
                                                     {{ date_format(new DateTime($item_delivery->ngayGiao), 'd/m/Y') }}
                                                 </td>
-                                                <td>{{ number_format($item_delivery->product_total_vat) }}
+                                                <td>{{ number_format($item_delivery->totalProductVat) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 10px;">

@@ -607,10 +607,6 @@
                                         },
                                         success: function(
                                             data) {
-                                            console
-                                                .log(
-                                                    data
-                                                );
                                             if (Array
                                                 .isArray(
                                                     data
@@ -685,6 +681,9 @@
                                                             );
                                                     }
                                                 );
+                                            } else {
+                                                $('#recentModal .modal-body tbody')
+                                                    .empty();
                                             }
                                         }
                                     });

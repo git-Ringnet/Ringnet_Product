@@ -62,26 +62,17 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <a href="{{ route('payExport.index', ['workspace' => $workspacename]) }}">
-                            <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 rounded">
+                            <button type="button"
+                                class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 rounded">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                     viewBox="0 0 16 16" fill="none">
-                                     <path
-                                          d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
-                                          fill="#6D7075"></path>
+                                    viewBox="0 0 16 16" fill="none">
+                                    <path
+                                        d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
+                                        fill="#6D7075"></path>
                                 </svg>
                                 <span class="text-btnIner-primary ml-1">Trở về</span>
                             </button>
                         </a>
-                        <label class="custom-btn d-flex align-items-center h-100 m-0 mx-1 ">
-                            <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                viewBox="0 0 14 14" fill="none">
-                                <path
-                                    d="M8.30541 9.20586C8.57207 9.47246 8.5943 9.89106 8.37208 10.183L8.30541 10.2593L5.84734 12.7174C4.58675 13.978 2.54294 13.978 1.28235 12.7174C0.0652319 11.5003 0.0232719 9.55296 1.15644 8.2855L1.28235 8.15237L3.74042 5.69429C4.03133 5.40339 4.50298 5.40339 4.79388 5.69429C5.06054 5.96096 5.08277 6.37949 4.86055 6.67147L4.79388 6.74775L2.33581 9.20586C1.65703 9.88456 1.65703 10.9852 2.33581 11.6639C2.98065 12.3088 4.00611 12.341 4.68901 11.7607L4.79388 11.6639L7.25195 9.20586C7.54286 8.91492 8.01451 8.91492 8.30541 9.20586ZM8.82965 5.17005C9.12053 5.46095 9.12053 5.9326 8.82965 6.22351L6.34904 8.70413C6.05813 8.99504 5.58648 8.99504 5.29558 8.70413C5.00467 8.41323 5.00467 7.94158 5.29558 7.65067L7.7762 5.17005C8.0671 4.87914 8.53875 4.87914 8.82965 5.17005ZM12.7173 1.28236C13.9344 2.49948 13.9764 4.44674 12.8432 5.71422L12.7173 5.84735L10.2592 8.30543C9.96833 8.59633 9.49673 8.59633 9.20583 8.30543C8.93914 8.03877 8.91692 7.62023 9.13913 7.32825L9.20583 7.25197L11.6638 4.79389C12.3426 4.11511 12.3426 3.0146 11.6638 2.33582C11.019 1.69098 9.99363 1.65874 9.31073 2.23909L9.20583 2.33582L6.74774 4.79389C6.45683 5.0848 5.98518 5.0848 5.69428 4.79389C5.42762 4.52723 5.40539 4.10869 5.62761 3.81672L5.69428 3.74043L8.15235 1.28236C9.41293 0.0217665 11.4567 0.0217665 12.7173 1.28236Z"
-                                    fill="white"></path>
-                            </svg>
-                            <span>Đính kèm file</span>
-                            <input type="file" style="display: none;" id="file_restore" accept="*" name="file">
-                        </label>
                         <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 dropdown-toggle rounded">
@@ -109,7 +100,7 @@
                                             d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
                                             fill="#6D7075" />
                                     </svg>
-                                    <span class="text-btnIner-primary ml-1">Xác nhận</span>
+                                    <span class="text-btnIner-primary ml-1 text-dark">Xác nhận</span>
                                 </button>
                             </div>
                         @endif
@@ -121,11 +112,13 @@
                                     fill="white"></path>
                             </svg>
                             <span class="text-btnIner-primary ml-1">Đính kèm file</span>
-                            <input type="file" style="display: none;" id="file_restore" accept="*" name="file">
+                            <input type="file" style="display: none;" id="file_restore" accept="*"
+                                name="file">
                         </label>
                         <button name="action" value="action_2" type="submit" id="btnThanhToan"
                             onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                            class="btn--remove d-flex mx-1 align-items-center h-100 mx-2" style="background-color:red;">
+                            class="btn--remove d-flex mx-1 align-items-center h-100 mx-2"
+                            style="background-color:red;">
                             <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -156,7 +149,7 @@
                         <a class="text-secondary" data-toggle="tab" href="#history">Lịch sử giao dịch</a>
                     </li>
                     <li>
-                        <a class="text-secondary pr-3" data-toggle="tab" href="#files">Serial Number</a>
+                        <a class="text-secondary pr-3" data-toggle="tab" href="#files">File đính kèm</a>
                     </li>
                 </ul>
             </section>
@@ -322,10 +315,9 @@
                                                     value="{{ number_format($item_quote->price_export) }}"
                                                     class="border-0 px-2 py-1 w-100 text-right product_price"
                                                     autocomplete="off" name="product_price[]" readonly>
-                                                <p class="text-primary text-right position-absolute transaction"
-                                                    style="top: 68%; right: 5%; display: none;">Giao dịch
-                                                    gần
-                                                    đây
+                                                <p class="mt-3 text-13-blue recentModal" data-toggle="modal"
+                                                    data-target="#recentModal">
+                                                    Giao dịch gần đây
                                                 </p>
                                             </td>
                                             <td class="border-right p-2 text-13 align-top">
@@ -389,141 +381,141 @@
                         </div>
                     </div>
                 </div>
-                </section>
-            </div>
-            <div id="history" class="tab-pane fade">
-                <div class="bg-filter-search border-top-0 text-center border-custom">
-                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">LỊCH SỬ THANH TOÁN</p>
-                </div>
-                <section class="content">
-                    <div class="outer container-fluided">
-                        <table class="table table-hover bg-white rounded" id="inputcontent">
-                            <thead>
-                                <tr style="height:44px;">
-                                    <th class="text-table text-secondary p-2 border-right"
-                                        style="padding-left: 2rem !important;">Mã thanh toán</th>
-                                    <th class="text-table text-secondary p-2 border-right">Ngày thanh toán</th>
-                                    <th class="text-table text-secondary p-2 border-right">Tổng tiền</th>
-                                    <th class="text-table text-secondary p-2 border-right">Thanh toán</th>
-                                    <th class="text-table text-secondary p-2">Dư nợ</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($history as $htr)
-                                    <tr class="bg-white">
-                                        <td class="border-right text-13-black" style="padding-left: 2rem !important;">
-                                            {{ $htr->id }}
-                                        </td>
-                                        <td class="border-right text-13-black">
-                                            {{ date_format(new DateTime($htr->created_at), 'd-m-Y') }}
-                                        </td>
-                                        <td class="border-right text-13-black">
-                                            {{ number_format($htr->total) }}
-                                        </td>
-                                        <td class="border-right text-13-black">
-                                            {{ number_format($htr->payment) }}
-                                        </td>
-                                        <td class="text-13-black">{{ number_format($htr->debt) }}</td>
+                <div id="history" class="tab-pane fade">
+                    <div class="bg-filter-search border-top-0 text-center border-custom">
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">LỊCH SỬ THANH TOÁN
+                        </p>
+                    </div>
+                    <section class="content">
+                        <div class="outer container-fluided">
+                            <table class="table table-hover bg-white rounded" id="inputcontent">
+                                <thead>
+                                    <tr style="height:44px;">
+                                        <th class="text-table text-secondary p-2 border-right"
+                                            style="padding-left: 2rem !important;">Mã thanh toán</th>
+                                        <th class="text-table text-secondary p-2 border-right">Ngày thanh toán</th>
+                                        <th class="text-table text-secondary p-2 border-right">Tổng tiền</th>
+                                        <th class="text-table text-secondary p-2 border-right">Thanh toán</th>
+                                        <th class="text-table text-secondary p-2">Dư nợ</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-            </div>
-            <div id="files" class="tab-pane fade">
-                <div class="bg-filter-search border-top-0 text-center border-custom">
-                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM</p>
+                                </thead>
+                                <tbody>
+                                    @foreach ($history as $htr)
+                                        <tr class="bg-white">
+                                            <td class="border-right text-13-black"
+                                                style="padding-left: 2rem !important;">
+                                                {{ $htr->id }}
+                                            </td>
+                                            <td class="border-right text-13-black">
+                                                {{ date_format(new DateTime($htr->created_at), 'd-m-Y') }}
+                                            </td>
+                                            <td class="border-right text-13-black">
+                                                {{ number_format($htr->total) }}
+                                            </td>
+                                            <td class="border-right text-13-black">
+                                                {{ number_format($htr->payment) }}
+                                            </td>
+                                            <td class="text-13-black">{{ number_format($htr->debt) }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
                 </div>
-                <x-form-attachment :value="$payExport" name="TT"></x-form-attachment>
-            </div>
-        </div>
-    </div>
-    {{-- Thông tin khách hàng --}}
-    <div class="content-wrapper2 px-0 py-0">
-        <div id="mySidenav" class="sidenav border" style="top:119px;">
-            <div id="show_info_Guest">
-                <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin khách hàng</p>
-                <div class="content-info">
-                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
-                        style="height:44px;" style="height:44px;">
-                        <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
-                        <span class="mx-1 text-13" style="flex: 2;">
-                            <input type="text" placeholder="Chọn thông tin" readonly
-                                value="{{ $payExport->quotation_number }}"
-                                class="text-13-black w-100 border-0 numberQute bg-input-guest" id="myInput"
-                                style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
-                                name="quotation_number">
-                        </span>
-                    </div>
-                </div>
-                <div class="content-info--common" id="show-info-guest">
-                    <ul class="p-0 m-0 ">
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                            style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
-                            <input class="text-13-black w-50 border-0 bg-input-guest"
-                                value="{{ $payExport->guest_name_display }}" style="flex:2;outline:none;">
-                            <input type="hidden" class="idGuest" value="{{ $payExport->guest_id }}"
-                                autocomplete="off" name="guest_id">
-                        </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                            style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                            <input class="text-13-black w-50 border-0 represent_guest" style="flex:2;outline:none;"
-                                readonly />
-                        </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                            style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh toán</span>
-                            <input class="text-13-black w-50 border-0" style="flex:2;outline:none;"
-                                value="{{ $payExport->idTT }}" readonly />
-                        </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                            style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hạn thanh toán</span>
-                            <input type="text" placeholder="Nhập thông tin" style="flex:2;outline:none;"
-                                @if ($payExport->trangThai != 2) id="datePicker" @endif
-                                value="{{ date_format(new DateTime($payExport->payment_date), 'd/m/Y') }}"
-                                class="text-13-black w-50 border-0">
-                            <input type="hidden" id="hiddenDateInput" name="date_pay"
-                                value="{{ date_format(new DateTime($payExport->payment_date), 'Y-m-d') }}">
-                        </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                            style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
-                            <input class="text-13-black w-50 border-0 tongTien" name="total"
-                                style="flex:2;outline:none;" value="{{ number_format($payExport->tongTienNo) }}"
-                                readonly />
-                        </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                            style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đã thanh toán</span>
-                            <input type="text" class="text-13-black w-50 border-0 daThanhToan"
-                                style="flex:2; outline:none;" readonly name="daThanhToan"
-                                value="{{ number_format($thanhToan->tongThanhToan) }}" />
-                        </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                            style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
-                            <input class="text-13-black w-50 border-0 duNo" style="flex:2; outline:none;"
-                                name="number_bill" value="{{ number_format($noConLaiValue) }}" readonly />
-                        </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                            style="height:44px;">
-                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
-                            <input type="text" class="text-13-black w-50 border-0 payment"
-                                oninput="validateInput();"
-                                @if ($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif
-                                name="payment" style="flex:2; outline:none;" name="payment" />
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
 </form>
+<div id="fi les" class="tab-pane fade">
+    <div class="bg-filter-search border-top-0 text-center border-custom">
+        <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM</p>
+    </div>
+    <x-form-attachment :value="$payExport" name="TT"></x-form-attachment>
+</div>
+</div>
+</div>
+</div>
+{{-- Thông tin khách hàng --}}
+<div class="content-wrapper2 px-0 py-0">
+    <div id="mySidenav" class="sidenav border" style="top:119px;">
+        <div id="show_info_Guest">
+            <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin khách hàng</p>
+            <div class="content-info">
+                <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
+                    style="height:44px;" style="height:44px;">
+                    <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
+                    <span class="mx-1 text-13" style="flex: 2;">
+                        <input type="text" placeholder="Chọn thông tin" readonly
+                            value="{{ $payExport->quotation_number }}"
+                            class="text-13-black w-100 border-0 numberQute bg-input-guest" id="myInput"
+                            style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
+                            name="quotation_number">
+                    </span>
+                </div>
+            </div>
+            <div class="content-info--common" id="show-info-guest">
+                <ul class="p-0 m-0 ">
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
+                        <input class="text-13-black w-50 border-0 bg-input-guest"
+                            value="{{ $payExport->guest_name_display }}" style="flex:2;outline:none;">
+                        <input type="hidden" class="idGuest" value="{{ $payExport->guest_id }}" autocomplete="off"
+                            name="guest_id">
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
+                        <input class="text-13-black w-50 border-0 represent_guest" style="flex:2;outline:none;"
+                            readonly />
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh toán</span>
+                        <input class="text-13-black w-50 border-0" style="flex:2;outline:none;"
+                            value="{{ $payExport->code_payment }}" readonly />
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hạn thanh toán</span>
+                        <input type="text" placeholder="Nhập thông tin" style="flex:2;outline:none;"
+                            @if ($payExport->trangThai != 2) id="datePicker" @endif
+                            value="{{ date_format(new DateTime($payExport->payment_date), 'd/m/Y') }}"
+                            class="text-13-black w-50 border-0">
+                        <input type="hidden" id="hiddenDateInput" name="date_pay"
+                            value="{{ date_format(new DateTime($payExport->payment_date), 'Y-m-d') }}">
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
+                        <input class="text-13-black w-50 border-0 tongTien" name="total"
+                            style="flex:2;outline:none;" value="{{ number_format($payExport->tongTienNo) }}"
+                            readonly />
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đã thanh toán</span>
+                        <input type="text" class="text-13-black w-50 border-0 daThanhToan"
+                            style="flex:2; outline:none;" readonly name="daThanhToan"
+                            value="{{ number_format($thanhToan->tongThanhToan) }}" />
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
+                        <input class="text-13-black w-50 border-0 duNo" style="flex:2; outline:none;"
+                            name="number_bill" value="{{ number_format($noConLaiValue) }}" readonly />
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
+                        <input type="text" class="text-13-black w-50 border-0 payment" oninput="validateInput();"
+                            @if ($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif
+                            name="payment" style="flex:2; outline:none;" name="payment" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
 {{-- Thông tin sản phẩm --}}
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -545,6 +537,77 @@
     </div>
 </div>
 
+{{-- Modal giao dịch gần đây --}}
+<div class="modal fade" id="recentModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-bold">Giao dịch gần đây</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="outer text-nowrap">
+                    <table id="example2" class="table table-hover bg-white rounded">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Tên sản phẩm
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Giá bán
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Thuế
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Ngày bán
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     //
     flatpickr("#datePicker", {
@@ -555,6 +618,101 @@
             document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
                 "Y-m-d");
         }
+    });
+    //Xem giao dịch gần đây
+    $('.recentModal').click(function() {
+        var idProduct = $(this)
+            .closest('tr').find(
+                '.product_id')
+            .val();
+        $.ajax({
+            url: '{{ route('getRecentTransaction') }}',
+            type: 'GET',
+            data: {
+                idProduct: idProduct
+            },
+            success: function(
+                data) {
+                if (Array
+                    .isArray(
+                        data
+                    ) &&
+                    data
+                    .length >
+                    0) {
+                    $('#recentModal .modal-body tbody')
+                        .empty();
+                    data.forEach(
+                        function(
+                            productData
+                        ) {
+                            var newRow =
+                                $(
+                                    '<tr class="position-relative">' +
+                                    '<td class="text-13-black" id="productName"></td>' +
+                                    '<td class="text-13-black" id="productPrice"></td>' +
+                                    '<td class="text-13-black" id="productTax"></td>' +
+                                    '<td class="text-13-black" id="dateProduct"></td>' +
+                                    '</tr>'
+                                );
+                            newRow
+                                .find(
+                                    '#productName'
+                                )
+                                .text(
+                                    productData
+                                    .product_name
+                                );
+                            newRow
+                                .find(
+                                    '#productPrice'
+                                )
+                                .text(
+                                    formatCurrency(
+                                        productData
+                                        .price_export
+                                    )
+                                );
+                            newRow
+                                .find(
+                                    '#productTax'
+                                )
+                                .text(
+                                    productData
+                                    .product_tax ==
+                                    99 ?
+                                    'NOVAT' :
+                                    productData
+                                    .product_tax +
+                                    '%'
+                                );
+                            var formattedDate =
+                                new Date(
+                                    productData
+                                    .created_at
+                                )
+                                .toLocaleDateString(
+                                    'vi-VN'
+                                );
+                            newRow
+                                .find(
+                                    '#dateProduct'
+                                )
+                                .text(
+                                    formattedDate
+                                );
+                            newRow
+                                .appendTo(
+                                    '#recentModal .modal-body tbody'
+                                );
+                        }
+                    );
+                } else {
+                    $('#recentModal .modal-body tbody')
+                        .empty();
+                }
+            }
+        });
     });
     $('#file_restore').on('change', function(e) {
         e.preventDefault();

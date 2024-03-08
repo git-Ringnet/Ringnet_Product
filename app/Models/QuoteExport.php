@@ -139,6 +139,7 @@ class QuoteExport extends Model
                         'product_price_export' => $price,
                         'product_price_import' => isset($priceImport) ? $priceImport : 0,
                         'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
+                        'workspace_id' => Auth::user()->current_workspace,
                     ];
                     $product = new Products($dataProduct);
                     $product->save();
@@ -155,6 +156,7 @@ class QuoteExport extends Model
                         'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                         'price_import' => $priceImport,
                         'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                        'workspace_id' => Auth::user()->current_workspace,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ];
@@ -173,6 +175,7 @@ class QuoteExport extends Model
                         'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                         'price_import' => $priceImport,
                         'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                        'workspace_id' => Auth::user()->current_workspace,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ];
@@ -185,6 +188,8 @@ class QuoteExport extends Model
     {
         $products = DB::table('quoteexport')
             ->whereIn('product_id', $id)
+            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
+            ->where('products.workspace_id', Auth::user()->current_workspace)
             ->join('products', 'quoteexport.product_id', '=', 'products.id')
             ->select('products.*', 'quoteexport.*', 'quoteexport.product_qty')
             ->get();
