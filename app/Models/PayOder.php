@@ -258,9 +258,9 @@ class PayOder extends Model
         } else {
             if ($check == 1) {
                 if ($data['payment'] > 0) {
-                    $status = 6;
+                    $status = 6; // Đặt cọc
                 } else {
-                    $status = 1;
+                    $status = 1; // Chưa thanh toán, thanh toán 1 phần
                 }
             } else {
                 if ($payorder->status == 6) {
@@ -270,7 +270,13 @@ class PayOder extends Model
                         $status = 6;
                     }
                 } else {
-                    $status = 1;
+                    // Lịch sử giao dịch > 2 
+                    $countHistory = DB::table('history_payment_order')->where('payment_id', $payorder->id)->count();
+                    if ($countHistory < 2 && $payorder->payment > 0) {
+                        $status = 6;
+                    } else {
+                        $status = 1;
+                    }
                 }
             }
         }
