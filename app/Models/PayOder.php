@@ -140,7 +140,8 @@ class PayOder extends Model
                             }
                         }
                         $sum = round($total) + round($total_tax);
-                        $temp += $sum;
+                        // Lỗi
+                        $temp = $sum;
                         DB::table($this->table)->where('id', $payment_id)
                             ->where('workspace_id', Auth::user()->current_workspace)
                             ->update([
@@ -234,7 +235,6 @@ class PayOder extends Model
 
     public function updateStatusDebt($data, $id, $check)
     {
-        // dd($id);
         $startDate = Carbon::now()->startOfDay();
         $endDate = isset($data['payment_date']) ? Carbon::parse($data['payment_date']) : Carbon::now();
         $endDate = Carbon::parse($endDate);
@@ -263,9 +263,10 @@ class PayOder extends Model
                     $status = 1; // Chưa thanh toán, thanh toán 1 phần
                 }
             } else {
+                // Tình trạng đặt cọc trả về chưa thanh toán
                 if ($payorder->status == 6) {
                     if ($data['payment'] > 0) {
-                        $status = 1;
+                        $status = 1; 
                     } else {
                         $status = 6;
                     }
@@ -280,37 +281,6 @@ class PayOder extends Model
                 }
             }
         }
-
-
-
-
-
-        // if ($daysDiff <= 3 && $daysDiff > 0) {
-        //     $status = 3; // Đến hạn trong
-        // } elseif ($daysDiff == 0) {
-        //     $status = 5; // Đến hạn
-        // } elseif ($daysDiff < 0) {
-        //     $status = 4; // Quá hạn
-        // } else {
-        //     if ($check == 1 && $data['payment'] > 0) {
-        //         $status = 6; // Đặt cọc
-        //     } else {
-        //         if ($data['payment'] > 0 && $payorder->payment_date == $endDate) {
-        //             $status = 1; // Chưa thanh toán
-        //         } else {
-        //             if ($check == 1) {
-        //                 $status = 1; // Đặt cọc
-        //             } else {
-        //                 if ($payorder->status != 1) {
-        //                     $status = 6; // Đặt cọc
-        //                 } else {
-        //                     $status = $payorder->status;
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-
 
         // $payorder = PayOder::where('detailimport_id', $id)
         //     ->where('workspace_id', Auth::user()->current_workspace)

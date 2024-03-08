@@ -196,20 +196,25 @@ class DetailImportController extends Controller
                 return view('tables.reciept.insertReciept', compact('yes', 'title', 'reciept', 'recieptProduct', 'show_receive', 'workspacename'));
             }
         } else {
-            $getPaymentOrder = $this->payment->getPaymentOrder($request->detail_id);
-            $show_receive = $this->receiver_bill->show_receive($request->detail_id);
-            if ($getPaymentOrder->isEmpty()) {
-                return redirect()->route('import.index', $workspacename)->with('warning', 'Hóa đơn thanh toán đã được tạo hết!');
+            $checkPay = PayOder::where('detailimport_id', $request->detail_id)->first();
+            if ($checkPay) {
+                return redirect()->route('import.index', $workspacename)->with('warning', 'Thanh toán mua hàng đã được tạo !');
             } else {
-                $title = "Tạo mới hóa đơn thanh toán";
-                $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
-                    ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
-                    ->where('detailimport.id', $request->detail_id)
-                    ->distinct()
-                    ->select('detailimport.quotation_number', 'detailimport.id')
-                    ->get();
-                $yes = true;
-                return view('tables.paymentOrder.insertPaymentOrder', compact('yes', 'title', 'reciept', 'getPaymentOrder', 'show_receive', 'workspacename'));
+                $getPaymentOrder = $this->payment->getPaymentOrder($request->detail_id);
+                $show_receive = $this->receiver_bill->show_receive($request->detail_id);
+                if ($getPaymentOrder->isEmpty()) {
+                    return redirect()->route('import.index', $workspacename)->with('warning', 'Hóa đơn thanh toán đã được tạo hết!');
+                } else {
+                    $title = "Tạo mới hóa đơn thanh toán";
+                    $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
+                        ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
+                        ->where('detailimport.id', $request->detail_id)
+                        ->distinct()
+                        ->select('detailimport.quotation_number', 'detailimport.id')
+                        ->get();
+                    $yes = true;
+                    return view('tables.paymentOrder.insertPaymentOrder', compact('yes', 'title', 'reciept', 'getPaymentOrder', 'show_receive', 'workspacename'));
+                }
             }
         }
     }
@@ -327,11 +332,6 @@ class DetailImportController extends Controller
                     ->orWhere('provide_name_display', $request->provide_name_display);
             })
             ->first();
-        // $check = Provides::where('provide_code', $request->provide_code)
-        //     ->orwhere('provide_name_display', $request->provide_name_display)
-        //     ->where('workspace_id', Auth::user()->current_workspace)
-        //     ->first();
-
         if ($check == null) {
             if (isset($request->key)) {
                 $key = $request->key;
@@ -382,6 +382,37 @@ class DetailImportController extends Controller
             ]);
         } else {
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế hoặc tên hiển thị đã tồn tại']);
+        }
+        return $msg;
+    }
+
+    public function updateProvide(Request $request)
+    {
+        $data = $request->all();
+        $check = Provides::where('id', '!=', $request->id)
+            ->where(function ($query) use ($data) {
+                $query->where('provide_code', $data['provide_code'])
+                    ->orWhere('provide_name_display', $data['provide_name_display']);
+            })
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
+        if ($check) {
+            $msg = response()->json([
+                'success' => false, 'msg' => 'Nhà cung cấp đã tồn tại',
+            ]);
+        } else {
+            $dataProvide = [
+                'provide_code' => $data['provide_code'],
+                'provide_name_display' => $data['provide_name_display'],
+                'key' => $data['key'],
+                'provide_name' => $data['provide_name'],
+                'provide_address' => $data['provide_address'],
+            ];
+
+            DB::table('provides')->where('id', $request->id)->update($dataProvide);
+            $msg = response()->json([
+                'success' => true, 'msg' => 'Chỉnh sửa nhà cung cấp thành công', 'provide_id' => $request->id
+            ]);
         }
         return $msg;
     }
@@ -506,18 +537,24 @@ class DetailImportController extends Controller
             $data['terms_pay'] = $terms_pay;
             return $data;
         } else {
-            if ($request->table == 'represent') {
-                $represent = ProvideRepesent::where('id', $request->id)
-                    ->where('workspace_id', Auth::user()->current_workspace)
-                    ->first();
-                $data['represent'] = $represent;
+            if (isset($request->table)) {
+                if ($request->table == 'represent') {
+                    $represent = ProvideRepesent::where('id', $request->id)
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->first();
+                    $data['represent'] = $represent;
+                } else {
+                    $dateForm = DateForm::where('id', $request->id)
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->first();
+                    $data[$request->table] = $dateForm;
+                    $data['table'] = $request->table;
+                }
             } else {
-                $dateForm = DateForm::where('id', $request->id)
-                    ->where('workspace_id', Auth::user()->current_workspace)
-                    ->first();
-                $data[$request->table] = $dateForm;
-                $data['table'] = $request->table;
+                $provide = Provides::where('id', $request->id)->first();
+                return $provide;
             }
+
 
             return $data;
         }
@@ -765,5 +802,10 @@ class DetailImportController extends Controller
             $data['table'] = $request->table;
         }
         return $data;
+    }
+
+    public function getInventory(Request $request)
+    {
+        return $request->all();
     }
 }

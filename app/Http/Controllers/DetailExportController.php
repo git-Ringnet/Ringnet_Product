@@ -301,7 +301,8 @@ class DetailExportController extends Controller
         if ($request->action == "action_6") {
             $dataImport = $this->detailImport->dataImport($request->all());
             $title = "Tạo đơn mua hàng";
-            $provides = Provides::all();
+            // $provides = Provides::all();
+            $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
             $project = Project::all();
             return view('tables.import.insertImport', ['dataImport' => $dataImport, 'title' => $title, 'provides' => $provides, 'project' => $project, 'workspacename' => $workspace]);
         }

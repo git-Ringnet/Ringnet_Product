@@ -354,7 +354,8 @@
                                                     class="text-13-black">{{ $item->provide_name_display }}</span></span>
                                             </a>
                                             <a id="" class="search-infoEdit" type="button"
-                                                data-toggle="modal" data-target="#guestModalEdit">
+                                                data-toggle="modal" data-target="#editProvide"
+                                                data-id="{{ $item->id }}">
                                                 <span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                         height="14" viewBox="0 0 14 14" fill="none">
@@ -537,6 +538,7 @@
     <x-form-modal-import title="Thêm mới người đại diện" name="addRepresent"
         idModal="modalAddRepresent"></x-form-modal-import>
     <x-form-modal-import title="Hiệu lực báo giá" name="import" idModal="formModalquote"></x-form-modal-import>
+    <x-form-modal-import title="Chỉnh sửa nhà cung cấp" name="provide" idModal="editProvide"></x-form-modal-import>
     <x-form-modal-import title="Điều khoản thanh toán" name="termpay"
         idModal="formModalTermPay"></x-form-modal-import>
     {{-- <x-date-form-modal title="Hiệu lực báo giá" name="import" idModal="formModalquote"></x-date-form-modal> --}}
@@ -591,7 +593,6 @@
                 $('input[name="quotation_number"]').val(quotation);
                 $('#myInput').val(data['provide'].provide_name_display);
                 $('#provides_id').val(data['provide'].id);
-
                 $.ajax({
                     url: "{{ route('getDataForm') }}",
                     type: "get",
@@ -772,7 +773,6 @@
                         data['price_effect'] : data['termpay']).form_desc)
                     $(data['price_effect'] ? '#listPriceEffect' : '#listTermsPay').hide()
                 }
-
             }
         })
     })
@@ -831,12 +831,93 @@
                         $('#' + data['table']).attr('data-id', data[data['table']].id).text(
                             'Cập nhật')
                     }
-
                 }
             })
-
         }
     })
+
+    // Chỉnh sửa nhà cung cấp
+    $(document).on('click', '.search-infoEdit', function() {
+        var id = $(this).data('id');
+        if (id) {
+            $.ajax({
+                url: "{{ route('getDataForm') }}",
+                type: "get",
+                data: {
+                    id: id,
+                    status: 'eidt',
+                },
+                success: function(data) {
+                    $('#editProvide input[name="provide_name_display"]').val(data
+                        .provide_name_display)
+                    $('#editProvide input[name="provide_code"]').val(data.provide_code)
+                    $('#editProvide input[name="provide_address"]').val(data.provide_address)
+                    $('#editProvide input[name="key"]').val(data.key)
+                    $('#editProvide input[name="provide_name"]').val(data.provide_name)
+                    $('#editProvide #editProvide').attr('data-id', data.id)
+                }
+            })
+        }
+    })
+    $('.modal-dialog #editProvide').on('click', function(e) {
+        e.preventDefault();
+        var id = $('.modal-dialog #editProvide').data('id');
+        var check = false;
+        var provide_name_display = $("#editProvide input[name='provide_name_display']").val().trim();
+        var provide_code = $("#editProvide input[name='provide_code']").val().trim();
+        var provide_address = $("#editProvide input[name='provide_address']").val().trim();
+        var key = $("#editProvide input[name='key']").val().trim();
+        var provide_name = $("#editProvide input[name='provide_name']").val().trim();
+        if (provide_name_display == '') {
+            showNotification('warning', 'Vui lòng nhập tên hiển thị')
+            check = true;
+            return false;
+        }
+        if (provide_code == '') {
+            showNotification('warning', 'Vui lòng nhập mã số thuế')
+            check = true;
+            return false;
+        }
+        if (provide_address == '') {
+            showNotification('warning', 'Vui lòng nhập địa chỉ nhà cung cấp')
+            check = true;
+            return false;
+        }
+        if (!check) {
+            $.ajax({
+                url: "{{ route('updateProvide') }}",
+                type: "get",
+                data: {
+                    id: id,
+                    provide_name_display: provide_name_display,
+                    provide_code: provide_code,
+                    provide_address: provide_address,
+                    key: key,
+                    provide_name: provide_name,
+                },
+                success: function(data) {
+                    if (data.success) {
+                        $('.btn.btn-secondary').click()
+                        if (data.provide_id == $('#provides_id').val()) {
+                            $('#myInput').val(provide_name_display)
+                        }
+                        $('#myUL ul li').find('a#' + data.provide_id + " span").text(
+                            provide_name_display)
+                        $("#editProvide input[name='provide_name_display']").val('')
+                        $("#editProvide input[name='provide_code']").val('')
+                        $("#editProvide input[name='provide_address']").val('')
+                        $("#editProvide input[name='key']").val('')
+                        $("#editProvide input[name='provide_name']").val('')
+                        showNotification('success', 'Chỉnh sửa thông tin thành công !')
+                    } else {
+                        showNotification('warning', 'Nhà cung cấp đã tồn tại !')
+                    }
+                    // console.log(data);
+                }
+            })
+        }
+    })
+
 
     $('#addProvide').click(function() {
         var check = false;
@@ -1102,8 +1183,8 @@
                             provide_address_delivery: provide_address_delivery
                         },
                         success: function(data) {
-                            $('.closeModal').click()
                             if (data.success) {
+                                $('.closeModal').click()
                                 showNotification('success', data.msg)
                             } else {
                                 showNotification('warning', data.msg)
@@ -1143,7 +1224,6 @@
                             }
                         }
                     })
-
                 }
             }
         })
@@ -1212,6 +1292,17 @@
                         selectTax.val($(this).attr('data-tax'))
                         listProductName.hide();
                         checkDuplicateRows()
+                        var product_name = $(this).find("span").text()
+                        $.ajax({
+                            url: "{{ route('getInventory') }}",
+                            type: "get",
+                            data: {
+                                product_name: product_name,
+                            },
+                            success: function(data) {
+                                console.log(data);
+                            }
+                        })
                     })
                 }
             })

@@ -58,6 +58,7 @@ Route::resource('{workspace}/import', DetailImportController::class);
 Route::get('/show_provide', [DetailImportController::class, 'show_provide'])->name('show_provide');
 Route::get('/show_project', [DetailImportController::class, 'show_project'])->name('show_project');
 Route::get('/addNewProvide', [DetailImportController::class, 'addNewProvide'])->name('addNewProvide');
+Route::get('/updateProvide', [DetailImportController::class, 'updateProvide'])->name('updateProvide');
 Route::get('/getAllProducts', [DetailImportController::class, 'getAllProducts'])->name('getAllProducts');
 Route::get('/showProductName', [DetailImportController::class, 'showProductName'])->name('showProductName');
 Route::get('/checkSN', [DetailImportController::class, 'checkSN'])->name('checkSN');
@@ -66,6 +67,8 @@ Route::POST('addAttachment', [DetailImportController::class, 'addAttachment'])->
 Route::get('/download/{folder}/{file?}', [DetailImportController::class, 'downloadFile'])->name('downloadFile');
 Route::delete('/deleteFile/{folder}/{file}', [DetailImportController::class, 'deleteFile'])->name('deleteFile');
 Route::get('/checkQuotetion', [DetailImportController::class, 'checkQuotetion'])->name('checkQuotetion');
+Route::get('/getInventory', [DetailImportController::class, 'getInventory'])->name('getInventory');
+
 
 Route::get('/checkQuotetionExport', [DetailExportController::class, 'checkQuotetionExport'])->name('checkQuotetionExport');
 Route::get('/checkQuotetionExportEdit', [DetailExportController::class, 'checkQuotetionExportEdit'])->name('checkQuotetionExportEdit');
