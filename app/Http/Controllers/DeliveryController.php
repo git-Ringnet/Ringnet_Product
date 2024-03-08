@@ -257,4 +257,17 @@ class DeliveryController extends Controller
 
         return response()->json($response);
     }
+    public function searchDelivery(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if ($request->ajax()) {
+            $delivery = $this->delivery->ajax($data);
+            return response()->json([
+                'data' => $delivery,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
 }

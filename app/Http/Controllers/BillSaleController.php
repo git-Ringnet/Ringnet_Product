@@ -217,11 +217,23 @@ class BillSaleController extends Controller
 
         if ($check) {
             $response = ['success' => false, 'msg' => 'Số hóa đơn đã tồn tại!'];
-        }
-        else{
+        } else {
             $response = ['success' => true];
         }
 
         return response()->json($response);
+    }
+    public function searchBillSale(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if ($request->ajax()) {
+            $billSale = $this->billSale->ajax($data);
+            return response()->json([
+                'data' => $billSale,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
     }
 }

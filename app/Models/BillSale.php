@@ -413,4 +413,23 @@ class BillSale extends Model
             }
         }
     }
+    public function ajax($data)
+    {
+        $bill_sale = BillSale::leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
+            ->leftJoin('guest', 'bill_sale.guest_id', 'guest.id')
+            ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
+            ->select('*', 'bill_sale.status as tinhTrang', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD');
+        if (isset($data['search'])) {
+            $bill_sale = $bill_sale->where(function ($query) use ($data) {
+                $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('number_bill', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $bill_sale = $bill_sale->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+        $bill_sale = $bill_sale->get();
+        return $bill_sale;
+    }
 }

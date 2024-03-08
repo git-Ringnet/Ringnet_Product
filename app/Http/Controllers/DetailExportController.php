@@ -624,4 +624,17 @@ class DetailExportController extends Controller
             ->get();
         return $recentTransaction;
     }
+    public function searchDetailExport(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if ($request->ajax()) {
+            $detailExport = $this->detailExport->ajax($data);
+            return response()->json([
+                'detailExport' => $detailExport,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
 }

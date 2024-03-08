@@ -52,11 +52,14 @@
                             <div class="col-md-5 d-flex align-items-center">
                                 <form action="" method="get" id="search-filter" class="p-0 m-0">
                                     <div class="position-relative ml-1">
-                                        <input type="text" placeholder="Tìm kiếm" name="keywords"
+                                        <input type="text" placeholder="Tìm kiếm" id="search" name="keywords"
                                             style="outline: none;" class="pr-4 w-100 input-search text-13"
-                                            value="{{ request()->keywords }}">
-                                        <span id="search-icon" class="search-icon"><i class="fas fa-search"
-                                                aria-hidden="true"></i></span>
+                                            value="{{ request()->keywords }}" />
+                                        <span id="search-icon" class="search-icon">
+                                            <i class="fas fa-search btn-submit"></i>
+                                        </span>
+                                        <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
+                                            style="display: none;" />
                                     </div>
                                 </form>
                                 <div class="dropdown mx-2">
@@ -105,6 +108,8 @@
                                             </button>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="result-filter-delivery d-flex">
                                 </div>
                             </div>
                         </div>
@@ -204,10 +209,12 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="tbody-delivery">
                                         @foreach ($delivery as $item_delivery)
-                                            <tr class="position-relative"
+                                            <tr class="position-relative delivery-info"
                                                 onclick="handleRowClick('checkbox', event);">
+                                                <input type="hidden" name="id-delivery" class="id-delivery"
+                                                    id="id-delivery" value="{{ $item_delivery->id }}">
                                                 <td class="text-13-black">
                                                     <span class="margin-Right10">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="6"
@@ -329,6 +336,115 @@
         </section>
     </div>
 </div>
+<script src="{{ asset('/dist/js/filter.js') }}"></script>
+
+<script>
+    var filters = [];
+    var sort = [];
+    var svgtop =
+        "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 19.0009C11.6332 19.0009 11.7604 18.9482 11.8542 18.8544C11.9480 18.7607 12.0006 18.6335 12.0006 18.5009V6.70789L15.1466 9.85489C15.2405 9.94878 15.3679 10.0015 15.5006 10.0015C15.6334 10.0015 15.7607 9.94878 15.8546 9.85489C15.9485 9.76101 16.0013 9.63367 16.0013 9.50089C16.0013 9.36812 15.9485 9.24078 15.8546 9.14689L11.8546 5.14689C11.8082 5.10033 11.7530 5.06339 11.6923 5.03818C11.6315 5.01297 11.5664 5 11.5006 5C11.4349 5 11.3697 5.01297 11.3090 5.03818C11.2483 5.06339 11.1931 5.10033 11.1466 5.14689L7.14663 9.14689C7.10014 9.19338 7.06327 9.24857 7.03811 9.30931C7.01295 9.37005 7 9.43515 7 9.50089C7 9.63367 7.05274 9.76101 7.14663 9.85489C7.24052 9.94878 7.36786 10.0015 7.50063 10.0015C7.63341 10.0015 7.76075 9.94878 7.85463 9.85489L11.0006 6.70789V18.5009C11.0006 18.6335 11.0533 18.7607 11.1471 18.8544C11.2408 18.9482 11.3680 19.0009 11.5006 19.0009Z' fill='#555555'/></svg>";
+    var svgbot =
+        "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 5C11.6332 5 11.7604 5.05268 11.8542 5.14645C11.948 5.24021 12.0006 5.36739 12.0006 5.5V17.293L15.1466 14.146C15.2405 14.0521 15.3679 13.9994 15.5006 13.9994C15.6334 13.9994 15.7607 14.0521 15.8546 14.146C15.9485 14.2399 16.0013 14.3672 16.0013 14.5C16.0013 14.6328 15.9485 14.7601 15.8546 14.854L11.8546 18.854C11.8082 18.9006 11.753 18.9375 11.6923 18.9627C11.6315 18.9879 11.5664 19.0009 11.5006 19.0009C11.4349 19.0009 11.3697 18.9879 11.309 18.9627C11.2483 18.9375 11.1931 18.9006 11.1466 18.854L7.14663 14.854C7.05274 14.7601 7 14.6328 7 14.5C7 14.3672 7.05274 14.2399 7.14663 14.146C7.24052 14.0521 7.36786 13.9994 7.50063 13.9994C7.63341 13.9994 7.76075 14.0521 7.85463 14.146L11.0006 17.293V5.5C11.0006 5.36739 11.0533 5.24021 11.1471 5.14645C11.2408 5.05268 11.368 5 11.5006 5Z' fill='#555555'/></svg>"
+
+    $(document).ready(function() {
+        // get id check box name
+        $('.btn-submit').click(function(event) {
+            event.preventDefault();
+            var buttonName = $(this).data('button');
+            var btn_submit = $(this).data('button-name');
+            var search = $('#search').val();
+            var sort_by = '';
+            if (typeof $(this).data('sort-by') !== 'undefined') {
+                sort_by = $(this).data('sort-by');
+            }
+            var sort_type = $(this).data('sort-type');
+            sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
+            $(this).data('sort-type', sort_type);
+            $('.icon').text('');
+            var iconId = 'icon-' + sort_by;
+            var iconDiv = $('#' + iconId);
+            iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
+            sort = [
+                sort_by, sort_type
+            ];
+            $('#' + btn_submit + '-options').hide();
+            $(".text-btnIner").prop("disabled", false);
+            $.ajax({
+                type: 'get',
+                url: "{{ route('searchDelivery') }}",
+                data: {
+                    search: search,
+                    sort: sort,
+                },
+                success: function(data) {
+                    // Hiển thị label dữ liệu tìm kiếm ...
+                    var existingNames = [];
+                    data.filters.forEach(function(item) {
+                        // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
+                        if (filters.indexOf(item.name) === -1) {
+                            filters.push(item.name);
+                        }
+                        existingNames.push(item.name);
+                    });
+
+                    filters = filters.filter(function(name) {
+                        return existingNames.includes(name);
+                    });
+                    $('.result-filter-delivery').empty();
+                    // Lặp qua mảng filters để tạo và render các phần tử
+                    data.filters.forEach(function(item) {
+                        var index = filters.indexOf(item.name);
+                        // Tạo thẻ item-filter
+                        var itemFilter = $('<div>').addClass(
+                            'item-filter span d-flex justify-content-center align-items-baseline'
+                        );
+                        itemFilter.css('order', index);
+                        // Thêm nội dung và thuộc tính data vào thẻ item-filter
+                        itemFilter.append('<p class="text">' + item.value +
+                            '</p><i class="fa-solid fa-xmark btn-submit" data-delete="' +
+                            item.name + '" data-button="' + buttonname +
+                            '"></i>');
+                        // Thêm thẻ item-filter vào resultfilters
+                        $('.result-filter-delivery').append(itemFilter);
+                    });
+
+                    // Ẩn hiện dữ liệu khi đã filters
+                    var deliveryIds = [];
+                    // Lặp qua mảng provides và thu thập các deleveryIds
+                    data.data.forEach(function(item) {
+                        var deleveryId = item.id;
+                        deliveryIds.push(deleveryId);
+                    });
+                    // Ẩn tất cả các phần tử .detailExport-info
+                    // $('.detailExport-info').hide();
+                    // Lặp qua từng phần tử .detailExport-info để hiển thị và cập nhật data-position
+                    $('.delivery-info').each(function() {
+                        var value = parseInt($(this).find('.id-delivery')
+                            .val());
+                        var index = deliveryIds.indexOf(value);
+                        if (index !== -1) {
+                            $(this).show();
+                            // Cập nhật data-position và chèn vào vị trí tương ứng
+                            $(this).attr('data-position', index + 1);
+                            $(".tbody-delivery tr:nth-child(" + (index + 1) +
+                                    ")")
+                                .after(
+                                    this);
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+
+                }
+            });
+            $.ajaxSetup({
+                headers: {
+                    'csrftoken': '{{ csrf_token() }}'
+                }
+            });
+        });
+    });
+</script>
 </body>
 
 </html>

@@ -72,6 +72,7 @@ Route::get('/getInventory', [DetailImportController::class, 'getInventory'])->na
 
 Route::get('/checkQuotetionExport', [DetailExportController::class, 'checkQuotetionExport'])->name('checkQuotetionExport');
 Route::get('/checkQuotetionExportEdit', [DetailExportController::class, 'checkQuotetionExportEdit'])->name('checkQuotetionExportEdit');
+Route::get('/searchDetailExport', [DetailExportController::class, 'searchDetailExport'])->name('searchDetailExport');
 
 Route::resource('DateForm', DateFormController::class);
 Route::get('/addDateForm', [DateFormController::class, 'addDateForm'])->name('addDateForm');
@@ -160,6 +161,7 @@ Route::get('/getRecentTransaction', [DetailExportController::class, 'getRecentTr
 //Giao hàng
 Route::resource('{workspace}/delivery', DeliveryController::class);
 Route::get('{workspace}/watchDelivery/{id}', [DeliveryController::class, 'watchDelivery'])->name('watchDelivery');
+Route::get('searchDelivery', [DeliveryController::class, 'searchDelivery'])->name('searchDelivery');
 //Lấy thông tin từ số báo giá
 Route::get('/getInfoQuote', [DeliveryController::class, 'getInfoQuote'])->name('getInfoQuote');
 Route::get('/getProductQuote', [DeliveryController::class, 'getProductQuote'])->name('getProductQuote');
@@ -171,11 +173,14 @@ Route::get('/getInfoDelivery', [BillSaleController::class, 'getInfoDelivery'])->
 Route::get('/getProductDelivery', [BillSaleController::class, 'getProductDelivery'])->name('getProductDelivery');
 //Kiểm tra số hóa đơn
 Route::get('/checkNumberBill', [BillSaleController::class, 'checkNumberBill'])->name('checkNumberBill');
+// ajax Bilsale
+Route::get('/searchBillSale', [BillSaleController::class, 'searchBillSale'])->name('searchBillSale');
 //Kiểm tra mã giao hàng
 Route::get('/checkCodeDelivery', [DeliveryController::class, 'checkCodeDelivery'])->name('checkCodeDelivery');
 
 //thanh toán bán hàng
 Route::resource('{workspace}/payExport', PayExportController::class);
+Route::get('searchPayExport', [PayExportController::class, 'searchPayExport'])->name('searchPayExport');
 
 Route::get('/getInfoPay', [PayExportController::class, 'getInfoPay'])->name('getInfoPay');
 Route::get('/getProductPay', [PayExportController::class, 'getProductPay'])->name('getProductPay');

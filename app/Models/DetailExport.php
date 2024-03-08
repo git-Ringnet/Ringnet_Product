@@ -202,4 +202,21 @@ class DetailExport extends Model
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)->get();
         return $historyGuest;
     }
+    public function ajax($data)
+    {
+        $detailExport = DetailExport::leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'guest.*');
+        if (isset($data['search'])) {
+            $detailExport = $detailExport->where(function ($query) use ($data) {
+                $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $detailExport = $detailExport->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+        $detailExport = $detailExport->get();
+        return $detailExport;
+    }
 }

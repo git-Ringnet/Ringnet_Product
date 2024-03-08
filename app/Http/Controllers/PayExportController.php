@@ -262,4 +262,17 @@ class PayExportController extends Controller
             ->get();
         return $delivery;
     }
+    public function searchPayExport(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if ($request->ajax()) {
+            $payExport = $this->payExport->ajaxdas($data);
+            return response()->json([
+                'data' => $payExport,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
 }

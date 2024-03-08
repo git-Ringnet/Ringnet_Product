@@ -115,7 +115,7 @@
                             <x-filter-compare name="inventory" button="products" title="Số lượng tồn" />
                             <div class="filter-results d-flex m-0"></div>
                         </div>
-                        <div class="  result-filter-product d-flex">
+                        <div class="result-filter-product d-flex">
                         </div>
                     </div>
                 </div>

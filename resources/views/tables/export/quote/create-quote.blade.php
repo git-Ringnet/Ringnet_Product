@@ -635,8 +635,7 @@
                                                     class="pr-4 w-100 input-search bg-input-guest text-13-black"
                                                     id="companyFilter7">
                                                 <span id="search-icon" class="search-icon"><i
-                                                        class="fas fa-search text-table"
-                                                        aria-hidden="true"></i>
+                                                        class="fas fa-search text-table" aria-hidden="true"></i>
                                                 </span>
                                             </div>
                                         </div>
@@ -707,7 +706,8 @@
                                         <ul class="m-0 p-0 scroll-data addDateFormquote">
                                             @foreach ($date_form as $item)
                                                 @if ($item->form_field == 'quote')
-                                                    <li class="item-{{ $item->id }} p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                    <li class="item-{{ $item->id }} p-2 align-items-center text-wrap"
+                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                         <a href="#" title="{{ $item->form_name }}"
                                                             class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                             id="{{ $item->id }}" name="search-date-form"
@@ -795,7 +795,8 @@
                                         <ul class="m-0 p-0 scroll-data addDateFormpayment">
                                             @foreach ($date_form as $item)
                                                 @if ($item->form_field == 'payment')
-                                                    <li class="item-{{ $item->id }} p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                    <li class="item-{{ $item->id }} p-2 align-items-center text-wrap"
+                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                         <a href="#" title="{{ $item->form_name }}"
                                                             class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                             id="{{ $item->id }}" name="search-date-form"
@@ -876,7 +877,8 @@
                                         </div>
                                         <ul class="m-0 p-0 scroll-data addProjectNew">
                                             @foreach ($project as $project_value)
-                                                <li class="p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                <li class="p-2 align-items-center text-wrap"
+                                                    style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                     <a href="#"
                                                         class="text-dark d-flex justify-content-between p-2 search-project w-100"
                                                         id="{{ $project_value->id }}">
@@ -953,7 +955,8 @@
                                         <ul class="m-0 p-0 scroll-data addDateFormgoods">
                                             @foreach ($date_form as $item)
                                                 @if ($item->form_field == 'goods')
-                                                    <li class="item-{{ $item->id }} p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                    <li class="item-{{ $item->id }} p-2 align-items-center text-wrap"
+                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                         <a href="#" title="{{ $item->form_name }}"
                                                             class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                             id="{{ $item->id }}" name="search-date-form"
@@ -1042,7 +1045,8 @@
                                         <ul class="m-0 p-0 scroll-data2 addDateFormdelivery">
                                             @foreach ($date_form as $item)
                                                 @if ($item->form_field == 'delivery')
-                                                    <li class="item-{{ $item->id }} p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                    <li class="item-{{ $item->id }} p-2 align-items-center text-wrap"
+                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                         <a href="#" title="{{ $item->form_name }}"
                                                             class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                             id="{{ $item->id }}" name="search-date-form"
@@ -1133,7 +1137,8 @@
                                         <ul class="m-0 p-0 scroll-data2 addDateFormlocation">
                                             @foreach ($date_form as $item)
                                                 @if ($item->form_field == 'location')
-                                                    <li class="item-{{ $item->id }} p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                    <li class="item-{{ $item->id }} p-2 align-items-center text-wrap"
+                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                         <a href="#" title="{{ $item->form_name }}"
                                                             class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                             id="{{ $item->id }}" name="search-date-form"
@@ -1955,17 +1960,22 @@
                             $('#representativeList').empty();
                             $.each(data, function(index, representative) {
                                 var listItem = $(
-                                        '<li class="p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-id = ' + representative.id + '>')
+                                        '<li class="p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-id = ' +
+                                        representative.id + '>')
                                     .append(
                                         $('<a>').attr({
                                             href: '#',
-                                            title: representative.represent_name,
+                                            title: representative
+                                                .represent_name,
                                             class: 'text-dark d-flex justify-content-between search-represent p-2 w-100',
                                             id: representative
                                                 .id,
                                             name: 'search-represent',
                                         }).append(
-                                            $('<span>').addClass('text-13-black').text(representative.represent_name)
+                                            $('<span>').addClass(
+                                                'text-13-black').text(
+                                                representative
+                                                .represent_name)
                                         )
                                     ).append(
                                         $('<div>').addClass(

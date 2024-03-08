@@ -287,4 +287,50 @@ class PayExport extends Model
         $report_guest = $report_guest->get();
         return $report_guest;
     }
+    public function ajaxdas($data)
+    {
+        $payExport = PayExport::leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
+            ->leftJoin('guest', 'pay_export.guest_id', 'guest.id')
+            ->leftJoin('history_payment_export', 'pay_export.id', 'history_payment_export.pay_id')
+            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+            ->select(
+                'detailexport.quotation_number',
+                'guest.guest_name_display',
+                'pay_export.payment_date',
+                'pay_export.total',
+                'pay_export.id as idThanhToan',
+                'pay_export.debt',
+                'pay_export.status',
+                'pay_export.payment',
+                'pay_export.code_payment',
+                DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
+                DB::raw('SUM(history_payment_export.payment) as tongThanhToan')
+            );
+        if (isset($data['search'])) {
+            $payExport = $payExport->where(function ($query) use ($data) {
+                $query->orWhere('detailexport.quotation_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('pay_export.code_payment', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $payExport = $payExport->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+        $payExport = $payExport->groupby(
+            'detailexport.quotation_number',
+            'guest.guest_name_display',
+            'pay_export.payment_date',
+            'pay_export.total',
+            'pay_export.id',
+            'detailexport.total_price',
+            'detailexport.total_tax',
+            'pay_export.debt',
+            'pay_export.status',
+            'pay_export.payment',
+            'pay_export.code_payment',
+        );
+
+        $payExport = $payExport->get();
+        return $payExport;
+    }
 }

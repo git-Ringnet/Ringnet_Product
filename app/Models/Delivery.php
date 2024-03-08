@@ -673,4 +673,23 @@ class Delivery extends Model
             }
         }
     }
+    public function ajax($data)
+    {
+        $delivery = Delivery::leftJoin('guest', 'guest.id', 'delivery.guest_id')
+            ->select('*', 'delivery.id as maGiaoHang', 'delivery.created_at as ngayGiao')
+            ->leftJoin('delivered', 'delivered.delivery_id', 'delivery.id')
+            ->where('delivery.workspace_id', Auth::user()->current_workspace);
+        if (isset($data['search'])) {
+            $delivery = $delivery->where(function ($query) use ($data) {
+                $query->orWhere('delivery.id', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $delivery = $delivery->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+        $delivery = $delivery->get();
+        return $delivery;
+    }
 }
