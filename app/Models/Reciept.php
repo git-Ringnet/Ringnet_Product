@@ -239,4 +239,25 @@ class Reciept extends Model
         ];
         return $data;
     }
+    public function ajax($data)
+    {
+        $reciept = DB::table($this->table)
+            ->leftJoin('detailimport', 'reciept.detailimport_id', 'detailimport.id')
+            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->select('reciept.*', 'provides.provide_name_display provide_name_display', 'detailimport.quotation_number as quotation_number')
+            ->where('reciept.workspace_id', Auth::user()->current_workspace);
+
+        if (isset($data['search'])) {
+            $reciept = $reciept->where(function ($query) use ($data) {
+                $query->orWhere('reciept.number_bill', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('provide_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $reciept = $reciept->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+        $reciept = $reciept->get();
+        return $reciept;
+    }
 }

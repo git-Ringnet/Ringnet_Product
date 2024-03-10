@@ -50,7 +50,7 @@ Route::get('/searchProvides', [ProvidesController::class, 'search'])->name('sear
 
 // Khách hàng
 Route::resource('{workspace}/guests', GuestController::class);
-Route::get('/search', [GuestController::class, 'search'])->name('search');
+Route::get('/search', [GuestController::class, 'search'])->name('searchGuest');
 Route::get('/searchDetailGuest', [GuestController::class, 'searchDetailGuest'])->name('searchDetailGuest');
 
 // Mua hàng
@@ -68,6 +68,7 @@ Route::get('/download/{folder}/{file?}', [DetailImportController::class, 'downlo
 Route::delete('/deleteFile/{folder}/{file}', [DetailImportController::class, 'deleteFile'])->name('deleteFile');
 Route::get('/checkQuotetion', [DetailImportController::class, 'checkQuotetion'])->name('checkQuotetion');
 Route::get('/getInventory', [DetailImportController::class, 'getInventory'])->name('getInventory');
+Route::get('/searchImport', [DetailImportController::class, 'searchImport'])->name('searchImport');
 
 
 Route::get('/checkQuotetionExport', [DetailExportController::class, 'checkQuotetionExport'])->name('checkQuotetionExport');
@@ -94,6 +95,7 @@ Route::get('/showData', [DetailImportController::class, 'showData'])->name('show
 Route::resource('{workspace}/receive', ReceiveController::class);
 Route::get('/show_receive', [ReceiveController::class, 'show_receive'])->name('show_receive');
 Route::get('/getProduct_receive', [ReceiveController::class, 'getProduct_receive'])->name('getProduct_receive');
+Route::get('/searchReceive', [ReceiveController::class, 'searchReceive'])->name('searchReceive');
 // Xác nhận đơn nhận hàng
 // Route::resource('historyReceive', HistoryReceiveController::class);
 
@@ -101,11 +103,13 @@ Route::get('/getProduct_receive', [ReceiveController::class, 'getProduct_receive
 Route::resource('{workspace}/reciept', RecieptController::class);
 Route::get('/show_reciept', [RecieptController::class, 'show_reciept'])->name('show_reciept');
 Route::get('/getProduct_reciept', [RecieptController::class, 'getProduct_reciept'])->name('getProduct_reciept');
+Route::get('/searchReciept', [RecieptController::class, 'searchReciept'])->name('searchReciept');
 
 
 // Thanh toán nhập hàng
 Route::resource('{workspace}/paymentOrder', PayOrderController::class);
 Route::get('getPaymentOrder', [PayOrderController::class, 'getPaymentOrder'])->name('getPaymentOrder');
+Route::get('searchPaymentOrder', [PayOrderController::class, 'searchPaymentOrder'])->name('searchPaymentOrder');
 
 Route::get('/', function () {
     return view('welcome');

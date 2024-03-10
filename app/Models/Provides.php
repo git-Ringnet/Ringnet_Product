@@ -192,8 +192,8 @@ class Provides extends Model
         if (isset($data['debt'][0]) && isset($data['debt'][1])) {
             $provides = $provides->where('provide_debt', $data['debt'][0], $data['debt'][1]);
         }
-        if (isset($data['sort_by']) && $data['sort_type']) {
-            $provides = $provides->orderBy($data['sort_by'], $data['sort_type']);
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $provides = $provides->orderBy($data['sort'][0], $data['sort'][1]);
         }
         $provides = $provides->get();
         return $provides;

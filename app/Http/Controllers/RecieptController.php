@@ -48,7 +48,7 @@ class RecieptController extends Controller
         $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
             // ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
             ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.reciept_qty,0)'))
-            ->where('quoteimport.workspace_id',Auth::user()->current_workspace)
+            ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->distinct()
             ->select('detailimport.quotation_number', 'detailimport.id')
             ->get();
@@ -100,10 +100,10 @@ class RecieptController extends Controller
     {
         $reciept = Reciept::findOrFail($id);
         $title = $reciept->id;
-        $detail = DetailImport::where('id',$reciept->detailimport_id)->first();
-        if($detail && $detail->getNameRepresent){
+        $detail = DetailImport::where('id', $reciept->detailimport_id)->first();
+        if ($detail && $detail->getNameRepresent) {
             $nameRepresent = $detail->getNameRepresent->represent_name;
-        }else{
+        } else {
             $nameRepresent = "";
         }
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
@@ -124,7 +124,7 @@ class RecieptController extends Controller
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
             )
             ->get();
-        return view('tables.reciept.editReciept', compact('title', 'reciept', 'product', 'workspacename','nameRepresent'));
+        return view('tables.reciept.editReciept', compact('title', 'reciept', 'product', 'workspacename', 'nameRepresent'));
     }
 
     /**
@@ -177,5 +177,18 @@ class RecieptController extends Controller
             ->where('product_qty', '>', DB::raw('COALESCE(reciept_qty,0)'))
             ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
+    }
+    public function searchReciept(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if ($request->ajax()) {
+            $reciept = $this->reciept->ajax($data);
+            return response()->json([
+                'data' => $reciept,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
     }
 }

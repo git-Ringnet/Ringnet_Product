@@ -808,4 +808,17 @@ class DetailImportController extends Controller
     {
         return $request->all();
     }
+    public function searchImport(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if ($request->ajax()) {
+            $import = $this->detailImport->ajax($data);
+            return response()->json([
+                'data' => $import,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
 }

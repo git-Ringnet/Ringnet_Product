@@ -266,7 +266,7 @@ class PayOder extends Model
                 // Tình trạng đặt cọc trả về chưa thanh toán
                 if ($payorder->status == 6) {
                     if ($data['payment'] > 0) {
-                        $status = 1; 
+                        $status = 1;
                     } else {
                         $status = 6;
                     }
@@ -458,5 +458,26 @@ class PayOder extends Model
         }
         $report_provide = $report_provide->get();
         return $report_provide;
+    }
+    public function ajax1($data)
+    {
+        $payment = DB::table($this->table)
+            ->leftJoin('detailimport', 'pay_order.detailimport_id', 'detailimport.id')
+            ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->select('provides.provide_name_display as provide_name_display', 'pay_order.*', 'detailimport.quotation_number as quotation_number')
+            ->where('pay_order.workspace_id', Auth::user()->current_workspace);
+
+        if (isset($data['search'])) {
+            $payment = $payment->where(function ($query) use ($data) {
+                $query->orWhere('pay_order.payment_code', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('provide_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $payment = $payment->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+        $payment = $payment->get();
+        return $payment;
     }
 }

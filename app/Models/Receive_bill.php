@@ -354,4 +354,24 @@ class Receive_bill extends Model
         ];
         return $data;
     }
+    public function ajax($data)
+    {
+        $receive = Receive_bill::leftJoin('provides', 'provides.id', 'receive_bill.provide_id')
+            ->leftJoin('detailimport', 'detailimport.id', 'receive_bill.detailimport_id')
+            ->select('receive_bill.*', 'provides.provide_name_display', 'detailimport.quotation_number as quotation_number')
+            ->where('receive_bill.workspace_id', Auth::user()->current_workspace);
+
+        if (isset($data['search'])) {
+            $receive = $receive->where(function ($query) use ($data) {
+                $query->orWhere('receive_bill.delivery_code', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('provide_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $receive = $receive->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+        $receive = $receive->get();
+        return $receive;
+    }
 }

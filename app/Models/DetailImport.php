@@ -244,10 +244,25 @@ class DetailImport extends Model
 
     public function dataImport($dataImport)
     {
-        // $result = $data;
-        // dd($dataImport);
-        // product_id
         $data = DB::table('products')->whereIn('id', $dataImport['product_id'])->get();
         return $data;
+    }
+    public function ajax($data)
+    {
+        $import = DetailImport::leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->select('detailimport.*', 'provides.provide_name_display as provide_name_display')
+            ->where('detailimport.workspace_id', Auth::user()->current_workspace);
+
+        if (isset($data['search'])) {
+            $import = $import->where(function ($query) use ($data) {
+                $query->orWhere('detailimport.quotation_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('provide_name_display', 'like', '%' . $data['search'] . '%');
+            });
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $import = $import->orderBy($data['sort'][0], $data['sort'][1]);
+        }
+        $import = $import->get();
+        return $import;
     }
 }

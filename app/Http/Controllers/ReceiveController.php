@@ -277,4 +277,17 @@ class ReceiveController extends Controller
         ];
         return $data;
     }
+    public function searchReceive(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if ($request->ajax()) {
+            $receive = $this->receive->ajax($data);
+            return response()->json([
+                'data' => $receive,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
 }

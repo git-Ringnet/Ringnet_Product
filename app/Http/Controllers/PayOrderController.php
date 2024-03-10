@@ -167,4 +167,17 @@ class PayOrderController extends Controller
             // ->where('product_qty', '>', DB::raw('COALESCE(payment_qty,0)'))
             ->get();
     }
+    public function searchPaymentOrder(Request $request)
+    {
+        $data = $request->all();
+        $filters = [];
+        if ($request->ajax()) {
+            $payment = $this->payment->ajax1($data);
+            return response()->json([
+                'data' => $payment,
+                'filters' => $filters,
+            ]);
+        }
+        return false;
+    }
 }

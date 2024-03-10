@@ -97,8 +97,8 @@ class Guest extends Model
         if (isset($data['debt'][0]) && isset($data['debt'][1])) {
             $guests = $guests->where('guest_debt', $data['debt'][0], $data['debt'][1]);
         }
-        if (isset($data['sort_by']) && $data['sort_type']) {
-            $guests = $guests->orderBy($data['sort_by'], $data['sort_type']);
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $guests = $guests->orderBy($data['sort'][0], $data['sort'][1]);
         }
         $guests = $guests->get();
         return $guests;

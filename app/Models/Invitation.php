@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Invitation extends Model
 {
     use HasFactory;
+    // protected $table = 'invitations';
     protected $fillable = ['workspace_id', 'email', 'token', 'status', 'roleid'];
 }
