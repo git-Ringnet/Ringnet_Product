@@ -27,6 +27,11 @@ class Provides extends Model
     {
         return $this->hasMany(DetailImport::class, 'provide_id', 'id');
     }
+    public function getAllDetailByID()
+    {
+        return $this->hasMany(DetailImport::class, 'provide_id', 'id')
+            ->where('detailimport.status', 2);
+    }
 
     public function getPayment()
     {

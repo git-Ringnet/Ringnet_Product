@@ -228,18 +228,18 @@
                                                     <tr class="bg-white">
                                                         <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
                                                             <span class="ml-0">
-                                                                @if ($provide->getAllDetail)
+                                                                @if ($provide->getAllDetailByID)
                                                                     <span class="px-1">
-                                                                        {{ $provide->getAllDetail->count() }}
+                                                                        {{ $provide->getAllDetailByID->count() }}
                                                                     </span>
                                                                 @endif
                                                             </span>
                                                         </td>
                                                         <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
-                                                            @if ($provide->getAllDetail)
+                                                            @if ($provide->getAllDetailByID)
                                                             {{-- @dd($provide->getAllDetail) --}}
                                                                 <span class="px-1">
-                                                                    {{ number_format($provide->getAllDetail->where('status', 2)->sum('total_tax')) }} 
+                                                                    {{ number_format($provide->getAllDetailByID->where('status', 2)->sum('total_tax')) }} 
                                                                 </span>
                                                             @endif
                                                         </td>
