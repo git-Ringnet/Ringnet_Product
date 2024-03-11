@@ -56,6 +56,7 @@ class BillSaleController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
+            ->where('quoteexport.status', 1)
             ->where('quoteexport.product_qty', '>', DB::raw('COALESCE(quoteexport.qty_bill_sale,0)'))
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('detailexport.quotation_number', 'detailexport.id')
@@ -184,6 +185,8 @@ class BillSaleController extends Controller
             ->leftJoin('delivery', 'delivery.detailexport_id', 'detailexport.id')
             ->select('*', 'delivery.id as maGiaoHang', 'detailexport.quotation_number as soBG', 'represent_guest.id as represent_id')
             ->first();
+        $lastDeliveryId = DB::table('bill_sale')->max(DB::raw('CAST(SUBSTRING_INDEX(number_bill, "-", -1) AS UNSIGNED)'));
+        $delivery['lastDeliveryId'] = $lastDeliveryId == null ? 0 : $lastDeliveryId;
         return $delivery;
     }
     public function getProductDelivery(Request $request)

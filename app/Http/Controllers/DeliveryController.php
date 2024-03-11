@@ -71,6 +71,7 @@ class DeliveryController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
+            ->where('quoteexport.status', 1)
             ->where('quoteexport.product_qty', '>', DB::raw('COALESCE(quoteexport.qty_delivery,0)'))
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('detailexport.quotation_number', 'detailexport.id')
@@ -181,7 +182,7 @@ class DeliveryController extends Controller
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
             ->first();
-        $lastDeliveryId = DB::table('delivery')->max('id');
+        $lastDeliveryId = DB::table('delivery')->max(DB::raw('CAST(SUBSTRING_INDEX(code_delivery, "-", -1) AS UNSIGNED)'));
         $delivery['lastDeliveryId'] = $lastDeliveryId == null ? 0 : $lastDeliveryId;
         return $delivery;
     }

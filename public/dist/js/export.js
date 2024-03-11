@@ -27,6 +27,13 @@ function getKeyGuest(name) {
     });
 }
 
+function getUppercaseCharacters1(input) {
+    // Sử dụng regular expression để lọc ra các ký tự viết hoa
+    var uppercaseChars = input.match(/[A-Za-z0-9]/g);
+    // Nếu không có ký tự viết hoa, trả về chuỗi trống
+    return uppercaseChars ? uppercaseChars.join("") : "";
+}
+
 function getQuotation(getName, count, date) {
     var currentDate = new Date();
     var day = currentDate.getDate();
@@ -37,30 +44,21 @@ function getQuotation(getName, count, date) {
         formattedDay + formattedMonth + currentDate.getFullYear();
     var name = "RN";
 
-    var uppercaseCharacters = getUppercaseCharacters(getName);
+    var uppercaseCharacters = getUppercaseCharacters1(getName);
+    var key;
+
     if (uppercaseCharacters) {
         key = uppercaseCharacters;
     } else {
-        key = getUppercaseCharacters(
+        key = getUppercaseCharacters1(
             getName.charAt(0).toUpperCase() + getName.slice(1)
         );
     }
 
-    if (count < 10) {
-        if (count == 0) {
-            count = 1;
-        } else {
-            count += 1;
-        }
-        count = "0" + count;
-    } else {
-        count = count;
-    }
-    if (formattedDate == date) {
-        stt = count;
-    } else {
-        stt = "01";
-    }
-    quotation = formattedDate + "/" + name + "-" + key + "-" + stt;
+    count = count < 10 ? "0" + (parseInt(count) + 1) : count;
+
+    var stt = formattedDate == date ? count : "01";
+
+    var quotation = formattedDate + "/" + name + "-" + key + "-" + stt;
     return quotation;
 }

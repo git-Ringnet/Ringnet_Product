@@ -461,11 +461,14 @@
                     idQuote: idQuote
                 },
                 success: function(data) {
+                    console.log(data);
                     $("#delivery_id").val(data.maGiaoHang);
                     $('.numberQute').val(data.soBG)
                     $('.nameGuest').val(data.guest_name_display)
                     $('.idRepresent').val(data.represent_id)
                     $('.represent_name').val(data.represent_name)
+                    $('input[name="number_bill"]').val('SHD-' + (data.lastDeliveryId +
+                        1));
                     $.ajax({
                         url: '{{ route('getProductDelivery') }}',
                         type: 'GET',

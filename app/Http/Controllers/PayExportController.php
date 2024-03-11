@@ -88,6 +88,7 @@ class PayExportController extends Controller
         $workspacename = $workspacename->workspace_name;
         $product = $this->product->getAllProducts();
         $numberQuote = DetailExport::leftJoin('quoteexport', 'detailexport.id', '=', 'quoteexport.detailexport_id')
+            ->where('quoteexport.status', 1)
             ->where('quoteexport.product_qty', '>', DB::raw('COALESCE(quoteexport.qty_payment,0)'))
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('detailexport.quotation_number', 'detailexport.id')
@@ -246,7 +247,7 @@ class PayExportController extends Controller
                 'represent_guest.represent_name',
             )
             ->first();
-        $lastPayExportId = DB::table('pay_export')->orderBy('id', 'desc')->value('id');
+        $lastPayExportId = DB::table('pay_export')->max(DB::raw('CAST(SUBSTRING_INDEX(code_payment, "-", -1) AS UNSIGNED)'));
         $delivery['lastPayExportId'] = $lastPayExportId == null ? 0 : $lastPayExportId;
         return $delivery;
     }

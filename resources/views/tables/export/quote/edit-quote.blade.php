@@ -856,8 +856,7 @@
                                             id="myInput-goods" placeholder="Chọn thông tin" name="goods"
                                             <?php if ($detailExport->tinhTrang != 1) {
                                                 echo 'disabled';
-                                            } ?>
-                                            value="{{ $detailExport->goods }}"
+                                            } ?> value="{{ $detailExport->goods }}"
                                             value="{{ isset($dataForm['goods']) ? $dataForm['goods']->form_desc : '' }}" />
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDate[goods]"
@@ -949,8 +948,7 @@
                                             placeholder="Chọn thông tin" name="delivery" id="myInput-delivery"
                                             <?php if ($detailExport->tinhTrang != 1) {
                                                 echo 'disabled';
-                                            } ?>
-                                            value="{{ $detailExport->delivery }}"
+                                            } ?> value="{{ $detailExport->delivery }}"
                                             value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->form_desc : '' }}" />
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDate[delivery]"
@@ -1042,8 +1040,7 @@
                                             <?php if ($detailExport->tinhTrang != 1) {
                                                 echo 'disabled';
                                             } ?> placeholder="Chọn thông tin" name="location"
-                                            id="myInput-location"
-                                            value="{{ $detailExport->location }}"
+                                            id="myInput-location" value="{{ $detailExport->location }}"
                                             value="{{ isset($dataForm['location']) ? $dataForm['location']->form_desc : '' }}" />
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDate[location]"
@@ -1155,7 +1152,8 @@
                                 <p class="p-0 m-0 px-2 required-label text-danger text-nav">
                                     Mã số thuế
                                 </p>
-                                <input name="guest_code" type="text" placeholder="Nhập thông tin" oninput="validateInput(this)"
+                                <input name="guest_code" type="text" placeholder="Nhập thông tin"
+                                    oninput="validateInput(this)"
                                     class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
                                     id="guest_code" autocomplete="off">
                             </div>
@@ -2378,6 +2376,13 @@
         $('#guest_code').val(null);
         $('#represent_guest_name').val(null);
     });
+
+    function delayAndShowNotification(type, message, delayTime) {
+        setTimeout(function() {
+            showNotification(type, message);
+        }, delayTime);
+    }
+
     $(document).on('click', '#addGuest', function(e) {
         var guest_name_display = $('input[name="guest_name_display"]').val().trim();
         var guest_name = $('#guest_name').val().trim();
@@ -2426,11 +2431,12 @@
                         var newGuestInfo = data;
                         var guestList = $('#myUL'); // Danh sách hiện có
                         var newListItem =
-                            '<li class="border" data-id="' + newGuestInfo.id + '">' +
+                            '<li class="p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-id="' +
+                            newGuestInfo.id + '">' +
                             '<a href="#" title="' + newGuestInfo.guest_name_display +
-                            '" class="text-dark d-flex justify-content-between p-2 search-info w-100" id="' +
+                            '" style="flex:2;" id="' +
                             newGuestInfo.id + '" name="search-info">' +
-                            '<span class="w-100 text-nav text-dark overflow-hidden">' + newGuestInfo
+                            '<span class="text-13-black">' + newGuestInfo
                             .guest_name_display + '</span>' +
                             '</a>' +
                             '<div class="dropdown">' +
@@ -2451,7 +2457,7 @@
                             '</li>';
                         // Thêm mục mới vào danh sách
                         var addButton = $(".addGuestNew");
-                        $(newListItem).insertBefore(addButton);
+                        $("#myUL .m-0.p-0.scroll-data").append(newListItem);
 
                         //clear
                         $('#guest_name_display').val('');
@@ -2472,11 +2478,11 @@
                             var newGuestInfo1 = data;
                             var guestList1 = $('#myUL7'); // Danh sách hiện có
                             var newListItem1 =
-                                '<li class="border" data-id="' + newGuestInfo1.id +
+                                '<li class="border d-flex" data-id="' + newGuestInfo1.id +
                                 '"><a href="#" title="' + newGuestInfo1.represent_name +
                                 '" class="text-dark d-flex justify-content-between p-2 search-represent w-100" id="' +
                                 newGuestInfo1.id_represent + '" name="search-represent">' +
-                                '<span class="w-100 text-nav text-dark overflow-hidden">' +
+                                '<span class="text-13-black">' +
                                 newGuestInfo1
                                 .represent_name +
                                 '</span></a>' +
@@ -2509,7 +2515,14 @@
                         $('#show-info-guest').show();
                         $('#show-title-guest').show();
                     } else {
-                        showNotification('warning', data.msg);
+                        if (data.key) {
+                            $("input[name='key']").val(data.key)
+                            showNotification('warning', data.msg);
+                            delayAndShowNotification('success', 'Tên viết tắt đã được thay đổi',
+                                1000);
+                        } else {
+                            showNotification('warning', data.msg);
+                        }
                     }
                 }
             });

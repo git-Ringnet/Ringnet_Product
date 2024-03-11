@@ -93,40 +93,40 @@
                     <section class="content">
                         <table class="table scrolldown">
                             <!-- Table head content -->
-                                <thead>
-                                    <tr style="height:44px;">
-                                            <th class="border-right px-2 p-0" style="width: 16%">
-                                                <input type='checkbox' class='checkall-btn ml-4 mr-1'id="checkall" />
-                                                <span class="text-table text-secondary">Mã sản phẩm</span>
-                                            </th>
-                                            <th class="border-right px-2 p-0" style="width: 15%;z-index:99;">
-                                                <span class="text-table text-secondary">Tên sản phẩm</span>
-                                            </th>
-                                            <th class="border-right px-2 p-0">
-                                                <span class="text-table text-secondary">Đơn vị</span>
-                                            </th>
-                                            <th class="border-right px-2 p-0" style="width: 10%;">
-                                                <span class="text-table text-secondary">Số lượng</span>
-                                            </th>
-                                            <th class="border-right px-2 p-0" style="width: 13%;">
-                                                <span class="text-table text-secondary">Đơn giá</span>
-                                            </th>
-                                            <th class="border-right px-2 p-0" style="width: 8%;">
-                                                <span class="text-table text-secondary">Thuế</span>
-                                            </th>
-                                            <th class="border-right px-2 p-0" style="width: 11%;">
-                                                <span class="text-table text-secondary">Thành tiền</span>
-                                            </th>
-                                            <th class="border-right note px-2 p-0" style="width: 15%;">
-                                                <span class="text-table text-secondary">Ghi chú</span>
-                                            </th>
-                                            <th class="border-right"></th>
-                                    </tr>
-                                </thead>
+                            <thead>
+                                <tr style="height:44px;">
+                                    <th class="border-right px-2 p-0" style="width: 16%">
+                                        <input type='checkbox' class='checkall-btn ml-4 mr-1'id="checkall" />
+                                        <span class="text-table text-secondary">Mã sản phẩm</span>
+                                    </th>
+                                    <th class="border-right px-2 p-0" style="width: 15%;z-index:99;">
+                                        <span class="text-table text-secondary">Tên sản phẩm</span>
+                                    </th>
+                                    <th class="border-right px-2 p-0">
+                                        <span class="text-table text-secondary">Đơn vị</span>
+                                    </th>
+                                    <th class="border-right px-2 p-0" style="width: 10%;">
+                                        <span class="text-table text-secondary">Số lượng</span>
+                                    </th>
+                                    <th class="border-right px-2 p-0" style="width: 13%;">
+                                        <span class="text-table text-secondary">Đơn giá</span>
+                                    </th>
+                                    <th class="border-right px-2 p-0" style="width: 8%;">
+                                        <span class="text-table text-secondary">Thuế</span>
+                                    </th>
+                                    <th class="border-right px-2 p-0" style="width: 11%;">
+                                        <span class="text-table text-secondary">Thành tiền</span>
+                                    </th>
+                                    <th class="border-right note px-2 p-0" style="width: 15%;">
+                                        <span class="text-table text-secondary">Ghi chú</span>
+                                    </th>
+                                    <th class="border-right"></th>
+                                </tr>
+                            </thead>
                             <!-- Table body content -->
-                                <tbody>
-                                    <tr id="dynamic-fields" class="bg-white"></tr>
-                                </tbody>
+                            <tbody>
+                                <tr id="dynamic-fields" class="bg-white"></tr>
+                            </tbody>
                         </table>
 
                     </section>
@@ -205,93 +205,92 @@
                     </section> -->
                 </div>
                 <section class="content mt-2">
-                        <div class="container-fluided">
-                            <div class="d-flex ml-4">
-                                <button type="button" data-toggle="dropdown" id="add-field-btn"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                    style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
-                                        height="12" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                            fill="#42526E" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                            fill="#42526E" />
-                                    </svg>
-                                    <span class="text-table">Thêm sản phẩm</span>
-                                </button>
-                                <button type="button" data-toggle="dropdown" id="add-field-btn"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                    style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
-                                        height="12" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                            fill="#42526E" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                            fill="#42526E" />
-                                    </svg>
-                                    <span class="text-table">Thêm đầu mục</span>
-                                </button>
-                                <button type="button" data-toggle="dropdown"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                    style="margin-right:10px">
-                                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
-                                        height="12" viewBox="0 0 18 18" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                            fill="#42526E" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                            fill="#42526E" />
-                                    </svg>
-                                    <span class="text-table">Thêm hàng loạt</span>
-                                </button>
-                                <button type="button" class="btn-option py-1 px-2 bg-white border-0">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                            fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                            fill="#42526E"></path>
-                                    </svg>
-                                </button>
-                            </div>
+                    <div class="container-fluided">
+                        <div class="d-flex ml-4">
+                            <button type="button" data-toggle="dropdown" id="add-field-btn"
+                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                style="margin-right:10px">
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                    viewBox="0 0 18 18" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                        fill="#42526E" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                        fill="#42526E" />
+                                </svg>
+                                <span class="text-table">Thêm sản phẩm</span>
+                            </button>
+                            <button type="button" data-toggle="dropdown" id="add-field-btn"
+                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                style="margin-right:10px">
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                    viewBox="0 0 18 18" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                        fill="#42526E" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                        fill="#42526E" />
+                                </svg>
+                                <span class="text-table">Thêm đầu mục</span>
+                            </button>
+                            <button type="button" data-toggle="dropdown"
+                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                style="margin-right:10px">
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                    viewBox="0 0 18 18" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
+                                        fill="#42526E" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
+                                        fill="#42526E" />
+                                </svg>
+                                <span class="text-table">Thêm hàng loạt</span>
+                            </button>
+                            <button type="button" class="btn-option py-1 px-2 bg-white border-0">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                        fill="#42526E"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                        fill="#42526E"></path>
+                                </svg>
+                            </button>
                         </div>
-                    </section>
-                    <div class="content">
-                        <div class="row footer-total" style="width:95%;">
-                            <div class="position-relative col-lg-4 px-0"></div>
-                            <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
-                                <div class="m-3 ">
-                                    <div class="d-flex justify-content-between">
-                                        <span class="text-13-black">Giá trị trước thuế:</span>
-                                        <span id="total-amount-sum" class="text-table">0đ</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between mt-2 align-items-center">
-                                        <span class="text-13-black">Thuế VAT:</span>
-                                        <span id="product-tax" class="text-table">0đ</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between mt-2">
-                                        <span class="text-13-bold text-lg font-weight-bold">Tổng cộng:</span>
-                                        <span id="grand-total" data-value="0"
-                                            class="text-13-bold text-lg font-weight-bold text-right">
-                                            0đ
-                                        </span>
-                                        <input type="text" hidden="" name="totalValue"
-                                            value="0"id="total">
-                                    </div>
+                    </div>
+                </section>
+                <div class="content">
+                    <div class="row footer-total" style="width:95%;">
+                        <div class="position-relative col-lg-4 px-0"></div>
+                        <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
+                            <div class="m-3 ">
+                                <div class="d-flex justify-content-between">
+                                    <span class="text-13-black">Giá trị trước thuế:</span>
+                                    <span id="total-amount-sum" class="text-table">0đ</span>
+                                </div>
+                                <div class="d-flex justify-content-between mt-2 align-items-center">
+                                    <span class="text-13-black">Thuế VAT:</span>
+                                    <span id="product-tax" class="text-table">0đ</span>
+                                </div>
+                                <div class="d-flex justify-content-between mt-2">
+                                    <span class="text-13-bold text-lg font-weight-bold">Tổng cộng:</span>
+                                    <span id="grand-total" data-value="0"
+                                        class="text-13-bold text-lg font-weight-bold text-right">
+                                        0đ
+                                    </span>
+                                    <input type="text" hidden="" name="totalValue" value="0"id="total">
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
             </section>
             {{-- Modal khách hàng --}}
             <div class="modal fade" id="guestModal" tabindex="-1" role="dialog"
@@ -313,7 +312,8 @@
                                     <p class="p-0 m-0 px-2 required-label text-danger text-nav">
                                         Mã số thuế
                                     </p>
-                                    <input name="guest_code" type="text" placeholder="Nhập thông tin" oninput="validateInput(this)"
+                                    <input name="guest_code" type="text" placeholder="Nhập thông tin"
+                                        oninput="validateInput(this)"
                                         class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
                                         id="guest_code" autocomplete="off">
                                 </div>
@@ -1923,6 +1923,7 @@
                         quotation = getQuotation(data['guest'].guest_name_display, data[
                             'count'], data['date']);
                     }
+                    console.log(getQuotation("ABC3", 1, "11032024"));
                     $('input[name="quotation_number"]').val(quotation);
                     $('.nameGuest').val(data['guest'].guest_name_display);
                     $('.idGuest').val(data['guest'].id);
@@ -2115,6 +2116,13 @@
         $('#guest_code').val(null);
         $('#represent_guest_name').val(null);
     });
+
+    function delayAndShowNotification(type, message, delayTime) {
+        setTimeout(function() {
+            showNotification(type, message);
+        }, delayTime);
+    }
+
     $(document).on('click', '#addGuest', function(e) {
         var guest_name_display = $('input[name="guest_name_display"]').val().trim();
         var guest_name = $('#guest_name').val().trim();
@@ -2247,7 +2255,14 @@
                         $('#show-info-guest').show();
                         $('#show-title-guest').show();
                     } else {
-                        showNotification('warning', data.msg);
+                        if (data.key) {
+                            $("input[name='key']").val(data.key)
+                            showNotification('warning', data.msg);
+                            delayAndShowNotification('success', 'Tên viết tắt đã được thay đổi',
+                                1000);
+                        } else {
+                            showNotification('warning', data.msg);
+                        }
                     }
                 }
             });
