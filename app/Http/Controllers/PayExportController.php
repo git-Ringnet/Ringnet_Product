@@ -186,7 +186,9 @@ class PayExportController extends Controller
                 'product_pay.pay_qty'
             )
             ->get();
-        $history = history_Pay_Export::where('pay_id', $id)->get();
+        $history = history_Pay_Export::where('pay_id', $id)
+            ->leftJoin('pay_export', 'pay_export.id', 'history_payment_export.pay_id')
+            ->get();
         return view('tables.export.pay_export.edit', compact('title', 'payExport', 'product', 'history', 'thanhToan', 'noConLaiValue', 'workspacename'));
     }
 
@@ -253,6 +255,7 @@ class PayExportController extends Controller
         $data = $request->all();
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->where('detailexport.id', $data['idQuote'])
+            ->where('quoteexport.status', 1)
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_payment, 0) > 0')
             ->where(function ($query) {

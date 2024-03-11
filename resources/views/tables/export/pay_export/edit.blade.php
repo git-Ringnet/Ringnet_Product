@@ -404,7 +404,7 @@
                                         <tr class="bg-white">
                                             <td class="border-right text-13-black"
                                                 style="padding-left: 2rem !important;">
-                                                {{ $htr->id }}
+                                                {{ $htr->code_payment }}
                                             </td>
                                             <td class="border-right text-13-black">
                                                 {{ date_format(new DateTime($htr->created_at), 'd-m-Y') }}
@@ -511,13 +511,13 @@
                         </div>
                     </div>
                 </div>
-            </div>
 </form>
 <div id="files" class="tab-pane fade">
     <div class="bg-filter-search border-top-0 text-center border-custom">
         <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM</p>
     </div>
     <x-form-attachment :value="$payExport" name="TT"></x-form-attachment>
+</div>
 </div>
 </div>
 </div>

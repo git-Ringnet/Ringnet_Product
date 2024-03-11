@@ -198,6 +198,7 @@ class DeliveryController extends Controller
                 $join->where('serialnumber.detailexport_id', 0);
             })
             ->where('detailexport.id', $data['idQuote'])
+            ->where('quoteexport.status', 1)
             ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) > 0')
             ->get();
 

@@ -857,6 +857,7 @@
                                             <?php if ($detailExport->tinhTrang != 1) {
                                                 echo 'disabled';
                                             } ?>
+                                            value="{{ $detailExport->goods }}"
                                             value="{{ isset($dataForm['goods']) ? $dataForm['goods']->form_desc : '' }}" />
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDate[goods]"
@@ -949,6 +950,7 @@
                                             <?php if ($detailExport->tinhTrang != 1) {
                                                 echo 'disabled';
                                             } ?>
+                                            value="{{ $detailExport->delivery }}"
                                             value="{{ isset($dataForm['delivery']) ? $dataForm['delivery']->form_desc : '' }}" />
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDate[delivery]"
@@ -1041,6 +1043,7 @@
                                                 echo 'disabled';
                                             } ?> placeholder="Chọn thông tin" name="location"
                                             id="myInput-location"
+                                            value="{{ $detailExport->location }}"
                                             value="{{ isset($dataForm['location']) ? $dataForm['location']->form_desc : '' }}" />
                                         <input type="hidden" class="idDateForm" autocomplete="off"
                                             name="idDate[location]"

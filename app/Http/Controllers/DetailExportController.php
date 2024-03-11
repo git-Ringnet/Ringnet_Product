@@ -151,7 +151,8 @@ class DetailExportController extends Controller
             abort('404');
         }
         $quoteExport = $this->detailExport->getProductToId($id);
-        return view('tables.export.quote.see-quote', compact('title', 'guest', 'product', 'detailExport', 'quoteExport', 'workspacename'));
+        $history = $this->quoteExport->history($id);
+        return view('tables.export.quote.see-quote', compact('title', 'history', 'guest', 'product', 'detailExport', 'quoteExport', 'workspacename'));
     }
 
     /**
@@ -620,6 +621,7 @@ class DetailExportController extends Controller
     public function getRecentTransaction(Request $data)
     {
         $recentTransaction = QuoteExport::where('product_id', $data['idProduct'])
+            ->where('quoteexport.status', 1)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->get();
         return $recentTransaction;
