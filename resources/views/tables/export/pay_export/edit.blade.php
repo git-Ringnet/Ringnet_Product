@@ -92,7 +92,7 @@
                         </div>
                         @if ($payExport->trangThai != 2)
                             <div class="dropdown">
-                                <button type="submit" name="action" value="action_1"
+                                <button type="submit" name="action" value="action_1" id="btnXacNhan"
                                     class="btn-save-print rounded mx-1 d-flex align-items-center h-100">
                                     <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
@@ -356,7 +356,7 @@
                             </table>
                         </div>
                     </section>
-                    <div class="content">
+                    {{-- <div class="content">
                         <div class="row" style="width:95%;">
                             <div class="position-relative col-lg-4 px-0"></div>
                             <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
@@ -379,7 +379,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div id="history" class="tab-pane fade">
                     <div class="bg-filter-search border-top-0 text-center border-custom">
@@ -423,97 +423,103 @@
                         </div>
                     </section>
                 </div>
+                {{-- Thông tin khách hàng --}}
+                <div class="content-wrapper2 px-0 py-0">
+                    <div id="mySidenav" class="sidenav border" style="top:119px;">
+                        <div id="show_info_Guest">
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin khách
+                                hàng</p>
+                            <div class="content-info">
+                                <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
+                                    style="height:44px;" style="height:44px;">
+                                    <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
+                                    <span class="mx-1 text-13" style="flex: 2;">
+                                        <input type="text" placeholder="Chọn thông tin" readonly
+                                            value="{{ $payExport->quotation_number }}"
+                                            class="text-13-black w-100 border-0 numberQute bg-input-guest"
+                                            id="myInput" style="background-color:#F0F4FF; border-radius:4px;"
+                                            autocomplete="off" name="quotation_number">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="content-info--common" id="show-info-guest">
+                                <ul class="p-0 m-0 ">
+                                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        style="height:44px;">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
+                                        <input class="text-13-black w-50 border-0 bg-input-guest"
+                                            value="{{ $payExport->guest_name_display }}"
+                                            style="flex:2;outline:none;">
+                                        <input type="hidden" class="idGuest" value="{{ $payExport->guest_id }}"
+                                            autocomplete="off" name="guest_id">
+                                    </li>
+                                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        style="height:44px;">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
+                                            diện</span>
+                                        <input class="text-13-black w-50 border-0 represent_guest"
+                                            style="flex:2;outline:none;" readonly />
+                                    </li>
+                                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        style="height:44px;">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh toán</span>
+                                        <input class="text-13-black w-50 border-0" style="flex:2;outline:none;"
+                                            value="{{ $payExport->code_payment }}" readonly />
+                                    </li>
+                                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        style="height:44px;">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hạn thanh
+                                            toán</span>
+                                        <input type="text" placeholder="Nhập thông tin"
+                                            style="flex:2;outline:none;"
+                                            @if ($payExport->trangThai != 2) id="datePicker" @endif
+                                            value="{{ date_format(new DateTime($payExport->payment_date), 'd/m/Y') }}"
+                                            class="text-13-black w-50 border-0">
+                                        <input type="hidden" id="hiddenDateInput" name="date_pay"
+                                            value="{{ date_format(new DateTime($payExport->payment_date), 'Y-m-d') }}">
+                                    </li>
+                                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        style="height:44px;">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
+                                        <input class="text-13-black w-50 border-0 tongTien" name="total"
+                                            style="flex:2;outline:none;"
+                                            value="{{ number_format($payExport->tongTienNo) }}" readonly>
+                                    </li>
+                                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        style="height:44px;">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đã thanh toán</span>
+                                        <input type="text" class="text-13-black w-50 border-0 daThanhToan"
+                                            style="flex:2; outline:none;" readonly name="daThanhToan"
+                                            value="{{ number_format($thanhToan->tongThanhToan) }}">
+                                    </li>
+                                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        style="height:44px;">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
+                                        <input class="text-13-black w-50 border-0 duNo" style="flex:2; outline:none;"
+                                            name="number_bill" value="{{ number_format($noConLaiValue) }}" readonly>
+                                    </li>
+                                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        style="height:44px;">
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
+                                        <input type="text" class="text-13-black w-50 border-0 payment"
+                                            oninput="validateInput();"
+                                            @if ($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif
+                                            name="payment" style="flex:2; outline:none;" name="payment">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 </form>
-<div id="fi les" class="tab-pane fade">
+<div id="files" class="tab-pane fade">
     <div class="bg-filter-search border-top-0 text-center border-custom">
         <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM</p>
     </div>
     <x-form-attachment :value="$payExport" name="TT"></x-form-attachment>
 </div>
 </div>
-</div>
-</div>
-{{-- Thông tin khách hàng --}}
-<div class="content-wrapper2 px-0 py-0">
-    <div id="mySidenav" class="sidenav border" style="top:119px;">
-        <div id="show_info_Guest">
-            <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin khách hàng</p>
-            <div class="content-info">
-                <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
-                    style="height:44px;" style="height:44px;">
-                    <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
-                    <span class="mx-1 text-13" style="flex: 2;">
-                        <input type="text" placeholder="Chọn thông tin" readonly
-                            value="{{ $payExport->quotation_number }}"
-                            class="text-13-black w-100 border-0 numberQute bg-input-guest" id="myInput"
-                            style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
-                            name="quotation_number">
-                    </span>
-                </div>
-            </div>
-            <div class="content-info--common" id="show-info-guest">
-                <ul class="p-0 m-0 ">
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                        style="height:44px;">
-                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
-                        <input class="text-13-black w-50 border-0 bg-input-guest"
-                            value="{{ $payExport->guest_name_display }}" style="flex:2;outline:none;">
-                        <input type="hidden" class="idGuest" value="{{ $payExport->guest_id }}" autocomplete="off"
-                            name="guest_id">
-                    </li>
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                        style="height:44px;">
-                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                        <input class="text-13-black w-50 border-0 represent_guest" style="flex:2;outline:none;"
-                            readonly />
-                    </li>
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                        style="height:44px;">
-                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh toán</span>
-                        <input class="text-13-black w-50 border-0" style="flex:2;outline:none;"
-                            value="{{ $payExport->code_payment }}" readonly />
-                    </li>
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                        style="height:44px;">
-                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hạn thanh toán</span>
-                        <input type="text" placeholder="Nhập thông tin" style="flex:2;outline:none;"
-                            @if ($payExport->trangThai != 2) id="datePicker" @endif
-                            value="{{ date_format(new DateTime($payExport->payment_date), 'd/m/Y') }}"
-                            class="text-13-black w-50 border-0">
-                        <input type="hidden" id="hiddenDateInput" name="date_pay"
-                            value="{{ date_format(new DateTime($payExport->payment_date), 'Y-m-d') }}">
-                    </li>
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                        style="height:44px;">
-                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
-                        <input class="text-13-black w-50 border-0 tongTien" name="total"
-                            style="flex:2;outline:none;" value="{{ number_format($payExport->tongTienNo) }}"
-                            readonly />
-                    </li>
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                        style="height:44px;">
-                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đã thanh toán</span>
-                        <input type="text" class="text-13-black w-50 border-0 daThanhToan"
-                            style="flex:2; outline:none;" readonly name="daThanhToan"
-                            value="{{ number_format($thanhToan->tongThanhToan) }}" />
-                    </li>
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                        style="height:44px;">
-                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
-                        <input class="text-13-black w-50 border-0 duNo" style="flex:2; outline:none;"
-                            name="number_bill" value="{{ number_format($noConLaiValue) }}" readonly />
-                    </li>
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                        style="height:44px;">
-                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
-                        <input type="text" class="text-13-black w-50 border-0 payment" oninput="validateInput();"
-                            @if ($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif
-                            name="payment" style="flex:2; outline:none;" name="payment" />
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
 </div>
 </div>
 
@@ -1637,6 +1643,10 @@
         paymentInput.removeAttribute('required');
         validateInput();
     });
+    $('#btnXacNhan').click(function() {
+        $('input[name="total"], input[name="daThanhToan"], input[name="number_bill"]').prop('readonly', false);
+    });
+
     $('.info-product').click(function() {
         var idProduct = $(this).closest('tr').find('.product_id').val();
 

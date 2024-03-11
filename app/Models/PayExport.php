@@ -101,63 +101,61 @@ class PayExport extends Model
     public function updateDetailExport($data, $detailexport_id)
     {
         $total = str_replace(',', '', $data['total']);
-
-        $payment = isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0;
-        $daThanhToan = isset($data['daThanhToan']) ? str_replace(',', '', $data['daThanhToan']) : 0;
-
+        if (isset($data['payment'])) {
+            $payment = str_replace(',', '', $data['payment']);
+        } else {
+            $payment = 0;
+        }
+        if (isset($data['daThanhToan'])) {
+            $daThanhToan = str_replace(',', '', $data['daThanhToan']);
+        } else {
+            $daThanhToan = 0;
+        }
         $result = $total - $daThanhToan - $payment;
-
-        $payExport = PayExport::where('detailexport_id', $detailexport_id)->first();
+        $payExport = PayExport::where('detailexport_id', $detailexport_id)
+            ->first();
         $detailExport = DetailExport::where('id', $detailexport_id)->first();
-
         if ($detailExport) {
             $detailExport->update([
                 'amount_owed' => $result,
-                'status' => $result <= 0 ? 2 : 1, // Update status based on result
-                'status_pay' => $result <= 0 ? 2 : 3, // Update status_pay based on result
+                'status' => 2,
             ]);
-
-            if ($result <= 0) {
-                $detailExport->update(['status_pay' => 2]);
-
+            if ($detailExport->amount_owed <= 0) {
+                $detailExport->update([
+                    'status_pay' => 2,
+                ]);
+                $payExport->update([
+                    'status' => 2,
+                ]);
                 if ($detailExport->status_receive == 2 && $detailExport->status_reciept == 2 && $detailExport->status_pay == 2) {
-                    $detailExport->update(['status' => 3]);
+                    $detailExport->update([
+                        'status' => 3,
+                    ]);
                 }
             } else {
-                $detailExport->update(['status_pay' => 3]);
-
+                $detailExport->update([
+                    'status_pay' => 3,
+                ]);
                 if ($payment > 0) {
-                    $payExport->update(['status' => 5]);
+                    $payExport->update([
+                        'status' => 5,
+                    ]);
                 }
             }
-
-            $historyData = [
-                'pay_id' => $payExport->id,
-                'total' => $total,
-                'payment' => $payment,
-                'debt' => $detailExport->amount_owed,
-                'workspace_id' => Auth::user()->current_workspace,
-                'created_at' => now(),
-            ];
-
-            history_Pay_Export::create($historyData);
-
-            $payExport->payment += $payment;
-            $payExport->debt = $detailExport->amount_owed;
-            $payExport->payment_date = $data['date_pay'];
-
-            // Add the condition to update status based on the date
-            if (Carbon::parse($data['date_pay'])->isToday()) {
-                $payExport->status = 6;
-            } elseif (Carbon::parse($data['date_pay'])->isFuture()) {
-                $payExport->status = 3;
-            } else {
-                $payExport->status = 4;
-            }
-
-            $payExport->save();
         }
-
+        $history = new history_Pay_Export;
+        $history->pay_id = $payExport->id;
+        $history->total = $total;
+        $history->payment = $payment;
+        $history->debt = $detailExport->amount_owed;
+        $history->workspace_id = Auth::user()->current_workspace;
+        $history->created_at = now();
+        $history->save();
+        //payment
+        $payExport->payment += $payment;
+        $payExport->debt = $detailExport->amount_owed;
+        $payExport->payment_date = $data['date_pay'];
+        $payExport->save();
         return $detailExport;
     }
 
