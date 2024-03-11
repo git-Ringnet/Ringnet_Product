@@ -51,8 +51,9 @@ class DeliveryController extends Controller
 
             foreach ($deliveries as $delivery) {
                 $totalProductVat = Delivered::where('delivery_id', $delivery->maGiaoHang)
+                    ->where('delivered.workspace_id', Auth::user()->current_workspace)
                     ->sum('product_total_vat');
-                    
+
                 $delivery->totalProductVat = $totalProductVat;
             }
             return view('tables.export.delivery.list-delivery', compact('title', 'deliveries', 'workspacename'));
@@ -180,7 +181,7 @@ class DeliveryController extends Controller
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
             ->first();
-        $lastDeliveryId = DB::table('delivery')->orderBy('id', 'desc')->value('id');
+        $lastDeliveryId = DB::table('delivery')->max('id');
         $delivery['lastDeliveryId'] = $lastDeliveryId == null ? 0 : $lastDeliveryId;
         return $delivery;
     }

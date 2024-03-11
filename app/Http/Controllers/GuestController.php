@@ -182,7 +182,7 @@ class GuestController extends Controller
         $guest->delete();
         return back()->with('msg', 'Xóa khách hàng thành công');
     }
-
+    
 
     public function search(Request $request)
     {

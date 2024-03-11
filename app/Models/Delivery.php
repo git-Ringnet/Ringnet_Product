@@ -535,8 +535,13 @@ class Delivery extends Model
             //thêm giá xuất và thành tiền có thuế của mỗi sản phẩm giao
             $productExport = QuoteExport::where('detailexport_id', $data['detailexport_id'])
                 ->where('product_id', $data['product_id'][$i])->first();
-            $priceTax = ($data['product_qty'][$i] * $productExport->price_export *  $productExport->product_tax) / 100;
-            $tolTax = ($data['product_qty'][$i] * $productExport->price_export) + $priceTax;
+            if (!empty($data['product_price'][$i])) {
+                $product_price = str_replace(',', '', $data['product_price'][$i]);
+            } else {
+                $product_price = null;
+            }
+            $priceTax = ($data['product_qty'][$i] * $product_price *  ($productExport->product_tax == 99 ? 0 : $productExport->product_tax)) / 100;
+            $tolTax = ($data['product_qty'][$i] * $product_price) + $priceTax;
             $dataDelivered = [
                 'delivery_id' => $deliveryId,
                 'product_id' => $data['product_id'][$i],
@@ -544,7 +549,7 @@ class Delivery extends Model
                 'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'price_export' => $productExport->price_export,
+                'price_export' => $product_price,
                 'product_total_vat' => $tolTax,
             ];
             $delivered_id = DB::table('delivered')->insertGetId($dataDelivered);

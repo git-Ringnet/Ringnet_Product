@@ -248,6 +248,7 @@ class QuoteExport extends Model
                 $query->where('quoteexport.product_delivery', null)
                     ->orWhere('quoteexport.product_delivery', 0);
             })
+            ->orderBy('quoteexport.created_at', 'desc')
             ->get();
         return $quoteExport;
     }
