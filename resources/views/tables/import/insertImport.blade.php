@@ -1056,8 +1056,8 @@
                             <li class="border" id="` +
                                     element.id +
                                     `">
-                                <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="3" name="search-price-effect">
-                                    <span class="w-100 text-nav text-dark overflow-hidden">23123</span>
+                                <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="`+element.id+`" name="search-price-effect">
+                                    <span class="w-100 text-nav text-dark overflow-hidden">`+element.form_name+`</span>
                                 </a>
                                 <div class="dropdown">
                                     <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
@@ -1070,7 +1070,7 @@
                                         <a class="dropdown-item delete-item" href="#" data-id="` +
                                     element.id + `" data-name="priceeffect"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
                                         <a class="dropdown-item set-default default-id ` +
-                                    element.form_desc + `" id="default-id` +
+                                    element.form_name + `" id="default-id` +
                                     element.id + `" href="#" data-name="import" data-id="` +
                                     element.id + `">
                                             <i class="fa-solid fa-link" aria-hidden="true"></i> 
@@ -1087,25 +1087,18 @@
                         if (data.terms_pay) {
                             data.terms_pay.forEach(function(element) {
                                 var li = `
-                            <li class="border" id="` + element.id +
-                                    `">
-                                <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="3" name="search-price-effect">
-                                    <span class="w-100 text-nav text-dark overflow-hidden">23123</span>
+                                <li class="border" id="`+element.id+`">
+                                <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay" id="`+element.id+`" name="search-term-pay">
+                                    <span class="w-100 text-nav text-dark overflow-hidden">`+element.form_name+`</span>
                                 </a>
                                 <div class="dropdown">
                                     <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
                                         <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
                                     </button>
                                     <div class="dropdown-menu date-form-setting" style="z-index: 100;">
-                                        <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
-                                    element.id + `" id="` +
-                                    element.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
-                                        <a class="dropdown-item delete-item" href="#" data-id="` +
-                                    element.id + `" data-name="priceeffect"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
-                                        <a class="dropdown-item set-default default-id ` +
-                                    element.form_desc + `" id="default-id` +
-                                    element.id + `" href="#" data-name="import" data-id="` +
-                                    element.id + `">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="2" id="`+element.id+`"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item delete-item" href="#" data-id="`+element.id+`" data-name="termpay"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item set-default default-id `+element.form_desc+`" id="default-id`+element.id+`" href="#" data-name="termpay" data-id="`+element.id+`">
                                             <i class="fa-solid fa-link" aria-hidden="true"></i> 
                                         </a>
                                     </div>
@@ -1116,8 +1109,6 @@
                             })
 
                         }
-
-
                         if (data.id_represent) {
                             $('#represent').val(data.represent_name)
                             var newli = `
@@ -1129,7 +1120,6 @@
                                 .represent_name +
                                 `</span>
                                     </a>
-
                                     <div class="dropdown">
                                         <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
                                             <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
@@ -1237,10 +1227,11 @@
                             },
                             success: function(data) {
                                 $('.btn.btn-default').click()
-                                $('#form-name-' + id).val('')
-                                $('#form-desc-' + id).val('')
-                                $('.closeModal').click()
+
                                 if (data.success) {
+                                    $('#form-name-' + id).val('')
+                                    $('#form-desc-' + id).val('')
+                                    $('.closeModal').click()
                                     $(id == "import" ? '#price_effect' : '#terms_pay').val(data
                                         .data);
                                     if (id == "import") {
@@ -1303,8 +1294,10 @@
                                     $(id == "import" ? $('#listPriceEffect .p-1').after(
                                         price_effect) : $('#listTermsPay .p-1').after(
                                         term_pay))
+                                        showNotification('success', data.msg)
+                                }else{
+                                    showNotification('warning', data.msg)
                                 }
-                                showNotification('success', data.msg)
                             }
                         })
                     }
@@ -1347,7 +1340,6 @@
                             inputField: inputField
                         },
                         success: function(data) {
-
                             if (data.success) {
                                 var get_dataID = $('#price_effect').data('id')
                                 if (get_dataID != null) {

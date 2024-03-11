@@ -216,7 +216,7 @@ class ReceiveController extends Controller
             if ($lastReceive) {
                 $parts = explode('-', $lastReceive->delivery_code);
                 $getNumber = end($parts);
-                $count = $getNumber + 1;
+                $count = (int)$getNumber + 1;
             } else {
                 $count = $count == 0 ? $count += 1 : $count;
             }
@@ -234,7 +234,7 @@ class ReceiveController extends Controller
             if ($lastReceive) {
                 $parts = explode('-', $lastReceive->delivery_code);
                 $getNumber = end($parts);
-                $count = $getNumber + 1;
+                $count = (int)$getNumber + 1;
             } else {
                 $count = $count == 0 ? $count += 1 : $count;
             }
@@ -252,7 +252,7 @@ class ReceiveController extends Controller
             if ($lastReceive) {
                 $parts = explode('-', $lastReceive->delivery_code);
                 $getNumber = end($parts);
-                $count = $getNumber + 1;
+                $count = (int)$getNumber + 1;
             } else {
                 $count = $count == 0 ? $count += 1 : $count;
             }
