@@ -877,7 +877,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($quoteExport as $item_quote)
+                                            @foreach ($history as $item_quote)
                                                 <tr style="height:80px;">
                                                     <td class="border bg-white align-top text-13-black p-1"
                                                         style="padding-left: 2rem !important;">

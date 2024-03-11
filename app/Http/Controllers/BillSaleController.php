@@ -191,6 +191,7 @@ class BillSaleController extends Controller
         $data = $request->all();
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->where('detailexport.id', $data['idQuote'])
+            ->where('quoteexport.status', 1)
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('*')
             ->where(function ($query) {
