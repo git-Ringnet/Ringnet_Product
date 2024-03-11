@@ -38,6 +38,13 @@ li {
     width: 0 !important;
     display: none;
 }
+
+.width-18{
+    width: 18% !important;
+}
+.width-21{
+    width: 21% !important;
+}
 .min-height--none{
     min-height: 0 !important;
 }
@@ -51,6 +58,9 @@ li {
 }
 .height-60 {
     height: 60px !important;
+}
+.height-80 {
+    height: 80px !important;
 }
 .margin-250 {
     margin-left: 250px !important;
@@ -67,6 +77,9 @@ li {
 .padding-left35 {
     padding-left: 35px !important;
 }
+.padding-left32 {
+    padding-left: 32px !important;
+}
 .padding-top12 {
     padding-top: 12px !important;
 }
@@ -74,21 +87,7 @@ li {
     padding-top: 19px !important;
     padding-bottom: 19px !important;
 }
-.margin-top-fixed10 {
-    margin-top: 10.5rem;
-}
-.margin-top-fixed5 {
-    margin-top: 5.9rem;
-}
-.margin-top-fixed4 {
-    margin-top: 4.3rem;
-}
-.margin-top-fixed3 {
-    margin-top: 3.1rem;
-}
-.margin-top-fixed2 {
-    margin-top: 2.2rem;
-}
+
 
 .border-custom {
     border-bottom: 1px solid #dfe1e4 !important;
@@ -96,6 +95,10 @@ li {
 }
 .max-width180 {
     max-width: 180px;
+    text-wrap: wrap;
+}
+.min-width180 {
+    min-width: 180px;
     text-wrap: wrap;
 }
 .max-width120 {
@@ -123,7 +126,6 @@ li {
     top: 0;
     position: sticky;
     background-color: white;
-    z-index: 99;
 }
 
 .outer2 {
@@ -142,9 +144,25 @@ li {
     top: 0;
     position: sticky;
     background-color: white;
-    z-index: 99;
 }
 
+.outer3 {
+    overflow: auto;
+    scrollbar-width: none;
+    max-height: 300px;
+}
+
+.outer3 {
+    width: 100%;
+    -layout: fixed;
+}
+
+.outer3 th {
+    text-align: left;
+    top: 0;
+    position: sticky;
+    background-color: white;
+}
 /* ----------------------------------- */
 .heading-title h5 {
     color: #fff;
@@ -253,7 +271,7 @@ li {
 .ks-cboxtags {
     overflow-y: auto;
     scrollbar-width: thin;
-    max-height: 220px !important;
+    max-height: 450px !important;
     height: auto;
     /* ẩn thanh cuộn trên các trình duyệt mới */
     scrollbar-color: #999999 #f0f0f0;
@@ -1361,7 +1379,7 @@ input[type="checkbox"] {
 
 .scroll-data {
     overflow-y: auto;
-    max-height: 170px;
+    max-height: 180px;
 }
 
 .scroll-data li:hover {
@@ -2257,7 +2275,7 @@ input[type="checkbox"] {
 .hover-button:hover {
     background: #f2f2f2;
 }
-
+/* MARGIN-TOPP */
 .margin-top-38 {
     margin-top: 3.8rem;
 }
@@ -2273,6 +2291,40 @@ input[type="checkbox"] {
 .margin-top-88 {
     margin-top: 8.8rem;
 }
+.margin-top-10 {
+    margin-top: 10rem;
+}
+.margin-top-fixed10 {
+    margin-top: 10.5rem;
+}
+
+.margin-top-fixed5 {
+    margin-top: 5.9rem;
+}
+.margin-top-fixed4 {
+    margin-top: 4.3rem;
+}
+.margin-top-fixed3 {
+    margin-top: 3.1rem;
+}
+.margin-top-fixed2 {
+    margin-top: 2.2rem;
+}
 .top-109 {
     top: 109px !important;
 }
+
+
+
+table.scrolldown tbody {
+
+    /* Set the height of table body */
+    max-height: 50px;
+    /* Set vertical scroll */
+    overflow-y: auto;
+    /* Hide the horizontal scroll */
+    overflow-x: hidden;
+}
+
+
+

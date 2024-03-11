@@ -18,7 +18,7 @@
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
                     {{-- <a href="{{ route('inventory.create', $workspacename) }}"> --}}
-                    <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
+                    <!-- <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
                         <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -44,19 +44,21 @@
                                 d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
                                 fill="#42526E"></path>
                         </svg>
-                    </button>
+                    </button> -->
                 </div>
             </div>
         </div>
         <section class="content-header--options p-0 border-custom">
-            <ul class="header-options--nav nav justify-content-evenly nav-tabs margin-left32" style="width: 199px;">
-                <li class="active">
-                    <a class="text-secondary pl-3 active" data-toggle="tab" href="#import">Mua hàng</a>
-                </li>
-                <li style="margin-left: 11px;">
-                    <a class="text-secondary pr-3" data-toggle="tab" href="#export">Bán hàng</a>
-                </li>
-            </ul>
+            <div class="width-18">
+                <ul class="header-options--nav w-100 nav justify-content-evenly nav-tabs margin-left32">
+                    <li class="active">
+                        <a class="text-secondary pl-3 active" data-toggle="tab" href="#import">Mua hàng</a>
+                    </li>
+                    <li style="margin-left: 11px;">
+                        <a class="text-secondary pr-3" data-toggle="tab" href="#export">Bán hàng</a>
+                    </li>
+                </ul>
+            </div>
         </section>
         <div class="import">
             <div class="bg-filter-search pl-4">
@@ -308,7 +310,7 @@
                                                                 data-button="import" data-sort-by="sumAmountOwed"
                                                                 data-sort-type="DESC">
                                                                 <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Công nợ</span>
+                                                                    <span class="text-13">Dư nợ</span>
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-import-sumAmountOwed"></div>
@@ -380,7 +382,6 @@
                     <div class="container-fluided">
                         <div class="row">
                             <div class="col-md-12 p-0 m-0 pl-2">
-
                                 <div class="card">
                                     <!-- /.card-header -->
                                     <div class="outer text-nowrap">
@@ -434,7 +435,7 @@
                                                                 data-button="export" data-sort-by="sumAmountOwed"
                                                                 data-sort-type="DESC">
                                                                 <button class="btn-sort" type="submit">
-                                                                    <span class="text-13">Công nợ</span>
+                                                                    <span class="text-13">Dư nợ</span>
                                                                 </button>
                                                             </a>
                                                             <div class="icon" id="icon-export-sumAmountOwed"></div>

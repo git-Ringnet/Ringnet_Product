@@ -120,9 +120,9 @@
                 </div>
             </div>
         </div>
-        <div class="row m-auto filter p-0 border-custom" style="padding-left:32px; height:50px;">
+        <div class="row m-auto filter p-0 border-custom height-52">
             <div class="w-100">
-                <div class="row mr-0" style="padding-left:32px;">
+                <div class="row mr-0 mt-1 padding-left32">
                     <div class="col-md-5 d-flex align-items-center">
                         <div
                             class="border p-1 mt-2 rounded d-flex align-items-center px-2 w-50 justify-content-between">
@@ -159,13 +159,13 @@
             </div>
         </div>
     </div>
-    <div class="content margin-top-88">
+    <div class="content margin-top-10">
         <!-- Main content -->
         <section class="content margin-250">
             <div class="container-fluided">
                 <div class="row">
                     <div class="col-md-12 p-0 m-0 pl-2">
-                        <div class="card mt-3">
+                        <div class="card ">
                             <!-- /.card-header -->
                             <div class="outer text-nowrap">
                                 <table id="example2" class="table table-hover bg-white rounded">

@@ -163,14 +163,10 @@
                                         </th>
                                         <th class="border-right p-0 px-2 text-13" style="width:15%;">Tên sản phẩm</th>
                                         <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Số
-                                            lượng</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Đơn
-                                            giá</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Thuế
-                                        </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Thành
-                                            tiền</th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Số lượng</th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Đơn giá</th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Thuế</th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Thành tiền</th>
                                         <th class="border-right p-0 px-2 note text-13">Ghi chú sản phẩm</th>
                                     </tr>
                                 </thead>
@@ -949,24 +945,28 @@
                                         .product_tax)) / 100;
                                 $(".idGuest").val(item.guest_id);
                                 var newRow = `
-                                <tr id="dynamic-row-${item.id}" class="bg-white sanPhamGiao">
-                            <td class="border-right p-2 text-13 align-top">
+                                <tr id="dynamic-row-${item.id}" class="bg-white sanPhamGiao height-80">
+                            <td class="border border-left-0 border-top-0  align-top border-bottom-0 position-relative">
                                 <div class="d-flex w-100 justify-content-between align-items-center">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z" fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z" fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z" fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z" fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z" fill="#42526E"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z" fill="#42526E"></path>
-                                    </svg>
-                                    <input type="checkbox" class="cb-element">
-                                    <input type="text" value="${item.product_code == null ? '' : item.product_code}" readonly autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
+                                    <span class='mx-2'>
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='10' height='13' viewBox='0 0 10 13' fill='none'>
+                                             <g clip-path='url(#clip0_1710_10941)'>
+                                             <path fill-rule='evenodd' clip-rule='evenodd' d='M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z' fill='#282A30'/>
+                                             </g>
+                                             <defs>
+                                                 <clipPath id='clip0_1710_10941'>
+                                                 <rect width='6' height='10' fill='white'/>
+                                                 </clipPath>
+                                             </defs>
+                                        </svg>
+                                    </span>
+                                    <input type="checkbox" class="cb-element checkall-btn">
+                                    <input type="text" value="${item.product_code == null ? '' : item.product_code}" readonly autocomplete="off" class="border-0 text-13-black px-2 py-1 w-75 product_code" name="product_code[]">
                                 </div>
                             </td>
-                            <td class="border-right p-2 text-13 align-top">
+                            <td class="border border-top-0 border-bottom-0 position-relative align-top">
                                 <div class="d-flex align-items-center">
-                                    <input type="text" readonly value="${item.product_name}" class="border-0 px-2 py-1 w-100 product_name" autocomplete="off" required="" name="product_name[]">
+                                    <input type="text" readonly value="${item.product_name}" class="border-0 text-13-black px-2 py-1 w-100 product_name" autocomplete="off" required="" name="product_name[]">
                                     <input type="hidden" class="product_id" value="${item.product_id}" autocomplete="off" name="product_id[]">
                                     <div class="info-product" data-toggle="modal" data-target="#productModal" style="display: none;">
                                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -997,11 +997,12 @@
                                     <option value="99" ${(item.product_tax == 99) ? 'selected' : ''}>NOVAT</option>
                                 </select>
                             </td>
-                            <td class="border-right p-2 text-13 align-top">
-                                <input type="text" value="${formatCurrency(Math.round(item.product_total))}" readonly="" class="border-0 px-2 py-1 w-100 total-amount">
+                            <td class="border border-top-0 border-bottom-0 align-top">
+                                <input type="text" value="${formatCurrency(Math.round(item.product_total))}" readonly="" class="text-13-black text-right border-0 px-2 py-1 w-100 total-amount">
                             </td>
-                            <td class="border-right p-2 text-13 align-top border-right-0 position-relative note p-1">
-                                <input type="text" readonly value="${(item.product_note == null) ? '' : item.product_note}" class="border-0 py-1 w-100" name="product_note[]">
+                            <td class="border border-top-0 border-bottom-0 border-right-0 position-relative note align-top">
+                                <input type="text" readonly placeholder="Nhập ghi chú"
+                                    value="${(item.product_note == null) ? '' : item.product_note}" class="text-13-black border-0 py-1 w-100" name="product_note[]">
                             </td>
                             <td style="display:none;"><input type="text" class="product_tax1" value="${tax}"></td>
                             </tr>`;

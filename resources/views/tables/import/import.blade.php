@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="import"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper m-0">
+<div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->
     <div class="content-header-fixed p-0 margin-250">
         <div class="content__header--inner margin-left32">
@@ -121,15 +121,15 @@
             </div>
         </div>
     </div>
-    <div class="content-wrapper" style="margin-top:6.8rem;">
+    <div class="content margin-top-68">
         {{-- Content --}}
-        <section class="content">
+        <section class="content margin-250">
             <div class="container-fluided">
                 <div class="row p-0 m-0">
                     <div class="col-12 p-0">
-                        <div class="card scroll-custom">
+                        <div class="card">
                             <!-- /.card-header -->
-                            <div class="card-body table-responsive text-nowrap border-custom">
+                            <div class="outer text-nowrap">
                                 <table id="example2" class="table table-hover">
                                     <thead class="sticky-head">
                                         <tr>
@@ -171,7 +171,7 @@
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Nhà cung câp</button>
+                                                            type="submit">Nhà cung cấp</button>
                                                     </a>
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>

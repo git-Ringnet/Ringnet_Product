@@ -495,7 +495,7 @@
         <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
-                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin nhà cung cấp
+                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin khách hàng
                     </p>
                     <div class="content-info">
                         <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
