@@ -542,7 +542,6 @@
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
                                     name="quotation_number" style="flex:2;" placeholder="Chọn thông tin"
                                     value="{{ $import->quotation_number }}">
-
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                 style="height:44px;">
@@ -551,19 +550,17 @@
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
                                     name="reference_number" style="flex:2;" placeholder="Chọn thông tin"
                                     value="{{ $import->reference_number }}">
-
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
-                                    id="datePicker" name="quotation_number" style="flex:2;"
+                                    id="datePicker" style="flex:2;"
                                     placeholder="Chọn thông tin"
                                     value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}">
                                 <input type="hidden" id="hiddenDateInput" name="date_quote"
                                     value="{{ $import->created_at->toDateString() }}">
-
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                 style="height:44px;">
@@ -572,8 +569,6 @@
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
                                     id="price_effect" value="{{ $import->price_effect }}" name="price_effect"
                                     style="flex:2;" placeholder="Chọn thông tin">
-
-
                                 <ul id="listPriceEffect"
                                     class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
                                     style="z-index: 99;">
@@ -638,11 +633,9 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
-
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
                                     value="{{ $import->terms_pay }}" id="terms_pay" name="terms_pay"
                                     style="flex:2;" placeholder="Chọn thông tin">
-
                                 <ul id="listTermsPay"
                                     class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
                                     style="z-index: 99;">
@@ -711,7 +704,7 @@
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
                                     id="inputProject"
                                     value="@if ($import->getProjectName) {{ $import->getProjectName->project_name }} @endif"
-                                    name="quotation_number" style="flex:2;" placeholder="Chọn thông tin">
+                                    style="flex:2;" placeholder="Chọn thông tin">
 
                                 <ul id="listProject"
                                     class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"

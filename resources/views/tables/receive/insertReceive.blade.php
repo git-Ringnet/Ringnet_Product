@@ -721,18 +721,21 @@
                 detail_id = parseInt($(this).attr('id'), 10);
             }
             detail_id = $(this).attr('id');
+            table = "receive";
             $.ajax({
                 url: "{{ route('show_receive') }}",
                 type: "get",
                 data: {
-                    detail_id: detail_id
+                    detail_id: detail_id,
+                    table :table
                 },
                 success: function(data) {
-                    console.log(data);
-                    $('#myInput').val(data.quotation_number == null ? data.id :
-                        data
-                        .quotation_number);
-                    $('input[name^="delivery_code"]').val("MTT-"+data.id)
+                    // console.log(data);
+                    // $('#myInput').val(data.quotation_number == null ? data.id :
+                    //     data
+                    //     .quotation_number);
+                    // $('input[name^="delivery_code"]').val("MTT-"+data.id)
+                    $('input[name^="delivery_code"]').val(data.resultNumber)
                     $('#provide_name').val(data.provide_name);
                     $('#represent').val(data.represent)
                     $('#detailimport_id').val(data.id)

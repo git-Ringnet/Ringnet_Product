@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailImport;
+use App\Models\PayOder;
 use App\Models\ProductImport;
 use App\Models\Products;
 use App\Models\QuoteImport;
@@ -205,16 +206,69 @@ class ReceiveController extends Controller
                 $nameRepresent = $detail->getNameRepresent->represent_name;
             }
         }
-        $getSTT = Receive_bill::where('workspace_id', Auth::user()->current_workspace)
-            ->orderBy('id', 'desc')
-            ->first();
+        if($request->table == "receive"){
+            $count = Receive_bill::where('workspace_id',Auth::user()->current_workspace)->count();
+
+            $lastReceive = Receive_bill::where('workspace_id', Auth::user()->current_workspace)
+                ->orderBy('id', 'desc')
+                ->first();
+    
+            if ($lastReceive) {
+                $parts = explode('-', $lastReceive->delivery_code);
+                $getNumber = end($parts);
+                $count = $getNumber + 1;
+            } else {
+                $count = $count == 0 ? $count += 1 : $count;
+            }
+            if ($count < 10) {
+                $count = "0" . $count;
+            }
+            $resultNumber = "MTT-". $count;
+        }elseif($request->table == "reciept"){
+            $count = Reciept::where('workspace_id',Auth::user()->current_workspace)->count();
+
+            $lastReceive = Reciept::where('workspace_id', Auth::user()->current_workspace)
+                ->orderBy('id', 'desc')
+                ->first();
+    
+            if ($lastReceive) {
+                $parts = explode('-', $lastReceive->delivery_code);
+                $getNumber = end($parts);
+                $count = $getNumber + 1;
+            } else {
+                $count = $count == 0 ? $count += 1 : $count;
+            }
+            if ($count < 10) {
+                $count = "0" . $count;
+            }
+            $resultNumber = "SHD-". $count;
+        }else{
+            $count = PayOder::where('workspace_id',Auth::user()->current_workspace)->count();
+
+            $lastReceive = PayOder::where('workspace_id', Auth::user()->current_workspace)
+                ->orderBy('id', 'desc')
+                ->first();
+    
+            if ($lastReceive) {
+                $parts = explode('-', $lastReceive->delivery_code);
+                $getNumber = end($parts);
+                $count = $getNumber + 1;
+            } else {
+                $count = $count == 0 ? $count += 1 : $count;
+            }
+            if ($count < 10) {
+                $count = "0" . $count;
+            }
+            $resultNumber = "MTT-". $count;
+        }
+      
 
         $data = [
             'quotation_number' => isset($detail) ? $detail->quotation_number : "",
             'represent' => isset($nameRepresent) ? $nameRepresent : "",
             'provide_name' => isset($nameProvide) ? $nameProvide : "",
             'id' => isset($detail) ? $detail->id : "",
-            'stt' => isset($getSTT) ? $getSTT->id : 1
+            'resultNumber' => $resultNumber
         ];
         return $data;
     }

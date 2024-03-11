@@ -543,6 +543,75 @@
         idModal="formModalTermPay"></x-form-modal-import>
     {{-- <x-date-form-modal title="Hiệu lực báo giá" name="import" idModal="formModalquote"></x-date-form-modal> --}}
 </form>
+<div class="modal fade" id="recentModal" tabindex="-1" aria-labelledby="productModalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-bold">Giao dịch gần đây</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="outer text-nowrap">
+                    <table id="example2" class="table table-hover bg-white rounded">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Tên sản phẩm
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Giá mua
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Thuế
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Ngày mua
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
@@ -584,13 +653,14 @@
                 provides_id: provides_id,
             },
             success: function(data) {
-                if (data.key) {
-                    quotation = getQuotation(data.key, data['count'], data['date']);
-                } else {
-                    quotation = getQuotation(data['provide'].provide_name_display, data['count'],
-                        data['date']);
-                }
-                $('input[name="quotation_number"]').val(quotation);
+                // if (data.key) {
+                //     quotation = getQuotation(data.key, data['count'], data['date']);
+                // } else {
+                //     quotation = getQuotation(data['provide'].provide_name_display, data['count'],
+                //         data['date']);
+                // }
+                // $('input[name="quotation_number"]').val(quotation);
+                $('input[name="quotation_number"]').val(data['resultNumber']);
                 $('#myInput').val(data['provide'].provide_name_display);
                 $('#provides_id').val(data['provide'].id);
                 $.ajax({
@@ -961,6 +1031,9 @@
                     provide_address_delivery: provide_address_delivery
                 },
                 success: function(data) {
+                    $('#listPriceEffect li').empty();
+                    $('#listTermsPay li').empty();
+                    console.log(data);
                     if (data.success == true) {
                         quotation = getQuotation(data.key, '1')
                         $('#myInput').val(data.name);
@@ -977,6 +1050,74 @@
                         $("input[name='provide_email']").val('');
                         $("input[name='provide_phone']").val('');
                         $("input[name='provide_address_delivery']").val('');
+                        if (data.price_effect) {
+                            data.price_effect.forEach(function(element) {
+                                var li = `
+                            <li class="border" id="` +
+                                    element.id +
+                                    `">
+                                <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="3" name="search-price-effect">
+                                    <span class="w-100 text-nav text-dark overflow-hidden">23123</span>
+                                </a>
+                                <div class="dropdown">
+                                    <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                        <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
+                                    element.id + `" id="` +
+                                    element.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item delete-item" href="#" data-id="` +
+                                    element.id + `" data-name="priceeffect"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item set-default default-id ` +
+                                    element.form_desc + `" id="default-id` +
+                                    element.id + `" href="#" data-name="import" data-id="` +
+                                    element.id + `">
+                                            <i class="fa-solid fa-link" aria-hidden="true"></i> 
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            `;
+                                $('#listPriceEffect .p-1').after(li);
+                            })
+
+                        }
+
+                        if (data.terms_pay) {
+                            data.terms_pay.forEach(function(element) {
+                                var li = `
+                            <li class="border" id="` + element.id +
+                                    `">
+                                <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="3" name="search-price-effect">
+                                    <span class="w-100 text-nav text-dark overflow-hidden">23123</span>
+                                </a>
+                                <div class="dropdown">
+                                    <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                        <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
+                                    element.id + `" id="` +
+                                    element.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item delete-item" href="#" data-id="` +
+                                    element.id + `" data-name="priceeffect"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item set-default default-id ` +
+                                    element.form_desc + `" id="default-id` +
+                                    element.id + `" href="#" data-name="import" data-id="` +
+                                    element.id + `">
+                                            <i class="fa-solid fa-link" aria-hidden="true"></i> 
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            `;
+                                $('#listTermsPay .p-1').after(li);
+                            })
+
+                        }
+
+
                         if (data.id_represent) {
                             $('#represent').val(data.represent_name)
                             var newli = `
@@ -1300,6 +1441,8 @@
                                 product_name: product_name,
                             },
                             success: function(data) {
+                                $('#soTonKho').text(formatCurrency(data[
+                                    'products'].product_inventory))
                                 console.log(data);
                             }
                         })

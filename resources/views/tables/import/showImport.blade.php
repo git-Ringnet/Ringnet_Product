@@ -739,7 +739,8 @@
                                                     <td class='border-right p-2 text-13 align-top position-relative'>
                                                         <input type="text"
                                                             class="product_tax border-0 px-2 py-1 w-100" readonly
-                                                            value="{{ $item->product_tax }} %">
+                                                            @if ($item->product_tax == 99) value = "NOVAT"
+                                                           @else value="{{ $item->product_tax }} %" @endif>
                                                     </td>
                                                     <td class='border-right p-2 text-13 align-top position-relative'>
                                                         <input type="text" class="border-0 px-2 py-1 w-100"

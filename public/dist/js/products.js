@@ -261,8 +261,8 @@ function handlePaste(input) {
                 checkbox.setAttribute("type", "checkbox");
                 var checkboxes = document.querySelectorAll(
                     ".div_value" +
-                        rowCount +
-                        ' table tbody input[type="checkbox"]'
+                    rowCount +
+                    ' table tbody input[type="checkbox"]'
                 );
                 var checkboxCount = checkboxes.length;
                 checkbox.setAttribute("id", "checkbox_" + checkboxCount);
@@ -403,15 +403,16 @@ function addRowTable(status) {
     }
     tr +=
         "</div>" +
-        "<div class='mt-3 text-13-blue inventory'>Tồn kho: <span class='pl-1 soTonKho'>35</span></div>" +
+        "<div class='mt-3 text-13-blue inventory'>Tồn kho: <span class='pl-1 soTonKho' id='soTonKho'>0</span></div>" +
         "</td>" +
         '<td class="border border-bottom-0 text-13-black align-top p-2">' +
         "<div>" +
         '<input type="text" required class="border-0 px-2 py-1 w-100 price_export" name="price_export[]">' +
         "</div>" +
-        "<div class='mt-3 text-13-blue transaction'>Giao dịch gần đây</div>" +
+        "<div class='mt-3 text-13-blue transaction' id='transaction' data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</div>" +
         "</td>" +
         '<td class="border border-bottom-0 text-13-black align-top p-2">';
+
     if (status == 2) {
         tr +=
             '<input type="text" class="border-0 px-2 py-1 w-100 product_tax" name="product_tax[]" readonly >';

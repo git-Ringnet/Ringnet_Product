@@ -98,6 +98,8 @@ class DetailImportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($result['status']) {
+            // Thêm sản phẩm vào tồn kho
+            $this->product->addProductDefault($request->all());
             $import_id = $result['detail_id'];
             // Thêm sản phẩm theo đơn hàng, thêm vào lịch sử
             $this->quoteImport->addQuoteImport($request->all(), $import_id);
@@ -244,6 +246,7 @@ class DetailImportController extends Controller
         if ($provide) {
             $date = DetailImport::where('provide_id', $provide->id)->orderBy('id', 'desc')
                 ->where('workspace_id', Auth::user()->current_workspace)
+                ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmy')])
                 ->first();
             if ($date) {
                 $date = explode('/', $date->quotation_number)[0];
@@ -252,11 +255,30 @@ class DetailImportController extends Controller
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [$date])
                 ->count();
+            $lastDetailImport = DetailImport::where('provide_id', $provide->id)
+                ->orderBy('id', 'desc')
+                ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmy')])
+                ->first();
+
+            if ($lastDetailImport) {
+                $parts = explode('-', $lastDetailImport->quotation_number);
+                $getNumber = end($parts);
+
+                $count = $getNumber + 1;
+            } else {
+                $count = $count == 0 ? $count += 1 : $count;
+            }
+            if ($count < 10) {
+                $count = "0" . $count;
+            }
+            // return $date;
+            $resultNumber = ($date == "" ? Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmy') : $date) . "/RN-" . $provide->key . "-" . $count;
             $result = [
                 'provide' => $provide,
                 'count' => $count,
                 'key' => $provide->key,
-                'date' => ($date == "" ? Carbon::now()->format('dmy') : $date)
+                'date' => ($date == "" ? Carbon::now()->format('dmy') : $date),
+                'resultNumber' => $resultNumber
             ];
         }
         return $result;
@@ -375,10 +397,18 @@ class DetailImportController extends Controller
                 }
             }
             $provide = Provides::findOrFail($new_provide);
+            $price_effect = DateForm::where('form_field', 'import')
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->get();
+
+            $terms_pay = DateForm::where('form_field', 'termpay')
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->get();
             $msg = response()->json([
                 'success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công',
                 'id' => $new_provide, 'name' => $provide->provide_name_display, 'key' => $key,
-                'id_represent' => isset($id_represent) ? $id_represent : "", 'represent_name' => $request->provide_represent
+                'id_represent' => isset($id_represent) ? $id_represent : "", 'represent_name' => $request->provide_represent,
+                'price_effect' => $price_effect, 'terms_pay' => $terms_pay
             ]);
         } else {
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế hoặc tên hiển thị đã tồn tại']);
@@ -671,7 +701,6 @@ class DetailImportController extends Controller
     }
     public function deleteForm(Request $request)
     {
-        // return $request->all();
         if ($request->table == "represent") {
             $check = ProvideRepesent::where('id', $request->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
@@ -806,7 +835,14 @@ class DetailImportController extends Controller
 
     public function getInventory(Request $request)
     {
-        return $request->all();
+        $data = [];
+        $product = Products::where('product_name', $request->product_name)->first();
+        if ($product) {
+            $history = HistoryImport::where('product_id', $product->id)->get();
+            $data['history'] = $history;
+        }
+        $data['products'] = $product;
+        return $data;
     }
     public function searchImport(Request $request)
     {

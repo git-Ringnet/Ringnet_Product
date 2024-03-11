@@ -55,6 +55,35 @@ class Products extends Model
     {
         return $this->hasMany(ProductImport::class, 'product_id', 'id');
     }
+
+    public function addProductDefault($data)
+    {
+        // dd($data);
+        for ($i = 0; $i < count($data['product_name']); $i++) {
+            $checkProductName = DB::table($this->table)->where('product_name', $data['product_name'][$i])
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+            if (!$checkProductName) {
+                $product  = [
+                    'product_code' => $data['product_code'][$i],
+                    'product_name' => $data['product_name'][$i],
+                    'product_unit' => $data['product_unit'][$i],
+                    'product_price_import' => str_replace(',', '',$data['price_export'][$i]),
+                    'product_tax' => $data['product_tax'][$i],
+                    'check_seri' => 1,
+                    'product_inventory' => 0,
+                    'product_trade' => 0,
+                    'product_available' => 0,
+                    'workspace_id' => Auth::user()->current_workspace
+                    // 'warehouse_id' => 1
+                ];
+                $product_id =  DB::table($this->table)->insert($product);
+            }
+        }
+    }
+
+
+
     public function addProduct($data)
     {
         $return  = 0;
@@ -97,8 +126,6 @@ class Products extends Model
         if ($product) {
             isset($data['check_seri']) ? $check = 1 : $check = 0;
             // isset($data['check_seri']) ? $check = 1 : $check = $product->check_seri;
-
-
             $dataUpdate = [
                 'product_code' => $data['product_code'],
                 'product_name' => $data['product_name'],

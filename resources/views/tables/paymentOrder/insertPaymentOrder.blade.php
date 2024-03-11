@@ -465,17 +465,21 @@
             } else {
                 detail_id = parseInt($(this).attr('id'), 10);
             }
+            table = "payOrder";
             $.ajax({
                 url: "{{ route('show_receive') }}",
                 type: "get",
                 data: {
-                    detail_id: detail_id
+                    detail_id: detail_id,
+                    table : table
                 },
                 success: function(data) {
-                    $('#search_quotation').val(data.quotation_number == null ? data.id :
-                        data
-                        .quotation_number);
-                    $('input[name^="payment_code"]').val('MTT-' + data.id)
+                    // console.log(data);
+                    // $('#search_quotation').val(data.quotation_number == null ? data.id :
+                    //     data
+                    //     .quotation_number);
+                    // $('input[name^="payment_code"]').val('MTT-' + data.id)
+                    $('input[name^="payment_code"]').val(data.resultNumber)
                     $('#represent').val(data.represent)
                     $('#provide_name').val(data.provide_name);
                     $('#detailimport_id').val(data.id)
