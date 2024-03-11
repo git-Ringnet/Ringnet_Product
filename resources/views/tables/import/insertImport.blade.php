@@ -1,7 +1,7 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="import"></x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <form action="{{ route('import.store', $workspacename) }}" method="POST">
-    <div class="content-wrapper--2Column m-0 min-height--none" >
+    <div class="content-wrapper--2Column m-0 min-height--none">
         <!-- Content Header (Page header) -->
         @csrf
         <input type="hidden" id="provides_id" name="provides_id">
@@ -247,9 +247,8 @@
                                     <button type="button" data-toggle="dropdown"
                                         class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                         id="addRowTable" style="margin-right:10px">
-                                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                            width="12" height="12" viewBox="0 0 18 18"
-                                            fill="none">
+                                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
+                                            height="12" viewBox="0 0 18 18" fill="none">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                 d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
                                                 fill="#42526E"></path>
@@ -263,9 +262,8 @@
                                     <button type="button" data-toggle="dropdown"
                                         class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                         id="" style="margin-right:10px">
-                                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                            width="12" height="12" viewBox="0 0 18 18"
-                                            fill="none">
+                                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
+                                            height="12" viewBox="0 0 18 18" fill="none">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                 d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
                                                 fill="#42526E"></path>
@@ -279,9 +277,8 @@
                                     <button type="button" data-toggle="dropdown"
                                         class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                         id="" style="margin-right:10px">
-                                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                            width="12" height="12" viewBox="0 0 18 18"
-                                            fill="none">
+                                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
+                                            height="12" viewBox="0 0 18 18" fill="none">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                 d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
                                                 fill="#42526E"></path>
@@ -293,8 +290,8 @@
                                     </button>
 
                                     <button type="button" class="btn-option py-1 px-2 bg-white border-0">
-                                        <svg width="24" height="24" viewBox="0 0 24 24"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                 d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
                                                 fill="#42526E"></path>
@@ -335,16 +332,16 @@
                             <div id="myUL"
                                 class="bg-white position-absolute rounded list-guest shadow p-1 z-index-block list-guest"
                                 style="z-index: 99;display: none;">
-                                <div class="p-1">
-                                    <div class="position-relative">
-                                        <input type="text" placeholder="Nhập nhà cung cấp"
-                                            class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
-                                        <span id="search-icon" class="search-icon">
-                                            <i class="fas fa-search text-table" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                                </div>
                                 <ul class="m-0 p-0 scroll-data">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập nhà cung cấp"
+                                                class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
+                                            <span id="search-icon" class="search-icon">
+                                                <i class="fas fa-search text-table" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                     @foreach ($provides as $item)
                                         <li class="p-2 align-items-center text-wrap"
                                             style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
@@ -399,7 +396,7 @@
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest nameGuest"
-                                        style="flex:2;" id="represent" readonly />
+                                        style="flex:2;" id="represent" readonly placeholder="Chọn thông tin" />
                                     <ul id="listRepresent"
                                         class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
                                         style="z-index: 99;">
@@ -443,7 +440,7 @@
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest"
-                                        placeholder="Chọn thông tin" style="flex:2;" name="reference_number" />
+                                        placeholder="Nhập thông tin" style="flex:2;" name="reference_number" />
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                     style="height:44px;">
@@ -643,8 +640,7 @@
             $('#listTermsPay').hide();
         }
     });
-
-    $('.search-info').click(function() {
+    $(document).on('click', '.search-info', function() {
         var provides_id = $(this).attr('id');
         $.ajax({
             url: "{{ route('show_provide') }}",
@@ -653,13 +649,13 @@
                 provides_id: provides_id,
             },
             success: function(data) {
+                console.log(data);
                 // if (data.key) {
                 //     quotation = getQuotation(data.key, data['count'], data['date']);
                 // } else {
                 //     quotation = getQuotation(data['provide'].provide_name_display, data['count'],
                 //         data['date']);
                 // }
-                // $('input[name="quotation_number"]').val(quotation);
                 $('input[name="quotation_number"]').val(data['resultNumber']);
                 $('#myInput').val(data['provide'].provide_name_display);
                 $('#provides_id').val(data['provide'].id);
@@ -671,6 +667,7 @@
                         status: 'add'
                     },
                     success: function(data) {
+                        console.log(data);
                         $('#listRepresent li').empty();
                         $('#listPriceEffect li').empty();
                         $('#listTermsPay li').empty();
@@ -1033,9 +1030,30 @@
                 success: function(data) {
                     $('#listPriceEffect li').empty();
                     $('#listTermsPay li').empty();
-                    console.log(data);
                     if (data.success == true) {
                         quotation = getQuotation(data.key, '1')
+                        // Thêm nhà cung cấp vào danh sách
+                        if (data.id) {
+                            var newLi = `
+                            <li class="p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                            <a href="javascript:void(0)" style="flex:2" id="` + data.id + `" name="search-info" class="search-info">
+                                                <span class="text-13-black">` + data.name +
+                                `</span>
+                                            </a>
+                                            <a id="" class="search-infoEdit" type="button" data-toggle="modal" data-target="#editProvide" data-id="` +
+                                data.id + `">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z" fill="black"></path>
+                                                        <path d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z" fill="black"></path>
+                                                        <path d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z" fill="black"></path>
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                        </li>
+                            `;
+                            $('#myUL .p-1').after(newLi)
+                        }
                         $('#myInput').val(data.name);
                         $('#provides_id').val(data.id);
                         $('input[name="quotation_number"]').val(quotation);
@@ -1050,14 +1068,17 @@
                         $("input[name='provide_email']").val('');
                         $("input[name='provide_phone']").val('');
                         $("input[name='provide_address_delivery']").val('');
+                        // Thêm hiệu lực báo giá vào danh sách
                         if (data.price_effect) {
                             data.price_effect.forEach(function(element) {
                                 var li = `
                             <li class="border" id="` +
                                     element.id +
                                     `">
-                                <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="`+element.id+`" name="search-price-effect">
-                                    <span class="w-100 text-nav text-dark overflow-hidden">`+element.form_name+`</span>
+                                <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="` +
+                                    element.id + `" name="search-price-effect">
+                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_name +
+                                    `</span>
                                 </a>
                                 <div class="dropdown">
                                     <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
@@ -1084,21 +1105,29 @@
 
                         }
 
+                        // Thêm điều khoản thanh toán
                         if (data.terms_pay) {
                             data.terms_pay.forEach(function(element) {
                                 var li = `
-                                <li class="border" id="`+element.id+`">
-                                <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay" id="`+element.id+`" name="search-term-pay">
-                                    <span class="w-100 text-nav text-dark overflow-hidden">`+element.form_name+`</span>
+                                <li class="border" id="` + element.id +
+                                    `">
+                                <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay" id="` +
+                                    element.id + `" name="search-term-pay">
+                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_name +
+                                    `</span>
                                 </a>
                                 <div class="dropdown">
                                     <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
                                         <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
                                     </button>
                                     <div class="dropdown-menu date-form-setting" style="z-index: 100;">
-                                        <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="2" id="`+element.id+`"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
-                                        <a class="dropdown-item delete-item" href="#" data-id="`+element.id+`" data-name="termpay"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
-                                        <a class="dropdown-item set-default default-id `+element.form_desc+`" id="default-id`+element.id+`" href="#" data-name="termpay" data-id="`+element.id+`">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="2" id="` +
+                                    element.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item delete-item" href="#" data-id="` + element.id + `" data-name="termpay"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item set-default default-id ` + element.form_desc +
+                                    `" id="default-id` + element.id +
+                                    `" href="#" data-name="termpay" data-id="` + element
+                                    .id + `">
                                             <i class="fa-solid fa-link" aria-hidden="true"></i> 
                                         </a>
                                     </div>
@@ -1109,8 +1138,11 @@
                             })
 
                         }
+
+                        // Thêm người đại diện
                         if (data.id_represent) {
                             $('#represent').val(data.represent_name)
+                            $('#represent_id').val(data.id_represent)
                             var newli = `
                                     <li class="border" id="` + data.id_represent +
                                 `">
@@ -1139,9 +1171,11 @@
                                     `
                             $('#listRepresent .p-1').after(newli)
                         }
+
                         $('#more_info').show();
                         $('#more_info1').show();
                     } else {
+                        
                         showNotification('warning', data.msg)
                     }
                 }
@@ -1294,8 +1328,8 @@
                                     $(id == "import" ? $('#listPriceEffect .p-1').after(
                                         price_effect) : $('#listTermsPay .p-1').after(
                                         term_pay))
-                                        showNotification('success', data.msg)
-                                }else{
+                                    showNotification('success', data.msg)
+                                } else {
                                     showNotification('warning', data.msg)
                                 }
                             }

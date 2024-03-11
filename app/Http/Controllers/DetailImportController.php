@@ -246,7 +246,7 @@ class DetailImportController extends Controller
         if ($provide) {
             $date = DetailImport::where('provide_id', $provide->id)->orderBy('id', 'desc')
                 ->where('workspace_id', Auth::user()->current_workspace)
-                ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmy')])
+                ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
                 ->first();
             if ($date) {
                 $date = explode('/', $date->quotation_number)[0];
@@ -257,7 +257,7 @@ class DetailImportController extends Controller
                 ->count();
             $lastDetailImport = DetailImport::where('provide_id', $provide->id)
                 ->orderBy('id', 'desc')
-                ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmy')])
+                ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
                 ->first();
 
             if ($lastDetailImport) {
@@ -271,13 +271,12 @@ class DetailImportController extends Controller
             if ($count < 10) {
                 $count = "0" . $count;
             }
-            // return $date;
-            $resultNumber = ($date == "" ? Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmy') : $date) . "/RN-" . $provide->key . "-" . $count;
+            $resultNumber = ($date == "" ? Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmY') : $date) . "/RN-" . $provide->key . "-" . $count;
             $result = [
                 'provide' => $provide,
                 'count' => $count,
                 'key' => $provide->key,
-                'date' => ($date == "" ? Carbon::now()->format('dmy') : $date),
+                'date' => ($date == "" ? Carbon::now()->format('dmY') : $date),
                 'resultNumber' => $resultNumber
             ];
         }
@@ -290,7 +289,7 @@ class DetailImportController extends Controller
         $data = $request->all();
         if (isset($data['quotetion_number'])) {
             $checkQuotetion = DetailImport::where('quotation_number', $data['quotetion_number'])
-                ->where('provide_id', $data['provide_id'])
+                // ->where('provide_id', $data['provide_id'])
                 ->where('workspace_id', Auth::user()->current_workspace);
             if (isset($data['detail_id'])) {
                 $checkQuotetion->where('id', '!=', $data['detail_id']);
@@ -347,7 +346,6 @@ class DetailImportController extends Controller
     // Thêm mới nhà cung cấp
     public function addNewProvide(Request $request)
     {
-
         $check = Provides::where('workspace_id', Auth::user()->current_workspace)
             ->where(function ($query) use ($request) {
                 $query->where('provide_code', $request->provide_code)
