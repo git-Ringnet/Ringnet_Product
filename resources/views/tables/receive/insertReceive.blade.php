@@ -731,9 +731,9 @@
                 },
                 success: function(data) {
                     // console.log(data);
-                    // $('#myInput').val(data.quotation_number == null ? data.id :
-                    //     data
-                    //     .quotation_number);
+                    $('#myInput').val(data.quotation_number == null ? data.id :
+                        data
+                        .quotation_number);
                     // $('input[name^="delivery_code"]').val("MTT-"+data.id)
                     $('input[name^="delivery_code"]').val(data.resultNumber)
                     $('#provide_name').val(data.provide_name);
