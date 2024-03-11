@@ -63,6 +63,7 @@ class ReceiveController extends Controller
             ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.receive_qty,0)'))
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->select('detailimport.quotation_number', 'detailimport.id')
+            ->orderBy('id', 'desc')
             ->distinct()
             ->get();
         return view('tables.receive.insertReceive', compact('title', 'listDetail', 'workspacename'));
@@ -232,7 +233,7 @@ class ReceiveController extends Controller
                 ->first();
     
             if ($lastReceive) {
-                $parts = explode('-', $lastReceive->delivery_code);
+                $parts = explode('-', $lastReceive->number_bill);
                 $getNumber = end($parts);
                 $count = (int)$getNumber + 1;
             } else {
@@ -250,7 +251,7 @@ class ReceiveController extends Controller
                 ->first();
     
             if ($lastReceive) {
-                $parts = explode('-', $lastReceive->delivery_code);
+                $parts = explode('-', $lastReceive->payment_code);
                 $getNumber = end($parts);
                 $count = (int)$getNumber + 1;
             } else {

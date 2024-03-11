@@ -54,6 +54,7 @@ class PayOrderController extends Controller
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->where('detailimport.status_pay', '=', 0)
             ->distinct()
+            ->orderBy('id', 'desc')
             ->select('detailimport.quotation_number', 'detailimport.id')
             ->get();
         // $reciept = Reciept::where('status', '=', 1)->get();

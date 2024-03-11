@@ -50,6 +50,7 @@ class RecieptController extends Controller
             ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.reciept_qty,0)'))
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->distinct()
+            ->orderBy('id', 'desc')
             ->select('detailimport.quotation_number', 'detailimport.id')
             ->get();
         return view('tables.reciept.insertReciept', compact('title', 'reciept', 'workspacename'));
