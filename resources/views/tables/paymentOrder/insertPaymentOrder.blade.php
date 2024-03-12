@@ -218,7 +218,7 @@
                                     @endisset -->
                                 </tbody>
                             </table>
-                            <div class="ml-4">
+                            {{-- <div class="ml-4">
                                 <span class="text-perpage">
                                     <section class="content">
                                         <div class="container-fluided">
@@ -289,7 +289,7 @@
                                         </div>
                                     </section>
                                 </span>
-                            </div>
+                            </div> --}}
                         </div>
                     </section>
                 </div>

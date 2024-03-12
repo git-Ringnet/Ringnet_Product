@@ -171,7 +171,7 @@
                         </div>
                     </section>
                 </div>
-                <div class="ml-3">
+                {{-- <div class="ml-3">
                     <span class="text-perpage">
                         <section class="content">
                             <div class="container-fluided">
@@ -242,7 +242,7 @@
                             </div>
                         </section>
                     </span>
-                </div>
+                </div> --}}
                 <x-formsynthetic :import="$import"></x-formsynthetic>
             </section>
         </div>
