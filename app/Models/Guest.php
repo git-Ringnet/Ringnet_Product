@@ -31,6 +31,7 @@ class Guest extends Model
     {
         return DB::table($this->table)
             ->where('workspace_id', Auth::user()->current_workspace)
+            ->orderBy('id', 'DESC')
             ->get();
     }
     public function getGuestbyCompany($data)
@@ -117,6 +118,27 @@ class Guest extends Model
         if ($guests) {
             $exist = true;
         } else {
+            $nameKey = null;
+            $checkKey = Guest::where('workspace_id', Auth::user()->current_workspace)
+                ->where('key', $data['key'])
+                ->first();
+
+            if ($checkKey) {
+                // Tên viết tắt đã tồn tại, thực hiện logic thay đổi giá trị key
+                $newKey = $data['key'] . ($checkKey->id + 1);
+
+                // Kiểm tra xem key mới đã tồn tại chưa
+                $counter = 1;
+                while (Guest::where('workspace_id', Auth::user()->current_workspace)
+                    ->where('key', $newKey)
+                    ->exists()
+                ) {
+                    // Nếu key đã tồn tại, thay đổi giá trị key và tăng counter
+                    $newKey = $data['key'] . ($checkKey->id + $counter);
+                    $counter++;
+                }
+                $nameKey = $newKey;
+            }
             $dataguest = [
                 'guest_name_display' => $data['guest_name_display'],
                 'guest_name' => $data['guest_name'],
@@ -124,7 +146,7 @@ class Guest extends Model
                 'guest_code' => $data['guest_code'],
                 'guest_phone' => isset($data['guest_phone']) ? $data['guest_phone'] : null,
                 'guest_email' => isset($data['guest_email']) ? $data['guest_email'] : null,
-                'key' => $data['key'],
+                'key' => $nameKey,
                 'guest_receiver' => isset($data['guest_receiver']) ? $data['guest_receiver'] : null,
                 'guest_email_personal' => isset($data['guest_email_personal']) ? $data['guest_email_personal'] : null,
                 'guest_phone_receiver' => isset($data['guest_phone_receiver']) ? $data['guest_phone_receiver'] : null,
@@ -170,8 +192,29 @@ class Guest extends Model
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($guest) {
+                $nameKey = null;
+                $checkKey = Guest::where('workspace_id', Auth::user()->current_workspace)
+                    ->where('key', $data['key'])
+                    ->first();
+
+                if ($checkKey) {
+                    // Tên viết tắt đã tồn tại, thực hiện logic thay đổi giá trị key
+                    $newKey = $data['key'] . ($checkKey->id + 1);
+
+                    // Kiểm tra xem key mới đã tồn tại chưa
+                    $counter = 1;
+                    while (Guest::where('workspace_id', Auth::user()->current_workspace)
+                        ->where('key', $newKey)
+                        ->exists()
+                    ) {
+                        // Nếu key đã tồn tại, thay đổi giá trị key và tăng counter
+                        $newKey = $data['key'] . ($checkKey->id + $counter);
+                        $counter++;
+                    }
+                    $nameKey = $newKey;
+                }
                 $guest->guest_name_display = $data['guest_name_display'];
-                $guest->key = $data['key'];
+                $guest->key = $nameKey;
                 $guest->guest_name = $data['guest_name'];
                 $guest->guest_address = $data['guest_address'];
                 $guest->guest_code = $data['guest_code'];

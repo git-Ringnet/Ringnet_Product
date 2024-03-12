@@ -29,6 +29,7 @@ class BillSale extends Model
             ->leftJoin('guest', 'bill_sale.guest_id', 'guest.id')
             ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
             ->select('*', 'bill_sale.status as tinhTrang', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD')
+            ->orderBy('bill_sale.id','DESC')
             ->get();
         return $bill_sale;
     }

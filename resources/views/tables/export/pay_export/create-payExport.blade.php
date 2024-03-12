@@ -163,10 +163,14 @@
                                         </th>
                                         <th class="border-right p-0 px-2 text-13" style="width:15%;">Tên sản phẩm</th>
                                         <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Số lượng</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Đơn giá</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Thuế</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Thành tiền</th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Số
+                                            lượng</th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Đơn
+                                            giá</th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Thuế
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Thành
+                                            tiền</th>
                                         <th class="border-right p-0 px-2 note text-13">Ghi chú sản phẩm</th>
                                     </tr>
                                 </thead>
@@ -921,7 +925,6 @@
                         .tongThanhToan)));
                     $('input[name="code_payment"]').val('MTT-' + (data.lastPayExportId +
                         1));
-
                     $.ajax({
                         url: '{{ route('getProductPay') }}',
                         type: 'GET',
@@ -930,6 +933,8 @@
                         },
                         success: function(data) {
                             $(".sanPhamGiao").remove();
+                            var totalProductTotal = 0;
+                            var totalTax1 = 0;
                             $.each(data, function(index, item) {
                                 $("#detailexport_id").val(item
                                     .detailexport_id);
@@ -943,6 +948,10 @@
                                         .product_tax == 99 ? 0 :
                                         item
                                         .product_tax)) / 100;
+                                totalProductTotal += parseFloat(item
+                                    .price_export * item
+                                    .product_qty) || 0;
+                                totalTax1 += tax;
                                 $(".idGuest").val(item.guest_id);
                                 var newRow = `
                                 <tr id="dynamic-row-${item.id}" class="bg-white sanPhamGiao height-80">
@@ -1412,6 +1421,12 @@
                                         '.giaNhap').val('');
                                 }
                             });
+                            $("#total-amount-sum").text(
+                                formatCurrency(totalProductTotal));
+                            $("#grand-total").text(formatCurrency(
+                                totalProductTotal + totalTax1));
+                            $("#product-tax").text(formatCurrency(
+                                totalTax1));
                         }
                     });
                 }
@@ -1556,22 +1571,6 @@
 
         return formattedValue;
     }
-
-    //Tính đơn giá
-    $(document).on('input', '.heSoNhan, .giaNhap', function(e) {
-        var productQty = parseFloat($(this).closest('tr').find('.quantity-input').val()) || 0;
-        var heSoNhan = parseFloat($(this).closest('tr').find('.heSoNhan').val()) || 0;
-        var giaNhap = parseFloat($(this).closest('tr').find('.giaNhap').val().replace(/[^0-9.-]+/g, "")) || 0;
-        updateTaxAmount($(this).closest('tr'));
-        if (!isNaN(heSoNhan) && !isNaN(giaNhap)) {
-            var donGia = ((heSoNhan + 100) * giaNhap) / 100;
-            var totalAmount = productQty * donGia;
-            $(this).closest('tr').find('.product_price').val(formatCurrency(donGia));
-            $(this).closest('tr').find('.total-amount').val(formatCurrency(totalAmount));
-            calculateTotalAmount();
-            calculateTotalTax();
-        }
-    });
 
     //format giá
     var inputElement = document.getElementById('product_price');

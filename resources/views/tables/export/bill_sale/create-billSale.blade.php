@@ -461,7 +461,6 @@
                     idQuote: idQuote
                 },
                 success: function(data) {
-                    console.log(data);
                     $("#delivery_id").val(data.maGiaoHang);
                     $('.numberQute').val(data.soBG)
                     $('.nameGuest').val(data.guest_name_display)

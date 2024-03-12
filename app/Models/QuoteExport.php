@@ -119,7 +119,7 @@ class QuoteExport extends Model
     }
     public function updateQuoteExport($data, $id)
     {
-        //status = 1 -> báo giá, status = 2 -> xóa
+        //status = 1 -> báo giá, status = 2 -> xóa, status = 3 -> sửa
         $quoteExports = QuoteExport::where('detailexport_id', $id)
             ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
             ->get();
@@ -174,21 +174,58 @@ class QuoteExport extends Model
                         ->where('quoteexport.status', 1)
                         ->first();
                     if ($quoteExport) {
-                        $quoteExport->product_code = $data['product_code'][$i];
-                        $quoteExport->product_id = $data['product_id'][$i];
-                        $quoteExport->product_name = $data['product_name'][$i];
-                        $quoteExport->product_unit = $data['product_unit'][$i];
-                        $quoteExport->product_qty = $data['product_qty'][$i];
-                        $quoteExport->product_tax = $data['product_tax'][$i];
-                        $quoteExport->product_total = $subtotal;
-                        $quoteExport->price_export = $price;
-                        $quoteExport->product_ratio = isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0;
-                        $quoteExport->price_import = $priceImport;
-                        $quoteExport->product_note = isset($data['product_note'][$i]) ? $data['product_note'][$i] : null;
-                        $quoteExport->workspace_id = Auth::user()->current_workspace;
-                        $quoteExport->created_at = Carbon::now();
-                        $quoteExport->updated_at = Carbon::now();
-                        $quoteExport->save();
+                        //mảng thông tin hiện tại
+                        $dataQuote = [
+                            'detailexport_id' => $id,
+                            'product_code' => $data['product_code'][$i],
+                            'product_id' => $data['product_id'][$i],
+                            'product_name' => $data['product_name'][$i],
+                            'product_unit' => $data['product_unit'][$i],
+                            'product_qty' => $data['product_qty'][$i],
+                            'product_tax' => $data['product_tax'][$i],
+                            'product_total' => $subtotal,
+                            'price_export' => $price,
+                            'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
+                            'price_import' => $priceImport,
+                            'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                            'workspace_id' => Auth::user()->current_workspace,
+                            'status' => 1,
+                        ];
+                        //Mảng thông tin từ bảng quoteExport
+                        $currentValues = [
+                            'detailexport_id' => $quoteExport->detailexport_id,
+                            'product_code' => $quoteExport->product_code,
+                            'product_id' => $quoteExport->product_id,
+                            'product_name' => $quoteExport->product_name,
+                            'product_unit' => $quoteExport->product_unit,
+                            'product_qty' => $quoteExport->product_qty,
+                            'product_tax' => $quoteExport->product_tax,
+                            'product_total' => $quoteExport->product_total,
+                            'price_export' => $quoteExport->price_export,
+                            'product_ratio' => $quoteExport->product_ratio,
+                            'price_import' => $quoteExport->price_import,
+                            'product_note' => $quoteExport->product_note,
+                            'workspace_id' => $quoteExport->workspace_id,
+                            'status' => $quoteExport->status,
+                        ];
+
+                        if ($currentValues != $dataQuote) {
+                            //Cập nhật sản phẩm báo giá
+                            $quoteExport->fill($dataQuote);
+                            $quoteExport->status = 1;
+                            $quoteExport->created_at = Carbon::now();
+                            $quoteExport->updated_at = Carbon::now();
+                            $quoteExport->save();
+
+                            //Thêm sản phẩm với status = 3
+                            $newQuoteExport = new QuoteExport();
+                            $newQuoteExport->fill($currentValues);
+                            $newQuoteExport->status = 3;
+                            $newQuoteExport->workspace_id = Auth::user()->current_workspace;
+                            $newQuoteExport->created_at = Carbon::now();
+                            $newQuoteExport->updated_at = Carbon::now();
+                            $newQuoteExport->save();
+                        }
                     } else {
                         $dataQuote = [
                             'detailexport_id' => $id,
