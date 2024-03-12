@@ -27,8 +27,8 @@ class History extends Model
             ->leftJoin('provides', 'provides.id', 'history.provide_id')
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->where('delivery.status', 2)
+            ->where('history.workspace_id', Auth::user()->current_workspace)
             ->select(
-                'history.*',
                 'delivered.*',
                 'delivery.*',
                 'delivered.price_export as giaban',
@@ -40,6 +40,8 @@ class History extends Model
                 'reciept.number_bill as hdvao',
                 'guest.guest_name_display as tenKhach',
                 'provides.provide_name_display as tenNCC',
+                'history.*',
+                DB::raw('delivered.deliver_qty * delivered.price_export AS tongban'),
             )->get();
         // dd($history);
         return $history;
@@ -107,7 +109,7 @@ class History extends Model
             ->where('delivery.status', 2)
             ->where('history.workspace_id', Auth::user()->current_workspace)
             ->select(
-                'history.*',
+
                 'history.price_import as price_import',
                 'history.total_import as total_import',
                 'delivered.*',
@@ -121,6 +123,8 @@ class History extends Model
                 'reciept.number_bill as hdvao',
                 'guest.guest_name_display as tenKhach',
                 'provides.provide_name_display as tenNCC',
+                'history.*',
+                DB::raw('delivered.deliver_qty * delivered.price_export AS tongban'),
             );
 
         if (isset($data['search'])) {
@@ -159,7 +163,7 @@ class History extends Model
             $history = $history->where('delivered.deliver_qty', $data['slxuat'][0], $data['slxuat'][1]);
         }
         if (isset($data['total_export'][0]) && isset($data['total_export'][1])) {
-            $history = $history->where('delivered.product_total_vat', $data['total_export'][0], $data['total_export'][1]);
+            $history = $history->whereRaw('delivered.deliver_qty * delivered.price_export ' . $data['total_export'][0] . '?', [$data['total_export'][1]]);
         }
         if (isset($data['price_export'][0]) && isset($data['price_export'][1])) {
             $history = $history->where('delivered.price_export', $data['price_export'][0], $data['price_export'][1]);

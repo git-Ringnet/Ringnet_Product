@@ -409,9 +409,9 @@ class PayOder extends Model
                 'provides.provide_code as provide_code',
                 'provides.id',
                 DB::raw('SUM(detailimport.total_tax) as sumSell'),
-                DB::raw('SUM(provides.provide_debt) as sumAmountOwed')
+                DB::raw('provides.provide_debt as sumAmountOwed')
             )
-            ->groupBy('detailimport.provide_id', 'provides.provide_name_display', 'provides.provide_code', 'provides.id')
+            ->groupBy('detailimport.provide_id', 'provides.provide_name_display', 'provides.provide_code', 'provides.id', 'provides.provide_debt')
             ->get();
         return $report_provide;
     }
@@ -427,9 +427,9 @@ class PayOder extends Model
                 'provides.provide_code as provide_code',
                 'provides.id',
                 DB::raw('SUM(detailimport.total_tax) as sumSell'),
-                DB::raw('SUM(provides.provide_debt) as sumAmountOwed')
+                DB::raw('provides.provide_debt as sumAmountOwed')
             );
-        $report_provide = $report_provide->groupBy('detailimport.provide_id', 'provides.provide_name_display', 'provides.provide_code', 'provides.id');
+        $report_provide = $report_provide->groupBy('detailimport.provide_id', 'provides.provide_name_display', 'provides.provide_code', 'provides.id', 'provides.provide_debt');
 
         if (isset($data['search'])) {
             $report_provide = $report_provide->where(function ($query) use ($data) {
@@ -451,7 +451,7 @@ class PayOder extends Model
         }
         // Công nợ
         if (isset($data['debt'][0]) && isset($data['debt'][1])) {
-            $report_provide = $report_provide->having('sumAmountOwed', $data['debt'][0], $data['debt'][1]);
+            $report_provide = $report_provide->having('provides.provide_debt', $data['debt'][0], $data['debt'][1]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $report_provide = $report_provide->orderBy($data['sort'][0], $data['sort'][1]);

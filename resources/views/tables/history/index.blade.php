@@ -213,7 +213,8 @@
                                         <input type="hidden" id="sortByInput" name="sort-by" value="">
                                         <input type="hidden" id="sortTypeInput" name="sort-type">
                                         <tr class="height-52">
-                                            <th scope="col"  class="text-left text-13" style="width:2%;padding-left: 2rem;">
+                                            <th scope="col" class="text-left text-13"
+                                                style="width:2%;padding-left: 2rem;">
                                                 <span class="d-flex align-items-center">
                                                     <a href="#" class="sort-link" data-sort-by=""
                                                         data-sort-type="DESC"><button class="btn-sort text-13"
@@ -233,13 +234,13 @@
                                             </th> --}}
 
                                             <th scope="col" class="text-13">
-                                                <span class="d-flex align-items-center" >
+                                                <span class="d-flex align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="time" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
                                                             Thời gian
                                                         </button>
-                                                        </a>
+                                                    </a>
                                                     <div class="icon" id="icon-time"></div>
                                                 </span>
                                             </th>
@@ -248,7 +249,8 @@
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="tenNCC" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Nhà cung cấp</button></a>
+                                                            class="btn-sort text-13" type="submit">Nhà cung
+                                                            cấp</button></a>
                                                     <div class="icon" id="icon-tenNCC"></div>
                                                 </span>
                                             </th>
@@ -293,7 +295,7 @@
                                                 </span>
                                             </th>
 
-                                            <th scope="col" class="text-left text-13"> 
+                                            <th scope="col" class="text-left text-13">
                                                 <span class="d-flex justify-content-center align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="hdvao" data-sort-type="DESC"><button
@@ -314,16 +316,17 @@
                                                 </span>
                                             </th> --}}
 
-                                            <th scope="col"  class="text-left text-13">
+                                            <th scope="col" class="text-left text-13">
                                                 <span class="d-flex justify-content-start align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="tenKhach" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Khách hàng</button></a>
+                                                            class="btn-sort text-13" type="submit">Khách
+                                                            hàng</button></a>
                                                     <div class="icon" id="icon-tenKhach"></div>
                                                 </span>
                                             </th>
 
-                                            <th scope="col"  class="text-left text-13">
+                                            <th scope="col" class="text-left text-13">
                                                 <span class="d-flex justify-content-end align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="deliver_qty" data-sort-type="DESC"><button
@@ -333,24 +336,26 @@
                                                 </span>
                                             </th>
 
-                                            <th scope="col"  class="text-left text-13">
+                                            <th scope="col" class="text-left text-13">
                                                 <span class="d-flex align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="product_unit" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Đơn vị tính</button></a>
+                                                            class="btn-sort text-13" type="submit">Đơn vị
+                                                            tính</button></a>
                                                     <div class="icon" id="icon-product_unit"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col"  class="text-13 text-left">
+                                            <th scope="col" class="text-13 text-left">
                                                 <span class="d-flex justify-content-start align-items-center">
                                                     <a href="#" class="sort-link btn-submit "
                                                         data-sort-by="giaban" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Giá bán</button>
+                                                        <button class="btn-sort text-13" type="submit">Giá
+                                                            bán</button>
                                                     </a>
                                                     <div class="icon" id="icon-giaban"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col"  class="text-left text-13">
+                                            <th scope="col" class="text-left text-13">
                                                 <span class="d-flex justify-content-start align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="product_total_vat" data-sort-type="DESC"><button
@@ -359,7 +364,7 @@
                                                     <div class="icon" id="icon-product_total_vat"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col"  class="text-left text-13">
+                                            <th scope="col" class="text-left text-13">
                                                 <span class="d-flex justify-content-center align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="hdra" data-sort-type="DESC"><button
@@ -388,7 +393,7 @@
                                                 </span>
                                             </th> --}}
 
-                                            <th scope="col"  class="text-left text-13">
+                                            <th scope="col" class="text-left text-13">
                                                 <span class="d-flex justify-content-end align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="shipping_fee" data-sort-type="DESC"><button
@@ -406,7 +411,7 @@
                                                     <div class="icon" id="icon-history_note"></div>
                                                 </span>
                                             </th> --}}
-                                            <th scope="col"  class="text-left text-13">S/N</th>
+                                            <th scope="col" class="text-left text-13">S/N</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -416,9 +421,11 @@
                                                 <tr class="position-relative history-info height-52">
                                                     <input type="hidden" name="id-history" class="id-history"
                                                         id="id-history" value="{{ $item->id }}">
-                                                    <td class="text-13-black" style="width:5%;padding-left: 2rem;">{{ $index + 1 }}</td>
+                                                    <td class="text-13-black" style="width:5%;padding-left: 2rem;">
+                                                        {{ $index + 1 }}</td>
                                                     {{-- <td>{{ $item->user_id }}</td> --}}
-                                                    <td class="text-13-black">{{ date('d/m/Y', strtotime($item->time)) }}</td>
+                                                    <td class="text-13-black">{{ date('d/m/Y', strtotime($item->time)) }}
+                                                    </td>
                                                     <td class="text-13-black min-width180">{{ $item->tenNCC }}</td>
                                                     <td class="text-13-black">{{ $item->tensp }}</td>
                                                     <td class="text-13-black">{{ number_format($item->product_qty) }}</td>
@@ -427,13 +434,13 @@
                                                     <td class="text-13-black">{{ number_format($item->total_import) }}</td>
                                                     <td class="text-13-black">{{ $item->hdvao }}</td>
                                                     {{-- <td>Tình trạng nhập</td> --}}
-                                                    <td class="text-13-black min-width180">{{ $item->tenKhach }}</td>
-                                                    <td class="text-13-black">{{ number_format($item->deliver_qty) }}</td>
-                                                    <td class="text-13-black">{{ $item->product_unit }}</td>
-                                                    <td class="text-13-black">{{ number_format($item->giaban) }}</td>
-                                                    <td class="text-13-black">{{ number_format($item->product_total_vat) }}</td>
-                                                    <td class="text-13-black">{{ $item->hdra }}</td>
-                                                    <td class="text-13-black">{{ number_format($item->shipping_fee) }}</td>
+                                                    <td>{{ $item->tenKhach }}</td>
+                                                    <td>{{ number_format($item->deliver_qty) }}</td>
+                                                    <td>{{ $item->product_unit }}</td>
+                                                    <td>{{ number_format($item->giaban) }}</td>
+                                                    <td>{{ number_format($item->tongban) }}</td>
+                                                    <td>{{ $item->hdra }}</td>
+                                                    <td>{{ number_format($item->shipping_fee) }}</td>
                                                     <td data-toggle="modal" data-target="#snModal"
                                                         data-delivery-id="{{ $item->delivery_id }}"
                                                         data-product-id="{{ $item->product_id }}" class="sn"><img
