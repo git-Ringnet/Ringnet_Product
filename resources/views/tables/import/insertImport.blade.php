@@ -649,13 +649,6 @@
                 provides_id: provides_id,
             },
             success: function(data) {
-                // console.log(data);
-                // if (data.key) {
-                //     quotation = getQuotation(data.key, data['count'], data['date']);
-                // } else {
-                //     quotation = getQuotation(data['provide'].provide_name_display, data['count'],
-                //         data['date']);
-                // }
                 $('input[name="quotation_number"]').val(data['resultNumber']);
                 $('#myInput').val(data['provide'].provide_name_display);
                 $('#provides_id').val(data['provide'].id);
@@ -1226,7 +1219,7 @@
                                     $("input[name='provide_email_new']").val('')
                                     $("input[name='provide_phone_new']").val('')
                                     $("input[name='provide_address_delivery_new']").val('')
-                                    $('.closeModal').click()
+                                    $('#' + id).closest('div').find('.closeModal')[0].click()
                                     $('#represent_id').val(data.id)
                                     $('#represent').val(data.data)
                                     var newli = `
@@ -1272,11 +1265,10 @@
                                 inputDesc: inputDesc,
                             },
                             success: function(data) {
-                                $('.btn.btn-default').click()
                                 if (data.success) {
                                     $('#form-name-' + id).val('')
                                     $('#form-desc-' + id).val('')
-                                    $('.closeModal').click()
+                                    $('#' + id).closest('div').find('.closeModal')[0].click()
                                     $(id == "import" ? '#price_effect' : '#terms_pay').val(data
                                         .data);
                                     if (id == "import") {
@@ -1365,7 +1357,7 @@
                         },
                         success: function(data) {
                             if (data.success) {
-                                $('.closeModal').click()
+                                $('#' + id).closest('div').find('.closeModal')[0].click()
                                 showNotification('success', data.msg)
                             } else {
                                 showNotification('warning', data.msg)
@@ -1397,7 +1389,7 @@
                                 }
                                 $('#' + (id == "import" ? "listPriceEffect" : "listTermsPay")).find(
                                     'li#' + data.id + " span").text(data.form_name)
-                                $('.closeModal').click()
+                                    $('#' + id).closest('div').find('.closeModal')[0].click()
                                 showNotification('success', data.msg)
                             } else {
                                 showNotification('warning', data.msg)

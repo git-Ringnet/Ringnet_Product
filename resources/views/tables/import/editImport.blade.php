@@ -623,7 +623,7 @@
                                                     <a href="javascript:void(0)" style="flex:2;"
                                                         id="{{ $price->id }}" name="search-price-effect"
                                                         class="search-priceeffect search-price-effect">
-                                                        <span class="text-13-black">{{ $price->form_desc }}</span>
+                                                        <span class="text-13-black">{{ $price->form_name }}</span>
                                                     </a>
                                                     <a type="button" data-target="#formModalquote"
                                                         data-name="import" data-id="{{ $price->id }}"
@@ -690,7 +690,7 @@
                                                     <a href="javascript:void(0)" style="flex:2;"
                                                         id="{{ $term->id }}" name="search-term-pay"
                                                         class="search-termpay search-term-pay">
-                                                        <span class="text-13-black">{{ $term->form_desc }}</span>
+                                                        <span class="text-13-black">{{ $term->form_name }}</span>
                                                     </a>
                                                     <a type="button" data-target="#formModalquote"
                                                         data-name="import" data-id="{{ $term->id }}"
@@ -1167,7 +1167,7 @@
                                     $("input[name='provide_email_new']").val('')
                                     $("input[name='provide_phone_new']").val('')
                                     $("input[name='provide_address_delivery_new']").val('')
-                                    $('.closeModal').click();
+                                    $('#' + id).closest('div').find('.closeModal')[0].click()
                                     $('#represent_id').val(data.id);
                                     $('#represent').val(data.data);
                                     var newli = `
@@ -1222,7 +1222,7 @@
                                 if (data.success) {
                                     $('#form-name-' + id).val('')
                                     $('#form-desc-' + id).val('')
-                                    $('.closeModal').click()
+                                    $('#' + id).closest('div').find('.closeModal')[0].click()
                                     $(id == "import" ? '#price_effect' : '#terms_pay').val(data
                                         .data);
                                     if (id == "import") {
@@ -1311,7 +1311,7 @@
                         },
                         success: function(data) {
                             if (data.success) {
-                                $('.closeModal').click()
+                                $('#' + id).closest('div').find('.closeModal')[0].click()
                                 showNotification('suscess', data.msg)
                             } else {
                                 showNotification('warning', data.msg)
@@ -1333,7 +1333,7 @@
                             inputField: inputField
                         },
                         success: function(data) {
-                            $('.closeModal').click()
+                            $('#' + id).closest('div').find('.closeModal')[0].click()
                             if (data.success) {
                                 showNotification('suscess', data.msg)
                             } else {
