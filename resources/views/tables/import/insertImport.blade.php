@@ -640,7 +640,7 @@
             $('#listTermsPay').hide();
         }
     });
-    $(document).on('click', '.search-info', function() {
+    $(document).on('click', '#myUL .search-info', function() {
         var provides_id = $(this).attr('id');
         $.ajax({
             url: "{{ route('show_provide') }}",
@@ -926,6 +926,7 @@
             })
         }
     })
+    
     $('.modal-dialog #editProvide').on('click', function(e) {
         e.preventDefault();
         var id = $('.modal-dialog #editProvide').data('id');
