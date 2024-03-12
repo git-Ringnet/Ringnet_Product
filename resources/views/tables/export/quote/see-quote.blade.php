@@ -866,26 +866,35 @@
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
+                                                <th scope="col" class="border">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Thời gian chỉnh sửa</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($history as $item_quote)
+                                            @foreach ($history as $item_history)
                                                 <tr style="height:80px;">
                                                     <td class="border bg-white align-top text-13-black p-1"
                                                         style="padding-left: 2rem !important;">
                                                         <input type="text" autocomplete="off" readonly
-                                                            value="{{ $item_quote->product_code }}"
+                                                            value="{{ $item_history->product_code }}"
                                                             class="border-0 py-1 w-75 product_code"
                                                             name="product_code[]">
                                                     </td>
                                                     <td class="border bg-white align-top text-13-black p-1">
                                                         <div class="d-flex align-items-center">
                                                             <input type="text"
-                                                                value="{{ $item_quote->product_name }}"
+                                                                value="{{ $item_history->product_name }}"
                                                                 class="border-0 px-2 py-1 w-100 product_name" readonly
                                                                 autocomplete="off" name="product_name[]">
                                                             <input type="hidden" class="product_id"
-                                                                value="{{ $item_quote->product_id }}"
+                                                                value="{{ $item_history->product_id }}"
                                                                 autocomplete="off" name="product_id[]">
                                                             <div class='info-product' data-toggle='modal'
                                                                 data-target='#productModal'>
@@ -916,7 +925,7 @@
                                                     <td class="border bg-white align-top text-13-black p-1"
                                                         style="width:8%">
                                                         <input type="text" autocomplete="off" readonly
-                                                            value="{{ $item_quote->product_unit }}"
+                                                            value="{{ $item_history->product_unit }}"
                                                             class="border-0 px-2 py-1 w-100 product_unit"
                                                             name="product_unit[]">
                                                     </td>
@@ -924,7 +933,7 @@
                                                         style="width:11%">
                                                         <div>
                                                             <input type='text'
-                                                                value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
+                                                                value="{{ is_int($item_history->product_qty) ? $item_history->product_qty : rtrim(rtrim(number_format($item_history->product_qty, 4, '.', ''), '0'), '.') }}"
                                                                 class='text-right border-0 py-1 w-100' readonly
                                                                 autocomplete='off' required>
                                                             <input type='hidden' class='tonkho'>
@@ -934,7 +943,7 @@
                                                         style="width:12%">
                                                         <div>
                                                             <input type="text"
-                                                                value="{{ number_format($item_quote->price_export) }}"
+                                                                value="{{ number_format($item_history->price_export) }}"
                                                                 class="border-0 px-2 py-1 w-100 text-right"
                                                                 autocomplete="off" readonly>
                                                             <p class="mt-3 text-13-blue recentModal"
@@ -947,16 +956,16 @@
                                                     <td class="border bg-white align-top p-2">
                                                         <select name="product_tax[]" class="border-0 text-center"
                                                             disabled>
-                                                            <option value="0" <?php if ($item_quote->product_tax == 0) {
+                                                            <option value="0" <?php if ($item_history->product_tax == 0) {
                                                                 echo 'selected';
                                                             } ?>>0%</option>
-                                                            <option value="8" <?php if ($item_quote->product_tax == 8) {
+                                                            <option value="8" <?php if ($item_history->product_tax == 8) {
                                                                 echo 'selected';
                                                             } ?>>8%</option>
-                                                            <option value="10" <?php if ($item_quote->product_tax == 10) {
+                                                            <option value="10" <?php if ($item_history->product_tax == 10) {
                                                                 echo 'selected';
                                                             } ?>>10%</option>
-                                                            <option value="99" <?php if ($item_quote->product_tax == 99) {
+                                                            <option value="99" <?php if ($item_history->product_tax == 99) {
                                                                 echo 'selected';
                                                             } ?>>NOVAT
                                                             </option>
@@ -964,17 +973,20 @@
                                                     </td>
                                                     <td class="border bg-white align-top text-13-black text-left p-1">
                                                         <input type="text" readonly=""
-                                                            value="{{ number_format($item_quote->product_total) }}"
+                                                            value="{{ number_format($item_history->product_total) }}"
                                                             class="border-0 px-2 py-1 w-100">
                                                     </td>
                                                     <td
                                                         class="text-center border bg-white align-top text-13-black p-1">
                                                         <input type="text" class="border-0 py-1 w-100" readonly
                                                             name="product_note[]"
-                                                            value="{{ $item_quote->product_note }}">
+                                                            value="{{ $item_history->product_note }}">
                                                     </td>
                                                     <td style="display:none;" class="">
                                                         <input type="text" class="product_tax1">
+                                                    </td>
+                                                    <td class="border bg-white align-top text-13-black text-left p-1">
+                                                        {{ date_format(new DateTime($item_history->ngayChinhSua), 'd-m-Y H:m:s') }}
                                                     </td>
                                                 </tr>
                                             @endforeach

@@ -2177,7 +2177,7 @@
                             newGuestInfo.id + '">' +
                             '<a href="#" title="' + newGuestInfo.guest_name_display +
                             '" style="flex:2;" id="' +
-                            newGuestInfo.id + '" name="search-info">' +
+                            newGuestInfo.id + '" name="search-info" class="search-info">' +
                             '<span class="text-13-black">' + newGuestInfo
                             .guest_name_display + '</span>' +
                             '</a>' +
@@ -2261,7 +2261,7 @@
                             $("input[name='key']").val(data.key)
                             showNotification('warning', data.msg);
                             delayAndShowNotification('success', 'Tên viết tắt đã được thay đổi',
-                                1000);
+                                500);
                         } else {
                             showNotification('warning', data.msg);
                         }

@@ -286,6 +286,7 @@ class QuoteExport extends Model
                     ->orWhere('quoteexport.product_delivery', 0);
             })
             ->orderBy('quoteexport.created_at', 'desc')
+            ->select('*','quoteexport.created_at as ngayChinhSua')
             ->get();
         return $quoteExport;
     }

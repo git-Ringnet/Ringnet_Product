@@ -50,6 +50,41 @@ class PayExport extends Model
 
         $result = $total - $payment;
 
+        $status = null;
+
+        // Kiểm tra xem thanh toán có bằng 0 hay không
+        $paymentIsZero = $payment == 0;
+
+        // Kiểm tra xem kết quả còn lớn hơn 0 hay không
+        $resultIsGreaterThanZero = $result > 0;
+
+        // Kiểm tra xem ngày thanh toán có phải là ngày hôm nay hay không
+        $datePayIsToday = $date_pay->isToday();
+
+        // Kiểm tra xem ngày thanh toán có nhỏ hơn hoặc bằng ngày hiện tại trừ 3 ngày hay không
+        $datePayIsLessThanOrEqualNowMinus3Days = $date_pay->lessThanOrEqualTo(Carbon::now()->subDays(3));
+
+        // Kiểm tra xem ngày thanh toán có nhỏ hơn ngày hiện tại hay không
+        $datePayIsLessThanNow = $date_pay->lessThan(Carbon::now());
+
+        // Kiểm tra xem ngày thanh toán có lớn hơn ngày hiện tại cộng 4 ngày hay không
+        $datePayIsGreaterThanNowPlus4Days = $date_pay->greaterThan(Carbon::now()->addDays(4));
+
+        // Kiểm tra các điều kiện
+        if (($paymentIsZero && $resultIsGreaterThanZero) || (!$paymentIsZero && $resultIsGreaterThanZero && $datePayIsGreaterThanNowPlus4Days)) {
+            $status = 1;
+        } elseif (($paymentIsZero && $resultIsGreaterThanZero) || (!$paymentIsZero && $resultIsGreaterThanZero && $datePayIsLessThanOrEqualNowMinus3Days)) {
+            $status = 3;
+        } elseif (($paymentIsZero && $resultIsGreaterThanZero) || (!$paymentIsZero && $resultIsGreaterThanZero && $datePayIsLessThanNow)) {
+            $status = 4;
+        } elseif ($result == 0) {
+            $status = 2;
+        } elseif ($datePayIsToday) {
+            $status = 6;
+        }
+
+        dd($status);
+
         $dataPay = [
             'detailexport_id' => $data['detailexport_id'],
             'guest_id' => $data['guest_id'],
@@ -58,7 +93,7 @@ class PayExport extends Model
             'total' => $total,
             'payment' => $payment,
             'debt' => $result,
-            'status' => ($payment == 0 && $result > 0) ? 1 : (($payment > 0 && $result > 0) ? 1 : ($result == 0 ? 2 : ($date_pay->isToday() ? 6 : ($date_pay->greaterThan(Carbon::now()) ? 3 : 4)))),
+            'status' => $status,
             'workspace_id' => Auth::user()->current_workspace,
             'created_at' => Carbon::now(),
         ];
