@@ -144,7 +144,7 @@
                         <a class="text-secondary pl-3 active" data-toggle="tab" href="#info">Thông tin</a>
                     </li>
                     <li>
-                        <a class="text-secondary" data-toggle="tab" href="#history">Lịch sử chỉnh sửa</a>
+                        <a class="text-secondary" data-toggle="tab" href="#history">Lịch sử thanh toán</a>
                     </li>
                     <li>
                         <a class="text-secondary pr-3" data-toggle="tab" href="#files">File đính kèm</a>

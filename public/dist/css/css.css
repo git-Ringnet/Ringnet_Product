@@ -1,4 +1,4 @@
-#status-options,
+shipping_fee#status-options,
 #role-options,
 #quantity-options,
 .block-options {
@@ -807,7 +807,7 @@ td p {
 }
 
 .header-options--nav-1 {
-    width: 266px;
+    width: 250px;
     height: 34px;
     display: flex;
     justify-content: space-between;

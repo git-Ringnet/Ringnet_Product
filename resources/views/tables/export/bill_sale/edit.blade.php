@@ -70,11 +70,15 @@
                         </div>
 
                         <label class="custom-btn d-flex align-items-center h-100 m-0 mx-1">
-                            <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 14 14" fill="none">
-                                <path d="M8.30541 9.20586C8.57207 9.47246 8.5943 9.89106 8.37208 10.183L8.30541 10.2593L5.84734 12.7174C4.58675 13.978 2.54294 13.978 1.28235 12.7174C0.0652319 11.5003 0.0232719 9.55296 1.15644 8.2855L1.28235 8.15237L3.74042 5.69429C4.03133 5.40339 4.50298 5.40339 4.79388 5.69429C5.06054 5.96096 5.08277 6.37949 4.86055 6.67147L4.79388 6.74775L2.33581 9.20586C1.65703 9.88456 1.65703 10.9852 2.33581 11.6639C2.98065 12.3088 4.00611 12.341 4.68901 11.7607L4.79388 11.6639L7.25195 9.20586C7.54286 8.91492 8.01451 8.91492 8.30541 9.20586ZM8.82965 5.17005C9.12053 5.46095 9.12053 5.9326 8.82965 6.22351L6.34904 8.70413C6.05813 8.99504 5.58648 8.99504 5.29558 8.70413C5.00467 8.41323 5.00467 7.94158 5.29558 7.65067L7.7762 5.17005C8.0671 4.87914 8.53875 4.87914 8.82965 5.17005ZM12.7173 1.28236C13.9344 2.49948 13.9764 4.44674 12.8432 5.71422L12.7173 5.84735L10.2592 8.30543C9.96833 8.59633 9.49673 8.59633 9.20583 8.30543C8.93914 8.03877 8.91692 7.62023 9.13913 7.32825L9.20583 7.25197L11.6638 4.79389C12.3426 4.11511 12.3426 3.0146 11.6638 2.33582C11.019 1.69098 9.99363 1.65874 9.31073 2.23909L9.20583 2.33582L6.74774 4.79389C6.45683 5.0848 5.98518 5.0848 5.69428 4.79389C5.42762 4.52723 5.40539 4.10869 5.62761 3.81672L5.69428 3.74043L8.15235 1.28236C9.41293 0.0217665 11.4567 0.0217665 12.7173 1.28236Z" fill="white"></path>
+                            <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 14 14" fill="none">
+                                <path
+                                    d="M8.30541 9.20586C8.57207 9.47246 8.5943 9.89106 8.37208 10.183L8.30541 10.2593L5.84734 12.7174C4.58675 13.978 2.54294 13.978 1.28235 12.7174C0.0652319 11.5003 0.0232719 9.55296 1.15644 8.2855L1.28235 8.15237L3.74042 5.69429C4.03133 5.40339 4.50298 5.40339 4.79388 5.69429C5.06054 5.96096 5.08277 6.37949 4.86055 6.67147L4.79388 6.74775L2.33581 9.20586C1.65703 9.88456 1.65703 10.9852 2.33581 11.6639C2.98065 12.3088 4.00611 12.341 4.68901 11.7607L4.79388 11.6639L7.25195 9.20586C7.54286 8.91492 8.01451 8.91492 8.30541 9.20586ZM8.82965 5.17005C9.12053 5.46095 9.12053 5.9326 8.82965 6.22351L6.34904 8.70413C6.05813 8.99504 5.58648 8.99504 5.29558 8.70413C5.00467 8.41323 5.00467 7.94158 5.29558 7.65067L7.7762 5.17005C8.0671 4.87914 8.53875 4.87914 8.82965 5.17005ZM12.7173 1.28236C13.9344 2.49948 13.9764 4.44674 12.8432 5.71422L12.7173 5.84735L10.2592 8.30543C9.96833 8.59633 9.49673 8.59633 9.20583 8.30543C8.93914 8.03877 8.91692 7.62023 9.13913 7.32825L9.20583 7.25197L11.6638 4.79389C12.3426 4.11511 12.3426 3.0146 11.6638 2.33582C11.019 1.69098 9.99363 1.65874 9.31073 2.23909L9.20583 2.33582L6.74774 4.79389C6.45683 5.0848 5.98518 5.0848 5.69428 4.79389C5.42762 4.52723 5.40539 4.10869 5.62761 3.81672L5.69428 3.74043L8.15235 1.28236C9.41293 0.0217665 11.4567 0.0217665 12.7173 1.28236Z"
+                                    fill="white"></path>
                             </svg>
                             <span>Đính kèm file</span>
-                            <input type="file" style="display: none;" id="file_restore" accept="*" name="file">
+                            <input type="file" style="display: none;" id="file_restore" accept="*"
+                                name="file">
                         </label>
 
                         @if ($billSale->tinhTrang !== 2)
@@ -120,23 +124,24 @@
                     </div>
                 </div>
             </div>
-            <!-- <section class="content-wrapper1 p-2 position-relative">
-                <div class="d-flex justify-content-between">
-                    <ul class="nav nav-tabs bg-filter-search border-0 py-2 rounded ml-3">
-                        <li class="text-nav"><a data-toggle="tab" href="#info" class="active text-secondary">Thông tin</a>
-                        </li>
-                        <li class="text-nav"><a data-toggle="tab" href="#history" class="text-secondary mx-4">Lịch sử</a>
-                        </li>
-                        <li class="text-nav">
-                            <a data-toggle="tab" href="#files" class="text-secondary">File đính kèm</a>
-                        </li>
-                    </ul>
-                    <div class="d-flex position-sticky" style="right: 10px; top: 80px;">
+            <section class="border-custom" style="height:50px">
+                <div class="d-flex justify-content-between align-items-center h-100">
+                    <div class="content-header--options p-0 border-0">
+                        <ul class="header-options--nav-1 nav nav-tabs margin-left32">
+                            <li>
+                                <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">
+                                    Thông tin
+                                </a>
+                            </li>
+                            <li>
+                                <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#files">File đính kèm</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </section> -->
+            </section>
         </div>
-        <div class="content margin-top-38" id="main">
+        <div class="content margin-top-68" id="main">
             <section class="content margin-250">
                 <div class="container-fluided">
                     <div class="tab-content">
@@ -367,191 +372,72 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div id="history" class="tab-pane fade">
-                            <div class="bg-filter-search border-top-0 text-center py-2">
-                                <span class="font-weight-bold text-secondary text-nav">LỊCH SỬ</span>
-                            </div>
-                            <section class="content">
-                                <div class="container-fluided order_content">
-                                    <table class="table table-hover bg-white rounded">
-                                        <thead>
-                                            <tr>
-                                                <th class="border-right text-table text-secondary">
-                                                    Mã sản phẩm
-                                                </th>
-                                                <th class="border-right text-table text-secondary">Tên sản phẩm</th>
-                                                <th class="border-right text-table text-secondary">Đơn vị</th>
-                                                <th class="border-right text-table text-secondary">Số lượng</th>
-                                                <th class="border-right text-table text-secondary">Đơn giá</th>
-                                                <th class="border-right text-table text-secondary">Thuế</th>
-                                                <th class="border-right text-table text-secondary">Thành tiền</th>
-                                                <th class="border-right note text-table text-secondary">Ghi chú</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($quoteExport as $item_quote)
-<tr class="bg-white">
-                                                    <td
-                                                        class="border border-left-0 border-top-0 border-bottom-0 position-relative">
-                                                        <div
-                                                            class="d-flex w-100 justify-content-between align-items-center">
-                                                            <input type="text" autocomplete="off" readonly
-                                                                value="{{ $item_quote->product_code }}"
-                                                                class="border-0 px-2 py-1 w-75 product_code">
-                                                        </div>
-                                                    </td>
-                                                    <td class="border border-top-0 border-bottom-0 position-relative">
-                                                        <div class="d-flex align-items-center">
-                                                            <input type="text" value="{{ $item_quote->product_name }}"
-                                                                class="border-0 px-2 py-1 w-100 product_name" readonly
-                                                                autocomplete="off">
-                                                            <input type="hidden" class="product_id"
-                                                                value="{{ $item_quote->product_id }}" autocomplete="off">
-                                                            <div class="info-product" data-toggle="modal"
-                                                                data-target="#productModal">
-                                                                <svg width="18" height="18" viewBox="0 0 18 18"
-                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M8.99998 4.5C8.45998 4.5 8.09998 4.86 8.09998 5.4C8.09998 5.94 8.45998 6.3 8.99998 6.3C9.53998 6.3 9.89998 5.94 9.89998 5.4C9.89998 4.86 9.53998 4.5 8.99998 4.5Z"
-                                                                        fill="#42526E">
-                                                                    </path>
-                                                                    <path
-                                                                        d="M9 0C4.05 0 0 4.05 0 9C0 13.95 4.05 18 9 18C13.95 18 18 13.95 18 9C18 4.05 13.95 0 9 0ZM9 16.2C5.04 16.2 1.8 12.96 1.8 9C1.8 5.04 5.04 1.8 9 1.8C12.96 1.8 16.2 5.04 16.2 9C16.2 12.96 12.96 16.2 9 16.2Z"
-                                                                        fill="#42526E">
-                                                                    </path>
-                                                                    <path
-                                                                        d="M8.99998 7.2002C8.45998 7.2002 8.09998 7.5602 8.09998 8.10019V12.6002C8.09998 13.1402 8.45998 13.5002 8.99998 13.5002C9.53998 13.5002 9.89998 13.1402 9.89998 12.6002V8.10019C9.89998 7.5602 9.53998 7.2002 8.99998 7.2002Z"
-                                                                        fill="#42526E">
-                                                                    </path>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="border border-top-0 border-bottom-0">
-                                                        <input type="text" autocomplete="off" readonly
-                                                            value="{{ $item_quote->product_unit }}"
-                                                            class="border-0 px-2 py-1 w-100 product_unit">
-                                                    </td>
-                                                    <td class="border border-top-0 border-bottom-0 position-relative">
-                                                        <input type="text" readonly
-                                                            value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
-                                                            class="border-0 px-2 py-1 w-100 quantity-input"
-                                                            autocomplete="off">
-                                                        <input type="hidden" class="tonkho">
-                                                        <p class="text-primary text-center position-absolute inventory"
-                                                            style="top: 68%; display: none;">Tồn kho:
-                                                            <span class="soTonKho">35</span>
-                                                        </p>
-                                                    </td>
-                                                    <td class="border border-top-0 border-bottom-0 position-relative">
-                                                        <input type="text"
-                                                            value="{{ number_format($item_quote->price_export) }}"
-                                                            class="border-0 px-2 py-1 w-100 product_price"
-                                                            autocomplete="off" readonly>
-                                                        <p class="text-primary text-right position-absolute transaction"
-                                                            style="top: 68%; right: 5%; display: none;">Giao dịch
-                                                            gần đây
-                                                        </p>
-                                                    </td>
-                                                    <td class="border border-top-0 border-bottom-0 px-4">
-                                                        <select class="border-0 text-center product_tax" disabled>
-                                                            <option value="0" <?php if ($item_quote->product_tax == 0) {
-                                                                echo 'selected';
-                                                            } ?>>0%</option>
-                                                            <option value="8" <?php if ($item_quote->product_tax == 8) {
-                                                                echo 'selected';
-                                                            } ?>>8%</option>
-                                                            <option value="10" <?php if ($item_quote->product_tax == 10) {
-                                                                echo 'selected';
-                                                            } ?>>10%</option>
-                                                            <option value="99" <?php if ($item_quote->product_tax == 99) {
-                                                                echo 'selected';
-                                                            } ?>>NOVAT
-                                                            </option>
-                                                        </select>
-                                                    </td>
-                                                    <td class="border border-top-0 border-bottom-0">
-                                                        <input type="text" readonly=""
-                                                            value="{{ number_format($item_quote->product_total) }}"
-                                                            class="border-0 px-2 py-1 w-100 total-amount">
-                                                    </td>
-                                                    <td
-                                                        class="border border-top-0 border-bottom-0 position-relative note p-1">
-                                                        <input type="text" class="border-0 py-1 w-100" readonly
-                                                            value="{{ $item_quote->product_note }}">
-                                                    </td>
-                                                </tr>
-@endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </section>
-                        </div> -->
-                    </div>
-                </div>
-            </section>
-        </div>
-        {{-- Thông tin khách hàng --}}
-        <div class="content-wrapper2 px-0 py-0">
-            <div id="mySidenav" class="sidenav border">
-                <div id="show_info_Guest">
-                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin khách hàng
-                    </p>
-                    <div class="content-info">
-                        <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
-                            style="height:44px;" style="height:44px;">
-                            <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
-                            <span class="mx-1 text-13" style="flex: 2;">
-                                <input type="text" placeholder="Chọn thông tin" readonly
-                                    value="{{ $billSale->quotation_number }}"
-                                    class="border-0 w-100 bg-input-guest py-0 py-2 px-2 numberQute"
-                                    style="background-color:#F0F4FF; border-radius:4px;" id="myInput"
-                                    autocomplete="off" name="quotation_number">
-                            </span>
-                        </div>
-                    </div>
-                    <div class="content-info--common" id="show-info-guest">
-                        <ul class="p-0 m-0 ">
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest"
-                                    value="{{ $billSale->guest_name_display }}" style="flex:2;" id="myInput">
-                                <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input class="text-13-black w-50 border-0" style="flex:2;"
-                                    placeholder="Nhập thông tin" value="{{ $billSale->represent_name }}" readonly />
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số hóa đơn</span>
-                                <input class="text-13-black w-50 border-0" style="flex:2;"
-                                    placeholder="Nhập thông tin" name="number_bill"
-                                    value="{{ $billSale->number_bill }}" readonly />
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày hóa đơn</span>
-                                <input type="text" class="text-13-black w-50 border-0"
-                                    placeholder="Nhập thông tin" style="flex:2;" name="date_bill"
-                                    value="{{ date_format(new DateTime($billSale->ngayHD), 'd/m/Y') }}" />
-                            </li>
-                        </ul>
-                    </div>
+</form>
+<div id="files" class="tab-pane fade">
+    <div class="bg-filter-search border-top-0 text-center py-2">
+        <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
+    </div>
+    <x-form-attachment :value="$billSale" name="HDBH"></x-form-attachment>
+</div>
+</div>
+</div>
+{{-- Thông tin khách hàng --}}
+<div class="content-wrapper2 px-0 py-0">
+    <div id="mySidenav" class="sidenav border top-109">
+        <div id="show_info_Guest">
+            <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin khách
+                hàng
+            </p>
+            <div class="content-info">
+                <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
+                    style="height:44px;" style="height:44px;">
+                    <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
+                    <span class="mx-1 text-13" style="flex: 2;">
+                        <input type="text" placeholder="Chọn thông tin" readonly
+                            value="{{ $billSale->quotation_number }}"
+                            class="border-0 w-100 bg-input-guest py-0 py-2 px-2 numberQute"
+                            style="background-color:#F0F4FF; border-radius:4px;" id="myInput" autocomplete="off"
+                            name="quotation_number">
+                    </span>
                 </div>
             </div>
-        </div>
-        <div id="files" class="tab-pane fade">
-            <div class="bg-filter-search border-top-0 text-center py-2">
-                <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
+            <div class="content-info--common" id="show-info-guest">
+                <ul class="p-0 m-0 ">
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
+                        <input class="text-13-black w-50 border-0 bg-input-guest"
+                            value="{{ $billSale->guest_name_display }}" style="flex:2;" id="myInput">
+                        <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
+                            diện</span>
+                        <input class="text-13-black w-50 border-0" style="flex:2;"
+                            value="{{ $billSale->represent_name }}" readonly />
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số hóa đơn</span>
+                        <input class="text-13-black w-50 border-0" style="flex:2;" placeholder="Nhập thông tin"
+                            name="number_bill" value="{{ $billSale->number_bill }}" readonly />
+                    </li>
+                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        style="height:44px;">
+                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày hóa đơn</span>
+                        <input type="text" class="text-13-black w-50 border-0" placeholder="Nhập thông tin"
+                            style="flex:2;" name="date_bill"
+                            value="{{ date_format(new DateTime($billSale->ngayHD), 'd/m/Y') }}" />
+                    </li>
+                </ul>
             </div>
-            <x-form-attachment :value="$billSale" name="HDBH"></x-form-attachment>
         </div>
     </div>
-</form>
+</div>
+</section>
+</div>
+</div>
 
 {{-- Thông tin sản phẩm --}}
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">

@@ -126,14 +126,11 @@
             <section class="border-custom" style="height:50px">
                 <div class="d-flex justify-content-between align-items-center h-100">
                     <div class="content-header--options p-0 border-0">
-                        <ul class="header-options--nav nav nav-tabs margin-left32">
+                        <ul class="header-options--nav-1 nav nav-tabs margin-left32">
                             <li>
-                                <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông
-                                    tin</a>
-                            </li>
-                            <li>
-                                <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử
-                                    chỉnh sửa</a>
+                                <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">
+                                    Thông tin
+                                </a>
                             </li>
                             <li>
                                 <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#files">File đính kèm</a>
@@ -360,134 +357,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="history" class="tab-pane fade">
-                        <div class="bg-filter-search border-top-0 text-center border-custom">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">Lịch sử chỉnh
-                                sửa</p>
-                        </div>
-                        <section class="content">
-                            <div class="container-fluided order_content">
-                                <table class="table table-hover bg-white rounded">
-                                    <thead>
-                                        <tr class="height-52">
-                                            <th class="border-right text-13 padding-left35" style="width:15%;">Mã sản
-                                                phẩm
-                                            </th>
-                                            <th class="border-right text-13" style="width:17%;">Tên sản phẩm</th>
-                                            <th class="border-right text-13" style="width:7%;">Đơn vị</th>
-                                            <th class="border-right text-13" style="width:10%;">Số lượng</th>
-                                            <th class="border-right text-13" style="width:15%;">Đơn giá</th>
-                                            <th class="border-right text-13" style="width:10%;">Thuế</th>
-                                            <th class="border-right text-13" style="width:10%;">Thành tiền</th>
-                                            <th class="note text-13">Ghi chú</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($product as $item_product)
-                                            <tr class="bg-white height-80">
-                                                <td
-                                                    class="border border-left-0 p-2 border-top-0 align-top border-bottom-0 position-relative padding-left35">
-                                                    <div
-                                                        class="d-flex w-100 justify-content-between align-items-center">
-                                                        <input type="text" autocomplete="off" readonly
-                                                            value="{{ $item_product->product_code }}"
-                                                            class="border-0 pr-2 py-1 w-75 product_code text-13-black">
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="align-top border border-top-0 p-2 align-top border-bottom-0 position-relative">
-                                                    <div class="d-flex align-items-center">
-                                                        <input type="text"
-                                                            value="{{ $item_product->product_name }}"
-                                                            class="border-0 px-2 py-1 w-100 product_name text-13-black"
-                                                            readonly autocomplete="off">
-                                                        <input type="hidden" class="product_id"
-                                                            value="{{ $item_product->product_id }}"
-                                                            autocomplete="off">
-                                                        <div class="info-product" data-toggle="modal"
-                                                            data-target="#productModal">
-                                                            <svg xmlns='http://www.w3.org/2000/svg' width='14'
-                                                                height='14' viewBox='0 0 14 14' fill='none'>
-                                                                <g clip-path='url(#clip0_2559_39956)'>
-                                                                    <path
-                                                                        d='M6.99999 1.48362C5.53706 1.48362 4.13404 2.06477 3.09959 3.09922C2.06514 4.13367 1.48399 5.53669 1.48399 6.99963C1.48399 8.46256 2.06514 9.86558 3.09959 10.9C4.13404 11.9345 5.53706 12.5156 6.99999 12.5156C8.46292 12.5156 9.86594 11.9345 10.9004 10.9C11.9348 9.86558 12.516 8.46256 12.516 6.99963C12.516 5.53669 11.9348 4.13367 10.9004 3.09922C9.86594 2.06477 8.46292 1.48362 6.99999 1.48362ZM0.265991 6.99963C0.265991 5.21366 0.975464 3.50084 2.23833 2.23797C3.5012 0.975098 5.21402 0.265625 6.99999 0.265625C8.78596 0.265625 10.4988 0.975098 11.7616 2.23797C13.0245 3.50084 13.734 5.21366 13.734 6.99963C13.734 8.78559 13.0245 10.4984 11.7616 11.7613C10.4988 13.0242 8.78596 13.7336 6.99999 13.7336C5.21402 13.7336 3.5012 13.0242 2.23833 11.7613C0.975464 10.4984 0.265991 8.78559 0.265991 6.99963Z'
-                                                                        fill='#282A30' />
-                                                                    <path
-                                                                        d='M7.07004 4.34488C6.92998 4.33528 6.78944 4.35459 6.65715 4.40161C6.52487 4.44863 6.40367 4.52236 6.30109 4.61821C6.19851 4.71406 6.11674 4.82999 6.06087 4.95878C6.00499 5.08757 5.9762 5.22648 5.97629 5.36688C5.97629 5.52851 5.91208 5.68352 5.79779 5.79781C5.6835 5.91211 5.52849 5.97631 5.36685 5.97631C5.20522 5.97631 5.05021 5.91211 4.93592 5.79781C4.82162 5.68352 4.75742 5.52851 4.75742 5.36688C4.75733 4.9557 4.87029 4.55241 5.08394 4.2011C5.2976 3.84979 5.60373 3.56398 5.96886 3.37492C6.33399 3.18585 6.74408 3.10081 7.15428 3.12909C7.56449 3.15737 7.95902 3.29788 8.29475 3.53526C8.63049 3.77265 8.8945 4.09776 9.05792 4.47507C9.22135 4.85237 9.2779 5.26735 9.22139 5.67462C9.16487 6.0819 8.99748 6.4658 8.7375 6.78436C8.47753 7.10292 8.13497 7.34387 7.74729 7.48088C7.70694 7.49534 7.67207 7.52196 7.64747 7.55706C7.62287 7.59216 7.60975 7.63402 7.60992 7.67688V8.22463C7.60992 8.38626 7.54571 8.54127 7.43142 8.65557C7.31712 8.76986 7.16211 8.83407 7.00048 8.83407C6.83885 8.83407 6.68383 8.76986 6.56954 8.65557C6.45525 8.54127 6.39104 8.38626 6.39104 8.22463V7.67688C6.39096 7.38197 6.48229 7.0943 6.65247 6.85345C6.82265 6.6126 7.0633 6.43042 7.34129 6.332C7.56313 6.25339 7.7511 6.10073 7.87356 5.89975C7.99603 5.69877 8.0455 5.46172 8.01366 5.22853C7.98181 4.99534 7.87059 4.78025 7.69872 4.61946C7.52685 4.45867 7.30483 4.36114 7.07004 4.34488Z'
-                                                                        fill='#282A30' />
-                                                                    <path
-                                                                        d='M7.04382 10.1242C7.00228 10.1242 6.96245 10.1408 6.93307 10.1701C6.9037 10.1995 6.8872 10.2393 6.8872 10.2809C6.8872 10.3224 6.9037 10.3623 6.93307 10.3916C6.96245 10.421 7.00228 10.4375 7.04382 10.4375C7.08536 10.4375 7.1252 10.421 7.15457 10.3916C7.18395 10.3623 7.20045 10.3224 7.20045 10.2809C7.20045 10.2393 7.18395 10.1995 7.15457 10.1701C7.1252 10.1408 7.08536 10.1242 7.04382 10.1242ZM7.04382 10.9371C7.13 10.9371 7.21534 10.9201 7.29496 10.8872C7.37458 10.8542 7.44692 10.8059 7.50786 10.7449C7.5688 10.684 7.61714 10.6116 7.65012 10.532C7.6831 10.4524 7.70007 10.3671 7.70007 10.2809C7.70007 10.1947 7.6831 10.1094 7.65012 10.0297C7.61714 9.95012 7.5688 9.87777 7.50786 9.81684C7.44692 9.7559 7.37458 9.70756 7.29496 9.67458C7.21534 9.6416 7.13 9.62462 7.04382 9.62462C6.86977 9.62462 6.70286 9.69376 6.57978 9.81684C6.45671 9.93991 6.38757 10.1068 6.38757 10.2809C6.38757 10.4549 6.45671 10.6218 6.57978 10.7449C6.70286 10.868 6.86977 10.9371 7.04382 10.9371Z'
-                                                                        fill='#282A30' />
-                                                                </g>
-                                                                <defs>
-                                                                    <clipPath id='clip0_2559_39956'>
-                                                                        <rect width='14' height='14'
-                                                                            fill='white' />
-                                                                    </clipPath>
-                                                                </defs>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="align-top border border-top-0 p-2  border-bottom-0">
-                                                    <input type="text" autocomplete="off" readonly
-                                                        value="{{ $item_product->product_unit }}"
-                                                        class="border-0 px-2 py-1 w-100 product_unit text-13-black">
-                                                </td>
-                                                <td
-                                                    class="align-top border border-top-0 p-2 border-bottom-0 position-relative">
-                                                    <input type="text" readonly
-                                                        value="{{ is_int($item_product->deliver_qty) ? $item_product->deliver_qty : rtrim(rtrim(number_format($item_product->deliver_qty, 4, '.', ''), '0'), '.') }}"
-                                                        class="border-0 px-2 py-1 w-100 quantity-input text-13-black text-right"
-                                                        autocomplete="off">
-                                                    <input type="hidden" class="tonkho">
-                                                    <div class="text-13-blue mt-3 text-center inventory d-none">Tồn
-                                                        kho:
-                                                        <span class="soTonKho">32</span>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="align-top border border-top-0 p-2 border-bottom-0 position-relative">
-                                                    <input type="text"
-                                                        value="{{ number_format($item_product->price_export) }}"
-                                                        class="border-0 px-2 py-1 w-100 text-13-black text-right"
-                                                        autocomplete="off" readonly>
-                                                </td>
-                                                <td class="border border-top-0 align-top border-bottom-0 p-2 ">
-                                                    <select class="border-0 text-center product_tax text-13-black"
-                                                        disabled>
-                                                        <option value="0" <?php if ($item_product->product_tax == 0) {
-                                                            echo 'selected';
-                                                        } ?>>0%</option>
-                                                        <option value="8" <?php if ($item_product->product_tax == 8) {
-                                                            echo 'selected';
-                                                        } ?>>8%</option>
-                                                        <option value="10" <?php if ($item_product->product_tax == 10) {
-                                                            echo 'selected';
-                                                        } ?>>10%</option>
-                                                        <option value="99" <?php if ($item_product->product_tax == 99) {
-                                                            echo 'selected';
-                                                        } ?>>NOVAT
-                                                        </option>
-                                                    </select>
-                                                </td>
-                                                <td class="align-top border border-top-0 p-2 border-bottom-0">
-                                                    <input type="text" readonly=""
-                                                        value="{{ number_format($item_product->product_total) }}"
-                                                        class="border-0 px-2 py-1 w-100 text-13-black">
-                                                </td>
-                                                <td
-                                                    class="border border-top-0 border-bottom-0 border-right-0 position-relative note p-2 ">
-                                                    <input type="text" class="border-0 py-1 w-100 text-13-black"
-                                                        readonly value="{{ $item_product->product_note }} ">
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </section>
                     </div>
 </form>
 <div id="files" class="tab-pane fade">
