@@ -1748,7 +1748,10 @@
             $(".list_product").hide();
             $('.product_name').on("click", function(e) {
                 e.stopPropagation();
-                $(this).closest('tr').find(".list_product").show();
+                $(".list_product").hide();
+
+                var listProduct = $(this).closest('tr').find(".list_product");
+                listProduct.toggle();
             });
             $(document).on("click", function(e) {
                 if (!$(e.target).is(".product_name")) {
@@ -1918,12 +1921,11 @@
                 },
                 success: function(data) {
                     if (data.key) {
-                        quotation = getQuotation(data.key, data['count'], data['date']);
+                        quotation = getQuotation1(data.key, data['count'], data['date']);
                     } else {
-                        quotation = getQuotation(data['guest'].guest_name_display, data[
+                        quotation = getQuotation1(data['guest'].guest_name_display, data[
                             'count'], data['date']);
                     }
-                    console.log(getQuotation("ABC3", 1, "11032024"));
                     $('input[name="quotation_number"]').val(quotation);
                     $('.nameGuest').val(data['guest'].guest_name_display);
                     $('.idGuest').val(data['guest'].id);
@@ -2160,7 +2162,7 @@
                 },
                 success: function(data) {
                     if (data.success) {
-                        quotation = getQuotation(data.key, '1');
+                        quotation = getQuotation1(data.key, '1');
                         $('input[name="quotation_number"]').val(quotation);
                         $('.nameGuest').val(data.guest_name_display);
                         showNotification('success', data.msg);
@@ -2316,7 +2318,7 @@
                 },
                 success: function(data) {
                     if (data.success) {
-                        quotation = getQuotation(data.updated_guest.key, '1');
+                        quotation = getQuotation1(data.updated_guest.key, '1');
                         $('input[name="quotation_number"]').val(quotation);
                         $('.nameGuest').val(data.updated_guest.guest_name_display);
                         showNotification('success', data.msg);
