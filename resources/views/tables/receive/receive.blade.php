@@ -243,7 +243,7 @@
                                                     {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td>
                                                 <td class=" text-13-black">
-                                                    Tổng tiền
+                                                    {{number_format($item->total_tax)}}
                                                 </td>
 
 

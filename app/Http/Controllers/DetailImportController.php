@@ -353,65 +353,108 @@ class DetailImportController extends Controller
             })
             ->first();
         if ($check == null) {
-            if (isset($request->key)) {
-                $key = $request->key;
-            } else {
-                $key = preg_match_all('/[A-ZĐ]/u', $request->provide_name_display, $matches);
-                if ($key > 0) {
-                    $key = implode('', $matches[0]);
-                } else {
-                    $key =  ucfirst($request->provide_name_display);
-                    $key = preg_match_all('/[A-ZĐ]/u', $key, $matches);
-                    $key = implode('', $matches[0]);
-                    if ($key) {
-                        $key = $key;
-                    } else {
-                        $key = "RN";
+            $checkKey = Provides::where('workspace_id', Auth::user()->current_workspace)
+                ->where('key', $request->key)
+                ->first();
+                if ($checkKey) {
+                    // Tên viết tắt đã tồn tại, thực hiện logic thay đổi giá trị key
+                    $newKey = $request->key . ($checkKey->id + 1);
+    
+                    // Kiểm tra xem key mới đã tồn tại chưa
+                    $counter = 1;
+                    while (Provides::where('workspace_id', Auth::user()->current_workspace)
+                        ->where('key', $newKey)
+                        ->exists()
+                    ) {
+                        // Nếu key đã tồn tại, thay đổi giá trị key và tăng counter
+                        $newKey = $request->key . ($checkKey->id + $counter);
+                        $counter++;
                     }
+    
+                    $msg = [
+                        'success' => false,
+                        'msg' => 'Tên viết tắt đã tồn tại!',
+                        'key' => $newKey,
+                    ];
+                } else {
+                    $key = isset($request->key) ? $request->key : $this->generateKey($request->guest_name_display);
+              
+                    $data = [
+                        'provide_name_display' => $request->provide_name_display,
+                        'provide_name' => $request->provide_name,
+                        'provide_address' => $request->provide_address,
+                        'key' => $key,
+                        'provide_code' => $request->provide_code,
+                        'provide_debt' => 0,
+                        'workspace_id' => Auth::user()->current_workspace
+                    ];
+                    $new_provide = DB::table('provides')->insertGetId($data);
+                    if ($new_provide) {
+                        $dataRepresent = [
+                            'provide_id' => $new_provide,
+                            'represent_name' => $request->provide_represent,
+                            'represent_email' => $request->provide_email,
+                            'represent_phone' => $request->provide_phone,
+                            'represent_address' => $request->provide_address_delivery,
+                            'workspace_id' => Auth::user()->current_workspace
+                        ];
+                        if ($request->provide_represent != null || $request->provide_email != null || $request->provide_phone != null) {
+                            // Thêm người đại diện
+                            $id_represent = DB::table('represent_provide')->insertGetId($dataRepresent);
+                        }
+                    }
+                    $provide = Provides::findOrFail($new_provide);
+                    $price_effect = DateForm::where('form_field', 'import')
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->get();
+        
+                    $terms_pay = DateForm::where('form_field', 'termpay')
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->get();
+                    $msg = response()->json([
+                        'success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công',
+                        'id' => $new_provide, 'name' => $provide->provide_name_display, 'key' => $key,
+                        'id_represent' => isset($id_represent) ? $id_represent : "", 'represent_name' => $request->provide_represent,
+                        'price_effect' => $price_effect, 'terms_pay' => $terms_pay
+                    ]);
                 }
-            }
-            $data = [
-                'provide_name_display' => $request->provide_name_display,
-                'provide_name' => $request->provide_name,
-                'provide_address' => $request->provide_address,
-                'key' => $key,
-                'provide_code' => $request->provide_code,
-                'provide_debt' => 0,
-                'workspace_id' => Auth::user()->current_workspace
-            ];
-            $new_provide = DB::table('provides')->insertGetId($data);
-            if ($new_provide) {
-                $dataRepresent = [
-                    'provide_id' => $new_provide,
-                    'represent_name' => $request->provide_represent,
-                    'represent_email' => $request->provide_email,
-                    'represent_phone' => $request->provide_phone,
-                    'represent_address' => $request->provide_address_delivery,
-                    'workspace_id' => Auth::user()->current_workspace
-                ];
-                if ($request->provide_represent != null || $request->provide_email != null || $request->provide_phone != null) {
-                    // Thêm người đại diện
-                    $id_represent = DB::table('represent_provide')->insertGetId($dataRepresent);
-                }
-            }
-            $provide = Provides::findOrFail($new_provide);
-            $price_effect = DateForm::where('form_field', 'import')
-                ->where('workspace_id', Auth::user()->current_workspace)
-                ->get();
 
-            $terms_pay = DateForm::where('form_field', 'termpay')
-                ->where('workspace_id', Auth::user()->current_workspace)
-                ->get();
-            $msg = response()->json([
-                'success' => true, 'msg' => 'Thêm mới nhà cung cấp thành công',
-                'id' => $new_provide, 'name' => $provide->provide_name_display, 'key' => $key,
-                'id_represent' => isset($id_represent) ? $id_represent : "", 'represent_name' => $request->provide_represent,
-                'price_effect' => $price_effect, 'terms_pay' => $terms_pay
-            ]);
+            // if (isset($request->key)) {
+            //     $key = $request->key;
+            // } else {
+            //     $key = preg_match_all('/[A-ZĐ]/u', $request->provide_name_display, $matches);
+            //     if ($key > 0) {
+            //         $key = implode('', $matches[0]);
+            //     } else {
+            //         $key =  ucfirst($request->provide_name_display);
+            //         $key = preg_match_all('/[A-ZĐ]/u', $key, $matches);
+            //         $key = implode('', $matches[0]);
+            //         if ($key) {
+            //             $key = $key;
+            //         } else {
+            //             $key = "RN";
+            //         }
+            //     }
+            // }
         } else {
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế hoặc tên hiển thị đã tồn tại']);
         }
         return $msg;
+    }
+
+    private function generateKey($name)
+    {
+        $key = preg_match_all('/[A-ZĐ]/u', $name, $matches);
+        if ($key > 0) {
+            $key = implode('', $matches[0]);
+        } else {
+            $key = ucfirst($name);
+            $key = preg_match_all('/[A-ZĐ]/u', $key, $matches);
+            $key = implode('', $matches[0]);
+            $key = $key ?: "RN";
+        }
+
+        return $key;
     }
 
     public function updateProvide(Request $request)

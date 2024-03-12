@@ -469,8 +469,8 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
-                                    id="represent"
+                                <input readonly class="text-13-black w-50 border-0 bg-input-guest nameGuest"
+                                    style="flex:2;" id="represent"
                                     value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" />
                                 <ul id="listRepresent"
                                     class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
@@ -487,7 +487,42 @@
                                     <ul class="m-0 p-0 scroll-data">
                                         @if ($represent)
                                             @foreach ($represent as $value)
-                                                <li class="p-2 align-items-center text-wrap"
+                                                <li class="border" id="{{ $value->id }}">
+                                                    <a href="javascript:void(0)"
+                                                        class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent"
+                                                        id="{{ $value->id }}" name="search-represent">
+                                                        <span
+                                                            class="w-100 text-nav text-dark overflow-hidden">{{ $value->represent_name }}</span>
+                                                    </a>
+
+                                                    <div class="dropdown">
+                                                        <button type="button" data-toggle="dropdown"
+                                                            class="btn-save-print d-flex align-items-center h-100"
+                                                            style="margin-right:10px">
+                                                            <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu date-form-setting"
+                                                            style="z-index: 100;">
+                                                            <a class="dropdown-item search-date-form"
+                                                                data-toggle="modal" data-target="#modalAddRepresent"
+                                                                data-name="represent" data-id="{{ $value->id }}"
+                                                                id="{{ $value->id }}"><i
+                                                                    class="fa-regular fa-pen-to-square"
+                                                                    aria-hidden="true"></i></a>
+                                                            <a class="dropdown-item delete-item" href="#"
+                                                                data-id="{{ $value->id }}"
+                                                                data-name="represent"><i class="fa-solid fa-trash-can"
+                                                                    aria-hidden="true"></i></a>
+                                                            <a class="dropdown-item set-default default-id {{ $value->represent_name }}"
+                                                                id="default-id{{ $value->id }}" href="#"
+                                                                data-name="represent" data-id="{{ $value->id }}">
+                                                                <i class="fa-solid fa-link-slash"
+                                                                    aria-hidden="true"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                {{-- <li class="p-2 align-items-center text-wrap"
                                                     style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                     <a href="javascript:void(0)" style="flex:2;"
                                                         id="{{ $value->id }}" name="search-represent"
@@ -514,7 +549,7 @@
                                                             </svg>
                                                         </span>
                                                     </a>
-                                                </li>
+                                                </li> --}}
                                             @endforeach
                                         @endif
                                     </ul>
@@ -556,8 +591,7 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
-                                    id="datePicker" style="flex:2;"
-                                    placeholder="Chọn thông tin"
+                                    id="datePicker" style="flex:2;" placeholder="Chọn thông tin"
                                     value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}">
                                 <input type="hidden" id="hiddenDateInput" name="date_quote"
                                     value="{{ $import->created_at->toDateString() }}">
@@ -1053,8 +1087,12 @@
                 table: table
             },
             success: function(data) {
-                $('#' + data.list + ' li#' + data.id).remove();
-                showNotification('success', data.msg)
+                if (data.success) {
+                    $('#' + data.list + ' li#' + data.id).remove();
+                    showNotification('success', data.msg)
+                } else {
+                    showNotification('warning', data.msg)
+                }
             }
         })
     })
@@ -1131,7 +1169,35 @@
                                     $("input[name='provide_address_delivery_new']").val('')
                                     $('.closeModal').click();
                                     $('#represent_id').val(data.id);
-                                    $('#represent').val(data.data)
+                                    $('#represent').val(data.data);
+                                    var newli = `
+                                    <li class="border" id="` + data.id +
+                                        `">
+                                    <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent" id="` +
+                                        data.id + `" name="search-represent">
+                                        <span class="w-100 text-nav text-dark overflow-hidden">` + data.data +
+                                        `</span>
+                                    </a>
+
+                                    <div class="dropdown">
+                                        <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                            <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                        </button>
+                                    <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#modalAddRepresent" data-name="represent" data-id="` +
+                                        data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item delete-item" href="#" data-id="` + data.id + `" data-name="represent"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item set-default default-id ` + data.data +
+                                        `" id="default-id` + data.id +
+                                        `" href="#" data-name="represent" data-id="` + data.id + `">
+                                            <i class="fa-solid fa-link-slash" aria-hidden="true"></i> 
+                                        </a>
+                                    </div>
+                                    </div>
+                                    </li>
+                                    `
+                                    $('#listRepresent .p-1').after(newli)
+
                                     showNotification('success', data.msg)
                                 } else {
                                     showNotification('warning', data.msg)
@@ -1154,13 +1220,76 @@
                                 $('#form-name-' + id).val('')
                                 $('#form-desc-' + id).val('')
                                 if (data.success) {
+                                    $('#form-name-' + id).val('')
+                                    $('#form-desc-' + id).val('')
+                                    $('.closeModal').click()
                                     $(id == "import" ? '#price_effect' : '#terms_pay').val(data
                                         .data);
-                                    $('.closeModal').click();
+                                    if (id == "import") {
+                                        var price_effect = `
+                                        <li class="border" id="` + data.id +
+                                            `">
+                                            <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="` +
+                                            data.id + `" name="search-price-effect">
+                                                <span class="w-100 text-nav text-dark overflow-hidden">` + data
+                                            .inputName +
+                                            `</span>
+                                            </a>
+
+                                            <div class="dropdown">
+                                                <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                                    <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                </button>
+                                                <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                                    <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
+                                            data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                                    <a class="dropdown-item delete-item" href="#" data-id="` + data
+                                            .id + `" data-name="priceeffect"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                                    <a class="dropdown-item set-default default-id ` + data.data +
+                                            `" id="default-id` + data.id +
+                                            `" href="#" data-name="import" data-id="` + data.id + `">
+                                                        <i class="fa-solid fa-link" aria-hidden="true"></i> 
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        `
+                                    } else {
+                                        var term_pay = `
+                                        <li class="border" id="` + data.id +
+                                            `">
+                                            <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay" id="` +
+                                            data.id + `" name="search-term-pay">
+                                                <span class="w-100 text-nav text-dark overflow-hidden">` + data
+                                            .inputName +
+                                            `</span>
+                                            </a>
+
+                                            <div class="dropdown">
+                                                <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                                    <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                </button>
+                                                <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                                    <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
+                                            data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                                    <a class="dropdown-item delete-item" href="#" data-id="` + data
+                                            .id + `" data-name="termpay"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                                    <a class="dropdown-item set-default default-id ` + data.data +
+                                            `" id="default-id` + data.id +
+                                            `" href="#" data-name="termpay" data-id="` + data.id + `">
+                                                        <i class="fa-solid fa-link" aria-hidden="true"></i> 
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        `
+                                    }
+                                    $(id == "import" ? $('#listPriceEffect .p-1').after(
+                                        price_effect) : $('#listTermsPay .p-1').after(
+                                        term_pay))
                                     showNotification('success', data.msg)
                                 } else {
                                     showNotification('warning', data.msg)
-
                                 }
                             }
                         })
@@ -1181,8 +1310,8 @@
                             provide_address_delivery: provide_address_delivery
                         },
                         success: function(data) {
-                            $('.closeModal').click()
                             if (data.success) {
+                                $('.closeModal').click()
                                 showNotification('suscess', data.msg)
                             } else {
                                 showNotification('warning', data.msg)
@@ -1364,72 +1493,6 @@
                         listProductName.hide();
                         checkDuplicateRows()
                     })
-
-
-                    // $('.search-product').on('click', function() {
-                    //     inputName.val('');
-                    //     inputCode.val($(this).closest('li').find('span').text())
-                    //     var dataId = $(this).attr('id'); // Lấy giá trị data-id
-                    //     $.ajax({
-                    //         url: "{{ route('showProductName') }}",
-                    //         type: "get",
-                    //         data: {
-                    //             dataId: dataId
-                    //         },
-                    //         success: function(data) {
-                    //             listProductName.empty();
-                    //             data.forEach(element => {
-                    //                 var UL = '<li>' +
-                    //                     '<a data-unit="' + element
-                    //                     .product_unit +
-                    //                     '" data-priceExport= "' +
-                    //                     element.product_price_export +
-                    //                     '" data-ratio="' + element
-                    //                     .product_ratio +
-                    //                     '" data-priceImport="' + element
-                    //                     .product_price_import +
-                    //                     '" href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-name" id="' +
-                    //                     element.id +
-                    //                     '" data-tax="' + element
-                    //                     .product_tax +
-                    //                     '" name="search-product">' +
-                    //                     '<span class="w-100" data-id="' +
-                    //                     element.id + '">' + element
-                    //                     .product_name + '</span>' +
-                    //                     '</a>' +
-                    //                     '</li>';
-                    //                 listProductName.append(UL);
-                    //             })
-                    //             $('.search-name').on('click', function() {
-                    //                 inputName.val($(this).closest('li')
-                    //                     .find('span')
-                    //                     .text());
-                    //                 inputUnit.val($(this).attr(
-                    //                         'data-unit') == null ?
-                    //                     "" : $(this).attr(
-                    //                         'data-unit'));
-                    //                 inputPriceExprot.val($(this).attr(
-                    //                         'data-priceExport') ==
-                    //                     "null" ? "" :
-                    //                     formatCurrency($(this).attr(
-                    //                         'data-priceExport')))
-                    //                 inputRatio.val($(this).attr(
-                    //                         'data-ratio') ==
-                    //                     "null" ? "" : $(this).attr(
-                    //                         'data-ratio'))
-                    //                 inputPriceImport.val($(this).attr(
-                    //                         'data-priceImport') ==
-                    //                     "null" ? "" :
-                    //                     formatCurrency($(this).attr(
-                    //                         'data-priceImport')))
-                    //                 selectTax.val($(this).attr(
-                    //                     'data-tax'))
-                    //                 listProductName.hide();
-                    //                 checkDuplicateRows()
-                    //             })
-                    //         }
-                    //     })
-                    // })
                 }
             })
         })
@@ -1471,7 +1534,15 @@
                 }
             }
         })
-
+    })
+    $(document).on('click', '.closeModal', function(e) {
+        e.preventDefault();
+        $("input[name='provide_represent_new']").val('')
+        $("input[name='provide_email_new']").val('')
+        $("input[name='provide_phone_new']").val('')
+        $("input[name='provide_address_delivery_new']").val('')
+        $("input[name='form-name-import']").val('')
+        $("input[name='form-desc-import']").val('')
     })
 </script>
 </body>

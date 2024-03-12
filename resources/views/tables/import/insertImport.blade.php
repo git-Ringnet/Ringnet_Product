@@ -649,7 +649,7 @@
                 provides_id: provides_id,
             },
             success: function(data) {
-                console.log(data);
+                // console.log(data);
                 // if (data.key) {
                 //     quotation = getQuotation(data.key, data['count'], data['date']);
                 // } else {
@@ -667,7 +667,7 @@
                         status: 'add'
                     },
                     success: function(data) {
-                        console.log(data);
+                        // console.log(data);
                         $('#listRepresent li').empty();
                         $('#listPriceEffect li').empty();
                         $('#listTermsPay li').empty();
@@ -862,7 +862,6 @@
                 } else {
                     showNotification('warning', data.msg)
                 }
-
             }
         })
     })
@@ -926,7 +925,7 @@
             })
         }
     })
-    
+
     $('.modal-dialog #editProvide').on('click', function(e) {
         e.preventDefault();
         var id = $('.modal-dialog #editProvide').data('id');
@@ -1029,6 +1028,7 @@
                     provide_address_delivery: provide_address_delivery
                 },
                 success: function(data) {
+                    console.log(data);
                     $('#listPriceEffect li').empty();
                     $('#listTermsPay li').empty();
                     if (data.success == true) {
@@ -1176,13 +1176,24 @@
                         $('#more_info').show();
                         $('#more_info1').show();
                     } else {
-                        
+
                         showNotification('warning', data.msg)
                     }
                 }
             });
         }
     });
+
+    $(document).on('click', '.closeModal', function(e) {
+        e.preventDefault();
+        $("input[name='provide_represent_new']").val('')
+        $("input[name='provide_email_new']").val('')
+        $("input[name='provide_phone_new']").val('')
+        $("input[name='provide_address_delivery_new']").val('')
+        $("input[name='form-name-import']").val('')
+        $("input[name='form-desc-import']").val('')
+    })
+
 
     function actionForm(id, routeAdd, routeEdit) {
         $('#' + id).click(function() {
@@ -1262,7 +1273,6 @@
                             },
                             success: function(data) {
                                 $('.btn.btn-default').click()
-
                                 if (data.success) {
                                     $('#form-name-' + id).val('')
                                     $('#form-desc-' + id).val('')
@@ -1271,8 +1281,10 @@
                                         .data);
                                     if (id == "import") {
                                         var price_effect = `
-                                        <li class="border" id="` + data.id + `">
-                                            <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="16" name="search-price-effect">
+                                        <li class="border" id="` + data.id +
+                                            `">
+                                            <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="` +
+                                            data.id + `" name="search-price-effect">
                                                 <span class="w-100 text-nav text-dark overflow-hidden">` + data
                                             .inputName +
                                             `</span>

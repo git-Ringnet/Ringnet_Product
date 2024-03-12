@@ -39,6 +39,9 @@ class Receive_bill extends Model
     public function addReceiveBill($data, $id)
     {
         // $check_status = true;
+        $total = 0;
+        $total_tax = 0;
+        $sum = 0;
         $detail =  DetailImport::findOrFail($id);
         if ($detail) {
             $dataReceive = [
@@ -68,11 +71,24 @@ class Receive_bill extends Model
                             DB::table('products_import')->where('id', $productImport->id)
                                 ->where('workspace_id', Auth::user()->current_workspace)
                                 ->update($dataupdate);
+
+                            $product = QuoteImport::where('id', $productImport->quoteImport_id)
+                                ->where('workspace_id', Auth::user()->current_workspace)
+                                ->first();
+
+                            $price_export = $product->price_export;
+                            $total += $price_export * $productImport->product_qty;
+
+                            $total_tax += (($price_export * $productImport->product_qty) * ($product->product_tax == 99 ? 0 : $product->product_tax)) / 100;
                         }
                     }
+                    $sum =  round($total_tax) + round($total);
                 }
             }
-
+            // dd($sum);
+            DB::table('receive_bill')->where('id',$receive_id)->update([
+                'total_tax' => $sum
+            ]);
             // Cập nhật trạng thái đơn hàng
             if ($detail->status == 1) {
                 $detail->status = 2;
