@@ -82,7 +82,7 @@
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
                                 PHẨM</p>
                         </div>
-                        <div class="content-info position-relative table-responsive text-nowrap">
+                        <div class="content-info position-relative text-nowrap">
                             <!-- <section class="multiple_action" style="display: none;">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span class="count_checkbox mr-5">Đã chọn 1</span>

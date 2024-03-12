@@ -133,7 +133,7 @@
 <!-- Main content -->
 <section class="content margin-top-fixed5">
     <div class="container-fluided margin-250">
-        <div class="row">
+        <div class="row p-0 m-0">
             <div class="col-12 ">
                 <div class="card mt-3">
                     <!-- /.card-header -->

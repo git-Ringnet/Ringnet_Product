@@ -154,7 +154,6 @@ li {
 
 .outer3 {
     width: 100%;
-    -layout: fixed;
 }
 
 .outer3 th {
@@ -2313,18 +2312,3 @@ input[type="checkbox"] {
 .top-109 {
     top: 109px !important;
 }
-
-
-
-table.scrolldown tbody {
-
-    /* Set the height of table body */
-    max-height: 50px;
-    /* Set vertical scroll */
-    overflow-y: auto;
-    /* Hide the horizontal scroll */
-    overflow-x: hidden;
-}
-
-
-

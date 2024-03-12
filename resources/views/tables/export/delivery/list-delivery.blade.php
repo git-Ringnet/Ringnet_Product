@@ -127,7 +127,7 @@
                             <div class="outer2 text-nowrap">
                                 <table id="example2" class="table table-hover">
                                     <thead>
-                                        <tr>
+                                        <tr class="border-custom">
                                             <th scope="col" style="width:5%;padding-left: 2rem;"
                                                 class="height-52">
                                                 <input type="checkbox" name="all" id="checkall"

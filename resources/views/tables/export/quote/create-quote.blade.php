@@ -89,10 +89,9 @@
                 <div class="bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
-                <div class="container-fluided outer3">
+                <div class="container-fluided">
                     <section class="content">
-                        <table class="table scrolldown">
-                            <!-- Table head content -->
+                        <table class="table">
                             <thead>
                                 <tr style="height:44px;">
                                     <th class="border-right px-2 p-0" style="width: 16%">
@@ -123,12 +122,10 @@
                                     <th class="border-right"></th>
                                 </tr>
                             </thead>
-                            <!-- Table body content -->
                             <tbody>
                                 <tr id="dynamic-fields" class="bg-white"></tr>
                             </tbody>
                         </table>
-
                     </section>
                     <!-- <section class="multiple_action border shadow" style="display: none;">
                         <div class="d-flex justify-content-between align-items-center">
@@ -1232,6 +1229,8 @@
 </div>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 <script type="text/javascript">
+
+
     //
     flatpickr("#datePicker", {
         locale: "vn",

@@ -98,7 +98,7 @@
                 <div class="bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
-                <div class="container-fluided outer3">
+                <div class="container-fluided">
                     <section class="content">
                         <div class="content-info position-relative text-nowrap order_content">
                             <table id="inputcontent" class="table table-hover bg-white rounded">
@@ -1437,7 +1437,7 @@
                             .product_ratio +
                             '" data-priceImport="' + element
                             .product_price_import +
-                            '" href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-name" id="' +
+                            '" href="javascript:void(0)" class="text-dark d-flex w-100 justify-content-between p-2 search-name" id="' +
                             element.id +
                             '" data-tax="' + element
                             .product_tax +

@@ -359,8 +359,8 @@
                             <div class="content">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center  border-custom">
                                     THÔNG TIN SẢN PHẨM</p>
-                                <section class="card scroll-custom mb-0">
-                                    <div class="table-responsive text-nowrap order_content">
+                                <section class="card mb-0">
+                                    <div class="text-nowrap order_content">
                                         <table class="table table-hover bg-white rounded m-0">
                                             <thead>
                                                 <tr style="height:44px;">

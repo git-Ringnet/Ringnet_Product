@@ -261,8 +261,8 @@ function handlePaste(input) {
                 checkbox.setAttribute("type", "checkbox");
                 var checkboxes = document.querySelectorAll(
                     ".div_value" +
-                    rowCount +
-                    ' table tbody input[type="checkbox"]'
+                        rowCount +
+                        ' table tbody input[type="checkbox"]'
                 );
                 var checkboxCount = checkboxes.length;
                 checkbox.setAttribute("id", "checkbox_" + checkboxCount);
@@ -506,15 +506,17 @@ function createModal(stt) {
 }
 
 function deleteRow() {
-    $('.deleteRow').off('click').on('click', function () {
-        id = $(this).closest('tr').find('button').attr('data-target');
-        $('#list_modal ' + id).remove();
-        $(this).closest('tr').remove();
-        updateTaxAmount()
-        calculateTotalAmount()
-        calculateTotalTax()
-        calculateGrandTotal()
-    })
+    $(".deleteRow")
+        .off("click")
+        .on("click", function () {
+            id = $(this).closest("tr").find("button").attr("data-target");
+            $("#list_modal " + id).remove();
+            $(this).closest("tr").remove();
+            updateTaxAmount();
+            calculateTotalAmount();
+            calculateTotalTax();
+            calculateGrandTotal();
+        });
 }
 deleteRowRepesent();
 function deleteRowRepesent() {

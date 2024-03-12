@@ -111,9 +111,9 @@
                 <div class="bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
-                <div class="container-fluided outer3">
+                <div class="container-fluided">
                     <section class="content">
-                        <div class="content-info position-relative table-responsive text-nowrap order_content">
+                        <div class="content-info position-relative text-nowrap order_content">
                             <table id="inputcontent" class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">

@@ -1356,10 +1356,8 @@
                                                         .product_inventory !==
                                                         null
                                                     ) {
-                                                        $('.inventory')
-                                                            .show();
-                                                        $('.transaction')
-                                                            .show();
+                                                        $('.inventory').show();
+                                                        $('.transaction').show();
                                                     }
                                                 }
                                             });
