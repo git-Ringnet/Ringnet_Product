@@ -551,7 +551,7 @@
                                             </td>
                                             <td class="border-right p-2 text-13 align-top">
                                                     <div>
-                                                        <input type='text'  value="${formatCurrency(item.soLuongHoaDon)}"
+                                                        <input type='text'  value="${formatNumber(item.soLuongHoaDon)}"
                                                             class='border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>
                                                         <input type='hidden' class='tonkho'>
                                                     </div>
@@ -1136,6 +1136,8 @@
 
         return formattedValue;
     }
+
+
 
     //format giá
     var inputElement = document.getElementById('product_price');

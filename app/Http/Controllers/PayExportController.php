@@ -159,7 +159,12 @@ class PayExportController extends Controller
                 $join->on('product_pay.pay_id', '=', 'pay_export.id');
                 $join->on('product_pay.product_id', '=', 'quoteexport.product_id');
             })
+            ->where('quoteexport.status', 1)
             ->where('pay_export.id', $id)
+            ->where(function ($query) {
+                $query->where('quoteexport.product_delivery', null)
+                    ->orWhere('quoteexport.product_delivery', 0);
+            })
             ->join('products', 'products.id', 'product_pay.product_id')
             ->select(
                 'quoteexport.product_id',
@@ -190,7 +195,7 @@ class PayExportController extends Controller
             ->get();
         $history = history_Pay_Export::where('pay_id', $id)
             ->leftJoin('pay_export', 'pay_export.id', 'history_payment_export.pay_id')
-            ->select('history_payment_export.*','pay_export.code_payment')
+            ->select('history_payment_export.*', 'pay_export.code_payment')
             ->get();
         return view('tables.export.pay_export.edit', compact('title', 'payExport', 'product', 'history', 'thanhToan', 'noConLaiValue', 'workspacename'));
     }
@@ -249,7 +254,9 @@ class PayExportController extends Controller
                 'represent_guest.represent_name',
             )
             ->first();
-        $lastPayExportId = DB::table('pay_export')->max(DB::raw('CAST(SUBSTRING_INDEX(code_payment, "-", -1) AS UNSIGNED)'));
+        $lastPayExportId = DB::table('pay_export')
+            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+            ->max(DB::raw('CAST(SUBSTRING_INDEX(code_payment, "-", -1) AS UNSIGNED)'));
         $delivery['lastPayExportId'] = $lastPayExportId == null ? 0 : $lastPayExportId;
         return $delivery;
     }

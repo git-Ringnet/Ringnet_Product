@@ -335,24 +335,50 @@ class DetailExportController extends Controller
     //Tìm kiếm khách hàng
     public function searchGuest(Request $request)
     {
-        $data = [];
+        $result = [];
         $data = $request->all();
-        $guest = Guest::findOrFail($data['idGuest']);
-        // $guest = Guest::where('id', $data['idGuest'])->first();
+        $guest = Guest::where('id', $data['idGuest'])
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
         if ($guest) {
-            $count = DetailExport::where('guest_id', $guest->id)->count();
-            $date = DetailExport::where('guest_id', $guest->id)->orderBy('id', 'desc')->first();
+            // Lấy ngày từ quotation number cuối cùng
+            $date = DetailExport::where('guest_id', $guest->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->orderBy('id', 'desc')
+                ->value('quotation_number');
+
             if ($date) {
-                $date = explode('/', $date->quotation_number)[0];
+                $date = explode('/', $date)[0];
+            } else {
+                // Nếu không có quotation number nào, sử dụng ngày hiện tại
+                $date = Carbon::now()->format('dmY');
             }
-            $data = [
+
+            // Đếm số quotation number của khách hàng trong ngày đó
+            $count = DetailExport::where('guest_id', $guest->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [$date])
+                ->count();
+
+            // Tăng số quotation number lên 1
+            $count++;
+
+            // Format số đếm thành 2 chữ số nếu nhỏ hơn 10
+            $count = $count < 10 ? "0" . $count : $count;
+
+            // Tạo quotation number mới
+            $resultNumber = $date . "/RN-" . $guest->key . "-" . $count;
+
+            $result = [
                 'guest' => $guest,
                 'count' => $count,
                 'key' => $guest->key,
-                'date' => $date
+                'date' => $date,
+                'resultNumber' => $resultNumber
             ];
         }
-        return $data;
+
+        return $result;
     }
     public function searchRepresent(Request $request)
     {
@@ -452,7 +478,6 @@ class DetailExportController extends Controller
                 ];
             } else {
                 $key = isset($request->key) ? $request->key : $this->generateKey($request->guest_name_display);
-
                 $data = [
                     'guest_name_display' => $request->guest_name_display,
                     'guest_name' => $request->guest_name,
@@ -653,8 +678,11 @@ class DetailExportController extends Controller
     public function getRecentTransaction(Request $data)
     {
         $recentTransaction = QuoteExport::where('product_id', $data['idProduct'])
+            ->leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+            ->where('detailexport.status', '!=', 1)
             ->where('quoteexport.status', 1)
-            ->where('workspace_id', Auth::user()->current_workspace)
+            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->get();
         return $recentTransaction;
     }

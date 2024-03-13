@@ -192,33 +192,46 @@ class Guest extends Model
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($guest) {
-                $nameKey = null;
                 $checkKey = Guest::where('workspace_id', Auth::user()->current_workspace)
+                    ->where('id', '!=', $data['guest_id'])
                     ->where('key', $data['key'])
                     ->first();
 
                 if ($checkKey) {
                     // Tên viết tắt đã tồn tại, thực hiện logic thay đổi giá trị key
-                    $newKey = $data['key'] . ($checkKey->id + 1);
+                    $newKey = $data['key'];
 
-                    // Kiểm tra xem key mới đã tồn tại chưa
-                    $counter = 1;
+                    // Tăng số đằng sau cho đến khi không còn trùng
                     while (Guest::where('workspace_id', Auth::user()->current_workspace)
                         ->where('key', $newKey)
                         ->exists()
                     ) {
-                        // Nếu key đã tồn tại, thay đổi giá trị key và tăng counter
-                        $newKey = $data['key'] . ($checkKey->id + $counter);
-                        $counter++;
+                        // Kiểm tra xem key có kết thúc bằng số không
+                        if (preg_match('/\d+$/', $newKey)) {
+                            // Tăng số đằng sau
+                            $newKey = preg_replace_callback('/(\d+)$/', function ($matches) {
+                                return ++$matches[1];
+                            }, $newKey);
+                        } else {
+                            // Nếu không có số, thêm số 1 vào sau key
+                            $newKey .= '1';
+                        }
                     }
-                    $nameKey = $newKey;
+
+                    return response()->json([
+                        'success' => false,
+                        'msg' => 'Tên viết tắt đã tồn tại!',
+                        'key' => $newKey,
+                    ]);
+                } else {
+                    $key = isset($data['key']) ? $data['key'] : $this->generateKey($data['guest_name_display']);
+                    $guest->guest_name_display = $data['guest_name_display'];
+                    $guest->key = $key;
+                    $guest->guest_name = $data['guest_name'];
+                    $guest->guest_address = $data['guest_address'];
+                    $guest->guest_code = $data['guest_code'];
+                    $guest->save();
                 }
-                $guest->guest_name_display = $data['guest_name_display'];
-                $guest->key = $nameKey;
-                $guest->guest_name = $data['guest_name'];
-                $guest->guest_address = $data['guest_address'];
-                $guest->guest_code = $data['guest_code'];
-                $guest->save();
             }
             $checkRepresent = representGuest::where(function ($query) use ($data) {
                 $query->where('represent_name', $data['represent_guest_name']);
@@ -258,6 +271,21 @@ class Guest extends Model
             'updated_guest' => $guest,
             'updated_represent' => $represent,
         ]);
+    }
+
+    private function generateKey($name)
+    {
+        $key = preg_match_all('/[A-ZĐ]/u', $name, $matches);
+        if ($key > 0) {
+            $key = implode('', $matches[0]);
+        } else {
+            $key = ucfirst($name);
+            $key = preg_match_all('/[A-ZĐ]/u', $key, $matches);
+            $key = implode('', $matches[0]);
+            $key = $key ?: "RN";
+        }
+
+        return $key;
     }
 
     public function updateProvide($data, $id)

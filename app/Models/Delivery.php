@@ -112,6 +112,7 @@ class Delivery extends Model
                 $join->on('delivered.product_id', '=', 'quoteexport.product_id');
             })
             ->join('products', 'products.id', 'delivered.product_id')
+            ->where('quoteexport.status', 1)
             ->where('delivery.id', $id)
             ->select(
                 'quoteexport.product_id',

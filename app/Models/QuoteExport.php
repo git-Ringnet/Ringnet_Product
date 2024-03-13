@@ -167,6 +167,7 @@ class QuoteExport extends Model
                         'status' => 1,
                     ];
                     DB::table($this->table)->insert($dataQuote);
+                    $productIdsToUpdate[] = $product->id;
                 } else {
                     $quoteExport = QuoteExport::where('detailexport_id', $id)
                         ->where('quoteexport.workspace_id', Auth::user()->current_workspace)

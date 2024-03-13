@@ -1600,7 +1600,6 @@
                     idQuote: idQuote
                 },
                 success: function(data) {
-                    console.log(data);
                     $('.idRepresent').val(data.represent_id)
                     $('.numberQute').val(data.quotation_number)
                     $('.nameGuest').val(data.guest_name_display)
@@ -2816,6 +2815,15 @@
         var numberValue = $('input[name="code_delivery"]').val();
         var hasProducts = false;
         var ajaxSuccess = false;
+        var previousProductNames = [];
+
+        function normalizeProductName(name) {
+            // Chuyển tất cả các ký tự thành chữ thường
+            var lowercaseName = name.toLowerCase();
+            // Loại bỏ các dấu
+            var normalized = lowercaseName.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            return normalized;
+        }
 
         $.ajax({
             url: '{{ route('checkCodeDelivery') }}',
@@ -2839,6 +2847,18 @@
 
         for (var i = 1; i < rows.length; i++) {
             if (rows[i].classList.contains('addProduct')) {
+                var productNameInput = rows[i].querySelector('.product_name');
+                var productName = productNameInput.value;
+
+                var normalizedProductName = normalizeProductName(productName);
+
+                if (previousProductNames.includes(normalizedProductName)) {
+                    showNotification('warning', 'Tên sản phẩm bị trùng: ' + productName);
+                    return false;
+                } else {
+                    // Thêm tên sản phẩm đã chuẩn hóa vào mảng các tên sản phẩm đã xuất hiện trước đó
+                    previousProductNames.push(normalizedProductName);
+                }
                 hasProducts = true;
             }
         }

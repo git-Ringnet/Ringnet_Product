@@ -1229,8 +1229,6 @@
 </div>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 <script type="text/javascript">
-
-
     //
     flatpickr("#datePicker", {
         locale: "vn",
@@ -1628,7 +1626,7 @@
             const soLuong = $(
                 "<td class='border-right p-2 text-13 align-top'>" +
                 "<div>" +
-                "<input type='text' class='text-right border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
+                "<input type='number' class='text-right border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "</div>" +
                 "<div class='mt-3 text-13-blue inventory'>Tồn kho: <span class='pl-1 soTonKho'></span></div>" +
@@ -1919,13 +1917,7 @@
                     idGuest: idGuest
                 },
                 success: function(data) {
-                    if (data.key) {
-                        quotation = getQuotation1(data.key, data['count'], data['date']);
-                    } else {
-                        quotation = getQuotation1(data['guest'].guest_name_display, data[
-                            'count'], data['date']);
-                    }
-                    $('input[name="quotation_number"]').val(quotation);
+                    $('input[name="quotation_number"]').val(data['resultNumber']);
                     $('.nameGuest').val(data['guest'].guest_name_display);
                     $('.idGuest').val(data['guest'].id);
                     $.ajax({
@@ -2359,7 +2351,14 @@
                     $('#representativeList').empty();
                     showNotification('success', data.message);
                 } else {
-                    showNotification('warning', data.message);
+                    if (data.key) {
+                        $("input[name='key']").val(data.key)
+                        showNotification('warning', data.msg);
+                        delayAndShowNotification('success', 'Tên viết tắt đã được thay đổi',
+                            500);
+                    } else {
+                        showNotification('warning', data.msg);
+                    }
                 }
             }
         });
@@ -2789,10 +2788,32 @@
 
         var rows = document.querySelectorAll('tr');
         var hasProducts = false;
+        var previousProductNames = [];
+
+        function normalizeProductName(name) {
+            // Chuyển tất cả các ký tự thành chữ thường
+            var lowercaseName = name.toLowerCase();
+            // Loại bỏ các dấu
+            var normalized = lowercaseName.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            return normalized;
+        }
 
         for (var i = 1; i < rows.length; i++) {
             if (rows[i].classList.contains('addProduct')) {
                 var inputs = rows[i].querySelectorAll('input[required]');
+                var productNameInput = rows[i].querySelector('.product_name');
+                var productName = productNameInput.value;
+
+                var normalizedProductName = normalizeProductName(productName);
+
+                if (previousProductNames.includes(normalizedProductName)) {
+                    showNotification('warning', 'Tên sản phẩm bị trùng: ' + productName);
+                    return;
+                } else {
+                    // Thêm tên sản phẩm đã chuẩn hóa vào mảng các tên sản phẩm đã xuất hiện trước đó
+                    previousProductNames.push(normalizedProductName);
+                }
+
                 for (var j = 0; j < inputs.length; j++) {
                     if (inputs[j].value.trim() === '') {
                         showNotification('warning', 'Vui lòng điền đủ thông tin sản phẩm');

@@ -114,6 +114,11 @@ class BillSaleController extends Controller
                 $join->on('product_bill.product_id', '=', 'quoteexport.product_id');
             })
             ->where('bill_sale.id', $id)
+            ->where('quoteexport.status', 1)
+            ->where(function ($query) {
+                $query->where('quoteexport.product_delivery', null)
+                    ->orWhere('quoteexport.product_delivery', 0);
+            })
             ->join('products', 'products.id', 'product_bill.product_id')
             ->select(
                 'quoteexport.product_id',
@@ -185,7 +190,9 @@ class BillSaleController extends Controller
             ->leftJoin('delivery', 'delivery.detailexport_id', 'detailexport.id')
             ->select('*', 'delivery.id as maGiaoHang', 'detailexport.quotation_number as soBG', 'represent_guest.id as represent_id')
             ->first();
-        $lastDeliveryId = DB::table('bill_sale')->max(DB::raw('CAST(SUBSTRING_INDEX(number_bill, "-", -1) AS UNSIGNED)'));
+        $lastDeliveryId = DB::table('bill_sale')
+            ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
+            ->max(DB::raw('CAST(SUBSTRING_INDEX(number_bill, "-", -1) AS UNSIGNED)'));
         $delivery['lastDeliveryId'] = $lastDeliveryId == null ? 0 : $lastDeliveryId;
         return $delivery;
     }

@@ -26,6 +26,7 @@ class Delivered extends Model
 
     public function addDelivered($data, $id)
     {
+        $productID = null;
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $price = str_replace(',', '', $data['product_price'][$i]);
             if (!empty($data['price_import'][$i])) {
@@ -52,6 +53,7 @@ class Delivered extends Model
                 ];
                 $product = new Products($dataProduct);
                 $product->save();
+                $productID = $product->id;
             } else {
                 $product = Products::where('id', $data['product_id'][$i])->first();
                 if ($product) {
@@ -77,7 +79,7 @@ class Delivered extends Model
             $tolTax = ($data['product_qty'][$i] * $priceExport) + $priceTax;
             $dataDelivered = [
                 'delivery_id' => $id,
-                'product_id' => $data['product_id'][$i],
+                'product_id' => $data['product_id'][$i] == null ? $productID : $data['product_id'][$i],
                 'deliver_qty' => $data['product_qty'][$i],
                 'price_export' => $priceExport,
                 'product_total_vat' => $tolTax,
@@ -138,6 +140,7 @@ class Delivered extends Model
                         'updated_at' => Carbon::now(),
                         'product_delivery' => $id,
                         'qty_delivery' => $data['product_qty'][$i],
+                        'status' => '1'
                     ];
                     DB::table('quoteexport')->insert($dataQuote);
                 }

@@ -2187,13 +2187,7 @@
                     idGuest: idGuest
                 },
                 success: function(data) {
-                    if (data.key) {
-                        quotation = getQuotation(data.key, data['count'], data['date']);
-                    } else {
-                        quotation = getQuotation(data['provide'].provide_name_display, data[
-                            'count'], data['date']);
-                    }
-                    $('input[name="quotation_number"]').val(quotation);
+                    $('input[name="quotation_number"]').val(data.resultNumber);
                     $('.nameGuest').val(data['guest'].guest_name_display);
                     $('.idGuest').val(data['guest'].id);
                     $.ajax({
@@ -3190,10 +3184,32 @@
 
         var rows = document.querySelectorAll('tr');
         var hasProducts = false;
+        var previousProductNames = [];
+
+        function normalizeProductName(name) {
+            // Chuyển tất cả các ký tự thành chữ thường
+            var lowercaseName = name.toLowerCase();
+            // Loại bỏ các dấu
+            var normalized = lowercaseName.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            return normalized;
+        }
 
         for (var i = 1; i < rows.length; i++) {
             if (rows[i].classList.contains('addProduct')) {
                 var inputs = rows[i].querySelectorAll('input[required]');
+                var productNameInput = rows[i].querySelector('.product_name');
+                var productName = productNameInput.value;
+
+                var normalizedProductName = normalizeProductName(productName);
+
+                if (previousProductNames.includes(normalizedProductName)) {
+                    showNotification('warning', 'Tên sản phẩm bị trùng: ' + productName);
+                    return;
+                } else {
+                    // Thêm tên sản phẩm đã chuẩn hóa vào mảng các tên sản phẩm đã xuất hiện trước đó
+                    previousProductNames.push(normalizedProductName);
+                }
+                
                 for (var j = 0; j < inputs.length; j++) {
                     if (inputs[j].value.trim() === '') {
                         showNotification('warning', 'Vui lòng điền đủ thông tin sản phẩm');
