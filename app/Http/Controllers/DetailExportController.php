@@ -426,17 +426,23 @@ class DetailExportController extends Controller
 
             if ($checkKey) {
                 // Tên viết tắt đã tồn tại, thực hiện logic thay đổi giá trị key
-                $newKey = $request->key . ($checkKey->id + 1);
+                $newKey = $request->key;
 
-                // Kiểm tra xem key mới đã tồn tại chưa
-                $counter = 1;
+                // Tăng số đằng sau cho đến khi không còn trùng
                 while (Guest::where('workspace_id', Auth::user()->current_workspace)
                     ->where('key', $newKey)
                     ->exists()
                 ) {
-                    // Nếu key đã tồn tại, thay đổi giá trị key và tăng counter
-                    $newKey = $request->key . ($checkKey->id + $counter);
-                    $counter++;
+                    // Kiểm tra xem key có kết thúc bằng số không
+                    if (preg_match('/\d+$/', $newKey)) {
+                        // Tăng số đằng sau
+                        $newKey = preg_replace_callback('/(\d+)$/', function ($matches) {
+                            return ++$matches[1];
+                        }, $newKey);
+                    } else {
+                        // Nếu không có số, thêm số 1 vào sau key
+                        $newKey .= '1';
+                    }
                 }
 
                 $response = [

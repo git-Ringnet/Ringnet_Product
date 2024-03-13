@@ -55,9 +55,6 @@ class PayExport extends Model
         // Kiểm tra xem thanh toán có bằng 0 hay không
         $paymentIsZero = $payment == 0;
 
-        // Kiểm tra xem kết quả còn lớn hơn 0 hay không
-        $resultIsGreaterThanZero = $result > 0;
-
         // Kiểm tra xem ngày thanh toán có phải là ngày hôm nay hay không
         $datePayIsToday = $date_pay->isToday();
 
@@ -71,19 +68,25 @@ class PayExport extends Model
         $datePayIsGreaterThanNowPlus4Days = $date_pay->greaterThan(Carbon::now()->addDays(4));
 
         // Kiểm tra các điều kiện
-        if (($paymentIsZero && $resultIsGreaterThanZero) || (!$paymentIsZero && $resultIsGreaterThanZero && $datePayIsGreaterThanNowPlus4Days)) {
-            $status = 1;
-        } elseif (($paymentIsZero && $resultIsGreaterThanZero) || (!$paymentIsZero && $resultIsGreaterThanZero && $datePayIsLessThanOrEqualNowMinus3Days)) {
-            $status = 3;
-        } elseif (($paymentIsZero && $resultIsGreaterThanZero) || (!$paymentIsZero && $resultIsGreaterThanZero && $datePayIsLessThanNow)) {
-            $status = 4;
-        } elseif ($result == 0) {
+        if ($result == 0) {
+            // Nếu kết quả bằng 0
             $status = 2;
         } elseif ($datePayIsToday) {
+            // Nếu ngày thanh toán là ngày hôm nay
             $status = 6;
+        } elseif ($result > 0 && $paymentIsZero) {
+            // Nếu kết quả lớn hơn 0 và thanh toán bằng 0
+            $status = 1;
+        } elseif ($result > 0 && $datePayIsGreaterThanNowPlus4Days) {
+            // Nếu kết quả lớn hơn 0, và ngày thanh toán lớn hơn ngày hiện tại cộng 4 ngày
+            $status = 1;
+        } elseif ($result > 0 && $datePayIsLessThanOrEqualNowMinus3Days) {
+            // Nếu kết quả lớn hơn 0, và ngày thanh toán nhỏ hơn hoặc bằng ngày hiện tại trừ 3 ngày
+            $status = 3;
+        } elseif ($result > 0 && $datePayIsLessThanNow) {
+            // Nếu kết quả lớn hơn 0, và ngày thanh toán nhỏ hơn ngày hiện tại
+            $status = 4;
         }
-
-        dd($status);
 
         $dataPay = [
             'detailexport_id' => $data['detailexport_id'],
