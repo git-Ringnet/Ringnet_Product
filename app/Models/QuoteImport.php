@@ -97,12 +97,29 @@ class QuoteImport extends Model
                 ->delete();
         }
         for ($i = 0; $i < count($data['product_name']); $i++) {
+            // Kiểm tra và thêm sản phẩm mới vào kho hàng
+            $checkProduct = Products::where('product_name', $data['product_name'][$i])
+            ->where('workspace_id',Auth::user()->current_workspace)
+            ->first();
+            if (!$checkProduct) {
+                $dataProduct = [
+                    'product_code' => $data['product_code'][$i],
+                    'product_name' => $data['product_name'][$i],
+                    'product_unit' => $data['product_unit'][$i],
+                    'product_tax' => $data['product_tax'][$i],
+                    'product_inventory' => 0,
+                    'check_seri' => 1,
+                    'workspace_id' => Auth::user()->current_workspace
+                ];
+                DB::table('products')->insert($dataProduct);
+            }
+
             // Lấy sản phẩm cần sửa
             $dataUpdate = QuoteImport::where('id', $data['listProduct'][$i])
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             $price_export = floatval(str_replace(',', '', $data['price_export'][$i]));
-            $total_price = floatval(str_replace(',','',$data['product_qty'][$i])) * $price_export;
+            $total_price = floatval(str_replace(',', '', $data['product_qty'][$i])) * $price_export;
             if ($dataUpdate) {
                 if (
                     $dataUpdate->product_code != $data['product_code'][$i] || $dataUpdate->product_name != $data['product_name'][$i] || $dataUpdate->product_unit != $data['product_unit'][$i] ||

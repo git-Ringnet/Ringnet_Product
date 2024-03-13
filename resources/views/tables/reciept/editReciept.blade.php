@@ -31,7 +31,7 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="last-span">{{ $reciept->id }} </span>
+                    <span class="last-span">{{ $reciept->number_bill }} </span>
                     @if ($reciept->status == 1)
                         <span style="color: #858585; font-size:13px;" class="btn-status">Nháp</span>
                     @else

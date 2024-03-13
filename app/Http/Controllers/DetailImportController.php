@@ -135,8 +135,9 @@ class DetailImportController extends Controller
             $represent = ProvideRepesent::where('provide_id', $import->provide_id)->get();
             $price_effect = DateForm::where('workspace_id', Auth::user()->current_workspace)->where('form_field', 'import')->get();
             $terms_pay = DateForm::where('workspace_id', Auth::user()->current_workspace)->where('form_field', 'termpay')->get();
+            $id_priceeffect = DateForm::where('form_desc', $import->price_effect)->first();
+            $id_termpay = DateForm::where('form_desc', $import->terms_pay)->first();
         }
-        // $provides = Provides::all();
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         $title = $import->quotation_number;
         $product = QuoteImport::where('detailimport_id', $import->id)->get();
@@ -144,7 +145,7 @@ class DetailImportController extends Controller
         $history = HistoryImport::where('detailImport_id', $id)->get();
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename', 'represent', 'price_effect', 'terms_pay'));
+        return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename', 'represent', 'price_effect', 'terms_pay', 'id_priceeffect', 'id_termpay'));
     }
 
     /**

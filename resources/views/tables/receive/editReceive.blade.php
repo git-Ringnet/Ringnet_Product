@@ -33,7 +33,7 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="last-span">{{ $receive->id }}</span>
+                    <span class="last-span">{{ $receive->delivery_code }}</span>
                     @if ($receive->status == 1)
                         <span style="color: #858585; font-size:13px;" class="btn-status">Chưa nhận </span>
                     @else

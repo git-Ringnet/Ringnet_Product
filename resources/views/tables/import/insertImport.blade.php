@@ -1283,6 +1283,7 @@
                                     $('#' + id).closest('div').find('.closeModal')[0].click()
                                     $(id == "import" ? '#price_effect' : '#terms_pay').val(data
                                         .data);
+                                        $(id == "import" ? '#price_effect' : '#terms_pay').attr('data-id',data.id);
                                     if (id == "import") {
                                         var price_effect = `
                                         <li class="border" id="` + data.id +

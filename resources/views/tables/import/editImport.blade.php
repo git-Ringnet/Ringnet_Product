@@ -318,9 +318,8 @@
                                             <button type="button" data-toggle="dropdown"
                                                 class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                                 id="addRowTable" style="margin-right:10px">
-                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                                    width="14" height="14" viewBox="0 0 18 18"
-                                                    fill="none">
+                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
+                                                    height="14" viewBox="0 0 18 18" fill="none">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                         d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
                                                         fill="#42526E"></path>
@@ -334,9 +333,8 @@
                                             <button type="button" data-toggle="dropdown"
                                                 class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                                 id="" style="margin-right:10px">
-                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                                    width="14" height="14" viewBox="0 0 18 18"
-                                                    fill="none">
+                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
+                                                    height="14" viewBox="0 0 18 18" fill="none">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                         d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
                                                         fill="#42526E"></path>
@@ -350,9 +348,8 @@
                                             <button type="button" data-toggle="dropdown"
                                                 class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                                 id="" style="margin-right:10px">
-                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                                    width="14" height="14" viewBox="0 0 18 18"
-                                                    fill="none">
+                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
+                                                    height="14" viewBox="0 0 18 18" fill="none">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                         d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
                                                         fill="#42526E"></path>
@@ -363,8 +360,7 @@
                                                 <span class="text-table">Thêm hàng loạt</span>
                                             </button>
 
-                                            <button type="button"
-                                                class="btn-option py-1 px-2 bg-white border-0">
+                                            <button type="button" class="btn-option py-1 px-2 bg-white border-0">
                                                 <svg width="24" height="24" viewBox="0 0 24 24"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -602,7 +598,8 @@
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
                                     id="price_effect" value="{{ $import->price_effect }}" name="price_effect"
-                                    style="flex:2;" placeholder="Chọn thông tin">
+                                    style="flex:2;" placeholder="Chọn thông tin" readonly
+                                    @if ($id_priceeffect) data-id="{{ $id_priceeffect->id }}" @endif>
                                 <ul id="listPriceEffect"
                                     class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
                                     style="z-index: 99;">
@@ -625,7 +622,35 @@
                                                         class="search-priceeffect search-price-effect">
                                                         <span class="text-13-black">{{ $price->form_name }}</span>
                                                     </a>
-                                                    <a type="button" data-target="#formModalquote"
+
+                                                    <div class="dropdown">
+                                                        <button type="button" data-toggle="dropdown"
+                                                            class="btn-save-print d-flex align-items-center h-100"
+                                                            style="margin-right:10px">
+                                                            <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu date-form-setting"
+                                                            style="z-index: 100;">
+                                                            <a class="dropdown-item search-date-form"
+                                                                data-toggle="modal" data-target="#formModalquote"
+                                                                data-name="import" data-id="{{ $price->id }}"
+                                                                id="{{ $price->id }}"><i
+                                                                    class="fa-regular fa-pen-to-square"
+                                                                    aria-hidden="true"></i></a>
+                                                            <a class="dropdown-item delete-item" href="#"
+                                                                data-id="{{ $price->id }}"
+                                                                data-name="priceeffect"><i
+                                                                    class="fa-solid fa-trash-can"
+                                                                    aria-hidden="true"></i></a>
+                                                            <a class="dropdown-item set-default default-id"
+                                                                id="default-id{{ $price->id }}" href="#"
+                                                                data-name="import" data-id="{{ $price->id }}">
+                                                                <i class="fa-solid fa-link" aria-hidden="true"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- <a type="button" data-target="#formModalquote"
                                                         data-name="import" data-id="{{ $price->id }}"
                                                         id="{{ $price->id }}" class="edit-guest">
                                                         <span>
@@ -642,7 +667,7 @@
                                                                     fill="black" />
                                                             </svg>
                                                         </span>
-                                                    </a>
+                                                    </a> --}}
                                                 </li>
                                             @endforeach
                                         @endif
@@ -669,7 +694,8 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
                                     value="{{ $import->terms_pay }}" id="terms_pay" name="terms_pay"
-                                    style="flex:2;" placeholder="Chọn thông tin">
+                                    style="flex:2;" placeholder="Chọn thông tin" readonly
+                                    @if ($id_termpay) data-id="{{ $id_termpay->id }}" @endif>
                                 <ul id="listTermsPay"
                                     class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
                                     style="z-index: 99;">
@@ -692,7 +718,35 @@
                                                         class="search-termpay search-term-pay">
                                                         <span class="text-13-black">{{ $term->form_name }}</span>
                                                     </a>
-                                                    <a type="button" data-target="#formModalquote"
+
+                                                    <div class="dropdown">
+                                                        <button type="button" data-toggle="dropdown"
+                                                            class="btn-save-print d-flex align-items-center h-100"
+                                                            style="margin-right:10px">
+                                                            <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu date-form-setting"
+                                                            style="z-index: 100;">
+                                                            <a class="dropdown-item search-date-form"
+                                                                data-toggle="modal" data-target="#formModalquote"
+                                                                data-name="import" data-id="{{ $term->id }}"
+                                                                id="{{ $term->id }}"><i
+                                                                    class="fa-regular fa-pen-to-square"
+                                                                    aria-hidden="true"></i></a>
+                                                            <a class="dropdown-item delete-item" href="#"
+                                                                data-id="{{ $term->id }}"
+                                                                data-name="priceeffect"><i
+                                                                    class="fa-solid fa-trash-can"
+                                                                    aria-hidden="true"></i></a>
+                                                            <a class="dropdown-item set-default default-id"
+                                                                id="default-id{{ $term->id }}" href="#"
+                                                                data-name="import" data-id="{{ $term->id }}">
+                                                                <i class="fa-solid fa-link" aria-hidden="true"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- <a type="button" data-target="#formModalquote"
                                                         data-name="import" data-id="{{ $term->id }}"
                                                         id="{{ $term->id }}" class="edit-guest">
                                                         <span>
@@ -709,7 +763,7 @@
                                                                     fill="black" />
                                                             </svg>
                                                         </span>
-                                                    </a>
+                                                    </a> --}}
                                                 </li>
                                             @endforeach
                                         @endif
