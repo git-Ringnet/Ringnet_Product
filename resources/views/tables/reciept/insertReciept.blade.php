@@ -468,7 +468,6 @@
                                                             name='product_qty[]'>
                                                         <input type='hidden' class='tonkho'>
                                                     </div>
-                                                    <div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='pl-1 soTonKho'>35</span></div>
                                             </td>
                                             <td class="border-right p-2 text-13 align-top">
                                                 <div>
@@ -476,8 +475,6 @@
                                                         value="` + formatCurrency(element.price_export) + `"
                                                         autocomplete='off' name="price_export[]" required>
                                                 </div>
-                                                <div class='mt-3 text-13-blue transaction'>Giao dịch gần đây</div>
-                                            
                                             </td>
                                             <td class="border-right p-2 text-13 align-top">
                                                 <input readonly type="text" name="product_tax[]" 

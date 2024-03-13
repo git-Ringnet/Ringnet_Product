@@ -1021,7 +1021,6 @@
                     provide_address_delivery: provide_address_delivery
                 },
                 success: function(data) {
-                    console.log(data);
                     $('#listPriceEffect li').empty();
                     $('#listTermsPay li').empty();
                     if (data.success == true) {
@@ -1169,13 +1168,26 @@
                         $('#more_info').show();
                         $('#more_info1').show();
                     } else {
-
-                        showNotification('warning', data.msg)
+                        if (data.key) {
+                            $("input[name='key']").val(data.key)
+                            showNotification('warning', data.msg);
+                            delayAndShowNotification('success', 'Tên viết tắt đã được thay đổi',
+                                500);
+                        } else {
+                            showNotification('warning', data.msg)
+                        }
                     }
                 }
             });
         }
     });
+
+
+    function delayAndShowNotification(type, message, delayTime) {
+        setTimeout(function() {
+            showNotification(type, message);
+        }, delayTime);
+    }
 
     $(document).on('click', '.closeModal', function(e) {
         e.preventDefault();
@@ -1389,7 +1401,7 @@
                                 }
                                 $('#' + (id == "import" ? "listPriceEffect" : "listTermsPay")).find(
                                     'li#' + data.id + " span").text(data.form_name)
-                                    $('#' + id).closest('div').find('.closeModal')[0].click()
+                                $('#' + id).closest('div').find('.closeModal')[0].click()
                                 showNotification('success', data.msg)
                             } else {
                                 showNotification('warning', data.msg)
