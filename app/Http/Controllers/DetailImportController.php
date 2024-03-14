@@ -359,7 +359,7 @@ class DetailImportController extends Controller
                 ->first();
             if ($checkKey) {
                 // Tên viết tắt đã tồn tại, thực hiện logic thay đổi giá trị key
-                $newKey = $request->key . ($checkKey->id);
+                $newKey = $request->key;
 
                 // Kiểm tra xem key mới đã tồn tại chưa
                 $counter = 1;
@@ -367,9 +367,16 @@ class DetailImportController extends Controller
                     ->where('key', $newKey)
                     ->exists()
                 ) {
-                    // Nếu key đã tồn tại, thay đổi giá trị key và tăng counter
-                    $newKey = $request->key . ($checkKey->id + $counter);
-                    $counter++;
+                    // Kiểm tra xem key có kết thúc bằng số không
+                    if (preg_match('/\d+$/', $newKey)) {
+                        // Tăng số đằng sau
+                        $newKey = preg_replace_callback('/(\d+)$/', function ($matches) {
+                            return ++$matches[1];
+                        }, $newKey);
+                    } else {
+                        // Nếu không có số, thêm số 1 vào sau key
+                        $newKey .= '1';
+                    }
                 }
 
                 $msg = response()->json([
@@ -709,7 +716,8 @@ class DetailImportController extends Controller
                     ->where('id', $request->present_id)
                     ->update($dataRepresent);
                 $msg = response()->json([
-                    'success' => true, 'msg' => 'Chỉnh sửa thông tin thành công', 'data' => $request->provide_represent
+                    'success' => true, 'msg' => 'Chỉnh sửa thông tin thành công', 'data' => $request->provide_represent,
+                    'id' => $request->present_id
                 ]);
             }
         } else {
@@ -879,11 +887,11 @@ class DetailImportController extends Controller
         $data = [];
         $product = Products::where('product_name', $request->product_name)->first();
         if ($product) {
-            $history = QuoteImport::leftJoin('detailimport','detailimport.id','quoteimport.detailimport_id')
-            ->where('quoteimport.product_name', $request->product_name)
-            ->where('quoteimport.workspace_id',Auth::user()->current_workspace)
-            ->where('detailimport.status',2)
-            ->get();
+            $history = QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
+                ->where('quoteimport.product_name', $request->product_name)
+                ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
+                ->where('detailimport.status', 2)
+                ->get();
             $data['history'] = $history;
         }
         $data['products'] = $product;

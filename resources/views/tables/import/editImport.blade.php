@@ -243,7 +243,8 @@
                                                     </td>
                                                     <td class="border-right p-2 text-13 align-top">
                                                         <div class="">
-                                                            <input oninput="checkQty(this,{{ $item->product_qty }})"
+                                                            <input 
+                                                            {{-- oninput="checkQty(this,{{ $item->product_qty }})" --}}
                                                                 type="text" name="product_qty[]"
                                                                 class="border-0 px-2 py-1 w-100 quantity-input text-right"
                                                                 value="{{ number_format($item->product_qty) }}"
@@ -257,7 +258,7 @@
                                                     <td class="border-right p-2 text-13 align-top">
                                                         <input type="text" name="price_export[]"
                                                             class="border-0 px-2 py-1 w-100 price_export text-right"
-                                                            value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
+                                                            value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                         <div class='mt-3 text-13-blue text-right'>Giao dịch gần đây
                                                         </div>
@@ -423,8 +424,8 @@
                                                 name="search-info" class="search-info">
                                                 <span class="text-13-black">{{ $item->provide_name_display }}</span>
                                             </a>
-                                            <a type="button" data-toggle="modal" data-target="#guestModal"
-                                                data-id="{{ $item->id }}" class="edit-guest">
+                                            <a type="button" data-toggle="modal" data-target="#editProvide"
+                                                data-id="{{ $item->id }}" class="search-infoEdit">
                                                 <span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                         height="14" viewBox="0 0 14 14" fill="none">
@@ -858,6 +859,7 @@
     idModal="modalAddRepresent"></x-form-modal-import>
 <x-form-modal-import title="Hiệu lực báo giá" name="import" idModal="formModalquote"></x-form-modal-import>
 <x-form-modal-import title="Điều khoản thanh toán" name="termpay" idModal="formModalTermPay"></x-form-modal-import>
+<x-form-modal-import title="Chỉnh sửa nhà cung cấp" name="provide" idModal="editProvide"></x-form-modal-import>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
@@ -1073,6 +1075,7 @@
 
     function showData(classname, inputShow, inputHide) {
         $(document).on('click', '.' + classname, function(e) {
+            console.log(classname);
             e.preventDefault();
             id = $(this).attr('id');
             table = $(this).attr('name');
@@ -1143,6 +1146,16 @@
             },
             success: function(data) {
                 if (data.success) {
+                    if (data.list == "represent") {
+                        var inputName = $('#represent')
+                    } else if (data.list == "listPriceEffect") {
+                        var inputName = $('#price_effect')
+                    } else {
+                        var inputName = $('#terms_pay')
+                    }
+                    if (data.id == $(inputName).attr('data-id')) {
+                        $(inputName).val('')
+                    }
                     $('#' + data.list + ' li#' + data.id).remove();
                     showNotification('success', data.msg)
                 } else {
@@ -1191,8 +1204,258 @@
         }
     })
 
+    $(document).on('click', '.search-infoEdit', function() {
+        var id = $(this).data('id');
+        if (id) {
+            $.ajax({
+                url: "{{ route('getDataForm') }}",
+                type: "get",
+                data: {
+                    id: id,
+                    status: 'eidt',
+                },
+                success: function(data) {
+                    $('#editProvide input[name="provide_name_display"]').val(data
+                        .provide_name_display)
+                    $('#editProvide input[name="provide_code"]').val(data.provide_code)
+                    $('#editProvide input[name="provide_address"]').val(data.provide_address)
+                    $('#editProvide input[name="key"]').val(data.key)
+                    $('#editProvide input[name="provide_name"]').val(data.provide_name)
+                    $('#editProvide #editProvide').attr('data-id', data.id)
+                }
+            })
+        }
+    })
+
+
+    // function actionForm(id, routeAdd, routeEdit) {
+    //     $('#' + id).click(function() {
+    //         var status = $(this).text().trim();
+    //         var provide_represent = $("input[name='provide_represent_new']").val().trim();
+    //         var provide_email = $("input[name='provide_email_new']").val().trim();
+    //         var provide_phone = $("input[name='provide_phone_new']").val().trim();
+    //         var provide_address_delivery = $("input[name='provide_address_delivery_new']").val().trim();
+
+    //         if (status == 'Thêm mới') {
+    //             if ((provides_id == "" || provide_represent == "") && id == 'addRepresent') {
+    //                 showNotification('warning', 'Vui lòng nhập tên người đại diện')
+    //             } else {
+    //                 if (id == 'addRepresent') {
+    //                     provides_id = $('#provides_id').val();
+    //                     $.ajax({
+    //                         url: routeAdd,
+    //                         type: "get",
+    //                         data: {
+    //                             table: id,
+    //                             provides_id: provides_id,
+    //                             provide_represent: provide_represent,
+    //                             provide_email: provide_email,
+    //                             provide_phone: provide_phone,
+    //                             provide_address_delivery: provide_address_delivery
+    //                         },
+    //                         success: function(data) {
+    //                             if (data.success) {
+    //                                 $("input[name='provide_represent_new']").val('')
+    //                                 $("input[name='provide_email_new']").val('')
+    //                                 $("input[name='provide_phone_new']").val('')
+    //                                 $("input[name='provide_address_delivery_new']").val('')
+    //                                 $('#' + id).closest('div').find('.closeModal')[0].click()
+    //                                 $('#represent_id').val(data.id);
+    //                                 $('#represent').val(data.data);
+    //                                 var newli = `
+    //                                 <li class="border" id="` + data.id +
+    //                                     `">
+    //                                 <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent" id="` +
+    //                                     data.id + `" name="search-represent">
+    //                                     <span class="w-100 text-nav text-dark overflow-hidden">` + data.data +
+    //                                     `</span>
+    //                                 </a>
+
+    //                                 <div class="dropdown">
+    //                                     <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+    //                                         <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+    //                                     </button>
+    //                                 <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+    //                                     <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#modalAddRepresent" data-name="represent" data-id="` +
+    //                                     data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+    //                                     <a class="dropdown-item delete-item" href="#" data-id="` + data.id + `" data-name="represent"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+    //                                     <a class="dropdown-item set-default default-id ` + data.data +
+    //                                     `" id="default-id` + data.id +
+    //                                     `" href="#" data-name="represent" data-id="` + data.id + `">
+    //                                         <i class="fa-solid fa-link-slash" aria-hidden="true"></i> 
+    //                                     </a>
+    //                                 </div>
+    //                                 </div>
+    //                                 </li>
+    //                                 `
+    //                                 $('#listRepresent .p-1').after(newli)
+
+    //                                 showNotification('success', data.msg)
+    //                             } else {
+    //                                 showNotification('warning', data.msg)
+    //                             }
+    //                         }
+    //                     })
+    //                 } else {
+    //                     inputName = $('#form-name-' + id).val().trim();
+    //                     inputDesc = $('#form-desc-' + id).val()
+    //                     $.ajax({
+    //                         url: routeAdd,
+    //                         type: "get",
+    //                         data: {
+    //                             table: id,
+    //                             inputName: inputName,
+    //                             inputDesc: inputDesc,
+    //                         },
+    //                         success: function(data) {
+    //                             $('.btn.btn-default').click();
+    //                             $('#form-name-' + id).val('')
+    //                             $('#form-desc-' + id).val('')
+    //                             if (data.success) {
+    //                                 $('#form-name-' + id).val('')
+    //                                 $('#form-desc-' + id).val('')
+    //                                 $('#' + id).closest('div').find('.closeModal')[0].click()
+    //                                 $(id == "import" ? '#price_effect' : '#terms_pay').val(data
+    //                                     .data);
+    //                                 if (id == "import") {
+    //                                     var price_effect = `
+    //                                     <li class="border" id="` + data.id +
+    //                                         `">
+    //                                         <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="` +
+    //                                         data.id + `" name="search-price-effect">
+    //                                             <span class="w-100 text-nav text-dark overflow-hidden">` + data
+    //                                         .inputName +
+    //                                         `</span>
+    //                                         </a>
+
+    //                                         <div class="dropdown">
+    //                                             <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+    //                                                 <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+    //                                             </button>
+    //                                             <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+    //                                                 <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
+    //                                         data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+    //                                                 <a class="dropdown-item delete-item" href="#" data-id="` + data
+    //                                         .id + `" data-name="priceeffect"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+    //                                                 <a class="dropdown-item set-default default-id ` + data.data +
+    //                                         `" id="default-id` + data.id +
+    //                                         `" href="#" data-name="import" data-id="` + data.id + `">
+    //                                                     <i class="fa-solid fa-link" aria-hidden="true"></i> 
+    //                                                 </a>
+    //                                             </div>
+    //                                         </div>
+    //                                     </li>
+    //                                     `
+    //                                 } else {
+    //                                     var term_pay = `
+    //                                     <li class="border" id="` + data.id +
+    //                                         `">
+    //                                         <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay" id="` +
+    //                                         data.id + `" name="search-term-pay">
+    //                                             <span class="w-100 text-nav text-dark overflow-hidden">` + data
+    //                                         .inputName +
+    //                                         `</span>
+    //                                         </a>
+
+    //                                         <div class="dropdown">
+    //                                             <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+    //                                                 <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+    //                                             </button>
+    //                                             <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+    //                                                 <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
+    //                                         data.id + `" id="` + data.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+    //                                                 <a class="dropdown-item delete-item" href="#" data-id="` + data
+    //                                         .id + `" data-name="termpay"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+    //                                                 <a class="dropdown-item set-default default-id ` + data.data +
+    //                                         `" id="default-id` + data.id +
+    //                                         `" href="#" data-name="termpay" data-id="` + data.id + `">
+    //                                                     <i class="fa-solid fa-link" aria-hidden="true"></i> 
+    //                                                 </a>
+    //                                             </div>
+    //                                         </div>
+    //                                     </li>
+    //                                     `
+    //                                 }
+    //                                 $(id == "import" ? $('#listPriceEffect .p-1').after(
+    //                                     price_effect) : $('#listTermsPay .p-1').after(
+    //                                     term_pay))
+    //                                 showNotification('success', data.msg)
+    //                             } else {
+    //                                 showNotification('warning', data.msg)
+    //                             }
+    //                         }
+    //                     })
+    //                 }
+    //             }
+    //         } else {
+    //             present_id = $(this).attr('data-id');
+    //             if (id == 'addRepresent') {
+    //                 $.ajax({
+    //                     url: routeEdit,
+    //                     type: "get",
+    //                     data: {
+    //                         table: id,
+    //                         present_id: present_id,
+    //                         provide_represent: provide_represent,
+    //                         provide_email: provide_email,
+    //                         provide_phone: provide_phone,
+    //                         provide_address_delivery: provide_address_delivery
+    //                     },
+    //                     success: function(data) {
+    //                         if (data.success) {
+    //                             $('#' + id).closest('div').find('.closeModal')[0].click()
+    //                             showNotification('suscess', data.msg)
+
+    //                         } else {
+    //                             showNotification('warning', data.msg)
+    //                         }
+    //                     }
+    //                 })
+    //             } else {
+    //                 inputName = $('#form-name-' + id).val().trim();
+    //                 inputDesc = $('#form-desc-' + id).val()
+    //                 inputField = $('#form_field').val()
+    //                 $.ajax({
+    //                     url: routeEdit,
+    //                     type: "get",
+    //                     data: {
+    //                         table: id,
+    //                         present_id: present_id,
+    //                         inputName: inputName,
+    //                         inputDesc: inputDesc,
+    //                         inputField: inputField
+    //                     },
+    //                     success: function(data) {
+    //                         console.log(id);
+    //                         console.log(data);
+    //                         if (data.success) {
+    //                             $('#' + id).closest('div').find('.closeModal')[0].click()
+    //                             var get_dataID = (id == "import" ? $('#price_effect').data('id') :
+    //                                 $('#terms_pay').data('id'))
+    //                             console.log(get_dataID);
+    //                             if (get_dataID != null) {
+    //                                 if (get_dataID == data.id) {
+    //                                     $('#' + (id == "import" ? "price_effect" : "terms_pay"))
+    //                                         .val(data.form_desc)
+    //                                 }
+    //                             }
+    //                             $('#' + (id == "import" ? "listPriceEffect" : "listTermsPay")).find(
+    //                                 'li#' + data.id + " span").text(data.form_name)
+    //                             showNotification('suscess', data.msg)
+    //                         } else {
+    //                             showNotification('warning', data.msg)
+    //                         }
+    //                     }
+    //                 })
+
+    //             }
+    //         }
+    //     })
+
+    // }
     function actionForm(id, routeAdd, routeEdit) {
         $('#' + id).click(function() {
+            console.log(id);
             var status = $(this).text().trim();
             var provide_represent = $("input[name='provide_represent_new']").val().trim();
             var provide_email = $("input[name='provide_email_new']").val().trim();
@@ -1223,8 +1486,8 @@
                                     $("input[name='provide_phone_new']").val('')
                                     $("input[name='provide_address_delivery_new']").val('')
                                     $('#' + id).closest('div').find('.closeModal')[0].click()
-                                    $('#represent_id').val(data.id);
-                                    $('#represent').val(data.data);
+                                    $('#represent_id').val(data.id)
+                                    $('#represent').val(data.data)
                                     var newli = `
                                     <li class="border" id="` + data.id +
                                         `">
@@ -1252,11 +1515,8 @@
                                     </li>
                                     `
                                     $('#listRepresent .p-1').after(newli)
-
-                                    showNotification('success', data.msg)
-                                } else {
-                                    showNotification('warning', data.msg)
                                 }
+                                showNotification('success', data.msg)
                             }
                         })
                     } else {
@@ -1271,15 +1531,14 @@
                                 inputDesc: inputDesc,
                             },
                             success: function(data) {
-                                $('.btn.btn-default').click();
-                                $('#form-name-' + id).val('')
-                                $('#form-desc-' + id).val('')
                                 if (data.success) {
                                     $('#form-name-' + id).val('')
                                     $('#form-desc-' + id).val('')
                                     $('#' + id).closest('div').find('.closeModal')[0].click()
                                     $(id == "import" ? '#price_effect' : '#terms_pay').val(data
                                         .data);
+                                    $(id == "import" ? '#price_effect' : '#terms_pay').attr(
+                                        'data-id', data.id);
                                     if (id == "import") {
                                         var price_effect = `
                                         <li class="border" id="` + data.id +
@@ -1342,6 +1601,7 @@
                                     $(id == "import" ? $('#listPriceEffect .p-1').after(
                                         price_effect) : $('#listTermsPay .p-1').after(
                                         term_pay))
+
                                     showNotification('success', data.msg)
                                 } else {
                                     showNotification('warning', data.msg)
@@ -1367,7 +1627,7 @@
                         success: function(data) {
                             if (data.success) {
                                 $('#' + id).closest('div').find('.closeModal')[0].click()
-                                showNotification('suscess', data.msg)
+                                showNotification('success', data.msg)
                             } else {
                                 showNotification('warning', data.msg)
                             }
@@ -1388,21 +1648,32 @@
                             inputField: inputField
                         },
                         success: function(data) {
-                            $('#' + id).closest('div').find('.closeModal')[0].click()
+                            console.log(data);
                             if (data.success) {
-                                showNotification('suscess', data.msg)
+                                var get_dataID = (inputField == "import" ? $('#price_effect').data(
+                                    'id') : $('#terms_pay').data('id'))
+                                if (get_dataID != null) {
+                                    if (get_dataID == data.id) {
+                                        $('#' + (inputField == "import" ? "price_effect" :
+                                                "terms_pay"))
+                                            .val(data.form_desc)
+                                    }
+                                }
+                                $('#' + (inputField == "import" ? "listPriceEffect" :
+                                    "listTermsPay")).find(
+                                    'li#' + data.id + " span").text(data.form_name)
+                                $('#' + id).closest('div').find('.closeModal')[0].click()
+                                showNotification('success', data.msg)
                             } else {
                                 showNotification('warning', data.msg)
                             }
                         }
                     })
-
                 }
             }
         })
 
     }
-
 
     actionForm('addRepresent', '{{ route('addNewForm') }}', '{{ route('updateForm') }}')
     actionForm('import', '{{ route('addNewForm') }}', '{{ route('updateForm') }}')
@@ -1450,7 +1721,10 @@
                     provide_address_delivery: provide_address_delivery
                 },
                 success: function(data) {
+                    $('#listPriceEffect li').empty();
+                    $('#listTermsPay li').empty();
                     if (data.success == true) {
+                        quotation = getQuotation(data.key, '1')
                         $('#myInput').val(data.name);
                         $('#provides_id').val(data.id);
                         showNotification('success', data.msg)
@@ -1463,16 +1737,145 @@
                         $("input[name='provide_email']").val('');
                         $("input[name='provide_phone']").val('');
                         $("input[name='provide_address_delivery']").val('');
+                        if (data.id) {
+                            var newLi = `
+                            <li class="p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                            <a href="javascript:void(0)" style="flex:2" id="` + data.id + `" name="search-info" class="search-info">
+                                                <span class="text-13-black">` + data.name +
+                                `</span>
+                                            </a>
+                                            <a id="" class="search-infoEdit" type="button" data-toggle="modal" data-target="#editProvide" data-id="` +
+                                data.id + `">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z" fill="black"></path>
+                                                        <path d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z" fill="black"></path>
+                                                        <path d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z" fill="black"></path>
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                        </li>
+                            `;
+                            $('#myUL .p-1').after(newLi)
+                        }
+
+                        if (data.price_effect) {
+                            data.price_effect.forEach(function(element) {
+                                var li = `
+                            <li class="border" id="` +
+                                    element.id +
+                                    `">
+                                <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="` +
+                                    element.id + `" name="search-price-effect">
+                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_name +
+                                    `</span>
+                                </a>
+                                <div class="dropdown">
+                                    <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                        <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="` +
+                                    element.id + `" id="` +
+                                    element.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item delete-item" href="#" data-id="` +
+                                    element.id + `" data-name="priceeffect"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item set-default default-id ` +
+                                    element.form_name + `" id="default-id` +
+                                    element.id + `" href="#" data-name="import" data-id="` +
+                                    element.id + `">
+                                            <i class="fa-solid fa-link" aria-hidden="true"></i> 
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            `;
+                                $('#listPriceEffect .p-1').after(li);
+                            })
+
+                        }
+
+                        if (data.terms_pay) {
+                            data.terms_pay.forEach(function(element) {
+                                var li = `
+                                <li class="border" id="` + element.id +
+                                    `">
+                                <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay" id="` +
+                                    element.id + `" name="search-term-pay">
+                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_name +
+                                    `</span>
+                                </a>
+                                <div class="dropdown">
+                                    <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                        <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModalquote" data-name="import" data-id="2" id="` +
+                                    element.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item delete-item" href="#" data-id="` + element.id + `" data-name="termpay"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item set-default default-id ` + element.form_desc +
+                                    `" id="default-id` + element.id +
+                                    `" href="#" data-name="termpay" data-id="` + element
+                                    .id + `">
+                                            <i class="fa-solid fa-link" aria-hidden="true"></i> 
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            `;
+                                $('#listTermsPay .p-1').after(li);
+                            })
+
+                        }
+
+                        if (data.id_represent) {
+                            $('#represent').val(data.represent_name)
+                            $('#represent_id').val(data.id_represent)
+                            var newli = `
+                                    <li class="border" id="` + data.id_represent +
+                                `">
+                                    <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent" id="` +
+                                data.id_represent + `" name="search-represent">
+                                        <span class="w-100 text-nav text-dark overflow-hidden">` + data
+                                .represent_name +
+                                `</span>
+                                    </a>
+                                    <div class="dropdown">
+                                        <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                            <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                        </button>
+                                    <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                        <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#modalAddRepresent" data-name="represent" data-id="` +
+                                data.id_represent + `" id="` + data.id_represent + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item delete-item" href="#" data-id="` + data.id_represent + `" data-name="represent"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                        <a class="dropdown-item set-default default-id ` + data.represent_name +
+                                `" id="default-id` + data.id_represent +
+                                `" href="#" data-name="represent" data-id="` + data.id_represent + `">
+                                            <i class="fa-solid fa-link-slash" aria-hidden="true"></i> 
+                                        </a>
+                                    </div>
+                                    </div>
+                                    </li>
+                                    `
+                            $('#listRepresent .p-1').after(newli)
+                        }
                         $('#more_info').show();
                     } else {
-                        showNotification('warning', data.msg)
+                        if (data.key) {
+                            $("input[name='key']").val(data.key)
+                            showNotification('warning', data.msg);
+                            delayAndShowNotification('success', 'Tên viết tắt đã được thay đổi',
+                                500);
+                        } else {
+                            showNotification('warning', data.msg)
+                        }
                     }
                 }
             });
         }
     })
 
-    getProduct('searchProductName ');
+    getProduct('searchProductName');
 
     function getProduct(name) {
         $('#inputcontent tbody tr .' + name).on('click', function() {
@@ -1490,11 +1893,6 @@
                 type: "get",
                 success: function(result) {
                     listProductName.empty()
-                    // inputUnit.val('');
-                    // inputPriceExprot.val('')
-                    // inputRatio.val('')
-                    // inputPriceImport.val('')
-                    // selectTax.val('0')
                     var createLi =
                         '<a class="bg-dark d-flex justify-content-between p-2 position-sticky">' +
                         '<span class="w-100 text-white">Thêm mới</span>' +
@@ -1546,7 +1944,7 @@
                         selectTax.val($(this).attr(
                             'data-tax'))
                         listProductName.hide();
-                        checkDuplicateRows()
+                        // checkDuplicateRows()
                     })
                 }
             })
@@ -1596,7 +1994,7 @@
             })
         }
     })
-    
+
     $(document).on('click', '.closeModal', function(e) {
         e.preventDefault();
         $("input[name='provide_represent_new']").val('')
@@ -1606,6 +2004,72 @@
         $("input[name='form-name-import']").val('')
         $("input[name='form-desc-import']").val('')
     })
+
+
+    $('.modal-dialog #editProvide').on('click', function(e) {
+        e.preventDefault();
+        var id = $('.modal-dialog #editProvide').data('id');
+        var check = false;
+        var provide_name_display = $("#editProvide input[name='provide_name_display']").val().trim();
+        var provide_code = $("#editProvide input[name='provide_code']").val().trim();
+        var provide_address = $("#editProvide input[name='provide_address']").val().trim();
+        var key = $("#editProvide input[name='key']").val().trim();
+        var provide_name = $("#editProvide input[name='provide_name']").val().trim();
+        if (provide_name_display == '') {
+            showNotification('warning', 'Vui lòng nhập tên hiển thị')
+            check = true;
+            return false;
+        }
+        if (provide_code == '') {
+            showNotification('warning', 'Vui lòng nhập mã số thuế')
+            check = true;
+            return false;
+        }
+        if (provide_address == '') {
+            showNotification('warning', 'Vui lòng nhập địa chỉ nhà cung cấp')
+            check = true;
+            return false;
+        }
+        if (!check) {
+            $.ajax({
+                url: "{{ route('updateProvide') }}",
+                type: "get",
+                data: {
+                    id: id,
+                    provide_name_display: provide_name_display,
+                    provide_code: provide_code,
+                    provide_address: provide_address,
+                    key: key,
+                    provide_name: provide_name,
+                },
+                success: function(data) {
+                    if (data.success) {
+                        $('.btn.btn-secondary').click()
+                        if (data.provide_id == $('#provides_id').val()) {
+                            $('#myInput').val(provide_name_display)
+                        }
+                        $('#myUL ul li').find('a#' + data.provide_id + " span").text(
+                            provide_name_display)
+                        $("#editProvide input[name='provide_name_display']").val('')
+                        $("#editProvide input[name='provide_code']").val('')
+                        $("#editProvide input[name='provide_address']").val('')
+                        $("#editProvide input[name='key']").val('')
+                        $("#editProvide input[name='provide_name']").val('')
+                        showNotification('success', 'Chỉnh sửa thông tin thành công !')
+                    } else {
+                        showNotification('warning', 'Nhà cung cấp đã tồn tại !')
+                    }
+                }
+            })
+        }
+    })
+
+
+    function delayAndShowNotification(type, message, delayTime) {
+        setTimeout(function() {
+            showNotification(type, message);
+        }, delayTime);
+    }
 </script>
 </body>
 

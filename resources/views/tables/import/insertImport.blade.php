@@ -642,6 +642,7 @@
             $('#listTermsPay').hide();
         }
     });
+
     $(document).on('click', '#myUL .search-info', function() {
         var provides_id = $(this).attr('id');
         $.ajax({
@@ -683,8 +684,27 @@
                                         <a href="javascript:void(0)"
                                             class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent"
                                             id="` + element.id + `" name="search-represent">
-                                            <span class="w-100 text-13-black">` + element.represent_name + `</span>
+                                            <span class="w-100 text-13-black">` + element.represent_name +
+                                `</span>
                                         </a>
+                                        <div class="dropdown">
+                                                        <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                                            <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+                                                            <a class="dropdown-item search-date-form" data-toggle="modal" data-target="#modalAddRepresent" data-name="represent" data-id="` +
+                                element.id + `" id="` + element.id + `"><i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                                            <a class="dropdown-item delete-item" href="#" data-id="` +
+                                element.id +
+                                `" data-name="represent"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></a>
+                                                            <a class="dropdown-item set-default default-id aaa1" id="default-id` +
+                                element.id +
+                                `" href="#" data-name="represent" data-id="` +
+                                element.id + `">
+                                                                <i class="fa-solid fa-link-slash" aria-hidden="true"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                     </li>`;
                             $('#listRepresent .p-1').after(li);
                             if (element.default == 1) {
@@ -852,6 +872,16 @@
             },
             success: function(data) {
                 if (data.success) {
+                    if (data.list == "represent") {
+                        var inputName = $('#represent')
+                    } else if (data.list == "listPriceEffect") {
+                        var inputName = $('#price_effect')
+                    } else {
+                        var inputName = $('#terms_pay')
+                    }
+                    if (data.id == $(inputName).attr('data-id')) {
+                        $(inputName).val('')
+                    }
                     $('#' + data.list + ' li#' + data.id).remove();
                     showNotification('success', data.msg)
                 } else {
@@ -974,7 +1004,6 @@
                     } else {
                         showNotification('warning', 'Nhà cung cấp đã tồn tại !')
                     }
-                    // console.log(data);
                 }
             })
         }
@@ -1349,6 +1378,7 @@
                                     $(id == "import" ? $('#listPriceEffect .p-1').after(
                                         price_effect) : $('#listTermsPay .p-1').after(
                                         term_pay))
+
                                     showNotification('success', data.msg)
                                 } else {
                                     showNotification('warning', data.msg)
@@ -1373,6 +1403,10 @@
                         },
                         success: function(data) {
                             if (data.success) {
+                                if ($('#represent_id').val() == data.id) {
+                                    $('#represent').val(data.data)
+                                }
+                                $('#listRepresent').find('li#' + data.id + ' span').text(data.data)
                                 $('#' + id).closest('div').find('.closeModal')[0].click()
                                 showNotification('success', data.msg)
                             } else {
@@ -1479,7 +1513,6 @@
                             "" : formatCurrency($(this).attr('data-priceImport')))
                         selectTax.val($(this).attr('data-tax'))
                         listProductName.hide();
-                        // checkDuplicateRows()
                         var product_name = $(this).find("span").text()
                         $.ajax({
                             url: "{{ route('getInventory') }}",
@@ -1542,7 +1575,7 @@
             return false;
         }
 
-      
+
 
         if (!checkProduct()) {
             formSubmit = false
