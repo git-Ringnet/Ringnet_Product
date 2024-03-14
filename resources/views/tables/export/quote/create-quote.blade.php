@@ -2834,7 +2834,7 @@
             var quotetion_number = $('input[name="quotation_number"]').val();
             $('.product_tax').prop('disabled', false);
             $.ajax({
-                url: "{{ route('checkQuotetionExport') }}",
+                url: "{{ route('checkQuotetionExportEdit') }}",
                 type: "get",
                 data: {
                     quotetion_number: quotetion_number,
