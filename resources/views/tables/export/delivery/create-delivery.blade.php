@@ -104,7 +104,8 @@
         {{-- Thông tin sản phẩm --}}
         <div class="content margin-top-38" id="main">
             <section class="content margin-250">
-                <div id="title--fixed" class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
+                <div id="title--fixed"
+                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
                 <div class="container-fluided margin-top-72">
@@ -2225,6 +2226,13 @@
                                     function() {
                                         var deletedRow = $(this)
                                             .closest("tr");
+                                        var productId = deletedRow
+                                            .find(".product_id")
+                                            .val();
+                                        $("input[name='selected_serial_numbers[]'][data-product-id='" +
+                                                productId + "']")
+                                            .remove();
+
                                         var deletedProductAmount =
                                             parseFloat(deletedRow
                                                 .find(
@@ -2237,7 +2245,6 @@
                                                     '.product_tax1')
                                                 .val().replace(/,/g,
                                                     ''));
-
                                         deletedRow.remove();
                                         fieldCounter--;
 
@@ -2446,7 +2453,7 @@
                                                             var newRow = `
                     <tr style="">
                         <td class="ui-sortable-handle">
-                            <input type="checkbox" class="check-item" value="${sn.id}" ${isChecked ? 'checked' : ''}>
+                            <input type="checkbox" data-product-id-sn="${sn.product_id}" class="check-item" value="${sn.id}" ${isChecked ? 'checked' : ''}>
                         </td>
                         <td class="ui-sortable-handle">${currentIndex}</td>
                         <td class="ui-sortable-handle">
@@ -2458,6 +2465,25 @@
                                                                 .append(
                                                                     newRow
                                                                 );
+                                                        }
+                                                    );
+                                                //Thay đổi số lượng thì xóa s/n đã check
+                                                $(".quantity-input")
+                                                    .on("change",
+                                                        function() {
+                                                            var quantity =
+                                                                $(
+                                                                    this
+                                                                )
+                                                                .val();
+                                                            var productId =
+                                                                $(
+                                                                    this
+                                                                )
+                                                                .data(
+                                                                    "product-id"
+                                                                );
+                                                            
                                                         }
                                                     );
                                                 $('.check-item')

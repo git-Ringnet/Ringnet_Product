@@ -28,7 +28,7 @@
                                 fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
-                    <span class="font-weight-bold last-span">{{ $delivery->quotation_number }}</span>
+                    <span class="font-weight-bold last-span">{{ $delivery->code_delivery }}</span>
                     @if ($delivery->tinhTrang == 1)
                         <span style="color: #858585; font-size:13px;" class="btn-status">Chưa giao</span>
                     @else

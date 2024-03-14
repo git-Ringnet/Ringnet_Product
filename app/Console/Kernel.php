@@ -7,6 +7,7 @@ use App\Models\PayOder;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
@@ -65,7 +66,7 @@ class Kernel extends ConsoleKernel
                     if ($daysDiff <= 3 && $daysDiff > 0) {
                         $status = 3;
                     } elseif ($daysDiff == 0) {
-                        $status = 5;
+                        $status = 6;
                     } elseif ($daysDiff < 0) {
                         $status = 4;
                     } else {

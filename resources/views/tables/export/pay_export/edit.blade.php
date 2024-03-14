@@ -29,7 +29,7 @@
                                 fill="#26273B" fill-opacity="0.8"></path>
                         </svg>
                     </span>
-                    <span class="font-weight-bold text-secondary">{{ $payExport->quotation_number }}</span>
+                    <span class="font-weight-bold text-secondary">{{ $payExport->code_payment }}</span>
                     @if ($payExport->trangThai == 1)
                         @if ($payExport->payment > 0)
                             <span class="border ml-2 p-1 text-nav text-secondary shadow-sm rounded">Đặt cọc</span>

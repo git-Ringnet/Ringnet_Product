@@ -172,7 +172,9 @@ class Delivery extends Model
             ]);
         }
         //
-        $quoteExports = QuoteExport::where('detailexport_id', $detailexport_id)->get();
+        $quoteExports = QuoteExport::where('detailexport_id', $detailexport_id)
+            ->where('status', 1)
+            ->get();
 
         // Biến để kiểm tra xem có ít nhất một giá trị nào lớn hơn 0 không
         $hasNonZeroDifference = false;
@@ -359,6 +361,7 @@ class Delivery extends Model
             })
             ->join('products', 'products.id', 'delivered.product_id')
             ->where('delivery.id', $id)
+            ->where('quoteexport.status', 1)
             ->select(
                 'quoteexport.product_id',
                 'quoteexport.product_code',
@@ -393,6 +396,7 @@ class Delivery extends Model
             ->get();
         foreach ($product as $item) {
             $quoteExport = QuoteExport::where('detailexport_id', $delivery->detailexport_id)
+                ->where('status', 1)
                 ->where('product_id', $item->product_id)
                 ->first();
 
@@ -449,7 +453,7 @@ class Delivery extends Model
                     'status' => 2,
                 ]);
         }
-        QuoteExport::where('product_delivery', $id)->delete();
+        QuoteExport::where('product_delivery', $id)->where('status', 1)->delete();
         Delivery::find($id)->delete();
     }
     public function acceptDelivery($data)
@@ -541,7 +545,7 @@ class Delivery extends Model
             } else {
                 $product_price = null;
             }
-            $priceTax = ($data['product_qty'][$i] * $product_price *  ($productExport->product_tax == 99 ? 0 : $productExport->product_tax)) / 100;
+            $priceTax = ($data['product_qty'][$i] * $product_price *  ($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i])) / 100;
             $tolTax = ($data['product_qty'][$i] * $product_price) + $priceTax;
             $dataDelivered = [
                 'delivery_id' => $deliveryId,
@@ -603,6 +607,7 @@ class Delivery extends Model
                         'updated_at' => Carbon::now(),
                         'product_delivery' => $deliveryId,
                         'qty_delivery' => $data['product_qty'][$i],
+                        'status' => 1,
                     ];
                     DB::table('quoteexport')->insert($dataQuote);
                 }
@@ -624,7 +629,9 @@ class Delivery extends Model
         }
 
         //xác nhận giao hàng
-        $quoteExports = QuoteExport::where('detailexport_id', $data['detailexport_id'])->get();
+        $quoteExports = QuoteExport::where('detailexport_id', $data['detailexport_id'])
+            ->where('status', 1)
+            ->get();
 
         // Biến để kiểm tra xem có ít nhất một giá trị nào lớn hơn 0 không
         $hasNonZeroDifference = false;
@@ -672,7 +679,7 @@ class Delivery extends Model
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $product = Products::find($data['product_id'][$i]);
             if ($product) {
-                $result = $product->product_inventory - $data['product_qty'][$i];
+                $result = ($product->product_inventory == null ? 0 : $product->product_inventory) - $data['product_qty'][$i];
                 $product->update([
                     'product_inventory' => $result,
                 ]);

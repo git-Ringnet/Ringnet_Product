@@ -29,7 +29,7 @@ class BillSale extends Model
             ->leftJoin('guest', 'bill_sale.guest_id', 'guest.id')
             ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
             ->select('*', 'bill_sale.status as tinhTrang', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD')
-            ->orderBy('bill_sale.id','DESC')
+            ->orderBy('bill_sale.id', 'DESC')
             ->get();
         return $bill_sale;
     }
@@ -97,7 +97,9 @@ class BillSale extends Model
 
     public function updateDetailExport($detailexport_id)
     {
-        $quoteExports = QuoteExport::where('detailexport_id', $detailexport_id)->get();
+        $quoteExports = QuoteExport::where('detailexport_id', $detailexport_id)
+            ->where('status', 1)
+            ->get();
 
         // Biến để kiểm tra xem có ít nhất một giá trị nào lớn hơn 0 không
         $hasNonZeroDifference = false;
@@ -162,7 +164,9 @@ class BillSale extends Model
         for ($i = 0; $i < count($data['product_name']); $i++) {
             if (!empty($data['product_id'][$i])) {
                 $quoteExport = QuoteExport::where('detailexport_id', $billSale->detailexport_id)
-                    ->where('product_id', $data['product_id'][$i])->first();
+                    ->where('product_id', $data['product_id'][$i])
+                    ->where('status', 1)
+                    ->first();
                 $quoteExport->qty_bill_sale = $quoteExport->qty_bill_sale - $data['product_qty'][$i];
                 $quoteExport->save();
             }
@@ -213,6 +217,7 @@ class BillSale extends Model
     {
         $billSale = BillSale::find($id);
         $product = BillSale::join('quoteexport', 'bill_sale.detailexport_id', '=', 'quoteexport.detailexport_id')
+            ->where('quoteexport.status', 1)
             ->leftJoin('product_bill', function ($join) {
                 $join->on('product_bill.billSale_id', '=', 'bill_sale.id');
                 $join->on('product_bill.product_id', '=', 'quoteexport.product_id');
@@ -249,6 +254,7 @@ class BillSale extends Model
         foreach ($product as $item) {
             $quoteExport = QuoteExport::where('detailexport_id', $billSale->detailexport_id)
                 ->where('product_id', $item->product_id)
+                ->where('status', 1)
                 ->first();
 
             if ($quoteExport) {
@@ -351,6 +357,7 @@ class BillSale extends Model
             if ($data['product_id'][$i] != null) {
                 $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])
                     ->where('detailexport_id', $data['detailexport_id'])
+                    ->where('status', 1)
                     ->first();
                 if ($quoteExport) {
                     $quoteExport->qty_bill_sale += $data['product_qty'][$i];

@@ -52,20 +52,14 @@ class PayExport extends Model
 
         $status = null;
 
-        // Kiểm tra xem thanh toán có bằng 0 hay không
-        $paymentIsZero = $payment == 0;
-
         // Kiểm tra xem ngày thanh toán có phải là ngày hôm nay hay không
         $datePayIsToday = $date_pay->isToday();
 
-        // Kiểm tra xem ngày thanh toán có nhỏ hơn hoặc bằng ngày hiện tại trừ 3 ngày hay không
-        $datePayIsLessThanOrEqualNowMinus3Days = $date_pay->lessThanOrEqualTo(Carbon::now()->subDays(3));
+        // Kiểm tra ngày hiện tại trừ 3 ngày
+        $nowMinus3Days = Carbon::now()->subDays(3);
 
-        // Kiểm tra xem ngày thanh toán có nhỏ hơn ngày hiện tại hay không
-        $datePayIsLessThanNow = $date_pay->lessThan(Carbon::now());
-
-        // Kiểm tra xem ngày thanh toán có lớn hơn ngày hiện tại cộng 4 ngày hay không
-        $datePayIsGreaterThanNowPlus4Days = $date_pay->greaterThan(Carbon::now()->addDays(4));
+        // Kiểm tra ngày hiện tại cộng 3 ngày
+        $nowPlus4Days = Carbon::now()->addDays(3);
 
         // Kiểm tra các điều kiện
         if ($result == 0) {
@@ -74,18 +68,18 @@ class PayExport extends Model
         } elseif ($datePayIsToday) {
             // Nếu ngày thanh toán là ngày hôm nay
             $status = 6;
-        } elseif ($result > 0 && $paymentIsZero) {
-            // Nếu kết quả lớn hơn 0 và thanh toán bằng 0
-            $status = 1;
-        } elseif ($result > 0 && $datePayIsGreaterThanNowPlus4Days) {
-            // Nếu kết quả lớn hơn 0, và ngày thanh toán lớn hơn ngày hiện tại cộng 4 ngày
-            $status = 1;
-        } elseif ($result > 0 && $datePayIsLessThanOrEqualNowMinus3Days) {
-            // Nếu kết quả lớn hơn 0, và ngày thanh toán nhỏ hơn hoặc bằng ngày hiện tại trừ 3 ngày
-            $status = 3;
-        } elseif ($result > 0 && $datePayIsLessThanNow) {
-            // Nếu kết quả lớn hơn 0, và ngày thanh toán nhỏ hơn ngày hiện tại
-            $status = 4;
+        } elseif ($result > 0) {
+            // Nếu kết quả lớn hơn 0
+            if ($date_pay->lessThan(Carbon::now())) {
+                // Nếu ngày thanh toán nhỏ hơn ngày hiện tại
+                $status = 4;
+            } elseif ($date_pay->greaterThan($nowPlus4Days)) {
+                // Nếu ngày thanh toán lớn hơn ngày hiện tại cộng 3 ngày
+                $status = 1;
+            } else {
+                // Nếu ngày thanh toán nằm trong khoảng từ 3 ngày trở xuống đến ngày hiện tại
+                $status = 3;
+            }
         }
 
         $dataPay = [
@@ -213,6 +207,7 @@ class PayExport extends Model
     {
         $payExport = PayExport::find($id);
         QuoteExport::where('detailexport_id', $payExport->detailexport_id)
+            ->where('status', 1)
             ->update([
                 'qty_payment' => 0,
             ]);
