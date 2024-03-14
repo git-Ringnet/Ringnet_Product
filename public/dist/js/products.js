@@ -560,11 +560,11 @@ function checkDuplicateRows() {
     return hasDuplicate;
 }
 
-function checkInput() {
-    $(".searchProductName").on("input", function () {
-        checkDuplicateRows();
-    });
-}
+// function checkInput() {
+//     $(".searchProductName").on("input", function () {
+//         checkDuplicateRows();
+//     });
+// }
 
 function emptyData(
     position,

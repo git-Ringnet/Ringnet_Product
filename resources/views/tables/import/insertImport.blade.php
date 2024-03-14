@@ -590,6 +590,7 @@
                                         <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
                                                 Ngày mua
+                                            </button>
                                         </a>
                                         <div class="icon" id="icon-id"></div>
                                     </span>
@@ -1283,7 +1284,8 @@
                                     $('#' + id).closest('div').find('.closeModal')[0].click()
                                     $(id == "import" ? '#price_effect' : '#terms_pay').val(data
                                         .data);
-                                        $(id == "import" ? '#price_effect' : '#terms_pay').attr('data-id',data.id);
+                                    $(id == "import" ? '#price_effect' : '#terms_pay').attr(
+                                        'data-id', data.id);
                                     if (id == "import") {
                                         var price_effect = `
                                         <li class="border" id="` + data.id +
@@ -1476,7 +1478,7 @@
                             "" : formatCurrency($(this).attr('data-priceImport')))
                         selectTax.val($(this).attr('data-tax'))
                         listProductName.hide();
-                        checkDuplicateRows()
+                        // checkDuplicateRows()
                         var product_name = $(this).find("span").text()
                         $.ajax({
                             url: "{{ route('getInventory') }}",
@@ -1487,7 +1489,20 @@
                             success: function(data) {
                                 $('#soTonKho').text(formatCurrency(data[
                                     'products'].product_inventory))
-                                console.log(data);
+                                $('#recentModal .modal-body tbody').empty()
+                                if (data['history']) {
+                                    data['history'].forEach(element => {
+                                        var tr = `
+                                            <tr>
+                                                <td>` + element.product_name + `</td>
+                                                <td>` + formatCurrency(element.price_export) + `</td>
+                                                <td>` + element.product_tax + `</td>
+                                                <td>` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
+                                            </tr> `;
+                                        $('#recentModal .modal-body tbody')
+                                            .append(tr);
+                                    })
+                                }
                             }
                         })
                     })
@@ -1526,6 +1541,8 @@
             return false;
         }
 
+        $('.searchProductName').
+
         var quotetion_number = $('input[name="quotation_number"]').val();
         if (formSubmit) {
             provide_id = $('#provides_id').val();
@@ -1540,7 +1557,7 @@
                     if (!data['status']) {
                         showNotification('warning', 'Số báo giá đã tồn tại')
                     } else {
-                        $('form')[0].submit();
+                        // $('form')[0].submit();
                     }
                 }
             })
