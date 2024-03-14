@@ -76,7 +76,8 @@
         </div>
         <div class="content" style="margin-top: 3.8rem;" id="main">
             <section class="content margin-250">
-                <div id="title--fixed" class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
+                <div id="title--fixed"
+                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
                         PHẨM</p>
                 </div>
@@ -621,7 +622,7 @@
                                                             aria-hidden="true"></i></span>
                                                 </div>
                                             </div>
-                                            <ul class="m-0 p-0 scroll-data">
+                                            <ul class="m-0 p-0 scroll-data addDateFormquote">
                                                 @foreach ($date_form as $item)
                                                     @if ($item->form_field == 'quote')
                                                         <li class="p-2 align-items-center text-wrap item-{{ $item->id }}"
@@ -644,7 +645,7 @@
                                                                     style="z-index: 100;">
                                                                     <a class="dropdown-item search-date-form"
                                                                         data-toggle="modal"
-                                                                        data-target="#formModalpayment"
+                                                                        data-target="#formModalquote"
                                                                         data-name="quote"
                                                                         data-id="{{ $item->id }}"
                                                                         id="{{ $item->id }}">
@@ -719,7 +720,7 @@
                                                             aria-hidden="true"></i></span>
                                                 </div>
                                             </div>
-                                            <ul class="m-0 p-0 scroll-data">
+                                            <ul class="m-0 p-0 scroll-data addDateFormpayment">
                                                 @foreach ($date_form as $item)
                                                     @if ($item->form_field == 'payment')
                                                         <li class="item-{{ $item->id }} p-2 align-items-center text-wrap"
@@ -740,12 +741,15 @@
                                                                     style="z-index: 100;">
                                                                     <a class="dropdown-item search-date-form"
                                                                         data-toggle="modal"
+                                                                        data-id="{{ $item->id }}"
+                                                                        id="{{ $item->id }}"
                                                                         data-target="#formModalpayment"
                                                                         data-name="payment">
                                                                         <i class="fa-regular fa-pen-to-square"></i>
                                                                     </a>
                                                                     <a class="dropdown-item delete-item"
-                                                                        href="#">
+                                                                        href="#" data-id="{{ $item->id }}"
+                                                                        data-name="{{ $item->form_field }}">
                                                                         <i class="fa-solid fa-trash-can"></i>
                                                                     </a>
                                                                     <a class="dropdown-item set-default"
@@ -771,7 +775,7 @@
                                                     </svg>
                                                 </span>
                                                 <span class="text-13-black pl-3 pt-1"
-                                                    style="font-weight: 600 !important;">Thêm hiệu lực báo giá</span>
+                                                    style="font-weight: 600 !important;">Thêm điều khoản</span>
                                             </a>
                                         </div>
                                     </li>
@@ -877,14 +881,14 @@
                                                             aria-hidden="true"></i></span>
                                                 </div>
                                             </div>
-                                            <ul class="m-0 p-0 scroll-data">
+                                            <ul class="m-0 p-0 scroll-data addDateFormgoods">
                                                 @foreach ($date_form as $item)
-                                                    @if ($item->form_field == 'payment')
+                                                    @if ($item->form_field == 'goods')
                                                         <li class="item-{{ $item->id }} border text-wrap">
                                                             <a href="#"
                                                                 class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                                 id="{{ $item->id }}" name="search-date-form"
-                                                                data-name="payment">
+                                                                data-name="goods">
                                                                 <span class="w-100 text-nav text-dark overflow-hidden"
                                                                     id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                             </a>
@@ -898,8 +902,8 @@
                                                                     style="z-index: 100;">
                                                                     <a class="dropdown-item search-date-form"
                                                                         data-toggle="modal"
-                                                                        data-target="#formModalpayment"
-                                                                        data-name="payment"
+                                                                        data-target="#formModalgoods"
+                                                                        data-name="goods"
                                                                         data-id="{{ $item->id }}"
                                                                         id="{{ $item->id }}"><i
                                                                             class="fa-regular fa-pen-to-square"></i></a>
@@ -969,14 +973,14 @@
                                                             aria-hidden="true"></i></span>
                                                 </div>
                                             </div>
-                                            <ul class="m-0 p-0 scroll-data">
+                                            <ul class="m-0 p-0 scroll-data addDateFormdelivery">
                                                 @foreach ($date_form as $item)
-                                                    @if ($item->form_field == 'payment')
+                                                    @if ($item->form_field == 'delivery')
                                                         <li class="item-{{ $item->id }} border text-wrap">
                                                             <a href="#"
                                                                 class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                                 id="{{ $item->id }}" name="search-date-form"
-                                                                data-name="payment">
+                                                                data-name="delivery">
                                                                 <span class="w-100 text-nav text-dark overflow-hidden"
                                                                     id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                             </a>
@@ -990,8 +994,8 @@
                                                                     style="z-index: 100;">
                                                                     <a class="dropdown-item search-date-form"
                                                                         data-toggle="modal"
-                                                                        data-target="#formModalpayment"
-                                                                        data-name="payment"
+                                                                        data-target="#formModaldelivery"
+                                                                        data-name="delivery"
                                                                         data-id="{{ $item->id }}"
                                                                         id="{{ $item->id }}"><i
                                                                             class="fa-regular fa-pen-to-square"></i></a>
@@ -1061,14 +1065,14 @@
                                                             aria-hidden="true"></i></span>
                                                 </div>
                                             </div>
-                                            <ul class="m-0 p-0 scroll-data">
+                                            <ul class="m-0 p-0 scroll-data addDateFormlocation">
                                                 @foreach ($date_form as $item)
-                                                    @if ($item->form_field == 'payment')
+                                                    @if ($item->form_field == 'location')
                                                         <li class="item-{{ $item->id }} border text-wrap">
                                                             <a href="#"
                                                                 class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                                 id="{{ $item->id }}" name="search-date-form"
-                                                                data-name="payment">
+                                                                data-name="location">
                                                                 <span class="w-100 text-nav text-dark overflow-hidden"
                                                                     id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                             </a>
@@ -1082,13 +1086,14 @@
                                                                     style="z-index: 100;">
                                                                     <a class="dropdown-item search-date-form"
                                                                         data-toggle="modal"
-                                                                        data-target="#formModalpayment"
-                                                                        data-name="payment"
+                                                                        data-target="#formModallocation"
+                                                                        data-name="location"
                                                                         data-id="{{ $item->id }}"
                                                                         id="{{ $item->id }}"><i
                                                                             class="fa-regular fa-pen-to-square"></i></a>
                                                                     <a class="dropdown-item delete-item"
-                                                                        href="#" data-id="{{ $item->id }}"
+                                                                        href="#"
+                                                                        data-id="{{ $item->id }}"
                                                                         data-name="{{ $item->form_field }}"><i
                                                                             class="fa-solid fa-trash-can"></i></a>
                                                                     <a class="dropdown-item set-default default-id{{ $item->form_field }}"
@@ -1653,6 +1658,7 @@
                         id: id
                     },
                     success: function(data) {
+                        showNotification('success', data.msg);
                         $(".item-" + id).remove();
                         $('#myInput-' + name).val('');
                         $("input[name='idDate[" + name + "]']").val(null);
@@ -1667,20 +1673,24 @@
             var id = $(this).data('id');
             var name = $(this).data('name');
             $.ajax({
-                url: '{{ route('setDefault') }}',
+                url: '{{ route('setDefaultGuest') }}',
                 type: 'GET',
                 data: {
                     id: id,
                     name: name,
                 },
                 success: function(data) {
+                    $("input[name='idDate[" + name + "]']").val(data.id);
+                    $("#myInput-" + name).val(data.form.form_desc);
                     data.update_form.forEach(item => {
                         if (item.default_form === 1) {
                             $('#default-id' + item.id).html(
                                 '<i class="fa-solid fa-link-slash"></i>');
+                            showNotification('success', data.msg);
                         } else {
                             $('#default-id' + item.id).html(
                                 '<i class="fa-solid fa-link"></i>');
+                            showNotification('success', data.msg);
                         }
                     });
                 }
@@ -1696,7 +1706,6 @@
             var action = $(this).data('action');
 
             if ($('.btn-submit' + name).text() === 'Lưu') {
-                console.log('Đây là thêm mới');
                 $('#form-name-' + name).val('')
                 $('#form-desc-' + name).val('')
                 $.ajax({
@@ -1729,18 +1738,18 @@
                             '</a>';
                         // Thêm phần tử mới vào trong form tìm kiếm
                         var newListItem =
-                            '<li class="item-' + data.new_date_form.id +
+                            '<li class="border item-' + data.new_date_form.id +
                             '"><a href="#" class="text-dark d-flex justify-content-between p-2 search-date-form" id="' +
                             data.new_date_form.id +
                             '" name="search-date-form" data-name="' +
                             name + '">' +
-                            '<span class="w-100 text-nav text-dark overflow-hidden" id="' +
-                            data.new_date_form.form_field + data
+                            '<span class="text-13-black" id="' + data.new_date_form
+                            .form_field + data
                             .new_date_form.id + '">' + data.new_date_form.form_name +
                             '</span></a><div class="dropdown">' +
-                            '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">' +
+                            '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">' +
                             '<i class="fa-solid fa-ellipsis"></i>' + '</button>' +
-                            '<div class="dropdown-menu date-form-setting" style="z-index: 100;">' +
+                            '<div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
                             '<a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModal' +
                             name + '" data-name="' +
                             name + '" data-id="' + data.new_date_form.id +
@@ -1754,7 +1763,8 @@
                             '</div></li>';
                         // Thêm mục mới vào danh sách
                         var addButton = $(".addDateForm" + name);
-                        $(newListItem).insertBefore(addButton);
+                        $(addButton).append(newListItem);
+                        showNotification('success', data.msg);
                         //clear
                         $('.search-date-form').click(function() {
                             $('.modal').on('hidden.bs.modal', function() {
@@ -1767,7 +1777,6 @@
                             var idDateForm = $(this).attr('id');
                             var name = $(this).data('name');
                             var dataid = $(this).data('id');
-                            // console.log(name);
                             if (dataid) {
                                 $('.btn-submit').attr('data-action', 'update').attr(
                                     'data-id', dataid).text(
@@ -1804,9 +1813,7 @@
                 });
             }
             if ($('.btn-submit' + name).text() === 'Cập nhật') {
-                console.log('Đây là update');
                 var id = $(this).data('id');
-                console.log(id);
                 $.ajax({
                     url: '{{ route('updateDateForm') }}',
                     type: 'GET',
@@ -1817,7 +1824,6 @@
                         inputDesc: inputDesc,
                     },
                     success: function(data) {
-                        console.log(data);
                         $('.modal [data-dismiss="modal"]').click();
                         $("input[name='idDate[" + data.new_date_form.form_field + "]']")
                             .val(data.new_date_form
@@ -1826,8 +1832,8 @@
                             .val(data.new_date_form
                                 .form_field);
                         $("#" + name + id).text(data.new_date_form.form_name)
-                        console.log(name, id);
                         $('#myInput-' + name).val(data.new_date_form.form_desc);
+
                         showNotification('success', data.msg);
                     }
                 });
@@ -3200,7 +3206,7 @@
                 var productNameInput = rows[i].querySelector('.product_name');
                 var productName = productNameInput.value;
 
-                var normalizedProductName = normalizeProductName(productName);
+                var normalizedProductName = normalizeProductName(productName).trim();
 
                 if (previousProductNames.includes(normalizedProductName)) {
                     showNotification('warning', 'Tên sản phẩm bị trùng: ' + productName);
@@ -3209,7 +3215,7 @@
                     // Thêm tên sản phẩm đã chuẩn hóa vào mảng các tên sản phẩm đã xuất hiện trước đó
                     previousProductNames.push(normalizedProductName);
                 }
-                
+
                 for (var j = 0; j < inputs.length; j++) {
                     if (inputs[j].value.trim() === '') {
                         showNotification('warning', 'Vui lòng điền đủ thông tin sản phẩm');

@@ -2804,7 +2804,7 @@
                 var productNameInput = rows[i].querySelector('.product_name');
                 var productName = productNameInput.value;
 
-                var normalizedProductName = normalizeProductName(productName);
+                var normalizedProductName = normalizeProductName(productName).trim();
 
                 if (previousProductNames.includes(normalizedProductName)) {
                     showNotification('warning', 'Tên sản phẩm bị trùng: ' + productName);
