@@ -2351,14 +2351,7 @@
                     $('#representativeList').empty();
                     showNotification('success', data.message);
                 } else {
-                    if (data.key) {
-                        $("input[name='key']").val(data.key)
-                        showNotification('warning', data.msg);
-                        delayAndShowNotification('success', 'Tên viết tắt đã được thay đổi',
-                            500);
-                    } else {
-                        showNotification('warning', data.msg);
-                    }
+                    showNotification('warning', data.message);
                 }
             }
         });

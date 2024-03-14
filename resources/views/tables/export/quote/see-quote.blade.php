@@ -898,9 +898,6 @@
                                                                 value="{{ $item_history->product_name }}"
                                                                 class="border-0 px-2 py-1 w-100 product_name" readonly
                                                                 autocomplete="off" name="product_name[]">
-                                                            <input type="hidden" class="product_id"
-                                                                value="{{ $item_history->product_id }}"
-                                                                autocomplete="off" name="product_id[]">
                                                             <div class='info-product' data-toggle='modal'
                                                                 data-target='#productModal'>
                                                                 <svg xmlns='http://www.w3.org/2000/svg' width='14'

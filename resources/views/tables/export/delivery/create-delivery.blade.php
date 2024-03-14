@@ -689,9 +689,9 @@
             );
             const soLuong = $(
                 "<td class='border-right p-2 text-13 align-top'>" +
-                "<div class=''>" +
+                "<div class='d-flex align-items-center'>" +
                 "<div>" +
-                "<input type='number' value='' data-product-id='' class='border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required='' name='product_qty[]'>" +
+                "<input type='number' value='' data-product-id='' class='border-0 px-2 text-right py-1 w-100 quantity-input' autocomplete='off' required='' name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "<p class='mt-3 text-13-blue inventory'>Tồn kho: <span class='soTonKho'></span></p>" +
                 "</div>" +
@@ -769,6 +769,13 @@
                     .replace(/,/g, ''));
                 var deletedProductTax = parseFloat(deletedRow.find('.product_tax1').val()
                     .replace(/,/g, ''));
+
+                var productId = deletedRow
+                    .find(".product_id")
+                    .val();
+                $("input[name='selected_serial_numbers[]'][data-product-id='" +
+                        productId + "']")
+                    .remove();
 
                 deletedRow.remove();
                 fieldCounter--;
@@ -972,9 +979,13 @@
                                                                 .includes(
                                                                     snId
                                                                 );
+                                                            console
+                                                                .log(
+                                                                    selectedSerialNumbersForProductInt
+                                                                );
                                                             var newRow = `<tr style="">
                                                                 <td class="ui-sortable-handle">
-                                                                    <input type="checkbox" class="check-item" value="${sn.id}" ${isChecked ? 'checked' : ''}>
+                                                                    <input type="checkbox" class="check-item" data-product-id-sn="${sn.product_id}" value="${sn.id}" ${isChecked ? 'checked' : ''}>
                                                                 </td>
                                                                 <td class="ui-sortable-handle">${currentIndex}</td>
                                                                 <td class="ui-sortable-handle">
@@ -990,9 +1001,12 @@
                                                     );
                                                 $('.check-item')
                                                     .on('change',
-                                                        function() {
+                                                        function(
+                                                            event
+                                                        ) {
                                                             event
                                                                 .stopPropagation();
+
                                                             var checkedCheckboxes =
                                                                 $(
                                                                     '.check-item:checked'
@@ -1003,6 +1017,13 @@
                                                                     this
                                                                 )
                                                                 .val();
+                                                            var productId =
+                                                                $(
+                                                                    this
+                                                                )
+                                                                .data(
+                                                                    'product-id-sn'
+                                                                );
 
                                                             if (checkedCheckboxes >
                                                                 qty_enter
@@ -1020,6 +1041,7 @@
                                                                         ':checked'
                                                                     )
                                                                 ) {
+
                                                                     if (!
                                                                         selectedSerialNumbers[
                                                                             productId
@@ -1030,7 +1052,6 @@
                                                                                 productId
                                                                             ] = [];
                                                                     }
-
                                                                     selectedSerialNumbers
                                                                         [
                                                                             productId
@@ -1054,7 +1075,6 @@
                                                                             newInput
                                                                         );
                                                                 } else {
-                                                                    // Nếu checkbox bị bỏ chọn, loại bỏ Serial Number khỏi danh sách cho sản phẩm
                                                                     if (selectedSerialNumbers[
                                                                             productId
                                                                         ]) {
@@ -1069,7 +1089,8 @@
                                                                                 function(
                                                                                     item
                                                                                 ) {
-                                                                                    return item !==
+                                                                                    return item
+                                                                                        .serialNumberId !==
                                                                                         serialNumberId;
                                                                                 }
                                                                             );
@@ -2434,17 +2455,30 @@
                                                                     sn
                                                                     .id
                                                                 );
-                                                            var selectedSerialNumbersForProductInt =
-                                                                selectedSerialNumbersForProduct
-                                                                .map(
-                                                                    function(
-                                                                        value
-                                                                    ) {
-                                                                        return parseInt(
+                                                            var productId =
+                                                                sn
+                                                                .product_id;
+                                                            var
+                                                                selectedSerialNumbersForProductInt = [];
+                                                            if (Array
+                                                                .isArray(
+                                                                    selectedSerialNumbersForProduct
+                                                                )
+                                                            ) {
+                                                                selectedSerialNumbersForProductInt
+                                                                    =
+                                                                    selectedSerialNumbersForProduct
+                                                                    .map(
+                                                                        function(
                                                                             value
-                                                                        );
-                                                                    }
-                                                                );
+                                                                        ) {
+                                                                            return parseInt(
+                                                                                value
+                                                                                .serialNumberId
+                                                                            );
+                                                                        }
+                                                                    );
+                                                            }
                                                             var isChecked =
                                                                 selectedSerialNumbersForProductInt
                                                                 .includes(
@@ -2483,14 +2517,82 @@
                                                                 .data(
                                                                     "product-id"
                                                                 );
-                                                            
+                                                            var
+                                                                selectedSerialNumbersForProductInt = [];
+                                                            if (Array
+                                                                .isArray(
+                                                                    selectedSerialNumbersForProduct
+                                                                )
+                                                            ) {
+                                                                selectedSerialNumbersForProductInt
+                                                                    =
+                                                                    selectedSerialNumbersForProduct
+                                                                    .map(
+                                                                        function(
+                                                                            value
+                                                                        ) {
+                                                                            return parseInt(
+                                                                                value
+                                                                                .serialNumberId
+                                                                            );
+                                                                        }
+                                                                    );
+                                                            }
+                                                            console
+                                                                .log(
+                                                                    selectedSerialNumbers
+                                                                );
+                                                            for (
+                                                                let i =
+                                                                    0; i <
+                                                                selectedSerialNumbers
+                                                                .length; i++
+                                                            ) {
+                                                                if (Array
+                                                                    .isArray(
+                                                                        selectedSerialNumbers[
+                                                                            i
+                                                                        ]
+                                                                    ) &&
+                                                                    selectedSerialNumbers[
+                                                                        i
+                                                                    ]
+                                                                    .length >
+                                                                    0
+                                                                ) {
+                                                                    selectedSerialNumbers
+                                                                        [
+                                                                            i
+                                                                            ] =
+                                                                        selectedSerialNumbers[
+                                                                            i
+                                                                        ]
+                                                                        .filter(
+                                                                            function(
+                                                                                item
+                                                                            ) {
+                                                                                return item
+                                                                                    .product_id !==
+                                                                                    productId;
+                                                                            }
+                                                                        );
+                                                                    $('input[name="selected_serial_numbers[]"][data-product-id="' +
+                                                                            productId +
+                                                                            '"]'
+                                                                            )
+                                                                        .remove();
+                                                                }
+                                                            }
                                                         }
                                                     );
                                                 $('.check-item')
                                                     .on('change',
-                                                        function() {
+                                                        function(
+                                                            event
+                                                        ) {
                                                             event
                                                                 .stopPropagation();
+
                                                             var checkedCheckboxes =
                                                                 $(
                                                                     '.check-item:checked'
@@ -2501,6 +2603,13 @@
                                                                     this
                                                                 )
                                                                 .val();
+                                                            var productId =
+                                                                $(
+                                                                    this
+                                                                )
+                                                                .data(
+                                                                    'product-id-sn'
+                                                                );
 
                                                             if (checkedCheckboxes >
                                                                 qty_enter
@@ -2518,6 +2627,7 @@
                                                                         ':checked'
                                                                     )
                                                                 ) {
+
                                                                     if (!
                                                                         selectedSerialNumbers[
                                                                             productId
@@ -2528,14 +2638,14 @@
                                                                                 productId
                                                                             ] = [];
                                                                     }
-
                                                                     selectedSerialNumbers
                                                                         [
                                                                             productId
                                                                         ]
-                                                                        .push(
-                                                                            serialNumberId
-                                                                        );
+                                                                        .push({
+                                                                            product_id: productId,
+                                                                            serialNumberId: serialNumberId
+                                                                        });
 
                                                                     // Tạo một trường input ẩn mới và đặt giá trị
                                                                     var newInput =
@@ -2552,7 +2662,7 @@
                                                                             newInput
                                                                         );
                                                                 } else {
-                                                                    // Nếu checkbox bị bỏ chọn, loại bỏ Serial Number khỏi danh sách cho sản phẩm
+
                                                                     if (selectedSerialNumbers[
                                                                             productId
                                                                         ]) {
@@ -2567,7 +2677,8 @@
                                                                                 function(
                                                                                     item
                                                                                 ) {
-                                                                                    return item !==
+                                                                                    return item
+                                                                                        .serialNumberId !==
                                                                                         serialNumberId;
                                                                                 }
                                                                             );
@@ -2583,6 +2694,7 @@
                                                             }
                                                         }
                                                     );
+
                                                 // Xoá sự kiện click trước đó nếu có
                                                 $('.check-seri')
                                                     .off(

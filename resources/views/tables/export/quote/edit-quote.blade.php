@@ -752,8 +752,10 @@
                                                                         data-name="{{ $item->form_field }}">
                                                                         <i class="fa-solid fa-trash-can"></i>
                                                                     </a>
-                                                                    <a class="dropdown-item set-default"
-                                                                        href="#">
+                                                                    <a class="dropdown-item set-default default-id{{ $item->form_field }}"
+                                                                        data-id="{{ $item->id }}"
+                                                                        data-name="{{ $item->form_field }}"
+                                                                        href="#" id="default-id{{ $item->id }}">
                                                                         <i class="fa-solid fa-link"></i>
                                                                     </a>
                                                                 </div>
