@@ -1541,7 +1541,7 @@
             return false;
         }
 
-        $('.searchProductName').
+        // $('.searchProductName').
 
         var quotetion_number = $('input[name="quotation_number"]').val();
         if (formSubmit) {
