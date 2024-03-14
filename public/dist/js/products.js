@@ -261,8 +261,8 @@ function handlePaste(input) {
                 checkbox.setAttribute("type", "checkbox");
                 var checkboxes = document.querySelectorAll(
                     ".div_value" +
-                        rowCount +
-                        ' table tbody input[type="checkbox"]'
+                    rowCount +
+                    ' table tbody input[type="checkbox"]'
                 );
                 var checkboxCount = checkboxes.length;
                 checkbox.setAttribute("id", "checkbox_" + checkboxCount);
@@ -611,3 +611,38 @@ function emptyData(
 //         idSN.attr('name', 'seri' + index + '[]');
 //     });
 // }
+
+
+
+function normalizeProductName(name) {
+    // Chuyển tất cả các ký tự thành chữ thường
+    var lowercaseName = name.toLowerCase();
+    // Loại bỏ các dấu
+    var normalized = lowercaseName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+    return normalized;
+}
+
+
+function checkProduct() {
+    var rows = $('#inputcontent tbody tr');
+    var hasProducts = true;
+    var previousProductNames = [];
+
+    for (var i = 0; i < rows.length; i++) {
+        var productNameInput = rows[i].querySelector('.searchProductName');
+        var productName = productNameInput.value;
+
+        var normalizedProductName = normalizeProductName(productName);
+
+        if (previousProductNames.includes(normalizedProductName)) {
+            showNotification('warning', 'Tên sản phẩm bị trùng: ' + productName);
+            hasProducts = false;
+            break;
+        } else {
+            // Thêm tên sản phẩm đã chuẩn hóa vào mảng các tên sản phẩm đã xuất hiện trước đó
+            previousProductNames.push(normalizedProductName);
+        }
+    }
+
+    return hasProducts;
+}

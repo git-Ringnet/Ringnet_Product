@@ -95,7 +95,8 @@
         {{-- Thông tin sản phẩm --}}
         <div class="content" id="main" style="margin-top:3.8rem;">
             <section class="content margin-250">
-                <div id="title--fixed" class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
+                <div id="title--fixed"
+                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
                 <div class="container-fluided margin-top-72">
@@ -1528,7 +1529,6 @@
     })
 
     $('form').on('submit', function(e) {
-        console.log(123);
         e.preventDefault();
         var formSubmit = true;
         if ($('#provides_id').val() == '') {
@@ -1542,7 +1542,11 @@
             return false;
         }
 
-        // $('.searchProductName').
+      
+
+        if (!checkProduct()) {
+            formSubmit = false
+        }
 
         var quotetion_number = $('input[name="quotation_number"]').val();
         if (formSubmit) {
