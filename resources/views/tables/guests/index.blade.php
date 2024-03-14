@@ -107,15 +107,15 @@
             </div>
         </div>
     </div>
-    <div class="content " style="margin-top:7.2rem;">
+    <div class="content margin-top-68">
         <section class="content margin-250">
             <div class="container-fluided">
                 <div class="col-12 p-0 m-0">
-                    <div class="mt-3">
+                    <div class="card">
                         <!-- /.card-header -->
                         <div class="outer table-responsive text-nowrap">
                             <table id="example2" class="table table-hover bg-white rounded">
-                                <thead>
+                                <thead class="border-custom">
                                     <tr>
                                         <th class="border-0" style="width:5%;padding-left: 2rem;">
                                             <input type="checkbox" name="all" id="checkall"

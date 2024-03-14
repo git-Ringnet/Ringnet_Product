@@ -467,7 +467,7 @@
                                                         <input type="hidden" readonly value="{{ $item->id }}"
                                                             name="listProduct[]">
                                                         <input readonly type="text" name="product_code[]"
-                                                            class='border-0 pl-0 pr-2 py-1 w-75 product_code searchProduct'
+                                                            class='border-0 pl-0 pr-2 py-1 w-100 product_code searchProduct'
                                                             value="{{ $item->product_code }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                         <ul id="listProductCode"
@@ -479,7 +479,7 @@
                                                         <div class="d-flex align-items-center">
                                                             <input readonly id="searchProductName" type="text"
                                                                 name="product_name[]"
-                                                                class="searchProductName border-0 px-2 py-1 w-100"
+                                                                class="searchProductName border-0  py-1 w-100"
                                                                 value="{{ $item->product_name }}"
                                                                 @if ($import->status == 2) echo readonly @endif>
                                                             <ul id="listProductName"
@@ -681,7 +681,7 @@
                                                     <td class='border-right p-2 text-13 align-top'
                                                         style="padding-left: 2rem !important;">
                                                         <input type="text" name="" id=""
-                                                            class="border-0 px-2 py-1 w-75" readonly
+                                                            class="border-0 px-0 py-1 w-100" readonly
                                                             value="{{ $item->product_code }}">
                                                     </td>
                                                     <td class='border-right p-2 text-13 align-top position-relative'>

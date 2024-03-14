@@ -83,21 +83,21 @@
                         <div class="content-info">
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-left-0 height-100">
-                                    <p class="p-0 m-0 required-label margin-left32 text-13">Tên hiển thị</p>
+                                    <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên hiển thị</p>
                                 </div>
                                 <input type="text" required placeholder="Nhập thông tin" name="provide_name_display"
                                     class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Mã số thuế</p>
+                                    <p class="p-0 m-0  margin-left32 required-label text-13-red">Mã số thuế</p>
                                 </div>
                                 <input type="text" required placeholder="Nhập thông tin" name="provide_code"
                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Địa chỉ</p>
+                                    <p class="p-0 m-0  margin-left32 required-label text-13-red">Địa chỉ</p>
                                 </div>
                                 <input type="text" required placeholder="Nhập thông tin" name="provide_address"
                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
@@ -111,7 +111,7 @@
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 text-13">Tên đầy đủ</p>
+                                    <p class="p-0 m-0  margin-left32 required-label text-13-red">Tên đầy đủ</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="provide_name"
                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">

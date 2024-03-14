@@ -75,7 +75,7 @@
                         <div class="content-info">
                                 <div class="d-flex align-items-center height-60-mobile">
                                     <div class="title-info height-100 py-2 border border-left-0">
-                                        <p class="p-0 m-0 required-label margin-left32 text-13">Tên khách hàng</p>
+                                        <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên khách hàng</p>
                                     </div>
                                     <input type="text" required placeholder="Nhập thông tin"
                                         name="guest_name_display"
@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="d-flex  align-items-center height-60-mobile ">
                                     <div class="title-info height-100 py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 margin-left32 text-13">Tên hiển thị</p>
+                                        <p class="p-0 m-0 margin-left32 text-13-red required-label">Tên hiển thị</p>
                                     </div>
                                     <input type="text" placeholder="Nhập thông tin"
                                         name="guest_name"
@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="d-flex  align-items-center height-60-mobile">
                                     <div class="title-info height-100 py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 margin-left32 text-13 required-label">Địa chỉ</p>
+                                        <p class="p-0 m-0 margin-left32 text-13-red required-label">Địa chỉ</p>
                                     </div>
                                     <input type="text" required placeholder="Nhập thông tin"
                                         name="guest_address"
@@ -115,7 +115,7 @@
                                 </div>
                                 <div class="d-flex align-items-center height-60-mobile">
                                     <div class="title-info height-100 py-2 border border-top-0 border-left-0">
-                                        <p class="p-0 m-0 margin-left32 text-13 required-label">Mã số thuế</p>
+                                        <p class="p-0 m-0 margin-left32 text-13-red required-label">Mã số thuế</p>
                                     </div>
                                     <input type="text" placeholder="Nhập thông tin" required
                                         name="guest_code"

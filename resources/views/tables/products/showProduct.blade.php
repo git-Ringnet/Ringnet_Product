@@ -615,8 +615,7 @@
                                                 <td class="text-14-blue text-left"style="width: 33.34%;">
                                                     @if ($sn->getQuotation)
                                                         <span style="display:block;" class="text-14-blue">
-                                                            <a
-                                                                href="{{ route('watchDelivery', $sn->getQuotation->id) }}">
+                                                            <a href="{{ route('watchDelivery', $sn->getQuotation->id) }}">
                                                                 {{ $sn->getQuotation->id }}
                                                             </a>
                                                         </span>

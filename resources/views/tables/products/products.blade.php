@@ -134,8 +134,8 @@
 <section class="content margin-top-fixed5">
     <div class="container-fluided margin-250">
         <div class="row p-0 m-0">
-            <div class="col-12 ">
-                <div class="card mt-3">
+            <div class="col-12 p-0 m-0">
+                <div class="card">
                     <!-- /.card-header -->
                     <div class="outer text-nowrap">
                         <table id="example2" class="table table-hover">

@@ -72,11 +72,11 @@ function showListProductCode() {
     });
 }
 
-function showListProductName() {
-    $("#inputcontent tbody").on("click", ".searchProductName", function () {
-        $(this).closest("tr").find("#listProductName").show();
-    });
-}
+// function showListProductName() {
+//     $("#inputcontent tbody").on("click", ".searchProductName", function () {
+//         $(this).closest("tr").find("#listProductName").show();
+//     });
+// }
 
 //ẩn danh sách Mã sản phẩm khi clich ra ngoài
 $(document).click(function (event) {
@@ -442,7 +442,22 @@ function addRowTable(status) {
         "</tr>";
     $("#inputcontent tbody").append(tr);
     showListProductCode();
-    showListProductName();
+    // showListProductName();
+
+    $(".listProductName").hide();
+    $(".searchProductName").on("click", function (e) {
+        e.stopPropagation();
+        $(".listProductName").hide();
+
+        var listProduct = $(this).closest("tr").find(".listProductName");
+        listProduct.toggle();
+    });
+    $(document).on("click", function (e) {
+        if (!$(e.target).is(".searchProductName")) {
+            $(".listProductName").hide();
+        }
+    });
+
     searchProductName();
     deleteRow();
     // checkInput();
@@ -528,7 +543,7 @@ function deleteRowRepesent() {
 searchProductName();
 deleteRow();
 showListProductCode();
-showListProductName();
+// showListProductName();
 
 function checkDuplicateRows() {
     var values = [];

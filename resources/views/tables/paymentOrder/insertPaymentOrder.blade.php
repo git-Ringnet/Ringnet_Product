@@ -98,7 +98,7 @@
                             <table id="inputcontent" class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">
-                                        <th class="border-right px-2 p-0" style="width: 15%;padding-left:2rem;">
+                                        <th class="border-right px-2 p-0" style="width: 18%;padding-left:2rem;">
                                             <input type='checkbox' class='checkall-btn ml-4 mr-1'id="checkall" />
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>

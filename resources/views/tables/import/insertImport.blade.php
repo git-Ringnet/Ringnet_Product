@@ -105,7 +105,7 @@
                             <table id="inputcontent" class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">
-                                        <th class="border-right px-2 p-0" style="width: 15%;padding-left:2rem;">
+                                        <th class="border-right px-2 p-0" style="width: 17%;padding-left:2rem;">
                                             <input type='checkbox' class='checkall-btn ml-4 mr-1'id="checkall" />
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
@@ -124,7 +124,7 @@
                                         <th class="border-right px-2 p-0" style="width: 8%;">
                                             <span class="text-table text-secondary">Thuế</span>
                                         </th>
-                                        <th class="border-right px-2 p-0" style="width: 10%;">
+                                        <th class="border-right px-2 p-0" style="width: 11%;">
                                             <span class="text-table text-secondary">Thành tiền</span>
                                         </th>
                                         <th class="border-right note px-2 p-0" style="width: 15%;">

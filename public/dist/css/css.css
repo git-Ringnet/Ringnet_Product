@@ -42,8 +42,8 @@ li {
 .width-18{
     width: 18% !important;
 }
-.width-21{
-    width: 21% !important;
+.width-23{
+    width: 23% !important;
 }
 .min-height--none{
     min-height: 0 !important;
@@ -1147,6 +1147,11 @@ input[type="number"] {
     font-size: 13px;
     color: #282a30 !important;
     font-weight: 500 !important;
+}
+.text-13-red {
+    font-size: 13px;
+    color: #dc3545!important;
+    font-weight: 600;
 }
 .text-13-bold {
     font-size: 13px;

@@ -76,8 +76,7 @@
         </div>
         <div class="content" style="margin-top: 3.8rem;" id="main">
             <section class="content margin-250">
-                <div id="title--fixed"
-                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
+                <div id="title--fixed" class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
                         PHẨM</p>
                 </div>
@@ -457,24 +456,24 @@
                                     <div class="p-1">
                                         <div class="position-relative">
                                             <input type="text" placeholder="Nhập công ty"
-                                                class="pr-4 w-100 input-search bg-input-guest" id="companyFilter">
+                                                class="pr-4 w-100 input-search bg-input-guest text-13-black" id="companyFilter">
                                             <span id="search-icon" class="search-icon"><i
                                                     class="fas fa-search text-table" aria-hidden="true"></i></span>
                                         </div>
                                     </div>
                                     <ul class="m-0 p-0 scroll-data">
                                         @foreach ($guest as $guest_value)
-                                            <li class="border" data-id="{{ $guest_value->id }}">
+                                            <li class="p-2 align-items-center text-wrap" 
+                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;"
+                                                data-id="{{ $guest_value->id }}">
                                                 <a href="#" title="{{ $guest_value->guest_name_display }}"
-                                                    class="text-dark d-flex justify-content-between p-2 search-info w-100"
+                                                    class="search-info" style="flex:2;"
                                                     id="{{ $guest_value->id }}" name="search-info">
-                                                    <span
-                                                        class="w-100 text-nav text-dark overflow-hidden">{{ $guest_value->guest_name_display }}</span>
+                                                    <span class="text-13-black">{{ $guest_value->guest_name_display }}</span>
                                                 </a>
                                                 <div class="dropdown">
                                                     <button type="button" data-toggle="dropdown"
-                                                        class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
-                                                        style="margin-right:10px">
+                                                        class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
                                                         <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
                                                     </button>
                                                     <div class="dropdown-menu date-form-setting"
@@ -517,8 +516,9 @@
                                 <ul class="p-0 m-0">
                                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                         style="height:44px;">
-                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
-                                            diện</span>
+                                        <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">
+                                            Người đại diện
+                                        </span>
 
                                         <input class="text-13-black w-50 border-0 bg-input-guest" type="text"
                                             <?php if ($detailExport->tinhTrang != 1) {
@@ -536,7 +536,7 @@
                                             <div class="p-1">
                                                 <div class="position-relative">
                                                     <input type="text" placeholder="Nhập công ty"
-                                                        class="pr-4 w-100 input-search bg-input-guest"
+                                                        class="pr-4 w-100 input-search bg-input-guest text-13-black"
                                                         id="companyFilter7">
                                                     <span id="search-icon" class="search-icon"><i
                                                             class="fas fa-search text-table"
@@ -798,7 +798,7 @@
                                             <div class="p-1">
                                                 <div class="position-relative">
                                                     <input type="text" placeholder="Nhập dự án"
-                                                        class="pr-4 w-100 input-search" id="companyFilter1">
+                                                        class="pr-4 w-100 input-search text-13-black" id="companyFilter8">
                                                     <span id="search-icon" class="search-icon"><i
                                                             class="fas fa-search text-table"
                                                             aria-hidden="true"></i></span>
@@ -806,7 +806,8 @@
                                             </div>
                                             <ul class="m-0 p-0 scroll-data">
                                                 @foreach ($project as $project_value)
-                                                    <li class="border">
+                                                    <li class="p-2 align-items-center text-wrap"
+                                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                                         <a href="#"
                                                             class="text-dark d-flex justify-content-between p-2 search-project w-100"
                                                             id="{{ $project_value->id }}">
@@ -816,7 +817,7 @@
                                                         <div class="dropdown">
                                                             <button type="button" data-toggle="dropdown"
                                                                 class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
-                                                                style="margin-right:10px" aria-expanded="false"><i
+                                                                aria-expanded="false"><i
                                                                     class="fa-solid fa-ellipsis"
                                                                     aria-hidden="true"></i>
                                                             </button>
@@ -877,7 +878,7 @@
                                             <div class="p-1">
                                                 <div class="position-relative">
                                                     <input type="text" placeholder="Nhập hàng hóa"
-                                                        class="pr-4 w-100 input-search" id="companyFilter1">
+                                                        class="pr-4 w-100 input-search text-13-black" id="companyFilter4">
                                                     <span id="search-icon" class="search-icon"><i
                                                             class="fas fa-search text-table"
                                                             aria-hidden="true"></i></span>
@@ -885,19 +886,18 @@
                                             </div>
                                             <ul class="m-0 p-0 scroll-data addDateFormgoods">
                                                 @foreach ($date_form as $item)
-                                                    @if ($item->form_field == 'goods')
+                                                    @if ($item->form_field == 'payment')
                                                         <li class="item-{{ $item->id }} border text-wrap">
                                                             <a href="#"
                                                                 class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                                 id="{{ $item->id }}" name="search-date-form"
-                                                                data-name="goods">
+                                                                data-name="payment">
                                                                 <span class="w-100 text-nav text-dark overflow-hidden"
                                                                     id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                             </a>
                                                             <div class="dropdown">
                                                                 <button type="button" data-toggle="dropdown"
-                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
-                                                                    style="margin-right:10px">
+                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
                                                                     <i class="fa-solid fa-ellipsis"></i>
                                                                 </button>
                                                                 <div class="dropdown-menu date-form-setting"
@@ -969,7 +969,7 @@
                                             <div class="p-1">
                                                 <div class="position-relative">
                                                     <input type="text" placeholder="Nhập giao hàng"
-                                                        class="pr-4 w-100 input-search" id="companyFilter1">
+                                                        class="pr-4 w-100 input-search text-13-black" id="companyFilter5">
                                                     <span id="search-icon" class="search-icon"><i
                                                             class="fas fa-search text-table"
                                                             aria-hidden="true"></i></span>
@@ -977,19 +977,18 @@
                                             </div>
                                             <ul class="m-0 p-0 scroll-data addDateFormdelivery">
                                                 @foreach ($date_form as $item)
-                                                    @if ($item->form_field == 'delivery')
+                                                    @if ($item->form_field == 'payment')
                                                         <li class="item-{{ $item->id }} border text-wrap">
                                                             <a href="#"
                                                                 class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                                 id="{{ $item->id }}" name="search-date-form"
-                                                                data-name="delivery">
+                                                                data-name="payment">
                                                                 <span class="w-100 text-nav text-dark overflow-hidden"
                                                                     id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                             </a>
                                                             <div class="dropdown">
                                                                 <button type="button" data-toggle="dropdown"
-                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
-                                                                    style="margin-right:10px">
+                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
                                                                     <i class="fa-solid fa-ellipsis"></i>
                                                                 </button>
                                                                 <div class="dropdown-menu date-form-setting"
@@ -1061,27 +1060,26 @@
                                             <div class="p-1">
                                                 <div class="position-relative">
                                                     <input type="text" placeholder="Nhập địa điểm"
-                                                        class="pr-4 w-100 input-search" id="companyFilter1">
-                                                    <span id="search-icon" class="search-icon"><i
+                                                        class="pr-4 w-100 input-search text-13-black" id="companyFilter6">
+                                                    <span id="search-icon" class="search-icon "><i
                                                             class="fas fa-search text-table"
                                                             aria-hidden="true"></i></span>
                                                 </div>
                                             </div>
                                             <ul class="m-0 p-0 scroll-data addDateFormlocation">
                                                 @foreach ($date_form as $item)
-                                                    @if ($item->form_field == 'location')
+                                                    @if ($item->form_field == 'payment')
                                                         <li class="item-{{ $item->id }} border text-wrap">
                                                             <a href="#"
                                                                 class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                                 id="{{ $item->id }}" name="search-date-form"
-                                                                data-name="location">
+                                                                data-name="payment">
                                                                 <span class="w-100 text-nav text-dark overflow-hidden"
                                                                     id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                             </a>
                                                             <div class="dropdown">
                                                                 <button type="button" data-toggle="dropdown"
-                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
-                                                                    style="margin-right:10px">
+                                                                    class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent">
                                                                     <i class="fa-solid fa-ellipsis"></i>
                                                                 </button>
                                                                 <div class="dropdown-menu date-form-setting"
@@ -2639,19 +2637,20 @@
                 $('#representativeList').empty();
                 $.each(data, function(index, representative) {
                     var listItem = $(
-                            '<li class="border" data-id = ' +
+                            '<li class="p-2 align-items-center text-wrap" style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-id = ' +
                             representative.id + '>')
                         .append(
                             $('<a>').attr({
                                 href: '#',
                                 title: representative
                                     .represent_name,
-                                class: 'text-dark d-flex justify-content-between search-represent p-2 w-100',
+                                class: 'search-represent',
                                 id: representative.id,
+                                style:"flex:2",
                                 name: 'search-represent',
                             }).append(
                                 $('<span>').addClass(
-                                    'w-100 text-nav text-dark overflow-hidden'
+                                    'text-13-black'
                                 ).text(representative
                                     .represent_name)
                             )

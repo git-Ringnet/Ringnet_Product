@@ -78,7 +78,7 @@
             </div>
         </div>
         <section class="content-header--options p-0">
-            <ul class="header-options--nav width-21 nav nav-tabs margin-left32">
+            <ul class="header-options--nav width-23 nav nav-tabs margin-left32">
                 <li>
                     <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông tin</a>
                 </li>
@@ -98,7 +98,7 @@
                 <div class="content-info">
                     <div class="d-flex align-items-center height-60-mobile">
                         <div class="title-info py-2 border border-left-0 height-100">
-                            <p class="p-0 m-0 required-label margin-left32 text-13">Tên khách hàng</p>
+                            <p class="p-0 m-0 required-label margin-left32 text-13-red">Tên khách hàng</p>
                         </div>
                         <input type="text" required readonly name="guest_name_display"
                             value="{{ $guest->guest_name_display }}"
@@ -106,14 +106,14 @@
                     </div>
                     <div class="d-flex align-items-center height-60-mobile">
                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                            <p class="p-0 m-0  margin-left32 text-13">Tên hiển thị</p>
+                            <p class="p-0 m-0  margin-left32 required-label text-13-red">Tên hiển thị</p>
                         </div>
                         <input type="text" name="key" value="{{ $guest->key }}" readonly
                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                     </div>
                     <div class="d-flex align-items-center height-60-mobile">
                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                            <p class="p-0 m-0  margin-left32 text-13">Địa chỉ</p>
+                            <p class="p-0 m-0  margin-left32 required-label text-13-red">Địa chỉ</p>
                         </div>
                         <input type="text" required name="guest_address" value="{{ $guest->guest_address }}"
                             readonly
@@ -128,7 +128,7 @@
                     </div>
                     <div class="d-flex align-items-center height-60-mobile">
                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                            <p class="p-0 m-0  margin-left32 text-13">Mã số thuế</p>
+                            <p class="p-0 m-0  margin-left32 required-label text-13-red">Mã số thuế</p>
                         </div>
                         <input type="text" name="guest_code" value="{{ $guest->guest_code }}" readonly
                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
