@@ -1528,6 +1528,7 @@
     })
 
     $('form').on('submit', function(e) {
+        console.log(123);
         e.preventDefault();
         var formSubmit = true;
         if ($('#provides_id').val() == '') {
@@ -1557,7 +1558,7 @@
                     if (!data['status']) {
                         showNotification('warning', 'Số báo giá đã tồn tại')
                     } else {
-                        // $('form')[0].submit();
+                        $('form')[0].submit();
                     }
                 }
             })

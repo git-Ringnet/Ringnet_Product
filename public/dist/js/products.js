@@ -445,7 +445,7 @@ function addRowTable(status) {
     showListProductName();
     searchProductName();
     deleteRow();
-    checkInput();
+    // checkInput();
     if (status == 2) {
         createModal(rowCount);
     }
