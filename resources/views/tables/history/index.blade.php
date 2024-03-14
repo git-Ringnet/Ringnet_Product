@@ -277,7 +277,7 @@
 
                                             <th scope="col" class="text-left text-13">
                                                 <span class="d-flex justify-content-end align-items-center">
-                                                    <a href="#" class="sort-link btn-submit"
+                                                    <a href="#" class="sort-link btn-submit" style="flex:2;"
                                                         data-sort-by="price_import" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Giá
                                                             nhập</button></a>
@@ -428,19 +428,19 @@
                                                     </td>
                                                     <td class="text-13-black min-width180">{{ $item->tenNCC }}</td>
                                                     <td class="text-13-black">{{ $item->tensp }}</td>
-                                                    <td class="text-13-black">{{ number_format($item->product_qty) }}</td>
+                                                    <td class="text-13-black text-center">{{ number_format($item->product_qty) }}</td>
                                                     {{-- Này đặt sai tên cột nha --}}
                                                     <td class="text-13-black">{{ number_format($item->price_import) }}</td>
                                                     <td class="text-13-black">{{ number_format($item->total_import) }}</td>
                                                     <td class="text-13-black">{{ $item->hdvao }}</td>
                                                     {{-- <td>Tình trạng nhập</td> --}}
-                                                    <td>{{ $item->tenKhach }}</td>
-                                                    <td>{{ number_format($item->deliver_qty) }}</td>
-                                                    <td>{{ $item->product_unit }}</td>
-                                                    <td>{{ number_format($item->giaban) }}</td>
-                                                    <td>{{ number_format($item->tongban) }}</td>
-                                                    <td>{{ $item->hdra }}</td>
-                                                    <td>{{ number_format($item->shipping_fee) }}</td>
+                                                    <td class="text-13-black">{{ $item->tenKhach }}</td>
+                                                    <td class="text-13-black text-center">{{ number_format($item->deliver_qty) }}</td>
+                                                    <td class="text-13-black ">{{ $item->product_unit }}</td>
+                                                    <td class="text-13-black">{{ number_format($item->giaban) }}</td>
+                                                    <td class="text-13-black">{{ number_format($item->tongban) }}</td>
+                                                    <td class="text-13-black">{{ $item->hdra }}</td>
+                                                    <td class="text-13-black">{{ number_format($item->shipping_fee) }}</td>
                                                     <td data-toggle="modal" data-target="#snModal"
                                                         data-delivery-id="{{ $item->delivery_id }}"
                                                         data-product-id="{{ $item->product_id }}" class="sn"><img

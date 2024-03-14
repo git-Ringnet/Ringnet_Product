@@ -3,8 +3,8 @@ function handleSmallScreen() {
     $("#sideGuest").on("click", function () {
         if (countClick === 1) {
             $("#mySidenav").css({
-                width: "300px",
-                cssText: "width: 300px !important",
+                width: "310px",
+                cssText: "width: 310px !important",
             });
             $("#main").css({
                 marginRight: "290px",
@@ -43,20 +43,22 @@ function handleLargeScreen() {
                 opacity: "0",
                 cssText: "opacity: 0 !important",
             });
+            $("#title--fixed").css({ cssText: "right: 0" });
             countClick += 1;
         } else if (countClick === 2) {
             $("#mySidenav").css({
-                width: "300px",
-                cssText: "width: 300px !important",
+                width: "310px",
+                cssText: "width: 310px !important",
             });
             $("#main").css({
-                marginRight: "300px",
-                cssText: "margin-right: 300px !important;",
+                marginRight: "310px",
+                cssText: "margin-right: 310px !important;",
             });
             $("#show_info_Guest").css({
                 opacity: "1",
                 cssText: "opacity: 1 !important",
             });
+            $("#title--fixed").css({ cssText: "right: 310px" });
             countClick = 1;
         }
     });
@@ -157,17 +159,17 @@ function formatNumber(number) {
 }
 function allowNumericInput(input) {
     // Lọc giá trị để chỉ giữ lại số và một dấu chấm thập phân
-    input.value = input.value.replace(/[^\d.]/g, '');
+    input.value = input.value.replace(/[^\d.]/g, "");
 
     // Kiểm tra xem có nhiều hơn một dấu chấm không
-    var parts = input.value.split('.');
+    var parts = input.value.split(".");
     if (parts.length > 2) {
         // Nếu có nhiều hơn một dấu chấm, giữ lại phần thập phân của phần cuối cùng
-        input.value = parts.slice(0, -1).join('') + '.' + parts.slice(-1);
+        input.value = parts.slice(0, -1).join("") + "." + parts.slice(-1);
     }
 
     // Nếu đang nhập dấu chấm thập phân và số 0 đầu tiên
-    if (input.value.startsWith('0') && input.value !== '0.') {
+    if (input.value.startsWith("0") && input.value !== "0.") {
         // Loại bỏ các số 0 ở đầu
         input.value = parseFloat(input.value);
     }
@@ -175,7 +177,10 @@ function allowNumericInput(input) {
 
 function validateDecimalInput(event, input) {
     // Kiểm tra nếu người dùng đang thêm dấu chấm thập phân và giá trị hiện tại đã chứa một dấu chấm
-    if ((event.key === '.' && input.value.includes('.')) || isNaN(event.key) && event.key !== '.') {
+    if (
+        (event.key === "." && input.value.includes(".")) ||
+        (isNaN(event.key) && event.key !== ".")
+    ) {
         event.preventDefault();
     }
-}   
+}

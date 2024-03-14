@@ -146,15 +146,15 @@
                 </div>
             </section> -->
         </div>
-        <div class="content" id="main" style="margin-top:3.8rem;">
+        <div class="content margin-top-38" id="main">
             <div class="container-fluided margin-250">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
-                        <div class="bg-filter-search border-top-0 text-center border-custom">
+                        <div id="title--fixed" class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
                                 PHẨM</p>
                         </div>
-                        <section class="content">
+                        <section class="content margin-top-72">
                             <div class="content-info position-relative table-responsive text-nowrap">
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
@@ -327,9 +327,9 @@
                                                             class='pl-1 soTonKho'>35</span></div>
                                                 </td>
                                                 <td
-                                                    class="border border-top-0 border-bottom-0 border-right-0 text-center">
+                                                    class="border border-top-0 border-bottom-0 align-top text-center border-right-0">
                                                     <input type="checkbox" name="cbSeri[]" disabled
-                                                        value="{{ $item->cbSN }}"
+                                                        value="{{ $item->cbSN }}" class="mt-1 checkall-btn"
                                                         @if ($item->cbSN == 1) {{ 'checked' }} @endif>
                                                 </td>
                                                 <td class="border bg-white align-top text-13-black d-none">

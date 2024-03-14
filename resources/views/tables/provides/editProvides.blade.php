@@ -67,7 +67,7 @@
                 </div>
             </div>
         </div>
-        <div id="info" class="content" style="margin-top:3.8rem;">
+        <div id="info" class="content margin-top-38">
             <div class="container-fluided margin-250">
                 <div class="container-fluided">
                     <div class="tab-content">

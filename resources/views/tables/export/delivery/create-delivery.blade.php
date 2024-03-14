@@ -104,10 +104,10 @@
         {{-- Thông tin sản phẩm --}}
         <div class="content margin-top-38" id="main">
             <section class="content margin-250">
-                <div class="bg-filter-search border-top-0 text-center border-custom">
+                <div id="title--fixed" class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
-                <div class="container-fluided">
+                <div class="container-fluided margin-top-72">
                     <section class="info-chung">
                         <div class="content-info position-relative table-responsive text-nowrap">
                             <table class="table table-hover bg-white rounded">

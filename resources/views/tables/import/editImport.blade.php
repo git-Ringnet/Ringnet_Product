@@ -98,16 +98,16 @@
         <!-- Main content -->
         <x-formprovides> </x-formprovides>
 
-        <div class="content" style="margin-top: 3.8rem;" id="main">
+        <div class="content margin-top-38" id="main">
             <section class="content margin-250">
                 <div class="container-fluided">
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active">
-                            <div class="bg-filter-search border-top-0 text-center border-custom">
+                            <div id="title--fixed" class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN
                                     SẢN PHẨM</p>
                             </div>
-                            <section class="content">
+                            <section class="content margin-top-72">
                                 <div class="content-info text-nowrap">
                                     <table id="inputcontent" class="table table-hover bg-white rounded">
                                         <thead>
@@ -215,7 +215,7 @@
                                                         </span>
                                                         <input type="checkbox" class="cb-element checkall-btn">
                                                         <input type="text" name="product_code[]"
-                                                            class="border-0 pl-0 pr-2 py-1 w-50 searchProduct"
+                                                            class="border-0 pl-0 pr-2 py-1 w-75 searchProduct"
                                                             value="{{ $item->product_code }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                         <ul id="listProductCode"

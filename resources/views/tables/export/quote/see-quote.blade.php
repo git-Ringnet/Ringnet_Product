@@ -355,10 +355,13 @@
             <section class="content margin-250">
                 <div class="container-fluided">
                     <div class="tab-content">
-                        <div id="info" class="content tab-pane in active">
-                            <div class="content">
+                        <div id="info" class="content tab-pane in active ">
+                           <div id="title--fixed" class="content-title--fixed top-109 ">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center  border-custom">
-                                    THÔNG TIN SẢN PHẨM</p>
+                                    THÔNG TIN SẢN PHẨM
+                                </p>
+                           </div>
+                            <div class="content margin-top-103">
                                 <section class="card mb-0">
                                     <div class="text-nowrap order_content">
                                         <table class="table table-hover bg-white rounded m-0">
@@ -449,7 +452,7 @@
                                                             style="padding-left: 2rem !important;">
                                                             <input type="text" autocomplete="off" readonly
                                                                 value="{{ $item_quote->product_code }}"
-                                                                class="border-0 py-1 w-75 product_code"
+                                                                class="border-0 py-1 w-100 product_code"
                                                                 name="product_code[]">
                                                         </td>
 
@@ -753,7 +756,7 @@
                                 </section>
                             </div> --}}
                             <div class="content">
-                                <div class="row" style="width:95%;">
+                                <div class="row " style="width:95%;">
                                     <div class="position-relative col-lg-4 px-0"></div>
                                     <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
                                         <div class="m-3 ">
@@ -784,10 +787,12 @@
                             </div>
                         </div>
                         <div id="history" class="tab-pane fade">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center  border-custom">
-                                Lịch sử chỉnh sửa
-                            </p>
-                            <section class="content">
+                            <div id="title--fixed" class="content-title--fixed top-109 ">
+                                <p class="font-weight-bold text-uppercase info-chung--heading text-center  border-custom">
+                                    Lịch sử chỉnh sửa
+                                </p>
+                            </div >
+                            <section class="content margin-top-103">
                                 <div class="container-fluided order_content">
                                     <table class="table table-hover bg-white rounded">
                                         <thead>
@@ -997,7 +1002,7 @@
                         </div>
 </form>
 <div id="files" class="tab-pane fade">
-    <div class="bg-filter-search border-top-0 text-center">
+    <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center">
         <p class="font-weight-bold text-uppercase info-chung--heading text-center">File đính kèm</p>
     </div>
     <x-form-attachment :value="$detailExport" name="BG"></x-form-attachment>

@@ -146,11 +146,12 @@
                 <div class="container-fluided">
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active">
-                            <div class="bg-filter-search border-top-0 text-center border-custom">
+                            <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN
-                                    SẢN PHẨM</p>
+                                    SẢN PHẨM
+                                </p>
                             </div>
-                            <section class="content">
+                            <section class="content margin-top-103">
                                 <div class="content-info position-relative table-responsive text-nowrap">
                                     <!-- <section class="multiple_action" style="display: none;">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -374,8 +375,10 @@
                         </div>
 </form>
 <div id="files" class="tab-pane fade">
-    <div class="bg-filter-search border-top-0 text-center py-2">
-        <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
+    <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+        <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+            File Đính Kèm
+        </p>
     </div>
     <x-form-attachment :value="$billSale" name="HDBH"></x-form-attachment>
 </div>

@@ -369,16 +369,16 @@
                 </div>
             </section>
         </div>
-        <div class="content" id="main" style="margin-top: 6.8rem;">
+        <div class="content margin-top-68" id="main">
             <section class="content margin-250">
                 <div class="container-fluided">
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active">
-                            <div class="bg-filter-search border-top-0 text-center border-custom">
+                            <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN
                                     SẢN PHẨM</p>
                             </div>
-                            <section class="content">
+                            <section class="content margin-top-103">
                                 <div class="table-responsive text-nowrap order_content">
                                     <table id="inputcontent" class="table table-hover bg-white rounded m-0">
                                         <thead>
@@ -590,11 +590,11 @@
                         </div>
 
                         <div id="history" class="tab-pane fade">
-                            <div class="bg-filter-search border-top-0 text-center border-custom">
+                            <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">LỊCH SỬ MUA
                                     HÀNG</p>
                             </div>
-                            <section class="content">
+                            <section class="content margin-top-103">
                                 <div class="table-responsive text-nowrap order_content">
                                     <table class="table table-hover bg-white rounded">
                                         <thead>
@@ -764,8 +764,8 @@
                         </div>
 
                         <div id="files" class="tab-pane fade">
-                            <div class="bg-filter-search border-top-0 text-center py-2">
-                                <span class="font-weight-bold text-secondary text-nav">File đính kèm</span>
+                            <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">File đính kèm</p>
                             </div>
                             <x-form-attachment :value="$import" name="DMH"></x-form-attachment>
                         </div>

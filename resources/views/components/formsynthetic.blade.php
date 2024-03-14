@@ -1,7 +1,7 @@
 <div>
     <div class="content">
         <div class="container-fluided">
-            <div class="row" style="width:95%;">
+            <div class="row footer-total" style="width:95%;">
                 <div class="position-relative col-lg-4 px-0"></div>
                 <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
                     <div class="m-3 ">

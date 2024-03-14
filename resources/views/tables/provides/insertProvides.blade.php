@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <div class="content" style="margin-top:3.8rem;">
+        <div class="content margin-top-38">
             <section class="content margin-250">
                 <div class="container-fluided">
                     <div class="bg-filter-search border-top-0 text-left border-custom">

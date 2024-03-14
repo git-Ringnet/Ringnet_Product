@@ -87,12 +87,12 @@
             </div>
         </div>
         {{-- Thông tin sản phẩm --}}
-        <div class="content" id="main" style="margin-top:3.8rem;">
+        <div class="content margin-top-38" id="main">
             <section class="content margin-250">
-                <div class="bg-filter-search border-top-0 text-center border-custom">
+                <div id="title--fixed" class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
-                <div class="container-fluided">
+                <div class="container-fluided margin-top-72">
                     <section class="content">
                         <div class="content-info position-relative table-responsive text-nowrap order_content">
                             <table id="inputcontent" class="table table-hover bg-white rounded">
@@ -301,7 +301,7 @@
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-top-0 text-center border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG CẤP
                         </p>
                     </div>
                     <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"

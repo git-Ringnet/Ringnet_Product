@@ -65,6 +65,7 @@ li {
 .margin-250 {
     margin-left: 250px !important;
 }
+
 .margin-Right10 {
     margin-right: 10px;
 }
@@ -108,6 +109,17 @@ li {
 .margin-top--53{
     margin-top: 5.3rem;
 }
+/* Container - content - title */
+.content-title--fixed{
+    position: fixed;
+    left: 250px;
+    top: 61px;
+    right: 310px;
+    background-color: #ffff;
+    z-index: 99;
+    transition: 0.5s;
+}
+
 
 /* Table Scroll */
 .outer {
@@ -146,22 +158,6 @@ li {
     background-color: white;
 }
 
-.outer3 {
-    overflow: auto;
-    scrollbar-width: none;
-    max-height: 300px;
-}
-
-.outer3 {
-    width: 100%;
-}
-
-.outer3 th {
-    text-align: left;
-    top: 0;
-    position: sticky;
-    background-color: white;
-}
 /* ----------------------------------- */
 .heading-title h5 {
     color: #fff;
@@ -389,9 +385,9 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
         top: 0;
         left: 0;
         right: 0;
-        z-index: 100;
-        background-color: white;
         margin-left: 32px;
+        background-color: white;
+        z-index: 100;
     }
 }
 .content-wrapper {
@@ -781,7 +777,9 @@ td p {
     left: 0;
     right: 0;
     z-index: 100;
+    border-bottom: 1px solid #dfe1e4;
     background-color: white;
+    
 }
 .content-header--TopNone {
     padding: 0px 0px 0px 0.5rem;
@@ -2287,16 +2285,24 @@ input[type="checkbox"] {
 .margin-top-75 {
     margin-top: 7.5rem;
 }
+.margin-top-72 {
+    margin-top: 7.2rem;
+}
 .margin-top-88 {
     margin-top: 8.8rem;
 }
 .margin-top-10 {
     margin-top: 10rem;
 }
+.margin-top-103 {
+    margin-top: 10.3rem;
+}
 .margin-top-fixed10 {
     margin-top: 10.5rem;
 }
-
+.margin-top-fixed11 {
+    margin-top: 11rem;
+}
 .margin-top-fixed5 {
     margin-top: 5.9rem;
 }
@@ -2311,4 +2317,7 @@ input[type="checkbox"] {
 }
 .top-109 {
     top: 109px !important;
+}
+.top-120 {
+    top: 120px !important;
 }

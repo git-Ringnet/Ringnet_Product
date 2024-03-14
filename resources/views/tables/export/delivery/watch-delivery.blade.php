@@ -144,11 +144,12 @@
             <div class="container-fluided margin-250">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
-                        <div class="bg-filter-search border-top-0 text-center border-custom">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
-                                PHẨM</p>
+                        <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                                THÔNG TIN SẢN PHẨM
+                            </p>
                         </div>
-                        <section class="content">
+                        <section class="content margin-top-103">
                             <div class="container-fluided order_content">
                                 <table class="table table-hover bg-white rounded">
                                     <thead>
@@ -360,7 +361,7 @@
                     </div>
 </form>
 <div id="files" class="tab-pane fade">
-    <div class="bg-filter-search border-top-0 text-center border-custom">
+    <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
         <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM</p>
     </div>
     <x-form-attachment :value="$delivery" name="GH"></x-form-attachment>
