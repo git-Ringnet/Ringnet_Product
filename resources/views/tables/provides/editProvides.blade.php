@@ -81,7 +81,7 @@
                                             <div class="title-info py-2 border border-left-0 height-100">
                                                 <p class="p-0 m-0 required-label margin-left32 text-13">Tên hiển thị</p>
                                             </div>
-                                            <input readonly type="text" required placeholder="Nhập thông tin"
+                                            <input type="text" required placeholder="Nhập thông tin"
                                                 name="provide_name_display"
                                                 value="{{ old('provide_name_display') ?? $provide->provide_name_display }}"
                                                 class="border w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
@@ -90,7 +90,7 @@
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                                 <p class="p-0 m-0  margin-left32 text-13">Mã số thuế</p>
                                             </div>
-                                            <input readonly type="text" required placeholder="Nhập thông tin"
+                                            <input type="text" required placeholder="Nhập thông tin"
                                                 name="provide_code" value="{{ old('provide_code') ?? $provide->provide_code }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                         </div>
@@ -98,7 +98,7 @@
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                                 <p class="p-0 m-0  margin-left32 text-13">Địa chỉ</p>
                                             </div>
-                                            <input readonly type="text" required placeholder="Nhập thông tin"
+                                            <input type="text" required placeholder="Nhập thông tin"
                                                 name="provide_address"
                                                 value="{{ old('provide_address') ?? $provide->provide_address }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
@@ -107,7 +107,7 @@
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                                 <p class="p-0 m-0  margin-left32 text-13">Tên viết tắt</p>
                                             </div>
-                                            <input readonly type="text" placeholder="Nhập thông tin" name="key"
+                                            <input type="text" placeholder="Nhập thông tin" name="key"
                                                 value="{{ old('key') ?? $provide->key }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                         </div>
@@ -115,7 +115,7 @@
                                             <div class="title-info py-2 border border-top-0 border-left-0 height-100">
                                                 <p class="p-0 m-0  margin-left32 text-13">Tên đầy đủ</p>
                                             </div>
-                                            <input readonly type="text" placeholder="Nhập thông tin" name="provide_name"
+                                            <input type="text" placeholder="Nhập thông tin" name="provide_name"
                                                 value="{{ old('provide_name') ?? $provide->provide_name }}"
                                                 class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                         </div>
@@ -142,22 +142,22 @@
                                                     <input type="hidden" name="repesent_id[]"
                                                         value="{{ $rp->id }}">
                                                     <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
-                                                         <input readonly type="text" name="represent_name[]"
+                                                         <input type="text" name="represent_name[]"
                                                             value="{{ $rp->represent_name }}"
                                                             class="border-0  py-1 w-100">
                                                     </td>
                                                     <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
-                                                        <input readonly type="text" name="represent_phone[]"
+                                                        <input type="text" name="represent_phone[]"
                                                              value="{{ $rp->represent_phone }}"
                                                              class="border-0  py-1 w-100">
                                                     </td>
                                                     <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
-                                                        <input readonly type="text" name="represent_email[]"
+                                                        <input type="text" name="represent_email[]"
                                                              value="{{ $rp->represent_email }}"
                                                              class="border-0  py-1 w-100">
                                                     </td>
                                                     <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
-                                                        <input readonly type="text" name="represent_address[]"
+                                                        <input type="text" name="represent_address[]"
                                                               value="{{ $rp->represent_address }}"
                                                              class="border-0  py-1 w-100">
                                                     </td>

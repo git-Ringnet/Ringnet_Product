@@ -879,7 +879,11 @@ class DetailImportController extends Controller
         $data = [];
         $product = Products::where('product_name', $request->product_name)->first();
         if ($product) {
-            $history = HistoryImport::where('product_id', $product->id)->get();
+            $history = QuoteImport::leftJoin('detailimport','detailimport.id','quoteimport.detailimport_id')
+            ->where('quoteimport.product_name', $request->product_name)
+            ->where('quoteimport.workspace_id',Auth::user()->current_workspace)
+            ->where('detailimport.status',2)
+            ->get();
             $data['history'] = $history;
         }
         $data['products'] = $product;
