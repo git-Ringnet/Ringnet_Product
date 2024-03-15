@@ -144,7 +144,8 @@
             <div class="container-fluided margin-250">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
-                        <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                        <div id="title--fixed"
+                            class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">
                                 THÔNG TIN SẢN PHẨM
                             </p>
@@ -231,28 +232,18 @@
                                                                 class='text-right border-0 pl-2 pr-0 py-1 w-100 quantity-input'
                                                                 autocomplete="off" name="product_qty[]">
                                                             <input type="hidden" class="tonkho">
-                                                            <div class='mt-3 text-13-blue inventory text-right'
-                                                                tyle="top: 68%;">Tồn kho:
-                                                                <span
-                                                                    class='pl-1 soTonKho'>{{ is_int($item_quote->product_inventory) ? $item_quote->product_inventory : rtrim(rtrim(number_format($item_quote->product_inventory, 4, '.', ''), '0'), '.') }}</span>
-                                                            </div>
-                                                            <!-- <p class="text-primary text-center position-absolute inventory"
-                                                                style="top: 68%;">Tồn kho:
-                                                                <span
-                                                                    class="soTonKho">{{ is_int($item_quote->product_inventory) ? $item_quote->product_inventory : rtrim(rtrim(number_format($item_quote->product_inventory, 4, '.', ''), '0'), '.') }}
-                                                                </span>
-                                                            </p> -->
                                                         </div>
-                                                        <!-- <div class="">
+                                                        <div class="">
                                                             <a href="#" class="btn btn-primary sn1"
                                                                 data-row="row{{ $item_quote->product_id }}"
                                                                 data-toggle="modal"
                                                                 data-target="#exampleModal{{ $item_quote->product_id }}"
                                                                 style="background:transparent; border:none;">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="32"
-                                                                    height="32" viewBox="0 0 32 32" fill="none">
-                                                                    <rect width="32" height="32" rx="4"
-                                                                        fill="white">
+                                                                    height="32" viewBox="0 0 32 32"
+                                                                    fill="none">
+                                                                    <rect width="32" height="32"
+                                                                        rx="4" fill="white">
                                                                     </rect>
                                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                                         d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z"
@@ -268,7 +259,12 @@
                                                                         fill="#0095F6"></path>
                                                                 </svg>
                                                             </a>
-                                                        </div> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class='text-13-blue inventory text-right'>Tồn kho:
+                                                        <span
+                                                            class='pl-1 soTonKho'>{{ is_int($item_quote->product_inventory) ? $item_quote->product_inventory : rtrim(rtrim(number_format($item_quote->product_inventory, 4, '.', ''), '0'), '.') }}
+                                                        </span>
                                                     </div>
                                                 </td>
                                                 <td class="border-right p-2 text-13 align-top">
@@ -361,7 +357,8 @@
                     </div>
 </form>
 <div id="files" class="tab-pane fade">
-    <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+    <div id="title--fixed"
+        class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
         <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM</p>
     </div>
     <x-form-attachment :value="$delivery" name="GH"></x-form-attachment>

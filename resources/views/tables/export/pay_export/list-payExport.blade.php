@@ -268,7 +268,7 @@
                                                             ngày
                                                         </span>
                                                     @elseif($item_pay->status == 5)
-                                                        <span style="color:#858585">Thanh toán một phần</span>
+                                                        <span style="color:#0052CC">Thanh toán một phần</span>
                                                     @else
                                                         <span style="color: #E8B600">Đến hạn</span>
                                                     @endif

@@ -146,7 +146,7 @@ class PayExport extends Model
         $result = $total - $daThanhToan - $payment;
         $payExport = PayExport::where('detailexport_id', $detailexport_id)
             ->first();
-        $detailExport = DetailExport::where('id', $detailexport_id)->first();   
+        $detailExport = DetailExport::where('id', $detailexport_id)->first();
         if ($detailExport) {
             $detailExport->update([
                 'amount_owed' => $result,
@@ -183,10 +183,46 @@ class PayExport extends Model
         $history->workspace_id = Auth::user()->current_workspace;
         $history->created_at = now();
         $history->save();
+
+        //
+        $date_pay = isset($data['date_pay']) ? Carbon::parse($data['date_pay']) : Carbon::now();
+        $status = null;
+
+        // Kiểm tra xem ngày thanh toán có phải là ngày hôm nay hay không
+        $datePayIsToday = $date_pay->isToday();
+
+        // Kiểm tra ngày hiện tại trừ 3 ngày
+        $nowMinus3Days = Carbon::now()->subDays(3);
+
+        // Kiểm tra ngày hiện tại cộng 3 ngày
+        $nowPlus4Days = Carbon::now()->addDays(3);
+
+        // Kiểm tra các điều kiện
+        if ($result == 0) {
+            // Nếu kết quả bằng 0
+            $status = 2;
+        } elseif ($datePayIsToday) {
+            // Nếu ngày thanh toán là ngày hôm nay
+            $status = 6;
+        } elseif ($result > 0) {
+            // Nếu kết quả lớn hơn 0
+            if ($date_pay->lessThan(Carbon::now())) {
+                // Nếu ngày thanh toán nhỏ hơn ngày hiện tại
+                $status = 4;
+            } elseif ($date_pay->greaterThan($nowPlus4Days)) {
+                // Nếu ngày thanh toán lớn hơn ngày hiện tại cộng 3 ngày
+                $status = 5;
+            } else {
+                // Nếu ngày thanh toán nằm trong khoảng từ 3 ngày trở xuống đến ngày hiện tại
+                $status = 3;
+            }
+        }
+
         //payment
         $payExport->payment += $payment;
         $payExport->debt = $detailExport->amount_owed;
         $payExport->payment_date = $data['date_pay'];
+        $payExport->status = $status;
         $payExport->save();
         return $detailExport;
     }
