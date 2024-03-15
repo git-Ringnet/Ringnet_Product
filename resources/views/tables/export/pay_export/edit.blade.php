@@ -147,8 +147,9 @@
                                     tin</a>
                             </li>
                             <li>
-                                <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử
-                                    chỉnh sửa</a>
+                                <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">
+                                    Lịch sử thanh toán
+                                </a>
                             </li>
                             <li>
                                 <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#files">File đính kèm</a>
@@ -407,7 +408,7 @@
                     </div>
                     <div id="history" class="tab-pane fade">
                         <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">LỊCH SỬ chỉnh sửa</p>
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">Lịch sử thanh toán</p>
                         </div>
                         <section class="content margin-top-103">
                             <div class="outer container-fluided">

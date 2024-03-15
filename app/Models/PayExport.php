@@ -146,7 +146,7 @@ class PayExport extends Model
         $result = $total - $daThanhToan - $payment;
         $payExport = PayExport::where('detailexport_id', $detailexport_id)
             ->first();
-        $detailExport = DetailExport::where('id', $detailexport_id)->first();
+        $detailExport = DetailExport::where('id', $detailexport_id)->first();   
         if ($detailExport) {
             $detailExport->update([
                 'amount_owed' => $result,
