@@ -14,8 +14,8 @@
                 cả</a>
             <a class="cursor deselect-all-{{ $name }}"data-button-name="{{ $name }}">Hủy chọn</a>
         </div>
-        <div class="ks-cboxtags-container">
-            <ul class="ks-cboxtags ks-cboxtags-{{ $name }} p-0 mb-1 px-2">
+        <div class="outer3-srcoll">
+            <ul class="ks-cboxtags-{{ $name }} p-0 mb-1 px-2">
                 @foreach ($dataa as $item)
                     <li>
                         <input type="checkbox" id="{{ $name }}" name="{{ $name }}[]"

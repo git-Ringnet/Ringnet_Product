@@ -157,7 +157,13 @@ li {
     position: sticky;
     background-color: white;
 }
-
+.outer3-srcoll{
+    overflow-y: auto; 
+    scrollbar-width: thin;
+    max-height: 200px !important;
+    height: auto; 
+    scrollbar-color: #999999 #f0f0f0;
+}
 /* ----------------------------------- */
 .heading-title h5 {
     color: #fff;

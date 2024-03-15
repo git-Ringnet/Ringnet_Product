@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <div class="content margin-top-fixed4" style="background: none;">
+        <div class="content margin-top-38" style="background: none;">
             <section class="content margin-250">
                 <section class="container-fluided">
                     <div class="info-chung">
