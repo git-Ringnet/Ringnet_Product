@@ -1637,7 +1637,7 @@
                 "<div>" +
                 "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
                 "</div>" +
-                "<div class='mt-3 text-13-blue recentModal' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div>" +
+                "<a href='#'><div class='mt-3 text-13-blue recentModal' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div></a>" +
                 "</td>"
             );
             const thue = $(

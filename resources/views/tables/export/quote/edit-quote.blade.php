@@ -76,7 +76,8 @@
         </div>
         <div class="content" style="margin-top: 3.8rem;" id="main">
             <section class="content margin-250">
-                <div id="title--fixed" class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
+                <div id="title--fixed"
+                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
                         PHẨM</p>
                 </div>
@@ -274,8 +275,11 @@
                                                         autocomplete='off' name='product_price[]' required
                                                         value="{{ number_format($item_quote->price_export) }}">
                                                 </div>
-                                                <div class="mt-3 text-13-blue recentModal" data-toggle="modal"
-                                                    data-target="#recentModal" style="">Giao dịch gần đây</div>
+                                                <a href="#">
+                                                    <div class="mt-3 text-13-blue recentModal" data-toggle="modal"
+                                                        data-target="#recentModal" style="">Giao dịch gần đây
+                                                    </div>
+                                                </a>
                                             </td>
 
                                             <td class='border-right p-2 text-13 align-top'>
@@ -456,20 +460,22 @@
                                     <div class="p-1">
                                         <div class="position-relative">
                                             <input type="text" placeholder="Nhập công ty"
-                                                class="pr-4 w-100 input-search bg-input-guest text-13-black" id="companyFilter">
+                                                class="pr-4 w-100 input-search bg-input-guest text-13-black"
+                                                id="companyFilter">
                                             <span id="search-icon" class="search-icon"><i
                                                     class="fas fa-search text-table" aria-hidden="true"></i></span>
                                         </div>
                                     </div>
                                     <ul class="m-0 p-0 scroll-data">
                                         @foreach ($guest as $guest_value)
-                                            <li class="p-2 align-items-center text-wrap" 
+                                            <li class="p-2 align-items-center text-wrap"
                                                 style="border-radius:4px;border-bottom: 1px solid #d6d6d6;"
                                                 data-id="{{ $guest_value->id }}">
                                                 <a href="#" title="{{ $guest_value->guest_name_display }}"
-                                                    class="search-info" style="flex:2;"
-                                                    id="{{ $guest_value->id }}" name="search-info">
-                                                    <span class="text-13-black">{{ $guest_value->guest_name_display }}</span>
+                                                    class="search-info" style="flex:2;" id="{{ $guest_value->id }}"
+                                                    name="search-info">
+                                                    <span
+                                                        class="text-13-black">{{ $guest_value->guest_name_display }}</span>
                                                 </a>
                                                 <div class="dropdown">
                                                     <button type="button" data-toggle="dropdown"
@@ -755,7 +761,8 @@
                                                                     <a class="dropdown-item set-default default-id{{ $item->form_field }}"
                                                                         data-id="{{ $item->id }}"
                                                                         data-name="{{ $item->form_field }}"
-                                                                        href="#" id="default-id{{ $item->id }}">
+                                                                        href="#"
+                                                                        id="default-id{{ $item->id }}">
                                                                         <i class="fa-solid fa-link"></i>
                                                                     </a>
                                                                 </div>
@@ -798,7 +805,8 @@
                                             <div class="p-1">
                                                 <div class="position-relative">
                                                     <input type="text" placeholder="Nhập dự án"
-                                                        class="pr-4 w-100 input-search text-13-black" id="companyFilter8">
+                                                        class="pr-4 w-100 input-search text-13-black"
+                                                        id="companyFilter8">
                                                     <span id="search-icon" class="search-icon"><i
                                                             class="fas fa-search text-table"
                                                             aria-hidden="true"></i></span>
@@ -817,8 +825,7 @@
                                                         <div class="dropdown">
                                                             <button type="button" data-toggle="dropdown"
                                                                 class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
-                                                                aria-expanded="false"><i
-                                                                    class="fa-solid fa-ellipsis"
+                                                                aria-expanded="false"><i class="fa-solid fa-ellipsis"
                                                                     aria-hidden="true"></i>
                                                             </button>
                                                             <div class="dropdown-menu date-form-setting"
@@ -878,7 +885,8 @@
                                             <div class="p-1">
                                                 <div class="position-relative">
                                                     <input type="text" placeholder="Nhập hàng hóa"
-                                                        class="pr-4 w-100 input-search text-13-black" id="companyFilter4">
+                                                        class="pr-4 w-100 input-search text-13-black"
+                                                        id="companyFilter4">
                                                     <span id="search-icon" class="search-icon"><i
                                                             class="fas fa-search text-table"
                                                             aria-hidden="true"></i></span>
@@ -969,7 +977,8 @@
                                             <div class="p-1">
                                                 <div class="position-relative">
                                                     <input type="text" placeholder="Nhập giao hàng"
-                                                        class="pr-4 w-100 input-search text-13-black" id="companyFilter5">
+                                                        class="pr-4 w-100 input-search text-13-black"
+                                                        id="companyFilter5">
                                                     <span id="search-icon" class="search-icon"><i
                                                             class="fas fa-search text-table"
                                                             aria-hidden="true"></i></span>
@@ -1060,7 +1069,8 @@
                                             <div class="p-1">
                                                 <div class="position-relative">
                                                     <input type="text" placeholder="Nhập địa điểm"
-                                                        class="pr-4 w-100 input-search text-13-black" id="companyFilter6">
+                                                        class="pr-4 w-100 input-search text-13-black"
+                                                        id="companyFilter6">
                                                     <span id="search-icon" class="search-icon "><i
                                                             class="fas fa-search text-table"
                                                             aria-hidden="true"></i></span>
@@ -1918,7 +1928,7 @@
                 "<div>" +
                 "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
                 "</div>" +
-                "<div class='mt-3 text-13-blue recentModal' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div>" +
+                "<a href='#'><div class='mt-3 text-13-blue recentModal' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div></a>" +
                 "</td>"
             );
             const thue = $(
@@ -2646,7 +2656,7 @@
                                     .represent_name,
                                 class: 'search-represent',
                                 id: representative.id,
-                                style:"flex:2",
+                                style: "flex:2",
                                 name: 'search-represent',
                             }).append(
                                 $('<span>').addClass(

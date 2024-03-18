@@ -175,16 +175,23 @@ class PayExport extends Model
                 }
             }
         }
-        
-        $history = new history_Pay_Export;
-        $history->pay_id = $payExport->id;
-        $history->total = $total;
-        $history->payment = $payment;
-        $history->debt = $detailExport->amount_owed;
-        $history->workspace_id = Auth::user()->current_workspace;
-        $history->created_at = now();
-        $history->save();
 
+        $existingHistory = history_Pay_Export::where('pay_id', $payExport->id)
+            ->where('debt', $detailExport->amount_owed)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->exists();
+
+        if (!$existingHistory) {
+            // Thêm mới bản ghi nếu không tồn tại
+            $history = new history_Pay_Export;
+            $history->pay_id = $payExport->id;
+            $history->total = $total;
+            $history->payment = $payment;
+            $history->debt = $detailExport->amount_owed;
+            $history->workspace_id = Auth::user()->current_workspace;
+            $history->created_at = now();
+            $history->save();
+        }
         //
         $date_pay = isset($data['date_pay']) ? Carbon::parse($data['date_pay']) : Carbon::now();
         $status = null;
@@ -210,7 +217,10 @@ class PayExport extends Model
             if ($date_pay->lessThan(Carbon::now())) {
                 // Nếu ngày thanh toán nhỏ hơn ngày hiện tại
                 $status = 4;
-            } elseif ($date_pay->greaterThan($nowPlus4Days)) {
+            } elseif ($payment == 0 && $date_pay->greaterThan($nowPlus4Days)) {
+                // Nếu ngày thanh toán lớn hơn ngày hiện tại cộng 3 ngày
+                $status = 1;
+            } elseif ($payment > 0 && $date_pay->greaterThan($nowPlus4Days)) {
                 // Nếu ngày thanh toán lớn hơn ngày hiện tại cộng 3 ngày
                 $status = 5;
             } else {

@@ -718,7 +718,7 @@
                 "<div>" +
                 "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
                 "</div>" +
-                "<div class='mt-3 text-13-blue recentModal text-right' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div>" +
+                "<a href='#'><div class='mt-3 text-13-blue recentModal text-right' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div></a>" +
                 "</td>"
             );
             const thue = $(
@@ -1798,7 +1798,7 @@
                                     <td class="border-right p-2 text-13 align-top">
                                         <input type="text" value="${formatCurrency(item.price_export)}" readonly 
                                             class="border-0 px-2 py-1 w-100 text-right product_price" autocomplete="off" name="product_price[]" required="" readonly="readonly">
-                                        <p class="mt-3 text-13-blue recentModal" data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</p>
+                                            <a href='#'><p class="mt-3 text-13-blue recentModal" data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</p></a>
                                     </td>
                                     <td class="border-right p-2 text-13 align-top">
                                         <select class="border-0 px-2 py-1 w-100 text-left product_tax" required="" disabled>
@@ -1839,9 +1839,9 @@
                                         // Lấy giá trị giới hạn từ thuộc tính 'data-limit-quantity'
                                         var limit = parseInt($(
                                             ".limit-quantity"
-                                            ).data(
+                                        ).data(
                                             "limit-quantity"
-                                            ));
+                                        ));
                                         // Kiểm tra nếu giá trị nhập vào lớn hơn giới hạn
                                         if (value > limit) {
                                             // Đặt giá trị của input thành giới hạn

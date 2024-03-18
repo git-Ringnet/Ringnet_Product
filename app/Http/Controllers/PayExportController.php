@@ -194,8 +194,10 @@ class PayExportController extends Controller
             )
             ->get();
         $history = history_Pay_Export::where('pay_id', $id)
+            ->where('history_payment_export.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('pay_export', 'pay_export.id', 'history_payment_export.pay_id')
             ->select('history_payment_export.*', 'pay_export.code_payment')
+            ->orderBy('history_payment_export.created_at', 'desc')
             ->get();
         return view('tables.export.pay_export.edit', compact('title', 'payExport', 'product', 'history', 'thanhToan', 'noConLaiValue', 'workspacename'));
     }

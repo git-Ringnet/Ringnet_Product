@@ -272,9 +272,12 @@
                                                         value="{{ number_format($item_quote->price_export) }}"
                                                         class="text-right border-0 px-2 py-1 w-100 product_price"
                                                         autocomplete="off" name="product_price[]" readonly>
-                                                    <div class="mt-3 text-13-blue recentModal" data-toggle="modal"
-                                                        data-target="#recentModal" style="">Giao dịch gần đây
-                                                    </div>
+                                                    <a href="#">
+                                                        <div class="mt-3 text-13-blue recentModal" data-toggle="modal"
+                                                            data-target="#recentModal" style="">Giao dịch gần
+                                                            đây
+                                                        </div>
+                                                    </a>
                                                 </td>
                                                 <td class="border-right p-2 text-13 align-top">
                                                     <select name="product_tax[]"

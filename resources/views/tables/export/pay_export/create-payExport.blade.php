@@ -649,7 +649,7 @@
             const donGia = $(
                 "<td class='border border-top-0 border-bottom-0 position-relative'>" +
                 "<input type='text' class='border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
-                "<p class='text-primary text-right position-absolute transaction' style='top: 68%;right: 5%;'>Giao dịch gần đây</p>" +
+                "<a href='#'><p class='text-primary text-right position-absolute transaction' style='top: 68%;right: 5%;'>Giao dịch gần đây</p></a>" +
                 "</td>"
             );
             const thue = $(
@@ -996,7 +996,7 @@
                             </td>
                             <td class="border-right p-2 text-13 align-top">
                                 <input type="text" value="${formatCurrency(item.price_export)}" readonly class="border-0 px-2 py-1 w-100 product_price" autocomplete="off" name="product_price[]" required="" readonly="readonly">
-                                <p class="mt-3 text-13-blue transaction recentModal" data-toggle="modal" data-target="#recentModal">Giao dịch gần đây</p>
+                                <a href='#'><p class="mt-3 text-13-blue transaction recentModal" data-toggle="modal" data-target="#recentModal">Giao dịch gần đây</p></a>
                             </td>
                             <td class="border-right p-2 text-13 align-top">
                                 <select name="product_tax[]" class="border-0 text-center product_tax" required="" disabled>
