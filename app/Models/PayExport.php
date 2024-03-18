@@ -219,8 +219,10 @@ class PayExport extends Model
                 $status = 4;
             } elseif ($payment == 0) {
                 // Nếu ngày thanh toán lớn hơn ngày hiện tại cộng 3 ngày
-                if($daThanhToan > 0 && $date_pay->greaterThan($nowPlus4Days)){
+                if ($daThanhToan > 0 && $date_pay->greaterThan($nowPlus4Days)) {
                     $status = 5;
+                } else if ($daThanhToan == 0 && $date_pay->greaterThan($nowPlus4Days)) {
+                    $status = 1;
                 }
                 else{
                     $status = $payExport->status;
