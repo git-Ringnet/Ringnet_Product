@@ -108,7 +108,8 @@
         {{-- Thông tin sản phẩm --}}
         <div class="content margin-top-38" id="main">
             <section class="content margin-250">
-                <div id="title--fixed" class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
+                <div id="title--fixed"
+                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
                 <div class="container-fluided margin-top-72">
@@ -554,6 +555,7 @@
                                                         <input type='text'  value="${formatNumber(item.soLuongHoaDon)}"
                                                             class='border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>
                                                         <input type='hidden' class='tonkho'>
+                                                        <input type="hidden" class="limit-quantity" value="${formatNumber(item.soLuongHoaDon)}" data-limit-quantity="${formatNumber(item.soLuongHoaDon)}">
                                                     </div>
                                                     <div class='mt-3 text-13-blue inventory'>Tồn kho: <span class='pl-1 soTonKho'>35</span></div>
                                             </td>
@@ -595,6 +597,24 @@
                                             <td style='display:none;'><ul class ='seri_pro'></ul></td>
                                     </tr>`;
                                 $("#dynamic-fields").before(newRow);
+                                //giới hạn số lượng
+                                $("tr").on("input", ".quantity-input",
+                                    function() {
+                                        // Lấy giá trị nhập vào
+                                        var value = parseInt($(this)
+                                            .val());
+                                        // Lấy giá trị giới hạn từ thuộc tính 'data-limit-quantity'
+                                        var limit = parseInt($(
+                                            ".limit-quantity"
+                                        ).data(
+                                            "limit-quantity"
+                                        ));
+                                        // Kiểm tra nếu giá trị nhập vào lớn hơn giới hạn
+                                        if (value > limit) {
+                                            // Đặt giá trị của input thành giới hạn
+                                            $(this).val(limit);
+                                        }
+                                    });
                                 //Xem giao dịch gần đây
                                 $('.recentModal').click(function() {
                                     var idProduct = $(this)

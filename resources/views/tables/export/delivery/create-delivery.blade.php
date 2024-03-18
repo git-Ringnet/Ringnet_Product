@@ -1775,6 +1775,7 @@
                                         <div class="d-flex align-items-center">
                                             <div>
                                         <input type="number" value="${formatNumber(item.soLuongCanGiao)}" data-product-id="${item.maSP}" class="border-0 px-2 text-right py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
+                                        <input type="hidden" class="limit-quantity" value="${formatNumber(item.soLuongCanGiao)}" data-limit-quantity="${formatNumber(item.soLuongCanGiao)}">
                                         <input type="hidden" class="tonkho">
                                         <p class="mt-3 text-13-blue inventory">Tồn kho: <span class="soTonKho">${formatNumber(item.product_inventory == null ? 0 : item.product_inventory)}</span></p>
                                         </div>  
@@ -1829,6 +1830,24 @@
                                     <td style='display:none;'><ul class ='seri_pro'></ul></td>
                                 </tr>`;
                                 $("#dynamic-fields").before(newRow);
+                                //giới hạn số lượng
+                                $("tr").on("input", ".quantity-input",
+                                    function() {
+                                        // Lấy giá trị nhập vào
+                                        var value = parseInt($(this)
+                                            .val());
+                                        // Lấy giá trị giới hạn từ thuộc tính 'data-limit-quantity'
+                                        var limit = parseInt($(
+                                            ".limit-quantity"
+                                            ).data(
+                                            "limit-quantity"
+                                            ));
+                                        // Kiểm tra nếu giá trị nhập vào lớn hơn giới hạn
+                                        if (value > limit) {
+                                            // Đặt giá trị của input thành giới hạn
+                                            $(this).val(limit);
+                                        }
+                                    });
                                 //Xem giao dịch gần đây
                                 $('.recentModal').click(function() {
                                     var idProduct = $(this)
