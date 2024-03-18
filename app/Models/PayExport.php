@@ -217,9 +217,14 @@ class PayExport extends Model
             if ($date_pay->lessThan(Carbon::now())) {
                 // Nếu ngày thanh toán nhỏ hơn ngày hiện tại
                 $status = 4;
-            } elseif ($payment == 0 && $date_pay->greaterThan($nowPlus4Days)) {
+            } elseif ($payment == 0) {
                 // Nếu ngày thanh toán lớn hơn ngày hiện tại cộng 3 ngày
-                $status = $payExport->status;
+                if($daThanhToan > 0 && $date_pay->greaterThan($nowPlus4Days)){
+                    $status = 5;
+                }
+                else{
+                    $status = $payExport->status;
+                }
             } elseif ($payment > 0 && $date_pay->greaterThan($nowPlus4Days)) {
                 // Nếu ngày thanh toán lớn hơn ngày hiện tại cộng 3 ngày
                 $status = 5;
