@@ -150,7 +150,8 @@
             <div class="container-fluided margin-250">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
-                        <div id="title--fixed" class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
+                        <div id="title--fixed"
+                            class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
                                 PHẨM</p>
                         </div>
@@ -286,14 +287,19 @@
                                                 </td>
 
                                                 <td class="border bg-white align-top text-13-black">
-                                                    <div class="d-flex align-items-center justify-content-between">
+                                                    <div>
                                                         <input @if ($receive->status == 2) readonly @endif
                                                             type="text"
                                                             class="border-0 px-2 py-1 w-100 quantity-input text-right"
                                                             name="product_qty[]" {{-- oninput="checkQty(this,{{ $item->product_qty }})"  --}} readonly
                                                             value="{{ number_format($item->product_qty) }}">
                                                         @if ($item->cbSN == 1)
-                                                            <button type="button" class="btn btn-primary"
+                                                            <a href="" class="duongdan" data-toggle="modal"
+                                                                data-target="#exampleModal{{ $st }}">
+                                                                <div class='mt-3 text-13-blue inventory text-right'>
+                                                                    Serial Number </div>
+                                                            </a>
+                                                            {{-- <button type="button" class="btn btn-primary"
                                                                 data-toggle="modal"
                                                                 data-target="#exampleModal{{ $st }}"
                                                                 style="background:transparent; border:none;">
@@ -320,11 +326,9 @@
                                                                         fill="#0095F6">
                                                                     </path>
                                                                 </svg>
-                                                            </button>
+                                                            </button> --}}
                                                         @endif
                                                     </div>
-                                                    <div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span
-                                                            class='pl-1 soTonKho'>35</span></div>
                                                 </td>
                                                 <td
                                                     class="border border-top-0 border-bottom-0 align-top text-center border-right-0">
@@ -345,7 +349,8 @@
                                                 </td>
                                                 <td class="border bg-white align-top d-none">
                                                     <input type="text" class="border-0 px-2 py-1 w-100 product_tax"
-                                                        name="product_tax[]" value="{{ $item->product_tax }}" readonly>
+                                                        name="product_tax[]" value="{{ $item->product_tax }}"
+                                                        readonly>
                                                     <select name="product_tax[]"
                                                         class="border-0 text-center product_tax text-13-black"
                                                         disabled>
