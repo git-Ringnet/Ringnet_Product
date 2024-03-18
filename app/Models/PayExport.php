@@ -175,6 +175,7 @@ class PayExport extends Model
                 }
             }
         }
+        
         $history = new history_Pay_Export;
         $history->pay_id = $payExport->id;
         $history->total = $total;

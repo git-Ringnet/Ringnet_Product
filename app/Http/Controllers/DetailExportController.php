@@ -341,43 +341,42 @@ class DetailExportController extends Controller
             ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($guest) {
-            // Lấy ngày từ quotation number cuối cùng
-            $date = DetailExport::where('guest_id', $guest->id)
+            $date = DetailExport::where('guest_id', $guest->id)->orderBy('id', 'desc')
                 ->where('workspace_id', Auth::user()->current_workspace)
-                ->orderBy('id', 'desc')
-                ->value('quotation_number');
-
+                ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
+                ->first();
             if ($date) {
-                $date = explode('/', $date)[0];
-            } else {
-                // Nếu không có quotation number nào, sử dụng ngày hiện tại
-                $date = Carbon::now()->format('dmY');
+                $date = explode('/', $date->quotation_number)[0];
             }
-
-            // Đếm số quotation number của khách hàng trong ngày đó
             $count = DetailExport::where('guest_id', $guest->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [$date])
                 ->count();
+            $lastDetailImport = DetailExport::where('guest_id', $guest->id)
+                ->orderBy('id', 'desc')
+                ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
+                ->first();
 
-            // Tăng số quotation number lên 1
-            $count++;
+            if ($lastDetailImport) {
+                $parts = explode('-', $lastDetailImport->quotation_number);
+                $getNumber = end($parts);
 
-            // Format số đếm thành 2 chữ số nếu nhỏ hơn 10
-            $count = $count < 10 ? "0" . $count : $count;
-
-            // Tạo quotation number mới
-            $resultNumber = $date . "/RN-" . $guest->key . "-" . $count;
-
+                $count = $getNumber + 1;
+            } else {
+                $count = $count == 0 ? $count += 1 : $count;
+            }
+            if ($count < 10) {
+                $count = "0" . $count;
+            }
+            $resultNumber = ($date == "" ? Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmY') : $date) . "/RN-" . $guest->key . "-" . $count;
             $result = [
                 'guest' => $guest,
                 'count' => $count,
                 'key' => $guest->key,
-                'date' => $date,
+                'date' => ($date == "" ? Carbon::now()->format('dmY') : $date),
                 'resultNumber' => $resultNumber
             ];
         }
-
         return $result;
     }
     public function searchRepresent(Request $request)

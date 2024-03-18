@@ -52,7 +52,8 @@
                             ngày
                         </span>
                     @elseif($payExport->trangThai == 5)
-                        <span class="border ml-2 p-1 text-nav text-secondary shadow-sm rounded">Thanh toán một phần</span>
+                        <span class="border ml-2 p-1 text-nav text-secondary shadow-sm rounded">Thanh toán một
+                            phần</span>
                     @else
                         <span class="border ml-2 p-1 text-nav text-warning shadow-sm rounded">Đến hạn</span>
                     @endif
@@ -81,7 +82,8 @@
                                 </path>
                             </svg>
                             <span>Đính kèm file</span>
-                            <input type="file" style="display: none;" id="file_restore" accept="*" name="file">
+                            <input type="file" style="display: none;" id="file_restore" accept="*"
+                                name="file">
                         </label>
                         <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
@@ -104,8 +106,8 @@
                             <div class="dropdown">
                                 <button type="submit" name="action" value="action_1" id="btnXacNhan"
                                     class="btn-destroy btn-light rounded mx-1 d-flex align-items-center h-100">
-                                    <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none">
+                                    <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16"
+                                        height="16" viewBox="0 0 16 16" fill="none">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                             d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
                                             fill="#6D7075" />
@@ -163,8 +165,10 @@
             <div class="container-fluided margin-250">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
-                        <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM
+                        <div id="title--fixed"
+                            class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
+                                PHẨM
                             </p>
                         </div>
                         <section class="content margin-top-103">
@@ -214,11 +218,11 @@
                                                             <span class="px-1">Xóa</span>
                                                         </button>
                                                     </div>
-    
+
                                                 </div>
                                                 <div class="btn ml-auto cancal_action">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" viewBox="0 0 24 24" fill="none">
                                                         <path d="M18 18L6 6" stroke="white" stroke-width="1.5"
                                                             stroke-linecap="round" stroke-linejoin="round"></path>
                                                         <path d="M18 6L6 18" stroke="white" stroke-width="1.5"
@@ -241,17 +245,18 @@
                                         <thead>
                                             <tr class="height-52">
                                                 <th class="border-right p-2" style="width: 16%;">
-                                                    <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox">
+                                                    <input class="checkall-btn ml-4 mr-1" id="checkall"
+                                                        type="checkbox">
                                                     <span class="text-13 "> Mã sản phẩm</span>
                                                 </th>
                                                 <th class="border-right p-2" style="width: 16%;">
                                                     <span class="text-13">Tên sản phẩm</span>
                                                 </th>
                                                 <th class="border-right p-2" style="width: 10%;">
-                                                   <span class="text-13"> Đơn vị</span>
+                                                    <span class="text-13"> Đơn vị</span>
                                                 </th>
                                                 <th class="border-right p-2" style="width: 10%;">
-                                                   <span class="text-13"> Số lượng</span>
+                                                    <span class="text-13"> Số lượng</span>
                                                 </th>
                                                 <th class="border-right p-2">
                                                     <span class="text-13">Đơn giá</span>
@@ -270,26 +275,31 @@
                                         <tbody>
                                             @foreach ($product as $item_quote)
                                                 <tr class="bg-white height-52">
-                                                    <td class="border border-left-0 border-top-0 p-2 align-top border-bottom-0 position-relative">
-                                                        <div class="d-flex w-100 justify-content-between align-items-center">
-                                                            <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox">    
+                                                    <td
+                                                        class="border border-left-0 border-top-0 p-2 align-top border-bottom-0 position-relative">
+                                                        <div
+                                                            class="d-flex w-100 justify-content-between align-items-center">
+                                                            <input class="checkall-btn ml-4 mr-1" id="checkall"
+                                                                type="checkbox">
                                                             <input type="text" autocomplete="off" readonly
-                                                                    value="{{ $item_quote->product_code }}"
-                                                                    class="border-0 px-2 py-1 w-75 product_code w-100 text-13-black "
-                                                                    name="product_code[]">
+                                                                value="{{ $item_quote->product_code }}"
+                                                                class="border-0 px-2 py-1 w-75 product_code w-100 text-13-black "
+                                                                name="product_code[]">
                                                     </td>
                                                     <td class="border-right p-2 text-13 align-top position-relative">
                                                         <div class="d-flex align-items-center">
-                                                            <input type="text" value="{{ $item_quote->product_name }}"
+                                                            <input type="text"
+                                                                value="{{ $item_quote->product_name }}"
                                                                 class="border-0 px-2 py-1 w-100 product_name" readonly
                                                                 autocomplete="off" name="product_name[]">
                                                             <input type="hidden" class="product_id"
-                                                                value="{{ $item_quote->product_id }}" autocomplete="off"
-                                                                name="product_id[]">
+                                                                value="{{ $item_quote->product_id }}"
+                                                                autocomplete="off" name="product_id[]">
                                                             <div class='info-product' data-toggle='modal'
                                                                 data-target='#productModal'>
                                                                 <svg xmlns='http://www.w3.org/2000/svg' width='14'
-                                                                    height='14' viewBox='0 0 14 14' fill='none'>
+                                                                    height='14' viewBox='0 0 14 14'
+                                                                    fill='none'>
                                                                     <g clip-path='url(#clip0_2559_39956)'>
                                                                         <path
                                                                             d='M6.99999 1.48362C5.53706 1.48362 4.13404 2.06477 3.09959 3.09922C2.06514 4.13367 1.48399 5.53669 1.48399 6.99963C1.48399 8.46256 2.06514 9.86558 3.09959 10.9C4.13404 11.9345 5.53706 12.5156 6.99999 12.5156C8.46292 12.5156 9.86594 11.9345 10.9004 10.9C11.9348 9.86558 12.516 8.46256 12.516 6.99963C12.516 5.53669 11.9348 4.13367 10.9004 3.09922C9.86594 2.06477 8.46292 1.48362 6.99999 1.48362ZM0.265991 6.99963C0.265991 5.21366 0.975464 3.50084 2.23833 2.23797C3.5012 0.975098 5.21402 0.265625 6.99999 0.265625C8.78596 0.265625 10.4988 0.975098 11.7616 2.23797C13.0245 3.50084 13.734 5.21366 13.734 6.99963C13.734 8.78559 13.0245 10.4984 11.7616 11.7613C10.4988 13.0242 8.78596 13.7336 6.99999 13.7336C5.21402 13.7336 3.5012 13.0242 2.23833 11.7613C0.975464 10.4984 0.265991 8.78559 0.265991 6.99963Z'
@@ -376,9 +386,9 @@
                                     </table>
                                 </section>
                             </div>
-                        <!-- </section>
+                            <!-- </section>
                         <div class="content"> -->
-    
+
                             <div class="content">
                                 <div class="row" style="width:95%;">
                                     <div class="position-relative col-lg-4 px-0"></div>
@@ -396,19 +406,21 @@
                                                 <span class="text-13-bold text-lg font-weight-bold">Tổng cộng: </span>
                                                 <span class="text-13-bold text-lg font-weight-bold text-right"
                                                     id="grand-total" data-value="0">0đ</span>
-                                                <input type="text" hidden="" name="totalValue" value="0"
-                                                    id="total">
+                                                <input type="text" hidden="" name="totalValue"
+                                                    value="0" id="total">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                        <!-- </div> -->
+                                <!-- </div> -->
                             </div>
                         </section>
                     </div>
                     <div id="history" class="tab-pane fade">
-                        <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">Lịch sử thanh toán</p>
+                        <div id="title--fixed"
+                            class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">Lịch sử thanh
+                                toán</p>
                         </div>
                         <section class="content margin-top-103">
                             <div class="outer container-fluided">
@@ -447,110 +459,106 @@
                             </div>
                         </section>
                     </div>
-                    <div id="files" class="tab-pane fade">
-                        <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM</p>
+                    {{-- Thông tin khách hàng --}}
+                    <div class="content-wrapper2 px-0 py-0">
+                        <div id="mySidenav" class="sidenav border top-109">
+                            <div id="show_info_Guest">
+                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin
+                                    khách hàng</p>
+                                <div class="content-info">
+                                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
+                                        style="height:44px;" style="height:44px;">
+                                        <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
+                                        <span class="mx-1 text-13" style="flex: 2;">
+                                            <input type="text" placeholder="Chọn thông tin" readonly
+                                                value="{{ $payExport->quotation_number }}"
+                                                class="text-13-black w-100 border-0 numberQute bg-input-guest"
+                                                id="myInput" style="background-color:#F0F4FF; border-radius:4px;"
+                                                autocomplete="off" name="quotation_number">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="content-info--common" id="show-info-guest">
+                                    <ul class="p-0 m-0 ">
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách
+                                                hàng</span>
+                                            <input class="text-13-black w-50 border-0 bg-input-guest"
+                                                value="{{ $payExport->guest_name_display }}"
+                                                style="flex:2;outline:none;">
+                                            <input type="hidden" class="idGuest" value="{{ $payExport->guest_id }}"
+                                                autocomplete="off" name="guest_id">
+                                        </li>
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
+                                                diện</span>
+                                            <input class="text-13-black w-50 border-0 represent_guest"
+                                                style="flex:2;outline:none;" readonly
+                                                value="{{ $payExport->represent_name }}" />
+                                        </li>
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh
+                                                toán</span>
+                                            <input class="text-13-black w-50 border-0" style="flex:2;outline:none;"
+                                                value="{{ $payExport->code_payment }}" readonly />
+                                        </li>
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hạn thanh
+                                                toán</span>
+                                            <input type="text" placeholder="Nhập thông tin"
+                                                style="flex:2;outline:none;"
+                                                @if ($payExport->trangThai != 2) id="datePicker" @endif
+                                                value="{{ date_format(new DateTime($payExport->payment_date), 'd/m/Y') }}"
+                                                class="text-13-black w-50 border-0">
+                                            <input type="hidden" id="hiddenDateInput" name="date_pay"
+                                                value="{{ date_format(new DateTime($payExport->payment_date), 'Y-m-d') }}">
+                                        </li>
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
+                                            <input class="text-13-black w-50 border-0 tongTien" name="total"
+                                                style="flex:2;outline:none;"
+                                                value="{{ number_format($payExport->tongTienNo) }}" readonly />
+                                        </li>
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đã thanh
+                                                toán</span>
+                                            <input type="text" class="text-13-black w-50 border-0 daThanhToan"
+                                                style="flex:2; outline:none;" readonly name="daThanhToan"
+                                                value="{{ number_format($thanhToan->tongThanhToan) }}" />
+                                        </li>
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
+                                            <input class="text-13-black w-50 border-0 duNo"
+                                                style="flex:2; outline:none;" name="number_bill"
+                                                value="{{ number_format($noConLaiValue) }}" readonly />
+                                        </li>
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh
+                                                toán</span>
+                                            <input type="text" class="text-13-black w-50 border-0 payment"
+                                                oninput="validateInput();"
+                                                @if ($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif
+                                                name="payment" style="flex:2; outline:none;" name="payment" />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <x-form-attachment :value="$payExport" name="TT"></x-form-attachment>
                     </div>
-                </div>
-            </div>
-        </div>
-        {{-- Thông tin khách hàng --}}
-        <div class="content-wrapper2 px-0 py-0">
-            <div id="mySidenav" class="sidenav border top-109">
-                <div id="show_info_Guest">
-                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin khách hàng</p>
-                    <div class="content-info">
-                        <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
-                            style="height:44px;" style="height:44px;">
-                            <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
-                            <span class="mx-1 text-13" style="flex: 2;">
-                                <input type="text" placeholder="Chọn thông tin" readonly
-                                    value="{{ $payExport->quotation_number }}"
-                                    class="text-13-black w-100 border-0 numberQute bg-input-guest" id="myInput"
-                                    style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
-                                    name="quotation_number">
-                            </span>
-                        </div>
-                    </div>
-                    <div class="content-info--common" id="show-info-guest">
-                        <ul class="p-0 m-0 ">
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest"
-                                    value="{{ $payExport->guest_name_display }}" style="flex:2;outline:none;">
-                                <input type="hidden" class="idGuest" value="{{ $payExport->guest_id }}"
-                                    autocomplete="off" name="guest_id">
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input class="text-13-black w-50 border-0 represent_guest" style="flex:2;outline:none;"
-                                    readonly value="{{ $payExport->represent_name }}"/>
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh toán</span>
-                                <input class="text-13-black w-50 border-0" style="flex:2;outline:none;"
-                                    value="{{ $payExport->code_payment }}" readonly />
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hạn thanh toán</span>
-                                <input type="text" placeholder="Nhập thông tin" style="flex:2;outline:none;"
-                                    @if ($payExport->trangThai != 2) id="datePicker" @endif
-                                    value="{{ date_format(new DateTime($payExport->payment_date), 'd/m/Y') }}"
-                                    class="text-13-black w-50 border-0">
-                                <input type="hidden" id="hiddenDateInput" name="date_pay"
-                                    value="{{ date_format(new DateTime($payExport->payment_date), 'Y-m-d') }}">
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
-                                <input class="text-13-black w-50 border-0 tongTien" name="total"
-                                    style="flex:2;outline:none;" value="{{ number_format($payExport->tongTienNo) }}"
-                                    readonly />
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đã thanh toán</span>
-                                <input type="text" class="text-13-black w-50 border-0 daThanhToan"
-                                    style="flex:2; outline:none;" readonly name="daThanhToan"
-                                    value="{{ number_format($thanhToan->tongThanhToan) }}" />
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
-                                <input class="text-13-black w-50 border-0 duNo" style="flex:2; outline:none;"
-                                    name="number_bill" value="{{ number_format($noConLaiValue) }}" readonly />
-                            </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
-                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán</span>
-                                <input type="text" class="text-13-black w-50 border-0 payment"
-                                    oninput="validateInput();"
-                                    @if ($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif
-                                    name="payment" style="flex:2; outline:none;" name="payment" />
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
 </form>
 <div id="files" class="tab-pane fade">
-    <div class="bg-filter-search border-top-0 text-center border-custom">
+    <div class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
         <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM</p>
     </div>
     <x-form-attachment :value="$payExport" name="TT"></x-form-attachment>
-</div>
-</div>
-</div>
-</div>
 </div>
 
 {{-- Thông tin sản phẩm --}}
@@ -1365,8 +1373,10 @@
                                                         .product_inventory !==
                                                         null
                                                     ) {
-                                                        $('.inventory').show();
-                                                        $('.transaction').show();
+                                                        $('.inventory')
+                                                            .show();
+                                                        $('.transaction')
+                                                            .show();
                                                     }
                                                 }
                                             });
