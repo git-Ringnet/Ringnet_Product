@@ -609,8 +609,6 @@
         </div>
     </div>
 </div>
-
-
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
@@ -1500,6 +1498,7 @@
                         listProductName.append(UL);
                     })
                     $('.search-name').on('click', function() {
+                        var currentTr = $(this);
                         inputCode.val($(this).attr('data-code') == "null" ? "" : $(this)
                             .attr('data-code'));
                         inputName.val($(this).closest('li').find('span').text());
@@ -1521,22 +1520,48 @@
                                 product_name: product_name,
                             },
                             success: function(data) {
-                                $('#soTonKho').text(formatCurrency(data[
-                                    'products'].product_inventory))
-                                $('#recentModal .modal-body tbody').empty()
-                                if (data['history']) {
-                                    data['history'].forEach(element => {
-                                        var tr = `
+                                $(currentTr).closest('tr').find('#soTonKho')
+                                    .text(
+                                        formatCurrency(data[
+                                            'products'].product_inventory))
+                                $('.transaction').on('click', function() {
+                                    nameProduct = $(this).closest('tr')
+                                        .find('.searchProductName')
+                                        .val()
+                                    $.ajax({
+                                        url: "{{ route('getHistoryImport') }}",
+                                        type: "get",
+                                        data: {
+                                            product_name: nameProduct,
+                                        },
+                                        success: function(
+                                            data) {
+                                            $('#recentModal .modal-body tbody')
+                                                .empty()
+                                            if (data[
+                                                    'history'
+                                                ]) {
+                                                data[
+                                                        'history'
+                                                    ]
+                                                    .forEach(
+                                                        element => {
+                                                            var tr = `
                                             <tr>
                                                 <td>` + element.product_name + `</td>
                                                 <td>` + formatCurrency(element.price_export) + `</td>
-                                                <td>` + element.product_tax + `</td>
+                                                <td>` + (element.product_tax == 99 ? "NOVAT" : element.product_tax + "%") + `</td>
                                                 <td>` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
                                             </tr> `;
-                                        $('#recentModal .modal-body tbody')
-                                            .append(tr);
+                                                            $('#recentModal .modal-body tbody')
+                                                                .append(
+                                                                    tr
+                                                                );
+                                                        })
+                                            }
+                                        }
                                     })
-                                }
+                                })
                             }
                         })
                     })

@@ -81,6 +81,20 @@ class PayOder extends Model
         }
         return $result;
     }
+
+    public function updateDebtProvide($provide_id, $total)
+    {
+        $provide = Provides::where('id', $provide_id)->first();
+        if ($provide) {
+            $debt = $provide->provide_debt - $total;
+
+            DB::table('provides')->where('id', $provide->id)->update(
+                ['provide_debt' => $debt]
+            );
+        }
+    }
+
+
     public function addNewPayment($data, $id)
     {
         $total = 0;
@@ -140,34 +154,27 @@ class PayOder extends Model
                             }
                         }
                         $sum = round($total) + round($total_tax);
-                        // Lỗi
                         $temp = $sum;
                         DB::table($this->table)->where('id', $payment_id)
                             ->where('workspace_id', Auth::user()->current_workspace)
                             ->update([
                                 'total' => $sum,
                                 'debt' => $sum - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0),
-                                // 'debt' => $sum,
                             ]);
                     }
                 }
             }
             // Cập nhật tình trạng thanh toán
             $status = $this->updateStatusDebt($data, $payment_id, 1);
+            $prepay = isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0;
             // Cập nhật trạng thái đơn hàng
             if ($detail->status == 1) {
                 $detail->status = 2;
                 $detail->save();
+
+                // tính dư nợ nhà cung cấp
+                $this->calculateDebt($detail->provide_id, $temp, $prepay);
             }
-            $prepay = isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0;
-            // tính dư nợ
-            $this->calculateDebt($detail->provide_id, $temp, $prepay);
-            // $temp = $temp - $prepay;
-            // DB::table($this->table)->where('id', $payment_id)
-            //     ->where('workspace_id', Auth::user()->current_workspace)
-            //     ->update([
-            //         'debt' => $temp,
-            //     ]);
 
             // Cập nhật trạng thái
             $this->updateStatus($detail->id, PayOder::class, 'payment_qty', 'status_pay');
@@ -332,21 +339,20 @@ class PayOder extends Model
                     }
                 }
                 // Tính dư nợ nhà cung cấp
-                $provide = Provides::where('id', $payment->provide_id)->first();
-                if ($provide) {
-                    if ($payment->payment > 0) {
-                        $debt = $provide->provide_debt + $payment->payment;
-                    } else {
-                        $debt = $provide->provide_debt;
-                    }
-                    $dataProvide = [
-                        // 'provide_debt' => ($provide->provide_debt - $payment->total),
-                        'provide_debt' => ($debt - $payment->total),
-                    ];
-                    DB::table('provides')->where('id', $provide->id)
-                        ->where('workspace_id', Auth::user()->current_workspace)
-                        ->update($dataProvide);
-                }
+                // $provide = Provides::where('id', $payment->provide_id)->first();
+                // if ($provide) {
+                //     if ($payment->payment > 0) {
+                //         $debt = $provide->provide_debt + $payment->payment;
+                //     } else {
+                //         $debt = $provide->provide_debt;
+                //     }
+                //     $dataProvide = [
+                //         'provide_debt' => ($debt - $payment->total),
+                //     ];
+                //     DB::table('provides')->where('id', $provide->id)
+                //         ->where('workspace_id', Auth::user()->current_workspace)
+                //         ->update($dataProvide);
+                // }
             }
 
             // Xóa lịch sử
@@ -375,13 +381,22 @@ class PayOder extends Model
                 $stDetail = 1;
             }
 
-
             DB::table('detailimport')->where('id', $detail)
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->update([
                     'status_pay' => 0,
                     'status' => $stDetail
                 ]);
+
+
+            // Xóa dư nợ nhà cung cấp nếu tình trạng là 1  
+            if ($stDetail == 1) {
+                $detailImport = DetailImport::where('id', $detail)->first();
+                if ($detailImport) {
+                    $this->updateDebtProvide($detailImport->provide_id, $detailImport->total_tax);
+                }
+            }
+
 
             $status = true;
         } else {

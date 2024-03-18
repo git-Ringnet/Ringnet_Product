@@ -144,4 +144,60 @@ class ProvidesController extends Controller
         }
         return false;
     }
+    public function checkKeyProvide(Request $request)
+    {
+        if ($request->status == "add") {
+            $check = Provides::where('workspace_id', Auth::user()->current_workspace)
+                ->where(function ($query) use ($request) {
+                    $query->where('provide_code', $request->provide_code)
+                        ->orWhere('provide_name_display', $request->provide_name_display);
+                })
+                ->first();
+            if ($check == null) {
+                $checkKey = Provides::where('workspace_id', Auth::user()->current_workspace)
+                    ->where('key', $request->key)
+                    ->first();
+                if ($checkKey) {
+                    // Tên viết tắt đã tồn tại, thực hiện logic thay đổi giá trị key
+                    $newKey = $request->key;
+
+                    // Kiểm tra xem key mới đã tồn tại chưa
+                    $counter = 1;
+                    while (Provides::where('workspace_id', Auth::user()->current_workspace)
+                        ->where('key', $newKey)
+                        ->exists()
+                    ) {
+                        // Kiểm tra xem key có kết thúc bằng số không
+                        if (preg_match('/\d+$/', $newKey)) {
+                            // Tăng số đằng sau
+                            $newKey = preg_replace_callback('/(\d+)$/', function ($matches) {
+                                return ++$matches[1];
+                            }, $newKey);
+                        } else {
+                            // Nếu không có số, thêm số 1 vào sau key
+                            $newKey .= '1';
+                        }
+                    }
+
+                    $msg = response()->json([
+                        'success' => false,
+                        'msg' => 'Tên viết tắt đã tồn tại!',
+                        'key' => $newKey,
+                    ]);
+                } else {
+                    $msg = response()->json([
+                        'success' => true,
+                    ]);
+                }
+            } else {
+                $msg = response()->json([
+                    'success' => false,
+                    'msg' => 'Mã số thuế hoặc tên hiển thị đã tồn tại',
+                ]);
+            }
+        } else {
+            return 1;
+        }
+        return $msg;
+    }
 }

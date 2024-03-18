@@ -207,13 +207,13 @@ class ReceiveController extends Controller
                 $nameRepresent = $detail->getNameRepresent->represent_name;
             }
         }
-        if($request->table == "receive"){
-            $count = Receive_bill::where('workspace_id',Auth::user()->current_workspace)->count();
+        if ($request->table == "receive") {
+            $count = Receive_bill::where('workspace_id', Auth::user()->current_workspace)->count();
 
             $lastReceive = Receive_bill::where('workspace_id', Auth::user()->current_workspace)
                 ->orderBy('id', 'desc')
                 ->first();
-    
+
             if ($lastReceive) {
                 $parts = explode('-', $lastReceive->delivery_code);
                 $getNumber = end($parts);
@@ -224,14 +224,14 @@ class ReceiveController extends Controller
             if ($count < 10) {
                 $count = "0" . $count;
             }
-            $resultNumber = "MTT-". $count;
-        }elseif($request->table == "reciept"){
-            $count = Reciept::where('workspace_id',Auth::user()->current_workspace)->count();
+            $resultNumber = "MNH-" . $count;
+        } elseif ($request->table == "reciept") {
+            $count = Reciept::where('workspace_id', Auth::user()->current_workspace)->count();
 
             $lastReceive = Reciept::where('workspace_id', Auth::user()->current_workspace)
                 ->orderBy('id', 'desc')
                 ->first();
-    
+
             if ($lastReceive) {
                 $parts = explode('-', $lastReceive->number_bill);
                 $getNumber = end($parts);
@@ -242,14 +242,14 @@ class ReceiveController extends Controller
             if ($count < 10) {
                 $count = "0" . $count;
             }
-            $resultNumber = "SHD-". $count;
-        }else{
-            $count = PayOder::where('workspace_id',Auth::user()->current_workspace)->count();
+            $resultNumber = "SHD-" . $count;
+        } else {
+            $count = PayOder::where('workspace_id', Auth::user()->current_workspace)->count();
 
             $lastReceive = PayOder::where('workspace_id', Auth::user()->current_workspace)
                 ->orderBy('id', 'desc')
                 ->first();
-    
+
             if ($lastReceive) {
                 $parts = explode('-', $lastReceive->payment_code);
                 $getNumber = end($parts);
@@ -260,9 +260,9 @@ class ReceiveController extends Controller
             if ($count < 10) {
                 $count = "0" . $count;
             }
-            $resultNumber = "MTT-". $count;
+            $resultNumber = "MTT-" . $count;
         }
-      
+
 
         $data = [
             'quotation_number' => isset($detail) ? $detail->quotation_number : "",
@@ -289,9 +289,6 @@ class ReceiveController extends Controller
                 ->where(DB::raw('COALESCE(product_inventory,0)'), '>', 0)
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
-            // $productImport = QuoteImport::where('product_name', $qt->product_name)
-            //     ->where('workspace_id', Auth::user()->current_workspace)
-            //     ->get();
 
             $productImport = QuoteImport::where('product_name', $qt->product_name)
                 ->where('workspace_id', Auth::user()->current_workspace)
@@ -303,26 +300,18 @@ class ReceiveController extends Controller
                     ->where('receive_id', '!=', 'null')
                     ->first();
             }
-            // foreach ($productImport as $ip) {
-            // array_push($id_quote, $ip->id);
 
             if ($product) {
                 array_push($list, $product->check_seri);
                 array_push($checked, 'disabled');
             } else if ($CBSN) {
                 // return $CBSN;
-                // array_push($list, $CBSN->cbSN == 0 ? 1 : $CBSN->cbSN);
                 array_push($list, $CBSN->cbSN);
                 array_push($checked, 'disabled');
             } else {
                 array_push($list, 0);
                 array_push($checked, 'endable');
             }
-            // }
-            // $CBSN = ProductImport::whereIn('quoteImport_id', $id_quote)
-            //     ->where('workspace_id', Auth::user()->current_workspace)
-            //     ->where('receive_id', '!=', 'null')
-            //     ->first();
         }
         // return $list;
         $data = [

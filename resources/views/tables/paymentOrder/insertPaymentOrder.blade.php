@@ -89,7 +89,8 @@
         {{-- Thông tin sản phẩm --}}
         <div class="content margin-top-38" id="main">
             <section class="content margin-250">
-                <div id="title--fixed" class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
+                <div id="title--fixed"
+                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
                 <div class="container-fluided margin-top-72">
@@ -128,92 +129,92 @@
                                 </thead>
                                 <tbody>
                                     <!-- @isset($dataImport)
-                                                                    @foreach ($dataImport as $item)
+                                                                            @foreach ($dataImport as $item)
     <tr class="bg-white">
-                                                                            <td class="border border-left-0 border-top-0 border-bottom-0">
-                                                                                <input type="hidden" readonly value="{{ $item->id }}"
-                                                                                    name="listProduct[]">
-                                                                                <div
-                                                                                    class="d-flex w-100 justify-content-between align-items-center position-relative">
-                                                                                    <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                                            d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z"
-                                                                                            fill="#42526E" />
-                                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                                            d="M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z"
-                                                                                            fill="#42526E" />
-                                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                                            d="M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z"
-                                                                                            fill="#42526E" />
-                                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                                            d="M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z"
-                                                                                            fill="#42526E" />
-                                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                                            d="M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z"
-                                                                                            fill="#42526E" />
-                                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                                            d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z"
-                                                                                            fill="#42526E" />
-                                                                                    </svg>
-                                                                                    <input type="checkbox">
-                                                                                    <input type="text" name="product_code[]"
-                                                                                        class="border-0 px-2 py-1 w-75 searchProduct"
-                                                                                        value="{{ $item->product_code }}">
-                                                                                    <ul id="listProductCode"
-                                                                                        class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
-                                                                                        style="z-index: 99; left: 24%; top: 75%;">
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td class="border border-top-0 border-bottom-0 position-relative">
-                                                                                <input id="searchProductName" type="text" name="product_name[]"
-                                                                                    class="searchProductName border-0 px-2 py-1 w-100"
-                                                                                    value="{{ $item->product_name }}">
-                                                                                <ul id="listProductName"
-                                                                                    class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
-                                                                                    style="z-index: 99; left: 1%; top: 74%; display: none;">
-                                                                                </ul>
-                                                                            </td>
-                                                                            <td class="border border-top-0 border-bottom-0">
-                                                                                <input type="text" name="product_unit[]"
-                                                                                    class="border-0 px-2 py-1 w-100 product_unit"
-                                                                                    value="{{ $item->product_unit }}">
-                                                                            </td>
-                                                                            <td class="border border-top-0 border-bottom-0">
-                                                                                <div class="d-flex"><input type="text" required=""
-                                                                                        oninput="validateQtyInput1(this)"
-                                                                                        class="border-0 px-2 py-1 w-100 quantity-input"
-                                                                                        name="product_qty[]">
-                                                                                </div>
-                                                                            </td>
-                                                                            <td class="border border-top-0 border-bottom-0"><input type="text"
-                                                                                    required="" class="border-0 px-2 py-1 w-100 price_export"
-                                                                                    name="price_export[]"></td>
-                                                                            <input type="hidden" class="product_tax1">
-                                                                            <td class="border border-top-0 border-bottom-0 border-right-0">
-                                                                                <select name="product_tax[]" id="" class="product_tax">
-                                                                                    <option value="0"
-                                                                                        @if ($item->product_tax == 0) selected @endif>0%
-                                                                                    </option>
-                                                                                    <option value="8"
-                                                                                        @if ($item->product_tax == 8) selected @endif>8%
-                                                                                    </option>
-                                                                                    <option value="10"
-                                                                                        @if ($item->product_tax == 10) selected @endif>10%
-                                                                                    </option>
-                                                                                    <option value="99"
-                                                                                        @if ($item->product_tax == 99) selected @endif>NOVAT
-                                                                                    </option>
-                                                                                </select>
-                                                                            </td>
-                                                                            <td class="border border-top-0 border-bottom-0"><input type="text"
-                                                                                    class="border-0 px-2 py-1 w-100 total_price" readonly=""
-                                                                                    name="total_price[]">
-                                                                            </td>
-                                                                            <td class="border border-top-0 border-bottom-0"><input type="text"
-                                                                                    class="border-0 px-2 py-1 w-100" name="product_note[]"></td>
-                                                                        </tr>
+                                                                                    <td class="border border-left-0 border-top-0 border-bottom-0">
+                                                                                        <input type="hidden" readonly value="{{ $item->id }}"
+                                                                                            name="listProduct[]">
+                                                                                        <div
+                                                                                            class="d-flex w-100 justify-content-between align-items-center position-relative">
+                                                                                            <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                                                    d="M9 3C7.89543 3 7 3.89543 7 5C7 6.10457 7.89543 7 9 7C10.1046 7 11 6.10457 11 5C11 3.89543 10.1046 3 9 3Z"
+                                                                                                    fill="#42526E" />
+                                                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                                                    d="M9 10C7.89543 10 7 10.8954 7 12C7 13.1046 7.89543 14 9 14C10.1046 14 11 13.1046 11 12C11 10.8954 10.1046 10 9 10Z"
+                                                                                                    fill="#42526E" />
+                                                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                                                    d="M9 17C7.89543 17 7 17.8954 7 19C7 20.1046 7.89543 21 9 21C10.1046 21 11 20.1046 11 19C11 17.8954 10.1046 17 9 17Z"
+                                                                                                    fill="#42526E" />
+                                                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                                                    d="M15 3C13.8954 3 13 3.89543 13 5C13 6.10457 13.8954 7 15 7C16.1046 7 17 6.10457 17 5C17 3.89543 16.1046 3 15 3Z"
+                                                                                                    fill="#42526E" />
+                                                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                                                    d="M15 10C13.8954 10 13 10.8954 13 12C13 13.1046 13.8954 14 15 14C16.1046 14 17 13.1046 17 12C17 10.8954 16.1046 10 15 10Z"
+                                                                                                    fill="#42526E" />
+                                                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                                                    d="M15 17C13.8954 17 13 17.8954 13 19C13 20.1046 13.8954 21 15 21C16.1046 21 17 20.1046 17 19C17 17.8954 16.1046 17 15 17Z"
+                                                                                                    fill="#42526E" />
+                                                                                            </svg>
+                                                                                            <input type="checkbox">
+                                                                                            <input type="text" name="product_code[]"
+                                                                                                class="border-0 px-2 py-1 w-75 searchProduct"
+                                                                                                value="{{ $item->product_code }}">
+                                                                                            <ul id="listProductCode"
+                                                                                                class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
+                                                                                                style="z-index: 99; left: 24%; top: 75%;">
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td class="border border-top-0 border-bottom-0 position-relative">
+                                                                                        <input id="searchProductName" type="text" name="product_name[]"
+                                                                                            class="searchProductName border-0 px-2 py-1 w-100"
+                                                                                            value="{{ $item->product_name }}">
+                                                                                        <ul id="listProductName"
+                                                                                            class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
+                                                                                            style="z-index: 99; left: 1%; top: 74%; display: none;">
+                                                                                        </ul>
+                                                                                    </td>
+                                                                                    <td class="border border-top-0 border-bottom-0">
+                                                                                        <input type="text" name="product_unit[]"
+                                                                                            class="border-0 px-2 py-1 w-100 product_unit"
+                                                                                            value="{{ $item->product_unit }}">
+                                                                                    </td>
+                                                                                    <td class="border border-top-0 border-bottom-0">
+                                                                                        <div class="d-flex"><input type="text" required=""
+                                                                                                oninput="validateQtyInput1(this)"
+                                                                                                class="border-0 px-2 py-1 w-100 quantity-input"
+                                                                                                name="product_qty[]">
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td class="border border-top-0 border-bottom-0"><input type="text"
+                                                                                            required="" class="border-0 px-2 py-1 w-100 price_export"
+                                                                                            name="price_export[]"></td>
+                                                                                    <input type="hidden" class="product_tax1">
+                                                                                    <td class="border border-top-0 border-bottom-0 border-right-0">
+                                                                                        <select name="product_tax[]" id="" class="product_tax">
+                                                                                            <option value="0"
+                                                                                                @if ($item->product_tax == 0) selected @endif>0%
+                                                                                            </option>
+                                                                                            <option value="8"
+                                                                                                @if ($item->product_tax == 8) selected @endif>8%
+                                                                                            </option>
+                                                                                            <option value="10"
+                                                                                                @if ($item->product_tax == 10) selected @endif>10%
+                                                                                            </option>
+                                                                                            <option value="99"
+                                                                                                @if ($item->product_tax == 99) selected @endif>NOVAT
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </td>
+                                                                                    <td class="border border-top-0 border-bottom-0"><input type="text"
+                                                                                            class="border-0 px-2 py-1 w-100 total_price" readonly=""
+                                                                                            name="total_price[]">
+                                                                                    </td>
+                                                                                    <td class="border border-top-0 border-bottom-0"><input type="text"
+                                                                                            class="border-0 px-2 py-1 w-100" name="product_note[]"></td>
+                                                                                </tr>
     @endforeach
                                     @endisset -->
                                 </tbody>
@@ -301,7 +302,8 @@
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-top-0 text-center border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG CẤP
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG
+                            CẤP
                         </p>
                     </div>
                     <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
@@ -439,10 +441,108 @@
 
     </div>
 </form>
+
+<div class="modal fade" id="recentModal" tabindex="-1" aria-labelledby="productModalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-bold">Giao dịch gần đây</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="outer text-nowrap">
+                    <table id="example2" class="table table-hover bg-white rounded">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Tên sản phẩm
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Giá mua
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Thuế
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Ngày mua
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </div>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <!-- <script src="{{ asset('/dist/js/products.js') }}"></script> -->
 <script>
+     $(document).on('click','.transaction',function(){
+        nameProduct = $(this).closest('tr').find('.searchProductName').val()
+        $.ajax({
+            url: "{{ route('getHistoryImport') }}",
+            type: "get",
+            data: {
+                product_name: nameProduct,
+            },
+            success: function(data) {
+                $('#recentModal .modal-body tbody').empty()
+                if (data['history']) {
+                    data['history'].forEach(
+                            element => {
+                                var tr = `
+                                        <tr>
+                                            <td>` + element.product_name + `</td>
+                                            <td>` + formatCurrency(element.price_export) + `</td>
+                                            <td>` + (element.product_tax == 99 ? "NOVAT" : element.product_tax +"%") + `</td>
+                                            <td>` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
+                                        </tr> `;
+                                $('#recentModal .modal-body tbody').append(tr);
+                    })
+                }
+            }
+        })
+    })
+
+
     flatpickr("#datePicker", {
         locale: "vn",
         dateFormat: "d/m/Y",
@@ -565,11 +665,12 @@
                                                     </div>
                                             </td>
                                             <td class="border-right p-2 text-13 align-top">
-                                                <div>
                                                     <input type='text' class='text-right border-0 px-2 py-1 w-100 price_export' 
                                                         value="` + formatCurrency(element.price_export) + `"
                                                         autocomplete='off' name="price_export[]" required>
-                                                </div>
+                                                        <div class="mt-3 text-13-blue text-right transaction" id="transaction" data-toggle="modal" data-target="#recentModal">Giao dịch
+                                                            gần đây
+                                                        </div>
                                             </td>
                                             <td class="border-right p-2 text-13 align-top">
                                                 <input readonly type="text" name="product_tax[]" 

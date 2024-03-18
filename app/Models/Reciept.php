@@ -95,9 +95,29 @@ class Reciept extends Model
         if ($detail->status == 1) {
             $detail->status = 2;
             $detail->save();
+
+            // Cập nhật dư nợ nhà cung cấp
+            $this->calculateDebt($detail->provide_id, $sum);
         }
         return $reciept_id;
     }
+    // Hàm tính dư nhợ nhà cung cấp
+    public function calculateDebt($provide_id, $total)
+    {
+        $provide = DB::table('provides')->where('id', $provide_id)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
+        if ($provide) {
+            $debt = $provide->provide_debt + $total;
+            $dataProvide = [
+                'provide_debt' => $debt,
+            ];
+            Provides::where('id', $provide->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->update($dataProvide);
+        }
+    }
+
     public function updateReciept($data, $id)
     {
         $result = true;
@@ -215,12 +235,35 @@ class Reciept extends Model
                     'status_reciept' => $st,
                     'status' => $stDetail
                 ]);
+
+            // Xóa dư nợ nhà cung cấp nếu tình trạng là 1
+            if ($stDetail == 1) {
+                $detailImport = DetailImport::where('id', $detail)->first();
+                if ($detailImport) {
+                    $this->updateDebtProvide($detailImport->provide_id, $detailImport->total_tax);
+                }
+            }
+
             $status = true;
         } else {
             $status = false;
         }
         return $status;
     }
+
+    public function updateDebtProvide($provide_id, $total)
+    {
+        $provide = Provides::where('id', $provide_id)->first();
+        if ($provide) {
+            $debt = $provide->provide_debt - $total;
+
+            DB::table('provides')->where('id', $provide->id)->update(
+                ['provide_debt' => $debt]
+            );
+        }
+    }
+
+
     public function getProduct_reciept($id)
     {
         return QuoteImport::where('detailimport_id', $id)->where('product_qty', '>', DB::raw('COALESCE(reciept_qty,0)'))

@@ -374,7 +374,8 @@
                 <div class="container-fluided">
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active">
-                            <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                            <div id="title--fixed"
+                                class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN
                                     SẢN PHẨM</p>
                             </div>
@@ -526,16 +527,21 @@
                                                                 value="{{ number_format($item->product_qty) }}">
                                                             <div class='mt-3 text-13-blue inventory text-right'
                                                                 tyle="top: 68%;">Tồn kho:
-                                                                <span class='pl-1 soTonKho'>32</span>
+                                                                <span class='pl-1 soTonKho'>
+                                                                    {{ fmod($item->product_inventory, 2) > 0 && fmod($item->product_inventory, 1) > 0 ? number_format($item->product_inventory, 2, '.', ',') : number_format($item->product_inventory) }}
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td class="border-right p-2 text-13 align-top">
                                                         <input type="text" name="price_export[]"
                                                             class="text-right border-0 px-2 py-1 w-100 product_price"
-                                                            value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
+                                                            value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
                                                             readonly>
-                                                        <div class='mt-3 text-13-blue text-right'>Giao dịch gần đây
+                                                        <div class='mt-3 text-13-blue text-right transaction'
+                                                            id="transaction" data-toggle="modal"
+                                                            data-target="#recentModal">Giao dịch
+                                                            gần đây
                                                         </div>
                                                     </td>
                                                     <input type="hidden" class="product_tax1">
@@ -590,7 +596,8 @@
                         </div>
 
                         <div id="history" class="tab-pane fade">
-                            <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                            <div id="title--fixed"
+                                class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">LỊCH SỬ MUA
                                     HÀNG</p>
                             </div>
@@ -724,17 +731,11 @@
                                                         <input type="text"
                                                             class="border-0 px-2 py-1 w-100 text-right" readonly
                                                             value="{{ fmod($item->product_qty, 2) > 0 ? number_format($item->product_qty, 2, '.', ',') : number_format($item->product_qty) }}">
-                                                        <div class='mt-3 text-13-blue inventory text-right'
-                                                            tyle="top: 68%;">Tồn kho:
-                                                            <span class='pl-1 soTonKho'>32</span>
-                                                        </div>
                                                     </td>
                                                     <td class='border-right p-2 text-13 align-top position-relative'>
                                                         <input type="text"
                                                             class="border-0 px-2 py-1 w-100 text-right" readonly
-                                                            value="{{ fmod($item->price_export, 2) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}">
-                                                        <div class='mt-3 text-13-blue text-right'>Giao dịch gần đây
-                                                        </div>
+                                                            value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}">
                                                     </td>
                                                     <td class='border-right p-2 text-13 align-top position-relative'>
                                                         <input type="text"
@@ -764,8 +765,10 @@
                         </div>
 
                         <div id="files" class="tab-pane fade">
-                            <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
-                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">File đính kèm</p>
+                            <div id="title--fixed"
+                                class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">File đính
+                                    kèm</p>
                             </div>
                             <x-form-attachment :value="$import" name="DMH"></x-form-attachment>
                         </div>
@@ -850,6 +853,76 @@
         </div>
     </div>
 </form>
+<div class="modal fade" id="recentModal" tabindex="-1" aria-labelledby="productModalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-bold">Giao dịch gần đây</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="outer text-nowrap">
+                    <table id="example2" class="table table-hover bg-white rounded">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Tên sản phẩm
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Giá mua
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Thuế
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Ngày mua
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 <x-formprovides> </x-formprovides>
@@ -1070,6 +1143,46 @@
         $('#formSubmit').attr('action', '{{ route('addAttachment') }}');
         $('input[name="_method"]').remove();
         $('#formSubmit')[0].submit();
+    })
+
+    $('.transaction').on('click', function() {
+        nameProduct = $(this).closest('tr')
+            .find('.searchProductName')
+            .val()
+        $.ajax({
+            url: "{{ route('getHistoryImport') }}",
+            type: "get",
+            data: {
+                product_name: nameProduct,
+            },
+            success: function(
+                data) {
+                $('#recentModal .modal-body tbody')
+                    .empty()
+                if (data[
+                        'history'
+                    ]) {
+                    data[
+                            'history'
+                        ]
+                        .forEach(
+                            element => {
+                                var tr = `
+                                            <tr>
+                                                <td>` + element.product_name + `</td>
+                                                <td>` + formatCurrency(element.price_export) + `</td>
+                                                <td>` + (element.product_tax == 99 ? "NOVAT" : element.product_tax +
+                                    "%") + `</td>
+                                                <td>` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
+                                            </tr> `;
+                                $('#recentModal .modal-body tbody')
+                                    .append(
+                                        tr
+                                    );
+                            })
+                }
+            }
+        })
     })
 </script>
 </body>

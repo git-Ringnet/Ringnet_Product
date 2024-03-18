@@ -41,6 +41,10 @@ class QuoteImport extends Model
     {
         return $this->hasOne(Warehouse::class, 'id', 'warehouse_id');
     }
+    public function getProduct()
+    {
+        return $this->hasOne(Products::class, 'product_name', 'product_name');
+    }
 
     public function addQuoteImport($data, $id)
     {

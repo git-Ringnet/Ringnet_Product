@@ -46,6 +46,7 @@ Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProduc
 
 // Nhà cung cấp
 Route::resource('{workspace}/provides', ProvidesController::class);
+Route::get('/checkKeyProvide',[ProvidesController::class,'checkKeyProvide'])->name('checkKeyProvide');
 Route::get('/searchProvides', [ProvidesController::class, 'search'])->name('searchProvides');
 
 // Khách hàng
@@ -68,6 +69,7 @@ Route::get('/download/{folder}/{file?}', [DetailImportController::class, 'downlo
 Route::delete('/deleteFile/{folder}/{file}', [DetailImportController::class, 'deleteFile'])->name('deleteFile');
 Route::get('/checkQuotetion', [DetailImportController::class, 'checkQuotetion'])->name('checkQuotetion');
 Route::get('/getInventory', [DetailImportController::class, 'getInventory'])->name('getInventory');
+Route::get('/getHistoryImport', [DetailImportController::class, 'getHistoryImport'])->name('getHistoryImport');
 Route::get('/searchImport', [DetailImportController::class, 'searchImport'])->name('searchImport');
 
 

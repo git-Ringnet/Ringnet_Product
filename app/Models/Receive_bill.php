@@ -86,13 +86,17 @@ class Receive_bill extends Model
                 }
             }
             // dd($sum);
-            DB::table('receive_bill')->where('id',$receive_id)->update([
+            DB::table('receive_bill')->where('id', $receive_id)->update([
                 'total_tax' => $sum
             ]);
             // Cập nhật trạng thái đơn hàng
             if ($detail->status == 1) {
                 $detail->status = 2;
                 $detail->save();
+
+
+                // Cập nhật dư nợ nhà cung cấp
+                $this->calculateDebt($detail->provide_id, $sum);
             }
             return $receive_id;
         }
@@ -135,16 +139,7 @@ class Receive_bill extends Model
                 }
                 $total_tax += ($price_export * $item->product_qty) * ($getProduct->product_tax == 99 ? 0 : $getProduct->product_tax) / 100;
             }
-            $sum = $total + $total_tax;
-            $getDebt = Provides::where('id', $detail->provide_id)
-                ->where('workspace_id', Auth::user()->current_workspace)
-                ->first();
-            $sum += $getDebt->provide_debt;
-            // DB::table('provides')->where('id', $detail->provide_id)
-            //     ->where('workspace_id', Auth::user()->current_workspace)
-            //     ->update([
-            //         'provide_debt' => $sum
-            //     ]);
+            $sum =  round($total) + round($total_tax);
 
             // Cập nhật trạng thái nhận hàng
             $this->updateStatus($detail->id, Receive_bill::class, 'receive_qty', 'status_receive');
@@ -154,6 +149,22 @@ class Receive_bill extends Model
             $result = false;
         }
         return $result;
+    }
+
+    public function calculateDebt($provide_id, $total)
+    {
+        $provide = DB::table('provides')->where('id', $provide_id)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
+        if ($provide) {
+            $debt = $provide->provide_debt + $total;
+            $dataProvide = [
+                'provide_debt' => $debt,
+            ];
+            Provides::where('id', $provide->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->update($dataProvide);
+        }
     }
 
     public function updateStatus($id, $table, $colum, $columStatus)
@@ -292,20 +303,16 @@ class Receive_bill extends Model
                             'status_receive' => $st,
                             'status' => $stDetail
                         ]);
-                    // Cập nhật dư nợ
-                    // if ($receive->status == 2) {
-                    //     $provide = Provides::where('id', $receive->provide_id)
-                    //         ->where('workspace_id', Auth::user()->current_workspace)
-                    //         ->first();
-                    //     if ($provide) {
-                    //         $dataProvide = [
-                    //             'provide_debt' => ($provide->provide_debt - ($total + $total_tax)),
-                    //         ];
-                    //         DB::table('provides')->where('id', $provide->id)
-                    //             ->where('workspace_id', Auth::user()->current_workspace)
-                    //             ->update($dataProvide);
-                    //     }
-                    // }
+
+                    // Xóa dư nợ nhà cung cấp nếu tình trạng là 1
+                    if ($stDetail == 1) {
+                        $detailImport = DetailImport::where('id', $detail)->first();
+                        if ($detailImport) {
+                            $this->updateDebtProvide($detailImport->provide_id, $detailImport->total_tax);
+                        }
+                    }
+
+
                     $status = true;
                 }
             }
@@ -314,6 +321,19 @@ class Receive_bill extends Model
         }
         return $status;
     }
+
+    public function updateDebtProvide($provide_id, $total)
+    {
+        $provide = Provides::where('id', $provide_id)->first();
+        if ($provide) {
+            $debt = $provide->provide_debt - $total;
+
+            DB::table('provides')->where('id', $provide->id)->update(
+                ['provide_debt' => $debt]
+            );
+        }
+    }
+
     public function getProduct_receive($id)
     {
         $data = [];

@@ -108,7 +108,8 @@
         {{-- Thông tin sản phẩm --}}
         <div class="content margin-top-38" id="main">
             <section class="content margin-250">
-                <div id="title--fixed" class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
+                <div id="title--fixed"
+                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
                 <div class="container-fluided margin-top-72">
@@ -334,10 +335,106 @@
         </div>
     </div>
 </form>
+
+<div class="modal fade" id="recentModal" tabindex="-1" aria-labelledby="productModalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-bold">Giao dịch gần đây</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="outer text-nowrap">
+                    <table id="example2" class="table table-hover bg-white rounded">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Tên sản phẩm
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Giá mua
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Thuế
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Ngày mua
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 
 <script>
+    $(document).on('click','.transaction',function(){
+        nameProduct = $(this).closest('tr').find('.searchProductName').val()
+        $.ajax({
+            url: "{{ route('getHistoryImport') }}",
+            type: "get",
+            data: {
+                product_name: nameProduct,
+            },
+            success: function(data) {
+                $('#recentModal .modal-body tbody').empty()
+                if (data['history']) {
+                    data['history'].forEach(
+                            element => {
+                                var tr = `
+                                        <tr>
+                                            <td>` + element.product_name + `</td>
+                                            <td>` + formatCurrency(element.price_export) + `</td>
+                                            <td>` + (element.product_tax == 99 ? "NOVAT" : element.product_tax +"%") + `</td>
+                                            <td>` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
+                                        </tr> `;
+                                $('#recentModal .modal-body tbody').append(tr);
+                    })
+                }
+            }
+        })
+    })
+
     function getAction(e) {
         $('#getAction').val($(e).find('button').val());
     }
@@ -466,15 +563,15 @@
                                             .reciept_qty) + `"
                                                             class='border-0 px-2 py-1 w-100 quantity-input text-right' autocomplete='off'
                                                             name='product_qty[]'>
-                                                        <input type='hidden' class='tonkho'>
                                                     </div>
                                             </td>
                                             <td class="border-right p-2 text-13 align-top">
-                                                <div>
                                                     <input type='text' class='text-right border-0 px-2 py-1 w-100 price_export' 
                                                         value="` + formatCurrency(element.price_export) + `"
                                                         autocomplete='off' name="price_export[]" required>
-                                                </div>
+                                                        <div class="mt-3 text-13-blue text-right transaction" id="transaction" data-toggle="modal" data-target="#recentModal">Giao dịch
+                                                            gần đây
+                                                        </div>
                                             </td>
                                             <td class="border-right p-2 text-13 align-top">
                                                 <input readonly type="text" name="product_tax[]" 

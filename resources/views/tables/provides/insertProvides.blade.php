@@ -111,7 +111,7 @@
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                    <p class="p-0 m-0  margin-left32 required-label text-13-red">Tên đầy đủ</p>
+                                    <p class="p-0 m-0  margin-left32 text-13">Tên đầy đủ</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="provide_name"
                                     class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
@@ -189,4 +189,63 @@
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script>
     getKeyProvide($('input[name="provide_name_display"]'))
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+        var check = false;
+        var provide_name_display = $("input[name='provide_name_display']").val().trim();
+        var provide_code = $("input[name='provide_code']").val().trim();
+        var provide_address = $("input[name='provide_address']").val().trim();
+        var key = $("input[name='key']").val().trim();
+
+        if (provide_name_display == '') {
+            showNotification('warning', 'Vui lòng nhập tên hiển thị')
+            check = true;
+            return false;
+        }
+        if (provide_code == '') {
+            showNotification('warning', 'Vui lòng nhập mã số thuế')
+            check = true;
+            return false;
+        }
+        if (provide_address == '') {
+            showNotification('warning', 'Vui lòng nhập địa chỉ nhà cung cấp')
+            check = true;
+            return false;
+        }
+
+        if (!check) {
+            $.ajax({
+                url: "{{ route('checkKeyProvide') }}",
+                type: "get",
+                data: {
+                    provide_name_display: provide_name_display,
+                    provide_code: provide_code,
+                    provide_address: provide_address,
+                    key: key,
+                    status : "add"
+                },
+                success: function(data) {
+                    console.log(data);
+                    if (data.success) {
+                        $('form')[0].submit();
+                    } else {
+                        if (data.key) {
+                            $("input[name='key']").val(data.key)
+                            showNotification('warning', data.msg);
+                            delayAndShowNotification('success', 'Tên viết tắt đã được thay đổi',
+                                500);
+                        } else {
+                            showNotification('warning', data.msg);
+                        }
+                    }
+                }
+            })
+        }
+    })
+
+    function delayAndShowNotification(type, message, delayTime) {
+        setTimeout(function() {
+            showNotification(type, message);
+        }, delayTime);
+    }
 </script>

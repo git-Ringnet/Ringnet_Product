@@ -243,15 +243,16 @@
                                                     </td>
                                                     <td class="border-right p-2 text-13 align-top">
                                                         <div class="">
-                                                            <input 
-                                                            {{-- oninput="checkQty(this,{{ $item->product_qty }})" --}}
-                                                                type="text" name="product_qty[]"
+                                                            <input {{-- oninput="checkQty(this,{{ $item->product_qty }})" --}} type="text"
+                                                                name="product_qty[]"
                                                                 class="border-0 px-2 py-1 w-100 quantity-input text-right"
                                                                 value="{{ number_format($item->product_qty) }}"
                                                                 @if ($import->status == 2) echo readonly @endif>
                                                             <div class='mt-3 text-13-blue inventory text-right'
                                                                 tyle="top: 68%;">Tồn kho:
-                                                                <span class='pl-1 soTonKho'>32</span>
+                                                                <span class='pl-1 soTonKho'>
+                                                                    {{ fmod($item->product_inventory, 2) > 0 && fmod($item->product_inventory, 1) > 0 ? number_format($item->product_inventory, 2, '.', ',') : number_format($item->product_inventory) }}
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -260,7 +261,9 @@
                                                             class="border-0 px-2 py-1 w-100 price_export text-right"
                                                             value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
                                                             @if ($import->status == 2) echo readonly @endif>
-                                                        <div class='mt-3 text-13-blue text-right'>Giao dịch gần đây
+                                                        <div class='mt-3 text-13-blue text-right transaction'
+                                                            id="transaction" data-toggle="modal"
+                                                            data-target="#recentModal">Giao dịch gần đây
                                                         </div>
                                                     </td>
                                                     <input type="hidden" class="product_tax1">
@@ -855,6 +858,76 @@
     </div>
     </div>
 </form>
+<div class="modal fade" id="recentModal" tabindex="-1" aria-labelledby="productModalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-bold">Giao dịch gần đây</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="outer text-nowrap">
+                    <table id="example2" class="table table-hover bg-white rounded">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Tên sản phẩm
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Giá mua
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Thuế
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Ngày mua
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <x-form-modal-import title="Thêm mới người đại diện" name="addRepresent"
     idModal="modalAddRepresent"></x-form-modal-import>
 <x-form-modal-import title="Hiệu lực báo giá" name="import" idModal="formModalquote"></x-form-modal-import>
@@ -863,6 +936,46 @@
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    $('.transaction').on('click', function() {
+        nameProduct = $(this).closest('tr')
+            .find('.searchProductName')
+            .val()
+        $.ajax({
+            url: "{{ route('getHistoryImport') }}",
+            type: "get",
+            data: {
+                product_name: nameProduct,
+            },
+            success: function(
+                data) {
+                $('#recentModal .modal-body tbody')
+                    .empty()
+                if (data[
+                        'history'
+                    ]) {
+                    data[
+                            'history'
+                        ]
+                        .forEach(
+                            element => {
+                                var tr = `
+                                            <tr>
+                                                <td>` + element.product_name + `</td>
+                                                <td>` + formatCurrency(element.price_export) + `</td>
+                                                <td>` + (element.product_tax == 99 ? "NOVAT" : element.product_tax +
+                                    "%") + `</td>
+                                                <td>` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
+                                            </tr> `;
+                                $('#recentModal .modal-body tbody')
+                                    .append(
+                                        tr
+                                    );
+                            })
+                }
+            }
+        })
+    })
+
     flatpickr("#datePicker", {
         locale: "vn",
         dateFormat: "d/m/Y",
@@ -1092,7 +1205,7 @@
                         $('#' + inputHide).val(data[table].id)
                     } else {
                         $(data['table'] == "search-price-effect" ? '#price_effect' : '#terms_pay')
-                            .val(data[table].form_desc)
+                            .val(data[table].form_desc).attr('data-id',data[table].id)
                     }
                 }
             })
@@ -1648,6 +1761,7 @@
                             inputField: inputField
                         },
                         success: function(data) {
+                            console.log(inputField);
                             console.log(data);
                             if (data.success) {
                                 var get_dataID = (inputField == "import" ? $('#price_effect').data(

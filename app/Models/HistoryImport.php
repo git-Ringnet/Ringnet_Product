@@ -49,6 +49,12 @@ class HistoryImport extends Model
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->where('version', $quote->version)
                 ->first();
+
+            // if (isset($quote)) {
+            //     $checkData->where('version', $quote->version)->first();
+            // } else {
+            //     $checkData->first();
+            // }
             if ($checkData) {
                 continue;
             } else {

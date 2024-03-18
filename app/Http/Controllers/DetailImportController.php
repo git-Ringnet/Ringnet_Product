@@ -117,7 +117,8 @@ class DetailImportController extends Controller
         $import = DetailImport::findOrFail($id);
         $provides = Provides::all();
         $title = $import->quotation_number;
-        $product = QuoteImport::where('detailimport_id', $import->id)->get();
+        $product = QuoteImport::leftjoin('products', 'products.product_name', 'quoteimport.product_name')
+            ->where('detailimport_id', $import->id)->get();
         $project = Project::all();
         $history = HistoryImport::where('detailImport_id', $id)->get();
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
@@ -140,9 +141,12 @@ class DetailImportController extends Controller
         }
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         $title = $import->quotation_number;
-        $product = QuoteImport::where('detailimport_id', $import->id)->get();
+        $product = QuoteImport::leftjoin('products', 'products.product_name', 'quoteimport.product_name')
+            ->where('detailimport_id', $import->id)->get();
         $project = Project::all();
-        $history = HistoryImport::where('detailImport_id', $id)->get();
+        $history = HistoryImport::where('detailImport_id', $id)
+            ->orderBy('id', 'desc')
+            ->get();
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename', 'represent', 'price_effect', 'terms_pay', 'id_priceeffect', 'id_termpay'));
@@ -897,6 +901,23 @@ class DetailImportController extends Controller
         $data['products'] = $product;
         return $data;
     }
+
+    public function getHistoryImport(Request $request)
+    {
+        $data = [];
+        $product = Products::where('product_name', $request->product_name)->first();
+        if ($product) {
+            $history = QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
+                ->where('quoteimport.product_name', $request->product_name)
+                ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
+                ->where('detailimport.status', 2)
+                ->get();
+            $data['history'] = $history;
+        }
+        $data['products'] = $product;
+        return $data;
+    }
+
     public function searchImport(Request $request)
     {
         $data = $request->all();
