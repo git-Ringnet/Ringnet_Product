@@ -199,6 +199,7 @@ Route::get('/getProductSeriEdit', [ProductController::class, 'getProductSeriEdit
 
 Route::get('exportDatabase', [ProductController::class, 'exportDatabase'])->name('exportDatabase');
 Route::post('import', [ProductController::class, 'import'])->name('import');
+Route::POST('/importDatabase', [ProductController::class, 'importDatabase'])->name('importDatabase');
 
 
 Route::get('/report', function () {

@@ -15,6 +15,7 @@ class Serialnumber extends Model
     protected $fillable = [
         'serinumber',
         'receive_id',
+        'quoteImport_id',
         'detailimport_id',
         'detailexport_id',
         'product_id',

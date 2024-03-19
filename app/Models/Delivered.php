@@ -13,6 +13,7 @@ class Delivered extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'delivery_id',
         'product_id',
         'deliver_qty',

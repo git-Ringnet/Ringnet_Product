@@ -208,4 +208,35 @@ class ProductController extends Controller
 
         return redirect()->back()->with('success', 'Dữ liệu đã được import thành công.');
     }
+
+    // Restore DATABASE
+    public function importDatabase(Request $request)
+    {
+        $getFile = $request->file('file');
+        $name = $getFile->getClientOriginalName();
+        $fullPath = storage_path('backup');
+
+        if (!file_exists($fullPath)) {
+            mkdir($fullPath, 0755, true);
+        }
+
+        // Lưu file vào thư mục backup
+        $getFile->move($fullPath, $name);
+
+        $dbUsername = 'root';
+        $dbName = 'laravel';
+        $dbPass = '';
+        $passwordOption = $dbPass !== '' ? "-p$dbPass" : "";
+
+        $command = "mysql -u $dbUsername $passwordOption $dbName < \"$fullPath/$name\"";
+        exec($command);
+
+        // Import xong, tiến hành xóa file
+        $filePath = "$fullPath/$name";
+        if (file_exists($filePath)) {
+            unlink($filePath); // Xóa file
+        }
+
+        return redirect()->back()->with('msg', 'Restore dữ liệu thành công !');
+    }
 }

@@ -358,10 +358,10 @@
                                             <th scope="col" class="text-left text-13">
                                                 <span class="d-flex justify-content-start align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="product_total_vat" data-sort-type="DESC"><button
+                                                        data-sort-by="tongban" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Thành
                                                             tiền xuất</button></a>
-                                                    <div class="icon" id="icon-product_total_vat"></div>
+                                                    <div class="icon" id="icon-tongban"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="text-left text-13">
@@ -418,7 +418,7 @@
                                     <tbody class="tbody-history">
                                         @isset($history)
                                             @foreach ($history as $index => $item)
-                                                <tr class="position-relative history-info height-52">
+                                                <tr class="position-relative history-info height-52 {{ $item->id }}">
                                                     <input type="hidden" name="id-history" class="id-history"
                                                         id="id-history" value="{{ $item->id }}">
                                                     <td class="text-13-black" style="width:5%;padding-left: 2rem;">
@@ -428,19 +428,23 @@
                                                     </td>
                                                     <td class="text-13-black min-width180">{{ $item->tenNCC }}</td>
                                                     <td class="text-13-black">{{ $item->tensp }}</td>
-                                                    <td class="text-13-black text-center">{{ number_format($item->product_qty) }}</td>
+                                                    <td class="text-13-black text-center">
+                                                        {{ number_format($item->product_qty) }}</td>
                                                     {{-- Này đặt sai tên cột nha --}}
-                                                    <td class="text-13-black">{{ number_format($item->price_import) }}</td>
-                                                    <td class="text-13-black">{{ number_format($item->total_import) }}</td>
+                                                    <td class="text-13-black">{{ number_format($item->gianhap) }}</td>
+                                                    <td class="text-13-black">{{ number_format($item->total_import) }}
+                                                    </td>
                                                     <td class="text-13-black">{{ $item->hdvao }}</td>
                                                     {{-- <td>Tình trạng nhập</td> --}}
                                                     <td class="text-13-black">{{ $item->tenKhach }}</td>
-                                                    <td class="text-13-black text-center">{{ number_format($item->deliver_qty) }}</td>
+                                                    <td class="text-13-black text-center">
+                                                        {{ number_format($item->deliver_qty) }}</td>
                                                     <td class="text-13-black ">{{ $item->product_unit }}</td>
                                                     <td class="text-13-black">{{ number_format($item->giaban) }}</td>
                                                     <td class="text-13-black">{{ number_format($item->tongban) }}</td>
                                                     <td class="text-13-black">{{ $item->hdra }}</td>
-                                                    <td class="text-13-black">{{ number_format($item->shipping_fee) }}</td>
+                                                    <td class="text-13-black">{{ number_format($item->shipping_fee) }}
+                                                    </td>
                                                     <td data-toggle="modal" data-target="#snModal"
                                                         data-delivery-id="{{ $item->delivery_id }}"
                                                         data-product-id="{{ $item->product_id }}" class="sn"><img

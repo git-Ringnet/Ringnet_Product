@@ -12,6 +12,7 @@ class BillSale extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'detailexport_id',
         'guest_id',
         'price_total',

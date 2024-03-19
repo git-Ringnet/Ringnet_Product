@@ -13,8 +13,12 @@ class QuoteImport extends Model
     use HasFactory;
     protected $table = 'quoteimport';
     protected $fillable = [
+        'id',
         'detailimport_id',
-        'product_id',
+        'product_id', 'product_name',
+        'product_unit', 'product_qty',
+        'product_tax', 'product_total',
+        'price_export', 'version', 'warehouse_id'
     ];
     public function getProductCode()
     {
@@ -103,8 +107,8 @@ class QuoteImport extends Model
         for ($i = 0; $i < count($data['product_name']); $i++) {
             // Kiểm tra và thêm sản phẩm mới vào kho hàng
             $checkProduct = Products::where('product_name', $data['product_name'][$i])
-            ->where('workspace_id',Auth::user()->current_workspace)
-            ->first();
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
             if (!$checkProduct) {
                 $dataProduct = [
                     'product_code' => $data['product_code'][$i],

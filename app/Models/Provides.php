@@ -12,6 +12,7 @@ class Provides extends Model
     use HasFactory;
     protected $table = 'provides';
     protected $fillable = [
+        'id',
         'provide_name_display',
         'provide_name',
         'provide_address',

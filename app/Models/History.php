@@ -11,6 +11,7 @@ class History extends Model
 {
     protected $table = 'history';
     protected $fillable = [
+        'id',
         'detailimport_id', 'detailexport_id', 'delivered_id', 'provide_id',
         'tax_import', 'price_import', 'total_import', 'history_import', 'workspace_id',
     ];
@@ -35,6 +36,7 @@ class History extends Model
                 'delivered.created_at as time',
                 'products.product_name as tensp',
                 'history_import.*',
+                'history_import.price_export as gianhap',
                 'detailexport.*',
                 'bill_sale.number_bill as hdra',
                 'reciept.number_bill as hdvao',
@@ -118,6 +120,7 @@ class History extends Model
                 'delivered.created_at as time',
                 'products.product_name as tensp',
                 'history_import.*',
+                'history_import.price_export as gianhap',
                 'detailexport.*',
                 'bill_sale.number_bill as hdra',
                 'reciept.number_bill as hdvao',

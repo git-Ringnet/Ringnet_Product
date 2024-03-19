@@ -13,6 +13,7 @@ class ProductImport extends Model
     use HasFactory;
     protected $table = 'products_import';
     protected $fillable = [
+        'id',
         'detailimport_id',
         'quoteImport_id',
         'product_code',
@@ -122,8 +123,8 @@ class ProductImport extends Model
                     $columQuote => $receive_qty + $qty
                 ];
                 QuoteImport::where('id', $product->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
-                ->update($dataQuote);
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->update($dataQuote);
                 $status = true;
             }
         }

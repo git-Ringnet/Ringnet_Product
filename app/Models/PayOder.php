@@ -14,6 +14,7 @@ class PayOder extends Model
     use HasFactory;
     protected $table = 'pay_order';
     protected $fillable = [
+        'id',
         'detailimport_id',
         'reciept_id',
         'provide_id',

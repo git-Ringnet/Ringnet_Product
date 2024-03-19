@@ -13,6 +13,7 @@ class HistoryImport extends Model
     use HasFactory;
     protected $table = 'history_import';
     protected $fillable = [
+        'id',
         'detailImport_id',
         'quoteImport_id',
         'product_code',
@@ -22,6 +23,8 @@ class HistoryImport extends Model
         'product_tax',
         'product_total',
         'price_export',
+        'product_id',
+        'provide_id',
         'product_ratio',
         'price_import',
         'product_note',

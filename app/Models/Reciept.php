@@ -13,6 +13,7 @@ class Reciept extends Model
     use HasFactory;
     protected $table = 'reciept';
     protected $fillable = [
+        'id',
         'detailimport_id',
         'receive_id',
         'provide_id',

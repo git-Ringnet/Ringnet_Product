@@ -12,6 +12,7 @@ class productBill extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'billSale_id',
         'product_id',
         'billSale_qty',

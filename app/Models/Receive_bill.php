@@ -13,6 +13,7 @@ class Receive_bill extends Model
     use HasFactory;
     protected $table = 'receive_bill';
     protected $fillable = [
+        'id',
         'detailimport_id',
         'quotation_number',
         'provide_id',

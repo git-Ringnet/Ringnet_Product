@@ -12,6 +12,7 @@ class DetailImport extends Model
     use HasFactory;
     protected $table = 'detailimport';
     protected $fillable = [
+        'id',
         'provide_id',
         'project_id',
         'product_id',

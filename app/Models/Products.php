@@ -13,6 +13,7 @@ class Products extends Model
     use HasFactory;
     protected $table = 'products';
     protected $fillable = [
+        'id',
         'product_code',
         'product_name',
         'product_unit',
@@ -68,7 +69,7 @@ class Products extends Model
                     'product_code' => $data['product_code'][$i],
                     'product_name' => $data['product_name'][$i],
                     'product_unit' => $data['product_unit'][$i],
-                    'product_price_import' => str_replace(',', '',$data['price_export'][$i]),
+                    'product_price_import' => str_replace(',', '', $data['price_export'][$i]),
                     'product_tax' => $data['product_tax'][$i],
                     'check_seri' => 1,
                     'product_inventory' => 0,

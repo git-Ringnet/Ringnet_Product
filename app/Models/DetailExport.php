@@ -11,6 +11,7 @@ class DetailExport extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'guest_id',
         'project_id',
         'product_id',
@@ -43,7 +44,7 @@ class DetailExport extends Model
         $detailExport = DetailExport::leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG')
-            ->orderBy('detailexport.id', 'desc')->paginate(10);
+            ->orderBy('detailexport.id', 'desc')->get();
         return $detailExport;
     }
     public function addExport($data)

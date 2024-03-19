@@ -13,6 +13,7 @@ class QuoteExport extends Model
     use HasFactory;
     protected $table = 'quoteexport';
     protected $fillable = [
+        'id',
         'detailexport_id',
         'product_code',
         'product_name',
