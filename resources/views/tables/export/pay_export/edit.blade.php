@@ -443,7 +443,7 @@
                                                     {{ $htr->code_payment }}
                                                 </td>
                                                 <td class="border-right text-13-black">
-                                                    {{ date_format(new DateTime($htr->created_at), 'd-m-Y') }}
+                                                    {{ date_format(new DateTime($htr->created_at), 'd-m-Y H:i:s') }}
                                                 </td>
                                                 <td class="border-right text-13-black">
                                                     {{ number_format($htr->total) }}

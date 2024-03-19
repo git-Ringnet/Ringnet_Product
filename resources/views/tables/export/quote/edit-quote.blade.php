@@ -2587,8 +2587,7 @@
                 },
                 success: function(data) {
                     if (data.success) {
-                        quotation = getQuotation(data.updated_guest.key, '1');
-                        $('input[name="quotation_number"]').val(quotation);
+                        $('input[name="quotation_number"]').val(data.resultNumber);
                         $('.nameGuest').val(data.updated_guest.guest_name_display);
                         showNotification('success', data.msg);
                         $('.idGuest').val(data.updated_guest.id);

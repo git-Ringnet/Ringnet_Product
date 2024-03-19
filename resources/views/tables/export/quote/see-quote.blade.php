@@ -913,6 +913,7 @@
                                                                 value="{{ $item_history->product_name }}"
                                                                 class="border-0 px-2 py-1 w-100 product_name" readonly
                                                                 autocomplete="off" name="product_name[]">
+                                                            <input type="hidden" class="product_id" value="{{ $item_history->product_id }}" autocomplete="off" name="product_id[]">
                                                             <div class='info-product' data-toggle='modal'
                                                                 data-target='#productModal'>
                                                                 <svg xmlns='http://www.w3.org/2000/svg' width='14'
@@ -1005,7 +1006,7 @@
                                                         <input type="text" class="product_tax1">
                                                     </td>
                                                     <td class="border bg-white align-top text-13-black text-left p-1">
-                                                        {{ date_format(new DateTime($item_history->ngayChinhSua), 'd-m-Y H:m:s') }}
+                                                        {{ date_format(new DateTime($item_history->ngayChinhSua), 'd-m-Y H:i:s') }}
                                                     </td>
                                                 </tr>
                                             @endforeach

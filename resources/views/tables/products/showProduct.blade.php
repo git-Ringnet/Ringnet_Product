@@ -260,18 +260,18 @@
                                 <p class="font-weight-bold text-uppercase info-chung--heading">Thông tin tồn kho</p>
                                 <div class="content-info">
                                     <div class="d-flex align-items-center height-60-mobile">
-                                        <div class=" py-2 border border-left-0 height-100" style="width:27%;">
+                                        <div class=" py-2 border border-left-0 height-100 w-100">
                                             <p class="p-0 m-0 margin-left32 text-13 text-left">Tên kho hàng</p>
                                         </div>
-                                        <div class="py-2 border border-left-0 height-100 title-info">
+                                        <div class="py-2 border border-left-0 height-100 w-100">
                                             <p class="p-0 m-0  text-13 text-right px-2">Tồn kho</p>
                                         </div>
-                                        <div class="py-2 border border-left-0 height-100 title-info">
+                                        {{-- <div class="py-2 border border-left-0 height-100 title-info">
                                             <p class="p-0 m-0 text-13 text-right px-2">Đang giao dịch</p>
                                         </div>
                                         <div class="py-2 border border-left-0 height-100 title-info">
-                                            <p class="p-0 m-0 text-13 text-right px-2">Sẵn hàng</p>
-                                        </div>
+                                            <p class="p-0 m-0 text-13 text-right px-2">Sẵn sàng để bán</p>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 {{-- @foreach ($product->getProductImport as $item)
@@ -279,18 +279,18 @@
                                 @endforeach --}}
                                 <div class="content-info mb-3">
                                     <div class="d-flex align-items-center height-60-mobile">
-                                        <div class="py-2 border border-left-0 height-100" style="width:27%;">
+                                        <div class="py-2 border border-left-0 height-100 w-100">
                                             <input readonly type="text"
                                                 class="py-2 border-0  p-0 text-13-black w-100 padding-left35"
                                                 value="{{ $product->product_manufacturer }}">
                                         </div>
-                                        <div class="title-info py-2 border border-left-0 height-100">
+                                        <div class="w-100 py-2 border border-left-0 height-100">
                                             <input readonly
-                                                class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
+                                                class="border-0 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
                                                 type="text"
                                                 value="{{ number_format($product->product_inventory) }}">
                                         </div>
-                                        <div class="title-info py-2 border border-left- height-100">
+                                        {{-- <div class="title-info py-2 border border-left- height-100">
                                             <input readonly
                                                 class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
                                                 type="text" value="{{ number_format($product->product_trade) }}">
@@ -300,7 +300,7 @@
                                                 class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
                                                 type="text"
                                                 value="{{ number_format($product->product_available) }}">
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -463,6 +463,16 @@
                         </thead>
                         <tbody>
                             @foreach ($history as $htr)
+                                @if ($htr->getQuoteImport)
+                                    @php
+                                        $totalPrice = $htr->getQuoteImport->price_export * $htr->product_qty;
+                                        $totalTax =
+                                            ($htr->getQuoteImport->price_export *
+                                                $htr->product_qty *
+                                                $htr->getQuoteImport->product_tax) /
+                                            100;
+                                    @endphp
+                                @endif
                                 <tr class="bg-white">
                                     <td class="padding-left35 text-13-black">
                                         {{ date_format(new DateTime($htr->created_at), 'd/m/Y') }}
@@ -487,16 +497,18 @@
                                     </td>
                                     <td class="text-13-black">
                                         @if ($htr->getQuoteImport)
-                                            {{ $htr->getQuoteImport->price_export * $htr->product_qty }}
+                                            {{ number_format($totalPrice) }}
                                         @endif
                                     </td>
                                     <td class="text-13-black">Chiết khấu</td>
                                     <td class="text-13-black">
                                         @if ($htr->getQuoteImport)
-                                            {{ ($htr->getQuoteImport->price_export * $htr->product_qty * $htr->getQuoteImport->product_tax) / 100 }}
+                                            {{ number_format($totalTax) }}
                                         @endif
                                     </td>
-                                    <td class="text-13-black">Tổng tiền</td>
+                                    <td class="text-13-black">
+                                        {{ number_format($totalPrice + $totalTax) }}
+                                    </td>
                                     <td class="text-13-black">
                                         <span class="text-success">Close</span>
                                     </td>
