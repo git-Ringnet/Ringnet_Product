@@ -471,32 +471,129 @@ class DetailImportController extends Controller
     public function updateProvide(Request $request)
     {
         $data = $request->all();
-        $check = Provides::where('id', '!=', $request->id)
+        $check = DB::table('provides')
+            ->where('workspace_id', Auth::user()->current_workspace)
             ->where(function ($query) use ($data) {
                 $query->where('provide_code', $data['provide_code'])
                     ->orWhere('provide_name_display', $data['provide_name_display']);
             })
-            ->where('workspace_id', Auth::user()->current_workspace)
+            ->where('id', '!=', $request->id)
             ->first();
-        if ($check) {
-            $msg = response()->json([
-                'success' => false, 'msg' => 'Nhà cung cấp đã tồn tại',
-            ]);
-        } else {
-            $dataProvide = [
-                'provide_code' => $data['provide_code'],
-                'provide_name_display' => $data['provide_name_display'],
-                'key' => $data['key'],
-                'provide_name' => $data['provide_name'],
-                'provide_address' => $data['provide_address'],
-            ];
 
-            DB::table('provides')->where('id', $request->id)->update($dataProvide);
-            $msg = response()->json([
-                'success' => true, 'msg' => 'Chỉnh sửa nhà cung cấp thành công', 'provide_id' => $request->id
-            ]);
+        if ($check) {
+            return response()->json(['success' => false, 'msg' => 'Thông tin khách hàng đã tồn tại']);
+        } else {
+            $provide = Provides::where('id', $request->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+
+            if ($provide) {
+                $checkKey = Provides::where('workspace_id', Auth::user()->current_workspace)
+                    ->where('id', '!=', $request->id)
+                    ->where('key', $data['key'])
+                    ->first();
+
+                if ($checkKey) {
+                    // Tên viết tắt đã tồn tại, thực hiện logic thay đổi giá trị key
+                    $newKey = $data['key'];
+
+                    // Tăng số đằng sau cho đến khi không còn trùng
+                    while (Provides::where('workspace_id', Auth::user()->current_workspace)
+                        ->where('key', $newKey)
+                        ->exists()
+                    ) {
+                        // Kiểm tra xem key có kết thúc bằng số không
+                        if (preg_match('/\d+$/', $newKey)) {
+                            // Tăng số đằng sau
+                            $newKey = preg_replace_callback('/(\d+)$/', function ($matches) {
+                                return ++$matches[1];
+                            }, $newKey);
+                        } else {
+                            // Nếu không có số, thêm số 1 vào sau key
+                            $newKey .= '1';
+                        }
+                    }
+
+                    return response()->json([
+                        'success' => false,
+                        'msg' => 'Tên viết tắt đã tồn tại!',
+                        'key' => $newKey,
+                    ]);
+                } else {
+                    $key = isset($data['key']) ? $data['key'] : $this->generateKey($data['provide_name_display']);
+                    $dataProvide = [
+                        'provide_code' => $data['provide_code'],
+                        'provide_name_display' => $data['provide_name_display'],
+                        'key' => $key,
+                        'provide_name' => $data['provide_name'],
+                        'provide_address' => $data['provide_address'],
+                    ];
+
+                    DB::table('provides')->where('id', $request->id)->update($dataProvide);
+
+                    $date = DetailImport::where('provide_id', $provide->id)->orderBy('id', 'desc')
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
+                        ->first();
+                    if ($date) {
+                        $date = explode('/', $date->quotation_number)[0];
+                    }
+                    $count = DetailImport::where('provide_id', $provide->id)
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [$date])
+                        ->count();
+                    $lastDetailImport = DetailImport::where('provide_id', $provide->id)
+                        ->orderBy('id', 'desc')
+                        ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
+                        ->first();
+
+                    if ($lastDetailImport) {
+                        $parts = explode('-', $lastDetailImport->quotation_number);
+                        $getNumber = end($parts);
+
+                        $count = $getNumber + 1;
+                    } else {
+                        $count = $count == 0 ? $count += 1 : $count;
+                    }
+                    if ($count < 10) {
+                        $count = "0" . $count;
+                    }
+                    $resultNumber = ($date == "" ? Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmY') : $date) . "/RN-" . $key . "-" . $count;
+
+                    $msg = response()->json([
+                        'success' => true, 'msg' => 'Chỉnh sửa nhà cung cấp thành công', 'provide_id' => $request->id, 'key' => $key, 'resultNumber' => $resultNumber
+                    ]);
+                }
+            }
         }
+
         return $msg;
+        // $check = Provides::where('id', '!=', $request->id)
+        //     ->where(function ($query) use ($data) {
+        //         $query->where('provide_code', $data['provide_code'])
+        //             ->orWhere('provide_name_display', $data['provide_name_display']);
+        //     })
+        //     ->where('workspace_id', Auth::user()->current_workspace)
+        //     ->first();
+        // if ($check) {
+        //     $msg = response()->json([
+        //         'success' => false, 'msg' => 'Nhà cung cấp đã tồn tại',
+        //     ]);
+        // } else {
+        //     $dataProvide = [
+        //         'provide_code' => $data['provide_code'],
+        //         'provide_name_display' => $data['provide_name_display'],
+        //         'key' => $data['key'],
+        //         'provide_name' => $data['provide_name'],
+        //         'provide_address' => $data['provide_address'],
+        //     ];
+
+        //     DB::table('provides')->where('id', $request->id)->update($dataProvide);
+        //     $msg = response()->json([
+        //         'success' => true, 'msg' => 'Chỉnh sửa nhà cung cấp thành công', 'provide_id' => $request->id
+        //     ]);
+        // }
+        // return $msg;
     }
 
     // Hiển thị tất cả Mã sản phẩm

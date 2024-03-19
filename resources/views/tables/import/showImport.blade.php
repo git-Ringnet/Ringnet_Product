@@ -598,8 +598,7 @@
                         <div id="history" class="tab-pane fade">
                             <div id="title--fixed"
                                 class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
-                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">LỊCH SỬ MUA
-                                    HÀNG</p>
+                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">LỊCH SỬ CHỈNH SỬA SẢN PHẨM</p>
                             </div>
                             <section class="content margin-top-103">
                                 <div class="table-responsive text-nowrap order_content">

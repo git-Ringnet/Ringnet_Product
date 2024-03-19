@@ -221,5 +221,65 @@
 </form>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script>
-    
+      $('form').on('submit', function(e) {
+        e.preventDefault();
+        var check = false;
+        var provide_name_display = $("input[name='provide_name_display']").val().trim();
+        var provide_code = $("input[name='provide_code']").val().trim();
+        var provide_address = $("input[name='provide_address']").val().trim();
+        var key = $("input[name='key']").val().trim();
+        var id = {{$provide->id}}
+
+        if (provide_name_display == '') {
+            showNotification('warning', 'Vui lòng nhập tên hiển thị')
+            check = true;
+            return false;
+        }
+        if (provide_code == '') {
+            showNotification('warning', 'Vui lòng nhập mã số thuế')
+            check = true;
+            return false;
+        }
+        if (provide_address == '') {
+            showNotification('warning', 'Vui lòng nhập địa chỉ nhà cung cấp')
+            check = true;
+            return false;
+        }
+
+        if (!check) {
+            $.ajax({
+                url: "{{ route('checkKeyProvide') }}",
+                type: "get",
+                data: {
+                    provide_name_display: provide_name_display,
+                    provide_code: provide_code,
+                    provide_address: provide_address,
+                    key: key,
+                    status : "edit",
+                    id : id
+                },
+                success: function(data) {
+                    // console.log(data);
+                    if (data.success) {
+                        $('form')[0].submit();
+                    } else {
+                        if (data.key) {
+                            $("input[name='key']").val(data.key)
+                            showNotification('warning', data.msg);
+                            delayAndShowNotification('success', 'Tên viết tắt đã được thay đổi',
+                                500);
+                        } else {
+                            showNotification('warning', data.msg);
+                        }
+                    }
+                }
+            })
+        }
+    })
+
+    function delayAndShowNotification(type, message, delayTime) {
+        setTimeout(function() {
+            showNotification(type, message);
+        }, delayTime);
+    }
 </script>

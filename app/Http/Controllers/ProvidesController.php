@@ -8,6 +8,7 @@ use App\Models\Provides;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProvidesController extends Controller
 {
@@ -196,7 +197,73 @@ class ProvidesController extends Controller
                 ]);
             }
         } else {
-            return 1;
+            $data = $request->all();
+            $check = DB::table('provides')
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->where(function ($query) use ($data) {
+                    $query->where('provide_code', $data['provide_code'])
+                        ->orWhere('provide_name_display', $data['provide_name_display']);
+                })
+                ->where('id', '!=', $request->id)
+                ->first();
+
+            if ($check) {
+                return response()->json(['success' => false, 'msg' => 'Thông tin khách hàng đã tồn tại']);
+            } else {
+                $provide = Provides::where('id', $request->id)
+                    ->where('workspace_id', Auth::user()->current_workspace)
+                    ->first();
+
+                if ($provide) {
+                    $checkKey = Provides::where('workspace_id', Auth::user()->current_workspace)
+                        ->where('id', '!=', $request->id)
+                        ->where('key', $data['key'])
+                        ->first();
+
+                    if ($checkKey) {
+                        // Tên viết tắt đã tồn tại, thực hiện logic thay đổi giá trị key
+                        $newKey = $data['key'];
+
+                        // Tăng số đằng sau cho đến khi không còn trùng
+                        while (Provides::where('workspace_id', Auth::user()->current_workspace)
+                            ->where('key', $newKey)
+                            ->exists()
+                        ) {
+                            // Kiểm tra xem key có kết thúc bằng số không
+                            if (preg_match('/\d+$/', $newKey)) {
+                                // Tăng số đằng sau
+                                $newKey = preg_replace_callback('/(\d+)$/', function ($matches) {
+                                    return ++$matches[1];
+                                }, $newKey);
+                            } else {
+                                // Nếu không có số, thêm số 1 vào sau key
+                                $newKey .= '1';
+                            }
+                        }
+
+                        return response()->json([
+                            'success' => false,
+                            'msg' => 'Tên viết tắt đã tồn tại!',
+                            'key' => $newKey,
+                        ]);
+                    } else {
+                        $key = isset($data['key']) ? $data['key'] : $this->generateKey($data['provide_name_display']);
+                        $dataProvide = [
+                            'provide_code' => $data['provide_code'],
+                            'provide_name_display' => $data['provide_name_display'],
+                            'key' => $key,
+                            'provide_name' => isset($data['provide_name']) ? $data['provide_name'] : "",
+                            'provide_address' => $data['provide_address'],
+                        ];
+
+                        DB::table('provides')->where('id', $request->id)->update($dataProvide);
+
+                        $msg = response()->json([
+                            'success' => true, 'msg' => 'Chỉnh sửa nhà cung cấp thành công', 'provide_id' => $request->id
+                        ]);
+                    }
+                }
+            }
         }
         return $msg;
     }

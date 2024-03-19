@@ -13,7 +13,7 @@
                                     </p>
                                     <input name="provide_name_display" type="text" placeholder="Nhập thông tin"
                                         class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                        id="getKeyProvide" autocomplete="off">
+                                        id="getKeyProvide1" autocomplete="off">
                                 </div>
                                 <div class="mt-2">
                                     <p class="p-0 m-0 px-2 text-nav required-label text-danger">
@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         <div class="modal-footer border-top-0 py-1 px-1">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Trở về</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearDataProvide(this)">Trở về</button>
                             <button type="button" class="btn btn-primary" id="editProvide">Sửa nhà cung cấp</button>
                         </div>
                     </div>

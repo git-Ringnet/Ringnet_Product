@@ -360,6 +360,11 @@ function getKeyProvide(name) {
     });
 }
 
+function clearDataProvide(data){
+    $(data).closest('.modal-dialog').find('input').val('')
+    $('input[name="key"]').val('')
+}
+
 function getQuotation(getName, count, date) {
     var currentDate = new Date();
     var day = currentDate.getDate();

@@ -625,7 +625,7 @@
         }
     });
     getKeyProvide($('#getKeyProvide'));
-
+    getKeyProvide($('#getKeyProvide1'));
     $(document).click(function(event) {
         if ((!$(event.target).closest("#searchRepresent").length && !$(event.target).closest('#represent')
                 .length) && !$(event.target).closest('.dropdown').length) {
@@ -986,10 +986,14 @@
                     provide_name: provide_name,
                 },
                 success: function(data) {
+                    console.log(data);
+                    quotation = getQuotation(data.key, '1')
+                    console.log(quotation);
                     if (data.success) {
                         $('.btn.btn-secondary').click()
                         if (data.provide_id == $('#provides_id').val()) {
                             $('#myInput').val(provide_name_display)
+                            $("input[name='provide_name_display']").val(data.resultNumber)
                         }
                         $('#myUL ul li').find('a#' + data.provide_id + " span").text(
                             provide_name_display)
