@@ -215,7 +215,6 @@ class ProductController extends Controller
         $getFile = $request->file('file');
         $name = $getFile->getClientOriginalName();
         $fullPath = storage_path('backup');
-
         if (!file_exists($fullPath)) {
             mkdir($fullPath, 0755, true);
         }
