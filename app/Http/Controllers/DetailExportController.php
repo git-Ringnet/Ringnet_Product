@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
 use App\Models\BillSale;
 use App\Models\Delivered;
 use App\Models\Delivery;
@@ -46,6 +47,7 @@ class DetailExportController extends Controller
     protected $guest_dateForm;
     private $workspaces;
     private $represent_guest;
+    private $attachment;
 
     public function __construct()
     {
@@ -65,6 +67,7 @@ class DetailExportController extends Controller
         $this->productPay = new productPay();
         $this->workspaces = new Workspace();
         $this->represent_guest = new representGuest();
+        $this->attachment = new Attachment();
     }
     public function index()
     {
@@ -288,6 +291,9 @@ class DetailExportController extends Controller
                 $detailExport = DetailExport::find($id);
 
                 if ($detailExport) {
+                    $table_id = $id;
+                    $table_name = 'BG';
+                    $this->attachment->deleteFileAll($table_id, $table_name);
                     QuoteExport::where('detailexport_id', $id)->delete();
                     $detailExport->delete();
                     return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn bán hàng thành công!');
@@ -324,6 +330,9 @@ class DetailExportController extends Controller
             if ($detailExport) {
                 QuoteExport::where('detailexport_id', $id)->delete();
                 $detailExport->delete();
+                $table_id = $id;
+                $table_name = 'BG';
+                $this->attachment->deleteFileAll($table_id, $table_name);
                 return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn bán hàng thành công!');
             } else {
                 return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Không tìm thấy đơn bán hàng để xóa!');

@@ -484,7 +484,7 @@
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách
                                                 hàng</span>
-                                            <input class="text-13-black w-50 border-0 bg-input-guest"
+                                            <input class="text-13-black w-50 border-0 bg-input-guest" readonly
                                                 value="{{ $payExport->guest_name_display }}"
                                                 style="flex:2;outline:none;">
                                             <input type="hidden" class="idGuest" value="{{ $payExport->guest_id }}"

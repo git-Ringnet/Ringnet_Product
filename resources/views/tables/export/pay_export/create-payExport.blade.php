@@ -505,7 +505,7 @@
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
 
-                                <input class="text-13-black w-50 border-0 nameGuest bg-input-guest"
+                                <input class="text-13-black w-50 border-0 nameGuest bg-input-guest" readonly
                                     value="@isset($yes){{ $getGuestbyId[0]->guest_name_display }}@endisset"
                                     style="flex:2;outline:none;">
 
@@ -539,7 +539,7 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest tongTien" name="total"
+                                <input class="text-13-black w-50 border-0 bg-input-guest tongTien" name="total" readonly
                                     style="flex:2;outline:none;" value="" />
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
@@ -553,7 +553,7 @@
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
                                 <input type="text" value="" readonly
-                                    class="text-13-black w-50 border-0 duNo" style="flex:2;" />
+                                    class="text-13-black w-50 border-0 duNo bg-input-guest" style="flex:2;" />
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">

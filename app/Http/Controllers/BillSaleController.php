@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
 use App\Models\BillSale;
 use App\Models\Delivered;
 use App\Models\Delivery;
@@ -25,6 +26,7 @@ class BillSaleController extends Controller
     private $product;
     private $workspaces;
     private $detailExport;
+    private $attachment;
 
     public function __construct()
     {
@@ -33,6 +35,7 @@ class BillSaleController extends Controller
         $this->productBill = new productBill();
         $this->workspaces = new Workspace();
         $this->detailExport = new DetailExport();
+        $this->attachment = new Attachment();
     }
     public function index()
     {
@@ -168,6 +171,9 @@ class BillSaleController extends Controller
         }
         if ($request->action == "action_2") {
             $this->billSale->deleteBillSale($request->all(), $id);
+            $table_id = $id;
+            $table_name = 'HDBH';
+            $this->attachment->deleteFileAll($table_id, $table_name);
             return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xóa hóa đơn bán hàng thành công!');
         }
     }
@@ -178,6 +184,9 @@ class BillSaleController extends Controller
     public function destroy(string $workspace, string $id)
     {
         $this->billSale->deleteBillSaleItem($id);
+        $table_id = $id;
+        $table_name = 'HDBH';
+        $this->attachment->deleteFileAll($table_id, $table_name);
         return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xóa hóa đơn bán hàng thành công!');
     }
     public function getInfoDelivery(Request $request)

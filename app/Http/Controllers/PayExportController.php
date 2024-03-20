@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
 use App\Models\BillSale;
 use App\Models\Delivered;
 use App\Models\DetailExport;
@@ -26,6 +27,7 @@ class PayExportController extends Controller
     private $payExport;
     private $productPay;
     private $workspaces;
+    private $attachment;
 
     public function __construct()
     {
@@ -34,6 +36,7 @@ class PayExportController extends Controller
         $this->payExport = new PayExport();
         $this->productPay = new productPay();
         $this->workspaces = new Workspace();
+        $this->attachment = new Attachment();
     }
     public function index()
     {
@@ -216,6 +219,9 @@ class PayExportController extends Controller
         }
         if ($request->action == "action_2") {
             $this->payExport->deletePayExport($id);
+            $table_id = $id;
+            $table_name = 'TT';
+            $this->attachment->deleteFileAll($table_id, $table_name);
             return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn thanh toán thành công!');
         }
     }
@@ -226,6 +232,9 @@ class PayExportController extends Controller
     public function destroy(string $workspace, string $id)
     {
         $this->payExport->deletePayExport($id);
+        $table_id = $id;
+        $table_name = 'TT';
+        $this->attachment->deleteFileAll($table_id, $table_name);
         return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn thanh toán thành công!');
     }
 

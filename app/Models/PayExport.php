@@ -194,14 +194,12 @@ class PayExport extends Model
             $history->save();
         }
         //
+        $countHistory = history_Pay_Export::where('pay_id', $payExport->id)->count();
         $date_pay = isset($data['date_pay']) ? Carbon::parse($data['date_pay']) : Carbon::now();
         $status = null;
 
         // Kiểm tra xem ngày thanh toán có phải là ngày hôm nay hay không
         $datePayIsToday = $date_pay->isToday();
-
-        // Kiểm tra ngày hiện tại trừ 3 ngày
-        $nowMinus3Days = Carbon::now()->subDays(3);
 
         // Kiểm tra ngày hiện tại cộng 3 ngày
         $nowPlus4Days = Carbon::now()->addDays(3);
@@ -220,8 +218,23 @@ class PayExport extends Model
                 $status = 4;
             } elseif ($payment == 0) {
                 // Nếu ngày thanh toán lớn hơn ngày hiện tại cộng 3 ngày
-                if ($daThanhToan > 0 && $date_pay->greaterThan($nowPlus4Days)) {
+                if ($daThanhToan > 0 && $date_pay->greaterThan($nowPlus4Days) && $countHistory > 1) {
                     $status = 5;
+                } else if ($daThanhToan > 0 && $date_pay->greaterThan($nowPlus4Days) && $countHistory == 1) {
+                    if ($payExport->status == 5) {
+                        $status = 5;
+                        //
+                        $history = new history_Pay_Export;
+                        $history->pay_id = $payExport->id;
+                        $history->total = $total;
+                        $history->payment = $payment;
+                        $history->debt = $detailExport->amount_owed;
+                        $history->workspace_id = Auth::user()->current_workspace;
+                        $history->created_at = now();
+                        $history->save();
+                    } else {
+                        $status = 1;
+                    }
                 } else if ($daThanhToan == 0 && $date_pay->greaterThan($nowPlus4Days)) {
                     $status = 1;
                 } else if ($date_pay->lessThan(Carbon::now())) {
@@ -229,8 +242,7 @@ class PayExport extends Model
                     $status = 4;
                 } else if ($datePayIsToday) {
                     $status = 6;
-                }
-                else{
+                } else {
                     $status = 3;
                 }
             } elseif ($payment > 0 && $date_pay->greaterThan($nowPlus4Days)) {

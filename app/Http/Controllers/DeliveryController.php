@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
 use App\Models\Delivered;
 use App\Models\Delivery;
 use App\Models\DetailExport;
@@ -27,6 +28,7 @@ class DeliveryController extends Controller
     private $detailExport;
     private $workspaces;
     private $history;
+    private $attachment;
 
     public function __construct()
     {
@@ -36,6 +38,7 @@ class DeliveryController extends Controller
         $this->detailExport = new DetailExport();
         $this->workspaces = new Workspace();
         $this->history = new History();
+        $this->attachment = new Attachment();
     }
     public function index()
     {
@@ -161,6 +164,9 @@ class DeliveryController extends Controller
         }
         if ($request->action == "action_2") {
             $this->delivery->deleteDelivery($request->all(), $id);
+            $table_id = $id;
+            $table_name = 'GH';
+            $this->attachment->deleteFileAll($table_id, $table_name);
             return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn giao hàng thành công!');
         }
     }
@@ -171,6 +177,9 @@ class DeliveryController extends Controller
     public function destroy(string $workspace, string $id)
     {
         $this->delivery->deleteDeliveryItem($id);
+        $table_id = $id;
+        $table_name = 'GH';
+        $this->attachment->deleteFileAll($table_id, $table_name);
         return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn giao hàng thành công!');
     }
 

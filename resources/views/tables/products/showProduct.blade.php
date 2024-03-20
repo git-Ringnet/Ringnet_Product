@@ -469,7 +469,9 @@
                                         $totalTax =
                                             ($htr->getQuoteImport->price_export *
                                                 $htr->product_qty *
-                                                $htr->getQuoteImport->product_tax) /
+                                                ($htr->getQuoteImport->product_tax == 99
+                                                    ? 0
+                                                    : $htr->getQuoteImport->product_tax)) /
                                             100;
                                     @endphp
                                 @endif

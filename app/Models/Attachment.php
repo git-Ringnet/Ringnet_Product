@@ -79,4 +79,21 @@ class Attachment extends Model
             // }
         }
     }
+    public function deleteFileAll($table_id, $table_name)
+    {
+        $backupPath = storage_path('backup/' . $table_name . '/');
+        $attachments = Attachment::where('table_id', $table_id)
+            ->where('table_name', $table_name)
+            ->get();
+        foreach ($attachments as $attachment) {
+            if (file_exists($backupPath . $attachment->file_name)) {
+                unlink($backupPath . $attachment->file_name);
+            }
+        }
+
+        // Xóa các dữ liệu attachment từ cơ sở dữ liệu
+        Attachment::where('table_id', $table_id)
+            ->where('table_name', $table_name)
+            ->delete();
+    }
 }
