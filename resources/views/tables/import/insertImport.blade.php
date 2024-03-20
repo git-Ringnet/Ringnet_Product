@@ -986,9 +986,6 @@
                     provide_name: provide_name,
                 },
                 success: function(data) {
-                    console.log(data);
-                    quotation = getQuotation(data.key, '1')
-                    console.log(quotation);
                     if (data.success) {
                         $('.btn.btn-secondary').click()
                         if (data.provide_id == $('#provides_id').val()) {

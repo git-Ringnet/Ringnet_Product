@@ -68,9 +68,9 @@ class Serialnumber extends Model
                     ->where('workspace_id', Auth::user()->current_workspace)
                     ->first();
                 if ($product) {
-                    $checkSN = Serialnumber::where('product_id', $product->id)
-                        ->where('workspace_id', Auth::user()->current_workspace)
+                    $checkSN = Serialnumber::where('workspace_id', Auth::user()->current_workspace)
                         ->get();
+                    // where('product_id', $product->id)
                     foreach ($productName['sn'] as $SN) {
                         foreach ($checkSN as $list) {
                             if ($list->serinumber == $SN) {

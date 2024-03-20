@@ -118,7 +118,9 @@ class DetailImportController extends Controller
         $provides = Provides::all();
         $title = $import->quotation_number;
         $product = QuoteImport::leftjoin('products', 'products.product_name', 'quoteimport.product_name')
-            ->where('detailimport_id', $import->id)->get();
+            ->where('detailimport_id', $import->id)
+            ->select('quoteimport.*', 'products.product_inventory')
+            ->get();
         $project = Project::all();
         $history = HistoryImport::where('detailImport_id', $id)->get();
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
@@ -142,7 +144,9 @@ class DetailImportController extends Controller
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         $title = $import->quotation_number;
         $product = QuoteImport::leftjoin('products', 'products.product_name', 'quoteimport.product_name')
-            ->where('detailimport_id', $import->id)->get();
+            ->where('detailimport_id', $import->id)
+            ->select('quoteimport.*','products.product_inventory')
+            ->get();
         $project = Project::all();
         $history = HistoryImport::where('detailImport_id', $id)
             ->orderBy('id', 'desc')
