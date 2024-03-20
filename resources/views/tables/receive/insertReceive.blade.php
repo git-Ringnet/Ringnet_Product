@@ -987,8 +987,8 @@
                                                     'Mã nhận hàng đã tồn tại'
                                                 )
                                             } else {
-                                                // updateProductSN()
-                                                // $('form')[0].submit();
+                                                updateProductSN()
+                                                $('form')[0].submit();
                                             }
                                         }
                                     })
