@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
 use App\Models\DetailImport;
 use App\Models\PayOder;
 use App\Models\ProductImport;
@@ -25,6 +26,7 @@ class ReceiveController extends Controller
     private $productImport;
     private $sn;
     private $workspaces;
+    private $attachment;
     public function __construct()
     {
         $this->receive = new Receive_bill();
@@ -35,6 +37,7 @@ class ReceiveController extends Controller
         $this->productImport = new ProductImport();
         $this->sn = new Serialnumber();
         $this->workspaces = new Workspace();
+        $this->attachment = new Attachment();
     }
     /**
      * Display a listing of the resource.
@@ -188,6 +191,7 @@ class ReceiveController extends Controller
         $workspacename = $workspacename->workspace_name;
         $result = $this->receive->deleteReceive($id);
         if ($result) {
+            $this->attachment->deleteFileAll($id,'DNH');
             return redirect()->route('receive.index', $workspacename)->with('msg', 'Xóa đơn nhận hàng thành công !');
         } else {
             return redirect()->route('receive.index', $workspacename)->with('warning', 'Sản phẩm đã được tạo trong đơn bán hàng !');

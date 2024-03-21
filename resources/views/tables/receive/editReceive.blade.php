@@ -76,17 +76,6 @@
                             </div>
                         </div>
 
-                        <!-- <label class="custom-btn d-flex align-items-center h-100 m-0 mr-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                                fill="none" class="mx-1">
-                                <path
-                                    d="M8.30541 9.20586C8.57207 9.47246 8.5943 9.89106 8.37208 10.183L8.30541 10.2593L5.84734 12.7174C4.58675 13.978 2.54294 13.978 1.28235 12.7174C0.0652319 11.5003 0.0232719 9.55296 1.15644 8.2855L1.28235 8.15237L3.74042 5.69429C4.03133 5.40339 4.50298 5.40339 4.79388 5.69429C5.06054 5.96096 5.08277 6.37949 4.86055 6.67147L4.79388 6.74775L2.33581 9.20586C1.65703 9.88456 1.65703 10.9852 2.33581 11.6639C2.98065 12.3088 4.00611 12.341 4.68901 11.7607L4.79388 11.6639L7.25195 9.20586C7.54286 8.91492 8.01451 8.91492 8.30541 9.20586ZM8.82965 5.17005C9.12053 5.46095 9.12053 5.9326 8.82965 6.22351L6.34904 8.70413C6.05813 8.99504 5.58648 8.99504 5.29558 8.70413C5.00467 8.41323 5.00467 7.94158 5.29558 7.65067L7.7762 5.17005C8.0671 4.87914 8.53875 4.87914 8.82965 5.17005ZM12.7173 1.28236C13.9344 2.49948 13.9764 4.44674 12.8432 5.71422L12.7173 5.84735L10.2592 8.30543C9.96833 8.59633 9.49673 8.59633 9.20583 8.30543C8.93914 8.03877 8.91692 7.62023 9.13913 7.32825L9.20583 7.25197L11.6638 4.79389C12.3426 4.11511 12.3426 3.0146 11.6638 2.33582C11.019 1.69098 9.99363 1.65874 9.31073 2.23909L9.20583 2.33582L6.74774 4.79389C6.45683 5.0848 5.98518 5.0848 5.69428 4.79389C5.42762 4.52723 5.40539 4.10869 5.62761 3.81672L5.69428 3.74043L8.15235 1.28236C9.41293 0.0217665 11.4567 0.0217665 12.7173 1.28236Z"
-                                    fill="white"></path>
-                            </svg>
-                            <span>Đính kèm file</span><input type="file" style="display: none;" id="file_restore"
-                                accept="*" name="file">
-                        </label> -->
-
                         @if ($receive->status == 1)
                             <a href="#" onclick="getAction(this)">
                                 <button value="2" type="submit"
@@ -103,6 +92,19 @@
                                 </button>
                             </a>
                         @endif
+
+                        <label class="custom-btn d-flex align-items-center h-100 m-0 mx-1">
+                            <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.30639 10.2061C9.57305 10.4727 9.59528 10.8913 9.37306 11.1832L9.30639 11.2595L6.84832 13.7176C5.58773 14.9782 3.54392 14.9782 2.28333 13.7176C1.06621 12.5005 1.02425 10.5532 2.15742 9.28574L2.28333 9.15261L4.7414 6.69453C5.03231 6.40363 5.50396 6.40363 5.79486 6.69453C6.06152 6.9612 6.08375 7.37973 5.86153 7.67171L5.79486 7.74799L3.33679 10.2061C2.65801 10.8848 2.65801 11.9854 3.33679 12.6641C3.98163 13.309 5.00709 13.3412 5.68999 12.7609L5.79486 12.6641L8.25293 10.2061C8.54384 9.91516 9.01549 9.91516 9.30639 10.2061ZM9.83063 6.17029C10.1215 6.46119 10.1215 6.93284 9.83063 7.22375L7.35002 9.70437C7.05911 9.99528 6.58746 9.99528 6.29656 9.70437C6.00565 9.41347 6.00565 8.94182 6.29656 8.65091L8.77718 6.17029C9.06808 5.87938 9.53973 5.87938 9.83063 6.17029ZM13.7183 2.2826C14.9354 3.49972 14.9774 5.44698 13.8442 6.71446L13.7183 6.84759L11.2602 9.30567C10.9693 9.59657 10.4977 9.59657 10.2068 9.30567C9.94012 9.03901 9.9179 8.62047 10.1401 8.32849L10.2068 8.25221L12.6648 5.79413C13.3436 5.11535 13.3436 4.01484 12.6648 3.33606C12.02 2.69122 10.9946 2.65898 10.3117 3.23933L10.2068 3.33606L7.74872 5.79413C7.45781 6.08504 6.98616 6.08504 6.69526 5.79413C6.4286 5.52747 6.40637 5.10893 6.62859 4.81696L6.69526 4.74067L9.15333 2.2826C10.4139 1.02201 12.4577 1.02201 13.7183 2.2826Z"
+                                    fill="white"></path>
+                            </svg>
+                            <span>Đính kèm file</span>
+                            <input type="file" style="display: none;" id="file_restore" accept="*"
+                                name="file">
+                        </label>
+
                         <a href="#" id="delete_receive">
                             <button name="action" value="action_2" type="submit" id="xoaBtn"
                                 class="btn--remove d-flex align-items-center h-100 mx-1"
@@ -131,31 +133,35 @@
                     </div>
                 </div>
             </div>
-            <!-- <section class="content-wrapper1 p-2 position-relative">
-                <div class="d-flex justify-content-between">
-                    <ul class="nav nav-tabs bg-filter-search border-0 py-2 rounded ml-3">
-                        <li class="text-nav"><a data-toggle="tab" href="#info" class="active text-secondary">Thông
-                                tin</a>
-                        </li>
-                        <li class="text-nav">
-                            <a data-toggle="tab" href="#files" class="text-secondary mx-4">File đính kèm</a>
-                        </li>
-                    </ul>
-                    <div class="d-flex position-sticky" style="right: 10px; top: 80px;">
+
+            <section class="border-custom" style="height:50px">
+                <div class="d-flex justify-content-between align-items-center h-100">
+                    <div class="content-header--options p-0 border-0">
+                        <ul class="header-options--nav-1 nav nav-tabs margin-left32">
+                            <li>
+                                <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">
+                                    Thông tin
+                                </a>
+                            </li>
+                            <li>
+                                <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#files">File đính kèm</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </section> -->
+            </section>
         </div>
-        <div class="content margin-top-38" id="main">
+
+        <div class="content margin-top-68" id="main">
             <div class="container-fluided margin-250">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
                         <div id="title--fixed"
-                            class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
+                            class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
                                 PHẨM</p>
                         </div>
-                        <section class="content margin-top-72">
+                        <section class="content margin-top-103">
                             <div class="content-info position-relative table-responsive text-nowrap">
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
@@ -200,33 +206,6 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            {{-- <th scope="col" class="border">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Đơn giá</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
-                                            </th> --}}
-                                            {{-- <th scope="col" class="border">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Thuế</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
-                                            </th> --}}
-                                            {{-- <th scope="col" class="border">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Thành tiền</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
-                                            </th> --}}
                                             <th scope="col" class="border">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
@@ -400,17 +379,17 @@
                         <?php $import = '123'; ?>
                         <x-formsynthetic :import="$import"></x-formsynthetic>
                     </div>
-                    <!-- <section id="files" class="tab-pane fade">
-                        <div class="bg-filter-search border-bottom-0 text-center py-2">
-                            <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
-                        </div>
-                        <x-form-attachment :value="$receive" name="DNH"></x-form-attachment>
-                    </section> -->
+                    <div id="files" class="tab-pane fade">
+                            <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM</p>
+                            </div>
+                            <x-form-attachment :value="$receive" name="DNH"></x-form-attachment>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="content">
-            <div id="mySidenav" class="sidenav border">
+            <div id="mySidenav" class="sidenav border top-109">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-top-0 text-center border-custom">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
 use App\Models\DetailImport;
 use App\Models\HistoryPaymentOrder;
 use App\Models\PayOder;
@@ -19,12 +20,14 @@ class PayOrderController extends Controller
     private $productImport;
     private $historyPayment;
     private $workspaces;
+    private $attachment;
     public function __construct()
     {
         $this->payment = new PayOder();
         $this->productImport = new ProductImport();
         $this->historyPayment = new HistoryPaymentOrder();
         $this->workspaces = new Workspace();
+        $this->attachment = new Attachment();
     }
     /**
      * Display a listing of the resource.
@@ -122,7 +125,10 @@ class PayOrderController extends Controller
                     DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
                 )
                 ->get();
-            $history = HistoryPaymentOrder::where('payment_id', $payment->id)->get();
+            $history = HistoryPaymentOrder::leftjoin('pay_order','pay_order.id','history_payment_order.payment_id')
+            ->where('history_payment_order.payment_id', $payment->id)
+            ->select('history_payment_order.*','pay_order.payment_code')
+            ->get();
             return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product', 'history', 'workspacename', 'nameRepresent'));
         }
     }
@@ -153,6 +159,7 @@ class PayOrderController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($status) {
+            $this->attachment->deleteFileAll($id,'TTMH');
             return redirect()->route('paymentOrder.index', $workspacename)->with('msg', 'Xóa thanh toán mua hàng thành công !');
         } else {
             return redirect()->route('paymentOrder.index', $workspacename)->with('warning', 'Không tìn thấy thanh toán mua hàng cần xóa !');

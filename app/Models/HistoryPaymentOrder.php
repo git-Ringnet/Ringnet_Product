@@ -18,6 +18,11 @@ class HistoryPaymentOrder extends Model
         'payment',
         'debt'
     ];
+
+    // public function getPaymentCode(){
+    //     return $this->hasOne(PayOder::class, 'id','payment_id');
+    // }
+
     public function addHistoryPayment($data, $id)
     {
         $status = false;

@@ -214,7 +214,7 @@
                                                     @endif
                                                 </td>
                                                 <td class="py-2 text-13-black">
-                                                    {{ fmod($item->price_total, 2) > 0 ? number_format($item->price_total, 2, '.', ',') : number_format($item->price_total) }}
+                                                    {{ fmod($item->price_total, 2) > 0 && fmod($item->price_total,1) > 0 ? number_format($item->price_total, 2, '.', ',') : number_format($item->price_total) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 3px;">

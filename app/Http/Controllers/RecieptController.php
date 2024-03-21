@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
 use App\Models\DetailImport;
 use App\Models\ProductImport;
 use App\Models\QuoteImport;
@@ -17,11 +18,13 @@ class RecieptController extends Controller
     private $reciept;
     private $productImport;
     private $workspaces;
+    private $attachment;
     public function __construct()
     {
         $this->reciept = new Reciept();
         $this->productImport = new ProductImport();
         $this->workspaces = new Workspace();
+        $this->attachment = new Attachment();
     }
     /**
      * Display a listing of the resource.
@@ -152,6 +155,7 @@ class RecieptController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($status) {
+            $this->attachment->deleteFileAll($id,'HDMH');
             return redirect()->route('reciept.index', $workspacename)->with('msg', 'Xóa hóa đơn mua hàng thành công !');
         } else {
             return redirect()->route('reciept.index', $workspacename)->with('warning', 'Không tìn thấy hóa đơn mua hàng cần xóa !');

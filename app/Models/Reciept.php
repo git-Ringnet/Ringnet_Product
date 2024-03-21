@@ -207,9 +207,17 @@ class Reciept extends Model
                     }
                 }
             }
+            // Xóa hóa đơn mua hàng
             DB::table('reciept')->where('id', $reciept->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->delete();
+
+            // Xóa file đính kèm
+            // DB::table('attachment')->where('table_id', $reciept->id)
+            //     ->where('table_name', 'HDMH')
+            //     ->where('workspace_id', Auth::user()->current_workspace)
+            //     ->delete();
+
             // Cập nhật lại trạng thái đơn hàng
             $checkReceive = Receive_bill::where('detailimport_id', $detail)
                 ->where('workspace_id', Auth::user()->current_workspace)
