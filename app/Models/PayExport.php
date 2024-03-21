@@ -112,21 +112,19 @@ class PayExport extends Model
         }
 
         // Create history only if payment is set
-        if (isset($data['payment'])) {
-            $historyData = [
-                'pay_id' => $payExport->id,
-                'total' => $total,
-                'payment' => $payment,
-                'debt' => $result,
-                'workspace_id' => Auth::user()->current_workspace,
-            ];
+        $historyData = [
+            'pay_id' => $payExport->id,
+            'total' => $total,
+            'payment' => $payment,
+            'debt' => $result,
+            'workspace_id' => Auth::user()->current_workspace,
+        ];
 
-            // Use create method instead of new + save
-            history_Pay_Export::create($historyData);
+        // Use create method instead of new + save
+        history_Pay_Export::create($historyData);
 
-            // Update payment in payExport
-            $payExport->update(['payment' => $payment]);
-        }
+        // Update payment in payExport
+        $payExport->update(['payment' => $payment]);
 
         return $payExport->id;
     }
