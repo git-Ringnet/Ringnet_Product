@@ -78,6 +78,8 @@ Route::get('/checkQuotetionExportEdit', [DetailExportController::class, 'checkQu
 Route::get('/searchDetailExport', [DetailExportController::class, 'searchDetailExport'])->name('searchDetailExport');
 
 Route::resource('DateForm', DateFormController::class);
+Route::get('/addUserFlow',[DateFormController::class,'addUserFlow'])->name('addUserFlow');
+
 Route::get('/addDateForm', [DateFormController::class, 'addDateForm'])->name('addDateForm');
 Route::get('/updateDateForm', [DateFormController::class, 'updateDateForm'])->name('updateDateForm');
 Route::get('/deleteDateForm', [DateFormController::class, 'deleteDateForm'])->name('deleteDateForm');

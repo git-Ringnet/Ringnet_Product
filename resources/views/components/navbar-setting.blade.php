@@ -344,7 +344,7 @@
                             </div>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
+                            <li class="nav-item user_flow">
                                 <a href="{{ route('import.index', $workspacename) }}"
                                     class="nav-link  @if (!empty($activeName) && $activeName == 'import') active @endif">
                                     <p class="text-nav ml-2">Đơn mua hàng</p>
@@ -574,8 +574,7 @@
                 });
             }, 10000);
         });
-
-
+    
         // $(document).ready(function() {
         //     $("li.nav-item:has(ul.nav.nav-treeview)").each(function() {
         //         var navItem = $(this);

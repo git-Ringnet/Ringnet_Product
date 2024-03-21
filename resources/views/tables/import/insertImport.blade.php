@@ -33,8 +33,9 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <a href="{{ route('import.index', $workspacename) }}">
-                            <button type="button" class="btn-destroy btn-light d-flex align-items-center h-100"
-                                style="margin-right:10px">
+                            <button type="button"
+                                class="btn-destroy btn-light d-flex align-items-center h-100 user_flow"
+                                style="margin-right:10px" data-type="DMH" data-des="Hủy đơn mua hàng">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
@@ -47,7 +48,7 @@
                             </button>
                         </a>
 
-                        <div class="dropdown">
+                        <div class="dropdown user_flow" data-type="DMH" data-des="In đơn mua hàng">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-destroy btn-light d-flex align-items-center h-100 dropdown-toggle"
                                 style="margin-right:10px">
@@ -246,8 +247,9 @@
                             <div class="container-fluided">
                                 <div class="d-flex">
                                     <button type="button" data-toggle="dropdown"
-                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                        id="addRowTable" style="margin-right:10px">
+                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded user_flow"
+                                        id="addRowTable" style="margin-right:10px" data-type="DMH"
+                                        data-des="Thêm sản phẩm">
                                         <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
                                             height="12" viewBox="0 0 18 18" fill="none">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -661,7 +663,6 @@
                         status: 'add'
                     },
                     success: function(data) {
-                        // console.log(data);
                         $('#listRepresent li').empty();
                         $('#listPriceEffect li').empty();
                         $('#listTermsPay li').empty();
@@ -1627,6 +1628,24 @@
             })
         }
     })
+
+
+    // $(document).on('click', '.user_flow', function(e) {
+    //         console.log(123);
+    //         var type = $(this).attr('data-type')
+    //         var des = $(this).attr('data-des');
+    //         $.ajax({
+    //             url: "{{ route('addUserFlow') }}",
+    //             type: "get",
+    //             data: {
+    //                 type: type,
+    //                 des: des
+    //             },
+    //             success: function(data) {
+    //                 console.log(data);
+    //             }
+    //         })
+    //     })
 </script>
 </body>
 

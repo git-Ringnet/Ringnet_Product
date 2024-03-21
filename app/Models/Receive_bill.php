@@ -277,6 +277,13 @@ class Receive_bill extends Model
                     DB::table('receive_bill')->where('id', $receive->id)
                         ->where('workspace_id', Auth::user()->current_workspace)
                         ->delete();
+
+                    // Xóa file đính kèm theo đơn nhận hàng
+                    // DB::table('attachment')->where('table_id', $receive->id)
+                    //     ->where('table_name', 'DNH')
+                    //     ->where('workspace_id', Auth::user()->current_workspace)
+                    //     ->delete();
+
                     // Cập nhật lại trạng thái đơn hàng
                     $checkReceive = Receive_bill::where('detailimport_id', $detail)
                         ->where('workspace_id', Auth::user()->current_workspace)

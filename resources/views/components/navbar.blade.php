@@ -367,9 +367,10 @@
                             </div>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
+                            <li class="nav-item user_flow" data-type="DMH" data-des="DMH">
                                 <a href="{{ route('import.index', $workspacename) }}"
-                                    class="nav-link  @if (!empty($activeName) && $activeName == 'import') active @endif">
+                                {{-- <a href="#"  --}}
+                                class="nav-link  @if (!empty($activeName) && $activeName == 'import') active @endif">
                                     <p class="text-nav ml-2">Đơn mua hàng</p>
                                 </a>
                             </li>
@@ -590,4 +591,22 @@
                 });
             }, 4000);
         });
+
+
+        // $(document).on('click', '.user_flow', function(e) {
+        //     console.log(123);
+        //     var type = $(this).attr('data-type')
+        //     var des = $(this).attr('data-des');
+        //     $.ajax({
+        //         url: "{{ route('addUserFlow') }}",
+        //         type: "get",
+        //         data: {
+        //             type: type,
+        //             des: des
+        //         },
+        //         success: function(data) {
+        //             console.log(data);
+        //         }
+        //     })
+        // })
     </script>

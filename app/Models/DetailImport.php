@@ -227,6 +227,14 @@ class DetailImport extends Model
                         $qt->delete();
                     }
                 }
+
+                // Xóa file đính kèm
+                // DB::table('attachment')->where('table_id', $detail->id)
+                //     ->where('table_name', 'DMH')
+                //     ->where('workspace_id', Auth::user()->current_workspace)
+                //     ->delete();
+
+                // Xóa đơn mua hàng
                 $detail->delete();
                 $result = [
                     'status' => true,

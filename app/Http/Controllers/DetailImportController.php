@@ -239,6 +239,7 @@ class DetailImportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($status['status']) {
+            $this->attachment->deleteFileAll($id,'DMH');
             return redirect()->route('import.index', $workspacename)->with('msg', 'Xóa đơn mua hàng thành công !');
         } else {
             return redirect()->route('import.index', $workspacename)->with('warning', $status['msg']);

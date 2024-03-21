@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\DateForm;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DateFormController extends Controller
 {
@@ -155,5 +157,16 @@ class DateFormController extends Controller
         $data = $request->all();
         $dateForm = DateForm::where('id', $data['idDateForm'])->first();
         return $dateForm;
+    }
+
+    public function addUserFlow(Request $request){
+        $dataFlow = [
+            'user_id' => Auth::user()->id,
+            'activity_type' => $request->type,
+            'activity_description' => $request->des,
+            'created_at' => Carbon::now()
+        ];
+        $id_Flow = DB::table('user_flow')->insert($dataFlow);
+        return $id_Flow;
     }
 }

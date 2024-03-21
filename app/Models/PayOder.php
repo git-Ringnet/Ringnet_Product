@@ -290,9 +290,6 @@ class PayOder extends Model
             }
         }
 
-        // $payorder = PayOder::where('detailimport_id', $id)
-        //     ->where('workspace_id', Auth::user()->current_workspace)
-        //     ->first();
         if ($payorder) {
             if (($payorder->total - $payorder->payment) == 0) {
                 $status = 2; //Thanh toán đủ
@@ -339,21 +336,6 @@ class PayOder extends Model
                             ->update($dataUpdate);
                     }
                 }
-                // Tính dư nợ nhà cung cấp
-                // $provide = Provides::where('id', $payment->provide_id)->first();
-                // if ($provide) {
-                //     if ($payment->payment > 0) {
-                //         $debt = $provide->provide_debt + $payment->payment;
-                //     } else {
-                //         $debt = $provide->provide_debt;
-                //     }
-                //     $dataProvide = [
-                //         'provide_debt' => ($debt - $payment->total),
-                //     ];
-                //     DB::table('provides')->where('id', $provide->id)
-                //         ->where('workspace_id', Auth::user()->current_workspace)
-                //         ->update($dataProvide);
-                // }
             }
 
             // Xóa lịch sử
@@ -365,6 +347,12 @@ class PayOder extends Model
             DB::table('pay_order')->where('id', $payment->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->delete();
+
+            // Xóa file đính kèm
+            // DB::table('attachment')->where('table_id', $payment->id)
+            //     ->where('table_name', 'TTMH')
+            //     ->where('workspace_id', Auth::user()->current_workspace)
+            //     ->delete();
 
             // Cập nhật lại trạng thái đơn hàng
             $checkReceive = Receive_bill::where('detailimport_id', $detail)
