@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="google-site-verification" content="K1w-WrdYbh4UE0ZLNP8lot6xN-tkavJTByQY-Hd4t-0" />
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P638JNSTY9"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F10684L2DN"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -17,7 +17,7 @@
         }
         gtag('js', new Date());
 
-        gtag('config', 'G-P638JNSTY9');
+        gtag('config', 'G-F10684L2DN');
     </script>
 
     <title>{{ config('app.name', 'Laravel') }}</title>
