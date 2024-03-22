@@ -46,7 +46,7 @@ Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProduc
 
 // Nhà cung cấp
 Route::resource('{workspace}/provides', ProvidesController::class);
-Route::get('/checkKeyProvide',[ProvidesController::class,'checkKeyProvide'])->name('checkKeyProvide');
+Route::get('/checkKeyProvide', [ProvidesController::class, 'checkKeyProvide'])->name('checkKeyProvide');
 Route::get('/searchProvides', [ProvidesController::class, 'search'])->name('searchProvides');
 
 // Khách hàng
@@ -230,6 +230,7 @@ Route::post('/create-workspace', [ProviderController::class, 'createWorkspace'])
 
 Route::resource('workspace', WorkspaceController::class);
 Route::get('/updateWorkspaceUser', [WorkspaceController::class, 'updateWorkspaceUser'])->name('updateWorkspaceUser');
+Route::get('/landing-page', [WorkspaceController::class, 'landingPage']);
 
 Route::resource('{workspace}/userWorkspace', UserWorkspacesController::class);
 Route::get('/updateRoleWorkspace', [UserWorkspacesController::class, 'updateRoleWorkspace'])->name('updateRoleWorkspace');

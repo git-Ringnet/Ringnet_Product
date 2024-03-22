@@ -2332,3 +2332,18 @@ input[type="checkbox"] {
 .top-120 {
     top: 120px !important;
 }
+#live-chat {
+    z-index:10000;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border: none;
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+    box-shadow: 0px 5px 15px rgb(63, 59, 59);
+    border-radius: 8px;
+}
+#live-chat img {
+    width: 40px;
+}
