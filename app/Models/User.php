@@ -29,7 +29,11 @@ class User extends Authenticatable
         'email',
         'password',
         'provider',
-        'provider_id', 'origin_workspace', 'current_workspace', 'roleid'
+        'provider_id',
+        'origin_workspace',
+        'current_workspace',
+        'roleid',
+        'phone_number'
     ];
 
     /**
@@ -69,7 +73,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Workspace::class);
     }
-    public function updateWorkSpaceUser($id, $data)
+    public function updateUser($id, $data)
     {
         $user = self::find($id);
         if ($user) {

@@ -17,6 +17,7 @@ class Workspace extends Seeder
             [
                 'user_id' => 1,
                 'workspace_name' => 'Ringnet',
+                'name_company' => 'Ringnet',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

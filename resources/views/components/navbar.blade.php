@@ -80,7 +80,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-    <a id="live-chat" href="https://zalo.me/0933747371" target="_blank"><img
+    <a id="live-chat" href="https://zalo.me/g/pcgrpw834" target="_blank"><img
             src="{{ asset('dist/img/Icon_of_Zalo.svg.png') }}" alt=""></a>
     <div class="wrapper">
         <!-- Navbar -->

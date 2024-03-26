@@ -14,8 +14,19 @@ class Workspace extends Model
     protected $fillable = [
         'user_id',
         'workspace_name',
+        'name_company',
+        'phone_number',
     ];
 
+    public function updateWorkspace($id, $data)
+    {
+        $workspace = self::find($id);
+        if ($workspace) {
+            $workspace->update($data);
+            return $workspace;
+        }
+        return null;
+    }
     public function user()
     {
         return $this->belongsTo(User::class);

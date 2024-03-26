@@ -801,6 +801,7 @@
             var delivery_id = $(this).data('delivery-id');
             var product_id = $(this).data('product-id');
             console.log(delivery_id, product_id);
+            var formatter = new Intl.NumberFormat('en-US');
             $.ajax({
                 type: 'get',
                 url: '{{ URL::to('getSN') }}',
@@ -820,7 +821,7 @@
                     });
                     data.product.forEach(function(item) {
                         $('.product-name').text(item.product_name)
-                        $('.product-qty').text(item.deliver_qty)
+                        $('.product-qty').text(formatter.format(item.deliver_qty))
                         $('.qty-sn').text(data.serinumber.length)
                     });
                 }

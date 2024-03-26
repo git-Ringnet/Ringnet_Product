@@ -29,8 +29,6 @@ class ProviderController extends Controller
                 'user_id' => $user->id,
             ]);
         }
-
-
         $workspaceId = Session::get('workspace_id');
         $token = Session::get('token');
 
@@ -43,6 +41,7 @@ class ProviderController extends Controller
         // dd(!$invitation->status);
 
         if ($workspaceId && $invitation->status != 0) {
+
             $existingRecord = UserWorkspaces::where('user_id', $user->id)
                 ->where('workspace_id', $workspaceId)
                 ->first();
@@ -54,9 +53,21 @@ class ProviderController extends Controller
                     'user_id' => $user->id,
                     'roleid' => $invitation->roleid,
                 ]);
+                $user = User::findOrFail($user->id);
+                $user->update(['current_workspace' => $workspaceId]);
             }
         }
-
+        // Kiểm tra xem nếu có workspace rồi thì dô thẳng
+        $exitsUserWP = UserWorkspaces::where('user_id', $user->id)
+            ->first();
+        if ($exitsUserWP) {
+            // Lấy id gần nhất của workspace
+            $currentUser = User::where('id', $user->id)->select('current_workspace')->first();
+            // lấy tên workspace đó
+            $nameCurrentWP = Workspace::where('id', $currentUser->current_workspace)->select('workspace_name')->first();
+            auth()->login($user);
+            return redirect()->route('welcome', $nameCurrentWP->workspace_name);
+        }
         Session::forget('workspace_id');
         Session::forget('token');
         auth()->login($user);
@@ -71,15 +82,12 @@ class ProviderController extends Controller
         $workspaceId = Session::get('workspace_id');
         $token = Session::get('token');
 
-
         $emailExists = Invitation::where('email', $getInfo->email)->exists();
         if ($emailExists) {
             $invitation = Invitation::where('workspace_id', $workspaceId)->where('email', $getInfo->email)->first();
         } else {
             $invitation = Invitation::where('token', $token)->where('workspace_id', $workspaceId)->first();
         }
-
-
         if (!$user) {
             // Tạo người dùng mới
             $user = User::create([
@@ -120,6 +128,6 @@ class ProviderController extends Controller
             'workspace_id' => $workspace->id,
             'token' => $token,
         ]);
-        return redirect()->route('dashboard')->with('success', 'Workspace đã được tạo thành công!');
+        return redirect()->route('welcome', $workspaceName)->with('success', 'Workspace đã được tạo thành công!');
     }
 }

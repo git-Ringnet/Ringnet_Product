@@ -78,7 +78,7 @@ Route::get('/checkQuotetionExportEdit', [DetailExportController::class, 'checkQu
 Route::get('/searchDetailExport', [DetailExportController::class, 'searchDetailExport'])->name('searchDetailExport');
 
 Route::resource('DateForm', DateFormController::class);
-Route::get('/addUserFlow',[DateFormController::class,'addUserFlow'])->name('addUserFlow');
+Route::get('/addUserFlow', [DateFormController::class, 'addUserFlow'])->name('addUserFlow');
 
 Route::get('/addDateForm', [DateFormController::class, 'addDateForm'])->name('addDateForm');
 Route::get('/updateDateForm', [DateFormController::class, 'updateDateForm'])->name('updateDateForm');
@@ -230,7 +230,8 @@ Route::post('/create-workspace', [ProviderController::class, 'createWorkspace'])
 
 Route::resource('workspace', WorkspaceController::class);
 Route::get('/updateWorkspaceUser', [WorkspaceController::class, 'updateWorkspaceUser'])->name('updateWorkspaceUser');
-Route::get('/landing-page', [WorkspaceController::class, 'landingPage']);
+Route::get('/updateWorkspace', [WorkspaceController::class, 'updateWorkspace'])->name('updateWorkspace');
+Route::get('/landing-page', [WorkspaceController::class, 'landingPage'])->name('landingPage');
 
 Route::resource('{workspace}/userWorkspace', UserWorkspacesController::class);
 Route::get('/updateRoleWorkspace', [UserWorkspacesController::class, 'updateRoleWorkspace'])->name('updateRoleWorkspace');

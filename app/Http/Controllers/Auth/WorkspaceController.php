@@ -9,6 +9,7 @@ use App\Models\UserWorkspaces;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -106,7 +107,7 @@ class WorkspaceController extends Controller
             $data = [
                 'current_workspace' => $request->workspaceId,
             ];
-            $new_user = $this->user->updateWorkSpaceUser($id, $data);
+            $new_user = $this->user->updateUser($id, $data);
             $msg = response()->json([
                 'success' => true,
                 'msg' => 'Cập nhật thành công',
@@ -114,5 +115,32 @@ class WorkspaceController extends Controller
             ]);
             return $msg;
         }
+    }
+    public function updateWorkspace(Request $request)
+    {
+        if ($request->ajax()) {
+            $id = Auth::user()->origin_workspace;
+            $idUser = Auth::user()->id;
+            $data = [
+                'name_company' => $request->name_company,
+            ];
+            $dataUser = [
+                'phone_number' => $request->phone_number,
+            ];
+            $user = $this->user->updateUser($idUser, $dataUser);
+            $workspace = $this->workspace->updateWorkspace($id, $data);
+            $msg = response()->json([
+                'success' => true,
+                'msg' => 'Cập nhật thành công',
+                'new_date_form' => $workspace,
+                'user' => $user,
+            ]);
+            return $msg;
+        }
+    }
+    public function landingPage(Request $request)
+    {
+
+        return view('landing-page');
     }
 }

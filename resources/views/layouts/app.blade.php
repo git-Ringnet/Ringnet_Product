@@ -20,7 +20,7 @@
         gtag('config', 'G-F10684L2DN');
     </script>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Order Central') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -35,7 +35,7 @@
 
 <body class="font-sans antialiased">
     <x-banner />
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-white-100">
         @livewire('navigation-menu')
 
         <!-- Page Heading -->
