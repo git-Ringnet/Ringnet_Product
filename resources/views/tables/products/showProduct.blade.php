@@ -589,7 +589,7 @@
                                             fill='#6B6F76' />
                                     </svg>
                                 </th>
-                                <th scope="col" class="text-nowrap text-13">Hóa đơn mua hàng
+                                <th scope="col" class="text-nowrap text-13">Thông tin mua hàng
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                         viewBox='0 0 16 16' fill='none'>
                                         <path
@@ -597,7 +597,7 @@
                                             fill='#6B6F76' />
                                     </svg>
                                 </th>
-                                <th scope="col" class="text-nowrap text-13">Hóa đơn bán hàng
+                                <th scope="col" class="text-nowrap text-13">Thông tin bán hàng
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                         viewBox='0 0 16 16' fill='none'>
                                         <path
@@ -619,7 +619,7 @@
                                                     <span style="display:block;" class="text-14-blue">
                                                         <a
                                                             href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->getReceive->id]) }}">
-                                                            {{ $item->getReceive->id }}
+                                                            {{ $item->getReceive->delivery_code }}
                                                         </a>
                                                     </span>
                                                     <span style="display:block;" class="text-14-blue">
@@ -631,7 +631,7 @@
                                                         <span style="display:block;" class="text-14-blue">
                                                             <a
                                                                 href="{{ route('watchDelivery', ['workspace' => $workspacename, 'id' => $sn->getQuotation->id]) }}">
-                                                                {{ $sn->getQuotation->id }}
+                                                                {{ $sn->getQuotation->code_delivery }}
                                                             </a>
                                                         </span>
                                                         <span style="display:block;" class="text-14-blue">

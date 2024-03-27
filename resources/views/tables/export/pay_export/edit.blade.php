@@ -60,7 +60,8 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('payExport.index', ['workspace' => $workspacename]) }}">
+                        <a href="{{ route('payExport.index', ['workspace' => $workspacename]) }}" class="activity"
+                            data-name1="TT" data-des="Trở về">
                             <button type="button"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 rounded">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -145,16 +146,20 @@
                     <div class="content-header--options p-0 border-0">
                         <ul class="header-options--nav nav nav-tabs margin-left32">
                             <li>
-                                <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông
-                                    tin</a>
+                                <a class="text-secondary active m-0 pl-3 activity" data-name1="TT"
+                                    data-des="Xem thông tin sản phẩm thanh toán" data-toggle="tab" href="#info">
+                                    Thông tin
+                                </a>
                             </li>
                             <li>
-                                <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">
+                                <a class="text-secondary m-0 pl-3 pr-3 activity" data-name1="TT"
+                                    data-des="Xem lịch sử thanh toán" data-toggle="tab" href="#history">
                                     Lịch sử thanh toán
                                 </a>
                             </li>
                             <li>
-                                <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#files">File đính kèm</a>
+                                <a class="text-secondary m-0 pr-3 activity" data-name1="TT"
+                                    data-des="Xem file đính kèm" data-toggle="tab" href="#files">File đính kèm</a>
                             </li>
                         </ul>
                     </div>
@@ -651,7 +656,7 @@
         </div>
     </div>
 </div>
-
+<x-user-flow></x-user-flow>
 <script>
     //
     flatpickr("#datePicker", {
@@ -764,6 +769,17 @@
         // $('#formSubmit').attr('method', 'HEAD');
         $('input[name="_method"]').remove();
         $('#formSubmit')[0].submit();
+        var name = 'TT';
+        var des = 'Đính kèm file';
+        $.ajax({
+            url: '{{ route('addActivity') }}',
+            type: 'GET',
+            data: {
+                name: name,
+                des: des,
+            },
+            success: function(data) {}
+        });
     })
 
     //thêm sản phẩm

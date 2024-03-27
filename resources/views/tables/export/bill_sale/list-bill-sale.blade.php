@@ -16,7 +16,7 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('billSale.create', ['workspace' => $workspacename]) }}">
+                    <a href="{{ route('billSale.create', ['workspace' => $workspacename]) }}" class="activity" data-name1="HDBH" data-des="Tạo mới">
                         <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1 ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                                 fill="none">
@@ -225,7 +225,7 @@
                                                     {{ $item_bill->number_bill }}
                                                 </td>
                                                 <td class="height-52">
-                                                    <a class="text-13-black"
+                                                    <a class="text-13-black activity" data-name1="HDBH" data-des="Xem hóa đơn bán hàng"
                                                         href="{{ route('billSale.edit', ['workspace' => $workspacename, 'billSale' => $item_bill->idHD]) }}">
                                                         {{ $item_bill->quotation_number }}
                                                     </a>
@@ -246,7 +246,7 @@
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 40px; top: 10px;">
                                                     <div class="d-flex w-100">
-                                                        <a
+                                                        <a class="activity" data-name1="HDBH" data-des="Xem hóa đơn bán hàng"
                                                             href="{{ route('billSale.edit', ['workspace' => $workspacename, 'billSale' => $item_bill->idHD]) }}">
                                                             <div class="m-0 px-2 py-1 mx-2 rounded">
                                                                 <svg width="16" height="16"
@@ -310,6 +310,7 @@
         </section>
     </div>
 </div>
+<x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 
 <script>

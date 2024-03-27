@@ -16,7 +16,7 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('detailExport.create', ['workspace' => $workspacename]) }}">
+                    <a href="{{ route('detailExport.create', ['workspace' => $workspacename]) }}" class="activity" data-name1="BG" data-des="Tạo mới">
                         <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -308,7 +308,7 @@
                                                 <td class="text-13-black">
                                                     <div class="">
                                                         <a href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $value_export->maBG]) }}"
-                                                            class="duongDan">{{ $value_export->quotation_number }}</a>
+                                                            class="duongDan activity" data-name1="BG" data-des="Xem đơn báo giá">{{ $value_export->quotation_number }}</a>
                                                     </div>
                                                 </td>
                                                 <td class="text-13-black max-width120">
@@ -444,7 +444,7 @@
                                                     <div class="d-flex w-100">
                                                         <a
                                                             href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $value_export->maBG]) }}">
-                                                            <div class="m-0 px-2 py-1 mx-2 rounded">
+                                                            <div class="m-0 px-2 py-1 mx-2 rounded activity" data-name1="BG" data-des="Xem đơn báo giá">
                                                                 <svg width="16" height="16"
                                                                     viewBox="0 0 16 16" fill="none"
                                                                     xmlns="http://www.w3.org/2000/svg">
@@ -547,6 +547,7 @@
         </div>
     </div>
 </div> --}}
+<x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 
 <script>

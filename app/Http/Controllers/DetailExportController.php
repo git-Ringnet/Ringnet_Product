@@ -20,6 +20,7 @@ use App\Models\Provides;
 use App\Models\QuoteExport;
 use App\Models\DateForm;
 use App\Models\representGuest;
+use App\Models\userFlow;
 use App\Models\Workspace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -48,6 +49,7 @@ class DetailExportController extends Controller
     private $workspaces;
     private $represent_guest;
     private $attachment;
+    private $userFlow;
 
     public function __construct()
     {
@@ -68,6 +70,7 @@ class DetailExportController extends Controller
         $this->workspaces = new Workspace();
         $this->represent_guest = new representGuest();
         $this->attachment = new Attachment();
+        $this->userFlow = new userFlow();
     }
     public function index()
     {
@@ -120,7 +123,11 @@ class DetailExportController extends Controller
     {
         $export_id = $this->detailExport->addExport($request->all());
         $this->quoteExport->addQuoteExport($request->all(), $export_id);
-
+        $arrLuuNhap = [
+            'name' => 'BG',
+            'des' => 'Lưu nháp'
+        ];
+        $this->userFlow->addUserFlow($arrLuuNhap);
         $dateForms = $request->idDate;
         $fieldDates = $request->fieldDate;
         $guestId = $request->guest_id;
@@ -230,6 +237,11 @@ class DetailExportController extends Controller
             $yes = true;
             $getInfoQuote = $this->delivery->getInfoQuote($request->detailexport_id);
             $getProductQuote = $this->delivery->getProductQuote($request->detailexport_id);
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Tạo đơn giao hàng'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
             if ($getProductQuote->isEmpty()) {
                 return redirect()->route('delivery.index', ['workspace' => $workspace])->with('warning', 'Đơn giao hàng đã tạo hết!');
             } else {
@@ -254,6 +266,11 @@ class DetailExportController extends Controller
             $getRepresentbyId = $this->represent_guest->getRepresentbyId($request->represent_id);
             $yes = true;
             $getInfoDelivery = $this->billSale->getProductDelivery($request->detailexport_id);
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Tạo hóa đơn'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
             if ($getInfoDelivery->isEmpty()) {
                 return redirect()->route('billSale.index', ['workspace' => $workspace])->with('warning', 'Hóa đơn bán hàng đã được tạo hết!');
             } else {
@@ -275,6 +292,11 @@ class DetailExportController extends Controller
             $getRepresentbyId = $this->represent_guest->getRepresentbyId($request->represent_id);
             $yes = true;
             $delivery = $this->payExport->getProductPay($request->detailexport_id);
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Tạo đơn thanh toán'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
             if ($delivery->isEmpty()) {
                 return redirect()->route('payExport.index', ['workspace' => $workspace])->with('warning', 'Thanh toán bán hàng đã được tạo hết!');
             } else {
@@ -294,6 +316,12 @@ class DetailExportController extends Controller
                     $table_id = $id;
                     $table_name = 'BG';
                     $this->attachment->deleteFileAll($table_id, $table_name);
+                    //
+                    $arrCapNhatKH = [
+                        'name' => 'BG',
+                        'des' => 'Xóa đơn báo giá'
+                    ];
+                    $this->userFlow->addUserFlow($arrCapNhatKH);
                     QuoteExport::where('detailexport_id', $id)->delete();
                     $detailExport->delete();
                     return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn bán hàng thành công!');
@@ -311,6 +339,11 @@ class DetailExportController extends Controller
             // $provides = Provides::all();
             $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
             $project = Project::all();
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Tạo đơn mua hàng'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
             return view('tables.import.insertImport', ['dataImport' => $dataImport, 'title' => $title, 'provides' => $provides, 'project' => $project, 'workspacename' => $workspace]);
         }
     }
@@ -333,6 +366,12 @@ class DetailExportController extends Controller
                 $table_id = $id;
                 $table_name = 'BG';
                 $this->attachment->deleteFileAll($table_id, $table_name);
+                //
+                $arrCapNhatKH = [
+                    'name' => 'BG',
+                    'des' => 'Xóa đơn báo giá'
+                ];
+                $this->userFlow->addUserFlow($arrCapNhatKH);
                 return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn bán hàng thành công!');
             } else {
                 return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('warning', 'Không tìm thấy đơn bán hàng để xóa!');
@@ -507,6 +546,20 @@ class DetailExportController extends Controller
 
                 $new_guest = DB::table('guest')->insertGetId($data);
 
+                if ($request->update == 1) {
+                    $arrThemKH = [
+                        'name' => 'BG',
+                        'des' => 'Thêm khách hàng ở trang chỉnh sửa'
+                    ];
+                    $this->userFlow->addUserFlow($arrThemKH);
+                } else {
+                    $arrThemKH = [
+                        'name' => 'BG',
+                        'des' => 'Thêm khách hàng'
+                    ];
+                    $this->userFlow->addUserFlow($arrThemKH);
+                }
+
                 if (!empty($request->represent_guest_name)) {
                     $dataRepresent = [
                         'guest_id' => $new_guest,
@@ -564,6 +617,19 @@ class DetailExportController extends Controller
     {
         $data = $request->all();
         $updateGuest = $this->guest->updateGuestRepresent($data);
+        if ($data['update'] == 2) {
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Cập nhật khách hàng ở trang chỉnh sửa'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        } else {
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Cập nhật khách hàng'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        }
         return $updateGuest;
     }
     //Xóa khách hàng
@@ -571,6 +637,19 @@ class DetailExportController extends Controller
     {
         $data = $request->all();
         $guest = $this->guest->deleteGuest($data['itemId']);
+        if ($data['update'] == 2) {
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Xóa khách hàng ở trang chỉnh sửa'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        } else {
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Xóa khách hàng'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        }
         return $guest;
     }
     //Thêm dự án
@@ -589,6 +668,19 @@ class DetailExportController extends Controller
                 'updated_at' => Carbon::now(),
             ];
             $new_guest = DB::table('project')->insertGetId($data);
+            if ($request->update == 2) {
+                $arrCapNhatKH = [
+                    'name' => 'BG',
+                    'des' => 'Thêm dự án ở trang chỉnh sửa'
+                ];
+                $this->userFlow->addUserFlow($arrCapNhatKH);
+            } else {
+                $arrCapNhatKH = [
+                    'name' => 'BG',
+                    'des' => 'Thêm dự án'
+                ];
+                $this->userFlow->addUserFlow($arrCapNhatKH);
+            }
             $msg = response()->json([
                 'success' => true, 'msg' => 'Thêm mới dự án thành công', 'id' => $new_guest,
                 'project_name' => $request->project_name,
@@ -603,6 +695,19 @@ class DetailExportController extends Controller
     {
         $data = $request->all();
         $project = $this->project->deleteProject($data['itemId']);
+        if ($request->update == 2) {
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Xóa dự án ở trang chỉnh sửa'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        } else {
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Xóa dự án'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        }
         return $project;
     }
     //Thêm người đại diện
@@ -627,6 +732,19 @@ class DetailExportController extends Controller
                 'updated_at' => Carbon::now(),
             ];
             $new_guest = DB::table('represent_guest')->insertGetId($data);
+            if ($request->update == 2) {
+                $arrCapNhatKH = [
+                    'name' => 'BG',
+                    'des' => 'Thêm người đại diện ở trang chỉnh sửa'
+                ];
+                $this->userFlow->addUserFlow($arrCapNhatKH);
+            } else {
+                $arrCapNhatKH = [
+                    'name' => 'BG',
+                    'des' => 'Thêm người đại diện'
+                ];
+                $this->userFlow->addUserFlow($arrCapNhatKH);
+            }
             $msg = response()->json([
                 'success' => true, 'msg' => 'Thêm mới người đại diện thành công', 'id' => $new_guest,
                 'represent_name' => $request->represent_name,
@@ -662,6 +780,19 @@ class DetailExportController extends Controller
     {
         $data = $request->all();
         $represent_guest = $this->represent_guest->deleteRepresentGuest($data['itemId']);
+        if ($request->update == 2) {
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Xóa người đại diện ở trang chỉnh sửa'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        } else {
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Xóa người đại diện'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        }
         return $represent_guest;
     }
     //Thông tin chi tiết người đại diện
@@ -676,12 +807,38 @@ class DetailExportController extends Controller
     {
         $data = $request->all();
         $represent_guest = $this->represent_guest->updateRepresent($data['represent_id'], $data);
+        if ($request->update == 2) {
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Cập nhật người đại diện ở trang chỉnh sửa'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        } else {
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Cập nhật người đại diện'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        }
         return $represent_guest;
     }
     public function defaultRepresent(Request $request)
     {
         $data = $request->all();
         $represent_guest = $this->represent_guest->defaultRepresent($data['represent_id'], $data['guest_id']);
+        if ($request->update == 2) {
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Ghim người đại diện ở trang chỉnh sửa'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        } else {
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Ghim người đại diện'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        }
         return $represent_guest;
     }
     public function getRecentTransaction(Request $data)
@@ -707,5 +864,13 @@ class DetailExportController extends Controller
             ]);
         }
         return false;
+    }
+    public function checkProductExist(Request $request)
+    {
+        $data = $request->all();
+        $product = Products::where('product_name', $data['productName'])
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
+        return $product;
     }
 }

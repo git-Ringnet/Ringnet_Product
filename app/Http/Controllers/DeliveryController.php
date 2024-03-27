@@ -12,6 +12,7 @@ use App\Models\productPay;
 use App\Models\Products;
 use App\Models\QuoteExport;
 use App\Models\Serialnumber;
+use App\Models\userFlow;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,7 @@ class DeliveryController extends Controller
     private $workspaces;
     private $history;
     private $attachment;
+    private $userFlow;
 
     public function __construct()
     {
@@ -39,6 +41,7 @@ class DeliveryController extends Controller
         $this->workspaces = new Workspace();
         $this->history = new History();
         $this->attachment = new Attachment();
+        $this->userFlow = new userFlow();
     }
     public function index()
     {
@@ -93,10 +96,20 @@ class DeliveryController extends Controller
         if ($request->action == 1) {
             $delivery_id = $this->delivery->addDelivery($request->all());
             $this->delivered->addDelivered($request->all(), $delivery_id);
+            $arrLuuNhap = [
+                'name' => 'GH',
+                'des' => 'Lưu nháp'
+            ];
+            $this->userFlow->addUserFlow($arrLuuNhap);
             return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', ' Tạo mới đơn giao hàng thành công !');
         }
         if ($request->action == 2) {
             $this->delivery->acceptDelivery($request->all());
+            $arrLuuNhap = [
+                'name' => 'GH',
+                'des' => 'Giao hàng'
+            ];
+            $this->userFlow->addUserFlow($arrLuuNhap);
             return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
         }
     }
@@ -159,6 +172,13 @@ class DeliveryController extends Controller
                 //     ];
                 //     $history->addHistory($dataHistory);
                 // }
+
+                //
+                $arrCapNhatKH = [
+                    'name' => 'GH',
+                    'des' => 'Xác nhận'
+                ];
+                $this->userFlow->addUserFlow($arrCapNhatKH);
                 return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
             }
         }
@@ -167,6 +187,12 @@ class DeliveryController extends Controller
             $table_id = $id;
             $table_name = 'GH';
             $this->attachment->deleteFileAll($table_id, $table_name);
+            //
+            $arrCapNhatKH = [
+                'name' => 'GH',
+                'des' => 'Xóa đơn giao hàng'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
             return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn giao hàng thành công!');
         }
     }
@@ -180,6 +206,12 @@ class DeliveryController extends Controller
         $table_id = $id;
         $table_name = 'GH';
         $this->attachment->deleteFileAll($table_id, $table_name);
+        //
+        $arrCapNhatKH = [
+            'name' => 'GH',
+            'des' => 'Xóa đơn giao hàng'
+        ];
+        $this->userFlow->addUserFlow($arrCapNhatKH);
         return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn giao hàng thành công!');
     }
 

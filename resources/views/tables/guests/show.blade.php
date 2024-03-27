@@ -29,7 +29,7 @@
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
                     <div class="dropdown">
-                        <a href="{{ route('guests.index', ['workspace' => $workspacename]) }}">
+                        <a href="{{ route('guests.index', ['workspace' => $workspacename]) }}" class="activity" data-name1="KH" data-des="Trở về">
                             <button type="button" class="btn-save-print d-flex align-items-center h-100 rounded"
                                 style="margin-right:10px;">
                                 <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -42,7 +42,7 @@
                             </button>
                         </a>
                     </div>
-                    <a href="{{ route('guests.edit', ['workspace' => $workspacename, 'guest' => $guest->id]) }}">
+                    <a class="activity" data-name1="KH" data-des="Xem trang sửa" href="{{ route('guests.edit', ['workspace' => $workspacename, 'guest' => $guest->id]) }}">
                         <button type="button" class="custom-btn d-flex align-items-center h-100"
                             style="margin-right:10px">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
@@ -80,10 +80,10 @@
         <section class="content-header--options p-0">
             <ul class="header-options--nav width-23 nav nav-tabs margin-left32">
                 <li>
-                    <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông tin</a>
+                    <a class="text-secondary active m-0 pl-3 activity" data-name1="KH" data-des="Xem thông tin khách hàng" data-toggle="tab" href="#info">Thông tin</a>
                 </li>
                 <li>
-                    <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử giao dịch</a>
+                    <a class="text-secondary m-0 pl-3 pr-3 activity" data-toggle="tab" data-name1="KH" data-des="Xem lịch sử giao dịch" href="#history">Lịch sử giao dịch</a>
                 </li>
             </ul>
         </section>
@@ -515,6 +515,7 @@
         </div>
     </div>
 </div>
+<x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 <script>
     getKeyGuest($('input[name="guest_name_display"]'))

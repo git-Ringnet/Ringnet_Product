@@ -37,7 +37,8 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('delivery.index', ['workspace' => $workspacename]) }}">
+                        <a href="{{ route('delivery.index', ['workspace' => $workspacename]) }}" class="activity"
+                            data-name1="GH" data-des="Trở về">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -73,7 +74,7 @@
                                 <span class="text-btnIner-primary ml-1">In</span>
                             </button>
                             <div class="dropdown-menu" style="z-index: 9999;">
-                                <a class="dropdown-item text-13-black"
+                                <a class="dropdown-item text-13-black activity" data-name1="GH" data-des="Xuất file pdf" 
                                     href="{{ route('pdfdelivery', $delivery->soGiaoHang) }}">Xuất PDF</a>
                             </div>
                         </div>
@@ -128,12 +129,15 @@
                     <div class="content-header--options p-0 border-0">
                         <ul class="header-options--nav-1 nav nav-tabs margin-left32">
                             <li>
-                                <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">
+                                <a class="text-secondary active m-0 pl-3 activity" data-name1="GH"
+                                    data-des="Xem thông tin sản phẩm giao hàng" data-toggle="tab" href="#info">
                                     Thông tin
                                 </a>
                             </li>
                             <li>
-                                <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#files">File đính kèm</a>
+                                <a class="text-secondary m-0 pr-3 activity" data-name1="GH"
+                                    data-des="Xem file đính kèm giao hàng" data-toggle="tab" href="#files">File đính
+                                    kèm</a>
                             </li>
                         </ul>
                     </div>
@@ -234,7 +238,8 @@
                                                             <input type="hidden" class="tonkho">
                                                         </div>
                                                         <div class="">
-                                                            <a href="#" class="btn btn-primary sn1"
+                                                            <a href="#" class="btn btn-primary sn1 activity"
+                                                                data-name1="GH" data-des="Xem S/N sản phẩm"
                                                                 data-row="row{{ $item_quote->product_id }}"
                                                                 data-toggle="modal"
                                                                 data-target="#exampleModal{{ $item_quote->product_id }}"
@@ -272,10 +277,11 @@
                                                         value="{{ number_format($item_quote->price_export) }}"
                                                         class="text-right border-0 px-2 py-1 w-100 product_price"
                                                         autocomplete="off" name="product_price[]" readonly>
-                                                    <a href="#">
+                                                    <a href="#" class="activity" data-name1="GH"
+                                                        data-des="Xem giao dịch gần đây">
                                                         <div class="mt-3 text-13-blue recentModal" data-toggle="modal"
-                                                            data-target="#recentModal" style="">Giao dịch gần
-                                                            đây
+                                                            data-target="#recentModal" style="">
+                                                            Giao dịch gần đây
                                                         </div>
                                                     </a>
                                                 </td>
@@ -320,8 +326,8 @@
                                                         value="{{ number_format($item_quote->price_import) }}">
                                                 </td> -->
                                                 <td class="border-right p-2 note text-13 align-top">
-                                                    <input type="text" class='border-0 py-1 w-100'
-                                                        placeholder='Nhập ghi chú' readonly name="product_note[]"
+                                                    <input type="text" class='border-0 py-1 w-100' readonly
+                                                        name="product_note[]"
                                                         value="{{ $item_quote->product_note }}">
                                                 </td>
                                                 <td style="display:none;" class="">
@@ -460,7 +466,7 @@
                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                        <input class="text-13-black w-50 border-0" style="flex:2;" placeholder="Nhập thông tin"
+                        <input class="text-13-black w-50 border-0" style="flex:2;"
                             value="{{ $delivery->represent_name }}" readonly />
                     </li>
                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
@@ -590,6 +596,7 @@
         </div>
     </div>
 </div>
+<x-user-flow></x-user-flow>
 <script>
     $('#file_restore').on('change', function(e) {
         e.preventDefault();
@@ -597,6 +604,17 @@
         // $('#formSubmit').attr('method', 'HEAD');
         $('input[name="_method"]').remove();
         $('#deliveryForm')[0].submit();
+        var name = 'GH';
+        var des = 'Đính kèm file';
+        $.ajax({
+            url: '{{ route('addActivity') }}',
+            type: 'GET',
+            data: {
+                name: name,
+                des: des,
+            },
+            success: function(data) {}
+        });
     })
     //Xem giao dịch gần đây
     $('.recentModal').click(function() {

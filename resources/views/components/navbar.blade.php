@@ -297,33 +297,38 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('detailExport.index', $workspacename) }}"
-                                    class="nav-link
+                                <a href="{{ route('detailExport.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn báo giá"
+                                    class="nav-link activity1
                                     @if (!empty($activeName) && $activeName == 'quote') active @endif">
                                     <p class="text-nav ml-2">Đơn báo giá</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('delivery.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'delivery') active @endif">
+                                <a href="{{ route('delivery.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Đơn giao hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'delivery') active @endif">
                                     <p class="text-nav ml-2">Đơn giao hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('billSale.index', $workspacename) }}"
-                                    class="nav-link  @if (!empty($activeName) && $activeName == 'billsale') active @endif">
+                                <a href="{{ route('billSale.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Hóa đơn bán hàng"
+                                    class="nav-link activity1  @if (!empty($activeName) && $activeName == 'billsale') active @endif">
                                     <p class="text-nav ml-2">Hóa đơn bán hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('payExport.index', $workspacename) }}"
-                                    class="nav-link @if (!empty($activeName) && $activeName == 'payexport') active @endif">
+                                <a href="{{ route('payExport.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Thanh toán bán hàng"
+                                    class="nav-link activity1 @if (!empty($activeName) && $activeName == 'payexport') active @endif">
                                     <p class="text-nav ml-2">Thanh toán bán hàng</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('guests.index', $workspacename) }}"
-                                    class="nav-link  @if (!empty($activeName) && $activeName == 'guest') active @endif">
+                                <a href="{{ route('guests.index', $workspacename) }}" data-name1="BH"
+                                    data-des="Khách hàng"
+                                    class="nav-link activity1  @if (!empty($activeName) && $activeName == 'guest') active @endif">
                                     <p class="text-nav ml-2">Khách hàng</p>
                                 </a>
                             </li>
@@ -593,7 +598,6 @@
             }, 4000);
         });
 
-
         // $(document).on('click', '.user_flow', function(e) {
         //     console.log(123);
         //     var type = $(this).attr('data-type')
@@ -610,4 +614,21 @@
         //         }
         //     })
         // })
+
+        //Lưu thao tác chức năng bán hàng
+        $(document).ready(function() {
+            $('.activity1').unbind('click').click(function() {
+                var name = $(this).data('name1'); // Lấy giá trị của thuộc tính data-name1
+                var des = $(this).data('des'); // Lấy giá trị của thuộc tính data-des
+                $.ajax({
+                    url: '{{ route('addActivity') }}',
+                    type: 'GET',
+                    data: {
+                        name: name,
+                        des: des,
+                    },
+                    success: function(data) {}
+                });
+            });
+        });
     </script>

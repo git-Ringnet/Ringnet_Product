@@ -38,7 +38,8 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <div class="dropdown">
-                            <a href="{{ route('detailExport.index', $workspacename) }}">
+                            <a href="{{ route('detailExport.index', $workspacename) }}" class="activity" data-name1="BG"
+                                data-des="Hủy xem đơn báo giá">
                                 <button type="button"
                                     class="btn-save-print rounded mx-1 d-flex align-items-center h-100">
                                     <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -63,15 +64,17 @@
                                 <span class="text-button">In</span>
                             </button>
                             <div class="dropdown-menu" style="z-index: 9999;">
-                                <a class="dropdown-item text-nav" href="{{ route('excel', $detailExport->maBG) }}">Xuất
-                                    Excel</a>
-                                <a class="dropdown-item text-nav border-top"
-                                    href="{{ route('pdf', $detailExport->maBG) }}">Xuất
-                                    PDF</a>
+                                <a class="dropdown-item text-nav activity" data-name1="BG" data-des="Xuất excel"
+                                    href="{{ route('excel', $detailExport->maBG) }}">
+                                    Xuất Excel
+                                </a>
+                                <a class="dropdown-item text-nav border-top activity" data-name1="BG"
+                                    data-des="Xuất pdf" href="{{ route('pdf', $detailExport->maBG) }}">Xuất PDF
+                                </a>
                             </div>
                         </div>
-                        <a
-                            href="{{ route('detailExport.edit', ['workspace' => $workspacename, 'detailExport' => $detailExport->maBG]) }}">
+                        <a href="{{ route('detailExport.edit', ['workspace' => $workspacename, 'detailExport' => $detailExport->maBG]) }}"
+                            class="activity" data-name1="BG" data-des="Xem trang sửa">
                             <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 16 16" fill="none">
@@ -91,8 +94,8 @@
                         <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
                                 class="custom-btn rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
-                                <svg class="mr-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                <svg class="mr-1" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M4.82017 6.15415C5.02571 5.94862 5.35895 5.94862 5.56449 6.15415L7.99935 8.58901L10.4342 6.15415C10.6397 5.94862 10.973 5.94862 11.1785 6.15415C11.3841 6.35969 11.3841 6.69294 11.1785 6.89848L8.37151 9.70549C8.16597 9.91103 7.83273 9.91103 7.62719 9.70549L4.82017 6.89848C4.61463 6.69294 4.61463 6.35969 4.82017 6.15415Z"
                                         fill="white" />
@@ -190,15 +193,22 @@
                     <div class="content-header--options p-0 border-0">
                         <ul class="header-options--nav nav nav-tabs margin-left32">
                             <li>
-                                <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông
-                                    tin</a>
+                                <a class="text-secondary active m-0 pl-3 activity" data-name1="BG"
+                                    data-des="Xem thông tin sản phẩm báo giá" data-toggle="tab" href="#info">
+                                    Thông tin
+                                </a>
                             </li>
                             <li>
-                                <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử
-                                    chỉnh sửa</a>
+                                <a class="text-secondary m-0 pl-3 pr-3 activity" data-name1="BG"
+                                    data-des="Xem lịch sử chỉnh sửa báo giá" data-toggle="tab" href="#history">
+                                    Lịch sử chỉnh sửa
+                                </a>
                             </li>
                             <li>
-                                <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#files">File đính kèm</a>
+                                <a class="text-secondary m-0 pr-3 activity" data-name1="BG"
+                                    data-des="Xem file đính kèm báo giá" data-toggle="tab" href="#files">
+                                    File đính kèm
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -518,7 +528,8 @@
                                                                 value="{{ number_format($item_quote->price_export) }}"
                                                                 class="border-0 px-2 py-1 w-100 product_price"
                                                                 autocomplete="off" name="product_price[]" readonly>
-                                                            <a href="#">
+                                                            <a href="#" class="activity" data-name1="BG"
+                                                                data-des="Xem giao dịch gần đây">
                                                                 <p class="mt-3 text-13-blue recentModal"
                                                                     data-toggle="modal" data-target="#recentModal"
                                                                     style="top: 68%; right: 5%;">Giao dịch
@@ -555,7 +566,6 @@
                                                             class="text-center border bg-white align-top text-13-black">
                                                             <input type="text" class="border-0 py-1 w-100" readonly
                                                                 name="product_note[]"
-                                                                placeholder="Nhập ghi chú sản phẩm"
                                                                 value="{{ $item_quote->product_note }}">
                                                         </td>
                                                         <td style="display:none;" class="">
@@ -913,7 +923,9 @@
                                                                 value="{{ $item_history->product_name }}"
                                                                 class="border-0 px-2 py-1 w-100 product_name" readonly
                                                                 autocomplete="off" name="product_name[]">
-                                                            <input type="hidden" class="product_id" value="{{ $item_history->product_id }}" autocomplete="off" name="product_id[]">
+                                                            <input type="hidden" class="product_id"
+                                                                value="{{ $item_history->product_id }}"
+                                                                autocomplete="off">
                                                             <div class='info-product' data-toggle='modal'
                                                                 data-target='#productModal'>
                                                                 <svg xmlns='http://www.w3.org/2000/svg' width='14'
@@ -964,7 +976,8 @@
                                                                 value="{{ number_format($item_history->price_export) }}"
                                                                 class="border-0 px-2 py-1 w-100 text-right"
                                                                 autocomplete="off" readonly>
-                                                            <a href="#">
+                                                            <a href="#" class="activity" data-name1="BG"
+                                                                data-des="Xem giao dịch gần đây">
                                                                 <p class="mt-3 text-13-blue recentModal"
                                                                     data-toggle="modal" data-target="#recentModal"
                                                                     style="top: 68%; right: 5%;">Giao dịch
@@ -1267,6 +1280,7 @@
     </div>
 </div>
 </div>
+<x-user-flow></x-user-flow>
 <script>
     $('#file_restore').on('change', function(e) {
         e.preventDefault();
@@ -1274,6 +1288,17 @@
         // $('#formSubmit').attr('method', 'HEAD');
         $('input[name="_method"]').remove();
         $('#formSubmit')[0].submit();
+        var name = 'BG';
+        var des = 'Đính kèm file';
+        $.ajax({
+            url: '{{ route('addActivity') }}',
+            type: 'GET',
+            data: {
+                name: name,
+                des: des,
+            },
+            success: function(data) {}
+        });
     })
 
     //xem thông tin sản phẩm

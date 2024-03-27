@@ -21,6 +21,7 @@ use App\Http\Controllers\ReceiveController;
 use App\Http\Controllers\RecieptController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UserFlowController;
 use App\Http\Controllers\UserWorkspacesController;
 use App\Models\DetailImport;
 use Illuminate\Support\Facades\Route;
@@ -93,8 +94,6 @@ Route::get('/deleteForm', [DetailImportController::class, 'deleteForm'])->name('
 Route::get('/setDefault', [DetailImportController::class, 'setDefault'])->name('setDefault');
 Route::get('/showData', [DetailImportController::class, 'showData'])->name('showData');
 
-
-
 // Đơn nhận hàng
 Route::resource('{workspace}/receive', ReceiveController::class);
 Route::get('/show_receive', [ReceiveController::class, 'show_receive'])->name('show_receive');
@@ -126,6 +125,8 @@ Route::get('/excel/{id?}', [PdfController::class, 'export'])->name('excel');
 
 
 //Bán hàng
+//Lưu thao tác
+Route::get('/addActivity', [UserFlowController::class, 'addActivity'])->name('addActivity');
 //Báo giá
 Route::resource('{workspace}/detailExport', DetailExportController::class);
 Route::get('{workspace}/seeInfo/{id}', [DetailExportController::class, 'seeInfo'])->name('seeInfo');
@@ -165,6 +166,8 @@ Route::get('/getProductCode', [DetailExportController::class, 'getProductCode'])
 Route::get('/getRepresentGuest', [DetailExportController::class, 'getRepresentGuest'])->name('getRepresentGuest');
 //
 Route::get('/getRecentTransaction', [DetailExportController::class, 'getRecentTransaction'])->name('getRecentTransaction');
+//
+Route::get('/checkProductExist', [DetailExportController::class, 'checkProductExist'])->name('checkProductExist');
 
 //Giao hàng
 Route::resource('{workspace}/delivery', DeliveryController::class);

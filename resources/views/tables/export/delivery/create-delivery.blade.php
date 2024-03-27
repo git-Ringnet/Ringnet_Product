@@ -32,7 +32,8 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('delivery.index', $workspacename) }}">
+                        <a href="{{ route('delivery.index', $workspacename) }}" class="activity" data-name1="GH"
+                            data-des="Hủy">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -154,8 +155,8 @@
                         <div class="container-fluided">
                             <div class="d-flex ml-3">
                                 <button type="button" data-toggle="dropdown" id="add-field-btn"
-                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                    style="margin-right:10px">
+                                    class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded activity"
+                                    style="margin-right:10px" data-name1="GH" data-des="Thêm sản phẩm">
                                     <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
                                         height="14" viewBox="0 0 18 18" fill="none">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -259,7 +260,8 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
-                                <button type="button" class="close btnclose" data-dismiss="" aria-label="Close">
+                                <button type="button" class="close btnclose" data-dismiss="modal"
+                                    aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
@@ -416,8 +418,9 @@
                                     @foreach ($numberQuote as $quote_value)
                                         <li class="p-2 align-items-center text-wrap"
                                             style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
-                                            <a href="#" title="" style="flex:2"
-                                                id="{{ $quote_value->id }}" name="search-info" class="search-info">
+                                            <a href="#" title="" style="flex:2" data-name1="GH"
+                                                data-des="Lấy thông tin từ số báo giá" id="{{ $quote_value->id }}"
+                                                name="search-info" class="search-info activity">
                                                 <span
                                                     class="text-13-black">{{ $quote_value->quotation_number }}</span></span>
                                             </a>
@@ -479,7 +482,7 @@
                                     <input tye="text"
                                         class="text-13-black w-50 border-0 bg-input-guest represent_name"
                                         value="{{ $getRepresentbyId[0]->represent_name ?? '' }}" style="flex:2;"
-                                        placeholder="Chọn thông tin" readonly>
+                                        readonly>
 
                                     <input type="hidden" class="idRepresent" autocomplete="off" name="represent_id"
                                         value="{{ $getRepresentbyId[0]->id ?? '' }}">
@@ -547,6 +550,7 @@
         </div>
     </div>
 </form>
+<x-user-flow></x-user-flow>
 <script>
     //
     flatpickr("#datePicker", {
@@ -742,7 +746,7 @@
                 "</td>"
             );
             const option = $(
-                "<td class='border border-bottom-0 border-right-0 text-right deleteProduct'>" +
+                "<td class='border border-bottom-0 border-right-0 text-right deleteProduct' data-name1='BG' data-des='Xóa sản phẩm'>" +
                 "<svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
                 "<path fill-rule='evenodd' clip-rule='evenodd' d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z' fill='#6B6F76'/>" +
                 "</svg>" +
@@ -792,6 +796,18 @@
                 // Update the displayed totalTax value
                 $('#product-tax').text(formatCurrency(Math.round(totalTax)));
                 $('#total-amount-sum').text(formatCurrency(Math.round(totalAmount)));
+                //
+                var name = $(this).data('name1'); // Lấy giá trị của thuộc tính data-name1
+                var des = $(this).data('des'); // Lấy giá trị của thuộc tính data-des
+                $.ajax({
+                    url: '{{ route('addActivity') }}',
+                    type: 'GET',
+                    data: {
+                        name: name,
+                        des: des,
+                    },
+                    success: function(data) {}
+                });
             });
             // Checkbox
             $('#checkall').change(function() {
@@ -891,6 +907,7 @@
                                     .product_inventory == null ? 0 :
                                     productData
                                     .product_inventory));
+                                thue.prop('disabled', true);
                                 $('.list_product').hide();
                                 $('.recentModal').show();
                                 // Cập nhật ID của hàng (row)
@@ -1238,56 +1255,6 @@
                                                             }
                                                         }
                                                     );
-
-                                                // Xoá sự kiện click trước đó nếu có
-                                                $('.btnclose')
-                                                    .off(
-                                                        'click'
-                                                    )
-                                                    .on('click',
-                                                        function() {
-                                                            var checkedCheckboxes =
-                                                                $(
-                                                                    '.check-item:checked'
-                                                                )
-                                                                .length;
-                                                            var check_item =
-                                                                $(
-                                                                    '.check-item'
-                                                                );
-                                                            if (check_item
-                                                                .length >
-                                                                0
-                                                            ) {
-                                                                if (checkedCheckboxes <
-                                                                    qty_enter
-                                                                ) {
-                                                                    showNotification
-                                                                        ('warning',
-                                                                            'Vui lòng chọn đủ serial number theo số lượng xuất!'
-                                                                        );
-                                                                    // Không cho phép đóng modal khi có lỗi
-                                                                    return false;
-                                                                } else if (
-                                                                    checkedCheckboxes ==
-                                                                    qty_enter
-                                                                ) {
-                                                                    $('.btnclose')
-                                                                        .attr(
-                                                                            'data-dismiss',
-                                                                            'modal'
-                                                                        );
-                                                                }
-                                                            } else {
-                                                                $('.btnclose')
-                                                                    .attr(
-                                                                        'data-dismiss',
-                                                                        'modal'
-                                                                    );
-                                                            }
-                                                        }
-                                                    );
-
                                             }
                                         });
                                     });
@@ -1823,7 +1790,7 @@
                                     <td class="border-right p-2 text-13 align-top note p-1">
                                         <input type="text" readonly value="${(item.product_note == null) ? '' : item.product_note}" class="border-0 py-1 w-100" name="product_note[]">
                                     </td>
-                                    <td class="border border-bottom-0 border-right-0 text-right deleteProduct">
+                                    <td class="border border-bottom-0 border-right-0 text-right deleteProduct" data-name1='GH' data-des='Xóa sản phẩm'>
                                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z" fill="#6B6F76"></path></svg>
                                     </td>
                                     <td style="display:none;"><input type="text" class="product_tax1" value="${tax}"></td>
@@ -2362,7 +2329,21 @@
                                                     ''));
                                         deletedRow.remove();
                                         fieldCounter--;
-
+                                        var name = $(this).data(
+                                            'name1'
+                                            ); // Lấy giá trị của thuộc tính data-name1
+                                        var des = $(this).data(
+                                            'des'); // Lấy giá trị của thuộc tính data-des
+                                        $.ajax({
+                                            url: '{{ route('addActivity') }}',
+                                            type: 'GET',
+                                            data: {
+                                                name: name,
+                                                des: des,
+                                            },
+                                            success: function(
+                                                data) {}
+                                        });
                                         // Subtract the deleted product values from totalAmount and totalTax
                                         var totalAmount =
                                             parseFloat($(
@@ -2808,8 +2789,8 @@
                                                                 if (checkedCheckboxes <
                                                                     qty_enter
                                                                 ) {
-                                                                    alert
-                                                                        (
+                                                                    showNotification
+                                                                        ('warning',
                                                                             'Vui lòng chọn đủ serial number theo số lượng xuất!'
                                                                         );
                                                                     // Không cho phép đóng modal khi có lỗi
@@ -2842,56 +2823,6 @@
                                                             }
                                                         }
                                                     );
-
-                                                // Xoá sự kiện click trước đó nếu có
-                                                $('.btnclose')
-                                                    .off(
-                                                        'click'
-                                                    )
-                                                    .on('click',
-                                                        function() {
-                                                            var checkedCheckboxes =
-                                                                $(
-                                                                    '.check-item:checked'
-                                                                )
-                                                                .length;
-                                                            var check_item =
-                                                                $(
-                                                                    '.check-item'
-                                                                );
-                                                            if (check_item
-                                                                .length >
-                                                                0
-                                                            ) {
-                                                                if (checkedCheckboxes <
-                                                                    qty_enter
-                                                                ) {
-                                                                    alert
-                                                                        (
-                                                                            'Vui lòng chọn đủ serial number theo số lượng xuất!'
-                                                                        );
-                                                                    // Không cho phép đóng modal khi có lỗi
-                                                                    return false;
-                                                                } else if (
-                                                                    checkedCheckboxes ==
-                                                                    qty_enter
-                                                                ) {
-                                                                    $('.btnclose')
-                                                                        .attr(
-                                                                            'data-dismiss',
-                                                                            'modal'
-                                                                        );
-                                                                }
-                                                            } else {
-                                                                $('.btnclose')
-                                                                    .attr(
-                                                                        'data-dismiss',
-                                                                        'modal'
-                                                                    );
-                                                            }
-                                                        }
-                                                    );
-
                                             }
                                         });
                                     });
@@ -3101,6 +3032,8 @@
             if (!hasProducts) {
                 showNotification('warning', 'Không có sản phẩm để báo giá');
                 event.preventDefault();
+            } else {
+                $('.product_tax').prop('disabled', false);
             }
         }
     }

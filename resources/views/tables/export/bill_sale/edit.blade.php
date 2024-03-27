@@ -38,7 +38,8 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('billSale.index', $workspacename) }}">
+                        <a href="{{ route('billSale.index', $workspacename) }}" class="activity" data-name1="HDBH"
+                            data-des="Trở về">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -64,8 +65,7 @@
                                 <span class="text-button">In</span>
                             </button>
                             <div class="dropdown-menu" style="z-index: 9999;">
-                                <a class="dropdown-item text-nav border-top"
-                                    href="{{ route('pdfdelivery', $billSale->idHD) }}">Xuất PDF</a>
+                                <a class="dropdown-item text-nav border-top" href="#">Xuất PDF</a>
                             </div>
                         </div>
 
@@ -129,12 +129,16 @@
                     <div class="content-header--options p-0 border-0">
                         <ul class="header-options--nav-1 nav nav-tabs margin-left32">
                             <li>
-                                <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">
+                                <a class="text-secondary active m-0 pl-3 activity" data-name1="HDBH"
+                                    data-des="Xem thông tin sản phẩm hóa đơn bán hàng" data-toggle="tab"
+                                    href="#info">
                                     Thông tin
                                 </a>
                             </li>
                             <li>
-                                <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#files">File đính kèm</a>
+                                <a class="text-secondary m-0 pr-3 activity" data-name1="HDBH"
+                                    data-des="Xem file đính kèm hóa đơn bán hàng" data-toggle="tab"
+                                    href="#files">File đính kèm</a>
                             </li>
                         </ul>
                     </div>
@@ -146,7 +150,8 @@
                 <div class="container-fluided">
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active">
-                            <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                            <div id="title--fixed"
+                                class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN
                                     SẢN PHẨM
                                 </p>
@@ -298,9 +303,12 @@
                                                             value="{{ number_format($item->price_export) }}"
                                                             class="border-0 px-2 py-1 w-100 product_price text-right"
                                                             autocomplete="off" name="product_price[]" readonly="">
-                                                        <div class="mt-3 text-13-blue transaction recentModal"
-                                                            data-toggle="modal" data-target="#recentModal">Giao dịch
-                                                            gần đây</div>
+                                                        <div class="mt-3 text-13-blue transaction recentModal activity"
+                                                            data-name1="HDBH"
+                                                            data-des="Xem giao dịch gần đầy ở trang xem chi tiết"
+                                                            data-toggle="modal" data-target="#recentModal">
+                                                            Giao dịch gần đây
+                                                        </div>
                                                     </td>
                                                     <td class='border-right p-2 text-13 align-top'>
                                                         <select name="product_tax[]"
@@ -337,7 +345,7 @@
                                                     <td class='border-right p-2 text-13 align-top'>
                                                         <input type="text" class="border-0 py-1 w-100"
                                                             readonly="" value="{{ $item->product_note }}"
-                                                            name="product_note[]" placeholder='Nhập ghi chú'>
+                                                            name="product_note[]">
                                                     </td>
                                                     <td style="display:none;" class="">
                                                         <input type="text" class="product_tax1">
@@ -375,7 +383,8 @@
                         </div>
 </form>
 <div id="files" class="tab-pane fade">
-    <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+    <div id="title--fixed"
+        class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
         <p class="font-weight-bold text-uppercase info-chung--heading text-center">
             File Đính Kèm
         </p>
@@ -409,7 +418,7 @@
                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
-                        <input class="text-13-black w-50 border-0 bg-input-guest"
+                        <input class="text-13-black w-50 border-0 bg-input-guest" readonly
                             value="{{ $billSale->guest_name_display }}" style="flex:2;" id="myInput">
                         <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
                     </li>
@@ -417,20 +426,21 @@
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
                             diện</span>
-                        <input class="text-13-black w-50 border-0" style="flex:2;"
+                        <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
                             value="{{ $billSale->represent_name }}" readonly />
                     </li>
                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số hóa đơn</span>
-                        <input class="text-13-black w-50 border-0" style="flex:2;" placeholder="Nhập thông tin"
-                            name="number_bill" value="{{ $billSale->number_bill }}" readonly />
+                        <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
+                            placeholder="Nhập thông tin" name="number_bill" value="{{ $billSale->number_bill }}"
+                            readonly />
                     </li>
                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày hóa đơn</span>
-                        <input type="text" class="text-13-black w-50 border-0" placeholder="Nhập thông tin"
-                            style="flex:2;" name="date_bill"
+                        <input type="text" class="text-13-black w-50 border-0 bg-input-guest"
+                            placeholder="Nhập thông tin" style="flex:2;" name="date_bill" readonly
                             value="{{ date_format(new DateTime($billSale->ngayHD), 'd/m/Y') }}" />
                     </li>
                 </ul>
@@ -532,6 +542,7 @@
     </div>
 </div>
 </div>
+<x-user-flow></x-user-flow>
 <script>
     //Xem giao dịch gần đây
     $('.recentModal').click(function() {
@@ -634,6 +645,17 @@
         // $('#formSubmit').attr('method', 'HEAD');
         $('input[name="_method"]').remove();
         $('#formSubmit')[0].submit();
+        var name = 'HDBH';
+        var des = 'Đính kèm file';
+        $.ajax({
+            url: '{{ route('addActivity') }}',
+            type: 'GET',
+            data: {
+                name: name,
+                des: des,
+            },
+            success: function(data) {}
+        });
     })
     //hiện danh sách số báo giá khi click trường tìm kiếm
     $("#myUL").hide();

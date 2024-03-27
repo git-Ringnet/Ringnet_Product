@@ -16,7 +16,8 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('payExport.create', ['workspace' => $workspacename]) }}">
+                    <a href="{{ route('payExport.create', ['workspace' => $workspacename]) }}" class="activity"
+                        data-name1="TT" data-des="Tạo mới">
                         <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -240,7 +241,7 @@
                                                     {{ $item_pay->code_payment }}
                                                 </td>
                                                 <td class="text-13-black max-width120">
-                                                    <a
+                                                    <a class="activity" data-name1="TT" data-des="Xem đơn thanh toán"
                                                         href="{{ route('payExport.edit', ['workspace' => $workspacename, 'payExport' => $item_pay->idThanhToan]) }}">
                                                         {{ $item_pay->quotation_number }}
                                                     </a>
@@ -288,7 +289,7 @@
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 10px;">
                                                     <div class="d-flex w-100">
-                                                        <a
+                                                        <a class="activity" data-name1="TT" data-des="Xem đơn thanh toán"
                                                             href="{{ route('payExport.edit', ['workspace' => $workspacename, 'payExport' => $item_pay->idThanhToan]) }}">
                                                             <div class="m-0 px-2 py-1 mx-2 rounded">
                                                                 <svg width="16" height="16"
@@ -352,6 +353,7 @@
         </section>
     </div>
 </div>
+<x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 
 <script>

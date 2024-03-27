@@ -19,6 +19,7 @@ use App\Models\QuoteImport;
 use App\Models\Receive_bill;
 use App\Models\Reciept;
 use App\Models\Serialnumber;
+use App\Models\userFlow;
 use App\Models\Workspace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -42,6 +43,7 @@ class DetailImportController extends Controller
     private $historyPayment;
     private $attachment;
     private $workspaces;
+    private $userFlow;
     public function __construct()
     {
         $this->detailImport = new DetailImport();
@@ -57,6 +59,7 @@ class DetailImportController extends Controller
         $this->historyPayment = new HistoryPaymentOrder();
         $this->attachment = new Attachment();
         $this->workspaces = new Workspace();
+        $this->userFlow = new userFlow();
     }
     /**
      * Display a listing of the resource.
@@ -145,7 +148,7 @@ class DetailImportController extends Controller
         $title = $import->quotation_number;
         $product = QuoteImport::leftjoin('products', 'products.product_name', 'quoteimport.product_name')
             ->where('detailimport_id', $import->id)
-            ->select('quoteimport.*','products.product_inventory')
+            ->select('quoteimport.*', 'products.product_inventory')
             ->get();
         $project = Project::all();
         $history = HistoryImport::where('detailImport_id', $id)
@@ -670,6 +673,34 @@ class DetailImportController extends Controller
         $filePath = $backupPath . $file;
 
         if (file_exists($filePath)) {
+            if ($folder == "BG") {
+                $arrCapNhatKH = [
+                    'name' => 'BG',
+                    'des' => 'Tải file đính kèm'
+                ];
+                $this->userFlow->addUserFlow($arrCapNhatKH);
+            }
+            if ($folder == "GH") {
+                $arrCapNhatKH = [
+                    'name' => 'GH',
+                    'des' => 'Tải file đính kèm'
+                ];
+                $this->userFlow->addUserFlow($arrCapNhatKH);
+            }
+            if ($folder == "HDBH") {
+                $arrCapNhatKH = [
+                    'name' => 'HDBH',
+                    'des' => 'Tải file đính kèm'
+                ];
+                $this->userFlow->addUserFlow($arrCapNhatKH);
+            }
+            if ($folder == "TT") {
+                $arrCapNhatKH = [
+                    'name' => 'TT',
+                    'des' => 'Tải file đính kèm'
+                ];
+                $this->userFlow->addUserFlow($arrCapNhatKH);
+            }
             $headers = [
                 'Content-Type' => 'application/octet-stream',
             ];
@@ -681,6 +712,34 @@ class DetailImportController extends Controller
     public function deleteFile(Request $request, $folder, $file)
     {
         $this->attachment->deleteFile($file, $request->table_id, $folder);
+        if ($folder == "BG") {
+            $arrCapNhatKH = [
+                'name' => 'BG',
+                'des' => 'Xóa file đính kèm'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        }
+        if ($folder == "GH") {
+            $arrCapNhatKH = [
+                'name' => 'GH',
+                'des' => 'Xóa file đính kèm'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        }
+        if ($folder == "HDBH") {
+            $arrCapNhatKH = [
+                'name' => 'HDBH',
+                'des' => 'Xóa file đính kèm'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        }
+        if ($folder == "TT") {
+            $arrCapNhatKH = [
+                'name' => 'TT',
+                'des' => 'Xóa file đính kèm'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
+        }
         return back()->with('msg', 'Xóa file thành công!');
     }
 

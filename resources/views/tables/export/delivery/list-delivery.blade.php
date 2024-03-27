@@ -16,7 +16,8 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('delivery.create', ['workspace' => $workspacename]) }}">
+                    <a href="{{ route('delivery.create', ['workspace' => $workspacename]) }}" class="activity"
+                        data-name1="GH" data-des="Tạo mới">
                         <button type="button" class="custom-btn d-flex mx-1 align-items-center h-100">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                                 fill="none">
@@ -243,7 +244,8 @@
                                                 <td class="text-13-black max-width120">
                                                     <div class="">
                                                         <a href="{{ route('watchDelivery', ['workspace' => $workspacename, 'id' => $item_delivery->maGiaoHang]) }}"
-                                                            class="duongDan text-13-black">
+                                                            class="duongDan text-13-black activity" data-name1="GH"
+                                                            data-des="Xem đơn giao hàng">
                                                             {{ $item_delivery->quotation_number }}
                                                         </a>
                                                     </div>
@@ -271,8 +273,8 @@
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 10px;">
-                                                    <div class="d-flex w-100">
-                                                        <a
+                                                    <div class="d-flex w-100"> 
+                                                        <a class="activity" data-name1="GH" data-des="Xem đơn giao hàng"
                                                             href="{{ route('watchDelivery', ['workspace' => $workspacename, 'id' => $item_delivery->maGiaoHang]) }}">
                                                             <div class="m-0 px-2 py-1 mx-2 rounded">
                                                                 <svg width="16" height="16"
@@ -336,6 +338,7 @@
         </section>
     </div>
 </div>
+<x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 
 <script>

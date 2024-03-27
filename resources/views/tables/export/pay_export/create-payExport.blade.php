@@ -32,7 +32,8 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <div class="dropdown">
-                            <a href="{{ route('payExport.index', $workspacename) }}">
+                            <a href="{{ route('payExport.index', $workspacename) }}" class="activity" data-name1="TT"
+                                data-des="Hủy">
                                 <button type="button"
                                     class="btn-destroy btn-light mx-1 rounded d-flex align-items-center h-100">
                                     <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -87,7 +88,8 @@
         <div class="content margin-top-38" id="main">
             <!-- Main content -->
             <section class="content margin-250">
-                <div id="title--fixed" class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
+                <div id="title--fixed"
+                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
                 <div class="container-fluided margin-top-72">
@@ -458,8 +460,8 @@
                                             style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
                                             <a href="#" style="flex:2" id="{{ $quote_value->id }}"
                                                 name="search-info" class="search-info">
-                                                <span
-                                                    class="text-13-black">{{ $quote_value->quotation_number }}</span></span>
+                                                <span class="text-13-black activity" data-name1="TT"
+                                                    data-des="Lấy thông tin từ số báo giá">{{ $quote_value->quotation_number }}</span></span>
                                             </a>
                                             <a id="" class="" type="button" data-toggle=""
                                                 data-target="">
@@ -539,8 +541,8 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest tongTien" name="total" readonly
-                                    style="flex:2;outline:none;" value="" />
+                                <input class="text-13-black w-50 border-0 bg-input-guest tongTien" name="total"
+                                    readonly style="flex:2;outline:none;" value="" />
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
@@ -569,6 +571,7 @@
     </div>
     </div>
 </form>
+<x-user-flow></x-user-flow>
 <script>
     flatpickr("#datePicker", {
         locale: "vn",
@@ -996,7 +999,7 @@
                             </td>
                             <td class="border-right p-2 text-13 align-top">
                                 <input type="text" value="${formatCurrency(item.price_export)}" readonly class="border-0 px-2 py-1 w-100 product_price" autocomplete="off" name="product_price[]" required="" readonly="readonly">
-                                <a href='#'><p class="mt-3 text-13-blue transaction recentModal" data-toggle="modal" data-target="#recentModal">Giao dịch gần đây</p></a>
+                                <a href='#'><p class="mt-3 text-13-blue transaction recentModal" data-name1="TT" data-des="Xem giao dịch gần đây" data-toggle="modal" data-target="#recentModal">Giao dịch gần đây</p></a>
                             </td>
                             <td class="border-right p-2 text-13 align-top">
                                 <select name="product_tax[]" class="border-0 text-center product_tax" required="" disabled>
@@ -1017,7 +1020,7 @@
                             </tr>`;
                                 $("#dynamic-fields").before(newRow);
                                 //Xem giao dịch gần đây
-                                $('.recentModal').click(function() {
+                                $('.recentModal').off('click').click(function() {
                                     var idProduct = $(this)
                                         .closest('tr').find(
                                             '.product_id')
@@ -1109,6 +1112,22 @@
                                                     .empty();
                                             }
                                         }
+                                    });
+                                    var name = $(this).data(
+                                        'name1'
+                                    ); // Lấy giá trị của thuộc tính data-name1
+                                    var des = $(this).data(
+                                        'des'
+                                    ); // Lấy giá trị của thuộc tính data-des
+                                    $.ajax({
+                                        url: '{{ route('addActivity') }}',
+                                        type: 'GET',
+                                        data: {
+                                            name: name,
+                                            des: des,
+                                        },
+                                        success: function(
+                                            data) {}
                                     });
                                 });
                                 //kéo thả vị trí sản phẩm

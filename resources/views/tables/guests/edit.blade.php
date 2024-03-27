@@ -9,16 +9,23 @@
                 <div class="content__heading--left text-long-special">
                     <span>Bán hàng</span>
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z" fill="#26273B" fill-opacity="0.8"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                            fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
+                                fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
                     <span>
-                        <a class="text-dark" href="{{ route('guests.index', ['workspace' => $workspacename]) }}">Khách hàng</a>
+                        <a class="text-dark" href="{{ route('guests.index', ['workspace' => $workspacename]) }}">Khách
+                            hàng</a>
                     </span>
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z" fill="#26273B" fill-opacity="0.8"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                            fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
+                                fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
                     <span class="font-weight-bold">Sửa khách hàng</span>
@@ -39,8 +46,8 @@
                                 </button>
                             </a>
                         </div>
-                        <button type="submit" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px"
-                            onclick="kiemTraFormGiaoHang(event)">
+                        <button type="submit" class="custom-btn d-flex align-items-center h-100"
+                            style="margin-right:10px" onclick="kiemTraFormGiaoHang(event)">
                             <svg class="mx-1" width="18" height="18" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -77,58 +84,60 @@
                             </div>
                             <div class="info-chung">
                                 <div class="content-info">
-                                        <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="title-info py-2 border border-left-0 height-100">
-                                                <p class="p-0 m-0 required-label text-danger margin-left32 text-13-red">Tên khách hàng</p>
-                                            </div>
-                                            <input type="text" required placeholder="Nhập thông tin"
-                                                name="guest_name" value="{{ $guest->guest_name_display }}"
-                                                class="border w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info py-2 border border-left-0 height-100">
+                                            <p class="p-0 m-0 required-label text-danger margin-left32 text-13-red">Tên
+                                                khách hàng</p>
                                         </div>
-                                        <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                                <p class="p-0 m-0 margin-left32 text-13-red required-label">Tên hiển thị</p>
-                                            </div>
-                                            <input type="text" placeholder="Nhập thông tin"
-                                                name="guest_name_display"
-                                                value="{{ $guest->guest_name }}"
-                                                class="border border-top-0 w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
+                                        <input type="text" required placeholder="Nhập thông tin" name="guest_name"
+                                            value="{{ $guest->guest_name_display }}" required
+                                            class="border w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
+                                    </div>
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                            <p class="p-0 m-0 margin-left32 text-13-red required-label">Tên hiển thị</p>
                                         </div>
-                                        <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                                <p class="p-0 m-0 margin-left32 text-13-red required-label">Địa chỉ</p>
-                                            </div>
-                                            <input type="text" required placeholder="Nhập thông tin"
-                                                name="guest_address" value="{{ $guest->guest_address }}"
-                                                class="border border-top-0 w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
+                                        <input type="text" placeholder="Nhập thông tin" name="guest_name_display"
+                                            value="{{ $guest->guest_name }}" required
+                                            class="border border-top-0 w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
+                                    </div>
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                            <p class="p-0 m-0 margin-left32 text-13-red required-label">Địa chỉ</p>
                                         </div>
-                                        <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                                <p class="p-0 m-0 margin-left32 text-13">Email khách hàng</p>
-                                            </div>
-                                            <input type="text" required placeholder="Nhập thông tin"
-                                                name="guest_email" value="{{ $guest->guest_email }}"
-                                                class="border border-top-0 w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
+                                        <input type="text" required placeholder="Nhập thông tin"
+                                            name="guest_address" value="{{ $guest->guest_address }}"
+                                            class="border border-top-0 w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
+                                    </div>
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                            <p class="p-0 m-0 margin-left32 text-13">Email khách hàng</p>
                                         </div>
-                                        <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                                <p class="p-0 m-0 margin-left32 text-13-red required-label">Mã số thuế</p>
-                                            </div>
-                                            <input type="text" placeholder="Nhập thông tin" name="guest_code"
-                                                value="{{ $guest->guest_code }}"
-                                                class="border border-top-0 w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
+                                        <input type="text" placeholder="Nhập thông tin" name="guest_email"
+                                            value="{{ $guest->guest_email }}"
+                                            class="border border-top-0 w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
+                                    </div>
+                                    <div class="d-flex align-items-center height-60-mobile">
+                                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                            <p class="p-0 m-0 margin-left32 text-13-red required-label">Mã số thuế</p>
                                         </div>
+                                        <input type="text" placeholder="Nhập thông tin" name="guest_code"
+                                            value="{{ $guest->guest_code }}" required
+                                            class="border border-top-0 w-100 py-2 border-left-0 height-100 border-right-0 px-3 text-13-black">
+                                    </div>
                                 </div>
                             </div>
                             <div class="bg-filter-search border-top-0 text-left border-custom">
-                                <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN NGƯỜI ĐẠI DIỆN</p>
+                                <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN NGƯỜI ĐẠI DIỆN
+                                </p>
                             </div>
                             <div class="info-chung">
                                 <div class="container-fluided order_content">
                                     <table class="table table-hover bg-white rounded">
                                         <thead>
                                             <tr>
-                                                <th class="border-right text-13 padding-left35" style="width: 23%;">Người đại diện</th>
+                                                <th class="border-right text-13 padding-left35" style="width: 23%;">
+                                                    Người đại diện</th>
                                                 <th class="border-right text-13">Số điện thoại</th>
                                                 <th class="border-right text-13">Email</th>
                                                 <th class="border-right text-13">Địa chỉ nhận</th>
@@ -138,24 +147,26 @@
                                         <tbody>
                                             @foreach ($representGuest as $itemRepresent)
                                                 <tr id="dynamic-row-1" class="bg-white addProduct representative-row">
-                                                    <td class="border border-top-0 border-bottom-0 border-left-0 padding-left35 px-0">
-                                                        <input type="hidden" value="{{ $itemRepresent->id }}" name="represent_id[]">
+                                                    <td
+                                                        class="border border-top-0 border-bottom-0 border-left-0 padding-left35 px-0">
+                                                        <input type="hidden" value="{{ $itemRepresent->id }}"
+                                                            name="represent_id[]">
                                                         <input type="text" autocomplete="off"
                                                             value="{{ $itemRepresent->represent_name }}"
-                                                            class="border-0 py-1 w-100 text-13-black represent_name " required=""
-                                                            name="represent_name[]">
-                                                    </td>
-                                                    <td class="border border-top-0 border-bottom-0">
-                                                        <input type="email" autocomplete="off"
-                                                            value="{{ $itemRepresent->represent_email }}"
-                                                            class="border-0 py-1 w-100 text-13-black represent_email"
-                                                            name="represent_email[]">
+                                                            class="border-0 py-1 w-100 text-13-black represent_name "
+                                                            required="" name="represent_name[]">
                                                     </td>
                                                     <td class="border border-top-0 border-bottom-0">
                                                         <input type="number" autocomplete="off"
                                                             value="{{ $itemRepresent->represent_phone }}"
                                                             class="border-0 py-1 w-100 text-13-black represent_phone"
                                                             name="represent_phone[]">
+                                                    </td>
+                                                    <td class="border border-top-0 border-bottom-0">
+                                                        <input type="email" autocomplete="off"
+                                                            value="{{ $itemRepresent->represent_email }}"
+                                                            class="border-0 py-1 w-100 text-13-black represent_email"
+                                                            name="represent_email[]">
                                                     </td>
                                                     <td class="border border-top-0 border-bottom-0">
                                                         <input type="text" autocomplete="off"
@@ -183,7 +194,8 @@
                                     <div class="container-fluided">
                                         <div class="d-flex">
                                             <button type="button" data-toggle="dropdown" id="add-field-btn"
-                                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 ml-4 rounded"
+                                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 ml-4 rounded activity"
+                                                data-name1="KH" data-des="Thêm người đại diện ở trang sửa"
                                                 style="margin-right:10px">
                                                 <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
                                                     height="14" viewBox="0 0 18 18" fill="none">
@@ -197,8 +209,8 @@
                                                 <span class="text-button">Thêm người đại diện</span>
                                             </button>
                                             <button type="button" class="btn-option py-1 px-2 bg-white border-0">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
+                                                <svg width="24" height="24" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                         d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
                                                         fill="#42526E"></path>
@@ -221,6 +233,7 @@
         </div>
     </div>
 </form>
+<x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 
@@ -446,19 +459,19 @@
             "class": `bg-white addProduct representative-row`,
         });
         const hoTen = $(
-            "<td class='border border-top-0 border-bottom-0 border-left-0'><input type='hidden' name='represent_id[]'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_name' required name='represent_name[]'></td>"
+            "<td class='border border-top-0 border-bottom-0 border-left-0 padding-left35 px-0'><input type='hidden' name='represent_id[]'><input type='text' autocomplete='off' class='border-0 py-1 w-100 text-13-black represent_name' required name='represent_name[]'></td>"
         );
         const email = $(
-            "<td class='border border-top-0 border-bottom-0'><input type='email' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_email' name='represent_email[]'></td>"
+            "<td class='border border-top-0 border-bottom-0'><input type='email' autocomplete='off' class='border-0 py-1 w-100 text-13-black represent_email' name='represent_email[]'></td>"
         );
         const soDT = $(
-            "<td class='border border-top-0 border-bottom-0'><input type='number' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_phone' name='represent_phone[]'></td>"
+            "<td class='border border-top-0 border-bottom-0'><input type='number' autocomplete='off' class='border-0 py-1 w-100 text-13-black represent_phone' name='represent_phone[]'></td>"
         );
         const diaChi = $(
-            "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_address' name='represent_address[]'></td>"
+            "<td class='border border-top-0 border-bottom-0'><input type='text' autocomplete='off' class='border-0 py-1 w-100 text-13-black represent_address' name='represent_address[]'></td>"
         );
         const option = $(
-            "<td class='border border-top-0 border-bottom-0 border-right-0 text-right'>" +
+            "<td class='border border-top-0 border-bottom-0 border-right-0 text-left' data-name1='KH' data-des='Xóa người đại diện ở trang sửa'>" +
             "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
             "<path fill-rule='evenodd' clip-rule='evenodd' d='M10.5454 5C10.2442 5 9.99999 5.24421 9.99999 5.54545C9.99999 5.8467 10.2442 6.09091 10.5454 6.09091H13.4545C13.7558 6.09091 14 5.8467 14 5.54545C14 5.24421 13.7558 5 13.4545 5H10.5454ZM6 7.72726C6 7.42601 6.24421 7.18181 6.54545 7.18181H7.63637H16.3636H17.4545C17.7558 7.18181 18 7.42601 18 7.72726C18 8.02851 17.7558 8.27272 17.4545 8.27272H16.9091V17C16.9091 18.2113 15.9118 19.1818 14.7135 19.1818H9.25891C8.97278 19.1816 8.68906 19.1247 8.42499 19.0145C8.16092 18.9044 7.92126 18.7431 7.71979 18.5399C7.51833 18.3367 7.35905 18.0957 7.25112 17.8307C7.14347 17.5664 7.08903 17.2834 7.09091 16.9981V8.27272H6.54545C6.24421 8.27272 6 8.02851 6 7.72726ZM8.18182 17.0041V8.27272H15.8182V17C15.8182 17.5966 15.3216 18.0909 14.7135 18.0909H9.25938C9.11713 18.0908 8.97632 18.0625 8.84503 18.0077C8.71375 17.953 8.5946 17.8728 8.49444 17.7718C8.39429 17.6707 8.3151 17.5509 8.26144 17.4192C8.20779 17.2874 8.18074 17.1464 8.18182 17.0041ZM13.4545 10.0909C13.7558 10.0909 14 10.3351 14 10.6364V15.7273C14 16.0285 13.7558 16.2727 13.4545 16.2727C13.1533 16.2727 12.9091 16.0285 12.9091 15.7273V10.6364C12.9091 10.3351 13.1533 10.0909 13.4545 10.0909ZM11.0909 10.6364C11.0909 10.3351 10.8467 10.0909 10.5454 10.0909C10.2442 10.0909 9.99999 10.3351 9.99999 10.6364V15.7273C9.99999 16.0285 10.2442 16.2727 10.5454 16.2727C10.8467 16.2727 11.0909 16.0285 11.0909 15.7273V10.6364Z' fill='#42526E'/>" +
             "</svg>" +
@@ -473,6 +486,17 @@
         option.click(function() {
             $(this).closest("tr").remove();
             fieldCounter--;
+            var name = $(this).data('name1'); // Lấy giá trị của thuộc tính data-name1
+            var des = $(this).data('des'); // Lấy giá trị của thuộc tính data-des
+            $.ajax({
+                url: '{{ route('addActivity') }}',
+                type: 'GET',
+                data: {
+                    name: name,
+                    des: des,
+                },
+                success: function(data) {}
+            });
         });
     });
     $(".deleteProduct").click(function() {

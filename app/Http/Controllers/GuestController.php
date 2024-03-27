@@ -6,6 +6,7 @@ use App\Models\DetailExport;
 use App\Models\Guest;
 use App\Models\PayExport;
 use App\Models\representGuest;
+use App\Models\userFlow;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +22,7 @@ class GuestController extends Controller
     private $detailExport;
     private $payExport;
     private $workspaces;
+    private $userFlow;
     public function __construct()
     {
         $this->guests = new Guest();
@@ -28,6 +30,7 @@ class GuestController extends Controller
         $this->detailExport = new DetailExport();
         $this->payExport = new PayExport();
         $this->workspaces = new Workspace();
+        $this->userFlow = new userFlow();
     }
     public function index(Request $request)
     {
@@ -68,6 +71,11 @@ class GuestController extends Controller
         if ($result == true) {
             $msg = redirect()->back()->with('msg', 'Khách hàng đã tồn tại');
         } else {
+            $arrCapNhatKH = [
+                'name' => 'KH',
+                'des' => 'Lưu khách hàng'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
             $msg = redirect()->route('guests.index', ['workspace' => $workspace])->with('msg', 'Thêm mới khách hàng thành công');
         }
         return $msg;
@@ -180,9 +188,13 @@ class GuestController extends Controller
         }
         representGuest::where('guest_id', $id)->delete();
         $guest->delete();
+        $arrCapNhatKH = [
+            'name' => 'KH',
+            'des' => 'Xóa khách hàng'
+        ];
+        $this->userFlow->addUserFlow($arrCapNhatKH);
         return back()->with('msg', 'Xóa khách hàng thành công');
     }
-    
 
     public function search(Request $request)
     {

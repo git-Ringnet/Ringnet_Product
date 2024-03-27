@@ -11,6 +11,7 @@ use App\Models\productBill;
 use App\Models\productPay;
 use App\Models\Products;
 use App\Models\QuoteExport;
+use App\Models\userFlow;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,7 @@ class BillSaleController extends Controller
     private $workspaces;
     private $detailExport;
     private $attachment;
+    private $userFlow;
 
     public function __construct()
     {
@@ -36,6 +38,7 @@ class BillSaleController extends Controller
         $this->workspaces = new Workspace();
         $this->detailExport = new DetailExport();
         $this->attachment = new Attachment();
+        $this->userFlow = new userFlow();
     }
     public function index()
     {
@@ -77,10 +80,20 @@ class BillSaleController extends Controller
         if ($request->action == 1) {
             $billSale_id = $this->billSale->addBillSale($request->all());
             $this->productBill->addProductBill($request->all(), $billSale_id);
+            $arrCapNhatKH = [
+                'name' => 'HDBH',
+                'des' => 'Lưu nháp'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
             return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', ' Tạo mới hóa đơn bán hàng thành công !');
         }
         if ($request->action == 2) {
             $this->billSale->acceptBillSale($request->all());
+            $arrCapNhatKH = [
+                'name' => 'HDBH',
+                'des' => 'Xác nhận hóa đơn bán hàng'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
             return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
         }
     }
@@ -166,6 +179,11 @@ class BillSaleController extends Controller
                     'status' => 2,
                 ]);
                 $this->billSale->updateDetailExport($billSale->detailexport_id);
+                $arrCapNhatKH = [
+                    'name' => 'HDBH',
+                    'des' => 'Xác nhận hóa đơn bán hàng'
+                ];
+                $this->userFlow->addUserFlow($arrCapNhatKH);
                 return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
             }
         }
@@ -174,6 +192,11 @@ class BillSaleController extends Controller
             $table_id = $id;
             $table_name = 'HDBH';
             $this->attachment->deleteFileAll($table_id, $table_name);
+            $arrCapNhatKH = [
+                'name' => 'HDBH',
+                'des' => 'Xóa hóa đơn bán hàng'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
             return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xóa hóa đơn bán hàng thành công!');
         }
     }
@@ -187,6 +210,11 @@ class BillSaleController extends Controller
         $table_id = $id;
         $table_name = 'HDBH';
         $this->attachment->deleteFileAll($table_id, $table_name);
+        $arrCapNhatKH = [
+            'name' => 'HDBH',
+            'des' => 'Xóa hóa đơn bán hàng'
+        ];
+        $this->userFlow->addUserFlow($arrCapNhatKH);
         return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xóa hóa đơn bán hàng thành công!');
     }
     public function getInfoDelivery(Request $request)

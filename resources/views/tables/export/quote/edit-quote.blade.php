@@ -35,7 +35,8 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('detailExport.index', $workspacename) }}">
+                        <a href="{{ route('detailExport.index', $workspacename) }}" class="activity" data-name1="BG"
+                            data-des="Hủy ">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -275,7 +276,8 @@
                                                         autocomplete='off' name='product_price[]' required
                                                         value="{{ number_format($item_quote->price_export) }}">
                                                 </div>
-                                                <a href="#">
+                                                <a href="#" class="activity" data-name1="BG"
+                                                    data-des="Xem giao dịch gần đây ở trang chỉnh sửa">
                                                     <div class="mt-3 text-13-blue recentModal" data-toggle="modal"
                                                         data-target="#recentModal" style="">Giao dịch gần đây
                                                     </div>
@@ -316,8 +318,9 @@
                                             </td>
                                             @if ($detailExport->tinhTrang == 1)
                                                 <td class='border-right p-2 align-top'>
-                                                    <svg class="delete-product" width='17' height='17'
-                                                        viewBox='0 0 17 17' fill='none'
+                                                    <svg class="delete-product activity" data-name1="BG"
+                                                        data-des="Xóa sản phẩm ở trang chỉnh sửa" width='17'
+                                                        height='17' viewBox='0 0 17 17' fill='none'
                                                         xmlns='http://www.w3.org/2000/svg'>
                                                         <path fill-rule='evenodd' clip-rule='evenodd'
                                                             d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z'
@@ -338,7 +341,8 @@
                                     <div class="container-fluided">
                                         <div class="d-flex ml-3">
                                             <button type="button" data-toggle="dropdown" id="add-field-btn"
-                                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
+                                                data-name1="BG" data-des="Thêm sản phẩm ở trang chỉnh sửa"
+                                                class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded activity"
                                                 style="margin-right:10px">
                                                 <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
                                                     height="12" viewBox="0 0 18 18" fill="none">
@@ -351,7 +355,7 @@
                                                 </svg>
                                                 <span class="text-table">Thêm sản phẩm</span>
                                             </button>
-                                            <button type="button" data-toggle="dropdown" id="add-field-btn"
+                                            <button type="button" data-toggle="dropdown"
                                                 class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                                 style="margin-right:10px">
                                                 <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
@@ -680,7 +684,7 @@
                                                 @endforeach
                                             </ul>
                                             <a type="button"
-                                                class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
+                                                class="d-flex align-items-center p-2 position-sticky mt-2"
                                                 data-toggle="modal" data-target="#formModalquote"
                                                 style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
                                                 <span>
@@ -772,7 +776,7 @@
                                                 @endforeach
                                             </ul>
                                             <a type="button"
-                                                class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
+                                                class="d-flex align-items-center p-2 position-sticky mt-2"
                                                 data-toggle="modal" data-target="#formModalpayment"
                                                 style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
                                                 <span>
@@ -847,8 +851,8 @@
                                                 @endforeach
                                             </ul>
                                             <a type="button"
-                                                class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
-                                                data-toggle="modal" data-target=""
+                                                class="d-flex align-items-center p-2 position-sticky mt-2"
+                                                data-toggle="modal" data-target="#projectModal"
                                                 style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
                                                 <span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -894,12 +898,12 @@
                                             </div>
                                             <ul class="m-0 p-0 scroll-data addDateFormgoods">
                                                 @foreach ($date_form as $item)
-                                                    @if ($item->form_field == 'payment')
+                                                    @if ($item->form_field == 'goods')
                                                         <li class="item-{{ $item->id }} border text-wrap">
                                                             <a href="#"
                                                                 class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                                 id="{{ $item->id }}" name="search-date-form"
-                                                                data-name="payment">
+                                                                data-name="goods">
                                                                 <span class="w-100 text-nav text-dark overflow-hidden"
                                                                     id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                             </a>
@@ -986,12 +990,12 @@
                                             </div>
                                             <ul class="m-0 p-0 scroll-data addDateFormdelivery">
                                                 @foreach ($date_form as $item)
-                                                    @if ($item->form_field == 'payment')
+                                                    @if ($item->form_field == 'delivery')
                                                         <li class="item-{{ $item->id }} border text-wrap">
                                                             <a href="#"
                                                                 class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                                 id="{{ $item->id }}" name="search-date-form"
-                                                                data-name="payment">
+                                                                data-name="delivery">
                                                                 <span class="w-100 text-nav text-dark overflow-hidden"
                                                                     id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                             </a>
@@ -1064,7 +1068,7 @@
                                             value="{{ isset($dataForm['location']) ? $dataForm['location']->form_field : '' }}">
 
                                         <div id="myUL6"
-                                            class=" bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
+                                            class="bg-white position-absolute rounded shadow p-1 list-guest--special z-index-block"
                                             style="z-index: 99;">
                                             <div class="p-1">
                                                 <div class="position-relative">
@@ -1076,14 +1080,14 @@
                                                             aria-hidden="true"></i></span>
                                                 </div>
                                             </div>
-                                            <ul class="m-0 p-0 scroll-data addDateFormlocation">
+                                            <ul class="m-0 p-0 scroll-data2 addDateFormlocation">
                                                 @foreach ($date_form as $item)
-                                                    @if ($item->form_field == 'payment')
+                                                    @if ($item->form_field == 'location')
                                                         <li class="item-{{ $item->id }} border text-wrap">
                                                             <a href="#"
                                                                 class="text-dark d-flex justify-content-between p-2 search-date-form"
                                                                 id="{{ $item->id }}" name="search-date-form"
-                                                                data-name="payment">
+                                                                data-name="location">
                                                                 <span class="w-100 text-nav text-dark overflow-hidden"
                                                                     id="{{ $item->form_field . $item->id }}">{{ $item->form_name }}</span>
                                                             </a>
@@ -1408,8 +1412,8 @@
         </div>
     </div>
 </div>
+<x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/export.js') }}"></script>
-
 <script type="text/javascript">
     //
     flatpickr("#datePicker", {
@@ -1495,6 +1499,7 @@
                 url: "{{ route('addProject') }}",
                 type: "get",
                 data: {
+                    update: 2,
                     project_name: project_name,
                 },
                 success: function(data) {
@@ -1538,6 +1543,7 @@
             url: "{{ route('deleteProject') }}",
             type: "get",
             data: {
+                update: 2,
                 itemId: itemId,
             },
             success: function(data) {
@@ -1665,6 +1671,7 @@
                     url: '{{ route('deleteDateForm') }}',
                     type: 'GET',
                     data: {
+                        update: 2,
                         id: id
                     },
                     success: function(data) {
@@ -1686,6 +1693,7 @@
                 url: '{{ route('setDefaultGuest') }}',
                 type: 'GET',
                 data: {
+                    update: 2,
                     id: id,
                     name: name,
                 },
@@ -1722,6 +1730,7 @@
                     url: '{{ route('addDateForm') }}',
                     type: 'GET',
                     data: {
+                        update: 2,
                         name: name,
                         inputName: inputName,
                         inputDesc: inputDesc,
@@ -1828,6 +1837,7 @@
                     url: '{{ route('updateDateForm') }}',
                     type: 'GET',
                     data: {
+                        update: 2,
                         id: id,
                         name: name,
                         inputName: inputName,
@@ -1928,7 +1938,7 @@
                 "<div>" +
                 "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
                 "</div>" +
-                "<a href='#'><div class='mt-3 text-13-blue recentModal' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div></a>" +
+                "<a href='#' class='activity1' data-name1='BG' data-des='Xem giao dịch gần đây ở trang chỉnh sửa'><div class='mt-3 text-13-blue recentModal' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div></a>" +
                 "</td>"
             );
             const thue = $(
@@ -1952,7 +1962,7 @@
                 "</td>"
             );
             const option = $(
-                "<td class='border-right p-2 align-top'>" +
+                "<td class='border-right p-2 align-top activity' data-name1='BG' data-des='Xóa sản phẩm ở trang chỉnh sửa'>" +
                 "<svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
                 "<path fill-rule='evenodd' clip-rule='evenodd' d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z' fill='#6B6F76'/>" +
                 "</svg>" +
@@ -1981,6 +1991,7 @@
             //     axis: "y",
             //     handle: "td",
             // });
+
             //Xem giao dịch gần đây
             $('.recentModal').click(function() {
                 var idProduct = $(this).closest('tr').find('.product_id').val();
@@ -2028,13 +2039,34 @@
             option.click(function() {
                 $(this).closest("tr").remove();
                 fieldCounter--;
-                calculateTotalAmount();
                 calculateGrandTotal();
-                var productTaxText = $('#product-tax').text();
-                var productTaxValue = parseFloat(productTaxText.replace(/,/g, ''));
-                var taxAmount = parseFloat(('.product_tax1').text());
-                var totalTax = productTaxValue - taxAmount;
-                $('#product-tax').text(totalTax);
+                var name = $(this).data('name1'); // Lấy giá trị của thuộc tính data-name1
+                var des = $(this).data('des'); // Lấy giá trị của thuộc tính data-des
+                $.ajax({
+                    url: '{{ route('addActivity') }}',
+                    type: 'GET',
+                    data: {
+                        name: name,
+                        des: des,
+                    },
+                    success: function(data) {}
+                });
+            });
+            //
+            $('.activity1').click(function() {
+                var name = $(this).data('name1'); // Lấy giá trị của thuộc tính data-name1
+                var des = $(this).data('des'); // Lấy giá trị của thuộc tính data-des
+                $.ajax({
+                    url: '{{ route('addActivity') }}',
+                    type: 'GET',
+                    data: {
+                        name: name,
+                        des: des,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    }
+                });
             });
             // Checkbox
             $('#checkall').change(function() {
@@ -2415,6 +2447,7 @@
                 url: "{{ route('addGuest') }}",
                 type: "get",
                 data: {
+                    update: 1,
                     guest_name_display: guest_name_display,
                     guest_name: guest_name,
                     guest_address: guest_address,
@@ -2576,6 +2609,7 @@
                 url: '{{ route('updateGuest') }}',
                 type: 'GET',
                 data: {
+                    update: 2,
                     guest_id: guest_id,
                     represent_id: represent_id,
                     guest_name: guest_name,
@@ -2615,6 +2649,7 @@
             url: "{{ route('deleteGuest') }}",
             type: "get",
             data: {
+                update: 2,
                 itemId: itemId,
             },
             success: function(data) {
@@ -2792,6 +2827,7 @@
                     url: "{{ route('addRepresentGuest') }}",
                     type: "get",
                     data: {
+                        update: 2,
                         represent_name: represent_name,
                         represent_email: represent_email,
                         represent_phone: represent_phone,
@@ -2854,6 +2890,7 @@
             url: "{{ route('deleteRepresentGuest') }}",
             type: "get",
             data: {
+                update: 2,
                 itemId: itemId,
             },
             success: function(data) {
@@ -2904,6 +2941,7 @@
                     url: '{{ route('updateRepresent') }}',
                     type: 'GET',
                     data: {
+                        update: 2,
                         guest_id: guest_id,
                         represent_id: represent_id,
                         represent_name: represent_name,
@@ -2915,7 +2953,7 @@
                         if (data.success) {
                             var representId = data.representGuest.id;
                             $('#myUL7 li[data-id="' + representId +
-                                '"] .text-nav').text(
+                                '"] .text-13-black').text(
                                 data.representGuest.represent_name);
                             $('#represent_guest').val(data.representGuest.represent_name);
                             $('.represent_guest_id').val(data.representGuest.id);
@@ -2938,6 +2976,7 @@
             url: '{{ route('defaultRepresent') }}',
             type: 'GET',
             data: {
+                update: 2,
                 represent_id: represent_id,
                 guest_id: guest_id,
             },
@@ -2988,11 +3027,6 @@
         $(this).closest("tr").remove();
         calculateTotals();
         calculateGrandTotal();
-        var productTaxText = $('#product-tax').text();
-        var productTaxValue = parseFloat(productTaxText.replace(/,/g, ''));
-        var taxAmount = parseFloat(('.product_tax1').text());
-        var totalTax = productTaxValue - taxAmount;
-        $('#product-tax').text(totalTax);
     });
 
     //Hiển thị danh sách tên sản phẩm
@@ -3201,11 +3235,11 @@
         var rows = document.querySelectorAll('tr');
         var hasProducts = false;
         var previousProductNames = [];
+        var ajaxPromises = []; // Mảng lưu trữ các promise từ AJAX requests
+        var shouldSubmit = true;
 
         function normalizeProductName(name) {
-            // Chuyển tất cả các ký tự thành chữ thường
             var lowercaseName = name.toLowerCase();
-            // Loại bỏ các dấu
             var normalized = lowercaseName.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             return normalized;
         }
@@ -3218,58 +3252,100 @@
 
                 var normalizedProductName = normalizeProductName(productName).trim();
 
+                // Kiểm tra trùng lặp tên sản phẩm
                 if (previousProductNames.includes(normalizedProductName)) {
                     showNotification('warning', 'Tên sản phẩm bị trùng: ' + productName);
-                    return;
+                    shouldSubmit = false;
+                    break; // Dừng vòng lặp nếu có lỗi
                 } else {
-                    // Thêm tên sản phẩm đã chuẩn hóa vào mảng các tên sản phẩm đã xuất hiện trước đó
                     previousProductNames.push(normalizedProductName);
                 }
 
+                // Kiểm tra các trường input sản phẩm
                 for (var j = 0; j < inputs.length; j++) {
                     if (inputs[j].value.trim() === '') {
                         showNotification('warning', 'Vui lòng điền đủ thông tin sản phẩm');
-                        return;
+                        shouldSubmit = false;
+                        break; // Dừng vòng lặp nếu có lỗi
                     }
                 }
+
+                // Nếu có lỗi, không thực hiện AJAX request
+                if (!shouldSubmit) {
+                    break;
+                }
+
+                // Thực hiện AJAX request và lưu trữ promise vào mảng
+                ajaxPromises.push($.ajax({
+                    url: "{{ route('checkProductExist') }}",
+                    type: "get",
+                    data: {
+                        productName: productName,
+                    },
+                }));
+
                 hasProducts = true;
             }
         }
 
-        // Tiếp tục với các kiểm tra khác và xử lý submit nếu cần
-        var inputValue = $('.idGuest').val();
-        var shouldSubmit = true;
+        // Xử lý tất cả các promise từ AJAX requests
+        Promise.all(ajaxPromises).then(function(responses) {
+            responses.forEach(function(data, index) {
+                var productName = rows[index + 1].querySelector('.product_name').value;
+                var productTaxFromServer = data.product_tax;
+                var productTaxFromInput = rows[index + 1].querySelector('.product_tax').value;
 
-        if ($.trim(inputValue) === '') {
-            showNotification('warning', 'Vui lòng chọn khách hàng từ danh sách hoặc thêm mới khách hàng!');
-            shouldSubmit = false;
-        } else if (!hasProducts) {
-            showNotification('warning', 'Không có sản phẩm để báo giá');
-            shouldSubmit = false;
-        }
-
-        // Kiểm tra số báo giá tồn tại bằng Ajax
-        if (hasProducts && shouldSubmit) {
-            var quotetion_number = $('input[name="quotation_number"]').val();
-            var detailexport_id = $('input[name="detailexport_id"]').val();
-            $('.product_tax').prop('disabled', false);
-            $.ajax({
-                url: "{{ route('checkQuotetionExportEdit') }}",
-                type: "get",
-                data: {
-                    quotetion_number: quotetion_number,
-                    detailexport_id: detailexport_id,
-                },
-                success: function(data) {
-                    if (!data['status']) {
-                        showNotification('warning', 'Số báo giá đã tồn tại');
-                    } else {
-                        // Nếu số báo giá không tồn tại, thực hiện submit form
-                        $('form')[0].submit();
-                    }
+                // Kiểm tra xem thuế nhập vào có trùng với thuế từ dữ liệu trả về không
+                if (productTaxFromInput != productTaxFromServer) {
+                    showNotification('warning',
+                        "Thuế nhập vào không trùng khớp với thuế của sản phẩm, thuế của sản phẩm " +
+                        productName + " là: " + (productTaxFromServer == 99 ? "NOVAT" :
+                            productTaxFromServer + "%"));
+                    shouldSubmit = false;
                 }
             });
-        }
+
+            // Tiếp tục với các kiểm tra khác và xử lý submit nếu cần
+            if (shouldSubmit) {
+                var inputValue = $('.idGuest').val();
+
+                if ($.trim(inputValue) === '') {
+                    showNotification('warning',
+                        'Vui lòng chọn khách hàng từ danh sách hoặc thêm mới khách hàng!');
+                    shouldSubmit = false;
+                } else if (!hasProducts) {
+                    showNotification('warning', 'Không có sản phẩm để báo giá');
+                    shouldSubmit = false;
+                }
+
+                // Kiểm tra số báo giá tồn tại bằng Ajax
+                if (hasProducts && shouldSubmit) {
+                    var quotetion_number = $('input[name="quotation_number"]').val();
+                    var detailexport_id = $('input[name="detailexport_id"]').val();
+                    $('.product_tax').prop('disabled', false);
+                    $.ajax({
+                        url: "{{ route('checkQuotetionExportEdit') }}",
+                        type: "get",
+                        data: {
+                            quotetion_number: quotetion_number,
+                            detailexport_id: detailexport_id,
+                        },
+                        success: function(data) {
+                            if (!data['status']) {
+                                showNotification('warning', 'Số báo giá đã tồn tại');
+                            } else {
+                                // Nếu số báo giá không tồn tại, thực hiện submit form
+                                $('form')[0].submit();
+                            }
+
+                        }
+                    });
+                }
+            } else {
+                // Nếu có lỗi từ AJAX request, không thực hiện submit form
+                return;
+            }
+        });
     }
     //xem thông tin sản phẩm
     $('.info-product').click(function() {

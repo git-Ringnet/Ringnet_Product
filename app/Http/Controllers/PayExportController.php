@@ -12,6 +12,7 @@ use App\Models\productBill;
 use App\Models\productPay;
 use App\Models\Products;
 use App\Models\QuoteExport;
+use App\Models\userFlow;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,7 @@ class PayExportController extends Controller
     private $productPay;
     private $workspaces;
     private $attachment;
+    private $userFlow;
 
     public function __construct()
     {
@@ -37,6 +39,7 @@ class PayExportController extends Controller
         $this->productPay = new productPay();
         $this->workspaces = new Workspace();
         $this->attachment = new Attachment();
+        $this->userFlow = new userFlow();
     }
     public function index()
     {
@@ -108,6 +111,11 @@ class PayExportController extends Controller
     {
         $pay_id = $this->payExport->addPayExport($request->all());
         $this->productPay->addProductPay($request->all(), $pay_id);
+        $arrCapNhatKH = [
+            'name' => 'TT',
+            'des' => 'Xác nhận'
+        ];
+        $this->userFlow->addUserFlow($arrCapNhatKH);
         return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', ' Tạo đơn thanh toán hàng thành công !');
     }
 
@@ -214,6 +222,11 @@ class PayExportController extends Controller
             $payExport = PayExport::find($id);
             if ($payExport) {
                 $this->payExport->updateDetailExport($request->all(), $payExport->detailexport_id);
+                $arrCapNhatKH = [
+                    'name' => 'TT',
+                    'des' => 'Xác nhận ở trang chi tiết'
+                ];
+                $this->userFlow->addUserFlow($arrCapNhatKH);
                 return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', 'Xác nhận thanh toán thành công!');
             }
         }
@@ -222,6 +235,12 @@ class PayExportController extends Controller
             $table_id = $id;
             $table_name = 'TT';
             $this->attachment->deleteFileAll($table_id, $table_name);
+            //
+            $arrCapNhatKH = [
+                'name' => 'TT',
+                'des' => 'Xóa đơn thanh toán'
+            ];
+            $this->userFlow->addUserFlow($arrCapNhatKH);
             return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn thanh toán thành công!');
         }
     }
@@ -235,6 +254,11 @@ class PayExportController extends Controller
         $table_id = $id;
         $table_name = 'TT';
         $this->attachment->deleteFileAll($table_id, $table_name);
+        $arrCapNhatKH = [
+            'name' => 'TT',
+            'des' => 'Xóa đơn thanh toán'
+        ];
+        $this->userFlow->addUserFlow($arrCapNhatKH);
         return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', 'Xóa đơn thanh toán thành công!');
     }
 
