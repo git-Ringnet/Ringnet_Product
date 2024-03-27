@@ -242,7 +242,13 @@ class DetailImportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($status['status']) {
-            $this->attachment->deleteFileAll($id,'DMH');
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => "DMH",
+                'activity_description' => "Xóa đơn mua hàng"
+            ];
+            DB::table('user_flow')->insert($dataUserFlow);
+            $this->attachment->deleteFileAll($id, 'DMH');
             return redirect()->route('import.index', $workspacename)->with('msg', 'Xóa đơn mua hàng thành công !');
         } else {
             return redirect()->route('import.index', $workspacename)->with('warning', $status['msg']);
@@ -704,6 +710,12 @@ class DetailImportController extends Controller
             $headers = [
                 'Content-Type' => 'application/octet-stream',
             ];
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => 'DMH',
+                'activity_description' => "Tải xuống file đính kèm"
+            ];
+            DB::table('user_flow')->insert($dataUserFlow);
             return Response::download($filePath, $file, $headers);
         } else {
             return back()->with('error', 'Tệp backup không tồn tại.');
@@ -739,6 +751,38 @@ class DetailImportController extends Controller
                 'des' => 'Xóa file đính kèm'
             ];
             $this->userFlow->addUserFlow($arrCapNhatKH);
+        }
+        if ($folder == "DMH") {
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => 'DMH',
+                'activity_description' => "Xóa file đính kèm"
+            ];
+            DB::table('user_flow')->insert($dataUserFlow);
+        }
+        if ($folder == "DNH") {
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => 'DNH',
+                'activity_description' => "Xóa file đính kèm"
+            ];
+            DB::table('user_flow')->insert($dataUserFlow);
+        }
+        if ($folder == "HDMH") {
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => 'HDMH',
+                'activity_description' => "Xóa file đính kèm"
+            ];
+            DB::table('user_flow')->insert($dataUserFlow);
+        }
+        if ($folder == "TTMH") {
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => 'TTMH',
+                'activity_description' => "Xóa file đính kèm"
+            ];
+            DB::table('user_flow')->insert($dataUserFlow);
         }
         return back()->with('msg', 'Xóa file thành công!');
     }
@@ -972,12 +1016,14 @@ class DetailImportController extends Controller
                 if ($checkF->date_form_id == $request->id) {
                     $checkF->date_form_id = 0;
                     $checkF->save();
+                    $data['status'] = 0;
                 } else {
                     DB::table('represent_provide')
                         ->where('id', $request->id)
                         ->update(['default' => 1]);
                     $checkF->date_form_id = $request->id;
                     $checkF->save();
+                    $data['status'] = 1;
                 }
             } else {
                 $dataForm = [
@@ -1002,6 +1048,7 @@ class DetailImportController extends Controller
                 if ($checkF->date_form_id == $request->id) {
                     $checkF->date_form_id = 0;
                     $checkF->save();
+                    $data['status'] = 0;
                 } else {
                     DB::table('date_form')
                         ->where('id', $request->id)
@@ -1009,6 +1056,7 @@ class DetailImportController extends Controller
                         ->update(['default_form' => 1]);
                     $checkF->date_form_id = $request->id;
                     $checkF->save();
+                    $data['status'] = 1;
                 }
             } else {
                 $dataForm = [

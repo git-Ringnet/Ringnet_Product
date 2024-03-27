@@ -12,6 +12,7 @@ use App\Models\Receive_bill;
 use App\Models\Reciept;
 use App\Models\Serialnumber;
 use App\Models\Workspace;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -89,6 +90,16 @@ class ReceiveController extends Controller
 
                 // Thêm SN
                 $this->sn->addSN($request->all(), $receive_id, $id);
+
+
+                // Thêm user flow
+                $dataUserFlow = [
+                    'user_id' => Auth::user()->id,
+                    'activity_type' => "DNH",
+                    'activity_description' => "Lưu nháp đơn nhận hàng",
+                    'created_at' => Carbon::now()
+                ];
+                DB::table('user_flow')->insert($dataUserFlow);
                 return redirect()->route('receive.index', $workspacename)->with('msg', 'Tạo mới đơn nhận hàng thành công !');
             } else {
                 return redirect()->route('receive.index', $workspacename)->with('warning', 'Đơn nhận hàng đã tạo hết sản phẩm !');
@@ -108,6 +119,15 @@ class ReceiveController extends Controller
 
                 // Thêm sản phẩm, seri vào tồn kho
                 $this->product->addProductTowarehouse($request->all(), $receive_id);
+
+                // Thêm user flow
+                $dataUserFlow = [
+                    'user_id' => Auth::user()->id,
+                    'activity_type' => "DNH",
+                    'activity_description' => "Nhận hàng đơn nhận hàng",
+                    'created_at' => Carbon::now()
+                ];
+                DB::table('user_flow')->insert($dataUserFlow);
 
                 return redirect()->route('receive.index', $workspacename)->with('msg', 'Nhận hàng thành công !');
             } else {
@@ -176,6 +196,15 @@ class ReceiveController extends Controller
             // Thêm sản phẩm, seri vào tồn kho
             $this->product->addProductTowarehouse($request->all(), $id);
 
+            // Thêm user flow
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => "DNH",
+                'activity_description' => "Nhận hàng đơn nhận hàng",
+                'created_at' => Carbon::now()
+            ];
+            DB::table('user_flow')->insert($dataUserFlow);
+
             return redirect()->route('receive.index', $workspacename)->with('msg', 'Nhận hàng thành công !');
         } else {
             return redirect()->route('receive.index', $workspacename)->with('warning', 'Đơn hàng đã được nhận trước đó !');
@@ -191,7 +220,16 @@ class ReceiveController extends Controller
         $workspacename = $workspacename->workspace_name;
         $result = $this->receive->deleteReceive($id);
         if ($result) {
-            $this->attachment->deleteFileAll($id,'DNH');
+            $this->attachment->deleteFileAll($id, 'DNH');
+
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => "DNH",
+                'activity_description' => "Xóa đơn nhận hàng",
+                'created_at' => Carbon::now()
+            ];
+
+            DB::table('user_flow')->insert($dataUserFlow);
             return redirect()->route('receive.index', $workspacename)->with('msg', 'Xóa đơn nhận hàng thành công !');
         } else {
             return redirect()->route('receive.index', $workspacename)->with('warning', 'Sản phẩm đã được tạo trong đơn bán hàng !');

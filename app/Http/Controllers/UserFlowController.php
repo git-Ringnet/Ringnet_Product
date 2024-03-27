@@ -2,22 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\userFlow;
+use App\Models\UserFlow;
 use Illuminate\Http\Request;
 
 class UserFlowController extends Controller
 {
     private $userFlow;
+
     public function __construct()
     {
-        $this->userFlow = new userFlow();
+        $this->userFlow = new UserFlow();
     }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $dataImport = ['DMH', 'DNH', 'HDMH', 'TMH', 'NCC'];
+        $dataExport = ['BG', 'GH', 'HDBH', 'TT', 'KH'];
+        $user_flow_import = $this->userFlow->getAll($dataImport);
+        $user_flow_export = $this->userFlow->getAll($dataExport);
+        $title = "user";
+        // dd($user_flow_import);
+        return view('tables.user.userflow', compact('user_flow_export', 'user_flow_import', 'title'));
     }
 
     /**

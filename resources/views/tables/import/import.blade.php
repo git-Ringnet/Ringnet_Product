@@ -18,7 +18,9 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('import.create', $workspacename) }}" class="user_flow" data-type="DMH" data-des="Tạo mới">
+                    <a href="{{ route('import.create', $workspacename) }}" class="user_flow" data-type="DMH"
+                        data-des="Tạo mới">
+                        {{-- <a href="#" class="user_flow" data-type="DMH" data-des="Tạo mới"> --}}
                         <button type="button" class="custom-btn d-flex align-items-center h-100"
                             style="margin-right:10px">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
@@ -30,39 +32,10 @@
                                     d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
                                     fill="white" />
                             </svg>
-                            <span class="text-btnIner-primary ml-1"  >Tạo mới</span>
+                            <span class="text-btnIner-primary ml-1">Tạo mới</span>
                         </button>
                     </a>
-                    {{-- <button class="btn-option bg-white border-0">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                fill="#42526E"></path>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                fill="#42526E"></path>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                fill="#42526E"></path>
-                        </svg>
-                    </button> --}}
                 </div>
-
-                {{-- <button class="btn-option">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                    fill="#42526E" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                    fill="#42526E" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                    fill="#42526E" />
-                            </svg>
-                        </button> --}}
             </div>
         </div>
         <div class="row m-auto filter pt-2 pb-4 height-50 border-custom">
@@ -262,7 +235,8 @@
                                                     {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td>
                                                 <td class=" text-13-black">
-                                                    <div class="">
+                                                    <div class="user_flow" data-type="DMH"
+                                                        data-des="Xem đơn mua hàng">
                                                         <a href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->id]) }}"
                                                             class="duongDan">
                                                             {{ $item->quotation_number == null ? $item->id : $item->quotation_number }}
@@ -374,7 +348,8 @@
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 7px;">
                                                     <div class="d-flex w-100">
-                                                        <a
+                                                        <a class="user_flow" data-type="DMH"
+                                                            data-des="Xem đơn mua hàng"
                                                             href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->id]) }}">
                                                             <div class="m-0 px-2 py-1 mx-2 rounded">
                                                                 <svg width="16" height="16"
@@ -432,17 +407,6 @@
                                 </table>
                             </div>
                         </div>
-                        <!-- <div class="ml-3">
-                            <span class="text-perpage">
-                                Hiển thị:
-                                <select name="perPage" id="perPage" class="border-0">
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                </select>
-                            </span>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -562,4 +526,19 @@
             });
         });
     });
+
+    $(document).on('click', '.user_flow', function(e) {
+        var type = $(this).attr('data-type')
+        var des = $(this).attr('data-des');
+        $.ajax({
+            url: "{{ route('addUserFlow') }}",
+            type: "get",
+            data: {
+                type: type,
+                des: des
+            },
+            success: function(data) {
+            }
+        })
+    })
 </script>

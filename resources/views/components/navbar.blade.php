@@ -374,31 +374,31 @@
                             </div>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item user_flow" data-type="DMH" data-des="DMH">
-                                <a href="{{ route('import.index', $workspacename) }}" {{-- <a href="#"  --}}
+                            <li class="nav-item user_flow_nav" data-type="DMH" data-des="DMH">
+                                <a href="{{ route('import.index', $workspacename) }}"
                                     class="nav-link  @if (!empty($activeName) && $activeName == 'import') active @endif">
                                     <p class="text-nav ml-2">Đơn mua hàng</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item user_flow_nav" data-type="DNH" data-des="DNH">
                                 <a href="{{ route('receive.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'receive') active @endif ">
                                     <p class="text-nav ml-2">Đơn nhận hàng</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item user_flow_nav" data-type="HDMH" data-des="HDMH">
                                 <a href="{{ route('reciept.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'reciept') active @endif ">
                                     <p class="text-nav ml-2">Hóa đơn mua hàng</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item user_flow_nav" data-type="TTMH" data-des="TTMH">
                                 <a href="{{ route('paymentOrder.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'paymentorder') active @endif ">
                                     <p class="text-nav ml-2">Thanh toán mua hàng</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item user_flow_nav" data-type="NCC" data-des="NCC">
                                 <a href="{{ route('provides.index', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'provide') active @endif">
                                     <p class="text-nav ml-2">Nhà cung cấp</p>
@@ -598,23 +598,6 @@
             }, 4000);
         });
 
-        // $(document).on('click', '.user_flow', function(e) {
-        //     console.log(123);
-        //     var type = $(this).attr('data-type')
-        //     var des = $(this).attr('data-des');
-        //     $.ajax({
-        //         url: "{{ route('addUserFlow') }}",
-        //         type: "get",
-        //         data: {
-        //             type: type,
-        //             des: des
-        //         },
-        //         success: function(data) {
-        //             console.log(data);
-        //         }
-        //     })
-        // })
-
         //Lưu thao tác chức năng bán hàng
         $(document).ready(function() {
             $('.activity1').unbind('click').click(function() {
@@ -631,4 +614,18 @@
                 });
             });
         });
+
+        $(document).on('click', '.user_flow_nav', function(e) {
+            var type = $(this).attr('data-type')
+            var des = $(this).attr('data-des');
+            $.ajax({
+                url: "{{ route('addUserFlow') }}",
+                type: "get",
+                data: {
+                    type: type,
+                    des: des
+                },
+                success: function(data) {}
+            })
+        })
     </script>

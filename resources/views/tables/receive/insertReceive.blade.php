@@ -33,7 +33,7 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('receive.index', $workspacename) }}">
+                        <a href="{{ route('receive.index', $workspacename) }}" class="user_flow" data-type="DNH" data-des="Hủy">
                             <button class="btn-destroy btn-light mx-0 d-flex align-items-center h-100" type="button">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -104,7 +104,8 @@
         {{-- Thông tin sản phẩm --}}
         <div class="content margin-top-38" id="main">
             <section class="content margin-250">
-                <div id="title--fixed" class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
+                <div id="title--fixed"
+                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
                 <div class="container-fluided margin-top-72">
@@ -250,7 +251,8 @@
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-top-0 text-center border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG CẤP
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG
+                            CẤP
                         </p>
                     </div>
                     <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
@@ -727,7 +729,7 @@
                 type: "get",
                 data: {
                     detail_id: detail_id,
-                    table :table
+                    table: table
                 },
                 success: function(data) {
                     // console.log(data);
@@ -999,5 +1001,21 @@
                 }
             })
         }
+    })
+
+
+    $(document).on('click', '.user_flow', function(e) {
+        var type = $(this).attr('data-type')
+        var des = $(this).attr('data-des');
+        $.ajax({
+            url: "{{ route('addUserFlow') }}",
+            type: "get",
+            data: {
+                type: type,
+                des: des
+            },
+            success: function(data) {
+            }
+        })
     })
 </script>

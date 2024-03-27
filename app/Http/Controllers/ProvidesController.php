@@ -6,6 +6,7 @@ use App\Models\DetailImport;
 use App\Models\ProvideRepesent;
 use App\Models\Provides;
 use App\Models\Workspace;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -58,6 +59,15 @@ class ProvidesController extends Controller
         } else {
             // Thêm mới người đại diện
             $this->repesent->addRePesent($request->all(), $result['id']);
+
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => "NCC",
+                'activity_description' => "Tạo mới nhà cung cấp",
+                'created_at' => Carbon::now()
+            ];
+
+            DB::table('user_flow')->insert($dataUserFlow);
             $msg = redirect()->route('provides.index', $workspacename)->with('msg', 'Thêm mới nhà cung cấp thành công');
         }
         return $msg;
@@ -113,6 +123,14 @@ class ProvidesController extends Controller
         if ($status) {
             return redirect(route('provides.index', $workspacename))->with('warning', 'Mã số thuế đã tồn tại');
         } else {
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => "NCC",
+                'activity_description' => "Cập nhật nhà cung cấp",
+                'created_at' => Carbon::now()
+            ];
+
+            DB::table('user_flow')->insert($dataUserFlow);
             return redirect(route('provides.index', $workspacename))->with('msg', 'Sửa nhà cung cấp thành công');
         }
     }
@@ -128,6 +146,14 @@ class ProvidesController extends Controller
             return back()->with('warning', 'Nhà cung cấp đã tồn tại trong đơn mua hàng');
         } else {
             $provides->delete();
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => "NCC",
+                'activity_description' => "Xóa nhà cung cấp",
+                'created_at' => Carbon::now()
+            ];
+
+            DB::table('user_flow')->insert($dataUserFlow);
             ProvideRepesent::where('provide_id', $id)->delete();
             return back()->with('msg', 'Xóa nhà cung cấp thành công');
         }

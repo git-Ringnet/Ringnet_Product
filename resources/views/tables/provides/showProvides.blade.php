@@ -24,7 +24,8 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('provides.index', $workspacename) }}">
+                    <a href="{{ route('provides.index', $workspacename) }}"
+                    class="user_flow" data-type="NCC" data-des="Trở về">
                         <button type="button" class="btn-destroy btn-light mx-2 d-flex align-items-center h-100"
                             style="margin-right:10px;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -34,7 +35,8 @@
                         </button>
                     </a>
     
-                    <a href="{{ route('provides.edit', ['workspace' => $workspacename, 'provide' => $provide->id]) }}">
+                    <a href="{{ route('provides.edit', ['workspace' => $workspacename, 'provide' => $provide->id]) }}"
+                        class="user_flow" data-type="NCC" data-des="Chỉnh sửa nhà cung cấp">
                         <button type="button" class="custom-btn d-flex align-items-center h-100">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                                 class="mx-1" fill="none">
@@ -71,13 +73,13 @@
         </div>
         <section class="content-header--options p-0">
             <ul class="header-options--nav nav nav-tabs margin-left32">
-                <li>
+                <li class="user_flow" data-type="NCC" data-des="Xem thông tin">
                     <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông tin</a>
                 </li>
-                <li>
+                <li class="user_flow" data-type="NCC" data-des="Lịch sử mua hàng">
                     <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử mua hàng</a>
                 </li>
-                <li>
+                <li class="user_flow" data-type="NCC" data-des="File đính kèm">
                      <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#">File đính kèm</a>
                 </li>
             </ul>
@@ -488,3 +490,19 @@
 </form>
 </div>
 <script src="{{ asset('/dist/js/products.js') }}"></script>
+<script>
+       $(document).on('click', '.user_flow', function(e) {
+        var type = $(this).attr('data-type')
+        var des = $(this).attr('data-des');
+        $.ajax({
+            url: "{{ route('addUserFlow') }}",
+            type: "get",
+            data: {
+                type: type,
+                des: des
+            },
+            success: function(data) {
+            }
+        })
+    })
+</script>

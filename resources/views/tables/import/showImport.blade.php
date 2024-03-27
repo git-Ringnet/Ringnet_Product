@@ -40,7 +40,8 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('import.index', $workspacename) }}">
+                        <a href="{{ route('import.index', $workspacename) }}" class="user_flow" data-type="DMH"
+                            data-des="Trở về">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -53,7 +54,8 @@
                                 <span class="text-btnIner-primary ml-2">Trở về</span>
                             </button>
                         </a>
-                        <div class="dropdown" style="margin-right:5px">
+
+                        {{-- <div class="dropdown" style="margin-right:5px">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 dropdown-toggle">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -72,11 +74,11 @@
                                     Xuất PDF
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
 
                         @if ($import->status == 1)
-                            <a
-                                href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $import->id]) }}">
+                            <a href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $import->id]) }}"
+                                class="user_flow" data-type="DMH" data-des="Sửa đơn mua hàng">
                                 <button type="button" class="custom-btn d-flex align-items-center h-100"
                                     style="margin-right:10px">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -113,8 +115,9 @@
                                 style="z-index:99;width: 165px;top: 20px;right: 88px; display:none;"
                                 id="listBtnCreateFast">
                                 <ul class="m-0 p-0 scroll-data">
-                                    <li class="p-2 align-items-left text-wrap"
-                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                    <li class="p-2 align-items-left text-wrap user_flow"
+                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-type="DMH"
+                                        data-des="Tạo nhanh đơn nhận hàng">
                                         <a href="#" style="flex:2;" onclick="getAction(this)"
                                             name="search-info" class="search-info">
                                             <button class="align-items-left h-100 border-0 w-100 rounded"
@@ -125,8 +128,9 @@
                                             </button>
                                         </a>
                                     </li>
-                                    <li class="p-2 align-items-left text-wrap"
-                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                    <li class="p-2 align-items-left text-wrap user_flow"
+                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-type="DMH"
+                                        data-des="Tạo nhanh hóa đơn mua hàng">
                                         <a href="#" style="flex:2;" onclick="getAction(this)"
                                             name="search-info" class="search-info">
                                             <button class="align-items-left h-100 border-0 w-100 rounded "
@@ -137,8 +141,9 @@
                                             </button>
                                         </a>
                                     </li>
-                                    <li class="p-2 align-items-left text-wrap"
-                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                    <li class="p-2 align-items-left text-wrap user_flow"
+                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-type="DMH"
+                                        data-des="Tạo nhanh thanh toán mua hàng">
                                         <a href="#" style="flex:2;" onclick="getAction(this)"
                                             name="search-info" class="search-info">
                                             <button class="align-items-left h-100 border-0 w-100 rounded"
@@ -152,13 +157,17 @@
                                 </ul>
                             </div>
                         </div>
-                        
+
                         <label class="custom-btn d-flex align-items-center h-100 m-0 mx-1">
-                            <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.30639 10.2061C9.57305 10.4727 9.59528 10.8913 9.37306 11.1832L9.30639 11.2595L6.84832 13.7176C5.58773 14.9782 3.54392 14.9782 2.28333 13.7176C1.06621 12.5005 1.02425 10.5532 2.15742 9.28574L2.28333 9.15261L4.7414 6.69453C5.03231 6.40363 5.50396 6.40363 5.79486 6.69453C6.06152 6.9612 6.08375 7.37973 5.86153 7.67171L5.79486 7.74799L3.33679 10.2061C2.65801 10.8848 2.65801 11.9854 3.33679 12.6641C3.98163 13.309 5.00709 13.3412 5.68999 12.7609L5.79486 12.6641L8.25293 10.2061C8.54384 9.91516 9.01549 9.91516 9.30639 10.2061ZM9.83063 6.17029C10.1215 6.46119 10.1215 6.93284 9.83063 7.22375L7.35002 9.70437C7.05911 9.99528 6.58746 9.99528 6.29656 9.70437C6.00565 9.41347 6.00565 8.94182 6.29656 8.65091L8.77718 6.17029C9.06808 5.87938 9.53973 5.87938 9.83063 6.17029ZM13.7183 2.2826C14.9354 3.49972 14.9774 5.44698 13.8442 6.71446L13.7183 6.84759L11.2602 9.30567C10.9693 9.59657 10.4977 9.59657 10.2068 9.30567C9.94012 9.03901 9.9179 8.62047 10.1401 8.32849L10.2068 8.25221L12.6648 5.79413C13.3436 5.11535 13.3436 4.01484 12.6648 3.33606C12.02 2.69122 10.9946 2.65898 10.3117 3.23933L10.2068 3.33606L7.74872 5.79413C7.45781 6.08504 6.98616 6.08504 6.69526 5.79413C6.4286 5.52747 6.40637 5.10893 6.62859 4.81696L6.69526 4.74067L9.15333 2.2826C10.4139 1.02201 12.4577 1.02201 13.7183 2.2826Z" fill="white"></path>
+                            <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.30639 10.2061C9.57305 10.4727 9.59528 10.8913 9.37306 11.1832L9.30639 11.2595L6.84832 13.7176C5.58773 14.9782 3.54392 14.9782 2.28333 13.7176C1.06621 12.5005 1.02425 10.5532 2.15742 9.28574L2.28333 9.15261L4.7414 6.69453C5.03231 6.40363 5.50396 6.40363 5.79486 6.69453C6.06152 6.9612 6.08375 7.37973 5.86153 7.67171L5.79486 7.74799L3.33679 10.2061C2.65801 10.8848 2.65801 11.9854 3.33679 12.6641C3.98163 13.309 5.00709 13.3412 5.68999 12.7609L5.79486 12.6641L8.25293 10.2061C8.54384 9.91516 9.01549 9.91516 9.30639 10.2061ZM9.83063 6.17029C10.1215 6.46119 10.1215 6.93284 9.83063 7.22375L7.35002 9.70437C7.05911 9.99528 6.58746 9.99528 6.29656 9.70437C6.00565 9.41347 6.00565 8.94182 6.29656 8.65091L8.77718 6.17029C9.06808 5.87938 9.53973 5.87938 9.83063 6.17029ZM13.7183 2.2826C14.9354 3.49972 14.9774 5.44698 13.8442 6.71446L13.7183 6.84759L11.2602 9.30567C10.9693 9.59657 10.4977 9.59657 10.2068 9.30567C9.94012 9.03901 9.9179 8.62047 10.1401 8.32849L10.2068 8.25221L12.6648 5.79413C13.3436 5.11535 13.3436 4.01484 12.6648 3.33606C12.02 2.69122 10.9946 2.65898 10.3117 3.23933L10.2068 3.33606L7.74872 5.79413C7.45781 6.08504 6.98616 6.08504 6.69526 5.79413C6.4286 5.52747 6.40637 5.10893 6.62859 4.81696L6.69526 4.74067L9.15333 2.2826C10.4139 1.02201 12.4577 1.02201 13.7183 2.2826Z"
+                                    fill="white"></path>
                             </svg>
                             <span>Đính kèm file</span>
-                            <input type="file" style="display: none;" id="file_restore" accept="*" name="file">
+                            <input type="file" style="display: none;" id="file_restore" accept="*"
+                                name="file">
                         </label>
 
                         <a href="#">
@@ -205,15 +214,16 @@
                     <div class="content-header--options p-0 border-0">
                         <ul class="header-options--nav nav nav-tabs margin-left32">
                             <li>
-                                <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông
-                                    tin</a>
+                                <a class="text-secondary active m-0 pl-3 user_flow" data-toggle="tab" href="#info"
+                                data-type="DMH" data-des="Xem thông tin sản phẩm">Thông tin</a>
                             </li>
                             <li>
-                                <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử
-                                    chỉnh sửa</a>
+                                <a class="text-secondary m-0 pl-3 pr-3 user_flow" data-toggle="tab" href="#history"
+                                data-type="DMH" data-des="Xem lịch sử chỉnh sửa" >Lịch sử chỉnh sửa</a>
                             </li>
                             <li>
-                                <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#files">File đính kèm</a>
+                                <a class="text-secondary m-0 pr-3 user_flow" data-toggle="tab" href="#files"
+                                data-type="DMH" data-des="Xem file đính kèm" >File đính kèm</a>
                             </li>
                         </ul>
                     </div>
@@ -566,7 +576,7 @@
                                                         <input type="text" name="total_price[]"
                                                             class="text-right border-0 px-2 py-1 w-100 total_price"
                                                             readonly
-                                                            value="{{ (fmod($item->product_total, 2) > 0 && fmod($item->product_total,1) > 0 ) ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
+                                                            value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                     </td>
                                                     <td class="border-right p-2 text-13 align-top">
@@ -594,7 +604,8 @@
                         <div id="history" class="tab-pane fade">
                             <div id="title--fixed"
                                 class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
-                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">LỊCH SỬ CHỈNH SỬA SẢN PHẨM</p>
+                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">LỊCH SỬ
+                                    CHỈNH SỬA SẢN PHẨM</p>
                             </div>
                             <section class="content margin-top-103">
                                 <div class="table-responsive text-nowrap order_content">
@@ -725,7 +736,7 @@
                                                     <td class='border-right p-2 text-13 align-top position-relative'>
                                                         <input type="text"
                                                             class="border-0 px-2 py-1 w-100 text-right" readonly
-                                                            value="{{ (fmod($item->product_qty, 2) > 0 && fmod($item->product_qty,1) > 0 ) ? number_format($item->product_qty, 2, '.', ',') : number_format($item->product_qty) }}">
+                                                            value="{{ fmod($item->product_qty, 2) > 0 && fmod($item->product_qty, 1) > 0 ? number_format($item->product_qty, 2, '.', ',') : number_format($item->product_qty) }}">
                                                     </td>
                                                     <td class='border-right p-2 text-13 align-top position-relative'>
                                                         <input type="text"
@@ -741,7 +752,7 @@
                                                     <td class='border-right p-2 text-13 align-top position-relative'>
                                                         <input type="text" class="border-0 px-2 py-1 w-100"
                                                             readonly
-                                                            value="{{ (fmod($item->product_total, 2) > 0 && fmod($item->product_total,1) > 0 ) ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
+                                                            value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                                     </td>
                                                     <td class="border-right p-2 text-13 align-top">
                                                         <input placeholder="Nhập ghi chú" type="text"
@@ -962,7 +973,7 @@
 
     $('.search-info').click(function() {
         var provides_id = $(this).attr('id');
-        console.log(provides_id);
+        // console.log(provides_id);
         $.ajax({
             url: "{{ route('show_provide') }}",
             type: "get",
@@ -1137,6 +1148,17 @@
         e.preventDefault();
         $('#formSubmit').attr('action', '{{ route('addAttachment') }}');
         $('input[name="_method"]').remove();
+        $.ajax({
+            url: "{{ route('addUserFlow') }}",
+            type: "get",
+            data: {
+                type: "DMH",
+                des: "Đính kèm file"
+            },
+            success: function(data) {
+                console.log(data);
+            }
+        })
         $('#formSubmit')[0].submit();
     })
 

@@ -18,7 +18,8 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('receive.create', $workspacename) }}">
+                    <a href="{{ route('receive.create', $workspacename) }}" class="user_flow" data-type="DNH"
+                        data-des="Tạo mới">
                         <button type="button" class="custom-btn d-flex align-items-center h-100"
                             style="margin-right:10px">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
@@ -217,7 +218,8 @@
                                                 </td>
                                                 <td class="">
                                                     <a href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}"
-                                                        class="duongdan text-13-blue">
+                                                        class="duongdan text-13-blue user_flow" data-type="DNH"
+                                                        data-des="Xem đơn nhận hàng">
                                                         @if ($item->getQuotation)
                                                             {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
                                                         @endif
@@ -243,7 +245,7 @@
                                                     {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td>
                                                 <td class=" text-13-black">
-                                                    {{number_format($item->total_tax)}}
+                                                    {{ number_format($item->total_tax) }}
                                                 </td>
 
 
@@ -256,8 +258,9 @@
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 10%;">
                                                     <div class="d-flex w-100">
-                                                        <a
-                                                            href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}">
+                                                        <a href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}"
+                                                            class="user_flow" data-type="DNH"
+                                                            data-des="Xem đơn nhận hàng">
                                                             <div class="m-0 px-2 py-1 mx-2 rounded">
                                                                 <svg width="16" height="16"
                                                                     viewBox="0 0 16 16" fill="none"
@@ -444,4 +447,20 @@
             });
         });
     });
+
+
+    $(document).on('click', '.user_flow', function(e) {
+        var type = $(this).attr('data-type')
+        var des = $(this).attr('data-des');
+        $.ajax({
+            url: "{{ route('addUserFlow') }}",
+            type: "get",
+            data: {
+                type: type,
+                des: des
+            },
+            success: function(data) {
+            }
+        })
+    })
 </script>

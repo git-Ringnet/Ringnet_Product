@@ -32,7 +32,8 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('provides.index', $workspacename) }}">
+                        <a href="{{ route('provides.index', $workspacename) }}" class="user_flow" data-type="NCC"
+                            data-des="Hủy thêm nhà cung cấp">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -146,9 +147,10 @@
                         <section class="content margin-left32">
                             <div class="container-fluided">
                                 <div class="d-flex">
-                                    <button type="button" data-toggle="dropdown" id="addRowRepesent"
-                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2"
-                                        style="margin-right:10px; border-radius:4px;">
+                                    <button type="button" data-toggle="dropdown"
+                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2 user_flow"
+                                        data-type="NCC" data-des="Thêm người đại diện"
+                                        id="addRowRepesent" style="margin-right:10px; border-radius:4px;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 16 16" fill="none">
                                             <path
@@ -222,7 +224,7 @@
                     provide_code: provide_code,
                     provide_address: provide_address,
                     key: key,
-                    status : "add"
+                    status: "add"
                 },
                 success: function(data) {
                     console.log(data);
@@ -248,4 +250,19 @@
             showNotification(type, message);
         }, delayTime);
     }
+ 
+    $(document).off('click').on('click', '.user_flow', function(e) {
+        var type = $(this).attr('data-type')
+        var des = $(this).attr('data-des');
+        $.ajax({
+            url: "{{ route('addUserFlow') }}",
+            type: "get",
+            data: {
+                type: type,
+                des: des
+            },
+            success: function(data) {
+            }
+        })
+    })
 </script>

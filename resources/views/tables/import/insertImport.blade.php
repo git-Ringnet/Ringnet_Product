@@ -48,7 +48,7 @@
                             </button>
                         </a>
 
-                        <div class="dropdown user_flow" data-type="DMH" data-des="In đơn mua hàng">
+                        {{-- <div class="dropdown user_flow" data-type="DMH" data-des="In đơn mua hàng">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-destroy btn-light d-flex align-items-center h-100 dropdown-toggle"
                                 style="margin-right:10px">
@@ -65,7 +65,7 @@
                                     Excel</a>
                                 <a class="dropdown-item text-btnIner border-top" href="#">Xuất PDF</a>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <a href="#">
                             <button type="submit" class="custom-btn d-flex align-items-center h-100">
@@ -739,7 +739,7 @@
                                             class="fa-solid fa-trash-can"></i></a>
                                         <a class="dropdown-item set-default default-id ` + element.form_desc + `"
                                             id="default-id` + element.id + `" href="#"
-                                            data-name="import"
+                                            data-name="price_effect"
                                             data-id="` + element.id + `">
                                             ` + (element.default_form === 1 ?
                                     '<i class="fa-solid fa-link-slash"></i>' :
@@ -844,15 +844,39 @@
                 form: form
             },
             success: function(data) {
+                console.log(data);
                 if (data['represent']) {
                     $('#represent').val(data['represent'].represent_name)
                     $('#represent_id').val(data['represent'].id)
                     $('#listRepresent').hide()
+                    $.ajax({
+                        url: "{{ route('addUserFlow') }}",
+                        type: "get",
+                        data: {
+                            type: "DMH",
+                            des: (data.status == 1 ? "Ghim người đại diện" :
+                                "Xóa ghim người đại diện")
+                        },
+                        success: function(data) {}
+                    })
                 } else {
                     $(data['price_effect'] ? '#price_effect' : '#terms_pay').val((data[
                             'price_effect'] ?
                         data['price_effect'] : data['termpay']).form_desc)
                     $(data['price_effect'] ? '#listPriceEffect' : '#listTermsPay').hide()
+                    $.ajax({
+                        url: "{{ route('addUserFlow') }}",
+                        type: "get",
+                        data: {
+                            type: "DMH",
+                            des: (data['price_effect'] ?
+                                (data.status == 1 ? "Ghim hiệu lực báo giá" :
+                                    "Xóa ghim hiệu lực báo giá") :
+                                (data.status == 1 ? "Ghim điều khoản thanh toán" :
+                                    "Xóa ghim điều khoản thanh toán"))
+                        },
+                        success: function(data) {}
+                    })
                 }
             }
         })
@@ -883,6 +907,16 @@
                     }
                     $('#' + data.list + ' li#' + data.id).remove();
                     showNotification('success', data.msg)
+
+                    $.ajax({
+                        url: "{{ route('addUserFlow') }}",
+                        type: "get",
+                        data: {
+                            type: "DMH",
+                            des: "Xóa người đại diện"
+                        },
+                        success: function(data) {}
+                    })
                 } else {
                     showNotification('warning', data.msg)
                 }
@@ -1001,6 +1035,17 @@
                         $("#editProvide input[name='key']").val('')
                         $("#editProvide input[name='provide_name']").val('')
                         showNotification('success', 'Chỉnh sửa thông tin thành công !')
+
+
+                        $.ajax({
+                            url: "{{ route('addUserFlow') }}",
+                            type: "get",
+                            data: {
+                                type: "DMH",
+                                des: "Chỉnh sửa nhà cung cấp"
+                            },
+                            success: function(data) {}
+                        })
                     } else {
                         showNotification('warning', 'Nhà cung cấp đã tồn tại !')
                     }
@@ -1198,6 +1243,16 @@
 
                         $('#more_info').show();
                         $('#more_info1').show();
+
+                        $.ajax({
+                            url: "{{ route('addUserFlow') }}",
+                            type: "get",
+                            data: {
+                                type: "DMH",
+                                des: "Thêm mới nhà cung cấp"
+                            },
+                            success: function(data) {}
+                        })
                     } else {
                         if (data.key) {
                             $("input[name='key']").val(data.key)
@@ -1294,6 +1349,16 @@
                                     $('#listRepresent .p-1').after(newli)
                                 }
                                 showNotification('success', data.msg)
+
+                                $.ajax({
+                                    url: "{{ route('addUserFlow') }}",
+                                    type: "get",
+                                    data: {
+                                        type: "DMH",
+                                        des: "Thêm mới người đại diện"
+                                    },
+                                    success: function(data) {}
+                                })
                             }
                         })
                     } else {
@@ -1378,8 +1443,20 @@
                                     $(id == "import" ? $('#listPriceEffect .p-1').after(
                                         price_effect) : $('#listTermsPay .p-1').after(
                                         term_pay))
-
                                     showNotification('success', data.msg)
+
+                                    $.ajax({
+                                        url: "{{ route('addUserFlow') }}",
+                                        type: "get",
+                                        data: {
+                                            type: "DMH",
+                                            des: (id == "import" ?
+                                                "Thêm mới hiệu lực báo giá" :
+                                                "Thêm mới điều khoản")
+                                        },
+                                        success: function(data) {}
+                                    })
+
                                 } else {
                                     showNotification('warning', data.msg)
                                 }
@@ -1409,6 +1486,17 @@
                                 $('#listRepresent').find('li#' + data.id + ' span').text(data.data)
                                 $('#' + id).closest('div').find('.closeModal')[0].click()
                                 showNotification('success', data.msg)
+
+                                $.ajax({
+                                    url: "{{ route('addUserFlow') }}",
+                                    type: "get",
+                                    data: {
+                                        type: "DMH",
+                                        des: "Chỉnh sửa người đại diện"
+                                    },
+                                    success: function(data) {}
+                                })
+
                             } else {
                                 showNotification('warning', data.msg)
                             }
@@ -1441,6 +1529,18 @@
                                     'li#' + data.id + " span").text(data.form_name)
                                 $('#' + id).closest('div').find('.closeModal')[0].click()
                                 showNotification('success', data.msg)
+
+                                $.ajax({
+                                    url: "{{ route('addUserFlow') }}",
+                                    type: "get",
+                                    data: {
+                                        type: "DMH",
+                                        des: (id == "import" ?
+                                            "Chỉnh sửa hiệu lực báo giá" :
+                                            "Chỉnh sửa điều khoản")
+                                    },
+                                    success: function(data) {}
+                                })
                             } else {
                                 showNotification('warning', data.msg)
                             }
@@ -1622,7 +1722,53 @@
                     if (!data['status']) {
                         showNotification('warning', 'Số báo giá đã tồn tại')
                     } else {
-                        $('form')[0].submit();
+                        var listName = [];
+                        var listTax = [];
+                        // Kiểm tra sản phẩm trùng thuế
+
+                        var rows = $('#inputcontent tbody tr');
+                        rows.each(function() {
+                            listName.push($(this).find('.searchProductName').val())
+                            listTax.push($(this).find('.product_tax').val())
+                        })
+                        $.ajax({
+                            url: "{{ route('checkProductTax') }}",
+                            type: "get",
+                            data: {
+                                listName: listName,
+                                listTax: listTax
+                            },
+                            success: function(data) {
+                                if (data.status == false) {
+                                    showNotification('warning', data.msg);
+                                    delayAndShowNotification('success',
+                                        'Đã thay đổi thuế theo sản phẩm',
+                                        500);
+                                    rows.each(function() {
+                                        if ($(this).find('.searchProductName')
+                                            .val() == data.product_name) {
+                                            $(this).find('.product_tax').val(
+                                                data.product_tax)
+                                        }
+                                    })
+                                    updateTaxAmount()
+                                    calculateTotalAmount()
+                                    calculateTotalTax()
+                                    calculateGrandTotal()
+                                } else {
+                                    $.ajax({
+                                        url: "{{ route('addUserFlow') }}",
+                                        type: "get",
+                                        data: {
+                                            type: "DMH",
+                                            des: "Tạo mới đơn mua hàng"
+                                        },
+                                        success: function(data) {}
+                                    })
+                                    $('form')[0].submit();
+                                }
+                            }
+                        })
                     }
                 }
             })
@@ -1630,22 +1776,19 @@
     })
 
 
-    // $(document).on('click', '.user_flow', function(e) {
-    //         console.log(123);
-    //         var type = $(this).attr('data-type')
-    //         var des = $(this).attr('data-des');
-    //         $.ajax({
-    //             url: "{{ route('addUserFlow') }}",
-    //             type: "get",
-    //             data: {
-    //                 type: type,
-    //                 des: des
-    //             },
-    //             success: function(data) {
-    //                 console.log(data);
-    //             }
-    //         })
-    //     })
+    $(document).on('click', '.user_flow', function(e) {
+        var type = $(this).attr('data-type')
+        var des = $(this).attr('data-des');
+        $.ajax({
+            url: "{{ route('addUserFlow') }}",
+            type: "get",
+            data: {
+                type: type,
+                des: des
+            },
+            success: function(data) {}
+        })
+    })
 </script>
 </body>
 

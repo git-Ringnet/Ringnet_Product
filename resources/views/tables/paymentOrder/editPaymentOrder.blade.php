@@ -53,7 +53,8 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('paymentOrder.index', $workspacename) }}">
+                        <a href="{{ route('paymentOrder.index', $workspacename) }}" class="user_flow" data-type="TTMH"
+                            data-des="Trở về">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -67,7 +68,7 @@
                             </button>
                         </a>
 
-                        <div class="dropdown">
+                        {{-- <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 dropdown-toggle">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -86,7 +87,7 @@
                                     Xuất PDF
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
 
                         @if ($payment->status != 2)
                             <a href="#">
@@ -151,15 +152,15 @@
                 <div class="d-flex justify-content-between align-items-center h-100">
                     <div class="content-header--options p-0 border-0">
                         <ul class="header-options--nav nav nav-tabs margin-left32">
-                            <li>
+                            <li class="user_flow" data-type="TTMH" data-des="Xem thông tin">
                                 <a class="text-secondary active m-0 pl-3" data-toggle="tab" href="#info">Thông
                                     tin</a>
                             </li>
-                            <li>
+                            <li class="user_flow" data-type="TTMH" data-des="Lịch sử thanh toán">
                                 <a class="text-secondary m-0 pl-3 pr-3" data-toggle="tab" href="#history">Lịch sử
                                     thanh toán</a>
                             </li>
-                            <li>
+                            <li class="user_flow" data-type="TTMH" data-des="File đính kèm">
                                 <a class="text-secondary m-0 pr-3" data-toggle="tab" href="#files">File đính kèm</a>
                             </li>
                         </ul>
@@ -653,6 +654,17 @@
         e.preventDefault();
         $('#formSubmit').attr('action', '{{ route('addAttachment') }}');
         $('input[name="_method"]').remove();
+        $.ajax({
+            url: "{{ route('addUserFlow') }}",
+            type: "get",
+            data: {
+                type: "TTMH",
+                des: "Đính kèm file"
+            },
+            success: function(data) {
+                console.log(data);
+            }
+        })
         $('#formSubmit')[0].submit();
     })
 
@@ -763,6 +775,21 @@
                         })
                     }
                 })
+            }
+        })
+    })
+
+    $(document).on('click', '.user_flow', function(e) {
+        var type = $(this).attr('data-type')
+        var des = $(this).attr('data-des');
+        $.ajax({
+            url: "{{ route('addUserFlow') }}",
+            type: "get",
+            data: {
+                type: type,
+                des: des
+            },
+            success: function(data) {
             }
         })
     })

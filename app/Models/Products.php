@@ -300,4 +300,22 @@ class Products extends Model
         $products = $products->pluck('product_unit')->all();
         return $products;
     }
+
+    public function checkProductTax($data)
+    {
+        $result = [];
+        for ($i = 0; $i < count($data['listName']); $i++) {
+            $checkProduct = DB::table($this->table)->where('product_name', $data['listName'][$i])->first();
+            if ($checkProduct) {
+                if ($checkProduct->product_tax != $data['listTax'][$i]) {
+                    $result['product_name'] = $checkProduct->product_name;
+                    $result['product_tax'] = $checkProduct->product_tax;
+                    $result['status'] = false;
+                    $result['msg'] = "Sản phẩm" . $checkProduct->product_name . "sai thuế sản phẩm" . $checkProduct->product_tax;
+                    break;
+                }
+            }
+        }
+        return $result;
+    }
 }

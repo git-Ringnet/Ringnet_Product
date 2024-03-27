@@ -18,7 +18,8 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('reciept.create', $workspacename) }}">
+                    <a href="{{ route('reciept.create', $workspacename) }}" class="user_flow" data-type="HDMH"
+                        data-des="HDMH">
                         <button type="button" class="custom-btn d-flex align-items-center h-100"
                             style="margin-right:10px">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
@@ -198,7 +199,8 @@
                                                 <td class="py-2 text-13-black">{{ $item->number_bill }}</td>
                                                 <td class="py-2 text-13-black">
                                                     <a
-                                                        href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}">
+                                                        href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}"
+                                                        class="duongdan user_flow" data-type="HDMH" data-des="Xem hóa đơn mua hàng">
                                                         @if ($item->getQuotation)
                                                             {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
                                                         @endif
@@ -214,13 +216,14 @@
                                                     @endif
                                                 </td>
                                                 <td class="py-2 text-13-black">
-                                                    {{ fmod($item->price_total, 2) > 0 && fmod($item->price_total,1) > 0 ? number_format($item->price_total, 2, '.', ',') : number_format($item->price_total) }}
+                                                    {{ fmod($item->price_total, 2) > 0 && fmod($item->price_total, 1) > 0 ? number_format($item->price_total, 2, '.', ',') : number_format($item->price_total) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 3px;">
                                                     <div class="d-flex align-items-center">
                                                         <a
-                                                            href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}">
+                                                            href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}"
+                                                            class="user_flow" data-type="HDMH" data-des="Xem hóa đơn mua hàng">
                                                             <div class="m-0 px-2 py-1 mx-2 rounded">
                                                                 <svg width="16" height="16"
                                                                     viewBox="0 0 16 16" fill="none"
@@ -410,4 +413,19 @@
             });
         });
     });
+
+    $(document).on('click', '.user_flow', function(e) {
+        var type = $(this).attr('data-type')
+        var des = $(this).attr('data-des');
+        $.ajax({
+            url: "{{ route('addUserFlow') }}",
+            type: "get",
+            data: {
+                type: type,
+                des: des
+            },
+            success: function(data) {
+            }
+        })
+    })
 </script>

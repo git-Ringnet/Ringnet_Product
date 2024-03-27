@@ -9,6 +9,7 @@ use App\Models\QuoteImport;
 use App\Models\Receive_bill;
 use App\Models\Reciept;
 use App\Models\Workspace;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -73,10 +74,27 @@ class RecieptController extends Controller
         if ($status) {
             $reciept_id = $this->reciept->addReciept($request->all(), $id);
             if ($request->action == "action_1") {
+                $dataUserFlow = [
+                    'user_id' => Auth::user()->id,
+                    'activity_type' => "HDMH",
+                    'activity_description' => "Lưu nháp hóa đơn mua hàng",
+                    'created_at' => Carbon::now()
+                ];
+    
+                DB::table('user_flow')->insert($dataUserFlow);
                 return redirect()->route('reciept.index', $workspacename)->with('msg', 'Tạo mới hóa đơn mua hàng thành công !');
             } else {
                 // Xác nhận hóa đơn
                 $this->reciept->updateReciept($request->all(), $reciept_id);
+
+                $dataUserFlow = [
+                    'user_id' => Auth::user()->id,
+                    'activity_type' => "HDMH",
+                    'activity_description' => "Xác nhận hóa đơn mua hàng",
+                    'created_at' => Carbon::now()
+                ];
+    
+                DB::table('user_flow')->insert($dataUserFlow);
                 return redirect()->route('reciept.index', $workspacename)->with('msg', 'Xác nhận hóa đơn thành công !');
             }
         } else {
@@ -140,6 +158,14 @@ class RecieptController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($result) {
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => "HDMH",
+                'activity_description' => "Xác nhận hóa đơn mua hàng",
+                'created_at' => Carbon::now()
+            ];
+
+            DB::table('user_flow')->insert($dataUserFlow);
             return redirect()->route('reciept.index', $workspacename)->with('msg', 'Xác nhận hóa đơn thành công !');
         } else {
             return redirect()->route('reciept.index', $workspacename)->with('warning', 'Hóa đơn đã được xác nhận !');
@@ -156,6 +182,16 @@ class RecieptController extends Controller
         $workspacename = $workspacename->workspace_name;
         if ($status) {
             $this->attachment->deleteFileAll($id,'HDMH');
+
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => "HDMH",
+                'activity_description' => "Xóa hóa đơn mua hàng",
+                'created_at' => Carbon::now()
+            ];
+
+            DB::table('user_flow')->insert($dataUserFlow);
+
             return redirect()->route('reciept.index', $workspacename)->with('msg', 'Xóa hóa đơn mua hàng thành công !');
         } else {
             return redirect()->route('reciept.index', $workspacename)->with('warning', 'Không tìn thấy hóa đơn mua hàng cần xóa !');

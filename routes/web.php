@@ -205,7 +205,7 @@ Route::get('/getProductSeriEdit', [ProductController::class, 'getProductSeriEdit
 Route::get('exportDatabase', [ProductController::class, 'exportDatabase'])->name('exportDatabase');
 Route::post('import', [ProductController::class, 'import'])->name('import');
 Route::POST('/importDatabase', [ProductController::class, 'importDatabase'])->name('importDatabase');
-
+Route::get('/checkProductTax',[ProductController::class,'checkProductTax'])->name('checkProductTax');
 
 Route::get('/report', function () {
     return view('tables.report.report');
@@ -250,6 +250,10 @@ Route::get('/view', [ReportController::class, 'view'])->name('view');
 
 Route::resource('{workspace}/settings', SettingController::class);
 Route::get('/searchUser', [SettingController::class, 'search'])->name('searchUser');
+
+
+// User flow
+Route::resource('{workspace}/userflow', UserFlowController::class);
 
 
 Route::middleware([

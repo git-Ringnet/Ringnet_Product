@@ -77,8 +77,18 @@ class PayOrderController extends Controller
         // Tạo mới thanh toán hóa đơn
         $payment = $this->payment->addNewPayment($request->all(), $id);
 
-        // Lưu lịch sử
+
         if ($payment) {
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => "TTMH",
+                'activity_description' => "Xác nhận thanh toán mua hàng",
+                'created_at' => Carbon::now()
+            ];
+
+            DB::table('user_flow')->insert($dataUserFlow);
+
+            // Lưu lịch sử
             $this->historyPayment->addHistoryPayment($request->all(), $payment);
             return redirect()->route('paymentOrder.index', $workspacename)->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
         } else {
@@ -125,10 +135,10 @@ class PayOrderController extends Controller
                     DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
                 )
                 ->get();
-            $history = HistoryPaymentOrder::leftjoin('pay_order','pay_order.id','history_payment_order.payment_id')
-            ->where('history_payment_order.payment_id', $payment->id)
-            ->select('history_payment_order.*','pay_order.payment_code')
-            ->get();
+            $history = HistoryPaymentOrder::leftjoin('pay_order', 'pay_order.id', 'history_payment_order.payment_id')
+                ->where('history_payment_order.payment_id', $payment->id)
+                ->select('history_payment_order.*', 'pay_order.payment_code')
+                ->get();
             return view('tables.paymentOrder.editPaymentOrder', compact('payment', 'title', 'product', 'history', 'workspacename', 'nameRepresent'));
         }
     }
@@ -143,6 +153,16 @@ class PayOrderController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($result) {
+            // Thêm user flow
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => "TTMH",
+                'activity_description' => "Xác nhận thanh toán mua hàng",
+                'created_at' => Carbon::now()
+            ];
+
+            DB::table('user_flow')->insert($dataUserFlow);
+            // Thêm lịch sử thanh toán
             $this->historyPayment->addHistoryPayment($request->all(), $id);
             return redirect()->route('paymentOrder.index', $workspacename)->with('msg', 'Thanh toán hóa đơn thành công !');
         } else {
@@ -159,7 +179,15 @@ class PayOrderController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($status) {
-            $this->attachment->deleteFileAll($id,'TTMH');
+            $dataUserFlow = [
+                'user_id' => Auth::user()->id,
+                'activity_type' => "TTMH",
+                'activity_description' => "Xóa thanh toán mua hàng",
+                'created_at' => Carbon::now()
+            ];
+
+            DB::table('user_flow')->insert($dataUserFlow);
+            $this->attachment->deleteFileAll($id, 'TTMH');
             return redirect()->route('paymentOrder.index', $workspacename)->with('msg', 'Xóa thanh toán mua hàng thành công !');
         } else {
             return redirect()->route('paymentOrder.index', $workspacename)->with('warning', 'Không tìn thấy thanh toán mua hàng cần xóa !');
