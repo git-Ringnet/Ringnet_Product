@@ -20,7 +20,7 @@ class UserFlowController extends Controller
     public function index()
     {
         $dataImport = ['DMH', 'DNH', 'HDMH', 'TMH', 'NCC'];
-        $dataExport = ['BG', 'GH', 'HDBH', 'TT', 'KH'];
+        $dataExport = ['BG', 'GH', 'HDBH', 'TT', 'KH','BH'];
         $user_flow_import = $this->userFlow->getAll($dataImport);
         $user_flow_export = $this->userFlow->getAll($dataExport);
         $title = "user";

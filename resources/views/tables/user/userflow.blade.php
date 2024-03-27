@@ -104,7 +104,7 @@
                                                                 class="cb-element checkall-btn">
                                                         </td>
                                                         <td class=" text-13-black">
-                                                            {{ $item->user_id }}
+                                                            {{ $item->name_user }}
                                                         </td>
                                                         <td class=" text-13-black">
                                                             {{ $item->activity_type }}
