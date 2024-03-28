@@ -237,7 +237,7 @@ class DeliveryController extends Controller
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('products', 'products.id', 'quoteexport.product_id')
-            ->select('*', 'detailexport.id as maXuat', 'quoteexport.product_id as maSP', 'quoteexport.product_code as maCode')
+            ->select('*', 'detailexport.id as maXuat', 'quoteexport.product_id as maSP', 'quoteexport.product_code as maCode', 'quoteexport.product_name as tenSP')
             ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) as soLuongCanGiao')
             ->leftJoin('serialnumber', function ($join) {
                 $join->on('serialnumber.product_id', '=', 'products.id');

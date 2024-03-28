@@ -30,7 +30,7 @@ class Attachment extends Model
         $status = false;
         $getFile = $data['file'];
         $originalName = $getFile->getClientOriginalName();
-        $name = Auth::user()->id . '_' . $originalName;
+        $name = Auth::user()->id . '_' . $table_id . '_'  . $originalName;
         $fullPath = storage_path('backup/' . $table_name);
 
         $checkFiles = Attachment::where('table_id', $table_id)
