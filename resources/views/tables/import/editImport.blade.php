@@ -270,7 +270,7 @@
                                                     <td class="border-right pt-0 p-2 text-13 align-top">
                                                         <select name="product_tax[]" id=""
                                                             class="border-0 text-center product_tax mt-1">
-                                                            <option value="0"
+                                                            {{-- <option value="0"
                                                                 @if ($item->product_tax == 0) selected @endif>
                                                                 0%
                                                             </option>
@@ -285,7 +285,16 @@
                                                             <option value="99"
                                                                 @if ($item->product_tax == 99) selected @endif>
                                                                 NOVAT
-                                                            </option>
+                                                            </option> --}}
+                                                            @if ($item->product_tax == 0)
+                                                                <option value="0">0%</option>
+                                                            @elseif($item->product_tax == 8)
+                                                                <option value="8">8%</option>
+                                                            @elseif($item->product_tax == 10)
+                                                                <option value="10">10%</option>
+                                                            @else
+                                                                <option value="99">NOVAT</option>
+                                                            @endif
                                                         </select>
                                                     </td>
                                                     <td class="border-right p-2 text-13 align-top position-relative">
@@ -1244,8 +1253,7 @@
                             des: (data.status == 1 ? "Ghim người đại diện" :
                                 "Xóa ghim người đại diện")
                         },
-                        success: function(data) {
-                        }
+                        success: function(data) {}
                     })
                 } else {
                     $(data['import'] ? '#price_effect' : '#terms_pay').val(
@@ -1263,8 +1271,7 @@
                                 (data.status == 1 ? "Ghim điều khoản thanh toán" :
                                     "Xóa ghim điều khoản thanh toán"))
                         },
-                        success: function(data) {
-                        }
+                        success: function(data) {}
                     })
                 }
 
@@ -1305,8 +1312,7 @@
                             type: "DMH",
                             des: "Xóa người đại diện"
                         },
-                        success: function(data) {
-                        }
+                        success: function(data) {}
                     })
                 } else {
                     showNotification('warning', data.msg)
@@ -1347,7 +1353,6 @@
                         $('#' + data['table']).attr('data-id', data[data['table']].id).text(
                             'Cập nhật')
                     }
-
                 }
             })
 
@@ -1449,8 +1454,7 @@
                                         type: "DMH",
                                         des: "Thêm mới người đại diện"
                                     },
-                                    success: function(data) {
-                                    }
+                                    success: function(data) {}
                                 })
                             }
                         })
@@ -1548,8 +1552,7 @@
                                                 "Thêm mới hiệu lực báo giá" :
                                                 "Thêm mới điều khoản")
                                         },
-                                        success: function(data) {
-                                        }
+                                        success: function(data) {}
                                     })
                                 } else {
                                     showNotification('warning', data.msg)
@@ -1587,8 +1590,7 @@
                                         type: "DMH",
                                         des: "Chỉnh sửa người đại diện"
                                     },
-                                    success: function(data) {
-                                    }
+                                    success: function(data) {}
                                 })
                             } else {
                                 showNotification('warning', data.msg)
@@ -1635,8 +1637,7 @@
                                             "Chỉnh sửa hiệu lực báo giá" :
                                             "Chỉnh sửa điều khoản")
                                     },
-                                    success: function(data) {
-                                    }
+                                    success: function(data) {}
                                 })
                             } else {
                                 showNotification('warning', data.msg)
@@ -1842,8 +1843,7 @@
                                 type: "DMH",
                                 des: "Thêm mới nhà cung cấp"
                             },
-                            success: function(data) {
-                            }
+                            success: function(data) {}
                         })
                     } else {
                         if (data.key) {
@@ -1979,8 +1979,7 @@
                                 type: "DMH",
                                 des: "Chỉnh sửa đơn mua hàng"
                             },
-                            success: function(data) {
-                            }
+                            success: function(data) {}
                         })
                         $('form')[0].submit();
                     }
@@ -2061,8 +2060,7 @@
                                 type: "DMH",
                                 des: "Chỉnh sửa nhà cung cấp"
                             },
-                            success: function(data) {
-                            }
+                            success: function(data) {}
                         })
                     } else {
                         showNotification('warning', 'Nhà cung cấp đã tồn tại !')

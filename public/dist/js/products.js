@@ -374,7 +374,7 @@ function addRowTable(status) {
         " >" +
         "</td>" +
         '<td class="border border-bottom-0 text-13-black align-top p-2">' +
-        '<div class="d-flex"><input type="text" required oninput="validateQtyInput1(this)" class="border-0 px-2 py-1 w-100 quantity-input" name="product_qty[]">';
+        '<div class="d-flex"><input type="text" required oninput="validateQtyInput1(this)" class="border-0 px-2 py-1 w-100 quantity-input text-right" name="product_qty[]">';
     if (status == 2) {
         tr +=
             '<button type="button" class="btn btn-primary" data-toggle="modal" ' +
@@ -403,13 +403,13 @@ function addRowTable(status) {
     }
     tr +=
         "</div>" +
-        "<div class='mt-3 text-13-blue inventory'>Tồn kho: <span class='pl-1 soTonKho' id='soTonKho'>0</span></div>" +
+        "<div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='pl-1 soTonKho' id='soTonKho'>0</span></div>" +
         "</td>" +
         '<td class="border border-bottom-0 text-13-black align-top p-2">' +
         "<div>" +
-        '<input type="text" required class="border-0 px-2 py-1 w-100 price_export" name="price_export[]">' +
+        '<input type="text" required class="border-0 px-2 py-1 w-100 price_export text-right" name="price_export[]">' +
         "</div>" +
-        "<div class='mt-3 text-13-blue transaction' id='transaction' data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</div>" +
+        "<div class='mt-3 text-13-blue transaction text-right' id='transaction' data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</div>" +
         "</td>" +
         '<td class="border border-bottom-0 text-13-black align-top p-2">';
 
@@ -418,7 +418,7 @@ function addRowTable(status) {
             '<input type="text" class="border-0 px-2 py-1 w-100 product_tax" name="product_tax[]" readonly >';
     } else {
         tr +=
-            '<select class="product_tax border-0 px-2 py-1 w-100 text-left" name="product_tax[]"> ' +
+            '<select class="product_tax border-0 w-100 text-center" name="product_tax[]"> ' +
             '<option value="0">0%</option>' +
             '<option value="8">8%</option>' +
             '<option value="10">10%</option>' +
@@ -429,7 +429,7 @@ function addRowTable(status) {
         "</td>" +
         '<input type="hidden" class="product_tax1">' +
         '<td class="border border-bottom-0 text-13-black align-top p-2">' +
-        '<input type="text" class="border-0 px-2 py-1 w-100 total_price" readonly name="total_price[]">' +
+        '<input type="text" class="border-0 px-2 py-1 w-100 total_price text-right" readonly name="total_price[]">' +
         "</td>" +
         '<td class="border border-bottom-0 text-13-black align-top p-2">' +
         '<input type="text" placeholder="Nhập ghi chú" class="border-0 px-2 py-1 w-100" name="product_note[]" ' +
