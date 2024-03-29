@@ -34,6 +34,8 @@ class DetailExport extends Model
         'goods',
         'delivery',
         'location',
+        'guest_name',
+        'represent_name',
         'created_at',
         'updated_at'
     ];
@@ -84,6 +86,8 @@ class DetailExport extends Model
             'goods' => $data['goods'],
             'delivery' => $data['delivery'],
             'location' => $data['location'],
+            'guest_name' => $data['guestName'],
+            'represent_name' => $data['representName'],
         ];
         $detailexport = new DetailExport($dataExport);
         $detailexport->save();
@@ -161,6 +165,8 @@ class DetailExport extends Model
                 'goods' => $data['goods'],
                 'delivery' => $data['delivery'],
                 'location' => $data['location'],
+                'guest_name' => $data['guestName'],
+                'represent_name' => $data['representName'],
             ]);
         }
         return $detailExport->id;

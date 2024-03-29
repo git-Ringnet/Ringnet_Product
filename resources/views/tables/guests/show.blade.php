@@ -29,7 +29,8 @@
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
                     <div class="dropdown">
-                        <a href="{{ route('guests.index', ['workspace' => $workspacename]) }}" class="activity" data-name1="KH" data-des="Trở về">
+                        <a href="{{ route('guests.index', ['workspace' => $workspacename]) }}" class="activity"
+                            data-name1="KH" data-des="Trở về">
                             <button type="button" class="btn-save-print d-flex align-items-center h-100 rounded"
                                 style="margin-right:10px;">
                                 <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -42,7 +43,8 @@
                             </button>
                         </a>
                     </div>
-                    <a class="activity" data-name1="KH" data-des="Xem trang sửa" href="{{ route('guests.edit', ['workspace' => $workspacename, 'guest' => $guest->id]) }}">
+                    <a class="activity" data-name1="KH" data-des="Xem trang sửa"
+                        href="{{ route('guests.edit', ['workspace' => $workspacename, 'guest' => $guest->id]) }}">
                         <button type="button" class="custom-btn d-flex align-items-center h-100"
                             style="margin-right:10px">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
@@ -80,10 +82,12 @@
         <section class="content-header--options p-0">
             <ul class="header-options--nav width-23 nav nav-tabs margin-left32">
                 <li>
-                    <a class="text-secondary active m-0 pl-3 activity" data-name1="KH" data-des="Xem thông tin khách hàng" data-toggle="tab" href="#info">Thông tin</a>
+                    <a class="text-secondary active m-0 pl-3 activity" data-name1="KH"
+                        data-des="Xem thông tin khách hàng" data-toggle="tab" href="#info">Thông tin</a>
                 </li>
                 <li>
-                    <a class="text-secondary m-0 pl-3 pr-3 activity" data-toggle="tab" data-name1="KH" data-des="Xem lịch sử giao dịch" href="#history">Lịch sử giao dịch</a>
+                    <a class="text-secondary m-0 pl-3 pr-3 activity" data-toggle="tab" data-name1="KH"
+                        data-des="Xem lịch sử giao dịch" href="#history">Lịch sử giao dịch</a>
                 </li>
             </ul>
         </section>
@@ -106,9 +110,9 @@
                     </div>
                     <div class="d-flex align-items-center height-60-mobile">
                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                            <p class="p-0 m-0  margin-left32 required-label text-13-red">Tên hiển thị</p>
+                            <p class="p-0 m-0  margin-left32 required-label text-13-red">Mã số thuế</p>
                         </div>
-                        <input type="text" name="key" value="{{ $guest->key }}" readonly
+                        <input type="text" name="guest_code" value="{{ $guest->guest_code }}" readonly
                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                     </div>
                     <div class="d-flex align-items-center height-60-mobile">
@@ -121,16 +125,16 @@
                     </div>
                     <div class="d-flex align-items-center height-60-mobile">
                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                            <p class="p-0 m-0  margin-left32 text-13">Email khách hàng</p>
+                            <p class="p-0 m-0  margin-left32 required-label text-13-red">Tên viết tắt</p>
                         </div>
-                        <input type="text" required name="guest_email" value="{{ $guest->guest_email }}" readonly
+                        <input type="text" name="key" value="{{ $guest->key }}" readonly
                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                     </div>
                     <div class="d-flex align-items-center height-60-mobile">
                         <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                            <p class="p-0 m-0  margin-left32 required-label text-13-red">Mã số thuế</p>
+                            <p class="p-0 m-0  margin-left32 text-13">Tên đầy đủ</p>
                         </div>
-                        <input type="text" name="guest_code" value="{{ $guest->guest_code }}" readonly
+                        <input type="text" required name="guest_email" value="{{ $guest->guest_name }}" readonly
                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                     </div>
                 </div>

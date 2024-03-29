@@ -537,9 +537,10 @@
                         style="height:44px;" style="height:44px;">
                         <span class="text-13 btn-click" style="flex: 1.5;"> Khách hàng </span>
                         <span class="mx-1 text-13" style="flex: 2;">
-                            <input type="text" placeholder="Chọn thông tin"
+                            <input type="text" placeholder="Chọn thông tin" name="guestName"
                                 class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest " id="myInput"
-                                style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required>
+                                readonly style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
+                                required>
                             <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
                         </span>
                         <div class="">
@@ -622,8 +623,8 @@
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest" id="represent_guest"
-                                        autocomplete="off" style="flex:2;" placeholder="Chọn thông tin">
+                                    <input class="text-13-black w-50 border-0 bg-input-guest" id="represent_guest" name="representName"
+                                        readonly autocomplete="off" style="flex:2;" placeholder="Chọn thông tin">
                                     <input type="hidden" class="represent_guest_id" name="represent_guest_id"
                                         autocomplete="off">
                                     <div id="myUL7"

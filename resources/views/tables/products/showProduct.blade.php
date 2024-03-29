@@ -589,7 +589,7 @@
                                             fill='#6B6F76' />
                                     </svg>
                                 </th>
-                                <th scope="col" class="text-nowrap text-13">Thông tin mua hàng
+                                <th scope="col" class="text-nowrap text-13">Đơn mua hàng
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                         viewBox='0 0 16 16' fill='none'>
                                         <path
@@ -597,7 +597,7 @@
                                             fill='#6B6F76' />
                                     </svg>
                                 </th>
-                                <th scope="col" class="text-nowrap text-13">Thông tin bán hàng
+                                <th scope="col" class="text-nowrap text-13">Đơn bán hàng
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                         viewBox='0 0 16 16' fill='none'>
                                         <path

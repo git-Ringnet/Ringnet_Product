@@ -90,6 +90,7 @@ class QuoteExport extends Model
                     'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
+                    'status' => 1,
                 ];
                 DB::table($this->table)->insert($dataQuote);
             } else {
@@ -109,6 +110,7 @@ class QuoteExport extends Model
                     'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
+                    'status' => 1,
                 ];
                 DB::table($this->table)->insert($dataQuote);
             }

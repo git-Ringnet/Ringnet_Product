@@ -448,7 +448,7 @@
                                 Khách hàng
                             </span>
                             <span class="mx-1 text-13" style="flex: 2;">
-                                <input type="text" placeholder="Chọn thông tin" <?php if ($detailExport->tinhTrang != 1) {
+                                <input type="text" name="guestName" readonly placeholder="Chọn thông tin" <?php if ($detailExport->tinhTrang != 1) {
                                     echo 'disabled';
                                 } ?>
                                     value="{{ $detailExport->guest_name_display }}"
@@ -530,7 +530,7 @@
                                             Người đại diện
                                         </span>
 
-                                        <input class="text-13-black w-50 border-0 bg-input-guest" type="text"
+                                        <input readonly class="text-13-black w-50 border-0 bg-input-guest" type="text" name="representName"
                                             <?php if ($detailExport->tinhTrang != 1) {
                                                 echo 'disabled';
                                             } ?> placeholder="Chọn thông tin" id="represent_guest"
