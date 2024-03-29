@@ -39,6 +39,7 @@ class HistoryImport extends Model
                 ->where('product_name', $data['product_name'][$i])
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
+
             $price_export = str_replace(',', '', $data['price_export'][$i]);
             $total_price = str_replace(',', '', $data['product_qty'][$i]) * $price_export;
             $checkData = HistoryImport::where('product_code', $data['product_code'][$i])
@@ -52,12 +53,13 @@ class HistoryImport extends Model
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->where('version', $quote->version)
                 ->first();
-
-            // if (isset($quote)) {
-            //     $checkData->where('version', $quote->version)->first();
+            // if ($quote) {
+            //     $checkData->where('version', $quote->version)
+            //         ->first();
             // } else {
             //     $checkData->first();
             // }
+
             if ($checkData) {
                 continue;
             } else {

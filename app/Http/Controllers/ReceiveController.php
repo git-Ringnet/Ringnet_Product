@@ -154,9 +154,14 @@ class ReceiveController extends Controller
     {
         $receive = Receive_bill::findOrFail($id);
         $detail = DetailImport::where('id', $receive->detailimport_id)->first();
-        if ($detail && $detail->getNameRepresent) {
-            $nameRepresent = $detail->getNameRepresent->represent_name;
-        } else {
+        // if ($detail && $detail->getNameRepresent) {
+        //     $nameRepresent = $detail->getNameRepresent->represent_name;
+        // } else {
+        //     $nameRepresent = "";
+        // }
+        if($detail){
+            $nameRepresent = $detail->represent_name;
+        }else{
             $nameRepresent = "";
         }
         $title = $receive->quotation_number;
@@ -242,12 +247,15 @@ class ReceiveController extends Controller
         $detail = DetailImport::where('id', $request->detail_id)
             ->where('workspace_id', Auth::user()->current_workspace)->first();
         if ($detail) {
-            if ($detail->getProvideName) {
-                $nameProvide =  $detail->getProvideName->provide_name_display;
-            }
-            if ($detail->getNameRepresent) {
-                $nameRepresent = $detail->getNameRepresent->represent_name;
-            }
+            $nameProvide = $detail->provide_name;
+            $nameRepresent = $detail->represent_name;
+
+            // if ($detail->getProvideName) {
+            //     $nameProvide =  $detail->getProvideName->provide_name_display;
+            // }
+            // if ($detail->getNameRepresent) {
+            //     $nameRepresent = $detail->getNameRepresent->represent_name;
+            // }
         }
         if ($request->table == "receive") {
             $count = Receive_bill::where('workspace_id', Auth::user()->current_workspace)->count();

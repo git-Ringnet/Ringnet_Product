@@ -795,8 +795,9 @@
                             <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
                             <span class="mx-1 text-13" style="flex: 2;">
                                 <input type="text" placeholder="Chọn thông tin" readonly
-                                    value="{{ $import->getProvideName->provide_name_display }}"
-                                    class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest "
+                                    {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}
+                                    value="{{$import->provide_name}}"
+                                    class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest"
                                     style="background-color:#F0F4FF; border-radius:4px;" id="myInput"
                                     autocomplete="off">
                             </span>
@@ -808,7 +809,8 @@
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                 <input class="text-13-black w-50 border-0 bg-input-guest"
-                                    value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif"
+                                    {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}}
+                                    value="{{$import->represent_name}}"
                                     style="flex:2;" id="represent" readonly>
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"

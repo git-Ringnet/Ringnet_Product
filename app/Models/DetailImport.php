@@ -99,7 +99,9 @@ class DetailImport extends Model
             'status_pay' => 0,
             'terms_pay' => $data['terms_pay'],
             'workspace_id' => Auth::user()->current_workspace,
-            'represent_id' => $data['represent_id']
+            'represent_id' => $data['represent_id'],
+            'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
+            'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : ""
         ];
         $checkQuotation = DetailImport::where('provide_id', $data['provides_id'])
             ->where('quotation_number', $data['quotation_number'])->first();
@@ -170,6 +172,7 @@ class DetailImport extends Model
                     );
                 }
             }
+
             if ($check_status && $detail->status == 1) {
                 $dataImport = [
                     'provide_id' => $data['provides_id'],
@@ -181,11 +184,13 @@ class DetailImport extends Model
                     'price_effect' => $data['price_effect'],
                     'status' => $status,
                     'created_at' => $data['date_quote'],
-                    'total_price' => $total,
-                    'total_tax' => ($total_tax + $total),
+                    'total_price' => round($total),
+                    'total_tax' => (round($total_tax) + round($total)),
                     'discount' =>   isset($data['discount']) ? str_replace(',', '', $data['discount']) : 0,
                     'transfer_fee' =>  isset($data['transport_fee']) ? str_replace(',', '', $data['transport_fee']) : 0,
-                    'terms_pay' => $data['terms_pay']
+                    'terms_pay' => $data['terms_pay'],
+                    'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
+                    'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : ""
                 ];
                 $result = DB::table($this->table)->where('id', $id)->update($dataImport);
             }

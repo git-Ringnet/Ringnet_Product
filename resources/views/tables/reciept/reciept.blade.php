@@ -198,16 +198,19 @@
                                                     {{ date_format(new DateTime($item->date_bill), 'd/m/Y') }}</td>
                                                 <td class="py-2 text-13-black">{{ $item->number_bill }}</td>
                                                 <td class="py-2 text-13-black">
-                                                    <a
-                                                        href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}"
-                                                        class="duongdan user_flow" data-type="HDMH" data-des="Xem hóa đơn mua hàng">
+                                                    <a href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}"
+                                                        class="duongdan user_flow" data-type="HDMH"
+                                                        data-des="Xem hóa đơn mua hàng">
                                                         @if ($item->getQuotation)
                                                             {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
                                                         @endif
                                                     </a>
                                                 </td>
                                                 <td class="py-2 text-13-black">
-                                                    {{ $item->getProvideName->provide_name_display }}</td>
+                                                    @if ($item->getQuotation)
+                                                        {{ $item->getQuotation->provide_name }}
+                                                    @endif
+                                                    {{-- {{ $item->getProvideName->provide_name_display }}</td> --}}
                                                 <td class="py-2 text-13-black">
                                                     @if ($item->status == 1)
                                                         <span style="color: #858585">Bản nháp</span>
@@ -221,9 +224,9 @@
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 3px;">
                                                     <div class="d-flex align-items-center">
-                                                        <a
-                                                            href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}"
-                                                            class="user_flow" data-type="HDMH" data-des="Xem hóa đơn mua hàng">
+                                                        <a href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}"
+                                                            class="user_flow" data-type="HDMH"
+                                                            data-des="Xem hóa đơn mua hàng">
                                                             <div class="m-0 px-2 py-1 mx-2 rounded">
                                                                 <svg width="16" height="16"
                                                                     viewBox="0 0 16 16" fill="none"
@@ -424,8 +427,7 @@
                 type: type,
                 des: des
             },
-            success: function(data) {
-            }
+            success: function(data) {}
         })
     })
 </script>

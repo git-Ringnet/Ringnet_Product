@@ -368,7 +368,8 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
                                 <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest"
                                     style="flex:2;" readonly id="provide_name"
-                                    value="{{ $reciept->getProvideName->provide_name_display }}"
+                                    {{-- value="{{ $reciept->getProvideName->provide_name_display }}" --}}
+                                    value="{{$reciept->getQuotation->provide_name}}"
                                     placeholder="Chọn thông tin" />
                             </li>
 

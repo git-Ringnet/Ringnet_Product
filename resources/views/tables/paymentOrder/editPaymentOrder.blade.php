@@ -465,8 +465,8 @@
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
                                 <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest"
-                                    style="flex:2;" readonly id="provide_name"
-                                    value="{{ $payment->getProvideName->provide_name_display }}"
+                                    style="flex:2;" readonly id="provide_name" {{-- value="{{ $payment->getProvideName->provide_name_display }}" --}}
+                                    value="@if ($payment->getQuotation){{ $payment->getQuotation->provide_name }}@endif"
                                     placeholder="Chọn thông tin" />
                             </li>
 
@@ -789,8 +789,7 @@
                 type: type,
                 des: des
             },
-            success: function(data) {
-            }
+            success: function(data) {}
         })
     })
 </script>

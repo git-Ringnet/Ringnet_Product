@@ -226,7 +226,10 @@
                                                     </a>
                                                 </td>
                                                 <td class=" text-13-black">
-                                                    {{ $item->getNameProvide->provide_name_display }}
+                                                    @if($item->getQuotation)
+                                                        {{$item->getQuotation->provide_name}}
+                                                    @endif
+                                                    {{-- {{ $item->getNameProvide->provide_name_display }} --}}
                                                 </td>
                                                 <td class=" text-13-black">
                                                     {{ $item->shipping_unit }}

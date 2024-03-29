@@ -575,7 +575,6 @@
                     table: table
                 },
                 success: function(data) {
-                    // console.log(data);
                     $('#search_quotation').val(data.quotation_number == null ? data.id :
                         data.quotation_number);
                     // $('input[name^="payment_code"]').val('MTT-' + data.id)

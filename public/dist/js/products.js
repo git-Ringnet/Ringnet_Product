@@ -316,7 +316,7 @@ function addRowRepesent() {
                     class='text-13-black border-0 pl-0 pr-2 py-1 w-100' >
             </td>
             <td class='border border-top-0  border-left-0 padding-left35'>
-                <input type='text' autocomplete='off' required name='represent_phone[]'
+                <input type='number' autocomplete='off' required name='represent_phone[]'
                     class='text-13-black border-0 pl-0 pr-2 py-1 w-100' >
             </td>
             <td class='border border-top-0  border-left-0 padding-left35'>

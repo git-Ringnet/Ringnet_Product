@@ -165,7 +165,7 @@
                                                     </td>
                                                     <td
                                                         class="border-right text-13-black px-0 py-2 padding-left35 height-52">
-                                                        <input type="text" name="represent_phone[]"
+                                                        <input type="number" name="represent_phone[]"
                                                             value="{{ $rp->represent_phone }}"
                                                             class="border-0  py-1 w-100">
                                                     </td>

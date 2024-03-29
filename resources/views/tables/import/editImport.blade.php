@@ -411,10 +411,11 @@
                             Nhà cung cấp
                         </span>
                         <span class="mx-1 text-13" style="flex: 2;">
-                            <input type="text" placeholder="Chọn thông tin"
-                                value="{{ $import->getProvideName->provide_name_display }}"
+                            <input type="text" placeholder="Chọn thông tin" {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}
+                                value="{{ $import->provide_name }}"
                                 class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest" id="myInput"
-                                style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required>
+                                style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required
+                                name="provides_name" readonly>
                         </span>
                         <div class="d-flex align-items-center justify-content-between border-0">
                             <div id="myUL"
@@ -481,7 +482,10 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                 <input readonly class="text-13-black w-50 border-0 bg-input-guest nameGuest"
                                     style="flex:2;" id="represent"
-                                    value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" />
+                                    {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}}
+                                  value="{{$import->represent_name}}"
+                                  name="represent_name"
+                                    />
                                 <ul id="listRepresent"
                                     class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
                                     style="z-index: 99;">

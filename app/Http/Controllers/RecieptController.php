@@ -80,7 +80,7 @@ class RecieptController extends Controller
                     'activity_description' => "Lưu nháp hóa đơn mua hàng",
                     'created_at' => Carbon::now()
                 ];
-    
+
                 DB::table('user_flow')->insert($dataUserFlow);
                 return redirect()->route('reciept.index', $workspacename)->with('msg', 'Tạo mới hóa đơn mua hàng thành công !');
             } else {
@@ -93,7 +93,7 @@ class RecieptController extends Controller
                     'activity_description' => "Xác nhận hóa đơn mua hàng",
                     'created_at' => Carbon::now()
                 ];
-    
+
                 DB::table('user_flow')->insert($dataUserFlow);
                 return redirect()->route('reciept.index', $workspacename)->with('msg', 'Xác nhận hóa đơn thành công !');
             }
@@ -123,8 +123,13 @@ class RecieptController extends Controller
         $reciept = Reciept::findOrFail($id);
         $title = $reciept->id;
         $detail = DetailImport::where('id', $reciept->detailimport_id)->first();
-        if ($detail && $detail->getNameRepresent) {
-            $nameRepresent = $detail->getNameRepresent->represent_name;
+        // if ($detail && $detail->getNameRepresent) {
+        //     $nameRepresent = $detail->getNameRepresent->represent_name;
+        // } else {
+        //     $nameRepresent = "";
+        // }
+        if ($detail) {
+            $nameRepresent = $detail->represent_name;
         } else {
             $nameRepresent = "";
         }
@@ -181,7 +186,7 @@ class RecieptController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($status) {
-            $this->attachment->deleteFileAll($id,'HDMH');
+            $this->attachment->deleteFileAll($id, 'HDMH');
 
             $dataUserFlow = [
                 'user_id' => Auth::user()->id,

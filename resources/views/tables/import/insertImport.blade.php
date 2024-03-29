@@ -329,7 +329,8 @@
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin"
                                 class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest" id="myInput"
-                                style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" readonly>
+                                style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" readonly
+                                name="provides_name">
                         </span>
                         <div class="">
                             <div id="myUL"
@@ -399,7 +400,8 @@
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest nameGuest"
-                                        style="flex:2;" id="represent" readonly placeholder="Chọn thông tin" />
+                                        style="flex:2;" id="represent" readonly placeholder="Chọn thông tin" 
+                                        name="represent_name"/>
                                     <ul id="listRepresent"
                                         class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
                                         style="z-index: 99;">

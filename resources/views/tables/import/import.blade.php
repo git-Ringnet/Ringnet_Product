@@ -245,9 +245,10 @@
                                                 </td>
                                                 <td class=" text-13-black">{{ $item->reference_number }}</td>
                                                 <td class=" text-13-black">
-                                                    @if ($item->getProvideName)
+                                                    {{$item->provide_name}}
+                                                    {{-- @if ($item->getProvideName)
                                                         {{ $item->getProvideName->provide_name_display }}
-                                                    @endif
+                                                    @endif --}}
                                                 </td>
                                                 <td class="text-13-blue" style="color: #0052CC">
                                                     @if ($item->getProjectName)
