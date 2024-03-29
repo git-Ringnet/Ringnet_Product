@@ -2334,7 +2334,7 @@
                                         ); // Lấy giá trị của thuộc tính data-name1
                                         var des = $(this).data(
                                             'des'
-                                            ); // Lấy giá trị của thuộc tính data-des
+                                        ); // Lấy giá trị của thuộc tính data-des
                                         $.ajax({
                                             url: '{{ route('addActivity') }}',
                                             type: 'GET',
@@ -2971,16 +2971,16 @@
     }
 
     function kiemTraFormGiaoHang(event) {
-        event.preventDefault();
-
         var rows = document.querySelectorAll('tr');
         var numberValue = $('input[name="code_delivery"]').val();
         var hasProducts = false;
-        var ajaxPromises = []; // Mảng lưu trữ các promise từ AJAX requests
+        var ajaxSuccess = false;
         var previousProductNames = [];
 
         function normalizeProductName(name) {
+            // Chuyển tất cả các ký tự thành chữ thường
             var lowercaseName = name.toLowerCase();
+            // Loại bỏ các dấu
             var normalized = lowercaseName.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             return normalized;
         }
@@ -2988,74 +2988,55 @@
         $.ajax({
             url: '{{ route('checkCodeDelivery') }}',
             type: 'GET',
-            async: false,
+            async: false, // Chuyển thành đồng bộ
             data: {
                 numberValue: numberValue
             },
             success: function(data) {
                 if (!data.success) {
                     showNotification('warning', 'Mã giao hàng đã tồn tại!');
+                } else {
+                    ajaxSuccess = true;
                 }
             }
         });
+
+        if (!ajaxSuccess) {
+            return false;
+        }
 
         for (var i = 1; i < rows.length; i++) {
             if (rows[i].classList.contains('addProduct')) {
                 var productNameInput = rows[i].querySelector('.product_name');
                 var productName = productNameInput.value;
+
                 var normalizedProductName = normalizeProductName(productName);
 
                 if (previousProductNames.includes(normalizedProductName)) {
                     showNotification('warning', 'Tên sản phẩm bị trùng: ' + productName);
                     return false;
                 } else {
+                    // Thêm tên sản phẩm đã chuẩn hóa vào mảng các tên sản phẩm đã xuất hiện trước đó
                     previousProductNames.push(normalizedProductName);
                 }
-
-                var productTaxInput = rows[i].querySelector('.product_tax');
-                var productTaxFromInput = productTaxInput.value;
-
-                // Thêm yêu cầu AJAX vào mảng ajaxPromises
-                ajaxPromises.push($.ajax({
-                    url: "{{ route('checkProductExist') }}",
-                    type: "GET",
-                    data: {
-                        productName: productName,
-                    },
-                }));
-
                 hasProducts = true;
             }
         }
 
-        // Xử lý tất cả các promise từ AJAX requests
-        Promise.all(ajaxPromises).then(function(responses) {
-            responses.forEach(function(data, index) {
-                var productName = rows[index + 1].querySelector('.product_name').value;
-                var productTaxFromServer = data.product_tax;
-                var productTaxFromInput = rows[index + 1].querySelector('.product_tax').value;
+        var inputValue = $('.idGuest').val();
 
-                // Kiểm tra xem thuế nhập vào có trùng với thuế từ dữ liệu trả về không
-                if (productTaxFromInput != productTaxFromServer) {
-                    showNotification('warning',
-                        "Lỗi: Thuế nhập vào không trùng khớp với thuế của sản phẩm.");
-                    return false;
-                }
-            });
-
-            // Tiếp tục xử lý các kiểm tra khác và xử lý sự kiện submit nếu cần
-            if ($.trim($('.idGuest').val()) === '') {
-                showNotification('warning', 'Vui lòng chọn số báo giá từ danh sách!');
+        if ($.trim(inputValue) === '') {
+            showNotification('warning', 'Vui lòng chọn số báo giá từ danh sách!');
+            event.preventDefault();
+        } else {
+            // Hiển thị thông báo nếu không có sản phẩm
+            if (!hasProducts) {
+                showNotification('warning', 'Không có sản phẩm để báo giá');
                 event.preventDefault();
             } else {
-                if (!hasProducts) {
-                    showNotification('warning', 'Không có sản phẩm để báo giá');
-                    event.preventDefault();
-                } else {
-                    $('.product_tax').prop('disabled', false);
-                }
+                $('.product_tax').prop('disabled', false);
             }
-        });
+        }
     }
 </script>
 </body>

@@ -13,7 +13,6 @@ class QuoteExport extends Model
     use HasFactory;
     protected $table = 'quoteexport';
     protected $fillable = [
-        'id',
         'detailexport_id',
         'product_code',
         'product_name',
@@ -34,7 +33,6 @@ class QuoteExport extends Model
         'qty_bill_sale',
         'qty_bill_sale',
         'product_delivery',
-        'status',
     ];
     public function getAllQuoteExport()
     {
@@ -92,7 +90,6 @@ class QuoteExport extends Model
                     'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
-                    'status' => 1,
                 ];
                 DB::table($this->table)->insert($dataQuote);
             } else {
@@ -112,7 +109,6 @@ class QuoteExport extends Model
                     'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
-                    'status' => 1,
                 ];
                 DB::table($this->table)->insert($dataQuote);
             }
@@ -120,7 +116,6 @@ class QuoteExport extends Model
     }
     public function updateQuoteExport($data, $id)
     {
-        //status = 1 -> báo giá, status = 2 -> xóa, status = 3 -> sửa
         $quoteExports = QuoteExport::where('detailexport_id', $id)
             ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
             ->get();
@@ -136,6 +131,9 @@ class QuoteExport extends Model
                 }
                 $subtotal = $data['product_qty'][$i] * (float) $price;
                 if ($data['product_id'][$i] == null) {
+                    $checkProduct = Products::where('product_name', $data['product_name'][$i])
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->first();
                     $dataProduct = [
                         'product_code' => $data['product_code'][$i],
                         'product_name' => $data['product_name'][$i],
@@ -146,29 +144,57 @@ class QuoteExport extends Model
                         'product_price_import' => isset($priceImport) ? $priceImport : 0,
                         'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                         'workspace_id' => Auth::user()->current_workspace,
+                        'check_seri' => 1,
                     ];
-                    $product = new Products($dataProduct);
-                    $product->save();
-                    $dataQuote = [
-                        'detailexport_id' => $id,
-                        'product_code' => $data['product_code'][$i],
-                        'product_id' => $product->id,
-                        'product_name' => $data['product_name'][$i],
-                        'product_unit' => $data['product_unit'][$i],
-                        'product_qty' => $data['product_qty'][$i],
-                        'product_tax' => $data['product_tax'][$i],
-                        'product_total' => $subtotal,
-                        'price_export' => $price,
-                        'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
-                        'price_import' => $priceImport,
-                        'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
-                        'workspace_id' => Auth::user()->current_workspace,
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now(),
-                        'status' => 1,
-                    ];
-                    DB::table($this->table)->insert($dataQuote);
-                    $productIdsToUpdate[] = $product->id;
+                    if (!$checkProduct) {
+                        $product = new Products($dataProduct);
+                        $product->save();
+                        $productIdsToUpdate[] = $product->id;
+                        $dataQuote = [
+                            'detailexport_id' => $id,
+                            'product_code' => $data['product_code'][$i],
+                            'product_id' => $product->id,
+                            'product_name' => $data['product_name'][$i],
+                            'product_unit' => $data['product_unit'][$i],
+                            'product_qty' => $data['product_qty'][$i],
+                            'product_tax' => $data['product_tax'][$i],
+                            'product_total' => $subtotal,
+                            'price_export' => $price,
+                            'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
+                            'price_import' => $priceImport,
+                            'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                            'workspace_id' => Auth::user()->current_workspace,
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                            'status' => 1,
+                        ];
+                        DB::table($this->table)->insert($dataQuote);
+                    } else {
+                        $productIdsToUpdate[] = $checkProduct->id;
+                        QuoteExport::where('detailexport_id', $id)
+                            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
+                            ->where('product_id', $checkProduct->id)
+                            ->update(['status' => 2]);
+                        $dataQuote = [
+                            'detailexport_id' => $id,
+                            'product_code' => $data['product_code'][$i],
+                            'product_id' => $checkProduct->id,
+                            'product_name' => $data['product_name'][$i],
+                            'product_unit' => $data['product_unit'][$i],
+                            'product_qty' => $data['product_qty'][$i],
+                            'product_tax' => $data['product_tax'][$i],
+                            'product_total' => $subtotal,
+                            'price_export' => $price,
+                            'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
+                            'price_import' => $priceImport,
+                            'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                            'workspace_id' => Auth::user()->current_workspace,
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                            'status' => 1,
+                        ];
+                        DB::table($this->table)->insert($dataQuote);
+                    }
                 } else {
                     $quoteExport = QuoteExport::where('detailexport_id', $id)
                         ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
@@ -272,25 +298,9 @@ class QuoteExport extends Model
     {
         $products = DB::table('quoteexport')
             ->whereIn('product_id', $id)
-            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
-            ->where('products.workspace_id', Auth::user()->current_workspace)
             ->join('products', 'quoteexport.product_id', '=', 'products.id')
             ->select('products.*', 'quoteexport.*', 'quoteexport.product_qty')
             ->get();
         return $products;
-    }
-    public function history($id)
-    {
-        $quoteExport = QuoteExport::where('detailexport.id', $id)
-            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-            ->where(function ($query) {
-                $query->where('quoteexport.product_delivery', null)
-                    ->orWhere('quoteexport.product_delivery', 0);
-            })
-            ->orderBy('quoteexport.created_at', 'desc')
-            ->select('*', 'quoteexport.created_at as ngayChinhSua')
-            ->get();
-        return $quoteExport;
     }
 }
