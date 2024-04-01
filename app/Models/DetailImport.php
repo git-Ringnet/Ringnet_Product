@@ -101,7 +101,8 @@ class DetailImport extends Model
             'workspace_id' => Auth::user()->current_workspace,
             'represent_id' => $data['represent_id'],
             'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
-            'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : ""
+            'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : "",
+            'status_debt' => 0
         ];
         $checkQuotation = DetailImport::where('provide_id', $data['provides_id'])
             ->where('quotation_number', $data['quotation_number'])->first();

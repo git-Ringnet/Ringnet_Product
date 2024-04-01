@@ -95,6 +95,7 @@ class Reciept extends Model
         }
         if ($detail->status == 1) {
             $detail->status = 2;
+            $detail->status_debt = 1;
             $detail->save();
 
             // Cập nhật dư nợ nhà cung cấp
@@ -235,14 +236,17 @@ class Reciept extends Model
             }
             if ($checkReceive || $checkReciept || $checkPayment) {
                 $stDetail = 2;
+                $stDebt = 1;
             } else {
                 $stDetail = 1;
+                $stDebt = 0;
             }
             DB::table('detailimport')->where('id', $detail)
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->update([
                     'status_reciept' => $st,
-                    'status' => $stDetail
+                    'status' => $stDetail,
+                    'status_debt' => $stDebt
                 ]);
 
             // Xóa dư nợ nhà cung cấp nếu tình trạng là 1

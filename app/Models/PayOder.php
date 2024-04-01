@@ -71,7 +71,7 @@ class PayOder extends Model
             $prepay = (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0);
 
             // Tính công nợ nhà cung cấp
-            $this->calculateDebt($payment->provide_id, 0, $prepay);
+            $this->calculateDebt($payment->provide_id, 0, $prepay, $payment->detailimport_id);
             // Cập nhật trạng thái thanh toán
             $status = $this->updateStatusDebt($data, $payment->id, 2);
 
@@ -169,13 +169,18 @@ class PayOder extends Model
             $status = $this->updateStatusDebt($data, $payment_id, 1);
             $prepay = isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0;
             // Cập nhật trạng thái đơn hàng
+            // tính dư nợ nhà cung cấp
             if ($detail->status == 1) {
                 $detail->status = 2;
                 $detail->save();
-
-                // tính dư nợ nhà cung cấp
-                $this->calculateDebt($detail->provide_id, $temp, $prepay);
             }
+
+            if ($detail) {
+                $this->calculateDebt($detail->provide_id, $temp, $prepay, $detail->id);
+                $detail->status_debt = 1;
+                $detail->save();
+            }
+
 
             // Cập nhật trạng thái
             $this->updateStatus($detail->id, PayOder::class, 'payment_qty', 'status_pay');
@@ -220,13 +225,36 @@ class PayOder extends Model
     }
 
 
-    public function calculateDebt($provide_id, $temp, $total)
+    public function calculateDebt($provide_id, $temp, $total, $detail_id)
     {
         $provide = DB::table('provides')->where('id', $provide_id)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($provide) {
-            $debt = $provide->provide_debt + $temp - $total;
+            // Kiểm tra tình trạng đơn mua hàng
+            $detail = DetailImport::where('id', $detail_id)->first();
+            if ($detail) {
+                if ($detail->status == 1) {
+                    $debt = $provide->provide_debt + $temp;
+                } else {
+                    if ($detail->status_debt == 0) {
+                        $debt = $provide->provide_debt + $temp - $total;
+                    } else {
+                        $debt = $provide->provide_debt - $total;
+                    }
+                    // $getPayment = PayOder::where('detailimport_id', $detail_id)->first();
+                    // if ($getPayment) {
+                    //     $debt = $provide->provide_debt - $total;
+                    // } else {
+                    //     $debt = $provide->provide_debt + $temp - $total;
+                    // }
+                }
+            }
+            // if ($detail) {
+            //     $debt = $provide->provide_debt + $temp;
+            // } else {
+            //     $debt = $provide->provide_debt - $total;
+            // }
             $dataProvide = [
                 'provide_debt' => $debt,
             ];
@@ -337,7 +365,7 @@ class PayOder extends Model
                     }
                 }
             }
-
+            $prepay = $payment->payment;
             // Xóa lịch sử
             HistoryPaymentOrder::where('payment_id', $payment->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
@@ -366,26 +394,34 @@ class PayOder extends Model
                 ->first();
             if ($checkReceive || $checkReciept || $checkPayment) {
                 $stDetail = 2;
+                $stDebt = 1;
             } else {
                 $stDetail = 1;
+                $stDebt = 0;
             }
 
             DB::table('detailimport')->where('id', $detail)
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->update([
                     'status_pay' => 0,
-                    'status' => $stDetail
+                    'status' => $stDetail,
+                    'status_debt' => $stDebt
                 ]);
 
-
+            $detailImport = DetailImport::where('id', $detail)->first();
             // Xóa dư nợ nhà cung cấp nếu tình trạng là 1  
-            if ($stDetail == 1) {
-                $detailImport = DetailImport::where('id', $detail)->first();
-                if ($detailImport) {
+            if ($detailImport) {
+                if ($stDetail == 1) {
                     $this->updateDebtProvide($detailImport->provide_id, $detailImport->total_tax);
+                } else {
+                    $provide = Provides::where('id', $detailImport->provide_id)->first();
+                    if ($provide || $payment) {
+                        $debt = $provide->provide_debt + $prepay;
+                        $provide->provide_debt = $debt;
+                        $provide->save();
+                    }
                 }
             }
-
 
             $status = true;
         } else {
