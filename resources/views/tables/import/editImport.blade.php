@@ -481,11 +481,8 @@
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                 <input readonly class="text-13-black w-50 border-0 bg-input-guest nameGuest"
-                                    style="flex:2;" id="represent"
-                                    {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}}
-                                  value="{{$import->represent_name}}"
-                                  name="represent_name"
-                                    />
+                                    style="flex:2;" id="represent" {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}}
+                                    value="{{ $import->represent_name }}" name="represent_name" />
                                 <ul id="listRepresent"
                                     class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
                                     style="z-index: 99;">
@@ -634,7 +631,8 @@
                                         @if ($price_effect)
                                             @foreach ($price_effect as $price)
                                                 <li class="p-2 align-items-center text-wrap"
-                                                    style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                    style="border-radius:4px;border-bottom: 1px solid #d6d6d6;"
+                                                    id="{{ $price->id }}">
                                                     <a href="javascript:void(0)" style="flex:2;"
                                                         id="{{ $price->id }}" name="search-price-effect"
                                                         class="search-priceeffect search-price-effect">
@@ -730,7 +728,8 @@
                                         @if ($terms_pay)
                                             @foreach ($terms_pay as $term)
                                                 <li class="p-2 align-items-center text-wrap"
-                                                    style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
+                                                    style="border-radius:4px;border-bottom: 1px solid #d6d6d6;"
+                                                    id="{{ $term->id }}">
                                                     <a href="javascript:void(0)" style="flex:2;"
                                                         id="{{ $term->id }}" name="search-term-pay"
                                                         class="search-termpay search-term-pay">
@@ -1629,6 +1628,8 @@
                                 $('#' + (inputField == "import" ? "listPriceEffect" :
                                     "listTermsPay")).find(
                                     'li#' + data.id + " span").text(data.form_name)
+                                console.log(inputField);
+                                console.log(data);
                                 $('#' + id).closest('div').find('.closeModal')[0].click()
                                 showNotification('success', data.msg)
 
