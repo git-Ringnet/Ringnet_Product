@@ -256,11 +256,11 @@
                             <p>Nếu bạn muốn xoá vĩnh viễn workspace này và tất cả dữ liệu trong đó, bạn có thể thực hiện
                                 việc đó bên dưới</p>
                         </div>
-                        {{-- <div class="input-icon w-75">
+                        <div class="input-icon w-75">
                             <div class="btn-apply float-right">
                                 <button class="btn btn-delete-workspace btn-danger">Xoá workspace</button>
                             </div>
-                        </div> --}}
+                        </div>
                     </form>
                 </div>
             </section>
