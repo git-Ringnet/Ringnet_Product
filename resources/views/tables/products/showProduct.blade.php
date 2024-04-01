@@ -95,7 +95,7 @@
                     <a class="text-secondary pl-3 active" data-toggle="tab" href="#info">Thông tin</a>
                 </li>
                 <li>
-                    <a class="text-secondary" data-toggle="tab" href="#history">Lịch sử giao dịch</a>
+                    <a class="text-secondary" data-toggle="tab" href="#history">Lịch sử mua hàng</a>
                 </li>
                 <li>
                     <a class="text-secondary pr-3" data-toggle="tab" href="#serialnumber">Serial Number</a>
@@ -388,7 +388,7 @@
                                     </svg>
                                 </th>
                                 <th scope="col" class="text-13 text-nowrap">
-                                    <span>Khách Hàng</span>
+                                    <span>Nhà cung cấp</span>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                         viewBox='0 0 16 16' fill='none'>
                                         <path
@@ -397,7 +397,7 @@
                                     </svg>
                                 </th>
                                 <th scope="col" class="text-13 text-nowrap">
-                                    <span>Số lượng bán</span>
+                                    <span>Số lượng nhập</span>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                         viewBox='0 0 16 16' fill='none'>
                                         <path
@@ -485,8 +485,8 @@
                                         @endif
                                     </td>
                                     <td class="text-13-black">
-                                        @if ($htr->getQuotetion->getProvideName)
-                                            {{ $htr->getQuotetion->getProvideName->provide_name_display }}
+                                        @if ($htr->getQuotetion)
+                                            {{ $htr->getQuotetion->provide_name }}
                                         @endif
                                     </td>
                                     <td class="text-13-black">

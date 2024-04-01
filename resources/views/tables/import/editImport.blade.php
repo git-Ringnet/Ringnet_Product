@@ -1628,8 +1628,6 @@
                                 $('#' + (inputField == "import" ? "listPriceEffect" :
                                     "listTermsPay")).find(
                                     'li#' + data.id + " span").text(data.form_name)
-                                console.log(inputField);
-                                console.log(data);
                                 $('#' + id).closest('div').find('.closeModal')[0].click()
                                 showNotification('success', data.msg)
 
