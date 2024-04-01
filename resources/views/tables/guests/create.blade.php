@@ -313,7 +313,7 @@
 
             // Kiểm tra xem đã tồn tại entry trong danh sách chưa
             if (uniqueNames.has(entry)) {
-                showNotification('warning', 'Người đại diện: ' + name + ' đang bị trùng');
+                showAutoToast('warning', 'Người đại diện: ' + name + ' đang bị trùng');
                 hasError = true;
                 break; // Dừng vòng lặp khi phát hiện lỗi
             }

@@ -1238,7 +1238,7 @@
             },
             success: function(data) {
                 if (!data.success) {
-                    showNotification('warning', 'Số hóa đơn đã tồn tại');
+                    showAutoToast('warning', 'Số hóa đơn đã tồn tại');
                 } else {
                     ajaxSuccess = true;
                 }
@@ -1259,7 +1259,7 @@
         }
 
         if (!hasProducts) {
-            showNotification('warning', 'Không có sản phẩm để tạo hóa đơn');
+            showAutoToast('warning', 'Không có sản phẩm để tạo hóa đơn');
             return false;
         } else {
             return true;

@@ -448,10 +448,10 @@
                                 Khách hàng
                             </span>
                             <span class="mx-1 text-13" style="flex: 2;">
-                                <input type="text" name="guestName" readonly placeholder="Chọn thông tin" <?php if ($detailExport->tinhTrang != 1) {
-                                    echo 'disabled';
-                                } ?>
-                                    value="{{ $detailExport->guest_name_display }}"
+                                <input type="text" name="guestName" readonly placeholder="Chọn thông tin"
+                                    <?php if ($detailExport->tinhTrang != 1) {
+                                        echo 'disabled';
+                                    } ?> value="{{ $detailExport->guest_name_display }}"
                                     class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest" id="myInput"
                                     style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required>
                                 <input type="hidden" class="idGuest" autocomplete="off"
@@ -530,12 +530,12 @@
                                             Người đại diện
                                         </span>
 
-                                        <input readonly class="text-13-black w-50 border-0 bg-input-guest" type="text" name="representName"
-                                            <?php if ($detailExport->tinhTrang != 1) {
+                                        <input readonly class="text-13-black w-50 border-0 bg-input-guest"
+                                            type="text" name="representName" <?php if ($detailExport->tinhTrang != 1) {
                                                 echo 'disabled';
-                                            } ?> placeholder="Chọn thông tin" id="represent_guest"
-                                            style="flex:2;" value="{{ $detailExport->represent_name }}"
-                                            autocomplete="off">
+                                            } ?>
+                                            placeholder="Chọn thông tin" id="represent_guest" style="flex:2;"
+                                            value="{{ $detailExport->represent_name }}" autocomplete="off">
 
                                         <input type="hidden" class="represent_guest_id" autocomplete="off"
                                             value="{{ $detailExport->represent_id }}" name="represent_guest_id">
@@ -1493,7 +1493,7 @@
     $(document).on('click', '#addProject', function(e) {
         var project_name = $('#project_name').val().trim();
         if (!project_name) {
-            showNotification('warning', 'Vui lòng điền thông tin dự án!');
+            showAutoToast('warning', 'Vui lòng điền thông tin dự án!');
         } else {
             $.ajax({
                 url: "{{ route('addProject') }}",
@@ -1507,7 +1507,7 @@
                         $('#ProjectInput').val(data.project_name);
                         $('.idProject').val(data.id);
                         $('.modal [data-dismiss="modal"]').click();
-                        showNotification('success', data.msg);
+                        showAutoToast('success', data.msg);
                         // Nếu thành công, tạo một mục mới
                         var newGuestInfo = data;
                         var guestList = $('#myUL7'); // Danh sách hiện có
@@ -1529,7 +1529,7 @@
                         //clear
                         $('#project_name').val('');
                     } else {
-                        showNotification('warning', data.msg);
+                        showAutoToast('warning', data.msg);
                     }
                 }
             });
@@ -1551,9 +1551,9 @@
                     $(e.target).closest('li').remove();
                     $('#ProjectInput').val('');
                     $('.idProject').val('');
-                    showNotification('success', data.message);
+                    showAutoToast('success', data.message);
                 } else {
-                    showNotification('warning', data.message);
+                    showAutoToast('warning', data.message);
                 }
             }
         });
@@ -1675,7 +1675,7 @@
                         id: id
                     },
                     success: function(data) {
-                        showNotification('success', data.msg);
+                        showAutoToast('success', data.msg);
                         $(".item-" + id).remove();
                         $('#myInput-' + name).val('');
                         $("input[name='idDate[" + name + "]']").val(null);
@@ -1704,11 +1704,11 @@
                         if (item.default_form === 1) {
                             $('#default-id' + item.id).html(
                                 '<i class="fa-solid fa-link-slash"></i>');
-                            showNotification('success', data.msg);
+                            showAutoToast('success', data.msg);
                         } else {
                             $('#default-id' + item.id).html(
                                 '<i class="fa-solid fa-link"></i>');
-                            showNotification('success', data.msg);
+                            showAutoToast('success', data.msg);
                         }
                     });
                 }
@@ -1737,7 +1737,6 @@
                     },
                     success: function(data) {
                         $('#myInput-' + name).val(data.new_date_form.form_desc);
-                        showNotification('success', data.msg);
                         $("input[name='idDate[" + data.new_date_form.form_field + "]']")
                             .val(data.new_date_form
                                 .id);
@@ -1783,7 +1782,7 @@
                         // Thêm mục mới vào danh sách
                         var addButton = $(".addDateForm" + name);
                         $(addButton).append(newListItem);
-                        showNotification('success', data.msg);
+                        showAutoToast('success', data.msg);
                         //clear
                         $('.search-date-form').click(function() {
                             $('.modal').on('hidden.bs.modal', function() {
@@ -1854,7 +1853,7 @@
                         $("#" + name + id).text(data.new_date_form.form_name)
                         $('#myInput-' + name).val(data.new_date_form.form_desc);
 
-                        showNotification('success', data.msg);
+                        showAutoToast('success', data.msg);
                     }
                 });
             }
@@ -2421,7 +2420,7 @@
 
     function delayAndShowNotification(type, message, delayTime) {
         setTimeout(function() {
-            showNotification(type, message);
+            showAutoToast(type, message);
         }, delayTime);
     }
 
@@ -2439,7 +2438,7 @@
         var key = $("input[name='key']").val().trim().trim();
         var represent_guest_name = $('#represent_guest_name').val().trim();
         if (!guest_name_display || !guest_address || !guest_code) {
-            showNotification('warning', 'Vui lòng điền đủ thông tin khách hàng!');
+            showAutoToast('warning', 'Vui lòng điền đủ thông tin khách hàng!');
         } else {
             $('.nameGuest').val(null);
             $('.idGuest').val(null);
@@ -2466,7 +2465,7 @@
                         quotation = getQuotation(data.key, '1');
                         $('input[name="quotation_number"]').val(quotation);
                         $('.nameGuest').val(data.guest_name_display);
-                        showNotification('success', data.msg);
+                        showAutoToast('success', data.msg);
                         $('.idGuest').val(data.id);
                         $('.modal [data-dismiss="modal"]').click();
 
@@ -2560,11 +2559,11 @@
                     } else {
                         if (data.key) {
                             $("input[name='key']").val(data.key)
-                            showNotification('warning', data.msg);
+                            showAutoToast('warning', data.msg);
                             delayAndShowNotification('success', 'Tên viết tắt đã được thay đổi',
                                 1000);
                         } else {
-                            showNotification('warning', data.msg);
+                            showAutoToast('warning', data.msg);
                         }
                     }
                 }
@@ -2623,7 +2622,7 @@
                     if (data.success) {
                         $('input[name="quotation_number"]').val(data.resultNumber);
                         $('.nameGuest').val(data.updated_guest.guest_name_display);
-                        showNotification('success', data.msg);
+                        showAutoToast('success', data.msg);
                         $('.idGuest').val(data.updated_guest.id);
                         $('.modal [data-dismiss="modal"]').click();
                         $('#myUL li[data-id="' + data.updated_guest.id + '"] .text-nav')
@@ -2634,7 +2633,7 @@
                             data.updated_represent.represent_name);
                         $('#represent_guest').val(data.updated_represent.represent_name);
                     } else {
-                        showNotification('warning', data.msg);
+                        showAutoToast('warning', data.msg);
                     }
                 }
             });
@@ -2660,9 +2659,9 @@
                     $('#represent_guest').val('');
                     $('.represent_guest_id').val('');
                     $('#representativeList').empty();
-                    showNotification('success', data.message);
+                    showAutoToast('success', data.message);
                 } else {
-                    showNotification('warning', data.message);
+                    showAutoToast('warning', data.message);
                 }
             }
         });
@@ -2818,10 +2817,10 @@
         var represent_address = $('#represent_address').val().trim();
         var guest_id = $('.idGuest').val();
         if (!guest_id) {
-            showNotification('warning', 'Vui lòng chọn khách hàng trước khi tạo người đại diện!');
+            showAutoToast('warning', 'Vui lòng chọn khách hàng trước khi tạo người đại diện!');
         } else {
             if (!represent_name) {
-                showNotification('warning', 'Vui lòng điền thông tin người đại diện!');
+                showAutoToast('warning', 'Vui lòng điền thông tin người đại diện!');
             } else {
                 $.ajax({
                     url: "{{ route('addRepresentGuest') }}",
@@ -2839,7 +2838,7 @@
                             $('#represent_guest').val(data.represent_name);
                             $('.represent_guest_id').val(data.id);
                             $('.modal [data-dismiss="modal"]').click();
-                            showNotification('success', data.msg);
+                            showAutoToast('success', data.msg);
                             // Nếu thành công, tạo một mục mới
                             var newGuestInfo = data;
                             var guestList = $('#representativeList'); // Danh sách hiện có
@@ -2875,7 +2874,7 @@
                             $('#represent_phone').val('');
                             $('#represent_address').val('');
                         } else {
-                            showNotification('warning', data.msg);
+                            showAutoToast('warning', data.msg);
                         }
                     }
                 });
@@ -2898,9 +2897,9 @@
                     $(e.target).closest('li').remove();
                     $('#represent_guest').val('');
                     $('.represent_guest_id').val('');
-                    showNotification('success', data.message);
+                    showAutoToast('success', data.message);
                 } else if (data.success == false) {
-                    showNotification('warning', data.message);
+                    showAutoToast('warning', data.message);
                 }
             }
         });
@@ -2935,7 +2934,7 @@
             var represent_phone = $('#represent_phone').val().trim();
             var represent_address = $('#represent_address').val().trim();
             if (!represent_name) {
-                showNotification('warning', 'Vui lòng điền thông tin người đại diện!');
+                showAutoToast('warning', 'Vui lòng điền thông tin người đại diện!');
             } else {
                 $.ajax({
                     url: '{{ route('updateRepresent') }}',
@@ -2958,9 +2957,9 @@
                             $('#represent_guest').val(data.representGuest.represent_name);
                             $('.represent_guest_id').val(data.representGuest.id);
                             $('.modal [data-dismiss="modal"]').click();
-                            showNotification('success', data.msg);
+                            showAutoToast('success', data.msg);
                         } else {
-                            showNotification('warning', data.msg);
+                            showAutoToast('warning', data.msg);
                         }
                     }
                 });
@@ -2984,9 +2983,9 @@
                 if (data.success) {
                     $('#represent_guest').val(data.representGuest.represent_name);
                     $('.represent_guest_id').val(data.representGuest.id);
-                    showNotification('success', 'Chọn mặc định người đại diện thành công!');
+                    showAutoToast('success', 'Chọn mặc định người đại diện thành công!');
                 } else {
-                    showNotification('warning', 'Không tìm thấy người đại diện');
+                    showAutoToast('warning', 'Không tìm thấy người đại diện');
                 }
             }
         });
@@ -3258,7 +3257,7 @@
                     var productTaxFromServer = response.product_tax;
                     // Kiểm tra xem thuế nhập vào có trùng với thuế từ dữ liệu trả về không
                     if (productTaxFromInput != productTaxFromServer) {
-                        showNotification('warning',
+                        showAutoToast('warning',
                             "Thuế nhập vào không trùng khớp với thuế của sản phẩm, thuế của sản phẩm " +
                             productName + " là: " + (productTaxFromServer == 99 ? "NOVAT" :
                                 productTaxFromServer + "%"));
@@ -3292,7 +3291,7 @@
 
                     // Kiểm tra trùng lặp tên sản phẩm
                     if (previousProductNames.includes(normalizedProductName)) {
-                        showNotification('warning', 'Tên sản phẩm bị trùng: ' + productName);
+                        showAutoToast('warning', 'Tên sản phẩm bị trùng: ' + productName);
                         return;
                     } else {
                         // Thêm tên sản phẩm đã chuẩn hóa vào mảng các tên sản phẩm đã xuất hiện trước đó
@@ -3302,7 +3301,7 @@
                     // Kiểm tra các trường input sản phẩm
                     for (var j = 0; j < inputs.length; j++) {
                         if (inputs[j].value.trim() === '') {
-                            showNotification('warning', 'Vui lòng điền đủ thông tin sản phẩm');
+                            showAutoToast('warning', 'Vui lòng điền đủ thông tin sản phẩm');
                             return; // Dừng ngay khi gặp một trường input thiếu thông tin
                         }
                     }
@@ -3316,10 +3315,10 @@
             var shouldSubmit = true;
 
             if ($.trim(inputValue) === '') {
-                showNotification('warning', 'Vui lòng chọn khách hàng từ danh sách hoặc thêm mới khách hàng!');
+                showAutoToast('warning', 'Vui lòng chọn khách hàng từ danh sách hoặc thêm mới khách hàng!');
                 shouldSubmit = false;
             } else if (!hasProducts) {
-                showNotification('warning', 'Không có sản phẩm để báo giá');
+                showAutoToast('warning', 'Không có sản phẩm để báo giá');
                 shouldSubmit = false;
             }
 
@@ -3337,7 +3336,7 @@
                     },
                     success: function(data) {
                         if (!data['status']) {
-                            showNotification('warning', 'Số báo giá đã tồn tại');
+                            showAutoToast('warning', 'Số báo giá đã tồn tại');
                         } else {
                             // Nếu số báo giá không tồn tại, thực hiện submit form
                             $('form')[0].submit();

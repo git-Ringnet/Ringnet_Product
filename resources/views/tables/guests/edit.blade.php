@@ -513,10 +513,10 @@
                 if (data.success) {
                     $(this).closest("tr").remove();
                     fieldCounter--;
-                    showNotification('success', data.message);
+                    showAutoToast('success', data.message);
                     window.location.reload();
                 } else if (data.success == false) {
-                    showNotification('warning', data.message);
+                    showAutoToast('warning', data.message);
                 }
             }
         });
@@ -540,7 +540,7 @@
 
             // Kiểm tra xem đã tồn tại entry trong danh sách chưa
             if (uniqueNames.has(entry)) {
-                showNotification('warning', 'Người đại diện: ' + name + ' đang bị trùng');
+                showAutoToast('warning', 'Người đại diện: ' + name + ' đang bị trùng');
                 hasError = true;
                 break; // Dừng vòng lặp khi phát hiện lỗi
             }

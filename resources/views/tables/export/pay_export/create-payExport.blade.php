@@ -1637,7 +1637,7 @@
             },
             success: function(data) {
                 if (!data.success) {
-                    showNotification('warning', 'Mã thanh toán đã tồn tại!');
+                    showAutoToast('warning', 'Mã thanh toán đã tồn tại!');
                 } else {
                     ajaxSuccess = true;
                 }

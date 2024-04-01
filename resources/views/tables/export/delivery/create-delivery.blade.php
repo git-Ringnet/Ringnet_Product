@@ -1221,7 +1221,7 @@
                                                                 if (checkedCheckboxes <
                                                                     qty_enter
                                                                 ) {
-                                                                    showNotification
+                                                                    showAutoToast
                                                                         ('warning',
                                                                             'Vui lòng chọn đủ serial number theo số lượng xuất!'
                                                                         );
@@ -2790,7 +2790,7 @@
                                                                 if (checkedCheckboxes <
                                                                     qty_enter
                                                                 ) {
-                                                                    showNotification
+                                                                    showAutoToast
                                                                         ('warning',
                                                                             'Vui lòng chọn đủ serial number theo số lượng xuất!'
                                                                         );
@@ -2994,7 +2994,7 @@
             },
             success: function(data) {
                 if (!data.success) {
-                    showNotification('warning', 'Mã giao hàng đã tồn tại!');
+                    showAutoToast('warning', 'Mã giao hàng đã tồn tại!');
                 } else {
                     ajaxSuccess = true;
                 }
@@ -3013,7 +3013,7 @@
                 var normalizedProductName = normalizeProductName(productName);
 
                 if (previousProductNames.includes(normalizedProductName)) {
-                    showNotification('warning', 'Tên sản phẩm bị trùng: ' + productName);
+                    showAutoToast('warning', 'Tên sản phẩm bị trùng: ' + productName);
                     return false;
                 } else {
                     // Thêm tên sản phẩm đã chuẩn hóa vào mảng các tên sản phẩm đã xuất hiện trước đó
@@ -3026,12 +3026,12 @@
         var inputValue = $('.idGuest').val();
 
         if ($.trim(inputValue) === '') {
-            showNotification('warning', 'Vui lòng chọn số báo giá từ danh sách!');
+            showAutoToast('warning', 'Vui lòng chọn số báo giá từ danh sách!');
             event.preventDefault();
         } else {
             // Hiển thị thông báo nếu không có sản phẩm
             if (!hasProducts) {
-                showNotification('warning', 'Không có sản phẩm để báo giá');
+                showAutoToast('warning', 'Không có sản phẩm để báo giá');
                 event.preventDefault();
             } else {
                 $('.product_tax').prop('disabled', false);

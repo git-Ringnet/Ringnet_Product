@@ -184,3 +184,28 @@ function validateDecimalInput(event, input) {
         event.preventDefault();
     }
 }
+
+function showAutoToast(type, message) {
+    let color;
+    switch (type) {
+        case "success":
+            color = "#09BD3C"; // Màu xanh lá cây cho thông báo thành công
+            break;
+        case "warning":
+            color = "#FF9500"; // Màu cam cho thông báo cảnh báo
+            break;
+        default:
+            color = "#343a40"; // Màu mặc định
+    }
+
+    Toastify({
+        text: message, // Nội dung thông báo
+        duration: 3000, // Thời gian hiển thị (ms)
+        close: true, // Cho phép đóng thông báo
+        gravity: "top", // Vị trí hiển thị (top, bottom, left, right)
+        position: "center",
+        style: {
+            background: color // Màu nền
+        }
+    }).showToast(); // Hiển thị thông báo toast
+}
