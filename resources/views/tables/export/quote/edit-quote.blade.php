@@ -3242,7 +3242,7 @@
         }
 
         // Hàm không đồng bộ để kiểm tra từng sản phẩm
-        async function checkProduct(productName, productTaxFromInput) {
+        async function checkProduct(productName, productTaxFromInput, productTaxInput) {
             try {
                 const response = await $.ajax({
                     url: "{{ route('checkProductExist') }}",
@@ -3261,6 +3261,18 @@
                             "Thuế nhập vào không trùng khớp với thuế của sản phẩm, thuế của sản phẩm " +
                             productName + " là: " + (productTaxFromServer == 99 ? "NOVAT" :
                                 productTaxFromServer + "%"));
+
+                        // Cập nhật giá trị của select với giá trị từ server
+                        $(productTaxInput).val(productTaxFromServer);
+
+                        // Kích hoạt sự kiện change để tính lại tổng số tiền và tổng thuế
+                        $(productTaxInput).trigger('change');
+
+                        setTimeout(function() {
+                            // Hiển thị thông báo đã cập nhật lại thuế cho sản phẩm
+                            showAutoToast('success', 'Đã cập nhật lại thuế cho sản phẩm: ' + productName);
+                        }, 500);
+
                         return false; // Trả về false nếu có lỗi
                     }
                 }
@@ -3284,7 +3296,7 @@
                     var productTaxFromInput = productTaxInput.value;
 
                     // Kiểm tra sản phẩm và thuế
-                    var isValidProduct = await checkProduct(productName, productTaxFromInput);
+                    var isValidProduct = await checkProduct(productName, productTaxFromInput, productTaxInput);
                     if (!isValidProduct) {
                         return; // Dừng nếu có lỗi
                     }
@@ -3324,8 +3336,8 @@
 
             // Kiểm tra số báo giá tồn tại bằng Ajax
             if (hasProducts && shouldSubmit) {
-                var quotetion_number = $('input[name="quotation_number"]').val();
                 var detailexport_id = $('input[name="detailexport_id"]').val();
+                var quotetion_number = $('input[name="quotation_number"]').val();
                 $('.product_tax').prop('disabled', false);
                 $.ajax({
                     url: "{{ route('checkQuotetionExportEdit') }}",
@@ -3341,7 +3353,6 @@
                             // Nếu số báo giá không tồn tại, thực hiện submit form
                             $('form')[0].submit();
                         }
-
                     }
                 });
             }
