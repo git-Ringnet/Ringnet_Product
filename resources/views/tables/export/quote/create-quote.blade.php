@@ -3,7 +3,7 @@
 <form action="{{ route('detailExport.store', ['workspace' => $workspacename]) }}" method="POST">
     @csrf
     <div class="content-wrapper--2Column m-0 min-height--none">
-        <div class="content-header-fixed p-0 margin-250">
+        <div class="content-header-fixed p-0 margin-250 border-bottom-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Bán hàng</span>
@@ -529,12 +529,12 @@
         <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
-                    <div class="bg-filter-search border-0 text-center border-custom">
+                    <div class="bg-filter-search border-0 text-center">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH HÀNG
                         </p>
                     </div>
-                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:44px;" style="height:44px;">
+                    <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
+                        style="height:44px;">
                         <span class="text-13 btn-click" style="flex: 1.5;"> Khách hàng </span>
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin" name="guestName"
