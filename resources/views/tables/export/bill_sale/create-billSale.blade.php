@@ -592,8 +592,8 @@
                                                         class="border-0 py-1 w-100" name="product_note[]">
                                             </td>
                                             <td class="border-right p-2 text-13 align-top deleteProduct" data-name1="HDBH" data-des="Xóa sản phẩm">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5454 5C10.2442 5 9.99999 5.24421 9.99999 5.54545C9.99999 5.8467 10.2442 6.09091 10.5454 6.09091H13.4545C13.7558 6.09091 14 5.8467 14 5.54545C14 5.24421 13.7558 5 13.4545 5H10.5454ZM6 7.72726C6 7.42601 6.24421 7.18181 6.54545 7.18181H7.63637H16.3636H17.4545C17.7558 7.18181 18 7.42601 18 7.72726C18 8.02851 17.7558 8.27272 17.4545 8.27272H16.9091V17C16.9091 18.2113 15.9118 19.1818 14.7135 19.1818H9.25891C8.97278 19.1816 8.68906 19.1247 8.42499 19.0145C8.16092 18.9044 7.92126 18.7431 7.71979 18.5399C7.51833 18.3367 7.35905 18.0957 7.25112 17.8307C7.14347 17.5664 7.08903 17.2834 7.09091 16.9981V8.27272H6.54545C6.24421 8.27272 6 8.02851 6 7.72726ZM8.18182 17.0041V8.27272H15.8182V17C15.8182 17.5966 15.3216 18.0909 14.7135 18.0909H9.25938C9.11713 18.0908 8.97632 18.0625 8.84503 18.0077C8.71375 17.953 8.5946 17.8728 8.49444 17.7718C8.39429 17.6707 8.3151 17.5509 8.26144 17.4192C8.20779 17.2874 8.18074 17.1464 8.18182 17.0041ZM13.4545 10.0909C13.7558 10.0909 14 10.3351 14 10.6364V15.7273C14 16.0285 13.7558 16.2727 13.4545 16.2727C13.1533 16.2727 12.9091 16.0285 12.9091 15.7273V10.6364C12.9091 10.3351 13.1533 10.0909 13.4545 10.0909ZM11.0909 10.6364C11.0909 10.3351 10.8467 10.0909 10.5454 10.0909C10.2442 10.0909 9.99999 10.3351 9.99999 10.6364V15.7273C9.99999 16.0285 10.2442 16.2727 10.5454 16.2727C10.8467 16.2727 11.0909 16.0285 11.0909 15.7273V10.6364Z" fill="#42526E"></path>
+                                                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z" fill="#6B6F76"></path>
                                                 </svg>
                                             </td>
                                             <td style="display:none;"><input type="text" class="product_tax1" value="${tax}"></td>
@@ -619,117 +619,118 @@
                                         }
                                     });
                                 //Xem giao dịch gần đây
-                                $('.recentModal').off('click').click(function() {
-                                    var idProduct = $(this)
-                                        .closest('tr').find(
-                                            '.product_id')
-                                        .val();
-                                    $.ajax({
-                                        url: '{{ route('getRecentTransaction') }}',
-                                        type: 'GET',
-                                        data: {
-                                            idProduct: idProduct
-                                        },
-                                        success: function(
-                                            data) {
-                                            if (Array
-                                                .isArray(
+                                $('.recentModal').off('click').click(
+                                    function() {
+                                        var idProduct = $(this)
+                                            .closest('tr').find(
+                                                '.product_id')
+                                            .val();
+                                        $.ajax({
+                                            url: '{{ route('getRecentTransaction') }}',
+                                            type: 'GET',
+                                            data: {
+                                                idProduct: idProduct
+                                            },
+                                            success: function(
+                                                data) {
+                                                if (Array
+                                                    .isArray(
+                                                        data
+                                                    ) &&
                                                     data
-                                                ) &&
-                                                data
-                                                .length >
-                                                0) {
-                                                $('#recentModal .modal-body tbody')
-                                                    .empty();
-                                                data.forEach(
-                                                    function(
-                                                        productData
-                                                    ) {
-                                                        var newRow =
-                                                            $(
-                                                                '<tr class="position-relative">' +
-                                                                '<td class="text-13-black" id="productName"></td>' +
-                                                                '<td class="text-13-black" id="productPrice"></td>' +
-                                                                '<td class="text-13-black" id="productTax"></td>' +
-                                                                '<td class="text-13-black" id="dateProduct"></td>' +
-                                                                '</tr>'
-                                                            );
-                                                        newRow
-                                                            .find(
-                                                                '#productName'
-                                                            )
-                                                            .text(
-                                                                productData
-                                                                .product_name
-                                                            );
-                                                        newRow
-                                                            .find(
-                                                                '#productPrice'
-                                                            )
-                                                            .text(
-                                                                formatCurrency(
-                                                                    productData
-                                                                    .price_export
+                                                    .length >
+                                                    0) {
+                                                    $('#recentModal .modal-body tbody')
+                                                        .empty();
+                                                    data.forEach(
+                                                        function(
+                                                            productData
+                                                        ) {
+                                                            var newRow =
+                                                                $(
+                                                                    '<tr class="position-relative">' +
+                                                                    '<td class="text-13-black" id="productName"></td>' +
+                                                                    '<td class="text-13-black" id="productPrice"></td>' +
+                                                                    '<td class="text-13-black" id="productTax"></td>' +
+                                                                    '<td class="text-13-black" id="dateProduct"></td>' +
+                                                                    '</tr>'
+                                                                );
+                                                            newRow
+                                                                .find(
+                                                                    '#productName'
                                                                 )
-                                                            );
-                                                        newRow
-                                                            .find(
-                                                                '#productTax'
-                                                            )
-                                                            .text(
-                                                                productData
-                                                                .product_tax ==
-                                                                99 ?
-                                                                'NOVAT' :
-                                                                productData
-                                                                .product_tax +
-                                                                '%'
-                                                            );
-                                                        var formattedDate =
-                                                            new Date(
-                                                                productData
-                                                                .created_at
-                                                            )
-                                                            .toLocaleDateString(
-                                                                'vi-VN'
-                                                            );
-                                                        newRow
-                                                            .find(
-                                                                '#dateProduct'
-                                                            )
-                                                            .text(
-                                                                formattedDate
-                                                            );
-                                                        newRow
-                                                            .appendTo(
-                                                                '#recentModal .modal-body tbody'
-                                                            );
-                                                    }
-                                                );
-                                            } else {
-                                                $('#recentModal .modal-body tbody')
-                                                    .empty();
+                                                                .text(
+                                                                    productData
+                                                                    .product_name
+                                                                );
+                                                            newRow
+                                                                .find(
+                                                                    '#productPrice'
+                                                                )
+                                                                .text(
+                                                                    formatCurrency(
+                                                                        productData
+                                                                        .price_export
+                                                                    )
+                                                                );
+                                                            newRow
+                                                                .find(
+                                                                    '#productTax'
+                                                                )
+                                                                .text(
+                                                                    productData
+                                                                    .product_tax ==
+                                                                    99 ?
+                                                                    'NOVAT' :
+                                                                    productData
+                                                                    .product_tax +
+                                                                    '%'
+                                                                );
+                                                            var formattedDate =
+                                                                new Date(
+                                                                    productData
+                                                                    .created_at
+                                                                )
+                                                                .toLocaleDateString(
+                                                                    'vi-VN'
+                                                                );
+                                                            newRow
+                                                                .find(
+                                                                    '#dateProduct'
+                                                                )
+                                                                .text(
+                                                                    formattedDate
+                                                                );
+                                                            newRow
+                                                                .appendTo(
+                                                                    '#recentModal .modal-body tbody'
+                                                                );
+                                                        }
+                                                    );
+                                                } else {
+                                                    $('#recentModal .modal-body tbody')
+                                                        .empty();
+                                                }
                                             }
-                                        }
-                                    });
-                                    //
-                                    var name = $(this).data(
-                                        'name1'
-                                    ); // Lấy giá trị của thuộc tính data-name1
-                                    var des = $(this).data(
-                                        'des'
+                                        });
+                                        //
+                                        var name = $(this).data(
+                                            'name1'
+                                        ); // Lấy giá trị của thuộc tính data-name1
+                                        var des = $(this).data(
+                                            'des'
                                         ); // Lấy giá trị của thuộc tính data-des
-                                    $.ajax({
-                                        url: '{{ route('addActivity') }}',
-                                        type: 'GET',
-                                        data: {
-                                            name: name,
-                                            des: des,
-                                        },
-                                        success: function(
-                                            data) {}
+                                        $.ajax({
+                                            url: '{{ route('addActivity') }}',
+                                            type: 'GET',
+                                            data: {
+                                                name: name,
+                                                des: des,
+                                            },
+                                            success: function(
+                                                data) {}
+                                        });
                                     });
-                                });
                                 //kéo thả vị trí sản phẩm
                                 // $("table tbody").sortable({
                                 //     axis: "y",
@@ -760,7 +761,7 @@
                                         ); // Lấy giá trị của thuộc tính data-name1
                                         var des = $(this).data(
                                             'des'
-                                            ); // Lấy giá trị của thuộc tính data-des
+                                        ); // Lấy giá trị của thuộc tính data-des
                                         $.ajax({
                                             url: '{{ route('addActivity') }}',
                                             type: 'GET',

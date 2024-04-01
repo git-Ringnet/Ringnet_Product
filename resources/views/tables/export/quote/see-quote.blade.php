@@ -366,9 +366,9 @@
                 <div class="container-fluided">
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active ">
-                            <div id="title--fixed" class="content-title--fixed top-109 ">
+                            <div id="title--fixed" class="content-title--fixed top-109">
                                 <p
-                                    class="font-weight-bold text-uppercase info-chung--heading text-center  border-custom">
+                                    class="font-weight-bold text-uppercase info-chung--heading text-center border-custom">
                                     THÔNG TIN SẢN PHẨM
                                 </p>
                             </div>

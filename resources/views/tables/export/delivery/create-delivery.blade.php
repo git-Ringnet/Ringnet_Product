@@ -7,7 +7,7 @@
         value="@isset($yes) {{ $data['detailexport_id'] }} @endisset">
     <div id="selectedSerialNumbersContainer"></div>
     <div class="content-wrapper--2Column m-0">
-        <div class="content-header-fixed p-0 margin-250">
+        <div class="content-header-fixed p-0 margin-250 border-bottom-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Bán hàng</span>
@@ -106,7 +106,7 @@
         <div class="content margin-top-38" id="main">
             <section class="content margin-250">
                 <div id="title--fixed"
-                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
+                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom border-right-0">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
                 <div class="container-fluided margin-top-72">
@@ -384,11 +384,11 @@
         <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
-                    <div class="bg-filter-search border-0 text-center border-custom">
+                    <div class="bg-filter-search border-0 text-center">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH HÀNG
                         </p>
                     </div>
-                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
+                    <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
                         style="height:44px;" style="height:44px;">
                         <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
 

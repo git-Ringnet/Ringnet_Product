@@ -44,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-filter-search pl-4">
+        <div class="bg-filter-search pl-4 border-bottom-0">
             <div class="content-wrapper1 py-2">
                 <div class="row m-auto filter p-0">
                     <div class="w-100">

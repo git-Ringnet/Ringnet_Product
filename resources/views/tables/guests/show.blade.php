@@ -80,7 +80,7 @@
             </div>
         </div>
         <section class="content-header--options p-0">
-            <ul class="header-options--nav width-23 nav nav-tabs margin-left32">
+            <ul class="header-options--nav nav nav-tabs margin-left32" style="width: 260px;">
                 <li>
                     <a class="text-secondary active m-0 pl-3 activity" data-name1="KH"
                         data-des="Xem thông tin khách hàng" data-toggle="tab" href="#info">Thông tin</a>
@@ -215,7 +215,7 @@
                                             <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
                                                 style="width: 20%;">Tổng số tiền đã bán</th>
                                             <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
-                                                style="width: 20%;">Tổng số tiền đã thanh toán</th>
+                                                style="width: 20%;">Tổng số tiền thanh toán</th>
                                             <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
                                                 style="width: 20%;">Dư nợ</th>
                                         </tr>

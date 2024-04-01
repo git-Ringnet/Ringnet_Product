@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-filter-search pl-4 border-bottom-0 border-custom">
+        <div class="bg-filter-search pl-4 border-bottom-0">
             <div class="content-wrapper1 py-2">
                 <div class="row m-auto filter p-0">
                     <div class="w-100">
@@ -209,7 +209,7 @@
                                                 {{ number_format($item->sumDebt) }}
                                             </td>
                                             <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
-                                                style="right: 10px; top: 3px;">
+                                                style="right: 10px; top: 10px;">
                                                 <div class="d-flex w-100">
                                                     <a class="activity" data-name1="KH" data-des="Xem thông tin khách hàng"
                                                         href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">

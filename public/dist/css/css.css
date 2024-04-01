@@ -810,7 +810,7 @@ td p {
 }
 
 .header-options--nav-1 {
-    width: 250px;
+    width: 240px;
     height: 34px;
     display: flex;
     justify-content: space-between;
@@ -2198,7 +2198,7 @@ input[type="checkbox"] {
 }
 #show_info_Guest {
     opacity: 1;
-    transition: opacity 1s ease;
+    transition: opacity 0.2s ease;
 }
 #show_info_Guest input::placeholder {
     font-size: 14px;
