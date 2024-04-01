@@ -19,24 +19,13 @@ class navbar extends Component
     public $activeName;
     public $activeGroup;
     public $workspacename;
-    public $workspaceNames;
 
-    public function __construct($title = 'Ringnet', $activeName = 'activeName', $activeGroup = 'activeGroup', $workspacename = 'worksapcename', $workspaceNames = null)
+    public function __construct($title = 'Ringnet', $activeName = 'activeName', $activeGroup = 'activeGroup', $workspacename = 'worksapcename')
     {
         // If you are not logged in, navigate to the login page
         if (!Auth::check()) {
             return redirect()->route('login');
         }
-        $allWorkSpace = UserWorkspaces::with('workspace')->where('user_id', Auth::user()->id)->get();
-        $workspaceNames = [];
-
-        foreach ($allWorkSpace as $workspace) {
-            $workspaceNames[] = [
-                'id' => $workspace->workspace->id,
-                'workspace_name' => $workspace->workspace->workspace_name
-            ];
-        }
-        $this->workspaceNames = $workspaceNames;
         $this->title = $title;
         $this->activeName = $activeName;
         $this->activeGroup = $activeGroup;
@@ -48,8 +37,18 @@ class navbar extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.navbar', [
-            'workspaceNames' => $this->workspaceNames,
-        ]);
+        $allWorkSpace = UserWorkspaces::with('workspace')->where('user_id', Auth::user()->id)->get();
+        $workspaceNames = [];
+
+        foreach ($allWorkSpace as $workspace) {
+            $workspaceNames[] = [
+                'id' => $workspace->workspace->id,
+                'workspace_name' => $workspace->workspace->workspace_name
+            ];
+        }
+        return view(
+            'components.navbar',
+            compact('workspaceNames')
+        );
     }
 }
