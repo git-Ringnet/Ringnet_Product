@@ -205,7 +205,7 @@ Route::get('/getProductSeriEdit', [ProductController::class, 'getProductSeriEdit
 Route::get('exportDatabase', [ProductController::class, 'exportDatabase'])->name('exportDatabase');
 Route::post('import', [ProductController::class, 'import'])->name('import');
 Route::POST('/importDatabase', [ProductController::class, 'importDatabase'])->name('importDatabase');
-Route::get('/checkProductTax',[ProductController::class,'checkProductTax'])->name('checkProductTax');
+Route::get('/checkProductTax', [ProductController::class, 'checkProductTax'])->name('checkProductTax');
 
 Route::get('/report', function () {
     return view('tables.report.report');
@@ -249,7 +249,14 @@ Route::get('/view', [ReportController::class, 'view'])->name('view');
 
 
 Route::resource('{workspace}/settings', SettingController::class);
+Route::get('{workspace}/overview', [SettingController::class, 'overview'])->name('overview');
+Route::get('{workspace}/user', [SettingController::class, 'viewUser'])->name('viewUser');
+Route::get('{workspace}/viewCompany', [SettingController::class, 'viewCompany'])->name('viewCompany');
+Route::post('/deleteAllTable', [SettingController::class, 'deleteAllTable'])->name('deleteAllTable');
 Route::get('/searchUser', [SettingController::class, 'search'])->name('searchUser');
+Route::get('/searchUser', [SettingController::class, 'search'])->name('searchUser');
+Route::post('/updateUser', [SettingController::class, 'updateUser'])->name('user.update');
+Route::post('/updateWorkspaceName', [SettingController::class, 'updateWorkspaceName'])->name('updateWorkspaceName');
 
 
 // User flow

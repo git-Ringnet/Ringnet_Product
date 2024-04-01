@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invitation;
 use App\Models\Role;
+use App\Models\Setting;
 use App\Models\User;
 use App\Models\UserWorkspaces;
 use Illuminate\Support\Facades\Auth;
@@ -19,16 +20,18 @@ class SettingController extends Controller
     private $users;
     private $roles;
     private $user_workspaces;
+    private $setting;
     public function __construct()
     {
         $this->workspace = new Workspace();
         $this->users = new User();
         $this->roles = new Role();
         $this->user_workspaces = new UserWorkspaces();
+        $this->setting = new Setting();
     }
     public function index()
     {
-        $title = 'Danh sách workspace';
+        $title = 'Thành viên';
 
         $allWorkSpace = UserWorkspaces::with('workspace')->where('user_id', Auth::user()->id)->get();
         $workspaceNames = [];
@@ -51,6 +54,59 @@ class SettingController extends Controller
 
         $invitation = Invitation::where('workspace_id', Auth::user()->current_workspace)->first();
         return view('settingview.members.index', compact('title', 'workspaceNames', 'issetworkspace', 'invitation', 'user_workspaces', 'roles'));
+    }
+
+    public function overview()
+    {
+        $title = 'Tổng quan';
+
+        $workspace_name = $this->workspace->where('id', Auth::user()->current_workspace)->select('workspace_name')->first();
+        $workspace_name = $workspace_name->workspace_name;
+
+        return view('settingview.overview.index', compact('title', 'workspace_name'));
+    }
+    public function viewUser()
+    {
+        $title = 'Thông tin cá nhân';
+        $user_info = Auth::user();
+        return view('settingview.user.index', compact('title', 'user_info'));
+    }
+    public function viewCompany()
+    {
+        $title = 'Thông tin doanh nghiệp';
+        $workspace_name = $this->workspace->where('id', Auth::user()->current_workspace)->select('workspace_name')->first();
+        $workspace_name = $workspace_name->workspace_name;
+
+        return view('settingview.company.index', compact('title', 'workspace_name'));
+    }
+    // Func call deleteAllTable
+    public function deleteAllTable()
+    {
+        $workspace_id = Auth::user()->current_workspace;
+        $this->setting->deleteAllTable($workspace_id);
+        return redirect()->back()->with('msg', 'Xóa dữ liệu thành công');
+    }
+    // Func ajax update user
+    public function updateUser(Request $request)
+    {
+        $data = $request->all();
+        $id = Auth::user()->id;
+        $user = $this->users->updateUser($id, $data);
+        if ($user) {
+            return redirect()->back()->with('msg', 'Cập nhật thông tin thành công');
+        }
+        return redirect()->back()->with('warning', 'Cập nhật thông tin thất bại');
+    }
+    // Func ajax update workspaceName
+    public function updateWorkspaceName(Request $request)
+    {
+        $data = $request->all();
+        $id = Auth::user()->current_workspace;
+        $workspace = $this->workspace->updateWorkspace($id, $data);
+        if ($workspace) {
+            return redirect()->back()->with('msg', 'Cập nhật thông tin thành công');
+        }
+        return redirect()->back()->with('warning', 'Cập nhật thông tin thất bại');
     }
 
     public function search(Request $request)

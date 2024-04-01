@@ -39,12 +39,11 @@
                             <input class="form-control" type="number" name="phone_number" id="phone_number"
                                 placeholder="Nhập thông tin" style="padding-top: 4px;width:100%;border-radius: 4px;"
                                 inputmode="numeric" required>
+                            <div class="text-noiti text-13-red" style="color: red"></div>
                             <br>
-                            <div class="btn-submit" id="submit-form" style="padding:10px 0px;float:right;">
-                                <button type="submit"
-                                    class="btn btn-primary"style="padding: 6px 8px;border: 1px solid #575BC7;border-radius: 4px;background: #575BC7;color: #fff;font-family: Inter;font-size: 13px;font-weight: 400;">Xác
-                                    nhận</button>
-                            </div>
+                            <button type="submit"
+                                class="btn btn-submit btn-primary"style="margin:5px;float:right;padding: 6px 8px;border: 1px solid #575BC7;border-radius: 4px;background: #575BC7;color: #fff;font-family: Inter;font-size: 13px;font-weight: 400;">Xác
+                                nhận</button>
                         </div>
                     </form>
                 </div>
@@ -61,12 +60,10 @@
                         <br>
                         <input class="form-control" style="padding-top: 4px;width:100%;border-radius: 4px;"
                             type="text" name="workspace_name" required placeholder="Nhập thông tin ...">
-                        <div class="btn-submit" id="submit-form" style="padding:10px 0px;float:right;">
-                            <button
-                                style="padding: 6px 8px;border: 1px solid #575BC7;border-radius: 4px;background: #575BC7;color: #fff;font-family: Inter;font-size: 13px;font-weight: 400;">
-                                Xác nhận
-                            </button>
-                        </div>
+                        <button id="btn-submit" type="submit"
+                            style="margin:5px;float:right;padding: 6px 8px;border: 1px solid #575BC7;border-radius: 4px;background: #575BC7;color: #fff;font-family: Inter;font-size: 13px;font-weight: 400;">
+                            Xác nhận
+                        </button>
                     </form>
                 @endif
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg" style="width: 400px">
@@ -81,8 +78,6 @@
                     <input type="hidden" id="idUser" name="idUser" value="{{ Auth::user()->id }}">
                 </div>
             </div>
-
-
             <br>
             <div class="d-none" style="display: none">
                 @if ($invitation)
@@ -115,7 +110,7 @@
         </div>
     </div>
 
-    <div class="d-none" style="display: none">
+    <div class="d-none" style="display:none">
         <form action="{{ route('import') }}" enctype="multipart/form-data" method="POST" id="restore_data"
             class="btn btn-outline-primary d-flex align-items-center h-100 custom-btn">
             @csrf
@@ -179,55 +174,39 @@
         });
     });
     $(document).ready(function() {
-        $('#toggle2,#toggle1').on('click', function() {
-            var isChecked = $('input[name="toggle_invitation"]').is(':checked');
-            var invi_token = $('input[name="invi_token"]').val();
-            var invi_workspace_id = $('input[name="invi_workspace_id"]').val();
-            // Thực hiện AJAX để gửi thông tin về trạng thái của checkbox
-            $.ajax({
-                url: '{{ route('updateInvitations') }}',
-                type: 'GET',
-                data: {
-                    'isChecked': isChecked,
-                    'invi_token': invi_token,
-                    'invi_workspace_id': invi_workspace_id,
-                },
-                success: function(data) {
-                    console.log(data);
-                    if (isChecked) {
-                        $('.div-url').show();
-                        $('.url_link').val(data.url)
-                        $('.url_link').prop('disabled', false);
-                    } else {
-                        $('.url_link').prop('disabled', true);
-                        $('.div-url').hide();
-
-                    }
-                }
-            });
-        });
-
-        $('#submit-form').on('click', function(event) {
-            event.preventDefault();
-            var name_company = $('input[name="name_company"]').val();
-            var phone_number = $('input[name="phone_number"]').val();
-            // AJAX
-            if (phone_number.trim() !== '') {
-                $.ajax({
-                    url: '{{ route('updateWorkspace') }}',
-                    type: 'GET',
-                    data: {
-                        'name_company': name_company,
-                        'phone_number': phone_number,
-                    },
-                    success: function(data) {
-                        $('.workspace').css('display', 'grid');
-                        $('.info').hide();
-                    }
-                });
-            } else {
+        $('#phone_number').on('input', function() {
+            var phone_number = $('#phone_number').val();
+            if (phone_number.length < 10 || phone_number.length > 11) {
                 $('#phone_number').css('border', '1px solid red');
+                $('.btn-submit').attr('disabled', true);
+                $('.text-noiti').text('Số điện thoại phải từ 10 đến 11 số');
+            } else {
+                $('#phone_number').css('border', '1px solid #DFE1E4');
+                $('.btn-submit').attr('disabled', false);
+                $('.text-noiti').text('');
             }
         });
+    });
+    $('.btn-submit').on('click', function(event) {
+        event.preventDefault();
+        var name_company = $('input[name="name_company"]').val();
+        var phone_number = $('input[name="phone_number"]').val();
+        // AJAX
+        if (phone_number.trim() !== '') {
+            $.ajax({
+                url: '{{ route('updateWorkspace') }}',
+                type: 'GET',
+                data: {
+                    'name_company': name_company,
+                    'phone_number': phone_number,
+                },
+                success: function(data) {
+                    $('.workspace').css('display', 'grid');
+                    $('.info').hide();
+                }
+            });
+        } else {
+            $('#phone_number').css('border', '1px solid red');
+        }
     });
 </script>

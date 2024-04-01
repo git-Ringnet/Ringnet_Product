@@ -16,6 +16,10 @@ return new class extends Migration
         });
         Schema::table('workspaces', function (Blueprint $table) {
             $table->string('name_company')->after('workspace_name')->nullable();
+            $table->string('address_company')->after('workspace_name')->nullable();
+            $table->string('mst')->after('workspace_name')->nullable();
+            $table->string('name_bank')->after('workspace_name')->nullable();
+            $table->string('number_bank')->after('workspace_name')->nullable();
         });
     }
 

@@ -2,6 +2,10 @@
     <?php header('Location: ' . route('login'));
     exit(); ?>
 @endif
+@if (!Auth::user()->current_workspace)
+    <?php header('Location: ' . route('login'));
+    exit(); ?>
+@endif
 @if (Auth::check())
     <!-- Kiểm tra xem người dùng đã đăng nhập chưa -->
     @php
@@ -80,9 +84,70 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
+
+
+
 <body class="hold-transition sidebar-mini layout-fixed">
+    @if (!Auth::user()->phone_number)
+        <div class="modal-backdrop show"></div>
+        <div class="input_phone_number">
+            <label for="">Số điện thoại*</label>
+            <div class="row">
+                <input class="form-control" id="phone_number" name="phone_number" type="number">
+            </div>
+            <div class="row pb-2">
+                <div class="text-noiti text-13-red"></div>
+            </div>
+            <div class="row">
+                <button class="form-control btn-confirm-phonenumber">
+                    Xác nhận
+                </button>
+            </div>
+        </div>
+    @endif
     <a id="live-chat" href="https://zalo.me/g/pcgrpw834" target="_blank"><img
             src="{{ asset('dist/img/Icon_of_Zalo.svg.png') }}" alt=""></a>
+    <div id="dropdown-content" class="dropdown-content position-absolute setting-user-info">
+        @if (Route::has('login'))
+            @auth
+                <div class="email_info border-bottom" style="padding-left:16px;">
+                    {{ Auth::user()->email }}
+                </div>
+                <div class="workspace_user border-bottom">
+                    @if ($workspaceNames)
+                        @foreach ($workspaceNames as $item)
+                            <div class="d-flex align-items-baseline justify-content-between pr-2">
+                                <a class="workspace-link" href="{{ route('welcome', $item['workspace_name']) }}"
+                                    data-id="{{ $item['id'] }}">{{ $item['workspace_name'] }}</a>
+                                <svg class="{{ Auth::user()->current_workspace == $item['id'] ? 'd-block' : 'd-none' }}"
+                                    width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3.93777 11.6924C3.78507 11.6918 3.63434 11.6578 3.49614 11.5928C3.35794 11.5279 3.2356 11.4335 3.13768 11.3163L0.233359 7.82795C0.147155 7.72562 0.0825398 7.60692 0.0433996 7.47897C0.00425936 7.35103 -0.00859695 7.21649 0.00560415 7.08345C0.0198052 6.95041 0.0607702 6.82161 0.126035 6.70481C0.1913 6.58801 0.279515 6.48562 0.385376 6.4038C0.600698 6.23605 0.8726 6.15819 1.14407 6.18653C1.41555 6.21487 1.6655 6.34722 1.84154 6.55581L3.84976 8.95607L9.29836 0.955201C9.45267 0.730273 9.68858 0.57436 9.956 0.520579C10.2234 0.466797 10.5013 0.519384 10.7305 0.66717C10.8474 0.737722 10.9485 0.831645 11.0274 0.943059C11.1064 1.05447 11.1614 1.18098 11.1892 1.31466C11.217 1.44835 11.2169 1.58633 11.1889 1.71997C11.1609 1.85361 11.1057 1.98003 11.0266 2.09133L4.80187 11.2363C4.71247 11.3687 4.59379 11.4786 4.45505 11.5577C4.3163 11.6368 4.1612 11.6829 4.00178 11.6924H3.93777Z"
+                                        fill="#6E79D6" />
+                                </svg>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+                <input type="hidden" id="idUser" name="idUser" value="{{ Auth::user()->id }}">
+                <div class="workspace_setting border-bottom">
+                    @if (Auth::user()->origin_workspace === Auth::user()->current_workspace)
+                        <a href="{{ route('overview', $workspacename) }}">Cài đặt workspace</a>
+                    @endif
+                    <a href="{{ route('settings.index', $workspacename) }}">Mời và quản lý thành viên</a>
+                </div>
+                {{-- <div class="logout_user">
+                    <form class="" method="POST" action="{{ route('logout') }}" x-data>
+                        @csrf
+                        <a class="text-sm text-custom" href="#"
+                            onclick="event.preventDefault(); this.closest('form').submit();">Đăng
+                            xuất</a>
+                    </form>
+                </div> --}}
+            @endauth
+        @endif
+    </div>
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light w-100 d-none">
@@ -226,6 +291,50 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
+                    {{-- Logo --}}
+                    <li class="">
+                        <a href="{{ route('welcome', $workspacename) }}" class="nav-link">
+                            <div class="d-flex align-items-center justify-content-center w-100">
+                                <img src="{{ asset('dist/img/logo_ringnetOC_small.png') }}" alt="">
+                            </div>
+                        </a>
+                    </li>
+                    {{-- Setting account --}}
+                    <li class="d-flex align-baseline setting">
+                        <a href="#" class="nav-link @if (!empty($activeName) && $activeName == 'report') active @endif"
+                            style="">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M11.8218 10.822C12.4663 10.7985 13.0767 10.5269 13.5259 10.0641C13.975 9.6013 14.2281 8.98293 14.2323 8.33803C14.2224 7.70844 13.9629 7.10854 13.5109 6.67017C13.0589 6.23181 12.4514 5.99086 11.8218 6.00028C11.1921 5.99065 10.5843 6.23152 10.1321 6.6699C9.67995 7.10829 9.42039 7.70831 9.41052 8.33803C9.41455 8.98311 9.66766 9.60169 10.117 10.0646C10.5663 10.5274 11.1771 10.7988 11.8218 10.822V10.822Z"
+                                    stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path
+                                    d="M16.75 18V16.5C16.75 15.7044 16.4339 14.9413 15.8713 14.3787C15.3087 13.8161 14.5456 13.5 13.75 13.5H10C9.20435 13.5 8.44129 13.8161 7.87868 14.3787C7.31607 14.9413 7 15.7044 7 16.5V18"
+                                    stroke="#26273B" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <div class="d-flex align-items-center justify-content-between w-100" style="">
+                                <p class="text-nav"
+                                    style="font-family: Inter;font-size: 14px;font-weight: 500;line-height: 24px;text-align: left;pointer-events: none;">
+                                    {{ Auth::user()->name }}</p>
+                            </div>
+                            <div class="cursor position-relative">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
+                                        fill="#26273B" fill-opacity="0.8" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
+                                        fill="#26273B" fill-opacity="0.8" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
+                                        fill="#26273B" fill-opacity="0.8" />
+                                </svg>
+                            </div>
+                        </a>
+                    </li>
                     <li
                         class="nav-item
                          @if (!empty($activeGroup) && $activeGroup == 'products') menu-is-opening menu-open @endif">
@@ -486,7 +595,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('settings.index', $workspacename) }}" class="nav-link">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -517,7 +626,7 @@
                                 <p class="text-nav">Quay lại trang Quản lý workspace</p>
                             </div>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -592,6 +701,40 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
+        // Lắng nghe sự kiện khi phần tử .input_phone_number được hiển thị
+        $('.input_phone_number').on('show.bs.modal', function() {
+            // Thêm lớp .blur-body vào thẻ body khi hiển thị
+            $('body').addClass('blur-body');
+        });
+
+        // Lắng nghe sự kiện click của nút xác nhận
+        $('.input_phone_number button').on('click', function() {
+            // Loại bỏ lớp .blur-body khỏi thẻ body khi nhấp vào nút xác nhận
+            $('body').removeClass('blur-body');
+        });
+
+
+        $('.workspace-link').on('click', function(event) {
+            var workspaceId = $(this).data('id');
+            var idUser = $('#idUser').val();
+            $.ajax({
+                url: '{{ route('updateWorkspaceUser') }}',
+                type: 'GET',
+                data: {
+                    idUser: idUser,
+                    workspaceId: workspaceId,
+                },
+                success: function(data) {}
+            });
+        });
+        $('.setting').click(function() {
+            $('#dropdown-content').toggleClass('show');
+        });
+        $(document).on('click', function(event) {
+            if (!$(event.target).closest('.setting').length) {
+                $('#dropdown-content').removeClass('show');
+            }
+        });
         $(document).ready(function() {
             setTimeout(function() {
                 $('#notification').fadeOut('slow', function() {
@@ -629,4 +772,40 @@
             })
         })
 
+        $(document).ready(function() {
+            $('#phone_number').on('input', function() {
+                var phone_number = $('#phone_number').val();
+                if (phone_number.length < 10 || phone_number.length > 11) {
+                    $('#phone_number').css('border', '1px solid red');
+                    $('.btn-confirm-phonenumber').attr('disabled', true);
+                    $('.text-noiti').text('Số điện thoại không hợp lệ');
+                } else {
+                    $('#phone_number').css('border', '1px solid #DFE1E4');
+                    $('.btn-confirm-phonenumber').attr('disabled', false);
+                    $('.text-noiti').text('');
+                }
+            });
+        });
+        // Click btn-confirm-phonenumber save phone number and fade modal-backdrop show 
+        $(document).on('click', '.btn-confirm-phonenumber', function(e) {
+            var phoneNumber = $('#phone_number').val();
+            // check phone number if not empty perform ajax request else alert message
+            if ($.trim(phoneNumber) == '') {
+
+            } else {
+                $.ajax({
+                    url: "{{ 'updateWorkspace' }}",
+                    type: "get",
+                    data: {
+                        phone_number: phoneNumber
+                    },
+                    success: function(data) {
+                        $('#phone_number').val('');
+                        $('.input_phone_number').hide();
+                        // remove modal-backdrop
+                        $('.modal-backdrop').remove();
+                    }
+                })
+            }
+        })
     </script>

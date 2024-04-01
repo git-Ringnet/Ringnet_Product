@@ -86,13 +86,19 @@
 
     .url_link,
     #email,
-    .search-input,
-    #roles-option {
+    .search-input {
         height: 30px;
-        padding: 6px 20px 7px 16px;
+        padding: 20px 10px 20px 10px;
         border-radius: 4px;
         border: 1px solid #DFE1E4;
-        font-size: 12px;
+        font-size: 15px;
+    }
+
+    #roles-option {
+        height: 30px;
+        border-radius: 4px;
+        border: 1px solid #DFE1E4;
+        font-size: 15px;
     }
 
     .input-icon {
@@ -118,12 +124,11 @@
     #invite-member,
     .btn-send-invites {
         background: #6E79D6;
-        padding: 4px 8px;
+        padding: 8px 8px;
         gap: 6px;
         box-shadow: 0px 1px 2px 0px #00000017;
         color: #FFFFFF;
-
-        font-size: 13px;
+        font-size: 15px;
         font-weight: 500;
         border-radius: 4px;
         border: 1px solid #DFE1E4;
@@ -156,8 +161,7 @@
     }
 
     .name {
-
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 500;
         color: #282A30;
     }
@@ -165,7 +169,7 @@
     .email,
     .role {
 
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 500;
         color: #6B6F76;
     }
@@ -329,7 +333,6 @@
                                                             d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
                                                             fill="#42526E"></path>
                                                     </svg></span>
-
                                             </button>
                                             <div class="dropdown-menu" style="">
                                                 <div class="delete-user-workspace">

@@ -2347,3 +2347,72 @@ input[type="checkbox"] {
 #live-chat img {
     width: 40px;
 }
+.dropdown-content {
+    display: none;
+    position: fixed;
+    top: 75px;
+    left: 255px;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 10000;
+    border: 1px solid #DFE1E4;
+    border-radius: 7px;
+}
+
+.dropdown-content a {
+    z-index: 10000;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.show {
+    display: block;
+}
+.welcome h1{
+    font-family: Inter;
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 60px;
+    text-align: center;
+}
+.welcome p{
+    font-family: Inter;
+    font-size: 33px;
+    font-weight: 600;
+    line-height: 60px;
+    text-align: center;
+}
+.setting-user-info .email_info,
+.setting-user-info .workspace-link{
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    color: #6B6F76;
+}
+.workspace_setting a,.logout_user a{
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+    color: #282A30;
+}
+.setting-user-info .workspace-link{
+    padding: 5px 16px !important;
+}
+.input_phone_number {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    text-align: center;
+    border-radius: 5px;
+    z-index: 10000;
+}

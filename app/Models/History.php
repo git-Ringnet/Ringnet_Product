@@ -24,7 +24,7 @@ class History extends Model
             ->leftJoin('history_import', 'history_import.id', 'history.history_import')
             ->leftJoin('detailexport', 'history.detailexport_id', 'detailexport.id')
             ->leftJoin('bill_sale', 'bill_sale.detailexport_id', 'history.detailexport_id')
-            ->leftJoin('reciept', 'reciept.detailimport_id', 'history.detailimport_id')
+            // ->leftJoin('reciept', 'reciept.detailimport_id', 'history.detailimport_id')
             ->leftJoin('provides', 'provides.id', 'history.provide_id')
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->where('delivery.status', 2)
@@ -39,12 +39,13 @@ class History extends Model
                 'history_import.price_export as gianhap',
                 'detailexport.*',
                 'bill_sale.number_bill as hdra',
-                'reciept.number_bill as hdvao',
+                // 'reciept.number_bill as hdvao',
                 'guest.guest_name_display as tenKhach',
                 'provides.provide_name_display as tenNCC',
                 'history.*',
+                'history.id',
                 DB::raw('delivered.deliver_qty * delivered.price_export AS tongban'),
-            )->get();
+            )->distinct()->get();
         // dd($history);
         return $history;
     }
