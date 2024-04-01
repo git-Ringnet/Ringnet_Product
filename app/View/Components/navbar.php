@@ -46,9 +46,11 @@ class navbar extends Component
                 'workspace_name' => $workspace->workspace->workspace_name
             ];
         }
+        $fuk = 'dasukjhdiukhas';
+
         return view(
             'components.navbar',
-            compact('workspaceNames')
+            compact('workspaceNames', 'fuk')
         );
     }
 }

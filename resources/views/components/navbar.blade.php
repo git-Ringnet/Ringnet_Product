@@ -114,6 +114,7 @@
                     {{ Auth::user()->email }}
                 </div>
                 <div class="workspace_user border-bottom">
+                    {{ $fuk }}
                     @isset($workspaceNames)
                         @foreach ($workspaceNames as $item)
                             <div class="d-flex align-items-baseline justify-content-between pr-2">
