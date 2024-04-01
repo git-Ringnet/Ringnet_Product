@@ -998,7 +998,9 @@
         }
     });
 
-    getKeyProvide($('#myInput'));
+    getKeyProvide($('#getKeyProvide'));
+    getKeyProvide($('#getKeyProvide1'));
+
     $('#addRowTable').off('click').on('click', function() {
         addRowTable(1);
     })

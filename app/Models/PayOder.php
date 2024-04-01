@@ -83,11 +83,15 @@ class PayOder extends Model
         return $result;
     }
 
-    public function updateDebtProvide($provide_id, $total)
+    public function updateDebtProvide($provide_id, $total, $stDebt, $prepay)
     {
         $provide = Provides::where('id', $provide_id)->first();
         if ($provide) {
-            $debt = $provide->provide_debt - $total;
+            if ($stDebt == 1) {
+                $debt = $provide->provide_debt - $total;
+            } else {
+                $debt = $provide->provide_debt + $prepay - $total;
+            }
 
             DB::table('provides')->where('id', $provide->id)->update(
                 ['provide_debt' => $debt]
@@ -399,7 +403,7 @@ class PayOder extends Model
                 $stDetail = 1;
                 $stDebt = 0;
             }
-
+            $detailImport = DetailImport::where('id', $detail)->first();
             DB::table('detailimport')->where('id', $detail)
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->update([
@@ -408,14 +412,14 @@ class PayOder extends Model
                     'status_debt' => $stDebt
                 ]);
 
-            $detailImport = DetailImport::where('id', $detail)->first();
             // Xóa dư nợ nhà cung cấp nếu tình trạng là 1  
             if ($detailImport) {
                 if ($stDetail == 1) {
-                    $this->updateDebtProvide($detailImport->provide_id, $detailImport->total_tax);
+                    $stDebt == $detailImport->status_debt ? $status_debt = 1 : $status_debt = 2;
+                    $this->updateDebtProvide($detailImport->provide_id, $detailImport->total_tax, $status_debt, $prepay);
                 } else {
                     $provide = Provides::where('id', $detailImport->provide_id)->first();
-                    if ($provide || $payment) {
+                    if ($provide) {
                         $debt = $provide->provide_debt + $prepay;
                         $provide->provide_debt = $debt;
                         $provide->save();
