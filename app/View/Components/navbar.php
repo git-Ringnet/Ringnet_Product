@@ -21,7 +21,7 @@ class navbar extends Component
     public $workspacename;
     public $workspaceNames;
 
-    public function __construct($title = 'Ringnet', $activeName = 'activeName', $activeGroup = 'activeGroup', $workspacename = 'worksapcename', $workspaceNames = 'null')
+    public function __construct($title = 'Ringnet', $activeName = 'activeName', $activeGroup = 'activeGroup', $workspacename = 'worksapcename', $workspaceNames = null)
     {
         // If you are not logged in, navigate to the login page
         if (!Auth::check()) {
@@ -48,6 +48,8 @@ class navbar extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.navbar');
+        return view('components.navbar', [
+            'workspaceNames' => $this->workspaceNames,
+        ]);
     }
 }
