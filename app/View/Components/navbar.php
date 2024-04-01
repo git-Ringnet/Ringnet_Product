@@ -37,6 +37,9 @@ class navbar extends Component
      */
     public function render(): View|Closure|string
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
         $allWorkSpace = UserWorkspaces::with('workspace')->where('user_id', Auth::user()->id)->get();
         $workspaceNames = [];
 

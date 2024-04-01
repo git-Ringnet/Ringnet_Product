@@ -114,8 +114,8 @@
                     {{ Auth::user()->email }}
                 </div>
                 <div class="workspace_user border-bottom">
-                    @isset($workspaceNames)
-                        @foreach ($workspaceNames as $item)
+                    @isset($global_variable)
+                        @foreach ($global_variable as $item)
                             <div class="d-flex align-items-baseline justify-content-between pr-2">
                                 <a class="workspace-link" href="{{ route('welcome', $item['workspace_name']) }}"
                                     data-id="{{ $item['id'] }}">{{ $item['workspace_name'] }}</a>
