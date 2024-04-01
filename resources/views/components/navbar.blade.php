@@ -114,7 +114,7 @@
                     {{ Auth::user()->email }}
                 </div>
                 <div class="workspace_user border-bottom">
-                    {{-- @if ($workspaceNames)
+                    @if ($workspaceNames)
                         @foreach ($workspaceNames as $item)
                             <div class="d-flex align-items-baseline justify-content-between pr-2">
                                 <a class="workspace-link" href="{{ route('welcome', $item['workspace_name']) }}"
@@ -128,7 +128,7 @@
                                 </svg>
                             </div>
                         @endforeach
-                    @endif --}}
+                    @endif
                 </div>
                 <input type="hidden" id="idUser" name="idUser" value="{{ Auth::user()->id }}">
                 <div class="workspace_setting border-bottom">
