@@ -265,7 +265,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <input type="text"
                                                             class="searchProductName w-100 border-0 px-2 py-1"
-                                                            value="{{ $item->product_name }}" readonly>
+                                                            value="{{ $item->product_name }}" readonly name="product_name[]">
                                                         <div class='info-product' data-toggle='modal'
                                                             data-target='#productModal'>
                                                             <svg xmlns='http://www.w3.org/2000/svg' width='14'
@@ -466,7 +466,7 @@
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
                                 <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest"
                                     style="flex:2;" readonly id="provide_name" {{-- value="{{ $payment->getProvideName->provide_name_display }}" --}}
-                                    value="@if ($payment->getQuotation){{ $payment->getQuotation->provide_name }}@endif"
+                                    value="@if ($payment->getQuotation) {{ $payment->getQuotation->provide_name }} @endif"
                                     placeholder="Chọn thông tin" />
                             </li>
 
@@ -609,8 +609,50 @@
 
 </div>
 </div>
+
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông tin sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body product_show">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    // Hiển thị sản phẩm
+    $(document).on('click', '.info-product', function() {
+        var nameProduct = $(this).closest('td').find('input[name^="product_name"]').val()
+        $.ajax({
+            url: "{{ route('getHistoryImport') }}",
+            type: 'GET',
+            data: {
+                product_name: nameProduct,
+                type: "product"
+            },
+            success: function(data) {
+                var modal_body = `
+                <b>Tên sản phẩm: </b> ` + data['product'].product_name + `<br> 
+                <b>Đơn vị: </b> ` + data['product'].product_unit + ` <br>
+                <b>Tồn kho: </b> ` + formatCurrency(data['product'].product_inventory) + ` <br>
+                <b>Thuế: </b> ` + (data['product'].product_tax == 99 ? "NOVAT" : data['product'].product_tax + '%') + `
+                `;
+                $('.product_show').append(modal_body)
+            },
+        });
+    })
+
+
     $(document).on('click', '.transaction', function() {
         nameProduct = $(this).closest('tr').find('.searchProductName').val()
         $.ajax({

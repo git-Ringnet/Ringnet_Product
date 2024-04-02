@@ -1114,16 +1114,25 @@ class DetailImportController extends Controller
     public function getHistoryImport(Request $request)
     {
         $data = [];
-        $product = Products::where('product_name', $request->product_name)->first();
-        if ($product) {
-            $history = QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
-                ->where('quoteimport.product_name', $request->product_name)
-                ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
-                ->where('detailimport.status', 2)
-                ->get();
-            $data['history'] = $history;
+        if($request->type){
+            $product = Products::where('product_name',$request->product_name)
+            ->select('product_name','product_unit','product_inventory','product_tax')
+            ->first();
+            $data['product'] = $product;
+            // return $request->all();
+        }else{
+            $product = Products::where('product_name', $request->product_name)->first();
+            if ($product) {
+                $history = QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
+                    ->where('quoteimport.product_name', $request->product_name)
+                    ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
+                    ->where('detailimport.status', 2)
+                    ->get();
+                $data['history'] = $history;
+            }
+            $data['products'] = $product;
         }
-        $data['products'] = $product;
+       
         return $data;
     }
 

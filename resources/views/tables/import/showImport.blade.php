@@ -42,7 +42,7 @@
                     <div class="row m-0">
                         <a href="{{ route('import.index', $workspacename) }}" class="user_flow" data-type="DMH"
                             data-des="Trở về">
-                            <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
+                            <button class="btn-destroy btn-light d-flex align-items-center h-100 mx-1" type="button">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
@@ -79,8 +79,7 @@
                         @if ($import->status == 1)
                             <a href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $import->id]) }}"
                                 class="user_flow" data-type="DMH" data-des="Sửa đơn mua hàng">
-                                <button type="button" class="custom-btn d-flex align-items-center h-100"
-                                    style="margin-right:10px">
+                                <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
                                         <path
@@ -99,8 +98,8 @@
                         @endif
 
                         <div class="dropdown">
-                            <button type="button" class="custom-btn d-flex align-items-center h-100"
-                                style="margin-right:10px" id="btnCreateFast">
+                            <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1"
+                                id="btnCreateFast">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
@@ -172,7 +171,7 @@
 
                         <a href="#">
                             <button name="action"type="button" id="delete_import"
-                                class="btn--remove d-flex align-items-center h-100" style="margin-right:10px">
+                                class="btn--remove d-flex align-items-center h-100 mx-1">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16"
                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -215,15 +214,15 @@
                         <ul class="header-options--nav nav nav-tabs margin-left32">
                             <li>
                                 <a class="text-secondary active m-0 pl-3 user_flow" data-toggle="tab" href="#info"
-                                data-type="DMH" data-des="Xem thông tin sản phẩm">Thông tin</a>
+                                    data-type="DMH" data-des="Xem thông tin sản phẩm">Thông tin</a>
                             </li>
                             <li>
                                 <a class="text-secondary m-0 pl-3 pr-3 user_flow" data-toggle="tab" href="#history"
-                                data-type="DMH" data-des="Xem lịch sử chỉnh sửa" >Lịch sử chỉnh sửa</a>
+                                    data-type="DMH" data-des="Xem lịch sử chỉnh sửa">Lịch sử chỉnh sửa</a>
                             </li>
                             <li>
                                 <a class="text-secondary m-0 pr-3 user_flow" data-toggle="tab" href="#files"
-                                data-type="DMH" data-des="Xem file đính kèm" >File đính kèm</a>
+                                    data-type="DMH" data-des="Xem file đính kèm">File đính kèm</a>
                             </li>
                         </ul>
                     </div>
@@ -702,7 +701,7 @@
                                                             <input type="text"
                                                                 class="searchProductName border-0 px-2 py-1 w-100"
                                                                 readonly value="{{ $item->product_name }}">
-                                                            <div class='info-product' data-toggle='modal'
+                                                            {{-- <div class='info-product' data-toggle='modal'
                                                                 data-target='#productModal'>
                                                                 <svg xmlns='http://www.w3.org/2000/svg' width='14'
                                                                     height='14' viewBox='0 0 14 14'
@@ -725,7 +724,7 @@
                                                                         </clipPath>
                                                                     </defs>
                                                                 </svg>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </td>
                                                     <td class='border-right p-2 text-13 align-top position-relative'>
@@ -794,9 +793,8 @@
                             style="height:44px;" style="height:44px;">
                             <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
                             <span class="mx-1 text-13" style="flex: 2;">
-                                <input type="text" placeholder="Chọn thông tin" readonly
-                                    {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}
-                                    value="{{$import->provide_name}}"
+                                <input type="text" placeholder="Chọn thông tin" readonly {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}
+                                    value="{{ $import->provide_name }}"
                                     class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest"
                                     style="background-color:#F0F4FF; border-radius:4px;" id="myInput"
                                     autocomplete="off">
@@ -808,10 +806,8 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest"
-                                    {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}}
-                                    value="{{$import->represent_name}}"
-                                    style="flex:2;" id="represent" readonly>
+                                <input class="text-13-black w-50 border-0 bg-input-guest" {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}}
+                                    value="{{ $import->represent_name }}" style="flex:2;" id="represent" readonly>
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
@@ -931,12 +927,52 @@
 </div>
 
 
-
-
 <x-formprovides> </x-formprovides>
+
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông tin sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body product_show">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    // Hiển thị sản phẩm
+    $(document).on('click', '.info-product', function() {
+        var nameProduct = $(this).closest('td').find('input[name^="product_name"]').val()
+        $.ajax({
+            url: "{{ route('getHistoryImport') }}",
+            type: 'GET',
+            data: {
+                product_name: nameProduct,
+                type: "product"
+            },
+            success: function(data) {
+                var modal_body = `
+                <b>Tên sản phẩm: </b> ` + data['product'].product_name + `<br> 
+                <b>Đơn vị: </b> ` + data['product'].product_unit + ` <br>
+                <b>Tồn kho: </b> ` + formatCurrency(data['product'].product_inventory) + ` <br>
+                <b>Thuế: </b> ` + (data['product'].product_tax == 99 ? "NOVAT" : data['product'].product_tax + '%' ) + `
+                `;
+                $('.product_show').append(modal_body)
+            },
+        });
+    })
+
     $("#listBtnCreateFast").hide();
     $(document).ready(function() {
         function toggleList(input, list) {

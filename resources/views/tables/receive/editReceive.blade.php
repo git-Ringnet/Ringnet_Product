@@ -512,9 +512,51 @@
         <x-formmodalseri :product="$product" :receive="$receive"></x-formmodalseri>
 </form>
 
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông tin sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body product_show">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="{{ asset('/dist/js/products.js') }}"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 <script>
+    // Hiển thị sản phẩm
+    $(document).on('click', '.info-product', function() {
+        var nameProduct = $(this).closest('td').find('input[name^="product_name"]').val()
+        $.ajax({
+            url: "{{ route('getHistoryImport') }}",
+            type: 'GET',
+            data: {
+                product_name: nameProduct,
+                type: "product"
+            },
+            success: function(data) {
+                var modal_body = `
+                <b>Tên sản phẩm: </b> ` + data['product'].product_name + `<br> 
+                <b>Đơn vị: </b> ` + data['product'].product_unit + ` <br>
+                <b>Tồn kho: </b> ` + formatCurrency(data['product'].product_inventory) + ` <br>
+                <b>Thuế: </b> ` + (data['product'].product_tax == 99 ? "NOVAT" : data['product'].product_tax + '%') + `
+                `;
+                $('.product_show').append(modal_body)
+            },
+        });
+    })
+
+
     flatpickr("#datePicker", {
         locale: "vn",
         dateFormat: "d/m/Y",
