@@ -509,7 +509,7 @@ function createModal(stt) {
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Lưu</button>
             </div>
         </div>
     </div>

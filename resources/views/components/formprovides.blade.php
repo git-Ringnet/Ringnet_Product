@@ -2,7 +2,7 @@
     <section>
         <div class="modal fade" id="provideModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog" role="document" style="max-width: 20%; margin-top:4%;">
+            <div class="modal-dialog" role="document" style="margin-top:3%;">
                 <div class="modal-content">
                     <div class="modal-body pb-0 px-2 pt-0">
                         <div class="content-info">

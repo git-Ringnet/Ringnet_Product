@@ -63,18 +63,28 @@ class Serialnumber extends Model
     {
         // return $data;
         foreach ($data as $value) {
-            foreach ($value as $SN => $productName) {
-                $product = Products::where('product_name', $SN)
+            foreach ($value as $product_name => $productName) {
+                $product = Products::where('product_name', $product_name)
                     ->where('workspace_id', Auth::user()->current_workspace)
                     ->first();
                 if ($product) {
                     $checkSN = Serialnumber::where('workspace_id', Auth::user()->current_workspace)
+                        // ->where('product_id', $product->id)
                         ->get();
-                    // where('product_id', $product->id)
                     foreach ($productName['sn'] as $SN) {
                         foreach ($checkSN as $list) {
                             if ($list->serinumber == $SN) {
-                                return response()->json(['success' => false, 'msg' => $product->product_name, 'data' => $SN]);
+                                if ($list->product_id == null) {
+                                    $checkProductName = QuoteImport::where('id', $list->quoteImport_id)
+                                        ->where('detailimport_id', $list->detailimport_id)
+                                        ->first();
+
+                                    if ($checkProductName && $checkProductName->product_name == $product_name) {
+                                        return response()->json(['success' => false, 'msg' => $product->product_name, 'data' => $SN, '1']);
+                                    }
+                                } elseif ($list->product_id == $product->id) {
+                                    return response()->json(['success' => false, 'msg' => $product->product_name, 'data' => $SN, '2']);
+                                }
                             }
                         }
                     }

@@ -926,11 +926,15 @@ td p {
 }
 
 #list_modal .modal-dialog {
-    max-width: 85% !important;
+    /* max-width: 85% !important; */
+    max-width: 400px !important;
+    max-height: 677px !important;
 }
 
 #provideModal .modal-dialog {
-    max-width: 65% !important;
+    /* max-width: 65% !important; */
+    max-width: 350px !important;
+    max-height: 677px !important;
 }
 
 #guestModal .modal-dialog,

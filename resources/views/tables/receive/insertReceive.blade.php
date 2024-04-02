@@ -33,7 +33,8 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('receive.index', $workspacename) }}" class="user_flow" data-type="DNH" data-des="Hủy">
+                        <a href="{{ route('receive.index', $workspacename) }}" class="user_flow" data-type="DNH"
+                            data-des="Hủy">
                             <button class="btn-destroy btn-light mx-0 d-flex align-items-center h-100" type="button">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -1014,8 +1015,7 @@
                 type: type,
                 des: des
             },
-            success: function(data) {
-            }
+            success: function(data) {}
         })
     })
 </script>
