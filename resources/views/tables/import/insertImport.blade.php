@@ -1751,6 +1751,7 @@
         var quotetion_number = $('input[name="quotation_number"]').val();
         if (formSubmit) {
             provide_id = $('#provides_id').val();
+            $('.product_tax').prop('disabled', false);
             $.ajax({
                 url: "{{ route('checkQuotetion') }}",
                 type: "get",
