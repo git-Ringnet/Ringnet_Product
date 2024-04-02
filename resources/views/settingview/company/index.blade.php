@@ -101,6 +101,13 @@
         font-size: 15px;
     }
 
+    #banks-option {
+        padding: 10px 10px 10px 10px;
+        border-radius: 4px;
+        border: 1px solid #DFE1E4;
+        font-size: 15px;
+    }
+
     #roles-option {
         height: 30px;
         border-radius: 4px;
@@ -220,7 +227,7 @@
             {{-- Content --}}
             <section class="content">
                 <div class="container-fluided pt-5">
-                    <form action="#" method="POST">
+                    <form action="{{ route('updateWorkspaceName') }}" method="POST">
                         @csrf
                         <div class="form-group d-flex align-items-center justify-content-between">
                             <div class="title_view" for="">Thông tin doanh nghiệp</div>
@@ -228,25 +235,29 @@
                         <div class="div-url form-group d-flex align-items-center justify-content-between w-100">
                             <div class="input-icon w-75">
                                 <label for="">Tên công ty</label>
-                                <input class="url_link" style="padding-right: 30px;margin-bottom: 10px;" type="text"
-                                    name="" value="">
+                                <input placeholder="Nhập thông tin" class="url_link"
+                                    style="padding-right: 30px;margin-bottom: 10px;" type="text" name="name_company"
+                                    value="{{ $workspace_name->name_company }}">
                                 <label class="pt-2" for="">Địa chỉ</label>
-                                <input class="url_link" style="padding-right: 30px;margin-bottom: 10px;" type="text"
-                                    value="">
+                                <input placeholder="Nhập thông tin" class="url_link"
+                                    style="padding-right: 30px;margin-bottom: 10px;" type="text"
+                                    name="address_company" value="{{ $workspace_name->address_company }}">
                                 <label for="">Mã số thuế</label>
-                                <input class="url_link" style="padding-right: 30px;margin-bottom: 10px;" type="text"
-                                    name="" value="">
+                                <input placeholder="Nhập thông tin" class="url_link"
+                                    style="padding-right: 30px;margin-bottom: 10px;" type="text" name="mst"
+                                    value="{{ $workspace_name->mst }}">
                                 <label for="">Tài khoản ngân hàng</label>
-                                <input class="url_link" style="padding-right: 30px;margin-bottom: 10px;" type="text"
-                                    name="" value="">
+                                <select class="" style="width: 100%" name="name_bank" id="banks-option">
+                                </select>
                                 <label for="">Số tài khoản</label>
-                                <input class="url_link" style="padding-right: 30px;margin-bottom: 10px;" type="text"
-                                    name="" value="">
+                                <input placeholder="Nhập thông tin" class="url_link"
+                                    style="padding-right: 30px;margin-bottom: 10px;" type="text" name="number_bank"
+                                    value="{{ $workspace_name->number_bank }}">
                             </div>
                         </div>
                         <div class="input-icon w-75">
                             <div class="btn-apply float-right">
-                                <button class="btn btn-update btn-primary">Cập nhật</button>
+                                <button type="submit" class="btn btn-update btn-primary">Cập nhật</button>
                             </div>
                         </div>
                     </form>
@@ -260,7 +271,22 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 
-<script></script>
+<script>
+    // Get API Banks https://api.vietqr.io/v2/banks select option in form
+    $.ajax({
+        url: 'https://api.vietqr.io/v2/banks',
+        type: 'GET',
+        success: function(data) {
+            let banks = data.data;
+            banks.forEach(bank => {
+                $('#banks-option').append(`<option class="url_link" value="${bank.shortName}" ${bank.shortName === '{{ $workspace_name->name_bank }}' ? 'selected' : ''}>
+            <img src="${bank.logo}" alt="${bank.shortName}" style="width: 20px; height: 20px;"> 
+             ${bank.shortName}
+            </option>`);
+            });
+        }
+    });
+</script>
 </body>
 
 </html>

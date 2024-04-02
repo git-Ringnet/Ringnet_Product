@@ -258,7 +258,9 @@
                         </div>
                         <div class="input-icon w-75">
                             <div class="btn-apply float-right">
-                                <button class="btn btn-delete-workspace btn-danger">Xoá workspace</button>
+                                <button class="btn btn-delete-workspace btn-danger"
+                                    onclick="return confirm('Bạn có chắc chắn muốn xoá workspace không?')">Xoá
+                                    workspace</button>
                             </div>
                         </div>
                     </form>

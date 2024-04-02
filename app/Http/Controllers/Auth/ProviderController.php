@@ -110,7 +110,7 @@ class ProviderController extends Controller
         $workspace->save();
 
         // Khi mà tạo tên worksapce cho chính bản thân thì thêm list danh sách
-        UserWorkspaces::create([
+        UserWorkspaces::updateOrCreate([
             'workspace_id' => $workspace->id,
             'user_id' => Auth::user()->id,
             'roleid' => 2,

@@ -3351,7 +3351,7 @@
                             showAutoToast('warning', 'Số báo giá đã tồn tại');
                         } else {
                             // Nếu số báo giá không tồn tại, thực hiện submit form
-                            $('form')[0].submit();
+                            $('form')[1].submit();
                         }
                     }
                 });

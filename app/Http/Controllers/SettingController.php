@@ -74,8 +74,7 @@ class SettingController extends Controller
     public function viewCompany()
     {
         $title = 'Thông tin doanh nghiệp';
-        $workspace_name = $this->workspace->where('id', Auth::user()->current_workspace)->select('workspace_name')->first();
-        $workspace_name = $workspace_name->workspace_name;
+        $workspace_name = $this->workspace->where('id', Auth::user()->current_workspace)->first();
 
         return view('settingview.company.index', compact('title', 'workspace_name'));
     }
@@ -84,7 +83,8 @@ class SettingController extends Controller
     {
         $workspace_id = Auth::user()->current_workspace;
         $this->setting->deleteAllTable($workspace_id);
-        return redirect()->back()->with('msg', 'Xóa dữ liệu thành công');
+        return redirect()->route('dashboard');
+        // return redirect()->back()->with('msg', 'Xóa dữ liệu thành công');
     }
     // Func ajax update user
     public function updateUser(Request $request)

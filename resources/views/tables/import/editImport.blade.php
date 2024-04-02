@@ -1986,7 +1986,7 @@
                             },
                             success: function(data) {}
                         })
-                        $('form')[0].submit();
+                        $('form')[1].submit();
                     }
                 }
             })

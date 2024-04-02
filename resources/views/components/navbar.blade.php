@@ -137,14 +137,18 @@
                     @endif
                     <a href="{{ route('settings.index', $workspacename) }}">Mời và quản lý thành viên</a>
                 </div>
-                {{-- <div class="logout_user">
-                    <form class="" method="POST" action="{{ route('logout') }}" x-data>
+                {{-- Button logout laravel Vite --}}
+                {{-- @method('POST')
+                <a href="{{ route('logout') }}">Đăng xuất</a> --}}
+
+                <div class="logout_user">
+                    <form class="" method="POST" action="{{ route('logout') }}">
                         @csrf
                         <a class="text-sm text-custom" href="#"
                             onclick="event.preventDefault(); this.closest('form').submit();">Đăng
                             xuất</a>
                     </form>
-                </div> --}}
+                </div>
             @endauth
         @endif
     </div>

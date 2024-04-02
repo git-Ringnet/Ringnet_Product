@@ -16,6 +16,10 @@ class Workspace extends Model
         'workspace_name',
         'name_company',
         'phone_number',
+        'address_company',
+        'mst',
+        'name_bank',
+        'number_bank',
     ];
 
     public function updateWorkspace($id, $data)

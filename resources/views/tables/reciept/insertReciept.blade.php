@@ -32,8 +32,8 @@
                 </div>
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
-                        <a href="{{ route('reciept.index', $workspacename) }}"
-                        class="user_flow" data-type="HDMH" data-des="Hủy">
+                        <a href="{{ route('reciept.index', $workspacename) }}" class="user_flow" data-type="HDMH"
+                            data-des="Hủy">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -94,8 +94,8 @@
                         <button id="sideProvide" type="button" class="btn-option border-0 mx-1">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <rect x="16" width="16" height="16" rx="5"
-                                    transform="rotate(90 16 0)" fill="#ECEEFA" />
+                                <rect x="16" width="16" height="16" rx="5" transform="rotate(90 16 0)"
+                                    fill="#ECEEFA" />
                                 <path
                                     d="M15 11C15 13.2091 13.2091 15 11 15L5 15C2.7909 15 1 13.2091 1 11L1 5C1 2.79086 2.7909 1 5 1L11 1C13.2091 1 15 2.79086 15 5L15 11ZM10 13.5L10 2.5L5 2.5C3.6193 2.5 2.5 3.61929 2.5 5L2.5 11C2.5 12.3807 3.6193 13.5 5 13.5H10Z"
                                     fill="#26273B" fill-opacity="0.8" />
@@ -409,7 +409,7 @@
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 
 <script>
-    $(document).on('click','.transaction',function(){
+    $(document).on('click', '.transaction', function() {
         nameProduct = $(this).closest('tr').find('.searchProductName').val()
         $.ajax({
             url: "{{ route('getHistoryImport') }}",
@@ -421,16 +421,16 @@
                 $('#recentModal .modal-body tbody').empty()
                 if (data['history']) {
                     data['history'].forEach(
-                            element => {
-                                var tr = `
+                        element => {
+                            var tr = `
                                         <tr>
                                             <td>` + element.product_name + `</td>
                                             <td>` + formatCurrency(element.price_export) + `</td>
-                                            <td>` + (element.product_tax == 99 ? "NOVAT" : element.product_tax +"%") + `</td>
+                                            <td>` + (element.product_tax == 99 ? "NOVAT" : element.product_tax + "%") + `</td>
                                             <td>` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
                                         </tr> `;
-                                $('#recentModal .modal-body tbody').append(tr);
-                    })
+                            $('#recentModal .modal-body tbody').append(tr);
+                        })
                 }
             }
         })
@@ -636,7 +636,7 @@
                 if (!data['status']) {
                     showNotification('warning', 'Mã nhận hàng đã tồn tại')
                 } else {
-                    $('form')[0].submit();
+                    $('form')[1].submit();
                 }
             }
         })
@@ -652,8 +652,7 @@
                 type: type,
                 des: des
             },
-            success: function(data) {
-            }
+            success: function(data) {}
         })
     })
 </script>

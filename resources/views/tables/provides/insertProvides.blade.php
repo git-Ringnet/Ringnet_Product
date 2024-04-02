@@ -149,8 +149,8 @@
                                 <div class="d-flex">
                                     <button type="button" data-toggle="dropdown"
                                         class="btn-save-print d-flex align-items-center h-100 py-1 px-2 user_flow"
-                                        data-type="NCC" data-des="Thêm người đại diện"
-                                        id="addRowRepesent" style="margin-right:10px; border-radius:4px;">
+                                        data-type="NCC" data-des="Thêm người đại diện" id="addRowRepesent"
+                                        style="margin-right:10px; border-radius:4px;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 16 16" fill="none">
                                             <path
@@ -229,7 +229,7 @@
                 success: function(data) {
                     console.log(data);
                     if (data.success) {
-                        $('form')[0].submit();
+                        $('form')[1].submit();
                     } else {
                         if (data.key) {
                             $("input[name='key']").val(data.key)
@@ -250,7 +250,7 @@
             showNotification(type, message);
         }, delayTime);
     }
- 
+
     $(document).off('click').on('click', '.user_flow', function(e) {
         var type = $(this).attr('data-type')
         var des = $(this).attr('data-des');
@@ -261,8 +261,7 @@
                 type: type,
                 des: des
             },
-            success: function(data) {
-            }
+            success: function(data) {}
         })
     })
 </script>

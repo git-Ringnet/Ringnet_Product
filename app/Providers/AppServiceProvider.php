@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\UserWorkspaces;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 

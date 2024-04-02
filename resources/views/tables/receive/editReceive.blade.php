@@ -594,7 +594,7 @@
     //                                     data['data'])
     //                             } else {
     //                                 updateProductSN()
-    //                                 $('form')[0].submit();
+    //                                 $('form')[1].submit();
     //                             }
     //                         }
     //                     })
@@ -602,7 +602,7 @@
     //             }
     //         })
     //     } else {
-    //         $('form')[0].submit();
+    //         $('form')[1].submit();
     //     }
     // })
 

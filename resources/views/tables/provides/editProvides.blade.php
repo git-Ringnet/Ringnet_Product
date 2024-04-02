@@ -282,7 +282,7 @@
                 success: function(data) {
                     // console.log(data);
                     if (data.success) {
-                        $('form')[0].submit();
+                        $('form')[1].submit();
                     } else {
                         if (data.key) {
                             $("input[name='key']").val(data.key)
@@ -314,8 +314,7 @@
                 type: type,
                 des: des
             },
-            success: function(data) {
-            }
+            success: function(data) {}
         })
     })
 </script>

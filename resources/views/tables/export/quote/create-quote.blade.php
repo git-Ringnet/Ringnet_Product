@@ -1,6 +1,6 @@
 <x-navbar :title="$title" activeGroup="sell" activeName="quote">
 </x-navbar>
-<form action="{{ route('detailExport.store', ['workspace' => $workspacename]) }}" method="POST">
+<form id="form-submit" action="{{ route('detailExport.store', ['workspace' => $workspacename]) }}" method="POST">
     @csrf
     <div class="content-wrapper--2Column m-0 min-height--none">
         <div class="content-header-fixed p-0 margin-250 border-bottom-0">
@@ -2920,7 +2920,7 @@
                             showAutoToast('warning', 'Số báo giá đã tồn tại');
                         } else {
                             // Nếu số báo giá không tồn tại, thực hiện submit form
-                            $('form')[0].submit();
+                            $('form')[1].submit();
                         }
                     }
                 });
