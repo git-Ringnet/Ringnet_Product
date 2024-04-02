@@ -223,6 +223,7 @@
                                                 <td class="border border-bottom-0 text-13-black align-top p-2">
                                                     <div>
                                                         <input type="text" required=""
+                                                            value="{{ number_format($item->product_price_export) }}"
                                                             class="border-0 px-2 py-1 w-100 price_export text-right"
                                                             name="price_export[]">
                                                     </div>
@@ -232,7 +233,7 @@
                                                 </td>
                                                 <input type="hidden" class="product_tax1">
                                                 <td class="border border-bottom-0 text-13-black align-top p-2">
-                                                    <select name="product_tax[]" id=""
+                                                    <select name="product_tax[]" id="" disabled
                                                         class="product_tax border-0 w-100 text-center">
                                                         <option value="0"
                                                             @if ($item->product_tax == 0) selected @endif>0%

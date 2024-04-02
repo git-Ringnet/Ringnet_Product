@@ -726,8 +726,8 @@
                 "</td>"
             );
             const thue = $(
-                "<td class='border-right p-2 text-13 align-top'>" +
-                "<select name='product_tax[]' class='border-0 px-2 py-1 w-100 text-left product_tax' required>" +
+                "<td class='border-right p-1 text-13 align-top'>" +
+                "<select name='product_tax[]' class='border-0 py-1 w-100 text-left product_tax' required>" +
                 "<option value='0'>0%</option>" +
                 "<option value='8'>8%</option>" +
                 "<option value='10'>10%</option>" +
@@ -878,7 +878,7 @@
                     if (clickedProductId !== product_id.val()) {
                         if (currentRow.siblings().find('.product_id[value="' +
                                 clickedProductId + '"]').length > 0) {
-                            alert(
+                            showAutoToast('warning',
                                 'Không thể chọn sản phẩm này. Vui lòng chọn sản phẩm khác.'
                             );
                             return;
@@ -1337,7 +1337,7 @@
                                         // Nếu có sản phẩm không đủ "seri", hiển thị thông báo
                                         if (insufficientSeriProducts
                                             .length > 0) {
-                                            alert(
+                                            showAutoToast('warning',
                                                 `Số lượng "seri" không đủ cho các sản phẩm: ${insufficientSeriProducts.join(", ")}`
                                             );
                                             e.preventDefault();
@@ -1477,7 +1477,7 @@
                                         // Hiển thị thông báo nếu có sản phẩm không đủ "seri"
                                         if (insufficientSeriProducts
                                             .length > 0) {
-                                            alert(
+                                            showAutoToast('warning',
                                                 `Số lượng "seri" không đủ cho các sản phẩm: ${insufficientSeriProducts.join(", ")}`
                                             );
                                             e.preventDefault();
@@ -1485,7 +1485,8 @@
                                             // Hiển thị thông báo nếu không đủ số lượng tồn kho
                                             if (invalidInventoryProducts
                                                 .length > 0) {
-                                                alert("Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                showAutoToast('warning',
+                                                    "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
                                                     invalidInventoryProducts
                                                     .join(', '));
                                                 e.preventDefault();
@@ -1767,8 +1768,8 @@
                                             class="border-0 px-2 py-1 w-100 text-right product_price" autocomplete="off" name="product_price[]" required="" readonly="readonly">
                                             <a href='#'><p class="mt-3 text-13-blue recentModal" data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</p></a>
                                     </td>
-                                    <td class="border-right p-2 text-13 align-top">
-                                        <select class="border-0 px-2 py-1 w-100 text-left product_tax" required="" disabled>
+                                    <td class="border-right p-1 text-13 align-top">
+                                        <select class="border-0 py-1 w-100 text-left product_tax" required="" disabled>
                                             <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                             <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
                                             <option value="10" ${(item.product_tax == 10) ? 'selected' : ''}>10%</option>
@@ -2013,7 +2014,7 @@
                                         // Nếu có sản phẩm không đủ "seri", hiển thị thông báo
                                         if (insufficientSeriProducts
                                             .length > 0) {
-                                            alert(
+                                            showAutoToast('warning',
                                                 `Số lượng "seri" không đủ cho các sản phẩm: ${insufficientSeriProducts.join(", ")}`
                                             );
                                             e.preventDefault();
@@ -2167,7 +2168,7 @@
                                         // Hiển thị thông báo nếu có sản phẩm không đủ "seri"
                                         if (insufficientSeriProducts
                                             .length > 0) {
-                                            alert(
+                                            showAutoToast('warning',
                                                 `Số lượng "seri" không đủ cho các sản phẩm: ${insufficientSeriProducts.join(", ")}`
                                             );
                                             e.preventDefault();
@@ -2175,7 +2176,9 @@
                                             // Hiển thị thông báo nếu không đủ số lượng tồn kho
                                             if (invalidInventoryProducts
                                                 .length > 0) {
-                                                alert("Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                showAutoToast(
+                                                    'warning',
+                                                    "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
                                                     invalidInventoryProducts
                                                     .join(', '));
                                                 e.preventDefault();
@@ -2285,7 +2288,8 @@
                                             }
 
                                             if (!isValid) {
-                                                alert(
+                                                showAutoToast(
+                                                    'warning',
                                                     'Serinumber đang được bỏ trống hoặc chưa được nhập đủ số lượng!'
                                                 );
                                                 $(this).attr(
@@ -2297,7 +2301,7 @@
                                                     'modal');
                                             }
                                         } else {
-                                            alert(
+                                            showAutoToast('warning',
                                                 'Vui lòng thêm serinumber!'
                                             );
                                         }

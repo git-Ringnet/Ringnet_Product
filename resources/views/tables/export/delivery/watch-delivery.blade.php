@@ -74,7 +74,7 @@
                                 <span class="text-btnIner-primary ml-1">In</span>
                             </button>
                             <div class="dropdown-menu" style="z-index: 9999;">
-                                <a class="dropdown-item text-13-black activity" data-name1="GH" data-des="Xuất file pdf" 
+                                <a class="dropdown-item text-13-black activity" data-name1="GH" data-des="Xuất file pdf"
                                     href="{{ route('pdfdelivery', $delivery->soGiaoHang) }}">Xuất PDF</a>
                             </div>
                         </div>
@@ -806,13 +806,13 @@
 
         // Hiển thị thông báo nếu không có sản phẩm
         if (!hasProducts) {
-            alert("Không có sản phẩm để giao");
+            showAutoToast("warning", "Không có sản phẩm để giao");
             event.preventDefault();
         }
 
         // Hiển thị thông báo cuối cùng nếu có sản phẩm không hợp lệ
         if (invalidProducts.length > 0) {
-            alert("Không đủ số lượng tồn kho cho các sản phẩm:\n" + invalidProducts.join(', '));
+            showAutoToast("warning", "Không đủ số lượng tồn kho cho các sản phẩm:\n" + invalidProducts.join(', '));
             event.preventDefault();
         } else if (hasProducts) {
             var hiddenInputsToRemove = document.querySelectorAll(

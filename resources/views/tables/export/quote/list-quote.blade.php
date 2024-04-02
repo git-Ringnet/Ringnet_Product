@@ -318,7 +318,7 @@
                                                     {{ $value_export->reference_number }}
                                                 </td>
                                                 <td class="text-13-black max-width180">
-                                                    {{ $value_export->guest_name_display }}
+                                                    {{ $value_export->guest_name }}
                                                 </td>
                                                 <td class="text-13-black">
                                                     <a href="#">

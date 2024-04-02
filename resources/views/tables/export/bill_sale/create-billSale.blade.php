@@ -1192,8 +1192,6 @@
         return formattedValue;
     }
 
-
-
     //format giá
     var inputElement = document.getElementById('product_price');
     $('body').on('input', '.product_price, #transport_fee, .giaNhap, #voucher, .fee_ship', function(event) {

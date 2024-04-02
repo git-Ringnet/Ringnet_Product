@@ -1657,7 +1657,7 @@
 
         // Hiển thị thông báo nếu không có sản phẩm
         if (!hasProducts) {
-            alert("Không có sản phẩm để thanh toán");
+            showAutoToast("warning","Không có sản phẩm để thanh toán");
             event.preventDefault();
         }
     }

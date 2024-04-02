@@ -43,8 +43,7 @@ class DetailExport extends Model
 
     public function getAllDetailExport()
     {
-        $detailExport = DetailExport::leftJoin('guest', 'guest.id', 'detailexport.guest_id')
-            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+        $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG')
             ->orderBy('detailexport.id', 'desc')->get();
         return $detailExport;

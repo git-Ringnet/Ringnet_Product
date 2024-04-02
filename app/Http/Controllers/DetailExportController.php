@@ -157,6 +157,7 @@ class DetailExportController extends Controller
         $guest = $this->guest->getAllGuest();
         $product = $this->product->getAllProducts();
         $detailExport = $this->detailExport->getDetailExportToId($id);
+        // dd($detailExport);
         if (!$detailExport) {
             abort('404');
         }

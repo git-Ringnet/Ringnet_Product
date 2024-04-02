@@ -1648,8 +1648,8 @@
                 "</td>"
             );
             const thue = $(
-                "<td class='border-right p-2 text-13 align-top'>" +
-                "<select name='product_tax[]' class='border-0 px-2 py-1 w-100 text-left product_tax' required>" +
+                "<td class='border-right p-1 text-13 align-top'>" +
+                "<select name='product_tax[]' class='border-0 py-1 w-100 text-left product_tax' required>" +
                 "<option value='0'>0%</option>" +
                 "<option value='8'>8%</option>" +
                 "<option value='10'>10%</option>" +
