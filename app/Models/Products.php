@@ -37,7 +37,9 @@ class Products extends Model
         $perpage = 10;
         return DB::table($this->table)
             ->where('workspace_id', Auth::user()->current_workspace)
-            ->orderBy('id', 'desc')->paginate($perpage);
+            ->orderBy('id', 'desc')
+            ->get();
+            // ->paginate($perpage);
         // return DB::table($this->table)->get();
     }
     public function getSerialNumber()

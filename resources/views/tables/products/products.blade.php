@@ -398,9 +398,9 @@
 
 
 {{-- Pagination --}}
-<div class="paginator mt-2 d-flex justify-content-end">
+{{-- <div class="paginator mt-2 d-flex justify-content-end">
     {{ $product->appends(request()->except('page'))->links() }}
-</div>
+</div> --}}
 {{-- @php
         $paginationRange = App\Helpers\PaginationHelper::calculatePaginationRange($product->currentPage(), $product->lastPage());
     @endphp

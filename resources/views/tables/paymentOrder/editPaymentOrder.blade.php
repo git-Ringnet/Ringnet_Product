@@ -265,7 +265,8 @@
                                                     <div class="d-flex align-items-center">
                                                         <input type="text"
                                                             class="searchProductName w-100 border-0 px-2 py-1"
-                                                            value="{{ $item->product_name }}" readonly name="product_name[]">
+                                                            value="{{ $item->product_name }}" readonly
+                                                            name="product_name[]">
                                                         <div class='info-product' data-toggle='modal'
                                                             data-target='#productModal'>
                                                             <svg xmlns='http://www.w3.org/2000/svg' width='14'
@@ -497,6 +498,33 @@
                                 <input type="hidden" name="payment_date" id="hiddenDateInput"
                                     value="{{ $payment->formatDate($payment->payment_date)->format('Y-m-d') }}">
                             </li>
+
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                style="height:44px;">
+                                <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
+
+                                <input id="datePickerDay" type="text" placeholder="Chọn thông tin"
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
+                                    value="{{ date_format(new DateTime($payment->payment_day), 'd/m/Y') }}" />
+
+                                <input type="hidden" name="payment_day" id="hiddenDateInputDay"
+                                    value="{{ $payment->formatDate($payment->payment_day)->format('Y-m-d') }}">
+                            </li>
+
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                style="height:44px;">
+                                <span class="text-13 text-nowrap" style="flex: 1.5;">Hình thức t.toán</span>
+                                <select name="payment_type" id="" class="border-0 text-13"
+                                    style="width:55%;" disabled>
+                                    <option value="Tiền mặt" @if ($payment->payment_type == 'Tiền mặt') selected @endif>Tiền mặt
+                                    </option>
+                                    <option value="UNC" @if ($payment->payment_type == 'UNC') selected @endif>UNC
+                                    </option>
+                                </select>
+
+                            </li>
+
+
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
@@ -527,7 +555,7 @@
                                 <input type="text" placeholder="Chọn thông tin" name="payment"
                                     oninput="checkQty(this,{{ $payment->debt }})"
                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest payment_input"
-                                    style="flex:2;" />
+                                    style="flex:2; background-color:#F0F4FF;" />
                             </li>
                         </ul>
                     </div>
@@ -689,6 +717,17 @@
                 "Y-m-d");
         }
     });
+
+    flatpickr("#datePickerDay", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDateInputDay").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
+
     // Xóa đơn hàng
     deleteImport('#delete_payment',
         '{{ route('paymentOrder.destroy', ['workspace' => $workspacename, 'paymentOrder' => $payment->id]) }}')
