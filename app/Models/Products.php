@@ -87,6 +87,8 @@ class Products extends Model
 
     public function addProduct($data)
     {
+
+        // dd($data);
         $return  = 0;
         isset($data['check_seri']) ? $check = 1 : $check = 0;
         $checkProductName = DB::table($this->table)->where('product_name', $data['product_name'])
@@ -95,25 +97,49 @@ class Products extends Model
         if ($checkProductName) {
             $return = 0;
         } else {
-            $product  = [
-                'product_code' => $data['product_code'],
+            $product = [
+                'type' => $data['type_product'],
                 'product_name' => $data['product_name'],
                 'product_unit' => $data['product_unit'],
-                'product_type' => $data['product_type'],
-                'product_manufacturer' => $data['product_manufacturer'],
-                'product_origin' => $data['product_origin'],
-                'product_guarantee' => $data['product_guarantee'],
+                'product_code' => $data['product_code'],
                 'product_price_import' => $data['product_price_import'],
                 'product_price_export' => $data['product_price_export'],
                 'product_ratio' => $data['product_ratio'],
-                'product_tax' => $data['product_tax'],
-                'check_seri' => $check,
+                'check_seri' => $data['type_product'] == 1 ? $check : 0,
                 'product_inventory' => 0,
                 'product_trade' => 0,
                 'product_available' => 0,
-                'workspace_id' => Auth::user()->current_workspace
-                // 'warehouse_id' => 1
+                'workspace_id' => Auth::user()->current_workspace,
             ];
+            if ($data['type_product'] == 1) {
+                $product['product_type'] = $data['product_type'];
+                $product['product_manufacturer'] = $data['product_manufacturer'];
+                $product['product_origin'] = $data['product_origin'];
+                $product['product_guarantee'] = $data['product_guarantee'];
+                $product['product_tax'] = $data['product_tax'];
+            } else {
+                $product['product_tax'] = 8;
+            }
+
+            // $product  = [
+            //     'product_code' => $data['product_code'],
+            //     'product_name' => $data['product_name'],
+            //     'product_unit' => $data['product_unit'],
+            //     'product_type' => $data['product_type'],
+            //     'product_manufacturer' => $data['product_manufacturer'],
+            //     'product_origin' => $data['product_origin'],
+            //     'product_guarantee' => $data['product_guarantee'],
+            //     'product_price_import' => $data['product_price_import'],
+            //     'product_price_export' => $data['product_price_export'],
+            //     'product_ratio' => $data['product_ratio'],
+            //     'product_tax' => $data['product_tax'],
+            //     'check_seri' => $check,
+            //     'product_inventory' => 0,
+            //     'product_trade' => 0,
+            //     'product_available' => 0,
+            //     'workspace_id' => Auth::user()->current_workspace
+            //     // 'warehouse_id' => 1
+            // ];
             $product_id =  DB::table($this->table)->insert($product);
             $return = 1;
         }
@@ -126,21 +152,25 @@ class Products extends Model
         $product = Products::where('id', $id)->first();
         if ($product) {
             isset($data['check_seri']) ? $check = 1 : $check = 0;
-            // isset($data['check_seri']) ? $check = 1 : $check = $product->check_seri;
             $dataUpdate = [
                 'product_code' => $data['product_code'],
                 'product_name' => $data['product_name'],
                 'product_unit' => $data['product_unit'],
-                'product_type' => $data['product_type'],
-                'product_manufacturer' => $data['product_manufacturer'],
-                'product_origin' => $data['product_origin'],
-                'product_guarantee' => $data['product_guarantee'],
                 'product_price_import' => isset($data['product_price_import']) ? str_replace(',', '', $data['product_price_import']) : 0,
                 'product_price_export' => isset($data['product_price_export']) ? str_replace(',', '', $data['product_price_export']) : 0,
                 'product_ratio' => $data['product_ratio'],
                 'product_tax' => $data['product_tax'],
-                'check_seri' => $check,
+                'check_seri' => $data['type_product'] == 1 ? $check : 0,
             ];
+
+            if ($data['type_product'] == 1) {
+                $dataUpdate['product_type'] = $data['product_type'];
+                $dataUpdate['product_manufacturer'] = $data['product_manufacturer'];
+                $dataUpdate['product_origin'] = $data['product_origin'];
+                $dataUpdate['product_guarantee'] = $data['product_guarantee'];
+                // $dataUpdate['product_ratio'] = $data['product_ratio'];
+            }
+
             $checkProductName = DB::table($this->table)
                 ->where('id', '!=', $product->id)
                 ->where('product_name', $data['product_name'])

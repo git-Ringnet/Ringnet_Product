@@ -7,21 +7,27 @@
                 <div class="content__heading--left">
                     <span>Kho hàng</span>
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z" fill="#26273B" fill-opacity="0.8"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                            fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
+                                fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
                     <span class="nearLast-span">Sản phẩm</span>
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z" fill="#26273B" fill-opacity="0.8"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                            fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M7.69269 13.9741C7.43577 13.7171 7.43577 13.3006 7.69269 13.0437L10.7363 10.0001L7.69269 6.95651C7.43577 6.69959 7.43577 6.28303 7.69269 6.02611C7.94962 5.76918 8.36617 5.76918 8.6231 6.02611L12.1319 9.53488C12.3888 9.7918 12.3888 10.2084 12.1319 10.4653L8.6231 13.9741C8.36617 14.231 7.94962 14.231 7.69269 13.9741Z"
+                                fill="#26273B" fill-opacity="0.8" />
                         </svg>
                     </span>
                     <span class="last-span">Thêm sản phẩm</span>
                 </div>
                 <div class="d-flex content__heading--right">
                     <a href="{{ route('inventory.index', $workspacename) }}">
-                        <button type="button" 
+                        <button type="button"
                             class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 rounded">
                             <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -32,8 +38,8 @@
                             <span class="text-btnIner-primary ml-2">Hủy</span>
                         </button>
                     </a>
-    
-                    <button type="submit" class="custom-btn mx-1 d-flex align-items-center h-100" >
+
+                    <button type="submit" class="custom-btn mx-1 d-flex align-items-center h-100">
                         <svg class="mx-1" width="18" height="18" viewBox="0 0 16 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -42,7 +48,7 @@
                         </svg>
                         <span class="text-btnIner-primary ml-2">Lưu</span>
                     </button>
-    
+
                     <div type="button" class="btn-option">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none">
@@ -56,7 +62,7 @@
                             </path>
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                 fill="#42526E">
+                                fill="#42526E">
                             </path>
                         </svg>
                     </div>
@@ -69,6 +75,20 @@
                     <div class="info-chung">
                         <p class="font-weight-bold text-uppercase info-chung--heading border-custom">Thông tin chung</p>
                         <div class="content-info">
+                            <div class="d-flex align-items-center height-60-mobile">
+                                <div class="title-info py-2 border border-left-0 height-100">
+                                    <p class="p-0 m-0 text-danger margin-left32 text-13">Loại sản phẩm</p>
+                                </div>
+                                <div
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black d-flex">
+                                    <input type="radio" id="hanghoa" name="type_product" value="1"
+                                        class="py-2" checked>
+                                    <label for="html" class="m-0">Hàng hóa</label>
+                                    <input type="radio" id="dichvu" name="type_product" value="2"
+                                        class="py-2">
+                                    <label for="html" class="m-0">Dịch vụ</label>
+                                </div>
+                            </div>
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-left-0 height-100">
                                     <p class="p-0 m-0 required-label text-danger margin-left32 text-13">Tên sản phẩm</p>
@@ -87,46 +107,48 @@
                                 <div class="title-info py-2 border border-left-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Đơn vị tính</p>
                                 </div>
-                                <input type="text" required="" placeholder="Nhập thông tin" name="product_unit"
+                                <input type="text" required="" placeholder="Nhập thông tin"
+                                    name="product_unit"
                                     class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
                             </div>
-                            <div class="d-flex align-items-center height-60-mobile">
+                            <div class="d-flex align-items-center height-60-mobile option-radio">
                                 <div class="title-info py-2 border border-left-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Loại sản phẩm</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="product_type"
                                     class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
                             </div>
-                            <div class="d-flex align-items-center height-60-mobile">
+                            <div class="d-flex align-items-center height-60-mobile option-radio">
                                 <div class="title-info py-2 border border-left-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Hãng</p>
                                 </div>
                                 <input type="number" placeholder="Nhập thông tin" name="product_manufacturer"
                                     class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
                             </div>
-                            <div class="d-flex align-items-center height-60-mobile">
+                            <div class="d-flex align-items-center height-60-mobile option-radio">
                                 <div class="title-info py-2 border border-left-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Xuất xứ</p>
                                 </div>
                                 <input type="number" placeholder="Nhập thông tin" name="product_origin"
                                     class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
                             </div>
-                            <div class="d-flex align-items-center height-60-mobile">
+                            <div class="d-flex align-items-center height-60-mobile option-radio">
                                 <div class="title-info py-2 border border-left-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Bảo hành</p>
                                 </div>
                                 <input type="number" placeholder="Nhập thông tin" name="product_guarantee"
                                     class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
                             </div>
-                            <div class="d-flex align-items-center height-60-mobile">
+                            <div class="d-flex align-items-center height-60-mobile option-radio">
                                 <div class="title-info py-2 border border-left-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Quản lý Serial Number</p>
                                 </div>
-                                <div class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
+                                <div
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
                                     <input type="checkbox" placeholder="Nhập thông tin" name="check_seri"
                                         class="" checked>
                                 </div>
-    
+
                             </div>
                         </div>
                     </div>
@@ -160,14 +182,15 @@
                                 <p class="p-0 m-0 margin-left32 text-13">Thuế</p>
                             </div>
                             <div class="border border-top-0 w-100 border-left-0 border-right-0 px-3 text-13-black">
-                                <select name="product_tax" id="" class="form-control w-25 text-13-black border-0">
+                                <select name="product_tax" id=""
+                                    class="form-control w-25 text-13-black border-0">
                                     <option value="0">0%</option>
                                     <option value="8">8%</option>
                                     <option value="10">10%</option>
                                     <option value="99">NOVAT</option>
                                 </select>
                             </div>
-    
+
                         </div>
                     </div>
                 </section>
@@ -302,3 +325,11 @@
 
 </form>
 </div>
+<script>
+    $(document).on('click', '#dichvu', function() {
+        $('.option-radio').attr('style','display:none !important;');
+    })
+    $(document).on('click', '#hanghoa', function() {
+        $('.option-radio').removeAttr('style');
+    })
+</script>
