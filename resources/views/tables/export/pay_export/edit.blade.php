@@ -348,11 +348,12 @@
                                                             value="{{ number_format($item_quote->price_export) }}"
                                                             class="border-0 px-2 py-1 w-100 text-right product_price"
                                                             autocomplete="off" name="product_price[]" readonly>
-                                                        <p class="text-primary text-right position-absolute transaction"
-                                                            style="top: 68%; right: 5%; display: none;">Giao dịch
-                                                            gần
-                                                            đây
-                                                        </p>
+                                                        <a href="#">
+                                                            <p class="mt-3 text-13-blue recentModal"
+                                                                data-toggle="modal" data-target="#recentModal">
+                                                                Giao dịch gần đây
+                                                            </p>
+                                                        </a>
                                                     </td>
                                                     <td class="border-right p-2 text-13 align-top">
                                                         <select name="product_tax[]"
