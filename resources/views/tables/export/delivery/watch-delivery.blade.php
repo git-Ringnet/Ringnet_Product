@@ -333,6 +333,10 @@
                                                 <td style="display:none;" class="">
                                                     <input type="text" class="product_tax1">
                                                 </td>
+                                                <td style="display:none;" class="">
+                                                    <input type="text" class="type"
+                                                        value="{{ $item_quote->type }}">
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -459,40 +463,42 @@
                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
-                        <input class="text-13-black w-50 border-0 bg-input-guest"
-                            value="{{ $delivery->guest_name_display }}" style="flex:2;" id="myInput">
+                        <input readonly class="text-13-black w-50 border-0 bg-input-guest"
+                            value="{{ $delivery->guest_name }}" style="flex:2;" id="myInput">
                         <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
                     </li>
                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                        <input class="text-13-black w-50 border-0" style="flex:2;"
+                        <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
                             value="{{ $delivery->represent_name }}" readonly />
                     </li>
                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã giao hàng</span>
-                        <input class="text-13-black w-50 border-0" style="flex:2;" placeholder="Nhập thông tin"
-                            value="{{ $delivery->code_delivery }}" readonly />
+                        <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
+                            placeholder="Nhập thông tin" value="{{ $delivery->code_delivery }}" readonly />
                     </li>
                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn vị vận chuyển</span>
-                        <input type="text" class="text-13-black w-50 border-0" placeholder="Nhập thông tin"
-                            name="shipping_unit" style="flex:2;" value="{{ $delivery->shipping_unit }}" />
+                        <input type="text" class="text-13-black w-50 border-0 bg-input-guest"
+                            placeholder="Nhập thông tin" name="shipping_unit" style="flex:2;"
+                            value="{{ $delivery->shipping_unit }}" />
                     </li>
                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí giao hàng</span>
-                        <input type="text" class="text-13-black w-50 border-0 shipping_fee" style="flex:2;"
-                            placeholder="Nhập thông tin" name="shipping_fee" placeholder="Nhập thông tin"
-                            value="{{ number_format($delivery->shipping_fee) }}" />
+                        <input type="text" class="text-13-black w-50 border-0 shipping_fee bg-input-guest"
+                            style="flex:2;" placeholder="Nhập thông tin" name="shipping_fee"
+                            placeholder="Nhập thông tin" value="{{ number_format($delivery->shipping_fee) }}" />
                     </li>
                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao hàng</span>
-                        <input type="text" readonly class="text-13-black w-50 border-0" name="date_deliver"
-                            style="flex:2;" value="{{ date_format(new DateTime($delivery->ngayGiao), 'd/m/Y') }}" />
+                        <input type="text" readonly class="text-13-black w-50 border-0 bg-input-guest"
+                            name="date_deliver" style="flex:2;"
+                            value="{{ date_format(new DateTime($delivery->ngayGiao), 'd/m/Y') }}" />
                     </li>
                 </ul>
             </div>
@@ -786,15 +792,19 @@
             var quantityInput = row.querySelector('.quantity-input');
             var soTonKhoElement = row.querySelector('.soTonKho');
             var productNameInput = row.querySelector('.product_name');
+            var type = row.querySelector('.type');
 
             // Kiểm tra xem phần tử có tồn tại không
             if (quantityInput && soTonKhoElement && productNameInput) {
                 var quantityValue = parseInt(quantityInput.value);
                 var soTonKho = parseInt(soTonKhoElement.innerText);
                 var productName = productNameInput.value;
+                var type = type.value;
 
-                if (quantityValue > soTonKho) {
-                    invalidProducts.push(productName);
+                if (type != 2) {
+                    if (quantityValue > soTonKho) {
+                        invalidProducts.push(productName);
+                    }
                 }
 
                 // Kiểm tra xem có thẻ tr nào có class addProduct không

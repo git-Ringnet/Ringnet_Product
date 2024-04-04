@@ -277,7 +277,7 @@
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
                                     <input readonly class="text-13-black w-50 border-0 nameGuest bg-input-guest"
-                                        value="@isset($yes){{ $getGuestbyId[0]->guest_name_display }}@endisset"
+                                        value="@isset($yes){{ $getGuestbyId[0]->guest_name }}@endisset"
                                         style="flex:2;">
                                     <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
                                         value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset">
@@ -467,7 +467,7 @@
                 success: function(data) {
                     $("#delivery_id").val(data.maGiaoHang);
                     $('.numberQute').val(data.soBG)
-                    $('.nameGuest').val(data.guest_name_display)
+                    $('.nameGuest').val(data.guest_name)
                     $('.idRepresent').val(data.represent_id)
                     $('.represent_name').val(data.represent_name)
                     $('input[name="number_bill"]').val('SHD-' + (data.lastDeliveryId +

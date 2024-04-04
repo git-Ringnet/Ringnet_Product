@@ -49,8 +49,8 @@ class DeliveryController extends Controller
             $title = 'Giao hàng';
             $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
             $workspacename = $workspacename->workspace_name;
-            $deliveries = Delivery::leftJoin('guest', 'guest.id', 'delivery.guest_id')
-                ->select('*', 'delivery.id as maGiaoHang', 'delivery.created_at as ngayGiao')
+            $deliveries = Delivery::leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
+                ->select('*', 'delivery.id as maGiaoHang', 'delivery.created_at as ngayGiao', 'delivery.status as trangThai')
                 ->where('delivery.workspace_id', Auth::user()->current_workspace)
                 ->orderBy('delivery.id', 'desc')
                 ->get();
@@ -220,8 +220,8 @@ class DeliveryController extends Controller
         $data = $request->all();
         $delivery = DetailExport::where('detailexport.id', $data['idQuote'])
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
-            ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
+            // ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            // ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
             ->first();
         $lastDeliveryId = DB::table('delivery')
             ->where('delivery.workspace_id', Auth::user()->current_workspace)

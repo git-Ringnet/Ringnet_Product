@@ -97,9 +97,9 @@ class Delivery extends Model
     {
         $delivery = Delivery::where('delivery.id', $id)
             ->where('delivery.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('guest', 'delivery.guest_id', 'guest.id')
+            // ->leftJoin('guest', 'delivery.guest_id', 'guest.id')
             ->leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
-            ->leftJoin('represent_guest', 'detailexport.represent_id', 'represent_guest.id')
+            // ->leftJoin('represent_guest', 'detailexport.represent_id', 'represent_guest.id')
             ->select('*', 'delivery.id as soGiaoHang', 'delivery.status as tinhTrang', 'delivery.created_at as ngayGiao')
             ->first();
         return $delivery;
@@ -128,7 +128,8 @@ class Delivery extends Model
                 'quoteexport.price_import',
                 'quoteexport.product_total',
                 'delivered.deliver_qty',
-                'delivery.created_at as ngayGiao'
+                'delivery.created_at as ngayGiao',
+                'products.type',
             )
             ->groupBy(
                 'quoteexport.product_code',
@@ -143,7 +144,8 @@ class Delivery extends Model
                 'quoteexport.product_tax',
                 'quoteexport.price_import',
                 'quoteexport.product_total',
-                'delivery.created_at'
+                'delivery.created_at',
+                'products.type',
             )
             ->get();
         return $product;
@@ -221,10 +223,12 @@ class Delivery extends Model
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $product = Products::find($data['product_id'][$i]);
             if ($product) {
-                $result = $product->product_inventory - $data['product_qty'][$i];
-                $product->update([
-                    'product_inventory' => $result,
-                ]);
+                if ($product->type != 2) {
+                    $result = $product->product_inventory - $data['product_qty'][$i];
+                    $product->update([
+                        'product_inventory' => $result,
+                    ]);
+                }
             }
         }
         if (isset($data['id_seri'])) {
@@ -301,8 +305,10 @@ class Delivery extends Model
             foreach ($deliveredItems as $deliveredItem) {
                 $product = Products::find($deliveredItem->product_id);
                 if ($product) {
-                    $product->product_inventory += $deliveredItem->deliver_qty;
-                    $product->save();
+                    if ($product->type != 2) {
+                        $product->product_inventory += $deliveredItem->deliver_qty;
+                        $product->save();
+                    }
                 }
             }
             Delivered::where('delivery_id', $id)->delete();
@@ -412,8 +418,10 @@ class Delivery extends Model
             foreach ($deliveredItems as $deliveredItem) {
                 $product = Products::find($deliveredItem->product_id);
                 if ($product) {
-                    $product->product_inventory += $deliveredItem->deliver_qty;
-                    $product->save();
+                    if ($product->type != 2) {
+                        $product->product_inventory += $deliveredItem->deliver_qty;
+                        $product->save();
+                    }
                 }
             }
             Delivered::where('delivery_id', $id)->delete();
@@ -679,10 +687,12 @@ class Delivery extends Model
         for ($i = 0; $i < count($data['product_name']); $i++) {
             $product = Products::find($data['product_id'][$i]);
             if ($product) {
-                $result = ($product->product_inventory == null ? 0 : $product->product_inventory) - $data['product_qty'][$i];
-                $product->update([
-                    'product_inventory' => $result,
-                ]);
+                if ($product->type != 2) {
+                    $result = ($product->product_inventory == null ? 0 : $product->product_inventory) - $data['product_qty'][$i];
+                    $product->update([
+                        'product_inventory' => $result,
+                    ]);
+                }
             }
         }
     }

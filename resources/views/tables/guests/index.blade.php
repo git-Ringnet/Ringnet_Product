@@ -16,7 +16,8 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('guests.create', ['workspace' => $workspacename]) }}" class="activity" data-name1="KH" data-des="Tạo mới">
+                    <a href="{{ route('guests.create', ['workspace' => $workspacename]) }}" class="activity"
+                        data-name1="KH" data-des="Tạo mới">
                         <button type="button" class="custom-btn d-flex align-items-center h-100"
                             style="margin-right:10px">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
@@ -201,7 +202,9 @@
                                                 <input type="checkbox" class="cb-element checkall-btn" name="ids[]"
                                                     id="checkbox" value="" onclick="event.stopPropagation();">
                                             </td>
-                                            <td class="text-13-black">{{ $item->guest_name_display }}</td>
+                                            <td class="text-13-black">
+                                                <a href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
+                                            </td>
                                             <td class="text-13-black">{{ $item->guest_code }}</td>
                                             {{-- <td class="text-13-black">{{ $item->guest_email }}</td>
                                             <td class="text-13-black">{{ $item->guest_phone }}</td> --}}
@@ -211,8 +214,9 @@
                                             <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                 style="right: 10px; top: 10px;">
                                                 <div class="d-flex w-100">
-                                                    <a class="activity" data-name1="KH" data-des="Xem thông tin khách hàng"
-                                                        href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">
+                                                    <a class="activity" data-name1="KH"
+                                                        data-des="Xem thông tin khách hàng"
+                                                        href="{{ route('guests.edit', ['workspace' => $workspacename, 'guest' => $item->id]) }}">
                                                         <div class="m-0 px-2 py-1 mx-2 rounded">
                                                             <svg width="16" height="16" viewBox="0 0 16 16"
                                                                 fill="none" xmlns="http://www.w3.org/2000/svg">

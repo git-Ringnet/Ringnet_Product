@@ -337,6 +337,17 @@
                                                     <a href="#" class="sort-link" data-sort-by="id"
                                                         data-sort-type="#">
                                                         <button class="btn-sort text-13" type="submit">
+                                                            Khách hàng
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-id"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="id"
+                                                        data-sort-type="#">
+                                                        <button class="btn-sort text-13" type="submit">
                                                             Giá bán
                                                         </button>
                                                     </a>
@@ -469,8 +480,8 @@
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest nameGuest"
-                                        style="flex:2;"
-                                        value="@isset($yes){{ $getGuestbyId[0]->guest_name_display }}@endisset" />
+                                        style="flex:2;" readonly
+                                        value="@isset($yes){{ $getGuestbyId[0]->guest_name }}@endisset" />
 
                                     <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
                                         value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset">
@@ -751,7 +762,8 @@
                 "<path fill-rule='evenodd' clip-rule='evenodd' d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z' fill='#6B6F76'/>" +
                 "</svg>" +
                 "</td>" +
-                "<td style='display:none;'><input type='text' class='product_tax1'></td>"
+                "<td style='display:none;'><input type='text' class='product_tax1'></td>" +
+                "<td style='display:none;'><input type='text' class='type'></td>"
             );
             // 
             // Gắn các phần tử vào hàng mới
@@ -871,6 +883,7 @@
                     var product_id = $(this).closest('tr').find('.product_id');
                     var tonkho = $(this).closest('tr').find('.tonkho');
                     var soTonKho = $(this).closest('tr').find('.soTonKho');
+                    var type = $(this).closest('tr').find('.type');
                     var idProduct = $(this).attr('id');
                     var currentRow = $(this).closest('tr');
                     var clickedProductId = $(this).parent().data('id');
@@ -907,6 +920,7 @@
                                     .product_inventory == null ? 0 :
                                     productData
                                     .product_inventory));
+                                type.val(productData.type);
                                 thue.prop('disabled', true);
                                 $('.list_product').hide();
                                 $('.recentModal').show();
@@ -1412,18 +1426,27 @@
                                                             ".quantity-input"
                                                         )
                                                         .val());
+                                                var type =
+                                                    parseFloat(
+                                                        $(this)
+                                                        .find(
+                                                            ".type"
+                                                        )
+                                                        .val());
                                                 var productNameInventory =
                                                     $(this)
                                                     .find(
                                                         ".product_name"
                                                     ).val();
                                                 // Kiểm tra số lượng tồn kho
-                                                if (quantity >
-                                                    soTonKho) {
-                                                    invalidInventoryProducts
-                                                        .push(
-                                                            productNameInventory
-                                                        );
+                                                if (type != 2) {
+                                                    if (quantity >
+                                                        soTonKho) {
+                                                        invalidInventoryProducts
+                                                            .push(
+                                                                productNameInventory
+                                                            );
+                                                    }
                                                 }
 
                                                 if (checkbox.prop(
@@ -1588,12 +1611,15 @@
                                 var newRow = $(
                                     '<tr class="position-relative">' +
                                     '<td class="text-13-black" id="productName"></td>' +
+                                    '<td class="text-13-black" id="guestName"></td>' +
                                     '<td class="text-13-black" id="productPrice"></td>' +
                                     '<td class="text-13-black" id="productTax"></td>' +
                                     '<td class="text-13-black" id="dateProduct"></td>' +
                                     '</tr>');
                                 newRow.find('#productName').text(productData
                                     .product_name);
+                                newRow.find('#guestName').text(productData
+                                    .guest_name);
                                 newRow.find('#productPrice').text(
                                     formatCurrency(productData
                                         .price_export));
@@ -1667,7 +1693,7 @@
                 success: function(data) {
                     $('.idRepresent').val(data.represent_id)
                     $('.numberQute').val(data.quotation_number)
-                    $('.nameGuest').val(data.guest_name_display)
+                    $('.nameGuest').val(data.guest_name)
                     $('.represent_name').val(data.represent_name)
                     $('input[name="code_delivery"]').val('GH-' + (data.lastDeliveryId + 1));
                     $('#show-info-guest').show();
@@ -1796,6 +1822,7 @@
                                     </td>
                                     <td style="display:none;"><input type="text" class="product_tax1" value="${tax}"></td>
                                     <td style='display:none;'><ul class ='seri_pro'></ul></td>
+                                    <td style="display:none;"><input type="text" class="type" value="${item.type}"></td>
                                 </tr>`;
                                 $("#dynamic-fields").before(newRow);
                                 //giới hạn số lượng
@@ -1847,6 +1874,7 @@
                                                             $(
                                                                 '<tr class="position-relative">' +
                                                                 '<td class="text-13-black" id="productName"></td>' +
+                                                                '<td class="text-13-black" id="guestName"></td>' +
                                                                 '<td class="text-13-black" id="productPrice"></td>' +
                                                                 '<td class="text-13-black" id="productTax"></td>' +
                                                                 '<td class="text-13-black" id="dateProduct"></td>' +
@@ -1859,6 +1887,14 @@
                                                             .text(
                                                                 productData
                                                                 .product_name
+                                                            );
+                                                        newRow
+                                                            .find(
+                                                                '#guestName'
+                                                            )
+                                                            .text(
+                                                                productData
+                                                                .guest_name
                                                             );
                                                         newRow
                                                             .find(
@@ -2097,18 +2133,29 @@
                                                                 ".quantity-input"
                                                             )
                                                             .val());
+                                                    var type =
+                                                        parseFloat(
+                                                            $(this)
+                                                            .find(
+                                                                ".type"
+                                                            )
+                                                            .val());
                                                     var productNameInventory =
                                                         $(this)
                                                         .find(
                                                             ".product_name"
                                                         ).val();
                                                     // Kiểm tra số lượng tồn kho
-                                                    if (quantity >
-                                                        soTonKho) {
-                                                        invalidInventoryProducts
-                                                            .push(
-                                                                productNameInventory
-                                                            );
+                                                    if (type !=
+                                                        2) {
+                                                        if (quantity >
+                                                            soTonKho
+                                                        ) {
+                                                            invalidInventoryProducts
+                                                                .push(
+                                                                    productNameInventory
+                                                                );
+                                                        }
                                                     }
 
                                                     if (checkbox

@@ -109,7 +109,17 @@ class DetailExport extends Model
             ->leftJoin('guest', 'detailexport.guest_id', 'guest.id')
             ->leftJoin('represent_guest', 'detailexport.represent_id', 'represent_guest.id')
             ->leftJoin('project', 'detailexport.project_id', 'project.id')
-            ->select('*', 'guest.id as maKH', 'represent_guest.id as maNDD', 'detailexport.id as maBG', 'detailexport.status as tinhTrang', 'detailexport.created_at as ngayBG', 'project.id as id_project')
+            ->select(
+                '*',
+                'guest.id as maKH',
+                'represent_guest.id as maNDD',
+                'detailexport.id as maBG',
+                'detailexport.status as tinhTrang',
+                'detailexport.created_at as ngayBG',
+                'project.id as id_project',
+                'detailexport.guest_name as export_guest_name',
+                'detailexport.represent_name as export_represent_name',
+            )
             ->first();
         return $detailExport;
     }

@@ -125,7 +125,7 @@ li {
 .outer {
     overflow: auto;
     scrollbar-width: none;
-    max-height: 470px;
+    max-height: 81vh;
 }
 
 .outer {
@@ -138,12 +138,13 @@ li {
     top: 0;
     position: sticky;
     background-color: white;
+    z-index: 9999;
 }
 
 .outer2 {
     overflow: auto;
     scrollbar-width: none;
-    max-height: 550px;
+    max-height: 81vh;
 }
 
 .outer2 {
@@ -156,6 +157,7 @@ li {
     top: 0;
     position: sticky;
     background-color: white;
+    z-index: 9999;
 }
 .outer3-srcoll{
     overflow-y: auto; 

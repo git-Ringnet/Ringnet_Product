@@ -451,7 +451,7 @@
                                 <input type="text" name="guestName" readonly placeholder="Chọn thông tin"
                                     <?php if ($detailExport->tinhTrang != 1) {
                                         echo 'disabled';
-                                    } ?> value="{{ $detailExport->guest_name_display }}"
+                                    } ?> value="{{ $detailExport->export_guest_name }}"
                                     class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest" id="myInput"
                                     style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required>
                                 <input type="hidden" class="idGuest" autocomplete="off"
@@ -529,13 +529,12 @@
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">
                                             Người đại diện
                                         </span>
-
                                         <input readonly class="text-13-black w-50 border-0 bg-input-guest"
                                             type="text" name="representName" <?php if ($detailExport->tinhTrang != 1) {
                                                 echo 'disabled';
                                             } ?>
                                             placeholder="Chọn thông tin" id="represent_guest" style="flex:2;"
-                                            value="{{ $detailExport->represent_name }}" autocomplete="off">
+                                            value="{{ $detailExport->export_represent_name }}" autocomplete="off">
 
                                         <input type="hidden" class="represent_guest_id" autocomplete="off"
                                             value="{{ $detailExport->represent_id }}" name="represent_guest_id">
@@ -1370,6 +1369,17 @@
                                         <a href="#" class="sort-link" data-sort-by="id"
                                             data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
+                                                Khách hàng
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id"
+                                            data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
                                                 Giá bán
                                             </button>
                                         </a>
@@ -1445,12 +1455,15 @@
                         var newRow = $(
                             '<tr class="position-relative">' +
                             '<td class="text-13-black" id="productName"></td>' +
+                            '<td class="text-13-black" id="guestName"></td>' +
                             '<td class="text-13-black" id="productPrice"></td>' +
                             '<td class="text-13-black" id="productTax"></td>' +
                             '<td class="text-13-black" id="dateProduct"></td>' +
                             '</tr>');
                         newRow.find('#productName').text(productData
                             .product_name);
+                        newRow.find('#guestName').text(productData
+                            .guest_name);
                         newRow.find('#productPrice').text(
                             formatCurrency(productData
                                 .price_export));
@@ -2007,12 +2020,15 @@
                                 var newRow = $(
                                     '<tr class="position-relative">' +
                                     '<td class="text-13-black" id="productName"></td>' +
+                                    '<td class="text-13-black" id="guestName"></td>' +
                                     '<td class="text-13-black" id="productPrice"></td>' +
                                     '<td class="text-13-black" id="productTax"></td>' +
                                     '<td class="text-13-black" id="dateProduct"></td>' +
                                     '</tr>');
                                 newRow.find('#productName').text(productData
                                     .product_name);
+                                newRow.find('#guestName').text(productData
+                                    .guest_name);
                                 newRow.find('#productPrice').text(
                                     formatCurrency(productData
                                         .price_export));
@@ -2774,30 +2790,30 @@
             }
         });
         //
-        $.ajax({
-            url: '{{ route('getRepresentGuest') }}',
-            type: 'GET',
-            data: {
-                idGuest: idGuest
-            },
-            success: function(data) {
-                var defaultGuestItem = data.find(item => item
-                    .default_guest === 1);
-                if (data.length > 1 && defaultGuestItem) {
-                    $('#represent_guest').val(defaultGuestItem
-                        .represent_name);
-                    $('.represent_guest_id').val(defaultGuestItem
-                        .id);
-                } else if (data.length === 1) {
-                    $('#represent_guest').val(data[0]
-                        .represent_name);
-                    $('.represent_guest_id').val(data[0].id);
-                } else {
-                    $('#represent_guest').val('');
-                    $('.represent_guest_id').val('');
-                }
-            }
-        });
+        // $.ajax({
+        //     url: '{{ route('getRepresentGuest') }}',
+        //     type: 'GET',
+        //     data: {
+        //         idGuest: idGuest
+        //     },
+        //     success: function(data) {
+        //         var defaultGuestItem = data.find(item => item
+        //             .default_guest === 1);
+        //         if (data.length > 1 && defaultGuestItem) {
+        //             $('#represent_guest').val(defaultGuestItem
+        //                 .represent_name);
+        //             $('.represent_guest_id').val(defaultGuestItem
+        //                 .id);
+        //         } else if (data.length === 1) {
+        //             $('#represent_guest').val(data[0]
+        //                 .represent_name);
+        //             $('.represent_guest_id').val(data[0].id);
+        //         } else {
+        //             $('#represent_guest').val('');
+        //             $('.represent_guest_id').val('');
+        //         }
+        //     }
+        // });
     });
 
     //Thêm người đại diện

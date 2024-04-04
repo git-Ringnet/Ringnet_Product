@@ -482,6 +482,17 @@
                                                     <a href="#" class="sort-link" data-sort-by="id"
                                                         data-sort-type="#">
                                                         <button class="btn-sort text-13" type="submit">
+                                                            Khách hàng
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-id"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="id"
+                                                        data-sort-type="#">
+                                                        <button class="btn-sort text-13" type="submit">
                                                             Giá bán
                                                         </button>
                                                     </a>
@@ -1002,8 +1013,8 @@
                                             data-toggle="modal" data-target="#formModalgoods"
                                             style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
                                             <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    viewBox="0 0 16 16" fill="none">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                    height="16" viewBox="0 0 16 16" fill="none">
                                                     <path
                                                         d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
                                                         fill="#282A30" />
@@ -1887,18 +1898,22 @@
                         idProduct: idProduct
                     },
                     success: function(data) {
+                        console.log(data);
                         if (Array.isArray(data) && data.length > 0) {
                             $('#recentModal .modal-body tbody').empty();
                             data.forEach(function(productData) {
                                 var newRow = $(
                                     '<tr class="position-relative">' +
                                     '<td class="text-13-black" id="productName"></td>' +
+                                    '<td class="text-13-black" id="guestName"></td>' +
                                     '<td class="text-13-black" id="productPrice"></td>' +
                                     '<td class="text-13-black" id="productTax"></td>' +
                                     '<td class="text-13-black" id="dateProduct"></td>' +
                                     '</tr>');
                                 newRow.find('#productName').text(productData
                                     .product_name);
+                                newRow.find('#guestName').text(productData
+                                    .guest_name);
                                 newRow.find('#productPrice').text(
                                     formatCurrency(productData
                                         .price_export));
@@ -2341,7 +2356,15 @@
                         $('#represent_guest').val(data.updated_represent
                             .represent_name);
                     } else {
-                        showAutoToast('warning', data.msg);
+                        if (data.key) {
+                            $("input[name='key']").val(data.key)
+                            showAutoToast('warning', data.msg);
+                            delayAndshowAutoToast('success',
+                                'Tên viết tắt đã được thay đổi',
+                                500);
+                        } else {
+                            showAutoToast('warning', data.msg);
+                        }
                     }
                 }
             });

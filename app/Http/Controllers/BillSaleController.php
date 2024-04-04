@@ -222,10 +222,10 @@ class BillSaleController extends Controller
         $data = $request->all();
         $delivery = DetailExport::where('detailexport.id', $data['idQuote'])
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
-            ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
+            // ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            // ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
             ->leftJoin('delivery', 'delivery.detailexport_id', 'detailexport.id')
-            ->select('*', 'delivery.id as maGiaoHang', 'detailexport.quotation_number as soBG', 'represent_guest.id as represent_id')
+            ->select('*', 'delivery.id as maGiaoHang', 'detailexport.quotation_number as soBG')
             ->first();
         $lastDeliveryId = DB::table('bill_sale')
             ->where('bill_sale.workspace_id', Auth::user()->current_workspace)

@@ -20,6 +20,8 @@ class PayExport extends Model
         'total',
         'payment',
         'debt',
+        'payment_day',
+        'payment_type',
         'status',
         'workspace_id',
         'created_at',
@@ -48,6 +50,7 @@ class PayExport extends Model
         $total = isset($data['total']) ? str_replace(',', '', $data['total']) : $detailExport->amount_owed;
         $payment = isset($data['payment']) ? str_replace(',', '', $data['payment']) : 0;
         $date_pay = isset($data['date_pay']) ? Carbon::parse($data['date_pay']) : Carbon::now();
+        $payment_day = isset($data['payment_day']) ? Carbon::parse($data['payment_day']) : Carbon::now();
 
         $result = $total - $payment;
 
@@ -91,6 +94,8 @@ class PayExport extends Model
             'total' => $total,
             'payment' => $payment,
             'debt' => $result,
+            'payment_day' => $payment_day,
+            'payment_type' => $data['payment_type'],
             'status' => $status,
             'workspace_id' => Auth::user()->current_workspace,
             'created_at' => Carbon::now(),
@@ -118,6 +123,7 @@ class PayExport extends Model
             'payment' => $payment,
             'debt' => $result,
             'workspace_id' => Auth::user()->current_workspace,
+            'created_at' => $payment_day,
         ];
 
         // Use create method instead of new + save
@@ -131,6 +137,7 @@ class PayExport extends Model
 
     public function updateDetailExport($data, $detailexport_id)
     {
+        $payment_day = isset($data['payment_day']) ? Carbon::parse($data['payment_day']) : Carbon::now();
         $total = str_replace(',', '', $data['total']);
         if (isset($data['payment'])) {
             $payment = str_replace(',', '', $data['payment']);
@@ -188,7 +195,7 @@ class PayExport extends Model
             $history->payment = $payment;
             $history->debt = $detailExport->amount_owed;
             $history->workspace_id = Auth::user()->current_workspace;
-            $history->created_at = now();
+            $history->created_at = $payment_day;
             $history->save();
         }
         //
@@ -228,7 +235,7 @@ class PayExport extends Model
                         $history->payment = $payment;
                         $history->debt = $detailExport->amount_owed;
                         $history->workspace_id = Auth::user()->current_workspace;
-                        $history->created_at = now();
+                        $history->created_at = $payment_day;
                         $history->save();
                     } else {
                         $status = 1;
@@ -256,6 +263,8 @@ class PayExport extends Model
         $payExport->payment += $payment;
         $payExport->debt = $detailExport->amount_owed;
         $payExport->payment_date = $data['date_pay'];
+        $payExport->payment_day = $payment_day;
+        $payExport->payment_type = $data['payment_type'];
         $payExport->status = $status;
         $payExport->save();
         return $detailExport;

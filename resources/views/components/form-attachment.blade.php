@@ -2,20 +2,17 @@
     <table class="table table-hover bg-white rounded">
         <thead>
             <tr style="height:44px;">
-                <th class="border-right p-1 border-bottom padding-left35">
-                    <input type="checkbox" class="checkall-btn">
+                <th class="border-right p-1 border-bottom">
+                    <span class="text-table ml-2 text-secondary">Tên file</span>
                 </th>
                 <th class="border-right p-1 border-bottom">
-                    <span class="text-table text-secondary">Tên file</span>
+                    <span class="text-table ml-2 text-secondary">Chủ sở hữu</span>
                 </th>
                 <th class="border-right p-1 border-bottom">
-                    <span class="text-table text-secondary">Chủ nhân</span>
+                    <span class="text-table ml-2 text-secondary">Chỉnh sửa cuối</span>
                 </th>
                 <th class="border-right p-1 border-bottom">
-                    <span class="text-table text-secondary">Chỉnh sửa cuối</span>
-                </th>
-                <th class="border-right p-1 border-bottom">
-                    <span class="text-table text-secondary">Kích cỡ</span>
+                    <span class="text-table ml-2 text-secondary">Kích cỡ</span>
                 </th>
                 <th class="p-1 border-bottom border-right"></th>
                 <th class="p-1 border-bottom"></th>

@@ -446,7 +446,7 @@
                                                     style="right: 4px; top: 15%;">
                                                     <div class="d-flex w-100">
                                                         <a
-                                                            href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $value_export->maBG]) }}">
+                                                            href="{{ route('detailExport.edit', ['workspace' => $workspacename, 'detailExport' => $value_export->maBG]) }}">
                                                             <div class="m-0 px-2 py-1 mx-2 rounded activity"
                                                                 data-name1="BG" data-des="Xem đơn báo giá">
                                                                 <svg width="16" height="16"

@@ -48,13 +48,12 @@ class PayExportController extends Controller
             $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
             $workspacename = $workspacename->workspace_name;
             $payExport = PayExport::leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
-                ->leftJoin('guest', 'pay_export.guest_id', 'guest.id')
                 ->leftJoin('history_payment_export', 'pay_export.id', 'history_payment_export.pay_id')
                 ->where('pay_export.workspace_id', Auth::user()->current_workspace)
                 ->orderBy('pay_export.id', 'DESC')
                 ->select(
                     'detailexport.quotation_number',
-                    'guest.guest_name_display',
+                    'detailexport.guest_name',
                     'pay_export.payment_date',
                     'pay_export.total',
                     'pay_export.id as idThanhToan',
@@ -67,7 +66,7 @@ class PayExportController extends Controller
                 )
                 ->groupby(
                     'detailexport.quotation_number',
-                    'guest.guest_name_display',
+                    'detailexport.guest_name',
                     'pay_export.payment_date',
                     'pay_export.total',
                     'pay_export.id',
@@ -207,7 +206,7 @@ class PayExportController extends Controller
         $history = history_Pay_Export::where('pay_id', $id)
             ->where('history_payment_export.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('pay_export', 'pay_export.id', 'history_payment_export.pay_id')
-            ->select('history_payment_export.*', 'pay_export.code_payment')
+            ->select('history_payment_export.*', 'pay_export.code_payment', 'pay_export.payment_type')
             ->orderBy('history_payment_export.created_at', 'desc')
             ->get();
         return view('tables.export.pay_export.edit', compact('title', 'payExport', 'product', 'history', 'thanhToan', 'noConLaiValue', 'workspacename'));
@@ -267,26 +266,26 @@ class PayExportController extends Controller
         $data = $request->all();
         $delivery = DetailExport::where('detailexport.id', $data['idQuote'])
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
-            ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
+            // ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            // ->leftJoin('represent_guest', 'represent_guest.id', 'detailexport.represent_id')
             ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
             ->leftJoin('history_payment_export', 'history_payment_export.pay_id', 'pay_export.id')
             ->select(
                 'detailexport.guest_id',
-                'guest.guest_name_display',
+                'detailexport.guest_name',
                 'detailexport.quotation_number',
-                'represent_guest.represent_name',
+                'detailexport.represent_name',
                 DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
                 DB::raw('SUM(history_payment_export.payment) as tongThanhToan')
             )
             ->groupBy(
                 'detailexport.guest_id',
-                'guest.guest_name_display',
+                'detailexport.guest_name',
                 'detailexport.total_price',
                 'detailexport.total_tax',
                 'detailexport.quotation_number',
-                'represent_guest.represent_name',
+                'detailexport.represent_name',
             )
             ->first();
         $lastPayExportId = DB::table('pay_export')

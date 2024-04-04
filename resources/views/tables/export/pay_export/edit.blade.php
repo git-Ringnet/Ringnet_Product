@@ -424,8 +424,9 @@
                     <div id="history" class="tab-pane fade">
                         <div id="title--fixed"
                             class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
-                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">Lịch sử thanh
-                                toán</p>
+                            <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                                Lịch sử thanh toán
+                            </p>
                         </div>
                         <section class="content margin-top-103">
                             <div class="outer container-fluided">
@@ -435,6 +436,8 @@
                                             <th class="text-table text-secondary p-2 border-right"
                                                 style="padding-left: 2rem !important;">Mã thanh toán</th>
                                             <th class="text-table text-secondary p-2 border-right">Ngày thanh toán</th>
+                                            <th class="text-table text-secondary p-2 border-right">Hình thức t.toán
+                                            </th>
                                             <th class="text-table text-secondary p-2 border-right">Tổng tiền</th>
                                             <th class="text-table text-secondary p-2 border-right">Thanh toán</th>
                                             <th class="text-table text-secondary p-2">Dư nợ</th>
@@ -449,6 +452,9 @@
                                                 </td>
                                                 <td class="border-right text-13-black">
                                                     {{ date_format(new DateTime($htr->created_at), 'd-m-Y H:i:s') }}
+                                                </td>
+                                                <td class="border-right text-13-black">
+                                                    {{ $htr->payment_type }}
                                                 </td>
                                                 <td class="border-right text-13-black">
                                                     {{ number_format($htr->total) }}
@@ -521,6 +527,33 @@
                                                 class="text-13-black w-50 border-0">
                                             <input type="hidden" id="hiddenDateInput" name="date_pay"
                                                 value="{{ date_format(new DateTime($payExport->payment_date), 'Y-m-d') }}">
+                                        </li>
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">
+                                                Ngày thanh toán
+                                            </span>
+                                            <input type="text" placeholder="Nhập thông tin"
+                                                style="flex:2;outline:none;"
+                                                @if ($payExport->trangThai != 2) id="dayPicker" @endif
+                                                value="{{ date_format(new DateTime($payExport->payment_day), 'd/m/Y') }}"
+                                                class="text-13-black w-50 border-0">
+                                            <input type="hidden" id="hiddenDayInput" name="payment_day"
+                                                value="{{ date_format(new DateTime($payExport->payment_day), 'Y-m-d') }}">
+                                        </li>
+                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hình thức
+                                                t.toán</span>
+                                            <select name="payment_type" style="width: 55%" disabled
+                                                class="text-13-black border-0 bg-input-guest">
+                                                <option value="Tiền mặt" <?php if ($payExport->payment_type == 'Tiền mặt') {
+                                                    echo 'selected';
+                                                } ?>>Tiền mặt</option>
+                                                <option value="UNC" <?php if ($payExport->payment_type == 'UNC') {
+                                                    echo 'selected';
+                                                } ?>>UNC</option>
+                                            </select>
                                         </li>
                                         <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                             style="height:44px;">
@@ -665,6 +698,16 @@
         onChange: function(selectedDates, dateStr, instance) {
             // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
             document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
+                "Y-m-d");
+        }
+    });
+    flatpickr("#dayPicker", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        defaultDate: new Date(),
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            document.getElementById("hiddenDayInput").value = instance.formatDate(selectedDates[0],
                 "Y-m-d");
         }
     });
