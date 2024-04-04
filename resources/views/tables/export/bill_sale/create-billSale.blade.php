@@ -321,7 +321,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="outer text-nowrap">
+                        <div class="outer text-nowrap" style="scrollbar-width: inherit;">
                             <table id="example2" class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr>

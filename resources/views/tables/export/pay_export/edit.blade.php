@@ -632,7 +632,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="outer text-nowrap">
+                <div class="outer text-nowrap" style="scrollbar-width: inherit;">
                     <table id="example2" class="table table-hover bg-white rounded">
                         <thead>
                             <tr>
@@ -641,6 +641,16 @@
                                         <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
                                                 Tên sản phẩm
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Khách hàng
                                             </button>
                                         </a>
                                         <div class="icon" id="icon-id"></div>
@@ -743,6 +753,7 @@
                                 $(
                                     '<tr class="position-relative">' +
                                     '<td class="text-13-black" id="productName"></td>' +
+                                    '<td class="text-13-black" id="guestName"></td>' +
                                     '<td class="text-13-black" id="productPrice"></td>' +
                                     '<td class="text-13-black" id="productTax"></td>' +
                                     '<td class="text-13-black" id="dateProduct"></td>' +
@@ -755,6 +766,14 @@
                                 .text(
                                     productData
                                     .product_name
+                                );
+                            newRow
+                                .find(
+                                    '#guestName'
+                                )
+                                .text(
+                                    productData
+                                    .guest_name
                                 );
                             newRow
                                 .find(
