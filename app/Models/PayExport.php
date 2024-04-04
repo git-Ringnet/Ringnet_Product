@@ -264,7 +264,6 @@ class PayExport extends Model
         $payExport->debt = $detailExport->amount_owed;
         $payExport->payment_date = $data['date_pay'];
         $payExport->payment_day = $payment_day;
-        $payExport->payment_type = $data['payment_type'];
         $payExport->status = $status;
         $payExport->save();
         return $detailExport;

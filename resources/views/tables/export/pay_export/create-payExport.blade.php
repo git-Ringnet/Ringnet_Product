@@ -377,6 +377,17 @@
                                                     <a href="#" class="sort-link" data-sort-by="id"
                                                         data-sort-type="#">
                                                         <button class="btn-sort text-13" type="submit">
+                                                            Khách hàng
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-id"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link" data-sort-by="id"
+                                                        data-sort-type="#">
+                                                        <button class="btn-sort text-13" type="submit">
                                                             Giá bán
                                                         </button>
                                                     </a>
@@ -546,7 +557,8 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap">Hình thức t.toán</span>
-                                <select name="payment_type" style="width: 55%" class="text-13-black border-0 bg-input-guest">
+                                <select name="payment_type" style="width: 55%"
+                                    class="text-13-black border-0 bg-input-guest">
                                     <option value="Tiền mặt">Tiền mặt</option>
                                     <option value="UNC">UNC</option>
                                 </select>
@@ -1074,6 +1086,7 @@
                                                                 $(
                                                                     '<tr class="position-relative">' +
                                                                     '<td class="text-13-black" id="productName"></td>' +
+                                                                    '<td class="text-13-black" id="guestName"></td>' +
                                                                     '<td class="text-13-black" id="productPrice"></td>' +
                                                                     '<td class="text-13-black" id="productTax"></td>' +
                                                                     '<td class="text-13-black" id="dateProduct"></td>' +
@@ -1086,6 +1099,14 @@
                                                                 .text(
                                                                     productData
                                                                     .product_name
+                                                                );
+                                                            newRow
+                                                                .find(
+                                                                    '#guestName'
+                                                                )
+                                                                .text(
+                                                                    productData
+                                                                    .guest_name
                                                                 );
                                                             newRow
                                                                 .find(

@@ -562,6 +562,16 @@
                                     <span class="d-flex">
                                         <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
+                                                Khách hàng
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
                                                 Giá bán
                                             </button>
                                         </a>
@@ -638,12 +648,15 @@
                         var newRow = $(
                             '<tr class="position-relative">' +
                             '<td class="text-13-black" id="productName"></td>' +
+                            '<td class="text-13-black" id="guestName"></td>' +
                             '<td class="text-13-black" id="productPrice"></td>' +
                             '<td class="text-13-black" id="productTax"></td>' +
                             '<td class="text-13-black" id="dateProduct"></td>' +
                             '</tr>');
                         newRow.find('#productName').text(productData
                             .product_name);
+                        newRow.find('#guestName').text(productData
+                            .guest_name);
                         newRow.find('#productPrice').text(
                             formatCurrency(productData
                                 .price_export));

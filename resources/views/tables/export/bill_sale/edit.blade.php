@@ -303,12 +303,14 @@
                                                             value="{{ number_format($item->price_export) }}"
                                                             class="border-0 px-2 py-1 w-100 product_price text-right"
                                                             autocomplete="off" name="product_price[]" readonly="">
-                                                        <div class="mt-3 text-13-blue transaction recentModal activity"
-                                                            data-name1="HDBH"
-                                                            data-des="Xem giao dịch gần đầy ở trang xem chi tiết"
-                                                            data-toggle="modal" data-target="#recentModal">
-                                                            Giao dịch gần đây
-                                                        </div>
+                                                        <a href="#">
+                                                            <div class="mt-3 text-13-blue transaction recentModal activity"
+                                                                data-name1="HDBH"
+                                                                data-des="Xem giao dịch gần đầy ở trang xem chi tiết"
+                                                                data-toggle="modal" data-target="#recentModal">
+                                                                Giao dịch gần đây
+                                                            </div>
+                                                        </a>
                                                     </td>
                                                     <td class='border-right p-2 text-13 align-top'>
                                                         <select name="product_tax[]"
@@ -501,6 +503,16 @@
                                     <span class="d-flex">
                                         <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
+                                                Khách hàng
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
                                                 Giá bán
                                             </button>
                                         </a>
@@ -575,6 +587,7 @@
                                 $(
                                     '<tr class="position-relative">' +
                                     '<td class="text-13-black" id="productName"></td>' +
+                                    '<td class="text-13-black" id="guestName"></td>' +
                                     '<td class="text-13-black" id="productPrice"></td>' +
                                     '<td class="text-13-black" id="productTax"></td>' +
                                     '<td class="text-13-black" id="dateProduct"></td>' +
@@ -587,6 +600,14 @@
                                 .text(
                                     productData
                                     .product_name
+                                );
+                            newRow
+                                .find(
+                                    '#guestName'
+                                )
+                                .text(
+                                    productData
+                                    .guest_name
                                 );
                             newRow
                                 .find(
