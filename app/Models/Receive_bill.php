@@ -18,8 +18,8 @@ class Receive_bill extends Model
         'quotation_number',
         'provide_id',
         'shipping_unit',
-        'delivery_charges',
-        'status'
+        'delivery_charges', 'delivery_code',
+        'status', 'created_at', 'workspace_id'
     ];
 
     public function getQuotation()

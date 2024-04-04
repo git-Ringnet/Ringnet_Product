@@ -12,6 +12,7 @@ class Guest extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'guest_name_display',
         'guest_name',
         'guest_address',

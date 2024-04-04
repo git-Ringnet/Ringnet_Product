@@ -16,7 +16,7 @@ class productPay extends Model
         'pay_id',
         'product_id',
         'pay_qty',
-        'workspace_id',
+        'workspace_id', 'created_at'
     ];
     protected $table = 'product_pay';
 

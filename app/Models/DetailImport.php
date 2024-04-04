@@ -25,10 +25,13 @@ class DetailImport extends Model
         'status_reciept',
         'status_pay',
         'warehouse_id',
+        'workspace_id',
         'total_tax',
         'discount',
         'transfer_fee',
-        'terms_pay'
+        'terms_pay',
+        'created_at',
+        'updated_at',
     ];
     public function getProvideName()
     {

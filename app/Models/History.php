@@ -13,7 +13,7 @@ class History extends Model
     protected $fillable = [
         'id',
         'detailimport_id', 'detailexport_id', 'delivered_id', 'provide_id',
-        'tax_import', 'price_import', 'total_import', 'history_import', 'workspace_id',
+        'tax_import', 'price_import', 'total_import', 'history_import', 'workspace_id', 'hdv', 'hdr'
     ];
     use HasFactory;
     public function getAllHistory()
@@ -38,8 +38,8 @@ class History extends Model
                 'history_import.*',
                 'history_import.price_export as gianhap',
                 'detailexport.*',
-                'bill_sale.number_bill as hdra',
-                // 'reciept.number_bill as hdvao',
+                'history.hdr as hdra',
+                'history.hdv as hdvao',
                 'guest.guest_name_display as tenKhach',
                 'provides.provide_name_display as tenNCC',
                 'history.*',

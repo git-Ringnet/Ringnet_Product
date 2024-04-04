@@ -20,7 +20,7 @@ class Serialnumber extends Model
         'detailexport_id',
         'product_id',
         'status',
-        'delivery_id',
+        'delivery_id', 'workspace_id'
     ];
 
     public function getQuotation()

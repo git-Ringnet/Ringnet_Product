@@ -20,7 +20,7 @@ class Reciept extends Model
         'date_bill',
         'number_bill',
         'status',
-        'price_total'
+        'price_total', 'created_at', 'workspace_id'
     ];
     public function getProvideName()
     {

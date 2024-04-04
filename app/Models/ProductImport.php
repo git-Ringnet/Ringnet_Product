@@ -28,8 +28,8 @@ class ProductImport extends Model
         'product_note',
         'receive_id',
         'reciept_id',
-        'payOrder_id',
-        'cbSN'
+        'payOrder_id', 'product_id',
+        'cbSN', 'workspace_id',
     ];
 
     public function getSerialNumber()

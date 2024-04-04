@@ -25,18 +25,19 @@ class RolesSeeder extends Seeder
                 'name' => 'Admin',
                 'shortname' => 'admin',
                 'description' => 'Admin',
-            ], [
-                'id' => 3,
-                'name' => 'Quản lí kho',
-                'shortname' => 'manager',
-                'description' => 'Quản lí kho',
             ],
-            [
-                'id' => 4,
-                'name' => 'Sale',
-                'shortname' => 'sale',
-                'description' => 'Sale',
-            ],
+            //  [
+            //     'id' => 3,
+            //     'name' => 'Quản lí kho',
+            //     'shortname' => 'manager',
+            //     'description' => 'Quản lí kho',
+            // ],
+            // [
+            //     'id' => 4,
+            //     'name' => 'Sale',
+            //     'shortname' => 'sale',
+            //     'description' => 'Sale',
+            // ],
         ]);
     }
 }

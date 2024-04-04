@@ -29,7 +29,7 @@ class HistoryImport extends Model
         'price_import',
         'product_note',
         'version',
-        'workspace_id'
+        'workspace_id', 'created_at'
     ];
 
     public function addHistoryImport($data, $id)

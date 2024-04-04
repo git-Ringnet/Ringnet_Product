@@ -16,7 +16,7 @@ class productBill extends Model
         'billSale_id',
         'product_id',
         'billSale_qty',
-        'workspace_id',
+        'workspace_id', 'created_at',
     ];
     protected $table = 'product_bill';
 

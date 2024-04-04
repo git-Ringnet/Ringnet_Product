@@ -28,6 +28,7 @@ class QuoteExport extends Model
         'created_at',
         'updated_at',
         'deliver_id',
+        'status',
         'product_id',
         'qty_delivery',
         'qty_bill_sale',

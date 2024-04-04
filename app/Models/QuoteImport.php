@@ -18,7 +18,7 @@ class QuoteImport extends Model
         'product_id', 'product_name',
         'product_unit', 'product_qty',
         'product_tax', 'product_total',
-        'price_export', 'version', 'warehouse_id'
+        'price_export', 'version', 'warehouse_id', 'workspace_id', 'product_code', 'created_at'
     ];
     public function getProductCode()
     {

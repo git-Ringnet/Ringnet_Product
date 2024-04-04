@@ -19,10 +19,10 @@ class PayOder extends Model
         'reciept_id',
         'provide_id',
         'status',
-        'payment_date',
+        'payment_date', 'payment_code', 'payment_day',
         'total',
         'payment',
-        'debt',
+        'debt', 'created_at', 'workspace_id', 'payment_type'
     ];
 
     public function getProvideName()
