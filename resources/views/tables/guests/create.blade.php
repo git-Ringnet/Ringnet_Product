@@ -254,7 +254,7 @@
             "class": `bg-white addProduct representative-row`,
         });
         const hoTen = $(
-            "<td class='border border-top-0 border-bottom-0 border-left-0  padding-left35'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_name' required name='represent_name[]'></td>"
+            `<td class='border border-top-0 border-bottom-0 border-left-0  padding-left35'><input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_name' required name='represent_name[]'></td>`
         );
         const email = $(
             "<td class='border border-top-0 border-bottom-0  padding-left35'><input type='email' autocomplete='off' class='border-0 px-2 py-1 w-100 represent_email' name='represent_email[]'></td>"
