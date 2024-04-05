@@ -67,6 +67,7 @@ class QuoteExport extends Model
                     'product_price_import' => isset($priceImport) ? $priceImport : 0,
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                     'check_seri' => 1,
+                    'type' => 1,
                     'workspace_id' => Auth::user()->current_workspace,
                 ];
                 $checkProduct = Products::where('product_name', $data['product_name'][$i])
@@ -149,6 +150,7 @@ class QuoteExport extends Model
                         'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                         'workspace_id' => Auth::user()->current_workspace,
                         'check_seri' => 1,
+                        'type' => 1,
                     ];
                     if (!$checkProduct) {
                         $product = new Products($dataProduct);

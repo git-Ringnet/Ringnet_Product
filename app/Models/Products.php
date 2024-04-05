@@ -30,7 +30,8 @@ class Products extends Model
         'product_available',
         'warehouse_id',
         'check_seri',
-        'workspace_id'
+        'workspace_id',
+        'type',
     ];
     public function getAllProducts()
     {
