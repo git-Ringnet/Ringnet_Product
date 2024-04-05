@@ -210,7 +210,6 @@
                                                     @if ($item->getQuotation)
                                                         {{ $item->getQuotation->provide_name }}
                                                     @endif
-                                                    {{-- {{ $item->getProvideName->provide_name_display }}</td> --}}
                                                 <td class="py-2 text-13-black">
                                                     @if ($item->status == 1)
                                                         <span style="color: #858585">Bản nháp</span>
@@ -224,7 +223,7 @@
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 3px;">
                                                     <div class="d-flex align-items-center">
-                                                        <a href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}"
+                                                        {{-- <a href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}"
                                                             class="user_flow" data-type="HDMH"
                                                             data-des="Xem hóa đơn mua hàng">
                                                             <div class="m-0 px-2 py-1 mx-2 rounded">
@@ -241,7 +240,7 @@
                                                                         fill="#6C6F74"></path>
                                                                 </svg>
                                                             </div>
-                                                        </a>
+                                                        </a> --}}
                                                         <a href="#">
                                                             <div class="m-0 mx-2 rounded">
                                                                 <form
@@ -283,17 +282,6 @@
                                 </table>
                             </div>
                         </div>
-                        <!-- <div class="ml-3">
-                            <span class="text-perpage">
-                                Hiển thị:
-                                <select name="perPage" id="perPage" class="border-0">
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                </select>
-                            </span>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -302,9 +290,9 @@
 </div>
 
 {{-- Pagination --}}
-<div class="paginator mt-2 d-flex justify-content-end">
+{{-- <div class="paginator mt-2 d-flex justify-content-end">
     {{ $reciept->appends(request()->except('page'))->links() }}
-</div>
+</div> --}}
 
 
 </div>

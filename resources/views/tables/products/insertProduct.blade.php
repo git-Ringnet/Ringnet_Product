@@ -327,9 +327,12 @@
 </div>
 <script>
     $(document).on('click', '#dichvu', function() {
-        $('.option-radio').attr('style','display:none !important;');
+        $('.option-radio').attr('style', 'display:none !important;');
+        console.log($('select[name="product_tax"]'));
+        $('select[name="product_tax"]').val(8).attr('disabled', 'disabled')
     })
     $(document).on('click', '#hanghoa', function() {
         $('.option-radio').removeAttr('style');
+        $('select[name="product_tax"]').val(0).removeAttr('disabled')
     })
 </script>

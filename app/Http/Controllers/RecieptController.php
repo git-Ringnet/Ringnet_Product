@@ -35,7 +35,9 @@ class RecieptController extends Controller
         $title = "Hóa đơn mua hàng";
         $perPage = 10;
         $reciept = Reciept::where('workspace_id', Auth::user()->current_workspace)
-            ->orderBy('id', 'desc')->paginate($perPage);
+            ->orderBy('id', 'desc')
+            ->get();
+        // ->paginate($perPage);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         return view('tables.reciept.reciept', compact('title', 'reciept', 'workspacename'));
@@ -100,11 +102,6 @@ class RecieptController extends Controller
         } else {
             return redirect()->route('reciept.index', $workspacename)->with('warning', 'Hóa đơn mua hàng đã đươc tạo hết !');
         }
-
-        // if ($status) {
-        //     return redirect()->route('reciept.index')->with('msg', 'Tạo mới hóa đơn mua hàng thành công !');
-        // } else {
-        // }
     }
 
     /**

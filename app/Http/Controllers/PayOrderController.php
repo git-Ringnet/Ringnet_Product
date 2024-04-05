@@ -38,7 +38,9 @@ class PayOrderController extends Controller
         $perPage = 10;
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $payment = PayOder::where('workspace_id', Auth::user()->current_workspace)->orderBy('id', 'desc')->paginate($perPage);
+        $payment = PayOder::where('workspace_id', Auth::user()->current_workspace)->orderBy('id', 'desc')
+        ->get();
+        // ->paginate($perPage);
         $today = Carbon::now();
         // dd($payment[0]->formatDate($payment[0]->payment_date)->diffInDays($today));
         return view('tables.paymentOrder.paymentOrder', compact('title', 'payment', 'today', 'workspacename'));

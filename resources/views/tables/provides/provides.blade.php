@@ -169,7 +169,11 @@
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
                                                 <td class="text-13-black height-52">
-                                                    {{ $item->provide_name_display }}
+                                                    <a href="{{ route('provides.edit', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
+                                                        class="user_flow" data-type="NCC"
+                                                        data-des="Xem nhà cung cấp">
+                                                        {{ $item->provide_name_display }}
+                                                    </a>
                                                 </td>
                                                 <td class="text-13-black height-52">
                                                     {{ $item->provide_code }}
@@ -181,9 +185,9 @@
                                                     <div class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                         style="right: 10px; top: 10px;">
                                                         <div class="d-flex w-100">
-                                                            <a href="{{ route('provides.show', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
+                                                            <a href="{{ route('provides.edit', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
                                                                 class="user_flow" data-type="NCC"
-                                                                data-des="Xem nhà cung cấp">
+                                                                data-des="Chỉnh sửa nhà cung cấp">
                                                                 <div class="m-0 px-2 py-1 mx-2 rounded">
                                                                     <svg width="16" height="16"
                                                                         viewBox="0 0 16 16" fill="none"
@@ -201,8 +205,6 @@
                                                             </a>
                                                             <a href="#">
                                                                 <div class="m-0 mx-2 rounded">
-
-
                                                                     <form
                                                                         onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                                                                         action="{{ route('provides.destroy', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
@@ -385,8 +387,7 @@
                 type: type,
                 des: des
             },
-            success: function(data) {
-            }
+            success: function(data) {}
         })
     })
 </script>

@@ -28,8 +28,12 @@ class ProductImport extends Model
         'product_note',
         'receive_id',
         'reciept_id',
-        'payOrder_id', 'product_id',
-        'cbSN', 'workspace_id',
+        'product_id',
+        'workspace_id',
+        'payOrder_id',
+        'cbSN',
+        'product_guarantee'
+
     ];
 
     public function getSerialNumber()
@@ -61,6 +65,18 @@ class ProductImport extends Model
                 ->where('product_name', $data['product_name'][$i])
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
+
+            // Lưu thông tin bảo hành vào sản phẩm
+            $productGuarantee = Products::where('product_name', $data['product_name'][$i])
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+
+            if ($productGuarantee && $productGuarantee->product_guarantee == null && $productGuarantee->type == 1) {
+                $productGuarantee->product_guarantee = $data['product_guarantee'][$i];
+                $productGuarantee->save();
+            }
+
+
             if ($product) {
                 if ($colum == 'payOrder_id' && $columQuote == 'payment_qty') {
                     if ($product->product_qty == $product->$columQuote) {
@@ -102,13 +118,14 @@ class ProductImport extends Model
                             'quoteImport_id' => $product->id,
                             'product_qty' => $qty,
                             $colum => 0,
-                            // 'cbSN' => $checkCBSN == null ? (isset($data['cbSN']) ? $data['cbSN'][$i] : 1) : $checkCBSN->check_seri,
                             'cbSN' => $cbSN,
                             'created_at' => Carbon::now(),
-                            'workspace_id' => Auth::user()->current_workspace
+                            'workspace_id' => Auth::user()->current_workspace,
+                            'product_guarantee' => $data['product_guarantee'][$i]
                         ];
                     }
                 }
+
                 DB::table($this->table)->insert($dataProductImport);
                 // Thêm số lượng sản phẩm đã nhập
                 if ($columQuote == "receive_qty") {

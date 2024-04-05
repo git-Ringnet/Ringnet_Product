@@ -49,7 +49,10 @@ class ReceiveController extends Controller
         $perPage = 10;
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $receive = Receive_bill::where('workspace_id', Auth::user()->current_workspace)->orderBy('id', 'desc')->paginate($perPage);
+        $receive = Receive_bill::where('workspace_id', Auth::user()->current_workspace)->orderBy('id', 'desc')
+        ->get();
+        
+        // ->paginate($perPage);
         return view('tables.receive.receive', compact('receive', 'title', 'workspacename'));
     }
 
@@ -144,6 +147,8 @@ class ReceiveController extends Controller
         $receive = Receive_bill::findOrFail($id);
         $title = $receive->quotation_number;
         $product = QuoteImport::where('detailimport_id', $receive->detailimport_id)->get();
+
+        
         return view('tables.receive.showReceive', compact('receive', 'title', 'product', 'history'));
     }
 
@@ -154,11 +159,6 @@ class ReceiveController extends Controller
     {
         $receive = Receive_bill::findOrFail($id);
         $detail = DetailImport::where('id', $receive->detailimport_id)->first();
-        // if ($detail && $detail->getNameRepresent) {
-        //     $nameRepresent = $detail->getNameRepresent->represent_name;
-        // } else {
-        //     $nameRepresent = "";
-        // }
         if($detail){
             $nameRepresent = $detail->represent_name;
         }else{
@@ -182,6 +182,7 @@ class ReceiveController extends Controller
                 'products_import.cbSN',
                 'products_import.receive_id',
                 'products_import.quoteImport_id',
+                'products_import.product_guarantee',
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
             )
             ->with('getSerialNumber')->get();
@@ -249,13 +250,6 @@ class ReceiveController extends Controller
         if ($detail) {
             $nameProvide = $detail->provide_name;
             $nameRepresent = $detail->represent_name;
-
-            // if ($detail->getProvideName) {
-            //     $nameProvide =  $detail->getProvideName->provide_name_display;
-            // }
-            // if ($detail->getNameRepresent) {
-            //     $nameRepresent = $detail->getNameRepresent->represent_name;
-            // }
         }
         if ($request->table == "receive") {
             $count = Receive_bill::where('workspace_id', Auth::user()->current_workspace)->count();
@@ -327,7 +321,6 @@ class ReceiveController extends Controller
     {
         $data = [];
         $list = [];
-        $id_quote = [];
         $checked = [];
         $value = [];
         $quote = QuoteImport::where('detailimport_id', $request->id)
@@ -350,12 +343,16 @@ class ReceiveController extends Controller
                     ->where('receive_id', '!=', 'null')
                     ->first();
             }
-
+            $getProductGuarantee = Products::where('product_name',$qt->product_name)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
+            if($getProductGuarantee){
+                array_push($value,$getProductGuarantee->product_guarantee);
+            }
             if ($product) {
                 array_push($list, $product->check_seri);
                 array_push($checked, 'disabled');
             } else if ($CBSN) {
-                // return $CBSN;
                 array_push($list, $CBSN->cbSN);
                 array_push($checked, 'disabled');
             } else {
@@ -363,11 +360,12 @@ class ReceiveController extends Controller
                 array_push($checked, 'endable');
             }
         }
-        // return $list;
+
         $data = [
             'checked' => $checked,
             'cb' => $list,
             'quoteImport' => $quote,
+            'value' => $value
         ];
         return $data;
     }

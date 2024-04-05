@@ -250,18 +250,10 @@
                                                 <td class=" text-13-black">
                                                     {{ number_format($item->total_tax) }}
                                                 </td>
-
-
-                                                {{-- <td class="py-2">
-                                                    {{ number_format($item->getQuotation->total_tax) }}
-                                                </td> --}}
-                                                <!-- <td class="py-2">
-                                                    {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
-                                                </td> -->
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 10%;">
                                                     <div class="d-flex w-100">
-                                                        <a href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}"
+                                                        {{-- <a href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}"
                                                             class="user_flow" data-type="DNH"
                                                             data-des="Xem đơn nhận hàng">
                                                             <div class="m-0 px-2 py-1 mx-2 rounded">
@@ -278,7 +270,7 @@
                                                                         fill="#6C6F74"></path>
                                                                 </svg>
                                                             </div>
-                                                        </a>
+                                                        </a> --}}
                                                         <a href="#">
                                                             <div class="m-0 mx-2 rounded">
                                                                 <form
@@ -320,17 +312,6 @@
                                 </table>
                             </div>
                         </div>
-                        <!-- <div class="ml-3">
-                            <span class="text-perpage">
-                                Hiển thị:
-                                <select name="perPage" id="perPage" class="border-0">
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                </select>
-                            </span>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -338,9 +319,9 @@
     </div>
 </div>
 {{-- Pagination --}}
-<div class="paginator mt-2 d-flex justify-content-end">
+{{-- <div class="paginator mt-2 d-flex justify-content-end">
     {{ $receive->appends(request()->except('page'))->links() }}
-</div>
+</div> --}}
 </div>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 

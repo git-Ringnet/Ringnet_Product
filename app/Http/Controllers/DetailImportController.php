@@ -69,7 +69,9 @@ class DetailImportController extends Controller
         $title = 'Đơn mua hàng';
         $perPage = 10;
         $import = DetailImport::where('workspace_id', Auth::user()->current_workspace)
-            ->orderBy('id', 'desc')->paginate($perPage);
+            ->orderBy('id', 'desc')
+            ->get();
+            // ->paginate($perPage);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         // $import = $this->import->getAllImport();
@@ -141,8 +143,12 @@ class DetailImportController extends Controller
             $represent = ProvideRepesent::where('provide_id', $import->provide_id)->get();
             $price_effect = DateForm::where('workspace_id', Auth::user()->current_workspace)->where('form_field', 'import')->get();
             $terms_pay = DateForm::where('workspace_id', Auth::user()->current_workspace)->where('form_field', 'termpay')->get();
-            $id_priceeffect = DateForm::where('form_desc', $import->price_effect)->first();
-            $id_termpay = DateForm::where('form_desc', $import->terms_pay)->first();
+            $id_priceeffect = DateForm::where('form_desc', $import->price_effect)
+            ->where('form_field','import')
+            ->first();
+            $id_termpay = DateForm::where('form_desc', $import->terms_pay)
+            ->where('form_field','termpay')
+            ->first();
         }
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         $title = $import->quotation_number;
@@ -444,23 +450,6 @@ class DetailImportController extends Controller
                 ]);
             }
 
-            // if (isset($request->key)) {
-            //     $key = $request->key;
-            // } else {
-            //     $key = preg_match_all('/[A-ZĐ]/u', $request->provide_name_display, $matches);
-            //     if ($key > 0) {
-            //         $key = implode('', $matches[0]);
-            //     } else {
-            //         $key =  ucfirst($request->provide_name_display);
-            //         $key = preg_match_all('/[A-ZĐ]/u', $key, $matches);
-            //         $key = implode('', $matches[0]);
-            //         if ($key) {
-            //             $key = $key;
-            //         } else {
-            //             $key = "RN";
-            //         }
-            //     }
-            // }
         } else {
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế hoặc tên hiển thị đã tồn tại']);
         }
@@ -582,32 +571,6 @@ class DetailImportController extends Controller
         }
 
         return $msg;
-        // $check = Provides::where('id', '!=', $request->id)
-        //     ->where(function ($query) use ($data) {
-        //         $query->where('provide_code', $data['provide_code'])
-        //             ->orWhere('provide_name_display', $data['provide_name_display']);
-        //     })
-        //     ->where('workspace_id', Auth::user()->current_workspace)
-        //     ->first();
-        // if ($check) {
-        //     $msg = response()->json([
-        //         'success' => false, 'msg' => 'Nhà cung cấp đã tồn tại',
-        //     ]);
-        // } else {
-        //     $dataProvide = [
-        //         'provide_code' => $data['provide_code'],
-        //         'provide_name_display' => $data['provide_name_display'],
-        //         'key' => $data['key'],
-        //         'provide_name' => $data['provide_name'],
-        //         'provide_address' => $data['provide_address'],
-        //     ];
-
-        //     DB::table('provides')->where('id', $request->id)->update($dataProvide);
-        //     $msg = response()->json([
-        //         'success' => true, 'msg' => 'Chỉnh sửa nhà cung cấp thành công', 'provide_id' => $request->id
-        //     ]);
-        // }
-        // return $msg;
     }
 
     // Hiển thị tất cả Mã sản phẩm
@@ -619,7 +582,9 @@ class DetailImportController extends Controller
     // Hiển thị tên sản phẩm theo id đã chọn
     public function showProductName()
     {
-        return Products::where('workspace_id', Auth::user()->current_workspace)->get();
+        return Products::where('workspace_id', Auth::user()->current_workspace)
+        ->where('type',1)
+        ->get();
     }
     // Hiển thị thông tin Dự án
     function show_project(Request $request)

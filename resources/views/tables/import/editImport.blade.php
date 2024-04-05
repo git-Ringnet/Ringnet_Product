@@ -63,7 +63,7 @@
                             </a>
                         @endif
 
-                        @if ($import->status == 2)
+                        {{-- @if ($import->status == 2)
                             <a href="{{ route('import.index', $workspacename) }}" class="">
                                 <button type="button"
                                     class="btn-destroy btn-light mx-2 d-flex align-items-center h-100">
@@ -78,7 +78,7 @@
                                     <span class="text-btnIner-primary ml-2">Trở về</span>
                                 </button>
                             </a>
-                        @endif
+                        @endif --}}
 
                         <button id="sideGuest" type="button" class="btn-option border-0">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"

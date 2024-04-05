@@ -77,8 +77,8 @@ class Products extends Model
                     'product_inventory' => 0,
                     'product_trade' => 0,
                     'product_available' => 0,
-                    'workspace_id' => Auth::user()->current_workspace
-                    // 'warehouse_id' => 1
+                    'workspace_id' => Auth::user()->current_workspace,
+                    'type' => 1
                 ];
                 $product_id =  DB::table($this->table)->insert($product);
             }
@@ -89,8 +89,6 @@ class Products extends Model
 
     public function addProduct($data)
     {
-
-        // dd($data);
         $return  = 0;
         isset($data['check_seri']) ? $check = 1 : $check = 0;
         $checkProductName = DB::table($this->table)->where('product_name', $data['product_name'])

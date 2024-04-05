@@ -246,9 +246,6 @@
                                                 <td class=" text-13-black">{{ $item->reference_number }}</td>
                                                 <td class=" text-13-black">
                                                     {{$item->provide_name}}
-                                                    {{-- @if ($item->getProvideName)
-                                                        {{ $item->getProvideName->provide_name_display }}
-                                                    @endif --}}
                                                 </td>
                                                 <td class="text-13-blue" style="color: #0052CC">
                                                     @if ($item->getProjectName)
@@ -351,7 +348,7 @@
                                                     <div class="d-flex w-100">
                                                         <a class="user_flow" data-type="DMH"
                                                             data-des="Xem đơn mua hàng"
-                                                            href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->id]) }}">
+                                                            href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $item->id]) }}">
                                                             <div class="m-0 px-2 py-1 mx-2 rounded">
                                                                 <svg width="16" height="16"
                                                                     viewBox="0 0 16 16" fill="none"
@@ -414,10 +411,14 @@
         </section>
     </div>
 </div>
+
+
 {{-- Pagination --}}
-<div class="paginator mt-2 d-flex justify-content-end">
+{{-- <div class="paginator mt-2 d-flex justify-content-end">
     {{ $import->appends(request()->except('page'))->links() }}
-</div>
+</div> --}}
+
+
 </div>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 
