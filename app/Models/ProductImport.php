@@ -71,7 +71,7 @@ class ProductImport extends Model
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
 
-            if ($productGuarantee && $productGuarantee->product_guarantee == null && $productGuarantee->type == 1) {
+            if ($columQuote == "receive_qty" && $productGuarantee && $productGuarantee->product_guarantee == null && $productGuarantee->type == 1) {
                 $productGuarantee->product_guarantee = $data['product_guarantee'][$i];
                 $productGuarantee->save();
             }
@@ -121,9 +121,12 @@ class ProductImport extends Model
                             'cbSN' => $cbSN,
                             'created_at' => Carbon::now(),
                             'workspace_id' => Auth::user()->current_workspace,
-                            'product_guarantee' => $data['product_guarantee'][$i]
+                            // 'product_guarantee' => $data['product_guarantee'][$i]
                         ];
                     }
+                }
+                if (isset($data['product_guarantee'])) {
+                    $dataProductImport['product_guarantee'] = $data['product_guarantee'][$i];
                 }
 
                 DB::table($this->table)->insert($dataProductImport);
