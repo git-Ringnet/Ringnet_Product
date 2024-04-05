@@ -83,8 +83,8 @@ class ImportDB implements ToModel
         //     'status_pay' => $row[4],
         //     'status' => $row[5],
         //     'workspace_id' => 2,
-        //     'total_price' => $row[6],
-        //     'total_tax' => $row[7],
+        //     'total_price' => $row[7],
+        //     'total_tax' => $row[6],
         //     'amount_owed' => $row[8],
         //     'guest_name' => $row[10],
         //     // Convert date from Excel to Carbon
@@ -242,7 +242,7 @@ class ImportDB implements ToModel
         //     'payment_type' => $row[9],
         //     'payment_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[7]),
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[7]),
-        //     'status' => 2,
+        //     'status' => $row[5],
         //     'workspace_id' => 2,
         // ]);
 
@@ -260,8 +260,6 @@ class ImportDB implements ToModel
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[8]),
         // ]);
 
-
-
         // $models[] = new History([
         //     'id' => $row[0],
         //     'detailexport_id' => $row[1],
@@ -277,17 +275,17 @@ class ImportDB implements ToModel
         //     'workspace_id' => 2,
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[9]),
         // ]);
-        $models[] = new Serialnumber([
-            'serinumber' => $row[1],
-            'detailimport_id' => $row[0],
-            'delivery_id' => $row[3],
-            'quoteImport_id' => $row[2],
-            'detailexport_id' => $row[3],
-            'receive_id' => $row[0],
-            'product_id' =>  $row[0],
-            'status' =>  1,
-            'workspace_id' => 2,
-        ]);
+        // $models[] = new Serialnumber([
+        //     'serinumber' => $row[1],
+        //     'detailimport_id' => $row[2],
+        //     'delivery_id' => $row[3],
+        //     'quoteImport_id' => $row[0],
+        //     'detailexport_id' => $row[3],
+        //     'receive_id' => $row[0],
+        //     'product_id' =>  $row[0],
+        //     'status' =>  1,
+        //     'workspace_id' => 2,
+        // ]);
         return $models;
     }
 }

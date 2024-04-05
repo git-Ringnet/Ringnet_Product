@@ -13,6 +13,7 @@ class Serialnumber extends Model
     use HasFactory;
     protected $table = 'serialnumber';
     protected $fillable = [
+        'id',
         'serinumber',
         'receive_id',
         'quoteImport_id',

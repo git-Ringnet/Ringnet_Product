@@ -22,6 +22,7 @@ class Provides extends Model
         'provide_phone',
         'provide_debt',
         'provide_address_delivery',
+        'workspace_id'
     ];
 
     public function getAllDetail()
