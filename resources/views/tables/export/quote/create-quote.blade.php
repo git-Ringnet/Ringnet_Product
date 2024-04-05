@@ -294,7 +294,7 @@
             {{-- Modal khách hàng --}}
             <div class="modal fade" id="guestModal" tabindex="-1" role="dialog"
                 aria-labelledby="productModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document" style="margin-top: 10%;">
+                <div class="modal-dialog" role="document" style="margin-top: 5%;">
                     <div class="modal-content">
                         <div class="modal-body pb-0 px-2 pt-0">
                             <div class="content-info">
@@ -347,6 +347,30 @@
                                     <input type="hidden" id="represent_guest_id">
                                     <input name="guest_name" type="text" placeholder="Nhập thông tin"
                                         id="represent_guest_name"
+                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                        autocomplete="off">
+                                </div>
+                                <div class="mt-2">
+                                    <p class="p-0 m-0 px-2 text-nav">
+                                        Số điện thoại
+                                    </p>
+                                    <input type="text" placeholder="Nhập thông tin" id="guest_phone"
+                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                        autocomplete="off">
+                                </div>
+                                <div class="mt-2">
+                                    <p class="p-0 m-0 px-2 text-nav">
+                                        Email
+                                    </p>
+                                    <input type="text" placeholder="Nhập thông tin" id="guest_email"
+                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
+                                        autocomplete="off">
+                                </div>
+                                <div class="mt-2">
+                                    <p class="p-0 m-0 px-2 text-nav">
+                                        Địa chỉ nhận
+                                    </p>
+                                    <input type="text" placeholder="Nhập thông tin" id="guest_receiver"
                                         class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
                                         autocomplete="off">
                                 </div>
@@ -985,8 +1009,9 @@
                                                             <div class="dropdown-menu date-form-setting"
                                                                 style="z-index: 1000;">
                                                                 <a class="dropdown-item search-date-form"
-                                                                    data-toggle="modal" data-target="#formModalgoods"
-                                                                    data-name="goods" data-id="{{ $item->id }}"
+                                                                    data-toggle="modal"
+                                                                    data-target="#formModalgoods" data-name="goods"
+                                                                    data-id="{{ $item->id }}"
                                                                     id="{{ $item->id }}"><i
                                                                         class="fa-regular fa-pen-to-square"></i></a>
                                                                 <a class="dropdown-item delete-item" href="#"
@@ -994,7 +1019,8 @@
                                                                     data-name="{{ $item->form_field }}"><i
                                                                         class="fa-solid fa-trash-can"></i></a>
                                                                 <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                                    id="default-id{{ $item->id }}" href="#"
+                                                                    id="default-id{{ $item->id }}"
+                                                                    href="#"
                                                                     data-name="{{ $item->form_field }}"
                                                                     data-id="{{ $item->id }}">
                                                                     @if ($item->default_form === 1)
@@ -2152,9 +2178,9 @@
         var guest_name = $('#guest_name').val().trim();
         var guest_address = $('#guest_address').val().trim();
         var guest_code = $('#guest_code').val().trim();
-        // var guest_email = $('#guest_email').val().trim();
-        // var guest_phone = $('#guest_phone').val().trim();
-        // var guest_receiver = $('#guest_receiver').val().trim();
+        var guest_email = $('#guest_email').val().trim();
+        var guest_phone = $('#guest_phone').val().trim();
+        var guest_receiver = $('#guest_receiver').val().trim();
         // var guest_email_personal = $('#guest_email_personal').val().trim();
         // var guest_phone_receiver = $('#guest_phone_receiver').val().trim();
         // var guest_note = $('#guest_note').val().trim();
@@ -2173,9 +2199,9 @@
                     guest_name: guest_name,
                     guest_address: guest_address,
                     guest_code: guest_code,
-                    // guest_email: guest_email,
-                    // guest_phone: guest_phone,
-                    // guest_receiver: guest_receiver,
+                    guest_email: guest_email,
+                    guest_phone: guest_phone,
+                    guest_receiver: guest_receiver,
                     // guest_email_personal: guest_email_personal,
                     // guest_phone_receiver: guest_phone_receiver,
                     // guest_note: guest_note,
@@ -2311,6 +2337,9 @@
                     $('#guest_address').val(data.guest_address);
                     $('#key').val(data.key);
                     $('#guest_name').val(data.guest_name);
+                    $('#guest_email').val(data.guest_email);
+                    $('#guest_phone').val(data.guest_phone);
+                    $('#guest_receiver').val(data.guest_receiver);
                     $('#represent_guest_name').val(data.represent_name);
                     $('#represent_guest_id').val(data.representID);
                 }
@@ -2325,6 +2354,9 @@
             var key = $("input[name='key']").val().trim().trim();
             var guest_name_display = $('input[name="guest_name_display"]').val().trim();
             var represent_guest_name = $('#represent_guest_name').val().trim();
+            var guest_email = $('#guest_email').val().trim();
+            var guest_phone = $('#guest_phone').val().trim();
+            var guest_receiver = $('#guest_receiver').val().trim();
             $.ajax({
                 url: '{{ route('updateGuest') }}',
                 type: 'GET',
@@ -2338,6 +2370,9 @@
                     key: key,
                     guest_name_display: guest_name_display,
                     represent_guest_name: represent_guest_name,
+                    guest_email: guest_email,
+                    guest_phone: guest_phone,
+                    guest_receiver: guest_receiver,
                 },
                 success: function(data) {
                     if (data.success) {

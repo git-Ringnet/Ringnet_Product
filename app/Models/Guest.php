@@ -236,6 +236,9 @@ class Guest extends Model
                     $guest->guest_name = $data['guest_name'];
                     $guest->guest_address = $data['guest_address'];
                     $guest->guest_code = $data['guest_code'];
+                    $guest->guest_email = $data['guest_email'];
+                    $guest->guest_phone = $data['guest_phone'];
+                    $guest->guest_receiver = $data['guest_receiver'];
                     $guest->save();
                     $date = DetailExport::where('guest_id', $guest->id)->orderBy('id', 'desc')
                         ->where('workspace_id', Auth::user()->current_workspace)

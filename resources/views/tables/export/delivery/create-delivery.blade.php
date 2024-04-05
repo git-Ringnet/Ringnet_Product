@@ -111,7 +111,7 @@
                 </div>
                 <div class="container-fluided margin-top-72">
                     <section class="info-chung">
-                        <div class="content-info position-relative table-responsive text-nowrap">
+                        <div class="content-info position-relative text-nowrap">
                             <table class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">
@@ -708,7 +708,7 @@
                 "<div>" +
                 "<input type='number' value='' data-product-id='' class='border-0 px-2 text-right py-1 w-100 quantity-input' autocomplete='off' required='' name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
-                "<p class='mt-3 text-13-blue inventory'>Tồn kho: <span class='soTonKho'></span></p>" +
+                "<p class='mt-3 text-13-blue inventory'>Tồn kho: <span class='soTonKho'>0</span></p>" +
                 "</div>" +
                 "<div>" +
                 "<button type='button' class='btn btn-primary open-modal-btn d-none' data-toggle='modal' data-target='#exampleModal0' style='background:transparent; border:none;'>" +
@@ -762,7 +762,7 @@
                 "<path fill-rule='evenodd' clip-rule='evenodd' d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z' fill='#6B6F76'/>" +
                 "</svg>" +
                 "</td>" +
-                "<td style='display:none;'><input type='text' class='product_tax1'></td>" +
+                "<td style='display:none;'><input type='text' class='product_tax1' value='0'></td>" +
                 "<td style='display:none;'><input type='text' class='type'></td>"
             );
             // 
@@ -781,8 +781,7 @@
             //Xóa sản phẩm
             option.click(function() {
                 var deletedRow = $(this).closest("tr");
-                var deletedProductAmount = parseFloat(deletedRow.find('.total-amount').val()
-                    .replace(/,/g, ''));
+                var deletedProductAmount = parseFloat(deletedRow.find('.total-amount').val().replace(/,/g, '')) || 0;
                 var deletedProductTax = parseFloat(deletedRow.find('.product_tax1').val()
                     .replace(/,/g, ''));
 
@@ -1285,44 +1284,76 @@
                                     function(e) {
                                         var
                                             insufficientSeriProducts = [];
-                                        $(".bg-white.addProduct")
-                                            .each(function() {
-                                                var checkbox =
+                                        var
+                                            invalidInventoryProducts = [];
+
+                                        $(".bg-white.addProduct").each(
+                                            function() {
+                                                var soTonKho =
+                                                    parseFloat($(
+                                                            this)
+                                                        .find(
+                                                            ".soTonKho"
+                                                        ).text()
+                                                    );
+                                                var checkbox = $(
+                                                    this).find(
+                                                    ".check-add-sn"
+                                                );
+
+                                                var quantity =
+                                                    parseFloat(
+                                                        $(this)
+                                                        .find(
+                                                            ".quantity-input"
+                                                        )
+                                                        .val());
+                                                var type =
+                                                    parseFloat(
+                                                        $(this)
+                                                        .find(
+                                                            ".type"
+                                                        )
+                                                        .val());
+                                                var productNameInventory =
                                                     $(this)
                                                     .find(
-                                                        ".check-add-sn"
-                                                    );
-                                                // Trường hợp chọn seri
-                                                if (checkbox
-                                                    .prop(
+                                                        ".product_name"
+                                                    ).val();
+                                                // Kiểm tra số lượng tồn kho
+                                                if (type != 2) {
+                                                    if (quantity >
+                                                        soTonKho) {
+                                                        invalidInventoryProducts
+                                                            .push(
+                                                                productNameInventory
+                                                            );
+                                                    }
+                                                }
+
+                                                if (checkbox.prop(
                                                         "checked"
                                                     ) &&
-                                                    checkbox
-                                                    .prop(
-                                                        "disabled"
-                                                    )) {
+                                                    checkbox.prop(
+                                                        "disabled")
+                                                ) {
                                                     var quantityValue =
                                                         parseFloat(
-                                                            $(
-                                                                this
-                                                            )
+                                                            $(this)
                                                             .find(
                                                                 ".quantity-input"
                                                             )
-                                                            .val()
-                                                        );
+                                                            .val());
                                                     var productId =
                                                         $(this)
                                                         .find(
                                                             ".product_id"
-                                                        )
-                                                        .val();
+                                                        ).val();
                                                     var productName =
                                                         $(this)
                                                         .find(
                                                             ".product_name"
-                                                        )
-                                                        .val();
+                                                        ).val();
 
                                                     for (var i =
                                                             0; i <
@@ -1348,7 +1379,7 @@
                                                 }
                                             });
 
-                                        // Nếu có sản phẩm không đủ "seri", hiển thị thông báo
+                                        // Hiển thị thông báo nếu có sản phẩm không đủ "seri"
                                         if (insufficientSeriProducts
                                             .length > 0) {
                                             showAutoToast('warning',
@@ -1356,45 +1387,67 @@
                                             );
                                             e.preventDefault();
                                         } else {
-                                            var allFieldsFilled = true;
-
-                                            $('.addProduct').each(
-                                                function() {
-                                                    var productName =
-                                                        $(this)
-                                                        .find(
-                                                            '.product_name'
-                                                        ).val();
-                                                    var productUnit =
-                                                        $(this)
-                                                        .find(
-                                                            '.product_unit'
-                                                        ).val();
-                                                    var productQty =
-                                                        $(this)
-                                                        .find(
-                                                            '.quantity-input'
-                                                        ).val();
-
-                                                    if (productName ===
-                                                        '' ||
-                                                        productUnit ===
-                                                        '' ||
-                                                        productQty ===
-                                                        '') {
-                                                        allFieldsFilled
-                                                            = false;
-                                                        return false;
-                                                    }
-                                                });
-                                            if (allFieldsFilled) {
-                                                $('.check-add-sn:checked[disabled]')
-                                                    .prop('disabled',
-                                                        false);
+                                            // Hiển thị thông báo nếu không đủ số lượng tồn kho
+                                            if (invalidInventoryProducts
+                                                .length > 0) {
+                                                showAutoToast('warning',
+                                                    "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                    invalidInventoryProducts
+                                                    .join(', '));
+                                                e.preventDefault();
                                             } else {
-                                                console.log(
-                                                    'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
-                                                );
+                                                // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
+                                                var allFieldsFilled =
+                                                    true;
+
+                                                $('.addProduct').each(
+                                                    function() {
+                                                        var productName =
+                                                            $(this)
+                                                            .find(
+                                                                '.product_name'
+                                                            )
+                                                            .val();
+                                                        var productUnit =
+                                                            $(this)
+                                                            .find(
+                                                                '.product_unit'
+                                                            )
+                                                            .val();
+                                                        var productQty =
+                                                            $(this)
+                                                            .find(
+                                                                '.quantity-input'
+                                                            )
+                                                            .val();
+
+                                                        if (productName ===
+                                                            '' ||
+                                                            productUnit ===
+                                                            '' ||
+                                                            productQty ===
+                                                            '') {
+                                                            allFieldsFilled
+                                                                =
+                                                                false;
+                                                            return false;
+                                                        }
+                                                    });
+
+                                                if (allFieldsFilled) {
+                                                    $('.check-add-sn:checked[disabled]')
+                                                        .prop(
+                                                            'disabled',
+                                                            false);
+                                                    document
+                                                        .getElementById(
+                                                            'deliveryForm'
+                                                        ).submit();
+                                                } else {
+                                                    console.log(
+                                                        'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
+                                                    );
+                                                }
                                             }
                                         }
                                     });
@@ -1716,8 +1769,8 @@
                                 var grandTotal = totalTax + totalPrice;
                                 var tax = (item.price_export * item
                                     .soLuongCanGiao * (item
-                                        .product_tax == 99 ? 0 :
-                                        item.product_tax)) / 100;
+                                        .thueSP == 99 ? 0 :
+                                        item.thueSP)) / 100;
                                 totalProductTotal += parseFloat(item
                                     .price_export * item
                                     .soLuongCanGiao) || 0;
@@ -1796,12 +1849,12 @@
                                     </td>
                                     <td class="border-right p-1 text-13 align-top">
                                         <select class="border-0 py-1 w-100 text-left product_tax" required="" disabled>
-                                            <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
-                                            <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
-                                            <option value="10" ${(item.product_tax == 10) ? 'selected' : ''}>10%</option>
-                                            <option value="99" ${(item.product_tax == 99) ? 'selected' : ''}>NOVAT</option>
+                                            <option value="0" ${(item.thueSP == 0) ? 'selected' : ''}>0%</option>
+                                            <option value="8" ${(item.thueSP == 8) ? 'selected' : ''}>8%</option>
+                                            <option value="10" ${(item.thueSP == 10) ? 'selected' : ''}>10%</option>
+                                            <option value="99" ${(item.thueSP == 99) ? 'selected' : ''}>NOVAT</option>
                                         </select>
-                                        <input type="hidden" class="product_tax" value="${(item.product_tax)}" name="product_tax[]">
+                                        <input type="hidden" class="product_tax" value="${(item.thueSP)}" name="product_tax[]">
                                     </td>
                                     <td class="border-right p-2 text-13 align-top">
                                         <input type="text" value="${formatCurrency(item.product_total)}" readonly 
@@ -1975,79 +2028,115 @@
                                     function(e) {
                                         var
                                             insufficientSeriProducts = [];
+                                        var
+                                            invalidInventoryProducts = [];
 
                                         $(".bg-white.addProduct")
-                                            .each(function() {
-                                                var checkbox =
-                                                    $(this)
-                                                    .find(
-                                                        ".check-add-sn"
-                                                    );
-                                                var isCheckedAndNotDisabled =
-                                                    checkbox
-                                                    .prop(
-                                                        "checked"
-                                                    ) && !
-                                                    checkbox
-                                                    .prop(
-                                                        "disabled"
-                                                    );
-                                                // Trường hợp chọn seri
-                                                if (checkbox
-                                                    .prop(
-                                                        "checked"
-                                                    ) &&
-                                                    checkbox
-                                                    .prop(
-                                                        "disabled"
-                                                    )) {
-                                                    var quantityValue =
+                                            .each(
+                                                function() {
+                                                    var soTonKho =
                                                         parseFloat(
                                                             $(
                                                                 this
                                                             )
                                                             .find(
+                                                                ".soTonKho"
+                                                            ).text()
+                                                        );
+                                                    var checkbox =
+                                                        $(
+                                                            this)
+                                                        .find(
+                                                            ".check-add-sn"
+                                                        );
+
+                                                    var quantity =
+                                                        parseFloat(
+                                                            $(this)
+                                                            .find(
                                                                 ".quantity-input"
                                                             )
-                                                            .val()
-                                                        );
-                                                    var productId =
-                                                        $(this)
-                                                        .find(
-                                                            ".product_id"
-                                                        )
-                                                        .val();
-                                                    var productName =
+                                                            .val());
+                                                    var type =
+                                                        parseFloat(
+                                                            $(this)
+                                                            .find(
+                                                                ".type"
+                                                            )
+                                                            .val());
+                                                    var productNameInventory =
                                                         $(this)
                                                         .find(
                                                             ".product_name"
-                                                        )
-                                                        .val();
-
-                                                    for (var i =
-                                                            0; i <
-                                                        quantityValue; i++
-                                                    ) {
-                                                        var isSeriInputExist =
-                                                            $(
-                                                                `input[name="selected_serial_numbers[]"][data-product-id="${productId}"]:eq(${i})`
-                                                            )
-                                                            .length >
-                                                            0;
-
-                                                        if (!
-                                                            isSeriInputExist
+                                                        ).val();
+                                                    // Kiểm tra số lượng tồn kho
+                                                    if (type !=
+                                                        2) {
+                                                        if (quantity >
+                                                            soTonKho
                                                         ) {
-                                                            insufficientSeriProducts
+                                                            invalidInventoryProducts
                                                                 .push(
-                                                                    productName
+                                                                    productNameInventory
                                                                 );
-                                                            break;
                                                         }
                                                     }
-                                                }
-                                            });
-                                        // Nếu có sản phẩm không đủ "seri", hiển thị thông báo
+
+                                                    if (checkbox
+                                                        .prop(
+                                                            "checked"
+                                                        ) &&
+                                                        checkbox
+                                                        .prop(
+                                                            "disabled"
+                                                        )
+                                                    ) {
+                                                        var quantityValue =
+                                                            parseFloat(
+                                                                $(
+                                                                    this
+                                                                )
+                                                                .find(
+                                                                    ".quantity-input"
+                                                                )
+                                                                .val()
+                                                            );
+                                                        var productId =
+                                                            $(this)
+                                                            .find(
+                                                                ".product_id"
+                                                            ).val();
+                                                        var productName =
+                                                            $(this)
+                                                            .find(
+                                                                ".product_name"
+                                                            ).val();
+
+                                                        for (var i =
+                                                                0; i <
+                                                            quantityValue; i++
+                                                        ) {
+                                                            var isSeriInputExist =
+                                                                $(
+                                                                    `input[name="selected_serial_numbers[]"][data-product-id="${productId}"]:eq(${i})`
+                                                                )
+                                                                .length >
+                                                                0;
+
+                                                            if (!
+                                                                isSeriInputExist
+                                                            ) {
+                                                                insufficientSeriProducts
+                                                                    .push(
+                                                                        productName
+                                                                    );
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                });
+
+                                        // Hiển thị thông báo nếu có sản phẩm không đủ "seri"
                                         if (insufficientSeriProducts
                                             .length > 0) {
                                             showAutoToast('warning',
@@ -2055,48 +2144,78 @@
                                             );
                                             e.preventDefault();
                                         } else {
-                                            // Hủy disabled cho các checkbox được chọn
-                                            var allFieldsFilled =
-                                                true;
-                                            $('.addProduct').each(
-                                                function() {
-                                                    var productName =
-                                                        $(this)
-                                                        .find(
-                                                            '.product_name'
-                                                        ).val();
-                                                    var productUnit =
-                                                        $(this)
-                                                        .find(
-                                                            '.product_unit'
-                                                        ).val();
-                                                    var productQty =
-                                                        $(this)
-                                                        .find(
-                                                            '.quantity-input'
-                                                        ).val();
-
-                                                    if (productName ===
-                                                        '' ||
-                                                        productUnit ===
-                                                        '' ||
-                                                        productQty ===
-                                                        '') {
-                                                        allFieldsFilled
-                                                            =
-                                                            false;
-                                                        return false;
-                                                    }
-                                                });
-                                            if (allFieldsFilled) {
-                                                $('.check-add-sn:checked[disabled]')
-                                                    .prop(
-                                                        'disabled',
-                                                        false);
+                                            // Hiển thị thông báo nếu không đủ số lượng tồn kho
+                                            if (invalidInventoryProducts
+                                                .length > 0) {
+                                                showAutoToast(
+                                                    'warning',
+                                                    "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                    invalidInventoryProducts
+                                                    .join(', '));
+                                                e.preventDefault();
                                             } else {
-                                                console.log(
-                                                    'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
-                                                );
+                                                // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
+                                                var allFieldsFilled =
+                                                    true;
+
+                                                $('.addProduct')
+                                                    .each(
+                                                        function() {
+                                                            var productName =
+                                                                $(
+                                                                    this
+                                                                )
+                                                                .find(
+                                                                    '.product_name'
+                                                                )
+                                                                .val();
+                                                            var productUnit =
+                                                                $(
+                                                                    this
+                                                                )
+                                                                .find(
+                                                                    '.product_unit'
+                                                                )
+                                                                .val();
+                                                            var productQty =
+                                                                $(
+                                                                    this
+                                                                )
+                                                                .find(
+                                                                    '.quantity-input'
+                                                                )
+                                                                .val();
+
+                                                            if (productName ===
+                                                                '' ||
+                                                                productUnit ===
+                                                                '' ||
+                                                                productQty ===
+                                                                ''
+                                                            ) {
+                                                                allFieldsFilled
+                                                                    =
+                                                                    false;
+                                                                return false;
+                                                            }
+                                                        });
+
+                                                if (
+                                                    allFieldsFilled
+                                                ) {
+                                                    $('.check-add-sn:checked[disabled]')
+                                                        .prop(
+                                                            'disabled',
+                                                            false);
+                                                    document
+                                                        .getElementById(
+                                                            'deliveryForm'
+                                                        ).submit();
+                                                } else {
+                                                    console.log(
+                                                        'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
+                                                    );
+                                                }
                                             }
                                         }
                                     });

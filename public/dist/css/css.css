@@ -123,9 +123,10 @@ li {
 
 /* Table Scroll */
 .outer {
-    overflow: auto;
-    scrollbar-width: none;
-    max-height: 81vh;
+    overflow-x: auto; /* Hiển thị thanh cuộn ngang */
+    overflow-y: hidden; /* Ẩn thanh cuộn dọc */
+    scrollbar-width: thin;  
+    max-height: 66vh;
 }
 
 .outer {
@@ -142,9 +143,10 @@ li {
 }
 
 .outer2 {
-    overflow: auto;
-    scrollbar-width: none;
-    max-height: 81vh;
+    overflow-x: auto; /* Hiển thị thanh cuộn ngang */
+    overflow-y: hidden; /* Ẩn thanh cuộn dọc */
+    scrollbar-width: thin;  
+    max-height: 66vh;
 }
 
 .outer2 {
