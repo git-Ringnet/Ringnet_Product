@@ -328,11 +328,11 @@
 <script>
     $(document).on('click', '#dichvu', function() {
         $('.option-radio').attr('style', 'display:none !important;');
-        $('select[name="product_tax"]').val(8).attr('disabled', 'disabled')
+        // $('select[name="product_tax"]').val(8).attr('disabled', 'disabled')
     })
     $(document).on('click', '#hanghoa', function() {
         $('.option-radio').removeAttr('style');
-        $('select[name="product_tax"]').val(0).removeAttr('disabled')
+        // $('select[name="product_tax"]').val(0).removeAttr('disabled')
     })
 
     $('form').on('submit', function(e) {

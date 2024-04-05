@@ -421,15 +421,15 @@
                             <div id="myUL"
                                 class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block"
                                 style="z-index: 99;display: none;">
-                                <div class="p-1">
-                                    <div class="position-relative">
-                                        <input type="text" placeholder="Nhập thông tin"
-                                            class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
-                                        <span id="search-icon" class="search-icon"><i
-                                                class="fas fa-search text-table" aria-hidden="true"></i></span>
-                                    </div>
-                                </div>
                                 <ul class="m-0 p-0 scroll-data">
+                                    <div class="p-1">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Nhập thông tin"
+                                                class="pr-4 w-100 input-search bg-input-guest" id="provideFilter">
+                                            <span id="search-icon" class="search-icon"><i
+                                                    class="fas fa-search text-table" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
                                     @foreach ($provides as $item)
                                         <li class="p-2 align-items-center text-wrap"
                                             style="border-radius:4px;border-bottom: 1px solid #d6d6d6;">
@@ -1023,8 +1023,7 @@
     function getAction(e) {
         $('#getAction').val($(e).find('button').val());
     }
-
-    $('.search-info').click(function() {
+    $(document).on('click', '.search-info', function() {
         var provides_id = $(this).attr('id');
         var quotation_number = "{{ $import->quotation_number }}"
         var old_provide = {{ $import->provide_id }}
@@ -1035,11 +1034,13 @@
                 provides_id: provides_id,
             },
             success: function(data) {
+                console.log(data);
                 if (data.key) {
                     if (old_provide == data['provide'].id) {
                         quotation = quotation_number
                     } else {
-                        quotation = getQuotation(data.key, data['count'], data['date']);
+                        quotation = data.resultNumber
+                        // quotation = getQuotation(data.key, data['count'], data['date']);
                     }
                 } else {
                     quotation = getQuotation(data['provide'].provide_name_display, data['count'],
@@ -1198,7 +1199,182 @@
                 })
             }
         });
-    });
+    })
+    // $('.search-info').click(function() {
+    //     var provides_id = $(this).attr('id');
+    //     var quotation_number = "{{ $import->quotation_number }}"
+    //     var old_provide = {{ $import->provide_id }}
+    //     $.ajax({
+    //         url: "{{ route('show_provide') }}",
+    //         type: "get",
+    //         data: {
+    //             provides_id: provides_id,
+    //         },
+    //         success: function(data) {
+    //             if (data.key) {
+    //                 if (old_provide == data['provide'].id) {
+    //                     quotation = quotation_number
+    //                 } else {
+    //                     quotation = getQuotation(data.key, data['count'], data['date']);
+    //                 }
+    //             } else {
+    //                 quotation = getQuotation(data['provide'].provide_name_display, data['count'],
+    //                     data['date'])
+    //             }
+    //             $('input[name="quotation_number"]').val(quotation);
+    //             $('#myInput').val(data['provide'].provide_name_display);
+    //             $('#provides_id').val(data['provide'].id);
+
+
+    //             $.ajax({
+    //                 url: "{{ route('getDataForm') }}",
+    //                 type: "get",
+    //                 data: {
+    //                     id: data['provide'].id,
+    //                     status: 'add'
+    //                 },
+    //                 success: function(data) {
+    //                     $('#listRepresent li').empty()
+    //                     $('#listPriceEffect li').empty()
+    //                     $('#listTermsPay li').empty()
+    //                     $('#represent_id').val('')
+    //                     $('#price_effect').val("")
+    //                     $('#represent').val('')
+    //                     $('#terms_pay').val("")
+    //                     if (data['default_price'][0]) {
+    //                         $('#price_effect').val(data['default_price'][0].form_desc)
+    //                     }
+    //                     if (data['default_term'][0]) {
+    //                         $('#terms_pay').val(data['default_term'][0].form_desc)
+    //                     }
+
+    //                     data['represent'].forEach(function(element) {
+    //                         var li =
+    //                             `
+    //                         <li class="border">
+    //                             <a href="javascript:void(0)"
+    //                                 class="text-dark d-flex justify-content-between p-2 search-represent w-100 search-represent"
+    //                                 id="` + element.id + `" name="search-represent">
+    //                                 <span class="w-100 text-nav text-dark overflow-hidden">` + element.represent_name + `</span>
+    //                             </a>
+
+    //                             <div class="dropdown">
+    //                                 <button type="button" data-toggle="dropdown"
+    //                                     class="btn-save-print d-flex align-items-center h-100"
+    //                                     style="margin-right:10px">
+    //                                     <i class="fa-solid fa-ellipsis"></i>
+    //                                 </button>
+    //                                 <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+    //                                     <a class="dropdown-item search-date-form" data-toggle="modal"
+    //                                         data-target="#modalAddRepresent" data-name="represent"
+    //                                         data-id="` + element.id + `" id="` + element.id + `"><i
+    //                                         class="fa-regular fa-pen-to-square"></i></a>
+    //                                     <a class="dropdown-item delete-item" href="#"
+    //                                         data-id="` + element.id + `"
+    //                                         data-name="represent"><i
+    //                                         class="fa-solid fa-trash-can"></i></a>
+    //                                     <a class="dropdown-item set-default default-id ` + element.represent_name + `"
+    //                                         id="default-id` + element.id + `" href="#"
+    //                                         data-name="represent"
+    //                                         data-id="` + element.id + `">
+    //                                         ` + (element.default === 1 ? '<i class="fa-solid fa-link-slash"></i>' :
+    //                                 '<i class="fa-solid fa-link"></i>') + ` 
+    //                                     </a>
+    //                                 </div>
+    //                             </div>
+    //                         </li>
+    //                         `;
+    //                         $('#listRepresent .p-1').after(li);
+    //                         if (element.default == 1) {
+    //                             $('#represent').val(element.represent_name);
+    //                             $('#represent_id').val(element.id);
+    //                         }
+    //                     });
+
+    //                     data['price_effect'].forEach(function(element) {
+    //                         var li =
+    //                             `
+    //                         <li class="border">
+    //                             <a href="javascript:void(0)"
+    //                                 class="text-dark d-flex justify-content-between p-2 search-priceeffect w-100 search-price-effect"
+    //                                 id="` + element.id + `" name="search-price-effect">
+    //                                 <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_desc + `</span>
+    //                             </a>
+
+    //                             <div class="dropdown">
+    //                                 <button type="button" data-toggle="dropdown"
+    //                                     class="btn-save-print d-flex align-items-center h-100"
+    //                                     style="margin-right:10px">
+    //                                     <i class="fa-solid fa-ellipsis"></i>
+    //                                 </button>
+    //                                 <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+    //                                     <a class="dropdown-item search-date-form" data-toggle="modal"
+    //                                         data-target="#formModalquote" data-name="import"
+    //                                         data-id="` + element.id + `" id="` + element.id + `"><i
+    //                                         class="fa-regular fa-pen-to-square"></i></a>
+    //                                     <a class="dropdown-item delete-item" href="#"
+    //                                         data-id="` + element.id + `"
+    //                                         data-name="priceeffect"><i
+    //                                         class="fa-solid fa-trash-can"></i></a>
+    //                                     <a class="dropdown-item set-default default-id ` + element.form_desc + `"
+    //                                         id="default-id` + element.id + `" href="#"
+    //                                         data-name="import"
+    //                                         data-id="` + element.id + `">
+    //                                         ` + (element.default_form === 1 ?
+    //                                 '<i class="fa-solid fa-link-slash"></i>' :
+    //                                 '<i class="fa-solid fa-link"></i>') + ` 
+    //                                     </a>
+    //                                 </div>
+    //                             </div>
+    //                         </li>
+    //                         `;
+    //                         $('#listPriceEffect .p-1').after(li);
+    //                     });
+
+    //                     data['terms_pay'].forEach(function(element) {
+    //                         var li =
+    //                             `
+    //                         <li class="border">
+    //                             <a href="javascript:void(0)"
+    //                                 class="text-dark d-flex justify-content-between p-2 search-termpay w-100 search-term-pay"
+    //                                 id="` + element.id + `" name="search-term-pay">
+    //                                 <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_desc + `</span>
+    //                             </a>
+
+    //                             <div class="dropdown">
+    //                                 <button type="button" data-toggle="dropdown"
+    //                                     class="btn-save-print d-flex align-items-center h-100"
+    //                                     style="margin-right:10px">
+    //                                     <i class="fa-solid fa-ellipsis"></i>
+    //                                 </button>
+    //                                 <div class="dropdown-menu date-form-setting" style="z-index: 100;">
+    //                                     <a class="dropdown-item search-date-form" data-toggle="modal"
+    //                                         data-target="#formModalquote" data-name="import"
+    //                                         data-id="` + element.id + `" id="` + element.id + `"><i
+    //                                         class="fa-regular fa-pen-to-square"></i></a>
+    //                                     <a class="dropdown-item delete-item" href="#"
+    //                                         data-id="` + element.id + `"
+    //                                         data-name="termpay"><i
+    //                                         class="fa-solid fa-trash-can"></i></a>
+    //                                     <a class="dropdown-item set-default default-id ` + element.form_desc + `"
+    //                                         id="default-id` + element.id + `" href="#"
+    //                                         data-name="termpay"
+    //                                         data-id="` + element.id + `">
+    //                                         ` + (element.default_form === 1 ?
+    //                                 '<i class="fa-solid fa-link-slash"></i>' :
+    //                                 '<i class="fa-solid fa-link"></i>') + ` 
+    //                                     </a>
+    //                                 </div>
+    //                             </div>
+    //                         </li>
+    //                         `;
+    //                         $('#listTermsPay .p-1').after(li);
+    //                     });
+    //                 }
+    //             })
+    //         }
+    //     });
+    // });
 
     function showData(classname, inputShow, inputHide) {
         $(document).on('click', '.' + classname, function(e) {
@@ -1700,13 +1876,14 @@
                     provide_email: provide_email,
                     provide_phone: provide_phone,
                     provide_address_delivery: provide_address_delivery,
-                    key : key
+                    key: key
                 },
                 success: function(data) {
                     $('#listPriceEffect li').empty();
                     $('#listTermsPay li').empty();
                     if (data.success == true) {
                         quotation = getQuotation(data.key, '1')
+                        $("input[name='quotation_number']").val(quotation)
                         $('#myInput').val(data.name);
                         $('#provides_id').val(data.id);
                         showNotification('success', data.msg)
