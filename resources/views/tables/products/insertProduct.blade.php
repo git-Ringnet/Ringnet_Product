@@ -328,11 +328,30 @@
 <script>
     $(document).on('click', '#dichvu', function() {
         $('.option-radio').attr('style', 'display:none !important;');
-        console.log($('select[name="product_tax"]'));
         $('select[name="product_tax"]').val(8).attr('disabled', 'disabled')
     })
     $(document).on('click', '#hanghoa', function() {
         $('.option-radio').removeAttr('style');
         $('select[name="product_tax"]').val(0).removeAttr('disabled')
     })
+
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+        var name = $('input[name="product_name"]').val()
+        $.ajax({
+            url: "{{ route('checkProductName') }}",
+            type: "get",
+            data: {
+                name: name,
+            },
+            success: function(data) {
+                if(data.status == false){
+                    showNotification('warning', data.msg);
+                }else{
+                    $('form')[1].submit();
+                }
+            }
+        })
+    })
+
 </script>

@@ -315,7 +315,7 @@
                                         </a>
                                     </li>
                                 @endforeach
-                                <a type="button"
+                                {{-- <a type="button"
                                     class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
                                     data-toggle="modal" data-target="#guestModal"
                                     style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
@@ -329,7 +329,7 @@
                                     </span>
                                     <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm
                                         đơn mua hàng</span>
-                                </a>
+                                </a> --}}
                             </ul>
                         </div>
 

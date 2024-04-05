@@ -40,7 +40,7 @@ class Products extends Model
             ->where('workspace_id', Auth::user()->current_workspace)
             ->orderBy('id', 'desc')
             ->get();
-            // ->paginate($perpage);
+        // ->paginate($perpage);
         // return DB::table($this->table)->get();
     }
     public function getSerialNumber()
@@ -183,16 +183,13 @@ class Products extends Model
                 $updateProduct = DB::table($this->table)
                     ->where('id', $id)
                     ->update($dataUpdate);
-                // if ($updateProduct) {
                 $return = 1;
-                // }
             }
         }
         return $return;
     }
     public function addProductTowarehouse($data, $id)
     {
-        // dd($data);
         $status = true;
         $receive = Receive_bill::where('id', $id)->first();
         if ($receive) {
@@ -232,7 +229,6 @@ class Products extends Model
                         'product_ratio' => $getProductName->product_ratio,
                         'product_tax' => $getProductName->product_tax,
                         'product_inventory' => $item->product_qty,
-                        // 'check_seri' => 1
                         'check_seri' => $item->cbSN,
                         'workspace_id' => Auth::user()->current_workspace
                     ];
@@ -342,10 +338,28 @@ class Products extends Model
                     $result['product_name'] = $checkProduct->product_name;
                     $result['product_tax'] = $checkProduct->product_tax;
                     $result['status'] = false;
-                    $result['msg'] = "Sản phẩm" . $checkProduct->product_name . "sai thuế sản phẩm" . $checkProduct->product_tax;
+                    $result['msg'] = "Sản phẩm" . $checkProduct->product_name . "sai thuế sản phẩm" . ($checkProduct->product_tax == 99 ? "NOVAT" : $checkProduct->product_tax);
                     break;
                 }
             }
+        }
+        return $result;
+    }
+
+    public function checkProductName($data)
+    {
+        $result = [];
+        $check = DB::table($this->table)->where('product_name', $data['name']);
+        if($data['action']){
+            $check->where('id','!=', $data['id']);
+        }
+        $check = $check->first();
+      
+        if ($check) {
+            $result['status'] = false;
+            $result['msg'] = "Sản phẩm " ."<b>". $check->product_name ."</b>". " đã tồn tại";
+        } else {
+            $result['status'] = true;
         }
         return $result;
     }

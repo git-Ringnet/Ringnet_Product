@@ -41,7 +41,7 @@ use Laravel\Socialite\Facades\Socialite;
 // Kho hàng
 Route::resource('{workspace}/inventory', ProductController::class);
 Route::get('/searchInventory', [ProductController::class, 'search'])->name('searchInventory');
-
+Route::get('/checkProductName', [ProductController::class, 'checkProductName'])->name('checkProductName');
 Route::get('{workspacename}/editProduct', [ProductController::class, 'editProduct'])->name('editProduct');
 Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProductInventory'])->name('inventory.showProductInventory');
 

@@ -881,7 +881,6 @@
                 form: form
             },
             success: function(data) {
-                console.log(data);
                 if (data['represent']) {
                     $('#represent').val(data['represent'].represent_name)
                     $('#represent_id').val(data['represent'].id)

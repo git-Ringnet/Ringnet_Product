@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpParser\Node\Expr\FuncCall;
 use ZipArchive;
 
 class ProductController extends Controller
@@ -241,6 +242,11 @@ class ProductController extends Controller
 
     public function checkProductTax(Request $request)  {
         $data = $this->products->checkProductTax($request->all());
+        return $data;
+    }
+
+    public function checkProductName(Request $request){
+        $data = $this->products->checkProductName($request->all());
         return $data;
     }
 }

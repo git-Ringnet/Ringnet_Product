@@ -211,7 +211,10 @@
                                             {{ $item->product_code }}
                                         </td>
                                         <td class="py-2 text-13-black">
+                                            <a class="duongdan"
+                                            href="{{ route('inventory.show', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
                                             {{ $item->product_name }}
+                                            </a>
                                         </td>
                                         <td class="py-2 text-13-black">
                                             {{ number_format($item->product_inventory) }}
@@ -220,7 +223,7 @@
                                             style="right: 10px; top: 7px;">
                                             <div class="d-flex w-100">
                                                 <a
-                                                    href="{{ route('inventory.show', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
+                                                    href="{{ route('inventory.edit', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
                                                     <div class="m-0 px-2 py-1 mx-2 rounded">
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -283,151 +286,13 @@
 </section>
 </div>
 {{-- Content --}}
-{{-- <section class="content">
-    <div class="container-fluided">
-        <div class="row">
-            <div class="col-12">
-                <div class="row m-auto filter pt-2 pb-4">
-                    <form class="w-100" action="" method="get" id='search-filter'>
-                        <div class="col-12 col-md-12 mr-0">
-                            <div class="row d-flex">
-                                <div class="position-relative">
-                                    <input type="text" placeholder="Tìm kiếm" id="search" name="keywords"
-                                        class="pr-4 w-100 input-search" value="{{ request()->keywords }}">
-                                    <span id="search-icon" class="search-icon"><i
-                                            class="fas fa-search btn-submit"></i></span>
-                                    <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
-                                        style="display: none;">
-                                </div>
-                                <div class="dropdown mx-2">
-                                    <button class="btn filter-btn" type="button" id="dropdownMenuButton"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span>
-                                            Bộ lọc<svg width="18" height="18" viewBox="0 0 18 18"
-                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
-                                                    fill="white" />
-                                            </svg>
-                                        </span>
-                                    </button>
-                                    <div class="dropdown-menu" id="dropdown-menu"
-                                        aria-labelledby="dropdownMenuButton">
-                                        <div class="search-container px-2">
-                                            <input type="text" placeholder="Tìm kiếm" id="myInput"
-                                                onkeyup="filterFunction()">
-                                            <span class="search-icon"><i class="fas fa-search"></i></span>
-                                        </div>
-                                        <div class="scrollbar">
-                                            <button class="dropdown-item btndropdown" id="btn-code"
-                                                data-button="code" type="button">Mã hàng hóa</button>
-                                            <button class="dropdown-item btndropdown" id="btn-name"
-                                                data-button="name" type="button">Tên hàng hóa
-                                            </button>
-                                            <button class="dropdown-item btndropdown" id="btn-inventory"
-                                                data-button="inventory" type="button">Số lượng tồn</button>
-                                        </div>
-                                    </div>
-
-                                    <x-filter-checkbox :dataa='$product' name="code" title="Mã hàng hóa"
-                                        namedisplay="product_code" />
-                                    <x-filter-checkbox :dataa='$product' name="name" title="Tên hàng hóa"
-                                        namedisplay="product_name" />
-                                    <x-filter-compare name="inventory" title="Số lượng tồn" />
-                                </div>
-                                <div class="filter-results d-flex m-0">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="card scroll-custom">
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <table id="example2" class="table table-hover">
-                            <thead class="sticky-head">
-                                <tr>
-                                    <th><input type="checkbox" name="all" id="checkall"></th>
-                                    <th scope="col">
-                                        <span class="d-flex">
-                                            <a href="#" class="sort-link" data-sort-by="product_code"
-                                                data-sort-type="ASC"><button class="btn-sort" type="submit">
-                                                    Mã hàng hóa
-                                                </button></a>
-                                            <div class="icon" id="icon-product_code"></div>
-                                        </span>
-                                    </th>
-                                    <th scope="col">
-                                        <span class="d-flex">
-                                            <a href="#" class="sort-link" data-sort-by="product_name"
-                                                data-sort-type="ASC"><button class="btn-sort" type="submit">
-                                                    Tên hàng hóa
-                                                </button></a>
-                                            <div class="icon" id="icon-product_name"></div>
-                                        </span>
-                                    </th>
-                                    <th scope="col">
-                                        <span class="d-flex">
-                                            <a href="#" class="sort-link" data-sort-by="product_inventory"
-                                                data-sort-type="ASC"><button class="btn-sort" type="submit">
-                                                    Số lượng tồn
-                                                </button></a>
-                                            <div class="icon" id="icon-product_inventory"></div>
-                                        </span>
-                                    </th>
-                                    <th scope="col">
-                                        <span class="d-flex">
-                                            <a href="#" class="sort-link" data-sort-by="id"
-                                                data-sort-type="ASC"><button class="btn-sort" type="submit">
-                                                </button></a>
-                                            <div class="icon" id="icon-id"></div>
-                                        </span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                              
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> --}}
 
 
 {{-- Pagination --}}
 {{-- <div class="paginator mt-2 d-flex justify-content-end">
     {{ $product->appends(request()->except('page'))->links() }}
 </div> --}}
-{{-- @php
-        $paginationRange = App\Helpers\PaginationHelper::calculatePaginationRange($product->currentPage(), $product->lastPage());
-    @endphp
-    <div class="pagination mt-4 d-flex justify-content-end">
-        <ul>
-            @if ($paginationRange['start'] > 1)
-                <li><a href="{{ $product->url(1) }}">1</a></li>
-                @if ($paginationRange['start'] > 2)
-                    <li><span>...</span></li>
-                @endif
-            @endif
 
-            @for ($i = $paginationRange['start']; $i <= $paginationRange['end']; $i++)
-                <li class="{{ $i == $product->currentPage() ? 'active' : '' }}">
-                    <a href="{{ $product->url($i) }}">{{ $i }}</a>
-                </li>
-            @endfor
-
-            @if ($paginationRange['end'] < $product->lastPage())
-                @if ($paginationRange['end'] < $product->lastPage() - 1)
-                    <li><span>...</span></li>
-                @endif
-                <li><a href="{{ $product->url($product->lastPage()) }}">{{ $product->lastPage() }}</a>
-                </li>
-            @endif
-        </ul>
-    </div> --}}
 </div>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 
