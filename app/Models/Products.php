@@ -350,7 +350,7 @@ class Products extends Model
     {
         $result = [];
         $check = DB::table($this->table)->where('product_name', $data['name']);
-        if($data['action']){
+        if(isset($data['action'])){
             $check->where('id','!=', $data['id']);
         }
         $check = $check->first();
