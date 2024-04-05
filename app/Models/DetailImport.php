@@ -262,7 +262,10 @@ class DetailImport extends Model
 
     public function dataImport($dataImport)
     {
-        $data = DB::table('products')->whereIn('id', $dataImport['product_id'])->get();
+        $data = DB::table('products')->whereIn('id', $dataImport['product_id'])
+            // Kiểm tra loại sản phẩm
+            ->where('type', 1)
+            ->get();
         return $data;
     }
     public function ajax($data)

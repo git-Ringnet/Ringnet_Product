@@ -1671,6 +1671,7 @@
         var provide_email = $("input[name='provide_email']").val().trim();
         var provide_phone = $("input[name='provide_phone']").val().trim();
         var provide_address_delivery = $("input[name='provide_address_delivery']").val().trim();
+        var key = $("input[name='key']").val().trim();
         if (provide_name_display == '') {
             showNotification('warning', 'Vui lòng nhập Tên hiển thị')
             check = true;
@@ -1698,7 +1699,8 @@
                     provide_represent: provide_represent,
                     provide_email: provide_email,
                     provide_phone: provide_phone,
-                    provide_address_delivery: provide_address_delivery
+                    provide_address_delivery: provide_address_delivery,
+                    key : key
                 },
                 success: function(data) {
                     $('#listPriceEffect li').empty();
