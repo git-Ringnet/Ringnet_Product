@@ -143,7 +143,6 @@ li {
 
 .outer2 {
     overflow-x: auto; /* Hiển thị thanh cuộn ngang */
-    overflow-y: hidden; /* Ẩn thanh cuộn dọc */
     scrollbar-width: thin;  
     max-height: 66vh;
 }
