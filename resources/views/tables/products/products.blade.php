@@ -137,16 +137,16 @@
             <div class="col-12 p-0 m-0">
                 <div class="card">
                     <!-- /.card-header -->
-                    <div class="outer text-nowrap">
+                    <div class="outer">
                         <table id="example2" class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col" style="width:10%;padding-left: 2rem;"
+                                    <th scope="col" style="width:5%;padding-left: 2rem;"
                                         class="border-top-0 bg-white">
                                         <input type="checkbox" name="all" id="checkall" class="checkall-btn">
 
                                     </th>
-                                    <th scope="col" class="border-top-0 bg-white pl-0">
+                                    <th scope="col" class="border-top-0 bg-white pl-0" style="width: 10%;">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_code" data-sort-type="DESC">
@@ -169,7 +169,7 @@
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border-top-0 bg-white">
+                                    <th scope="col" class="border-top-0 bg-white" style="width: 9%;">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_inventory" data-sort-type="DESC">

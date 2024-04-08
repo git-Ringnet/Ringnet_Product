@@ -227,8 +227,7 @@
                                 <div
                                     class="border border-top-0 w-100 border-left-0 border-right-0 px-3 height-100 pt-2 pb-1">
                                     <select name="product_tax" id="" class="w-25 text-13-black border-0"
-                                        style="background-color:white;"
-                                        @if ($product->type == 2) disabled @endif>
+                                        style="background-color:white;">
                                         <option value="0" @if ($product->product_tax == 0) selected @endif>0%
                                         </option>
                                         <option value="8" @if ($product->product_tax == 8) selected @endif>8%
@@ -325,7 +324,7 @@
                 if (data.status == false) {
                     showNotification('warning', data.msg);
                 } else {
-                    // $('form')[1].submit();
+                    $('form')[1].submit();
                 }
             }
         })

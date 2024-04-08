@@ -111,16 +111,17 @@ class Products extends Model
                 'product_trade' => 0,
                 'product_available' => 0,
                 'workspace_id' => Auth::user()->current_workspace,
+                'product_tax' => $data['product_tax'],
             ];
             if ($data['type_product'] == 1) {
                 $product['product_type'] = $data['product_type'];
                 $product['product_manufacturer'] = $data['product_manufacturer'];
                 $product['product_origin'] = $data['product_origin'];
                 $product['product_guarantee'] = $data['product_guarantee'];
-                $product['product_tax'] = $data['product_tax'];
-            } else {
-                $product['product_tax'] = 8;
             }
+            // else {
+            //     $product['product_tax'] = 8;
+            // }
 
             // $product  = [
             //     'product_code' => $data['product_code'],
@@ -341,6 +342,11 @@ class Products extends Model
                     $result['msg'] = "Sản phẩm" . $checkProduct->product_name . "sai thuế sản phẩm" . ($checkProduct->product_tax == 99 ? "NOVAT" : $checkProduct->product_tax);
                     break;
                 }
+                if ($checkProduct->type == 2) {
+                    $result['status'] = false;
+                    $result['msg'] = "Sản phẩm" . $checkProduct->product_name . "là loại dịch vụ";
+                    break;
+                }
             }
         }
         return $result;
@@ -350,14 +356,14 @@ class Products extends Model
     {
         $result = [];
         $check = DB::table($this->table)->where('product_name', $data['name']);
-        if(isset($data['action'])){
-            $check->where('id','!=', $data['id']);
+        if (isset($data['action'])) {
+            $check->where('id', '!=', $data['id']);
         }
         $check = $check->first();
-      
+
         if ($check) {
             $result['status'] = false;
-            $result['msg'] = "Sản phẩm " ."<b>". $check->product_name ."</b>". " đã tồn tại";
+            $result['msg'] = "Sản phẩm " . "<b>" . $check->product_name . "</b>" . " đã tồn tại";
         } else {
             $result['status'] = true;
         }
