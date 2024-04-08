@@ -445,9 +445,23 @@
                                                     <td class="text-13-black text-right">{{ number_format($item->trcVat) }}
                                                     </td>
                                                     <td class="text-13-black text-right">
-                                                        {{ number_format($item->trcVat) }}</td>
+                                                        @php
+                                                            $totalNhap = 0;
+                                                        @endphp
+                                                        @if ($item->thueXuat == 99)
+                                                            @php
+                                                                $total = $item->trcVat;
+                                                            @endphp
+                                                            {{ number_format($item->trcVat) }}
+                                                        @else
+                                                            @php
+                                                                $total = ($item->thueXuat * $item->trcVat) / 100;
+                                                            @endphp
+                                                            {{ number_format($totalNhap) }}
+                                                        @endif
+                                                    </td>
                                                     <td class="text-13-black text-right">
-                                                        {{ number_format($item->sauVat) }}</td>
+                                                        {{ number_format($item->trcVat + $totalNhap) }}</td>
                                                     <td class="text-13-black min-width180 text-center">
                                                         @if ($item->TTnhap == 0)
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="14"
@@ -477,8 +491,9 @@
                                                     </td>
                                                     <td class="text-13-black">
                                                         {{ date('d/m/Y', strtotime($item->ngayTT)) }}</td>
-                                                    <td class="text-13-black text-center">{{ $item->HTTT }}</td>
-                                                    <td class="text-13-black">{{ $item->POxuat }}</td>
+                                                    <td class="text-13-black text-center border-right">{{ $item->HTTT }}
+                                                    </td>
+                                                    <td class="text-13-black border-left">{{ $item->POxuat }}</td>
                                                     <td class="text-13-black text-right">
                                                         {{ number_format($item->giaban) }}</td>
                                                     <td class="text-13-black text-right">
