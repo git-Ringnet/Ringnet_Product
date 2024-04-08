@@ -240,34 +240,6 @@ class Guest extends Model
                     $guest->guest_phone = $data['guest_phone'];
                     $guest->guest_receiver = $data['guest_receiver'];
                     $guest->save();
-                    $date = DetailExport::where('guest_id', $guest->id)->orderBy('id', 'desc')
-                        ->where('workspace_id', Auth::user()->current_workspace)
-                        ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
-                        ->first();
-                    if ($date) {
-                        $date = explode('/', $date->quotation_number)[0];
-                    }
-                    $count = DetailExport::where('guest_id', $guest->id)
-                        ->where('workspace_id', Auth::user()->current_workspace)
-                        ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [$date])
-                        ->count();
-                    $lastDetailImport = DetailExport::where('guest_id', $guest->id)
-                        ->orderBy('id', 'desc')
-                        ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
-                        ->first();
-
-                    if ($lastDetailImport) {
-                        $parts = explode('-', $lastDetailImport->quotation_number);
-                        $getNumber = end($parts);
-
-                        $count = $getNumber + 1;
-                    } else {
-                        $count = $count == 0 ? $count += 1 : $count;
-                    }
-                    if ($count < 10) {
-                        $count = "0" . $count;
-                    }
-                    $resultNumber = ($date == "" ? Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmY') : $date) . "/RN-" . $key . "-" . $count;
                 }
             }
             $checkRepresent = representGuest::where(function ($query) use ($data) {
@@ -307,7 +279,6 @@ class Guest extends Model
             'msg' => 'Cập nhật thông tin khách hàng thành công!',
             'updated_guest' => $guest,
             'updated_represent' => $represent,
-            'resultNumber' => $resultNumber
         ]);
     }
 

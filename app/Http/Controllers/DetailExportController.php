@@ -388,45 +388,38 @@ class DetailExportController extends Controller
         $guest = Guest::where('id', $data['idGuest'])
             ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
+
         if ($guest) {
-            $date = DetailExport::where('guest_id', $guest->id)->orderBy('id', 'desc')
-                ->where('workspace_id', Auth::user()->current_workspace)
-                ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
-                ->first();
-            if ($date) {
-                $date = explode('/', $date->quotation_number)[0];
-            }
-            $count = DetailExport::where('guest_id', $guest->id)
-                ->where('workspace_id', Auth::user()->current_workspace)
-                ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [$date])
-                ->count();
-            $lastDetailImport = DetailExport::where('guest_id', $guest->id)
-                ->orderBy('id', 'desc')
-                ->whereRaw("SUBSTRING_INDEX(quotation_number, '/', 1) = ?", [Carbon::now()->format('dmY')])
-                ->first();
+            // Lấy ngày hiện tại dưới định dạng dmY
+            $currentDate = Carbon::now()->format('dmY');
 
-            if ($lastDetailImport) {
-                $parts = explode('-', $lastDetailImport->quotation_number);
-                $getNumber = end($parts);
+            // Lấy số lớn nhất của quotation_number cho ngày hiện tại
+            $lastNumber = DetailExport::where('guest_id', $guest->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->where('quotation_number', 'like', $currentDate . '/%')
+                ->max(DB::raw("CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(quotation_number, '-', -1), '/', -1) AS UNSIGNED)"));
 
-                $count = $getNumber + 1;
-            } else {
-                $count = $count == 0 ? $count += 1 : $count;
-            }
-            if ($count < 10) {
-                $count = "0" . $count;
-            }
-            $resultNumber = ($date == "" ? Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->format('dmY') : $date) . "/RN-" . $guest->key . "-" . $count;
+            // Nếu không có số lớn nhất, bắt đầu với số 01
+            $count = ($lastNumber ? ($lastNumber + 1) : 1);
+
+            // Đảm bảo số cuối cùng có đúng định dạng (ví dụ: 05 thay vì 5)
+            $countFormatted = str_pad($count, 2, '0', STR_PAD_LEFT);
+
+            // Tạo chuỗi resultNumber mới
+            $resultNumber = "{$currentDate}/RN-{$guest->key}-{$countFormatted}";
+
             $result = [
                 'guest' => $guest,
-                'count' => $count,
+                'count' => $countFormatted,
                 'key' => $guest->key,
-                'date' => ($date == "" ? Carbon::now()->format('dmY') : $date),
+                'date' => $currentDate,
                 'resultNumber' => $resultNumber
             ];
         }
+
         return $result;
     }
+
     public function searchRepresent(Request $request)
     {
         $data = $request->all();

@@ -1003,9 +1003,8 @@
                                                             <div class="dropdown-menu date-form-setting"
                                                                 style="z-index: 1000;">
                                                                 <a class="dropdown-item search-date-form"
-                                                                    data-toggle="modal"
-                                                                    data-target="#formModalgoods" data-name="goods"
-                                                                    data-id="{{ $item->id }}"
+                                                                    data-toggle="modal" data-target="#formModalgoods"
+                                                                    data-name="goods" data-id="{{ $item->id }}"
                                                                     id="{{ $item->id }}"><i
                                                                         class="fa-regular fa-pen-to-square"></i></a>
                                                                 <a class="dropdown-item delete-item" href="#"
@@ -1013,8 +1012,7 @@
                                                                     data-name="{{ $item->form_field }}"><i
                                                                         class="fa-solid fa-trash-can"></i></a>
                                                                 <a class="dropdown-item set-default default-id{{ $item->form_field }}"
-                                                                    id="default-id{{ $item->id }}"
-                                                                    href="#"
+                                                                    id="default-id{{ $item->id }}" href="#"
                                                                     data-name="{{ $item->form_field }}"
                                                                     data-id="{{ $item->id }}">
                                                                     @if ($item->default_form === 1)
@@ -1033,8 +1031,8 @@
                                             data-toggle="modal" data-target="#formModalgoods"
                                             style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
                                             <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                    height="16" viewBox="0 0 16 16" fill="none">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    viewBox="0 0 16 16" fill="none">
                                                     <path
                                                         d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z"
                                                         fill="#282A30" />
@@ -1462,139 +1460,155 @@
             var inputDesc = $('#form-desc-' + name).val();
             var action = $(this).data('action');
 
-            if ($('.btn-submit' + name).text() === 'Lưu') {
-                $('#form-name-' + name).val('')
-                $('#form-desc-' + name).val('')
-                $.ajax({
-                    url: '{{ route('addDateForm') }}',
-                    type: 'GET',
-                    data: {
-                        update: 1,
-                        name: name,
-                        inputName: inputName,
-                        inputDesc: inputDesc,
-                    },
-                    success: function(data) {
-                        $('#myInput-' + name).val(data.new_date_form.form_desc);
-                        $("input[name='idDate[" + data.new_date_form.form_field + "]']")
-                            .val(data.new_date_form
-                                .id);
-                        $("input[name='fieldDate[" + data.new_date_form.form_field + "]']")
-                            .val(data.new_date_form
-                                .form_field);
-                        $('.modal [data-dismiss="modal"]').click();
+            if (inputName == '' || inputDesc == '') {
+                showAutoToast('warning', 'Vui lòng nhập đầy đủ thông tin');
+                return false;
+            } else {
+                if ($('.btn-submit' + name).text() === 'Lưu') {
+                    $('#form-name-' + name).val('')
+                    $('#form-desc-' + name).val('')
+                    $.ajax({
+                        url: '{{ route('addDateForm') }}',
+                        type: 'GET',
+                        data: {
+                            update: 1,
+                            name: name,
+                            inputName: inputName,
+                            inputDesc: inputDesc,
+                        },
+                        success: function(data) {
+                            $('#myInput-' + name).val(data.new_date_form.form_desc);
+                            $("input[name='idDate[" + data.new_date_form.form_field + "]']")
+                                .val(data.new_date_form
+                                    .id);
+                            $("input[name='fieldDate[" + data.new_date_form.form_field +
+                                    "]']")
+                                .val(data.new_date_form
+                                    .form_field);
+                            $('.modal [data-dismiss="modal"]').click();
 
-                        // Đoạn html của set default
-                        let originalHTML =
-                            '<a class="dropdown-item set-default default-id' + data
-                            .new_date_form.form_field + '"' +
-                            'id="default-id' + data.new_date_form.id + '" href="#"' +
-                            'data-name="' + data.new_date_form.form_field + '"' +
-                            'data-id="' + data.new_date_form.id + '">' +
-                            '<i class="fa-solid fa-link"></i>' +
-                            '</a>';
-                        // Thêm phần tử mới vào trong form tìm kiếm
-                        var newListItem =
-                            '<li class="border item-' + data.new_date_form.id +
-                            '"><a href="#" class="text-dark d-flex justify-content-between p-2 search-date-form" id="' +
-                            data.new_date_form.id +
-                            '" name="search-date-form" data-name="' +
-                            name + '">' +
-                            '<span class="text-13-black" id="' + data.new_date_form
-                            .form_field + data
-                            .new_date_form.id + '">' + data.new_date_form.form_name +
-                            '</span></a><div class="dropdown">' +
-                            '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">' +
-                            '<i class="fa-solid fa-ellipsis"></i>' + '</button>' +
-                            '<div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
-                            '<a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModal' +
-                            name + '" data-name="' +
-                            name + '" data-id="' + data.new_date_form.id +
-                            '" id="' + data.new_date_form.id +
-                            '"><i class="fa-regular fa-pen-to-square"></i></a>' +
-                            '<a class="dropdown-item delete-item" href="#" data-id="' + data
-                            .new_date_form.id +
-                            '" data-name="' + data.new_date_form.form_field +
-                            '"><i class="fa-solid fa-trash-can"></i></a>' + originalHTML +
-                            '</div>' +
-                            '</div></li>';
-                        // Thêm mục mới vào danh sách
-                        var addButton = $(".addDateForm" + name);
-                        $(addButton).append(newListItem);
-                        showAutoToast('success', data.msg);
-                        //clear
-                        $('.search-date-form').click(function() {
-                            $('.modal').on('hidden.bs.modal', function() {
-                                $('#form-name-' + name).val('')
-                                $('#form-desc-' + name).val('')
-                                $('.btn-submit').attr('data-action',
-                                    'insert').text('Lưu');
-                                $('.title-dateform').text('Biểu mẫu mới');
-                            });
-                            var idDateForm = $(this).attr('id');
-                            var name = $(this).data('name');
-                            var dataid = $(this).data('id');
-                            if (dataid) {
-                                $('.btn-submit').attr('data-action', 'update').attr(
-                                    'data-id', dataid).text(
-                                    'Cập nhật');
-                                $('.title-dateform').text('Cập nhật');
-                            }
-                            $.ajax({
-                                url: '{{ route('searchDateForm') }}',
-                                type: 'GET',
-                                data: {
-                                    idDateForm: idDateForm
-                                },
-                                success: function(data) {
-                                    $("input[name='idDate[" + data
-                                        .form_field + "]']").val(
-                                        data
-                                        .id);
-                                    $("input[name='fieldDate[" + data
-                                        .form_field + "]']").val(
-                                        data
-                                        .form_field);
-                                    $('#myInput-' + name).val(data
-                                        .form_desc);
-                                    if (dataid) {
-                                        $('#form-name-' + name).val(data
-                                            .form_name)
-                                        $('#form-desc-' + name).val(data
-                                            .form_desc)
-                                    }
+                            // Đoạn html của set default
+                            let originalHTML =
+                                '<a class="dropdown-item set-default default-id' + data
+                                .new_date_form.form_field + '"' +
+                                'id="default-id' + data.new_date_form.id + '" href="#"' +
+                                'data-name="' + data.new_date_form.form_field + '"' +
+                                'data-id="' + data.new_date_form.id + '">' +
+                                '<i class="fa-solid fa-link"></i>' +
+                                '</a>';
+                            // Thêm phần tử mới vào trong form tìm kiếm
+                            var newListItem =
+                                '<li class="border item-' + data.new_date_form.id +
+                                '"><a href="#" class="text-dark d-flex justify-content-between p-2 search-date-form" id="' +
+                                data.new_date_form.id +
+                                '" name="search-date-form" data-name="' +
+                                name + '">' +
+                                '<span class="text-13-black" id="' + data.new_date_form
+                                .form_field + data
+                                .new_date_form.id + '">' + data.new_date_form.form_name +
+                                '</span></a><div class="dropdown">' +
+                                '<button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">' +
+                                '<i class="fa-solid fa-ellipsis"></i>' + '</button>' +
+                                '<div class="dropdown-menu date-form-setting" style="z-index: 1000;">' +
+                                '<a class="dropdown-item search-date-form" data-toggle="modal" data-target="#formModal' +
+                                name + '" data-name="' +
+                                name + '" data-id="' + data.new_date_form.id +
+                                '" id="' + data.new_date_form.id +
+                                '"><i class="fa-regular fa-pen-to-square"></i></a>' +
+                                '<a class="dropdown-item delete-item" href="#" data-id="' +
+                                data
+                                .new_date_form.id +
+                                '" data-name="' + data.new_date_form.form_field +
+                                '"><i class="fa-solid fa-trash-can"></i></a>' +
+                                originalHTML +
+                                '</div>' +
+                                '</div></li>';
+                            // Thêm mục mới vào danh sách
+                            var addButton = $(".addDateForm" + name);
+                            $(addButton).append(newListItem);
+                            showAutoToast('success', data.msg);
+                            //clear
+                            $('.search-date-form').click(function() {
+                                $('.modal').on('hidden.bs.modal', function() {
+                                    $('#form-name-' + name).val('')
+                                    $('#form-desc-' + name).val('')
+                                    $('.btn-submit').attr('data-action',
+                                        'insert').text('Lưu');
+                                    $('.title-dateform').text(
+                                        'Biểu mẫu mới');
+                                });
+                                var idDateForm = $(this).attr('id');
+                                var name = $(this).data('name');
+                                var dataid = $(this).data('id');
+                                if (dataid) {
+                                    $('.btn-submit').attr('data-action', 'update')
+                                        .attr(
+                                            'data-id', dataid).text(
+                                            'Cập nhật');
+                                    $('.title-dateform').text('Cập nhật');
                                 }
+                                $.ajax({
+                                    url: '{{ route('searchDateForm') }}',
+                                    type: 'GET',
+                                    data: {
+                                        idDateForm: idDateForm
+                                    },
+                                    success: function(data) {
+                                        $("input[name='idDate[" + data
+                                                .form_field + "]']")
+                                            .val(
+                                                data
+                                                .id);
+                                        $("input[name='fieldDate[" +
+                                                data
+                                                .form_field + "]']")
+                                            .val(
+                                                data
+                                                .form_field);
+                                        $('#myInput-' + name).val(data
+                                            .form_desc);
+                                        if (dataid) {
+                                            $('#form-name-' + name).val(
+                                                data
+                                                .form_name)
+                                            $('#form-desc-' + name).val(
+                                                data
+                                                .form_desc)
+                                        }
+                                    }
+                                });
                             });
-                        });
-                    }
-                });
-            }
-            if ($('.btn-submit' + name).text() === 'Cập nhật') {
-                var id = $(this).data('id');
-                $.ajax({
-                    url: '{{ route('updateDateForm') }}',
-                    type: 'GET',
-                    data: {
-                        update: 1,
-                        id: id,
-                        name: name,
-                        inputName: inputName,
-                        inputDesc: inputDesc,
-                    },
-                    success: function(data) {
-                        $('.modal [data-dismiss="modal"]').click();
-                        $("input[name='idDate[" + data.new_date_form.form_field + "]']")
-                            .val(data.new_date_form
-                                .id);
-                        $("input[name='fieldDate[" + data.new_date_form.form_field + "]']")
-                            .val(data.new_date_form
-                                .form_field);
-                        $("#" + name + id).text(data.new_date_form.form_name)
-                        $('#myInput-' + name).val(data.new_date_form.form_desc);
+                        }
+                    });
+                }
+                if ($('.btn-submit' + name).text() === 'Cập nhật') {
+                    var id = $(this).data('id');
+                    $.ajax({
+                        url: '{{ route('updateDateForm') }}',
+                        type: 'GET',
+                        data: {
+                            update: 1,
+                            id: id,
+                            name: name,
+                            inputName: inputName,
+                            inputDesc: inputDesc,
+                        },
+                        success: function(data) {
+                            $('.modal [data-dismiss="modal"]').click();
+                            $("input[name='idDate[" + data.new_date_form.form_field + "]']")
+                                .val(data.new_date_form
+                                    .id);
+                            $("input[name='fieldDate[" + data.new_date_form.form_field +
+                                    "]']")
+                                .val(data.new_date_form
+                                    .form_field);
+                            $("#" + name + id).text(data.new_date_form.form_name)
+                            $('#myInput-' + name).val(data.new_date_form.form_desc);
 
-                        showAutoToast('success', data.msg);
-                    }
-                });
+                            showAutoToast('success', data.msg);
+                        }
+                    });
+                }
             }
         });
 
