@@ -370,7 +370,7 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
-                                <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest"
+                                <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                     style="flex:2;" readonly id="provide_name"
                                     value="@isset($yes){{ $show_receive['provide_name'] }}@endisset"
                                     placeholder="Chọn thông tin" />
@@ -379,7 +379,7 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest"
+                                <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                     style="flex:2;" id="represent" readonly name="represent"
                                     placeholder="Chọn thông tin" />
                             </li>
@@ -388,14 +388,14 @@
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh toán</span>
                                 <input type="text" placeholder="Chọn thông tin" name="payment_code" required
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;" />
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
                             </li>
 
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hạn thanh toán</span>
                                 <input id="datePicker" type="text" placeholder="Chọn thông tin"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" style="flex:2;"
                                     value="{{ date('Y-m-d') }}" />
                                 <input type="hidden" name="payment_date" value="{{ date('Y-m-d') }}"
                                     id="hiddenDateInput">
@@ -405,7 +405,7 @@
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
                                 <input id="datePickerDay" type="text" placeholder="Chọn thông tin"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" style="flex:2;"
                                     value="{{ date('Y-m-d') }}" />
                                 <input type="hidden" name="payment_day" value="{{ date('Y-m-d') }}"
                                     id="hiddenDateInputDay">
@@ -424,7 +424,7 @@
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
                                 <input readonly type="text" placeholder="Chọn thông tin" id="total_bill" required
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" style="flex:2;"
                                     value="@isset($yes){{ number_format($getPaymentOrder[0]->total_price) }}@endisset">
                             </li>
 
@@ -432,14 +432,14 @@
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đã thanh toán</span>
                                 <input readonly id="payment" type="text" placeholder="Chọn thông tin"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" style="flex:2;"
                                     value="@isset($yes){{ $getPaymentOrder[0]->payment == null ? 0 : number_format($getPaymentOrder[0]->payment) }}@endisset">
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
                                 <input type="text" placeholder="Chọn thông tin" id="debt" required
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" style="flex:2;"
                                     value="@isset($yes){{ $getPaymentOrder[0]->payment == null
                                         ? number_format($getPaymentOrder[0]->total_price)
                                         : number_format($getPaymentOrder[0]->total_price - $getPaymentOrder[0]->payment) }}@endisset">
@@ -449,7 +449,7 @@
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán trước</span>
                                 <input id="prepayment" type="text" placeholder="Nhập thông tin"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest payment_input"
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 payment_input"
                                     style="flex:2; background-color:#F0F4FF;" name="payment" />
                             </li>
                         </ul>

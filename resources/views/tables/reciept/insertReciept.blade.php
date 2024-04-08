@@ -299,7 +299,7 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
-                                <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest"
+                                <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                     style="flex:2;" readonly id="provide_name"
                                     value="@isset($yes){{ $show_receive['provide_name'] }}@endisset"
                                     placeholder="Chọn thông tin" />
@@ -308,7 +308,7 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest"
+                                <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                     style="flex:2;" id="represent" readonly name="represent"
                                     placeholder="Chọn thông tin" />
                             </li>
@@ -317,14 +317,14 @@
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số hóa đơn</span>
                                 <input type="text" placeholder="Chọn thông tin" name="number_bill" required
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;" />
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
                             </li>
 
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày hóa đơn</span>
                                 <input id="datePicker" type="text" placeholder="Chọn thông tin"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" style="flex:2;"
                                     name="" value="{{ date('d/m/Y') }}" />
                                 <input type="hidden" name="date_bill" value="{{ date('Y-m-d') }}"
                                     id="hiddenDateInput">
