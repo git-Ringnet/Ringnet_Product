@@ -806,47 +806,47 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest" {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}}
+                                <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}}
                                     value="{{ $import->represent_name }}" style="flex:2;" id="represent" readonly>
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
-                                <input class="text-13-black w-50 border-0" style="flex:2;"
+                                <input class="text-13-black w-50 border-0 py-2 px-2" style="flex:2;"
                                     placeholder="Nhập thông tin" name="quotation_number"
                                     value="{{ $import->quotation_number }}" readonly />
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
-                                <input class="text-13-black w-50 border-0" style="flex:2;"
+                                <input class="text-13-black w-50 border-0 py-2 px-2" style="flex:2;"
                                     placeholder="Nhập thông tin" name="reference_number"readonly
                                     value="{{ $import->reference_number }}" />
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
-                                <input type="text" class="text-13-black w-50 border-0"
+                                <input type="text" class="text-13-black w-50 border-0 px-2 py-2"
                                     placeholder="Nhập thông tin" id="datePicker" name="date_quote" style="flex:2;"
                                     value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}" />
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
-                                <input type="text" class="text-13-black w-50 border-0" style="flex:2;"
+                                <input type="text" class="text-13-black w-50 border-0 px-2 py-2" style="flex:2;"
                                     name="price_effect" placeholder="Nhập thông tin"
                                     value="{{ $import->price_effect }}" readonly />
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
-                                <input type="text" readonly class="text-13-black w-50 border-0" name="terms_pay"
+                                <input type="text" readonly class="text-13-black w-50 border-0 px-2 py-2" name="terms_pay"
                                     style="flex:2;" placeholder="Nhập thông tin" value="{{ $import->terms_pay }}" />
                             </li>
                             {{-- <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
-                                <input type="text" class="text-13-black w-50 border-0" style="flex:2;"
+                                <input type="text" class="text-13-black w-50 border-0 px-2 py-2" style="flex:2;"
                                     placeholder="Nhập thông tin" id="inputProject" readonly
                                     value="@if ($import->getProjectName) {{ $import->getProjectName->project_name }} @endif">
                             </li> --}}

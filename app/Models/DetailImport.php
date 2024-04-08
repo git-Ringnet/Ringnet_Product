@@ -86,7 +86,8 @@ class DetailImport extends Model
         $total_tax = $total_tax + $total;
         $dataImport = [
             'provide_id' => $data['provides_id'],
-            'project_id' => isset($data['project_id']) ? $data['project_id'] : 1,
+            // 'project_id' => isset($data['project_id']) ? $data['project_id'] : 1,
+            'project_id' => 1,
             'user_id' => Auth::user()->id,
             'quotation_number' => $data['quotation_number'],
             'reference_number' => $data['reference_number'],

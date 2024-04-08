@@ -169,7 +169,7 @@
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
                                                 <td class="text-13-black height-52">
-                                                    <a href="{{ route('provides.edit', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
+                                                    <a href="{{ route('provides.show', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
                                                         class="user_flow" data-type="NCC"
                                                         data-des="Xem nhà cung cấp">
                                                         {{ $item->provide_name_display }}

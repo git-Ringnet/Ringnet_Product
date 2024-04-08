@@ -466,7 +466,7 @@
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
-                                    <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest"
+                                    <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                         style="flex:2;" readonly placeholder="Chọn thông tin" id="provide_name"
                                         {{-- value="{{ $receive->getNameProvide->provide_name_display }}"  --}}
                                         value="@if ($receive->getQuotation) {{ $receive->getQuotation->provide_name }} @endif" />
@@ -475,7 +475,7 @@
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                    <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest"
+                                    <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                         style="flex:2;" id="represent" placeholder="Chọn thông tin" readonly
                                         @if ($nameRepresent) value="{{ $nameRepresent }}" @endif />
                                 </li>
@@ -483,15 +483,15 @@
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã nhận hàng</span>
                                     <input type="text" placeholder="Chọn thông tin" name="delivery_code" readonly
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
+                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" style="flex:2; background-color:#F0F4FF; border-radius:4px;"
                                         value="{{ $receive->delivery_code }}" />
                                 </li>
 
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                     style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn vị vận chuyển</span>
+                                    <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận chuyển</span>
                                     <input type="text" placeholder="Chọn thông tin"
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
+                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" style="flex:2; background-color:#F0F4FF; border-radius:4px;"
                                         name="shipping_unit" value="{{ $receive->shipping_unit }}"
                                         @if ($receive->status == 2) readonly @endif />
                                 </li>
@@ -499,7 +499,7 @@
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
                                     <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest" style="flex:2;"
+                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" style="flex:2; background-color:#F0F4FF; border-radius:4px;"
                                         value="{{ number_format($receive->delivery_charges) }}"
                                         @if ($receive->status == 2) readonly @endif>
                                 </li>
@@ -507,7 +507,7 @@
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày nhận hàng</span>
                                     <input type="text" placeholder="Nhập thông tin"
-                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest flatpickr-input"
+                                        class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
                                         style="flex:2;" id="datePicker"
                                         value="{{ date_format(new DateTime($receive->created_at), 'd/m/Y') }}"
                                         @if ($receive->status == 2) readonly @endif>
