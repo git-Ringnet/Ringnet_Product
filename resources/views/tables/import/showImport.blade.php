@@ -843,13 +843,13 @@
                                 <input type="text" readonly class="text-13-black w-50 border-0" name="terms_pay"
                                     style="flex:2;" placeholder="Nhập thông tin" value="{{ $import->terms_pay }}" />
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            {{-- <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
                                 <input type="text" class="text-13-black w-50 border-0" style="flex:2;"
                                     placeholder="Nhập thông tin" id="inputProject" readonly
                                     value="@if ($import->getProjectName) {{ $import->getProjectName->project_name }} @endif">
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>

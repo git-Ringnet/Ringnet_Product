@@ -1780,17 +1780,23 @@
                             },
                             success: function(data) {
                                 if (data.status == false) {
-                                    showNotification('warning', data.msg);
-                                    delayAndShowNotification('success',
-                                        'Đã thay đổi thuế theo sản phẩm',
-                                        500);
-                                    rows.each(function() {
-                                        if ($(this).find('.searchProductName')
-                                            .val() == data.product_name) {
-                                            $(this).find('.product_tax').val(
-                                                data.product_tax)
-                                        }
-                                    })
+                                    if (data.type) {
+                                        showNotification('warning', data.msg);
+                                    } else {
+                                        showNotification('warning', data.msg);
+                                        delayAndShowNotification('success',
+                                            'Đã thay đổi thuế theo sản phẩm',
+                                            500);
+                                        rows.each(function() {
+                                            if ($(this).find(
+                                                    '.searchProductName')
+                                                .val() == data.product_name) {
+                                                $(this).find('.product_tax')
+                                                    .val(
+                                                        data.product_tax)
+                                            }
+                                        })
+                                    }
                                     updateTaxAmount()
                                     calculateTotalAmount()
                                     calculateTotalTax()

@@ -802,7 +802,7 @@
                                     </a>
                                 </ul>
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
+                            {{-- <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
 
@@ -861,7 +861,7 @@
                                             style="font-weight: 600 !important;">Thêm điều khoản</span>
                                     </a>
                                 </ul>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>

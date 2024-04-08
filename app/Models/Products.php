@@ -336,16 +336,18 @@ class Products extends Model
             $checkProduct = DB::table($this->table)->where('product_name', $data['listName'][$i])->first();
             if ($checkProduct) {
                 if ($checkProduct->product_tax != $data['listTax'][$i]) {
-                    $result['product_name'] = $checkProduct->product_name;
-                    $result['product_tax'] = $checkProduct->product_tax;
-                    $result['status'] = false;
-                    $result['msg'] = "Sản phẩm" . $checkProduct->product_name . "sai thuế sản phẩm" . ($checkProduct->product_tax == 99 ? "NOVAT" : $checkProduct->product_tax);
-                    break;
-                }
-                if ($checkProduct->type == 2) {
-                    $result['status'] = false;
-                    $result['msg'] = "Sản phẩm" . $checkProduct->product_name . "là loại dịch vụ";
-                    break;
+                    if ($checkProduct->type == 2) {
+                        $result['type'] = true;
+                        $result['status'] = false;
+                        $result['msg'] = "Sản phẩm <b>" . $checkProduct->product_name . "</b> là loại dịch vụ";
+                        break;
+                    } else {
+                        $result['product_name'] = $checkProduct->product_name;
+                        $result['product_tax'] = $checkProduct->product_tax;
+                        $result['status'] = false;
+                        $result['msg'] = "Sản phẩm <b>" . $checkProduct->product_name . " </b>sai thuế sản phẩm" . ($checkProduct->product_tax == 99 ? "NOVAT" : $checkProduct->product_tax);
+                        break;
+                    }
                 }
             }
         }

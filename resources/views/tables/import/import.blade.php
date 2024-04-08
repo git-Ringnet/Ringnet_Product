@@ -149,7 +149,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            {{-- <th scope="col" class="height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -157,7 +157,7 @@
                                                     </a>
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
@@ -247,11 +247,11 @@
                                                 <td class=" text-13-black">
                                                     {{$item->provide_name}}
                                                 </td>
-                                                <td class="text-13-blue" style="color: #0052CC">
+                                                {{-- <td class="text-13-blue" style="color: #0052CC">
                                                     @if ($item->getProjectName)
                                                         {{ $item->getProjectName->project_name }}
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td class="text-center py-2">
                                                     @if ($item->status_receive == 2 && $item->status_reciept == 2 && $item->status_pay == 2)
                                                         <span style="color: #08AA36">Close</span>
