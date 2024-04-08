@@ -214,7 +214,7 @@
                                         <input type="hidden" id="sortByInput" name="sort-by" value="">
                                         <input type="hidden" id="sortTypeInput" name="sort-type">
                                         <tr class="height-52">
-                                            <th colspan="11" scope="col" class="text-left text-13 border-right">
+                                            <th colspan="12" scope="col" class="text-left text-13 border-right">
                                                 <span class="d-flex justify-content-center align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="price_import" data-sort-type="DESC"><button
@@ -223,7 +223,7 @@
                                                     <div class="icon" id="icon-price_import"></div>
                                                 </span>
                                             </th>
-                                            <th colspan="9" scope="col"
+                                            <th colspan="10" scope="col"
                                                 class="text-left text-13 border-right border-left">
                                                 <span class="d-flex justify-content-center align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -238,8 +238,15 @@
                                         </tr>
                                         {{-- Hàng dưới --}}
                                         <tr>
-                                            <th scope="col" class="text-left text-13"
-                                                style="width:2%;padding-left: 2rem;">
+                                            <th scope="col" class="text-left text-13" style="">
+                                                <span class="d-flex justify-center-start align-items-center">
+                                                    <a href="#" class="sort-link" data-sort-by=""
+                                                        data-sort-type="DESC"><button class="btn-sort text-13"
+                                                            type="submit">Nhà cung cấp</button></a>
+                                                    <div class="icon" id="icon_"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-left text-13" style="">
                                                 <span class="d-flex justify-center-start align-items-center">
                                                     <a href="#" class="sort-link" data-sort-by=""
                                                         data-sort-type="DESC"><button class="btn-sort text-13"
@@ -342,7 +349,15 @@
                                                 </span>
                                             </th>
                                             {{-- Bán hàng --}}
-                                            <th scope="col" class="text-left text-13 border-left">
+                                            <th scope="col" class="text-left text-13 border-left" style="">
+                                                <span class="d-flex justify-center-start align-items-center">
+                                                    <a href="#" class="sort-link" data-sort-by=""
+                                                        data-sort-type="DESC"><button class="btn-sort text-13"
+                                                            type="submit">Khách hàng</button></a>
+                                                    <div class="icon" id="icon_"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-left text-13">
                                                 <span class="d-flex justify-content-start align-items-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="product_qty" data-sort-type="DESC"><button
@@ -435,6 +450,7 @@
                                                     {{-- <td class="text-13-black" style="width:5%;padding-left: 2rem;">
                                                         {{ $index + 1 }}</td> --}}
                                                     {{-- <td>{{ $item->user_id }}</td> --}}
+                                                    <td class="text-13-black">{{ $item->tenNCC }}</td>
                                                     <td class="text-13-black min-width180">{{ $item->POnhap }}</td>
                                                     <td class="text-13-black">{{ $item->tensp }}</td>
                                                     <td class="text-13-black">{{ $item->hdvao }}</td>
@@ -442,7 +458,8 @@
                                                         {{ date('d/m/Y', strtotime($item->ngayHDnhap)) }}
                                                     </td>
                                                     <td class="text-13-black text-center">{{ $item->baoHanh }}</td>
-                                                    <td class="text-13-black text-right">{{ number_format($item->trcVat) }}
+                                                    <td class="text-13-black text-right">
+                                                        {{ number_format($item->trcVat) }}
                                                     </td>
                                                     <td class="text-13-black text-right">
                                                         @php
@@ -493,7 +510,9 @@
                                                         {{ date('d/m/Y', strtotime($item->ngayTT)) }}</td>
                                                     <td class="text-13-black text-center border-right">{{ $item->HTTT }}
                                                     </td>
-                                                    <td class="text-13-black border-left">{{ $item->POxuat }}</td>
+                                                    <td class="text-13-black border-left">{{ $item->tenKhach }}</td>
+
+                                                    <td class="text-13-black">{{ $item->POxuat }}</td>
                                                     <td class="text-13-black text-right">
                                                         {{ number_format($item->giaban) }}</td>
                                                     <td class="text-13-black text-right">
