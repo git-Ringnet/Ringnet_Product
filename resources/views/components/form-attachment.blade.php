@@ -22,20 +22,24 @@
             @if ($value->getAttachment($name))
                 @foreach ($value->getAttachment($name) as $item)
                     <tr>
-                        <td class="p-1 border-right padding-left35">
+                        <td class="p-1 border-right padding-left35 border-bottom">
                             <input type="checkbox" class="checkall-btn">
                         </td>
-                        <td class="p-1 border-right">{{ $item->file_name }}</td>
-                        <td class="p-1 border-right">
+                        <td class="p-1 border-right border-bottom">
+                            {{ $item->file_name }}
+                        </td>
+                        <td class="p-1 border-right border-bottom">
                             @if ($item->getUsers)
                                 {{ $item->getUsers->name }}
                             @endif
                         </td>
-                        <td class="p-1 border-right">{{ date_format(new DateTime($item->created_at), 'd-m-Y') }}</td>
-                        <td class="p-1 border-right">
+                        <td class="p-1 border-right border-bottom">
+                            {{ date_format(new DateTime($item->created_at), 'd-m-Y') }}
+                        </td>
+                        <td class="p-1 border-right border-bottom">
                             {{ $item->size }} KB
                         </td>
-                        <td class="p-1 border-right">
+                        <td class="p-1 border-right border-bottom">
                             <a href="{{ route('downloadFile', ['folder' => $name, 'file' => $item->file_name]) }}"
                                 download><svg width="32" height="32" viewBox="0 0 32 32" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -49,7 +53,7 @@
                                 </svg>
                             </a>
                         </td>
-                        <td class="p-1 border-right">
+                        <td class="p-1 border-right border-bottom">
                             <form onclick="return confirm('Bạn có chắc chắn muốn xoá !!')"
                                 action="{{ route('deleteFile', ['folder' => $name, 'file' => $item->file_name]) }}"
                                 method="post">

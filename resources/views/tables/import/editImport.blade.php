@@ -195,7 +195,7 @@
                                         <tbody>
                                             @foreach ($product as $item)
                                                 <tr class="bg-white" style="height:80px;">
-                                                    <td class="border-right p-2 text-13 align-top">
+                                                    <td class="border-right p-2 text-13 align-top border-bottom">
                                                         <input type="hidden" readonly value="{{ $item->id }}"
                                                             name="listProduct[]">
                                                         <span class="ml-2 mr-1">
@@ -224,7 +224,7 @@
                                                             style="z-index: 99; left: 24%; top: 75%;">
                                                         </ul>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top position-relative">
+                                                    <td class="border-right p-2 text-13 align-top border-bottom position-relative">
                                                         <input id="searchProductName" type="text"
                                                             name="product_name[]"
                                                             class="searchProductName border-0 px-2 py-1 w-100"
@@ -235,13 +235,13 @@
                                                             style="z-index: 99; left: 1%; top: 74%; display: none;">
                                                         </ul>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top">
+                                                    <td class="border-right p-2 text-13 align-top border-bottom">
                                                         <input type="text" name="product_unit[]"
                                                             class="border-0 px-2 py-1 w-100 product_unit"
                                                             value="{{ $item->product_unit }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top">
+                                                    <td class="border-right p-2 text-13 align-top border-bottom">
                                                         <div class="">
                                                             <input {{-- oninput="checkQty(this,{{ $item->product_qty }})" --}} type="text"
                                                                 name="product_qty[]"
@@ -256,7 +256,7 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top">
+                                                    <td class="border-right p-2 text-13 align-top border-bottom">
                                                         <input type="text" name="price_export[]"
                                                             class="border-0 px-2 py-1 w-100 price_export text-right"
                                                             value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
@@ -297,19 +297,19 @@
                                                             @endif
                                                         </select>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top position-relative">
+                                                    <td class="border-right p-2 text-13 align-top border-bottom position-relative">
                                                         <input type="text" name="total_price[]"
                                                             class="text-right border-0 px-2 py-1 w-100 total_price"
                                                             readonly
                                                             value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top">
+                                                    <td class="border-right p-2 text-13 align-top border-bottom">
                                                         <input placeholder="Nhập ghi chú" type="text"
                                                             name="product_note[]" class="border-0 px-2 py-1 w-100"
                                                             value="{{ $item->product_note }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top deleteRow">
+                                                    <td class="border-right p-2 text-13 align-top border-bottom deleteRow">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="15" viewBox="0 0 16 15" fill="none">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"

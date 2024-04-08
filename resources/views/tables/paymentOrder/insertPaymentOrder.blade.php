@@ -627,7 +627,7 @@
                             product.forEach(function(element) {
                                 var tr =
                                     `<tr class="bg-white" style="height:80px">
-                                            <td class='border-right p-2 text-13 align-top'>
+                                            <td class='border-right p-2 text-13 align-top border-bottom'>
                                                     <span class='ml-1 mr-2'>
                                                         <svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>
                                                             <g clip-path='url(#clip0_1710_10941)'>
@@ -654,7 +654,7 @@
                                                         style="z-index: 99; left: 24%; top: 75%;">
                                                     </ul>
                                             </td>
-                                            <td class="border-right p-2 text-13 align-top">
+                                            <td class="border-right p-2 text-13 align-top border-bottom">
                                                 <div class='d-flex align-items-center'>
 
                                                     <input type='text' class='border-0 px-2 py-1 w-100 searchProductName'
@@ -678,13 +678,13 @@
                                                 </div>
                                             </td>
 
-                                            <td class="border-right p-2 text-13 align-top">
+                                            <td class="border-right p-2 text-13 align-top border-bottom">
                                                 <input type="text" value="` + element.product_unit + `" 
                                                     readonly autocomplete="off" 
                                                     class="border-0 px-2 py-1 w-100 product_unit" name="product_unit[]">
                                             </td>
 
-                                            <td class="border-right p-2 text-13 align-top">
+                                            <td class="border-right p-2 text-13 align-top border-bottom">
                                                     <div>
                                                         <input type='text' oninput="checkQty(this,` + (element
                                         .product_qty) + `)"
@@ -694,7 +694,7 @@
                                                         <input type='hidden' class='tonkho'>
                                                     </div>
                                             </td>
-                                            <td class="border-right p-2 text-13 align-top">
+                                            <td class="border-right p-2 text-13 align-top border-bottom">
                                                     <input type='text' class='text-right border-0 px-2 py-1 w-100 price_export' 
                                                         value="` + formatCurrency(element.price_export) + `"
                                                         autocomplete='off' name="price_export[]" required>
@@ -702,20 +702,20 @@
                                                             gần đây
                                                         </div>
                                             </td>
-                                            <td class="border-right p-2 text-13 align-top">
+                                            <td class="border-right p-2 text-13 align-top border-bottom">
                                                 <input readonly type="text" name="product_tax[]" 
                                                     class="border-0 px-2 py-1 w-100 product_tax" 
                                                     value="` + (element.product_tax == 99 ? "NOVAT" : element
                                         .product_tax + "%") + `">
                                             </td>
 
-                                            <td class="border-right p-2 text-13 align-top">
+                                            <td class="border-right p-2 text-13 align-top border-bottom">
                                                 <input type='text' name="total_price[]"
                                                         value="` + formatCurrency(element.product_total) + `" readonly 
                                                         class="border-0 px-2 py-1 w-100 total_price" >
                                             </td>
                                             
-                                            <td class="border-right p-2 text-13 align-top">
+                                            <td class="border-right p-2 text-13 align-top border-bottom">
                                                 <input type="text" placeholder='Nhập ghi chú'
                                                         readonly value="` + (element.product_note == null ? "" :
                                         element.product_note) + `"
@@ -724,7 +724,7 @@
 
                                             <input type="hidden" name="" class="product_tax1">
 
-                                            <td class="border-right p-2 text-13 align-top deleteProduct">
+                                            <td class="border-right p-2 text-13 align-top border-bottom deleteProduct">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M12.3687 6.09375C12.6448 6.09375 12.8687 6.30362 12.8687 6.5625C12.8687 6.59865 12.8642 6.63468 12.8554 6.66986L11.3628 12.617C11.1502 13.4639 10.3441 14.0625 9.41597 14.0625H6.58403C5.65593 14.0625 4.84977 13.4639 4.6372 12.617L3.14459 6.66986C3.08135 6.41786 3.24798 6.16551 3.51678 6.10621C3.55431 6.09793 3.59274 6.09375 3.6313 6.09375H12.3687ZM8.5 0.9375C9.88071 0.9375 11 1.98683 11 3.28125H13C13.5523 3.28125 14 3.70099 14 4.21875V4.6875C14 4.94638 13.7761 5.15625 13.5 5.15625H2.5C2.22386 5.15625 2 4.94638 2 4.6875V4.21875C2 3.70099 2.44772 3.28125 3 3.28125H5C5 1.98683 6.11929 0.9375 7.5 0.9375H8.5ZM8.5 2.34375H7.5C6.94772 2.34375 6.5 2.76349 6.5 3.28125H9.5C9.5 2.76349 9.05228 2.34375 8.5 2.34375Z" fill="#6B6F76">
                                                     </path>

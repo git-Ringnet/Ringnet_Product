@@ -1,0 +1,29 @@
+  public function exportDatabase()
+    {
+        $dbUsername = 'root';
+        $dbName = 'laravel';
+        $dbPass = ''; // If you have a password, provide it here.
+
+        // Sử dụng lệnh mysqldump để xuất cơ sở dữ liệu
+        $passwordOption = $dbPass !== '' ? "-p$dbPass" : "";
+
+        // Lấy ngày giờ hiện tại của hệ thống máy tính
+        $date = date('d_m_Y_H_i_s');
+
+        // Thực hiện mysqldump để tạo file SQL và lưu vào thư mục tạm thời
+        $fileName = "backup_$date.sql";
+        $command = "mysqldump -u $dbUsername $passwordOption $dbName >" . storage_path('app/backupdata/') . $fileName;
+        exec($command);
+        // Mã hóa tệp tin
+        // $encryptedFileName = "encrypted_backup_$date.sql";
+        $encryptedFileName = "abc.sql";
+        // $encryptedFileName = "$fileName.enc";
+        $encryptionCommand = "openssl enc -aes-256-cbc -salt -in " . storage_path('app/backupdata/') . $fileName . " -out $encryptedFileName";
+        exec($encryptionCommand);
+        // storage_path('app/backupdata/') . $encryptionCommand;
+        // Xóa tệp SQL không mã hóa
+        // unlink($fileName);
+
+        // Trả về tệp đã được mã hóa và thiết lập header để tải về
+        return response()->download(storage_path("app/backupdata/") . $encryptedFileName)->deleteFileAfterSend(true);
+    }

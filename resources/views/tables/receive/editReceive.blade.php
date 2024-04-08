@@ -319,12 +319,12 @@
                                                     </div>
                                                 </td>
                                                 <td
-                                                    class="border border-top-0 border-bottom-0 align-top text-center border-right-0">
+                                                    class="border border-top-0 align-top text-center border-right-0">
                                                     <input type="checkbox" name="cbSeri[]" disabled
                                                         value="{{ $item->cbSN }}" class="mt-1 checkall-btn"
                                                         @if ($item->cbSN == 1) {{ 'checked' }} @endif>
                                                 </td>
-                                                <td class="border border-top-0 border-bottom-0 align-top text-center border-right-0">
+                                                <td class="border border-top-0 align-top text-center border-right-0">
                                                     <input class="border-0 px-2 py-1 w-100 price_export text-right" type="text" value="{{$item->product_guarantee}}" readonly>
                                                 </td>
                                                 <td class="border bg-white align-top text-13-black d-none">

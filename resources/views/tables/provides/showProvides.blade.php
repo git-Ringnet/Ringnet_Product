@@ -168,22 +168,22 @@
                                                         <tr class="bg-white">
                                                             <input type="hidden" name="repesent_id[]"
                                                                 value="{{ $rp->id }}">
-                                                            <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
+                                                            <td class="border-right text-13-black px-0 py-2 padding-left35 height-52 border-bottom">
                                                                 <input readonly type="text" name="represent_name[]"
                                                                     value="{{ $rp->represent_name }}"
                                                                     class="border-0  py-1 w-100">
                                                             </td>
-                                                            <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
+                                                            <td class="border-right text-13-black px-0 py-2 padding-left35 height-52 border-bottom">
                                                                 <input readonly type="text" name="represent_phone[]"
                                                                     value="{{ $rp->represent_phone }}"
                                                                     class="border-0  py-1 w-100">
                                                             </td>
-                                                            <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
+                                                            <td class="border-right text-13-black px-0 py-2 padding-left35 height-52 border-bottom">
                                                                 <input readonly type="text" name="represent_email[]"
                                                                     value="{{ $rp->represent_email }}"
                                                                     class="border-0  py-1 w-100">
                                                             </td>
-                                                            <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
+                                                            <td class="border-right text-13-black px-0 py-2 padding-left35 height-52 border-bottom">
                                                                 <input readonly type="text" name="represent_address[]"
                                                                     value="{{ $rp->represent_address }}"
                                                                     class="border-0  py-1 w-100">
@@ -228,7 +228,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr class="bg-white">
-                                                        <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
+                                                        <td class="border-right text-13-black px-0 py-2 padding-left35 height-52 border-bottom">
                                                             <span class="ml-0">
                                                                 @if ($provide->getAllDetailByID)
                                                                     <span class="px-1">
@@ -237,7 +237,7 @@
                                                                 @endif
                                                             </span>
                                                         </td>
-                                                        <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
+                                                        <td class="border-right text-13-black px-0 py-2 padding-left35 height-52 border-bottom">
                                                             @if ($provide->getAllDetailByID)
                                                             {{-- @dd($provide->getAllDetail) --}}
                                                                 <span class="px-1">
@@ -245,7 +245,7 @@
                                                                 </span>
                                                             @endif
                                                         </td>
-                                                        <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
+                                                        <td class="border-right text-13-black px-0 py-2 padding-left35 height-52 border-bottom">
                                                             @if ($provide->getPayment && $provide->getPayment->getHistoryPayment)
                                                             {{-- @dd($provide->getPayment->getHistoryPayment) --}}
                                                                 <span class="px-1">
@@ -253,7 +253,7 @@
                                                                 </span>
                                                             @endif
                                                         </td>
-                                                        <td class="border-right text-13-black px-0 py-2 padding-left35 height-52">
+                                                        <td class="border-right text-13-black px-0 py-2 padding-left35 height-52 border-bottom">
                                                             <span class="px-1">{{ number_format($provide->provide_debt) }} </span>
                                                         </td>
                                                     </tr>

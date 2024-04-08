@@ -342,7 +342,7 @@ $("#addRowRepesent").on("click", function () {
 function addRowTable(status) {
     var tr =
         '<tr class="bg-white" style="height:80px;">' +
-        '<td class="border-right p-2 text-13-black align-top p-2">' +
+        '<td class="border-right p-2 text-13-black align-top p-2 border-bottom">' +
         '<input type="hidden" name="listProduct[]" value="0">' +
         "<span class='mx-2'>" +
         "<svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>" +
@@ -363,17 +363,17 @@ function addRowTable(status) {
         '<ul id="listProductCode" class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 24%; top: 60%;"> ' +
         "</ul>" +
         "</td>" +
-        '<td class="border border-bottom-0 position-relative text-13-black align-top p-2"> ' +
+        '<td class="border position-relative text-13-black align-top p-2"> ' +
         '<input autocomplete="off" required type="text" id="searchProductName" class="searchProductName border-0 px-2 py-1 w-100" name="product_name[]">' +
         '<ul id="listProductName" class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 1%; top: 60%;"> ' +
         "</ul>" +
         "</td>" +
-        '<td class="border border-bottom-0 text-13-black align-top p-2">' +
+        '<td class="border text-13-black align-top p-2">' +
         '<input type="text" required class="border-0 px-2 py-1 w-100 product_unit" name="product_unit[]" ' +
         (status == 2 ? "readonly" : "") +
         " >" +
         "</td>" +
-        '<td class="border border-bottom-0 text-13-black align-top p-2">' +
+        '<td class="border text-13-black align-top p-2">' +
         '<div class="d-flex"><input type="text" required oninput="validateQtyInput1(this)" class="border-0 px-2 py-1 w-100 quantity-input text-right" name="product_qty[]">';
     if (status == 2) {
         tr +=
@@ -405,13 +405,13 @@ function addRowTable(status) {
         "</div>" +
         "<div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='pl-1 soTonKho' id='soTonKho'>0</span></div>" +
         "</td>" +
-        '<td class="border border-bottom-0 text-13-black align-top p-2">' +
+        '<td class="border text-13-black align-top p-2">' +
         "<div>" +
         '<input type="text" required class="border-0 px-2 py-1 w-100 price_export text-right" name="price_export[]">' +
         "</div>" +
         "<div class='mt-3 text-13-blue transaction text-right' id='transaction' data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</div>" +
         "</td>" +
-        '<td class="border border-bottom-0 text-13-black align-top p-2">';
+        '<td class="border text-13-black align-top p-2">';
 
     if (status == 2) {
         tr +=
@@ -428,10 +428,10 @@ function addRowTable(status) {
     tr +=
         "</td>" +
         '<input type="hidden" class="product_tax1">' +
-        '<td class="border border-bottom-0 text-13-black align-top p-2">' +
+        '<td class="border text-13-black align-top p-2">' +
         '<input type="text" class="border-0 px-2 py-1 w-100 total_price text-right" readonly name="total_price[]">' +
         "</td>" +
-        '<td class="border border-bottom-0 text-13-black align-top p-2">' +
+        '<td class="border text-13-black align-top p-2">' +
         '<input type="text" placeholder="Nhập ghi chú" class="border-0 px-2 py-1 w-100" name="product_note[]" ' +
         (status == 2 ? "readonly" : "") +
         " >" +

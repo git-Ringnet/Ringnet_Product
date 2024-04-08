@@ -366,19 +366,19 @@
                                     <tbody>
                                         @foreach ($history as $htr)
                                             <tr class="bg-white">
-                                                <td class="border-right text-13-black"
+                                                <td class="border-right text-13-black border-bottom"
                                                     style="padding-left: 2rem !important;">{{ $htr->payment_code }}
                                                 </td>
-                                                <td class="border-right text-13-black">
+                                                <td class="border-right text-13-black border-bottom">
                                                     {{ date_format(new DateTime($htr->created_at), 'd-m-Y H:i:s') }}
                                                 </td>
-                                                <td class="border-right text-13-black">
+                                                <td class="border-right text-13-black border-bottom">
                                                     {{ fmod($htr->total, 2) > 0 && fmod($htr->total, 1) > 0 ? number_format($htr->total, 2, '.', ',') : number_format($htr->total) }}
                                                 </td>
-                                                <td class="border-right text-13-black">
+                                                <td class="border-right text-13-black border-bottom">
                                                     {{ fmod($htr->payment, 2) > 0 && fmod($htr->payment, 1) > 0 ? number_format($htr->payment, 2, '.', ',') : number_format($htr->payment) }}
                                                 </td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black border-bottom">
                                                     {{ fmod($htr->debt, 2) > 0 && fmod($htr->debt, 1) > 0 ? number_format($htr->debt, 2, '.', ',') : number_format($htr->debt) }}
                                                 </td>
                                             </tr>
