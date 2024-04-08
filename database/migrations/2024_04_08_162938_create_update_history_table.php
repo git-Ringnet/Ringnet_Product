@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('history', function (Blueprint $table) {
-            $table->decimal('total_import', 20, 4)->nullable();
+            $table->decimal('VAT', 20, 4)->nullable();
         });
     }
 

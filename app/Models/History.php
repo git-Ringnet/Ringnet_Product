@@ -23,8 +23,12 @@ class History extends Model
             ->leftJoin('products', 'products.id', 'delivered.product_id')
             ->leftJoin('history_import', 'history_import.id', 'history.history_import')
             ->leftJoin('detailexport', 'history.detailexport_id', 'detailexport.id')
+            ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('bill_sale', 'bill_sale.detailexport_id', 'history.detailexport_id')
+            ->leftJoin('detailimport', 'detailimport.id', 'history.detailexport_id')
+            ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
             // ->leftJoin('reciept', 'reciept.detailimport_id', 'history.detailimport_id')
+            ->leftJoin('pay_order', 'pay_order.detailimport_id', 'history.detailimport_id')
             ->leftJoin('provides', 'provides.id', 'history.provide_id')
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->where('delivery.status', 2)
@@ -37,11 +41,28 @@ class History extends Model
                 'products.product_name as tensp',
                 'history_import.*',
                 'history_import.price_export as gianhap',
+                'detailexport.reference_number as POxuat',
+                'detailexport.total_price as giaXuat',
+                'detailexport.total_tax as VATXuat',
+                'detailexport.quotation_number as HDXuat',
+                'quoteexport.product_tax as thueXuat',
                 'detailexport.*',
                 'history.hdr as hdra',
                 'history.hdv as hdvao',
+                'history.price_import as trcVat',
+                'history.total_import as sauVat',
+                'bill_sale.created_at as ngayHDxuat',
+                'pay_export.payment_day as ngayTTxuat',
+                'pay_export.payment_type as HTTTxuat',
+                'detailexport.status_pay as status_pay',
                 'guest.guest_name_display as tenKhach',
                 'provides.provide_name_display as tenNCC',
+                'products.product_guarantee as baoHanh',
+                'detailimport.reference_number as POnhap',
+                'detailimport.created_at as ngayHDnhap',
+                'detailimport.status_pay as TTnhap',
+                'pay_order.payment_day as ngayTT',
+                'pay_order.payment_type as HTTT',
                 'history.*',
                 'history.id',
                 DB::raw('delivered.deliver_qty * delivered.price_export AS tongban'),

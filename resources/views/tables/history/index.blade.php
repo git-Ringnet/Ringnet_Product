@@ -1,4 +1,5 @@
-<x-navbar :title="$title" activeGroup="history" activeName="history" :workspacename="$workspacename"></x-navbar>
+<x-navbar :title="$title" activeGroup="history" activeName="history" :workspacename="$workspacename">
+</x-navbar>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->
@@ -213,45 +214,37 @@
                                         <input type="hidden" id="sortByInput" name="sort-by" value="">
                                         <input type="hidden" id="sortTypeInput" name="sort-type">
                                         <tr class="height-52">
+                                            <th colspan="11" scope="col" class="text-left text-13 border-right">
+                                                <span class="d-flex justify-content-center align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="price_import" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">NHẬP HÀNG
+                                                        </button></a>
+                                                    <div class="icon" id="icon-price_import"></div>
+                                                </span>
+                                            </th>
+                                            <th colspan="9" scope="col"
+                                                class="text-left text-13 border-right border-left">
+                                                <span class="d-flex justify-content-center align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="price_import" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">BÁN HÀNG
+                                                        </button></a>
+                                                    <div class="icon" id="icon-price_import"></div>
+                                                </span>
+                                            </th>
+                                            <th rowspan="2" scope="col" class="text-left text-13 border-left">
+                                                S/N</th>
+                                        </tr>
+                                        {{-- Hàng dưới --}}
+                                        <tr>
                                             <th scope="col" class="text-left text-13"
                                                 style="width:2%;padding-left: 2rem;">
-                                                <span class="d-flex align-items-center">
+                                                <span class="d-flex justify-center-start align-items-center">
                                                     <a href="#" class="sort-link" data-sort-by=""
                                                         data-sort-type="DESC"><button class="btn-sort text-13"
-                                                            type="submit">STT</button></a>
+                                                            type="submit">Số PO</button></a>
                                                     <div class="icon" id="icon_"></div>
-                                                </span>
-                                            </th>
-
-                                            {{-- <th scope="col">
-                                                <span class="d-flex align-items-center" style="width:100px;">
-                                                    <a href="#" class="sort-link btn-submit" data-sort-by="name"
-                                                        data-sort-type="DESC"><button class="btn-sort"
-                                                            type="submit">Nhân
-                                                            viên</button></a>
-                                                    <div class="icon" id="icon-name"></div>
-                                                </span>
-                                            </th> --}}
-
-                                            <th scope="col" class="text-13">
-                                                <span class="d-flex align-items-center">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="time" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">
-                                                            Thời gian
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon" id="icon-time"></div>
-                                                </span>
-                                            </th>
-
-                                            <th scope="col" class="text-left text-13">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="tenNCC" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Nhà cung
-                                                            cấp</button></a>
-                                                    <div class="icon" id="icon-tenNCC"></div>
                                                 </span>
                                             </th>
 
@@ -259,89 +252,156 @@
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="tensp" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Mặt
-                                                            hàng</button></a>
+                                                            class="btn-sort text-13" type="submit">Nội dung hàng
+                                                            hoá</button></a>
                                                     <div class="icon" id="icon-tensp"></div>
                                                 </span>
                                             </th>
-
-                                            <th scope="col " class="text-left text-13">
-                                                <span class="d-flex justify-content-end align-items-end">
+                                            <th scope="col" class="text-left text-13">
+                                                <span class="d-flex justify-content-start align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="hdvao" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Số hoá
+                                                            đơn</button></a>
+                                                    <div class="icon" id="icon-hdvao"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-13">
+                                                <span class="d-flex justify-center-start align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="time" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Ngày hoá đơn
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-time"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-13">
+                                                <span class="d-flex justify-center-start align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="time" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Bảo hành
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-time"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-left text-13">
+                                                <span class="d-flex justify-content-end align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="hdra" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Trước
+                                                            VAT</button></a>
+                                                    <div class="icon" id="icon-hdra"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-left text-13">
+                                                <span class="d-flex justify-content-end align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="hdra" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">VAT</button></a>
+                                                    <div class="icon" id="icon-hdra"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-left text-13">
+                                                <span class="d-flex justify-content-end align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="hdra" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Sau
+                                                            VAT</button></a>
+                                                    <div class="icon" id="icon-hdra"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-left text-13">
+                                                <span class="d-flex justify-content-center align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="product_qty" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Số lượng
-                                                            nhập</button></a>
+                                                            class="btn-sort text-13" type="submit">Thanh
+                                                            toán</button></a>
                                                     <div class="icon" id="icon-product_qty"></div>
                                                 </span>
                                             </th>
-
                                             <th scope="col" class="text-left text-13">
-                                                <span class="d-flex justify-content-end align-items-center">
-                                                    <a href="#" class="sort-link btn-submit" style="flex:2;"
-                                                        data-sort-by="price_import" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Giá
-                                                            nhập</button></a>
-                                                    <div class="icon" id="icon-price_import"></div>
+                                                <span class="d-flex justify-content-start align-items-end">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="product_qty" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Ngày thanh
+                                                            toán</button></a>
+                                                    <div class="icon" id="icon-product_qty"></div>
                                                 </span>
                                             </th>
-
-                                            <th scope="col" class="text-left text-13">
-                                                <span class="d-flex justify-content-end align-items-end">
+                                            <th scope="col" class="text-left text-13 border-right">
+                                                <span class="d-flex justify-content-center align-items-end">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="total_import" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Thành
-                                                            tiền nhập</button></a>
-                                                    <div class="icon" id="icon-total_import"></div>
+                                                        data-sort-by="product_qty" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Hình thức thanh
+                                                            toán</button></a>
+                                                    <div class="icon" id="icon-product_qty"></div>
+                                                </span>
+                                            </th>
+                                            {{-- Bán hàng --}}
+                                            <th scope="col" class="text-left text-13 border-left">
+                                                <span class="d-flex justify-content-start align-items-end">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="product_qty" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">SỐ PO/ HƠP
+                                                            ĐỒNG</button></a>
+                                                    <div class="icon" id="icon-product_qty"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-left text-13">
+                                                <span class="d-flex justify-content-end align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="hdra" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Trước
+                                                            VAT</button></a>
+                                                    <div class="icon" id="icon-hdra"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-left text-13">
+                                                <span class="d-flex justify-content-end align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="hdra" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">VAT</button></a>
+                                                    <div class="icon" id="icon-hdra"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-left text-13">
+                                                <span class="d-flex justify-content-end align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="hdra" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Sau
+                                                            VAT</button></a>
+                                                    <div class="icon" id="icon-hdra"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-left text-13">
+                                                <span class="d-flex justify-content-start align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="tenKhach" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Số hoá
+                                                            đơn</button></a>
+                                                    <div class="icon" id="icon-tenKhach"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-left text-13">
+                                                <span class="d-flex justify-content-start align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="deliver_qty" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Ngày hoá
+                                                            đơn</button></a>
+                                                    <div class="icon" id="icon-deliver_qty"></div>
                                                 </span>
                                             </th>
 
                                             <th scope="col" class="text-left text-13">
                                                 <span class="d-flex justify-content-center align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="hdvao" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Hóa đơn
-                                                            vào</button></a>
-                                                    <div class="icon" id="icon-hdvao"></div>
-                                                </span>
-                                            </th>
-
-                                            {{-- <th scope="col" class="text-center">
-                                                <span class="d-flex justify-content-center align-items-center"
-                                                    style="width:135px;">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="import_status" data-sort-type="DESC"><button
-                                                            class="btn-sort" type="submit">Tình
-                                                            trạng nhập</button></a>
-                                                    <div class="icon" id="icon-import_status"></div>
-                                                </span>
-                                            </th> --}}
-
-                                            <th scope="col" class="text-left text-13">
-                                                <span class="d-flex justify-content-start align-items-center">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="tenKhach" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Khách
-                                                            hàng</button></a>
-                                                    <div class="icon" id="icon-tenKhach"></div>
-                                                </span>
-                                            </th>
-
-                                            <th scope="col" class="text-left text-13">
-                                                <span class="d-flex justify-content-end align-items-center">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="deliver_qty" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Số lượng
-                                                            xuất</button></a>
-                                                    <div class="icon" id="icon-deliver_qty"></div>
-                                                </span>
-                                            </th>
-
-                                            <th scope="col" class="text-left text-13">
-                                                <span class="d-flex align-items-center">
-                                                    <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="product_unit" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Đơn vị
-                                                            tính</button></a>
+                                                            class="btn-sort text-13" type="submit">Đã
+                                                            trả</button></a>
                                                     <div class="icon" id="icon-product_unit"></div>
                                                 </span>
                                             </th>
@@ -349,70 +409,21 @@
                                                 <span class="d-flex justify-content-start align-items-center">
                                                     <a href="#" class="sort-link btn-submit "
                                                         data-sort-by="giaban" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Giá
-                                                            bán</button>
+                                                        <button class="btn-sort text-13" type="submit">Ngày thanh
+                                                            toán</button>
                                                     </a>
                                                     <div class="icon" id="icon-giaban"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="text-left text-13">
+                                            <th scope="col" class="text-left text-13 border-right">
                                                 <span class="d-flex justify-content-start align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="tongban" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Thành
-                                                            tiền xuất</button></a>
+                                                            class="btn-sort text-13" type="submit">Hình
+                                                            thức</button></a>
                                                     <div class="icon" id="icon-tongban"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="text-left text-13">
-                                                <span class="d-flex justify-content-center align-items-center">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="hdra" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Hóa đơn
-                                                            ra</button></a>
-                                                    <div class="icon" id="icon-hdra"></div>
-                                                </span>
-                                            </th>
-                                            {{-- <th scope="col">
-                                                <span class="d-flex align-items-center">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="export_status" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Tình
-                                                            trạng xuất</button></a>
-                                                    <div class="icon" id="icon-export_status"></div>
-                                                </span>
-                                            </th> --}}
-
-                                            {{-- <th scope="col">
-                                                <span class="d-flex justify-content-end align-items-center">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="total_difference" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Lợi
-                                                            nhuận</button></a>
-                                                    <div class="icon" id="icon-total_difference"></div>
-                                                </span>
-                                            </th> --}}
-
-                                            <th scope="col" class="text-left text-13">
-                                                <span class="d-flex justify-content-end align-items-center">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="shipping_fee" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Chi phí
-                                                            vận chuyển</button></a>
-                                                    <div class="icon" id="icon-shipping_fee"></div>
-                                                </span>
-                                            </th>
-                                            {{-- <th scope="col">
-                                                <span class="d-flex justify-content-start align-items-center">
-                                                    <a href="#" class="sort-link" data-sort-by="history_note"
-                                                        data-sort-type="DESC"><button class="btn-sort text-13"
-                                                            type="submit">Ghi
-                                                            chú</button></a>
-                                                    <div class="icon" id="icon-history_note"></div>
-                                                </span>
-                                            </th> --}}
-                                            <th scope="col" class="text-left text-13">S/N</th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody class="tbody-history">
@@ -421,30 +432,116 @@
                                                 <tr class="position-relative history-info height-52 {{ $item->id }}">
                                                     <input type="hidden" name="id-history" class="id-history"
                                                         id="id-history" value="{{ $item->id }}">
-                                                    <td class="text-13-black" style="width:5%;padding-left: 2rem;">
-                                                        {{ $index + 1 }}</td>
+                                                    {{-- <td class="text-13-black" style="width:5%;padding-left: 2rem;">
+                                                        {{ $index + 1 }}</td> --}}
                                                     {{-- <td>{{ $item->user_id }}</td> --}}
-                                                    <td class="text-13-black">{{ date('d/m/Y', strtotime($item->time)) }}
-                                                    </td>
-                                                    <td class="text-13-black min-width180">{{ $item->tenNCC }}</td>
+                                                    <td class="text-13-black min-width180">{{ $item->POnhap }}</td>
                                                     <td class="text-13-black">{{ $item->tensp }}</td>
-                                                    <td class="text-13-black text-center">
-                                                        {{ number_format($item->product_qty) }}</td>
-                                                    {{-- Này đặt sai tên cột nha --}}
-                                                    <td class="text-13-black">{{ number_format($item->gianhap) }}</td>
-                                                    <td class="text-13-black">{{ number_format($item->total_import) }}
-                                                    </td>
                                                     <td class="text-13-black">{{ $item->hdvao }}</td>
-                                                    {{-- <td>Tình trạng nhập</td> --}}
-                                                    <td class="text-13-black">{{ $item->tenKhach }}</td>
-                                                    <td class="text-13-black text-center">
-                                                        {{ number_format($item->deliver_qty) }}</td>
-                                                    <td class="text-13-black ">{{ $item->product_unit }}</td>
-                                                    <td class="text-13-black">{{ number_format($item->giaban) }}</td>
-                                                    <td class="text-13-black">{{ number_format($item->tongban) }}</td>
-                                                    <td class="text-13-black">{{ $item->hdra }}</td>
-                                                    <td class="text-13-black">{{ number_format($item->shipping_fee) }}
+                                                    <td class="text-13-black">
+                                                        {{ date('d/m/Y', strtotime($item->ngayHDnhap)) }}
                                                     </td>
+                                                    <td class="text-13-black text-center">{{ $item->baoHanh }}</td>
+                                                    <td class="text-13-black text-right">{{ number_format($item->trcVat) }}
+                                                    </td>
+                                                    <td class="text-13-black text-right">
+                                                        {{ number_format($item->trcVat) }}</td>
+                                                    <td class="text-13-black text-right">
+                                                        {{ number_format($item->sauVat) }}</td>
+                                                    <td class="text-13-black min-width180 text-center">
+                                                        @if ($item->TTnhap == 0)
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                                height="14" viewBox="0 0 14 14" fill="none">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M7 2C4.23858 2 2 4.23858 2 7C2 9.76142 4.23858 12 7 12C9.76142 12 12 9.76142 12 7C12 4.23858 9.76142 2 7 2ZM0 7C0 3.13401 3.13401 0 7 0C10.866 0 14 3.13401 14 7C14 10.866 10.866 14 7 14C3.13401 14 0 10.866 0 7Z"
+                                                                    fill="#858585" />
+                                                            </svg>
+                                                        @elseif ($item->TTnhap == 1)
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" viewBox="0 0 16 16" fill="none">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M7.9967 13.8636C11.2368 13.8636 13.8634 11.237 13.8634 7.99694C13.8634 4.75687 11.2368 2.13027 7.9967 2.13027C4.75662 2.13027 2.13003 4.75687 2.13003 7.99694C2.13003 11.237 4.75662 13.8636 7.9967 13.8636ZM7.9967 15.4636C12.1204 15.4636 15.4634 12.1207 15.4634 7.99694C15.4634 3.87322 12.1204 0.530273 7.9967 0.530273C3.87297 0.530273 0.530029 3.87322 0.530029 7.99694C0.530029 12.1207 3.87297 15.4636 7.9967 15.4636Z"
+                                                                    fill="#E8B600" />
+                                                                <path
+                                                                    d="M11.8062 7.99694C11.8062 10.1009 10.1007 11.8064 7.99673 11.8064L7.99646 4.18742C10.1004 4.18742 11.8062 5.89299 11.8062 7.99694Z"
+                                                                    fill="#E8B600" />
+                                                            </svg>
+                                                        @else
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                                height="14" viewBox="0 0 14 14" fill="none">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
+                                                                    fill="#08AA36" fill-opacity="0.75" />
+                                                            </svg>
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-13-black">
+                                                        {{ date('d/m/Y', strtotime($item->ngayTT)) }}</td>
+                                                    <td class="text-13-black text-center">{{ $item->HTTT }}</td>
+                                                    <td class="text-13-black">{{ $item->POxuat }}</td>
+                                                    <td class="text-13-black text-right">
+                                                        {{ number_format($item->giaban) }}</td>
+                                                    <td class="text-13-black text-right">
+                                                        @php
+                                                            $total = 0;
+                                                        @endphp
+                                                        @if ($item->thueXuat == 99)
+                                                            @php
+                                                                $total = $item->giaban;
+                                                            @endphp
+                                                            {{ number_format($item->giaban) }}
+                                                        @else
+                                                            @php
+                                                                $total = ($item->thueXuat * $item->giaban) / 100;
+                                                            @endphp
+                                                            {{ number_format($total) }}
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-13-black text-right">
+                                                        {{ number_format($total + $item->giaban) }}</td>
+                                                    <td class="text-13-black">{{ $item->quotation_number }}</td>
+                                                    <td class="text-13-black">
+                                                        {{ date('d/m/Y', strtotime($item->ngayHDxuat)) }}
+                                                    </td>
+                                                    <td class="text-13-black min-width180 text-center">
+                                                        @if ($item->status_pay === 1)
+                                                            <svg width="16" height="16" viewBox="0 0 16 16"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8Z"
+                                                                    fill="#858585" />
+                                                            </svg>
+                                                        @elseif ($item->status_pay === 3)
+                                                            <svg width="16" height="16" viewBox="0 0 16 16"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <g clip-path="url(#clip0_1699_20021)">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                        d="M7.99694 13.8634C11.237 13.8634 13.8636 11.2368 13.8636 7.9967C13.8636 4.75662 11.237 2.13003 7.99694 2.13003C4.75687 2.13003 2.13027 4.75662 2.13027 7.9967C2.13027 11.2368 4.75687 13.8634 7.99694 13.8634ZM7.99694 15.4634C12.1207 15.4634 15.4636 12.1204 15.4636 7.9967C15.4636 3.87297 12.1207 0.530029 7.99694 0.530029C3.87322 0.530029 0.530273 3.87297 0.530273 7.9967C0.530273 12.1204 3.87322 15.4634 7.99694 15.4634Z"
+                                                                        fill="#E8B600" />
+                                                                    <path
+                                                                        d="M11.8065 7.9967C11.8065 10.1006 10.1009 11.8062 7.99697 11.8062L7.9967 4.18717C10.1007 4.18717 11.8065 5.89275 11.8065 7.9967Z"
+                                                                        fill="#E8B600" />
+                                                                </g>
+                                                                <defs>
+                                                                    <clipPath id="clip0_1699_20021">
+                                                                        <rect width="16" height="16"
+                                                                            fill="white" />
+                                                                    </clipPath>
+                                                                </defs>
+                                                            </svg>
+                                                        @elseif($item->status_pay === 2)
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                                height="14" viewBox="0 0 14 14" fill="none">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
+                                                                    fill="#08AA36" fill-opacity="0.75" />
+                                                            </svg>
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-13-black">
+                                                        {{ date('d/m/Y', strtotime($item->ngayTTxuat)) }}
+                                                    </td>
+                                                    <td class="text-13-black">{{ $item->HTTTxuat }}</td>
                                                     <td data-toggle="modal" data-target="#snModal"
                                                         data-delivery-id="{{ $item->delivery_id }}"
                                                         data-product-id="{{ $item->product_id }}" class="sn"><img

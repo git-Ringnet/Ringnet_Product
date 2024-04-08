@@ -35,7 +35,7 @@ class HistoryController extends Controller
     }
     public function index()
     {
-        $title = 'Lịch sử giao dịch dang lam';
+        $title = 'Lịch sử giao dịch';
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $history = $this->history->getAllHistory();
