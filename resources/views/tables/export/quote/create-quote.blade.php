@@ -445,7 +445,7 @@
                 </div>
             </div>
             {{-- Modal dự án --}}
-            <div class="modal fade" id="projectModal" tabindex="-1" role="dialog"
+            {{-- <div class="modal fade" id="projectModal" tabindex="-1" role="dialog"
                 aria-labelledby="productModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document" style="margin-top: 10%;">
                     <div class="modal-content">
@@ -473,7 +473,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             {{-- Modal giao dịch gần đây --}}
             <div class="modal fade" id="recentModal" tabindex="-1" role="dialog"
                 aria-labelledby="productModalLabel" aria-hidden="true">
@@ -892,7 +892,7 @@
                                     </div>
                                 </li>
 
-                                <li class="d-flex justify-content-between position-relative py-2 px-3 border align-items-center text-left"
+                                {{-- <li class="d-flex justify-content-between position-relative py-2 px-3 border align-items-center text-left"
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
@@ -930,12 +930,6 @@
                                                         </button>
                                                         <div class="dropdown-menu date-form-setting"
                                                             style="z-index: 1000;">
-                                                            {{-- <a class="dropdown-item edit-project-form w-50"
-                                                                data-toggle="modal" data-target="#projectModal"
-                                                                data-name="" data-id="">
-                                                                <i class="fa-regular fa-pen-to-square"
-                                                                    aria-hidden="true"></i>
-                                                            </a> --}}
                                                             <a class="dropdown-item delete-project w-50"
                                                                 href="#" data-id="{{ $project_value->id }}">
                                                                 <i class="fa-solid fa-trash-can"></i>
@@ -960,7 +954,7 @@
                                                 style="font-weight: 600 !important;">Thêm dự án</span>
                                         </a>
                                     </div>
-                                </li>
+                                </li> --}}
 
                                 <li class="d-flex justify-content-between position-relative py-2 px-3 border align-items-center text-left"
                                     style="height:44px;">
@@ -1870,9 +1864,15 @@
                             tonkho.val(formatNumber(data
                                 .product_inventory == null ? 0 :
                                 data.product_inventory))
-                            soTonKho.text(parseFloat(data
-                                .product_inventory == null ? 0 :
-                                data.product_inventory));
+                            if (data.type == 2) {
+                                soTonKho.text('');
+                                inventory.hide();
+                            } else {
+                                soTonKho.text(parseFloat(data
+                                    .product_inventory == null ? 0 :
+                                    data.product_inventory));
+                                inventory.show();
+                            }
                             infoProduct.show();
                             recentModal.show();
                             if (data.product_inventory > 0) {

@@ -130,6 +130,7 @@ class Delivery extends Model
                 'delivered.deliver_qty',
                 'delivery.created_at as ngayGiao',
                 'products.type',
+                'products.check_seri',
             )
             ->groupBy(
                 'quoteexport.product_code',
@@ -146,6 +147,7 @@ class Delivery extends Model
                 'quoteexport.product_total',
                 'delivery.created_at',
                 'products.type',
+                'products.check_seri',
             )
             ->get();
         return $product;

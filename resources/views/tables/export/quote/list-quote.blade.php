@@ -219,7 +219,7 @@
                                                     <div class="icon" id="icon-guest_name_display"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            {{-- <th scope="col" class="height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit" data-sort-by="key"
                                                         data-sort-type="DESC"><button class="btn-sort text-13"
@@ -227,7 +227,7 @@
                                                     </a>
                                                     <div class="icon" id="icon-key"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
@@ -320,11 +320,11 @@
                                                 <td class="text-13-black max-width180">
                                                     {{ $value_export->guest_name }}
                                                 </td>
-                                                <td class="text-13-black">
+                                                {{-- <td class="text-13-black">
                                                     <a href="#">
                                                         <span class="text-13-blue">Dự Án 1</span>
                                                     </a>
-                                                </td>
+                                                </td> --}}
                                                 <td class="text-13-black text-center">
                                                     @if ($value_export->status === 1)
                                                         <span class="text-secondary">Draft</span>

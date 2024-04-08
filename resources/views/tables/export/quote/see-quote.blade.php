@@ -1157,13 +1157,13 @@
                             <input class="text-13-black w-50 border-0 bg-input-guest" id="myInput" style="flex:2;"
                                 readonly name="terms_pay" value="{{ $detailExport->terms_pay }}" />
                         </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        {{-- <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                             style="height:44px;">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
                                 id="ProjectInput" value="{{ $detailExport->project_name }}" />
 
-                        </li>
+                        </li> --}}
                         <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                             style="height:44px;">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hàng hóa</span>

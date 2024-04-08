@@ -79,8 +79,9 @@
             <section class="content margin-250">
                 <div id="title--fixed"
                     class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
-                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
-                        PHẨM</p>
+                    <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                        THÔNG TIN SẢN PHẨM
+                    </p>
                 </div>
                 <div class="container-fluided margin-top-72">
                     <section class="content">
@@ -154,15 +155,20 @@
                                         </th>
                                         <th class="border-right p-0 px-2 text-13" style="width:17%;">Tên sản phẩm</th>
                                         <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
-                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">Số
-                                            lượng</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Đơn
-                                            giá</th>
-                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">Thuế
+                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
+                                            Số lượng
                                         </th>
-                                        <th class="border-right p-0 px-1 text-center text-13"style="width:15%;">Thành
-                                            tiền</th>
-                                        <th class="border-right p-0 px-2 text-center note text-13">Ghi chú sản phẩm
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                            Đơn giá
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
+                                            Thuế
+                                        </th>
+                                        <th class="border-right p-0 px-1 text-center text-13"style="width:15%;">
+                                            Thành tiền
+                                        </th>
+                                        <th class="border-right p-0 px-2 text-center note text-13">
+                                            Ghi chú sản phẩm
                                         </th>
                                         @if ($detailExport->tinhTrang == 1)
                                             <th class="border-right p-0 px-2 text-center note text-13"></th>
@@ -791,7 +797,7 @@
                                             </a>
                                         </div>
                                     </li>
-                                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
+                                    {{-- <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                         style="height:44px;">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
                                         <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
@@ -833,12 +839,6 @@
                                                             </button>
                                                             <div class="dropdown-menu date-form-setting"
                                                                 style="z-index: 1000;">
-                                                                {{-- <a class="dropdown-item edit-project-form w-50"
-                                                                    data-toggle="modal" data-target="#projectModal"
-                                                                    data-name="" data-id="">
-                                                                    <i class="fa-regular fa-pen-to-square"
-                                                                        aria-hidden="true"></i>
-                                                                </a> --}}
                                                                 <a class="dropdown-item delete-project w-50"
                                                                     href="#"
                                                                     data-id="{{ $project_value->id }}">
@@ -865,7 +865,7 @@
                                                     style="font-weight: 600 !important;">Thêm dự án</span>
                                             </a>
                                         </div>
-                                    </li>
+                                    </li> --}}
                                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                         style="height:44px;">
                                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hàng hóa</span>
@@ -2217,14 +2217,17 @@
                             product_id.val(data.id);
                             tonkho.val(data.product_inventory == null ? 0 :
                                 data.product_inventory)
-                            soTonKho.text(parseFloat(data
-                                .product_inventory == null ? 0 :
-                                data.product_inventory));
-                            infoProduct.show();
-                            $('.recentModal').show();
-                            if (data.product_inventory > 0) {
+                            if (data.type == 2) {
+                                soTonKho.text('');
+                                inventory.hide();
+                            } else {
+                                soTonKho.text(parseFloat(data
+                                    .product_inventory == null ? 0 :
+                                    data.product_inventory));
                                 inventory.show();
                             }
+                            infoProduct.show();
+                            $('.recentModal').show();
                             thue.prop('disabled', true);
                             $(".list_product").hide();
                         }
