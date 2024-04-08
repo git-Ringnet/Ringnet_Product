@@ -790,7 +790,7 @@
                     </div>
                     <div class="content-info">
                         <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
-                            style="height:44px;" style="height:44px;">
+                            style="height:50px;">
                             <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
                             <span class="mx-1 text-13" style="flex: 2;">
                                 <input type="text" placeholder="Chọn thông tin" readonly {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}

@@ -267,7 +267,7 @@
                                                         </div>
                                                     </td>
                                                     <input type="hidden" class="product_tax1">
-                                                    <td class="border-right pt-0 p-2 text-13 align-top">
+                                                    <td class="border-right pt-0 p-2 text-13 align-top border-bottom">
                                                         <select name="product_tax[]" id=""
                                                             class="border-0 text-center product_tax mt-1">
                                                             {{-- <option value="0"
@@ -406,7 +406,7 @@
                         </p>
                     </div>
                     <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:44px;" style="height:44px;">
+                        style="height:48px;">
                         <span class="text-13 btn-click" style="flex: 1.5;">
                             Nhà cung cấp
                         </span>

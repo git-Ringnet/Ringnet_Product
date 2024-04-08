@@ -357,7 +357,7 @@
                             cấp</p>
                     </div>
                     <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:44px;" style="height:44px;">
+                        style="height:42px;">
 
                         <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
 
