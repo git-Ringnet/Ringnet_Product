@@ -251,10 +251,10 @@
                                                     {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }}</td>
                                                 <td class="py-2 text-13-black">{{ number_format($item->total) }}</td>
                                                 <td class="py-2 text-13-black">
-                                                    {{ fmod($item->payment, 2) > 0 && fmod($item->payment, 1) > 0 ? number_format($item->payment, 2, '.', ',') : number_format($item->payment) }}
+                                                    {{ number_format($item->payment) }}
                                                 </td>
                                                 <td class="py-2 text-13-black">
-                                                    {{ fmod($item->debt, 2) > 0 && fmod($item->debt, 1) > 0 ? number_format($item->debt, 2, '.', ',') : number_format($item->debt) }}
+                                                    {{ number_format($item->debt) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 6px;">

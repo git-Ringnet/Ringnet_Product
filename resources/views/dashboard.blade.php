@@ -110,7 +110,7 @@
         </div>
     </div>
 
-    <div class="d-none" style="display:none">
+    <div class="d-none" style="">
         <form action="{{ route('import') }}" enctype="multipart/form-data" method="POST" id="restore_data"
             class="btn btn-outline-primary d-flex align-items-center h-100 custom-btn">
             @csrf

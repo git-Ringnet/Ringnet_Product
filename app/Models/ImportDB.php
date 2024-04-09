@@ -283,21 +283,21 @@ class ImportDB implements ToModel
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[7]),
         // ]);
 
-        $models[] = new History([
-            'id' => $row[0],
-            'detailexport_id' => $row[1],
-            'delivered_id' => $row[0],
-            'provide_id' => $row[3],
-            'hdv' => $row[4],
-            'hdr' => $row[5],
-            'detailimport_id' => $row[2],
-            'history_import' => $row[0],
-            'tax_import' => $row[6],
-            'price_import' => $row[10],
-            'total_import' =>  $row[8],
-            'workspace_id' => 2,
-            'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[9]),
-        ]);
+        // $models[] = new History([
+        //     'id' => $row[0],
+        //     'detailexport_id' => $row[1],
+        //     'delivered_id' => $row[0],
+        //     'provide_id' => $row[3],
+        //     'hdv' => $row[4],
+        //     'hdr' => $row[5],
+        //     'detailimport_id' => $row[2],
+        //     'history_import' => $row[0],
+        //     'tax_import' => $row[6],
+        //     'price_import' => $row[10],
+        //     'total_import' =>  $row[8],
+        //     'workspace_id' => 2,
+        //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[9]),
+        // ]);
         // $models[] = new Serialnumber([
         //     'serinumber' => $row[1],
         //     'detailimport_id' => $row[2],

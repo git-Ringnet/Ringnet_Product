@@ -245,7 +245,7 @@
                                                 </td>
                                                 <td class=" text-13-black">{{ $item->reference_number }}</td>
                                                 <td class=" text-13-black">
-                                                    {{$item->provide_name}}
+                                                    {{ $item->provide_name }}
                                                 </td>
                                                 {{-- <td class="text-13-blue" style="color: #0052CC">
                                                     @if ($item->getProjectName)
@@ -539,8 +539,7 @@
                 type: type,
                 des: des
             },
-            success: function(data) {
-            }
+            success: function(data) {}
         })
     })
 </script>

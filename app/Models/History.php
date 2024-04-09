@@ -23,9 +23,9 @@ class History extends Model
             ->leftJoin('products', 'products.id', 'delivered.product_id')
             ->leftJoin('history_import', 'history_import.id', 'history.history_import')
             ->leftJoin('detailexport', 'history.detailexport_id', 'detailexport.id')
-            ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+            // ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('bill_sale', 'bill_sale.detailexport_id', 'history.detailexport_id')
-            ->leftJoin('detailimport', 'detailimport.id', 'history.detailexport_id')
+            ->leftJoin('detailimport', 'detailimport.id', 'history.detailimport_id')
             ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
             // ->leftJoin('reciept', 'reciept.detailimport_id', 'history.detailimport_id')
             ->leftJoin('pay_order', 'pay_order.detailimport_id', 'history.detailimport_id')
@@ -45,7 +45,8 @@ class History extends Model
                 'detailexport.total_price as giaXuat',
                 'detailexport.total_tax as VATXuat',
                 'detailexport.quotation_number as HDXuat',
-                'quoteexport.product_tax as thueXuat',
+                // 'quoteexport.product_tax as thueXuat',
+                'products.product_tax as thueXuat',
                 'detailexport.*',
                 'history.hdr as hdra',
                 'history.hdv as hdvao',

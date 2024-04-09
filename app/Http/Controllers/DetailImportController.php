@@ -71,7 +71,7 @@ class DetailImportController extends Controller
         $import = DetailImport::where('workspace_id', Auth::user()->current_workspace)
             ->orderBy('id', 'desc')
             ->get();
-            // ->paginate($perPage);
+        // ->paginate($perPage);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         // $import = $this->import->getAllImport();
@@ -144,11 +144,11 @@ class DetailImportController extends Controller
             $price_effect = DateForm::where('workspace_id', Auth::user()->current_workspace)->where('form_field', 'import')->get();
             $terms_pay = DateForm::where('workspace_id', Auth::user()->current_workspace)->where('form_field', 'termpay')->get();
             $id_priceeffect = DateForm::where('form_desc', $import->price_effect)
-            ->where('form_field','import')
-            ->first();
+                ->where('form_field', 'import')
+                ->first();
             $id_termpay = DateForm::where('form_desc', $import->terms_pay)
-            ->where('form_field','termpay')
-            ->first();
+                ->where('form_field', 'termpay')
+                ->first();
         }
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         $title = $import->quotation_number;
@@ -449,7 +449,6 @@ class DetailImportController extends Controller
                     'price_effect' => $price_effect, 'terms_pay' => $terms_pay
                 ]);
             }
-
         } else {
             $msg = response()->json(['success' => false, 'msg' => 'Mã số thuế hoặc tên hiển thị đã tồn tại']);
         }
@@ -583,8 +582,8 @@ class DetailImportController extends Controller
     public function showProductName()
     {
         return Products::where('workspace_id', Auth::user()->current_workspace)
-        ->where('type',1)
-        ->get();
+            ->where('type', 1)
+            ->get();
     }
     // Hiển thị thông tin Dự án
     function show_project(Request $request)
@@ -1079,13 +1078,13 @@ class DetailImportController extends Controller
     public function getHistoryImport(Request $request)
     {
         $data = [];
-        if($request->type){
-            $product = Products::where('product_name',$request->product_name)
-            ->select('product_name','product_unit','product_inventory','product_tax')
-            ->first();
+        if ($request->type) {
+            $product = Products::where('product_name', $request->product_name)
+                ->select('product_name', 'product_unit', 'product_inventory', 'product_tax')
+                ->first();
             $data['product'] = $product;
             // return $request->all();
-        }else{
+        } else {
             $product = Products::where('product_name', $request->product_name)->first();
             if ($product) {
                 $history = QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
@@ -1097,7 +1096,7 @@ class DetailImportController extends Controller
             }
             $data['products'] = $product;
         }
-       
+
         return $data;
     }
 
