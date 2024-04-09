@@ -339,7 +339,7 @@ class PayExport extends Model
     {
         $report_guest = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
-            ->where('detailexport.status', 2)
+            ->whereIn('detailexport.status', [2, 3])
             ->select(
                 'detailexport.guest_id as guest_id',
                 'guest.guest_name_display as guest_name',
@@ -356,7 +356,7 @@ class PayExport extends Model
     {
         $report_guest = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
-            ->where('detailexport.status', 2)
+            ->whereIn('detailexport.status', [2, 3])
             ->select(
                 'detailexport.guest_id as guest_id',
                 'guest.guest_name_display as guest_name',

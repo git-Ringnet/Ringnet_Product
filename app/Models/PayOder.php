@@ -449,7 +449,7 @@ class PayOder extends Model
     {
         $report_provide = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('provides', 'provides.id', '=', 'detailimport.provide_id')
-            ->where('detailimport.status', 2)
+            ->whereIn('detailimport.status', [0, 2])
             ->select(
                 'detailimport.provide_id as provide_id',
                 'provides.provide_name_display as provide_name',
@@ -467,7 +467,7 @@ class PayOder extends Model
     {
         $report_provide = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('provides', 'provides.id', '=', 'detailimport.provide_id')
-            ->where('detailimport.status', 2)
+            ->whereIn('detailimport.status', [0, 2])
             ->select(
                 'detailimport.provide_id as provide_id',
                 'provides.provide_name_display as provide_name',

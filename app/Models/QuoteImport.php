@@ -17,7 +17,7 @@ class QuoteImport extends Model
         'detailimport_id',
         'product_id', 'product_name',
         'product_unit', 'product_qty',
-        'product_tax', 'product_total',
+        'product_tax', 'product_total', 'reciept_qty', 'payment_qty',
         'price_export', 'version', 'warehouse_id', 'workspace_id', 'product_code', 'created_at'
     ];
     public function getProductCode()

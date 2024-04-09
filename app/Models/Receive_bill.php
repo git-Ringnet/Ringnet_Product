@@ -17,6 +17,7 @@ class Receive_bill extends Model
         'detailimport_id',
         'quotation_number',
         'provide_id',
+        'total_tax',
         'shipping_unit',
         'delivery_charges', 'delivery_code',
         'status', 'created_at', 'workspace_id'

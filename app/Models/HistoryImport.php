@@ -28,6 +28,7 @@ class HistoryImport extends Model
         'product_ratio',
         'price_import',
         'product_note',
+        'product_guarantee',
         'version',
         'workspace_id', 'created_at'
     ];

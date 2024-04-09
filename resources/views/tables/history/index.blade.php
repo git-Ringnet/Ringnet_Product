@@ -205,7 +205,7 @@
                     <div class="col-md-12 p-0 m-0">
                         <div class="card">
                             <!-- /.card-header -->
-                            <div class="scrollbar text-nowrap">
+                            <div class="outer text-nowrap">
                                 <table id="example2" class="table table-hover">
                                     <thead class="sticky-head">
                                         {{-- SortType --}}
@@ -452,7 +452,7 @@
                                                     {{-- <td>{{ $item->user_id }}</td> --}}
                                                     <td class="text-13-black">{{ $item->tenNCC }}</td>
                                                     <td class="text-13-black min-width180">{{ $item->POnhap }}</td>
-                                                    <td class="text-13-black">{{ $item->tensp }}</td>
+                                                    <td class="text-13-black min-width180">{{ $item->tensp }}</td>
                                                     <td class="text-13-black">{{ $item->hdvao }}</td>
                                                     <td class="text-13-black">
                                                         {{ date('d/m/Y', strtotime($item->ngayHDnhap)) }}
@@ -463,22 +463,21 @@
                                                     </td>
                                                     <td class="text-13-black text-right">
                                                         @php
-                                                            $totalNhap = 0;
+                                                            $thueXuat = 0;
                                                         @endphp
                                                         @if ($item->thueXuat == 99)
                                                             @php
-                                                                $total = $item->trcVat;
+                                                                $thueXuat = $item->trcVat;
                                                             @endphp
-                                                            {{ number_format($item->trcVat) }}
                                                         @else
                                                             @php
-                                                                $total = ($item->thueXuat * $item->trcVat) / 100;
+                                                                $thueXuat = ($item->thueXuat * $item->trcVat) / 100;
                                                             @endphp
-                                                            {{ number_format($totalNhap) }}
+                                                            {{ number_format($thueXuat) }}
                                                         @endif
                                                     </td>
                                                     <td class="text-13-black text-right">
-                                                        {{ number_format($item->trcVat + $totalNhap) }}</td>
+                                                        {{ number_format($item->trcVat + $thueXuat) }}</td>
                                                     <td class="text-13-black min-width180 text-center">
                                                         @if ($item->TTnhap == 0)
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="14"
@@ -510,9 +509,10 @@
                                                         {{ date('d/m/Y', strtotime($item->ngayTT)) }}</td>
                                                     <td class="text-13-black text-center border-right">{{ $item->HTTT }}
                                                     </td>
-                                                    <td class="text-13-black border-left">{{ $item->tenKhach }}</td>
+                                                    <td class="text-13-black border-left min-width180">
+                                                        {{ $item->tenKhach }}</td>
 
-                                                    <td class="text-13-black">{{ $item->POxuat }}</td>
+                                                    <td class="text-13-black min-width180">{{ $item->POxuat }}</td>
                                                     <td class="text-13-black text-right">
                                                         {{ number_format($item->giaban) }}</td>
                                                     <td class="text-13-black text-right">
@@ -523,7 +523,6 @@
                                                             @php
                                                                 $total = $item->giaban;
                                                             @endphp
-                                                            {{ number_format($item->giaban) }}
                                                         @else
                                                             @php
                                                                 $total = ($item->thueXuat * $item->giaban) / 100;
@@ -634,17 +633,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="ml-3">
-                            <span class="text-perpage">
-                                Hiển thị:
-                                <select name="perPage" id="perPage" class="border-0">
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                </select>
-                            </span>
                         </div>
                     </div>
                 </div>
