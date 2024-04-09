@@ -189,7 +189,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border">
-                                                <span class="d-flex justify-content-start">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Số lượng</button>
@@ -198,7 +198,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border">
-                                                <span class="d-flex justify-content-start">
+                                                <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Quản lý SN</button>
@@ -325,7 +325,8 @@
                                                         @if ($item->cbSN == 1) {{ 'checked' }} @endif>
                                                 </td>
                                                 <td class="border border-top-0 align-top text-center border-right-0">
-                                                    <input class="border-0 px-2 py-1 w-100 price_export text-right" type="text" value="{{$item->product_guarantee}}" readonly>
+                                                    <input class="border-0 px-2 py-1 w-100 price_export" type="text" 
+                                                    value="{{$item->product_guarantee}}" readonly>
                                                 </td>
                                                 <td class="border bg-white align-top text-13-black d-none">
                                                     <div>

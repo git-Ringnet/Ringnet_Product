@@ -116,16 +116,16 @@
                                         <th class="border-right px-2 p-0" style="width: 8%;">
                                             <span class="text-table text-secondary">Đơn vị</span>
                                         </th>
-                                        <th class="border-right px-2 p-0" style="width: 8%;">
+                                        <th class="border-right px-2 p-0 text-right" style="width: 8%;">
                                             <span class="text-table text-secondary">Số lượng</span>
                                         </th>
-                                        <th class="border-right px-2 p-0" style="width: 10%;">
+                                        <th class="border-right px-2 p-0 text-right" style="width: 10%;">
                                             <span class="text-table text-secondary">Đơn giá</span>
                                         </th>
-                                        <th class="border-right px-2 p-0" style="width: 8%;">
+                                        <th class="border-right px-2 p-0 text-center" style="width: 8%;">
                                             <span class="text-table text-secondary">Thuế</span>
                                         </th>
-                                        <th class="border-right px-2 p-0" style="width: 11%;">
+                                        <th class="border-right px-2 p-0 text-right" style="width: 11%;">
                                             <span class="text-table text-secondary">Thành tiền</span>
                                         </th>
                                         <th class="border-right note px-2 p-0" style="width: 15%;">

@@ -160,7 +160,7 @@
                                             </th>
 
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Tổng tiền</button>
@@ -196,15 +196,17 @@
                                                 </td>
                                                 <td class="py-2 text-13-black">
                                                     {{ date_format(new DateTime($item->date_bill), 'd/m/Y') }}</td>
-                                                <td class="py-2 text-13-black">{{ $item->number_bill }}</td>
                                                 <td class="py-2 text-13-black">
                                                     <a href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}"
                                                         class="duongdan user_flow" data-type="HDMH"
                                                         data-des="Xem hóa đơn mua hàng">
-                                                        @if ($item->getQuotation)
-                                                            {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
-                                                        @endif
+                                                        {{ $item->number_bill }}
                                                     </a>
+                                                </td>
+                                                <td class="py-2 text-13-black">
+                                                    @if ($item->getQuotation)
+                                                        {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
+                                                    @endif
                                                 </td>
                                                 <td class="py-2 text-13-black">
                                                     @if ($item->getQuotation)
@@ -217,9 +219,12 @@
                                                         <span style="color: #08AA36">Chính thức</span>
                                                     @endif
                                                 </td>
-                                                <td class="py-2 text-13-black">
+                                                <td class="py-2 text-13-black text-right">
                                                     {{ number_format($item->price_total) }}
                                                 </td>
+                                                {{-- <td class="py-2 text-13-black text-right">
+                                                    {{ fmod($item->price_total, 2) > 0 && fmod($item->price_total, 1) > 0 ? number_format($item->price_total, 2, '.', ',') : number_format($item->price_total) }}
+                                                </td> --}}
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 3px;">
                                                     <div class="d-flex align-items-center">

@@ -192,7 +192,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border">
-                                                <span class="d-flex justify-content-start">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Số lượng</button>
@@ -201,7 +201,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Đơn giá</button>
@@ -210,7 +210,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Thuế</button>
@@ -219,7 +219,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Thành tiền</button>
@@ -306,14 +306,14 @@
                                                 </td>
                                                 <td class="border bg-white align-top">
                                                     <input readonly type="text"
-                                                        class="border-0 px-2 py-1 w-100 product_tax" disabled
+                                                        class="border-0 px-2 py-1 w-100 product_tax text-center" disabled
                                                         value="{{ $item->product_tax == 99 ? 'NOVAT' : $item->product_tax }} %">
                                                 </td>
                                                 <input type="hidden" class="product_tax1">
 
                                                 <td class="border bg-white align-top text-13-black text-left">
                                                     <input readonly type="text" name="" id=""
-                                                        class="border-0 px-2 py-1 w-100 total_price"
+                                                        class="border-0 px-2 py-1 w-100 total_price text-right"
                                                         value="{{ number_format($item->product_total) }}">
                                                 </td>
                                                 <td class="text-center border bg-white align-top text-13-black">

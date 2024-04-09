@@ -146,7 +146,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex justify-content-start">
+                                                    <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Số lượng</button>
@@ -155,7 +155,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Đơn giá</button>
@@ -164,7 +164,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-center">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Thuế</button>
@@ -173,7 +173,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Thành tiền</button>
@@ -267,7 +267,7 @@
                                                         </div>
                                                     </td>
                                                     <input type="hidden" class="product_tax1">
-                                                    <td class="border-right pt-0 p-2 text-13 align-top border-bottom">
+                                                    <td class="border-right pt-0 p-2 text-13 align-top border-bottom text-center">
                                                         <select name="product_tax[]" id=""
                                                             class="border-0 text-center product_tax mt-1">
                                                             {{-- <option value="0"

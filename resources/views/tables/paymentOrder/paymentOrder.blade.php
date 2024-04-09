@@ -159,7 +159,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Tổng tiền</button>
@@ -168,7 +168,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Đã nhận</button>
@@ -177,7 +177,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Dư nợ</button>
@@ -211,13 +211,15 @@
                                                     </span>
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
-                                                <td class="py-2 text-13-black">{{ $item->payment_code }}</td>
                                                 <td class="py-2 text-13-black">
                                                     <a href="{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => $item->id]) }}"
                                                         class="user_flow" data-type="TTMH"
                                                         data-des="Xem thanh toán mua hàng">
-                                                        {{ $item->getQuotation->quotation_number }}
+                                                        {{ $item->payment_code }}
                                                     </a>
+                                                </td>
+                                                <td class="py-2 text-13-black">
+                                                    {{ $item->getQuotation->quotation_number }}
                                                 </td>
                                                 <td class="py-2 text-13-black">
                                                     @if ($item->getQuotation)
@@ -249,13 +251,23 @@
                                                 </td>
                                                 <td class="py-2 text-13-black">
                                                     {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }}</td>
-                                                <td class="py-2 text-13-black">{{ number_format($item->total) }}</td>
-                                                <td class="py-2 text-13-black">
+
+                                                <td class="py-2 text-13-black text-right">{{ number_format($item->total) }}</td>
+                                                <td class="py-2 text-13-black text-right">
                                                     {{ number_format($item->payment) }}
                                                 </td>
-                                                <td class="py-2 text-13-black">
+                                                <td class="py-2 text-13-black text-right">
                                                     {{ number_format($item->debt) }}
                                                 </td>
+
+                                                {{-- <td class="py-2 text-13-black text-right">
+                                                    {{ number_format($item->total) }}</td>
+                                                <td class="py-2 text-13-black text-right">
+                                                    {{ fmod($item->payment, 2) > 0 && fmod($item->payment, 1) > 0 ? number_format($item->payment, 2, '.', ',') : number_format($item->payment) }}
+                                                </td>
+                                                <td class="py-2 text-13-black text-right">
+                                                    {{ fmod($item->debt, 2) > 0 && fmod($item->debt, 1) > 0 ? number_format($item->debt, 2, '.', ',') : number_format($item->debt) }}
+                                                </td> --}}
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 6px;">
                                                     <div class="d-flex align-items-center">

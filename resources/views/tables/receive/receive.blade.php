@@ -150,7 +150,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Phí nhận hàng</button>
@@ -179,7 +179,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Tổng tiền</button>
@@ -214,30 +214,29 @@
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
                                                 <td class=" text-13-black">
-                                                    {{ $item->delivery_code }}
-                                                </td>
-                                                <td class="">
                                                     <a href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}"
                                                         class="duongdan text-13-blue user_flow" data-type="DNH"
                                                         data-des="Xem đơn nhận hàng">
-                                                        @if ($item->getQuotation)
-                                                            {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
-                                                        @endif
+                                                        {{ $item->delivery_code }}
                                                     </a>
                                                 </td>
-                                                <td class=" text-13-black">
-                                                    @if($item->getQuotation)
-                                                        {{$item->getQuotation->provide_name}}
+                                                <td class="">
+                                                    @if ($item->getQuotation)
+                                                        {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
                                                     @endif
-                                                    {{-- {{ $item->getNameProvide->provide_name_display }} --}}
+                                                </td>
+                                                <td class=" text-13-black">
+                                                    @if ($item->getQuotation)
+                                                        {{ $item->getQuotation->provide_name }}
+                                                    @endif
                                                 </td>
                                                 <td class=" text-13-black">
                                                     {{ $item->shipping_unit }}
                                                 </td>
-                                                <td class=" text-13-black">
+                                                <td class=" text-13-black text-right">
                                                     {{ number_format($item->delivery_charges) }}
                                                 </td>
-                                                <td class=" text-13-black">
+                                                <td class="text-13-black">
                                                     @if ($item->status == 1)
                                                         <span style="color: #858585">Chưa nhận</span>
                                                     @else
@@ -247,7 +246,7 @@
                                                 <td class=" text-13-black">
                                                     {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td>
-                                                <td class=" text-13-black">
+                                                <td class="text-13-black text-right">
                                                     {{ number_format($item->total_tax) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
@@ -443,8 +442,7 @@
                 type: type,
                 des: des
             },
-            success: function(data) {
-            }
+            success: function(data) {}
         })
     })
 </script>

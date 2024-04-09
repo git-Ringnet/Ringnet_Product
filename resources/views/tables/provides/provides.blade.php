@@ -130,7 +130,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52" style="width:150px;">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                         data-sort-type="ASC">
                                                         <button class="btn-sort text-13" type="submit">
@@ -178,7 +178,7 @@
                                                 <td class="text-13-black height-52">
                                                     {{ $item->provide_code }}
                                                 </td>
-                                                <td class="text-13-black height-52" style="width:300px">
+                                                <td class="text-13-black height-52 text-right" style="width:300px">
                                                     {{ number_format($item->provide_debt) }}
                                                 </td>
                                                 <td>

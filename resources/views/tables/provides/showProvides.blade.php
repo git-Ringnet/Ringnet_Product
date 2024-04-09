@@ -327,13 +327,13 @@
                                                 <path d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z' fill='#6B6F76'/>
                                             </svg>
                                         </th>
-                                        <th scope="col" class="text-13 text-nowrap">
+                                        <th scope="col" class="text-13 text-nowrap text-right">
                                             <span>Tổng tiền</span>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'>
                                                 <path d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z' fill='#6B6F76'/>
                                             </svg>
                                         </th>
-                                        <th scope="col" class="text-13 text-nowrap">
+                                        <th scope="col" class="text-13 text-nowrap text-right">
                                             <span>Dự nợ</span>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'>
                                                 <path d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z' fill='#6B6F76'/>
@@ -360,7 +360,7 @@
                                                         {{ $detail->getProjectName->project_name }}
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black"> 
+                                                <td class="text-13-black text-center"> 
                                                     @if ($detail->status_receive == 2 && $detail->status_reciept == 2 && $detail->status_pay == 2)
                                                         <span class="text-success">Close</span>
                                                     @elseif($detail->status == 1)
@@ -447,8 +447,8 @@
                                                         </svg>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black ">{{ number_format($detail->total_tax) }}</td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-right">{{ number_format($detail->total_tax) }}</td>
+                                                <td class="text-13-black text-right">
                                                     @if ($detail->getPayOrder && $detail->getPayOrder->getHistoryPaymentByID)
                                                         {{ number_format($detail->total_tax - $detail->getPayOrder->getHistoryPaymentByID->sum('payment')) }}
                                                     @else

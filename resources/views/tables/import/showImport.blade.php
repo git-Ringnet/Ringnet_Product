@@ -419,7 +419,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex justify-content-start">
+                                                    <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Số lượng</button>
@@ -428,7 +428,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Đơn giá</button>
@@ -437,7 +437,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-center">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Thuế</button>
@@ -446,7 +446,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Thành tiền</button>
@@ -550,7 +550,7 @@
                                                         </div>
                                                     </td>
                                                     <input type="hidden" class="product_tax1">
-                                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                                    <td class="border-right p-2 text-13 align-top border-bottom text-center">
                                                         <select name="product_tax[]" id="product_tax"
                                                             class="border-0 text-center product_tax" disabled>
                                                             <option value="0"
@@ -641,7 +641,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex justify-content-start">
+                                                    <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Số lượng</button>
@@ -650,7 +650,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Đơn giá</button>
@@ -659,7 +659,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-center">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Thuế</button>
@@ -668,7 +668,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Thành tiền</button>
@@ -744,12 +744,12 @@
                                                     </td>
                                                     <td class='border-right p-2 text-13 align-top border-bottom position-relative'>
                                                         <input type="text"
-                                                            class="product_tax border-0 px-2 py-1 w-100" readonly
+                                                            class="product_tax border-0 px-2 py-1 w-100 text-center" readonly
                                                             @if ($item->product_tax == 99) value = "NOVAT"
                                                            @else value="{{ $item->product_tax }} %" @endif>
                                                     </td>
                                                     <td class='border-right p-2 text-13 align-top border-bottom position-relative'>
-                                                        <input type="text" class="border-0 px-2 py-1 w-100"
+                                                        <input type="text" class="border-0 px-2 py-1 w-100 text-right"
                                                             readonly
                                                             value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                                     </td>

@@ -411,14 +411,14 @@ function addRowTable(status) {
         "</div>" +
         "<div class='mt-3 text-13-blue transaction text-right' id='transaction' data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</div>" +
         "</td>" +
-        '<td class="border text-13-black align-top p-2">';
+        '<td class="border text-13-black align-top p-2 text-center">';
 
     if (status == 2) {
         tr +=
             '<input type="text" class="border-0 px-2 py-1 w-100 product_tax" name="product_tax[]" readonly >';
     } else {
         tr +=
-            '<select class="product_tax border-0 w-100 text-center" name="product_tax[]"> ' +
+            '<select class="product_tax border-0 text-center" name="product_tax[]"> ' +
             '<option value="0">0%</option>' +
             '<option value="8">8%</option>' +
             '<option value="10">10%</option>' +

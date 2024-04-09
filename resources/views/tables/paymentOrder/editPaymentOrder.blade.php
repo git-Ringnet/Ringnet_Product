@@ -206,7 +206,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border">
-                                                <span class="d-flex justify-content-start">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Số lượng</button>
@@ -215,7 +215,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Đơn giá</button>
@@ -224,7 +224,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Thuế</button>
@@ -233,7 +233,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Thành tiền</button>
@@ -319,7 +319,7 @@
                                                 </td>
                                                 <td class="border bg-white align-top">
                                                     <input readonly type="text"
-                                                        class="border-0 px-2 py-1 w-100 product_tax" disabled
+                                                        class="border-0 px-2 py-1 w-100 product_tax text-center" disabled
                                                         value="{{ $item->product_tax == 99 ? 'NOVAT' : $item->product_tax }} %">
                                                 </td>
                                                 <input type="hidden" class="product_tax1">
@@ -327,7 +327,7 @@
                                                 <td class="border bg-white align-top text-13-black text-left"
                                                     style="width: 12%;">
                                                     <input readonly type="text" name="" id=""
-                                                        class="border-0 px-2 py-1 w-100 total_price"
+                                                        class="border-0 px-2 py-1 w-100 total_price text-right"
                                                         value="{{ number_format($item->product_total) }}">
                                                 </td>
                                                 <td class="text-center border bg-white align-top text-13-black">
@@ -358,9 +358,9 @@
                                             <th class="text-table text-secondary p-2 border-right"
                                                 style="padding-left: 2rem !important;">Mã thanh toán</th>
                                             <th class="text-table text-secondary p-2 border-right">Ngày thanh toán</th>
-                                            <th class="text-table text-secondary p-2 border-right">Tổng tiền</th>
-                                            <th class="text-table text-secondary p-2 border-right">Thanh toán</th>
-                                            <th class="text-table text-secondary p-2">Dư nợ</th>
+                                            <th class="text-table text-secondary p-2 border-right text-right">Tổng tiền</th>
+                                            <th class="text-table text-secondary p-2 border-right text-right">Thanh toán</th>
+                                            <th class="text-table text-secondary p-2 text-right">Dư nợ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -372,13 +372,13 @@
                                                 <td class="border-right text-13-black border-bottom">
                                                     {{ date_format(new DateTime($htr->created_at), 'd-m-Y H:i:s') }}
                                                 </td>
-                                                <td class="border-right text-13-black border-bottom">
+                                                <td class="border-right text-13-black border-bottom text-right">
                                                     {{ fmod($htr->total, 2) > 0 && fmod($htr->total, 1) > 0 ? number_format($htr->total, 2, '.', ',') : number_format($htr->total) }}
                                                 </td>
-                                                <td class="border-right text-13-black border-bottom">
+                                                <td class="border-right text-13-black border-bottom text-right">
                                                     {{ fmod($htr->payment, 2) > 0 && fmod($htr->payment, 1) > 0 ? number_format($htr->payment, 2, '.', ',') : number_format($htr->payment) }}
                                                 </td>
-                                                <td class="text-13-black border-bottom">
+                                                <td class="text-13-black border-bottom text-right">
                                                     {{ fmod($htr->debt, 2) > 0 && fmod($htr->debt, 1) > 0 ? number_format($htr->debt, 2, '.', ',') : number_format($htr->debt) }}
                                                 </td>
                                             </tr>
