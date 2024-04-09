@@ -121,7 +121,7 @@
                                                     id="checkall">
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="id"
                                                         data-sort-type="#">
                                                         <button class="btn-sort" type="submit">
@@ -132,7 +132,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type="">
                                                         <button class="btn-sort" type="submit">
@@ -143,7 +143,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type="">
                                                         <button class="btn-sort" type="submit">
@@ -154,7 +154,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
-                                                <span class="d-flex justify-content-start">
+                                                <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type="">
                                                         <button class="btn-sort" type="submit">
@@ -165,7 +165,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type="">
                                                         <button class="btn-sort" type="submit">
@@ -176,7 +176,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type="">
                                                         <button class="btn-sort" type="submit">
@@ -187,7 +187,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type="">
                                                         <button class="btn-sort" type="submit">
@@ -198,7 +198,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type="">
                                                         <button class="btn-sort" type="submit">
@@ -237,19 +237,19 @@
                                                         name="ids[]" id="checkbox" value=""
                                                         onclick="event.stopPropagation();">
                                                 </td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-left">
                                                     {{ $item_pay->code_payment }}
                                                 </td>
-                                                <td class="text-13-black max-width120">
+                                                <td class="text-13-black max-width120 text-left">
                                                     <a class="activity" data-name1="TT" data-des="Xem đơn thanh toán"
                                                         href="{{ route('payExport.edit', ['workspace' => $workspacename, 'payExport' => $item_pay->idThanhToan]) }}">
                                                         {{ $item_pay->quotation_number }}
                                                     </a>
                                                 </td>
-                                                <td class="text-13-black max-width120">
+                                                <td class="text-13-black max-width120 text-left">
                                                     {{ $item_pay->guest_name }}
                                                 </td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-center">
                                                     @if ($item_pay->status == 1)
                                                         @if ($item_pay->payment > 0)
                                                             <span style="color: #858585">Đặt cọc</span>
@@ -274,16 +274,16 @@
                                                         <span style="color: #E8B600">Đến hạn</span>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-left">
                                                     {{ date_format(new DateTime($item_pay->payment_date), 'd/m/Y') }}
                                                 </td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-right">
                                                     {{ number_format($item_pay->tongTienNo) }}
                                                 </td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-right">
                                                     {{ number_format($item_pay->tongThanhToan) }}
                                                 </td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-right">
                                                     {{ number_format($item_pay->debt) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"

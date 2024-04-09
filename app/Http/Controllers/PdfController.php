@@ -80,7 +80,7 @@ class PdfController extends Controller
         // $product = $this->product->getAllProducts();
         // $detailExport = $this->detailExport->getDetailExportToId($id);
         // $quoteExport = $this->detailExport->getProductToId($id);
-        $billSale = $this->delivery->getDeliveryToId($id);
+        $delivery = $this->delivery->getDeliveryToId($id);
         $product = $this->delivery->getProductToId($id);
         $serinumber = Serialnumber::leftJoin('delivery', 'delivery.detailexport_id', 'serialnumber.detailexport_id')
             ->where('delivery.id', $id)
@@ -89,10 +89,10 @@ class PdfController extends Controller
             ->get();
         $bg = url('dist/img/logo-2050x480-1.png');
         $data = [
-            'delivery' => $billSale,
+            'delivery' => $delivery,
             'product' => $product,
             'serinumber' => $serinumber,
-            'date' => $billSale->ngayGiao,
+            'date' => $delivery->ngayGiao,
             'bg' => $bg,
         ];
         // dd($serinumber);

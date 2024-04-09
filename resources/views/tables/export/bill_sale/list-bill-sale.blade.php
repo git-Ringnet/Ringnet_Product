@@ -135,7 +135,7 @@
                                                     class="checkall-btn">
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="id"
                                                         data-sort-type="#">
                                                         <button class="btn-sort text-13" type="submit">Ngày hóa
@@ -145,7 +145,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type="">
                                                         <button class="btn-sort text-13" type="submit">Số hóa
@@ -155,7 +155,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Số báo giá</button>
@@ -173,7 +173,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Trạng thái</button>
@@ -182,7 +182,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Tổng tiền</button>
@@ -219,30 +219,30 @@
                                                         name="ids[]" id="checkbox" value=""
                                                         onclick="event.stopPropagation();">
                                                 </td>
-                                                <td class="text-13-black height-52">
+                                                <td class="text-13-black height-52 text-left">
                                                     {{ date_format(new DateTime($item_bill->ngayHD), 'd/m/Y') }}
                                                 </td>
-                                                <td class="text-13-black height-52">
+                                                <td class="text-13-black height-52 text-left">
                                                     {{ $item_bill->number_bill }}
                                                 </td>
-                                                <td class="height-52 text-13-black">
+                                                <td class="height-52 text-13-black text-left">
                                                     <a class="activity" data-name1="HDBH"
                                                         data-des="Xem hóa đơn bán hàng"
                                                         href="{{ route('billSale.edit', ['workspace' => $workspacename, 'billSale' => $item_bill->idHD]) }}">
                                                         {{ $item_bill->quotation_number }}
                                                     </a>
                                                 </td>
-                                                <td class="text-13-black height-52">
+                                                <td class="text-13-black height-52 text-left">
                                                     {{ $item_bill->guest_name }}
                                                 </td>
-                                                <td class="text-13-black height-52">
+                                                <td class="text-13-black height-52 text-center">
                                                     @if ($item_bill->tinhTrang == 1)
                                                         <span class="text-secondary text-center">Bản nháp</span>
                                                     @else
                                                         <span class="text-success text-center">Chính thức</span>
                                                     @endif
                                                 </td>
-                                                <td class=" text-13-black height-52">
+                                                <td class=" text-13-black height-52 text-right">
                                                     {{ number_format($item_bill->price_total) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"

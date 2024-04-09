@@ -122,7 +122,7 @@
                 </div>
             </div>
         </div>
-        <div class="row m-auto filter p-0 border-custom height-52" style="border-bottom: none !important;">
+        <div class="row m-auto filter p-0 border-custom height-52 position-relative" style="border-bottom: none !important;">
             <div class="w-100">
                 <div class="row mr-0 mt-1 padding-left32">
                     <div class="col-md-5 d-flex align-items-center">
@@ -162,13 +162,11 @@
         </div>
     </div>
     <div class="content margin-top-10">
-        <!-- Main content -->
         <section class="content margin-250">
             <div class="container-fluided">
                 <div class="row">
                     <div class="col-md-12 p-0 m-0 pl-2">
-                        <div class="card ">
-                            <!-- /.card-header -->
+                        <div class="card">
                             <div class="outer text-nowrap">
                                 <table id="example2" class="table table-hover bg-white rounded">
                                     <thead>
@@ -179,17 +177,18 @@
                                                     class="checkall-btn">
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="ngayBG" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Ngày báo
-                                                            giá</button>
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Ngày báo giá
+                                                        </button>
                                                     </a>
                                                     <div class="icon" id="icon-ngayBG"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Số báo
@@ -199,7 +198,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="reference_number" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Số tham
@@ -219,17 +218,8 @@
                                                     <div class="icon" id="icon-guest_name_display"></div>
                                                 </span>
                                             </th>
-                                            {{-- <th scope="col" class="height-52">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link btn-submit" data-sort-by="key"
-                                                        data-sort-type="DESC"><button class="btn-sort text-13"
-                                                            type="submit">Dự án</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-key"></div>
-                                                </span>
-                                            </th> --}}
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Trạng
@@ -239,7 +229,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_receive" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Giao hàng</button>
@@ -248,7 +238,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_reciept" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Hóa đơn</button>
@@ -257,7 +247,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_pay" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Thanh
@@ -267,7 +257,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total_tax" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Tổng tiền</button>
@@ -305,26 +295,21 @@
                                                         onclick="event.stopPropagation();">
                                                 </td>
 
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-left">
                                                     {{ date_format(new DateTime($value_export->ngayBG), 'd/m/Y') }}</td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-left">
                                                     <div class="">
                                                         <a href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $value_export->maBG]) }}"
                                                             class="duongDan activity" data-name1="BG"
                                                             data-des="Xem đơn báo giá">{{ $value_export->quotation_number }}</a>
                                                     </div>
                                                 </td>
-                                                <td class="text-13-black max-width120">
+                                                <td class="text-13-black max-width120 text-left">
                                                     {{ $value_export->reference_number }}
                                                 </td>
-                                                <td class="text-13-black max-width180">
+                                                <td class="text-13-black max-width180 text-left">
                                                     {{ $value_export->guest_name }}
                                                 </td>
-                                                {{-- <td class="text-13-black">
-                                                    <a href="#">
-                                                        <span class="text-13-blue">Dự Án 1</span>
-                                                    </a>
-                                                </td> --}}
                                                 <td class="text-13-black text-center">
                                                     @if ($value_export->status === 1)
                                                         <span class="text-secondary">Draft</span>
@@ -439,7 +424,7 @@
                                                         </svg>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-right">
                                                     {{ number_format($value_export->total_price + $value_export->total_tax) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"

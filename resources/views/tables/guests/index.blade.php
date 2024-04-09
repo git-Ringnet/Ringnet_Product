@@ -114,7 +114,7 @@
                 <div class="col-12 p-0 m-0">
                     <div class="card">
                         <!-- /.card-header -->
-                        <div class="outer table-responsive text-nowrap">
+                        <div class="outer2 table-responsive text-nowrap">
                             <table id="example2" class="table table-hover bg-white rounded">
                                 <thead class="border-custom">
                                     <tr>
@@ -123,7 +123,7 @@
                                                 class="checkall-btn">
                                         </th>
                                         <th class="border-0" scope="col">
-                                            <span class="d-flex">
+                                            <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link" data-sort-by="guest_name_display"
                                                     data-sort-type="ASC">
                                                     <button class="btn-sort" type="submit">
@@ -134,7 +134,7 @@
                                             </span>
                                         </th>
                                         <th class="border-0" scope="col">
-                                            <span class="d-flex">
+                                            <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link" data-sort-by="guest_name_display"
                                                     data-sort-type="ASC">
                                                     <button class="btn-sort" type="submit">
@@ -166,7 +166,7 @@
                                             </span>
                                         </th> --}}
                                         <th class="border-0" scope="col">
-                                            <span class="d-flex">
+                                            <span class="d-flex justify-content-end">
                                                 <a href="#" class="sort-link" data-sort-by="guest_debt"
                                                     data-sort-type="ASC">
                                                     <button class="btn-sort" type="submit">
@@ -176,6 +176,7 @@
                                                 <div class="icon" id="icon-guest_debt"></div>
                                             </span>
                                         </th>
+                                        <th class="border-0" scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody class="tbody-guest">
@@ -202,15 +203,16 @@
                                                 <input type="checkbox" class="cb-element checkall-btn" name="ids[]"
                                                     id="checkbox" value="" onclick="event.stopPropagation();">
                                             </td>
-                                            <td class="text-13-black">
+                                            <td class="text-13-black text-left">
                                                 <a href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
                                             </td>
                                             <td class="text-13-black">{{ $item->guest_code }}</td>
                                             {{-- <td class="text-13-black">{{ $item->guest_email }}</td>
                                             <td class="text-13-black">{{ $item->guest_phone }}</td> --}}
-                                            <td class="text-13-black">
+                                            <td class="text-13-black text-right">
                                                 {{ number_format($item->sumDebt) }}
                                             </td>
+                                            <td></td>
                                             <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                 style="right: 10px; top: 10px;">
                                                 <div class="d-flex w-100">

@@ -96,28 +96,28 @@
                             <thead>
                                 <tr style="height:44px;">
                                     <th class="border-right px-2 p-0" style="width: 16%">
-                                        <input type='checkbox' class='checkall-btn ml-4 mr-1'id="checkall" />
+                                        <input type='checkbox' class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
                                         <span class="text-table text-secondary">Mã sản phẩm</span>
                                     </th>
-                                    <th class="border-right px-2 p-0" style="width: 15%;z-index:99;">
+                                    <th class="border-right px-2 p-0 text-left" style="width: 15%;z-index:99;">
                                         <span class="text-table text-secondary">Tên sản phẩm</span>
                                     </th>
-                                    <th class="border-right px-2 p-0">
+                                    <th class="border-right px-2 p-0 text-left">
                                         <span class="text-table text-secondary">Đơn vị</span>
                                     </th>
-                                    <th class="border-right px-2 p-0" style="width: 10%;">
+                                    <th class="border-right px-2 p-0 text-left" style="width: 10%;">
                                         <span class="text-table text-secondary">Số lượng</span>
                                     </th>
-                                    <th class="border-right px-2 p-0" style="width: 13%;">
+                                    <th class="border-right px-2 p-0 text-right" style="width: 13%;">
                                         <span class="text-table text-secondary">Đơn giá</span>
                                     </th>
-                                    <th class="border-right px-2 p-0" style="width: 8%;">
+                                    <th class="border-right px-2 p-0 text-center" style="width: 8%;">
                                         <span class="text-table text-secondary">Thuế</span>
                                     </th>
-                                    <th class="border-right px-2 p-0" style="width: 11%;">
+                                    <th class="border-right px-2 p-0 text-right" style="width: 11%;">
                                         <span class="text-table text-secondary">Thành tiền</span>
                                     </th>
-                                    <th class="border-right note px-2 p-0" style="width: 15%;">
+                                    <th class="border-right note px-2 p-0 text-left" style="width: 15%;">
                                         <span class="text-table text-secondary">Ghi chú</span>
                                     </th>
                                     <th class="border-right"></th>
@@ -1678,7 +1678,7 @@
             const soLuong = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<div>" +
-                "<input type='number' class='text-right border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
+                "<input type='number' class='text-left border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "</div>" +
                 "<div class='mt-3 text-13-blue inventory'>Tồn kho: <span class='pl-1 soTonKho'></span></div>" +

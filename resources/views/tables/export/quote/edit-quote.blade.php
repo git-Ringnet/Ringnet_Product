@@ -142,7 +142,7 @@
                             <table class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">
-                                        <th class="border-right p-0 px-2 text-13" style="width:15%;">
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:15%;">
                                             <span class="mx-1 mr-2">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                     viewBox="0 0 14 14" fill="none">
@@ -151,23 +151,23 @@
                                                         fill="#26273B" fill-opacity="0.8" />
                                                 </svg>
                                             </span>
-                                            <span class="pl-3">Mã sản phẩm</span>
+                                            <span class="pl-3 text-left">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-13" style="width:17%;">Tên sản phẩm</th>
-                                        <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
-                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:17%;">Tên sản phẩm</th>
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">Đơn vị</th>
+                                        <th class="border-right p-0 px-2 text-center text-13 text-left" style="width:10%;">
                                             Số lượng
                                         </th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                             Đơn giá
                                         </th>
-                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
+                                        <th class="border-right p-0 px-2 text-center text-13 text-left" style="width:10%;">
                                             Thuế
                                         </th>
-                                        <th class="border-right p-0 px-1 text-center text-13"style="width:15%;">
+                                        <th class="border-right p-0 px-2 text-right text-13"style="width:15%;">
                                             Thành tiền
                                         </th>
-                                        <th class="border-right p-0 px-2 text-center note text-13">
+                                        <th class="border-right p-0 px-2 text-left note text-13">
                                             Ghi chú sản phẩm
                                         </th>
                                         @if ($detailExport->tinhTrang == 1)
@@ -266,7 +266,7 @@
                                                     <input type='text' <?php if ($detailExport->tinhTrang != 1) {
                                                         echo 'readonly';
                                                     } ?>
-                                                        class='text-right border-0 px-2 py-1 w-100 quantity-input'
+                                                        class='text-left border-0 px-2 py-1 w-100 quantity-input'
                                                         value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
                                                         autocomplete='off' required name='product_qty[]'>
                                                     <input type='hidden' class='tonkho'>
@@ -1978,7 +1978,7 @@
             const soLuong = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<div>" +
-                "<input type='text' class='text-right border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
+                "<input type='text' class='text-left border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "</div>" +
                 "<div class='mt-3 text-13-blue inventory'>Tồn kho: <span class='pl-1 soTonKho'></span></div>" +

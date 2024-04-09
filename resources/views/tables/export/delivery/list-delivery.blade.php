@@ -135,7 +135,7 @@
                                                     class="checkall-btn">
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="id"
                                                         data-sort-type="#">
                                                         <button class="btn-sort text-13" type="submit">Mã giao
@@ -145,7 +145,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type="">
                                                         <button class="btn-sort text-13" type="submit">Số báo
@@ -155,7 +155,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Khách hàng</button>
@@ -173,7 +173,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Phí giao hàng</button>
@@ -182,7 +182,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Trạng thái</button>
@@ -191,7 +191,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Ngày giao hàng</button>
@@ -200,7 +200,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Tổng tiền</button>
@@ -238,10 +238,10 @@
                                                         onclick="event.stopPropagation();">
                                                 </td>
 
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-left">
                                                     {{ $item_delivery->code_delivery }}
                                                 </td>
-                                                <td class="text-13-black max-width120">
+                                                <td class="text-13-black max-width120 text-left">
                                                     <div class="">
                                                         <a href="{{ route('watchDelivery', ['workspace' => $workspacename, 'id' => $item_delivery->maGiaoHang]) }}"
                                                             class="duongDan activity" data-name1="GH"
@@ -250,26 +250,26 @@
                                                         </a>
                                                     </div>
                                                 </td>
-                                                <td class="text-13-black max-width120">
+                                                <td class="text-13-black max-width120 text-left">
                                                     {{ $item_delivery->guest_name }}
                                                 </td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-left">
                                                     {{ $item_delivery->shipping_unit }}
                                                 </td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-right">
                                                     {{ number_format($item_delivery->shipping_fee) }}
                                                 </td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-center">
                                                     @if ($item_delivery->trangThai == 1)
                                                         <span>Chưa giao</span>
                                                     @else
                                                         <span class="text-success">Đã giao</span>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-left">
                                                     {{ date_format(new DateTime($item_delivery->ngayGiao), 'd/m/Y') }}
                                                 </td>
-                                                <td>{{ number_format($item_delivery->totalProductVat) }}
+                                                <td class="text-13-black text-right">{{ number_format($item_delivery->totalProductVat) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 8px;">

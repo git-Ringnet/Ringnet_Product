@@ -121,14 +121,10 @@ li {
 
 /* Table Scroll */
 .outer {
-    overflow-x: auto; /* Hiển thị thanh cuộn ngang */
-    scrollbar-width: thin;
-    max-height: 66vh;
-}
-
-.outer {
     width: 100%;
-    -layout: fixed;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    max-height: calc(100vh - 175px);
 }
 
 .outer th {
@@ -136,18 +132,14 @@ li {
     top: 0;
     position: sticky;
     background-color: white;
-    z-index: 9999;
-}
-
-.outer2 {
-    overflow-x: auto; /* Hiển thị thanh cuộn ngang */
-    scrollbar-width: thin;
-    max-height: 66vh;
+    z-index: 99;
 }
 
 .outer2 {
     width: 100%;
-    -layout: fixed;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    max-height: calc(100vh - 125px);
 }
 
 .outer2 th {
@@ -2337,7 +2329,7 @@ input[type="checkbox"] {
     z-index: 10000;
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    left: 20px;
     border: none;
     color: white;
     padding: 5px;

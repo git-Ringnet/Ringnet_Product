@@ -379,7 +379,7 @@
                                             <thead>
                                                 <tr style="height:44px;">
                                                     <th scope="col" class="border" style="padding-left: 2rem;">
-                                                        <span class="d-flex">
+                                                        <span class="d-flex justify-content-start">
                                                             <a href="#" class="sort-link" data-sort-by="id"
                                                                 data-sort-type="#">
                                                                 <button class="btn-sort text-13" type="submit">Mã sản
@@ -389,7 +389,7 @@
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border">
-                                                        <span class="d-flex">
+                                                        <span class="d-flex justify-content-start">
                                                             <a href="#" class="sort-link"
                                                                 data-sort-by="created_at" data-sort-type="">
                                                                 <button class="btn-sort text-13" type="submit">Tên
@@ -399,7 +399,7 @@
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border">
-                                                        <span class="d-flex">
+                                                        <span class="d-flex justify-content-start">
                                                             <a href="#" class="sort-link"
                                                                 data-sort-by="created_at" data-sort-type=""><button
                                                                     class="btn-sort text-13" type="submit">Đơn
@@ -418,7 +418,7 @@
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border">
-                                                        <span class="d-flex">
+                                                        <span class="d-flex justify-content-end">
                                                             <a href="#" class="sort-link" data-sort-by="total"
                                                                 data-sort-type=""><button class="btn-sort text-13"
                                                                     type="submit">Đơn giá</button>
@@ -427,7 +427,7 @@
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border">
-                                                        <span class="d-flex">
+                                                        <span class="d-flex justify-content-center">
                                                             <a href="#" class="sort-link" data-sort-by="total"
                                                                 data-sort-type=""><button class="btn-sort text-13"
                                                                     type="submit">Thuế</button>
@@ -436,7 +436,7 @@
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border">
-                                                        <span class="d-flex">
+                                                        <span class="d-flex justify-content-end">
                                                             <a href="#" class="sort-link" data-sort-by="total"
                                                                 data-sort-type=""><button class="btn-sort text-13"
                                                                     type="submit">Thành tiền</button>
@@ -445,7 +445,7 @@
                                                         </span>
                                                     </th>
                                                     <th scope="col" class="border">
-                                                        <span class="d-flex">
+                                                        <span class="d-flex justify-content-start">
                                                             <a href="#" class="sort-link" data-sort-by="total"
                                                                 data-sort-type=""><button class="btn-sort text-13"
                                                                     type="submit">Ghi chú sản phẩm</button>
@@ -459,7 +459,7 @@
                                                 @foreach ($quoteExport as $item_quote)
                                                     <tr class="bg-white" style="height:80px;">
 
-                                                        <td class="border bg-white align-top text-13-black"
+                                                        <td class="border bg-white align-top text-13-black text-left"
                                                             style="padding-left: 2rem !important;">
                                                             <input type="text" autocomplete="off" readonly
                                                                 value="{{ $item_quote->product_code }}"
@@ -468,7 +468,7 @@
                                                         </td>
 
                                                         <td
-                                                            class="border bg-white align-top text-13-black position-relative">
+                                                            class="border bg-white align-top text-13-black position-relative text-left">
                                                             <div class="d-flex align-items-center">
                                                                 <input type="text"
                                                                     value="{{ $item_quote->product_name }}"
@@ -504,14 +504,14 @@
                                                             </div>
                                                         </td>
 
-                                                        <td class="border bg-white align-top text-13-black">
+                                                        <td class="border bg-white align-top text-13-black text-left">
                                                             <input type="text" autocomplete="off" readonly
                                                                 value="{{ $item_quote->product_unit }}"
                                                                 class="border-0 px-2 py-1 w-100 product_unit"
                                                                 name="product_unit[]">
                                                         </td>
                                                         <td
-                                                            class="border bg-white align-top text-13-black position-relative">
+                                                            class="border bg-white align-top text-13-black position-relative text-left">
                                                             <input type="text" readonly
                                                                 value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
                                                                 class="border-0 px-2 py-1 w-100 quantity-input"
@@ -523,10 +523,10 @@
                                                             </p>
                                                         </td>
                                                         <td
-                                                            class="border bg-white align-top text-13-black position-relative">
+                                                            class="border bg-white align-top text-13-black position-relative text-right">
                                                             <input type="text"
                                                                 value="{{ number_format($item_quote->price_export) }}"
-                                                                class="border-0 px-2 py-1 w-100 product_price"
+                                                                class="border-0 px-2 py-1 w-100 product_price text-right"
                                                                 autocomplete="off" name="product_price[]" readonly>
                                                             <a href="#" class="activity" data-name1="BG"
                                                                 data-des="Xem giao dịch gần đây">
@@ -557,14 +557,14 @@
                                                                 value="{{ $item_quote->product_tax }}"
                                                                 name="product_tax[]">
                                                         </td>
-                                                        <td class="border bg-white align-top text-13-black">
+                                                        <td class="border bg-white align-top text-13-black text-right">
                                                             <input type="text" readonly=""
                                                                 value="{{ number_format($item_quote->product_total) }}"
-                                                                class="border-0 px-2 py-1 w-100 total-amount">
+                                                                class="border-0 px-2 py-1 w-100 total-amount text-right">
                                                         </td>
                                                         <td
                                                             class="text-center border bg-white align-top text-13-black">
-                                                            <input type="text" class="border-0 py-1 w-100" readonly
+                                                            <input type="text" class="border-0 py-1 w-100 text-left" readonly
                                                                 name="product_note[]"
                                                                 value="{{ $item_quote->product_note }}">
                                                         </td>
@@ -823,7 +823,7 @@
                                         <thead>
                                             <tr style="height:44px;">
                                                 <th scope="col" class="border" style="padding-left: 2rem;">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link" data-sort-by="id"
                                                             data-sort-type="#">
                                                             <button class="btn-sort text-13" type="submit">Mã sản
@@ -833,7 +833,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link" data-sort-by="created_at"
                                                             data-sort-type="">
                                                             <button class="btn-sort text-13" type="submit">Tên sản
@@ -843,7 +843,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link" data-sort-by="created_at"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Đơn vị</button>
@@ -861,7 +861,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Đơn giá</button>
@@ -870,7 +870,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-center">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Thuế</button>
@@ -879,7 +879,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Thành tiền</button>
@@ -888,7 +888,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border p-1">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Ghi chú sản phẩm</button>
@@ -897,7 +897,7 @@
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="d-flex">
+                                                    <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Thời gian chỉnh sửa</button>
@@ -914,14 +914,14 @@
                                                         style="padding-left: 2rem !important;">
                                                         <input type="text" autocomplete="off" readonly
                                                             value="{{ $item_history->product_code }}"
-                                                            class="border-0 py-1 w-75 product_code"
+                                                            class="border-0 py-1 w-75 product_code text-left"
                                                             name="product_code[]">
                                                     </td>
                                                     <td class="border bg-white align-top text-13-black p-1">
                                                         <div class="d-flex align-items-center">
                                                             <input type="text"
                                                                 value="{{ $item_history->product_name }}"
-                                                                class="border-0 px-2 py-1 w-100 product_name" readonly
+                                                                class="border-0 px-2 py-1 w-100 product_name text-left" readonly
                                                                 autocomplete="off" name="product_name[]">
                                                             <input type="hidden" class="product_id"
                                                                 value="{{ $item_history->product_id }}"
@@ -956,20 +956,20 @@
                                                         style="width:8%">
                                                         <input type="text" autocomplete="off" readonly
                                                             value="{{ $item_history->product_unit }}"
-                                                            class="border-0 px-2 py-1 w-100 product_unit"
+                                                            class="border-0 px-2 py-1 w-100 product_unit text-left"
                                                             name="product_unit[]">
                                                     </td>
-                                                    <td class="border bg-white align-top text-13-black p-1"
+                                                    <td class="border bg-white align-top text-13-black p-1 text-left"
                                                         style="width:11%">
                                                         <div>
                                                             <input type='text'
                                                                 value="{{ is_int($item_history->product_qty) ? $item_history->product_qty : rtrim(rtrim(number_format($item_history->product_qty, 4, '.', ''), '0'), '.') }}"
-                                                                class='text-right border-0 py-1 w-100' readonly
+                                                                class='border-0 px-2 py-1 w-100 text-left' readonly
                                                                 autocomplete='off' required>
                                                             <input type='hidden' class='tonkho'>
                                                         </div>
                                                     </td>
-                                                    <td class="border bg-white align-top text-13-black p-1"
+                                                    <td class="border bg-white align-top text-13-black p-1 text-right"
                                                         style="width:12%">
                                                         <div>
                                                             <input type="text"
@@ -1007,11 +1007,11 @@
                                                     <td class="border bg-white align-top text-13-black text-left p-1">
                                                         <input type="text" readonly=""
                                                             value="{{ number_format($item_history->product_total) }}"
-                                                            class="border-0 px-2 py-1 w-100">
+                                                            class="border-0 px-2 py-1 w-100 text-right">
                                                     </td>
                                                     <td
                                                         class="text-center border bg-white align-top text-13-black p-1">
-                                                        <input type="text" class="border-0 py-1 w-100" readonly
+                                                        <input type="text" class="border-0 py-1 w-100 text-left" readonly
                                                             name="product_note[]"
                                                             value="{{ $item_history->product_note }}">
                                                     </td>
