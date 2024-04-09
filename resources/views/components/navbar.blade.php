@@ -364,17 +364,17 @@
                                     <p class="text-nav ml-2">Sản phẩm</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="{{ route('editProduct', $workspacename) }}"
                                     class="nav-link @if (!empty($activeName) && $activeName == 'editproduct') active @endif">
                                     <p class="text-nav ml-2">Sửa tồn kho</p>
                                 </a>
-                            </li>
-                            <li class="nav-item">
+                            </li> --}}
+                            {{-- <li class="nav-item">
                                 <a href="pages/layout/top-nav.html" class="nav-link">
                                     <p class="text-nav ml-2">Chuyển kho</p>
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
                     <li
