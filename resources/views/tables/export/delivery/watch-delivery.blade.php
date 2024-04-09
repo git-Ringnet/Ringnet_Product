@@ -181,14 +181,15 @@
                                     <tbody>
                                         @foreach ($product as $item_quote)
                                             <tr class="bg-white addProduct" style="height:80px;">
-                                                <td class='border-right p-2 text-13 align-top'
+                                                <td class='border-right p-2 text-13 align-top border-bottom'
                                                     style="padding-left: 2rem !important;">
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item_quote->product_code }}"
                                                         class='border-0 pl-0 pr-2 py-1 w-75 product_code'
                                                         name="product_code[]">
                                                 </td>
-                                                <td class='border-right p-2 text-13 align-top position-relative'>
+                                                <td
+                                                    class='border-right p-2 text-13 align-top position-relative border-bottom'>
                                                     <div class="d-flex align-items-center">
                                                         <input type="text" value="{{ $item_quote->product_name }}"
                                                             class='border-0 pl-0 pr-2 py-1 w-100 product_name' readonly
@@ -221,13 +222,13 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class='border-right p-2 text-13 align-top'>
+                                                <td class='border-right p-2 text-13 align-top border-bottom'>
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item_quote->product_unit }}"
                                                         class="border-0 px-2 py-1 w-100 product_unit"
                                                         name="product_unit[]">
                                                 </td>
-                                                <td class="border-right p-2 text-13 align-top">
+                                                <td class="border-right p-2 text-13 align-top border-bottom">
                                                     <div class="d-flex align-items-center">
                                                         <div class="">
                                                             <input type="text" readonly
@@ -276,7 +277,7 @@
                                                         </div>
                                                     @endif
                                                 </td>
-                                                <td class="border-right p-2 text-13 align-top">
+                                                <td class="border-right p-2 text-13 align-top border-bottom">
                                                     <input type="text"
                                                         value="{{ number_format($item_quote->price_export) }}"
                                                         class="text-right border-0 px-2 py-1 w-100 product_price"
@@ -289,7 +290,7 @@
                                                         </div>
                                                     </a>
                                                 </td>
-                                                <td class="border-right p-2 text-13 align-top">
+                                                <td class="border-right p-2 text-13 align-top border-bottom">
                                                     <select name="product_tax[]"
                                                         class="border-0 text-center product_tax" disabled>
                                                         <option value="0" <?php if ($item_quote->product_tax == 0) {
@@ -307,12 +308,11 @@
                                                         </option>
                                                     </select>
                                                 </td>
-                                                <td class="border-right p-2 text-13 align-top">
+                                                <td class="border-right p-2 text-13 align-top border-bottom">
                                                     <input type="text" readonly=""
                                                         value="{{ number_format($item_quote->product_total) }}"
                                                         class='text-right border-0 px-2 py-1 w-100 total-amount'>
                                                 </td>
-
                                                 <!-- <td class="border-top border-secondary p-0 bg-secondary Daydu d-none"
                                                     style="width:1%;">
                                                 </td> -->
@@ -329,7 +329,7 @@
                                                         name="price_import[]"
                                                         value="{{ number_format($item_quote->price_import) }}">
                                                 </td> -->
-                                                <td class="border-right p-2 note text-13 align-top">
+                                                <td class="border-right p-2 note text-13 align-top border-bottom">
                                                     <input type="text" class='border-0 py-1 w-100' readonly
                                                         name="product_note[]"
                                                         value="{{ $item_quote->product_note }}">
@@ -417,9 +417,9 @@
                                                     data-product-id={{ $item_seri->product_id }}
                                                     value="{{ $item_seri->idSeri }}">
                                             </td>
-                                            <td>{{ $stt++ }}</td>
+                                            <td class="text-center">{{ $stt++ }}</td>
                                             <td>
-                                                <input readonly class="form-control w-25" type="text"
+                                                <input readonly class="form-control w-100" type="text"
                                                     value="{{ $item_seri->serinumber }}">
                                             </td>
                                         </tr>
@@ -486,7 +486,9 @@
                     <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn vị vận chuyển</span>
-                        <input type="text" class="text-13-black w-50 border-0 bg-input-guest"
+                        <input type="text" class="text-13-black w-50 border-0 bg-input-guest" <?php if ($delivery->tinhTrang == 2) {
+                            echo 'readonly';
+                        } ?>
                             placeholder="Nhập thông tin" name="shipping_unit" style="flex:2;"
                             value="{{ $delivery->shipping_unit }}" />
                     </li>

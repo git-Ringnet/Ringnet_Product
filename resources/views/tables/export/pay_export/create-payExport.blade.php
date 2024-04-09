@@ -445,7 +445,7 @@
 
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin" name="quotation_number"
-                                class="border-0 w-100 bg-input-guest py-0 py-2 px-2 numberQute " id="myInput"
+                                class="border-0 w-100 bg-input-guest py-0 py-2 px-2 numberQute" id="myInput"
                                 style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
                                 value="@isset($yes) {{ $data['quotation_number'] }} @endisset"
                                 required>
@@ -459,7 +459,7 @@
                                 <div class="p-1">
                                     <div class="position-relative">
                                         <input type="text" placeholder="Nhập số báo giá"
-                                            class="pr-4 w-100 input-search bg-input-guest" id="myInput">
+                                            class="pr-4 w-100 input-search bg-input-guest" id="companyFilter">
                                         <span id="search-icon" class="search-icon">
                                             <i class="fas fa-search text-table" aria-hidden="true"></i>
                                         </span>
@@ -993,7 +993,7 @@
                                 $(".idGuest").val(item.guest_id);
                                 var newRow = `
                                 <tr id="dynamic-row-${item.id}" class="bg-white sanPhamGiao height-80">
-                            <td class="border border-left-0 border-top-0  align-top border-bottom-0 position-relative">
+                            <td class="border border-left-0 border-top-0 border-right-0 align-top position-relative">
                                 <div class="d-flex w-100 justify-content-between align-items-center">
                                     <span class='mx-2'>
                                         <svg xmlns='http://www.w3.org/2000/svg' width='10' height='13' viewBox='0 0 10 13' fill='none'>
@@ -1011,7 +1011,7 @@
                                     <input type="text" value="${item.product_code == null ? '' : item.product_code}" readonly autocomplete="off" class="border-0 text-13-black px-2 py-1 w-75 product_code" name="product_code[]">
                                 </div>
                             </td>
-                            <td class="border border-top-0 border-bottom-0 position-relative align-top">
+                            <td class="border border-top-0 position-relative align-top">
                                 <div class="d-flex align-items-center">
                                     <input type="text" readonly value="${item.product_name}" class="border-0 text-13-black px-2 py-1 w-100 product_name" autocomplete="off" required="" name="product_name[]">
                                     <input type="hidden" class="product_id" value="${item.product_id}" autocomplete="off" name="product_id[]">
@@ -1024,19 +1024,19 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="border-right p-2 text-13 align-top">
+                            <td class="border-right p-2 text-13 align-top border-bottom">
                                 <input type="text" value="${item.product_unit}" readonly autocomplete="off" class="border-0 px-2 py-1 w-100 product_unit" required="" name="product_unit[]">
                             </td>
-                            <td class="border-right p-2 text-13 align-top">
+                            <td class="border-right p-2 text-13 align-top border-bottom">
                                 <input type="text" value="${formatNumber(item.product_qty)}" readonly class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
                                 <p class="text-primary text-center position-absolute inventory" style="top: 68%; display: none;">Tồn kho: 35</p>
                             </td>
-                            <td class="border-right p-2 text-13 align-top">
+                            <td class="border-right p-2 text-13 align-top border-bottom">
                                 <input type="text" value="${formatCurrency(item.price_export)}" readonly class="border-0 px-2 py-1 w-100 product_price" autocomplete="off" name="product_price[]" required="" readonly="readonly">
                                 <a href='#'><p class="mt-3 text-13-blue transaction recentModal" data-name1="TT" data-des="Xem giao dịch gần đây" data-toggle="modal" data-target="#recentModal">Giao dịch gần đây</p></a>
                             </td>
-                            <td class="border-right p-2 text-13 align-top">
+                            <td class="p-2 text-13 align-top border-bottom">
                                 <select name="product_tax[]" class="border-0 text-center product_tax" required="" disabled>
                                     <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                     <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
@@ -1044,10 +1044,10 @@
                                     <option value="99" ${(item.product_tax == 99) ? 'selected' : ''}>NOVAT</option>
                                 </select>
                             </td>
-                            <td class="border border-top-0 border-bottom-0 align-top">
+                            <td class="border border-top-0 border-right-0 align-top">
                                 <input type="text" value="${formatCurrency(Math.round(item.product_total))}" readonly="" class="text-13-black text-right border-0 px-2 py-1 w-100 total-amount">
                             </td>
-                            <td class="border border-top-0 border-bottom-0 border-right-0 position-relative note align-top">
+                            <td class="border border-top-0 border-right-0 position-relative note align-top">
                                 <input type="text" readonly placeholder="Nhập ghi chú"
                                     value="${(item.product_note == null) ? '' : item.product_note}" class="text-13-black border-0 py-1 w-100" name="product_note[]">
                             </td>

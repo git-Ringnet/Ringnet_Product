@@ -240,7 +240,7 @@
                                         <tbody>
                                             @foreach ($product as $item)
                                                 <tr class="bg-white" style="height:80px;">
-                                                    <td class='border-right p-2 text-13 align-top'
+                                                    <td class='border-right p-2 text-13 align-top border-bottom'
                                                         style="padding-left: 2rem !important;">
                                                         <div
                                                             class="d-flex w-100 justify-content-between align-items-center">
@@ -250,7 +250,7 @@
                                                                 name="product_code[]">
                                                         </div>
                                                     </td>
-                                                    <td class='border-right p-2 text-13 align-top position-relative'>
+                                                    <td class='border-right border-bottom p-2 text-13 align-top position-relative'>
                                                         <div class="d-flex align-items-center">
                                                             <input type="text" value="{{ $item->product_name }}"
                                                                 class='border-0 pl-0 pr-2 py-1 w-100 product_name'
@@ -285,20 +285,20 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class='border-right p-2 text-13 align-top'>
+                                                    <td class='border-right border-bottom p-2 text-13 align-top'>
                                                         <input type="text" autocomplete="off" readonly=""
                                                             value="{{ $item->product_unit }}"
                                                             class="border-0 px-2 py-1 w-100 product_unit"
                                                             name="product_unit[]">
                                                     </td>
-                                                    <td class='border-right p-2 text-13 align-top'>
+                                                    <td class='border-right border-bottom p-2 text-13 align-top'>
                                                         <input type="text" readonly=""
                                                             value="{{ is_int($item->billSale_qty) ? $item->billSale_qty : rtrim(rtrim(number_format($item->billSale_qty, 4, '.', ''), '0'), '.') }}"
                                                             class='text-right border-0 pl-2 pr-0 py-1 w-100 quantity-input'
                                                             autocomplete="off" name="product_qty[]">
                                                         <input type="hidden" class="tonkho">
                                                     </td>
-                                                    <td class='border-right p-2 text-13 align-top'>
+                                                    <td class='border-right border-bottom p-2 text-13 align-top'>
                                                         <input type="text"
                                                             value="{{ number_format($item->price_export) }}"
                                                             class="border-0 px-2 py-1 w-100 product_price text-right"
@@ -312,7 +312,7 @@
                                                             </div>
                                                         </a>
                                                     </td>
-                                                    <td class='border-right p-2 text-13 align-top'>
+                                                    <td class='border-right p-2 border-bottom text-13 align-top'>
                                                         <select name="product_tax[]"
                                                             class="border-0 text-center product_tax" disabled="">
                                                             <option value="0" <?php if ($item->product_tax == 0) {
@@ -330,7 +330,7 @@
                                                             </option>
                                                         </select>
                                                     </td>
-                                                    <td class='border-right p-2 text-13 align-top'>
+                                                    <td class='border-right p-2 border-bottom text-13 align-top'>
                                                         <input type="text" readonly="" value=""
                                                             class="border-0 px-2 py-1 w-100 total-amount text-right">
                                                     </td>
@@ -344,7 +344,7 @@
                                                             readonly="" autocomplete="off" required="required"
                                                             name="price_import[]" value="{{ $item->price_import }}">
                                                     </td> -->
-                                                    <td class='border-right p-2 text-13 align-top'>
+                                                    <td class='border-right border-bottom p-2 text-13 align-top'>
                                                         <input type="text" class="border-0 py-1 w-100"
                                                             readonly="" value="{{ $item->product_note }}"
                                                             name="product_note[]">

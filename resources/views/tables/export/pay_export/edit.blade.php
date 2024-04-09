@@ -281,7 +281,7 @@
                                             @foreach ($product as $item_quote)
                                                 <tr class="bg-white height-52">
                                                     <td
-                                                        class="border border-left-0 border-top-0 p-2 align-top border-bottom-0 position-relative">
+                                                        class="border border-left-0 border-top-0 p-2 align-top position-relative">
                                                         <div
                                                             class="d-flex w-100 justify-content-between align-items-center">
                                                             <input class="checkall-btn ml-4 mr-1" id="checkall"
@@ -291,7 +291,7 @@
                                                                 class="border-0 px-2 py-1 w-75 product_code w-100 text-13-black "
                                                                 name="product_code[]">
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top position-relative">
+                                                    <td class="border-right p-2 text-13 align-top position-relative border-bottom">
                                                         <div class="d-flex align-items-center">
                                                             <input type="text"
                                                                 value="{{ $item_quote->product_name }}"
@@ -326,13 +326,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top">
+                                                    <td class="border-right p-2 text-13 align-top border-bottom">
                                                         <input type="text" autocomplete="off" readonly
                                                             value="{{ $item_quote->product_unit }}"
                                                             class="border-0 px-2 py-1 w-100 text-right product_unit"
                                                             name="product_unit[]">
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top">
+                                                    <td class="border-right p-2 text-13 align-top border-bottom">
                                                         <input type="text" readonly
                                                             value="{{ is_int($item_quote->pay_qty) ? $item_quote->pay_qty : rtrim(rtrim(number_format($item_quote->pay_qty, 4, '.', ''), '0'), '.') }}"
                                                             class="border-0 px-2 py-1 w-100 quantity-input text-right"
@@ -343,7 +343,7 @@
                                                             <span class="soTonKho">35</span>
                                                         </p>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top">
+                                                    <td class="border-right p-2 text-13 align-top border-bottom">
                                                         <input type="text"
                                                             value="{{ number_format($item_quote->price_export) }}"
                                                             class="border-0 px-2 py-1 w-100 text-right product_price"
@@ -355,7 +355,7 @@
                                                             </p>
                                                         </a>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top">
+                                                    <td class="border-right p-2 text-13 align-top border-bottom">
                                                         <select name="product_tax[]"
                                                             class="border-0 mt-1 text-center product_tax" disabled>
                                                             <option value="0" <?php if ($item_quote->product_tax == 0) {
@@ -373,12 +373,12 @@
                                                             </option>
                                                         </select>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top">
+                                                    <td class="border-right p-2 text-13 align-top border-bottom">
                                                         <input type="text" readonly=""
                                                             value="{{ number_format($item_quote->product_total) }}"
                                                             class="border-0 px-2 py-1 w-100 text-right total-amount">
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top">
+                                                    <td class="border-right p-2 text-13 align-top border-bottom">
                                                         <input type="text" class="border-0 py-1 w-100" readonly
                                                             name="product_note[]" placeholder='Nhập ghi chú'
                                                             value="{{ $item_quote->product_note }}">
@@ -447,23 +447,23 @@
                                     <tbody>
                                         @foreach ($history as $htr)
                                             <tr class="bg-white">
-                                                <td class="border-right text-13-black"
+                                                <td class="border-right text-13-black border-bottom"
                                                     style="padding-left: 2rem !important;">
                                                     {{ $htr->code_payment }}
                                                 </td>
-                                                <td class="border-right text-13-black">
+                                                <td class="border-right text-13-black border-bottom">
                                                     {{ date_format(new DateTime($htr->created_at), 'd-m-Y H:i:s') }}
                                                 </td>
-                                                <td class="border-right text-13-black">
+                                                <td class="border-right text-13-black border-bottom">
                                                     {{ $htr->payment_type }}
                                                 </td>
-                                                <td class="border-right text-13-black">
+                                                <td class="border-right text-13-black border-bottom">
                                                     {{ number_format($htr->total) }}
                                                 </td>
-                                                <td class="border-right text-13-black">
+                                                <td class="border-right text-13-black border-bottom">
                                                     {{ number_format($htr->payment) }}
                                                 </td>
-                                                <td class="text-13-black">{{ number_format($htr->debt) }}</td>
+                                                <td class="text-13-black border-bottom">{{ number_format($htr->debt) }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

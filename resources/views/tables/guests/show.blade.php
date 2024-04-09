@@ -245,25 +245,25 @@
                                         </thead>
                                         <tbody>
                                             <tr id="dynamic-row-1" class="bg-white addProduct">
-                                                <td class="border-right text-13-black px-0 py-2 padding-left35"
+                                                <td class="border-right text-13-black px-0 border-bottom py-2 padding-left35"
                                                     style="width: 18%;">
                                                     <input type="text" autocomplete="off"
                                                         value="{{ $countDetail }}" readonly
                                                         class="border-0 px-2 py-1 w-100 text-13-black">
                                                 </td>
-                                                <td class="border-right text-13-black px-0 py-2 padding-left35"
+                                                <td class="border-right text-13-black border-bottom px-0 py-2 padding-left35"
                                                     style="width: 20%;">
                                                     <input type="text" autocomplete="off"
                                                         value="{{ number_format($sumSell) }}" readonly
                                                         class="border-0 px-2 py-1 w-100 text-13-black">
                                                 </td>
-                                                <td class="border-right text-13-black px-0 py-2 padding-left35"
+                                                <td class="border-right text-13-black border-bottom px-0 py-2 padding-left35"
                                                     style="width: 20%;">
                                                     <input type="text" autocomplete="off"
                                                         value="{{ number_format($sumPay) }}" readonly
                                                         class="border-0 px-2 py-1 w-100 text-13-black">
                                                 </td>
-                                                <td class="border-right text-13-black px-0 py-2 padding-left35"
+                                                <td class="border-right text-13-black border-bottom px-0 py-2 padding-left35"
                                                     style="width: 20%;">
                                                     <input type="text" autocomplete="off"
                                                         value="{{ number_format($sumDebt) }}" readonly
@@ -413,13 +413,13 @@
                                 <tbody>
                                     @foreach ($historyGuest as $itemGuest)
                                         <tr>
-                                            <td class="text-13-black padding-left35">
+                                            <td class="text-13-black padding-left35 border-bottom">
                                                 {{ date_format(new DateTime($itemGuest->created_at), 'd/m/Y') }}
                                             </td>
-                                            <td class="text-13-black max-width120">
+                                            <td class="text-13-black max-width120 border-bottom">
                                                 {{ $itemGuest->quotation_number }}
                                             </td>
-                                            <td class="text-13-black">
+                                            <td class="text-13-black border-bottom">
                                                 @if ($itemGuest->status === 1)
                                                     <span class="text-secondary">Draft</span>
                                                 @elseif($itemGuest->status === 2)
@@ -428,7 +428,7 @@
                                                     <span class="text-success">Close</span>
                                                 @endif
                                             </td>
-                                            <td class="text-13-black text-center">
+                                            <td class="text-13-black text-center border-bottom">
                                                 @if ($itemGuest->status_receive === 1)
                                                     <svg width="16" height="16" viewBox="0 0 16 16"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -462,7 +462,7 @@
                                                     </svg>
                                                 @endif
                                             </td>
-                                            <td class="text-center">
+                                            <td class="text-center border-bottom">
                                                 @if ($itemGuest->status_reciept === 1)
                                                     <svg width="16" height="16" viewBox="0 0 16 16"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -496,7 +496,7 @@
                                                     </svg>
                                                 @endif
                                             </td>
-                                            <td class="text-13-black text-center">
+                                            <td class="text-13-black text-center border-bottom">
                                                 @if ($itemGuest->status_pay === 1)
                                                     <svg width="16" height="16" viewBox="0 0 16 16"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -530,10 +530,10 @@
                                                     </svg>
                                                 @endif
                                             </td>
-                                            <td class="text-13-black text-nowrap">
+                                            <td class="text-13-black text-nowrap border-bottom">
                                                 {{ number_format($itemGuest->total_price + $itemGuest->total_tax) }}
                                             </td>
-                                            <td class="text-13-black text-nowrap">
+                                            <td class="text-13-black text-nowrap border-bottom">
                                                 {{ number_format($itemGuest->amount_owed) }}</td>
                                         </tr>
                                     @endforeach

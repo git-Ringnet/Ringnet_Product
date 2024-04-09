@@ -178,7 +178,7 @@
                                 <tbody>
                                     @foreach ($quoteExport as $item_quote)
                                         <tr class="bg-white addProduct" style="height:80px;">
-                                            <td class='border-right p-2 text-13 align-top' style="">
+                                            <td class='border-right p-2 text-13 align-top border-bottom' style="">
                                                 <span class="ml-1 mr-2">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                         height="10" viewBox="0 0 6 10" fill="none">
@@ -203,7 +203,7 @@
                                                     name="product_code[]">
                                             </td>
 
-                                            <td class='border-right p-2 text-13 align-top position-relative'>
+                                            <td class='border-right p-2 text-13 align-top position-relative border-bottom'>
                                                 <ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data'
                                                     style='z-index: 99;top: 44%;left: 0%;display: none;'>
                                                     @foreach ($product as $product_value)
@@ -254,14 +254,14 @@
                                                 </div>
                                             </td>
 
-                                            <td class='border-right p-2 text-13 align-top'>
+                                            <td class='border-right p-2 text-13 align-top border-bottom'>
                                                 <input type='text' autocomplete='off'
                                                     value="{{ $item_quote->product_unit }}"
                                                     class='border-0 px-2 py-1 w-100 product_unit' readonly
                                                     name='product_unit[]'>
                                             </td>
 
-                                            <td class='border-right p-2 text-13 align-top'>
+                                            <td class='border-right p-2 text-13 align-top border-bottom'>
                                                 <div>
                                                     <input type='text' <?php if ($detailExport->tinhTrang != 1) {
                                                         echo 'readonly';
@@ -273,7 +273,7 @@
                                                 </div>
                                             </td>
 
-                                            <td class='border-right p-2 text-13 align-top'>
+                                            <td class='border-right p-2 text-13 align-top border-bottom'>
                                                 <div>
                                                     <input type='text' <?php if ($detailExport->tinhTrang != 1) {
                                                         echo 'readonly';
@@ -290,7 +290,7 @@
                                                 </a>
                                             </td>
 
-                                            <td class='border-right p-2 text-13 align-top'>
+                                            <td class='border-right p-2 text-13 align-top border-bottom'>
                                                 <select name='product_tax[]' disabled
                                                     class='border-0 px-2 py-1 w-100 text-left product_tax'
                                                     required="">
@@ -309,13 +309,13 @@
                                                 </select>
                                             </td>
 
-                                            <td class='border-right p-2 text-13 align-top'>
+                                            <td class='border-right p-2 text-13 align-top border-bottom'>
                                                 <input type='text' readonly
                                                     value="{{ number_format($item_quote->product_total) }}"
                                                     class='text-right border-0 px-2 py-1 w-100 total-amount'>
                                             </td>
 
-                                            <td class='border-right p-2 note text-13 align-top'>
+                                            <td class='border-right p-2 note text-13 align-top border-bottom'>
                                                 <input type='text' name="product_note[]" <?php if ($detailExport->tinhTrang != 1) {
                                                     echo 'readonly';
                                                 } ?>
@@ -323,7 +323,7 @@
                                                     class='border-0 py-1 w-100' placeholder='Nhập ghi chú'>
                                             </td>
                                             @if ($detailExport->tinhTrang == 1)
-                                                <td class='border-right p-2 align-top'>
+                                                <td class='border-right p-2 align-top border-bottom'>
                                                     <svg class="delete-product activity" data-name1="BG"
                                                         data-des="Xóa sản phẩm ở trang chỉnh sửa" width='17'
                                                         height='17' viewBox='0 0 17 17' fill='none'
@@ -1922,25 +1922,25 @@
                 "style": `height:80px`
             });
             const maSanPham = $(
-                "<td class='border-right p-2 text-13 align-top'>" +
-                "<span class='ml-1 mr-2'>" +
-                "<svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>" +
-                "<g clip-path='url(#clip0_1710_10941)'>" +
-                "<path fill-rule='evenodd' clip-rule='evenodd' d='M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z' fill='#282A30'/>" +
-                "</g>" +
-                "<defs>" +
-                "<clipPath id='clip0_1710_10941'>" +
-                "<rect width='6' height='10' fill='white'/>" +
-                "</clipPath>" +
-                "</defs>" +
-                "</svg>" +
-                "</span>" +
-                "<input type='checkbox' class='cb-element checkall-btn ml-1 mr-1'>" +
-                "<input type='text' autocomplete='off' class='border-0 pl-1 pr-2 py-1 w-50 product_code' name='product_code[]'>" +
-                "</td>"
+                `<td class='border-right p-2 text-13 align-top border-bottom'>` +
+                `<span class='ml-1 mr-2'>` +
+                `<svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>` +
+                `<g clip-path='url(#clip0_1710_10941)'>` +
+                `<path fill-rule='evenodd' clip-rule='evenodd' d='M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z' fill='#282A30'/>` +
+                `</g>` +
+                `<defs>` +
+                `<clipPath id='clip0_1710_10941'>` +
+                `<rect width='6' height='10' fill='white'/>` +
+                `</clipPath>` +
+                `</defs>` +
+                `</svg>` +
+                `</span>` +
+                `<input type='checkbox' class='cb-element checkall-btn ml-1 mr-1'>` +
+                `<input type='text' autocomplete='off' class='border-0 pl-1 pr-2 py-1 w-50 product_code' name='product_code[]'>` +
+                `</td>`
             );
             const tenSanPham = $(
-                `<td class='border-right p-2 text-13 align-top position-relative'>` +
+                `<td class='border-right p-2 text-13 align-top position-relative border-bottom'>` +
                 `<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 44%;left: 0%;'>` +
                 `@foreach ($product as $product_value)` +
                 `<li data-id='{{ $product_value->id }}'>` +
@@ -1971,12 +1971,12 @@
                 `</td>`
             );
             const dvTinh = $(
-                "<td class='border-right p-2 text-13 align-top'>" +
+                "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit' required name='product_unit[]'>" +
                 "</td>"
             );
             const soLuong = $(
-                "<td class='border-right p-2 text-13 align-top'>" +
+                "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<div>" +
                 "<input type='text' class='text-right border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
@@ -1985,7 +1985,7 @@
                 "</td>"
             );
             const donGia = $(
-                "<td class='border-right p-2 text-13 align-top'>" +
+                "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<div>" +
                 "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
                 "</div>" +
@@ -1993,7 +1993,7 @@
                 "</td>"
             );
             const thue = $(
-                "<td class='border-right p-2 text-13 align-top'>" +
+                "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<select name='product_tax[]' class='border-0 px-2 py-1 w-100 text-left product_tax' required>" +
                 "<option value='0'>0%</option>" +
                 "<option value='8'>8%</option>" +
@@ -2003,17 +2003,17 @@
                 "</td>"
             );
             const thanhTien = $(
-                "<td class='border-right p-2 text-13 align-top'>" +
+                "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<input type='text' readonly class='text-right border-0 px-2 py-1 w-100 total-amount'>" +
                 "</td>"
             );
             const ghiChu = $(
-                "<td class='border border-bottom-0 position-relative note p-1 align-top'>" +
+                "<td class='border border-bottom position-relative note p-1 align-top'>" +
                 "<input type='text' class='border-0 py-1 w-100' placeholder='Nhập ghi chú' name='product_note[]'>" +
                 "</td>"
             );
             const option = $(
-                "<td class='border-right p-2 align-top activity' data-name1='BG' data-des='Xóa sản phẩm ở trang chỉnh sửa'>" +
+                "<td class='border-right p-2 align-top activity border-bottom' data-name1='BG' data-des='Xóa sản phẩm ở trang chỉnh sửa'>" +
                 "<svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
                 "<path fill-rule='evenodd' clip-rule='evenodd' d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z' fill='#6B6F76'/>" +
                 "</svg>" +
