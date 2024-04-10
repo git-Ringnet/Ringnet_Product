@@ -32,6 +32,7 @@ class DetailImport extends Model
         'terms_pay',
         'created_at',
         'updated_at',
+        'provide_name',
     ];
     public function getProvideName()
     {

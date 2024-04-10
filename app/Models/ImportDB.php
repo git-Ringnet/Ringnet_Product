@@ -37,7 +37,7 @@ class ImportDB implements ToModel
         //     'provide_address' => '',
         //     'provide_code' => '',
         //     'provide_debt' => $row[2],
-        //     'workspace_id' => 3,
+        //     'workspace_id' => 8,
         // ]);
         // $models[] = new BillSale([
         //     'id' => $row[0],
@@ -45,7 +45,7 @@ class ImportDB implements ToModel
         //     'guest_id' => $row[2],
         //     'price_total' => $row[5],
         //     'status' =>  $row[4],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'number_bill' => $row[3],
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[6]),
         // ]);
@@ -56,7 +56,7 @@ class ImportDB implements ToModel
         //     'deliver_qty' => $row[5],
         //     'product_total_vat' => $row[3],
         //     'price_export' => $row[2],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[4]),
         //     'updated_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[4]),
         // ]);
@@ -68,7 +68,7 @@ class ImportDB implements ToModel
         //     'shipping_fee' => 0,
         //     'detailexport_id' => $row[0],
         //     'status' => $row[4],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[5]),
         // ]);
         // $models[] = new DetailExport([
@@ -82,7 +82,7 @@ class ImportDB implements ToModel
         //     'status_reciept' => 2,
         //     'status_pay' => $row[4],
         //     'status' => $row[5],
-        //     'workspace_id' => 3,
+        //     'workspace_id' => 8,
         //     'total_price' => $row[7],
         //     'total_tax' => $row[6],
         //     'amount_owed' => $row[8],
@@ -99,7 +99,7 @@ class ImportDB implements ToModel
         //     'status_reciept' => 2,
         //     'status_pay' => 2,
         //     'project_id' => 1,
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'total_price' => $row[3],
         //     'total_tax' => $row[4],
         //     'amount_owed' =>  $row[5],
@@ -126,7 +126,7 @@ class ImportDB implements ToModel
         //     'product_id' =>  $row[0],
         //     'provide_id' =>  $row[3],
         //     'version' =>  0,
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[10]),
         // ]);
         // $models[] = new QuoteImport([
@@ -145,35 +145,35 @@ class ImportDB implements ToModel
         //     'reciept_qty' =>  $row[3],
         //     'payment_qty' =>  $row[3],
         //     'warehouse_id' =>  1,
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[9]),
         // ]);
-        // $models[] = new QuoteExport([
-        //     'id' => $row[0],
-        //     'detailexport_id' => $row[1],
-        //     'product_code' => '',
-        //     'product_name' => $row[2],
-        //     'product_unit' => '',
-        //     'product_qty' => $row[3],
-        //     'product_tax' => $row[6],
-        //     'product_total' => $row[5],
-        //     'price_export' => $row[7],
-        //     'deliver_id' => 0,
-        //     'product_id' =>  $row[0],
-        //     'status' =>  1,
-        //     'qty_delivery' =>  $row[3],
-        //     'qty_bill_sale' =>  $row[3],
-        //     'qty_payment' =>  $row[3],
-        //     'workspace_id' => 2,
-        //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[8]),
-        // ]);
+        $models[] = new QuoteExport([
+            'id' => $row[0],
+            'detailexport_id' => $row[1],
+            'product_code' => '',
+            'product_name' => $row[2],
+            'product_unit' => '',
+            'product_qty' => $row[3],
+            'product_tax' => $row[6],
+            'product_total' => $row[5],
+            'price_export' => $row[7],
+            'deliver_id' => 0,
+            'product_id' =>  $row[0],
+            'status' =>  1,
+            'qty_delivery' =>  $row[3],
+            'qty_bill_sale' =>  $row[3],
+            'qty_payment' =>  $row[3],
+            'workspace_id' => 8,
+            'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[8]),
+        ]);
         // $models[] = new Receive_bill([
         //     'id' => $row[0],
         //     'detailimport_id' => $row[1],
         //     'provide_id' => $row[2],
         //     'status' => 2,
         //     'delivery_code' =>  $row[3],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'total_tax' => $row[4],
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[6]),
         // ]);
@@ -185,7 +185,7 @@ class ImportDB implements ToModel
         //     'price_total' => $row[4],
         //     'number_bill' => $row[6],
         //     'date_bill' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[7]),
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[7]),
         // ]);
         // $models[] = new Products([
@@ -197,7 +197,7 @@ class ImportDB implements ToModel
         //     'product_tax' => $row[6],
         //     'product_inventory' => 0,
         //     'check_seri' => $row[5],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'product_guarantee' => $row[7],
         //     'type' => $row[8],
         // ]);
@@ -211,7 +211,7 @@ class ImportDB implements ToModel
         //     'reciept_id' =>  $row[1],
         //     'payOrder_id' =>  $row[1],
         //     'product_id' =>  $row[0],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'cbSN' => $row[14],
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[13]),
         //     'product_guarantee' =>  $row[15],
@@ -222,7 +222,7 @@ class ImportDB implements ToModel
         //     'billSale_id' => $row[4],
         //     'product_id' => $row[0],
         //     'billSale_qty' => $row[1],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[2]),
         // ]);
 
@@ -231,7 +231,7 @@ class ImportDB implements ToModel
         //     'pay_id' => $row[4],
         //     'product_id' => $row[0],
         //     'pay_qty' => $row[1],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[2]),
         // ]);
 
@@ -247,7 +247,7 @@ class ImportDB implements ToModel
         //     'payment_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[7]),
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[7]),
         //     'status' => $row[5],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         // ]);
 
         // $models[] = new PayExport([
@@ -260,7 +260,7 @@ class ImportDB implements ToModel
         //     'debt' =>  $row[10],
         //     'payment_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[8]),
         //     'status' =>  $row[4],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[8]),
         // ]);
         // $models[] = new history_Pay_Export([
@@ -269,7 +269,7 @@ class ImportDB implements ToModel
         //     'total' => $row[6],
         //     'payment' => $row[11],
         //     'debt' =>  $row[10],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[8]),
         // ]);
         // $models[] = new HistoryPaymentOrder([
@@ -278,7 +278,7 @@ class ImportDB implements ToModel
         //     'total' => $row[4],
         //     'payment' => $row[11],
         //     'debt' =>  $row[10],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'provide_id' => $row[2],
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[7]),
         // ]);
@@ -295,7 +295,7 @@ class ImportDB implements ToModel
         //     'tax_import' => $row[6],
         //     'price_import' => $row[10],
         //     'total_import' =>  $row[8],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         //     'created_at' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[9]),
         // ]);
         // $models[] = new Serialnumber([
@@ -307,7 +307,7 @@ class ImportDB implements ToModel
         //     'receive_id' => $row[2],
         //     'product_id' =>  $row[0],
         //     'status' =>  1,
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 8,
         // ]);
         return $models;
     }
