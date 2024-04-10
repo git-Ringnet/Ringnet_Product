@@ -66,7 +66,7 @@
                                             style="display: none;" />
                                     </div>
                                 </form>
-                                <div class="dropdown mx-2 d-none">
+                                {{-- <div class="dropdown mx-2">
                                     <button class="btn-filter_searh" data-toggle="dropdown">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 16 16" fill="none">
@@ -113,7 +113,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="result-filter-detailExport d-flex">
                                 </div>
                             </div>
@@ -122,8 +122,7 @@
                 </div>
             </div>
         </div>
-        <div class="row m-auto filter p-0 border-custom height-52 position-relative"
-            style="border-bottom: none !important;">
+        <div class="row m-auto filter p-0 border-custom height-52 position-relative" style="border-bottom: none !important;">
             <div class="w-100">
                 <div class="row mr-0 mt-1 padding-left32">
                     <div class="col-md-5 d-flex align-items-center">
@@ -162,8 +161,7 @@
             </div>
         </div>
     </div>
-    <div class="content margin-top-68">
-        <!-- Main content -->
+    <div class="content margin-top-10">
         <section class="content margin-250">
             <div class="container-fluided">
                 <div class="row">

@@ -10,6 +10,7 @@ use App\Models\PayOder;
 use App\Models\Provides;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class ReportController extends Controller
@@ -78,6 +79,21 @@ class ReportController extends Controller
         }
         $labels3 = json_encode($labels3);
         $data3 = json_encode($data3);
+
+        //Tổng doanh thu theo quý
+        $revenueByQuarter = DB::table('bill_sale')
+            ->select(
+                DB::raw('YEAR(created_at) AS year'),
+                DB::raw('QUARTER(created_at) AS quarter'),
+                DB::raw('SUM(price_total) AS total_revenue')
+            )
+            ->where('status', 2)
+            ->whereYear('created_at', date('Y')) // Lọc theo năm hiện tại
+            ->groupBy('year', 'quarter')
+            ->orderBy('year')
+            ->orderBy('quarter')
+            ->get();
+        // dd($revenueByQuarter);
         return view('report.index', compact(
             'title',
             'guests',
@@ -90,6 +106,7 @@ class ReportController extends Controller
             'data3',
             'detailExport',
             'detailImport',
+            'revenueByQuarter'
         ));
     }
     public function view()
