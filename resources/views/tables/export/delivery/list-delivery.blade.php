@@ -239,16 +239,14 @@
                                                 </td>
 
                                                 <td class="text-13-black text-left">
-                                                    {{ $item_delivery->code_delivery }}
+                                                    <a href="{{ route('watchDelivery', ['workspace' => $workspacename, 'id' => $item_delivery->maGiaoHang]) }}"
+                                                        class="duongDan activity" data-name1="GH"
+                                                        data-des="Xem đơn giao hàng">
+                                                        {{ $item_delivery->code_delivery }}
+                                                    </a>
                                                 </td>
                                                 <td class="text-13-black max-width120 text-left">
-                                                    <div class="">
-                                                        <a href="{{ route('watchDelivery', ['workspace' => $workspacename, 'id' => $item_delivery->maGiaoHang]) }}"
-                                                            class="duongDan activity" data-name1="GH"
-                                                            data-des="Xem đơn giao hàng">
-                                                            {{ $item_delivery->quotation_number }}
-                                                        </a>
-                                                    </div>
+                                                    {{ $item_delivery->quotation_number }}
                                                 </td>
                                                 <td class="text-13-black max-width120 text-left">
                                                     {{ $item_delivery->guest_name }}
@@ -269,7 +267,8 @@
                                                 <td class="text-13-black text-left">
                                                     {{ date_format(new DateTime($item_delivery->ngayGiao), 'd/m/Y') }}
                                                 </td>
-                                                <td class="text-13-black text-right">{{ number_format($item_delivery->totalProductVat) }}
+                                                <td class="text-13-black text-right">
+                                                    {{ number_format($item_delivery->totalProductVat) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                     style="right: 10px; top: 8px;">

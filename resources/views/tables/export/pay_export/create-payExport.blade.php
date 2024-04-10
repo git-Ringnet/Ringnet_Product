@@ -165,11 +165,11 @@
                                         </th>
                                         <th class="border-right p-0 px-2 text-13" style="width:15%;">Tên sản phẩm</th>
                                         <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Số
+                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Số
                                             lượng</th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Đơn
                                             giá</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Thuế
+                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">Thuế
                                         </th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Thành
                                             tiền</th>
@@ -1033,10 +1033,10 @@
                                 <p class="text-primary text-center position-absolute inventory" style="top: 68%; display: none;">Tồn kho: 35</p>
                             </td>
                             <td class="border-right p-2 text-13 align-top border-bottom">
-                                <input type="text" value="${formatCurrency(item.price_export)}" readonly class="border-0 px-2 py-1 w-100 product_price" autocomplete="off" name="product_price[]" required="" readonly="readonly">
+                                <input type="text" value="${formatCurrency(item.price_export)}" readonly class="border-0 px-2 py-1 w-100 product_price text-right" autocomplete="off" name="product_price[]" required="" readonly="readonly">
                                 <a href='#'><p class="mt-3 text-13-blue transaction recentModal" data-name1="TT" data-des="Xem giao dịch gần đây" data-toggle="modal" data-target="#recentModal">Giao dịch gần đây</p></a>
                             </td>
-                            <td class="p-2 text-13 align-top border-bottom">
+                            <td class="p-2 text-13 align-top border-bottom text-center">
                                 <select name="product_tax[]" class="border-0 text-center product_tax" required="" disabled>
                                     <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                     <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
@@ -1048,8 +1048,8 @@
                                 <input type="text" value="${formatCurrency(Math.round(item.product_total))}" readonly="" class="text-13-black text-right border-0 px-2 py-1 w-100 total-amount">
                             </td>
                             <td class="border border-top-0 border-right-0 position-relative note align-top">
-                                <input type="text" readonly placeholder="Nhập ghi chú"
-                                    value="${(item.product_note == null) ? '' : item.product_note}" class="text-13-black border-0 py-1 w-100" name="product_note[]">
+                                <input type="text" readonly
+                                    value="${(item.product_note == null) ? '' : item.product_note}" class="text-13-black border-0 py-1 w-100 text-left" name="product_note[]">
                             </td>
                             <td style="display:none;"><input type="text" class="product_tax1" value="${tax}"></td>
                             </tr>`;

@@ -223,14 +223,14 @@
                                                     {{ date_format(new DateTime($item_bill->ngayHD), 'd/m/Y') }}
                                                 </td>
                                                 <td class="text-13-black height-52 text-left">
-                                                    {{ $item_bill->number_bill }}
+                                                    <a class="activity"
+                                                        href="{{ route('billSale.edit', ['workspace' => $workspacename, 'billSale' => $item_bill->idHD]) }}"
+                                                        data-name1="HDBH" data-des="Xem hóa đơn bán hàng">
+                                                        {{ $item_bill->number_bill }}
+                                                    </a>
                                                 </td>
                                                 <td class="height-52 text-13-black text-left">
-                                                    <a class="activity" data-name1="HDBH"
-                                                        data-des="Xem hóa đơn bán hàng"
-                                                        href="{{ route('billSale.edit', ['workspace' => $workspacename, 'billSale' => $item_bill->idHD]) }}">
-                                                        {{ $item_bill->quotation_number }}
-                                                    </a>
+                                                    {{ $item_bill->quotation_number }}
                                                 </td>
                                                 <td class="text-13-black height-52 text-left">
                                                     {{ $item_bill->guest_name }}

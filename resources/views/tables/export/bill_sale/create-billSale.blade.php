@@ -119,7 +119,7 @@
                             <table class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">
-                                        <th class="border-right p-0 px-2 text-13" style="width:10%;">
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:10%;">
                                             <span class="mx-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                     viewBox="0 0 14 14" fill="none">
@@ -134,15 +134,15 @@
                                         <th class="border-right p-0 px-2 text-13" style="width:15%;">Tên sản phẩm
                                         </th>
                                         <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
-                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">Số
+                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Số
                                             lượng</th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Đơn
                                             giá</th>
                                         <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">Thuế
                                         </th>
-                                        <th class="border-right p-0 px-1 text-center text-13" style="width:10%;">Thành
+                                        <th class="border-right p-0 px-1 text-right text-13" style="width:10%;">Thành
                                             tiền</th>
-                                        <th class="border-right p-0 px-2 text-center note text-13">Ghi chú sản phẩm
+                                        <th class="border-right p-0 px-2 text-left note text-13">Ghi chú sản phẩm
                                         </th>
                                         <th class="border-right p-0 px-2"></th>
                                     </tr>
@@ -581,7 +581,7 @@
                                                 </div>
                                                 <a href='#'><div class='mt-3 text-13-blue transaction recentModal' data-name1='HDBH' data-des="Xem giao dịch gần đây" data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</div></a>
                                             </td>
-                                            <td class="border-right p-2 text-13 align-top border-bottom">
+                                            <td class="border-right p-2 text-13 align-top border-bottom text-center">
                                                 <select class="border-0 text-center product_tax" required="" disabled>
                                                     <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                                     <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
@@ -593,10 +593,10 @@
                                             <td class="border-right p-2 text-13 align-top border-bottom">
                                                 <input type='text'
                                                         value="${formatCurrency(item.product_total)}" readonly 
-                                                        class="border-0 px-2 py-1 w-100 total-amount" >
+                                                        class="border-0 px-2 py-1 w-100 total-amount text-right">
                                             </td>                             
                                             <td class="border-right p-2 text-13 align-top border-bottom">
-                                                <input type="text" placeholder='Nhập ghi chú'
+                                                <input type="text"
                                                         readonly value="${(item.product_note == null) ? '' : item.product_note}" 
                                                         class="border-0 py-1 w-100" name="product_note[]">
                                             </td>

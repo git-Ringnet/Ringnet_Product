@@ -125,23 +125,23 @@
                                                 </svg>
                                             </span>
                                             <input class="checkall-btn mx-1" id="checkall" type="checkbox">
-                                            <span class="text-table text-secondary">Mã sản phẩm</span>
+                                            <span class="text-table text-secondary text-left">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-13" style="width:15%;">Tên sản phẩm</th>
-                                        <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:15%;">Tên sản phẩm</th>
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">Đơn vị</th>
+                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">
                                             Số lượng
                                         </th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                             Đơn giá
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
+                                        <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
                                             Thuế
                                         </th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">
                                             Thành tiền
                                         </th>
-                                        <th class="border-right p-0 px-2 note text-13">Ghi chú sản phẩm</th>
+                                        <th class="border-right p-0 px-2 text-left note text-13">Ghi chú sản phẩm</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -651,7 +651,7 @@
                 "style": `height:80px`
             });
             const maSanPham = $(
-                `<td class='border-right p-2 text-13 align-top border-bottom'>` +
+                `<td class='border-right p-2 text-13 text-left align-top border-bottom'>` +
                 `<span class='ml-1 mr-2'>` +
                 `<svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>` +
                 `<g clip-path='url(#clip0_1710_10941)'>` +
@@ -669,7 +669,7 @@
                 `</td>`
             );
             const tenSanPham = $(
-                `<td class='border-right p-2 text-13 align-top position-relative border-bottom'>` +
+                `<td class='border-right p-2 text-13 text-left align-top position-relative border-bottom'>` +
                 `<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 44%;left: 0%;'>` +
                 `@foreach ($product as $product_value)` +
                 `<li data-id='{{ $product_value->id }}'>` +
@@ -706,7 +706,7 @@
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<div class='d-flex align-items-center'>" +
                 "<div>" +
-                "<input type='number' value='' data-product-id='' class='border-0 px-2 text-right py-1 w-100 quantity-input' autocomplete='off' required='' name='product_qty[]'>" +
+                "<input type='number' value='' data-product-id='' class='border-0 px-2 text-left py-1 w-100 quantity-input' autocomplete='off' required='' name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "<p class='mt-3 text-13-blue inventory'>Tồn kho: <span class='soTonKho'>0</span></p>" +
                 "</div>" +
@@ -738,7 +738,7 @@
             );
             const thue = $(
                 "<td class='border-right p-1 text-13 align-top border-bottom'>" +
-                "<select name='product_tax[]' class='border-0 py-1 w-100 text-left product_tax' required>" +
+                "<select name='product_tax[]' class='border-0 py-1 w-100 text-center product_tax' required>" +
                 "<option value='0'>0%</option>" +
                 "<option value='8'>8%</option>" +
                 "<option value='10'>10%</option>" +

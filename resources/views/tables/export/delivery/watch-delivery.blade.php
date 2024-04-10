@@ -159,11 +159,11 @@
                                 <table class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr style="height:44px;">
-                                            <th class="border-right p-0 px-2 text-13"
-                                                style="width:15%; padding-left: 2rem !important;">
-                                                <span>Mã sản phẩm</span>
+                                            <th class="border-right p-0 px-2 text-13" style="width:15%;">
+                                                <span class="text-left ml-2">Mã sản phẩm</span>
                                             </th>
-                                            <th class="border-right p-0 px-2 text-13" style="width:17%;">Tên sản phẩm
+                                            <th class="border-right p-0 px-2 text-13" style="width:17%;">
+                                                Tên sản phẩm
                                             </th>
                                             <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
                                             <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
@@ -234,7 +234,7 @@
                                                             <input type="text" readonly
                                                                 data-row="row{{ $item_quote->product_id }}"
                                                                 value="{{ is_int($item_quote->deliver_qty) ? $item_quote->deliver_qty : rtrim(rtrim(number_format($item_quote->deliver_qty, 4, '.', ''), '0'), '.') }}"
-                                                                class='text-right border-0 pl-2 pr-0 py-1 w-100 quantity-input'
+                                                                class='text-left border-0 pl-2 pr-0 py-1 w-100 quantity-input'
                                                                 autocomplete="off" name="product_qty[]">
                                                             <input type="hidden" class="tonkho">
                                                         </div>
@@ -270,7 +270,7 @@
                                                         </div>
                                                     </div>
                                                     @if ($item_quote->type != 2)
-                                                        <div class='text-13-blue inventory text-right'>Tồn kho:
+                                                        <div class='text-13-blue inventory text-left mt-3'>Tồn kho:
                                                             <span
                                                                 class='pl-1 soTonKho'>{{ is_int($item_quote->product_inventory) ? $item_quote->product_inventory : rtrim(rtrim(number_format($item_quote->product_inventory, 4, '.', ''), '0'), '.') }}
                                                             </span>
@@ -290,7 +290,7 @@
                                                         </div>
                                                     </a>
                                                 </td>
-                                                <td class="border-right p-2 text-13 align-top border-bottom">
+                                                <td class="border-right p-2 text-13 align-top text-center border-bottom">
                                                     <select name="product_tax[]"
                                                         class="border-0 text-center product_tax" disabled>
                                                         <option value="0" <?php if ($item_quote->product_tax == 0) {

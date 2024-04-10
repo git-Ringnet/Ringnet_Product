@@ -216,24 +216,24 @@
                                     <table class="table table-hover bg-white rounded">
                                         <thead>
                                             <tr style="height:44px;">
-                                                <th class="border-right p-0 px-2 text-13"
-                                                    style="width:15%; padding-left: 2rem !important;">
-                                                    <span>Mã sản phẩm</span>
+                                                <th class="border-right p-0 px-2 text-13 text-left"
+                                                    style="width:15%;">
+                                                    <span class="ml-2">Mã sản phẩm</span>
                                                 </th>
-                                                <th class="border-right p-0 px-2 text-13" style="width:17%;">Tên sản
+                                                <th class="border-right p-0 px-2 text-13 text-left" style="width:17%;">Tên sản
                                                     phẩm</th>
-                                                <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị
+                                                <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">Đơn vị
                                                 </th>
-                                                <th class="border-right p-0 px-2 text-center text-13"
+                                                <th class="border-right p-0 px-2 text-left text-13"
                                                     style="width:10%;">Số lượng</th>
                                                 <th class="border-right p-0 px-2 text-right text-13"
                                                     style="width:10%;">Đơn giá</th>
                                                 <th class="border-right p-0 px-2 text-center text-13"
                                                     style="width:10%;">Thuế</th>
                                                 <th
-                                                    class="border-right p-0 px-1 text-center text-13"style="width:15%;">
+                                                    class="border-right p-0 px-1 text-right text-13"style="width:15%;">
                                                     Thành tiền</th>
-                                                <th class="border-right p-0 px-2 text-center note text-13">Ghi chú sản
+                                                <th class="border-right p-0 px-2 text-left note text-13">Ghi chú sản
                                                     phẩm</th>
                                             </tr>
                                         </thead>
@@ -245,15 +245,15 @@
                                                         <div
                                                             class="d-flex w-100 justify-content-between align-items-center">
                                                             <input type="text" autocomplete="off" readonly=""
-                                                                value="MSP-0001"
-                                                                class='border-0 pl-0 pr-2 py-1 w-75 product_code'
+                                                                value="{{ $item->product_code }}"
+                                                                class='border-0 pl-0 pr-2 py-1 w-75 product_code text-left'
                                                                 name="product_code[]">
                                                         </div>
                                                     </td>
                                                     <td class='border-right border-bottom p-2 text-13 align-top position-relative'>
                                                         <div class="d-flex align-items-center">
                                                             <input type="text" value="{{ $item->product_name }}"
-                                                                class='border-0 pl-0 pr-2 py-1 w-100 product_name'
+                                                                class='border-0 pl-0 pr-2 py-1 w-100 product_name text-left'
                                                                 readonly="" autocomplete="off"
                                                                 name="product_name[]">
                                                             <input type="hidden" class="product_id"
@@ -288,13 +288,13 @@
                                                     <td class='border-right border-bottom p-2 text-13 align-top'>
                                                         <input type="text" autocomplete="off" readonly=""
                                                             value="{{ $item->product_unit }}"
-                                                            class="border-0 px-2 py-1 w-100 product_unit"
+                                                            class="border-0 px-2 py-1 w-100 product_unit text-left"
                                                             name="product_unit[]">
                                                     </td>
                                                     <td class='border-right border-bottom p-2 text-13 align-top'>
                                                         <input type="text" readonly=""
                                                             value="{{ is_int($item->billSale_qty) ? $item->billSale_qty : rtrim(rtrim(number_format($item->billSale_qty, 4, '.', ''), '0'), '.') }}"
-                                                            class='text-right border-0 pl-2 pr-0 py-1 w-100 quantity-input'
+                                                            class='text-left border-0 pl-2 pr-0 py-1 w-100 quantity-input'
                                                             autocomplete="off" name="product_qty[]">
                                                         <input type="hidden" class="tonkho">
                                                     </td>
@@ -312,7 +312,7 @@
                                                             </div>
                                                         </a>
                                                     </td>
-                                                    <td class='border-right p-2 border-bottom text-13 align-top'>
+                                                    <td class='border-right p-2 border-bottom text-13 align-top text-center'>
                                                         <select name="product_tax[]"
                                                             class="border-0 text-center product_tax" disabled="">
                                                             <option value="0" <?php if ($item->product_tax == 0) {
@@ -330,7 +330,7 @@
                                                             </option>
                                                         </select>
                                                     </td>
-                                                    <td class='border-right p-2 border-bottom text-13 align-top'>
+                                                    <td class='border-right p-2 border-bottom text-13 align-top text-right'>
                                                         <input type="text" readonly="" value=""
                                                             class="border-0 px-2 py-1 w-100 total-amount text-right">
                                                     </td>
@@ -345,7 +345,7 @@
                                                             name="price_import[]" value="{{ $item->price_import }}">
                                                     </td> -->
                                                     <td class='border-right border-bottom p-2 text-13 align-top'>
-                                                        <input type="text" class="border-0 py-1 w-100"
+                                                        <input type="text" class="border-0 py-1 w-100 text-left"
                                                             readonly="" value="{{ $item->product_note }}"
                                                             name="product_note[]">
                                                     </td>

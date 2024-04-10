@@ -238,13 +238,14 @@
                                                         onclick="event.stopPropagation();">
                                                 </td>
                                                 <td class="text-13-black text-left">
-                                                    {{ $item_pay->code_payment }}
-                                                </td>
-                                                <td class="text-13-black max-width120 text-left">
                                                     <a class="activity" data-name1="TT" data-des="Xem đơn thanh toán"
                                                         href="{{ route('payExport.edit', ['workspace' => $workspacename, 'payExport' => $item_pay->idThanhToan]) }}">
-                                                        {{ $item_pay->quotation_number }}
+                                                        {{ $item_pay->code_payment }}
                                                     </a>
+
+                                                </td>
+                                                <td class="text-13-black max-width120 text-left">
+                                                    {{ $item_pay->quotation_number }}
                                                 </td>
                                                 <td class="text-13-black max-width120 text-left">
                                                     {{ $item_pay->guest_name }}

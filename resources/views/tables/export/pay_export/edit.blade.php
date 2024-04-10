@@ -263,13 +263,13 @@
                                                 <th class="border-right p-2" style="width: 10%;">
                                                     <span class="text-13"> Số lượng</span>
                                                 </th>
-                                                <th class="border-right p-2">
+                                                <th class="border-right p-2 text-right">
                                                     <span class="text-13">Đơn giá</span>
                                                 </th>
-                                                <th class="border-right p-2">
+                                                <th class="border-right p-2 text-center">
                                                     <span class="text-13">Thuế</span>
                                                 </th>
-                                                <th class="border-right p-2">
+                                                <th class="border-right p-2 text-right">
                                                     <span class="text-13">Thành tiền</span>
                                                 </th>
                                                 <th class="note p-2">
@@ -329,13 +329,13 @@
                                                     <td class="border-right p-2 text-13 align-top border-bottom">
                                                         <input type="text" autocomplete="off" readonly
                                                             value="{{ $item_quote->product_unit }}"
-                                                            class="border-0 px-2 py-1 w-100 text-right product_unit"
+                                                            class="border-0 px-2 py-1 w-100 text-left product_unit"
                                                             name="product_unit[]">
                                                     </td>
                                                     <td class="border-right p-2 text-13 align-top border-bottom">
                                                         <input type="text" readonly
                                                             value="{{ is_int($item_quote->pay_qty) ? $item_quote->pay_qty : rtrim(rtrim(number_format($item_quote->pay_qty, 4, '.', ''), '0'), '.') }}"
-                                                            class="border-0 px-2 py-1 w-100 quantity-input text-right"
+                                                            class="border-0 px-2 py-1 w-100 quantity-input text-left"
                                                             autocomplete="off" name="product_qty[]">
                                                         <input type="hidden" class="tonkho">
                                                         <p class="text-primary text-center position-absolute inventory"
@@ -355,7 +355,7 @@
                                                             </p>
                                                         </a>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                                    <td class="border-right p-2 text-13 text-center align-top border-bottom">
                                                         <select name="product_tax[]"
                                                             class="border-0 mt-1 text-center product_tax" disabled>
                                                             <option value="0" <?php if ($item_quote->product_tax == 0) {
@@ -380,7 +380,7 @@
                                                     </td>
                                                     <td class="border-right p-2 text-13 align-top border-bottom">
                                                         <input type="text" class="border-0 py-1 w-100" readonly
-                                                            name="product_note[]" placeholder='Nhập ghi chú'
+                                                            name="product_note[]"
                                                             value="{{ $item_quote->product_note }}">
                                                     </td>
                                                     <td style="display:none;" class="">
@@ -439,9 +439,9 @@
                                             <th class="text-table text-secondary p-2 border-right">Ngày thanh toán</th>
                                             <th class="text-table text-secondary p-2 border-right">Hình thức t.toán
                                             </th>
-                                            <th class="text-table text-secondary p-2 border-right">Tổng tiền</th>
-                                            <th class="text-table text-secondary p-2 border-right">Thanh toán</th>
-                                            <th class="text-table text-secondary p-2">Dư nợ</th>
+                                            <th class="text-table text-secondary p-2 border-right text-right">Tổng tiền</th>
+                                            <th class="text-table text-secondary p-2 border-right text-right">Thanh toán</th>
+                                            <th class="text-table text-secondary p-2 text-right">Dư nợ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -457,13 +457,13 @@
                                                 <td class="border-right text-13-black border-bottom">
                                                     {{ $htr->payment_type }}
                                                 </td>
-                                                <td class="border-right text-13-black border-bottom">
+                                                <td class="border-right text-13-black border-bottom text-right">
                                                     {{ number_format($htr->total) }}
                                                 </td>
-                                                <td class="border-right text-13-black border-bottom">
+                                                <td class="border-right text-13-black border-bottom text-right">
                                                     {{ number_format($htr->payment) }}
                                                 </td>
-                                                <td class="text-13-black border-bottom">{{ number_format($htr->debt) }}</td>
+                                                <td class="text-13-black border-bottom text-right">{{ number_format($htr->debt) }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

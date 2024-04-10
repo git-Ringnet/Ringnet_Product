@@ -235,12 +235,18 @@
                                             <tr>
                                                 <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
                                                     style="width: 18%;">Tổng số đơn đã bán</th>
-                                                <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
-                                                    style="width: 20%;">Tổng số tiền đã bán</th>
-                                                <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
-                                                    style="width: 20%;">Tổng số tiền thanh toán</th>
-                                                <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
-                                                    style="width: 20%;">Dư nợ</th>
+                                                <th class="border-right text-13 px-0 py-2 padding-left35 height-52 text-right"
+                                                    style="width: 20%;">
+                                                   <span class="mr-2">Tổng số tiền đã bán</span>
+                                                </th>
+                                                <th class="border-right text-13 px-0 py-2 padding-left35 height-52 text-right"
+                                                    style="width: 20%;">
+                                                    <span class="mr-2">Tổng số tiền thanh toán</span> 
+                                                </th>
+                                                <th class="border-right text-13 px-0 py-2 padding-left35 height-52 text-right"
+                                                    style="width: 20%;">
+                                                    <span class="mr-2">Dư nợ</span>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -255,19 +261,19 @@
                                                     style="width: 20%;">
                                                     <input type="text" autocomplete="off"
                                                         value="{{ number_format($sumSell) }}" readonly
-                                                        class="border-0 px-2 py-1 w-100 text-13-black">
+                                                        class="border-0 px-2 py-1 w-100 text-13-black text-right">
                                                 </td>
                                                 <td class="border-right text-13-black border-bottom px-0 py-2 padding-left35"
                                                     style="width: 20%;">
                                                     <input type="text" autocomplete="off"
                                                         value="{{ number_format($sumPay) }}" readonly
-                                                        class="border-0 px-2 py-1 w-100 text-13-black">
+                                                        class="border-0 px-2 py-1 w-100 text-13-black text-right">
                                                 </td>
                                                 <td class="border-right text-13-black border-bottom px-0 py-2 padding-left35"
                                                     style="width: 20%;">
                                                     <input type="text" autocomplete="off"
                                                         value="{{ number_format($sumDebt) }}" readonly
-                                                        class="border-0 px-2 py-1 w-100 text-13-black">
+                                                        class="border-0 px-2 py-1 w-100 text-13-black text-right">
                                                 </td>
                                             </tr>
                                         </tbody>
