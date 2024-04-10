@@ -225,7 +225,7 @@
                     </div>
                     <div class="footer-bottom mt-5">
                         <div>
-                            <a href="{{ route('login') }}">
+                            <a href="{{ url('/auth/google/redirect') }}">
                                 <button type="button" class="btn-primary-custom border-0">Bắt đầu sử dụng miễn
                                     phí</button>
                             </a>
