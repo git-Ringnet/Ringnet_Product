@@ -1,9 +1,9 @@
 @if (Auth::guest())
-    <?php header('Location: ' . route('login'));
+    <?php header('Location: ' . route('landingPage'));
     exit(); ?>
 @endif
 @if (!Auth::user()->current_workspace)
-    <?php header('Location: ' . route('login'));
+    <?php header('Location: ' . route('landingPage'));
     exit(); ?>
 @endif
 @if (Auth::check())

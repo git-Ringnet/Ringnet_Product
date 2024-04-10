@@ -225,8 +225,10 @@
                     </div>
                     <div class="footer-bottom mt-5">
                         <div>
-                            <button type="button" class="btn-primary-custom border-0">Bắt đầu sử dụng miễn
-                                phí</button>
+                            <a href="{{ route('login') }}">
+                                <button type="button" class="btn-primary-custom border-0">Bắt đầu sử dụng miễn
+                                    phí</button>
+                            </a>
                             <br>
                             <button class="btn-secondary-custom border-0 mt-2">Beta version</button>
                         </div>
@@ -241,7 +243,10 @@
                     </div>
                     <p></p>
                     <div class="content-button--login">
-                        <a href="{{ route('login') }}">
+                        {{-- <a href="{{ url('/auth/google/redirect') }}" class="btn btn-primary"><i
+                                class="fa fa-google"></i>
+                            Login with Google</a> --}}
+                        <a href="{{ url('/auth/google/redirect') }}">
                             <button class="btn-primary-custom mt-5 border-0">Đăng nhập với Google</button>
                         </a>
                     </div>

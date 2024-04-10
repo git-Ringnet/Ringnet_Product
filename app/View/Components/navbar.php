@@ -24,7 +24,7 @@ class navbar extends Component
     {
         // If you are not logged in, navigate to the login page
         if (!Auth::check()) {
-            return redirect()->route('login');
+            return redirect()->route('landingPage');
         }
         $this->title = $title;
         $this->activeName = $activeName;
@@ -38,7 +38,7 @@ class navbar extends Component
     public function render(): View|Closure|string
     {
         if (!Auth::check()) {
-            return redirect()->route('login');
+            return redirect()->route('landingPage');
         }
         $allWorkSpace = UserWorkspaces::with('workspace')->where('user_id', Auth::user()->id)->get();
         $workspaceNames = [];
