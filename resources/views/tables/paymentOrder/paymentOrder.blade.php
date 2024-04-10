@@ -102,7 +102,7 @@
                     <div class="col-12 p-0">
                         <div class="card">
                             <!-- /.card-header -->
-                            <div class="content-info position-relative outer text-nowrap">
+                            <div class="content-info position-relative outerImport text-nowrap">
                                 <table id="example2" class="table table-hover">
                                     <thead class="sticky-head">
                                         <tr style="height:44px;">

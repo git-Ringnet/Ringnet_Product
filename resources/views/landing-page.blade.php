@@ -8,8 +8,14 @@
     <title>Landing Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="{{ asset('dist/img/icon/favicon.ico') }}">
 </head>
 <style>
+    * {
+        font-family: "Inter", sans-serif;
+        font-style: normal;
+    }
+
     .row .col-md-8 {
         background: linear-gradient(202.74deg, #141837 15.14%, #3E4691 85.23%);
         text-align: center;
@@ -53,7 +59,6 @@
 
     html,
     body {
-        /* font-family: ; */
         margin: 0;
         padding: 0;
         height: 100%;
@@ -236,7 +241,9 @@
                     </div>
                     <p></p>
                     <div class="content-button--login">
-                        <button class="btn-primary-custom mt-5 border-0">Đăng nhập với Google</button>
+                        <a href="{{ route('login') }}">
+                            <button class="btn-primary-custom mt-5 border-0">Đăng nhập với Google</button>
+                        </a>
                     </div>
                 </div>
             </div>

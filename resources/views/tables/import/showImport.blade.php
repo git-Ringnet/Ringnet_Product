@@ -76,26 +76,26 @@
                             </div>
                         </div> --}}
 
-                        @if ($import->status == 1)
-                            <a href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $import->id]) }}"
-                                class="user_flow" data-type="DMH" data-des="Sửa đơn mua hàng">
-                                <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none">
-                                        <path
-                                            d="M4.75 2.00007C2.67893 2.00007 1 3.679 1 5.75007V11.25C1 13.3211 2.67893 15 4.75 15H10.2501C12.3212 15 14.0001 13.3211 14.0001 11.25V8.00007C14.0001 7.58586 13.6643 7.25007 13.2501 7.25007C12.8359 7.25007 12.5001 7.58586 12.5001 8.00007V11.25C12.5001 12.4927 11.4927 13.5 10.2501 13.5H4.75C3.50736 13.5 2.5 12.4927 2.5 11.25V5.75007C2.5 4.50743 3.50736 3.50007 4.75 3.50007H7C7.41421 3.50007 7.75 3.16428 7.75 2.75007C7.75 2.33586 7.41421 2.00007 7 2.00007H4.75Z"
-                                            fill="white" />
-                                        <path
-                                            d="M12.1339 5.19461L10.7197 3.7804L6.52812 7.97196C5.77185 8.72823 5.25635 9.69144 5.0466 10.7402C5.03144 10.816 5.09828 10.8828 5.17409 10.8677C6.22285 10.6579 7.18606 10.1424 7.94233 9.38618L12.1339 5.19461Z"
-                                            fill="white" />
-                                        <path
-                                            d="M13.4559 1.45679C13.2663 1.39356 13.0571 1.44293 12.9158 1.58431L11.7803 2.71974L13.1945 4.13395L14.33 2.99852C14.4714 2.85714 14.5207 2.64802 14.4575 2.45834C14.2999 1.98547 13.9288 1.61441 13.4559 1.45679Z"
-                                            fill="white" />
-                                    </svg>
-                                    <span class="text-btnIner-primary ml-1">Sửa</span>
-                                </button>
-                            </a>
-                        @endif
+                        {{-- @if ($import->status == 1) --}}
+                        <a href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $import->id]) }}"
+                            class="user_flow" data-type="DMH" data-des="Sửa đơn mua hàng">
+                            <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 16 16" fill="none">
+                                    <path
+                                        d="M4.75 2.00007C2.67893 2.00007 1 3.679 1 5.75007V11.25C1 13.3211 2.67893 15 4.75 15H10.2501C12.3212 15 14.0001 13.3211 14.0001 11.25V8.00007C14.0001 7.58586 13.6643 7.25007 13.2501 7.25007C12.8359 7.25007 12.5001 7.58586 12.5001 8.00007V11.25C12.5001 12.4927 11.4927 13.5 10.2501 13.5H4.75C3.50736 13.5 2.5 12.4927 2.5 11.25V5.75007C2.5 4.50743 3.50736 3.50007 4.75 3.50007H7C7.41421 3.50007 7.75 3.16428 7.75 2.75007C7.75 2.33586 7.41421 2.00007 7 2.00007H4.75Z"
+                                        fill="white" />
+                                    <path
+                                        d="M12.1339 5.19461L10.7197 3.7804L6.52812 7.97196C5.77185 8.72823 5.25635 9.69144 5.0466 10.7402C5.03144 10.816 5.09828 10.8828 5.17409 10.8677C6.22285 10.6579 7.18606 10.1424 7.94233 9.38618L12.1339 5.19461Z"
+                                        fill="white" />
+                                    <path
+                                        d="M13.4559 1.45679C13.2663 1.39356 13.0571 1.44293 12.9158 1.58431L11.7803 2.71974L13.1945 4.13395L14.33 2.99852C14.4714 2.85714 14.5207 2.64802 14.4575 2.45834C14.2999 1.98547 13.9288 1.61441 13.4559 1.45679Z"
+                                        fill="white" />
+                                </svg>
+                                <span class="text-btnIner-primary ml-1">Sửa</span>
+                            </button>
+                        </a>
+                        {{-- @endif --}}
 
                         <div class="dropdown">
                             <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1"
@@ -481,7 +481,8 @@
                                                             style="z-index: 99; left: 24%; top: 75%;">
                                                         </ul>
                                                     </td>
-                                                    <td class='border-right p-2 text-13 align-top border-bottom position-relative'>
+                                                    <td
+                                                        class='border-right p-2 text-13 align-top border-bottom position-relative'>
                                                         <div class="d-flex align-items-center">
                                                             <input readonly id="searchProductName" type="text"
                                                                 name="product_name[]"
@@ -518,12 +519,14 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class='border-right p-2 text-13 align-top border-bottom position-relative'>
+                                                    <td
+                                                        class='border-right p-2 text-13 align-top border-bottom position-relative'>
                                                         <input type="text" name="product_unit[]"
                                                             class="border-0 px-2 py-1 w-100 product_unit"
                                                             value="{{ $item->product_unit }}" readonly>
                                                     </td>
-                                                    <td class='border-right p-2 text-13 align-top border-bottom position-relative'>
+                                                    <td
+                                                        class='border-right p-2 text-13 align-top border-bottom position-relative'>
                                                         <div class="">
                                                             <input readonly
                                                                 oninput="checkQty(this,{{ $item->product_qty }})"
@@ -550,7 +553,8 @@
                                                         </div>
                                                     </td>
                                                     <input type="hidden" class="product_tax1">
-                                                    <td class="border-right p-2 text-13 align-top border-bottom text-center">
+                                                    <td
+                                                        class="border-right p-2 text-13 align-top border-bottom text-center">
                                                         <select name="product_tax[]" id="product_tax"
                                                             class="border-0 text-center product_tax" disabled>
                                                             <option value="0"
@@ -696,7 +700,8 @@
                                                             class="border-0 px-0 py-1 w-100" readonly
                                                             value="{{ $item->product_code }}">
                                                     </td>
-                                                    <td class='border-right p-2 text-13 align-top border-bottom position-relative'>
+                                                    <td
+                                                        class='border-right p-2 text-13 align-top border-bottom position-relative'>
                                                         <div class="d-flex align-items-center">
                                                             <input type="text"
                                                                 class="searchProductName border-0 px-2 py-1 w-100"
@@ -727,30 +732,36 @@
                                                             </div> --}}
                                                         </div>
                                                     </td>
-                                                    <td class='border-right p-2 text-13 align-top border-bottom position-relative'>
+                                                    <td
+                                                        class='border-right p-2 text-13 align-top border-bottom position-relative'>
                                                         <input type="text"
                                                             class="border-0 px-2 py-1 w-100 product_unit" readonly
                                                             value="{{ $item->product_unit }}">
                                                     </td>
-                                                    <td class='border-right p-2 text-13 align-top border-bottom position-relative'>
+                                                    <td
+                                                        class='border-right p-2 text-13 align-top border-bottom position-relative'>
                                                         <input type="text"
                                                             class="border-0 px-2 py-1 w-100 text-right" readonly
                                                             value="{{ fmod($item->product_qty, 2) > 0 && fmod($item->product_qty, 1) > 0 ? number_format($item->product_qty, 2, '.', ',') : number_format($item->product_qty) }}">
                                                     </td>
-                                                    <td class='border-right p-2 text-13 align-top border-bottom position-relative'>
+                                                    <td
+                                                        class='border-right p-2 text-13 align-top border-bottom position-relative'>
                                                         <input type="text"
                                                             class="border-0 px-2 py-1 w-100 text-right" readonly
                                                             value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}">
                                                     </td>
-                                                    <td class='border-right p-2 text-13 align-top border-bottom position-relative'>
+                                                    <td
+                                                        class='border-right p-2 text-13 align-top border-bottom position-relative'>
                                                         <input type="text"
-                                                            class="product_tax border-0 px-2 py-1 w-100 text-center" readonly
+                                                            class="product_tax border-0 px-2 py-1 w-100 text-center"
+                                                            readonly
                                                             @if ($item->product_tax == 99) value = "NOVAT"
                                                            @else value="{{ $item->product_tax }} %" @endif>
                                                     </td>
-                                                    <td class='border-right p-2 text-13 align-top border-bottom position-relative'>
-                                                        <input type="text" class="border-0 px-2 py-1 w-100 text-right"
-                                                            readonly
+                                                    <td
+                                                        class='border-right p-2 text-13 align-top border-bottom position-relative'>
+                                                        <input type="text"
+                                                            class="border-0 px-2 py-1 w-100 text-right" readonly
                                                             value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                                     </td>
                                                     <td class="border-right p-2 text-13 align-top border-bottom">
@@ -806,8 +817,9 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2" {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}}
-                                    value="{{ $import->represent_name }}" style="flex:2;" id="represent" readonly>
+                                <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
+                                    {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}} value="{{ $import->represent_name }}" style="flex:2;"
+                                    id="represent" readonly>
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
@@ -840,8 +852,9 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
-                                <input type="text" readonly class="text-13-black w-50 border-0 px-2 py-2" name="terms_pay"
-                                    style="flex:2;" placeholder="Nhập thông tin" value="{{ $import->terms_pay }}" />
+                                <input type="text" readonly class="text-13-black w-50 border-0 px-2 py-2"
+                                    name="terms_pay" style="flex:2;" placeholder="Nhập thông tin"
+                                    value="{{ $import->terms_pay }}" />
                             </li>
                             {{-- <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
@@ -966,7 +979,7 @@
                 <b>Tên sản phẩm: </b> ` + data['product'].product_name + `<br> 
                 <b>Đơn vị: </b> ` + data['product'].product_unit + ` <br>
                 <b>Tồn kho: </b> ` + formatCurrency(data['product'].product_inventory) + ` <br>
-                <b>Thuế: </b> ` + (data['product'].product_tax == 99 ? "NOVAT" : data['product'].product_tax + '%' ) + `
+                <b>Thuế: </b> ` + (data['product'].product_tax == 99 ? "NOVAT" : data['product'].product_tax + '%') + `
                 `;
                 $('.product_show').append(modal_body)
             },

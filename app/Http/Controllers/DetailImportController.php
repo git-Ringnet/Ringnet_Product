@@ -174,13 +174,20 @@ class DetailImportController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         if ($request->action == 'action_1') {
-            // Cập nhật thông tin đơn hàng
-            $this->detailImport->updateImport($request->all(), $id, 1);
-            // Cập nhật sản phẩm
-            $this->quoteImport->updateImport($request->all(), $id);
-            // Lưu lịch sử
-            $this->history_import->addHistoryImport($request->all(), $id);
-            return redirect()->route('import.index', $workspacename)->with('msg', 'Chỉnh sửa đơn mua hàng thành công !');
+            if ($this->detailImport->checkStatus($id) == false) {
+                return redirect()->route('import.index', $workspacename)->with('warning', 'Không tìm thấy đơn hàng cần chỉnh sửa !');
+            } else {
+                // Cập nhật thông tin đơn hàng
+                $this->detailImport->updateImport($request->all(), $id, 1);
+
+                if ($this->detailImport->checkStatus($id) == 1) {
+                    // Cập nhật sản phẩm
+                    $this->quoteImport->updateImport($request->all(), $id);
+                    // Lưu lịch sử
+                    $this->history_import->addHistoryImport($request->all(), $id);
+                }
+                return redirect()->route('import.index', $workspacename)->with('msg', 'Chỉnh sửa đơn mua hàng thành công !');
+            }
         } else if ($request->action == 'action_2') {
             $receiver_bill = $this->receiver_bill->getProduct_receive($request->detail_id);
             $show_receive = $this->receiver_bill->show_receive($request->detail_id);

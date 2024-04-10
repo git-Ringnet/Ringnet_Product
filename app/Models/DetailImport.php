@@ -154,7 +154,6 @@ class DetailImport extends Model
                         $price_export = floatval(str_replace(',', '', $data['product_qty'][$i])) * floatval(str_replace(',', '', $data['price_export'][$i]));
                         $total += $price_export;
                     }
-                    // $total_tax += $data['product_tax'][$i] * $total;
                     $total_tax += ($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export / 100;
                 }
             } else {
@@ -167,7 +166,6 @@ class DetailImport extends Model
                     } else {
                         $total += $item->product_qty * $item->price_export;
                     }
-                    // $total_tax += $item->product_tax * $total;
                     $total_tax += ($item->product_tax == 99 ? 0 : $item->product_tax) * ($item->product_qty * $item->price_export / 100);
 
                     $check_status = $check_status || (
@@ -177,7 +175,6 @@ class DetailImport extends Model
                     );
                 }
             }
-
             if ($check_status && $detail->status == 1) {
                 $dataImport = [
                     'provide_id' => $data['provides_id'],
@@ -196,6 +193,11 @@ class DetailImport extends Model
                     'terms_pay' => $data['terms_pay'],
                     'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
                     'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : ""
+                ];
+                $result = DB::table($this->table)->where('id', $id)->update($dataImport);
+            } else {
+                $dataImport = [
+                    'reference_number' => $data['reference_number'],
                 ];
                 $result = DB::table($this->table)->where('id', $id)->update($dataImport);
             }
@@ -286,5 +288,16 @@ class DetailImport extends Model
         }
         $import = $import->get();
         return $import;
+    }
+    public function checkStatus($id)
+    {
+        $detail = DetailImport::where('id', $id)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->first();
+        if ($detail) {
+            return $detail->status;
+        } else {
+            return false;
+        }
     }
 }
