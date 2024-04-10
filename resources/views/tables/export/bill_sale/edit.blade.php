@@ -65,7 +65,7 @@
                                 <span class="text-button">In</span>
                             </button>
                             <div class="dropdown-menu" style="z-index: 9999;">
-                                <a class="dropdown-item text-nav border-top" href="{{ route('pdfdelivery', $billSale->idHD) }}">Xuất PDF</a>
+                                <a class="dropdown-item text-nav border-top" href="#">Xuất PDF</a>
                             </div>
                         </div>
 
