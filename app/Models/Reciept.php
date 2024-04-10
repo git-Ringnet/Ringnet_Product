@@ -300,7 +300,7 @@ class Reciept extends Model
         $reciept = DB::table($this->table)
             ->leftJoin('detailimport', 'reciept.detailimport_id', 'detailimport.id')
             ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
-            ->select('reciept.*', 'provides.provide_name_display provide_name_display', 'detailimport.quotation_number as quotation_number')
+            ->select('reciept.*', 'provides.provide_name_display as provide_name_display', 'detailimport.quotation_number as quotation_number')
             ->where('reciept.workspace_id', Auth::user()->current_workspace);
 
         if (isset($data['search'])) {

@@ -706,9 +706,9 @@ class Delivery extends Model
             ->where('delivery.workspace_id', Auth::user()->current_workspace);
         if (isset($data['search'])) {
             $delivery = $delivery->where(function ($query) use ($data) {
-                $query->orWhere('delivery.id', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('code_delivery', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest_name_display', 'like', '%' . $data['search'] . '%');
             });
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {

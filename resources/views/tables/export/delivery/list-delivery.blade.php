@@ -63,7 +63,7 @@
                                             style="display: none;" />
                                     </div>
                                 </form>
-                                <div class="dropdown mx-2">
+                                <div class="dropdown mx-2 d-none">
                                     <button class="btn-filter_searh" data-toggle="dropdown">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 16 16" fill="none">
@@ -210,9 +210,9 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="tbody-delivery">
                                         @foreach ($deliveries as $item_delivery)
-                                            <tr class="position-relative"
+                                            <tr class="position-relative delivery-info"
                                                 onclick="handleRowClick('checkbox', event);">
                                                 <input type="hidden" name="id-delivery" class="id-delivery"
                                                     id="id-delivery" value="{{ $item_delivery->id }}">
@@ -335,6 +335,7 @@
         // get id check box name
         $('.btn-submit').click(function(event) {
             event.preventDefault();
+
             var buttonName = $(this).data('button');
             var btn_submit = $(this).data('button-name');
             var search = $('#search').val();
@@ -362,6 +363,7 @@
                     sort: sort,
                 },
                 success: function(data) {
+                    console.log(data);
                     // Hiển thị label dữ liệu tìm kiếm ...
                     var existingNames = [];
                     data.filters.forEach(function(item) {
@@ -397,9 +399,10 @@
                     var deliveryIds = [];
                     // Lặp qua mảng provides và thu thập các deleveryIds
                     data.data.forEach(function(item) {
-                        var deleveryId = item.id;
+                        var deleveryId = item.maGiaoHang;
                         deliveryIds.push(deleveryId);
                     });
+                    console.log(deliveryIds);
                     // Ẩn tất cả các phần tử .detailExport-info
                     // $('.detailExport-info').hide();
                     // Lặp qua từng phần tử .detailExport-info để hiển thị và cập nhật data-position

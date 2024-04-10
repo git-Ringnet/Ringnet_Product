@@ -299,7 +299,7 @@
                                             </span>
                                         </div>
                                     </form>
-                                    <div class="dropdown ml-1">
+                                    <div class="dropdown mx-2 d-none">
                                         <button class="btn-filter_searh" type="button" id="dropdownMenuButton"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -549,7 +549,9 @@
                     </section>
                 </div>
                 <div class="tab-pane fade" id="files">
-                    <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center" style="right: 0 !important; top: 116px !important;">
+                    <div id="title--fixed"
+                        class="content-title--fixed top-109 bg-filter-search border-top-0 text-center"
+                        style="right: 0 !important; top: 116px !important;">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">File đính kèm</p>
                     </div>
                     <x-form-attachment :value="$guest" name="KH"></x-form-attachment>

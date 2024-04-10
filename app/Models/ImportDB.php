@@ -26,7 +26,7 @@ class ImportDB implements ToModel
         //     'guest_address' => '',
         //     'guest_code' => '',
         //     'guest_debt' => $row[2],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 3,
         // ]);
         // dd($row);
         // Tạo model Provides
@@ -37,7 +37,7 @@ class ImportDB implements ToModel
         //     'provide_address' => '',
         //     'provide_code' => '',
         //     'provide_debt' => $row[2],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 3,
         // ]);
         // $models[] = new BillSale([
         //     'id' => $row[0],
@@ -82,7 +82,7 @@ class ImportDB implements ToModel
         //     'status_reciept' => 2,
         //     'status_pay' => $row[4],
         //     'status' => $row[5],
-        //     'workspace_id' => 2,
+        //     'workspace_id' => 3,
         //     'total_price' => $row[7],
         //     'total_tax' => $row[6],
         //     'amount_owed' => $row[8],

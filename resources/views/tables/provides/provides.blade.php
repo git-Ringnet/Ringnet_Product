@@ -50,7 +50,7 @@
                                     style="display: none;" />
                             </div>
                         </form>
-                        <div class="dropdown mx-2">
+                        <div class="dropdown mx-2 d-none">
                             <button class="btn-filter_searh" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"

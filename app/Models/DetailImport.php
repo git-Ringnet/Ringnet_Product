@@ -280,6 +280,7 @@ class DetailImport extends Model
         if (isset($data['search'])) {
             $import = $import->where(function ($query) use ($data) {
                 $query->orWhere('detailimport.quotation_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('detailimport.reference_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('provide_name_display', 'like', '%' . $data['search'] . '%');
             });
         }

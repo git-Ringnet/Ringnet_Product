@@ -23,7 +23,6 @@ class History extends Model
             ->leftJoin('products', 'products.id', 'delivered.product_id')
             ->leftJoin('history_import', 'history_import.id', 'history.history_import')
             ->leftJoin('detailexport', 'history.detailexport_id', 'detailexport.id')
-            // ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('bill_sale', 'bill_sale.detailexport_id', 'history.detailexport_id')
             ->leftJoin('detailimport', 'detailimport.id', 'history.detailimport_id')
             ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
@@ -38,14 +37,15 @@ class History extends Model
                 'delivery.*',
                 'delivered.price_export as giaban',
                 'delivered.created_at as time',
+                'delivered.deliver_qty as slXuat',
                 'products.product_name as tensp',
                 'history_import.*',
                 'history_import.price_export as gianhap',
+                'history_import.product_qty as slNhap',
                 'detailexport.reference_number as POxuat',
                 'detailexport.total_price as giaXuat',
                 'detailexport.total_tax as VATXuat',
                 'detailexport.quotation_number as HDXuat',
-                // 'quoteexport.product_tax as thueXuat',
                 'products.product_tax as thueXuat',
                 'detailexport.*',
                 'history.hdr as hdra',
@@ -119,6 +119,49 @@ class History extends Model
     {
         return self::create($data);
     }
+    public function updateHistory($id, $data)
+    {
+        $history = self::find($id);
+        if ($history) {
+            $history->update($data);
+            return $history;
+        }
+        return null;
+    }
+    public function updateHdr($billsaleid, $detailexport_id, $number_bill)
+    {
+        $history = History::leftJoin('history_import', 'history_import.id', 'history.history_import')
+            ->leftJoin('product_bill', 'product_bill.product_id', 'history_import.product_id')
+            ->leftJoin('bill_sale', 'bill_sale.id', 'product_bill.billSale_id')
+            ->where('bill_sale.id', $billsaleid)
+            ->where('history.detailexport_id', $detailexport_id)
+            ->select('history.*')
+            ->get();
+        foreach ($history as $key => $value) {
+            $value->update([
+                'hdr' => $number_bill
+            ]);
+        }
+        return $history;
+    }
+    public function updateHdv($reciept_id, $detaiImportId, $number_bill)
+    {
+        $history = History::leftJoin('history_import', 'history_import.id', 'history.history_import')
+            ->leftJoin('products_import', 'products_import.product_id', 'history_import.product_id')
+            ->leftJoin('reciept', 'reciept.id', 'products_import.reciept_id')
+            ->where('reciept.id', $reciept_id)
+            ->where('history.detailimport_id', $detaiImportId)
+            ->select('history.*')
+            ->get();
+        dd($history);
+        foreach ($history as $key => $value) {
+            $value->update([
+                'hdr' => $number_bill
+            ]);
+        }
+        return $history;
+    }
+
 
     public function ajax($data)
     {
@@ -128,30 +171,50 @@ class History extends Model
             ->leftJoin('history_import', 'history_import.id', 'history.history_import')
             ->leftJoin('detailexport', 'history.detailexport_id', 'detailexport.id')
             ->leftJoin('bill_sale', 'bill_sale.detailexport_id', 'history.detailexport_id')
-            ->leftJoin('reciept', 'reciept.detailimport_id', 'history.detailimport_id')
+            ->leftJoin('detailimport', 'detailimport.id', 'history.detailimport_id')
+            ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
+            // ->leftJoin('reciept', 'reciept.detailimport_id', 'history.detailimport_id')
+            ->leftJoin('pay_order', 'pay_order.detailimport_id', 'history.detailimport_id')
             ->leftJoin('provides', 'provides.id', 'history.provide_id')
             ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->where('delivery.status', 2)
             ->where('history.workspace_id', Auth::user()->current_workspace)
             ->select(
-
-                'history.price_import as price_import',
-                'history.total_import as total_import',
                 'delivered.*',
                 'delivery.*',
                 'delivered.price_export as giaban',
                 'delivered.created_at as time',
+                'delivered.deliver_qty as slXuat',
                 'products.product_name as tensp',
                 'history_import.*',
                 'history_import.price_export as gianhap',
+                'history_import.product_qty as slNhap',
+                'detailexport.reference_number as POxuat',
+                'detailexport.total_price as giaXuat',
+                'detailexport.total_tax as VATXuat',
+                'detailexport.quotation_number as HDXuat',
+                'products.product_tax as thueXuat',
                 'detailexport.*',
-                'bill_sale.number_bill as hdra',
-                'reciept.number_bill as hdvao',
+                'history.hdr as hdra',
+                'history.hdv as hdvao',
+                'history.price_import as trcVat',
+                'history.total_import as sauVat',
+                'bill_sale.created_at as ngayHDxuat',
+                'pay_export.payment_day as ngayTTxuat',
+                'pay_export.payment_type as HTTTxuat',
+                'detailexport.status_pay as status_pay',
                 'guest.guest_name_display as tenKhach',
                 'provides.provide_name_display as tenNCC',
+                'products.product_guarantee as baoHanh',
+                'detailimport.reference_number as POnhap',
+                'detailimport.created_at as ngayHDnhap',
+                'detailimport.status_pay as TTnhap',
+                'pay_order.payment_day as ngayTT',
+                'pay_order.payment_type as HTTT',
                 'history.*',
+                'history.id',
                 DB::raw('delivered.deliver_qty * delivered.price_export AS tongban'),
-            );
+            )->distinct();
 
         if (isset($data['search'])) {
             $seri = new Serialnumber();
@@ -161,6 +224,8 @@ class History extends Model
             $history = $history->where(function ($query) use ($data, $product) {
                 $query->orWhere('products.product_name', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('detailimport.reference_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('detailexport.reference_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('provides.provide_name_display', 'like', '%' . $data['search'] . '%');
                 $query->orWhereIn('delivered.id', $product);
             });

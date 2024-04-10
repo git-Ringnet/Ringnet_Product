@@ -325,12 +325,12 @@ class BillSale extends Model
         if (isset($data['date_bill'])) {
             $date_bill = $data['date_bill'];
         } else {
-            $date_bill = null;
+            $date_bill = now();
         }
         if (isset($data['number_bill'])) {
             $number_bill = $data['number_bill'];
         } else {
-            $number_bill = null;
+            $number_bill = now();
         }
         //add bill sale
         $dataBill = [
@@ -420,6 +420,7 @@ class BillSale extends Model
                 }
             }
         }
+        return $bill_sale;
     }
     public function ajax($data)
     {

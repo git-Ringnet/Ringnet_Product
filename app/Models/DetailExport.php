@@ -227,6 +227,7 @@ class DetailExport extends Model
         if (isset($data['search'])) {
             $detailExport = $detailExport->where(function ($query) use ($data) {
                 $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('reference_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
             });
         }

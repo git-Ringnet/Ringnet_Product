@@ -90,7 +90,8 @@
             </div>
         </div>
         <section class="content-header--options p-0">
-            <ul class="header-options--nav nav nav-tabs margin-left32" @if($product->type == 2) style="width:100px;" @endif>
+            <ul class="header-options--nav nav nav-tabs margin-left32"
+                @if ($product->type == 2) style="width:100px;" @endif>
                 <li>
                     <a class="text-secondary pl-3 active" data-toggle="tab" href="#info">Thông tin</a>
                 </li>
@@ -277,46 +278,47 @@
                     </div>
                 </div>
             </section>
-            @if($product->type == 1)
-            <section class="content">
-                <div class="container-fluided">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="info-chung">
-                                <p class="font-weight-bold text-uppercase info-chung--heading">Thông tin tồn kho</p>
-                                <div class="content-info">
-                                    <div class="d-flex align-items-center height-60-mobile">
-                                        <div class=" py-2 border border-left-0 height-100 w-100">
-                                            <p class="p-0 m-0 margin-left32 text-13 text-left">Tên kho hàng</p>
-                                        </div>
-                                        <div class="py-2 border border-left-0 height-100 w-100">
-                                            <p class="p-0 m-0  text-13 text-right px-2">Tồn kho</p>
-                                        </div>
-                                        {{-- <div class="py-2 border border-left-0 height-100 title-info">
+            @if ($product->type == 1)
+                <section class="content">
+                    <div class="container-fluided">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="info-chung">
+                                    <p class="font-weight-bold text-uppercase info-chung--heading">Thông tin tồn kho
+                                    </p>
+                                    <div class="content-info">
+                                        <div class="d-flex align-items-center height-60-mobile">
+                                            <div class=" py-2 border border-left-0 height-100 w-100">
+                                                <p class="p-0 m-0 margin-left32 text-13 text-left">Tên kho hàng</p>
+                                            </div>
+                                            <div class="py-2 border border-left-0 height-100 w-100">
+                                                <p class="p-0 m-0  text-13 text-right px-2">Tồn kho</p>
+                                            </div>
+                                            {{-- <div class="py-2 border border-left-0 height-100 title-info">
                                             <p class="p-0 m-0 text-13 text-right px-2">Đang giao dịch</p>
                                         </div>
                                         <div class="py-2 border border-left-0 height-100 title-info">
                                             <p class="p-0 m-0 text-13 text-right px-2">Sẵn sàng để bán</p>
                                         </div> --}}
+                                        </div>
                                     </div>
-                                </div>
-                                {{-- @foreach ($product->getProductImport as $item)
+                                    {{-- @foreach ($product->getProductImport as $item)
                                 @dd($item->getDataProduct->getWareHouse)
                                 @endforeach --}}
-                                <div class="content-info mb-3">
-                                    <div class="d-flex align-items-center height-60-mobile">
-                                        <div class="py-2 border border-left-0 height-100 w-100">
-                                            <input readonly type="text"
-                                                class="py-2 border-0  p-0 text-13-black w-100 padding-left35"
-                                                value="{{ $product->product_manufacturer }}">
-                                        </div>
-                                        <div class="w-100 py-2 border border-left-0 height-100">
-                                            <input readonly
-                                                class="border-0 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
-                                                type="text"
-                                                value="{{ number_format($product->product_inventory) }}">
-                                        </div>
-                                        {{-- <div class="title-info py-2 border border-left- height-100">
+                                    <div class="content-info mb-3">
+                                        <div class="d-flex align-items-center height-60-mobile">
+                                            <div class="py-2 border border-left-0 height-100 w-100">
+                                                <input readonly type="text"
+                                                    class="py-2 border-0  p-0 text-13-black w-100 padding-left35"
+                                                    value="{{ $product->product_manufacturer }}">
+                                            </div>
+                                            <div class="w-100 py-2 border border-left-0 height-100">
+                                                <input readonly
+                                                    class="border-0 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
+                                                    type="text"
+                                                    value="{{ number_format($product->product_inventory) }}">
+                                            </div>
+                                            {{-- <div class="title-info py-2 border border-left- height-100">
                                             <input readonly
                                                 class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
                                                 type="text" value="{{ number_format($product->product_trade) }}">
@@ -327,13 +329,13 @@
                                                 type="text"
                                                 value="{{ number_format($product->product_available) }}">
                                         </div> --}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
             @endif
         </div>
 
@@ -354,7 +356,7 @@
                                                     <i class="fas fa-search" aria-hidden="true"></i>
                                                 </span>
                                             </div>
-                                            <button class="btn-filter_searh mx-2" type="button"
+                                            <button class="btn-filter_searh mx-2 d-none" type="button"
                                                 id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <span>
@@ -566,7 +568,7 @@
                                                     <i class="fas fa-search" aria-hidden="true"></i>
                                                 </span>
                                             </div>
-                                            <button class="btn-filter_searh mx-2" type="button"
+                                            <button class="btn-filter_searh mx-2 d-none" type="button"
                                                 id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <span>

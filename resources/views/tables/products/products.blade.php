@@ -61,7 +61,7 @@
                             <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
                                 style="display: none;" />
                         </div>
-                        <div class="dropdown mx-2">
+                        <div class="dropdown mx-2 d-none">
                             <button class="btn-filter_searh" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -169,7 +169,7 @@
                                             <div class="icon" id="icon-product_name"></div>
                                         </span>
                                     </th>
-                                    <th scope="col" class="border-top-0 bg-white" style="width: 9%;">
+                                    <th scope="col" class="border-top-0 bg-white" style="width: 14%;">
                                         <span class="d-flex">
                                             <a href="#" class="sort-link btn-submit"
                                                 data-sort-by="product_inventory" data-sort-type="DESC">
@@ -212,8 +212,8 @@
                                         </td>
                                         <td class="py-2 text-13-black">
                                             <a class="duongdan"
-                                            href="{{ route('inventory.show', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
-                                            {{ $item->product_name }}
+                                                href="{{ route('inventory.show', ['workspace' => $workspacename, 'inventory' => $item->id]) }}">
+                                                {{ $item->product_name }}
                                             </a>
                                         </td>
                                         <td class="py-2 text-13-black">

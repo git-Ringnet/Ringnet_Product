@@ -7,6 +7,7 @@ use App\Models\BillSale;
 use App\Models\Delivered;
 use App\Models\Delivery;
 use App\Models\DetailExport;
+use App\Models\History;
 use App\Models\productBill;
 use App\Models\productPay;
 use App\Models\Products;
@@ -29,6 +30,7 @@ class BillSaleController extends Controller
     private $detailExport;
     private $attachment;
     private $userFlow;
+    private $history;
 
     public function __construct()
     {
@@ -39,6 +41,7 @@ class BillSaleController extends Controller
         $this->detailExport = new DetailExport();
         $this->attachment = new Attachment();
         $this->userFlow = new userFlow();
+        $this->history = new History();
     }
     public function index()
     {
@@ -88,12 +91,14 @@ class BillSaleController extends Controller
             return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', ' Tạo mới hóa đơn bán hàng thành công !');
         }
         if ($request->action == 2) {
-            $this->billSale->acceptBillSale($request->all());
+            $billSale_id = $this->billSale->acceptBillSale($request->all());
             $arrCapNhatKH = [
                 'name' => 'HDBH',
                 'des' => 'Xác nhận hóa đơn bán hàng'
             ];
             $this->userFlow->addUserFlow($arrCapNhatKH);
+            // Thêm số hoá đơn ra cho lịch sử giao dịch
+            $history = $this->history->updateHdr($billSale_id->id, $request->detailexport_id, $request->number_bill);
             return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
         }
     }
@@ -184,10 +189,17 @@ class BillSaleController extends Controller
                     'des' => 'Xác nhận hóa đơn bán hàng'
                 ];
                 $this->userFlow->addUserFlow($arrCapNhatKH);
+                //Thêm số hoá đơn ra cho lịch sử giao dịch
+                $detailexport_id = BillSale::where('id', $id)->pluck('detailexport_id')->first();
+                $this->history->updateHdr($id, $detailexport_id, $request->number_bill);
                 return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
             }
         }
         if ($request->action == "action_2") {
+            // Xoá hoá đơn lịch sử
+            $detailexport_id = BillSale::where('id', $id)->pluck('detailexport_id')->first();
+            $this->history->updateHdr($id, $detailexport_id, null);
+            //
             $this->billSale->deleteBillSale($request->all(), $id);
             $table_id = $id;
             $table_name = 'HDBH';
@@ -206,6 +218,10 @@ class BillSaleController extends Controller
      */
     public function destroy(string $workspace, string $id)
     {
+        // Xoá hoá đơn lịch sử
+        $detailexport_id = BillSale::where('id', $id)->pluck('detailexport_id')->first();
+        $this->history->updateHdr($id, $detailexport_id, null);
+        //
         $this->billSale->deleteBillSaleItem($id);
         $table_id = $id;
         $table_name = 'HDBH';

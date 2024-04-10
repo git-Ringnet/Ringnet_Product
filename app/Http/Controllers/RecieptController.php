@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attachment;
 use App\Models\DetailImport;
+use App\Models\History;
 use App\Models\ProductImport;
 use App\Models\QuoteImport;
 use App\Models\Receive_bill;
@@ -20,12 +21,14 @@ class RecieptController extends Controller
     private $productImport;
     private $workspaces;
     private $attachment;
+    private $history;
     public function __construct()
     {
         $this->reciept = new Reciept();
         $this->productImport = new ProductImport();
         $this->workspaces = new Workspace();
         $this->attachment = new Attachment();
+        $this->history = new History();
     }
     /**
      * Display a listing of the resource.
@@ -72,7 +75,6 @@ class RecieptController extends Controller
         $workspacename = $workspacename->workspace_name;
         // Tạo sản phẩm theo đơn nhận hàng
         $status = $this->productImport->addProductImport($request->all(), $id, 'reciept_id', 'reciept_qty');
-        $status = true;
         if ($status) {
             $reciept_id = $this->reciept->addReciept($request->all(), $id);
             if ($request->action == "action_1") {
@@ -88,7 +90,6 @@ class RecieptController extends Controller
             } else {
                 // Xác nhận hóa đơn
                 $this->reciept->updateReciept($request->all(), $reciept_id);
-
                 $dataUserFlow = [
                     'user_id' => Auth::user()->id,
                     'activity_type' => "HDMH",
@@ -97,6 +98,14 @@ class RecieptController extends Controller
                 ];
 
                 DB::table('user_flow')->insert($dataUserFlow);
+                // $history = History::leftJoin('history_import', 'history_import.id', 'history.history_import')
+                //     // ->leftJoin('products_import', 'products_import.quoteImport_id', 'history_import.quoteImport_id')
+                //     // ->leftJoin('reciept', 'reciept.id', 'products_import.reciept_id')
+                //     ->where('history.detailimport_id', $id)
+                //     // ->where('reciept.id', $reciept_id)
+                //     ->select('history.*')
+                //     ->get();
+                // dd($history);
                 return redirect()->route('reciept.index', $workspacename)->with('msg', 'Xác nhận hóa đơn thành công !');
             }
         } else {

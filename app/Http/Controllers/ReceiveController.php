@@ -50,8 +50,8 @@ class ReceiveController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $receive = Receive_bill::where('workspace_id', Auth::user()->current_workspace)->orderBy('id', 'desc')
-        ->get();
-        
+            ->get();
+
         // ->paginate($perPage);
         return view('tables.receive.receive', compact('receive', 'title', 'workspacename'));
     }
@@ -148,7 +148,7 @@ class ReceiveController extends Controller
         $title = $receive->quotation_number;
         $product = QuoteImport::where('detailimport_id', $receive->detailimport_id)->get();
 
-        
+
         return view('tables.receive.showReceive', compact('receive', 'title', 'product', 'history'));
     }
 
@@ -159,9 +159,9 @@ class ReceiveController extends Controller
     {
         $receive = Receive_bill::findOrFail($id);
         $detail = DetailImport::where('id', $receive->detailimport_id)->first();
-        if($detail){
+        if ($detail) {
             $nameRepresent = $detail->represent_name;
-        }else{
+        } else {
             $nameRepresent = "";
         }
         $title = $receive->quotation_number;
@@ -343,11 +343,11 @@ class ReceiveController extends Controller
                     ->where('receive_id', '!=', 'null')
                     ->first();
             }
-            $getProductGuarantee = Products::where('product_name',$qt->product_name)
-            ->where('workspace_id', Auth::user()->current_workspace)
-            ->first();
-            if($getProductGuarantee){
-                array_push($value,$getProductGuarantee->product_guarantee);
+            $getProductGuarantee = Products::where('product_name', $qt->product_name)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
+            if ($getProductGuarantee) {
+                array_push($value, $getProductGuarantee->product_guarantee);
             }
             if ($product) {
                 array_push($list, $product->check_seri);

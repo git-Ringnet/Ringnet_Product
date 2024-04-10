@@ -26,7 +26,7 @@
                                             style="display: none;">
                                     </div>
                                 </form>
-                                <div class="dropdown mx-2">
+                                <div class="dropdown mx-2 d-none">
                                     <button class="btn-filter_searh" data-toggle="dropdown">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 16 16" fill="none">
@@ -119,7 +119,7 @@
                 </div>
             </div>
         </div>
-        <div class="row m-auto filter p-0 border-custom height-52">
+        {{-- <div class="row m-auto filter p-0 border-custom height-52">
             <div class="w-100">
                 <div class="row mr-0 mt-1 padding-left32">
                     <div class="col-md-5 d-flex align-items-center pl-1">
@@ -156,7 +156,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- <div class="content-wrapper1 py-1 pl-4 border-bottom d-none">
             <div class="row m-auto filter pt-1">
                 <div class="w-100">
@@ -197,7 +197,7 @@
             </div>
         </div> -->
     </div>
-    <div class="content margin-top-10">
+    <div class="content margin-top-68">
         <!-- Main content -->
         <section class="content margin-250">
             <div class="container-fluided">
@@ -223,7 +223,7 @@
                                                     <div class="icon" id="icon-price_import"></div>
                                                 </span>
                                             </th>
-                                            <th colspan="10" scope="col"
+                                            <th colspan="11" scope="col"
                                                 class="text-left text-13 border-right border-left">
                                                 <span class="d-flex justify-content-center align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -264,7 +264,7 @@
                                                     <div class="icon" id="icon-tensp"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="text-left text-13">
+                                            {{-- <th scope="col" class="text-left text-13">
                                                 <span class="d-flex justify-content-start align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="hdvao" data-sort-type="DESC"><button
@@ -272,7 +272,7 @@
                                                             đơn</button></a>
                                                     <div class="icon" id="icon-hdvao"></div>
                                                 </span>
-                                            </th>
+                                            </th> --}}
                                             <th scope="col" class="text-13">
                                                 <span class="d-flex justify-center-start align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -293,6 +293,15 @@
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-time"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-left text-13">
+                                                <span class="d-flex justify-content-end align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="hdra" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">SL
+                                                            Nhập</button></a>
+                                                    <div class="icon" id="icon-hdra"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="text-left text-13">
@@ -364,6 +373,15 @@
                                                             class="btn-sort text-13" type="submit">SỐ PO/ HƠP
                                                             ĐỒNG</button></a>
                                                     <div class="icon" id="icon-product_qty"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="text-left text-13">
+                                                <span class="d-flex justify-content-end align-items-center">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="hdra" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">SL
+                                                            Xuất</button></a>
+                                                    <div class="icon" id="icon-hdra"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="text-left text-13">
@@ -453,13 +471,16 @@
                                                     <td class="text-13-black">{{ $item->tenNCC }}</td>
                                                     <td class="text-13-black min-width180">{{ $item->POnhap }}</td>
                                                     <td class="text-13-black min-width180">{{ $item->tensp }}</td>
-                                                    <td class="text-13-black">{{ $item->hdvao }}</td>
+                                                    {{-- <td class="text-13-black">{{ $item->hdvao }}</td> --}}
                                                     <td class="text-13-black">
                                                         {{ date('d/m/Y', strtotime($item->ngayHDnhap)) }}
                                                     </td>
                                                     <td class="text-13-black text-center">{{ $item->baoHanh }}</td>
                                                     <td class="text-13-black text-right">
-                                                        {{ number_format($item->trcVat) }}
+                                                        {{ number_format($item->slNhap) }}
+                                                    </td>
+                                                    <td class="text-13-black text-right">
+                                                        {{ number_format($item->trcVat * $item->slNhap) }}
                                                     </td>
                                                     <td class="text-13-black text-right">
                                                         @php
@@ -467,17 +488,21 @@
                                                         @endphp
                                                         @if ($item->thueXuat == 99)
                                                             @php
-                                                                $thueXuat = $item->trcVat;
+                                                                $thueXuat = $item->trcVat * $item->slNhap;
                                                             @endphp
                                                         @else
                                                             @php
-                                                                $thueXuat = ($item->thueXuat * $item->trcVat) / 100;
+                                                                $thueXuat =
+                                                                    ($item->thueXuat *
+                                                                        ($item->trcVat * $item->slNhap)) /
+                                                                    100;
                                                             @endphp
                                                             {{ number_format($thueXuat) }}
                                                         @endif
                                                     </td>
                                                     <td class="text-13-black text-right">
-                                                        {{ number_format($item->trcVat + $thueXuat) }}</td>
+                                                        {{ number_format($item->trcVat * $item->slNhap + $thueXuat) }}
+                                                    </td>
                                                     <td class="text-13-black min-width180 text-center">
                                                         @if ($item->TTnhap == 0)
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="14"
@@ -514,27 +539,32 @@
 
                                                     <td class="text-13-black min-width180">{{ $item->POxuat }}</td>
                                                     <td class="text-13-black text-right">
-                                                        {{ number_format($item->giaban) }}</td>
+                                                        {{ number_format($item->slXuat) }}</td>
+                                                    <td class="text-13-black text-right">
+                                                        {{ number_format($item->giaban * $item->slXuat) }}</td>
                                                     <td class="text-13-black text-right">
                                                         @php
                                                             $total = 0;
                                                         @endphp
                                                         @if ($item->thueXuat == 99)
                                                             @php
-                                                                $total = $item->giaban;
+                                                                $total = $item->giaban * $item->slXuat;
                                                             @endphp
                                                         @else
                                                             @php
-                                                                $total = ($item->thueXuat * $item->giaban) / 100;
+                                                                $total =
+                                                                    ($item->thueXuat *
+                                                                        ($item->giaban * $item->slXuat)) /
+                                                                    100;
                                                             @endphp
                                                             {{ number_format($total) }}
                                                         @endif
                                                     </td>
                                                     <td class="text-13-black text-right">
-                                                        {{ number_format($total + $item->giaban) }}</td>
-                                                    <td class="text-13-black">{{ $item->quotation_number }}</td>
+                                                        {{ number_format($total + $item->giaban * $item->slXuat) }}</td>
+                                                    <td class="text-13-black">{{ $item->hdr }}</td>
                                                     <td class="text-13-black">
-                                                        {{ date('d/m/Y', strtotime($item->ngayHDxuat)) }}
+                                                        {{ date('d/m/Y', strtotime($item->ngayHDxuat)) == '01/01/1970' ? '' : date('d/m/Y', strtotime($item->ngayHDxuat)) }}
                                                     </td>
                                                     <td class="text-13-black min-width180 text-center">
                                                         @if ($item->status_pay === 1)
@@ -572,7 +602,7 @@
                                                         @endif
                                                     </td>
                                                     <td class="text-13-black">
-                                                        {{ date('d/m/Y', strtotime($item->ngayTTxuat)) }}
+                                                        {{ date('d/m/Y', strtotime($item->ngayTTxuat)) == '01/01/1970' ? '' : date('d/m/Y', strtotime($item->ngayTTxuat)) }}
                                                     </td>
                                                     <td class="text-13-black">{{ $item->HTTTxuat }}</td>
                                                     <td data-toggle="modal" data-target="#snModal"
