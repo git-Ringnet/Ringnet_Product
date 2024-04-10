@@ -50,12 +50,15 @@
         </div>
         <section class="content-header--options p-0 border-custom">
             <div class="width-18">
-                <ul class="header-options--nav w-100 nav justify-content-evenly nav-tabs margin-left32">
+                <ul class="header-options--nav nav nav-tabs margin-left32" style="width: 335px !important;">
                     <li class="active">
-                        <a class="text-secondary pl-3 active" data-toggle="tab" href="#import">Mua hàng</a>
+                        <a class="text-secondary pl-3 active" data-toggle="tab" href="#dashboard">Tổng quan</a>
                     </li>
-                    <li style="margin-left: 11px;">
-                        <a class="text-secondary pr-3" data-toggle="tab" href="#export">Bán hàng</a>
+                    <li>
+                        <a class="text-secondary" data-toggle="tab" href="#export">Bán hàng</a>
+                    </li>
+                    <li>
+                        <a class="text-secondary pr-3" data-toggle="tab" href="#import">Mua hàng</a>
                     </li>
                 </ul>
             </div>
@@ -249,8 +252,44 @@
         </div>
     </div>
     <div class="tab-content">
+        {{-- Tổng quan --}}
+        <div id="dashboard" class="content tab-pane in active">
+            <div class="content margin-top-fixed10">
+                <!-- Main content -->
+                <section class="content margin-250">
+                    <div class="container-fluided">
+                        <div class="row">
+                            <div class="col-md-12 p-0 m-0 pl-2">
+                                <div class="card" style="scrollbar-width: none;">
+                                    <div class="row">
+                                        <div class="col-md-6 px-5 py-3">
+                                            <h5 class="text-center mt-2">Top 5 khách hàng</h5>
+                                            <canvas id="myChart" width="400" height="400"></canvas>
+                                        </div>
+                                        <div class="col-md-6 px-5 py-3">
+                                            <h5 class="text-center mt-2">Công nợ bán hàng</h5>
+                                            <canvas id="chartDebt" width="400" height="400"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 px-5 py-3">
+                                            <h5 class="text-center mt-2">Tổng số đơn hàng</h5>
+                                            <canvas id="chartPay" width="400" height="400"></canvas>
+                                        </div>
+                                        <div class="col-md-6 px-5 py-3">
+                                            <h5 class="text-center mt-2">Công nợ mua hàng</h5>
+                                            <canvas id="chartDebtImport" width="400" height="400"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
         {{-- Mua hàng --}}
-        <div id="import" class="content tab-pane in active">
+        <div id="import" class="tab-pane fade">
             <div class="content margin-top-fixed10">
                 <!-- Main content -->
                 <section class="content margin-250">
@@ -509,12 +548,165 @@
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 
 <script type="text/javascript">
+    $('.import').hide();
+    //Biểu đồ
+    //Top 5 khách hàng
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {!! $labels !!},
+            datasets: [{
+                label: 'Top doanh số',
+                data: {!! $data !!},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    //Công nợ bán hàng
+    var ctx1 = document.getElementById('chartDebt').getContext('2d');
+    var myChart1 = new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: {!! $labels1 !!},
+            datasets: [{
+                data: {!! $data1 !!},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    //Tổng số đơn hàng
+    var ctx = document.getElementById('chartPay').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Đơn đã bán', 'Đơn đã mua'],
+            datasets: [{
+                label: 'Tổng số đơn hàng',
+                data: [{!! $detailExport !!}, {!! $detailImport !!}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    //Công nợ mua hàng
+    var ctx = document.getElementById('chartDebtImport').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: {!! $labels3 !!},
+            datasets: [{
+                label: 'Dư nợ thanh toán',
+                data: {!! $data3 !!},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
     $('.header-options--nav a[data-toggle="tab"]').click(function() {
         var targetId = $(this).attr('href');
-        var content = (targetId === '#import') ? "Mua hàng" : "Bán hàng";
+        var content = '';
+
+        // Kiểm tra id của tab và gán nội dung tương ứng
+        if (targetId === '#import') {
+            content = "Mua hàng";
+        } else if (targetId === '#export') {
+            content = "Bán hàng";
+        } else if (targetId === '#dashboard') {
+            content = "Tổng quan";
+        }
+
+        // Hiển thị nội dung tương ứng
         $('.title-data').html(content);
+
+        // Hiển thị hoặc ẩn các phần tử tương ứng với tab được chọn
         $('.import').toggle(targetId === '#import');
         $('.export').toggle(targetId === '#export');
+        $('.dashboard').toggle(targetId === '#dashboard');
     });
 
     var idGuests = [];

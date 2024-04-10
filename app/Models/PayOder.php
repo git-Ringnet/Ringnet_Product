@@ -463,6 +463,27 @@ class PayOder extends Model
         return $report_provide;
     }
 
+    public function getProvidersWithDebt()
+    {
+        $providersWithDebt = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('provides', 'provides.id', '=', 'detailimport.provide_id')
+            ->whereIn('detailimport.status', [0, 2])
+            ->where('provides.provide_debt', '>', 0)
+            ->select(
+                'detailimport.provide_id as provide_id',
+                'provides.provide_name_display as provide_name',
+                'provides.provide_code as provide_code',
+                'provides.id',
+                DB::raw('SUM(detailimport.total_tax) as totalPayments'),
+                'provides.provide_debt as totalDebt'
+            )
+            ->groupBy('detailimport.provide_id', 'provides.provide_name_display', 'provides.provide_code', 'provides.id', 'provides.provide_debt')
+            ->havingRaw('SUM(detailimport.total_tax) > 0')
+            ->get();
+
+        return $providersWithDebt;
+    }
+
     public function ajax($data)
     {
         $report_provide = DetailImport::where('detailimport.workspace_id', Auth::user()->current_workspace)

@@ -352,6 +352,44 @@ class PayExport extends Model
             ->get();
         return $report_guest;
     }
+    public function guestdoanhThuTop5()
+    {
+        $report_guest = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
+            ->whereIn('detailexport.status', [2, 3])
+            ->select(
+                'detailexport.guest_id as guest_id',
+                'guest.guest_name_display as guest_name',
+                'guest.guest_code as guest_code',
+                'guest.id',
+                DB::raw('SUM(detailexport.total_price + detailexport.total_tax) as sumSell'),
+                DB::raw('SUM(detailexport.amount_owed) as sumAmountOwed')
+            )
+            ->groupBy('detailexport.guest_id', 'guest.guest_name_display', 'guest.guest_code', 'guest.id')
+            ->orderByDesc('sumSell') // Sắp xếp theo doanh thu giảm dần
+            ->limit(5) // Giới hạn kết quả chỉ lấy top 5
+            ->get();
+
+        return $report_guest;
+    }
+    public function getCompaniesWithDebt()
+    {
+        $companiesWithDebt = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('guest', 'guest.id', '=', 'detailexport.guest_id')
+            ->whereIn('detailexport.status', [2, 3])
+            ->where('detailexport.amount_owed', '>', 0)
+            ->select(
+                'guest.guest_name_display as guest_name',
+                'guest.guest_code as guest_code',
+                DB::raw('SUM(detailexport.total_price + detailexport.total_tax) as sumSell'),
+                DB::raw('SUM(detailexport.amount_owed) as sumAmountOwed')
+            )
+            ->groupBy('guest.guest_name_display', 'guest.guest_code')
+            ->havingRaw('SUM(detailexport.amount_owed) > 0')
+            ->get();
+
+        return $companiesWithDebt;
+    }
     public function ajax($data)
     {
         $report_guest = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)

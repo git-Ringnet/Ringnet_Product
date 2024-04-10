@@ -46,7 +46,7 @@
                                 <span class="text-btnIner-primary ml-2">Hủy</span>
                             </button>
                         </a>
-                        <div class="dropdown">
+                        {{-- <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 dropdown-toggle">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -61,7 +61,7 @@
                                 <a class="dropdown-item text-13-black" href="#">Xuất Excel</a>
                                 <a class="dropdown-item text-13-black" href="#">Xuất PDF</a>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="dropdown">
                             <button type="submit" name="action" value="2"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" id="giaoHang">

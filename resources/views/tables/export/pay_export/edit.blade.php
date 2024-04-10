@@ -98,7 +98,7 @@
                                 <span class="text-btnIner-primary ml-1">In</span>
                             </button>
                             <div class="dropdown-menu" style="z-index: 9999;">
-                                <a class="dropdown-item text-13-black" href="#">
+                                <a class="dropdown-item text-13-black" href="{{ route('pdfPayExport', $payExport->idTT) }}">
                                     Xuất PDF
                                 </a>
                             </div>

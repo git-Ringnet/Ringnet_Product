@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailExport;
+use App\Models\DetailImport;
 use App\Models\Guest;
 use App\Models\PayExport;
 use App\Models\PayOder;
 use App\Models\Provides;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class ReportController extends Controller
@@ -32,7 +35,62 @@ class ReportController extends Controller
         $guests = $this->payExport->guestStatistics();
         $provides = $this->payOrder->provideStatistics();
         // dd($guests, $provides);
-        return view('report.index', compact('title', 'guests', 'provides'));
+
+        //Top 5 doanh số
+        $labels = [];
+        $data = [];
+        $payExportTop5 = $this->payExport->guestdoanhThuTop5();
+        foreach ($payExportTop5 as $guest) {
+            $labels[] = $guest->guest_name;
+            $data[] = $guest->sumSell;
+        }
+        // Chuyển mảng labels và data thành chuỗi JSON để truyền vào biểu đồ JavaScript
+        $labels = json_encode($labels);
+        $data = json_encode($data);
+
+        //Công ty còn dư nợ
+        $labels1 = [];
+        $data1 = [];
+        $payExportDebt = $this->payExport->getCompaniesWithDebt();
+        foreach ($payExportDebt as $guest) {
+            $labels1[] = $guest->guest_name;
+            $data1[] = $guest->sumAmountOwed;
+        }
+        $labels1 = json_encode($labels1);
+        $data1 = json_encode($data1);
+
+        //Tổng số đơn hàng
+        $detailExport = DetailExport::whereIn('detailexport.status', [3, 2])
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->count();
+        $detailImport = DetailImport::whereIn('detailimport.status', [3, 2])
+            ->where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->count();
+        $detailExport = json_encode($detailExport);
+        $detailImport = json_encode($detailImport);
+        //Dư nợ mua hàng
+        $labels3 = [];
+        $data3 = [];
+        $payOrderDebt = $this->payOrder->getProvidersWithDebt();
+        foreach ($payOrderDebt as $guest) {
+            $labels3[] = $guest->provide_name;
+            $data3[] = $guest->totalDebt;
+        }
+        $labels3 = json_encode($labels3);
+        $data3 = json_encode($data3);
+        return view('report.index', compact(
+            'title',
+            'guests',
+            'provides',
+            'labels',
+            'data',
+            'labels1',
+            'data1',
+            'labels3',
+            'data3',
+            'detailExport',
+            'detailImport',
+        ));
     }
     public function view()
     {

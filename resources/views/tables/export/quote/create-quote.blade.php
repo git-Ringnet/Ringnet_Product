@@ -43,7 +43,7 @@
                             </button>
                         </a>
                         <div class="dropdown">
-                            <button type="button" data-toggle="dropdown"
+                            <button type="submit" data-toggle="dropdown"
                                 class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -54,11 +54,11 @@
                                 <span class="text-button">Lưu và in</span>
                             </button>
                             <div class="dropdown-menu" style="z-index: 9999;">
-                                <a class="dropdown-item text-13-black" href="#">Xuất Excel</a>
-                                <a class="dropdown-item text-13-black" href="#">Xuất PDF</a>
+                                <a class="dropdown-item text-13-black" href="#" id="excel-link">Xuất Excel</a>
+                                <a class="dropdown-item text-13-black" href="#" id="pdf-link">Xuất PDF</a>
                             </div>
                         </div>
-                        <button type="submit" onclick="kiemTraFormGiaoHang(event);"
+                        <button type="submit" onclick="kiemTraFormGiaoHang(event);" id="luuNhap"
                             class="custom-btn d-flex align-items-center h-100 mx-1">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -96,7 +96,8 @@
                             <thead>
                                 <tr style="height:44px;">
                                     <th class="border-right px-2 p-0" style="width: 16%">
-                                        <input type='checkbox' class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
+                                        <input type='checkbox'
+                                            class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
                                         <span class="text-table text-secondary">Mã sản phẩm</span>
                                     </th>
                                     <th class="border-right px-2 p-0 text-left" style="width: 15%;z-index:99;">
@@ -2390,7 +2391,6 @@
                 },
                 success: function(data) {
                     if (data.success) {
-                        $('input[name="quotation_number"]').val(data.resultNumber);
                         $('.nameGuest').val(data.updated_guest.guest_name_display);
                         showAutoToast('success', data.msg);
                         $('.idGuest').val(data.updated_guest.id);
@@ -2999,6 +2999,22 @@
             }
         })();
     }
+    //Lưu và in
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     var excelLink = document.querySelector("#excel-link");
+    //     var pdfLink = document.querySelector("#pdf-link");
+
+    //     excelLink.addEventListener("click", function(event) {
+    //         event.preventDefault();
+    //         console.log('excel');
+    //         $('#luuNhap').click();
+    //     });
+
+    //     pdfLink.addEventListener("click", function(event) {
+    //         event.preventDefault();
+    //         console.log('pdf');
+    //     });
+    // });
 </script>
 </body>
 

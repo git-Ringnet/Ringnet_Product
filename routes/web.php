@@ -121,6 +121,8 @@ Route::get('/', function () {
 // Route::resource('pdf', PdfController::class);
 Route::get('/pdf/{id?}', [PdfController::class, 'index'])->name('pdf');
 Route::get('/pdfdelivery{id?}', [PdfController::class, 'pdfdelivery'])->name('pdfdelivery');
+Route::get('/pdfBillSale{id?}', [PdfController::class, 'pdfBillSale'])->name('pdfBillSale');
+Route::get('/pdfPayExport{id?}', [PdfController::class, 'pdfPayExport'])->name('pdfPayExport');
 Route::get('/excel/{id?}', [PdfController::class, 'export'])->name('excel');
 
 
