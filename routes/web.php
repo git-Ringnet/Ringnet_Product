@@ -125,6 +125,12 @@ Route::get('/pdfBillSale{id?}', [PdfController::class, 'pdfBillSale'])->name('pd
 Route::get('/pdfPayExport{id?}', [PdfController::class, 'pdfPayExport'])->name('pdfPayExport');
 Route::get('/excel/{id?}', [PdfController::class, 'export'])->name('excel');
 
+Route::get('/download-excel', [DetailExportController::class, 'downloadExcel'])->name('download.excel');
+Route::get('/clear-session', [DetailExportController::class, 'clearSession'])->name('clear.session');
+
+Route::get('/download-pdf', [DetailExportController::class, 'downloadPdf'])->name('download.pdf');
+Route::get('/clear-pdf-session', [DetailExportController::class, 'clearPdfSession'])->name('clear.pdf.session');
+
 
 //Bán hàng
 //Lưu thao tác

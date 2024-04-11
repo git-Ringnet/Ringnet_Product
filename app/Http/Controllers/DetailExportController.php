@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Models\Attachment;
 use App\Models\BillSale;
 use App\Models\Delivered;
@@ -22,10 +23,13 @@ use App\Models\DateForm;
 use App\Models\representGuest;
 use App\Models\userFlow;
 use App\Models\Workspace;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DetailExportController extends Controller
 {
@@ -135,7 +139,88 @@ class DetailExportController extends Controller
             $formField = $fieldDates[$key];
             $this->guest_dateForm->insertFormGuest($guestId, $dateFormId, $formField);
         }
-        return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', ' Tạo mới đơn báo giá thành công !');
+        if ($request->excel_export == 1) {
+            // Sau khi lưu xong tất cả thông tin, set session export_id
+            $request->session()->put('excel_info.export_id', $export_id);
+        }
+        if ($request->pdf_export == 1) {
+            // Sau khi lưu xong tất cả thông tin, set session export_id
+            $request->session()->put('pdf_info.export_id', $export_id);
+        }
+        return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Tạo mới đơn báo giá thành công!');
+    }
+
+    public function downloadExcel()
+    {
+        $exportId = session('excel_info.export_id');
+
+        if ($exportId) {
+            $product = $this->product->getAllProducts();
+            $detailExport = $this->detailExport->getDetailExportToId($exportId);
+            $quoteExport = $this->detailExport->getProductToId($exportId);
+            foreach ($quoteExport as $item) {
+                $item->product_tax_label = ($item->product_tax == 99) ? "NOVAT" : $item->product_tax;
+            }
+            $data = ['detailExport' => $detailExport, 'quoteExport' => $quoteExport, 'product' => $product];
+            // Lưu tệp Excel vào storage/app
+            Excel::store(new UsersExport($data), 'users.xlsx', 'local');
+            // Tải tệp Excel từ storage/app và sau đó xóa nó
+            $excelFilePath = storage_path("app/users.xlsx");
+            $response = response()->download($excelFilePath, 'users.xlsx')->deleteFileAfterSend();
+
+            // Xóa session sau khi đã tải xuống tệp Excel
+            session()->forget('excel_info');
+
+            return $response;
+        }
+
+        return redirect()->route('detailExport.index')->with('error', 'Không có tệp Excel để tải xuống.');
+    }
+
+    public function downloadPdf()
+    {
+        // Kiểm tra xem có session export_id không
+        $exportId = session('pdf_info.export_id');
+
+        if ($exportId) {
+            // Xóa session export_id trước khi tạo và trả về PDF
+            session()->forget('pdf_info.export_id');
+
+            // Tạo PDF từ dữ liệu và xuất nó
+            $guest = $this->guest->getAllGuest();
+            $product = $this->product->getAllProducts();
+            $detailExport = $this->detailExport->getDetailExportToId($exportId);
+            $quoteExport = $this->detailExport->getProductToId($exportId);
+            $data = ['detailExport' => $detailExport, 'quoteExport' => $quoteExport, 'product' => $product];
+            $pdf = Pdf::loadView('pdf.quote', compact('data'))
+                ->setPaper('A4', 'portrait')
+                ->setOptions([
+                    'defaultFont' => 'sans-serif',
+                    'dpi' => 140,
+                    'isHtml5ParserEnabled' => true,
+                    'isPhpEnabled' => true,
+                    'enable_remote' => false,
+                ]);
+            return $pdf->download('invoice.pdf');
+        } else {
+            // Nếu không có session export_id, chuyển hướng hoặc xử lý theo nhu cầu của bạn
+            return redirect()->back()->with('error', 'Không có PDF để tải xuống.');
+        }
+    }
+
+    public function clearSession()
+    {
+        session()->forget('excel_info.export_id');
+        return response()->json(['success' => true]);
+    }
+
+    public function clearPdfSession()
+    {
+        // Xóa session pdf_info.export_id
+        session()->forget('pdf_info.export_id');
+
+        // Trả về phản hồi JSON để xác nhận rằng session đã được xóa
+        return response()->json(['success' => true]);
     }
 
     /**

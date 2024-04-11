@@ -281,12 +281,12 @@
                                             <canvas id="chartDebtImport" width="400" height="400"></canvas>
                                         </div>
                                     </div>
-                                    {{-- <div class="row">
+                                    <div class="row">
                                         <div class="col-md-6 px-5 py-5" style="position: relative; height:70vh;">
                                             <h5 class="text-center mt-2">Tổng doanh thu theo quý</h5>
                                             <canvas id="chartTotal" width="400" height="400"></canvas>
                                         </div>
-                                    </div> --}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -697,45 +697,46 @@
         }
     });
     //Doanh thu theo quý
-    // var ctx2 = document.getElementById('chartTotal').getContext('2d');
-    // var revenueData = []; // Khởi tạo mảng để lưu trữ doanh thu
+    var ctx4 = document.getElementById('chartTotal').getContext('2d');
+    var revenueData = []; // Khởi tạo mảng để lưu trữ doanh thu
 
-    // @foreach ($revenueByQuarter as $item)
-    //     revenueData.push({{ $item->total_revenue }});
-    // @endforeach
-    // var myChart2 = new Chart(ctx2, {
-    //     type: 'bar',
-    //     data: {
-    //         labels: ['Quý 1', 'Quý 2', 'Quý 3', 'Quý 4'],
-    //         datasets: [{
-    //             label: 'Tổng số đơn hàng',
-    //             data: revenueData,
-    //             backgroundColor: [
-    //                 'rgba(255, 99, 132, 0.2)',
-    //                 'rgba(54, 162, 235, 0.2)',
-    //                 'rgba(255, 206, 86, 0.2)',
-    //                 'rgba(75, 192, 192, 0.2)',
-    //                 'rgba(153, 102, 255, 0.2)',
-    //             ],
-    //             borderColor: [
-    //                 'rgba(255, 99, 132, 1)',
-    //                 'rgba(54, 162, 235, 1)',
-    //                 'rgba(255, 206, 86, 1)',
-    //                 'rgba(75, 192, 192, 1)',
-    //                 'rgba(153, 102, 255, 1)',
-    //             ],
-    //             borderWidth: 1
-    //         }]
-    //     },
-    //     options: {
-    //         maintainAspectRatio: false,
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
+    @foreach ($revenueByQuarter as $item)
+        revenueData.push({{ $item->total_revenue }});
+    @endforeach
+
+    var myChart4 = new Chart(ctx4, {
+        type: 'bar',
+        data: {
+            labels: ['Quý 1', 'Quý 2', 'Quý 3', 'Quý 4'],
+            datasets: [{
+                label: 'Tổng số đơn hàng',
+                data: revenueData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                }
+            }
+        }
+    });
 
     $('.header-options--nav a[data-toggle="tab"]').click(function() {
         var targetId = $(this).attr('href');

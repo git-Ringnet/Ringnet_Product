@@ -67,7 +67,7 @@ class BillSale extends Model
         if (isset($data['date_bill'])) {
             $date_bill = $data['date_bill'];
         } else {
-            $date_bill = null;
+            $date_bill = Carbon::now();
         }
         if (isset($data['number_bill'])) {
             $number_bill = $data['number_bill'];

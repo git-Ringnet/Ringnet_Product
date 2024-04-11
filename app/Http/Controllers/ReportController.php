@@ -93,7 +93,6 @@ class ReportController extends Controller
             ->orderBy('year')
             ->orderBy('quarter')
             ->get();
-        // dd($revenueByQuarter);
         return view('report.index', compact(
             'title',
             'guests',

@@ -2,6 +2,8 @@
 </x-navbar>
 <form id="form-submit" action="{{ route('detailExport.store', ['workspace' => $workspacename]) }}" method="POST">
     @csrf
+    <input type="hidden" name="excel_export" id="excel_export">
+    <input type="hidden" name="pdf_export" id="pdf_export">
     <div class="content-wrapper--2Column m-0 min-height--none">
         <div class="content-header-fixed p-0 margin-250 border-bottom-0">
             <div class="content__header--inner margin-left32">
@@ -2922,6 +2924,8 @@
                 return true; // Trả về true nếu không có lỗi
             } catch (error) {
                 console.error("Lỗi khi kiểm tra sản phẩm:", error);
+                $('#excel_export').val(0);
+                $('#pdf_export').val(0);
                 return false; // Trả về false nếu có lỗi
             }
         }
@@ -2947,6 +2951,8 @@
                     // Kiểm tra trùng lặp tên sản phẩm
                     if (previousProductNames.includes(normalizedProductName)) {
                         showAutoToast('warning', 'Tên sản phẩm bị trùng: ' + productName);
+                        $('#excel_export').val(0);
+                        $('#pdf_export').val(0);
                         return;
                     } else {
                         // Thêm tên sản phẩm đã chuẩn hóa vào mảng các tên sản phẩm đã xuất hiện trước đó
@@ -2957,6 +2963,8 @@
                     for (var j = 0; j < inputs.length; j++) {
                         if (inputs[j].value.trim() === '') {
                             showAutoToast('warning', 'Vui lòng điền đủ thông tin sản phẩm');
+                            $('#excel_export').val(0);
+                            $('#pdf_export').val(0);
                             return; // Dừng ngay khi gặp một trường input thiếu thông tin
                         }
                     }
@@ -2972,9 +2980,13 @@
             if ($.trim(inputValue) === '') {
                 showAutoToast('warning', 'Vui lòng chọn khách hàng từ danh sách hoặc thêm mới khách hàng!');
                 shouldSubmit = false;
+                $('#excel_export').val(0);
+                $('#pdf_export').val(0);
             } else if (!hasProducts) {
                 showAutoToast('warning', 'Không có sản phẩm để báo giá');
                 shouldSubmit = false;
+                $('#excel_export').val(0);
+                $('#pdf_export').val(0);
             }
 
             // Kiểm tra số báo giá tồn tại bằng Ajax
@@ -2990,6 +3002,8 @@
                     success: function(data) {
                         if (!data['status']) {
                             showAutoToast('warning', 'Số báo giá đã tồn tại');
+                            $('#excel_export').val(0);
+                            $('#pdf_export').val(0);
                         } else {
                             // Nếu số báo giá không tồn tại, thực hiện submit form
                             $('form')[1].submit();
@@ -3000,21 +3014,22 @@
         })();
     }
     //Lưu và in
-    // document.addEventListener("DOMContentLoaded", function() {
-    //     var excelLink = document.querySelector("#excel-link");
-    //     var pdfLink = document.querySelector("#pdf-link");
+    document.addEventListener("DOMContentLoaded", function() {
+        var excelLink = document.querySelector("#excel-link");
+        var pdfLink = document.querySelector("#pdf-link");
 
-    //     excelLink.addEventListener("click", function(event) {
-    //         event.preventDefault();
-    //         console.log('excel');
-    //         $('#luuNhap').click();
-    //     });
+        excelLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            $('#excel_export').val(1);
+            $('#luuNhap').click();
+        });
 
-    //     pdfLink.addEventListener("click", function(event) {
-    //         event.preventDefault();
-    //         console.log('pdf');
-    //     });
-    // });
+        pdfLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            $('#pdf_export').val(1);
+            $('#luuNhap').click();
+        });
+    });
 </script>
 </body>
 

@@ -171,8 +171,7 @@
                                 <table id="example2" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="width:5%;padding-left: 2rem;"
-                                                class="height-52">
+                                            <th scope="col" style="width:5%;padding-left: 2rem;" class="height-52">
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
@@ -644,6 +643,58 @@
                 }
             });
         });
+    });
+    @php
+        $excelInfo = session('excel_info');
+        $pdfSession = session('pdf_info');
+    @endphp
+
+    document.addEventListener("DOMContentLoaded", function() {
+        @if ($excelInfo)
+            fetch('{{ route('download.excel') }}')
+                .then(response => response.blob())
+                .then(blob => {
+                    var url = window.URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = 'users.xlsx';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                })
+                .then(() => {
+                    // Sau khi tải xuống hoàn tất, gửi yêu cầu để xóa session
+                    fetch('{{ route('clear.session') }}')
+                        .then(() => {
+                            // Sau khi xóa session, làm mới trang để cập nhật giao diện
+                            window.location.reload();
+                        });
+                });
+        @endif
+
+        @if ($pdfSession)
+            fetch('{{ route('download.pdf') }}')
+                .then(response => response.blob())
+                .then(blob => {
+                    var url = window.URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = 'invoice.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                })
+                .then(() => {
+                    // Sau khi tải xuống, gửi yêu cầu để xóa session pdf
+                    fetch('{{ route('clear.pdf.session') }}')
+                        .then(() => {
+                            // Sau khi xóa session, làm mới trang để cập nhật giao diện
+                            window.location.reload();
+                        });
+                });
+        @endif
     });
 </script>
 </body>
