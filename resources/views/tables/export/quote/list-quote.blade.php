@@ -122,7 +122,7 @@
                 </div>
             </div>
         </div>
-        <div class="row m-auto filter p-0 border-custom height-52 position-relative" style="border-bottom: none !important;">
+        {{-- <div class="row m-auto filter p-0 border-custom height-52 position-relative" style="border-bottom: none !important;">
             <div class="w-100">
                 <div class="row mr-0 mt-1 padding-left32">
                     <div class="col-md-5 d-flex align-items-center">
@@ -159,15 +159,15 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
-    <div class="content margin-top-10">
+    <div class="content margin-top-67">
         <section class="content margin-250">
             <div class="container-fluided">
                 <div class="row">
                     <div class="col-md-12 p-0 m-0 pl-2">
                         <div class="card">
-                            <div class="outer text-nowrap">
+                            <div class="outer2 text-nowrap">
                                 <table id="example2" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr>
