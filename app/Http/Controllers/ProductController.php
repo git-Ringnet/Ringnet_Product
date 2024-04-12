@@ -240,12 +240,14 @@ class ProductController extends Controller
         return redirect()->back()->with('msg', 'Restore dữ liệu thành công !');
     }
 
-    public function checkProductTax(Request $request)  {
+    public function checkProductTax(Request $request)
+    {
         $data = $this->products->checkProductTax($request->all());
         return $data;
     }
 
-    public function checkProductName(Request $request){
+    public function checkProductName(Request $request)
+    {
         $data = $this->products->checkProductName($request->all());
         return $data;
     }

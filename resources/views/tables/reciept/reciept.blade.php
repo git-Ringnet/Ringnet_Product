@@ -150,7 +150,7 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Trạng thái</button>
@@ -212,7 +212,7 @@
                                                     @if ($item->getQuotation)
                                                         {{ $item->getQuotation->provide_name }}
                                                     @endif
-                                                <td class="py-2 text-13-black">
+                                                <td class="py-2 text-13-black text-center">
                                                     @if ($item->status == 1)
                                                         <span style="color: #858585">Bản nháp</span>
                                                     @else

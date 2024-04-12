@@ -160,7 +160,7 @@
                                             </th>
 
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex">
+                                                <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
                                                             type="submit">Trạng thái</button>
@@ -236,7 +236,7 @@
                                                 <td class=" text-13-black text-right">
                                                     {{ number_format($item->delivery_charges) }}
                                                 </td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black text-center">
                                                     @if ($item->status == 1)
                                                         <span style="color: #858585">Chưa nhận</span>
                                                     @else

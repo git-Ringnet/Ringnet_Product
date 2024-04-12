@@ -79,7 +79,8 @@ class Products extends Model
                     'product_trade' => 0,
                     'product_available' => 0,
                     'workspace_id' => Auth::user()->current_workspace,
-                    'type' => 1
+                    'type' => 1,
+                    'created_at' => Carbon::now(),
                 ];
                 $product_id =  DB::table($this->table)->insert($product);
             }
@@ -112,6 +113,7 @@ class Products extends Model
                 'product_available' => 0,
                 'workspace_id' => Auth::user()->current_workspace,
                 'product_tax' => $data['product_tax'],
+                'created_at' => Carbon::now(),
             ];
             if ($data['type_product'] == 1) {
                 $product['product_type'] = $data['product_type'];
@@ -119,29 +121,7 @@ class Products extends Model
                 $product['product_origin'] = $data['product_origin'];
                 $product['product_guarantee'] = $data['product_guarantee'];
             }
-            // else {
-            //     $product['product_tax'] = 8;
-            // }
 
-            // $product  = [
-            //     'product_code' => $data['product_code'],
-            //     'product_name' => $data['product_name'],
-            //     'product_unit' => $data['product_unit'],
-            //     'product_type' => $data['product_type'],
-            //     'product_manufacturer' => $data['product_manufacturer'],
-            //     'product_origin' => $data['product_origin'],
-            //     'product_guarantee' => $data['product_guarantee'],
-            //     'product_price_import' => $data['product_price_import'],
-            //     'product_price_export' => $data['product_price_export'],
-            //     'product_ratio' => $data['product_ratio'],
-            //     'product_tax' => $data['product_tax'],
-            //     'check_seri' => $check,
-            //     'product_inventory' => 0,
-            //     'product_trade' => 0,
-            //     'product_available' => 0,
-            //     'workspace_id' => Auth::user()->current_workspace
-            //     // 'warehouse_id' => 1
-            // ];
             $product_id =  DB::table($this->table)->insert($product);
             $return = 1;
         }
@@ -149,7 +129,6 @@ class Products extends Model
     }
     public function updateProduct($data, $id)
     {
-        // dd($data['action']);
         $return = 0;
         $product = Products::where('id', $id)->first();
         if ($product) {

@@ -23,6 +23,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserFlowController;
 use App\Http\Controllers\UserWorkspacesController;
+use App\Http\Middleware\CheckLogin;
 use App\Models\DetailImport;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -39,16 +40,21 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 // Kho hàng
-Route::resource('{workspace}/inventory', ProductController::class);
-Route::get('/searchInventory', [ProductController::class, 'search'])->name('searchInventory');
-Route::get('/checkProductName', [ProductController::class, 'checkProductName'])->name('checkProductName');
-Route::get('{workspacename}/editProduct', [ProductController::class, 'editProduct'])->name('editProduct');
-Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProductInventory'])->name('inventory.showProductInventory');
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/inventory', ProductController::class);
+    Route::get('/searchInventory', [ProductController::class, 'search'])->name('searchInventory');
+    Route::get('/checkProductName', [ProductController::class, 'checkProductName'])->name('checkProductName');
+    Route::get('{workspacename}/editProduct', [ProductController::class, 'editProduct'])->name('editProduct');
+    Route::get('/showProductInventory/{id?}', [ProductController::class, 'showProductInventory'])->name('inventory.showProductInventory');
+});
+
 
 // Nhà cung cấp
-Route::resource('{workspace}/provides', ProvidesController::class);
-Route::get('/checkKeyProvide', [ProvidesController::class, 'checkKeyProvide'])->name('checkKeyProvide');
-Route::get('/searchProvides', [ProvidesController::class, 'search'])->name('searchProvides');
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/provides', ProvidesController::class)->middleware(CheckLogin::class);
+    Route::get('/checkKeyProvide', [ProvidesController::class, 'checkKeyProvide'])->name('checkKeyProvide');
+    Route::get('/searchProvides', [ProvidesController::class, 'search'])->name('searchProvides');
+});
 
 // Khách hàng
 Route::resource('{workspace}/guests', GuestController::class);
@@ -56,22 +62,30 @@ Route::get('/search', [GuestController::class, 'search'])->name('searchGuest');
 Route::get('/searchDetailGuest', [GuestController::class, 'searchDetailGuest'])->name('searchDetailGuest');
 
 // Mua hàng
-Route::resource('{workspace}/import', DetailImportController::class);
-Route::get('/show_provide', [DetailImportController::class, 'show_provide'])->name('show_provide');
-Route::get('/show_project', [DetailImportController::class, 'show_project'])->name('show_project');
-Route::get('/addNewProvide', [DetailImportController::class, 'addNewProvide'])->name('addNewProvide');
-Route::get('/updateProvide', [DetailImportController::class, 'updateProvide'])->name('updateProvide');
-Route::get('/getAllProducts', [DetailImportController::class, 'getAllProducts'])->name('getAllProducts');
-Route::get('/showProductName', [DetailImportController::class, 'showProductName'])->name('showProductName');
-Route::get('/checkSN', [DetailImportController::class, 'checkSN'])->name('checkSN');
-Route::get('/checkduplicateSN', [DetailImportController::class, 'checkduplicateSN'])->name('checkduplicateSN');
-Route::POST('addAttachment', [DetailImportController::class, 'addAttachment'])->name('addAttachment');
-Route::get('/download/{folder}/{file?}', [DetailImportController::class, 'downloadFile'])->name('downloadFile');
-Route::delete('/deleteFile/{folder}/{file}', [DetailImportController::class, 'deleteFile'])->name('deleteFile');
-Route::get('/checkQuotetion', [DetailImportController::class, 'checkQuotetion'])->name('checkQuotetion');
-Route::get('/getInventory', [DetailImportController::class, 'getInventory'])->name('getInventory');
-Route::get('/getHistoryImport', [DetailImportController::class, 'getHistoryImport'])->name('getHistoryImport');
-Route::get('/searchImport', [DetailImportController::class, 'searchImport'])->name('searchImport');
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/import', DetailImportController::class);
+    Route::get('/show_provide', [DetailImportController::class, 'show_provide'])->name('show_provide');
+    Route::get('/show_project', [DetailImportController::class, 'show_project'])->name('show_project');
+    Route::get('/addNewProvide', [DetailImportController::class, 'addNewProvide'])->name('addNewProvide');
+    Route::get('/updateProvide', [DetailImportController::class, 'updateProvide'])->name('updateProvide');
+    Route::get('/getAllProducts', [DetailImportController::class, 'getAllProducts'])->name('getAllProducts');
+    Route::get('/showProductName', [DetailImportController::class, 'showProductName'])->name('showProductName');
+    Route::get('/checkSN', [DetailImportController::class, 'checkSN'])->name('checkSN');
+    Route::get('/checkduplicateSN', [DetailImportController::class, 'checkduplicateSN'])->name('checkduplicateSN');
+    Route::POST('addAttachment', [DetailImportController::class, 'addAttachment'])->name('addAttachment');
+    Route::get('/download/{folder}/{file?}', [DetailImportController::class, 'downloadFile'])->name('downloadFile');
+    Route::delete('/deleteFile/{folder}/{file}', [DetailImportController::class, 'deleteFile'])->name('deleteFile');
+    Route::get('/checkQuotetion', [DetailImportController::class, 'checkQuotetion'])->name('checkQuotetion');
+    Route::get('/getInventory', [DetailImportController::class, 'getInventory'])->name('getInventory');
+    Route::get('/getHistoryImport', [DetailImportController::class, 'getHistoryImport'])->name('getHistoryImport');
+    Route::get('/searchImport', [DetailImportController::class, 'searchImport'])->name('searchImport');
+    Route::get('/getDataForm', [DetailImportController::class, 'getDataForm'])->name('getDataForm');
+    Route::get('/addNewForm', [DetailImportController::class, 'addNewForm'])->name('addNewForm');
+    Route::get('/updateForm', [DetailImportController::class, 'updateForm'])->name('updateForm');
+    Route::get('/deleteForm', [DetailImportController::class, 'deleteForm'])->name('deleteForm');
+    Route::get('/setDefault', [DetailImportController::class, 'setDefault'])->name('setDefault');
+    Route::get('/showData', [DetailImportController::class, 'showData'])->name('showData');
+});
 
 
 Route::get('/checkQuotetionExport', [DetailExportController::class, 'checkQuotetionExport'])->name('checkQuotetionExport');
@@ -87,32 +101,32 @@ Route::get('/deleteDateForm', [DateFormController::class, 'deleteDateForm'])->na
 Route::get('/setDefaultGuest', [DateFormController::class, 'setDefault'])->name('setDefaultGuest');
 Route::get('/searchDateForm', [DateFormController::class, 'searchDateForm'])->name('searchDateForm');
 Route::get('/searchFormByGuestId', [DetailExportController::class, 'searchFormByGuestId'])->name('searchFormByGuestId');
-Route::get('/getDataForm', [DetailImportController::class, 'getDataForm'])->name('getDataForm');
-Route::get('/addNewForm', [DetailImportController::class, 'addNewForm'])->name('addNewForm');
-Route::get('/updateForm', [DetailImportController::class, 'updateForm'])->name('updateForm');
-Route::get('/deleteForm', [DetailImportController::class, 'deleteForm'])->name('deleteForm');
-Route::get('/setDefault', [DetailImportController::class, 'setDefault'])->name('setDefault');
-Route::get('/showData', [DetailImportController::class, 'showData'])->name('showData');
 
 // Đơn nhận hàng
-Route::resource('{workspace}/receive', ReceiveController::class);
-Route::get('/show_receive', [ReceiveController::class, 'show_receive'])->name('show_receive');
-Route::get('/getProduct_receive', [ReceiveController::class, 'getProduct_receive'])->name('getProduct_receive');
-Route::get('/searchReceive', [ReceiveController::class, 'searchReceive'])->name('searchReceive');
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/receive', ReceiveController::class);
+    Route::get('/show_receive', [ReceiveController::class, 'show_receive'])->name('show_receive');
+    Route::get('/getProduct_receive', [ReceiveController::class, 'getProduct_receive'])->name('getProduct_receive');
+    Route::get('/searchReceive', [ReceiveController::class, 'searchReceive'])->name('searchReceive');
+});
 // Xác nhận đơn nhận hàng
 // Route::resource('historyReceive', HistoryReceiveController::class);
 
 // Hóa đơn mua hàng
-Route::resource('{workspace}/reciept', RecieptController::class);
-Route::get('/show_reciept', [RecieptController::class, 'show_reciept'])->name('show_reciept');
-Route::get('/getProduct_reciept', [RecieptController::class, 'getProduct_reciept'])->name('getProduct_reciept');
-Route::get('/searchReciept', [RecieptController::class, 'searchReciept'])->name('searchReciept');
-
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/reciept', RecieptController::class);
+    Route::get('/show_reciept', [RecieptController::class, 'show_reciept'])->name('show_reciept');
+    Route::get('/getProduct_reciept', [RecieptController::class, 'getProduct_reciept'])->name('getProduct_reciept');
+    Route::get('/searchReciept', [RecieptController::class, 'searchReciept'])->name('searchReciept');
+});
 
 // Thanh toán nhập hàng
-Route::resource('{workspace}/paymentOrder', PayOrderController::class);
-Route::get('getPaymentOrder', [PayOrderController::class, 'getPaymentOrder'])->name('getPaymentOrder');
-Route::get('searchPaymentOrder', [PayOrderController::class, 'searchPaymentOrder'])->name('searchPaymentOrder');
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/paymentOrder', PayOrderController::class);
+    Route::get('getPaymentOrder', [PayOrderController::class, 'getPaymentOrder'])->name('getPaymentOrder');
+    Route::get('searchPaymentOrder', [PayOrderController::class, 'searchPaymentOrder'])->name('searchPaymentOrder');
+});
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -207,13 +221,16 @@ Route::get('/getInfoPay', [PayExportController::class, 'getInfoPay'])->name('get
 Route::get('/getProductPay', [PayExportController::class, 'getProductPay'])->name('getProductPay');
 
 //danh sách serial number theo product
-Route::get('/getProductSeri', [ProductController::class, 'getProductSeri'])->name('getProductSeri');
-Route::get('/getProductSeriEdit', [ProductController::class, 'getProductSeriEdit'])->name('getProductSeriEdit');
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::get('/getProductSeri', [ProductController::class, 'getProductSeri'])->name('getProductSeri');
+    Route::get('/getProductSeriEdit', [ProductController::class, 'getProductSeriEdit'])->name('getProductSeriEdit');
 
-Route::get('exportDatabase', [ProductController::class, 'exportDatabase'])->name('exportDatabase');
-Route::post('import', [ProductController::class, 'import'])->name('import');
-Route::POST('/importDatabase', [ProductController::class, 'importDatabase'])->name('importDatabase');
-Route::get('/checkProductTax', [ProductController::class, 'checkProductTax'])->name('checkProductTax');
+    Route::get('exportDatabase', [ProductController::class, 'exportDatabase'])->name('exportDatabase');
+    Route::post('import', [ProductController::class, 'import'])->name('import');
+    Route::POST('/importDatabase', [ProductController::class, 'importDatabase'])->name('importDatabase');
+    Route::get('/checkProductTax', [ProductController::class, 'checkProductTax'])->name('checkProductTax');
+});
+
 
 Route::get('/report', function () {
     return view('tables.report.report');
@@ -268,7 +285,7 @@ Route::post('/updateWorkspaceName', [SettingController::class, 'updateWorkspaceN
 
 
 // User flow
-Route::resource('{workspace}/userflow', UserFlowController::class);
+Route::resource('{workspace}/userflow', UserFlowController::class)->middleware(CheckLogin::class);
 
 
 Route::middleware([

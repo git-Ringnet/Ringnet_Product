@@ -62,7 +62,6 @@ class Serialnumber extends Model
 
     public function checkSN($data)
     {
-        // return $data;
         foreach ($data as $value) {
             foreach ($value as $product_name => $productName) {
                 $product = Products::where('product_name', $product_name)
@@ -70,7 +69,6 @@ class Serialnumber extends Model
                     ->first();
                 if ($product) {
                     $checkSN = Serialnumber::where('workspace_id', Auth::user()->current_workspace)
-                        // ->where('product_id', $product->id)
                         ->get();
                     foreach ($productName['sn'] as $SN) {
                         foreach ($checkSN as $list) {

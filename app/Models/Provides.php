@@ -95,13 +95,7 @@ class Provides extends Model
     public function updateProvide($data, $id)
     {
         $exist = false;
-        // $check = DB::table($this->table)
-        //     ->where('id', '!=', $id)
-        //     ->where('provide_code', $data['provide_code'])
-        //     ->orWhere('provide_name_display', $data['provide_name_display'])
-        //     ->where('workspace_id', Auth::user()->current_workspace)
-        //     ->first();
-
+    
         $check = DB::table($this->table)
             ->where('id', '!=', $id)
             ->where(function ($query) use ($data) {

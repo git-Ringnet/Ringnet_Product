@@ -425,7 +425,7 @@
                                             fill='#6B6F76' />
                                     </svg>
                                 </th>
-                                <th scope="col" class="text-13 text-nowrap">
+                                <th scope="col" class="text-13 text-nowrap text-right">
                                     <span>Số lượng nhập</span>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                         viewBox='0 0 16 16' fill='none'>
@@ -434,7 +434,7 @@
                                             fill='#6B6F76' />
                                     </svg>
                                 </th>
-                                <th scope="col" class="text-13 text-nowrap">
+                                <th scope="col" class="text-13 text-nowrap text-right">
                                     <span>Đơn giá</span>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                         viewBox='0 0 16 16' fill='none'>
@@ -443,7 +443,7 @@
                                             fill='#6B6F76' />
                                     </svg>
                                 </th>
-                                <th scope="col" class="text-13 text-nowrap">
+                                <th scope="col" class="text-13 text-nowrap text-right">
                                     <span>Thành tiền</span>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                         viewBox='0 0 16 16' fill='none'>
@@ -461,7 +461,7 @@
                                             fill='#6B6F76' />
                                     </svg>
                                 </th>
-                                <th scope="col" class="text-13 text-nowrap">
+                                <th scope="col" class="text-13 text-nowrap text-right">
                                     <span>Tiền thuế</span>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                         viewBox='0 0 16 16' fill='none'>
@@ -470,7 +470,7 @@
                                             fill='#6B6F76' />
                                     </svg>
                                 </th>
-                                <th scope="col" class="text-13 text-nowrap">
+                                <th scope="col" class="text-13 text-nowrap text-right">
                                     <span>Tổng tiền</span>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                         viewBox='0 0 16 16' fill='none'>
@@ -479,7 +479,7 @@
                                             fill='#6B6F76' />
                                     </svg>
                                 </th>
-                                <th scope="col" class="text-13 text-nowrap">
+                                <th scope="col" class="text-13 text-nowrap text-center">
                                     <span>Trạng thái</span>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                         viewBox='0 0 16 16' fill='none'>
@@ -518,30 +518,39 @@
                                             {{ $htr->getQuotetion->provide_name }}
                                         @endif
                                     </td>
-                                    <td class="text-13-black">
+                                    <td class="text-13-black text-right">
                                         {{ number_format($htr->product_qty) }}
                                     </td>
-                                    <td class="text-13-black">
+                                    <td class="text-13-black text-right">
                                         @if ($htr->getQuoteImport)
-                                            {{ $htr->getQuoteImport->product_name }}
+                                            {{ number_format($htr->getQuoteImport->price_export) }}
                                         @endif
                                     </td>
-                                    <td class="text-13-black">
+                                    <td class="text-13-black text-right">
                                         @if ($htr->getQuoteImport)
                                             {{ number_format($totalPrice) }}
                                         @endif
                                     </td>
                                     <td class="text-13-black">Chiết khấu</td>
-                                    <td class="text-13-black">
+                                    <td class="text-13-black text-right">
                                         @if ($htr->getQuoteImport)
                                             {{ number_format($totalTax) }}
                                         @endif
                                     </td>
-                                    <td class="text-13-black">
+                                    <td class="text-13-black text-right">
                                         {{ number_format($totalPrice + $totalTax) }}
                                     </td>
-                                    <td class="text-13-black">
-                                        <span class="text-success">Close</span>
+                                    <td class="text-13-black text-center">
+                                        @if (
+                                            $htr->getQuotetion->status_receive == 2 &&
+                                                $htr->getQuotetion->status_reciept == 2 &&
+                                                $htr->getQuotetion->status_pay == 2)
+                                            <span style="color: #08AA36">Close</span>
+                                        @elseif($htr->status == 1)
+                                            <span style="color: #858585">Draft</span>
+                                        @else
+                                            <span style="color: #E8B600">Approved</span>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
