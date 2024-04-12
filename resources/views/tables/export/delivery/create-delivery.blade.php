@@ -1430,18 +1430,6 @@
                                             );
                                             $('#pdf_export').val(0);
                                             e.preventDefault();
-                                            if (invalidInventoryProducts
-                                                .length > 0) {
-                                                showAutoToast(
-                                                    'warning',
-                                                    "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
-                                                    invalidInventoryProducts
-                                                    .join(
-                                                        ', '
-                                                    ));
-                                                $('#pdf_export').val(0);
-                                                e.preventDefault();
-                                            }
                                         } else {
                                             if (invalidInventorySN
                                                 .length > 0) {
@@ -1672,18 +1660,6 @@
                                             );
                                             $('#pdf_export').val(0);
                                             e.preventDefault();
-                                            if (invalidInventoryProducts
-                                                .length > 0) {
-                                                showAutoToast(
-                                                    'warning',
-                                                    "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
-                                                    invalidInventoryProducts
-                                                    .join(
-                                                        ', '
-                                                    ));
-                                                $('#pdf_export').val(0);
-                                                e.preventDefault();
-                                            }
                                         } else {
                                             if (invalidInventorySN
                                                 .length > 0) {
@@ -2316,19 +2292,6 @@
                                             );
                                             $('#pdf_export').val(0);
                                             e.preventDefault();
-                                            if (invalidInventoryProducts
-                                                .length > 0) {
-                                                showAutoToast(
-                                                    'warning',
-                                                    "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
-                                                    invalidInventoryProducts
-                                                    .join(
-                                                        ', '
-                                                    ));
-                                                $('#pdf_export')
-                                                    .val(0);
-                                                e.preventDefault();
-                                            }
                                         } else {
                                             if (invalidInventorySN
                                                 .length > 0) {
