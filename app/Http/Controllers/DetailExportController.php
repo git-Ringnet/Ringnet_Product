@@ -159,7 +159,7 @@ class DetailExportController extends Controller
             $detailExport = $this->detailExport->getDetailExportToId($exportId);
             $quoteExport = $this->detailExport->getProductToId($exportId);
             foreach ($quoteExport as $item) {
-                $item->product_tax_label = ($item->product_tax == 99) ? "NOVAT" : $item->product_tax;
+                $item->product_tax = ($item->product_tax == 99) ? "NOVAT" : $item->product_tax;
             }
             $data = ['detailExport' => $detailExport, 'quoteExport' => $quoteExport, 'product' => $product];
             // Lưu tệp Excel vào storage/app

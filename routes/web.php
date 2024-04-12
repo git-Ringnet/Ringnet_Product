@@ -143,6 +143,7 @@ Route::get('/download-excel', [DetailExportController::class, 'downloadExcel'])-
 Route::get('/clear-session', [DetailExportController::class, 'clearSession'])->name('clear.session');
 
 Route::get('/download-pdf', [DetailExportController::class, 'downloadPdf'])->name('download.pdf');
+Route::get('/download-pdf-delivery', [DeliveryController::class, 'downloadPdf'])->name('download.pdf.delivery');
 Route::get('/clear-pdf-session', [DetailExportController::class, 'clearPdfSession'])->name('clear.pdf.session');
 
 

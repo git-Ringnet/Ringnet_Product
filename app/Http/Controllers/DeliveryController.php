@@ -14,6 +14,7 @@ use App\Models\QuoteExport;
 use App\Models\Serialnumber;
 use App\Models\userFlow;
 use App\Models\Workspace;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -101,6 +102,10 @@ class DeliveryController extends Controller
                 'des' => 'Lưu nháp'
             ];
             $this->userFlow->addUserFlow($arrLuuNhap);
+            if ($request->pdf_export == 1) {
+                // Sau khi lưu xong tất cả thông tin, set session export_id
+                $request->session()->put('pdf_info.delivery_id', $delivery_id);
+            }
             return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', ' Tạo mới đơn giao hàng thành công !');
         }
         if ($request->action == 2) {
@@ -112,6 +117,57 @@ class DeliveryController extends Controller
             $this->userFlow->addUserFlow($arrLuuNhap);
             return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
         }
+    }
+
+    public function downloadPdf()
+    {
+        // Kiểm tra xem có session export_id không
+        $exportId = session('pdf_info.delivery_id');
+
+        if ($exportId) {
+            // Xóa session delivery_id trước khi tạo và trả về PDF
+            session()->forget('pdf_info.delivery_id');
+
+            // Tạo PDF từ dữ liệu và xuất nó
+            $delivery = $this->delivery->getDeliveryToId($exportId);
+            $product = $this->delivery->getProductToId($exportId);
+            $serinumber = Serialnumber::leftJoin('delivery', 'delivery.detailexport_id', 'serialnumber.detailexport_id')
+                ->where('delivery.id', $exportId)
+                ->where('serialnumber.delivery_id', $exportId)
+                ->select('*', 'serialnumber.id as idSeri')
+                ->get();
+            $bg = url('dist/img/logo-2050x480-1.png');
+            $data = [
+                'delivery' => $delivery,
+                'product' => $product,
+                'serinumber' => $serinumber,
+                'date' => $delivery->ngayGiao,
+                'bg' => $bg,
+            ];
+            $pdf = Pdf::loadView('pdf.delivery', compact('data'))
+                ->setPaper('A4', 'portrait')
+                ->setOptions([
+                    'defaultFont' => 'sans-serif',
+                    'dpi' => 100,
+                    'isHtml5ParserEnabled' => true,
+                    'isPhpEnabled' => true,
+                    'enable_remote' => false,
+
+                ]);
+            return $pdf->download('delivery.pdf');
+        } else {
+            // Nếu không có session export_id, chuyển hướng hoặc xử lý theo nhu cầu của bạn
+            return redirect()->back()->with('error', 'Không có PDF để tải xuống.');
+        }
+    }
+
+    public function clearPdfSession()
+    {
+        // Xóa session pdf_info.export_id
+        session()->forget('pdf_info.delivery_id');
+
+        // Trả về phản hồi JSON để xác nhận rằng session đã được xóa
+        return response()->json(['success' => true]);
     }
 
     /**
