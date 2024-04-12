@@ -404,6 +404,34 @@
             });
         });
     });
+    @php
+        $pdfSession = session('pdf_info');
+    @endphp
+
+    document.addEventListener("DOMContentLoaded", function() {
+        @if ($pdfSession)
+            fetch('{{ route('download.pdf.billsale') }}')
+                .then(response => response.blob())
+                .then(blob => {
+                    var url = window.URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = 'billSale.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                })
+                .then(() => {
+                    // Sau khi tải xuống, gửi yêu cầu để xóa session pdf
+                    fetch('{{ route('clear.pdf.session') }}')
+                        .then(() => {
+                            // Sau khi xóa session, làm mới trang để cập nhật giao diện
+                            window.location.reload();
+                        });
+                });
+        @endif
+    });
 </script>
 </body>
 

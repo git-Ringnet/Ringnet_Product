@@ -144,6 +144,7 @@ Route::get('/clear-session', [DetailExportController::class, 'clearSession'])->n
 
 Route::get('/download-pdf', [DetailExportController::class, 'downloadPdf'])->name('download.pdf');
 Route::get('/download-pdf-delivery', [DeliveryController::class, 'downloadPdf'])->name('download.pdf.delivery');
+Route::get('/download-pdf-billsale', [BillSaleController::class, 'downloadPdf'])->name('download.pdf.billsale');
 Route::get('/clear-pdf-session', [DetailExportController::class, 'clearPdfSession'])->name('clear.pdf.session');
 
 

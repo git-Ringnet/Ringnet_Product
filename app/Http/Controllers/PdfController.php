@@ -162,9 +162,8 @@ class PdfController extends Controller
                 'product_bill.billSale_qty'
             )
             ->get();
-        $serinumber = Serialnumber::leftJoin('delivery', 'delivery.detailexport_id', 'serialnumber.detailexport_id')
-            ->where('delivery.id', $id)
-            ->where('serialnumber.delivery_id', $id)
+        $serinumber = Serialnumber::leftJoin('bill_sale', 'bill_sale.detailexport_id', 'serialnumber.detailexport_id')
+            ->where('bill_sale.id', $id)
             ->select('*', 'serialnumber.id as idSeri')
             ->get();
         $bg = url('dist/img/logo-2050x480-1.png');
@@ -243,9 +242,8 @@ class PdfController extends Controller
                 'product_pay.pay_qty'
             )
             ->get();
-        $serinumber = Serialnumber::leftJoin('delivery', 'delivery.detailexport_id', 'serialnumber.detailexport_id')
-            ->where('delivery.id', $id)
-            ->where('serialnumber.delivery_id', $id)
+        $serinumber = Serialnumber::leftJoin('pay_export', 'pay_export.detailexport_id', 'serialnumber.detailexport_id')
+            ->where('pay_export.id', $id)
             ->select('*', 'serialnumber.id as idSeri')
             ->get();
         $bg = url('dist/img/logo-2050x480-1.png');

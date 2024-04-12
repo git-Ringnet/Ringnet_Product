@@ -5,6 +5,7 @@
     @csrf
     <input type="hidden" name="detailexport_id" id="detailexport_id"
         value="@isset($yes) {{ $data['detailexport_id'] }} @endisset">
+    <input type="hidden" name="pdf_export" id="pdf_export">
     <input type="hidden" name="delivery_id" id="delivery_id">
     <div class="content-wrapper--2Column m-0">
         <div class="content-header-fixed p-0 margin-250">
@@ -46,7 +47,7 @@
                                 <span class="text-btnIner-primary ml-2">Hủy</span>
                             </button>
                         </a>
-                        {{-- <div class="dropdown">
+                        <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <span>
@@ -57,17 +58,15 @@
                                             fill="#6D7075" />
                                     </svg>
                                 </span>
-                                <span class="text-btnIner-primary ml-2">In</span>
+                                <span class="text-btnIner-primary ml-2">Lưu và in</span>
                             </button>
                             <div class="dropdown-menu" style="z-index: 9999;">
-                                <a class="dropdown-item text-13-black" href="#">Xuất Excel</a>
-                                <a class="dropdown-item text-13-black" href="#">Xuất PDF</a>
+                                <a class="dropdown-item text-13-black" href="#" id="pdf-link">Xuất PDF</a>
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="dropdown">
                             <button type="submit" name="action" value="2"
-                                class="btn-destroy btn-light mx-1 d-flex align-items-center h-100"
-                                onclick="kiemTraFormGiaoHang(event);">
+                                class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
@@ -79,9 +78,8 @@
                                 <span class="text-btnIner-primary ml-2">Xác nhận</span>
                             </button>
                         </div>
-                        <button type="submit" name="action" value="1"
-                            class="custom-btn mx-1 d-flex align-items-center h-100"
-                            onclick="kiemTraFormGiaoHang(event);">
+                        <button type="submit" name="action" value="1" id="luuNhap"
+                            class="custom-btn mx-1 d-flex align-items-center h-100">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 16 16" fill="none">
@@ -1255,6 +1253,7 @@
             success: function(data) {
                 if (!data.success) {
                     showAutoToast('warning', 'Số hóa đơn đã tồn tại');
+                    $('#pdf_export').val(0);
                 } else {
                     ajaxSuccess = true;
                 }
@@ -1276,11 +1275,23 @@
 
         if (!hasProducts) {
             showAutoToast('warning', 'Không có sản phẩm để tạo hóa đơn');
+            $('#pdf_export').val(0);
             return false;
         } else {
             return true;
         }
     }
+
+    //Lưu và in
+    document.addEventListener("DOMContentLoaded", function() {
+        var pdfLink = document.querySelector("#pdf-link");
+
+        pdfLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            $('#pdf_export').val(1);
+            $('#luuNhap').click();
+        });
+    });
 </script>
 </body>
 

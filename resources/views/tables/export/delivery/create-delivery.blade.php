@@ -282,7 +282,8 @@
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary check-seri" data-dismiss="">Lưu</button>
+                                <button type="button" class="btn btn-primary check-seri"
+                                    data-dismiss="">Lưu</button>
                             </div>
                         </div>
                     </div>
@@ -1411,14 +1412,17 @@
                                                             "disabled"
                                                         )
                                                     ) {
-                                                        invalidInventorySN
-                                                            .push(
-                                                                productNameInventory
-                                                            );
-                                                        sanPhamHetSN
-                                                            .push(
-                                                                productNameInventory
-                                                            );
+                                                        if (type !=
+                                                            2) {
+                                                            invalidInventorySN
+                                                                .push(
+                                                                    productNameInventory
+                                                                );
+                                                            sanPhamHetSN
+                                                                .push(
+                                                                    productNameInventory
+                                                                );
+                                                        }
                                                     }
                                                 });
 
@@ -1641,14 +1645,17 @@
                                                             "disabled"
                                                         )
                                                     ) {
-                                                        invalidInventorySN
-                                                            .push(
-                                                                productNameInventory
-                                                            );
-                                                        sanPhamHetSN
-                                                            .push(
-                                                                productNameInventory
-                                                            );
+                                                        if (type !=
+                                                            2) {
+                                                            invalidInventorySN
+                                                                .push(
+                                                                    productNameInventory
+                                                                );
+                                                            sanPhamHetSN
+                                                                .push(
+                                                                    productNameInventory
+                                                                );
+                                                        }
                                                     }
                                                 });
 
@@ -2273,14 +2280,17 @@
                                                             "disabled"
                                                         )
                                                     ) {
-                                                        invalidInventorySN
-                                                            .push(
-                                                                productNameInventory
-                                                            );
-                                                        sanPhamHetSN
-                                                            .push(
-                                                                productNameInventory
-                                                            );
+                                                        if (type !=
+                                                            2) {
+                                                            invalidInventorySN
+                                                                .push(
+                                                                    productNameInventory
+                                                                );
+                                                            sanPhamHetSN
+                                                                .push(
+                                                                    productNameInventory
+                                                                );
+                                                        }
                                                     }
                                                 });
 
@@ -2505,14 +2515,17 @@
                                                             "disabled"
                                                         )
                                                     ) {
-                                                        invalidInventorySN
-                                                            .push(
-                                                                productNameInventory
-                                                            );
-                                                        sanPhamHetSN
-                                                            .push(
-                                                                productNameInventory
-                                                            );
+                                                        if (type !=
+                                                            2) {
+                                                            invalidInventorySN
+                                                                .push(
+                                                                    productNameInventory
+                                                                );
+                                                            sanPhamHetSN
+                                                                .push(
+                                                                    productNameInventory
+                                                                );
+                                                        }
                                                     }
                                                 });
 
