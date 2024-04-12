@@ -1158,6 +1158,11 @@ input[type="number"] {
     color: #6d7075 !important;
     font-weight: 600;
 }
+
+.text-15 {
+    font-size: 15px;
+}
+
 .text-13-black {
     font-size: 13px;
     color: #282a30 !important;
@@ -2252,7 +2257,7 @@ input[type="checkbox"] {
     color: #000 !important;
     box-shadow: 0px 0px 1px 2px #dfe1e4;
     border-radius: 5px;
-    padding: 9px 14px 8px 14px;
+    padding: 7px 14px 7px 14px;
 }
 .table-hover tbody tr:hover {
     background-color: #f2f2f2;

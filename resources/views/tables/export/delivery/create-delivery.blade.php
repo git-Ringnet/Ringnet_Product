@@ -5,6 +5,7 @@
     @csrf
     <input type="hidden" name="detailexport_id" id="detailexport_id"
         value="@isset($yes) {{ $data['detailexport_id'] }} @endisset">
+    <input type="hidden" name="pdf_export" id="pdf_export">
     <div id="selectedSerialNumbersContainer"></div>
     <div class="content-wrapper--2Column m-0">
         <div class="content-header-fixed p-0 margin-250 border-bottom-0">
@@ -46,7 +47,7 @@
                                 <span class="text-btnIner-primary ml-2">Hủy</span>
                             </button>
                         </a>
-                        {{-- <div class="dropdown">
+                        <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 dropdown-toggle">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -55,13 +56,12 @@
                                         d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                         fill="#6D7075" />
                                 </svg>
-                                <span class="text-btnIner-primary ml-2">In</span>
+                                <span class="text-btnIner-primary ml-2">Lưu và in</span>
                             </button>
                             <div class="dropdown-menu" style="z-index: 9999;">
-                                <a class="dropdown-item text-13-black" href="#">Xuất Excel</a>
-                                <a class="dropdown-item text-13-black" href="#">Xuất PDF</a>
+                                <a class="dropdown-item text-13-black" href="#" id="pdf-link">Xuất PDF</a>
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="dropdown">
                             <button type="submit" name="action" value="2"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" id="giaoHang">
@@ -127,8 +127,10 @@
                                             <input class="checkall-btn mx-1" id="checkall" type="checkbox">
                                             <span class="text-table text-secondary text-left">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:15%;">Tên sản phẩm</th>
-                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">Đơn vị</th>
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:15%;">Tên sản
+                                            phẩm</th>
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">Đơn vị
+                                        </th>
                                         <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">
                                             Số lượng
                                         </th>
@@ -280,8 +282,7 @@
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary check-seri" data-dismiss="">Save
-                                    changes</button>
+                                <button type="button" class="btn btn-primary check-seri" data-dismiss="">Lưu</button>
                             </div>
                         </div>
                     </div>
@@ -1425,9 +1426,22 @@
                                         if (insufficientSeriProducts
                                             .length > 0) {
                                             showAutoToast('warning',
-                                                `Số lượng "seri" không đủ cho các sản phẩm: ${insufficientSeriProducts.join(", ")}`
+                                                `Serial Number chưa được chọn ở các sản phẩm: ${insufficientSeriProducts.join(", ")}`
                                             );
+                                            $('#pdf_export').val(0);
                                             e.preventDefault();
+                                            if (invalidInventoryProducts
+                                                .length > 0) {
+                                                showAutoToast(
+                                                    'warning',
+                                                    "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                    invalidInventoryProducts
+                                                    .join(
+                                                        ', '
+                                                    ));
+                                                $('#pdf_export').val(0);
+                                                e.preventDefault();
+                                            }
                                         } else {
                                             if (invalidInventorySN
                                                 .length > 0) {
@@ -1435,6 +1449,7 @@
                                                     'warning',
                                                     `Số lượng "seri" đã hết cho các sản phẩm: ${sanPhamHetSN.join(", ")}`
                                                 );
+                                                $('#pdf_export').val(0);
                                                 e.preventDefault();
                                             }
                                             // Hiển thị thông báo nếu không đủ số lượng tồn kho
@@ -1447,6 +1462,7 @@
                                                     .join(
                                                         ', '
                                                     ));
+                                                $('#pdf_export').val(0);
                                                 e.preventDefault();
                                             } else {
                                                 // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
@@ -1503,11 +1519,11 @@
                                                             'disabled',
                                                             false
                                                         );
-                                                    document
-                                                        .getElementById(
-                                                            'deliveryForm'
-                                                        )
-                                                        .submit();
+                                                    // document
+                                                    //     .getElementById(
+                                                    //         'deliveryForm'
+                                                    //     )
+                                                    //     .submit();
                                                 } else {
                                                     console.log(
                                                         'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
@@ -1652,9 +1668,22 @@
                                         if (insufficientSeriProducts
                                             .length > 0) {
                                             showAutoToast('warning',
-                                                `Số lượng "seri" không đủ cho các sản phẩm: ${insufficientSeriProducts.join(", ")}`
+                                                `Serial Number chưa được chọn ở các sản phẩm: ${insufficientSeriProducts.join(", ")}`
                                             );
+                                            $('#pdf_export').val(0);
                                             e.preventDefault();
+                                            if (invalidInventoryProducts
+                                                .length > 0) {
+                                                showAutoToast(
+                                                    'warning',
+                                                    "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                    invalidInventoryProducts
+                                                    .join(
+                                                        ', '
+                                                    ));
+                                                $('#pdf_export').val(0);
+                                                e.preventDefault();
+                                            }
                                         } else {
                                             if (invalidInventorySN
                                                 .length > 0) {
@@ -1662,6 +1691,7 @@
                                                     'warning',
                                                     `Số lượng "seri" đã hết cho các sản phẩm: ${sanPhamHetSN.join(", ")}`
                                                 );
+                                                $('#pdf_export').val(0);
                                                 e.preventDefault();
                                             }
                                             // Hiển thị thông báo nếu không đủ số lượng tồn kho
@@ -1674,6 +1704,7 @@
                                                     .join(
                                                         ', '
                                                     ));
+                                                $('#pdf_export').val(0);
                                                 e.preventDefault();
                                             } else {
                                                 // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
@@ -1730,11 +1761,11 @@
                                                             'disabled',
                                                             false
                                                         );
-                                                    document
-                                                        .getElementById(
-                                                            'deliveryForm'
-                                                        )
-                                                        .submit();
+                                                    // document
+                                                    //     .getElementById(
+                                                    //         'deliveryForm'
+                                                    //     )
+                                                    //     .submit();
                                                 } else {
                                                     console.log(
                                                         'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
@@ -1942,7 +1973,7 @@
                                     <td class="border-right p-2 text-13 align-top border-bottom">
                                         <div class="d-flex align-items-center">
                                             <div>
-                                        <input type="number" value="${formatNumber(item.soLuongCanGiao)}" data-product-id="${item.maSP}" class="border-0 px-2 text-right py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
+                                        <input type="number" value="${formatNumber(item.soLuongCanGiao)}" data-product-id="${item.maSP}" class="border-0 px-2 text-left py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                         <input type="hidden" class="limit-quantity" value="${formatNumber(item.soLuongCanGiao)}" data-limit-quantity="${formatNumber(item.soLuongCanGiao)}">
                                         <input type="hidden" class="tonkho">
                                         <p class="mt-3 text-13-blue inventory ${item.type == 2 ? "d-none" : 'd-block'}">Tồn kho: <span class="soTonKho">${formatNumber(item.product_inventory == null ? 0 : item.product_inventory)}</span></p>
@@ -1969,7 +2000,7 @@
                                             <a href='#'><p class="mt-3 text-13-blue recentModal" data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</p></a>
                                     </td>
                                     <td class="border-right p-1 text-13 align-top border-bottom">
-                                        <select class="border-0 py-1 w-100 text-left product_tax" required="" disabled>
+                                        <select class="border-0 py-1 w-100 text-center product_tax" required="" disabled>
                                             <option value="0" ${(item.thueSP == 0) ? 'selected' : ''}>0%</option>
                                             <option value="8" ${(item.thueSP == 8) ? 'selected' : ''}>8%</option>
                                             <option value="10" ${(item.thueSP == 10) ? 'selected' : ''}>10%</option>
@@ -2281,9 +2312,23 @@
                                         if (insufficientSeriProducts
                                             .length > 0) {
                                             showAutoToast('warning',
-                                                `Số lượng "seri" không đủ cho các sản phẩm: ${insufficientSeriProducts.join(", ")}`
+                                                `Serial Number chưa được chọn ở các sản phẩm: ${insufficientSeriProducts.join(", ")}`
                                             );
+                                            $('#pdf_export').val(0);
                                             e.preventDefault();
+                                            if (invalidInventoryProducts
+                                                .length > 0) {
+                                                showAutoToast(
+                                                    'warning',
+                                                    "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                    invalidInventoryProducts
+                                                    .join(
+                                                        ', '
+                                                    ));
+                                                $('#pdf_export')
+                                                    .val(0);
+                                                e.preventDefault();
+                                            }
                                         } else {
                                             if (invalidInventorySN
                                                 .length > 0) {
@@ -2291,6 +2336,8 @@
                                                     'warning',
                                                     `Số lượng "seri" đã hết cho các sản phẩm: ${sanPhamHetSN.join(", ")}`
                                                 );
+                                                $('#pdf_export')
+                                                    .val(0);
                                                 e.preventDefault();
                                             }
                                             // Hiển thị thông báo nếu không đủ số lượng tồn kho
@@ -2303,6 +2350,8 @@
                                                     .join(
                                                         ', '
                                                     ));
+                                                $('#pdf_export')
+                                                    .val(0);
                                                 e.preventDefault();
                                             } else {
                                                 // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
@@ -2359,11 +2408,11 @@
                                                             'disabled',
                                                             false
                                                         );
-                                                    document
-                                                        .getElementById(
-                                                            'deliveryForm'
-                                                        )
-                                                        .submit();
+                                                    // document
+                                                    //     .getElementById(
+                                                    //         'deliveryForm'
+                                                    //     )
+                                                    //     .submit();
                                                 } else {
                                                     console.log(
                                                         'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
@@ -2508,9 +2557,23 @@
                                         if (insufficientSeriProducts
                                             .length > 0) {
                                             showAutoToast('warning',
-                                                `Số lượng "seri" không đủ cho các sản phẩm: ${insufficientSeriProducts.join(", ")}`
+                                                `Serial Number chưa được chọn ở các sản phẩm: ${insufficientSeriProducts.join(", ")}`
                                             );
+                                            $('#pdf_export').val(0);
                                             e.preventDefault();
+                                            if (invalidInventoryProducts
+                                                .length > 0) {
+                                                showAutoToast(
+                                                    'warning',
+                                                    "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                    invalidInventoryProducts
+                                                    .join(
+                                                        ', '
+                                                    ));
+                                                $('#pdf_export')
+                                                    .val(0);
+                                                e.preventDefault();
+                                            }
                                         } else {
                                             if (invalidInventorySN
                                                 .length > 0) {
@@ -2518,6 +2581,8 @@
                                                     'warning',
                                                     `Số lượng "seri" đã hết cho các sản phẩm: ${sanPhamHetSN.join(", ")}`
                                                 );
+                                                $('#pdf_export')
+                                                    .val(0);
                                                 e.preventDefault();
                                             }
                                             // Hiển thị thông báo nếu không đủ số lượng tồn kho
@@ -2530,6 +2595,8 @@
                                                     .join(
                                                         ', '
                                                     ));
+                                                $('#pdf_export')
+                                                    .val(0);
                                                 e.preventDefault();
                                             } else {
                                                 // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
@@ -2586,11 +2653,11 @@
                                                             'disabled',
                                                             false
                                                         );
-                                                    document
-                                                        .getElementById(
-                                                            'deliveryForm'
-                                                        )
-                                                        .submit();
+                                                    // document
+                                                    //     .getElementById(
+                                                    //         'deliveryForm'
+                                                    //     )
+                                                    //     .submit();
                                                 } else {
                                                     console.log(
                                                         'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
@@ -2643,6 +2710,8 @@
                                                     'warning',
                                                     'Serinumber đang được bỏ trống hoặc chưa được nhập đủ số lượng!'
                                                 );
+                                                $('#pdf_export')
+                                                    .val(0);
                                                 $(this).attr(
                                                     'data-dismiss',
                                                     '');
@@ -3350,6 +3419,7 @@
             success: function(data) {
                 if (!data.success) {
                     showAutoToast('warning', 'Mã giao hàng đã tồn tại!');
+                    $('#pdf_export').val(0);
                 } else {
                     ajaxSuccess = true;
                 }
@@ -3369,6 +3439,7 @@
 
                 if (previousProductNames.includes(normalizedProductName)) {
                     showAutoToast('warning', 'Tên sản phẩm bị trùng: ' + productName);
+                    $('#pdf_export').val(0);
                     return false;
                 } else {
                     // Thêm tên sản phẩm đã chuẩn hóa vào mảng các tên sản phẩm đã xuất hiện trước đó
@@ -3382,17 +3453,29 @@
 
         if ($.trim(inputValue) === '') {
             showAutoToast('warning', 'Vui lòng chọn số báo giá từ danh sách!');
+            $('#pdf_export').val(0);
             event.preventDefault();
         } else {
             // Hiển thị thông báo nếu không có sản phẩm
             if (!hasProducts) {
                 showAutoToast('warning', 'Không có sản phẩm để báo giá');
+                $('#pdf_export').val(0);
                 event.preventDefault();
             } else {
                 $('.product_tax').prop('disabled', false);
             }
         }
     }
+    //Lưu và in
+    document.addEventListener("DOMContentLoaded", function() {
+        var pdfLink = document.querySelector("#pdf-link");
+
+        pdfLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            $('#pdf_export').val(1);
+            $('#luuNhap').click();
+        });
+    });
 </script>
 </body>
 

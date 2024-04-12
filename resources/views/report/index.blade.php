@@ -50,15 +50,15 @@
         </div>
         <section class="content-header--options p-0 border-custom">
             <div class="width-18">
-                <ul class="header-options--nav nav nav-tabs margin-left32" style="width: 335px !important;">
+                <ul class="header-options--nav nav nav-tabs margin-left32 border-bottom-0" style="width: 320px !important;">
                     <li class="active">
-                        <a class="text-secondary pl-3 active" data-toggle="tab" href="#dashboard">Tổng quan</a>
+                        <a class="text-secondary pl-3 active text-15" data-toggle="tab" href="#dashboard">Tổng quan</a>
                     </li>
                     <li>
-                        <a class="text-secondary" data-toggle="tab" href="#export">Bán hàng</a>
+                        <a class="text-secondary text-15" data-toggle="tab" href="#export">Bán hàng</a>
                     </li>
                     <li>
-                        <a class="text-secondary pr-3" data-toggle="tab" href="#import">Mua hàng</a>
+                        <a class="text-secondary pr-3 text-15" data-toggle="tab" href="#import">Mua hàng</a>
                     </li>
                 </ul>
             </div>
