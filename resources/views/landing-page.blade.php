@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" href="{{ asset('dist/img/icon/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/css.css') }}">
 </head>
 <style>
     * {
@@ -66,6 +67,10 @@
 
 
     @media only screen and (min-width: 500px) and (max-width: 767px) {
+        .row .col-md-8 .margin-top--53 {
+            margin-top: 2.3rem;
+        }
+
         .head-title--left {
             font-size: 60px;
         }
@@ -82,10 +87,10 @@
             top: 50px !important;
         }
 
-        .btn-secondary-custom.border-0.mt-2,
-        .btn-primary-custom.mt-5.border-0 {
+        /* .btn-secondary-custom.mt-5.border-0,
+        .btn-primary-custom.border-0.mt-3 {
             margin-bottom: 1rem;
-        }
+        } */
     }
 
     @media only screen and (min-width: 768px) and (max-width: 1000px) {
@@ -108,7 +113,7 @@
     <div class="container-fluid h-100">
         <div class="row h-100">
             <div class="col-md-8">
-                <div class="mt-5" style="color:white">
+                <div class="margin-top--53" style="color:white">
                     <div class="head">
                         <p class="head-title--left">R-Order Central</p>
                         <span class="head-subtitle--left">Một phương thức tốt hơn để quản lý đơn hàng</span>
@@ -223,31 +228,28 @@
                             </div>
                         </div>
                     </div>
-                    <div class="footer-bottom mt-5">
+                    <div class="footer-bottom margin-top--53">
                         <div>
                             <a href="{{ url('/auth/google/redirect') }}">
                                 <button type="button" class="btn-primary-custom border-0">Bắt đầu sử dụng miễn
                                     phí</button>
                             </a>
                             <br>
-                            <button class="btn-secondary-custom border-0 mt-2">Beta version</button>
+                            <button class="btn-secondary-custom border-0 mt-3 mb-3">Beta version</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 position-relative text-center">
-                <div class="position-absolute content--right" style="top: 150px; left:0; right:0;">
+                <div class="position-absolute content--right" style="top: 190px; left:0; right:0;">
                     <div class="head-img--right w-100 px-5" style="padding: 0 10px;">
                         <img src="{{ asset('dist/img/logo_ringnetOC.png') }}" alt=""
                             style="width:100%; height:auto;">
                     </div>
                     <p></p>
                     <div class="content-button--login">
-                        {{-- <a href="{{ url('/auth/google/redirect') }}" class="btn btn-primary"><i
-                                class="fa fa-google"></i>
-                            Login with Google</a> --}}
                         <a href="{{ url('/auth/google/redirect') }}">
-                            <button class="btn-primary-custom mt-5 border-0">Đăng nhập với Google</button>
+                            <button class="btn-primary-custom mt-5 border-0 mb-3">Đăng nhập với Google</button>
                         </a>
                     </div>
                 </div>
