@@ -17,7 +17,7 @@ class CheckLogin
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::user()) {
-            return redirect('login');
+            return redirect('landing-page');
         }
         // dd(Auth::user()->current_workspace);
         return $next($request);
