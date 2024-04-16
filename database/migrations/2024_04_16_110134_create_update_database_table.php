@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('history_payment_order', function (Blueprint $table) {
-            $table->integer('payment_type')->nullable()->after('workspace_id');
+            $table->string('payment_type')->nullable()->after('workspace_id');
         });
         Schema::table('history_payment_export', function (Blueprint $table) {
-            $table->integer('payment_type')->nullable()->after('workspace_id');
+            $table->string('payment_type')->nullable()->after('workspace_id');
         });
     }
 
