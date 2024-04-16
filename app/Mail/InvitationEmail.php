@@ -28,7 +28,7 @@ class InvitationEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Invitation Email',
+            subject: 'R-OrderCentral Invitation Email',
         );
     }
 

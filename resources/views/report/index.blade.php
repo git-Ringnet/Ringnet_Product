@@ -890,19 +890,25 @@
                     // Ẩn tất cả các phần tử .provides-info
                     // Lặp qua từng phần tử .provides-info để hiển thị và cập nhật data-position
                     $('.provides-info').each(function() {
-                        var value = parseInt($(this).find('.id-provide').val());
+                        var value = parseInt($(this).find('.id-provide')
+                            .val());
                         var index = provideIds.indexOf(value);
                         if (index !== -1) {
                             $(this).show();
-                            // Cập nhật data-position và chèn vào vị trí tương ứng
+                            // Cập nhật data-position
                             $(this).attr('data-position', index + 1);
-                            $(".tbody-import tr:nth-child(" + (index + 1) + ")").after(
-                                this);
                         } else {
                             $(this).hide();
                         }
                     });
-
+                    // Tạo một bản sao của mảng phần tử .provides-info
+                    var clonedElements = $('.provides-info').clone();
+                    // Sắp xếp các phần tử trong bản sao theo data-position
+                    var sortedElements = clonedElements.sort(function(a, b) {
+                        return $(a).data('position') - $(b).data('position');
+                    });
+                    // Thay thế các phần tử trong .tbody-provides bằng các phần tử đã sắp xếp
+                    $('.tbody-import').empty().append(sortedElements);
                 }
             })
         }
@@ -988,17 +994,25 @@
                         guestIds.push(guestId);
                     });
                     $('.guests-info').each(function() {
-                        var value = parseInt($(this).find('.id-guest').val());
+                        var value = parseInt($(this).find('.id-guest')
+                            .val());
                         var index = guestIds.indexOf(value);
-                        if (guestIds.includes(value)) {
+                        if (index !== -1) {
                             $(this).show();
+                            // Cập nhật data-position
                             $(this).attr('data-position', index + 1);
-                            $(".tbody-export tr:nth-child(" + (index + 1) + ")").after(
-                                this);
                         } else {
                             $(this).hide();
                         }
                     });
+                    // Tạo một bản sao của mảng phần tử .guests-info
+                    var clonedElements = $('.guests-info').clone();
+                    // Sắp xếp các phần tử trong bản sao theo data-position
+                    var sortedElements = clonedElements.sort(function(a, b) {
+                        return $(a).data('position') - $(b).data('position');
+                    });
+                    // Thay thế các phần tử trong .tbody-guests bằng các phần tử đã sắp xếp
+                    $('.tbody-export').empty().append(sortedElements);
                 }
             })
         }

@@ -107,8 +107,13 @@ class ProviderController extends Controller
 
         $workspace = Workspace::where('user_id', Auth::user()->id)->first();
         $workspace->workspace_name = $workspaceName;
-        $workspace->save();
-
+        // Check xem có tên workspace đã tồn tại chưa. Nếu đã tồn tại thì thông báo lỗi.
+        $workspaceExists = Workspace::where('workspace_name', $workspaceName)->exists();
+        if ($workspaceExists) {
+            return redirect()->back()->with('error', 'Tên workspace đã tồn tại!');
+        } else {
+            $workspace->save();
+        }
         // Khi mà tạo tên worksapce cho chính bản thân thì thêm list danh sách
         UserWorkspaces::updateOrCreate([
             'workspace_id' => $workspace->id,

@@ -122,90 +122,90 @@
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
                                                 <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link" data-sort-by="id"
-                                                        data-sort-type="#">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="code_payment" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
                                                             <span class="text-13">Mã thanh toán</span>
                                                         </button>
                                                     </a>
-                                                    <div class="icon" id="icon-id"></div>
+                                                    <div class="icon" id="icon-code_payment"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
                                                 <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link" data-sort-by="created_at"
-                                                        data-sort-type="">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="quotation_number" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
                                                             <span class="text-13">Số báo giá#</span>
                                                         </button>
                                                     </a>
-                                                    <div class="icon" id="icon-created_at"></div>
+                                                    <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
                                                 <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link" data-sort-by="created_at"
-                                                        data-sort-type="">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="guest_name_display" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
                                                             <span class="text-13">Khách hàng</span>
                                                         </button>
                                                     </a>
-                                                    <div class="icon" id="icon-created_at"></div>
+                                                    <div class="icon" id="icon-guest_name_display"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
                                                 <span class="d-flex justify-content-center">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type="">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="status" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
                                                             <span class="text-13">Trạng thái</span>
                                                         </button>
                                                     </a>
-                                                    <div class="icon" id="icon-total"></div>
+                                                    <div class="icon" id="icon-status"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
                                                 <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type="">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="payment_date" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
                                                             <span class="text-13">Hạn thanh toán</span>
                                                         </button>
                                                     </a>
-                                                    <div class="icon" id="icon-total"></div>
+                                                    <div class="icon" id="icon-payment_date"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
                                                 <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type="">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="tongTienNo" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
                                                             <span class="text-13">Tổng tiền</span>
                                                         </button>
                                                     </a>
-                                                    <div class="icon" id="icon-total"></div>
+                                                    <div class="icon" id="icon-tongTienNo"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
                                                 <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type="">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="tongThanhToan" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
                                                             <span class="text-13">Đã nhận</span>
                                                         </button>
                                                     </a>
-                                                    <div class="icon" id="icon-total"></div>
+                                                    <div class="icon" id="icon-tongThanhToan"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
                                                 <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type="">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="debt" data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
                                                             <span class="text-13">Dư nợ</span>
                                                         </button>
                                                     </a>
-                                                    <div class="icon" id="icon-total"></div>
+                                                    <div class="icon" id="icon-debt"></div>
                                                 </span>
                                             </th>
                                         </tr>
@@ -414,9 +414,10 @@
                     var payExportIds = [];
                     // Lặp qua mảng provides và thu thập các deleveryIds
                     data.data.forEach(function(item) {
-                        var deleveryId = item.idThanhToan;
-                        payExportIds.push(deleveryId);
+                        var payExportId = item.idThanhToan;
+                        payExportIds.push(payExportId);
                     });
+                    console.log(payExportIds);
                     // Ẩn tất cả các phần tử .detailExport-info
                     // $('.detailExport-info').hide();
                     // Lặp qua từng phần tử .detailExport-info để hiển thị và cập nhật data-position
@@ -426,17 +427,20 @@
                         var index = payExportIds.indexOf(value);
                         if (index !== -1) {
                             $(this).show();
-                            // Cập nhật data-position và chèn vào vị trí tương ứng
+                            // Cập nhật data-position
                             $(this).attr('data-position', index + 1);
-                            $(".tbody-payExport tr:nth-child(" + (index + 1) +
-                                    ")")
-                                .after(
-                                    this);
                         } else {
                             $(this).hide();
                         }
                     });
-
+                    // Tạo một bản sao của mảng phần tử .payExport-info
+                    var clonedElements = $('.payExport-info').clone();
+                    // Sắp xếp các phần tử trong bản sao theo data-position
+                    var sortedElements = clonedElements.sort(function(a, b) {
+                        return $(a).data('position') - $(b).data('position');
+                    });
+                    // Thay thế các phần tử trong .tbody-payExport bằng các phần tử đã sắp xếp
+                    $('.tbody-payExport').empty().append(sortedElements);
                 }
             });
             $.ajaxSetup({

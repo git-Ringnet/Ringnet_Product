@@ -223,12 +223,12 @@ class DetailExport extends Model
     {
         $detailExport = DetailExport::leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'guest.*');
+            ->select('detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'guest.guest_name_display as guest_name_display', 'detailexport.*');
         if (isset($data['search'])) {
             $detailExport = $detailExport->where(function ($query) use ($data) {
                 $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('reference_number', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest_name_display', 'like', '%' . $data['search'] . '%');
             });
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {

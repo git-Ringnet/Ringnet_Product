@@ -700,9 +700,14 @@ class Delivery extends Model
     }
     public function ajax($data)
     {
-        $delivery = Delivery::leftJoin('guest', 'guest.id', 'delivery.guest_id')
-            ->select('*', 'delivery.id as maGiaoHang', 'delivery.created_at as ngayGiao')
-            ->leftJoin('delivered', 'delivered.delivery_id', 'delivery.id')
+        $delivery = Delivery::leftJoin('delivered', 'delivered.delivery_id', 'delivery.id')
+            ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
+            ->select(
+                'delivery.id as maGiaoHang',
+                'delivery.created_at as ngayGiao',
+                'delivery.code_delivery as code_delivery',
+                'delivery.*',
+            )->distinct()
             ->where('delivery.workspace_id', Auth::user()->current_workspace);
         if (isset($data['search'])) {
             $delivery = $delivery->where(function ($query) use ($data) {
@@ -715,6 +720,7 @@ class Delivery extends Model
             $delivery = $delivery->orderBy($data['sort'][0], $data['sort'][1]);
         }
         $delivery = $delivery->get();
+        // dd($delivery);
         return $delivery;
     }
 }

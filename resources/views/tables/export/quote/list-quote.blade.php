@@ -122,7 +122,8 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="row m-auto filter p-0 border-custom height-52 position-relative" style="border-bottom: none !important;">
+        <div class="row m-auto filter p-0 border-custom height-52 position-relative"
+            style="border-bottom: none !important;">
             <div class="w-100">
                 <div class="row mr-0 mt-1 padding-left32">
                     <div class="col-md-5 d-flex align-items-center">
@@ -171,7 +172,8 @@
                                 <table id="example2" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="width:5%;padding-left: 2rem;" class="height-52">
+                                            <th scope="col" style="width:5%;padding-left: 2rem;"
+                                                class="height-52">
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
@@ -258,10 +260,10 @@
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="total_tax" data-sort-type="DESC"><button
+                                                        data-sort-by="total_price" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Tổng tiền</button>
                                                     </a>
-                                                    <div class="icon" id="icon-total_tax"></div>
+                                                    <div class="icon" id="icon-total_price"></div>
                                                 </span>
                                             </th>
                                         </tr>
@@ -495,46 +497,6 @@
         </section>
     </div>
 </div>
-
-{{-- <div class="content-wrapper1 py-1 pl-4 border-bottom">
-    <div class="row m-auto filter pt-1">
-        <div class="w-100">
-            <div class="row mr-0">
-                <div class="col-md-5 d-flex align-items-center">
-                    <div class="border p-2 rounded d-flex align-items-center px-2 w-50 justify-content-between">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M14.9408 8.91426L12.9576 8.65557C12.9855 8.4419 13 8.22314 13 8C13 7.77686 12.9855 7.5581 12.9576 7.34443L14.9408 7.08573C14.9799 7.38496 15 7.69013 15 8C15 8.30987 14.9799 8.61504 14.9408 8.91426ZM14.4688 5.32049C14.2328 4.7514 13.9239 4.22019 13.5538 3.73851L11.968 4.95716C12.2328 5.30185 12.4533 5.68119 12.6214 6.08659L14.4688 5.32049ZM12.2615 2.4462L11.0428 4.03204C10.6981 3.76716 10.3188 3.54673 9.91341 3.37862L10.6795 1.53116C11.2486 1.76715 11.7798 2.07605 12.2615 2.4462ZM8.91426 1.05917L8.65557 3.04237C8.4419 3.01449 8.22314 3 8 3C7.77686 3 7.5581 3.01449 7.34443 3.04237L7.08574 1.05917C7.38496 1.02013 7.69013 1 8 1C8.30987 1 8.61504 1.02013 8.91426 1.05917ZM5.32049 1.53116L6.08659 3.37862C5.68119 3.54673 5.30185 3.76716 4.95716 4.03204L3.73851 2.4462C4.22019 2.07605 4.7514 1.76715 5.32049 1.53116ZM2.4462 3.73851L4.03204 4.95716C3.76716 5.30185 3.54673 5.68119 3.37862 6.08659L1.53116 5.32049C1.76715 4.7514 2.07605 4.22019 2.4462 3.73851ZM1.05917 7.08574C1.02013 7.38496 1 7.69013 1 8C1 8.30987 1.02013 8.61504 1.05917 8.91426L3.04237 8.65557C3.01449 8.4419 3 8.22314 3 8C3 7.77686 3.01449 7.5581 3.04237 7.34443L1.05917 7.08574ZM1.53116 10.6795L3.37862 9.91341C3.54673 10.3188 3.76716 10.6981 4.03204 11.0428L2.4462 12.2615C2.07605 11.7798 1.76715 11.2486 1.53116 10.6795ZM3.73851 13.5538L4.95716 11.968C5.30185 12.2328 5.68119 12.4533 6.08659 12.6214L5.32049 14.4688C4.7514 14.2328 4.22019 13.9239 3.73851 13.5538ZM7.08574 14.9408L7.34443 12.9576C7.5581 12.9855 7.77686 13 8 13C8.22314 13 8.4419 12.9855 8.65557 12.9576L8.91427 14.9408C8.61504 14.9799 8.30987 15 8 15C7.69013 15 7.38496 14.9799 7.08574 14.9408ZM10.6795 14.4688L9.91341 12.6214C10.3188 12.4533 10.6981 12.2328 11.0428 11.968L12.2615 13.5538C11.7798 13.9239 11.2486 14.2328 10.6795 14.4688ZM13.5538 12.2615L11.968 11.0428C12.2328 10.6981 12.4533 10.3188 12.6214 9.91341L14.4688 10.6795C14.2328 11.2486 13.924 11.7798 13.5538 12.2615Z"
-                                fill="#6D7075" />
-                        </svg>
-                        <span class="text-table">Status</span>
-                        <span>is</span>
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7 2C4.23858 2 2 4.23858 2 7C2 9.76142 4.23858 12 7 12C9.76142 12 12 9.76142 12 7C12 4.23858 9.76142 2 7 2ZM0 7C0 3.13401 3.13401 0 7 0C10.866 0 14 3.13401 14 7C14 10.866 10.866 14 7 14C3.13401 14 0 10.866 0 7Z"
-                                fill="#6D7075" />
-                        </svg>
-                        <span>Todo</span>
-                        <svg width="11" height="11" viewBox="0 0 11 10" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M0.784066 0.284063C1.05865 0.0094789 1.50385 0.0094789 1.77843 0.284063L5.5 4.00531L9.22159 0.284063C9.49619 0.0094789 9.94131 0.0094789 10.2159 0.284063C10.4905 0.558648 10.4905 1.00385 10.2159 1.27843L6.49469 5L10.2159 8.72159C10.4656 8.97115 10.4882 9.36181 10.284 9.63706L10.2159 9.7159C9.94131 9.9905 9.49619 9.9905 9.22159 9.7159L5.5 5.99468L1.77843 9.7159C1.50385 9.9905 1.05865 9.9905 0.784066 9.7159C0.509482 9.44131 0.509482 8.99618 0.784066 8.72159L4.50531 5L0.784066 1.27843C0.534438 1.0288 0.51175 0.638185 0.715985 0.362926L0.784066 0.284063Z"
-                                fill="#6D7075" />
-                        </svg>
-                    </div>
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" class="ml-3"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M6.70312 1.3125C6.70312 0.924178 6.38832 0.609375 6 0.609375C5.61168 0.609375 5.29688 0.924178 5.29688 1.3125V5.29688H1.3125C0.924178 5.29688 0.609375 5.61168 0.609375 6C0.609375 6.38832 0.924178 6.70312 1.3125 6.70312H5.29688V10.6875C5.29688 11.0758 5.61168 11.3906 6 11.3906C6.38832 11.3906 6.70312 11.0758 6.70312 10.6875V6.70312H10.6875C11.0758 6.70312 11.3906 6.38832 11.3906 6C11.3906 5.61168 11.0758 5.29688 10.6875 5.29688H6.70312V1.3125Z"
-                            fill="#6D7075" />
-                    </svg>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
 <x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 
@@ -624,17 +586,20 @@
                         var index = detailExportIds.indexOf(value);
                         if (index !== -1) {
                             $(this).show();
-                            // Cập nhật data-position và chèn vào vị trí tương ứng
+                            // Cập nhật data-position
                             $(this).attr('data-position', index + 1);
-                            $(".tbody-detailExport tr:nth-child(" + (index + 1) +
-                                    ")")
-                                .after(
-                                    this);
                         } else {
                             $(this).hide();
                         }
                     });
-
+                    // Tạo một bản sao của mảng phần tử .detailExport-info
+                    var clonedElements = $('.detailExport-info').clone();
+                    // Sắp xếp các phần tử trong bản sao theo data-position
+                    var sortedElements = clonedElements.sort(function(a, b) {
+                        return $(a).data('position') - $(b).data('position');
+                    });
+                    // Thay thế các phần tử trong .tbody-detailExport bằng các phần tử đã sắp xếp
+                    $('.tbody-detailExport').empty().append(sortedElements);
                 }
             });
             $.ajaxSetup({

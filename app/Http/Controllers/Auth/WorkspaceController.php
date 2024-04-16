@@ -143,4 +143,28 @@ class WorkspaceController extends Controller
 
         return view('landing-page');
     }
+    // Ajax func checks workspace_name
+    public function checkWorkspaceName(Request $request)
+    {
+        if ($request->ajax()) {
+            $workspaceName = $request->workspace_name;
+            $id = Auth::user()->current_workspace;
+            $workspace = Workspace::where('workspace_name', $workspaceName)
+                ->whereNot('id', $id)
+                ->first();
+            if ($workspace) {
+                $msg = response()->json([
+                    'success' => true,
+                    'msg' => 'Tên workspace đã tồn tại',
+                ]);
+                return $msg;
+            } else {
+                $msg = response()->json([
+                    'success' => false,
+                    'msg' => 'Tên workspace hợp lệ',
+                ]);
+                return $msg;
+            }
+        }
+    }
 }

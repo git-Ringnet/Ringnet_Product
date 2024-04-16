@@ -427,12 +427,12 @@ class BillSale extends Model
         $bill_sale = BillSale::leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
             ->leftJoin('guest', 'bill_sale.guest_id', 'guest.id')
             ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
-            ->select('*', 'bill_sale.status as tinhTrang', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD');
+            ->select('bill_sale.status as tinhTrang', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD', 'guest.guest_name_display as guest_name_display', 'bill_sale.*')->distinct();
         if (isset($data['search'])) {
             $bill_sale = $bill_sale->where(function ($query) use ($data) {
                 $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('number_bill', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest_name_display', 'like', '%' . $data['search'] . '%');
             });
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {

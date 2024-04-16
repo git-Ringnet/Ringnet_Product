@@ -108,7 +108,6 @@ class SettingController extends Controller
         }
         return redirect()->back()->with('warning', 'Cập nhật thông tin thất bại');
     }
-
     public function search(Request $request)
     {
         $data = $request->all();

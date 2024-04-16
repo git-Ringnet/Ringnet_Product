@@ -136,58 +136,62 @@
                                             </th>
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link" data-sort-by="id"
-                                                        data-sort-type="#">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="ngayHD" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Ngày hóa
                                                             đơn</button>
                                                     </a>
-                                                    <div class="icon" id="icon-id"></div>
+                                                    <div class="icon" id="icon-ngayHD"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link" data-sort-by="created_at"
-                                                        data-sort-type="">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="idHD" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Số hóa
                                                             đơn#</button>
                                                     </a>
-                                                    <div class="icon" id="icon-created_at"></div>
+                                                    <div class="icon" id="icon-idHD"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link" data-sort-by="created_at"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Số báo giá</button>
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="quotation_number" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Số báo
+                                                            giá</button>
                                                     </a>
-                                                    <div class="icon" id="icon-created_at"></div>
+                                                    <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Khách hàng</button>
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="guest_name_display"
+                                                        data-sort-type="DESC"><button class="btn-sort text-13"
+                                                            type="submit">Khách
+                                                            hàng</button>
                                                     </a>
-                                                    <div class="icon" id="icon-total"></div>
+                                                    <div class="icon" id="icon-guest_name_display"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-center">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Trạng thái</button>
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="tinhTrang" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Trạng
+                                                            thái</button>
                                                     </a>
-                                                    <div class="icon" id="icon-total"></div>
+                                                    <div class="icon" id="icon-tinhTrang"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Tổng tiền</button>
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="price_total" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Tổng tiền</button>
                                                     </a>
-                                                    <div class="icon" id="icon-total"></div>
+                                                    <div class="icon" id="icon-price_total"></div>
                                                 </span>
                                             </th>
                                         </tr>
@@ -384,17 +388,20 @@
                         var index = billSaleIds.indexOf(value);
                         if (index !== -1) {
                             $(this).show();
-                            // Cập nhật data-position và chèn vào vị trí tương ứng
+                            // Cập nhật data-position
                             $(this).attr('data-position', index + 1);
-                            $(".tbody-billSale tr:nth-child(" + (index + 1) +
-                                    ")")
-                                .after(
-                                    this);
                         } else {
                             $(this).hide();
                         }
                     });
-
+                    // Tạo một bản sao của mảng phần tử .billSale-info
+                    var clonedElements = $('.billSale-info').clone();
+                    // Sắp xếp các phần tử trong bản sao theo data-position
+                    var sortedElements = clonedElements.sort(function(a, b) {
+                        return $(a).data('position') - $(b).data('position');
+                    });
+                    // Thay thế các phần tử trong .tbody-billSale bằng các phần tử đã sắp xếp
+                    $('.tbody-billSale').empty().append(sortedElements);
                 }
             });
             $.ajaxSetup({

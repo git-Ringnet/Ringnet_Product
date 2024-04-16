@@ -109,42 +109,42 @@
                                             </th>
                                             <th scope="col" class="height-52" style="width:300px;">
                                                 <span class="d-flex">
-                                                    <a href="#" class="sort-link"
-                                                        data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="provide_name_display" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
                                                             Tên hiện thị
                                                         </button>
                                                     </a>
-                                                    <div class="icon" id="icon-guest_name_display"></div>
+                                                    <div class="icon" id="icon-provide_name_display"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52" style="width:200px;">
                                                 <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="guest_name"
-                                                        data-sort-type="ASC">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="provide_name" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
                                                             Mã số thuế
                                                         </button>
                                                     </a>
-                                                    <div class="icon" id="icon-guest_name"></div>
+                                                    <div class="icon" id="icon-provide_name"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52" style="width:150px;">
                                                 <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="guest_debt"
-                                                        data-sort-type="ASC">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="provide_debt" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
                                                             Dư nợ
                                                         </button>
                                                     </a>
-                                                    <div class="icon" id="icon-guest_debt"></div>
+                                                    <div class="icon" id="icon-provide_debt"></div>
                                                 </span>
                                             </th>
                                             <th style="width:300px;border-bottom: 1px solid #dee2e6 !important;">
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="tbody-provide">
                                         @foreach ($provides as $item)
                                             <tr class="position-relative provide-info">
                                                 <input type="hidden" name="id-provide" class="id-provide"
@@ -355,17 +355,20 @@
                         var index = provideIds.indexOf(value);
                         if (index !== -1) {
                             $(this).show();
-                            // Cập nhật data-position và chèn vào vị trí tương ứng
+                            // Cập nhật data-position
                             $(this).attr('data-position', index + 1);
-                            $(".tbody-provide tr:nth-child(" + (index + 1) +
-                                    ")")
-                                .after(
-                                    this);
                         } else {
                             $(this).hide();
                         }
                     });
-
+                    // Tạo một bản sao của mảng phần tử .provide-info
+                    var clonedElements = $('.provide-info').clone();
+                    // Sắp xếp các phần tử trong bản sao theo data-position
+                    var sortedElements = clonedElements.sort(function(a, b) {
+                        return $(a).data('position') - $(b).data('position');
+                    });
+                    // Thay thế các phần tử trong .tbody-provide bằng các phần tử đã sắp xếp
+                    $('.tbody-provide').empty().append(sortedElements);
                 }
             });
             $.ajaxSetup({

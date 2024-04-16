@@ -60,7 +60,9 @@
                         <br>
                         <input class="form-control" style="padding-top: 4px;width:100%;border-radius: 4px;"
                             type="text" name="workspace_name" required placeholder="Nhập thông tin ...">
-                        <button id="btn-submit" type="submit"
+                        <div class="text-wp text-13-red" style="color: red"></div>
+
+                        <button id="btn-submit" class="submit-workspacename" type="submit"
                             style="margin:5px;float:right;padding: 6px 8px;border: 1px solid #575BC7;border-radius: 4px;background: #575BC7;color: #fff;font-family: Inter;font-size: 13px;font-weight: 400;">
                             Xác nhận
                         </button>
@@ -150,6 +152,41 @@
 </x-app-layout>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    // Ajax checks if workspace_name already exists in the system on input
+    $(document).ready(function() {
+        var previousValue = '';
+        $('input[name="workspace_name"]').on('input', function() {
+            var workspace_name = $(this).val();
+
+            // Kiểm tra nếu giá trị thay đổi so với giá trị trước đó
+            if (workspace_name !== previousValue) {
+                previousValue = workspace_name;
+
+                $.ajax({
+                    url: '{{ route('checkWorkspaceName') }}',
+                    type: 'GET',
+                    data: {
+                        workspace_name: workspace_name,
+                    },
+                    success: function(data) {
+                        if (data.success) {
+                            $('.submit-workspacename').attr('disabled', true);
+                            $('.text-wp').css('color', 'red');
+                            $('.text-wp').text(data.msg);
+                            $('.submit-workspacename').hide()
+                        } else {
+                            $('.submit-workspacename').attr('disabled', false);
+                            $('.text-wp').css('color', 'green');
+                            $('.text-wp').text(data.msg);
+                            $('.submit-workspacename').show()
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+
     $(document).on('change', '#file_restore', function(e) {
         e.preventDefault();
         $('#restore_data')[0].submit();

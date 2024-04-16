@@ -124,8 +124,8 @@
                                         </th>
                                         <th class="border-0" scope="col">
                                             <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link" data-sort-by="guest_name_display"
-                                                    data-sort-type="ASC">
+                                                <a href="#" class="sort-link btn-submit"
+                                                    data-sort-by="guest_name_display" data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
                                                         <span class="text-13">Công ty</span>
                                                     </button>
@@ -135,19 +135,19 @@
                                         </th>
                                         <th class="border-0" scope="col">
                                             <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link" data-sort-by="guest_name_display"
-                                                    data-sort-type="ASC">
+                                                <a href="#" class="sort-link btn-submit"
+                                                    data-sort-by="guest_code" data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
                                                         <span class="text-13">Mã số thuế</span>
                                                     </button>
                                                 </a>
-                                                <div class="icon" id="icon-guest_name_display"></div>
+                                                <div class="icon" id="icon-guest_code"></div>
                                             </span>
                                         </th>
                                         {{-- <th class="border-0" scope="col">
                                             <span class="d-flex">
-                                                <a href="#" class="sort-link" data-sort-by="guest_email"
-                                                    data-sort-type="ASC">
+                                                <a href="#" class="sort-link btn-submit" data-sort-by="guest_email"
+                                                    data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
                                                         <span class="text-nav text-secondary">Email</span>
                                                     </button></a>
@@ -156,8 +156,8 @@
                                         </th> --}}
                                         {{-- <th class="border-0" scope="col">
                                             <span class="d-flex">
-                                                <a href="#" class="sort-link" data-sort-by="guest_phone"
-                                                    data-sort-type="ASC">
+                                                <a href="#" class="sort-link btn-submit" data-sort-by="guest_phone"
+                                                    data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
                                                         <span class="text-nav text-secondary">Điện thoại</span>
                                                     </button>
@@ -167,8 +167,8 @@
                                         </th> --}}
                                         <th class="border-0" scope="col">
                                             <span class="d-flex justify-content-end">
-                                                <a href="#" class="sort-link" data-sort-by="guest_debt"
-                                                    data-sort-type="ASC">
+                                                <a href="#" class="sort-link btn-submit"
+                                                    data-sort-by="guest_debt" data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
                                                         <span class="text-13">Dư nợ</span>
                                                     </button>
@@ -204,7 +204,8 @@
                                                     id="checkbox" value="" onclick="event.stopPropagation();">
                                             </td>
                                             <td class="text-13-black text-left">
-                                                <a href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
+                                                <a
+                                                    href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
                                             </td>
                                             <td class="text-13-black">{{ $item->guest_code }}</td>
                                             {{-- <td class="text-13-black">{{ $item->guest_email }}</td>
@@ -375,16 +376,20 @@
                         var index = guestIds.indexOf(value);
                         if (index !== -1) {
                             $(this).show();
-                            // Cập nhật data-position và chèn vào vị trí tương ứng
+                            // Cập nhật data-position
                             $(this).attr('data-position', index + 1);
-                            $(".tbody-guest tr:nth-child(" + (index + 1) +
-                                    ")")
-                                .after(
-                                    this);
                         } else {
                             $(this).hide();
                         }
                     });
+                    // Tạo một bản sao của mảng phần tử .guest-info
+                    var clonedElements = $('.guest-info').clone();
+                    // Sắp xếp các phần tử trong bản sao theo data-position
+                    var sortedElements = clonedElements.sort(function(a, b) {
+                        return $(a).data('position') - $(b).data('position');
+                    });
+                    // Thay thế các phần tử trong .tbody-guest bằng các phần tử đã sắp xếp
+                    $('.tbody-guest').empty().append(sortedElements);
 
                 }
             });

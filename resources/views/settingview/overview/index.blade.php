@@ -231,16 +231,16 @@
                                 <br>
                                 <input class="url_link" style="padding-right: 30px;" type="text"
                                     name="workspace_name" value="{{ $workspace_name }}">
+                                <div class="text-wp" style="color: red"></div>
                                 <label class="pt-2" for="">Đường dẫn workspace</label>
                                 <br>
                                 <input class="url_link" style="padding-right: 30px;" type="text"
                                     value="{{ url('/') }}/{{ $workspace_name }}" disabled>
-
                                 <br>
                             </div>
                         </div>
                         <div class="input-icon w-75">
-                            <div class="btn-apply float-right">
+                            <div class="btn-apply float-right" style="display: none">
                                 <button class="btn btn-update btn-primary">Cập nhật</button>
                             </div>
                         </div>
@@ -274,7 +274,44 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{ asset('/dist/js/import.js') }}"></script>
 
-<script></script>
+<script>
+    // Ajax checks if workspace_name already exists in the system on input
+    $(document).ready(function() {
+        var previousValue = '';
+        $('input[name="workspace_name"]').on('input', function() {
+            var workspace_name = $(this).val();
+            // Kiểm tra nếu giá trị thay đổi so với giá trị trước đó
+            if (workspace_name !== previousValue) {
+                previousValue = workspace_name;
+                $.ajax({
+                    url: '{{ route('checkWorkspaceName') }}',
+                    type: 'GET',
+                    data: {
+                        workspace_name: workspace_name,
+                    },
+                    success: function(data) {
+                        if (data.success) {
+                            $('.btn-apply').attr('disabled', true);
+                            $('.text-wp').css('color', 'red');
+                            $('.text-wp').text(data.msg);
+                            $('.btn-apply').hide()
+                        } else {
+                            $('.btn-apply ').attr('disabled', false);
+                            $('.text-wp').css('color', 'green');
+                            $('.text-wp').text(data.msg);
+                            $('.btn-apply').show()
+                        }
+                        if (workspace_name == '') {
+                            $('.text-wp').text('Không được để trống tên workspace');
+                            $('.text-wp').css('color', 'red');
+                            $('.btn-apply').hide()
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
 </body>
 
 </html>

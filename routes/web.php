@@ -261,6 +261,7 @@ Route::post('/create-workspace', [ProviderController::class, 'createWorkspace'])
 Route::resource('workspace', WorkspaceController::class);
 Route::get('/updateWorkspaceUser', [WorkspaceController::class, 'updateWorkspaceUser'])->name('updateWorkspaceUser');
 Route::get('/updateWorkspace', [WorkspaceController::class, 'updateWorkspace'])->name('updateWorkspace');
+Route::get('/checkWorkspaceName', [WorkspaceController::class, 'checkWorkspaceName'])->name('checkWorkspaceName');
 Route::get('/landing-page', [WorkspaceController::class, 'landingPage'])->name('landingPage');
 
 Route::resource('{workspace}/userWorkspace', UserWorkspacesController::class);

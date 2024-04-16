@@ -113,81 +113,85 @@
                                             </th>
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="id"
-                                                        data-sort-type="#">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="payment_code" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Mã thanh
                                                             toán</button>
                                                     </a>
-                                                    <div class="icon" id="icon-id"></div>
+                                                    <div class="icon" id="icon-payment_code"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="created_at"
-                                                        data-sort-type="">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="quotation_number" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Đơn mua
                                                             hàng</button>
                                                     </a>
-                                                    <div class="icon" id="icon-created_at"></div>
+                                                    <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="created_at"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Nhà cung cấp</button>
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="provide_name_display"
+                                                        data-sort-type="DESC"><button class="btn-sort text-13"
+                                                            type="submit">Nhà cung
+                                                            cấp</button>
                                                     </a>
-                                                    <div class="icon" id="icon-created_at"></div>
+                                                    <div class="icon" id="icon-provide_name_display"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
-                                                <span class="d-flex justify-content-center">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Trạng thái</button>
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="status" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Trạng
+                                                            thái</button>
                                                     </a>
-                                                    <div class="icon" id="icon-total"></div>
+                                                    <div class="icon" id="icon-status"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Hạn thanh toán</button>
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="payment_date" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Hạn thanh
+                                                            toán</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-payment_date"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex justify-content-end">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="total" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Tổng tiền</button>
                                                     </a>
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Tổng tiền</button>
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="payment" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Đã nhận</button>
                                                     </a>
-                                                    <div class="icon" id="icon-total"></div>
+                                                    <div class="icon" id="icon-payment"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Đã nhận</button>
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="debt" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Dư nợ</button>
                                                     </a>
-                                                    <div class="icon" id="icon-total"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52">
-                                                <span class="d-flex justify-content-end">
-                                                    <a href="#" class="sort-link" data-sort-by="total"
-                                                        data-sort-type=""><button class="btn-sort text-13"
-                                                            type="submit">Dư nợ</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-total"></div>
+                                                    <div class="icon" id="icon-debt"></div>
                                                 </span>
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="tbody-payment">
                                         @foreach ($payment as $item)
                                             <tr class="position-relative payment-info" style="height: 44px;"><input
                                                     type="hidden" name="id-payment" class="id-payment"
@@ -252,7 +256,8 @@
                                                 <td class="py-2 text-13-black">
                                                     {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }}</td>
 
-                                                <td class="py-2 text-13-black text-right">{{ number_format($item->total) }}</td>
+                                                <td class="py-2 text-13-black text-right">
+                                                    {{ number_format($item->total) }}</td>
                                                 <td class="py-2 text-13-black text-right">
                                                     {{ number_format($item->payment) }}
                                                 </td>
@@ -436,17 +441,20 @@
                         var index = paymentIds.indexOf(value);
                         if (index !== -1) {
                             $(this).show();
-                            // Cập nhật data-position và chèn vào vị trí tương ứng
+                            // Cập nhật data-position
                             $(this).attr('data-position', index + 1);
-                            $(".tbody-payment tr:nth-child(" + (index + 1) +
-                                    ")")
-                                .after(
-                                    this);
                         } else {
                             $(this).hide();
                         }
                     });
-
+                    // Tạo một bản sao của mảng phần tử .payment-info
+                    var clonedElements = $('.payment-info').clone();
+                    // Sắp xếp các phần tử trong bản sao theo data-position
+                    var sortedElements = clonedElements.sort(function(a, b) {
+                        return $(a).data('position') - $(b).data('position');
+                    });
+                    // Thay thế các phần tử trong .tbody-payment bằng các phần tử đã sắp xếp
+                    $('.tbody-payment').empty().append(sortedElements);
                 }
             });
             $.ajaxSetup({
