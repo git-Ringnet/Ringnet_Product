@@ -58,7 +58,8 @@ class PayOder extends Model
                 'payment' => $prepay,
                 'debt' => ($payment->total - $prepay),
                 'payment_code' => $data['payment_code'],
-                'payment_day' => $data['payment_day']
+                'payment_day' => $data['payment_day'],
+                'payment_type' => $data['payment_type']
             ];
             PayOder::where('id', $payment->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
@@ -223,6 +224,14 @@ class PayOder extends Model
         } else {
             $status = 2;
         }
+        // Chỉnh trạng thái đơn mua hàng
+        $payorder = PayOder::where('detailimport_id', $id)->first();
+        if ($payorder) {
+            if ($payorder->payment == 0) {
+                $status = 0;
+            }
+        }
+
         $dataUpdate = [
             $columStatus => $status
         ];

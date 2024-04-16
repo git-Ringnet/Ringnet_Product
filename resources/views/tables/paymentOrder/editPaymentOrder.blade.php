@@ -361,6 +361,7 @@
                                             <th class="text-table text-secondary p-2 border-right text-right">Tổng tiền</th>
                                             <th class="text-table text-secondary p-2 border-right text-right">Thanh toán</th>
                                             <th class="text-table text-secondary p-2 text-right">Dư nợ</th>
+                                            <th class="text-table text-secondary p-2 border-left">Hình thức</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -380,6 +381,9 @@
                                                 </td>
                                                 <td class="text-13-black border-bottom text-right">
                                                     {{ fmod($htr->debt, 2) > 0 && fmod($htr->debt, 1) > 0 ? number_format($htr->debt, 2, '.', ',') : number_format($htr->debt) }}
+                                                </td>
+                                                <td class="text-13-black border-bottom border-left">
+                                                    {{$htr->payment_type}}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -515,7 +519,7 @@
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap" style="flex: 1.5;">Hình thức t.toán</span>
                                 <select name="payment_type" id="" class="border-0 text-13"
-                                    style="width:55%;" disabled>
+                                    style="width:55%;">
                                     <option value="Tiền mặt" @if ($payment->payment_type == 'Tiền mặt') selected @endif>Tiền mặt
                                     </option>
                                     <option value="UNC" @if ($payment->payment_type == 'UNC') selected @endif>UNC
