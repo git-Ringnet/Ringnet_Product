@@ -167,11 +167,13 @@ class BillSaleController extends Controller
                 ->select('*', 'serialnumber.id as idSeri')
                 ->get();
             $bg = url('dist/img/logo-2050x480-1.png');
+            $workspace = Workspace::where('id', Auth::user()->current_workspace)->first();
             $data = [
                 'delivery' => $billSale,
                 'product' => $product,
                 'serinumber' => $serinumber,
                 'date' => $billSale->ngayHD,
+                'workspace' => $workspace,
                 'bg' => $bg,
             ];
             $pdf = Pdf::loadView('pdf.delivery', compact('data'))

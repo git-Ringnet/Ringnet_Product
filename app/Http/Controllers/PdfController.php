@@ -11,6 +11,7 @@ use App\Models\PayExport;
 use App\Models\Products;
 use App\Models\QuoteExport;
 use App\Models\Serialnumber;
+use App\Models\Workspace;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -94,11 +95,13 @@ class PdfController extends Controller
             ->select('*', 'serialnumber.id as idSeri')
             ->get();
         $bg = url('dist/img/logo-2050x480-1.png');
+        $workspace = Workspace::where('id', Auth::user()->current_workspace)->first();
         $data = [
             'delivery' => $delivery,
             'product' => $product,
             'serinumber' => $serinumber,
             'date' => $delivery->ngayGiao,
+            'workspace' => $workspace,
             'bg' => $bg,
         ];
         // dd($serinumber);
@@ -110,7 +113,6 @@ class PdfController extends Controller
                 'isHtml5ParserEnabled' => true,
                 'isPhpEnabled' => true,
                 'enable_remote' => false,
-
             ]);
         // dd($billSale);
         return $pdf->download('delivery.pdf');
@@ -167,12 +169,14 @@ class PdfController extends Controller
             ->select('*', 'serialnumber.id as idSeri')
             ->get();
         $bg = url('dist/img/logo-2050x480-1.png');
+        $workspace = Workspace::where('id', Auth::user()->current_workspace)->first();
         $data = [
             'delivery' => $billSale,
             'product' => $product,
             'serinumber' => $serinumber,
             'date' => $billSale->ngayHD,
             'bg' => $bg,
+            'workspace' => $workspace,
         ];
         // dd($serinumber);
         $pdf = Pdf::loadView('pdf.delivery', compact('data'))
@@ -247,12 +251,14 @@ class PdfController extends Controller
             ->select('*', 'serialnumber.id as idSeri')
             ->get();
         $bg = url('dist/img/logo-2050x480-1.png');
+        $workspace = Workspace::where('id', Auth::user()->current_workspace)->first();
         $data = [
             'delivery' => $payExport,
             'product' => $product,
             'serinumber' => $serinumber,
             'date' => $payExport->ngayTT,
             'bg' => $bg,
+            'workspace' => $workspace,
         ];
         $pdf = Pdf::loadView('pdf.delivery', compact('data'))
             ->setPaper('A4', 'portrait')

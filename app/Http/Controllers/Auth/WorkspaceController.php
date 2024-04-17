@@ -31,6 +31,9 @@ class WorkspaceController extends Controller
     }
     public function index()
     {
+        if (!Auth::check()) {
+            return redirect()->route('landingPage');
+        }
         $title = 'Danh sách workspace';
 
         $allWorkSpace = UserWorkspaces::with('workspace')->where('user_id', Auth::user()->id)->get();

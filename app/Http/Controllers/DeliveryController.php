@@ -137,10 +137,12 @@ class DeliveryController extends Controller
                 ->select('*', 'serialnumber.id as idSeri')
                 ->get();
             $bg = url('dist/img/logo-2050x480-1.png');
+            $workspace = Workspace::where('id', Auth::user()->current_workspace)->first();
             $data = [
                 'delivery' => $delivery,
                 'product' => $product,
                 'serinumber' => $serinumber,
+                'workspace' => $workspace,
                 'date' => $delivery->ngayGiao,
                 'bg' => $bg,
             ];

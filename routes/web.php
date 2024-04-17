@@ -154,8 +154,11 @@ Route::get('/clear-pdf-session', [DetailExportController::class, 'clearPdfSessio
 //Lưu thao tác
 Route::get('/addActivity', [UserFlowController::class, 'addActivity'])->name('addActivity');
 //Báo giá
-Route::resource('{workspace}/detailExport', DetailExportController::class);
-Route::get('{workspace}/seeInfo/{id}', [DetailExportController::class, 'seeInfo'])->name('seeInfo');
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/detailExport', DetailExportController::class);
+    Route::get('{workspace}/seeInfo/{id}', [DetailExportController::class, 'seeInfo'])->name('seeInfo');
+});
+
 //tìm kiếm tên khách hàng
 Route::get('/searchExport', [DetailExportController::class, 'searchGuest'])->name('searchExport');
 //người đại diện
@@ -196,8 +199,11 @@ Route::get('/getRecentTransaction', [DetailExportController::class, 'getRecentTr
 Route::get('/checkProductExist', [DetailExportController::class, 'checkProductExist'])->name('checkProductExist');
 
 //Giao hàng
-Route::resource('{workspace}/delivery', DeliveryController::class);
-Route::get('{workspace}/watchDelivery/{id}', [DeliveryController::class, 'watchDelivery'])->name('watchDelivery');
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/delivery', DeliveryController::class);
+    Route::get('{workspace}/watchDelivery/{id}', [DeliveryController::class, 'watchDelivery'])->name('watchDelivery');
+});
+
 Route::get('searchDelivery', [DeliveryController::class, 'searchDelivery'])->name('searchDelivery');
 //Lấy thông tin từ số báo giá
 Route::get('/getInfoQuote', [DeliveryController::class, 'getInfoQuote'])->name('getInfoQuote');
@@ -218,11 +224,12 @@ Route::get('/checkCodeDelivery', [DeliveryController::class, 'checkCodeDelivery'
 Route::get('/checkCodePayment', [PayExportController::class, 'checkCodePayment'])->name('checkCodePayment');
 
 //thanh toán bán hàng
-Route::resource('{workspace}/payExport', PayExportController::class);
-Route::get('searchPayExport', [PayExportController::class, 'searchPayExport'])->name('searchPayExport');
-
-Route::get('/getInfoPay', [PayExportController::class, 'getInfoPay'])->name('getInfoPay');
-Route::get('/getProductPay', [PayExportController::class, 'getProductPay'])->name('getProductPay');
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/payExport', PayExportController::class);
+    Route::get('searchPayExport', [PayExportController::class, 'searchPayExport'])->name('searchPayExport');
+    Route::get('/getInfoPay', [PayExportController::class, 'getInfoPay'])->name('getInfoPay');
+    Route::get('/getProductPay', [PayExportController::class, 'getProductPay'])->name('getProductPay');
+});
 
 //danh sách serial number theo product
 Route::middleware([CheckLogin::class])->group(function () {
@@ -239,57 +246,60 @@ Route::middleware([CheckLogin::class])->group(function () {
 Route::get('/report', function () {
     return view('tables.report.report');
 });
-
-
 // Lịch sử giao dịch
-Route::resource('{workspace}/history', HistoryController::class);
-Route::get('getSN', [HistoryController::class, 'getSN'])->name('getSN');
-Route::get('/searchHistory', [HistoryController::class, 'searchHistory'])->name('searchHistory');
-
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/history', HistoryController::class);
+    Route::get('getSN', [HistoryController::class, 'getSN'])->name('getSN');
+    Route::get('/searchHistory', [HistoryController::class, 'searchHistory'])->name('searchHistory');
+});
 // Invite workspace
 Route::get('/login/{token}/invite/{workspace_id}', [InvitationController::class, 'inviteUser'])->name('invite');
 
-Route::get('/updateInvitations', [InvitationController::class, 'updateInvitations'])->name('updateInvitations');
-
-Route::post('/invite', [InvitationController::class, 'index'])->name('sendInvitation');
-Route::get('/send-mail', [InvitationController::class, 'index']);
-
-
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::get('/updateInvitations', [InvitationController::class, 'updateInvitations'])->name('updateInvitations');
+    Route::post('/invite', [InvitationController::class, 'index'])->name('sendInvitation');
+    Route::get('/send-mail', [InvitationController::class, 'index']);
+});
 
 Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
 Route::post('/create-workspace', [ProviderController::class, 'createWorkspace'])->name('createWorkspace');
-
-Route::resource('workspace', WorkspaceController::class);
-Route::get('/updateWorkspaceUser', [WorkspaceController::class, 'updateWorkspaceUser'])->name('updateWorkspaceUser');
-Route::get('/updateWorkspace', [WorkspaceController::class, 'updateWorkspace'])->name('updateWorkspace');
-Route::get('/checkWorkspaceName', [WorkspaceController::class, 'checkWorkspaceName'])->name('checkWorkspaceName');
 Route::get('/landing-page', [WorkspaceController::class, 'landingPage'])->name('landingPage');
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('workspace', WorkspaceController::class);
+    Route::get('/updateWorkspaceUser', [WorkspaceController::class, 'updateWorkspaceUser'])->name('updateWorkspaceUser');
+    Route::get('/updateWorkspace', [WorkspaceController::class, 'updateWorkspace'])->name('updateWorkspace');
+    Route::get('/checkWorkspaceName', [WorkspaceController::class, 'checkWorkspaceName'])->name('checkWorkspaceName');
 
-Route::resource('{workspace}/userWorkspace', UserWorkspacesController::class);
-Route::get('/updateRoleWorkspace', [UserWorkspacesController::class, 'updateRoleWorkspace'])->name('updateRoleWorkspace');
-Route::get('/searchUserWorkspace', [UserWorkspacesController::class, 'searchUserWorkspace'])->name('searchUserWorkspace');
-Route::get('/deleteUserWorkspace', [UserWorkspacesController::class, 'deleteUserWorkspace'])->name('deleteUserWorkspace');
+    Route::resource('{workspace}/userWorkspace', UserWorkspacesController::class);
+    Route::get('/updateRoleWorkspace', [UserWorkspacesController::class, 'updateRoleWorkspace'])->name('updateRoleWorkspace');
+    Route::get('/searchUserWorkspace', [UserWorkspacesController::class, 'searchUserWorkspace'])->name('searchUserWorkspace');
+    Route::get('/deleteUserWorkspace', [UserWorkspacesController::class, 'deleteUserWorkspace'])->name('deleteUserWorkspace');
+});
 
 // Report
-Route::resource('{workspace}/report', ReportController::class);
-Route::get('searchReportGuests', [ReportController::class, 'searchReportGuests'])->name('searchReportGuests');
-Route::get('searchReportProvides', [ReportController::class, 'searchReportProvides'])->name('searchReportProvides');
-Route::get('/view', [ReportController::class, 'view'])->name('view');
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/report', ReportController::class);
+    Route::get('searchReportGuests', [ReportController::class, 'searchReportGuests'])->name('searchReportGuests');
+    Route::get('searchReportProvides', [ReportController::class, 'searchReportProvides'])->name('searchReportProvides');
+    Route::get('/view', [ReportController::class, 'view'])->name('view');
+});
 
-
-Route::resource('{workspace}/settings', SettingController::class);
-Route::get('{workspace}/overview', [SettingController::class, 'overview'])->name('overview');
-Route::get('{workspace}/user', [SettingController::class, 'viewUser'])->name('viewUser');
-Route::get('{workspace}/viewCompany', [SettingController::class, 'viewCompany'])->name('viewCompany');
-Route::post('/deleteAllTable', [SettingController::class, 'deleteAllTable'])->name('deleteAllTable');
-Route::get('/searchUser', [SettingController::class, 'search'])->name('searchUser');
-Route::get('/searchUser', [SettingController::class, 'search'])->name('searchUser');
-Route::post('/updateUser', [SettingController::class, 'updateUser'])->name('user.update');
-Route::post('/updateWorkspaceName', [SettingController::class, 'updateWorkspaceName'])->name('updateWorkspaceName');
-
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/settings', SettingController::class);
+    Route::get('{workspace}/overview', [SettingController::class, 'overview'])->name('overview');
+    Route::get('{workspace}/user', [SettingController::class, 'viewUser'])->name('viewUser');
+    Route::get('{workspace}/viewCompany', [SettingController::class, 'viewCompany'])->name('viewCompany');
+    Route::post('/deleteAllTable', [SettingController::class, 'deleteAllTable'])->name('deleteAllTable');
+    Route::get('/searchUser', [SettingController::class, 'search'])->name('searchUser');
+    Route::get('/searchUser', [SettingController::class, 'search'])->name('searchUser');
+    Route::post('/updateUser', [SettingController::class, 'updateUser'])->name('user.update');
+    Route::post('/updateWorkspaceName', [SettingController::class, 'updateWorkspaceName'])->name('updateWorkspaceName');
+});
 //Dashboard
-Route::resource('{workspace}/dashboardProduct', DashboardController::class);
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::resource('{workspace}/dashboardProduct', DashboardController::class);
+});
 //Sản phẩm bán chạy nhất
 Route::get('/productSell', [DashboardController::class, 'productSell'])->name('productSell');
 
