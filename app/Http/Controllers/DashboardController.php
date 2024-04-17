@@ -127,229 +127,230 @@ class DashboardController extends Controller
 
     public function productSell(Request $request)
     {
-        // if ($request['selectedValue'] == 0) {
-        //     $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-        //         ->where('detailexport.status', 2)
-        //         ->orderBy('quoteexport.product_qty', 'desc')
-        //         ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
-        //         ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
-        //         ->limit(5)
-        //         ->get();
+        if ($request['selectedValue'] == 0) {
+            $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+                ->where('detailexport.status', 2)
+                ->orderBy('quoteexport.product_qty', 'desc')
+                ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+                ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+                ->limit(5)
+                ->get();
 
-        //     $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-        //         ->where('detailexport.status', 2)
-        //         ->get();
+            $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+                ->where('detailexport.status', 2)
+                ->get();
 
-        //     $sumOfTop5Products = $productSell->sum('product_qty');
-        //     $totalProductQty = $totalProduct->sum('product_qty');
-        //     $sumWithoutTop5 = $totalProductQty - $sumOfTop5Products;
+            $sumOfTop5Products = $productSell->sum('product_qty');
+            $totalProductQty = $totalProduct->sum('product_qty');
+            $sumWithoutTop5 = $totalProductQty - $sumOfTop5Products;
 
-        //     $productName = $productSell->pluck('product_name')->toArray();
-        //     $qtyProduct = $productSell->pluck('product_qty')->map(function ($qty) {
-        //         return number_format($qty, 0, '.', '');
-        //     })->toArray();
+            $productName = $productSell->pluck('product_name')->toArray();
+            $qtyProduct = $productSell->pluck('product_qty')->map(function ($qty) {
+                return number_format($qty, 0, '.', '');
+            })->toArray();
 
-        //     $productName[] = 'Những sản phẩm khác...';
-        //     $qtyProduct[] = json_encode($sumWithoutTop5);
+            $productName[] = 'Những sản phẩm khác...';
+            $qtyProduct[] = json_encode($sumWithoutTop5);
 
-        //     $firstDay = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-        //         ->where('detailexport.status', 2)
-        //         ->min(DB::raw('DATE(quoteexport.created_at)'));
-        //     $lastDay = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-        //         ->where('detailexport.status', 2)
-        //         ->max(DB::raw('DATE(quoteexport.created_at)'));
+            $firstDay = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+                ->where('detailexport.status', 2)
+                ->min(DB::raw('DATE(quoteexport.created_at)'));
+            $lastDay = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+                ->where('detailexport.status', 2)
+                ->max(DB::raw('DATE(quoteexport.created_at)'));
 
-        //     $firstDay = date('d-m-Y', strtotime($firstDay));
-        //     $lastDay = date('d-m-Y', strtotime($lastDay));
-
-        //     $response = [
-        //         'firstDay' => $firstDay,
-        //         'lastDay' => $lastDay,
-        //         'productName' => $productName,
-        //         'qtyProduct' => $qtyProduct,
-        //         'salesText' => 'Tất cả',
-        //     ];
-
-        //     return response()->json($response);
-        // } else if ($request['selectedValue'] == 1) {
-        //     // Lấy ngày đầu tiên và cuối cùng của tháng hiện tại
-        //     $firstDayOfMonth = date('Y-m-01');
-        //     $lastDayOfMonth = date('Y-m-t');
-
-        //     // Lấy dữ liệu sản phẩm bán chạy nhất trong tháng hiện tại
-        //     $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-        //         ->where('detailexport.status', 2)
-        //         ->whereDate('quoteexport.created_at', '>=', $firstDayOfMonth)
-        //         ->whereDate('quoteexport.created_at', '<=', $lastDayOfMonth)
-        //         ->orderBy('quoteexport.product_qty', 'desc')
-        //         ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
-        //         ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
-        //         ->limit(5)
-        //         ->get();
-
-        //     $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-        //         ->where('detailexport.status', 2)
-        //         ->whereDate('quoteexport.created_at', '>=', $firstDayOfMonth)
-        //         ->whereDate('quoteexport.created_at', '<=', $lastDayOfMonth)
-        //         ->get();
-
-        //     $sumOfTop5Products = $productSell->sum('product_qty');
-        //     $totalProductQty = $totalProduct->sum('product_qty');
-        //     $sumWithoutTop5 = $totalProductQty - $sumOfTop5Products;
-
-        //     $productName = $productSell->pluck('product_name')->toArray();
-        //     $qtyProduct = $productSell->pluck('product_qty')->map(function ($qty) {
-        //         return number_format($qty, 0, '.', '');
-        //     })->toArray();
-
-        //     $productName[] = 'Những sản phẩm khác...';
-        //     $qtyProduct[] = json_encode($sumWithoutTop5);
-
-        //     $firstDay = date('d-m-Y', strtotime($firstDayOfMonth));
-        //     $lastDay = date('d-m-Y', strtotime($lastDayOfMonth));
-
-        //     $response = [
-        //         'firstDay' => $firstDay,
-        //         'lastDay' => $lastDay,
-        //         'productName' => $productName,
-        //         'qtyProduct' => $qtyProduct,
-        //         'salesText' => 'Tháng này',
-        //     ];
-
-        //     return response()->json($response);
-        // } else if ($request['selectedValue'] == 2) {
-        //     // Lấy ngày đầu tiên của tháng trước
-        //     $firstDayOfLastMonth = Carbon::now()->subMonth()->startOfMonth();
-
-        //     // Lấy ngày cuối cùng của tháng trước
-        //     $lastDayOfLastMonth = Carbon::now()->subMonth()->endOfMonth();
-
-        //     // Lấy dữ liệu sản phẩm bán chạy nhất trong tháng trước
-        //     $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-        //         ->where('detailexport.status', 2)
-        //         ->whereBetween('quoteexport.created_at', [$firstDayOfLastMonth, $lastDayOfLastMonth])
-        //         ->orderBy('quoteexport.product_qty', 'desc')
-        //         ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
-        //         ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
-        //         ->limit(5)
-        //         ->get();
-
-        //     $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-        //         ->where('detailexport.status', 2)
-        //         ->whereBetween('quoteexport.created_at', [$firstDayOfLastMonth, $lastDayOfLastMonth])
-        //         ->get();
-
-        //     $sumOfTop5Products = $productSell->sum('product_qty');
-        //     $totalProductQty = $totalProduct->sum('product_qty');
-        //     $sumWithoutTop5 = $totalProductQty - $sumOfTop5Products;
-
-        //     $productName = $productSell->pluck('product_name')->toArray();
-        //     $qtyProduct = $productSell->pluck('product_qty')->map(function ($qty) {
-        //         return number_format($qty, 0, '.', '');
-        //     })->toArray();
-
-        //     $productName[] = 'Những sản phẩm khác...';
-        //     $qtyProduct[] = json_encode($sumWithoutTop5);
-
-        //     $firstDay = $firstDayOfLastMonth->format('d-m-Y');
-        //     $lastDay = $lastDayOfLastMonth->format('d-m-Y');
-
-        //     $response = [
-        //         'firstDay' => $firstDay,
-        //         'lastDay' => $lastDay,
-        //         'productName' => $productName,
-        //         'qtyProduct' => $qtyProduct,
-        //         'salesText' => 'Tháng trước',
-        //     ];
-
-        //     return response()->json($response);
-        // } else if ($request['selectedValue'] == 3) {
-        //     $firstDayOfThreeMonthsAgo = Carbon::now()->subMonths(3)->startOfMonth();
-
-        //     // Lấy ngày cuối cùng của tháng trước khi tháng hiện tại (tháng 4)
-        //     $lastDayOfThreeMonthsAgo = Carbon::now()->subMonths(1)->endOfMonth();
-
-        //     // Lấy dữ liệu sản phẩm bán chạy nhất trong 3 tháng trước
-        //     $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-        //         ->where('detailexport.status', 2)
-        //         ->whereBetween('quoteexport.created_at', [$firstDayOfThreeMonthsAgo, $lastDayOfThreeMonthsAgo])
-        //         ->orderBy('quoteexport.product_qty', 'desc')
-        //         ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
-        //         ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
-        //         ->limit(5)
-        //         ->get();
-
-        //     $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-        //         ->where('detailexport.status', 2)
-        //         ->whereBetween('quoteexport.created_at', [$firstDayOfThreeMonthsAgo, $lastDayOfThreeMonthsAgo])
-        //         ->get();
-
-        //     $sumOfTop5Products = $productSell->sum('product_qty');
-        //     $totalProductQty = $totalProduct->sum('product_qty');
-        //     $sumWithoutTop5 = $totalProductQty - $sumOfTop5Products;
-
-        //     $productName = $productSell->pluck('product_name')->toArray();
-        //     $qtyProduct = $productSell->pluck('product_qty')->map(function ($qty) {
-        //         return number_format($qty, 0, '.', '');
-        //     })->toArray();
-
-        //     $productName[] = 'Những sản phẩm khác...';
-        //     $qtyProduct[] = json_encode($sumWithoutTop5);
-
-        //     $firstDay = $firstDayOfThreeMonthsAgo->format('d-m-Y');
-        //     $lastDay = $lastDayOfThreeMonthsAgo->format('d-m-Y');
-
-        //     $response = [
-        //         'firstDay' => $firstDay,
-        //         'lastDay' => $lastDay,
-        //         'productName' => $productName,
-        //         'qtyProduct' => $qtyProduct,
-        //         'salesText' => '3 tháng trước',
-        //     ];
-
-        //     return response()->json($response);
-        if (isset($request['startDate']) && isset($request['endDate'])) {
-            $startDate = Carbon::createFromFormat('d-m-Y', $request['startDate'])->startOfDay();
-            $endDate = Carbon::createFromFormat('d-m-Y', $request['endDate'])->endOfDay();
-
-            // // Lấy dữ liệu sản phẩm bán chạy nhất trong khoảng thời gian người dùng chọn
-            // $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-            //     ->where('detailexport.status', 2)
-            //     ->whereBetween('quoteexport.created_at', [$startDate, $endDate])
-            //     ->orderBy('quoteexport.product_qty', 'desc')
-            //     ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
-            //     ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
-            //     ->limit(5)
-            //     ->get();
-
-            // $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-            //     ->where('detailexport.status', 2)
-            //     ->whereBetween('quoteexport.created_at', [$startDate, $endDate])
-            //     ->get();
-
-            // $sumOfTop5Products = $productSell->sum('product_qty');
-            // $totalProductQty = $totalProduct->sum('product_qty');
-            // $sumWithoutTop5 = $totalProductQty - $sumOfTop5Products;
-
-            // $productName = $productSell->pluck('product_name')->toArray();
-            // $qtyProduct = $productSell->pluck('product_qty')->map(function ($qty) {
-            //     return number_format($qty, 0, '.', '');
-            // })->toArray();
-
-            // $productName[] = 'Những sản phẩm khác...';
-            // $qtyProduct[] = json_encode($sumWithoutTop5);
-
-            // $firstDay = $startDate->format('d-m-Y');
-            // $lastDay = $endDate->format('d-m-Y');
+            $firstDay = date('d-m-Y', strtotime($firstDay));
+            $lastDay = date('d-m-Y', strtotime($lastDay));
 
             $response = [
-                'firstDay' => $startDate,
-                'lastDay' => $endDate,
-                // 'productName' => $productName,
-                // 'qtyProduct' => $qtyProduct,
-                'salesText' => 'Khoảng thời gian',
+                'firstDay' => $firstDay,
+                'lastDay' => $lastDay,
+                'productName' => $productName,
+                'qtyProduct' => $qtyProduct,
+                'salesText' => 'Tất cả',
             ];
-        }
+
+            return response()->json($response);
+        } else if ($request['selectedValue'] == 1) {
+            // Lấy ngày đầu tiên và cuối cùng của tháng hiện tại
+            $firstDayOfMonth = date('Y-m-01');
+            $lastDayOfMonth = date('Y-m-t');
+
+            // Lấy dữ liệu sản phẩm bán chạy nhất trong tháng hiện tại
+            $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+                ->where('detailexport.status', 2)
+                ->whereDate('quoteexport.created_at', '>=', $firstDayOfMonth)
+                ->whereDate('quoteexport.created_at', '<=', $lastDayOfMonth)
+                ->orderBy('quoteexport.product_qty', 'desc')
+                ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+                ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+                ->limit(5)
+                ->get();
+
+            $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+                ->where('detailexport.status', 2)
+                ->whereDate('quoteexport.created_at', '>=', $firstDayOfMonth)
+                ->whereDate('quoteexport.created_at', '<=', $lastDayOfMonth)
+                ->get();
+
+            $sumOfTop5Products = $productSell->sum('product_qty');
+            $totalProductQty = $totalProduct->sum('product_qty');
+            $sumWithoutTop5 = $totalProductQty - $sumOfTop5Products;
+
+            $productName = $productSell->pluck('product_name')->toArray();
+            $qtyProduct = $productSell->pluck('product_qty')->map(function ($qty) {
+                return number_format($qty, 0, '.', '');
+            })->toArray();
+
+            $productName[] = 'Những sản phẩm khác...';
+            $qtyProduct[] = json_encode($sumWithoutTop5);
+
+            $firstDay = date('d-m-Y', strtotime($firstDayOfMonth));
+            $lastDay = date('d-m-Y', strtotime($lastDayOfMonth));
+
+            $response = [
+                'firstDay' => $firstDay,
+                'lastDay' => $lastDay,
+                'productName' => $productName,
+                'qtyProduct' => $qtyProduct,
+                'salesText' => 'Tháng này',
+            ];
+
+            return response()->json($response);
+        } else if ($request['selectedValue'] == 2) {
+            // Lấy ngày đầu tiên của tháng trước
+            $firstDayOfLastMonth = Carbon::now()->subMonth()->startOfMonth();
+
+            // Lấy ngày cuối cùng của tháng trước
+            $lastDayOfLastMonth = Carbon::now()->subMonth()->endOfMonth();
+
+            // Lấy dữ liệu sản phẩm bán chạy nhất trong tháng trước
+            $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+                ->where('detailexport.status', 2)
+                ->whereBetween('quoteexport.created_at', [$firstDayOfLastMonth, $lastDayOfLastMonth])
+                ->orderBy('quoteexport.product_qty', 'desc')
+                ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+                ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+                ->limit(5)
+                ->get();
+
+            $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+                ->where('detailexport.status', 2)
+                ->whereBetween('quoteexport.created_at', [$firstDayOfLastMonth, $lastDayOfLastMonth])
+                ->get();
+
+            $sumOfTop5Products = $productSell->sum('product_qty');
+            $totalProductQty = $totalProduct->sum('product_qty');
+            $sumWithoutTop5 = $totalProductQty - $sumOfTop5Products;
+
+            $productName = $productSell->pluck('product_name')->toArray();
+            $qtyProduct = $productSell->pluck('product_qty')->map(function ($qty) {
+                return number_format($qty, 0, '.', '');
+            })->toArray();
+
+            $productName[] = 'Những sản phẩm khác...';
+            $qtyProduct[] = json_encode($sumWithoutTop5);
+
+            $firstDay = $firstDayOfLastMonth->format('d-m-Y');
+            $lastDay = $lastDayOfLastMonth->format('d-m-Y');
+
+            $response = [
+                'firstDay' => $firstDay,
+                'lastDay' => $lastDay,
+                'productName' => $productName,
+                'qtyProduct' => $qtyProduct,
+                'salesText' => 'Tháng trước',
+            ];
+
+            return response()->json($response);
+        } else if ($request['selectedValue'] == 3) {
+            $firstDayOfThreeMonthsAgo = Carbon::now()->subMonths(3)->startOfMonth();
+
+            // Lấy ngày cuối cùng của tháng trước khi tháng hiện tại (tháng 4)
+            $lastDayOfThreeMonthsAgo = Carbon::now()->subMonths(1)->endOfMonth();
+
+            // Lấy dữ liệu sản phẩm bán chạy nhất trong 3 tháng trước
+            $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+                ->where('detailexport.status', 2)
+                ->whereBetween('quoteexport.created_at', [$firstDayOfThreeMonthsAgo, $lastDayOfThreeMonthsAgo])
+                ->orderBy('quoteexport.product_qty', 'desc')
+                ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+                ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+                ->limit(5)
+                ->get();
+
+            $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+                ->where('detailexport.status', 2)
+                ->whereBetween('quoteexport.created_at', [$firstDayOfThreeMonthsAgo, $lastDayOfThreeMonthsAgo])
+                ->get();
+
+            $sumOfTop5Products = $productSell->sum('product_qty');
+            $totalProductQty = $totalProduct->sum('product_qty');
+            $sumWithoutTop5 = $totalProductQty - $sumOfTop5Products;
+
+            $productName = $productSell->pluck('product_name')->toArray();
+            $qtyProduct = $productSell->pluck('product_qty')->map(function ($qty) {
+                return number_format($qty, 0, '.', '');
+            })->toArray();
+
+            $productName[] = 'Những sản phẩm khác...';
+            $qtyProduct[] = json_encode($sumWithoutTop5);
+
+            $firstDay = $firstDayOfThreeMonthsAgo->format('d-m-Y');
+            $lastDay = $lastDayOfThreeMonthsAgo->format('d-m-Y');
+
+            $response = [
+                'firstDay' => $firstDay,
+                'lastDay' => $lastDay,
+                'productName' => $productName,
+                'qtyProduct' => $qtyProduct,
+                'salesText' => '3 tháng trước',
+            ];
+
+            return response()->json($response);
+        } 
+        // else if (isset($request['startDate']) && isset($request['endDate'])) {
+        //     $startDate = Carbon::createFromFormat('d-m-Y', $request['startDate'])->startOfDay();
+        //     $endDate = Carbon::createFromFormat('d-m-Y', $request['endDate'])->endOfDay();
+
+        //     // // Lấy dữ liệu sản phẩm bán chạy nhất trong khoảng thời gian người dùng chọn
+        //     // $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+        //     //     ->where('detailexport.status', 2)
+        //     //     ->whereBetween('quoteexport.created_at', [$startDate, $endDate])
+        //     //     ->orderBy('quoteexport.product_qty', 'desc')
+        //     //     ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+        //     //     ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+        //     //     ->limit(5)
+        //     //     ->get();
+
+        //     // $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+        //     //     ->where('detailexport.status', 2)
+        //     //     ->whereBetween('quoteexport.created_at', [$startDate, $endDate])
+        //     //     ->get();
+
+        //     // $sumOfTop5Products = $productSell->sum('product_qty');
+        //     // $totalProductQty = $totalProduct->sum('product_qty');
+        //     // $sumWithoutTop5 = $totalProductQty - $sumOfTop5Products;
+
+        //     // $productName = $productSell->pluck('product_name')->toArray();
+        //     // $qtyProduct = $productSell->pluck('product_qty')->map(function ($qty) {
+        //     //     return number_format($qty, 0, '.', '');
+        //     // })->toArray();
+
+        //     // $productName[] = 'Những sản phẩm khác...';
+        //     // $qtyProduct[] = json_encode($sumWithoutTop5);
+
+        //     // $firstDay = $startDate->format('d-m-Y');
+        //     // $lastDay = $endDate->format('d-m-Y');
+
+        //     $response = [
+        //         'firstDay' => $startDate,
+        //         'lastDay' => $endDate,
+        //         // 'productName' => $productName,
+        //         // 'qtyProduct' => $qtyProduct,
+        //         'salesText' => 'Khoảng thời gian',
+        //     ];
+        // }
     }
 
     /**

@@ -677,33 +677,33 @@
                         $('#first-sales').text(data.firstDay);
                         $('#last-sales').text(data.lastDay);
                         $('#sales-text').text(data.salesText);
-                        // updateChartDataAndLegend(data.productName, data.qtyProduct);
+                        updateChartDataAndLegend(data.productName, data.qtyProduct);
                     }
                 });
             });
         });
 
         // Xử lý sự kiện khi chọn "Khoảng thời gian"
-        $('#confirm-times-sales').click(function() {
-            var startDate = $('.date_start').val();
-            var endDate = $('.date_end').val();
-            console.log(startDate, endDate);
-            $.ajax({
-                url: '{{ route('productSell') }}',
-                type: 'GET',
-                data: {
-                    startDate: startDate,
-                    endDate: endDate
-                },
-                success: function(data) {
-                    console.log(data);
-                    $('#first-sales').text(data.firstDay);
-                    $('#last-sales').text(data.lastDay);
-                    $('#sales-text').text(data.salesText);
-                    updateChartDataAndLegend(data.productName, data.qtyProduct);
-                }
-            });
-        });
+        // $('#confirm-times-sales').click(function() {
+        //     var startDate = $('.date_start').val();
+        //     var endDate = $('.date_end').val();
+        //     console.log(startDate, endDate);
+        //     $.ajax({
+        //         url: '{{ route('productSell') }}',
+        //         type: 'GET',
+        //         data: {
+        //             startDate: startDate,
+        //             endDate: endDate
+        //         },
+        //         success: function(data) {
+        //             console.log(data);
+        //             $('#first-sales').text(data.firstDay);
+        //             $('#last-sales').text(data.lastDay);
+        //             $('#sales-text').text(data.salesText);
+        //             updateChartDataAndLegend(data.productName, data.qtyProduct);
+        //         }
+        //     });
+        // });
     });
 </script>
 
