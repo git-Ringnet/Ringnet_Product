@@ -5,6 +5,7 @@
     <input type="hidden" name="detailexport_id" id="detailexport_id"
         value="@isset($yes) {{ $data['detailexport_id'] }} @endisset">
     <input type="hidden" name="billSale_id" id="billSale_id">
+    <input type="hidden" name="pdf_export" id="pdf_export">
     <div class="content-wrapper--2Column m-0">
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
@@ -46,7 +47,7 @@
                                 </button>
                             </a>
                         </div>
-                        {{-- <div class="dropdown">
+                        <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-destroy btn-light mx-1 rounded d-flex align-items-center h-100 dropdown-toggle">
                                 <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -55,14 +56,13 @@
                                         d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                         fill="#6D7075" />
                                 </svg>
-                                <span class="text-btnIner-primary ml-2">In</span>
+                                <span class="text-btnIner-primary ml-2">Lưu và in</span>
                             </button>
                             <div class="dropdown-menu" style="z-index: 9999;">
-                                <a class="dropdown-item text-13-black" href="#">Xuất Excel</a>
-                                <a class="dropdown-item text-13-black" href="#">Xuất PDF</a>
+                                <a class="dropdown-item text-13-black" href="#" id="pdf-link">Xuất PDF</a>
                             </div>
-                        </div> --}}
-                        <button type="submit" class="custom-btn mx-1 d-flex align-items-center h-100">
+                        </div>
+                        <button type="submit" class="custom-btn mx-1 d-flex align-items-center h-100" id="luuNhap">
                             <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -604,8 +604,11 @@
         defaultDate: new Date(),
         onChange: function(selectedDates, dateStr, instance) {
             // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
-            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
-                "Y-m-d");
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
+        },
+        onOpen: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi mở date picker
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
         }
     });
     flatpickr("#dayPicker", {
@@ -614,10 +617,27 @@
         defaultDate: new Date(),
         onChange: function(selectedDates, dateStr, instance) {
             // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
-            document.getElementById("hiddenDayInput").value = instance.formatDate(selectedDates[0],
-                "Y-m-d");
+            updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
+        },
+        onOpen: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi mở date picker
+            updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
         }
     });
+
+    function updateHiddenInput(selectedDate, instance, hiddenInputId) {
+        // Lấy thời gian hiện tại
+        var currentTime = new Date();
+
+        // Cập nhật giá trị của trường ẩn với thời gian hiện tại và ngày đã chọn
+        var selectedDateTime = new Date(selectedDate);
+        selectedDateTime.setHours(currentTime.getHours());
+        selectedDateTime.setMinutes(currentTime.getMinutes());
+        selectedDateTime.setSeconds(currentTime.getSeconds());
+
+        document.getElementById(hiddenInputId).value = instance.formatDate(selectedDateTime, "Y-m-d H:i:S");
+    }
+
     //thêm sản phẩm
     let fieldCounter = 1;
     $(document).ready(function() {
@@ -1683,6 +1703,7 @@
             success: function(data) {
                 if (!data.success) {
                     showAutoToast('warning', 'Mã thanh toán đã tồn tại!');
+                    $('#pdf_export').val(0);
                 } else {
                     ajaxSuccess = true;
                 }
@@ -1703,9 +1724,20 @@
         // Hiển thị thông báo nếu không có sản phẩm
         if (!hasProducts) {
             showAutoToast("warning", "Không có sản phẩm để thanh toán");
+            $('#pdf_export').val(0);
             event.preventDefault();
         }
     }
+    //Lưu và in
+    document.addEventListener("DOMContentLoaded", function() {
+        var pdfLink = document.querySelector("#pdf-link");
+
+        pdfLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            $('#pdf_export').val(1);
+            $('#luuNhap').click();
+        });
+    });
 </script>
 </body>
 

@@ -12,8 +12,10 @@ use App\Models\productBill;
 use App\Models\productPay;
 use App\Models\Products;
 use App\Models\QuoteExport;
+use App\Models\Serialnumber;
 use App\Models\userFlow;
 use App\Models\Workspace;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -114,8 +116,100 @@ class PayExportController extends Controller
             'name' => 'TT',
             'des' => 'Xác nhận'
         ];
+        if ($request->pdf_export == 1) {
+            // Sau khi lưu xong tất cả thông tin, set session export_id
+            $request->session()->put('pdf_info.pay_id', $pay_id);
+        }
         $this->userFlow->addUserFlow($arrCapNhatKH);
         return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', ' Tạo đơn thanh toán hàng thành công !');
+    }
+
+    public function downloadPdf()
+    {
+        // Kiểm tra xem có session export_id không
+        $exportId = session('pdf_info.pay_id');
+
+        if ($exportId) {
+            // Xóa session delivery_id trước khi tạo và trả về PDF
+            session()->forget('pdf_info.pay_id');
+
+            $payExport = PayExport::where('pay_export.id', $exportId)
+                ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+                ->leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
+                ->select(
+                    '*',
+                    'pay_export.id as idTT',
+                    'pay_export.created_at as ngayTT',
+                    'pay_export.status as trangThai',
+                    DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo')
+                )
+                ->first();
+            $product = PayExport::join('quoteexport', 'pay_export.detailexport_id', '=', 'quoteexport.detailexport_id')
+                ->leftJoin('product_pay', function ($join) {
+                    $join->on('product_pay.pay_id', '=', 'pay_export.id');
+                    $join->on('product_pay.product_id', '=', 'quoteexport.product_id');
+                })
+                ->where('quoteexport.status', 1)
+                ->where('pay_export.id', $exportId)
+                ->where(function ($query) {
+                    $query->where('quoteexport.product_delivery', null)
+                        ->orWhere('quoteexport.product_delivery', 0);
+                })
+                ->join('products', 'products.id', 'product_pay.product_id')
+                ->select(
+                    'quoteexport.product_id',
+                    'quoteexport.product_code',
+                    'quoteexport.product_name',
+                    'quoteexport.product_unit',
+                    'quoteexport.price_export',
+                    'quoteexport.product_tax',
+                    'quoteexport.product_note',
+                    'quoteexport.product_total',
+                    'quoteexport.product_ratio',
+                    'quoteexport.price_import',
+                    'product_pay.pay_qty as deliver_qty'
+                )
+                ->groupBy(
+                    'quoteexport.product_id',
+                    'quoteexport.product_code',
+                    'quoteexport.product_name',
+                    'quoteexport.product_unit',
+                    'quoteexport.price_export',
+                    'quoteexport.product_tax',
+                    'quoteexport.product_note',
+                    'quoteexport.product_total',
+                    'quoteexport.product_ratio',
+                    'quoteexport.price_import',
+                    'product_pay.pay_qty'
+                )
+                ->get();
+            $serinumber = Serialnumber::leftJoin('pay_export', 'pay_export.detailexport_id', 'serialnumber.detailexport_id')
+                ->where('pay_export.id', $exportId)
+                ->select('*', 'serialnumber.id as idSeri')
+                ->get();
+            $bg = url('dist/img/logo-2050x480-1.png');
+            $data = [
+                'delivery' => $payExport,
+                'product' => $product,
+                'serinumber' => $serinumber,
+                'date' => $payExport->ngayTT,
+                'bg' => $bg,
+            ];
+            $pdf = Pdf::loadView('pdf.delivery', compact('data'))
+                ->setPaper('A4', 'portrait')
+                ->setOptions([
+                    'defaultFont' => 'sans-serif',
+                    'dpi' => 100,
+                    'isHtml5ParserEnabled' => true,
+                    'isPhpEnabled' => true,
+                    'enable_remote' => false,
+
+                ]);
+            return $pdf->download('payExport.pdf');
+        } else {
+            // Nếu không có session export_id, chuyển hướng hoặc xử lý theo nhu cầu của bạn
+            return redirect()->back()->with('error', 'Không có PDF để tải xuống.');
+        }
     }
 
     /**
@@ -206,7 +300,7 @@ class PayExportController extends Controller
         $history = history_Pay_Export::where('pay_id', $id)
             ->where('history_payment_export.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('pay_export', 'pay_export.id', 'history_payment_export.pay_id')
-            ->select('history_payment_export.*', 'pay_export.code_payment', 'pay_export.payment_type')
+            ->select('history_payment_export.*', 'pay_export.code_payment', 'history_payment_export.payment_type')
             ->orderBy('history_payment_export.created_at', 'desc')
             ->get();
         return view('tables.export.pay_export.edit', compact('title', 'payExport', 'product', 'history', 'thanhToan', 'noConLaiValue', 'workspacename'));

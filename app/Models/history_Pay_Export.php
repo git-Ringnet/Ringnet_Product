@@ -13,6 +13,7 @@ class history_Pay_Export extends Model
         'pay_id',
         'total',
         'payment',
+        'payment_type',
         'debt',
         'workspace_id',
         'created_at',

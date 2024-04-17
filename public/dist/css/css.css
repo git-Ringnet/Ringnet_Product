@@ -2430,3 +2430,9 @@ input[type="checkbox"] {
     border-radius: 5px;
     z-index: 10000;
 }
+/*Chart*/
+.border-radius-chart {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+}

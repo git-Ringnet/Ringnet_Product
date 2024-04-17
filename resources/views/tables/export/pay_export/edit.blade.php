@@ -98,7 +98,8 @@
                                 <span class="text-btnIner-primary ml-1">In</span>
                             </button>
                             <div class="dropdown-menu" style="z-index: 9999;">
-                                <a class="dropdown-item text-13-black" href="{{ route('pdfPayExport', $payExport->idTT) }}">
+                                <a class="dropdown-item text-13-black"
+                                    href="{{ route('pdfPayExport', $payExport->idTT) }}">
                                     Xuất PDF
                                 </a>
                             </div>
@@ -291,7 +292,8 @@
                                                                 class="border-0 px-2 py-1 w-75 product_code w-100 text-13-black "
                                                                 name="product_code[]">
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top position-relative border-bottom">
+                                                    <td
+                                                        class="border-right p-2 text-13 align-top position-relative border-bottom">
                                                         <div class="d-flex align-items-center">
                                                             <input type="text"
                                                                 value="{{ $item_quote->product_name }}"
@@ -355,7 +357,8 @@
                                                             </p>
                                                         </a>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 text-center align-top border-bottom">
+                                                    <td
+                                                        class="border-right p-2 text-13 text-center align-top border-bottom">
                                                         <select name="product_tax[]"
                                                             class="border-0 mt-1 text-center product_tax" disabled>
                                                             <option value="0" <?php if ($item_quote->product_tax == 0) {
@@ -439,8 +442,10 @@
                                             <th class="text-table text-secondary p-2 border-right">Ngày thanh toán</th>
                                             <th class="text-table text-secondary p-2 border-right">Hình thức t.toán
                                             </th>
-                                            <th class="text-table text-secondary p-2 border-right text-right">Tổng tiền</th>
-                                            <th class="text-table text-secondary p-2 border-right text-right">Thanh toán</th>
+                                            <th class="text-table text-secondary p-2 border-right text-right">Tổng tiền
+                                            </th>
+                                            <th class="text-table text-secondary p-2 border-right text-right">Thanh
+                                                toán</th>
                                             <th class="text-table text-secondary p-2 text-right">Dư nợ</th>
                                         </tr>
                                     </thead>
@@ -463,7 +468,8 @@
                                                 <td class="border-right text-13-black border-bottom text-right">
                                                     {{ number_format($htr->payment) }}
                                                 </td>
-                                                <td class="text-13-black border-bottom text-right">{{ number_format($htr->debt) }}</td>
+                                                <td class="text-13-black border-bottom text-right">
+                                                    {{ number_format($htr->debt) }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -546,7 +552,9 @@
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hình thức
                                                 t.toán</span>
-                                            <select name="payment_type" style="width: 55%" disabled
+                                            <select name="payment_type" style="width: 55%" <?php if ($payExport->trangThai == 2) {
+                                                echo 'disabled';
+                                            } ?>
                                                 class="text-13-black border-0 bg-input-guest">
                                                 <option value="Tiền mặt" <?php if ($payExport->payment_type == 'Tiền mặt') {
                                                     echo 'selected';
@@ -708,20 +716,38 @@
         dateFormat: "d/m/Y",
         onChange: function(selectedDates, dateStr, instance) {
             // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
-            document.getElementById("hiddenDateInput").value = instance.formatDate(selectedDates[0],
-                "Y-m-d");
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
+        },
+        onOpen: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi mở date picker
+            updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
         }
     });
     flatpickr("#dayPicker", {
         locale: "vn",
         dateFormat: "d/m/Y",
-        defaultDate: new Date(),
         onChange: function(selectedDates, dateStr, instance) {
             // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
-            document.getElementById("hiddenDayInput").value = instance.formatDate(selectedDates[0],
-                "Y-m-d");
+            updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
+        },
+        onOpen: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi mở date picker
+            updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
         }
     });
+
+    function updateHiddenInput(selectedDate, instance, hiddenInputId) {
+        // Lấy thời gian hiện tại
+        var currentTime = new Date();
+
+        // Cập nhật giá trị của trường ẩn với thời gian hiện tại và ngày đã chọn
+        var selectedDateTime = new Date(selectedDate);
+        selectedDateTime.setHours(currentTime.getHours());
+        selectedDateTime.setMinutes(currentTime.getMinutes());
+        selectedDateTime.setSeconds(currentTime.getSeconds());
+
+        document.getElementById(hiddenInputId).value = instance.formatDate(selectedDateTime, "Y-m-d H:i:S");
+    }
     //Xem giao dịch gần đây
     $('.recentModal').click(function() {
         var idProduct = $(this)

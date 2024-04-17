@@ -121,6 +121,7 @@ class PayExport extends Model
             'pay_id' => $payExport->id,
             'total' => $total,
             'payment' => $payment,
+            'payment_type' => $data['payment_type'],
             'debt' => $result,
             'workspace_id' => Auth::user()->current_workspace,
             'created_at' => $payment_day,
@@ -193,6 +194,7 @@ class PayExport extends Model
             $history->pay_id = $payExport->id;
             $history->total = $total;
             $history->payment = $payment;
+            $history->payment_type = $data['payment_type'];
             $history->debt = $detailExport->amount_owed;
             $history->workspace_id = Auth::user()->current_workspace;
             $history->created_at = $payment_day;
@@ -233,6 +235,7 @@ class PayExport extends Model
                         $history->pay_id = $payExport->id;
                         $history->total = $total;
                         $history->payment = $payment;
+                        $history->payment_type = $data['payment_type'];
                         $history->debt = $detailExport->amount_owed;
                         $history->workspace_id = Auth::user()->current_workspace;
                         $history->created_at = $payment_day;
@@ -264,6 +267,7 @@ class PayExport extends Model
         $payExport->debt = $detailExport->amount_owed;
         $payExport->payment_date = $data['date_pay'];
         $payExport->payment_day = $payment_day;
+        $payExport->payment_type = $data['payment_type'];
         $payExport->status = $status;
         $payExport->save();
         return $detailExport;

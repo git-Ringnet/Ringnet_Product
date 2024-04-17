@@ -19,6 +19,7 @@ class BillSale extends Model
         'status',
         'number_bill',
         'workspace_id',
+        'user_id',
         'created_at',
         'updated_at'
     ];
@@ -78,6 +79,7 @@ class BillSale extends Model
             'detailexport_id' => $data['detailexport_id'],
             'guest_id' => $data['guest_id'],
             'price_total' => $tolal_all,
+            'user_id' => Auth::user()->id,
             'status' => 1,
             'created_at' => $date_bill,
             'updated_at' => $date_bill,
@@ -337,6 +339,7 @@ class BillSale extends Model
             'detailexport_id' => $data['detailexport_id'],
             'guest_id' => $data['guest_id'],
             'price_total' => $tolal_all,
+            'user_id' => Auth::user()->id,
             'status' => 2,
             'created_at' => $date_bill,
             'updated_at' => $date_bill,
@@ -369,6 +372,7 @@ class BillSale extends Model
                 'billSale_id' => $bill_sale->id,
                 'product_id' => $data['product_id'][$i],
                 'billSale_qty' => $data['product_qty'][$i],
+                'user_id' => Auth::user()->id,
                 'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

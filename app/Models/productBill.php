@@ -15,8 +15,10 @@ class productBill extends Model
         'id',
         'billSale_id',
         'product_id',
+        'user_id',
         'billSale_qty',
-        'workspace_id', 'created_at',
+        'workspace_id',
+        'created_at',
     ];
     protected $table = 'product_bill';
 
@@ -35,6 +37,7 @@ class productBill extends Model
 
             $dataBill = [
                 'billSale_id' => $id,
+                'user_id' => Auth::user()->id,
                 'product_id' => $data['product_id'][$i],
                 'billSale_qty' => $data['product_qty'][$i],
                 'workspace_id' => Auth::user()->current_workspace,

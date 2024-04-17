@@ -68,7 +68,7 @@ class DetailExport extends Model
         $dataExport = [
             'guest_id' => $data['guest_id'],
             'project_id' => !empty($data['project_id']) ? $data['project_id'] : 1,
-            'user_id' => 1,
+            'user_id' => Auth::user()->id,
             'represent_id' => $data['represent_guest_id'],
             'reference_number' => $data['reference_number'],
             'price_effect' => $data['price_effect'],
@@ -158,7 +158,7 @@ class DetailExport extends Model
                 'guest_id' => $data['guest_id'],
                 'represent_id' => $data['represent_guest_id'],
                 'project_id' => !empty($data['project_id']) ? $data['project_id'] : 1,
-                'user_id' => 1,
+                'user_id' => Auth::user()->id,
                 'quotation_number' => $data['quotation_number'],
                 'reference_number' => $data['reference_number'],
                 'price_effect' => $data['price_effect'],

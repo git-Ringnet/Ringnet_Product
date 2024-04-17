@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\Auth\WorkspaceController;
 use App\Http\Controllers\BillSaleController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\DetailExportController;
 use App\Http\Controllers\GuestController;
@@ -145,6 +146,7 @@ Route::get('/clear-session', [DetailExportController::class, 'clearSession'])->n
 Route::get('/download-pdf', [DetailExportController::class, 'downloadPdf'])->name('download.pdf');
 Route::get('/download-pdf-delivery', [DeliveryController::class, 'downloadPdf'])->name('download.pdf.delivery');
 Route::get('/download-pdf-billsale', [BillSaleController::class, 'downloadPdf'])->name('download.pdf.billsale');
+Route::get('/download-pdf-payExport', [PayExportController::class, 'downloadPdf'])->name('download.pdf.payexport');
 Route::get('/clear-pdf-session', [DetailExportController::class, 'clearPdfSession'])->name('clear.pdf.session');
 
 
@@ -286,10 +288,13 @@ Route::get('/searchUser', [SettingController::class, 'search'])->name('searchUse
 Route::post('/updateUser', [SettingController::class, 'updateUser'])->name('user.update');
 Route::post('/updateWorkspaceName', [SettingController::class, 'updateWorkspaceName'])->name('updateWorkspaceName');
 
+//Dashboard
+Route::resource('{workspace}/dashboardProduct', DashboardController::class);
+//Sản phẩm bán chạy nhất
+Route::get('/productSell', [DashboardController::class, 'productSell'])->name('productSell');
 
 // User flow
 Route::resource('{workspace}/userflow', UserFlowController::class)->middleware(CheckLogin::class);
-
 
 Route::middleware([
     'auth:sanctum',
