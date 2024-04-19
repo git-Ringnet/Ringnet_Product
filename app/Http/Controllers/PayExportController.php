@@ -51,6 +51,7 @@ class PayExportController extends Controller
             $workspacename = $workspacename->workspace_name;
             $payExport = PayExport::leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
                 ->leftJoin('history_payment_export', 'pay_export.id', 'history_payment_export.pay_id')
+                ->leftJoin('users', 'users.id', 'pay_export.user_id')
                 ->where('pay_export.workspace_id', Auth::user()->current_workspace)
                 ->orderBy('pay_export.id', 'DESC')
                 ->select(
@@ -63,6 +64,7 @@ class PayExportController extends Controller
                     'pay_export.status',
                     'pay_export.payment',
                     'pay_export.code_payment',
+                    'users.name',
                     DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
                     DB::raw('SUM(history_payment_export.payment) as tongThanhToan')
                 )
@@ -78,6 +80,7 @@ class PayExportController extends Controller
                     'pay_export.status',
                     'pay_export.payment',
                     'pay_export.code_payment',
+                    'users.name',
                 )
                 ->get();
             return view('tables.export.pay_export.list-payExport', compact('title', 'payExport', 'workspacename'));

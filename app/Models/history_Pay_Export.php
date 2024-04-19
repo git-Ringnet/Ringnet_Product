@@ -10,6 +10,7 @@ class history_Pay_Export extends Model
     use HasFactory;
     protected $fillable = [
         'id',
+        'user_id',
         'pay_id',
         'total',
         'payment',

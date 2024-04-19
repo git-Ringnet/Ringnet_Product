@@ -53,6 +53,7 @@ class DeliveryController extends Controller
             $deliveries = Delivery::leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
                 ->select('*', 'delivery.id as maGiaoHang', 'delivery.created_at as ngayGiao', 'delivery.status as trangThai')
                 ->where('delivery.workspace_id', Auth::user()->current_workspace)
+                ->leftJoin('users', 'users.id', 'delivery.user_id')
                 ->orderBy('delivery.id', 'desc')
                 ->get();
 

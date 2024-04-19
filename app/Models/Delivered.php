@@ -51,6 +51,7 @@ class Delivered extends Model
                     'product_price_export' => $price,
                     'product_price_import' => isset($priceImport) ? $priceImport : 0,
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
+                    'user_id' => Auth::user()->id,
                 ];
                 $product = new Products($dataProduct);
                 $product->save();
@@ -87,6 +88,7 @@ class Delivered extends Model
                 'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+                'user_id' => Auth::user()->id,
             ];
             // DB::table($this->table)->insert($dataDelivered);
             $delivered_id = DB::table($this->table)->insertGetId($dataDelivered);
@@ -107,6 +109,7 @@ class Delivered extends Model
                 'total_import' => $history_import ? $history_import->product_total : null,
                 'history_import' => $history_import ? $history_import->id : null,
                 'workspace_id' => Auth::user()->current_workspace,
+                'user_id' => Auth::user()->id,
             ];
             $history->addHistory($dataHistory);
 
@@ -141,7 +144,8 @@ class Delivered extends Model
                         'updated_at' => Carbon::now(),
                         'product_delivery' => $id,
                         'qty_delivery' => $data['product_qty'][$i],
-                        'status' => '1'
+                        'status' => '1',
+                        'user_id' => Auth::user()->id,
                     ];
                     DB::table('quoteexport')->insert($dataQuote);
                 }
@@ -185,6 +189,7 @@ class Delivered extends Model
                     'product_price_export' => $price,
                     'product_price_import' => isset($priceImport) ? $priceImport : 0,
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
+                    'user_id' => Auth::user()->id,
                 ];
                 $product = new Products($dataProduct);
                 $product->save();
@@ -200,6 +205,7 @@ class Delivered extends Model
                     'deliver_qty' => $result,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
+                    'user_id' => Auth::user()->id,
                 ];
                 DB::table($this->table)->insert($dataDelivered);
             }

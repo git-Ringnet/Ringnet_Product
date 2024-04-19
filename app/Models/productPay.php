@@ -13,6 +13,7 @@ class productPay extends Model
     use HasFactory;
     protected $fillable = [
         'id',
+        'user_id',
         'pay_id',
         'product_id',
         'pay_qty',
@@ -35,6 +36,7 @@ class productPay extends Model
 
             $dataPay = [
                 'pay_id' => $id,
+                'user_id' => Auth::user()->id,
                 'product_id' => $data['product_id'][$i],
                 'pay_qty' => $data['product_qty'][$i],
                 'workspace_id' => Auth::user()->current_workspace,
@@ -62,6 +64,7 @@ class productPay extends Model
                     'pay_qty' => $result,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
+                    'user_id' => Auth::user()->id,
                 ];
                 DB::table($this->table)->insert($dataPay);
             }

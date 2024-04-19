@@ -220,6 +220,17 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Người tạo
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id=""></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
@@ -310,6 +321,9 @@
                                                 </td>
                                                 <td class="text-13-black max-width180 text-left">
                                                     {{ $value_export->guest_name }}
+                                                </td>
+                                                <td class="text-13-black max-width180 text-left">
+                                                    {{ $value_export->name }}
                                                 </td>
                                                 <td class="text-13-black text-center">
                                                     @if ($value_export->status === 1)

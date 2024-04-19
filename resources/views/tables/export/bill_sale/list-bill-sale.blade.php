@@ -176,6 +176,17 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit" data-sort-by=""
+                                                        data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Người tạo
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id=""></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="tinhTrang" data-sort-type="DESC"><button
@@ -238,6 +249,9 @@
                                                 </td>
                                                 <td class="text-13-black height-52 text-left">
                                                     {{ $item_bill->guest_name }}
+                                                </td>
+                                                <td class="text-13-black height-52 text-left">
+                                                    {{ $item_bill->name }}
                                                 </td>
                                                 <td class="text-13-black height-52 text-center">
                                                     @if ($item_bill->tinhTrang == 1)

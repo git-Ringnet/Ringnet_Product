@@ -154,6 +154,17 @@
                                                 </span>
                                             </th>
                                             <th scope="col" class="border-top-0 my-0 py-2">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="" data-sort-type="DESC">
+                                                        <button class="btn-sort" type="submit">
+                                                            <span class="text-13">Người tạo</span>
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id=""></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="border-top-0 my-0 py-2">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC">
@@ -249,6 +260,9 @@
                                                 </td>
                                                 <td class="text-13-black max-width120 text-left">
                                                     {{ $item_pay->guest_name }}
+                                                </td>
+                                                <td class="text-13-black max-width120 text-left">
+                                                    {{ $item_pay->name }}
                                                 </td>
                                                 <td class="text-13-black text-center">
                                                     @if ($item_pay->status == 1)

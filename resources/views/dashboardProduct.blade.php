@@ -17,7 +17,7 @@
                             <div class="row">
                                 <div class="col-md-6 px-4">
                                     <div class="border rounded px-2 py-2 w-100 h-100">
-                                        <div class="d-flex justify-content-between">
+                                        <div class="d-flex justify-content-between align-items-center">
                                             <h5 class="font-weight-bold">Sản phẩm bán chạy nhất</h5>
                                             <div class="d-flex">
                                                 <div class="dropdown w-100">
@@ -27,7 +27,8 @@
                                                         <div id="all-orders">
                                                             <div class="d-flex flex-column all-orders">
                                                                 <div class="ca d-flex">
-                                                                    <div id="first-sales">{{ $firstDay }}</div>-&gt;
+                                                                    <div id="first-sales">{{ $firstDay }}</div>
+                                                                    -&gt;
                                                                     <div id="last-sales">{{ $lastDay }}</div>
                                                                 </div>
                                                                 <div class="ca text-left" id="sales-text">Tất cả</div>
@@ -37,25 +38,24 @@
                                                     <div class="dropdown-menu w-100"
                                                         aria-labelledby="dropdownMenuButton">
                                                         <a class="dropdown-item dropdown-item-sales" href="#"
-                                                            data-value="0">
+                                                            data-value="1">
                                                             Tất cả
                                                         </a>
                                                         <a class="dropdown-item dropdown-item-sales" href="#"
-                                                            data-value="1">
+                                                            data-value="2">
                                                             Tháng này
                                                         </a>
                                                         <a class="dropdown-item dropdown-item-sales" href="#"
-                                                            data-value="2">
+                                                            data-value="3">
                                                             Tháng trước
                                                         </a>
                                                         <a class="dropdown-item dropdown-item-sales" href="#"
-                                                            data-value="3">
+                                                            data-value="4">
                                                             3 tháng trước
                                                         </a>
-                                                        {{-- <a class="dropdown-item"
-                                                            id="btn-sales-options" href="#">
+                                                        <a class="dropdown-item" id="btn-sales-options" href="#">
                                                             Khoảng thời gian
-                                                        </a> --}}
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div class="block-optionss" id="times-sales-options"
@@ -99,7 +99,76 @@
                                 </div>
                                 <div class="col-md-6 px-4">
                                     <div class="border rounded px-2 py-2 w-100 h-100">
-                                        <h5 class="font-weight-bold">Hoạt động bán hàng</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="font-weight-bold">Hoạt động bán hàng</h5>
+                                            <div class="d-flex">
+                                                <div class="dropdown w-100">
+                                                    <button class="btn w-100 border rounded dropdown-toggle"
+                                                        type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false" style="height: 60px;">
+                                                        <div>
+                                                            <div class="d-flex flex-column">
+                                                                <div class="ca d-flex">
+                                                                    <div id="firstDayStatus">{{ $firstDayStatus }}</div>
+                                                                    -&gt;
+                                                                    <div id="lastDayStatus">{{ $lastDayStatus }}</div>
+                                                                </div>
+                                                                <div class="ca text-left" id="status-text">Tất cả</div>
+                                                            </div>
+                                                        </div>
+                                                    </button>
+                                                    <div class="dropdown-menu w-100"
+                                                        aria-labelledby="dropdownMenuButton">
+                                                        <a class="dropdown-item dropdown-item-status" href="#"
+                                                            data-value="1">
+                                                            Tất cả
+                                                        </a>
+                                                        <a class="dropdown-item dropdown-item-status" href="#"
+                                                            data-value="2">
+                                                            Tháng này
+                                                        </a>
+                                                        <a class="dropdown-item dropdown-item-status" href="#"
+                                                            data-value="3">
+                                                            Tháng trước
+                                                        </a>
+                                                        <a class="dropdown-item dropdown-item-status" href="#"
+                                                            data-value="4">
+                                                            3 tháng trước
+                                                        </a>
+                                                        <a class="dropdown-item" href="#"
+                                                            id="btn-status-options">
+                                                            Khoảng thời gian
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="block-optionss" id="times-status-options"
+                                                    style="display: none;">
+                                                    <div class="wrap w-100">
+                                                        <div class="input-group p-2 justify-content-around">
+                                                            <div class="start">
+                                                                <label for="start">Từ ngày</label>
+                                                                <input type="date" name="date_status_start"
+                                                                    class="date_status_start rounded">
+                                                            </div>
+                                                            <div class="end">
+                                                                <label for="start">Đến ngày</label>
+                                                                <input type="date" name="date_status_end"
+                                                                    class="date_status_end rounded">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="d-flex justify-contents-center align-items-baseline p-2">
+                                                        <button type="button" id="confirm-status"
+                                                            class="suscess btn btn-primary btn-block mr-2"
+                                                            value="4">Xác nhận
+                                                        </button>
+                                                        <button type="button" id="cancel-status"
+                                                            class="btn btn-default btn-block">Hủy</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <span class="font-weight-bold text-center d-block">
@@ -107,7 +176,7 @@
                                                     <?php
                                                     if (is_array($soDon)) {
                                                         $tong = array_sum($soDon);
-                                                        echo "<span>$tong</span>";
+                                                        echo "<span class='tongDon'>$tong</span>";
                                                     } else {
                                                         echo '<span>0</span>';
                                                     }
@@ -141,7 +210,78 @@
                             <div class="row">
                                 <div class="col-md-6 px-4">
                                     <div class="border rounded px-2 py-2 w-100 h-100">
-                                        <h5 class="font-weight-bold">Đơn báo giá đã xác nhận</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="font-weight-bold">Đơn báo giá đã xác nhận</h5>
+                                            <div class="d-flex">
+                                                <div class="dropdown w-100">
+                                                    <button class="btn w-100 border rounded dropdown-toggle"
+                                                        type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false" style="height: 60px;">
+                                                        <div>
+                                                            <div class="d-flex flex-column">
+                                                                <div class="ca d-flex">
+                                                                    <div id="firstDayAccept">{{ $minDate }}
+                                                                    </div>
+                                                                    -&gt;
+                                                                    <div id="lastDayAccept">{{ $maxDate }}</div>
+                                                                </div>
+                                                                <div class="ca text-left" id="accept-text">Tất cả
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </button>
+                                                    <div class="dropdown-menu w-100"
+                                                        aria-labelledby="dropdownMenuButton">
+                                                        <a class="dropdown-item dropdown-item-accept" href="#"
+                                                            data-value="1">
+                                                            Tất cả
+                                                        </a>
+                                                        <a class="dropdown-item dropdown-item-accept" href="#"
+                                                            data-value="2">
+                                                            Tháng này
+                                                        </a>
+                                                        <a class="dropdown-item dropdown-item-accept" href="#"
+                                                            data-value="3">
+                                                            Tháng trước
+                                                        </a>
+                                                        <a class="dropdown-item dropdown-item-accept" href="#"
+                                                            data-value="4">
+                                                            3 tháng trước
+                                                        </a>
+                                                        <a class="dropdown-item" href="#"
+                                                            id="btn-accept-options">
+                                                            Khoảng thời gian
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="block-optionss" id="times-accept-options"
+                                                    style="display: none;">
+                                                    <div class="wrap w-100">
+                                                        <div class="input-group p-2 justify-content-around">
+                                                            <div class="start">
+                                                                <label for="start">Từ ngày</label>
+                                                                <input type="date" name="date_accept_start"
+                                                                    class="date_accept_start rounded">
+                                                            </div>
+                                                            <div class="end">
+                                                                <label for="start">Đến ngày</label>
+                                                                <input type="date" name="date_accept_end"
+                                                                    class="date_accept_end rounded">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="d-flex justify-contents-center align-items-baseline p-2">
+                                                        <button type="button" id="confirm-accept"
+                                                            class="suscess btn btn-primary btn-block mr-2"
+                                                            value="4">Xác nhận
+                                                        </button>
+                                                        <button type="button" id="cancel-accept"
+                                                            class="btn btn-default btn-block">Hủy</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="row px-2">
                                             <div class="col-md-6">
                                                 <div style="background: #F1FAFD; border: 1px solid #F1FAFD;"
@@ -187,8 +327,8 @@
                                                         </span>
                                                         <span class="font-weight-bold">Tổng số đơn</span>
                                                     </div>
-                                                    <span class="font-weight-bold"
-                                                        style="color: #009EF7;">{{ $countDetailExport }}</span>
+                                                    <span class="font-weight-bold" style="color: #009EF7;"
+                                                        id="tongSoDon">{{ $countDetailExport }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -222,8 +362,8 @@
                                                         </span>
                                                         <span class="font-weight-bold">Số đơn giao hàng</span>
                                                     </div>
-                                                    <span class="font-weight-bold"
-                                                        style="color: #50CC8A;">{{ $countDelivery }}</span>
+                                                    <span class="font-weight-bold" style="color: #50CC8A;"
+                                                        id="soDonGiao">{{ $countDelivery }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -280,8 +420,8 @@
                                                         </span>
                                                         <span class="font-weight-bold">Số đơn đã xuất hóa đơn</span>
                                                     </div>
-                                                    <span class="font-weight-bold"
-                                                        style="color: #8F60EE;">{{ $countBillsale }}</span>
+                                                    <span class="font-weight-bold" style="color: #8F60EE;"
+                                                        id="soDonDaXuat">{{ $countBillsale }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -321,8 +461,8 @@
                                                         </span>
                                                         <span class="font-weight-bold">Số đơn đã thanh toán</span>
                                                     </div>
-                                                    <span class="font-weight-bold"
-                                                        style="color: #FFC700;">{{ $countPayExport }}</span>
+                                                    <span class="font-weight-bold" style="color: #FFC700;"
+                                                        id="soDonDaTT">{{ $countPayExport }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -330,7 +470,80 @@
                                 </div>
                                 <div class="col-md-6 px-4">
                                     <div class="border rounded px-2 py-2 w-100 h-100">
-                                        <h5 class="font-weight-bold">Top nhân viên xuất sắc</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="font-weight-bold">Top nhân viên xuất sắc</h5>
+                                            <div class="d-flex">
+                                                <div class="dropdown w-100">
+                                                    <button class="btn w-100 border rounded dropdown-toggle"
+                                                        type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false" style="height: 60px;">
+                                                        <div>
+                                                            <div class="d-flex flex-column">
+                                                                <div class="ca d-flex">
+                                                                    <div id="firstDayTop">
+                                                                        {{ $minDateBillSale }}
+                                                                    </div>
+                                                                    -&gt;
+                                                                    <div id="lastDayTop">
+                                                                        {{ $maxDateBillSale }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="ca text-left" id="top-text">Tất cả
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </button>
+                                                    <div class="dropdown-menu w-100"
+                                                        aria-labelledby="dropdownMenuButton">
+                                                        <a class="dropdown-item dropdown-item-top" href="#"
+                                                            data-value="1">
+                                                            Tất cả
+                                                        </a>
+                                                        <a class="dropdown-item dropdown-item-top" href="#"
+                                                            data-value="2">
+                                                            Tháng này
+                                                        </a>
+                                                        <a class="dropdown-item dropdown-item-top" href="#"
+                                                            data-value="3">
+                                                            Tháng trước
+                                                        </a>
+                                                        <a class="dropdown-item dropdown-item-top" href="#"
+                                                            data-value="4">
+                                                            3 tháng trước
+                                                        </a>
+                                                        <a class="dropdown-item" href="#" id="btn-top-options">
+                                                            Khoảng thời gian
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="block-optionss" id="times-top-options"
+                                                    style="display: none;">
+                                                    <div class="wrap w-100">
+                                                        <div class="input-group p-2 justify-content-around">
+                                                            <div class="start">
+                                                                <label for="start">Từ ngày</label>
+                                                                <input type="date" name="date_top_start"
+                                                                    class="date_top_start rounded">
+                                                            </div>
+                                                            <div class="end">
+                                                                <label for="start">Đến ngày</label>
+                                                                <input type="date" name="date_top_end"
+                                                                    class="date_top_end rounded">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="d-flex justify-contents-center align-items-baseline p-2">
+                                                        <button type="button" id="confirm-top"
+                                                            class="suscess btn btn-primary btn-block mr-2"
+                                                            value="4">Xác nhận
+                                                        </button>
+                                                        <button type="button" id="cancel-top"
+                                                            class="btn btn-default btn-block">Hủy</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <table class="table">
                                             <thead>
                                                 <tr>
@@ -342,7 +555,7 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="top-employee">
                                                 @php
                                                     $tongDoanhThu = 0;
                                                     foreach ($sumSales as $sales) {
@@ -375,7 +588,16 @@
                             <div class="row">
                                 <div class="col-md-7 pl-4 pr-5">
                                     <div class="border rounded px-2 py-2 w-100 h-100">
-                                        <h5 class="font-weight-bold">Thống kê doanh số</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="font-weight-bold">Thống kê doanh số</h5>
+                                            <select id="option-doanhSo" class="border rounded px-3 py-1">
+                                                <option value="2024" selected>2024</option>
+                                                <option value="2023">2023</option>
+                                                <option value="2022">2022</option>
+                                                <option value="2021">2021</option>
+                                                <option value="2020">2020</option>
+                                            </select>
+                                        </div>
                                         <div class="">
                                             <canvas id="chartTotal" width="400" height="400"></canvas>
                                         </div>
@@ -383,7 +605,78 @@
                                 </div>
                                 <div class="col-md-5 pr-4 pl-5">
                                     <div class="border rounded px-2 py-2 w-100">
-                                        <h5 class="font-weight-bold">Công nợ</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="font-weight-bold">Công nợ</h5>
+                                            <div class="d-flex">
+                                                <div class="dropdown w-100">
+                                                    <button class="btn w-100 border rounded dropdown-toggle"
+                                                        type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false" style="height: 60px;">
+                                                        <div>
+                                                            <div class="d-flex flex-column">
+                                                                <div class="ca d-flex">
+                                                                    <div id="firstDayDebt">{{ $minDateDebt }}
+                                                                    </div>
+                                                                    -&gt;
+                                                                    <div id="lastDayDebt">{{ $maxDateDebt }}</div>
+                                                                </div>
+                                                                <div class="ca text-left" id="debt-text">Tất cả
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </button>
+                                                    <div class="dropdown-menu w-100"
+                                                        aria-labelledby="dropdownMenuButton">
+                                                        <a class="dropdown-item dropdown-item-debt" href="#"
+                                                            data-value="1">
+                                                            Tất cả
+                                                        </a>
+                                                        <a class="dropdown-item dropdown-item-debt" href="#"
+                                                            data-value="2">
+                                                            Tháng này
+                                                        </a>
+                                                        <a class="dropdown-item dropdown-item-debt" href="#"
+                                                            data-value="3">
+                                                            Tháng trước
+                                                        </a>
+                                                        <a class="dropdown-item dropdown-item-debt" href="#"
+                                                            data-value="4">
+                                                            3 tháng trước
+                                                        </a>
+                                                        <a class="dropdown-item" href="#"
+                                                            id="btn-debt-options">
+                                                            Khoảng thời gian
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="block-optionss" id="times-debt-options"
+                                                    style="display: none;">
+                                                    <div class="wrap w-100">
+                                                        <div class="input-group p-2 justify-content-around">
+                                                            <div class="start">
+                                                                <label for="start">Từ ngày</label>
+                                                                <input type="date" name="date_debt_start"
+                                                                    class="date_debt_start rounded">
+                                                            </div>
+                                                            <div class="end">
+                                                                <label for="start">Đến ngày</label>
+                                                                <input type="date" name="date_debt_end"
+                                                                    class="date_debt_end rounded">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="d-flex justify-contents-center align-items-baseline p-2">
+                                                        <button type="button" id="confirm-debt"
+                                                            class="suscess btn btn-primary btn-block mr-2"
+                                                            value="4">Xác nhận
+                                                        </button>
+                                                        <button type="button" id="cancel-debt"
+                                                            class="btn btn-default btn-block">Hủy</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="d-block">
                                             <div class="my-2 px-5 mx-4">
                                                 <div class="d-flex border rounded justify-content-center align-items-center position-relative py-2"
@@ -421,7 +714,7 @@
                                                     </div>
                                                     <div class="">
                                                         <p class="p-0 m-0 font-weight-bold text-center">Công nợ bán</p>
-                                                        <p class="p-0 m-0" style="color: #0D9AF6;">
+                                                        <p class="p-0 m-0" id="congNoBan" style="color: #0D9AF6;">
                                                             {{ number_format($debtExport) }}</p>
                                                     </div>
                                                 </div>
@@ -462,7 +755,8 @@
                                                     </div>
                                                     <div class="">
                                                         <p class="p-0 m-0 font-weight-bold text-center">Công nợ mua</p>
-                                                        <p class="p-0 m-0 font-weight-bold" style="color: #FF6384;">
+                                                        <p class="p-0 m-0 font-weight-bold" id="congNoMua"
+                                                            style="color: #FF6384;">
                                                             {{ number_format($debtOrder) }}</p>
                                                     </div>
                                                 </div>
@@ -594,11 +888,9 @@
     //Doanh thu theo quý
     var ctx4 = document.getElementById('chartTotal').getContext('2d');
     var revenueData = []; // Khởi tạo mảng để lưu trữ doanh thu
-
     @foreach ($revenueByQuarter as $item)
         revenueData.push({{ $item->total_revenue }});
     @endforeach
-
     var myChart4 = new Chart(ctx4, {
         type: 'bar',
         data: {
@@ -630,10 +922,14 @@
                     beginAtZero: true,
                 }
             },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
         }
     });
-
-    //
+    //Lọc sản phẩm bán chạy nhất
     $('#btn-sales-options').click(function() {
         $('#times-sales-options').toggle();
     });
@@ -662,16 +958,16 @@
         legendContainer.innerHTML = legendHTML;
     }
     document.addEventListener("DOMContentLoaded", function() {
-        var dropdownItems = document.querySelectorAll('.dropdown-item-sales');
-        dropdownItems.forEach(function(item) {
+        var dropdownItems1 = document.querySelectorAll('.dropdown-item-sales');
+        dropdownItems1.forEach(function(item) {
             item.addEventListener('click', function(event) {
                 event.preventDefault();
-                var selectedValue = parseInt(item.getAttribute('data-value'));
+                var selectedValue1 = parseInt(item.getAttribute('data-value'));
                 $.ajax({
                     url: '{{ route('productSell') }}',
                     type: 'GET',
                     data: {
-                        selectedValue: selectedValue,
+                        selectedValue: selectedValue1,
                     },
                     success: function(data) {
                         $('#first-sales').text(data.firstDay);
@@ -684,26 +980,347 @@
         });
 
         // Xử lý sự kiện khi chọn "Khoảng thời gian"
-        // $('#confirm-times-sales').click(function() {
-        //     var startDate = $('.date_start').val();
-        //     var endDate = $('.date_end').val();
-        //     console.log(startDate, endDate);
-        //     $.ajax({
-        //         url: '{{ route('productSell') }}',
-        //         type: 'GET',
-        //         data: {
-        //             startDate: startDate,
-        //             endDate: endDate
-        //         },
-        //         success: function(data) {
-        //             console.log(data);
-        //             $('#first-sales').text(data.firstDay);
-        //             $('#last-sales').text(data.lastDay);
-        //             $('#sales-text').text(data.salesText);
-        //             updateChartDataAndLegend(data.productName, data.qtyProduct);
-        //         }
-        //     });
-        // });
+        $('#confirm-times-sales').click(function() {
+            var startDate = $('.date_start').val();
+            var endDate = $('.date_end').val();
+            $.ajax({
+                url: '{{ route('productSell') }}',
+                type: 'GET',
+                data: {
+                    startDate: startDate,
+                    endDate: endDate
+                },
+                success: function(data) {
+                    $('#first-sales').text(data.firstDay);
+                    $('#last-sales').text(data.lastDay);
+                    $('#sales-text').text(data.salesText);
+                    updateChartDataAndLegend(data.productName, data.qtyProduct);
+                    $('#times-sales-options').hide();
+                }
+            });
+        });
+    });
+    //Lọc hoạt động bán hàng
+    $('#btn-status-options').click(function() {
+        $('#times-status-options').toggle();
+    });
+    $('#cancel-status').click(function() {
+        $('#times-status-options').hide();
+    });
+
+    function updateChartDataHDBH(tinhTrang, soDon) {
+        // Cập nhật dữ liệu của biểu đồ
+        myChart1.data.labels = tinhTrang;
+        myChart1.data.datasets[0].data = soDon;
+        myChart1.update(); // Vẽ lại biểu đồ với dữ liệu mới
+
+        var des_count = document.getElementById('des_count');
+        var des_count_HTML = '';
+        myChart1.data.labels.forEach(function(label, index) {
+            var dataset = myChart1.data.datasets[0];
+            var count = dataset.data[index];
+            des_count_HTML +=
+                `<div class="bg-filter-search rounded px-1 py-1 my-2">
+                <h5 class="font-weight-bold">${count}</h5>
+                <p class="m-0 p-0" style="color: ${dataset.backgroundColor[index]}">Số đơn ${label}</p>
+            </div>`;
+        });
+        des_count.innerHTML = des_count_HTML;
+    }
+
+    // Cập nhật dữ liệu biểu đồ và mô tả số liệu
+    document.addEventListener("DOMContentLoaded", function() {
+        var dropdownItems2 = document.querySelectorAll('.dropdown-item-status');
+        dropdownItems2.forEach(function(item) {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+                var selectedValue2 = parseInt(item.getAttribute('data-value'));
+                $.ajax({
+                    url: '{{ route('statusSales') }}',
+                    type: 'GET',
+                    data: {
+                        selectedValue: selectedValue2,
+                    },
+                    success: function(data) {
+                        $('#firstDayStatus').text(data.firstDayStatus);
+                        $('#lastDayStatus').text(data.lastDayStatus);
+                        $('#status-text').text(data.statusText);
+                        let sum = 0;
+                        for (i = 0; i < (data.soDon).length; i++) {
+                            sum += data.soDon[i];
+                        }
+                        $('.tongDon').text(sum)
+                        updateChartDataHDBH(data.tinhTrang, data.soDon);
+                    }
+                });
+            });
+        });
+        // Xử lý sự kiện khi chọn "Khoảng thời gian"
+        $('#confirm-status').click(function() {
+            var startDate = $('.date_status_start').val();
+            var endDate = $('.date_status_end').val();
+            $.ajax({
+                url: '{{ route('statusSales') }}',
+                type: 'GET',
+                data: {
+                    startDate: startDate,
+                    endDate: endDate
+                },
+                success: function(data) {
+                    $('#firstDayStatus').text(data.firstDayStatus);
+                    $('#lastDayStatus').text(data.lastDayStatus);
+                    $('#status-text').text(data.statusText);
+                    let sum = 0;
+                    for (i = 0; i < (data.soDon).length; i++) {
+                        sum += data.soDon[i];
+                    }
+                    $('.tongDon').text(sum)
+                    updateChartDataHDBH(data.tinhTrang, data.soDon);
+                    $('#times-status-options').hide();
+                }
+            });
+        });
+    });
+    //Lọc đơn báo giá đã xác nhận
+    $('#btn-accept-options').click(function() {
+        $('#times-accept-options').toggle();
+    });
+    $('#cancel-accept').click(function() {
+        $('#times-accept-options').hide();
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        var dropdownItems3 = document.querySelectorAll('.dropdown-item-accept');
+        dropdownItems3.forEach(function(item) {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+                var selectedValue3 = parseInt(item.getAttribute('data-value'));
+                $.ajax({
+                    url: '{{ route('exportAccept') }}',
+                    type: 'GET',
+                    data: {
+                        selectedValue: selectedValue3,
+                    },
+                    success: function(data) {
+                        $('#tongSoDon').text(data.tongSoDon);
+                        $('#soDonGiao').text(data.soDonGiao);
+                        $('#soDonDaXuat').text(data.soDonDaXuat);
+                        $('#soDonDaTT').text(data.soDonDaTT);
+                        $('#accept-text').text(data.acceptText);
+                        $('#firstDayAccept').text(data.firstDayAccept);
+                        $('#lastDayAccept').text(data.lastDayAccept);
+                    }
+                });
+            });
+        });
+        // Xử lý sự kiện khi chọn "Khoảng thời gian"
+        $('#confirm-accept').click(function() {
+            var startDate = $('.date_accept_start').val();
+            var endDate = $('.date_accept_end').val();
+            $.ajax({
+                url: '{{ route('exportAccept') }}',
+                type: 'GET',
+                data: {
+                    startDate: startDate,
+                    endDate: endDate
+                },
+                success: function(data) {
+                    console.log(data);
+                    $('#tongSoDon').text(data.tongSoDon);
+                    $('#soDonGiao').text(data.soDonGiao);
+                    $('#soDonDaXuat').text(data.soDonDaXuat);
+                    $('#soDonDaTT').text(data.soDonDaTT);
+                    $('#accept-text').text(data.acceptText);
+                    $('#firstDayAccept').text(data.firstDayAccept);
+                    $('#lastDayAccept').text(data.lastDayAccept);
+                    $('#times-accept-options').hide();
+                }
+            });
+        });
+    });
+    //Lọc top nhân viên xuất sắc
+    $('#btn-top-options').click(function() {
+        $('#times-top-options').toggle();
+    });
+    $('#cancel-top').click(function() {
+        $('#times-top-options').hide();
+    });
+
+    function formatCurrency(value) {
+        // Làm tròn đến 2 chữ số thập phân
+        value = Math.round(value * 100) / 100;
+
+        // Xử lý phần nguyên
+        var parts = value.toString().split(".");
+        var integerPart = parts[0];
+        var formattedValue = "";
+
+        // Định dạng phần nguyên
+        var count = 0;
+        for (var i = integerPart.length - 1; i >= 0; i--) {
+            formattedValue = integerPart.charAt(i) + formattedValue;
+            count++;
+            if (count % 3 === 0 && i !== 0) {
+                formattedValue = "," + formattedValue;
+            }
+        }
+
+        // Nếu có phần thập phân, thêm vào sau phần nguyên
+        if (parts.length > 1) {
+            formattedValue += "." + parts[1].replace(/0+$/, ''); // Loại bỏ số không cần thiết ở phần thập phân
+        }
+
+        return formattedValue;
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        var dropdownItems4 = document.querySelectorAll('.dropdown-item-top');
+        dropdownItems4.forEach(function(item) {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+                var selectedValue4 = parseInt(item.getAttribute('data-value'));
+                $.ajax({
+                    url: '{{ route('topEmployee') }}',
+                    type: 'GET',
+                    data: {
+                        selectedValue: selectedValue4,
+                    },
+                    success: function(data) {
+                        $('#firstDayTop').text(data.firstDayTop);
+                        $('#lastDayTop').text(data.lastDayTop);
+                        $('#top-text').text(data.topText);
+                        var tbody = $('#top-employee');
+                        tbody.empty();
+                        $.each(data.sumSales, function(index, sale) {
+                            var tongDoanhThu = 0;
+                            data.sumSales.forEach(function(sale) {
+                                tongDoanhThu += parseFloat(sale
+                                    .price_total_sum);
+                            });
+                            var row = '<tr>' +
+                                '<td>' + sale.name + '</td>' +
+                                '<td>' + formatCurrency(sale
+                                    .price_total_sum) + '</td>' +
+                                '<td>' + (sale.price_total_sum /
+                                    tongDoanhThu) * 100 + '%' + '</td>' +
+                                '</tr>';
+                            tbody.append(row);
+                        });
+                    }
+                });
+            });
+        });
+        // Xử lý sự kiện khi chọn "Khoảng thời gian"
+        $('#confirm-top').click(function() {
+            var startDate = $('.date_top_start').val();
+            var endDate = $('.date_top_end').val();
+            $.ajax({
+                url: '{{ route('topEmployee') }}',
+                type: 'GET',
+                data: {
+                    startDate: startDate,
+                    endDate: endDate
+                },
+                success: function(data) {
+                    $('#firstDayTop').text(data.firstDayTop);
+                    $('#lastDayTop').text(data.lastDayTop);
+                    $('#top-text').text(data.topText);
+                    var tbody = $('#top-employee');
+                    tbody.empty();
+                    $.each(data.sumSales, function(index, sale) {
+                        var tongDoanhThu = 0;
+                        data.sumSales.forEach(function(sale) {
+                            tongDoanhThu += parseFloat(sale
+                                .price_total_sum);
+                        });
+                        var row = '<tr>' +
+                            '<td>' + sale.name + '</td>' +
+                            '<td>' + formatCurrency(sale
+                                .price_total_sum) + '</td>' +
+                            '<td>' + (sale.price_total_sum /
+                                tongDoanhThu) * 100 + '%' + '</td>' +
+                            '</tr>';
+                        tbody.append(row);
+                    });
+                    $('#times-top-options').hide();
+                }
+            });
+        });
+    });
+    //Lọc doanh thu theo quý
+    function updateChartDataTKDS(revenueData) {
+        // Cập nhật dữ liệu của biểu đồ
+        myChart4.data.datasets[0].data = revenueData;
+        myChart4.data.labels = ['Quý I', 'Quý II', 'Quý III', 'Quý IV'];
+        myChart4.update();
+    }
+    document.getElementById('option-doanhSo').addEventListener('change', function() {
+        // Lấy giá trị đã chọn
+        var selectedYear = this.value;
+        $.ajax({
+            url: '{{ route('revenueByQuarter') }}',
+            type: 'GET',
+            data: {
+                selectedYear: selectedYear,
+            },
+            success: function(data) {
+                revenueData.length = 0;
+                data.revenueByQuarter.forEach(function(item) {
+                    revenueData.push(item
+                        .total_revenue);
+                });
+                updateChartDataTKDS(revenueData);
+            }
+        });
+    });
+    //Lọc dư nợ
+    $('#btn-debt-options').click(function() {
+        $('#times-debt-options').toggle();
+    });
+    $('#cancel-debt').click(function() {
+        $('#times-debt-options').hide();
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        var dropdownItems5 = document.querySelectorAll('.dropdown-item-debt');
+        dropdownItems5.forEach(function(item) {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+                var selectedValue5 = parseInt(item.getAttribute('data-value'));
+                $.ajax({
+                    url: '{{ route('debtChart') }}',
+                    type: 'GET',
+                    data: {
+                        selectedValue: selectedValue5,
+                    },
+                    success: function(data) {
+                        $('#firstDayDebt').text(data.firstDayDebt);
+                        $('#lastDayDebt').text(data.lastDayDebt);
+                        $('#debt-text').text(data.debtText);
+                        $('#congNoBan').text(formatCurrency(data.debtExport));
+                        $('#congNoMua').text(formatCurrency(data.debtOrder));
+                    }
+                });
+            });
+        });
+        // Xử lý sự kiện khi chọn "Khoảng thời gian"
+        $('#confirm-debt').click(function() {
+            var startDate = $('.date_debt_start').val();
+            var endDate = $('.date_debt_end').val();
+            $.ajax({
+                url: '{{ route('debtChart') }}',
+                type: 'GET',
+                data: {
+                    startDate: startDate,
+                    endDate: endDate
+                },
+                success: function(data) {
+                    $('#firstDayDebt').text(data.firstDayDebt);
+                    $('#lastDayDebt').text(data.lastDayDebt);
+                    $('#debt-text').text(data.debtText);
+                    $('#congNoBan').text(formatCurrency(data.debtExport));
+                    $('#congNoMua').text(formatCurrency(data.debtOrder));
+                    $('#times-debt-options').hide();
+                }
+            });
+        });
     });
 </script>
 

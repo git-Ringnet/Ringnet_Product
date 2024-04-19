@@ -14,6 +14,7 @@ class QuoteExport extends Model
     protected $table = 'quoteexport';
     protected $fillable = [
         'id',
+        'user_id',
         'detailexport_id',
         'product_code',
         'product_name',
@@ -68,6 +69,7 @@ class QuoteExport extends Model
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
                     'check_seri' => 1,
                     'type' => 1,
+                    'user_id' => Auth::user()->id,
                     'workspace_id' => Auth::user()->current_workspace,
                 ];
                 $checkProduct = Products::where('product_name', $data['product_name'][$i])
@@ -91,6 +93,7 @@ class QuoteExport extends Model
                     'price_import' => $priceImport,
                     'workspace_id' => Auth::user()->current_workspace,
                     'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
+                    'user_id' => Auth::user()->id,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                     'status' => 1,
@@ -113,6 +116,7 @@ class QuoteExport extends Model
                     'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
+                    'user_id' => Auth::user()->id,
                     'status' => 1,
                 ];
                 DB::table($this->table)->insert($dataQuote);
@@ -151,6 +155,7 @@ class QuoteExport extends Model
                         'workspace_id' => Auth::user()->current_workspace,
                         'check_seri' => 1,
                         'type' => 1,
+                        'user_id' => Auth::user()->id,
                     ];
                     if (!$checkProduct) {
                         $product = new Products($dataProduct);
@@ -173,6 +178,7 @@ class QuoteExport extends Model
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
                             'status' => 1,
+                            'user_id' => Auth::user()->id,
                         ];
                         DB::table($this->table)->insert($dataQuote);
                     } else {
@@ -198,6 +204,7 @@ class QuoteExport extends Model
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
                             'status' => 1,
+                            'user_id' => Auth::user()->id,
                         ];
                         DB::table($this->table)->insert($dataQuote);
                     }
@@ -224,6 +231,7 @@ class QuoteExport extends Model
                             'product_note' => isset($data['product_note'][$i]) ? $data['product_note'][$i] : null,
                             'workspace_id' => Auth::user()->current_workspace,
                             'status' => 1,
+                            'user_id' => Auth::user()->id,
                         ];
                         //Mảng thông tin từ bảng quoteExport
                         $currentValues = [
@@ -241,6 +249,7 @@ class QuoteExport extends Model
                             'product_note' => $quoteExport->product_note,
                             'workspace_id' => $quoteExport->workspace_id,
                             'status' => $quoteExport->status,
+                            'user_id' => Auth::user()->id,
                         ];
 
                         if ($currentValues != $dataQuote) {
@@ -278,6 +287,7 @@ class QuoteExport extends Model
                             'created_at' => Carbon::now(),
                             'updated_at' => Carbon::now(),
                             'status' => 1,
+                            'user_id' => Auth::user()->id,
                         ];
                         DB::table($this->table)->insert($dataQuote);
                     }

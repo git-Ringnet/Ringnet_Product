@@ -13,6 +13,7 @@ class Delivery extends Model
     use HasFactory;
     protected $fillable = [
         'guest_id',
+        'user_id',
         'quotation_number',
         'code_delivery',
         'shipping_unit',
@@ -66,7 +67,7 @@ class Delivery extends Model
         if (isset($data['date_deliver'])) {
             $date_deliver = $data['date_deliver'];
         } else {
-            $date_deliver = null;
+            $date_deliver = Carbon::now();
         }
         $dataDelivery = [
             'guest_id' => $data['guest_id'],
@@ -78,6 +79,7 @@ class Delivery extends Model
             'status' => 1,
             'workspace_id' => Auth::user()->current_workspace,
             'created_at' => $date_deliver == null ? now() : $date_deliver,
+            'user_id' => Auth::user()->id,
         ];
         $detaiExport = DetailExport::where('id', $data['detailexport_id'])->first();
         if ($detaiExport) {
@@ -485,10 +487,11 @@ class Delivery extends Model
         if (isset($data['date_deliver'])) {
             $date_deliver = $data['date_deliver'];
         } else {
-            $date_deliver = null;
+            $date_deliver = Carbon::now();
         }
         $dataDelivery = [
             'guest_id' => $data['guest_id'],
+            'user_id' => Auth::user()->id,
             'quotation_number' => $data['quotation_number'],
             'code_delivery' => $data['code_delivery'],
             'shipping_unit' => $shipping_unit,
@@ -527,6 +530,7 @@ class Delivery extends Model
                     'product_tax' => $data['product_tax'][$i],
                     'product_guarantee' => 1,
                     'product_price_export' => $price,
+                    'user_id' => Auth::user()->id,
                     'workspace_id' => Auth::user()->current_workspace,
                     'product_price_import' => isset($priceImport) ? $priceImport : 0,
                     'product_ratio' => isset($data['product_ratio'][$i]) ? $data['product_ratio'][$i] : 0,
@@ -566,6 +570,7 @@ class Delivery extends Model
                 'updated_at' => Carbon::now(),
                 'price_export' => $product_price,
                 'product_total_vat' => $tolTax,
+                'user_id' => Auth::user()->id,
             ];
             $delivered_id = DB::table('delivered')->insertGetId($dataDelivered);
 
@@ -584,6 +589,7 @@ class Delivery extends Model
                 'total_import' => $history_import ? $history_import->product_total : null,
                 'history_import' => $history_import ? $history_import->id : null,
                 'workspace_id' => Auth::user()->current_workspace,
+                'user_id' => Auth::user()->id,
             ];
             $history->addHistory($dataHistory);
 
@@ -618,6 +624,7 @@ class Delivery extends Model
                         'product_delivery' => $deliveryId,
                         'qty_delivery' => $data['product_qty'][$i],
                         'status' => 1,
+                        'user_id' => Auth::user()->id,
                     ];
                     DB::table('quoteexport')->insert($dataQuote);
                 }

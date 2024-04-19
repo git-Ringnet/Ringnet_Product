@@ -32,14 +32,14 @@ class DashboardController extends Controller
         $workspacename = $workspacename->workspace_name;
         //Sản phẩm bán chạy nhất
         $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-            ->where('detailexport.status', 2)
+            ->whereIn('detailexport.status', [2, 3])
             ->orderBy('quoteexport.product_qty', 'desc')
             ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
             ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
             ->limit(5)
             ->get();
         $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-            ->where('detailexport.status', 2)
+            ->whereIn('detailexport.status', [2, 3])
             ->get();
         $sumOfTop5Products = $productSell->sum('product_qty');
         $totalProductQty = $totalProduct->sum('product_qty');
@@ -51,10 +51,10 @@ class DashboardController extends Controller
         $productName[] = 'Những sản phẩm khác...';
         $qtyProduct[] = json_encode($sumWithoutTop5);
         $firstDay = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-            ->where('detailexport.status', 2)
+            ->whereIn('detailexport.status', [2, 3])
             ->min(DB::raw('DATE(quoteexport.created_at)'));
         $lastDay = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-            ->where('detailexport.status', 2)
+            ->whereIn('detailexport.status', [2, 3])
             ->max(DB::raw('DATE(quoteexport.created_at)'));
         $firstDay = date('d-m-Y', strtotime($firstDay));
         $lastDay = date('d-m-Y', strtotime($lastDay));
@@ -64,6 +64,13 @@ class DashboardController extends Controller
             ->whereIn('status', [1, 2, 3])
             ->groupBy('status')
             ->get();
+        $firstDayStatus = DB::table('detailexport')
+            ->whereIn('status', [1, 2, 3])
+            ->min(DB::raw('DATE(created_at)'));
+
+        $lastDayStatus = DB::table('detailexport')
+            ->whereIn('status', [1, 2, 3])
+            ->max(DB::raw('DATE(created_at)'));
         $tinhTrang = [];
         $soDon = [];
         foreach ($statusCounts as $statusCount) {
@@ -76,11 +83,27 @@ class DashboardController extends Controller
             }
             $soDon[] = $statusCount->count;
         }
+        $firstDayStatus = date('d-m-Y', strtotime($firstDayStatus));
+        $lastDayStatus = date('d-m-Y', strtotime($lastDayStatus));
         //Đơn báo giá đã xác nhận
         $countDetailExport = DetailExport::whereIn('status', [2, 3])->count();
         $countDelivery = Delivery::whereIn('status', [2, 3])->count();
         $countBillsale = BillSale::whereIn('status', [2, 3])->count();
         $countPayExport = PayExport::where('payment', '>', 0)->count();
+        $minDate = min([
+            DetailExport::whereIn('status', [2, 3])->min('created_at'),
+            Delivery::whereIn('status', [2, 3])->min('created_at'),
+            BillSale::whereIn('status', [2, 3])->min('created_at'),
+            PayExport::where('payment', '>', 0)->min('created_at')
+        ]);
+        $maxDate = max([
+            DetailExport::whereIn('status', [2, 3])->max('created_at'),
+            Delivery::whereIn('status', [2, 3])->max('created_at'),
+            BillSale::whereIn('status', [2, 3])->max('created_at'),
+            PayExport::where('payment', '>', 0)->max('created_at')
+        ]);
+        $minDate = date('d-m-Y', strtotime($minDate));
+        $maxDate = date('d-m-Y', strtotime($maxDate));
         //Top nhân viên xuất sắc nhất
         $sumSales = BillSale::where('bill_sale.status', 2)
             ->leftJoin('users', 'users.id', 'bill_sale.user_id')
@@ -88,6 +111,13 @@ class DashboardController extends Controller
             ->groupBy('bill_sale.user_id', 'users.name')
             ->orderByDesc('price_total_sum')
             ->get();
+        $minDateBillSale = BillSale::where('bill_sale.status', 2)
+            ->min('created_at');
+
+        $maxDateBillSale = BillSale::where('bill_sale.status', 2)
+            ->max('created_at');
+        $minDateBillSale = date('d-m-Y', strtotime($minDateBillSale));
+        $maxDateBillSale = date('d-m-Y', strtotime($maxDateBillSale));
         //Tổng doanh thu theo quý
         $revenueByQuarter = DB::table('bill_sale')
             ->select(
@@ -104,6 +134,16 @@ class DashboardController extends Controller
         //Công nợ
         $debtExport = DetailExport::where('status', 2)->sum('amount_owed');
         $debtOrder = Provides::sum('provide_debt');
+        $minDateDetailExport = DetailExport::where('status', 2)->min('created_at');
+        $maxDateDetailExport = DetailExport::where('status', 2)->max('created_at');
+
+        $minDateProvides = Provides::min('updated_at');
+        $maxDateProvides = Provides::max('updated_at');
+
+        $minDateDebt = min([$minDateDetailExport == null ? Carbon::now() : $minDateDetailExport, $minDateProvides]);
+        $maxDateDebt = max([$maxDateDetailExport, $maxDateProvides]);
+        $minDateDebt = date('d-m-Y', strtotime($minDateDebt));
+        $maxDateDebt = date('d-m-Y', strtotime($maxDateDebt));
         return view('dashboardProduct', compact(
             'title',
             'workspacename',
@@ -121,15 +161,24 @@ class DashboardController extends Controller
             'sumSales',
             'totalProduct',
             'firstDay',
-            'lastDay'
+            'lastDay',
+            'firstDayStatus',
+            'lastDayStatus',
+            'minDate',
+            'maxDate',
+            'minDateBillSale',
+            'maxDateBillSale',
+            'minDateDebt',
+            'maxDateDebt',
         ));
     }
 
+    //Sản phẩm bán chạy
     public function productSell(Request $request)
     {
-        if ($request['selectedValue'] == 0) {
+        if ($request['selectedValue'] == 1) {
             $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-                ->where('detailexport.status', 2)
+                ->whereIn('detailexport.status', [2, 3])
                 ->orderBy('quoteexport.product_qty', 'desc')
                 ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
                 ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
@@ -137,7 +186,7 @@ class DashboardController extends Controller
                 ->get();
 
             $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-                ->where('detailexport.status', 2)
+                ->whereIn('detailexport.status', [2, 3])
                 ->get();
 
             $sumOfTop5Products = $productSell->sum('product_qty');
@@ -153,10 +202,10 @@ class DashboardController extends Controller
             $qtyProduct[] = json_encode($sumWithoutTop5);
 
             $firstDay = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-                ->where('detailexport.status', 2)
+                ->whereIn('detailexport.status', [2, 3])
                 ->min(DB::raw('DATE(quoteexport.created_at)'));
             $lastDay = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-                ->where('detailexport.status', 2)
+                ->whereIn('detailexport.status', [2, 3])
                 ->max(DB::raw('DATE(quoteexport.created_at)'));
 
             $firstDay = date('d-m-Y', strtotime($firstDay));
@@ -171,14 +220,15 @@ class DashboardController extends Controller
             ];
 
             return response()->json($response);
-        } else if ($request['selectedValue'] == 1) {
+        }
+        if ($request['selectedValue'] == 2) {
             // Lấy ngày đầu tiên và cuối cùng của tháng hiện tại
             $firstDayOfMonth = date('Y-m-01');
             $lastDayOfMonth = date('Y-m-t');
 
             // Lấy dữ liệu sản phẩm bán chạy nhất trong tháng hiện tại
             $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-                ->where('detailexport.status', 2)
+                ->whereIn('detailexport.status', [2, 3])
                 ->whereDate('quoteexport.created_at', '>=', $firstDayOfMonth)
                 ->whereDate('quoteexport.created_at', '<=', $lastDayOfMonth)
                 ->orderBy('quoteexport.product_qty', 'desc')
@@ -188,7 +238,7 @@ class DashboardController extends Controller
                 ->get();
 
             $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-                ->where('detailexport.status', 2)
+                ->whereIn('detailexport.status', [2, 3])
                 ->whereDate('quoteexport.created_at', '>=', $firstDayOfMonth)
                 ->whereDate('quoteexport.created_at', '<=', $lastDayOfMonth)
                 ->get();
@@ -217,7 +267,7 @@ class DashboardController extends Controller
             ];
 
             return response()->json($response);
-        } else if ($request['selectedValue'] == 2) {
+        } else if ($request['selectedValue'] == 3) {
             // Lấy ngày đầu tiên của tháng trước
             $firstDayOfLastMonth = Carbon::now()->subMonth()->startOfMonth();
 
@@ -226,7 +276,7 @@ class DashboardController extends Controller
 
             // Lấy dữ liệu sản phẩm bán chạy nhất trong tháng trước
             $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-                ->where('detailexport.status', 2)
+                ->whereIn('detailexport.status', [2, 3])
                 ->whereBetween('quoteexport.created_at', [$firstDayOfLastMonth, $lastDayOfLastMonth])
                 ->orderBy('quoteexport.product_qty', 'desc')
                 ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
@@ -235,7 +285,7 @@ class DashboardController extends Controller
                 ->get();
 
             $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-                ->where('detailexport.status', 2)
+                ->whereIn('detailexport.status', [2, 3])
                 ->whereBetween('quoteexport.created_at', [$firstDayOfLastMonth, $lastDayOfLastMonth])
                 ->get();
 
@@ -263,7 +313,7 @@ class DashboardController extends Controller
             ];
 
             return response()->json($response);
-        } else if ($request['selectedValue'] == 3) {
+        } else if ($request['selectedValue'] == 4) {
             $firstDayOfThreeMonthsAgo = Carbon::now()->subMonths(3)->startOfMonth();
 
             // Lấy ngày cuối cùng của tháng trước khi tháng hiện tại (tháng 4)
@@ -271,7 +321,7 @@ class DashboardController extends Controller
 
             // Lấy dữ liệu sản phẩm bán chạy nhất trong 3 tháng trước
             $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-                ->where('detailexport.status', 2)
+                ->whereIn('detailexport.status', [2, 3])
                 ->whereBetween('quoteexport.created_at', [$firstDayOfThreeMonthsAgo, $lastDayOfThreeMonthsAgo])
                 ->orderBy('quoteexport.product_qty', 'desc')
                 ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
@@ -280,7 +330,7 @@ class DashboardController extends Controller
                 ->get();
 
             $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-                ->where('detailexport.status', 2)
+                ->whereIn('detailexport.status', [2, 3])
                 ->whereBetween('quoteexport.created_at', [$firstDayOfThreeMonthsAgo, $lastDayOfThreeMonthsAgo])
                 ->get();
 
@@ -308,51 +358,777 @@ class DashboardController extends Controller
             ];
 
             return response()->json($response);
-        } 
-        // else if (isset($request['startDate']) && isset($request['endDate'])) {
-        //     $startDate = Carbon::createFromFormat('d-m-Y', $request['startDate'])->startOfDay();
-        //     $endDate = Carbon::createFromFormat('d-m-Y', $request['endDate'])->endOfDay();
+        }
+        if (isset($request['startDate']) && isset($request['endDate'])) {
+            // Format start date and end date
+            $startDate = Carbon::createFromFormat('Y-m-d', $request['startDate'])->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('Y-m-d', $request['endDate'])->endOfDay()->addDay()->format('Y-m-d');
 
-        //     // // Lấy dữ liệu sản phẩm bán chạy nhất trong khoảng thời gian người dùng chọn
-        //     // $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-        //     //     ->where('detailexport.status', 2)
-        //     //     ->whereBetween('quoteexport.created_at', [$startDate, $endDate])
-        //     //     ->orderBy('quoteexport.product_qty', 'desc')
-        //     //     ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
-        //     //     ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
-        //     //     ->limit(5)
-        //     //     ->get();
+            // Query for product sell within the selected time range
+            $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+                ->whereIn('detailexport.status', [2, 3])
+                ->whereBetween('quoteexport.created_at', [$startDate, $endDate])
+                ->orderBy('quoteexport.product_qty', 'desc')
+                ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+                ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+                ->limit(5)
+                ->get();
 
-        //     // $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
-        //     //     ->where('detailexport.status', 2)
-        //     //     ->whereBetween('quoteexport.created_at', [$startDate, $endDate])
-        //     //     ->get();
+            // Query for total products within the selected time range
+            $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+                ->whereIn('detailexport.status', [2, 3])
+                ->whereBetween('quoteexport.created_at', [$startDate, $endDate])
+                ->get();
 
-        //     // $sumOfTop5Products = $productSell->sum('product_qty');
-        //     // $totalProductQty = $totalProduct->sum('product_qty');
-        //     // $sumWithoutTop5 = $totalProductQty - $sumOfTop5Products;
+            // Calculate sums and prepare data for response
+            $sumOfTop5Products = $productSell->sum('product_qty');
+            $totalProductQty = $totalProduct->sum('product_qty');
+            $sumWithoutTop5 = $totalProductQty - $sumOfTop5Products;
 
-        //     // $productName = $productSell->pluck('product_name')->toArray();
-        //     // $qtyProduct = $productSell->pluck('product_qty')->map(function ($qty) {
-        //     //     return number_format($qty, 0, '.', '');
-        //     // })->toArray();
+            $productName = $productSell->pluck('product_name')->toArray();
+            $qtyProduct = $productSell->pluck('product_qty')->map(function ($qty) {
+                return number_format($qty, 0, '.', '');
+            })->toArray();
 
-        //     // $productName[] = 'Những sản phẩm khác...';
-        //     // $qtyProduct[] = json_encode($sumWithoutTop5);
+            $productName[] = 'Những sản phẩm khác...';
+            $qtyProduct[] = json_encode($sumWithoutTop5);
 
-        //     // $firstDay = $startDate->format('d-m-Y');
-        //     // $lastDay = $endDate->format('d-m-Y');
+            $firstDay = date('d-m-Y', strtotime($startDate));
+            $lastDay = date('d-m-Y', strtotime($endDate . ' -1 day'));
 
-        //     $response = [
-        //         'firstDay' => $startDate,
-        //         'lastDay' => $endDate,
-        //         // 'productName' => $productName,
-        //         // 'qtyProduct' => $qtyProduct,
-        //         'salesText' => 'Khoảng thời gian',
-        //     ];
-        // }
+            // Prepare response
+            $response = [
+                'firstDay' => $firstDay,
+                'lastDay' => $lastDay,
+                'productName' => $productName,
+                'qtyProduct' => $qtyProduct,
+                'salesText' => 'Khoảng thời gian',
+            ];
+
+            return response()->json($response);
+        }
     }
 
+    //Hoạt động bán hàng
+    public function statusSales(Request $request)
+    {
+        if ($request['selectedValue'] == 1) {
+            $statusCounts = DB::table('detailexport')
+                ->select('status', DB::raw('COUNT(*) as count'))
+                ->whereIn('status', [1, 2, 3])
+                ->groupBy('status')
+                ->get();
+            $firstDayStatus = DB::table('detailexport')
+                ->whereIn('status', [1, 2, 3])
+                ->min(DB::raw('DATE(created_at)'));
+
+            $lastDayStatus = DB::table('detailexport')
+                ->whereIn('status', [1, 2, 3])
+                ->max(DB::raw('DATE(created_at)'));
+            $tinhTrang = [];
+            $soDon = [];
+            foreach ($statusCounts as $statusCount) {
+                if ($statusCount->status == 1) {
+                    $tinhTrang[] = "Draft";
+                } else if ($statusCount->status == 3) {
+                    $tinhTrang[] = "Close";
+                } else if ($statusCount->status == 2) {
+                    $tinhTrang[] = "Approved";
+                }
+                $soDon[] = $statusCount->count;
+            }
+            $firstDayStatus = date('d-m-Y', strtotime($firstDayStatus));
+            $lastDayStatus = date('d-m-Y', strtotime($lastDayStatus));
+            $response = [
+                'firstDayStatus' => $firstDayStatus,
+                'lastDayStatus' => $lastDayStatus,
+                'tinhTrang' => $tinhTrang,
+                'soDon' => $soDon,
+                'statusText' => 'Tất cả',
+            ];
+            return response()->json($response);
+        } else if ($request['selectedValue'] == 2) {
+            // Lấy ngày đầu tiên của tháng hiện tại
+            $firstDayOfMonth = Carbon::now()->startOfMonth();
+
+            // Lấy ngày cuối cùng của tháng hiện tại
+            $lastDayOfMonth = Carbon::now()->endOfMonth();
+
+            // Lấy số liệu dựa trên trạng thái trong tháng hiện tại
+            $statusCounts = DB::table('detailexport')
+                ->select('status', DB::raw('COUNT(*) as count'))
+                ->whereIn('status', [1, 2, 3])
+                ->whereBetween('created_at', [$firstDayOfMonth, $lastDayOfMonth])
+                ->groupBy('status')
+                ->get();
+
+            // Lấy ngày đầu tiên và cuối cùng của tháng hiện tại
+            $firstDayStatus = $firstDayOfMonth->format('d-m-Y');
+            $lastDayStatus = $lastDayOfMonth->format('d-m-Y');
+
+            // Tiến hành xử lý dữ liệu và chuẩn bị phản hồi
+            $tinhTrang = [];
+            $soDon = [];
+
+            foreach ($statusCounts as $statusCount) {
+                if ($statusCount->status == 1) {
+                    $tinhTrang[] = "Draft";
+                } else if ($statusCount->status == 3) {
+                    $tinhTrang[] = "Close";
+                } else if ($statusCount->status == 2) {
+                    $tinhTrang[] = "Approved";
+                }
+                $soDon[] = $statusCount->count;
+            }
+
+            // Chuẩn bị phản hồi JSON
+            $response = [
+                'firstDayStatus' => $firstDayStatus,
+                'lastDayStatus' => $lastDayStatus,
+                'tinhTrang' => $tinhTrang,
+                'soDon' => $soDon,
+                'statusText' => 'Tháng này',
+            ];
+
+            return response()->json($response);
+        } else if ($request['selectedValue'] == 3) {
+            // Lấy ngày đầu tiên của tháng trước
+            $firstDayOfLastMonth = Carbon::now()->subMonth()->startOfMonth();
+
+            // Lấy ngày cuối cùng của tháng trước
+            $lastDayOfLastMonth = Carbon::now()->subMonth()->endOfMonth();
+
+            // Lấy số liệu dựa trên trạng thái trong tháng trước
+            $statusCounts = DB::table('detailexport')
+                ->select('status', DB::raw('COUNT(*) as count'))
+                ->whereIn('status', [1, 2, 3])
+                ->whereBetween('created_at', [$firstDayOfLastMonth, $lastDayOfLastMonth])
+                ->groupBy('status')
+                ->get();
+
+            // Lấy ngày cũ nhất và mới nhất trong tháng trước
+            $firstDayStatus = DB::table('detailexport')
+                ->whereIn('status', [1, 2, 3])
+                ->whereBetween('created_at', [$firstDayOfLastMonth, $lastDayOfLastMonth])
+                ->min(DB::raw('DATE(created_at)'));
+
+            $lastDayStatus = DB::table('detailexport')
+                ->whereIn('status', [1, 2, 3])
+                ->whereBetween('created_at', [$firstDayOfLastMonth, $lastDayOfLastMonth])
+                ->max(DB::raw('DATE(created_at)'));
+
+            // Tiến hành xử lý dữ liệu và chuẩn bị phản hồi
+            $tinhTrang = [];
+            $soDon = [];
+
+            foreach ($statusCounts as $statusCount) {
+                if ($statusCount->status == 1) {
+                    $tinhTrang[] = "Draft";
+                } else if ($statusCount->status == 3) {
+                    $tinhTrang[] = "Close";
+                } else if ($statusCount->status == 2) {
+                    $tinhTrang[] = "Approved";
+                }
+                $soDon[] = $statusCount->count;
+            }
+
+            $firstDayStatus = date('d-m-Y', strtotime($firstDayOfLastMonth));
+            $lastDayStatus = date('d-m-Y', strtotime($lastDayOfLastMonth));
+
+            // Chuẩn bị phản hồi JSON
+            $response = [
+                'firstDayStatus' => $firstDayStatus,
+                'lastDayStatus' => $lastDayStatus,
+                'tinhTrang' => $tinhTrang,
+                'soDon' => $soDon,
+                'statusText' => 'Tháng trước',
+            ];
+
+            return response()->json($response);
+        } else if ($request['selectedValue'] == 4) {
+            // Lấy ngày đầu tiên của 3 tháng trước
+            $firstDayOfThreeMonthsAgo = Carbon::now()->subMonths(3)->startOfMonth();
+
+            // Lấy ngày cuối cùng của tháng trước (tháng hiện tại - 1)
+            $lastDayOfThreeMonthsAgo = Carbon::now()->subMonths(1)->endOfMonth();
+
+            // Lấy số liệu dựa trên trạng thái trong 3 tháng trước
+            $statusCounts = DB::table('detailexport')
+                ->select('status', DB::raw('COUNT(*) as count'))
+                ->whereIn('status', [1, 2, 3])
+                ->whereBetween('created_at', [$firstDayOfThreeMonthsAgo, $lastDayOfThreeMonthsAgo])
+                ->groupBy('status')
+                ->get();
+
+            // Lấy ngày cũ nhất và mới nhất trong 3 tháng trước
+            $firstDayStatus = DB::table('detailexport')
+                ->whereIn('status', [1, 2, 3])
+                ->whereBetween('created_at', [$firstDayOfThreeMonthsAgo, $lastDayOfThreeMonthsAgo])
+                ->min(DB::raw('DATE(created_at)'));
+
+            $lastDayStatus = DB::table('detailexport')
+                ->whereIn('status', [1, 2, 3])
+                ->whereBetween('created_at', [$firstDayOfThreeMonthsAgo, $lastDayOfThreeMonthsAgo])
+                ->max(DB::raw('DATE(created_at)'));
+
+            // Tiến hành xử lý dữ liệu và chuẩn bị phản hồi
+            $tinhTrang = [];
+            $soDon = [];
+
+            foreach ($statusCounts as $statusCount) {
+                if ($statusCount->status == 1) {
+                    $tinhTrang[] = "Draft";
+                } else if ($statusCount->status == 3) {
+                    $tinhTrang[] = "Close";
+                } else if ($statusCount->status == 2) {
+                    $tinhTrang[] = "Approved";
+                }
+                $soDon[] = $statusCount->count;
+            }
+
+            $firstDayStatus = date('d-m-Y', strtotime($firstDayOfThreeMonthsAgo));
+            $lastDayStatus = date('d-m-Y', strtotime($lastDayOfThreeMonthsAgo));
+
+            // Chuẩn bị phản hồi JSON
+            $response = [
+                'firstDayStatus' => $firstDayStatus,
+                'lastDayStatus' => $lastDayStatus,
+                'tinhTrang' => $tinhTrang,
+                'soDon' => $soDon,
+                'statusText' => '3 tháng trước',
+            ];
+
+            return response()->json($response);
+        }
+        if (isset($request['startDate']) && isset($request['endDate'])) {
+            //format date start date and end date to d-m-Y
+            $startDate = Carbon::createFromFormat('Y-m-d', $request['startDate'])->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('Y-m-d', $request['endDate'])->endOfDay()->addDay()->format('Y-m-d');
+            // Lấy dữ liệu sản phẩm bán chạy nhất trong khoảng thời gian người dùng chọn
+            $statusCounts = DB::table('detailexport')
+                ->select('status', DB::raw('COUNT(*) as count'))
+                ->whereIn('status', [1, 2, 3])
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->groupBy('status')
+                ->get();
+
+            $firstDayStatus = date('d-m-Y', strtotime($startDate));
+            $lastDayStatus = date('d-m-Y', strtotime($endDate . ' -1 day'));
+            $tinhTrang = [];
+            $soDon = [];
+            foreach ($statusCounts as $statusCount) {
+                if ($statusCount->status == 1) {
+                    $tinhTrang[] = "Draft";
+                } else if ($statusCount->status == 3) {
+                    $tinhTrang[] = "Close";
+                } else if ($statusCount->status == 2) {
+                    $tinhTrang[] = "Approved";
+                }
+                $soDon[] = $statusCount->count;
+            }
+            $response = [
+                'firstDayStatus' => $firstDayStatus,
+                'lastDayStatus' => $lastDayStatus,
+                'tinhTrang' => $tinhTrang,
+                'soDon' => $soDon,
+                'statusText' => 'Khoảng thời gian',
+            ];
+            return response()->json($response);
+        }
+    }
+
+    //Đơn báo giá đã xác nhận
+    public function exportAccept(Request $request)
+    {
+        if ($request['selectedValue'] == 1) {
+            $countDetailExport = DetailExport::whereIn('status', [2, 3])->count();
+            $countDelivery = Delivery::whereIn('status', [2, 3])->count();
+            $countBillsale = BillSale::whereIn('status', [2, 3])->count();
+            $countPayExport = PayExport::where('payment', '>', 0)->count();
+            $minDate = min([
+                DetailExport::whereIn('status', [2, 3])->min('created_at'),
+                Delivery::whereIn('status', [2, 3])->min('created_at'),
+                BillSale::whereIn('status', [2, 3])->min('created_at'),
+                PayExport::where('payment', '>', 0)->min('created_at')
+            ]);
+            $maxDate = max([
+                DetailExport::whereIn('status', [2, 3])->max('created_at'),
+                Delivery::whereIn('status', [2, 3])->max('created_at'),
+                BillSale::whereIn('status', [2, 3])->max('created_at'),
+                PayExport::where('payment', '>', 0)->max('created_at')
+            ]);
+            $minDate = date('d-m-Y', strtotime($minDate));
+            $maxDate = date('d-m-Y', strtotime($maxDate));
+            $response = [
+                'firstDayAccept' => $minDate,
+                'lastDayAccept' => $maxDate,
+                'tongSoDon' => $countDetailExport,
+                'soDonGiao' => $countDelivery,
+                'soDonDaXuat' => $countBillsale,
+                'soDonDaTT' => $countPayExport,
+                'acceptText' => 'Tất cả',
+            ];
+            return response()->json($response);
+        } else if ($request['selectedValue'] == 2) {
+            // Lấy ngày đầu tiên và cuối cùng của tháng hiện tại
+            $firstDayOfMonth = date('Y-m-01');
+            $lastDayOfMonth = date('Y-m-t');
+
+            // Lấy dữ liệu sản phẩm bán chạy nhất trong tháng hiện tại
+            $countDetailExport = DetailExport::whereIn('status', [2, 3])
+                ->whereDate('created_at', '>=', $firstDayOfMonth)
+                ->whereDate('created_at', '<=', $lastDayOfMonth)
+                ->count();
+
+            $countDelivery = Delivery::whereIn('status', [2, 3])
+                ->whereDate('created_at', '>=', $firstDayOfMonth)
+                ->whereDate('created_at', '<=', $lastDayOfMonth)
+                ->count();
+
+            $countBillsale = BillSale::whereIn('status', [2, 3])
+                ->whereDate('created_at', '>=', $firstDayOfMonth)
+                ->whereDate('created_at', '<=', $lastDayOfMonth)
+                ->count();
+
+            $countPayExport = PayExport::where('payment', '>', 0)
+                ->whereDate('created_at', '>=', $firstDayOfMonth)
+                ->whereDate('created_at', '<=', $lastDayOfMonth)
+                ->count();
+
+            $firstDayAccept = date('d-m-Y', strtotime($firstDayOfMonth));
+            $lastDayAccept = date('d-m-Y', strtotime($lastDayOfMonth));
+
+            $response = [
+                'firstDayAccept' => $firstDayAccept,
+                'lastDayAccept' => $lastDayAccept,
+                'tongSoDon' => $countDetailExport,
+                'soDonGiao' => $countDelivery,
+                'soDonDaXuat' => $countBillsale,
+                'soDonDaTT' => $countPayExport,
+                'acceptText' => 'Tháng này',
+            ];
+
+            return response()->json($response);
+        } else if ($request['selectedValue'] == 3) {
+            // Lấy ngày đầu tiên của tháng trước
+            $firstDayOfLastMonth = Carbon::now()->subMonth()->startOfMonth();
+
+            // Lấy ngày cuối cùng của tháng trước
+            $lastDayOfLastMonth = Carbon::now()->subMonth()->endOfMonth();
+
+            // Lấy dữ liệu sản phẩm bán chạy nhất trong tháng trước
+            $countDetailExport = DetailExport::whereIn('status', [2, 3])
+                ->whereDate('created_at', '>=', $firstDayOfLastMonth)
+                ->whereDate('created_at', '<=', $lastDayOfLastMonth)
+                ->count();
+
+            $countDelivery = Delivery::whereIn('status', [2, 3])
+                ->whereDate('created_at', '>=', $firstDayOfLastMonth)
+                ->whereDate('created_at', '<=', $lastDayOfLastMonth)
+                ->count();
+
+            $countBillsale = BillSale::whereIn('status', [2, 3])
+                ->whereDate('created_at', '>=', $firstDayOfLastMonth)
+                ->whereDate('created_at', '<=', $lastDayOfLastMonth)
+                ->count();
+
+            $countPayExport = PayExport::where('payment', '>', 0)
+                ->whereDate('created_at', '>=', $firstDayOfLastMonth)
+                ->whereDate('created_at', '<=', $lastDayOfLastMonth)
+                ->count();
+
+            $firstDayAccept = $firstDayOfLastMonth->format('d-m-Y');
+            $lastDayAccept = $lastDayOfLastMonth->format('d-m-Y');
+
+            $response = [
+                'firstDayAccept' => $firstDayAccept,
+                'lastDayAccept' => $lastDayAccept,
+                'tongSoDon' => $countDetailExport,
+                'soDonGiao' => $countDelivery,
+                'soDonDaXuat' => $countBillsale,
+                'soDonDaTT' => $countPayExport,
+                'acceptText' => 'Tháng trước',
+            ];
+
+            return response()->json($response);
+        } else if ($request['selectedValue'] == 4) {
+            $firstDayOfThreeMonthsAgo = Carbon::now()->subMonths(3)->startOfMonth();
+
+            // Lấy ngày cuối cùng của tháng trước khi tháng hiện tại (tháng 4)
+            $lastDayOfThreeMonthsAgo = Carbon::now()->subMonths(1)->endOfMonth();
+
+            // Lấy dữ liệu sản phẩm bán chạy nhất trong 3 tháng trước
+            $countDetailExport = DetailExport::whereIn('status', [2, 3])
+                ->whereDate('created_at', '>=', $firstDayOfThreeMonthsAgo)
+                ->whereDate('created_at', '<=', $lastDayOfThreeMonthsAgo)
+                ->count();
+
+            $countDelivery = Delivery::whereIn('status', [2, 3])
+                ->whereDate('created_at', '>=', $firstDayOfThreeMonthsAgo)
+                ->whereDate('created_at', '<=', $lastDayOfThreeMonthsAgo)
+                ->count();
+
+            $countBillsale = BillSale::whereIn('status', [2, 3])
+                ->whereDate('created_at', '>=', $firstDayOfThreeMonthsAgo)
+                ->whereDate('created_at', '<=', $lastDayOfThreeMonthsAgo)
+                ->count();
+
+            $countPayExport = PayExport::where('payment', '>', 0)
+                ->whereDate('created_at', '>=', $firstDayOfThreeMonthsAgo)
+                ->whereDate('created_at', '<=', $lastDayOfThreeMonthsAgo)
+                ->count();
+
+            $firstDayAccept = $firstDayOfThreeMonthsAgo->format('d-m-Y');
+            $lastDayAccept = $lastDayOfThreeMonthsAgo->format('d-m-Y');
+
+            $response = [
+                'firstDayAccept' => $firstDayAccept,
+                'lastDayAccept' => $lastDayAccept,
+                'tongSoDon' => $countDetailExport,
+                'soDonGiao' => $countDelivery,
+                'soDonDaXuat' => $countBillsale,
+                'soDonDaTT' => $countPayExport,
+                'acceptText' => '3 tháng trước',
+            ];
+
+            return response()->json($response);
+        }
+        if (isset($request['startDate']) && isset($request['endDate'])) {
+            // Format start date and end date
+            $startDate = Carbon::createFromFormat('Y-m-d', $request['startDate'])->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('Y-m-d', $request['endDate'])->endOfDay()->addDay()->format('Y-m-d');
+
+            // Query for product sell within the selected time range
+            $countDetailExport = DetailExport::whereIn('status', [2, 3])
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->count();
+
+            $countDelivery = Delivery::whereIn('status', [2, 3])
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->count();
+
+            $countBillsale = BillSale::whereIn('status', [2, 3])
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->count();
+
+            $countPayExport = PayExport::where('payment', '>', 0)
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->count();
+
+            $firstDayAccept = date('d-m-Y', strtotime($startDate));
+            $lastDayAccept = date('d-m-Y', strtotime($endDate . ' -1 day'));
+
+            // Prepare response
+            $response = [
+                'firstDayAccept' => $firstDayAccept,
+                'lastDayAccept' => $lastDayAccept,
+                'tongSoDon' => $countDetailExport,
+                'soDonGiao' => $countDelivery,
+                'soDonDaXuat' => $countBillsale,
+                'soDonDaTT' => $countPayExport,
+                'acceptText' => 'Khoảng thời gian',
+            ];
+
+            return response()->json($response);
+        }
+    }
+
+    //Top nhân viên xuất sắc
+    public function topEmployee(Request $request)
+    {
+        if ($request['selectedValue'] == 1) {
+            $sumSales = BillSale::where('bill_sale.status', 2)
+                ->leftJoin('users', 'users.id', 'bill_sale.user_id')
+                ->select('users.name', DB::raw('SUM(bill_sale.price_total) AS price_total_sum'))
+                ->groupBy('bill_sale.user_id', 'users.name')
+                ->orderByDesc('price_total_sum')
+                ->get();
+            $minDateBillSale = BillSale::where('bill_sale.status', 2)
+                ->min('created_at');
+
+            $maxDateBillSale = BillSale::where('bill_sale.status', 2)
+                ->max('created_at');
+            $minDateBillSale = date('d-m-Y', strtotime($minDateBillSale));
+            $maxDateBillSale = date('d-m-Y', strtotime($maxDateBillSale));
+            $response = [
+                'firstDayTop' => $minDateBillSale,
+                'lastDayTop' => $maxDateBillSale,
+                'sumSales' => $sumSales,
+                'topText' => 'Tất cả',
+            ];
+            return response()->json($response);
+        } else if ($request['selectedValue'] == 2) {
+            // Lấy ngày đầu tiên và cuối cùng của tháng hiện tại
+            $firstDayOfMonth = Carbon::now()->startOfMonth();
+            $lastDayOfMonth = Carbon::now()->endOfMonth();
+
+            // Lấy dữ liệu sản phẩm bán chạy nhất trong tháng hiện tại
+            $sumSales = BillSale::where('bill_sale.status', 2)
+                ->whereDate('bill_sale.created_at', '>=', $firstDayOfMonth)
+                ->whereDate('bill_sale.created_at', '<=', $lastDayOfMonth)
+                ->leftJoin('users', 'users.id', 'bill_sale.user_id')
+                ->select('users.name', DB::raw('SUM(bill_sale.price_total) AS price_total_sum'))
+                ->groupBy('bill_sale.user_id', 'users.name')
+                ->orderByDesc('price_total_sum')
+                ->get();
+
+            $firstDayTop = $firstDayOfMonth->format('d-m-Y');
+            $lastDayTop = $lastDayOfMonth->format('d-m-Y');
+
+            $response = [
+                'firstDayTop' => $firstDayTop,
+                'lastDayTop' => $lastDayTop,
+                'sumSales' => $sumSales,
+                'topText' => 'Tháng này',
+            ];
+
+            return response()->json($response);
+        } else if ($request['selectedValue'] == 3) {
+            // Lấy ngày đầu tiên của tháng trước
+            $firstDayOfLastMonth = Carbon::now()->subMonth()->startOfMonth();
+
+            // Lấy ngày cuối cùng của tháng trước
+            $lastDayOfLastMonth = Carbon::now()->subMonth()->endOfMonth();
+
+            // Lấy dữ liệu sản phẩm bán chạy nhất trong tháng trước
+            $sumSales = BillSale::where('bill_sale.status', 2)
+                ->whereDate('bill_sale.created_at', '>=', $firstDayOfLastMonth)
+                ->whereDate('bill_sale.created_at', '<=', $lastDayOfLastMonth)
+                ->leftJoin('users', 'users.id', 'bill_sale.user_id')
+                ->select('users.name', DB::raw('SUM(bill_sale.price_total) AS price_total_sum'))
+                ->groupBy('bill_sale.user_id', 'users.name')
+                ->orderByDesc('price_total_sum')
+                ->get();
+
+            $firstDayTop = $firstDayOfLastMonth->format('d-m-Y');
+            $lastDayTop = $lastDayOfLastMonth->format('d-m-Y');
+
+            $response = [
+                'firstDayTop' => $firstDayTop,
+                'lastDayTop' => $lastDayTop,
+                'sumSales' => $sumSales,
+                'topText' => 'Tháng trước',
+            ];
+
+            return response()->json($response);
+        } else if ($request['selectedValue'] == 4) {
+            $firstDayOfThreeMonthsAgo = Carbon::now()->subMonths(3)->startOfMonth();
+
+            // Lấy ngày cuối cùng của tháng trước khi tháng hiện tại (tháng 4)
+            $lastDayOfThreeMonthsAgo = Carbon::now()->subMonths(1)->endOfMonth();
+
+            // Lấy dữ liệu sản phẩm bán chạy nhất trong 3 tháng trước
+            $sumSales = BillSale::where('bill_sale.status', 2)
+                ->whereDate('bill_sale.created_at', '>=', $firstDayOfThreeMonthsAgo)
+                ->whereDate('bill_sale.created_at', '<=', $lastDayOfThreeMonthsAgo)
+                ->leftJoin('users', 'users.id', 'bill_sale.user_id')
+                ->select('users.name', DB::raw('SUM(bill_sale.price_total) AS price_total_sum'))
+                ->groupBy('bill_sale.user_id', 'users.name')
+                ->orderByDesc('price_total_sum')
+                ->get();
+
+            $firstDayTop = $firstDayOfThreeMonthsAgo->format('d-m-Y');
+            $lastDayTop = $lastDayOfThreeMonthsAgo->format('d-m-Y');
+
+            $response = [
+                'firstDayTop' => $firstDayTop,
+                'lastDayTop' => $lastDayTop,
+                'sumSales' => $sumSales,
+                'topText' => '3 tháng trước',
+            ];
+
+            return response()->json($response);
+        }
+        if (isset($request['startDate']) && isset($request['endDate'])) {
+            // Format start date and end date
+            $startDate = Carbon::createFromFormat('Y-m-d', $request['startDate'])->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('Y-m-d', $request['endDate'])->endOfDay()->addDay()->format('Y-m-d');
+
+            // Query for product sell within the selected time range
+            $sumSales = BillSale::where('bill_sale.status', 2)
+                ->whereBetween('bill_sale.created_at', [$startDate, $endDate])
+                ->leftJoin('users', 'users.id', 'bill_sale.user_id')
+                ->select('users.name', DB::raw('SUM(bill_sale.price_total) AS price_total_sum'))
+                ->groupBy('bill_sale.user_id', 'users.name')
+                ->orderByDesc('price_total_sum')
+                ->get();
+
+            $firstDayTop = date('d-m-Y', strtotime($startDate));
+            $lastDayTop = date('d-m-Y', strtotime($endDate . ' -1 day'));
+
+            // Prepare response
+            $response = [
+                'firstDayTop' => $firstDayTop,
+                'lastDayTop' => $lastDayTop,
+                'sumSales' => $sumSales,
+                'topText' => 'Khoảng thời gian',
+            ];
+
+            return response()->json($response);
+        }
+    }
+
+    //Thống kê doanh số
+    public function revenueByQuarter(Request $request)
+    {
+        $revenueByQuarter = DB::table('bill_sale')
+            ->select(
+                DB::raw('YEAR(created_at) AS year'),
+                DB::raw('QUARTER(created_at) AS quarter'),
+                DB::raw('SUM(price_total) AS total_revenue')
+            )
+            ->where('status', 2)
+            ->whereYear('created_at', $request['selectedYear'])
+            ->groupBy('year', 'quarter')
+            ->orderBy('year')
+            ->orderBy('quarter')
+            ->get();
+        $response = [
+            'revenueByQuarter' => $revenueByQuarter,
+        ];
+
+        return response()->json($response);
+    }
+
+    //Công nợ
+    public function debtChart(Request $request)
+    {
+        if ($request['selectedValue'] == 1) {
+            $debtExport = DetailExport::where('status', 2)->sum('amount_owed');
+            $debtOrder = Provides::sum('provide_debt');
+            $minDateDetailExport = DetailExport::where('status', 2)->min('created_at');
+            $maxDateDetailExport = DetailExport::where('status', 2)->max('created_at');
+
+            $minDateProvides = Provides::min('updated_at');
+            $maxDateProvides = Provides::max('updated_at');
+
+            $minDateDebt = min([$minDateDetailExport == null ? Carbon::now() : $minDateDetailExport, $minDateProvides]);
+            $maxDateDebt = max([$maxDateDetailExport, $maxDateProvides]);
+            $minDateDebt = date('d-m-Y', strtotime($minDateDebt));
+            $maxDateDebt = date('d-m-Y', strtotime($maxDateDebt));
+            $response = [
+                'firstDayDebt' => $minDateDebt,
+                'lastDayDebt' => $maxDateDebt,
+                'debtExport' => $debtExport,
+                'debtOrder' => $debtOrder,
+                'debtText' => 'Tất cả',
+            ];
+            return response()->json($response);
+        } else if ($request['selectedValue'] == 2) {
+            // Lấy ngày đầu tiên và cuối cùng của tháng hiện tại
+            $firstDayOfMonth = Carbon::now()->startOfMonth();
+            $lastDayOfMonth = Carbon::now()->endOfMonth();
+
+            // Lấy dữ liệu sản phẩm bán chạy nhất trong tháng hiện tại
+            $debtExport = DetailExport::where('status', 2)
+                ->whereDate('created_at', '>=', $firstDayOfMonth)
+                ->whereDate('created_at', '<=', $lastDayOfMonth)
+                ->sum('amount_owed');
+
+            $debtOrder = Provides::whereDate('updated_at', '>=', $firstDayOfMonth)
+                ->whereDate('updated_at', '<=', $lastDayOfMonth)
+                ->sum('provide_debt');
+
+            $firstDayDebt = $firstDayOfMonth->format('d-m-Y');
+            $lastDayDebt = $lastDayOfMonth->format('d-m-Y');
+
+            $response = [
+                'firstDayDebt' => $firstDayDebt,
+                'lastDayDebt' => $lastDayDebt,
+                'debtExport' => $debtExport,
+                'debtOrder' => $debtOrder,
+                'debtText' => 'Tháng này',
+            ];
+
+            return response()->json($response);
+        } else if ($request['selectedValue'] == 3) {
+            // Lấy ngày đầu tiên của tháng trước
+            $firstDayOfLastMonth = Carbon::now()->subMonth()->startOfMonth();
+
+            // Lấy ngày cuối cùng của tháng trước
+            $lastDayOfLastMonth = Carbon::now()->subMonth()->endOfMonth();
+
+            // Lấy dữ liệu sản phẩm bán chạy nhất trong tháng trước
+            $debtExport = DetailExport::where('status', 2)
+                ->whereDate('created_at', '>=', $firstDayOfLastMonth)
+                ->whereDate('created_at', '<=', $lastDayOfLastMonth)
+                ->sum('amount_owed');
+
+            $debtOrder = Provides::whereDate('updated_at', '>=', $firstDayOfLastMonth)
+                ->whereDate('updated_at', '<=', $lastDayOfLastMonth)
+                ->sum('provide_debt');
+
+            $firstDayDebt = $firstDayOfLastMonth->format('d-m-Y');
+            $lastDayDebt = $lastDayOfLastMonth->format('d-m-Y');
+
+            $response = [
+                'firstDayDebt' => $firstDayDebt,
+                'lastDayDebt' => $lastDayDebt,
+                'debtExport' => $debtExport,
+                'debtOrder' => $debtOrder,
+                'debtText' => 'Tháng trước',
+            ];
+
+            return response()->json($response);
+        } else if ($request['selectedValue'] == 4) {
+            $firstDayOfThreeMonthsAgo = Carbon::now()->subMonths(3)->startOfMonth();
+
+            // Lấy ngày cuối cùng của tháng trước khi tháng hiện tại (tháng 4)
+            $lastDayOfThreeMonthsAgo = Carbon::now()->subMonths(1)->endOfMonth();
+
+            // Lấy dữ liệu sản phẩm bán chạy nhất trong 3 tháng trước
+            $debtExport = DetailExport::where('status', 2)
+                ->whereDate('created_at', '>=', $firstDayOfThreeMonthsAgo)
+                ->whereDate('created_at', '<=', $lastDayOfThreeMonthsAgo)
+                ->sum('amount_owed');
+
+            $debtOrder = Provides::whereDate('updated_at', '>=', $firstDayOfThreeMonthsAgo)
+                ->whereDate('updated_at', '<=', $lastDayOfThreeMonthsAgo)
+                ->sum('provide_debt');
+
+            $firstDayDebt = $firstDayOfThreeMonthsAgo->format('d-m-Y');
+            $lastDayDebt = $lastDayOfThreeMonthsAgo->format('d-m-Y');
+
+            $response = [
+                'firstDayDebt' => $firstDayDebt,
+                'lastDayDebt' => $lastDayDebt,
+                'debtExport' => $debtExport,
+                'debtOrder' => $debtOrder,
+                'debtText' => '3 tháng trước',
+            ];
+
+            return response()->json($response);
+        
+        }
+        if(isset($request['startDate']) && isset($request['endDate']))
+        {
+            // Format start date and end date
+            $startDate = Carbon::createFromFormat('Y-m-d', $request['startDate'])->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('Y-m-d', $request['endDate'])->endOfDay()->addDay()->format('Y-m-d');
+
+            // Query for product sell within the selected time range
+            $debtExport = DetailExport::where('status', 2)
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->sum('amount_owed');
+
+            $debtOrder = Provides::whereBetween('updated_at', [$startDate, $endDate])
+                ->sum('provide_debt');
+
+            $firstDayDebt = date('d-m-Y', strtotime($startDate));
+            $lastDayDebt = date('d-m-Y', strtotime($endDate . ' -1 day'));
+
+            // Prepare response
+            $response = [
+                'firstDayDebt' => $firstDayDebt,
+                'lastDayDebt' => $lastDayDebt,
+                'debtExport' => $debtExport,
+                'debtOrder' => $debtOrder,
+                'debtText' => 'Khoảng thời gian',
+            ];
+
+            return response()->json($response);
+        }
+    }
     /**
      * Show the form for creating a new resource.
      */

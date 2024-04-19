@@ -13,6 +13,7 @@ class PayExport extends Model
     use HasFactory;
     protected $fillable = [
         'id',
+        'user_id',
         'detailexport_id',
         'guest_id',
         'code_payment',
@@ -88,6 +89,7 @@ class PayExport extends Model
 
         $dataPay = [
             'detailexport_id' => $data['detailexport_id'],
+            'user_id' => Auth::user()->id,
             'guest_id' => $data['guest_id'],
             'code_payment' => $data['code_payment'],
             'payment_date' => $date_pay,
@@ -120,6 +122,7 @@ class PayExport extends Model
         $historyData = [
             'pay_id' => $payExport->id,
             'total' => $total,
+            'user_id' => Auth::user()->id,
             'payment' => $payment,
             'payment_type' => $data['payment_type'],
             'debt' => $result,

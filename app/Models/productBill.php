@@ -66,6 +66,7 @@ class productBill extends Model
                     'billSale_qty' => $result,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
+                    'user_id' => Auth::user()->id,
                 ];
                 DB::table($this->table)->insert($dataBill);
             }

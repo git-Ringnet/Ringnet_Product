@@ -45,6 +45,7 @@ class DetailExport extends Model
     {
         $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG')
+            ->leftJoin('users', 'users.id', 'detailexport.user_id')
             ->orderBy('detailexport.id', 'desc')->get();
         return $detailExport;
     }
