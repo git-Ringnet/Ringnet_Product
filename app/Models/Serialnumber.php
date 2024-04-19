@@ -50,7 +50,8 @@ class Serialnumber extends Model
                                 'detailexport_id' => 0,
                                 'status' => 0,
                                 'created_at' => Carbon::now(),
-                                'workspace_id' => Auth::user()->current_workspace
+                                'workspace_id' => Auth::user()->current_workspace,
+                                'user_id' => Auth::user()->id
                             ];
                             DB::table('serialnumber')->insert($dataSN);
                         }

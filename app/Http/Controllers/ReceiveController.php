@@ -49,9 +49,15 @@ class ReceiveController extends Controller
         $perPage = 10;
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $receive = Receive_bill::where('workspace_id', Auth::user()->current_workspace)->orderBy('id', 'desc')
-            ->get();
+        $receive = Receive_bill::where('receive_bill.workspace_id', Auth::user()->current_workspace)->orderBy('receive_bill.id', 'desc');
+        if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
+            $receive->join('detailimport', 'detailimport.id', 'receive_bill.detailimport_id')
+                ->where('detailimport.user_id', Auth::user()->id);
+        }
+        $receive->select('receive_bill.*');
+        $receive = $receive->get();
 
+        // dd($receive);
         // ->paginate($perPage);
         return view('tables.receive.receive', compact('receive', 'title', 'workspacename'));
     }
@@ -71,8 +77,11 @@ class ReceiveController extends Controller
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->select('detailimport.quotation_number', 'detailimport.id')
             ->orderBy('id', 'desc')
-            ->distinct()
-            ->get();
+            ->distinct();
+        if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
+            $listDetail->where('detailimport.user_id', Auth::user()->id);
+        }
+        $listDetail = $listDetail->get();
         return view('tables.receive.insertReceive', compact('title', 'listDetail', 'workspacename'));
     }
 
@@ -81,9 +90,14 @@ class ReceiveController extends Controller
      */
     public function store(Request $request)
     {
-        $id = $request->detailimport_id;
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
+        // Quick Action
+        if (isset($request->id_import)) {
+            $id = $request->id_import;
+        } else {
+            $id = $request->detailimport_id;
+        }
         if ($request->action == 'action_1') {
             // Tạo sản phẩm theo đơn nhận hàng
             $status = $this->productImport->addProductImport($request->all(), $id, 'receive_id', 'receive_qty');
@@ -94,7 +108,6 @@ class ReceiveController extends Controller
                 // Thêm SN
                 $this->sn->addSN($request->all(), $receive_id, $id);
 
-
                 // Thêm user flow
                 $dataUserFlow = [
                     'user_id' => Auth::user()->id,
@@ -103,7 +116,11 @@ class ReceiveController extends Controller
                     'created_at' => Carbon::now()
                 ];
                 DB::table('user_flow')->insert($dataUserFlow);
-                return redirect()->route('receive.index', $workspacename)->with('msg', 'Tạo mới đơn nhận hàng thành công !');
+                if (isset($request->id_import)) {
+                    return redirect()->route('import.index', $workspacename)->with('msg', 'Tạo mới đơn nhận hàng thành công !');
+                } else {
+                    return redirect()->route('receive.index', $workspacename)->with('msg', 'Tạo mới đơn nhận hàng thành công !');
+                }
             } else {
                 return redirect()->route('receive.index', $workspacename)->with('warning', 'Đơn nhận hàng đã tạo hết sản phẩm !');
             }
@@ -131,8 +148,11 @@ class ReceiveController extends Controller
                     'created_at' => Carbon::now()
                 ];
                 DB::table('user_flow')->insert($dataUserFlow);
-
-                return redirect()->route('receive.index', $workspacename)->with('msg', 'Nhận hàng thành công !');
+                if (isset($request->id_import)) {
+                    return redirect()->route('import.index', $workspacename)->with('msg', 'Nhận hàng thành công !');
+                } else {
+                    return redirect()->route('receive.index', $workspacename)->with('msg', 'Nhận hàng thành công !');
+                }
             } else {
                 return redirect()->route('receive.index', $workspacename)->with('warning', 'Đơn nhận hàng đã tạo hết sản phẩm !');
             }
@@ -147,8 +167,6 @@ class ReceiveController extends Controller
         $receive = Receive_bill::findOrFail($id);
         $title = $receive->quotation_number;
         $product = QuoteImport::where('detailimport_id', $receive->detailimport_id)->get();
-
-
         return view('tables.receive.showReceive', compact('receive', 'title', 'product', 'history'));
     }
 
@@ -244,9 +262,7 @@ class ReceiveController extends Controller
     public function show_receive(Request $request)
     {
         $data = [];
-        // $detail = DetailImport::FindOrFail($request->detail_id);
-        $detail = DetailImport::where('id', $request->detail_id)
-            ->where('workspace_id', Auth::user()->current_workspace)->first();
+        $detail = DetailImport::FindOrFail($request->detail_id);
         if ($detail) {
             $nameProvide = $detail->provide_name;
             $nameRepresent = $detail->represent_name;

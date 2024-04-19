@@ -112,12 +112,25 @@
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name_display" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
-                                                            Tên hiện thị
+                                                            Tên hiển thị
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-provide_name_display"></div>
                                                 </span>
                                             </th>
+                                            @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                <th scope="col" class="height-52" style="width:300px;">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link"
+                                                            data-sort-by="guest_name_display" data-sort-type="ASC">
+                                                            <button class="btn-sort text-13" type="submit">
+                                                                Người tạo
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id="icon-guest_name_display"></div>
+                                                    </span>
+                                                </th>
+                                            @endif
                                             <th scope="col" class="height-52" style="width:200px;">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
@@ -175,6 +188,13 @@
                                                         {{ $item->provide_name_display }}
                                                     </a>
                                                 </td>
+                                                @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                    <td class="text-13-black height-52">
+                                                        @if ($item->getNameUser)
+                                                            {{ $item->getNameUser->name }}
+                                                        @endif
+                                                    </td>
+                                                @endif
                                                 <td class="text-13-black height-52">
                                                     {{ $item->provide_code }}
                                                 </td>

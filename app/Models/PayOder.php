@@ -29,6 +29,12 @@ class PayOder extends Model
     {
         return $this->hasOne(Provides::class, 'id', 'provide_id');
     }
+
+    public function getNameUser()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
     public function getQuotation()
     {
         return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
@@ -122,6 +128,26 @@ class PayOder extends Model
                         'debt' => $payment->debt - (isset($data['payment']) ?  str_replace(',', '', $data['payment']) : 0)
                     ]);
             } else {
+                // Lây mã thanh toán hiện tại
+                $count = PayOder::where('workspace_id', Auth::user()->current_workspace)->count();
+
+                $lastReceive = PayOder::where('workspace_id', Auth::user()->current_workspace)
+                    ->orderBy('id', 'desc')
+                    ->first();
+
+                if ($lastReceive) {
+                    $parts = explode('-', $lastReceive->payment_code);
+                    $getNumber = end($parts);
+                    $count = (int)$getNumber + 1;
+                } else {
+                    $count = $count == 0 ? $count += 1 : $count;
+                }
+                if ($count < 10) {
+                    $count = "0" . $count;
+                }
+                $resultNumber = "MTT-" . $count;
+
+
                 $dataReciept = [
                     'detailimport_id' => $detail->id,
                     'provide_id' => $detail->provide_id,
@@ -132,9 +158,10 @@ class PayOder extends Model
                     'debt' => 0,
                     'created_at' => Carbon::now(),
                     'workspace_id' => Auth::user()->current_workspace,
-                    'payment_code' => $data['payment_code'],
+                    'payment_code' => isset($data['payment_code']) ? $data['payment_code'] : $resultNumber,
                     'payment_day' => isset($data['payment_day']) ? Carbon::parse($data['payment_day']) : Carbon::now(),
-                    'payment_type' => $data['payment_type']
+                    'payment_type' => $data['payment_type'],
+                    'user_id' => Auth::user()->id
                 ];
                 $payment_id = DB::table($this->table)->insertGetId($dataReciept);
                 for ($i = 0; $i < count($data['product_name']); $i++) {
@@ -258,19 +285,9 @@ class PayOder extends Model
                     } else {
                         $debt = $provide->provide_debt - $total;
                     }
-                    // $getPayment = PayOder::where('detailimport_id', $detail_id)->first();
-                    // if ($getPayment) {
-                    //     $debt = $provide->provide_debt - $total;
-                    // } else {
-                    //     $debt = $provide->provide_debt + $temp - $total;
-                    // }
                 }
             }
-            // if ($detail) {
-            //     $debt = $provide->provide_debt + $temp;
-            // } else {
-            //     $debt = $provide->provide_debt - $total;
-            // }
+
             $dataProvide = [
                 'provide_debt' => $debt,
             ];

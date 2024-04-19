@@ -470,17 +470,20 @@
 
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                     style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số báo giá</span>
+                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
 
                                     <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                        name="quotation_number" style="flex:2; background-color:#F0F4FF;" placeholder="Chọn thông tin">
+                                        name="quotation_number" style="flex:2; background-color:#F0F4FF;"
+                                        placeholder="Chọn thông tin">
 
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                        placeholder="Nhập thông tin" style="flex:2; background-color:#F0F4FF; border-radius:4px;" name="reference_number" />
+                                        placeholder="Nhập thông tin"
+                                        style="flex:2; background-color:#F0F4FF; border-radius:4px;"
+                                        name="reference_number" />
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                     style="height:44px;">
@@ -494,8 +497,9 @@
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2" name="price_effect"
-                                        placeholder="Chọn thông tin" style="flex:2;" id="price_effect" readonly />
+                                    <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                                        name="price_effect" placeholder="Chọn thông tin" style="flex:2;"
+                                        id="price_effect" readonly />
                                     <ul id="listPriceEffect"
                                         class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
                                         style="z-index: 99;">
@@ -529,8 +533,9 @@
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
                                     style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2" name="terms_pay"
-                                        id="terms_pay" placeholder="Chọn thông tin" style="flex:2;" readonly />
+                                    <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
+                                        name="terms_pay" id="terms_pay" placeholder="Chọn thông tin" style="flex:2;"
+                                        readonly />
                                     <ul id="listTermsPay"
                                         class="bg-white position-absolute rounded shadow p-1 list-guest z-index-block scroll-data"
                                         style="z-index: 99;">
@@ -1785,7 +1790,7 @@
                                     } else {
                                         showNotification('warning', data.msg);
                                         delayAndShowNotification('success',
-                                            'Đã thay đổi thuế theo sản phẩm',
+                                            "Đã cập nhật lại thuế cho sản phẩm :"+ data.product_name +"",
                                             500);
                                         rows.each(function() {
                                             if ($(this).find(

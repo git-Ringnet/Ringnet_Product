@@ -69,6 +69,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+    public function getRoleUser()
+    {
+        return $this->hasOne(UserWorkspaces::class,'user_id','id');
+    }
+
     public function workspaces()
     {
         return $this->hasMany(Workspace::class);

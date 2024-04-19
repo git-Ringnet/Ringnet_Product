@@ -80,7 +80,8 @@ class HistoryImport extends Model
                         'version' => $quote->version,
                         'created_at' => Carbon::now(),
                         'workspace_id' => Auth::user()->current_workspace,
-                        'provide_id' => $getProvide->provide_id
+                        'provide_id' => $getProvide->provide_id,
+                        'user_id' => Auth::user()->id
                     ];
                     DB::table($this->table)->insert($dataHistory);
                 }

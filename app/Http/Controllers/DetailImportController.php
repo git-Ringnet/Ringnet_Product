@@ -69,8 +69,13 @@ class DetailImportController extends Controller
         $title = 'Đơn mua hàng';
         $perPage = 10;
         $import = DetailImport::where('workspace_id', Auth::user()->current_workspace)
-            ->orderBy('id', 'desc')
-            ->get();
+            ->orderBy('id', 'desc');
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $import->where('user_id', Auth::user()->id);
+            }
+        }
+        $import = $import->get();
         // ->paginate($perPage);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
@@ -119,18 +124,30 @@ class DetailImportController extends Controller
      */
     public function show(string $workspace, string $id)
     {
-        $import = DetailImport::findOrFail($id);
-        $provides = Provides::all();
-        $title = $import->quotation_number;
-        $product = QuoteImport::leftjoin('products', 'products.product_name', 'quoteimport.product_name')
-            ->where('detailimport_id', $import->id)
-            ->select('quoteimport.*', 'products.product_inventory')
-            ->get();
-        $project = Project::all();
-        $history = HistoryImport::where('detailImport_id', $id)->get();
+        // $import = DetailImport::findOrFail($id);
+        $import = DetailImport::where('id', $id);
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $import->where('user_id', Auth::user()->id);
+            }
+        }
+        $import = $import->first();
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.import.showImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename'));
+        if ($import) {
+            $provides = Provides::all();
+            $title = $import->quotation_number;
+            $product = QuoteImport::leftjoin('products', 'products.product_name', 'quoteimport.product_name')
+                ->where('detailimport_id', $import->id)
+                ->select('quoteimport.*', 'products.product_inventory')
+                ->get();
+            $project = Project::all();
+            $history = HistoryImport::where('detailImport_id', $id)->get();
+
+            return view('tables.import.showImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename'));
+        } else {
+            return redirect()->route('import.index', $workspacename)->with('warning', 'Không tìm thấy trang hợp lệ !');
+        }
     }
 
     /**
@@ -138,7 +155,17 @@ class DetailImportController extends Controller
      */
     public function edit(string $workspace, string $id)
     {
-        $import = DetailImport::findOrFail($id);
+        // $import = DetailImport::findOrFail($id);
+        $import = DetailImport::where('id', $id);
+        if (Auth::check()) {
+            if (Auth::user()->getRoleUser->roleid == 4) {
+                $import->where('user_id', Auth::user()->id);
+            }
+        }
+        $import = $import->first();
+
+        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
+        $workspacename = $workspacename->workspace_name;
         if ($import) {
             $represent = ProvideRepesent::where('provide_id', $import->provide_id)->get();
             $price_effect = DateForm::where('workspace_id', Auth::user()->current_workspace)->where('form_field', 'import')->get();
@@ -149,20 +176,21 @@ class DetailImportController extends Controller
             $id_termpay = DateForm::where('form_desc', $import->terms_pay)
                 ->where('form_field', 'termpay')
                 ->first();
+
+            $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
+            $title = $import->quotation_number;
+            $product = QuoteImport::leftjoin('products', 'products.product_name', 'quoteimport.product_name')
+                ->where('detailimport_id', $import->id)
+                ->select('quoteimport.*', 'products.product_inventory')
+                ->get();
+            $project = Project::all();
+            $history = HistoryImport::where('detailImport_id', $id)
+                ->orderBy('id', 'desc')
+                ->get();
+            return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename', 'represent', 'price_effect', 'terms_pay', 'id_priceeffect', 'id_termpay'));
+        } else {
+            return redirect()->route('import.index', $workspacename)->with('warning', 'Không tìm thấy trang hợp lệ !');
         }
-        $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
-        $title = $import->quotation_number;
-        $product = QuoteImport::leftjoin('products', 'products.product_name', 'quoteimport.product_name')
-            ->where('detailimport_id', $import->id)
-            ->select('quoteimport.*', 'products.product_inventory')
-            ->get();
-        $project = Project::all();
-        $history = HistoryImport::where('detailImport_id', $id)
-            ->orderBy('id', 'desc')
-            ->get();
-        $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
-        $workspacename = $workspacename->workspace_name;
-        return view('tables.import.editImport', compact('import', 'title', 'provides', 'product', 'project', 'history', 'workspacename', 'represent', 'price_effect', 'terms_pay', 'id_priceeffect', 'id_termpay'));
     }
 
     /**
@@ -424,7 +452,8 @@ class DetailImportController extends Controller
                     'key' => $key,
                     'provide_code' => $request->provide_code,
                     'provide_debt' => 0,
-                    'workspace_id' => Auth::user()->current_workspace
+                    'workspace_id' => Auth::user()->current_workspace,
+                    'user_id' => Auth::user()->id
                 ];
                 $new_provide = DB::table('provides')->insertGetId($data);
                 if ($new_provide) {
@@ -434,7 +463,8 @@ class DetailImportController extends Controller
                         'represent_email' => $request->provide_email,
                         'represent_phone' => $request->provide_phone,
                         'represent_address' => $request->provide_address_delivery,
-                        'workspace_id' => Auth::user()->current_workspace
+                        'workspace_id' => Auth::user()->current_workspace,
+                        'user_id' => Auth::user()->id
                     ];
                     if ($request->provide_represent != null || $request->provide_email != null || $request->provide_phone != null) {
                         // Thêm người đại diện
@@ -582,7 +612,9 @@ class DetailImportController extends Controller
     // Hiển thị tất cả Mã sản phẩm
     public function getAllProducts()
     {
-        $data = Products::where('workspace_id', Auth::user()->current_workspace)->get();
+        $data = Products::where('workspace_id', Auth::user()->current_workspace)
+            ->where('type', 1)
+            ->get();
         return $data;
     }
     // Hiển thị tên sản phẩm theo id đã chọn
@@ -827,7 +859,8 @@ class DetailImportController extends Controller
                 'represent_phone' => $request->provide_phone,
                 'represent_address' => $request->provide_address_delivery,
                 'workspace_id' => Auth::user()->current_workspace,
-                'default' => 0
+                'default' => 0,
+                'user_id' => Auth::user()->id
             ];
             if ($request->provide_represent != null || $request->provide_email != null || $request->provide_phone != null) {
                 // Thêm người đại diện
@@ -863,6 +896,7 @@ class DetailImportController extends Controller
                     'default_guest' => 0,
                     'workspace_id' => Auth::user()->current_workspace,
                     'created_at' => Carbon::now(),
+                    'user_id' => Auth::user()->id
                 ];
                 $newId = DB::table('date_form')->insertGetId($dataForm);
                 $msg = response()->json([
@@ -1119,5 +1153,98 @@ class DetailImportController extends Controller
             ]);
         }
         return false;
+    }
+
+    public function getDataImport(Request $request)
+    {
+        $data = [];
+
+        $checked = [];
+        $list = [];
+        $detailImport = DetailImport::where('id', $request->id)->first();
+        if ($detailImport) {
+            $quoteImport = QuoteImport::where('detailimport_id', $detailImport->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->get();
+            if ($quoteImport) {
+                foreach ($quoteImport as $qt) {
+                    if ($request->type == "receive") {
+                        if ($qt->receive_qty != 0) {
+                            $data['status'] = false;
+                            $data['msg'] = "Đơn nhận hàng đã được tạo";
+                            break;
+                        } else {
+                            $product = Products::where('product_name', $qt->product_name)
+                                ->where(DB::raw('COALESCE(product_inventory,0)'), '>', 0)
+                                ->where('workspace_id', Auth::user()->current_workspace)
+                                ->first();
+
+                            $productImport = QuoteImport::where('product_name', $qt->product_name)
+                                ->where('workspace_id', Auth::user()->current_workspace)
+                                ->first();
+
+                            if ($productImport) {
+                                $CBSN = ProductImport::where('quoteImport_id', $productImport->id)
+                                    ->where('workspace_id', Auth::user()->current_workspace)
+                                    ->where('receive_id', '!=', 'null')
+                                    ->first();
+                            }
+                            if ($product) {
+                                array_push($list, $product->check_seri);
+                                array_push($checked, 'disabled');
+                            } else if ($CBSN) {
+                                array_push($list, $CBSN->cbSN);
+                                array_push($checked, 'disabled');
+                            } else {
+                                array_push($list, 0);
+                                array_push($checked, 'endable');
+                            }
+                            $data['checked'] = $checked;
+                            $data['cb'] = $list;
+                            $data['status'] = true;
+                        }
+                    } else if ($request->type == "reciept") {
+                        if ($qt->reciept_qty != 0) {
+                            $data['status'] = false;
+                            $data['msg'] = "Đơn nhận hàng đã được tạo";
+                            break;
+                        } else {
+                            $count = Reciept::where('workspace_id', Auth::user()->current_workspace)->count();
+
+                            $lastReceive = Reciept::where('workspace_id', Auth::user()->current_workspace)
+                                ->orderBy('id', 'desc')
+                                ->first();
+
+                            if ($lastReceive) {
+                                $parts = explode('-', $lastReceive->number_bill);
+                                $getNumber = end($parts);
+                                $count = (int)$getNumber + 1;
+                            } else {
+                                $count = $count == 0 ? $count += 1 : $count;
+                            }
+                            if ($count < 10) {
+                                $count = "0" . $count;
+                            }
+                            $resultNumber = "SHD-" . $count;
+                            $data['resultNumber'] = $resultNumber;
+                            $data['total'] = $detailImport->total_tax;
+                            $data['status'] = true;
+                        }
+                    } else {
+                        $payment = PayOder::where('detailimport_id',$detailImport->id)->first();
+                        if($payment){
+                            $data['prePayment'] = $payment->payment;
+                        }
+                        $data['total'] = $detailImport->total_tax;
+                        $data['status'] = true;
+                        // return $request->all();
+                    }
+                }
+                $data['product'] = $quoteImport;
+                $data['quotation_number'] = $detailImport->quotation_number;
+                $data['provide_name'] = $detailImport->provide_name;
+            }
+        }
+        return $data;
     }
 }

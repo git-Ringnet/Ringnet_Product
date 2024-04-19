@@ -142,6 +142,17 @@
                                                     <div class="icon" id="icon-provide_name_display"></div>
                                                 </span>
                                             </th>
+                                            @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                <th scope="col" class="height-52">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="created_at"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Người tạo</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-created_at"></div>
+                                                    </span>
+                                                </th>
+                                            @endif
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
@@ -156,8 +167,8 @@
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="delivery_charges" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Phí nhận
-                                                            hàng</button>
+                                                            class="btn-sort text-13" type="submit">Phí vận
+                                                            chuyển</button>
                                                     </a>
                                                     <div class="icon" id="icon-delivery_charges"></div>
                                                 </span>
@@ -178,7 +189,7 @@
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="created_at" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Ngày giao
+                                                            class="btn-sort text-13" type="submit">Ngày nhận
                                                             hàng</button>
                                                     </a>
                                                     <div class="icon" id="icon-created_at"></div>
@@ -236,6 +247,14 @@
                                                         {{ $item->getQuotation->provide_name }}
                                                     @endif
                                                 </td>
+                                                @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                    <td class=" text-13-black">
+                                                        @if ($item->getNameUser)
+                                                            {{ $item->getNameUser->name }}
+                                                        @endif
+                                                    </td>
+                                                @endif
+
                                                 <td class=" text-13-black">
                                                     {{ $item->shipping_unit }}
                                                 </td>

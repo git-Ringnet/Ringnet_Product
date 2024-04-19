@@ -45,23 +45,6 @@
                             </button>
                         </a>
 
-                        {{-- <div class="dropdown">
-                            <button type="button" data-toggle="dropdown"
-                                class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 dropdown-toggle">
-                                <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
-                                        fill="#6D7075"></path>
-                                </svg>
-                                <span class="text-btnIner-primary ml-2">In</span>
-                            </button>
-                            <div class="dropdown-menu" style="z-index: 9999;">
-                                <a class="dropdown-item text-btnIner" href="#">Xuất Excel</a>
-                                <a class="dropdown-item text-btnIner border-top" href="#">Xuất PDF</a>
-                            </div>
-                        </div> --}}
-
                         <a href="#" onclick="getAction(this)">
                             <button name="action" value="action_2" type="submit"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
@@ -152,78 +135,6 @@
                         </div>
                     </section>
                 </div>
-                {{-- <div class="ml-4">
-                    <span class="text-perpage">
-                        <section class="content">
-                            <div class="container-fluided">
-                                <div class="d-flex">
-                                    <button type="button" data-toggle="dropdown"
-                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                        id="addRowTable" style="margin-right:10px">
-                                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                            width="12" height="12" viewBox="0 0 18 18"
-                                            fill="none">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                        <span class="text-table">Thêm sản phẩm</span>
-                                    </button>
-
-                                    <button type="button" data-toggle="dropdown"
-                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                        id="" style="margin-right:10px">
-                                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                            width="12" height="12" viewBox="0 0 18 18"
-                                            fill="none">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                        <span class="text-table">Thêm đầu mục</span>
-                                    </button>
-
-                                    <button type="button" data-toggle="dropdown"
-                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
-                                        id="" style="margin-right:10px">
-                                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg"
-                                            width="12" height="12" viewBox="0 0 18 18"
-                                            fill="none">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                        <span class="text-table">Thêm hàng loạt</span>
-                                    </button>
-
-                                    <button type="button" class="btn-option py-1 px-2 bg-white border-0">
-                                        <svg width="24" height="24" viewBox="0 0 24 24"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14C20.1046 14 21 13.1046 21 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12Z"
-                                                fill="#42526E"></path>
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
-                                                fill="#42526E"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </section>
-                    </span>
-                </div> --}}
                 <?php $import = '123'; ?>
                 <x-formsynthetic :import="$import"></x-formsynthetic>
             </section>
@@ -269,27 +180,8 @@
                                             <span
                                                 class="text-13-black">{{ $value->quotation_number == null ? $value->id : $value->quotation_number }}</span>
                                         </a>
-                                        <!-- <a type="button" data-toggle="modal" data-target="#" >
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                                    <path d="M4.15625 1.75006C2.34406 1.75006 0.875 3.21912 0.875 5.03131V9.84377C0.875 11.656 2.34406 13.125 4.15625 13.125H8.96884C10.781 13.125 12.2501 11.656 12.2501 9.84377V7.00006C12.2501 6.63763 11.9563 6.34381 11.5938 6.34381C11.2314 6.34381 10.9376 6.63763 10.9376 7.00006V9.84377C10.9376 10.9311 10.0561 11.8125 8.96884 11.8125H4.15625C3.06894 11.8125 2.1875 10.9311 2.1875 9.84377V5.03131C2.1875 3.944 3.06894 3.06256 4.15625 3.06256H6.125C6.48743 3.06256 6.78125 2.76874 6.78125 2.40631C6.78125 2.04388 6.48743 1.75006 6.125 1.75006H4.15625Z" fill="black"/>
-                                                    <path d="M10.6172 4.54529L9.37974 3.30785L5.7121 6.97547C5.05037 7.6372 4.5993 8.48001 4.41577 9.3977C4.40251 9.46402 4.46099 9.52247 4.52733 9.50926C5.44499 9.32568 6.2878 8.87462 6.94954 8.21291L10.6172 4.54529Z" fill="black"/>
-                                                    <path d="M11.7739 1.27469C11.608 1.21937 11.4249 1.26257 11.3013 1.38627L10.3077 2.37977L11.5452 3.61721L12.5387 2.62371C12.6625 2.5 12.7056 2.31702 12.6503 2.15105C12.5124 1.73729 12.1877 1.41261 11.7739 1.27469Z" fill="black"/>
-                                                </svg>
-                                             </span>
-                                        </a> -->
                                     </li>
                                 @endforeach
-                                <!-- <a type="button"
-                                    class="d-flex align-items-center p-2 position-sticky addGuestNew mt-2"
-                                    data-toggle="modal" data-target="#guestModal" style="bottom: 0;border-radius:4px;background-color:#F2F2F2;">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                            <path d="M8.75 3C8.75 2.58579 8.41421 2.25 8 2.25C7.58579 2.25 7.25 2.58579 7.25 3V7.25H3C2.58579 7.25 2.25 7.58579 2.25 8C2.25 8.41421 2.58579 8.75 3 8.75H7.25V13C7.25 13.4142 7.58579 13.75 8 13.75C8.41421 13.75 8.75 13.4142 8.75 13V8.75H13C13.4142 8.75 13.75 8.41421 13.75 8C13.75 7.58579 13.4142 7.25 13 7.25H8.75V3Z" fill="#282A30"/>
-                                        </svg>
-                                    </span>
-                                    <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm đơn mua hàng</span>
-                                </a> -->
                             </ul>
                         </div>
                     </div>
@@ -299,7 +191,8 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
-                                <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                <input type="text"
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                     style="flex:2;" readonly id="provide_name"
                                     value="@isset($yes){{ $show_receive['provide_name'] }}@endisset"
                                     placeholder="Chọn thông tin" />
@@ -308,7 +201,8 @@
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
-                                <input type="text" class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                <input type="text"
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                     style="flex:2;" id="represent" readonly name="represent"
                                     placeholder="Chọn thông tin" />
                             </li>
@@ -317,15 +211,16 @@
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số hóa đơn</span>
                                 <input type="text" placeholder="Chọn thông tin" name="number_bill" required
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                    style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
                             </li>
 
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày hóa đơn</span>
                                 <input id="datePicker" type="text" placeholder="Chọn thông tin"
-                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2" style="flex:2;"
-                                    name="" value="{{ date('d/m/Y') }}" />
+                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                    style="flex:2;" name="" value="{{ date('d/m/Y') }}" />
                                 <input type="hidden" name="date_bill" value="{{ date('Y-m-d') }}"
                                     id="hiddenDateInput">
                             </li>
@@ -423,12 +318,12 @@
                     data['history'].forEach(
                         element => {
                             var tr = `
-                                        <tr>
-                                            <td>` + element.product_name + `</td>
-                                            <td>` + formatCurrency(element.price_export) + `</td>
-                                            <td>` + (element.product_tax == 99 ? "NOVAT" : element.product_tax + "%") + `</td>
-                                            <td>` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
-                                        </tr> `;
+                                <tr>
+                                    <td>` + element.product_name + `</td>
+                                    <td>` + formatCurrency(element.price_export) + `</td>
+                                    <td>` + (element.product_tax == 99 ? "NOVAT" : element.product_tax + "%") + `</td>
+                                    <td>` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
+                                </tr> `;
                             $('#recentModal .modal-body tbody').append(tr);
                         })
                 }
@@ -634,7 +529,7 @@
             },
             success: function(data) {
                 if (!data['status']) {
-                    showNotification('warning', 'Mã nhận hàng đã tồn tại')
+                    showNotification('warning', 'Số hóa đơn đã tồn tại')
                 } else {
                     $('form')[1].submit();
                 }

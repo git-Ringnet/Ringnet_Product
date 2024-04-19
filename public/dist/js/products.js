@@ -72,11 +72,11 @@ function showListProductCode() {
     });
 }
 
-// function showListProductName() {
-//     $("#inputcontent tbody").on("click", ".searchProductName", function () {
-//         $(this).closest("tr").find("#listProductName").show();
-//     });
-// }
+function showListProductName() {
+    $("#inputcontent tbody").on("click", ".searchProductName", function () {
+        $(this).closest("tr").find("#listProductName").show();
+    });
+}
 
 //ẩn danh sách Mã sản phẩm khi clich ra ngoài
 $(document).click(function (event) {
@@ -516,7 +516,6 @@ function createModal(stt) {
     </div>`;
     $("#list_modal").append(newModal);
     createRowInput("seri");
-    // <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 }
 
 function deleteRow() {
@@ -659,4 +658,44 @@ function checkProduct() {
     }
 
     return hasProducts;
+}
+
+// Checkbox
+function getDataCheckbox(element) {
+    var isChecked = $(element).is(':checked');
+    if (isChecked) {
+        $(element).closest('tr').find('input[name^="cbSeri"]').val(1)
+        // $(element).closest('tr').find('a').show()
+        $(element).closest('tr').find('a').css('opacity', 1)
+    } else {
+        $(element).closest('tr').find('input[name^="cbSeri"]').val(0)
+        // $(element).closest('tr').find('a').hide();
+        $(element).closest('tr').find('a').css('opacity', 0)
+        var id = $(element).closest('tr').find('.duongdan').attr('data-target')
+        if (id) {
+            $(id).find('#table_SNS tbody .form-control.w-100').val('')
+        }
+    }
+}
+
+// Hàm kiểm tra seri trùng
+function checkDuplicateSerialNumbers(serialNumbers) {
+    var uniqueSerialNumbers = new Set();
+    for (var i = 0; i < serialNumbers.length; i++) {
+        var serial = serialNumbers[i];
+        if (serialNumbers[i] !== "") {
+            if (uniqueSerialNumbers.has(serial)) {
+                return serial;
+            } else {
+                uniqueSerialNumbers.add(serial);
+            }
+        }
+    }
+    return null;
+}
+
+
+
+function getAction(e) {
+    $('#getAction').val($(e).find('button').val());
 }

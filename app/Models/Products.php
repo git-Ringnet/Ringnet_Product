@@ -81,6 +81,7 @@ class Products extends Model
                     'workspace_id' => Auth::user()->current_workspace,
                     'type' => 1,
                     'created_at' => Carbon::now(),
+                    'user_id' => Auth::user()->id
                 ];
                 $product_id =  DB::table($this->table)->insert($product);
             }
@@ -114,6 +115,7 @@ class Products extends Model
                 'workspace_id' => Auth::user()->current_workspace,
                 'product_tax' => $data['product_tax'],
                 'created_at' => Carbon::now(),
+                'user_id' => Auth::user()->id
             ];
             if ($data['type_product'] == 1) {
                 $product['product_type'] = $data['product_type'];
@@ -210,7 +212,8 @@ class Products extends Model
                         'product_tax' => $getProductName->product_tax,
                         'product_inventory' => $item->product_qty,
                         'check_seri' => $item->cbSN,
-                        'workspace_id' => Auth::user()->current_workspace
+                        'workspace_id' => Auth::user()->current_workspace,
+                        'user_id' => Auth::user()->id
                     ];
                     $product_id = DB::table($this->table)->insertGetId($dataProduct);
                 }
@@ -324,7 +327,7 @@ class Products extends Model
                         $result['product_name'] = $checkProduct->product_name;
                         $result['product_tax'] = $checkProduct->product_tax;
                         $result['status'] = false;
-                        $result['msg'] = "Sản phẩm <b>" . $checkProduct->product_name . " </b>sai thuế sản phẩm" . ($checkProduct->product_tax == 99 ? "NOVAT" : $checkProduct->product_tax);
+                        $result['msg'] = "Thuế nhập vào không trùng khớp với thuế của sản phẩm, thuế của sản phẩm <b>" . $checkProduct->product_name . " </b>là " . ($checkProduct->product_tax == 99 ? "NOVAT" : $checkProduct->product_tax . "%");
                         break;
                     }
                 }

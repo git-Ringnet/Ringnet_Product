@@ -65,13 +65,12 @@ class ProductImport extends Model
                 ->where('product_name', $data['product_name'][$i])
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
-
             // Lưu thông tin bảo hành vào sản phẩm
             $productGuarantee = Products::where('product_name', $data['product_name'][$i])
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
 
-            if ($columQuote == "receive_qty" && $productGuarantee && $productGuarantee->product_guarantee == null && $productGuarantee->type == 1) {
+            if (!isset($data['id_import']) && $columQuote == "receive_qty" && $productGuarantee && $productGuarantee->product_guarantee == null && $productGuarantee->type == 1) {
                 $productGuarantee->product_guarantee = $data['product_guarantee'][$i];
                 $productGuarantee->save();
             }
@@ -121,6 +120,7 @@ class ProductImport extends Model
                             'cbSN' => $cbSN,
                             'created_at' => Carbon::now(),
                             'workspace_id' => Auth::user()->current_workspace,
+                            'user_id' => Auth::user()->id,
                             // 'product_guarantee' => $data['product_guarantee'][$i]
                         ];
                     }
@@ -149,5 +149,10 @@ class ProductImport extends Model
             }
         }
         return $status;
+    }
+
+    public function addProductQuickAction($data, $id)
+    {
+        $status = false;
     }
 }

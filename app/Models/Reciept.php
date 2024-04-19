@@ -26,6 +26,11 @@ class Reciept extends Model
     {
         return $this->hasOne(Provides::class, 'id', 'provide_id');
     }
+    public function getNameUser()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
     public function getQuotation()
     {
         return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
@@ -52,7 +57,8 @@ class Reciept extends Model
                 'status' => 1,
                 'price_total' => 0,
                 'created_at' => Carbon::now(),
-                'workspace_id' => Auth::user()->current_workspace
+                'workspace_id' => Auth::user()->current_workspace,
+                'user_id' => Auth::user()->id
             ];
             $reciept_id = DB::table($this->table)->insertGetId($dataReciept);
             for ($i = 0; $i < count($data['product_name']); $i++) {

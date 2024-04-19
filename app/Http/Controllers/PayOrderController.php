@@ -38,8 +38,14 @@ class PayOrderController extends Controller
         $perPage = 10;
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        $payment = PayOder::where('workspace_id', Auth::user()->current_workspace)->orderBy('id', 'desc')
-        ->get();
+        $payment = PayOder::where('pay_order.workspace_id', Auth::user()->current_workspace)->orderBy('pay_order.id', 'desc');
+        if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
+            $payment->join('detailimport', 'detailimport.id', 'pay_order.detailimport_id')
+                ->where('detailimport.user_id', Auth::user()->id);
+        }
+        $payment->select('pay_order.*');
+
+        $payment = $payment->get();
         // ->paginate($perPage);
         $today = Carbon::now();
         // dd($payment[0]->formatDate($payment[0]->payment_date)->diffInDays($today));
@@ -59,9 +65,14 @@ class PayOrderController extends Controller
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->where('detailimport.status_pay', '=', 0)
             ->distinct()
-            ->orderBy('id', 'desc')
-            ->select('detailimport.quotation_number', 'detailimport.id')
-            ->get();
+            ->orderBy('id', 'desc');
+
+        if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
+            $reciept->where('detailimport.user_id', Auth::user()->id);
+        }
+
+        $reciept->select('detailimport.quotation_number', 'detailimport.id');
+        $reciept = $reciept->get();
         // $reciept = Reciept::where('status', '=', 1)->get();
         return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename'));
     }
@@ -71,14 +82,19 @@ class PayOrderController extends Controller
      */
     public function store(Request $request)
     {
-        $id = $request->detailimport_id;
+        // dd($request->all());
+        if (isset($request->id_import)) {
+            $id = $request->id_import;
+        } else {
+            $id = $request->detailimport_id;
+        }
+
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         // Tạo sản phẩm theo đơn nhận hàng
         $this->productImport->addProductImport($request->all(), $id, 'payOrder_id', 'payment_qty');
         // Tạo mới thanh toán hóa đơn
         $payment = $this->payment->addNewPayment($request->all(), $id);
-
 
         if ($payment) {
             $dataUserFlow = [
@@ -92,7 +108,11 @@ class PayOrderController extends Controller
 
             // Lưu lịch sử
             $this->historyPayment->addHistoryPayment($request->all(), $payment);
-            return redirect()->route('paymentOrder.index', $workspacename)->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
+            if (isset($request->id_import)) {
+                return redirect()->route('import.index', $workspacename)->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
+            } else {
+                return redirect()->route('paymentOrder.index', $workspacename)->with('msg', ' Tạo mới thanh toán hóa đơn thành công !');
+            }
         } else {
             return redirect()->route('paymentOrder.index', $workspacename)->with('msg', 'Không tìm thấy !');
         }

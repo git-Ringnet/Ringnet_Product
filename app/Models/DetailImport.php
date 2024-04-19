@@ -58,7 +58,10 @@ class DetailImport extends Model
     {
         return $this->hasOne(PayOder::class, 'detailimport_id', 'id');
     }
-
+    public function getNameUser()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 
     public function getAllImport()
     {
@@ -87,7 +90,6 @@ class DetailImport extends Model
         $total_tax = $total_tax + $total;
         $dataImport = [
             'provide_id' => $data['provides_id'],
-            // 'project_id' => isset($data['project_id']) ? $data['project_id'] : 1,
             'project_id' => 1,
             'user_id' => Auth::user()->id,
             'quotation_number' => $data['quotation_number'],
@@ -107,7 +109,8 @@ class DetailImport extends Model
             'represent_id' => $data['represent_id'],
             'provide_name' => isset($data['provides_name']) ? $data['provides_name'] : "",
             'represent_name' => isset($data['represent_name']) ? $data['represent_name'] : "",
-            'status_debt' => 0
+            'status_debt' => 0,
+            'user_id' => Auth::user()->id
         ];
         $checkQuotation = DetailImport::where('provide_id', $data['provides_id'])
             ->where('quotation_number', $data['quotation_number'])->first();

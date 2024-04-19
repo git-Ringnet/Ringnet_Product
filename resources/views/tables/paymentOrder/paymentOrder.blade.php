@@ -142,6 +142,17 @@
                                                     <div class="icon" id="icon-provide_name_display"></div>
                                                 </span>
                                             </th>
+                                            @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                <th scope="col" class="height-52">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="created_at"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Người tạo</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-created_at"></div>
+                                                    </span>
+                                                </th>
+                                            @endif
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
@@ -230,6 +241,13 @@
                                                         {{ $item->getQuotation->provide_name }}
                                                     @endif
                                                 </td>
+                                                @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                    <td class="py-2 text-13-black">
+                                                        @if ($item->getNameUser)
+                                                            {{ $item->getNameUser->name }}
+                                                        @endif
+                                                    </td>
+                                                @endif
                                                 <td class="py-2 text-13-black text-center">
                                                     @if ($item->status == 1)
                                                         @if ($item->payment > 0)

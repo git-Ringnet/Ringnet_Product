@@ -33,6 +33,11 @@ class Receive_bill extends Model
         return $this->hasOne(Provides::class, 'id', 'provide_id');
     }
 
+    public function getNameUser()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
     public function getAttachment($name)
     {
         return $this->hasMany(Attachment::class, 'table_id', 'id')->where('table_name', $name)->get();
@@ -44,6 +49,27 @@ class Receive_bill extends Model
         $total = 0;
         $total_tax = 0;
         $sum = 0;
+        if (isset($data['id_import'])) {
+            $count = Receive_bill::where('workspace_id', Auth::user()->current_workspace)->count();
+            $lastReceive = Receive_bill::where('workspace_id', Auth::user()->current_workspace)
+                ->orderBy('id', 'desc')
+                ->first();
+            if ($lastReceive) {
+                $parts = explode('-', $lastReceive->delivery_code);
+                $getNumber = end($parts);
+                $count = (int)$getNumber + 1;
+            } else {
+                $count = $count == 0 ? $count += 1 : $count;
+            }
+            if ($count < 10) {
+                $count = "0" . $count;
+            }
+            $resultNumber = "MNH-" . $count;
+            $delivery_code = $resultNumber;
+        } else {
+            $delivery_code =  isset($data['delivery_code']) ? $data['delivery_code'] : "";
+        }
+
         $detail =  DetailImport::findOrFail($id);
         if ($detail) {
             $dataReceive = [
@@ -54,7 +80,8 @@ class Receive_bill extends Model
                 'status' => 1,
                 'created_at' => isset($data['received_date']) ? $data['received_date'] : Carbon::now(),
                 'workspace_id' => Auth::user()->current_workspace,
-                'delivery_code' => isset($data['delivery_code']) ? $data['delivery_code'] : ""
+                'delivery_code' => $delivery_code,
+                'user_id' => Auth::user()->id
             ];
             $receive_id = DB::table($this->table)->insertGetId($dataReceive);
             for ($i = 0; $i < count($data['product_name']); $i++) {
@@ -87,7 +114,7 @@ class Receive_bill extends Model
                     $sum =  round($total_tax) + round($total);
                 }
             }
-            // dd($sum);
+
             DB::table('receive_bill')->where('id', $receive_id)->update([
                 'total_tax' => $sum
             ]);
@@ -96,7 +123,6 @@ class Receive_bill extends Model
                 $detail->status = 2;
                 $detail->status_debt = 1;
                 $detail->save();
-
 
                 // Cập nhật dư nợ nhà cung cấp
                 $this->calculateDebt($detail->provide_id, $sum);
@@ -111,10 +137,13 @@ class Receive_bill extends Model
         $receive = Receive_bill::where('id', $id)->first();
         if ($receive && $receive->status == 1) {
             $dataUpdate = [
-                'shipping_unit' => $data['shipping_unit'],
-                'delivery_charges' => $data['delivery_charges'] == null ? 0 : str_replace(',', '', $data['delivery_charges']),
                 'status' => 2,
             ];
+            if (!isset($data['id_import'])) {
+                $dataUpdate['shipping_unit'] = $data['shipping_unit'];
+                $dataUpdate['delivery_charges'] = $data['delivery_charges'] == null ? 0 : str_replace(',', '', $data['delivery_charges']);
+            }
+
             DB::table($this->table)->where('id', $receive->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->update($dataUpdate);

@@ -47,6 +47,7 @@ function updateProductSN() {
 
 // Kiểm tra số lượng
 function checkQty(value, odlQty) {
+    console.log(odlQty);
     if (
         $(value)
             .val()
@@ -86,10 +87,6 @@ function createRowInput(name) {
         $(addRow[i])
             .off("click")
             .on("click", function () {
-                // var SLProduct, SLTr;
-                // SLProduct = 1;
-                // SLTr = $(addSNBtns[i]).closest('.modal-dialog').find('#table_SNS tbody tr').length;
-
                 var modal_body = $(this)
                     .closest(".modal-content")
                     .find(".modal-body");
@@ -403,10 +400,12 @@ jQuery(document).ready(function ($) {
             document.getElementById("mySidenav").style.width = "0";
             document.getElementById("main").style.marginRight = "0";
             document.getElementById("show_info_Guest").style.opacity = "0";
+            document.getElementById("title--fixed").style.right = "0";
             countClick += 1;
         } else if (countClick === 2) {
-            document.getElementById("mySidenav").style.width = "300px";
-            document.getElementById("main").style.marginRight = "300px";
+            document.getElementById("mySidenav").style.width = "310px";
+            document.getElementById("main").style.marginRight = "310px";
+            document.getElementById("title--fixed").style.right = "310px";
             document.getElementById("show_info_Guest").style.opacity = "1";
             countClick = 1;
         }

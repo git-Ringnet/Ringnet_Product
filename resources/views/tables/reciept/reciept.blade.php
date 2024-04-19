@@ -152,6 +152,17 @@
                                                     <div class="icon" id="icon-provide_name_display"></div>
                                                 </span>
                                             </th>
+                                            @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                <th scope="col" class="height-52">
+                                                    <span class="d-flex justify-content-start">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Người tạo</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                            @endif
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
@@ -216,6 +227,14 @@
                                                     @if ($item->getQuotation)
                                                         {{ $item->getQuotation->provide_name }}
                                                     @endif
+                                                </td>
+                                                @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                    <td class="py-2 text-13-black">
+                                                        @if ($item->getNameUser)
+                                                            {{ $item->getNameUser->name }}
+                                                        @endif
+                                                    </td>
+                                                @endif
                                                 <td class="py-2 text-13-black text-center">
                                                     @if ($item->status == 1)
                                                         <span style="color: #858585">Bản nháp</span>

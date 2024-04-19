@@ -67,7 +67,11 @@ class QuoteImport extends Model
                 'warehouse_id' => 1,
                 'version' => 1,
                 'created_at' => Carbon::now(),
-                'workspace_id' => Auth::user()->current_workspace
+                'workspace_id' => Auth::user()->current_workspace,
+                'user_id' => Auth::user()->id,
+                'receive_qty' => 0,
+                'reciept_qty' => 0,
+                'payment_qty' => 0
             ];
             $quote_id = DB::table($this->table)->insertGetId($dataQuote);
             $getProvide = DetailImport::where('id', $id)->first();
@@ -86,7 +90,8 @@ class QuoteImport extends Model
                     'version' => 1,
                     'created_at' => Carbon::now(),
                     'workspace_id' => Auth::user()->current_workspace,
-                    'provide_id' => $getProvide->provide_id
+                    'provide_id' => $getProvide->provide_id,
+                    'user_id' => Auth::user()->id
                 ];
                 DB::table('history_import')->insert($dataHistory);
             }
@@ -162,7 +167,10 @@ class QuoteImport extends Model
                     'warehouse_id' => 1,
                     'version' => 1,
                     'created_at' => Carbon::now(),
-                    'workspace_id' => Auth::user()->current_workspace
+                    'workspace_id' => Auth::user()->current_workspace,
+                    'receive_qty' => 0,
+                    'reciept_qty' => 0,
+                    'payment_qty' => 0
                 ];
                 DB::table($this->table)->insert($dataQuote);
             }

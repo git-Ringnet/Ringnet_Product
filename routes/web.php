@@ -86,6 +86,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/deleteForm', [DetailImportController::class, 'deleteForm'])->name('deleteForm');
     Route::get('/setDefault', [DetailImportController::class, 'setDefault'])->name('setDefault');
     Route::get('/showData', [DetailImportController::class, 'showData'])->name('showData');
+    Route::get('/getDataImport', [DetailImportController::class, 'getDataImport'])->name('getDataImport');
 });
 
 

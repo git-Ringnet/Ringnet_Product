@@ -40,9 +40,15 @@ class Provides extends Model
         return $this->hasOne(PayOder::class, 'provide_id', 'id');
     }
 
+    public function getNameUser()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
     public function getAllProvide()
     {
-        return DB::table($this->table)->where('workspace_id', Auth::user()->current_workspace)->get();
+        // return DB::table($this->table)->where('workspace_id', Auth::user()->current_workspace)->get();
+        return Provides::where('workspace_id', Auth::user()->current_workspace)->get();
     }
     public function addProvide($data)
     {
@@ -80,7 +86,8 @@ class Provides extends Model
                 'provide_code' => $data['provide_code'],
                 'key' => $key,
                 'provide_debt' => 0,
-                'workspace_id' => Auth::user()->current_workspace
+                'workspace_id' => Auth::user()->current_workspace,
+                'user_id' => Auth::user()->id
             ];
             $provide_id =  DB::table($this->table)->insertGetId($dataProvide);
             if ($provide_id) {

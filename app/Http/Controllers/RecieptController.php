@@ -37,9 +37,14 @@ class RecieptController extends Controller
     {
         $title = "Hóa đơn mua hàng";
         $perPage = 10;
-        $reciept = Reciept::where('workspace_id', Auth::user()->current_workspace)
-            ->orderBy('id', 'desc')
-            ->get();
+        $reciept = Reciept::where('reciept.workspace_id', Auth::user()->current_workspace)
+            ->orderBy('reciept.id', 'desc');
+        if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
+            $reciept->join('detailimport', 'detailimport.id', 'reciept.detailimport_id')
+                ->where('detailimport.user_id', Auth::user()->id);
+        }
+        $reciept->select('reciept.*');
+        $reciept = $reciept->get();
         // ->paginate($perPage);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
@@ -59,9 +64,13 @@ class RecieptController extends Controller
             ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.reciept_qty,0)'))
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->distinct()
-            ->orderBy('id', 'desc')
-            ->select('detailimport.quotation_number', 'detailimport.id')
-            ->get();
+            ->orderBy('id', 'desc');
+        if (Auth::check() && Auth::user()->getRoleUser->roleid == 4) {
+            $reciept->where('detailimport.user_id', Auth::user()->id);
+        }
+        $reciept->select('detailimport.quotation_number', 'detailimport.id');
+        $reciept = $reciept->get();
+
         return view('tables.reciept.insertReciept', compact('title', 'reciept', 'workspacename'));
     }
 
@@ -70,7 +79,12 @@ class RecieptController extends Controller
      */
     public function store(Request $request)
     {
-        $id = $request->detailimport_id;
+        // dd($request->all());
+        if (isset($request->id_import)) {
+            $id = $request->id_import;
+        } else {
+            $id = $request->detailimport_id;
+        }
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         // Tạo sản phẩm theo đơn nhận hàng
@@ -98,15 +112,11 @@ class RecieptController extends Controller
                 ];
 
                 DB::table('user_flow')->insert($dataUserFlow);
-                // $history = History::leftJoin('history_import', 'history_import.id', 'history.history_import')
-                //     // ->leftJoin('products_import', 'products_import.quoteImport_id', 'history_import.quoteImport_id')
-                //     // ->leftJoin('reciept', 'reciept.id', 'products_import.reciept_id')
-                //     ->where('history.detailimport_id', $id)
-                //     // ->where('reciept.id', $reciept_id)
-                //     ->select('history.*')
-                //     ->get();
-                // dd($history);
-                return redirect()->route('reciept.index', $workspacename)->with('msg', 'Xác nhận hóa đơn thành công !');
+                if (isset($request->id_import)) {
+                    return redirect()->route('import.index', $workspacename)->with('msg', 'Xác nhận hóa đơn thành công !');
+                } else {
+                    return redirect()->route('reciept.index', $workspacename)->with('msg', 'Xác nhận hóa đơn thành công !');
+                }
             }
         } else {
             return redirect()->route('reciept.index', $workspacename)->with('warning', 'Hóa đơn mua hàng đã đươc tạo hết !');
