@@ -173,7 +173,7 @@
                                         class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
                                 </div>
                                 @if ($product->getSerialNumber)
-                                    @if (count($product->getSerialNumber) == 0)
+                                    @if (count($product->getSerialNumber) == 0 && $product->product_inventory == 0)
                                         <div class="d-flex align-items-center height-60-mobile">
                                             <div class="title-info py-2 border border-left-0 height-100">
                                                 <p class="p-0 m-0 margin-left32 text-13">Quản lý Serial Number</p>
