@@ -564,7 +564,13 @@
                                                 @endphp
                                                 @foreach ($sumSales as $sales)
                                                     <tr>
-                                                        <td>{{ $sales->name }}</td>
+                                                        <td>
+                                                            <?php if ($sales->name) {
+                                                                echo $sales->name;
+                                                            } else {
+                                                                echo 'Admin';
+                                                            } ?>
+                                                        </td>
                                                         <td>
                                                             {{ number_format($sales->price_total_sum) }}
                                                         </td>
@@ -827,7 +833,7 @@
         legendHTML +=
             '<div class="d-flex align-items-center my-2"><div class="border-radius-chart mr-2" style="background:' +
             dataset.backgroundColor[index] +
-            '"></div><div class="d-flex justify-content-between w-100"><span class="legend-label text-wrap">' +
+            '"></div><div class="d-flex justify-content-between w-100 align-items-center"><span class="legend-label text-wrap">' +
             label +
             '</span><span>' + 'x' + dataset.data[index] + '</span></div></div>';
     });
@@ -1124,7 +1130,6 @@
                     endDate: endDate
                 },
                 success: function(data) {
-                    console.log(data);
                     $('#tongSoDon').text(data.tongSoDon);
                     $('#soDonGiao').text(data.soDonGiao);
                     $('#soDonDaXuat').text(data.soDonDaXuat);
@@ -1196,7 +1201,7 @@
                                     .price_total_sum);
                             });
                             var row = '<tr>' +
-                                '<td>' + sale.name + '</td>' +
+                                '<td>' + (sale.name == null ? 'Admin' : sale.name) + '</td>' +
                                 '<td>' + formatCurrency(sale
                                     .price_total_sum) + '</td>' +
                                 '<td>' + (sale.price_total_sum /
