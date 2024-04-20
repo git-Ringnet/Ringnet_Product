@@ -421,7 +421,13 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
     align-items: center;
     height: 60px;
 }
-
+.content-filter-all{
+    position: fixed;
+    top: 61px;
+    padding-left: 250px;
+    z-index: 10000;
+    width: 100%;
+}
 .content__heading--left span:first-child {
     padding-right: 5px;
     font-weight: 600;

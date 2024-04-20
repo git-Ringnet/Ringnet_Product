@@ -157,6 +157,18 @@ class DeliveryController extends Controller
                     'enable_remote' => false,
 
                 ]);
+            if (Auth::user()->current_workspace == 2) {
+                $pdf = Pdf::loadView('pdf.delivery-ringnet', compact('data'))
+                    ->setPaper('A4', 'portrait')
+                    ->setOptions([
+                        'defaultFont' => 'sans-serif',
+                        'dpi' => 100,
+                        'isHtml5ParserEnabled' => true,
+                        'isPhpEnabled' => true,
+                        'enable_remote' => false,
+                    ]);
+                return $pdf->download('delivery-ringnet.pdf');
+            }
             return $pdf->download('delivery.pdf');
         } else {
             // Nếu không có session export_id, chuyển hướng hoặc xử lý theo nhu cầu của bạn

@@ -143,7 +143,7 @@
     </style>
 </head>
 
-<body style="padding-top:100px;padding-left: 7.5%; position: relative;">
+<body style="padding-top:50px;padding-left: 7.5%; position: relative;">
     <p style="text-indent: 0px;line-height: 1px;text-align: left;"></p>
     <p style="text-indent: 0px;text-align: left;"><br></p>
     {{-- <hr style="width:92%;opacity: .5;"> --}}

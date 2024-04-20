@@ -114,7 +114,18 @@ class PdfController extends Controller
                 'isPhpEnabled' => true,
                 'enable_remote' => false,
             ]);
-        // dd($billSale);
+        if (Auth::user()->current_workspace == 2) {
+            $pdf = Pdf::loadView('pdf.delivery-ringnet', compact('data'))
+                ->setPaper('A4', 'portrait')
+                ->setOptions([
+                    'defaultFont' => 'sans-serif',
+                    'dpi' => 100,
+                    'isHtml5ParserEnabled' => true,
+                    'isPhpEnabled' => true,
+                    'enable_remote' => false,
+                ]);
+            return $pdf->download('delivery-ringnet.pdf');
+        }
         return $pdf->download('delivery.pdf');
         // return view('pdf.delivery', compact('data'));
     }
@@ -189,7 +200,18 @@ class PdfController extends Controller
                 'enable_remote' => false,
 
             ]);
-        // dd($billSale);
+        if (Auth::user()->current_workspace == 2) {
+            $pdf = Pdf::loadView('pdf.delivery-ringnet', compact('data'))
+                ->setPaper('A4', 'portrait')
+                ->setOptions([
+                    'defaultFont' => 'sans-serif',
+                    'dpi' => 100,
+                    'isHtml5ParserEnabled' => true,
+                    'isPhpEnabled' => true,
+                    'enable_remote' => false,
+                ]);
+            return $pdf->download('delivery-ringnet.pdf');
+        }
         return $pdf->download('billSale.pdf');
         // return view('pdf.delivery', compact('data'));
     }
@@ -270,6 +292,18 @@ class PdfController extends Controller
                 'enable_remote' => false,
 
             ]);
+        if (Auth::user()->current_workspace == 2) {
+            $pdf = Pdf::loadView('pdf.delivery-ringnet', compact('data'))
+                ->setPaper('A4', 'portrait')
+                ->setOptions([
+                    'defaultFont' => 'sans-serif',
+                    'dpi' => 100,
+                    'isHtml5ParserEnabled' => true,
+                    'isPhpEnabled' => true,
+                    'enable_remote' => false,
+                ]);
+            return $pdf->download('delivery-ringnet.pdf');
+        }
         return $pdf->download('payExport.pdf');
     }
 }
