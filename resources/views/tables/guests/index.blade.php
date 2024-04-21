@@ -136,6 +136,17 @@
                                         <th class="border-0" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
+                                                    data-sort-by="" data-sort-type="DESC">
+                                                    <button class="btn-sort" type="submit">
+                                                        <span class="text-13">Người tạo</span>
+                                                    </button>
+                                                </a>
+                                                <div class="icon" id="icon-"></div>
+                                            </span>
+                                        </th>
+                                        <th class="border-0" scope="col">
+                                            <span class="d-flex justify-content-start">
+                                                <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_code" data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
                                                         <span class="text-13">Mã số thuế</span>
@@ -207,6 +218,7 @@
                                                 <a
                                                     href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
                                             </td>
+                                            <td class="text-13-black">{{ $item->name }}</td>
                                             <td class="text-13-black">{{ $item->guest_code }}</td>
                                             {{-- <td class="text-13-black">{{ $item->guest_email }}</td>
                                             <td class="text-13-black">{{ $item->guest_phone }}</td> --}}

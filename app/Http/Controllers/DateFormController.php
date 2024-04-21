@@ -81,6 +81,7 @@ class DateFormController extends Controller
                 'form_field' => $request->name,
                 'form_name' => $request->inputName,
                 'form_desc' => $request->inputDesc,
+                'user_id' => Auth::user()->id,
                 'workspace_id' => Auth::user()->current_workspace,
             ];
             $new_date_form = $this->date_form->createDateForm($data);

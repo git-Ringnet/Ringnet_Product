@@ -606,6 +606,7 @@ class DetailExportController extends Controller
                 $key = isset($request->key) ? $request->key : $this->generateKey($request->guest_name_display);
                 $data = [
                     'guest_name_display' => $request->guest_name_display,
+                    'user_id' => Auth::user()->id,
                     'guest_name' => $request->guest_name,
                     'guest_address' => $request->guest_address,
                     'guest_code' => $request->guest_code,
@@ -643,6 +644,7 @@ class DetailExportController extends Controller
                         'guest_id' => $new_guest,
                         'represent_name' => $request->represent_guest_name,
                         'workspace_id' => Auth::user()->current_workspace,
+                        'user_id' => Auth::user()->id,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ];
@@ -805,6 +807,7 @@ class DetailExportController extends Controller
                 'represent_address' => $request->represent_address,
                 'guest_id' => $request->guest_id,
                 'default_guest' => 0,
+                'user_id' => Auth::user()->id,
                 'workspace_id' => Auth::user()->current_workspace,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

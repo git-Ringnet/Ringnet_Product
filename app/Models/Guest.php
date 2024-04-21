@@ -32,7 +32,9 @@ class Guest extends Model
     {
         return DB::table($this->table)
             ->where('workspace_id', Auth::user()->current_workspace)
-            ->orderBy('id', 'DESC')
+            ->leftJoin('users', 'guest.user_id', '=', 'users.id')
+            ->orderBy('guest.id', 'DESC')
+            ->select('guest.*', 'users.name as name')
             ->get();
     }
     public function getGuestbyCompany($data)
@@ -153,6 +155,7 @@ class Guest extends Model
                 'guest_phone' => isset($data['guest_phone']) ? $data['guest_phone'] : null,
                 'guest_email' => isset($data['guest_email']) ? $data['guest_email'] : null,
                 'key' => $nameKey,
+                'user_id' => Auth::user()->id,
                 'guest_receiver' => isset($data['guest_receiver']) ? $data['guest_receiver'] : null,
                 'guest_email_personal' => isset($data['guest_email_personal']) ? $data['guest_email_personal'] : null,
                 'guest_phone_receiver' => isset($data['guest_phone_receiver']) ? $data['guest_phone_receiver'] : null,
@@ -170,6 +173,7 @@ class Guest extends Model
                         'represent_email' => $data['represent_email'][$i],
                         'represent_phone' => $data['represent_phone'][$i],
                         'represent_address' => $data['represent_address'][$i],
+                        'user_id' => Auth::user()->id,
                         'workspace_id' => Auth::user()->current_workspace,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
