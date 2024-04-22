@@ -397,7 +397,10 @@
                                                                 value="` + formatCurrency(element.product_qty - element
                                             .receive_qty) + `">
                                                         <a class="duongdan" data-toggle="modal" 
-                                                            data-target="#exampleModal` + element.id + `">
+                                                            data-target="#exampleModal` + element.id + `" ` + (product
+                                            .checked[index] ==
+                                            'endable' ||
+                                            product.cb[index] == 1 ? 'style="opacity:1"' : 'style="opacity:0"') + ` >
                                                                 <div class='mt-3 text-13-blue inventory text-right'>Serial Number </div>
                                                         </a>
                                                     </div>

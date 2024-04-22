@@ -90,6 +90,7 @@ class ReceiveController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         // Quick Action

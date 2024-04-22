@@ -82,7 +82,6 @@ class PayOrderController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         if (isset($request->id_import)) {
             $id = $request->id_import;
         } else {

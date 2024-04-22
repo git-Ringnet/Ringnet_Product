@@ -1168,17 +1168,17 @@ class DetailImportController extends Controller
                 ->get();
             if ($quoteImport) {
                 foreach ($quoteImport as $qt) {
+                    $product = Products::where('product_name', $qt->product_name)
+                        ->where(DB::raw('COALESCE(product_inventory,0)'), '>', 0)
+                        ->where('workspace_id', Auth::user()->current_workspace)
+                        ->first();
+
                     if ($request->type == "receive") {
                         if ($qt->receive_qty != 0) {
                             $data['status'] = false;
                             $data['msg'] = "Đơn nhận hàng đã được tạo";
                             break;
                         } else {
-                            $product = Products::where('product_name', $qt->product_name)
-                                ->where(DB::raw('COALESCE(product_inventory,0)'), '>', 0)
-                                ->where('workspace_id', Auth::user()->current_workspace)
-                                ->first();
-
                             $productImport = QuoteImport::where('product_name', $qt->product_name)
                                 ->where('workspace_id', Auth::user()->current_workspace)
                                 ->first();
@@ -1231,8 +1231,8 @@ class DetailImportController extends Controller
                             $data['status'] = true;
                         }
                     } else {
-                        $payment = PayOder::where('detailimport_id',$detailImport->id)->first();
-                        if($payment){
+                        $payment = PayOder::where('detailimport_id', $detailImport->id)->first();
+                        if ($payment) {
                             $data['prePayment'] = $payment->payment;
                         }
                         $data['total'] = $detailImport->total_tax;
@@ -1240,10 +1240,48 @@ class DetailImportController extends Controller
                         // return $request->all();
                     }
                 }
+                if ($product) {
+                    $data['inventory'] = $product->product_inventory;
+                }
                 $data['product'] = $quoteImport;
                 $data['quotation_number'] = $detailImport->quotation_number;
                 $data['provide_name'] = $detailImport->provide_name;
             }
+        }
+        return $data;
+    }
+    public function checkAction(Request $request)
+    {
+        $data = [];
+        $detailImport = DetailImport::where('id', $request->id)->first();
+        if ($detailImport) {
+            $checkReceive = Receive_bill::where('detailimport_id', $detailImport->id)->first();
+            $checkReciept = Reciept::where('detailimport_id', $detailImport->id)->first();
+            $checkPayment = PayOder::where('detailimport_id', $detailImport->id)->first();
+            if ($checkReceive) {
+                $data['receive'] = true;
+            }
+            if ($checkReciept) {
+                $data['reciept'] = true;
+            }
+            if ($checkPayment) {
+                if ($checkPayment->debt == 0) {
+                    $data['payment'] = true;
+                } else {
+                    $data['title_payment'] = "Thanh toán mua hàng";
+                }
+            }
+
+            // $quoteImport = QuoteImport::where('detailimport_id',$detailImport->id)->get();
+            // if($quoteImport){
+            //     foreach($quoteImport as $value){
+            //         if($value->receive_qty != 0){
+            //             $data['receive'] = false;
+            //             break;
+            //         }
+            //     }
+            // }
+            // return $detailImport;
         }
         return $data;
     }

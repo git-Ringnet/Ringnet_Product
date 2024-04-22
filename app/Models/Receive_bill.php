@@ -119,10 +119,17 @@ class Receive_bill extends Model
                 'total_tax' => $sum
             ]);
             // Cập nhật trạng thái đơn hàng
+            if (isset($data['action']) && $data['action'] == 'action_2') {
+                $dataDetail = [
+                    'status' => 2
+                ];
+                // $detail->status = 2;
+            }
             if ($detail->status == 1) {
-                $detail->status = 2;
-                $detail->status_debt = 1;
-                $detail->save();
+                $dataDetail['status_debt'] = 1;
+                // $detail->status_debt = 1;
+                // $detail->save();
+                DB::table('detailimport')->where('id', $detail->id)->update($dataDetail);
 
                 // Cập nhật dư nợ nhà cung cấp
                 $this->calculateDebt($detail->provide_id, $sum);
@@ -150,7 +157,10 @@ class Receive_bill extends Model
 
             // Cập nhập dư nợ
             $detail = DetailImport::findOrFail($receive->detailimport_id);
-
+            if ($detail && $detail->status == 1) {
+                $detail->status = 2;
+                $detail->save();
+            }
             // Lấy tổng tiền hóa đơn nhập
             $product = ProductImport::where('receive_id', $receive->id)
                 ->where('workspace_id', Auth::user()->current_workspace)

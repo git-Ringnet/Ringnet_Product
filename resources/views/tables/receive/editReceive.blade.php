@@ -549,6 +549,7 @@
 <script>
     // Hiển thị sản phẩm
     $(document).on('click', '.info-product', function() {
+        $('#productModal .product_show').empty()
         var nameProduct = $(this).closest('td').find('input[name^="product_name"]').val()
         $.ajax({
             url: "{{ route('getHistoryImport') }}",

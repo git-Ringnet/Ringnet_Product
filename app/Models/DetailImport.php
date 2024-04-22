@@ -87,7 +87,7 @@ class DetailImport extends Model
             }
             $total_tax +=  ((($data['product_tax'][$i] == 99 ? 0 : $data['product_tax'][$i]) * $price_export) / 100);
         }
-        $total_tax = $total_tax + $total;
+        $total_tax = round($total_tax) + round($total);
         $dataImport = [
             'provide_id' => $data['provides_id'],
             'project_id' => 1,

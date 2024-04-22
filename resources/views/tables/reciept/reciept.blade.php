@@ -114,21 +114,21 @@
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="date_bill" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Ngày hóa
-                                                            đơn</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-date_bill"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="number_bill" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Số hóa
                                                             đơn</button>
                                                     </a>
                                                     <div class="icon" id="icon-number_bill"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="date_bill" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">Ngày hóa
+                                                            đơn</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-date_bill"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
@@ -210,13 +210,14 @@
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
                                                 <td class="py-2 text-13-black">
-                                                    {{ date_format(new DateTime($item->date_bill), 'd/m/Y') }}</td>
-                                                <td class="py-2 text-13-black">
                                                     <a href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}"
                                                         class="duongdan user_flow" data-type="HDMH"
                                                         data-des="Xem hóa đơn mua hàng">
                                                         {{ $item->number_bill }}
                                                     </a>
+                                                </td>
+                                                <td class="py-2 text-13-black">
+                                                    {{ date_format(new DateTime($item->date_bill), 'd/m/Y') }}
                                                 </td>
                                                 <td class="py-2 text-13-black">
                                                     @if ($item->getQuotation)
