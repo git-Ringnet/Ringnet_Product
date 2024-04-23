@@ -55,28 +55,80 @@
                             </button>
                         </a>
 
-                        {{-- <div class="dropdown" style="margin-right:5px">
-                            <button type="button" data-toggle="dropdown"
-                                class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 dropdown-toggle">
-                                <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
-                                        fill="#6D7075"></path>
-                                </svg>
-                                <span class="text-btnIner-primary ml-2">In</span>
-                            </button>
-                            <div class="dropdown-menu" style="z-index: 9999;">
-                                <a class="dropdown-item text-btnIner" href="http://127.0.0.1:8000/excel/4">
-                                    Xuất Excel
-                                </a>
-                                <a class="dropdown-item text-btnIner border-top" href="http://127.0.0.1:8000/pdf/4">
-                                    Xuất PDF
-                                </a>
-                            </div>
-                        </div> --}}
+                        <label class="btn-destroy btn-light d-flex align-items-center h-100 m-0 mx-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                fill="none">
+                                <path
+                                    d="M9.30639 10.2059C9.57305 10.4725 9.59528 10.8911 9.37306 11.183L9.30639 11.2593L6.84832 13.7174C5.58773 14.978 3.54392 14.978 2.28333 13.7174C1.06621 12.5003 1.02425 10.553 2.15742 9.2855L2.28333 9.15237L4.7414 6.69429C5.03231 6.40339 5.50396 6.40339 5.79486 6.69429C6.06152 6.96096 6.08375 7.37949 5.86153 7.67147L5.79486 7.74775L3.33679 10.2059C2.65801 10.8846 2.65801 11.9852 3.33679 12.6639C3.98163 13.3088 5.00709 13.341 5.68999 12.7607L5.79486 12.6639L8.25293 10.2059C8.54384 9.91492 9.01549 9.91492 9.30639 10.2059ZM9.83063 6.17005C10.1215 6.46095 10.1215 6.9326 9.83063 7.22351L7.35002 9.70413C7.05911 9.99504 6.58746 9.99504 6.29656 9.70413C6.00565 9.41323 6.00565 8.94158 6.29656 8.65067L8.77718 6.17005C9.06808 5.87914 9.53973 5.87914 9.83063 6.17005ZM13.7183 2.28236C14.9354 3.49948 14.9774 5.44674 13.8442 6.71422L13.7183 6.84735L11.2602 9.30543C10.9693 9.59633 10.4977 9.59633 10.2068 9.30543C9.94012 9.03877 9.9179 8.62023 10.1401 8.32825L10.2068 8.25197L12.6648 5.79389C13.3436 5.11511 13.3436 4.0146 12.6648 3.33582C12.02 2.69098 10.9946 2.65874 10.3117 3.23909L10.2068 3.33582L7.74872 5.79389C7.45781 6.0848 6.98616 6.0848 6.69526 5.79389C6.4286 5.52723 6.40637 5.10869 6.62859 4.81672L6.69526 4.74043L9.15333 2.28236C10.4139 1.02177 12.4577 1.02177 13.7183 2.28236Z"
+                                    fill="#6D7075" />
+                            </svg>
+                            <span class="text-btnIner-primary ml-2">Đính kèm</span>
+                            <input type="file" style="display: none;" id="file_restore" accept="*"
+                                name="file">
+                        </label>
 
-                        {{-- @if ($import->status == 1) --}}
+                        <div class="dropdown">
+                            <button type="button" class="btn-destroy btn-light d-flex align-items-center h-100 mx-1"
+                                id="btnCreateFast">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        viewBox="0 0 16 16" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M4.82017 6.15415C5.02571 5.94862 5.35895 5.94862 5.56449 6.15415L7.99935 8.58901L10.4342 6.15415C10.6397 5.94862 10.973 5.94862 11.1785 6.15415C11.3841 6.35969 11.3841 6.69294 11.1785 6.89848L8.37151 9.70549C8.16597 9.91103 7.83273 9.91103 7.62719 9.70549L4.82017 6.89848C4.61463 6.69294 4.61463 6.35969 4.82017 6.15415Z"
+                                            fill="#6D7075" />
+                                    </svg>
+                                </span>
+                                <span class="text-btnIner-primary ml-2">Chuyển đổi</span>
+                            </button>
+                            <div class="bg-white position-absolute rounded shadow p-2 z-index-block"
+                                style="z-index:99;width: 260px;top: 20px;right: 88px; display:none;"
+                                id="listBtnCreateFast">
+                                <ul class="m-0 p-0 scroll-data">
+                                    <li class="p-2 align-items-left text-wrap user_flow"
+                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-type="DMH"
+                                        data-des="Tạo nhanh đơn nhận hàng">
+                                        <a href="#" style="flex:2;" onclick="getAction(this)" name="search-info"
+                                            class="search-info">
+                                            <button class="align-items-left h-100 border-0 w-100 rounded"
+                                                style="background-color: transparent;" name="action"
+                                                value="action_2" type="submit">
+                                                <span style="font-weight: 600;color: #000; font-size:13px">Chuyển đổi
+                                                    thành đơn nhận hàng</span>
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li class="p-2 align-items-left text-wrap user_flow"
+                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-type="DMH"
+                                        data-des="Tạo nhanh hóa đơn mua hàng">
+                                        <a href="#" style="flex:2;" onclick="getAction(this)"
+                                            name="search-info" class="search-info">
+                                            <button class="align-items-left h-100 border-0 w-100 rounded "
+                                                style="background-color: transparent;" name="action"
+                                                value="action_3" type="submit">
+                                                <span style="font-weight: 600;color: #000; font-size:13px">Chuyển đổi
+                                                    thành hóa đơn</span>
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li class="p-2 align-items-left text-wrap user_flow"
+                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-type="DMH"
+                                        data-des="Tạo nhanh thanh toán mua hàng">
+                                        <a href="#" style="flex:2;" onclick="getAction(this)"
+                                            name="search-info" class="search-info">
+                                            <button class="align-items-left h-100 border-0 w-100 rounded"
+                                                style="background-color: transparent;" name="action"
+                                                value="action_4" type="submit">
+                                                <span style="font-weight: 600;color: #000; font-size:13px">Chuyển đổi
+                                                    thành thanh
+                                                    toán</span>
+                                            </button>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+
                         <a href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $import->id]) }}"
                             class="user_flow" data-type="DMH" data-des="Sửa đơn mua hàng">
                             <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
@@ -92,96 +144,49 @@
                                         d="M13.4559 1.45679C13.2663 1.39356 13.0571 1.44293 12.9158 1.58431L11.7803 2.71974L13.1945 4.13395L14.33 2.99852C14.4714 2.85714 14.5207 2.64802 14.4575 2.45834C14.2999 1.98547 13.9288 1.61441 13.4559 1.45679Z"
                                         fill="white" />
                                 </svg>
-                                <span class="text-btnIner-primary ml-1">Sửa</span>
+                                <span class="text-btnIner-primary ml-2">Sửa</span>
                             </button>
                         </a>
-                        {{-- @endif --}}
+
 
                         <div class="dropdown">
-                            <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1"
-                                id="btnCreateFast">
+                            <button type="button" class="btn-destroy btn-light d-flex align-items-center h-100 mx-1"
+                                id="btnCreateFast1" style="background: #F0F3F9">
                                 <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="4"
+                                        viewBox="0 0 18 4" fill="none">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M4.82017 6.15415C5.02571 5.94862 5.35895 5.94862 5.56449 6.15415L7.99935 8.58901L10.4342 6.15415C10.6397 5.94862 10.973 5.94862 11.1785 6.15415C11.3841 6.35969 11.3841 6.69294 11.1785 6.89848L8.37151 9.70549C8.16597 9.91103 7.83273 9.91103 7.62719 9.70549L4.82017 6.89848C4.61463 6.69294 4.61463 6.35969 4.82017 6.15415Z"
-                                            fill="white" />
+                                            d="M18 2C18 0.89543 17.1046 0 16 0C14.8954 0 14 0.89543 14 2C14 3.10457 14.8954 4 16 4C17.1046 4 18 3.10457 18 2Z"
+                                            fill="#26273B" fill-opacity="0.8" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M11 2C11 0.89543 10.1046 0 9 0C7.89543 0 7 0.89543 7 2C7 3.10457 7.89543 4 9 4C10.1046 4 11 3.10457 11 2Z"
+                                            fill="#26273B" fill-opacity="0.8" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M4 2C4 0.89543 3.10457 0 2 0C0.895431 0 0 0.89543 0 2C0 3.10457 0.895431 4 2 4C3.10457 4 4 3.10457 4 2Z"
+                                            fill="#26273B" fill-opacity="0.8" />
                                     </svg>
                                 </span>
-                                <span class="text-btnIner-primary ml-1">Tạo nhanh</span>
                             </button>
                             <div class="bg-white position-absolute rounded shadow p-2 z-index-block"
-                                style="z-index:99;width: 165px;top: 20px;right: 88px; display:none;"
-                                id="listBtnCreateFast">
+                                style="z-index:99;width: 160px;top: 20px;right: 4px; display:none;"
+                                id="listBtnCreateFast1">
                                 <ul class="m-0 p-0 scroll-data">
-                                    <li class="p-2 align-items-left text-wrap user_flow"
-                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-type="DMH"
-                                        data-des="Tạo nhanh đơn nhận hàng">
-                                        <a href="#" style="flex:2;" onclick="getAction(this)"
-                                            name="search-info" class="search-info">
-                                            <button class="align-items-left h-100 border-0 w-100 rounded"
-                                                style="background-color: transparent;" name="action"
-                                                value="action_2" type="submit">
-                                                <span style="font-weight: 600;color: #000; font-size:13px">Thêm nhận
-                                                    hàng</span>
-                                            </button>
-                                        </a>
-                                    </li>
-                                    <li class="p-2 align-items-left text-wrap user_flow"
-                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-type="DMH"
-                                        data-des="Tạo nhanh hóa đơn mua hàng">
-                                        <a href="#" style="flex:2;" onclick="getAction(this)"
-                                            name="search-info" class="search-info">
-                                            <button class="align-items-left h-100 border-0 w-100 rounded "
-                                                style="background-color: transparent;" name="action"
-                                                value="action_3" type="submit">
-                                                <span style="font-weight: 600;color: #000; font-size:13px">Thêm mua
-                                                    hàng</span>
-                                            </button>
-                                        </a>
-                                    </li>
-                                    <li class="p-2 align-items-left text-wrap user_flow"
-                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-type="DMH"
-                                        data-des="Tạo nhanh thanh toán mua hàng">
-                                        <a href="#" style="flex:2;" onclick="getAction(this)"
-                                            name="search-info" class="search-info">
-                                            <button class="align-items-left h-100 border-0 w-100 rounded"
-                                                style="background-color: transparent;" name="action"
-                                                value="action_4" type="submit">
-                                                <span style="font-weight: 600;color: #000; font-size:13px">Thêm thanh
-                                                    toán</span>
-                                            </button>
-                                        </a>
+                                    <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
+                                        <button id="delete_import" type="submit" class="border-0 w-100 text-left"
+                                            style="background: none;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                viewBox="0 0 16 16" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M12.3687 6.5C12.6448 6.5 12.8687 6.72386 12.8687 7C12.8687 7.03856 12.8642 7.07699 12.8554 7.11452L11.3628 13.4581C11.1502 14.3615 10.3441 15 9.41597 15H6.58403C5.65593 15 4.84977 14.3615 4.6372 13.4581L3.14459 7.11452C3.08135 6.84572 3.24798 6.57654 3.51678 6.51329C3.55431 6.50446 3.59274 6.5 3.6313 6.5H12.3687ZM8.5 1C9.88071 1 11 2.11929 11 3.5H13C13.5523 3.5 14 3.94772 14 4.5V5C14 5.27614 13.7761 5.5 13.5 5.5H2.5C2.22386 5.5 2 5.27614 2 5V4.5C2 3.94772 2.44772 3.5 3 3.5H5C5 2.11929 6.11929 1 7.5 1H8.5ZM8.5 2.5H7.5C6.94772 2.5 6.5 2.94772 6.5 3.5H9.5C9.5 2.94772 9.05228 2.5 8.5 2.5Z"
+                                                    fill="#26273B" fill-opacity="0.8" />
+                                            </svg>
+                                            <span class="text-btnIner-primary ml-2"
+                                                style="font-weight: 600;color: #000; font-size:13px">Xóa</span>
+                                        </button>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-
-                        <label class="custom-btn d-flex align-items-center h-100 m-0 mx-1">
-                            <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M9.30639 10.2061C9.57305 10.4727 9.59528 10.8913 9.37306 11.1832L9.30639 11.2595L6.84832 13.7176C5.58773 14.9782 3.54392 14.9782 2.28333 13.7176C1.06621 12.5005 1.02425 10.5532 2.15742 9.28574L2.28333 9.15261L4.7414 6.69453C5.03231 6.40363 5.50396 6.40363 5.79486 6.69453C6.06152 6.9612 6.08375 7.37973 5.86153 7.67171L5.79486 7.74799L3.33679 10.2061C2.65801 10.8848 2.65801 11.9854 3.33679 12.6641C3.98163 13.309 5.00709 13.3412 5.68999 12.7609L5.79486 12.6641L8.25293 10.2061C8.54384 9.91516 9.01549 9.91516 9.30639 10.2061ZM9.83063 6.17029C10.1215 6.46119 10.1215 6.93284 9.83063 7.22375L7.35002 9.70437C7.05911 9.99528 6.58746 9.99528 6.29656 9.70437C6.00565 9.41347 6.00565 8.94182 6.29656 8.65091L8.77718 6.17029C9.06808 5.87938 9.53973 5.87938 9.83063 6.17029ZM13.7183 2.2826C14.9354 3.49972 14.9774 5.44698 13.8442 6.71446L13.7183 6.84759L11.2602 9.30567C10.9693 9.59657 10.4977 9.59657 10.2068 9.30567C9.94012 9.03901 9.9179 8.62047 10.1401 8.32849L10.2068 8.25221L12.6648 5.79413C13.3436 5.11535 13.3436 4.01484 12.6648 3.33606C12.02 2.69122 10.9946 2.65898 10.3117 3.23933L10.2068 3.33606L7.74872 5.79413C7.45781 6.08504 6.98616 6.08504 6.69526 5.79413C6.4286 5.52747 6.40637 5.10893 6.62859 4.81696L6.69526 4.74067L9.15333 2.2826C10.4139 1.02201 12.4577 1.02201 13.7183 2.2826Z"
-                                    fill="white"></path>
-                            </svg>
-                            <span>Đính kèm file</span>
-                            <input type="file" style="display: none;" id="file_restore" accept="*"
-                                name="file">
-                        </label>
-
-                        <a href="#">
-                            <button name="action"type="button" id="delete_import"
-                                class="btn--remove d-flex align-items-center h-100 mx-1">
-                                <span> 
-                                    <svg width="16" height="16" viewBox="0 0 16 16"
-                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
-                                            fill="white"></path>
-                                    </svg></span>
-                                <span class="text-btnIner-primary ml-2">Xóa</span>
-                            </button>
-                        </a>
 
                         <button id="sideProvide" type="button" class="btn-option border-0 mx-1">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -194,18 +199,6 @@
                             </svg>
                         </button>
 
-                        {{-- <a href="#" onclick="getAction(this)">
-                            <button name="action" value="action_3" type="submit"
-                                class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
-                                <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M3.75528 1.6875H5.99476H11.9948H12.123C12.3939 1.6875 12.6621 1.74088 12.9123 1.84459C13.1626 1.94829 13.3899 2.10029 13.5814 2.29189L15.7022 4.41269C16.089 4.79939 16.3064 5.32394 16.3065 5.87088V14.25C16.3065 14.797 16.0892 15.3216 15.7024 15.7084C15.3156 16.0952 14.791 16.3125 14.244 16.3125H12.75H5.25H3.83328C3.28894 16.3125 2.76666 16.0973 2.38031 15.7139C1.99396 15.3304 1.77486 14.8098 1.77078 14.2655L1.69278 3.76547C1.69074 3.49333 1.74258 3.22344 1.84531 2.97143C1.94805 2.71941 2.09965 2.49021 2.29137 2.29705C2.4831 2.10389 2.71115 1.95058 2.9624 1.84597C3.21364 1.74135 3.48312 1.68749 3.75528 1.6875ZM5.8125 15.1875H12.1875V9.9645C12.1875 9.74238 12.0071 9.5625 11.7862 9.5625H6.2145C5.99266 9.5625 5.8125 9.74266 5.8125 9.9645V15.1875ZM13.3125 15.1875V9.9645C13.3125 9.12163 12.6289 8.4375 11.7862 8.4375H6.2145C5.37134 8.4375 4.6875 9.12134 4.6875 9.9645V15.1875H3.83326C3.58582 15.1875 3.34842 15.0897 3.17281 14.9154C2.9972 14.7411 2.89761 14.5044 2.89574 14.257L2.81774 3.75703C2.81682 3.63333 2.84038 3.51066 2.88708 3.39611C2.93378 3.28155 3.00269 3.17737 3.08983 3.08957C3.17698 3.00177 3.28064 2.93208 3.39485 2.88453C3.50905 2.83698 3.63154 2.8125 3.75524 2.8125H5.43226V5.18175C5.43226 5.52985 5.57054 5.86369 5.81668 6.10983C6.06282 6.35597 6.39666 6.49425 6.74476 6.49425H11.2448C11.5929 6.49425 11.9267 6.35597 12.1728 6.10983C12.419 5.86369 12.5573 5.52985 12.5573 5.18175V2.91925C12.6414 2.96326 12.7185 3.01991 12.7858 3.08725L14.9068 5.20831C15.0826 5.38405 15.1814 5.62254 15.1815 5.87112V14.25C15.1815 14.4986 15.0827 14.7371 14.9069 14.9129C14.7311 15.0887 14.4926 15.1875 14.244 15.1875H13.3125ZM11.4323 5.18175V2.8125H6.55726V5.18175C6.55726 5.23148 6.57701 5.27917 6.61218 5.31433C6.64734 5.3495 6.69503 5.36925 6.74476 5.36925H11.2448C11.2945 5.36925 11.3422 5.3495 11.3773 5.31433C11.4125 5.27917 11.4323 5.23148 11.4323 5.18175Z"
-                                        fill="white" />
-                                </svg>
-                                <span>Tạo hóa đơn mua hàng</span>
-                            </button>
-                        </a> --}}
                     </div>
                 </div>
             </div>
@@ -989,21 +982,10 @@
         });
     })
 
-    $("#listBtnCreateFast").hide();
-    $(document).ready(function() {
-        function toggleList(input, list) {
-            input.on("click", function() {
-                list.show();
-            });
 
-            $(document).click(function(event) {
-                if (!$(event.target).closest(input).length) {
-                    list.hide();
-                }
-            });
-        }
-        toggleList($("#btnCreateFast"), $("#listBtnCreateFast"));
-    })
+
+    toggleList($("#btnCreateFast"), $("#listBtnCreateFast"));
+    toggleList($("#btnCreateFast1"), $("#listBtnCreateFast1"));
 
     flatpickr("#datePicker", {
         locale: "vn",

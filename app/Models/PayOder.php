@@ -86,7 +86,16 @@ class PayOder extends Model
             // Cập nhật trạng thái đơn hàng
             $this->updateStatus($payment->detailimport_id, PayOder::class, 'payment_qty', 'status_pay');
         } else {
-            $result = false;
+            $dataPayment = [
+                'payment_date' => $data['payment_date'],
+                'payment_code' => $data['payment_code'],
+                'payment_day' => $data['payment_day'],
+                'payment_type' => $data['payment_type']
+            ];
+            PayOder::where('id', $payment->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->update($dataPayment);
+            $result = true;
         }
         return $result;
     }

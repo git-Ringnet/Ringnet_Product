@@ -741,18 +741,6 @@
         }
     })
 
-    function cbPayment(element) {
-        var isChecked = $(element).is(':checked');
-        var total = $('.payment_all').text().trim()
-        if (isChecked) {
-            $('#prepayment').val(total)
-            $('#prepayment').attr('readonly', true)
-        } else {
-            $('#prepayment').val("")
-            $('#prepayment').attr('readonly', false)
-        }
-    }
-
     function getActionForm(e) {
         type = $(e).data('type');
         $('#getAction').val($(e).find('button').val());

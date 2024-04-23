@@ -478,3 +478,29 @@ function deleteRow() {
     });
 
 }
+
+
+function cbPayment(element) {
+    var isChecked = $(element).is(':checked');
+    var total = $('.payment_all').text().trim()
+    if (isChecked) {
+        console.log(123);
+        $('#prepayment').val(total)
+        $('#prepayment').attr('readonly', true)
+    } else {
+        $('#prepayment').val("")
+        $('#prepayment').attr('readonly', false)
+    }
+}
+
+function toggleList(input, list) {
+    input.on("click", function() {
+        list.show();
+    });
+
+    $(document).click(function(event) {
+        if (!$(event.target).closest(input).length) {
+            list.hide();
+        }
+    });
+}

@@ -3,7 +3,8 @@
 <form action="{{ route('provides.update', ['workspace' => $workspacename, 'provide' => $provide->id]) }}" method="POST">
     @csrf
     @method('PUT')
-    <div class="content-wrapper m-0">
+    {{-- <div class="content-wrapper m-0"> --}}
+        <div class="content-wrapper editGuest min-height--none" style="min-height: 502px;">
         <!-- Content Header (Page header) -->
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
@@ -36,8 +37,7 @@
                     <div class="row m-0">
                         <a href="{{ route('provides.index', $workspacename) }}" class="user_flow" data-type="NCC"
                             data-des="Hủy chỉnh sửa nhà cung cấp">
-                            <button type="button" class="btn-destroy btn-light mx-2 d-flex align-items-center h-100"
-                                style="margin-right:10px;">
+                            <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 16 16" fill="none">
                                     <path
@@ -48,17 +48,17 @@
                             </button>
                         </a>
 
-                        <button type="submit" class="custom-btn d-flex mx-1 align-items-center h-100">
-                            <svg class="mx-1" width="18" height="18" viewBox="0 0 16 16" fill="none"
+                        <button type="submit" class="custom-btn d-flex mx-1 align-items-center h-100 mr-2">
+                            <svg width="18" height="18" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                     d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
                                     fill="white"></path>
                             </svg>
-                            <span>Lưu nhà cung cấp</span>
+                            <span class="text-btnIner-primary ml-2">Lưu nhà cung cấp</span>
                         </button>
 
-                        <button class="btn-option">
+                        {{-- <button class="btn-option">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -71,13 +71,13 @@
                                     d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
                                     fill="#42526E" />
                             </svg>
-                        </button>
+                        </button> --}}
                     </div>
                 </div>
             </div>
         </div>
         <div id="info" class="content margin-top-38">
-            <div class="container-fluided margin-250">
+            <div class="container-fluided">
                 <div class="container-fluided">
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active">

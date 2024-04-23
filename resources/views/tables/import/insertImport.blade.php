@@ -34,8 +34,8 @@
                     <div class="row m-0">
                         <a href="{{ route('import.index', $workspacename) }}">
                             <button type="button"
-                                class="btn-destroy btn-light d-flex align-items-center h-100 user_flow"
-                                style="margin-right:10px" data-type="DMH" data-des="Hủy đơn mua hàng">
+                                class="btn-destroy btn-light d-flex align-items-center h-100 user_flow mx-1"
+                                data-type="DMH" data-des="Hủy đơn mua hàng">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
@@ -48,28 +48,9 @@
                             </button>
                         </a>
 
-                        {{-- <div class="dropdown user_flow" data-type="DMH" data-des="In đơn mua hàng">
-                            <button type="button" data-toggle="dropdown"
-                                class="btn-destroy btn-light d-flex align-items-center h-100 dropdown-toggle"
-                                style="margin-right:10px">
-                                <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
-                                        fill="#6D7075"></path>
-                                </svg>
-                                <span class="text-btnIner-primary ml-2">Lưu và in</span>
-                            </button>
-                            <div class="dropdown-menu" style="z-index: 9999;">
-                                <a class="dropdown-item text-btnIner" href="#">Xuất
-                                    Excel</a>
-                                <a class="dropdown-item text-btnIner border-top" href="#">Xuất PDF</a>
-                            </div>
-                        </div> --}}
-
                         <a href="#">
-                            <button type="submit" class="custom-btn d-flex align-items-center h-100">
-                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="12" height="14"
+                            <button type="submit" class="custom-btn d-flex align-items-center h-100 mx-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14"
                                     viewBox="0 0 12 14" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M4.75 0V5.75C4.75 6.5297 5.34489 7.17045 6.10554 7.24313L6.25 7.25H12V12C12 13.1046 11.1046 14 10 14H2C0.89543 14 0 13.1046 0 12V2C0 0.89543 0.89543 0 2 0H4.75ZM6 0L12 6.03022H7C6.44772 6.03022 6 5.5825 6 5.03022V0Z"
@@ -1790,7 +1771,8 @@
                                     } else {
                                         showNotification('warning', data.msg);
                                         delayAndShowNotification('success',
-                                            "Đã cập nhật lại thuế cho sản phẩm :"+ data.product_name +"",
+                                            "Đã cập nhật lại thuế cho sản phẩm :" +
+                                            data.product_name + "",
                                             500);
                                         rows.each(function() {
                                             if ($(this).find(

@@ -101,7 +101,7 @@
 
                             <div class="d-flex align-items-center height-60-mobile">
                                 <div class="title-info py-2 border border-left-0 height-100">
-                                    <p class="p-0 m-0 text-danger margin-left32 text-13">Loại sản phẩm</p>
+                                    <p class="p-0 m-0 text-danger margin-left32 text-13">Danh mục sản phẩm</p>
                                 </div>
                                 <div
                                     class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black d-flex">

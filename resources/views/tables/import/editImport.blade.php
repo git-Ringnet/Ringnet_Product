@@ -34,9 +34,8 @@
                 <div class="d-flex content__heading--right">
                     <div class="row m-0">
                         <a href="{{ route('import.index', $workspacename) }}">
-                            <button type="button" class="btn-destroy btn-light mx-2 d-flex align-items-center h-100"
-                                style="margin-right:10px">
-                                <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                            <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
@@ -46,7 +45,6 @@
                             </button>
                         </a>
 
-                        {{-- @if ($import->status == 1) --}}
                         <a href="#" onclick="getAction(this)">
                             <button name="action" value="action_1" type="submit"
                                 class="custom-btn d-flex align-items-center h-100">
@@ -61,24 +59,6 @@
                                 <span class="text-btnIner-primary ml-2">Lưu</span>
                             </button>
                         </a>
-                        {{-- @endif --}}
-
-                        {{-- @if ($import->status == 2)
-                            <a href="{{ route('import.index', $workspacename) }}" class="">
-                                <button type="button"
-                                    class="btn-destroy btn-light mx-2 d-flex align-items-center h-100">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 0 16 16" fill="none">
-                                            <path
-                                                d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
-                                                fill="#6D7075" />
-                                        </svg>
-                                    </span>
-                                    <span class="text-btnIner-primary ml-2">Trở về</span>
-                                </button>
-                            </a>
-                        @endif --}}
 
                         <button id="sideGuest" type="button" class="btn-option border-0">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
