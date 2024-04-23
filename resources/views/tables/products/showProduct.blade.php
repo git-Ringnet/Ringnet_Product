@@ -111,7 +111,7 @@
             <section class="content">
                 <div class="container-fluided">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 p-0">
                             <div class="info-chung">
                                 <p class="font-weight-bold text-uppercase info-chung--heading">Thông tin chung</p>
                                 <div class="content-info">
@@ -159,6 +159,30 @@
                                         <input readonly type="text" placeholder="Nhập thông tin"
                                             name="product_unit" value="{{ $product->product_unit }}"
                                             class="border height-100 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black" />
+                                    </div>
+                                    <div class="d-flex align-items-center height-60-mobile ">
+                                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
+                                            <p class="p-0 m-0 margin-left32 text-13">Thuế</p>
+                                        </div>
+                                        <div
+                                            class="border border-top-0 w-100 border-left-0 border-right-0 px-3 height-100 pt-2 pb-1">
+                                            <select disabled name="product_tax" id=""
+                                                class="text-13-black border-0"
+                                                style="background-color:white; width:5%;">
+                                                <option value="0"
+                                                    @if ($product->product_tax == 0) selected @endif>0%
+                                                </option>
+                                                <option value="8"
+                                                    @if ($product->product_tax == 8) selected @endif>8%
+                                                </option>
+                                                <option value="10"
+                                                    @if ($product->product_tax == 10) selected @endif>
+                                                    10%</option>
+                                                <option value="99"
+                                                    @if ($product->product_tax == 99) selected @endif>
+                                                    NOVAT</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     @if ($product->type == 1)
                                         <div class="d-flex align-items-center height-60-mobile">
@@ -214,7 +238,7 @@
                 </div>
             </section>
 
-            <section class="content">
+            {{-- <section class="content">
                 <div class="container-fluided">
                     <div class="row">
                         <div class="col-12">
@@ -249,86 +273,62 @@
                                             name="product_ratio" value="{{ $product->product_ratio }}"
                                             class="border border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black height-100">
                                     </div>
-                                    <div class="d-flex align-items-center height-60-mobile ">
-                                        <div class="title-info py-2 border border-top-0 border-left-0 height-100">
-                                            <p class="p-0 m-0 margin-left32 text-13">Thuế</p>
-                                        </div>
-                                        <div
-                                            class="border border-top-0 w-100 border-left-0 border-right-0 px-3 height-100 pt-2 pb-1">
-                                            <select disabled name="product_tax" id=""
-                                                class="w-25 text-13-black border-0" style="background-color:white;">
-                                                <option value="0"
-                                                    @if ($product->product_tax == 0) selected @endif>0%
-                                                </option>
-                                                <option value="8"
-                                                    @if ($product->product_tax == 8) selected @endif>8%
-                                                </option>
-                                                <option value="10"
-                                                    @if ($product->product_tax == 10) selected @endif>
-                                                    10%</option>
-                                                <option value="99"
-                                                    @if ($product->product_tax == 99) selected @endif>
-                                                    NOVAT</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> --}}
             @if ($product->type == 1)
                 <section class="content">
                     <div class="container-fluided">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-12 p-0">
                                 <div class="info-chung">
                                     <p class="font-weight-bold text-uppercase info-chung--heading">Thông tin tồn kho
                                     </p>
                                     <div class="content-info">
                                         <div class="d-flex align-items-center height-60-mobile">
-                                            <div class=" py-2 border border-left-0 height-100 w-100">
+                                            <div class=" py-2 border border-left-0 height-100" style="width:27%;">
                                                 <p class="p-0 m-0 margin-left32 text-13 text-left">Tên kho hàng</p>
                                             </div>
-                                            <div class="py-2 border border-left-0 height-100 w-100">
+                                            <div class="py-2 border border-left-0 height-100 title-info">
                                                 <p class="p-0 m-0  text-13 text-right px-2">Tồn kho</p>
                                             </div>
-                                            {{-- <div class="py-2 border border-left-0 height-100 title-info">
-                                            <p class="p-0 m-0 text-13 text-right px-2">Đang giao dịch</p>
-                                        </div>
-                                        <div class="py-2 border border-left-0 height-100 title-info">
-                                            <p class="p-0 m-0 text-13 text-right px-2">Sẵn sàng để bán</p>
-                                        </div> --}}
+                                            <div class="py-2 border border-left-0 height-100 title-info">
+                                                <p class="p-0 m-0 text-13 text-right px-2">Đang giao dịch</p>
+                                            </div>
+                                            <div class="py-2 border border-left-0 height-100 title-info">
+                                                <p class="p-0 m-0 text-13 text-right px-2">Sẵn hàng</p>
+                                            </div>
                                         </div>
                                     </div>
-                                    {{-- @foreach ($product->getProductImport as $item)
-                                @dd($item->getDataProduct->getWareHouse)
-                                @endforeach --}}
+
                                     <div class="content-info mb-3">
                                         <div class="d-flex align-items-center height-60-mobile">
-                                            <div class="py-2 border border-left-0 height-100 w-100">
-                                                <input readonly type="text"
+                                            <div class="py-2 border border-left-0 height-100" style="width:27%;">
+                                                <input type="text"
                                                     class="py-2 border-0  p-0 text-13-black w-100 padding-left35"
                                                     value="{{ $product->product_manufacturer }}">
                                             </div>
-                                            <div class="w-100 py-2 border border-left-0 height-100">
-                                                <input readonly
-                                                    class="border-0 border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
+                                            <div class="title-info py-2 border border-left-0 height-100">
+                                                <input
+                                                    class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
                                                     type="text"
                                                     value="{{ number_format($product->product_inventory) }}">
                                             </div>
-                                            {{-- <div class="title-info py-2 border border-left- height-100">
-                                            <input readonly
-                                                class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
-                                                type="text" value="{{ number_format($product->product_trade) }}">
-                                        </div>
-                                        <div class="title-info py-2 border border-left-0 height-100">
-                                            <input readonly
-                                                class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
-                                                type="text"
-                                                value="{{ number_format($product->product_available) }}">
-                                        </div> --}}
+                                            <div class="title-info py-2 border border-left- height-100">
+                                                <input
+                                                    class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
+                                                    type="text"
+                                                    value="{{ number_format($product->product_trade) }}">
+                                            </div>
+                                            <div class="title-info py-2 border border-left-0 height-100">
+                                                <input
+                                                    class="border-0   border-top-0 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black text-right"
+                                                    type="text"
+                                                    value="{{ number_format($product->product_available) }}">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

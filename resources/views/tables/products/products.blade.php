@@ -17,9 +17,9 @@
                 <span class="font-weight-bold text-secondary">Sản phẩm</span>
             </div>
             <div class="d-flex content__heading--right">
-                <a href="{{ route('inventory.create', $workspacename) }}">
-                    <button type="button" class="custom-btn d-flex align-items-center h-100" style="margin-right:10px">
-                        <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
+                <a href="{{ route('inventory.create', $workspacename) }}" class="mr-1">
+                    <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
+                        <svg width="12" height="12" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M9 0C9.58186 -2.96028e-08 10.0536 0.471694 10.0536 1.05356L10.0536 16.9464C10.0536 17.5283 9.58186 18 9 18C8.41814 18 7.94644 17.5283 7.94644 16.9464V1.05356C7.94644 0.471694 8.41814 -2.96028e-08 9 0Z"
@@ -28,10 +28,10 @@
                                 d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
                                 fill="white"></path>
                         </svg>
-                        <span class="text-btnIner-primary ml-1">Tạo mới</span>
+                        <span class="text-btnIner-primary ml-2">Tạo mới</span>
                     </button>
                 </a>
-                <button type="button" class="btn-option bg-white border-0">
+                {{-- <button type="button" class="btn-option bg-white border-0">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -44,7 +44,7 @@
                             d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
                             fill="#42526E"></path>
                     </svg>
-                </button>
+                </button> --}}
             </div>
         </div>
         <div class="row m-auto filter pt-2 pb-4 height-50 border-custom">

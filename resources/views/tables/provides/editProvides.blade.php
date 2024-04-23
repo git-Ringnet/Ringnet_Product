@@ -4,7 +4,7 @@
     @csrf
     @method('PUT')
     {{-- <div class="content-wrapper m-0"> --}}
-        <div class="content-wrapper editGuest min-height--none" style="min-height: 502px;">
+        <div class="content-wrapper editGuest min-height--none p-0" style="min-height: 502px;">
         <!-- Content Header (Page header) -->
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
