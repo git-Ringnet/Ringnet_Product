@@ -172,7 +172,8 @@ class DashboardController extends Controller
         $debtExport = DetailExport::where('status', 2)
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->sum('amount_owed');
-        $debtOrder = Provides::sum('provide_debt');
+        $debtOrder = Provides::where('provides.workspace_id', Auth::user()->current_workspace)
+            ->sum('provide_debt');
         $minDateDetailExport = DetailExport::where('status', 2)
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->min('created_at');
