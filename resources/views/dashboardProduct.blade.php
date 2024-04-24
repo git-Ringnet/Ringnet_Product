@@ -204,7 +204,7 @@
                     </div>
                 </div>
                 {{-- Đơn báo giá đã xác nhận và Top nhân viên xuất sắc --}}
-                <div class="row mt-4">
+                <div class="row mt-4" style="scrollbar-width: none;">
                     <div class="col-md-12 p-0 m-0 pl-2">
                         <div class="text-nowrap">
                             <div class="row">
