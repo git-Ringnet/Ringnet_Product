@@ -108,10 +108,24 @@ class PayExport extends Model
 
         // Update detailExport in a single query
         $detailExport->update([
-            'status' => $result == 0 ? 3 : 2,
             'amount_owed' => max(0, $result),
-            'status_pay' => $payment > 0 ? ($payment < $result ? 3 : 1) : 1,
         ]);
+
+        if ($payment > 0 && $result > 0) {
+            $detailExport->update([
+                'status_pay' => 3,
+                'status' => 2,
+            ]);
+        } else if ($result == 0) {
+            $detailExport->update([
+                'status_pay' => 2,
+                'status' => 2,
+            ]);
+        } else {
+            $detailExport->update([
+                'status' => 2,
+            ]);
+        }
 
         // Check if additional conditions are met to update status in detailExport
         if ($result == 0 && $detailExport->status_receive == 2 && $detailExport->status_reciept == 2 && $detailExport->status_pay == 2) {

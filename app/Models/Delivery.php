@@ -540,7 +540,6 @@ class Delivery extends Model
             } else {
                 $product = Products::where('id', $data['product_id'][$i])->first();
                 if ($product) {
-                    $product->check_seri = isset($data['cbSeri'][$i]) ? $data['cbSeri'][$i] : null;
                     $product->save();
                 }
                 $quoteExport = QuoteExport::where('product_id', $data['product_id'][$i])

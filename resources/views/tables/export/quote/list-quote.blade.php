@@ -16,7 +16,7 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('detailExport.create', ['workspace' => $workspacename]) }}" class="activity"
+                    <a href="{{ route('detailExport.create', ['workspace' => $workspacename]) }}" class="activity mr-3"
                         data-name1="BG" data-des="Tạo mới">
                         <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
@@ -31,7 +31,7 @@
                             <span class="text-btnIner-primary ml-1">Tạo mới</span>
                         </button>
                     </a>
-                    <button type="button" class="btn-option bg-white border-0">
+                    {{-- <button type="button" class="btn-option bg-white border-0">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -44,7 +44,7 @@
                                 d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
                                 fill="#42526E"></path>
                         </svg>
-                    </button>
+                    </button> --}}
                 </div>
             </div>
         </div>
@@ -164,7 +164,7 @@
     </div>
 
     <div class="content-filter-all">
-        <div class="bg-filter-search pl-4 border-bottom-0">
+        <div class="bg-filter-search pl-4 border-bottom-0 border-top-0">
             <div class="content-wrapper1 py-2">
                 <div class="row m-auto filter p-0">
                     <div class="w-100">
@@ -207,11 +207,11 @@
                                                 fill="#6B6F76" />
                                         </svg>
                                     </button>
-                                    <div class="dropdown-menu" id="dropdown-menu"
-                                        aria-labelledby="dropdownMenuButton" style="z-index:">
+                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                        style="z-index:">
                                         <div class="search-container px-2">
-                                            <input type="text" placeholder="Tìm kiếm" id="myInput"
-                                                class="text-13" onkeyup="filterFunction()" style="outline: none;">
+                                            <input type="text" placeholder="Tìm kiếm" id="myInput" class="text-13"
+                                                onkeyup="filterFunction()" style="outline: none;">
                                             <span class="search-icon mr-2">
                                                 <i class="fas fa-search"></i>
                                             </span>
@@ -289,11 +289,11 @@
                                     <thead>
                                         <tr>
                                             <th scope="col" style="width:5%;padding-left: 2rem;"
-                                                class="height-52">
+                                                class="height-52 border-bottom-0">
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom-0">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="ngayBG" data-sort-type="DESC">
@@ -304,7 +304,7 @@
                                                     <div class="icon" id="icon-ngayBG"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom-0">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
@@ -314,7 +314,7 @@
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom-0">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="reference_number" data-sort-type="DESC"><button
@@ -324,7 +324,7 @@
                                                     <div class="icon" id="icon-reference_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom-0">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="guest_name_display"
@@ -335,10 +335,10 @@
                                                     <div class="icon" id="icon-guest_name_display"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom-0">
                                                 <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="" data-sort-type="DESC">
+                                                    <a href="#" class="sort-link btn-submit" data-sort-by=""
+                                                        data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
                                                             Người tạo
                                                         </button>
@@ -346,7 +346,7 @@
                                                     <div class="icon" id=""></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom-0">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
@@ -356,7 +356,7 @@
                                                     <div class="icon" id="icon-status"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom-0">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_receive" data-sort-type="DESC"><button
@@ -365,7 +365,7 @@
                                                     <div class="icon" id="icon-status_receive"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom-0">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_reciept" data-sort-type="DESC"><button
@@ -374,7 +374,7 @@
                                                     <div class="icon" id="icon-status_reciept"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom-0">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_pay" data-sort-type="DESC"><button
@@ -384,7 +384,7 @@
                                                     <div class="icon" id="icon-status_pay"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom-0">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total_price" data-sort-type="DESC"><button
@@ -398,10 +398,10 @@
                                     <tbody class="tbody-detailExport">
                                         @foreach ($quoteExport as $value_export)
                                             <tr class="position-relative detailExport-info"
-                                                onclick="handleRowClick('checkbox', event);">
+                                                data-id="{{ $value_export->maBG }}">
                                                 <input type="hidden" name="id-detailExport" class="id-detailExport"
-                                                    id="id-detailExport" value="{{ $value_export->id }}">
-                                                <td class="text-13-black">
+                                                    id="id-detailExport" value="{{ $value_export->maBG }}">
+                                                <td class="text-13-black border-bottom">
                                                     <span class="margin-Right10">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                             height="10" viewBox="0 0 6 10" fill="none">
@@ -422,35 +422,34 @@
                                                         name="ids[]" id="checkbox" value=""
                                                         onclick="event.stopPropagation();">
                                                 </td>
-
-                                                <td class="text-13-black text-left">
+                                                <td class="text-13-black text-left border-bottom">
                                                     {{ date_format(new DateTime($value_export->ngayBG), 'd/m/Y') }}</td>
-                                                <td class="text-13-black text-left">
+                                                <td class="text-13-black text-left border-bottom">
                                                     <div class="">
                                                         <a href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $value_export->maBG]) }}"
                                                             class="duongDan activity" data-name1="BG"
                                                             data-des="Xem đơn báo giá">{{ $value_export->quotation_number }}</a>
                                                     </div>
                                                 </td>
-                                                <td class="text-13-black max-width120 text-left">
+                                                <td class="text-13-black max-width120 text-left border-bottom">
                                                     {{ $value_export->reference_number }}
                                                 </td>
-                                                <td class="text-13-black max-width180 text-left">
+                                                <td class="text-13-black max-width180 text-left border-bottom">
                                                     {{ $value_export->guest_name }}
                                                 </td>
-                                                <td class="text-13-black max-width180 text-left">
+                                                <td class="text-13-black max-width180 text-left border-bottom">
                                                     {{ $value_export->name }}
                                                 </td>
-                                                <td class="text-13-black text-center">
-                                                    @if ($value_export->status === 1)
+                                                <td class="text-13-black text-center border-bottom">
+                                                    @if ($value_export->tinhTrang === 1)
                                                         <span class="text-secondary">Draft</span>
-                                                    @elseif($value_export->status === 2)
+                                                    @elseif($value_export->tinhTrang === 2)
                                                         <span class="text-warning">Approved</span>
-                                                    @elseif($value_export->status === 3)
+                                                    @elseif($value_export->tinhTrang === 3)
                                                         <span class="text-success">Close</span>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-center">
+                                                <td class="text-13-black text-center border-bottom">
                                                     @if ($value_export->status_receive === 1)
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -485,7 +484,7 @@
                                                         </svg>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-center">
+                                                <td class="text-13-black text-center border-bottom">
                                                     @if ($value_export->status_reciept === 1)
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -520,7 +519,7 @@
                                                         </svg>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-center">
+                                                <td class="text-13-black text-center border-bottom">
                                                     @if ($value_export->status_pay === 1)
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -555,7 +554,7 @@
                                                         </svg>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-right">
+                                                <td class="text-13-black text-right border-bottom">
                                                     {{ number_format($value_export->total_price + $value_export->total_tax) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
@@ -616,7 +615,6 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-
                                     </tbody>
                                 </table>
                             </div>
@@ -627,10 +625,1709 @@
         </section>
     </div>
 </div>
+<div class="menu bg-hover rounded"
+    style="display: none; background: #ffffff; position: absolute; width:16%;  padding: 3px 10px;  box-shadow: 0 0 10px -3px rgba(0, 0, 0, .3);   border: 1px solid #ccc;">
+    <a href="#" class="text-dark">
+        <p class="quickAction p-2 rounded my-1 text-13-black" data-type="receive" data-toggle="modal" data-target="#exampleModal">
+            <span class="mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14"
+                    fill="none">
+                    <path
+                        d="M3.78596 0.285463C3.20002 0.359682 2.50471 0.625307 1.98127 0.972963C1.63752 1.19953 1.09064 1.7464 0.852362 2.10187C0.180487 3.11359 -0.0226381 4.34406 0.289862 5.53546C0.532049 6.45343 1.19611 7.3675 2.01642 7.91437L2.35627 8.13703L2.36799 9.94171C2.37971 11.7152 2.37971 11.7503 2.46564 11.9066C2.60236 12.1644 2.73908 12.3011 2.96174 12.4105C3.14533 12.5003 3.23908 12.5159 3.67658 12.5355L4.18049 12.5589L4.2508 12.7503C4.33674 13.0003 4.72345 13.4105 4.98908 13.5433C5.78595 13.93 6.74299 13.5862 7.11408 12.7777L7.21955 12.5472H10.411H13.5985L13.7195 12.7933C14.036 13.43 14.7039 13.7933 15.3641 13.68C15.9266 13.5862 16.3445 13.2659 16.5633 12.762C16.6727 12.5081 16.6766 12.5081 16.8328 12.5081C17.2078 12.5081 17.5399 12.305 17.7313 11.9573L17.8485 11.7464L17.8602 10.2777L17.8719 8.81281L17.4578 7.66437C17.2274 7.03156 16.9969 6.43 16.9461 6.32453C16.7391 5.92218 16.3328 5.61359 15.8836 5.51984C15.7586 5.4925 15.1961 5.47687 14.45 5.47687H13.2195V4.89875C13.2195 4.23468 13.1727 4.01984 12.9695 3.75421C12.8992 3.65656 12.743 3.52765 12.6297 3.46515L12.4188 3.34796L10.3836 3.33625L8.34455 3.32453L8.25861 3.06281C7.64142 1.22296 5.73517 0.0393696 3.78596 0.285463ZM4.76642 1.10578C5.4422 1.19953 6.07892 1.4964 6.57502 1.94953C6.91486 2.25812 7.15705 2.59015 7.35627 3.02375C7.59064 3.53156 7.64924 3.8089 7.64924 4.44171C7.64533 4.92218 7.63361 5.03156 7.54377 5.33234C7.23908 6.32843 6.6258 7.04328 5.71174 7.46515C5.29377 7.66046 4.96955 7.7425 4.50861 7.76984C2.66486 7.87921 1.07892 6.46515 0.965643 4.6175C0.840643 2.53156 2.69611 0.816713 4.76642 1.10578ZM12.3055 4.2464L12.3992 4.34015L12.3914 8.02375L12.3797 11.7073L9.79767 11.7191L7.21955 11.7269L7.1297 11.512C6.92658 11.0237 6.37189 10.6175 5.83674 10.5706C5.55549 10.5433 5.20783 10.6136 4.93439 10.7542C4.68439 10.8792 4.40314 11.1878 4.26642 11.4769L4.14533 11.7347L3.74299 11.7191C3.1258 11.6995 3.18049 11.8597 3.18049 10.0081V8.45734L3.40705 8.51203C3.77814 8.60578 4.66486 8.6214 5.07111 8.54718C6.99299 8.1839 8.39142 6.57843 8.48127 4.62531L8.5047 4.14875H10.3563H12.2078L12.3055 4.2464ZM15.8563 6.3714C16.1492 6.50812 16.2 6.59796 16.6375 7.80109L17.0477 8.9339V10.2269C17.0477 11.6605 17.0477 11.6527 16.7938 11.7073C16.6805 11.7269 16.6688 11.7191 16.5672 11.4964C16.2625 10.8284 15.5399 10.4495 14.8406 10.5941C14.282 10.7073 13.8602 11.0706 13.6531 11.6214C13.6141 11.7152 13.5945 11.7269 13.4149 11.7269H13.2195V9.01203V6.29718H14.4617C15.5828 6.29718 15.7156 6.305 15.8563 6.3714ZM6.02814 11.4886C6.25861 11.5941 6.39533 11.8089 6.41486 12.0784C6.43439 12.3636 6.38361 12.5042 6.18439 12.68C5.90705 12.9339 5.54767 12.9534 5.2508 12.7386C4.98517 12.5472 4.8797 12.223 4.98517 11.9183C5.13752 11.4612 5.59064 11.2777 6.02814 11.4886ZM15.3875 11.4417C15.5399 11.4808 15.7313 11.6605 15.8055 11.8362C16.0594 12.4105 15.5438 13.0237 14.9461 12.8597C14.368 12.7073 14.2039 11.9183 14.6727 11.5589C14.8797 11.3987 15.0945 11.3636 15.3875 11.4417Z"
+                        fill="black" />
+                    <path
+                        d="M4.77368 3.94181L3.64868 5.0629L3.18774 4.60587C2.68774 4.10978 2.58227 4.05118 2.36743 4.16447C2.29711 4.19962 2.21508 4.28165 2.17993 4.34806C2.05883 4.58243 2.10961 4.66447 2.82055 5.36759C3.47289 6.01993 3.58618 6.09806 3.77368 6.04337C3.82446 6.02775 4.44946 5.434 5.16039 4.72306C6.55102 3.34025 6.57055 3.31681 6.46118 3.05118C6.39086 2.89103 6.27758 2.82072 6.07446 2.82072H5.89868L4.77368 3.94181Z"
+                        fill="black" />
+                    <path
+                        d="M8.92669 6.78906C8.77825 6.91406 8.73529 7.10156 8.82122 7.26953C8.93841 7.49609 9.01263 7.50781 10.0947 7.50781C11.1767 7.50781 11.2509 7.49609 11.3681 7.26953C11.454 7.10156 11.4111 6.91406 11.2626 6.78906L11.1415 6.6875H10.0947H9.04779L8.92669 6.78906Z"
+                        fill="black" />
+                    <path
+                        d="M5.58227 8.51953C5.32836 8.625 5.26195 8.98047 5.45727 9.17578L5.56273 9.28516H8.37523H11.1877L11.2932 9.17578C11.4495 9.02344 11.4495 8.76562 11.2932 8.61328L11.1877 8.50391L8.42211 8.49609C6.90258 8.49219 5.62523 8.50391 5.58227 8.51953Z"
+                        fill="black" />
+                    <path
+                        d="M13.8477 6.74219C13.6602 6.84375 13.6523 6.91016 13.6484 8.00781V9.03906L13.7812 9.17188L13.9141 9.30469H15.043C16.082 9.30469 16.1758 9.29688 16.2891 9.23047C16.3633 9.18359 16.4336 9.09766 16.457 9.01953C16.5 8.89453 16.4766 8.81641 16.1875 7.99609C16.0117 7.50391 15.8242 7.04688 15.7734 6.97656C15.582 6.72656 15.4297 6.6875 14.6406 6.6875C14.1367 6.69141 13.9141 6.70312 13.8477 6.74219ZM15.2969 7.9375C15.3789 8.16406 15.457 8.37891 15.4687 8.41406C15.4883 8.48047 15.4492 8.48438 14.9805 8.48438H14.4687V7.99609V7.50391L14.8086 7.51562L15.1523 7.52734L15.2969 7.9375Z"
+                        fill="black" />
+                </svg>
+            </span> Xác nhận giao hàng
+        </p>
+    </a>
+    <a href="#" class="text-dark">
+        <p class="quickAction p-2 rounded my-1 text-13-black" data-type="reciept" data-toggle="modal" data-target="#exampleModal">
+            <span class="mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                    fill="none">
+                    <path
+                        d="M16.6667 9.16667V4.16667C16.6667 3.72464 16.4911 3.30072 16.1785 2.98816C15.866 2.67559 15.442 2.5 15 2.5H4.16667C3.72464 2.5 3.30072 2.67559 2.98816 2.98816C2.67559 3.30072 2.5 3.72464 2.5 4.16667V15.8333C2.5 16.2754 2.67559 16.6993 2.98816 17.0118C3.30072 17.3244 3.72464 17.5 4.16667 17.5H8.33333"
+                        stroke="#26273B" stroke-opacity="0.8" stroke-width="1.15" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M7.70898 12.5H8.33398" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.15"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M14.584 11.5146V14.1663" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.15"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M17.5007 18.333H11.7715C11.5228 18.333 11.2844 18.2342 11.1086 18.0584C10.9328 17.8826 10.834 17.6441 10.834 17.3955V13.8055C10.8341 13.5803 10.8798 13.3576 10.9682 13.1505L11.424 12.0838C11.4963 11.9149 11.6165 11.771 11.7698 11.6698C11.9231 11.5686 12.1028 11.5147 12.2865 11.5146H16.8815C17.0651 11.5147 17.2446 11.5687 17.3978 11.6699C17.5509 11.7711 17.671 11.915 17.7432 12.0838L18.1998 13.1521C18.2883 13.3592 18.334 13.582 18.334 13.8071V17.4996C18.334 17.7207 18.2462 17.9326 18.0899 18.0889C17.9336 18.2452 17.7217 18.333 17.5007 18.333Z"
+                        stroke="#26273B" stroke-opacity="0.8" stroke-width="1.15" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path
+                        d="M18.334 15.0003C18.334 14.7793 18.2462 14.5673 18.0899 14.4111C17.9336 14.2548 17.7217 14.167 17.5007 14.167H11.6673C11.4463 14.167 11.2343 14.2548 11.0781 14.4111C10.9218 14.5673 10.834 14.7793 10.834 15.0003"
+                        stroke="#26273B" stroke-opacity="0.8" stroke-width="1.15" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M7.70898 9.16699H10.834" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.15"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M7.70898 5.9375H13.334" stroke="#26273B" stroke-opacity="0.8" stroke-width="1.15"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M5.625 6.5C5.74861 6.5 5.86945 6.46334 5.97223 6.39467C6.07501 6.32599 6.15512 6.22838 6.20242 6.11418C6.24973 5.99997 6.26211 5.87431 6.23799 5.75307C6.21388 5.63183 6.15435 5.52046 6.06694 5.43306C5.97953 5.34565 5.86817 5.28613 5.74693 5.26201C5.62569 5.23789 5.50003 5.25027 5.38582 5.29757C5.27162 5.34488 5.17401 5.42499 5.10533 5.52777C5.03666 5.63055 5 5.75139 5 5.875C5 6.04076 5.06585 6.19973 5.18306 6.31694C5.30027 6.43415 5.45924 6.5 5.625 6.5Z"
+                        fill="#26273B" fill-opacity="0.8" />
+                    <path
+                        d="M5.625 9.83301C5.74861 9.83301 5.86945 9.79635 5.97223 9.72767C6.07501 9.659 6.15512 9.56139 6.20242 9.44718C6.24973 9.33298 6.26211 9.20731 6.23799 9.08608C6.21388 8.96484 6.15435 8.85347 6.06694 8.76606C5.97953 8.67866 5.86817 8.61913 5.74693 8.59502C5.62569 8.5709 5.50003 8.58328 5.38582 8.63058C5.27162 8.67789 5.17401 8.75799 5.10533 8.86077C5.03666 8.96355 5 9.08439 5 9.20801C5 9.37377 5.06585 9.53274 5.18306 9.64995C5.30027 9.76716 5.45924 9.83301 5.625 9.83301Z"
+                        fill="#26273B" fill-opacity="0.8" />
+                    <path
+                        d="M5.625 13.083C5.74861 13.083 5.86945 13.0464 5.97223 12.9777C6.07501 12.909 6.15512 12.8114 6.20242 12.6972C6.24973 12.583 6.26211 12.4573 6.23799 12.3361C6.21388 12.2148 6.15435 12.1035 6.06694 12.0161C5.97953 11.9287 5.86817 11.8691 5.74693 11.845C5.62569 11.8209 5.50003 11.8333 5.38582 11.8806C5.27162 11.9279 5.17401 12.008 5.10533 12.1108C5.03666 12.2136 5 12.3344 5 12.458C5 12.6238 5.06585 12.7827 5.18306 12.8999C5.30027 13.0172 5.45924 13.083 5.625 13.083Z"
+                        fill="#26273B" fill-opacity="0.8" />
+                </svg>
+            </span>
+            Xác nhận hóa đơn
+        </p>
+    </a>
+    <a href="#" class="text-dark">
+        <p class="quickAction p-2 rounded my-1 text-13-black" data-type="payorder" data-toggle="modal"
+            data-target="#exampleModal">
+            <span class="mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                    fill="none">
+                    <g clip-path="url(#clip0_5715_15670)">
+                        <path
+                            d="M5.71429 3.23868H4.64286C4.07454 3.23868 3.52949 3.45947 3.12763 3.85247C2.72576 4.24547 2.5 4.77849 2.5 5.33427V16.3361C2.5 16.8919 2.72576 17.4249 3.12763 17.8179C3.52949 18.2109 4.07454 18.4317 4.64286 18.4317H15.3571C15.9255 18.4317 16.4705 18.2109 16.8724 17.8179C17.2742 17.4249 17.5 16.8919 17.5 16.3361V5.33427C17.5 4.77849 17.2742 4.24547 16.8724 3.85247C16.4705 3.45947 15.9255 3.23868 15.3571 3.23868H14.2857V4.28648H15.3571C15.6413 4.28648 15.9138 4.39687 16.1148 4.59337C16.3157 4.78987 16.4286 5.05638 16.4286 5.33427V16.3361C16.4286 16.614 16.3157 16.8805 16.1148 17.077C15.9138 17.2735 15.6413 17.3839 15.3571 17.3839H4.64286C4.3587 17.3839 4.08617 17.2735 3.88524 17.077C3.68431 16.8805 3.57143 16.614 3.57143 16.3361V5.33427C3.57143 5.05638 3.68431 4.78987 3.88524 4.59337C4.08617 4.39687 4.3587 4.28648 4.64286 4.28648H5.71429V3.23868Z"
+                            fill="#26273B" fill-opacity="0.8" />
+                        <path
+                            d="M11.6071 2.71479C11.7492 2.71479 11.8855 2.76998 11.986 2.86823C12.0864 2.96648 12.1429 3.09974 12.1429 3.23868V4.28648C12.1429 4.42542 12.0864 4.55868 11.986 4.65693C11.8855 4.75518 11.7492 4.81037 11.6071 4.81037H8.39286C8.25078 4.81037 8.11452 4.75518 8.01405 4.65693C7.91358 4.55868 7.85714 4.42542 7.85714 4.28648V3.23868C7.85714 3.09974 7.91358 2.96648 8.01405 2.86823C8.11452 2.76998 8.25078 2.71479 8.39286 2.71479H11.6071ZM8.39286 1.66699C7.96662 1.66699 7.55783 1.83258 7.25644 2.12733C6.95504 2.42208 6.78571 2.82185 6.78571 3.23868V4.28648C6.78571 4.70332 6.95504 5.10308 7.25644 5.39783C7.55783 5.69258 7.96662 5.85817 8.39286 5.85817H11.6071C12.0334 5.85817 12.4422 5.69258 12.7436 5.39783C13.045 5.10308 13.2143 4.70332 13.2143 4.28648V3.23868C13.2143 2.82185 13.045 2.42208 12.7436 2.12733C12.4422 1.83258 12.0334 1.66699 11.6071 1.66699H8.39286Z"
+                            fill="#26273B" fill-opacity="0.8" />
+                        <path
+                            d="M6.78571 12.7622C6.90018 13.7603 7.95588 14.4686 9.56302 14.5603V15.2883H10.3697V14.5603C12.1253 14.4531 13.2143 13.6993 13.2143 12.5844C13.2143 11.6324 12.4819 11.0816 10.9281 10.7714L10.3697 10.6595V8.38305C11.2375 8.44892 11.8229 8.81055 11.9706 9.35062H13.1076C12.9792 8.39263 11.9165 7.70528 10.3697 7.62924V6.90596H9.56302V7.64421C8.06339 7.78192 7.03398 8.52555 7.03398 9.53383C7.03398 10.4044 7.78109 11.0205 9.09202 11.2804L9.5638 11.3774V13.7909C8.67515 13.6891 8.06339 13.3119 7.91566 12.7622H6.78571ZM9.40834 10.4655C8.60168 10.308 8.17089 9.97151 8.17089 9.49791C8.17089 8.9327 8.71537 8.51538 9.56302 8.40341V10.496L9.40834 10.4655ZM10.6388 11.5863C11.6342 11.7797 12.0712 12.1006 12.0712 12.6455C12.0712 13.3023 11.4324 13.74 10.3697 13.8064V11.5342L10.6388 11.5863Z"
+                            fill="#26273B" fill-opacity="0.8" />
+                        <path
+                            d="M5.71429 3.23868H4.64286C4.07454 3.23868 3.52949 3.45947 3.12763 3.85247C2.72576 4.24547 2.5 4.77849 2.5 5.33427V16.3361C2.5 16.8919 2.72576 17.4249 3.12763 17.8179C3.52949 18.2109 4.07454 18.4317 4.64286 18.4317H15.3571C15.9255 18.4317 16.4705 18.2109 16.8724 17.8179C17.2742 17.4249 17.5 16.8919 17.5 16.3361V5.33427C17.5 4.77849 17.2742 4.24547 16.8724 3.85247C16.4705 3.45947 15.9255 3.23868 15.3571 3.23868H14.2857V4.28648H15.3571C15.6413 4.28648 15.9138 4.39687 16.1148 4.59337C16.3157 4.78987 16.4286 5.05638 16.4286 5.33427V16.3361C16.4286 16.614 16.3157 16.8805 16.1148 17.077C15.9138 17.2735 15.6413 17.3839 15.3571 17.3839H4.64286C4.3587 17.3839 4.08617 17.2735 3.88524 17.077C3.68431 16.8805 3.57143 16.614 3.57143 16.3361V5.33427C3.57143 5.05638 3.68431 4.78987 3.88524 4.59337C4.08617 4.39687 4.3587 4.28648 4.64286 4.28648H5.71429V3.23868Z"
+                            stroke="#26273B" stroke-opacity="0.8" stroke-width="0.1" />
+                        <path
+                            d="M11.6071 2.71479C11.7492 2.71479 11.8855 2.76998 11.986 2.86823C12.0864 2.96648 12.1429 3.09974 12.1429 3.23868V4.28648C12.1429 4.42542 12.0864 4.55868 11.986 4.65693C11.8855 4.75518 11.7492 4.81037 11.6071 4.81037H8.39286C8.25078 4.81037 8.11452 4.75518 8.01405 4.65693C7.91358 4.55868 7.85714 4.42542 7.85714 4.28648V3.23868C7.85714 3.09974 7.91358 2.96648 8.01405 2.86823C8.11452 2.76998 8.25078 2.71479 8.39286 2.71479H11.6071ZM8.39286 1.66699C7.96662 1.66699 7.55783 1.83258 7.25644 2.12733C6.95504 2.42208 6.78571 2.82185 6.78571 3.23868V4.28648C6.78571 4.70332 6.95504 5.10308 7.25644 5.39783C7.55783 5.69258 7.96662 5.85817 8.39286 5.85817H11.6071C12.0334 5.85817 12.4422 5.69258 12.7436 5.39783C13.045 5.10308 13.2143 4.70332 13.2143 4.28648V3.23868C13.2143 2.82185 13.045 2.42208 12.7436 2.12733C12.4422 1.83258 12.0334 1.66699 11.6071 1.66699H8.39286Z"
+                            stroke="#26273B" stroke-opacity="0.8" stroke-width="0.1" />
+                        <path
+                            d="M6.78571 12.7622C6.90018 13.7603 7.95588 14.4686 9.56302 14.5603V15.2883H10.3697V14.5603C12.1253 14.4531 13.2143 13.6993 13.2143 12.5844C13.2143 11.6324 12.4819 11.0816 10.9281 10.7714L10.3697 10.6595V8.38305C11.2375 8.44892 11.8229 8.81055 11.9706 9.35062H13.1076C12.9792 8.39263 11.9165 7.70528 10.3697 7.62924V6.90596H9.56302V7.64421C8.06339 7.78192 7.03398 8.52555 7.03398 9.53383C7.03398 10.4044 7.78109 11.0205 9.09202 11.2804L9.5638 11.3774V13.7909C8.67515 13.6891 8.06339 13.3119 7.91566 12.7622H6.78571ZM9.40834 10.4655C8.60168 10.308 8.17089 9.97151 8.17089 9.49791C8.17089 8.9327 8.71537 8.51538 9.56302 8.40341V10.496L9.40834 10.4655ZM10.6388 11.5863C11.6342 11.7797 12.0712 12.1006 12.0712 12.6455C12.0712 13.3023 11.4324 13.74 10.3697 13.8064V11.5342L10.6388 11.5863Z"
+                            stroke="#26273B" stroke-opacity="0.8" stroke-width="0.1" />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_5715_15670">
+                            <rect width="20" height="20" rx="4" fill="white" />
+                        </clipPath>
+                    </defs>
+                </svg>
+            </span>
+            Xác nhận thanh toán
+        </p>
+    </a>
+</div>
+{{-- Modal --}}
+<form action="#" method="POST" id="quickAction">
+    @csrf
+    <input type="hidden" id="id_export" name="detailexport_id">
+    <input type="hidden" name="action" id="getAction">
+    <input type="hidden" name="redirect">
+    <div id="selectedSerialNumbersContainer"></div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document" style="max-width: 50%;">
+            <div class="modal-content">
+                <div class="header-modal">
+                </div>
+                <div class="modal-body p-0 pb-2">
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Modal seri --}}
+    <div id="list_modal">
+        <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel"
+            style="display: none;" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
+                        <button type="button" class="close btnclose" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="table_SNS">
+                            <thead>
+                                <tr>
+                                    <td style="width:2%"></td>
+                                    <th style="width:5%">STT</th>
+                                    <th style="width:100%">Serial number</th>
+                                    <th style="width:3%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary check-seri" data-dismiss="">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 <x-user-flow></x-user-flow>
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
+<script src="{{ asset('/dist/js/export.js') }}"></script>
 
 <script>
+    var selectedSerialNumbers = [];
+    $(document).ready(function() {
+        var menu = $('.menu'); //get the menu
+        $(document).on('contextmenu', '.detailExport-info', function(e) {
+            // Chặn click trình duyệt
+            e.preventDefault();
+            var id = $(this).data('id');
+            $(document).off('click', '.quickAction').on('click', '.quickAction', function() {
+                $('#quickAction #exampleModal .modal-content .modal-body')
+                    .empty();
+                $('#quickAction #exampleModal .modal-content .header-modal')
+                    .empty();
+                var type = $(this).data('type');
+                if (type && id) {
+                    if (type == "receive") {
+                        $.ajax({
+                            url: "{{ route('getDataExport') }}",
+                            type: "get",
+                            data: {
+                                type: type,
+                                id: id
+                            },
+                            success: function(data) {
+                                if (data.status) {
+                                    $('#id_export').val(id)
+                                    $('#listProduct tbody').empty();
+                                    var header = `
+                                    <div class="modal-header d-flex align-items-center">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;">Xác nhận giao hàng</h5>
+                                        <div class="d-flex">
+                                            <a href="#">
+                                                <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100"
+                                                    style="margin-right:10px" data-dismiss="modal" aria-label="Close">
+                                                    <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
+                                                            fill="#6D7075"></path>
+                                                    </svg>
+                                                    <span class="text-btnIner-primary ml-2">Hủy</span>
+                                                </button>
+                                            </a>
+
+                                            <a href="#" data-type="delivery" onclick="getActionForm(this)" id="luuNhap">
+                                                <button name="action" value="1" type="button"
+                                                    class="custom-btn d-flex align-items-center h-100" style="margin-right:5px">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14"
+                                                        viewBox="0 0 12 14" fill="none" class="mr-1">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M4.75 0V5.75C4.75 6.5297 5.34489 7.17045 6.10554 7.24313L6.25 7.25H12V12C12 13.1046 11.1046 14 10 14H2C0.89543 14 0 13.1046 0 12V2C0 0.89543 0.89543 0 2 0H4.75ZM6 0L12 6.03022H7C6.44772 6.03022 6 5.5825 6 5.03022V0Z"
+                                                            fill="white"></path>
+                                                    </svg>
+                                                    <span class="text-btnIner-primary ml-2">Lưu nháp</span>
+                                                </button>
+                                            </a>
+
+                                            <a href="#" data-type="delivery" onclick="getActionForm(this)" id="giaoHang">
+                                                <button name="action" value="2" type="submit"
+                                                    class="custom-btn d-flex align-items-center h-100">
+                                                    <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                        viewBox="0 0 14 14" fill="none">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
+                                                            fill="white"></path>
+                                                    </svg>
+                                                    <span class="text-btnIner-primary ml-2">Xác nhận</span>
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>`;
+                                    $('#quickAction #exampleModal .modal-content .header-modal')
+                                        .append(header);
+
+                                    var body = `
+                                    <div class="d-flex">
+                                        <div class="content-left" style="width:70%;">
+                                            <p class="font-weight-bold text-uppercase info-chung--modal text-center">THÔNG TIN SẢN
+                                                PHẨM</p>
+
+                                        <table id="listProduct" class="table table-hover bg-white rounded">
+                                            <thead>
+                                                <th class="border">
+                                                    <span class="text-table">Tên sản phẩm</span>
+                                                </th>
+                                                <th class="border text-right" style="width: 25%;">
+                                                    <span class="text-table">Số lượng</span>
+                                                </th>
+                                                <th class="border" style="width: 20%;">
+                                                    <span class="text-table">Quản lý SN</span>
+                                                </th>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                        <div class="content right" style="width:30%;">
+                                            <p class="font-weight-bold text-uppercase info-chung--modal text-center border-left">
+                                               THÔNG TIN KHÁCH HÀNG    
+                                            </p>
+                                            <div class="d-flex justify-content-between py-1 px-1 border align-items-center text-left text-nowrap position-relative"
+                                                style="height:50px;">
+
+                                                <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
+
+                                                <span class="mx-1 text-13" style="flex: 2;">
+                                                    <input type="text" placeholder="Chọn thông tin"
+                                                        class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest"
+                                                        style="border-radius:4px;" autocomplete="off" readonly=""
+                                                        name="quotation_number">
+                                                </span>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between py-1 px-1 border align-items-center text-left text-nowrap position-relative"
+                                                style="height:50px;">
+
+                                                <span class="text-13 btn-click" style="flex: 1.5;">Khách hàng</span>
+
+                                                <span class="mx-1 text-13" style="flex: 2;">
+                                                    <input type="text" placeholder="Chọn thông tin"
+                                                        class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest"
+                                                        style="border-radius:4px;" autocomplete="off" readonly=""
+                                                        name="guest_name">
+                                                    <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
+                                                    <input type="hidden" class="idGuest" autocomplete="off" name="code_delivery">
+                                                </span>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between py-1 px-1 border align-items-center text-left text-nowrap position-relative"
+                                                style="height:50px;">
+
+                                                <span class="text-13 btn-click" style="flex: 1.5;">Ngày giao hàng</span>
+                                                    <input type="text" placeholder="Nhập thông tin"
+                                                        class="text-13-black w-100 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
+                                                        style="flex:2;" value="{{ date('Y-m-d') }}" id="datePicker" readonly="readonly">
+                                                    <input id="hiddenDateInput" type="hidden" value="{{ date('Y-m-d') }}"
+                                                        name="date_deliver">
+                                            </div>
+                                        </div>
+                                    </div>`;
+                                    $('#quickAction #exampleModal .modal-content .modal-body')
+                                        .append(body);
+                                    $("input[name='quotation_number']").val(data
+                                        .quotation_number)
+                                    $("input[name='guest_name']").val(data
+                                        .guest_name)
+                                    $("input[name='guest_id']").val(data
+                                        .guest_id)
+                                    $("input[name='code_delivery']").val('GH-' + (
+                                        data.lastDeliveryId + 1))
+                                    $.each(data.product, function(productId,
+                                        productData) {
+                                        var tr = `
+                                            <tr class="bg-white addProduct" id="dynamic-row-` + productData
+                                            .maSP + `">
+                                                <td class="border border bg-white align-top text-13-black">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <input type="hidden" class="product_id" value="` + productData
+                                            .maSP + `" autocomplete="off" name="product_id[]">
+                                                        <input name="product_name[]" value="` + productData
+                                            .product_name +
+                                            `" class="searchProductName w-100 border-0 px-2 py-1 bg-input-guest product_name" readonly>
+                                                        <div class="info-product" data-toggle="modal" data-target="#productModal"> 
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">                                     
+                                                                <g clip-path="url(#clip0_2559_39956)">                                         
+                                                                <path d="M6.99999 1.48362C5.53706 1.48362 4.13404 2.06477 3.09959 3.09922C2.06514 4.13367 1.48399 5.53669 1.48399 6.99963C1.48399 8.46256 2.06514 9.86558 3.09959 10.9C4.13404 11.9345 5.53706 12.5156 6.99999 12.5156C8.46292 12.5156 9.86594 11.9345 10.9004 10.9C11.9348 9.86558 12.516 8.46256 12.516 6.99963C12.516 5.53669 11.9348 4.13367 10.9004 3.09922C9.86594 2.06477 8.46292 1.48362 6.99999 1.48362ZM0.265991 6.99963C0.265991 5.21366 0.975464 3.50084 2.23833 2.23797C3.5012 0.975098 5.21402 0.265625 6.99999 0.265625C8.78596 0.265625 10.4988 0.975098 11.7616 2.23797C13.0245 3.50084 13.734 5.21366 13.734 6.99963C13.734 8.78559 13.0245 10.4984 11.7616 11.7613C10.4988 13.0242 8.78596 13.7336 6.99999 13.7336C5.21402 13.7336 3.5012 13.0242 2.23833 11.7613C0.975464 10.4984 0.265991 8.78559 0.265991 6.99963Z" fill="#282A30"></path>                                         <path d="M7.07004 4.34488C6.92998 4.33528 6.78944 4.35459 6.65715 4.40161C6.52487 4.44863 6.40367 4.52236 6.30109 4.61821C6.19851 4.71406 6.11674 4.82999 6.06087 4.95878C6.00499 5.08757 5.9762 5.22648 5.97629 5.36688C5.97629 5.52851 5.91208 5.68352 5.79779 5.79781C5.6835 5.91211 5.52849 5.97631 5.36685 5.97631C5.20522 5.97631 5.05021 5.91211 4.93592 5.79781C4.82162 5.68352 4.75742 5.52851 4.75742 5.36688C4.75733 4.9557 4.87029 4.55241 5.08394 4.2011C5.2976 3.84979 5.60373 3.56398 5.96886 3.37492C6.33399 3.18585 6.74408 3.10081 7.15428 3.12909C7.56449 3.15737 7.95902 3.29788 8.29475 3.53526C8.63049 3.77265 8.8945 4.09776 9.05792 4.47507C9.22135 4.85237 9.2779 5.26735 9.22139 5.67462C9.16487 6.0819 8.99748 6.4658 8.7375 6.78436C8.47753 7.10292 8.13497 7.34387 7.74729 7.48088C7.70694 7.49534 7.67207 7.52196 7.64747 7.55706C7.62287 7.59216 7.60975 7.63402 7.60992 7.67688V8.22463C7.60992 8.38626 7.54571 8.54127 7.43142 8.65557C7.31712 8.76986 7.16211 8.83407 7.00048 8.83407C6.83885 8.83407 6.68383 8.76986 6.56954 8.65557C6.45525 8.54127 6.39104 8.38626 6.39104 8.22463V7.67688C6.39096 7.38197 6.48229 7.0943 6.65247 6.85345C6.82265 6.6126 7.0633 6.43042 7.34129 6.332C7.56313 6.25339 7.7511 6.10073 7.87356 5.89975C7.99603 5.69877 8.0455 5.46172 8.01366 5.22853C7.98181 4.99534 7.87059 4.78025 7.69872 4.61946C7.52685 4.45867 7.30483 4.36114 7.07004 4.34488Z" fill="#282A30"></path>                                         <path d="M7.04382 10.1242C7.00228 10.1242 6.96245 10.1408 6.93307 10.1701C6.9037 10.1995 6.8872 10.2393 6.8872 10.2809C6.8872 10.3224 6.9037 10.3623 6.93307 10.3916C6.96245 10.421 7.00228 10.4375 7.04382 10.4375C7.08536 10.4375 7.1252 10.421 7.15457 10.3916C7.18395 10.3623 7.20045 10.3224 7.20045 10.2809C7.20045 10.2393 7.18395 10.1995 7.15457 10.1701C7.1252 10.1408 7.08536 10.1242 7.04382 10.1242ZM7.04382 10.9371C7.13 10.9371 7.21534 10.9201 7.29496 10.8872C7.37458 10.8542 7.44692 10.8059 7.50786 10.7449C7.5688 10.684 7.61714 10.6116 7.65012 10.532C7.6831 10.4524 7.70007 10.3671 7.70007 10.2809C7.70007 10.1947 7.6831 10.1094 7.65012 10.0297C7.61714 9.95012 7.5688 9.87777 7.50786 9.81684C7.44692 9.7559 7.37458 9.70756 7.29496 9.67458C7.21534 9.6416 7.13 9.62462 7.04382 9.62462C6.86977 9.62462 6.70286 9.69376 6.57978 9.81684C6.45671 9.93991 6.38757 10.1068 6.38757 10.2809C6.38757 10.4549 6.45671 10.6218 6.57978 10.7449C6.70286 10.868 6.86977 10.9371 7.04382 10.9371Z" fill="#282A30"></path>                                     </g>                                     <defs>                                         <clipPath id="clip0_2559_39956">                                             <rect width="14" height="14" fill="white"></rect>                                         </clipPath>                                     </defs>                                 
+                                                            </svg>                             
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="border border bg-white align-top text-13-black text-right">
+                                                    <div class="d-flex justify-content-between">
+                                                        <input class="quantity-input w-100 border-0 px-2 py-1 bg-input-guest text-right" type="text" name="product_qty[]" value="` +
+                                            formatCurrency(productData
+                                                .product_qty) +
+                                            `" readonly>
+                                                    </div>
+                                                    <p class="mt-3 text-13-blue inventory ${productData.type == 2 ? "d-none" : 'd-block'}">Tồn kho: <span class="soTonKho">${formatNumber(productData.product_inventory == null ? 0 : productData.product_inventory)}</span></p>
+                                                </td>
+                                                <td class="text-center d-none">
+                                                    <input class="check-add-sn" data-seri="${productData.maSP}" type="checkbox" name="cbSeri[]" value="1" ${productData.check_seri == 1 ? 'checked' : ''}>    
+                                                </td>
+                                                <td class="border text-center border bg-white align-top text-13-black">
+                                                    <a class="open-modal-btn" href="#" data-target="#exampleModal0" data-toggle="modal">
+                                                    <div class="sn--modal pt-2">
+                                                    <span class="border-span--modal">SN</span>
+                                                    </div>
+                                                </a>
+                                                </td>
+                                                <td class="border border bg-white align-top text-13-black text-right d-none">
+                                                    <input type="hidden" class="product_tax" value="` + productData
+                                            .product_tax + `" name="product_tax[]">
+                                                    <input type="hidden" value="` + productData.price_export + `" class="text-right border-0 px-2 py-1 w-100 product_price" autocomplete="off" name="product_price[]" required="">
+                                                </td>
+                                            </tr>`;
+                                        $('#listProduct tbody').append(tr);
+                                        //Ẩn/hiện button S/N
+                                        var seriPro = productData.seri_pro;
+                                        if (seriPro && seriPro.length > 0 &&
+                                            seriPro[0] !== null) {
+                                            // Hiển thị open-modal-btn
+                                            $(`#dynamic-row-${productId} .open-modal-btn`)
+                                                .show();
+                                        } else {
+                                            // Ẩn open-modal-btn
+                                            $(`#dynamic-row-${productId} .open-modal-btn`)
+                                                .hide();
+                                        }
+                                        //Check S/N
+                                        var rowId = $(this.currentTarget)
+                                            .closest('tr').attr('id');
+                                        var seriList = productData.seri_pro
+                                            .filter(
+                                                item => item !== null).join(
+                                                '</li><li>');
+                                        var seriProElement = $(
+                                            `#dynamic-row-${productData.maSP} .seri_pro`
+                                        );
+                                        var rowElement = $(
+                                            `#dynamic-row-${productData.maSP}`
+                                        );
+
+                                        if (seriList.length > 0) {
+                                            rowElement.find(`.check-add-sn`)
+                                                .prop('disabled', true);
+                                            seriProElement.hide();
+                                        } else {
+                                            seriProElement.html(
+                                                `<li>${seriList}</li>`);
+                                            seriProElement.show();
+                                            rowElement.find(
+                                                    `.open-modal-btn`)
+                                                .hide();
+                                        }
+                                        //Hiện SN theo sản phẩm
+                                        $('.open-modal-btn').off('click')
+                                            .on(
+                                                'click',
+                                                function() {
+                                                    var trElement = $(this)
+                                                        .closest('tr');
+                                                    var productInput =
+                                                        trElement
+                                                        .find(
+                                                            '.product_id');
+                                                    var productId =
+                                                        productInput
+                                                        .val();
+                                                    var selectedSerialNumbersForProduct =
+                                                        selectedSerialNumbers[
+                                                            productId] ||
+                                                    [];
+                                                    var qty_enter =
+                                                        trElement
+                                                        .find(
+                                                            '.quantity-input'
+                                                        )
+                                                        .val();
+                                                    $("#exampleModal0 .modal-body tbody")
+                                                        .empty();
+
+                                                    $.ajax({
+                                                        url: "{{ route('getProductSeri') }}",
+                                                        method: 'GET',
+                                                        data: {
+                                                            productId: productId,
+                                                        },
+                                                        success: function(
+                                                            response
+                                                        ) {
+                                                            var currentIndex =
+                                                                1;
+                                                            response
+                                                                .forEach(
+                                                                    function(
+                                                                        sn
+                                                                    ) {
+                                                                        var snId =
+                                                                            parseInt(
+                                                                                sn
+                                                                                .id
+                                                                            );
+                                                                        var selectedSerialNumbersForProductInt =
+                                                                            selectedSerialNumbersForProduct
+                                                                            .map(
+                                                                                function(
+                                                                                    value
+                                                                                ) {
+                                                                                    return parseInt(
+                                                                                        value
+                                                                                        .serialNumberId
+                                                                                    );
+                                                                                }
+                                                                            );
+                                                                        var isChecked =
+                                                                            selectedSerialNumbersForProductInt
+                                                                            .includes(
+                                                                                snId
+                                                                            );
+                                                                        var newRow = `<tr style="">
+                                                                <td class="ui-sortable-handle">
+                                                                    <input type="checkbox" class="check-item" data-product-id-sn="${sn.product_id}" value="${sn.id}" ${isChecked ? 'checked' : ''}>
+                                                                </td>
+                                                                <td class="ui-sortable-handle">${currentIndex}</td>
+                                                                <td class="ui-sortable-handle">
+                                                                    <input readonly class="form-control w-25" type="text" value="${sn.serinumber}">
+                                                                </td>
+                                                            </tr>`;
+                                                                        currentIndex++;
+                                                                        $("#exampleModal0 .modal-body tbody")
+                                                                            .append(
+                                                                                newRow
+                                                                            );
+                                                                    }
+                                                                );
+                                                            //Thay đổi số lượng thì xóa s/n đã check
+                                                            $(".quantity-input")
+                                                                .on("change",
+                                                                    function() {
+                                                                        var quantity =
+                                                                            $(
+                                                                                this
+                                                                            )
+                                                                            .val();
+                                                                        var productId =
+                                                                            $(
+                                                                                this
+                                                                            )
+                                                                            .data(
+                                                                                "product-id"
+                                                                            );
+                                                                        var
+                                                                            selectedSerialNumbersForProductInt = [];
+                                                                        if (Array
+                                                                            .isArray(
+                                                                                selectedSerialNumbersForProduct
+                                                                            )
+                                                                        ) {
+                                                                            selectedSerialNumbersForProductInt
+                                                                                =
+                                                                                selectedSerialNumbersForProduct
+                                                                                .map(
+                                                                                    function(
+                                                                                        value
+                                                                                    ) {
+                                                                                        return parseInt(
+                                                                                            value
+                                                                                            .serialNumberId
+                                                                                        );
+                                                                                    }
+                                                                                );
+                                                                        }
+                                                                        for (
+                                                                            let i =
+                                                                                0; i <
+                                                                            selectedSerialNumbers
+                                                                            .length; i++
+                                                                        ) {
+                                                                            if (Array
+                                                                                .isArray(
+                                                                                    selectedSerialNumbers[
+                                                                                        i
+                                                                                    ]
+                                                                                ) &&
+                                                                                selectedSerialNumbers[
+                                                                                    i
+                                                                                ]
+                                                                                .length >
+                                                                                0
+                                                                            ) {
+                                                                                selectedSerialNumbers
+                                                                                    [
+                                                                                        i
+                                                                                    ] =
+                                                                                    selectedSerialNumbers[
+                                                                                        i
+                                                                                    ]
+                                                                                    .filter(
+                                                                                        function(
+                                                                                            item
+                                                                                        ) {
+                                                                                            return item
+                                                                                                .product_id !==
+                                                                                                productId;
+                                                                                        }
+                                                                                    );
+                                                                                $('input[name="selected_serial_numbers[]"][data-product-id="' +
+                                                                                        productId +
+                                                                                        '"]'
+                                                                                    )
+                                                                                    .remove();
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                );
+                                                            $('.check-item')
+                                                                .on('change',
+                                                                    function(
+                                                                        event
+                                                                    ) {
+                                                                        event
+                                                                            .stopPropagation();
+                                                                        var checkedCheckboxes =
+                                                                            $(
+                                                                                '.check-item:checked'
+                                                                            )
+                                                                            .length;
+                                                                        var serialNumberId =
+                                                                            $(
+                                                                                this
+                                                                            )
+                                                                            .val();
+                                                                        var productId =
+                                                                            $(
+                                                                                this
+                                                                            )
+                                                                            .data(
+                                                                                'product-id-sn'
+                                                                            );
+                                                                        if (checkedCheckboxes >
+                                                                            qty_enter
+                                                                        ) {
+                                                                            $(this)
+                                                                                .prop(
+                                                                                    'checked',
+                                                                                    false
+                                                                                );
+                                                                        } else {
+                                                                            if ($(
+                                                                                    this
+                                                                                )
+                                                                                .is(
+                                                                                    ':checked'
+                                                                                )
+                                                                            ) {
+                                                                                if (!
+                                                                                    selectedSerialNumbers[
+                                                                                        productId
+                                                                                    ]
+                                                                                ) {
+                                                                                    selectedSerialNumbers
+                                                                                        [
+                                                                                            productId
+                                                                                        ] = [];
+                                                                                }
+                                                                                selectedSerialNumbers
+                                                                                    [
+                                                                                        productId
+                                                                                    ]
+                                                                                    .push({
+                                                                                        product_id: productId,
+                                                                                        serialNumberId: serialNumberId
+                                                                                    });
+
+                                                                                // Tạo một trường input ẩn mới và đặt giá trị
+                                                                                var newInput =
+                                                                                    $('<input>', {
+                                                                                        type: 'hidden',
+                                                                                        name: 'selected_serial_numbers[]',
+                                                                                        value: serialNumberId,
+                                                                                        'data-product-id': productId,
+                                                                                    });
+
+                                                                                // Thêm trường input mới vào container
+                                                                                $('#selectedSerialNumbersContainer')
+                                                                                    .append(
+                                                                                        newInput
+                                                                                    );
+                                                                            } else {
+                                                                                if (selectedSerialNumbers[
+                                                                                        productId
+                                                                                    ]) {
+                                                                                    selectedSerialNumbers
+                                                                                        [
+                                                                                            productId
+                                                                                        ] =
+                                                                                        selectedSerialNumbers[
+                                                                                            productId
+                                                                                        ]
+                                                                                        .filter(
+                                                                                            function(
+                                                                                                item
+                                                                                            ) {
+                                                                                                return item
+                                                                                                    .serialNumberId !==
+                                                                                                    serialNumberId;
+                                                                                            }
+                                                                                        );
+
+                                                                                    // Xóa trường input ẩn tương ứng
+                                                                                    $('input[name="selected_serial_numbers[]"][value="' +
+                                                                                            serialNumberId +
+                                                                                            '"]'
+                                                                                        )
+                                                                                        .remove();
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                );
+
+                                                            // Xoá sự kiện click trước đó nếu có
+                                                            $('.check-seri')
+                                                                .off(
+                                                                    'click'
+                                                                )
+                                                                .on('click',
+                                                                    function() {
+                                                                        var checkedCheckboxes =
+                                                                            $(
+                                                                                '.check-item:checked'
+                                                                            )
+                                                                            .length;
+                                                                        var check_item =
+                                                                            $(
+                                                                                '.check-item'
+                                                                            );
+                                                                        if (check_item
+                                                                            .length >
+                                                                            0
+                                                                        ) {
+                                                                            if (checkedCheckboxes <
+                                                                                qty_enter
+                                                                            ) {
+                                                                                showAutoToast
+                                                                                    ('warning',
+                                                                                        'Vui lòng chọn đủ serial number theo số lượng xuất!'
+                                                                                    );
+                                                                                // Không cho phép đóng modal khi có lỗi
+                                                                                return false;
+                                                                            } else if (
+                                                                                checkedCheckboxes ==
+                                                                                qty_enter
+                                                                            ) {
+                                                                                // Kiểm tra xem nút được nhấn có class 'check-seri' không
+                                                                                if ($(
+                                                                                        this
+                                                                                    )
+                                                                                    .hasClass(
+                                                                                        'check-seri'
+                                                                                    )
+                                                                                ) {
+                                                                                    $(this)
+                                                                                        .attr(
+                                                                                            'data-dismiss',
+                                                                                            'modal'
+                                                                                        );
+                                                                                }
+                                                                            }
+                                                                        } else {
+                                                                            $(this)
+                                                                                .attr(
+                                                                                    'data-dismiss',
+                                                                                    'modal'
+                                                                                );
+                                                                        }
+                                                                    }
+                                                                );
+                                                        }
+                                                    });
+                                                });
+                                        //Kiểm tra đã thêm seri chưa
+                                        $('#luuNhap').off('click').on(
+                                            'click',
+                                            function(e) {
+                                                var
+                                                    insufficientSeriProducts = [];
+                                                var
+                                                    invalidInventoryProducts = [];
+                                                var
+                                                    invalidInventorySN = [];
+                                                var sanPhamHetSN = [];
+                                                $(".bg-white.addProduct")
+                                                    .each(
+                                                        function() {
+                                                            var soTonKho =
+                                                                parseFloat(
+                                                                    $(
+                                                                        this
+                                                                    )
+                                                                    .find(
+                                                                        ".soTonKho"
+                                                                    )
+                                                                    .text()
+                                                                );
+                                                            var checkbox =
+                                                                $(
+                                                                    this
+                                                                )
+                                                                .find(
+                                                                    ".check-add-sn"
+                                                                );
+
+                                                            var quantity =
+                                                                parseFloat(
+                                                                    $(
+                                                                        this
+                                                                    )
+                                                                    .find(
+                                                                        ".quantity-input"
+                                                                    )
+                                                                    .val()
+                                                                );
+                                                            var type =
+                                                                parseFloat(
+                                                                    $(
+                                                                        this
+                                                                    )
+                                                                    .find(
+                                                                        ".type"
+                                                                    )
+                                                                    .val()
+                                                                );
+                                                            var productNameInventory =
+                                                                $(this)
+                                                                .find(
+                                                                    ".product_name"
+                                                                ).val();
+                                                            // Kiểm tra số lượng tồn kho
+                                                            if (type !=
+                                                                2) {
+                                                                if (quantity >
+                                                                    soTonKho
+                                                                ) {
+                                                                    invalidInventoryProducts
+                                                                        .push(
+                                                                            productNameInventory
+                                                                        );
+                                                                }
+                                                            }
+
+                                                            if (checkbox
+                                                                .prop(
+                                                                    "checked"
+                                                                ) &&
+                                                                checkbox
+                                                                .prop(
+                                                                    "disabled"
+                                                                )
+                                                            ) {
+                                                                var quantityValue =
+                                                                    parseFloat(
+                                                                        $(
+                                                                            this
+                                                                        )
+                                                                        .find(
+                                                                            ".quantity-input"
+                                                                        )
+                                                                        .val()
+                                                                    );
+                                                                var productId =
+                                                                    $(
+                                                                        this
+                                                                    )
+                                                                    .find(
+                                                                        ".product_id"
+                                                                    )
+                                                                    .val();
+                                                                var productName =
+                                                                    $(
+                                                                        this
+                                                                    )
+                                                                    .find(
+                                                                        ".product_name"
+                                                                    )
+                                                                    .val();
+
+                                                                for (var i =
+                                                                        0; i <
+                                                                    quantityValue; i++
+                                                                ) {
+                                                                    var isSeriInputExist =
+                                                                        $(
+                                                                            `input[name="selected_serial_numbers[]"][data-product-id="${productId}"]:eq(${i})`
+                                                                        )
+                                                                        .length >
+                                                                        0;
+
+                                                                    if (!
+                                                                        isSeriInputExist
+                                                                    ) {
+                                                                        insufficientSeriProducts
+                                                                            .push(
+                                                                                productName
+                                                                            );
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            //
+                                                            if (checkbox
+                                                                .prop(
+                                                                    "checked"
+                                                                ) &&
+                                                                !
+                                                                checkbox
+                                                                .prop(
+                                                                    "disabled"
+                                                                )
+                                                            ) {
+                                                                if (type !=
+                                                                    2) {
+                                                                    invalidInventorySN
+                                                                        .push(
+                                                                            productNameInventory
+                                                                        );
+                                                                    sanPhamHetSN
+                                                                        .push(
+                                                                            productNameInventory
+                                                                        );
+                                                                }
+                                                            }
+                                                        });
+
+                                                // Hiển thị thông báo nếu có sản phẩm không đủ "seri"
+                                                if (insufficientSeriProducts
+                                                    .length > 0) {
+                                                    showAutoToast(
+                                                        'warning',
+                                                        `Serial Number chưa được chọn ở các sản phẩm: ${insufficientSeriProducts.join(", ")}`
+                                                    );
+                                                    $('#pdf_export')
+                                                        .val(0);
+                                                    e.preventDefault();
+                                                } else {
+                                                    if (invalidInventorySN
+                                                        .length > 0) {
+                                                        showAutoToast(
+                                                            'warning',
+                                                            `Số lượng "seri" đã hết cho các sản phẩm: ${sanPhamHetSN.join(", ")}`
+                                                        );
+                                                        $('#pdf_export')
+                                                            .val(0);
+                                                        e
+                                                            .preventDefault();
+                                                    }
+                                                    // Hiển thị thông báo nếu không đủ số lượng tồn kho
+                                                    if (invalidInventoryProducts
+                                                        .length > 0) {
+                                                        showAutoToast(
+                                                            'warning',
+                                                            "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                            invalidInventoryProducts
+                                                            .join(
+                                                                ', '
+                                                            ));
+                                                        $('#pdf_export')
+                                                            .val(0);
+                                                        e
+                                                            .preventDefault();
+                                                    } else {
+                                                        // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
+                                                        var allFieldsFilled =
+                                                            true;
+
+                                                        $('.addProduct')
+                                                            .each(
+                                                                function() {
+                                                                    var productName =
+                                                                        $(
+                                                                            this
+                                                                        )
+                                                                        .find(
+                                                                            '.product_name'
+                                                                        )
+                                                                        .val();
+                                                                    var productUnit =
+                                                                        $(
+                                                                            this
+                                                                        )
+                                                                        .find(
+                                                                            '.product_unit'
+                                                                        )
+                                                                        .val();
+                                                                    var productQty =
+                                                                        $(
+                                                                            this
+                                                                        )
+                                                                        .find(
+                                                                            '.quantity-input'
+                                                                        )
+                                                                        .val();
+
+                                                                    if (productName ===
+                                                                        '' ||
+                                                                        productUnit ===
+                                                                        '' ||
+                                                                        productQty ===
+                                                                        ''
+                                                                    ) {
+                                                                        allFieldsFilled
+                                                                            =
+                                                                            false;
+                                                                        return false;
+                                                                    }
+                                                                });
+
+                                                        if (
+                                                            allFieldsFilled
+                                                        ) {
+                                                            $('.check-add-sn:checked[disabled]')
+                                                                .prop(
+                                                                    'disabled',
+                                                                    false
+                                                                );
+                                                            // Gửi form bằng JavaScript
+                                                            $('#quickAction')
+                                                                .submit();
+                                                        } else {
+                                                            console.log(
+                                                                'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
+                                                            );
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        $('#giaoHang').off('click').on(
+                                            'click',
+                                            function(e) {
+                                                var
+                                                    insufficientSeriProducts = [];
+                                                var
+                                                    invalidInventoryProducts = [];
+                                                var
+                                                    invalidInventorySN = [];
+                                                var sanPhamHetSN = [];
+                                                $(".bg-white.addProduct")
+                                                    .each(
+                                                        function() {
+                                                            var soTonKho =
+                                                                parseFloat(
+                                                                    $(
+                                                                        this
+                                                                    )
+                                                                    .find(
+                                                                        ".soTonKho"
+                                                                    )
+                                                                    .text()
+                                                                );
+                                                            var checkbox =
+                                                                $(
+                                                                    this
+                                                                )
+                                                                .find(
+                                                                    ".check-add-sn"
+                                                                );
+
+                                                            var quantity =
+                                                                parseFloat(
+                                                                    $(
+                                                                        this
+                                                                    )
+                                                                    .find(
+                                                                        ".quantity-input"
+                                                                    )
+                                                                    .val()
+                                                                );
+                                                            var type =
+                                                                parseFloat(
+                                                                    $(
+                                                                        this
+                                                                    )
+                                                                    .find(
+                                                                        ".type"
+                                                                    )
+                                                                    .val()
+                                                                );
+                                                            var productNameInventory =
+                                                                $(this)
+                                                                .find(
+                                                                    ".product_name"
+                                                                ).val();
+                                                            // Kiểm tra số lượng tồn kho
+                                                            if (type !=
+                                                                2) {
+                                                                if (quantity >
+                                                                    soTonKho
+                                                                ) {
+                                                                    invalidInventoryProducts
+                                                                        .push(
+                                                                            productNameInventory
+                                                                        );
+                                                                }
+                                                            }
+
+                                                            if (checkbox
+                                                                .prop(
+                                                                    "checked"
+                                                                ) &&
+                                                                checkbox
+                                                                .prop(
+                                                                    "disabled"
+                                                                )
+                                                            ) {
+                                                                var quantityValue =
+                                                                    parseFloat(
+                                                                        $(
+                                                                            this
+                                                                        )
+                                                                        .find(
+                                                                            ".quantity-input"
+                                                                        )
+                                                                        .val()
+                                                                    );
+                                                                var productId =
+                                                                    $(
+                                                                        this
+                                                                    )
+                                                                    .find(
+                                                                        ".product_id"
+                                                                    )
+                                                                    .val();
+                                                                var productName =
+                                                                    $(
+                                                                        this
+                                                                    )
+                                                                    .find(
+                                                                        ".product_name"
+                                                                    )
+                                                                    .val();
+
+                                                                for (var i =
+                                                                        0; i <
+                                                                    quantityValue; i++
+                                                                ) {
+                                                                    var isSeriInputExist =
+                                                                        $(
+                                                                            `input[name="selected_serial_numbers[]"][data-product-id="${productId}"]:eq(${i})`
+                                                                        )
+                                                                        .length >
+                                                                        0;
+
+                                                                    if (!
+                                                                        isSeriInputExist
+                                                                    ) {
+                                                                        insufficientSeriProducts
+                                                                            .push(
+                                                                                productName
+                                                                            );
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            //
+                                                            if (checkbox
+                                                                .prop(
+                                                                    "checked"
+                                                                ) &&
+                                                                !
+                                                                checkbox
+                                                                .prop(
+                                                                    "disabled"
+                                                                )
+                                                            ) {
+                                                                if (type !=
+                                                                    2) {
+                                                                    invalidInventorySN
+                                                                        .push(
+                                                                            productNameInventory
+                                                                        );
+                                                                    sanPhamHetSN
+                                                                        .push(
+                                                                            productNameInventory
+                                                                        );
+                                                                }
+                                                            }
+                                                        });
+
+                                                // Hiển thị thông báo nếu có sản phẩm không đủ "seri"
+                                                if (insufficientSeriProducts
+                                                    .length > 0) {
+                                                    showAutoToast(
+                                                        'warning',
+                                                        `Serial Number chưa được chọn ở các sản phẩm: ${insufficientSeriProducts.join(", ")}`
+                                                    );
+                                                    $('#pdf_export')
+                                                        .val(0);
+                                                    e.preventDefault();
+                                                } else {
+                                                    if (invalidInventorySN
+                                                        .length > 0) {
+                                                        showAutoToast(
+                                                            'warning',
+                                                            `Số lượng "seri" đã hết cho các sản phẩm: ${sanPhamHetSN.join(", ")}`
+                                                        );
+                                                        $('#pdf_export')
+                                                            .val(0);
+                                                        e
+                                                            .preventDefault();
+                                                    }
+                                                    // Hiển thị thông báo nếu không đủ số lượng tồn kho
+                                                    if (invalidInventoryProducts
+                                                        .length > 0) {
+                                                        showAutoToast(
+                                                            'warning',
+                                                            "Không đủ số lượng tồn kho cho các sản phẩm:\n" +
+                                                            invalidInventoryProducts
+                                                            .join(
+                                                                ', '
+                                                            ));
+                                                        $('#pdf_export')
+                                                            .val(0);
+                                                        e
+                                                            .preventDefault();
+                                                    } else {
+                                                        // Tiếp tục kiểm tra thông tin sản phẩm và submit form nếu hợp lệ
+                                                        var allFieldsFilled =
+                                                            true;
+
+                                                        $('.addProduct')
+                                                            .each(
+                                                                function() {
+                                                                    var productName =
+                                                                        $(
+                                                                            this
+                                                                        )
+                                                                        .find(
+                                                                            '.product_name'
+                                                                        )
+                                                                        .val();
+                                                                    var productUnit =
+                                                                        $(
+                                                                            this
+                                                                        )
+                                                                        .find(
+                                                                            '.product_unit'
+                                                                        )
+                                                                        .val();
+                                                                    var productQty =
+                                                                        $(
+                                                                            this
+                                                                        )
+                                                                        .find(
+                                                                            '.quantity-input'
+                                                                        )
+                                                                        .val();
+
+                                                                    if (productName ===
+                                                                        '' ||
+                                                                        productUnit ===
+                                                                        '' ||
+                                                                        productQty ===
+                                                                        ''
+                                                                    ) {
+                                                                        allFieldsFilled
+                                                                            =
+                                                                            false;
+                                                                        return false;
+                                                                    }
+                                                                });
+                                                        if (
+                                                            allFieldsFilled
+                                                        ) {
+                                                            $('.check-add-sn:checked[disabled]')
+                                                                .prop(
+                                                                    'disabled',
+                                                                    false
+                                                                );
+                                                            // Gửi form bằng JavaScript
+                                                            $('#quickAction')
+                                                                .submit();
+                                                        } else {
+                                                            console.log(
+                                                                'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
+                                                            );
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                    })
+                                }
+                                flatpickr("#datePicker", {
+                                    locale: "vn",
+                                    dateFormat: "d/m/Y",
+                                    defaultDate: new Date(),
+                                    onChange: function(selectedDates,
+                                        dateStr, instance) {
+                                        // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+                                        document.getElementById(
+                                                "hiddenDateInput")
+                                            .value = instance
+                                            .formatDate(selectedDates[
+                                                    0],
+                                                "Y-m-d");
+                                    }
+                                });
+                            }
+                        })
+                    } else if (type == "reciept") {
+                        $.ajax({
+                            url: "{{ route('getDataExport') }}",
+                            type: "get",
+                            data: {
+                                type: type,
+                                id: id
+                            },
+                            success: function(data) {
+                                if (data.status) {
+                                    $('#id_export').val(id)
+
+                                    var header = `
+                                    <div class="modal-header d-flex align-items-center">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;">Xác nhận hóa đơn</h5>
+                                        <div class="d-flex">
+                                            <a href="#">
+                                                <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100"
+                                                    style="margin-right:10px" data-dismiss="modal" aria-label="Close">
+                                                    <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
+                                                            fill="#6D7075"></path>
+                                                    </svg>
+                                                    <span class="text-btnIner-primary ml-2">Hủy</span>
+                                                </button>
+                                            </a>
+
+                                            <a href="#" data-type="reciept" onclick="getActionForm(this)">
+                                                <button name="action" type="submit"
+                                                    class="custom-btn d-flex align-items-center h-100" value="2">
+                                                    <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                        viewBox="0 0 14 14" fill="none">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
+                                                            fill="white"></path>
+                                                    </svg>
+                                                    <span class="text-btnIner-primary ml-2">Xác nhận</span>
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>`;
+                                    $('#quickAction .modal-content .header-modal')
+                                        .append(header);
+                                    var body = `
+                                    <div class="content-left">
+                                        <p class="font-weight-bold text-uppercase info-chung--modal text-center">THÔNG TIN</p>
+
+                                        <div class="d-flex justify-content-between py-1 px-3 border align-items-center text-left text-nowrap position-relative"
+                                        style="height:50px;">
+                                            <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
+                                            <span class="mx-1 text-13" style="flex: 2;">
+                                            <input type="text" placeholder="Chọn thông tin"
+                                            class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest" id="myInput"
+                                            style="border-radius:4px;" autocomplete="off" readonly="" name="quotation_number">
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between py-1 px-3 border align-items-center text-left text-nowrap position-relative"
+                                        style="height:50px;">
+                                            <span class="text-13 btn-click" style="flex: 1.5;">Khách hàng</span>
+                                            <span class="mx-1 text-13" style="flex: 2;">
+                                            <input type="text" placeholder="Chọn thông tin"
+                                            class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest"
+                                            style="border-radius:4px;" autocomplete="off" readonly="" name="guest_name">
+                                            <input type="hidden" name="guest_id" value="">
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between py-1 px-3 border align-items-center text-left text-nowrap position-relative"
+                                        style="height:50px;">
+                                            <span class="text-13 btn-click" style="flex: 1.5;">Số hóa đơn</span>
+                                            <span class="mx-1 text-13" style="flex: 2;">
+                                            <input type="text" placeholder="Nhập thông tin" required
+                                            class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest"
+                                            style="border-radius:4px;" autocomplete="off" name="number_bill">
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between py-1 px-3 border align-items-center text-left text-nowrap position-relative"
+                                        style="height:50px;">
+                                            <span class="text-13 btn-click" style="flex: 1.5;">Ngày nhận hàng</span>
+                                            <span class="mx-1 text-13" style="flex: 2;">
+                                            <input type="text" placeholder="Nhập thông tin"
+                                            class="text-13-black w-100 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input active"
+                                            style="flex:2;" value="{{ date('Y-m-d') }}" id="datePicker1" readonly="readonly">
+                                            <input id="hiddenDateInput1" type="hidden" value="{{ date('Y-m-d') }}" name="date_bill">
+                                        </span>
+                                        </div>
+                                    </div>`;
+                                    $('#quickAction .modal-content .modal-body')
+                                        .append(body);
+
+                                    $("input[name='quotation_number']").val(data
+                                        .quotation_number)
+                                    $("input[name='guest_name']").val(data
+                                        .guest_name)
+                                    $("input[name='guest_id']").val(data
+                                        .guest_id)
+                                    $('input[name="number_bill"]').val('SHD-' + (
+                                        data.lastDeliveryId + 1));
+
+                                    data.product.forEach((element, index) => {
+                                        var input = `
+                                        <tr>
+                                            <input type="hidden" name="product_id[]" value="` + element
+                                            .product_id + `">
+                                            <input type="hidden" name="product_name[]" value="` + element
+                                            .product_name + `">
+                                            <input type="hidden" name="product_price[]" value="` + element
+                                            .price_export + `">
+                                            <input type="hidden" name="product_tax[]" value="` + element
+                                            .product_tax + `">
+                                            <input type="hidden" name="product_qty[]" value="` + element
+                                            .soLuongHoaDon + `">
+                                            </tr>`;
+                                        $('#quickAction #exampleModal .content-left')
+                                            .append(input);
+                                    })
+                                }
+
+                                flatpickr("#datePicker1", {
+                                    locale: "vn",
+                                    dateFormat: "d/m/Y",
+                                    defaultDate: new Date(),
+                                    onChange: function(selectedDates,
+                                        dateStr, instance) {
+                                        // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+                                        document.getElementById(
+                                                "hiddenDateInput1")
+                                            .value = instance
+                                            .formatDate(selectedDates[
+                                                    0],
+                                                "Y-m-d");
+                                    }
+                                });
+                            }
+                        })
+                    } else if (type == "payorder") {
+                        $.ajax({
+                            url: "{{ route('getDataExport') }}",
+                            type: "get",
+                            data: {
+                                type: type,
+                                id: id
+                            },
+                            success: function(data) {
+                                if (data.status) {
+                                    $('#id_export').val(id)
+                                    var header = `
+                                    <div class="modal-header d-flex align-items-center">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;">Xác nhận thanh toán
+                                        </h5>
+                                    <div class="d-flex">
+                                    <a href="#">
+                                        <button type="button"
+                                            class="btn-destroy btn-light mx-1 d-flex align-items-center h-100"
+                                            style="margin-right:10px" data-dismiss="modal" aria-label="Close">
+                                            <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16"
+                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
+                                                    fill="#6D7075"></path>
+                                            </svg>
+                                            <span class="text-btnIner-primary ml-2">Hủy</span>
+                                        </button>
+                                    </a>
+
+                                    <a href="#" data-type="payorder" onclick="getActionForm(this)">
+                                        <button name="action" value="action_2" type="submit"
+                                            class="custom-btn d-flex align-items-center h-100">
+                                            <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="14"
+                                                height="14" viewBox="0 0 14 14" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
+                                                    fill="white"></path>
+                                            </svg>
+                                            <span class="text-btnIner-primary ml-2">Xác nhận</span>
+                                        </button>
+                                    </a>
+                                    </div>
+                                </div>`;
+                                    $('#quickAction #exampleModal .modal-content .header-modal')
+                                        .append(header);
+                                    var body = `
+                                    <div class="content-left">
+                                        <p class="font-weight-bold text-uppercase info-chung--modal text-center">THÔNG TIN</p>
+
+                                        <div class="d-flex justify-content-between py-1 px-3 border align-items-center text-left text-nowrap position-relative"
+                                            style="height:50px;">
+                                            <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
+                                            <span class="mx-1 text-13" style="flex: 2;">
+                                                <input type="text" placeholder="Chọn thông tin"
+                                                    class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest" id="myInput"
+                                                    style="border-radius:4px;" autocomplete="off" readonly=""
+                                                    name="quotation_number">
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between py-1 px-3 border align-items-center text-left text-nowrap position-relative"
+                                            style="height:50px;">
+                                            <span class="text-13 btn-click" style="flex: 1.5;">Khách hàng</span>
+                                            <span class="mx-1 text-13" style="flex: 2;">
+                                                <input type="text" placeholder="Chọn thông tin"
+                                                    class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest" id="myInput"
+                                                    style="border-radius:4px;" autocomplete="off" readonly=""
+                                                    name="guest_name">
+                                                <input type="hidden" readonly=""
+                                                    name="guest_id">
+                                                <input type="hidden" readonly=""
+                                                    name="code_payment">
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between py-1 px-3 border align-items-center text-left text-nowrap position-relative"
+                                            style="height:50px;">
+                                            <span class="text-13 btn-click" style="flex: 1.5;">Tổng tiền</span>
+                                            <span class="mx-1 text-13" style="flex: 2;">
+                                                <input type="text" placeholder="Chọn thông tin" readonly
+                                                    class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest"
+                                                    style="border-radius:4px;" autocomplete="off" name="total">
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between py-1 px-3 border align-items-center text-left text-nowrap position-relative"
+                                            style="height:50px;">
+                                            <span class="text-13 btn-click" style="flex: 1.5;">Hạn thanh toán</span>
+                                            <span class="mx-1 text-13" style="flex: 2;">
+                                                <input type="text" placeholder="Nhập thông tin"
+                                                    class="text-13-black w-100 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input active"
+                                                    style="flex:2;" value="{{ date('Y-m-d') }}" id="datePicker2"
+                                                    readonly="readonly">
+                                                <input id="hiddenDateInput2" type="hidden" value="{{ date('Y-m-d') }}"
+                                                    name="date_pay">
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between py-1 px-3 border align-items-center text-left text-nowrap position-relative"
+                                            style="height:50px;">
+                                            <span class="text-13 btn-click" style="flex: 1.5;">Ngày thanh toán</span>
+                                            <span class="mx-1 text-13" style="flex: 2;">
+                                                <input type="text" placeholder="Nhập thông tin"
+                                                    class="text-13-black w-100 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input active"
+                                                    style="flex:2;" value="{{ date('Y-m-d') }}" id="datePicker3"
+                                                    readonly="readonly">
+                                                <input id="hiddenDateInput3" type="hidden" value="{{ date('Y-m-d') }}"
+                                                    name="payment_day">
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between py-1 px-3 border align-items-center text-left text-nowrap position-relative"
+                                            style="height:50px;">
+                                            <span class="text-13 btn-click" style="flex: 1.5;">Hình thức thanh toán</span>
+                                            <span class="mx-1 text-13" style="flex: 2;">
+                                                <select name="payment_type" id="" class="border-0 text-13"
+                                                    style="width:55%;">
+                                                    <option value="Tiền mặt">Tiền mặt</option>
+                                                    <option value="UNC">UNC</option>
+                                                </select>
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between py-1 px-3 border align-items-center text-left text-nowrap position-relative"
+                                            style="height:50px;">
+                                            <span class="text-13 btn-click" style="flex: 1.5;">Đã thanh toán</span>
+                                            <span class="mx-1 text-13" style="flex: 2;">
+                                                <input readonly="" type="text" placeholder="Chọn thông tin"
+                                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 daThanhToan"
+                                                    style="flex:2;" value="">
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between py-1 px-3 border align-items-center text-left text-nowrap position-relative"
+                                            style="height:50px;">
+                                            <span class="text-13 btn-click" style="flex: 1.5;">Dư nợ</span>
+                                            <span class="mx-1 text-13" style="flex: 2;">
+                                                <input type="text" placeholder="Chọn thông tin" id="debt" required=""
+                                                    class="text-danger w-50 border-0 bg-input-guest nameGuest px-2 py-2"
+                                                    style="flex:2;" value="" readonly>
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between py-1 px-3 border align-items-center text-left text-nowrap position-relative"
+                                            style="height:50px;">
+                                            <span class="text-13 btn-click" style="flex: 1.5;">Thanh toán</span>
+                                            <span class="mx-1 text-13" style="flex: 2;">
+                                                <input id="prepayment" type="text" placeholder="Nhập thông tin"
+                                                    class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 payment_input"
+                                                    style="flex:2; background-color:#F0F4FF;" name="payment">
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between py-1 px-3 border align-items-center text-left text-nowrap position-relative"
+                                            style="height:50px;">
+                                            <span class="text-13 btn-click" style="flex: 1.5;"></span>
+                                            <span class="mx-1 text-13 d-flex align-items-center" style="flex: 2;">
+                                                <input type="checkbox" name="payment_all" onclick="cbPayment(this)"> 
+                                                <span class="text-13 btn-click ml-2">Thanh toán đủ : <span class="payment_all"> </span></span>
+                                            </span>
+                                        </div>
+                                     </div>`;
+                                    $('#quickAction #exampleModal .modal-content .modal-body')
+                                        .append(body);
+                                    data.product.forEach((element, index) => {
+                                        var input = `
+                                    <input type="hidden" name="product_name[]" value="` + element
+                                            .product_name + `">
+                                            <input type="hidden" name="product_price[]" value="` + element
+                                            .price_export + `">
+                                        <input type="hidden" name="product_tax[]" value="` + element
+                                            .product_tax + `">
+                                        <input type="hidden" name="product_id[]" value="` + element
+                                            .product_id + `">
+                                        <input type="hidden" name="product_qty[]" value="` + formatCurrency(element
+                                                .product_qty) + `">
+                                            `;
+                                        $('#quickAction #exampleModal .content-left')
+                                            .append(input);
+                                    })
+                                    getDate(2)
+                                    getDate(3)
+                                    var debt = Math.round(data
+                                        .tongTienNo - data.tongThanhToan)
+                                    $("input[name='quotation_number']").val(data
+                                        .quotation_number)
+                                    $("input[name='guest_name']").val(data
+                                        .guest_name)
+                                    $("input[name='guest_id']").val(data
+                                        .guest_id)
+                                    $("input[name='code_payment']").val('MTT-' + (
+                                        data
+                                        .lastDeliveryId +
+                                        1))
+                                    $("input[name='total']").val(formatCurrency(Math
+                                        .round(data.tongTienNo)))
+                                    $(".daThanhToan").val(formatCurrency(Math.round(
+                                        data
+                                        .tongThanhToan)))
+                                    $("#debt").val(formatCurrency(debt))
+                                    $(".payment_all").text(formatCurrency(Math
+                                        .round(data.tongTienNo)))
+                                    $('#prepayment').on('input', function() {
+                                        checkQty(this, debt)
+                                    })
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+            menu.css({
+                display: 'block',
+                top: e.pageY,
+                left: e.pageX
+            });
+        });
+        $(document).click(function() {
+            menu.css({
+                display: 'none'
+            });
+        });
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+        });
+    });
+
+    function getDate(number) {
+        flatpickr("#datePicker" + number, {
+            locale: "vn",
+            dateFormat: "d/m/Y",
+            defaultDate: new Date(),
+            onChange: function(selectedDates,
+                dateStr, instance) {
+                document.getElementById(
+                        "hiddenDateInput" + number)
+                    .value = instance
+                    .formatDate(selectedDates[
+                            0],
+                        "Y-m-d");
+            }
+        });
+    }
+
+    function getActionForm(e) {
+        var type = $(e).data('type');
+        $('#getAction').val($(e).find('button').val());
+
+        if (type == "delivery") {
+            $("input[name='redirect']").val('delivery');
+            var actionUrl = "{{ route('delivery.store', $workspacename) }}";
+            $('#quickAction').attr('action', actionUrl);
+        } else if (type == "reciept") {
+            $("input[name='redirect']").val('billSale');
+            var actionUrl = "{{ route('billSale.store', $workspacename) }}";
+            $('#quickAction').attr('action', actionUrl);
+        } else if (type == "payorder") {
+            $("input[name='redirect']").val('payExport');
+            var actionUrl = "{{ route('payExport.store', $workspacename) }}";
+            $('#quickAction').attr('action', actionUrl);
+        }
+
+        $('#quickAction').attr('data-type', type);
+    }
+
+    function formatCurrency(value) {
+        value = Math.round(value * 100) / 100;
+
+        var parts = value.toString().split(".");
+        var integerPart = parts[0];
+        var formattedValue = "";
+
+        var count = 0;
+        for (var i = integerPart.length - 1; i >= 0; i--) {
+            formattedValue = integerPart.charAt(i) + formattedValue;
+            count++;
+            if (count % 3 === 0 && i !== 0) {
+                formattedValue = "," + formattedValue;
+            }
+        }
+
+        if (parts.length > 1) {
+            formattedValue += "." + parts[1];
+        }
+        return formattedValue;
+    }
+
+    $('body').on('input', '.payment_input', function(event) {
+        // Lấy giá trị đã nhập
+        var value = event.target.value;
+
+        // Xóa các ký tự không phải số và dấu phân thập phân từ giá trị
+        var formattedValue = value.replace(/[^0-9.]/g, '');
+
+        // Định dạng số với dấu phân cách hàng nghìn và giữ nguyên số thập phân
+        var formattedNumber = numberWithCommas(formattedValue);
+
+        event.target.value = formattedNumber;
+    });
+
+    function numberWithCommas(number) {
+        // Chia số thành phần nguyên và phần thập phân
+        var parts = number.split('.');
+        var integerPart = parts[0];
+        var decimalPart = parts[1];
+
+        // Định dạng phần nguyên số với dấu phân cách hàng nghìn
+        var formattedIntegerPart = integerPart.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        // Kết hợp phần nguyên và phần thập phân (nếu có)
+        var formattedNumber = decimalPart !== undefined ? formattedIntegerPart + '.' + decimalPart :
+            formattedIntegerPart;
+
+        return formattedNumber;
+    }
+
+    //
     var filters = [];
     var sort = [];
     var svgtop =

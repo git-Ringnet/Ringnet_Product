@@ -105,7 +105,11 @@ class BillSaleController extends Controller
             $this->userFlow->addUserFlow($arrCapNhatKH);
             // Thêm số hoá đơn ra cho lịch sử giao dịch
             $history = $this->history->updateHdr($billSale_id->id, $request->detailexport_id, $request->number_bill);
-            return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
+            if ($request->redirect == 'billSale') {
+                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
+            } else {
+                return redirect()->route('billSale.index', ['workspace' => $workspace])->with('msg', 'Xác nhận hóa đơn bán hàng thành công!');
+            }
         }
     }
 

@@ -199,6 +199,8 @@ Route::get('/getRepresentGuest', [DetailExportController::class, 'getRepresentGu
 Route::get('/getRecentTransaction', [DetailExportController::class, 'getRecentTransaction'])->name('getRecentTransaction');
 //
 Route::get('/checkProductExist', [DetailExportController::class, 'checkProductExist'])->name('checkProductExist');
+//
+Route::get('/getDataExport', [DetailExportController::class, 'getDataExport'])->name('getDataExport');
 
 //Giao hàng
 Route::middleware([CheckLogin::class])->group(function () {
@@ -301,19 +303,19 @@ Route::middleware([CheckLogin::class])->group(function () {
 //Dashboard
 Route::middleware([CheckLogin::class])->group(function () {
     Route::resource('{workspace}/dashboardProduct', DashboardController::class);
+    //Sản phẩm bán chạy nhất
+    Route::get('/productSell', [DashboardController::class, 'productSell'])->name('productSell');
+    //Hoạt động bán hàng
+    Route::get('/statusSales', [DashboardController::class, 'statusSales'])->name('statusSales');
+    //Đơn báo giá đã xác nhận
+    Route::get('/exportAccept', [DashboardController::class, 'exportAccept'])->name('exportAccept');
+    //
+    Route::get('/topEmployee', [DashboardController::class, 'topEmployee'])->name('topEmployee');
+    //
+    Route::get('/revenueByQuarter', [DashboardController::class, 'revenueByQuarter'])->name('revenueByQuarter');
+    //Dự nợ
+    Route::get('/debtChart', [DashboardController::class, 'debtChart'])->name('debtChart');
 });
-//Sản phẩm bán chạy nhất
-Route::get('/productSell', [DashboardController::class, 'productSell'])->name('productSell');
-//Hoạt động bán hàng
-Route::get('/statusSales', [DashboardController::class, 'statusSales'])->name('statusSales');
-//Đơn báo giá đã xác nhận
-Route::get('/exportAccept', [DashboardController::class, 'exportAccept'])->name('exportAccept');
-//
-Route::get('/topEmployee', [DashboardController::class, 'topEmployee'])->name('topEmployee');
-//
-Route::get('/revenueByQuarter', [DashboardController::class, 'revenueByQuarter'])->name('revenueByQuarter');
-//Dự nợ
-Route::get('/debtChart', [DashboardController::class, 'debtChart'])->name('debtChart');
 
 // User flow
 Route::resource('{workspace}/userflow', UserFlowController::class)->middleware(CheckLogin::class);

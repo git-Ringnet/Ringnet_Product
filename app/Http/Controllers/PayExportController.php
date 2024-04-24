@@ -124,7 +124,11 @@ class PayExportController extends Controller
             $request->session()->put('pdf_info.pay_id', $pay_id);
         }
         $this->userFlow->addUserFlow($arrCapNhatKH);
-        return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', ' Tạo đơn thanh toán hàng thành công !');
+        if ($request->redirect == 'payExport') {
+            return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', ' Tạo đơn thanh toán hàng thành công !');
+        } else {
+            return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', ' Tạo đơn thanh toán hàng thành công !');
+        }
     }
 
     public function downloadPdf()

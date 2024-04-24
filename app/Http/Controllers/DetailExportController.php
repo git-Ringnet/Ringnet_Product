@@ -954,4 +954,123 @@ class DetailExportController extends Controller
             ->first();
         return $product;
     }
+    public function getDataExport(Request $request)
+    {
+        $data = [];
+        $detailExport = DetailExport::where('id', $request->id)->first();
+        $idLast = 0;
+        if ($detailExport) {
+            $quoteExport = QuoteExport::where('detailexport_id', $detailExport->id)
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->get();
+            if ($quoteExport) {
+                foreach ($quoteExport as $qt) {
+                    if ($request->type == "receive") {
+                        if ($qt->qty_delivery != 0) {
+                            $data['status'] = false;
+                            $data['msg'] = "Đơn giao hàng đã được tạo";
+                            break;
+                        } else {
+                            $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+                                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                                ->leftJoin('products', 'products.id', 'quoteexport.product_id')
+                                ->select('*', 'detailexport.id as maXuat', 'quoteexport.product_id as maSP', 'quoteexport.product_code as maCode', 'quoteexport.product_name as tenSP', 'quoteexport.product_tax as thueSP')
+                                ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) as soLuongCanGiao')
+                                ->leftJoin('serialnumber', function ($join) {
+                                    $join->on('serialnumber.product_id', '=', 'products.id');
+                                    $join->where('serialnumber.detailexport_id', 0);
+                                })
+                                ->where('detailexport.id', $request->id)
+                                ->where('quoteexport.status', 1)
+                                ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) > 0')
+                                ->get();
+
+                            // Group dữ liệu theo ID sản phẩm để có danh sách seri cho mỗi sản phẩm
+                            $groupedDelivery = $delivery->groupBy('maSP');
+
+                            // Xử lý dữ liệu để thêm danh sách seri vào mỗi sản phẩm
+                            $processedDelivery = $groupedDelivery->map(function ($group) {
+                                $product = $group->first();
+                                $product['seri_pro'] = $group->pluck('serinumber')->toArray();
+                                return $product;
+                            });
+                            $quoteExport = $processedDelivery;
+                            $lastDeliveryId = DB::table('delivery')
+                                ->where('delivery.workspace_id', Auth::user()->current_workspace)
+                                ->max(DB::raw('CAST(SUBSTRING_INDEX(code_delivery, "-", -1) AS UNSIGNED)'));
+                            $idLast =  $lastDeliveryId;
+                            $data['status'] = true;
+                        }
+                    } else if ($request->type == "reciept") {
+                        if ($qt->qty_bill_sale != 0) {
+                            $data['status'] = false;
+                            $data['msg'] = "Hóa đơn bán hàng đã được tạo";
+                            break;
+                        } else {
+                            $billSale = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+                                ->where('detailexport.id', $request->id)
+                                ->where('quoteexport.status', 1)
+                                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                                ->select('*')
+                                ->where(function ($query) {
+                                    $query->where('quoteexport.product_delivery', null)
+                                        ->orWhere('quoteexport.product_delivery', 0);
+                                })
+                                ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_bill_sale, 0) as soLuongHoaDon')
+                                ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_bill_sale, 0) > 0')
+                                ->get();
+                            $quoteExport = $billSale;
+                            $lastDeliveryId = DB::table('bill_sale')
+                                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
+                                ->max(DB::raw('CAST(SUBSTRING_INDEX(number_bill, "-", -1) AS UNSIGNED)'));
+                            $idLast =  $lastDeliveryId;
+                            $data['status'] = true;
+                        }
+                    } else if ($request->type == "payorder") {
+                        if ($qt->qty_payment != 0) {
+                            $data['status'] = false;
+                            $data['msg'] = "Đơn thanh toán đã được tạo";
+                            break;
+                        } else {
+                            $payExport = DetailExport::where('detailexport.id', $request->id)
+                                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                                ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+                                ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
+                                ->leftJoin('history_payment_export', 'history_payment_export.pay_id', 'pay_export.id')
+                                ->select(
+                                    'detailexport.guest_id',
+                                    'detailexport.guest_name',
+                                    'detailexport.quotation_number',
+                                    'detailexport.represent_name',
+                                    DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
+                                    DB::raw('SUM(history_payment_export.payment) as tongThanhToan')
+                                )
+                                ->groupBy(
+                                    'detailexport.guest_id',
+                                    'detailexport.guest_name',
+                                    'detailexport.total_price',
+                                    'detailexport.total_tax',
+                                    'detailexport.quotation_number',
+                                    'detailexport.represent_name',
+                                )
+                                ->first();
+                            $lastPayExportId = DB::table('pay_export')
+                                ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+                                ->max(DB::raw('CAST(SUBSTRING_INDEX(code_payment, "-", -1) AS UNSIGNED)'));
+                            $idLast =  $lastPayExportId;
+                            $data['status'] = true;
+                            $data['tongTienNo'] = $payExport->tongTienNo;
+                            $data['tongThanhToan'] = $payExport->tongThanhToan;
+                        }
+                    }
+                }
+                $data['product'] = $quoteExport;
+                $data['quotation_number'] = $detailExport->quotation_number;
+                $data['guest_name'] = $detailExport->guest_name;
+                $data['guest_id'] = $detailExport->guest_id;
+                $data['lastDeliveryId'] = $idLast == null ? 0 : $idLast;
+            }
+        }
+        return $data;
+    }
 }

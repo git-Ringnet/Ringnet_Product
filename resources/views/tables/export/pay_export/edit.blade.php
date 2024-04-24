@@ -104,20 +104,18 @@
                                 </a>
                             </div>
                         </div>
-                        @if ($payExport->trangThai != 2)
-                            <div class="dropdown">
-                                <button type="submit" name="action" value="action_1" id="btnXacNhan"
-                                    class="btn-destroy btn-light rounded mx-1 d-flex align-items-center h-100">
-                                    <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16"
-                                        height="16" viewBox="0 0 16 16" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
-                                            fill="#6D7075" />
-                                    </svg>
-                                    <span class="text-btnIner-primary ml-1 text-dark">Xác nhận</span>
-                                </button>
-                            </div>
-                        @endif
+                        <div class="dropdown">
+                            <button type="submit" name="action" value="action_1" id="btnXacNhan"
+                                class="btn-destroy btn-light rounded mx-1 d-flex align-items-center h-100">
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 16 16" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                        fill="#6D7075" />
+                                </svg>
+                                <span class="text-btnIner-primary ml-1 text-dark">Xác nhận</span>
+                            </button>
+                        </div>
                         <button name="action" value="action_2" type="submit" id="btnThanhToan"
                             onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                             class="btn--remove d-flex mx-1 align-items-center h-100" style="background-color:red;">
@@ -520,7 +518,8 @@
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh
                                                 toán</span>
-                                            <input class="text-13-black w-50 border-0" style="flex:2;outline:none;"
+                                            <input class="text-13-black w-100 border-0 numberQute bg-input-guest py-1"
+                                                style="flex:2;outline:none;background-color:#F0F4FF; border-radius:4px;"
                                                 value="{{ $payExport->code_payment }}" readonly />
                                         </li>
                                         <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
@@ -528,8 +527,7 @@
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hạn thanh
                                                 toán</span>
                                             <input type="text" placeholder="Nhập thông tin"
-                                                style="flex:2;outline:none;"
-                                                @if ($payExport->trangThai != 2) id="datePicker" @endif
+                                                style="flex:2;outline:none;" readonly id="datePicker"
                                                 value="{{ date_format(new DateTime($payExport->payment_date), 'd/m/Y') }}"
                                                 class="text-13-black w-50 border-0">
                                             <input type="hidden" id="hiddenDateInput" name="date_pay"
@@ -541,8 +539,7 @@
                                                 Ngày thanh toán
                                             </span>
                                             <input type="text" placeholder="Nhập thông tin"
-                                                style="flex:2;outline:none;"
-                                                @if ($payExport->trangThai != 2) id="dayPicker" @endif
+                                                style="flex:2;outline:none;" readonly id="dayPicker"
                                                 value="{{ date_format(new DateTime($payExport->payment_day), 'd/m/Y') }}"
                                                 class="text-13-black w-50 border-0">
                                             <input type="hidden" id="hiddenDayInput" name="payment_day"
@@ -552,9 +549,7 @@
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hình thức
                                                 t.toán</span>
-                                            <select name="payment_type" style="width: 55%" <?php if ($payExport->trangThai == 2) {
-                                                echo 'disabled';
-                                            } ?>
+                                            <select name="payment_type" style="width: 55%"
                                                 class="text-13-black border-0 bg-input-guest">
                                                 <option value="Tiền mặt" <?php if ($payExport->payment_type == 'Tiền mặt') {
                                                     echo 'selected';
@@ -590,10 +585,18 @@
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh
                                                 toán</span>
-                                            <input type="text" class="text-13-black w-50 border-0 payment"
+                                            <input id="prepayment" type="text" class="text-13-black w-50 border-0 payment"
                                                 oninput="validateInput();"
                                                 @if ($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif
                                                 name="payment" style="flex:2; outline:none;" name="payment" />
+                                        </li>
+                                        <li class="d-flex justify-content-between text-13 py-2 px-3 border align-items-center text-left"
+                                            style="height:44px;">
+                                            <span class="mx-1 text-13 d-flex align-items-center" style="flex: 2;">
+                                                <input type="checkbox" name="payment_all" onclick="cbPayment(this)">
+                                                <span class="text-13 btn-click">Thanh toán đủ : <span
+                                                        class="payment_all">{{ number_format($noConLaiValue) }}</span></span>
+                                            </span>
                                         </li>
                                     </ul>
                                 </div>
@@ -709,6 +712,7 @@
     </div>
 </div>
 <x-user-flow></x-user-flow>
+<script src="{{ asset('/dist/js/export.js') }}"></script>
 <script>
     //
     flatpickr("#datePicker", {

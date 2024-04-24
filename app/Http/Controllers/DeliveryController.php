@@ -107,7 +107,13 @@ class DeliveryController extends Controller
                 // Sau khi lưu xong tất cả thông tin, set session export_id
                 $request->session()->put('pdf_info.delivery_id', $delivery_id);
             }
-            return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', ' Tạo mới đơn giao hàng thành công !');
+            if($request->redirect == "delivery")
+            {
+                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', ' Tạo mới đơn giao hàng thành công !');
+            }
+            else{
+                return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', ' Tạo mới đơn giao hàng thành công !');
+            }
         }
         if ($request->action == 2) {
             $this->delivery->acceptDelivery($request->all());
@@ -116,7 +122,12 @@ class DeliveryController extends Controller
                 'des' => 'Giao hàng'
             ];
             $this->userFlow->addUserFlow($arrLuuNhap);
-            return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
+            if($request->redirect == "delivery"){
+                return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
+            }
+            else{
+                return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
+            }
         }
     }
 

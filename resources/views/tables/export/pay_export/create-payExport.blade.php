@@ -534,11 +534,12 @@
                                 <input type="hidden" class="idRepresent" autocomplete="off"
                                     value="{{ $getRepresentbyId[0]->id ?? '' }}">
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border text-13 align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh toán</span>
-                                <input class="text-13-black w-50 border-0" placeholder="Nhập thông tin"
-                                    name="code_payment" style="flex:2;outline:none;" />
+                                <input class="border-0 w-100 bg-input-guest py-0 py-2 px-2"
+                                    placeholder="Nhập thông tin" name="code_payment"
+                                    style="flex:2;outline:none;background-color:#F0F4FF; border-radius:4px;" />
                             </li>
                             <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
@@ -582,11 +583,20 @@
                                 <input type="text" value="" readonly
                                     class="text-13-black w-50 border-0 duNo bg-input-guest" style="flex:2;" />
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between text-13 py-2 px-3 border align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-2" style="flex: 1.5;">Thanh toán trước</span>
-                                <input type="text" placeholder="Nhập thông tin" name="payment"
-                                    class="text-13-black w-50 border-0 bg-input-guest payment" style="flex:2;" />
+                                <input id="prepayment" type="text" placeholder="Nhập thông tin" name="payment"
+                                    class="border-0 w-100 bg-input-guest py-0 py-2 px-2 payment_input"
+                                    style="flex:2;background-color:#F0F4FF; border-radius:4px;" />
+                            </li>
+                            <li class="d-flex justify-content-between text-13 py-2 px-3 border align-items-center text-left"
+                                style="height:44px;">
+                                <span class="mx-1 text-13 d-flex align-items-center" style="flex: 2;">
+                                    <input type="checkbox" name="payment_all" onclick="cbPayment(this)">
+                                    <span class="text-13 btn-click ml-2">Thanh toán đủ : <span
+                                            class="payment_all"></span></span>
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -597,6 +607,7 @@
     </div>
 </form>
 <x-user-flow></x-user-flow>
+<script src="{{ asset('/dist/js/export.js') }}"></script>
 <script>
     flatpickr("#datePicker", {
         locale: "vn",
@@ -981,6 +992,8 @@
                     $('.daThanhToan').val(formatCurrency(data.tongThanhToan));
                     $('.duNo').val(formatCurrency(Math.round(data.tongTienNo - data
                         .tongThanhToan)));
+                    $('.payment_all').text(formatCurrency(Math.round(data.tongTienNo - data
+                        .tongThanhToan)));
                     $('input[name="code_payment"]').val('MTT-' + (data.lastPayExportId +
                         1));
                     $.ajax({
@@ -1201,7 +1214,7 @@
                                 //     handle: "td",
                                 // });
                                 //Giới hạn số tiền
-                                document.querySelector('.payment')
+                                document.querySelector('.payment_input')
                                     .addEventListener('input',
                                         function() {
                                             var duNoValue = document
@@ -1209,7 +1222,7 @@
                                                 .value;
                                             var paymentInput = document
                                                 .querySelector(
-                                                    '.payment');
+                                                    '.payment_input');
                                             var paymentValue =
                                                 paymentInput.value;
                                             var duNoNumber = parseFloat(
@@ -1658,7 +1671,8 @@
 
     //format giá
     var inputElement = document.getElementById('product_price');
-    $('body').on('input', '.product_price, #transport_fee, .giaNhap, #voucher, .fee_ship, .payment', function(event) {
+    $('body').on('input', '.product_price, #transport_fee, .giaNhap, #voucher, .fee_ship, .payment_input', function(
+        event) {
         // Lấy giá trị đã nhập
         var value = event.target.value;
 

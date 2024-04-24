@@ -100,3 +100,25 @@ function getQuotation1(getName, count, date) {
     var quotation = formattedDate + "/" + name + "-" + key + "-" + stt;
     return quotation;
 }
+
+function cbPayment(element) {
+    var isChecked = $(element).is(":checked");
+    var total = $(".payment_all").text().trim();
+    if (isChecked) {
+        $("#prepayment").val(total);
+        $("#prepayment").attr("readonly", true);
+    } else {
+        $("#prepayment").val("");
+        $("#prepayment").attr("readonly", false);
+    }
+}
+
+function checkQty(value, odlQty) {
+    if (
+        $(value)
+            .val()
+            .replace(/[^0-9.-]+/g, "") > odlQty
+    ) {
+        $(value).val(odlQty);
+    }
+}

@@ -166,7 +166,7 @@ li {
     top: 0;
     position: sticky;
     background-color: white;
-    z-index: 9999;
+    z-index: 999;
 }
 
 .outerImport {
@@ -455,7 +455,7 @@ nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
     position: fixed;
     top: 61px;
     padding-left: 250px;
-    z-index: 10000;
+    z-index: 1000;
     width: 100%;
 }
 
@@ -2438,6 +2438,9 @@ input[type="checkbox"] {
     background-color: #d9d9d9;
 }
 
+.bg-hover :hover {
+    background-color: #f3f3f3;
+}
 .border-dott {
     border-style: dotted;
     border-color: #d9d9d9;
