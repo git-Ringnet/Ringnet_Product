@@ -188,11 +188,11 @@
                             <div class="content-info position-relative table-responsive text-nowrap">
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
-                                        <tr style="height:44px;">
-                                            <th class="border-right" style="width: 15%;padding-left:2rem;">
+                                        <tr style="height:48px;">
+                                            <th class="border-right border-bottom" style="width: 15%;padding-left:2rem;">
                                                 <span class="text-table text-secondary">Mã sản phẩm</span>
                                             </th>
-                                            <th scope="col" class="border">
+                                            <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type="">
@@ -202,7 +202,7 @@
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border">
+                                            <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -211,7 +211,7 @@
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border">
+                                            <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -220,7 +220,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border">
+                                            <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -229,7 +229,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border">
+                                            <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -238,7 +238,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border">
+                                            <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -247,19 +247,20 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
+                                            <th scope="col" class="border-right border-bottom"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $st = 0; ?>
                                         @foreach ($product as $item)
                                             <tr class="bg-white" style="height:80px;">
-                                                <td class="border bg-white align-top text-13-black"
+                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right"
                                                     style="width:5%;padding-left: 2rem !important;">
                                                     <input readonly type="text" name="product_code[]"
                                                         id="" class="border-0 py-1 w-75 searchProduct"
                                                         value="{{ $item->product_code }}">
                                                 </td>
-                                                <td class="border bg-white align-top text-13-black" style="width:15%">
+                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right" style="width:15%">
                                                     <div class="d-flex align-items-center">
                                                         <input type="text"
                                                             class="searchProductName w-100 border-0 px-2 py-1"
@@ -290,14 +291,14 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="border bg-white align-top text-13-black">
+                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item->product_unit }}"
                                                         class="border-0 px-2 py-1 w-100 product_unit"
                                                         name="product_unit[]">
                                                 </td>
 
-                                                <td class="border bg-white align-top text-13-black">
+                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
                                                     <div>
                                                         <input @if ($receive->status == 2) readonly @endif
                                                             type="text"
@@ -341,17 +342,17 @@
                                                         @endif
                                                     </div>
                                                 </td>
-                                                <td class="border border-top-0 align-top text-center border-right-0">
+                                                <td class="align-top text-center border-top-0 border-bottom border-right">
                                                     <input type="checkbox" name="cbSeri[]" disabled
                                                         value="{{ $item->cbSN }}" class="mt-1 checkall-btn"
                                                         @if ($item->cbSN == 1) {{ 'checked' }} @endif>
                                                 </td>
-                                                <td class="border border-top-0 align-top text-center border-right-0">
+                                                <td class="align-top text-center border-top-0 border-bottom border-right">
                                                     <input class="border-0 px-2 py-1 w-100 price_export"
                                                         type="text" value="{{ $item->product_guarantee }}"
                                                         readonly>
                                                 </td>
-                                                <td class="border bg-white align-top text-13-black d-none">
+                                                <td class="bg-white align-top text-13-black d-none border-top-0 border-bottom border-right">
                                                     <div>
                                                         <input type="text"
                                                             class="border-0 px-2 py-1 w-100 price_export text-right"
@@ -362,7 +363,7 @@
                                                     <div class='mt-3 text-13-blue transaction text-right'>Giao dịch gần
                                                         đây</div>
                                                 </td>
-                                                <td class="border bg-white align-top d-none">
+                                                <td class="bg-white align-top d-none border-top-0 border-bottom border-right">
                                                     <input type="text" class="border-0 px-2 py-1 w-100 product_tax"
                                                         name="product_tax[]" value="{{ $item->product_tax }}"
                                                         readonly>
@@ -391,13 +392,13 @@
                                                         value="{{ fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
                                                         readonly>
                                                 </td>
-                                                <td class="text-center border bg-white align-top text-13-black">
+                                                <td class="text-center bg-white align-top text-13-black border-top-0 border-bottom border-right">
                                                     <input type="text" class="border-0 py-1 w-100" readonly
                                                         name="product_note[]" placeholder='Nhập ghi chú'
                                                         value="{{ $item->product_note }}">
                                                 </td>
                                                 <td
-                                                    class="text-center border bg-white align-top text-13-black @if ($receive->status == 3) deleteRow @endif">
+                                                    class="text-center bg-white align-top text-13-black @if ($receive->status == 3) deleteRow @endif border-top-0 border-bottom border-right" >
                                                     <svg width="17" height="17" viewBox="0 0 17 17"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -435,7 +436,7 @@
                     </div>
 
                     <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
-                        style="height:44px;" style="height:44px;">
+                        style="height:48px;">
                         <span class="text-13 btn-click" style="flex: 1.5;">Đơn mua hàng
                         </span>
                         <span class="mx-1 text-13" style="flex: 2;">
@@ -487,8 +488,8 @@
                     <div class="">
                         <div class="">
                             <ul class="p-0 m-0">
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0" 
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
                                     <input type="text"
                                         class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
@@ -497,16 +498,16 @@
                                         value="@if ($receive->getQuotation) {{ $receive->getQuotation->provide_name }} @endif" />
                                 </li>
 
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                     <input type="text"
                                         class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
                                         style="flex:2;" id="represent" placeholder="Chọn thông tin" readonly
                                         @if ($nameRepresent) value="{{ $nameRepresent }}" @endif />
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã nhận hàng</span>
                                     <input type="text" placeholder="Chọn thông tin" name="delivery_code" readonly
                                         class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
@@ -514,8 +515,8 @@
                                         value="{{ $receive->delivery_code }}" />
                                 </li>
 
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận chuyển</span>
                                     <input type="text" placeholder="Chọn thông tin"
                                         class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
@@ -523,8 +524,8 @@
                                         name="shipping_unit" value="{{ $receive->shipping_unit }}"
                                         @if ($receive->status == 2) readonly @endif />
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
                                     <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
                                         class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2"
@@ -532,8 +533,8 @@
                                         value="{{ number_format($receive->delivery_charges) }}"
                                         @if ($receive->status == 2) readonly @endif>
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày nhận hàng</span>
                                     <input type="text" placeholder="Nhập thông tin"
                                         class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"

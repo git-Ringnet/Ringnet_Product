@@ -201,10 +201,10 @@
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr style="height:44px;">
-                                            <th class="border-right" style="width: 15%;padding-left:2rem;">
+                                            <th class="border-right border-bottom" style="width: 15%;padding-left:2rem;">
                                                 <span class="text-table text-secondary">Mã sản phẩm</span>
                                             </th>
-                                            <th scope="col" class="border">
+                                            <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type="">
@@ -214,7 +214,7 @@
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border">
+                                            <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="created_at"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -223,7 +223,7 @@
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border">
+                                            <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -232,7 +232,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border">
+                                            <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -241,7 +241,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border">
+                                            <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -250,7 +250,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border">
+                                            <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -259,7 +259,7 @@
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="border">
+                                            <th scope="col" class="border-right border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link" data-sort-by="total"
                                                         data-sort-type=""><button class="btn-sort text-13"
@@ -273,13 +273,13 @@
                                     <tbody>
                                         @foreach ($product as $item)
                                             <tr class="bg-white" style="height:80px;">
-                                                <td class="border bg-white align-top text-13-black"
+                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0"
                                                     style="width:5%;padding-left: 2rem !important;">
                                                     <input readonly type="text" id=""
                                                         class="border-0 py-1 w-75 searchProduct"
                                                         value="{{ $item->product_code }}">
                                                 </td>
-                                                <td class="border bg-white align-top text-13-black" style="width:15%">
+                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0" style="width:15%">
                                                     <div class="d-flex align-items-center">
                                                         <input type="text"
                                                             class="searchProductName w-100 border-0 px-2 py-1"
@@ -310,21 +310,19 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="border bg-white align-top text-13-black">
+                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0">
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item->product_unit }}"
                                                         class="border-0 px-2 py-1 w-100 product_unit">
                                                 </td>
-                                                <td class="border bg-white align-top text-13-black">
+                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0">
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <input type="text"
                                                             class="border-0 px-2 py-1 w-100 quantity-input text-right"
                                                             value="{{ number_format($item->product_qty) }}">
                                                     </div>
-                                                    {{-- <div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span
-                                                            class='pl-1 soTonKho'>35</span></div> --}}
                                                 </td>
-                                                <td class="border bg-white align-top text-13-black" style="width:12%">
+                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0" style="width:12%">
                                                     <div>
                                                         <input readonly type="text" name="price_export[]"
                                                             class="border-0 px-2 py-1 w-100 price_export text-right"
@@ -335,7 +333,7 @@
                                                         data-target="#recentModal">Giao dịch gần
                                                         đây</div>
                                                 </td>
-                                                <td class="border bg-white align-top">
+                                                <td class="bg-white align-top border-right border-bottom border-top-0">
                                                     <input readonly type="text"
                                                         class="border-0 px-2 py-1 w-100 product_tax text-center"
                                                         disabled
@@ -343,13 +341,13 @@
                                                 </td>
                                                 <input type="hidden" class="product_tax1">
 
-                                                <td class="border bg-white align-top text-13-black text-left"
+                                                <td class="bg-white align-top text-13-black text-left border-right border-bottom border-top-0"
                                                     style="width: 12%;">
                                                     <input readonly type="text" name="" id=""
                                                         class="border-0 px-2 py-1 w-100 total_price text-right"
                                                         value="{{ number_format($item->product_total) }}">
                                                 </td>
-                                                <td class="text-center border bg-white align-top text-13-black">
+                                                <td class="text-center bg-white align-top text-13-black border-right border-bottom border-top-0">
                                                     <input readonly type="text" class="border-0 px-2 py-1 w-100"
                                                         value="{{ $item->product_note }}" placeholder='Nhập ghi chú'>
                                                 </td>
@@ -373,37 +371,37 @@
                             <div class="outer container-fluided">
                                 <table class="table table-hover bg-white rounded" id="inputcontent">
                                     <thead>
-                                        <tr style="height:44px;">
-                                            <th class="text-table text-secondary p-2 border-right"
+                                        <tr style="height:50px;">
+                                            <th class="text-table text-secondary p-2 border-right border-bottom"
                                                 style="padding-left: 2rem !important;">Mã thanh toán</th>
-                                            <th class="text-table text-secondary p-2 border-right">Ngày thanh toán</th>
-                                            <th class="text-table text-secondary p-2 border-right text-right">Tổng tiền
+                                            <th class="text-table text-secondary p-2 border-right border-bottom">Ngày thanh toán</th>
+                                            <th class="text-table text-secondary p-2 border-right border-bottom text-right">Tổng tiền
                                             </th>
-                                            <th class="text-table text-secondary p-2 border-right text-right">Thanh
+                                            <th class="text-table text-secondary p-2 border-right border-bottom text-right">Thanh
                                                 toán</th>
-                                            <th class="text-table text-secondary p-2 text-right">Dư nợ</th>
-                                            <th class="text-table text-secondary p-2 border-left">Hình thức</th>
+                                            <th class="text-table text-secondary p-2 text-right border-bottom">Dư nợ</th>
+                                            <th class="text-table text-secondary p-2 border-left border-bottom">Hình thức</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($history as $htr)
                                             <tr class="bg-white">
-                                                <td class="border-right text-13-black border-bottom"
+                                                <td class="border-right text-13-black border-bottom border-top-0"
                                                     style="padding-left: 2rem !important;">{{ $htr->payment_code }}
                                                 </td>
-                                                <td class="border-right text-13-black border-bottom">
+                                                <td class="border-right text-13-black border-bottom border-top-0">
                                                     {{ date_format(new DateTime($htr->created_at), 'd-m-Y H:i:s') }}
                                                 </td>
-                                                <td class="border-right text-13-black border-bottom text-right">
+                                                <td class="border-right text-13-black border-bottom border-top-0 text-right">
                                                     {{ fmod($htr->total, 2) > 0 && fmod($htr->total, 1) > 0 ? number_format($htr->total, 2, '.', ',') : number_format($htr->total) }}
                                                 </td>
-                                                <td class="border-right text-13-black border-bottom text-right">
+                                                <td class="border-right text-13-black border-bottom border-top-0 text-right">
                                                     {{ fmod($htr->payment, 2) > 0 && fmod($htr->payment, 1) > 0 ? number_format($htr->payment, 2, '.', ',') : number_format($htr->payment) }}
                                                 </td>
-                                                <td class="text-13-black border-bottom text-right">
+                                                <td class="text-13-black border-bottom text-right border-top-0">
                                                     {{ fmod($htr->debt, 2) > 0 && fmod($htr->debt, 1) > 0 ? number_format($htr->debt, 2, '.', ',') : number_format($htr->debt) }}
                                                 </td>
-                                                <td class="text-13-black border-bottom border-left">
+                                                <td class="text-13-black border-bottom border-left border-top-0">
                                                     {{ $htr->payment_type }}
                                                 </td>
                                             </tr>
@@ -422,45 +420,6 @@
                         </div>
                         <x-form-attachment :value="$payment" name="TTMH"></x-form-attachment>
                     </div>
-
-
-
-                    <!-- <div id="histpry" class="tab-pane fade">
-                        <div class="bg-filter-search border-bottom-0 text-center py-2">
-                            <span class="font-weight-bold text-secondary text-nav">LỊCH SỬ</span>
-                        </div>
-                        <div class="container-fluided">
-                            <table class="table table-hover bg-white rounded" id="inputcontent1">
-                                <thead>
-                                    <tr>
-                                        <th class="text-table text-secondary">Mã thanh toán</th>
-                                        <th class="text-table text-secondary">Ngày thanh toán</th>
-                                        <th class="text-table text-secondary">Tổng tiền</th>
-                                        <th class="text-table text-secondary">Thanh toán</th>
-                                        <th class="text-table text-secondary">Dư nợ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($history as $htr)
-<tr class="bg-white">
-                                            <td>{{ $htr->id }}</td>
-                                            <td>{{ date_format(new DateTime($htr->created_at), 'd-m-Y') }}</td>
-                                            <td>{{ number_format($htr->total) }}</td>
-                                            <td>{{ number_format($htr->payment) }}</td>
-                                            <td>{{ number_format($htr->debt) }}</td>
-                                        </tr>
-@endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-    
-                    <div id="files" class="tab-pane fade">
-                        <div class="bg-filter-search border-bottom-0 text-center py-2">
-                            <span class="font-weight-bold text-secondary text-nav">FILE ĐÍNH KÈM</span>
-                        </div>
-                      
-                    </div> -->
 
                 </div>
             </div>
@@ -487,7 +446,7 @@
 
                     <div class="">
                         <ul class="p-0 m-0">
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
                                 <input type="text"
@@ -497,7 +456,7 @@
                                     placeholder="Chọn thông tin" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                 <input type="text"
@@ -506,7 +465,7 @@
                                     @if ($nameRepresent) value="{{ $nameRepresent }}" @endif />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh toán</span>
                                 <input type="text" placeholder="Chọn thông tin" required
@@ -515,7 +474,7 @@
                                     value="{{ $payment->payment_code }}" name="payment_code" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hạn thanh toán</span>
 
@@ -528,7 +487,7 @@
                                     value="{{ $payment->formatDate($payment->payment_date)->format('Y-m-d') }}">
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
 
@@ -541,7 +500,7 @@
                                     value="{{ $payment->formatDate($payment->payment_day)->format('Y-m-d') }}">
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap" style="flex: 1.5;">Hình thức t.toán</span>
                                 <select name="payment_type" id="" class="border-0 text-13"
@@ -555,7 +514,7 @@
                             </li>
 
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
                                 <input type="text" placeholder="Chọn thông tin" name="delivery_charges" readonly
@@ -563,7 +522,7 @@
                                     style="flex:2;" value="{{ number_format($payment->total) }}" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left bordr-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đã thanh toán</span>
                                 <input id="text" type="text" placeholder="Chọn thông tin"
@@ -571,7 +530,7 @@
                                     style="flex:2;" value="{{ number_format($payment->payment) }}" name="payment" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
                                 <input type="text" placeholder="Chọn thông tin" name="debt" required
@@ -579,7 +538,7 @@
                                     style="flex:2;" value="{{ number_format($payment->debt) }}" />
                             </li>
                             {{-- @dd($payment->debt) --}}
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh toán trước</span>
                                 <input id="prepayment" type="text" placeholder="Chọn thông tin" name="payment"
@@ -589,7 +548,7 @@
                             </li>
 
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="mx-1 text-13" style="flex: 2;">
                                     <input type="checkbox" name="payment_all" onclick="cbPayment(this)"

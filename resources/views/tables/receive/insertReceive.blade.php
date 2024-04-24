@@ -36,11 +36,11 @@
                         <a href="{{ route('receive.index', $workspacename) }}" class="user_flow" data-type="DNH"
                             data-des="Hủy">
                             <button class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" type="button">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
-                                        fill="#6D7075"></path>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM5.03033 3.96967C4.73744 3.67678 4.26256 3.67678 3.96967 3.96967C3.67678 4.26256 3.67678 4.73744 3.96967 5.03033L5.93934 7L3.96967 8.96967C3.67678 9.26256 3.67678 9.73744 3.96967 10.0303C4.26256 10.3232 4.73744 10.3232 5.03033 10.0303L7 8.06066L8.96967 10.0303C9.26256 10.3232 9.73744 10.3232 10.0303 10.0303C10.3232 9.73744 10.3232 9.26256 10.0303 8.96967L8.06066 7L10.0303 5.03033C10.3232 4.73744 10.3232 4.26256 10.0303 3.96967C9.73744 3.67678 9.26256 3.67678 8.96967 3.96967L7 5.93934L5.03033 3.96967Z"
+                                        fill="#6D7075" />
                                 </svg>
                                 <span class="text-btnIner-primary ml-2">Hủy</span>
                             </button>
@@ -48,26 +48,27 @@
 
                         <a href="#" onclick="getAction(this)">
                             <button name="action" value="action_1" type="submit"
-                                class="custom-btn d-flex align-items-center h-100 mx-1">
+                                class="btn-destroy btn-light d-flex align-items-center h-100 mx-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14"
                                     viewBox="0 0 12 14" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M4.75 0V5.75C4.75 6.5297 5.34489 7.17045 6.10554 7.24313L6.25 7.25H12V12C12 13.1046 11.1046 14 10 14H2C0.89543 14 0 13.1046 0 12V2C0 0.89543 0.89543 0 2 0H4.75ZM6 0L12 6.03022H7C6.44772 6.03022 6 5.5825 6 5.03022V0Z"
-                                        fill="white" />
+                                        fill="#6D7075" />
                                 </svg>
                                 <span class="text-btnIner-primary ml-2">Lưu nháp</span>
                             </button>
                         </a>
 
                         <a href="#" onclick="getAction(this)">
-                            <button value="action_2" type="submit" class="custom-btn d-flex align-items-center h-100 mx-1">
+                            <button value="action_2" type="submit"
+                                class="custom-btn d-flex align-items-center h-100 mx-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                     viewBox="0 0 14 14" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
                                         fill="white"></path>
                                 </svg>
-                                <span class="text-btnIner-primary ml-2">Nhận hàng</span>
+                                <span class="text-btnIner-primary ml-2">Xác nhận</span>
                             </button>
                         </a>
 
@@ -99,10 +100,10 @@
                             <table id="inputcontent" class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">
-                                        <th class="border-right" style="width: 15%;padding-left:2rem;">
+                                        <th class="border-right border-bottom" style="width: 15%;padding-left:2rem;">
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
-                                        <th scope="col" class="border">
+                                        <th scope="col" class="border-right border-bottom">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="created_at"
                                                     data-sort-type="">
@@ -112,7 +113,7 @@
                                                 <div class="icon" id="icon-created_at"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border">
+                                        <th scope="col" class="border-right border-bottom">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="created_at"
                                                     data-sort-type=""><button class="btn-sort text-13"
@@ -121,7 +122,7 @@
                                                 <div class="icon" id="icon-created_at"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border">
+                                        <th scope="col" class="border-right border-bottom">
                                             <span class="d-flex justify-content-end">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-13"
@@ -130,7 +131,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border">
+                                        <th scope="col" class="border-right border-bottom">
                                             <span class="d-flex justify-content-center">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-13"
@@ -139,7 +140,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border">
+                                        <th scope="col" class="border-right border-bottom">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-13"
@@ -148,7 +149,7 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border">
+                                        <th scope="col" class="border-right border-bottom">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link" data-sort-by="total"
                                                     data-sort-type=""><button class="btn-sort text-13"
@@ -157,8 +158,8 @@
                                                 <div class="icon" id="icon-total"></div>
                                             </span>
                                         </th>
-                                        <th scope="col" class="border">
-                                            </td>
+                                        <th scope="col" class="border-right border-bottom">
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -233,7 +234,7 @@
                     </div>
                     <div id="more_info" style="display:none;">
                         <ul class="p-0 m-0">
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
                                 <input type="text"
@@ -243,7 +244,7 @@
                                     placeholder="Chọn thông tin" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                 <input type="text"
@@ -252,7 +253,7 @@
                                     placeholder="Chọn thông tin" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã nhận hàng</span>
                                 <input type="text" placeholder="Chọn thông tin" name="delivery_code" required
@@ -260,7 +261,7 @@
                                     style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận chuyển</span>
                                 <input type="text" placeholder="Chọn thông tin"
@@ -268,7 +269,7 @@
                                     style="flex:2; background-color:#F0F4FF; border-radius:4px;"
                                     name="shipping_unit" />
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí vận chuyển</span>
                                 <input type="text" placeholder="Nhập thông tin" name="delivery_charges"
@@ -276,7 +277,7 @@
                                     style="flex:2; background-color:#F0F4FF; border-radius:4px;" />
                             </li>
 
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày nhận hàng</span>
                                 <input type="text" placeholder="Nhập thông tin"
@@ -359,7 +360,7 @@
                                     .receive_qty > 0) {
                                     var tr =
                                         `<tr class="bg-white position-relative" style="height:80px;">
-                                                <td class="border bg-white align-top text-13-black" style="width:5%;padding-left: 2rem !important;">
+                                                <td class="border-top-0 border-bottom border-right bg-white align-top text-13-black" style="width:5%;padding-left: 2rem !important;">
                                                     <input type="hidden" readonly value="` + element.id + `" name="listProduct[]">
                                                     <input type="text" readonly name="product_code[]" class="border-0 py-1 w-75 searchProduct" 
                                                         value="` + (element.product_code == null ? "" : element
@@ -368,7 +369,7 @@
                                                     </ul>
                                                 </td> 
 
-                                                <td class="border bg-white align-top text-13-black" style="width:20%">
+                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right" style="width:20%">
                                                     <div class="d-flex align-items-center">
                                                         <input readonly id="searchProductName" type="text" name="product_name[]" 
                                                             class="searchProductName w-100 border-0 px-2 py-1" 
@@ -382,13 +383,13 @@
                                                     </div>
                                                 </td>   
 
-                                                <td class="border bg-white align-top text-13-black" style="width:10%"> 
+                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right" style="width:10%"> 
                                                     <input readonly type="text" name="product_unit[]" 
                                                         class="border-0 px-2 py-1 w-100 product_unit" 
                                                         value="` + element.product_unit + `">
                                                 </td>
 
-                                                <td class="border-right p-2 text-13 align-top border-bottom" width: 15%;>
+                                                <td class="p-2 text-13 align-top border-top-0 border-bottom border-right" width: 15%;>
                                                     <div>
                                                         <input oninput="checkQty(this,` + (element.product_qty -
                                             element.receive_qty) + `)" 
@@ -400,13 +401,15 @@
                                                             data-target="#exampleModal` + element.id + `" ` + (product
                                             .checked[index] ==
                                             'endable' ||
-                                            product.cb[index] == 1 ? 'style="opacity:1"' : 'style="opacity:0"') + ` >
+                                            product.cb[index] == 1 ?
+                                            'style="opacity:1"' :
+                                            'style="opacity:0"') + ` >
                                                                 <div class='mt-3 text-13-blue inventory text-right'>Serial Number </div>
                                                         </a>
                                                     </div>
                                                 </td>
 
-                                                <td class="border-right p-2 text-13 align-top text-center border-bottom">
+                                                <td class="p-2 text-13 align-top text-center border-top-0 border-bottom border-right">
                                                     <div style="margin-top: 6px;">
                                                         <input onclick="getDataCheckbox(this)" 
                                                             type="checkbox" ` + (product.checked[index] == 'endable' ||
@@ -420,7 +423,7 @@
                                                     </div>
                                                 </td>
 
-                                                <td class="border-right p-2 note text-13 align-top border-bottom">
+                                                <td class="p-2 note text-13 align-top border-top-0 border-bottom border-right">
                                                     <input type="text" name="product_guarantee[]" class="border-0 py-1 w-100" placeholder="Nhập bảo hành"
                                                     value="` + (product.value[index] == null ? "" : product.value[
                                             index]) + `" ` + (product
@@ -428,7 +431,7 @@
                                             "readonly") + `>
                                                 </td>
 
-                                                <td class="border-right p-2 note text-13 align-top border-bottom">
+                                                <td class="p-2 note text-13 align-top border-top-0 border-bottom border-right">
                                                     <input readonly type="text" name="product_note[]" class="border-0 py-1 w-100" 
                                                         placeholder='Nhập ghi chú'
                                                         value="` + (element.product_note == null ? "" : element
@@ -445,7 +448,7 @@
                                                     name="total_price[]" value="` + formatCurrency(element
                                             .product_total) + `" readonly>             
                                                     
-                                                <td class="border-right p-2 align-top border-bottom deleteRow text-center">
+                                                <td class="p-2 align-top border-top-0 border-bottom border-right deleteRow text-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.3687 6.09375C12.6448 6.09375 12.8687 6.30362 12.8687 6.5625C12.8687 6.59865 12.8642 6.63468 12.8554 6.66986L11.3628 12.617C11.1502 13.4639 10.3441 14.0625 9.41597 14.0625H6.58403C5.65593 14.0625 4.84977 13.4639 4.6372 12.617L3.14459 6.66986C3.08135 6.41786 3.24798 6.16551 3.51678 6.10621C3.55431 6.09793 3.59274 6.09375 3.6313 6.09375H12.3687ZM8.5 0.9375C9.88071 0.9375 11 1.98683 11 3.28125H13C13.5523 3.28125 14 3.70099 14 4.21875V4.6875C14 4.94638 13.7761 5.15625 13.5 5.15625H2.5C2.22386 5.15625 2 4.94638 2 4.6875V4.21875C2 3.70099 2.44772 3.28125 3 3.28125H5C5 1.98683 6.11929 0.9375 7.5 0.9375H8.5ZM8.5 2.34375H7.5C6.94772 2.34375 6.5 2.76349 6.5 3.28125H9.5C9.5 2.76349 9.05228 2.34375 8.5 2.34375Z" fill="#6B6F76"></path></svg>
                                                 </td>
                                         </tr>`;

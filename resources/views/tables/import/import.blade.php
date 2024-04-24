@@ -106,12 +106,12 @@
                                 <table id="example2" class="table table-hover">
                                     <thead class="sticky-head">
                                         <tr>
-                                            <th scope="col" style="width:5%;padding-left: 2rem;"
+                                            <th scope="col" class="border-bottom" style="width:5%;padding-left: 2rem;"
                                                 class="height-52">
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
@@ -121,7 +121,7 @@
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="created_at" data-sort-type="DESC">
@@ -131,7 +131,7 @@
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="reference_number" data-sort-type="DESC"><button
@@ -142,7 +142,7 @@
                                                 </span>
                                             </th>
                                             <th></th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC"><button
@@ -153,7 +153,7 @@
                                                 </span>
                                             </th>
                                             @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                <th scope="col" class="height-52">
+                                                <th scope="col" class="height-52 border-bottom">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
@@ -163,7 +163,7 @@
                                                     </span>
                                                 </th>
                                             @endif
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
@@ -173,7 +173,7 @@
                                                     <div class="icon" id="icon-status"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_receive" data-sort-type="DESC"><button
@@ -182,7 +182,7 @@
                                                     <div class="icon" id="icon-status_receive"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_reciept" data-sort-type="DESC"><button
@@ -191,7 +191,7 @@
                                                     <div class="icon" id="icon-status_reciept"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_pay" data-sort-type="DESC"><button
@@ -201,7 +201,7 @@
                                                     <div class="icon" id="icon-status_pay"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total_tax" data-sort-type="DESC"><button
@@ -218,7 +218,7 @@
                                                 data-id="{{ $item->id }}">
                                                 <input type="hidden" name="id-import" class="id-import"
                                                     id="id-import" value="{{ $item->id }}">
-                                                <td class="text-13-black">
+                                                <td class="text-13-black border-bottom border-top-0">
                                                     <span class="margin-Right10">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                             height="10" viewBox="0 0 6 10" fill="none">
@@ -238,7 +238,7 @@
                                                     <input type="checkbox" id="{{ $item->id }}"
                                                         class="cb-element checkall-btn">
                                                 </td>
-                                                <td class=" text-13-black">
+                                                <td class="text-13-black border-bottom border-top-0">
                                                     <div class="user_flow" data-type="DMH"
                                                         data-des="Xem đơn mua hàng">
                                                         <a href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->id]) }}"
@@ -247,13 +247,13 @@
                                                         </a>
                                                     </div>
                                                 </td>
-                                                <td class=" text-13-black">
+                                                <td class="text-13-black border-bottom border-top-0">
                                                     {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td>
-                                                <td class=" text-13-black">
+                                                <td class="text-13-black border-bottom border-top-0">
                                                     {{ $item->reference_number }}
                                                 </td>
-                                                <td>
+                                                <td class="border-bottom border-top-0">
                                                     <div class="bg-white position-absolute rounded shadow p-2 z-index-block"
                                                         style="z-index: 99; width: 165px; top: 20px; right: 88px; display:none;"
                                                         id="listBtnCreateFast">
@@ -316,17 +316,17 @@
                                                         </ul>
                                                     </div>
                                                 </td>
-                                                <td class="text-13-black">
+                                                <td class="text-13-black border-bottom border-top-0">
                                                     {{ $item->provide_name }}
                                                 </td>
                                                 @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                    <td class="text-13-black">
+                                                    <td class="text-13-black border-bottom border-top-0">
                                                         @if ($item->getNameUser)
                                                             {{ $item->getNameUser->name }}
                                                         @endif
                                                     </td>
                                                 @endif
-                                                <td class="text-center py-2">
+                                                <td class="text-center py-2 border-bottom border-top-0">
                                                     @if ($item->status_receive == 2 && $item->status_reciept == 2 && $item->status_pay == 2)
                                                         <span style="color: #08AA36">Close</span>
                                                     @elseif($item->status == 1)
@@ -335,7 +335,7 @@
                                                         <span style="color: #E8B600">Approved</span>
                                                     @endif
                                                 </td>
-                                                <td class="text-center py-2">
+                                                <td class="text-center py-2 border-bottom border-top-0">
                                                     @if ($item->status_receive == 0)
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                             height="14" viewBox="0 0 14 14" fill="none">
@@ -362,7 +362,7 @@
                                                         </svg>
                                                     @endif
                                                 </td>
-                                                <td class="text-center py-2">
+                                                <td class="text-center py-2 border-bottom border-top-0">
                                                     @if ($item->status_reciept == 0)
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                             height="14" viewBox="0 0 14 14" fill="none">
@@ -389,7 +389,7 @@
                                                         </svg>
                                                     @endif
                                                 </td>
-                                                <td class="text-center py-2">
+                                                <td class="text-center py-2 border-bottom border-top-0">
                                                     @if ($item->status_pay == 0)
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                             height="14" viewBox="0 0 14 14" fill="none">
@@ -416,9 +416,9 @@
                                                         </svg>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-right">
+                                                <td class="text-13-black text-right border-bottom border-top-0">
                                                     {{ number_format($item->total_tax) }}</td>
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
+                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0"
                                                     style="right: 10px; top: 7px;">
                                                     <div class="d-flex w-100">
                                                         <a class="user_flow" data-type="DMH"

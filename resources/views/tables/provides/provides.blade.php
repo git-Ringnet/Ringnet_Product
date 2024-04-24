@@ -105,12 +105,12 @@
                                 <table id="example2" class="table table-hover">
                                     <thead class="sticky-head">
                                         <tr>
-                                            <th scope="col" style="padding-left: 2rem;width:100px;"
-                                                class="height-52 pr-0">
+                                            <th scope="col" class="border-bottom"
+                                                style="padding-left: 2rem;width:100px;" class="height-52 pr-0">
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="height-52" style="width:300px;">
+                                            <th scope="col" class="height-52 border-bottom" style="width:300px;">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name_display" data-sort-type="DESC">
@@ -122,7 +122,8 @@
                                                 </span>
                                             </th>
                                             @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                <th scope="col" class="height-52" style="width:300px;">
+                                                <th scope="col" class="height-52 border-bottom"
+                                                    style="width:300px;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link"
                                                             data-sort-by="guest_name_display" data-sort-type="ASC">
@@ -134,7 +135,7 @@
                                                     </span>
                                                 </th>
                                             @endif
-                                            <th scope="col" class="height-52" style="width:200px;">
+                                            <th scope="col" class="height-52 border-bottom" style="width:200px;">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC">
@@ -145,7 +146,7 @@
                                                     <div class="icon" id="icon-provide_name"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52" style="width:150px;">
+                                            <th scope="col" class="height-52 border-bottom" style="width:150px;">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_debt" data-sort-type="DESC">
@@ -156,7 +157,8 @@
                                                     <div class="icon" id="icon-provide_debt"></div>
                                                 </span>
                                             </th>
-                                            <th style="width:300px;border-bottom: 1px solid #dee2e6 !important;">
+                                            <th class="border-bottom"
+                                                style="width:300px;border-bottom: 1px solid #dee2e6 !important;">
                                             </th>
                                         </tr>
                                     </thead>
@@ -165,7 +167,7 @@
                                             <tr class="position-relative provide-info">
                                                 <input type="hidden" name="id-provide" class="id-provide"
                                                     id="id-provide" value="{{ $item->id }}">
-                                                <td class="height-52 pr-0">
+                                                <td class="height-52 pr-0 border-top-0 border-bottom">
                                                     <span class="margin-Right10">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                             height="10" viewBox="0 0 6 10" fill="none">
@@ -184,7 +186,7 @@
                                                     </span>
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
-                                                <td class="text-13-black height-52">
+                                                <td class="text-13-black height-52 border-top-0 border-bottom">
                                                     <a href="{{ route('provides.show', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
                                                         class="user_flow" data-type="NCC"
                                                         data-des="Xem nhà cung cấp">
@@ -192,19 +194,19 @@
                                                     </a>
                                                 </td>
                                                 @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                    <td class="text-13-black height-52">
+                                                    <td class="text-13-black height-52 border-top-0 border-bottom">
                                                         @if ($item->getNameUser)
                                                             {{ $item->getNameUser->name }}
                                                         @endif
                                                     </td>
                                                 @endif
-                                                <td class="text-13-black height-52">
+                                                <td class="text-13-black height-52 border-top-0 border-bottom">
                                                     {{ $item->provide_code }}
                                                 </td>
-                                                <td class="text-13-black height-52 text-right" style="width:300px">
+                                                <td class="text-13-black height-52 text-right border-top-0 border-bottom" style="width:300px">
                                                     {{ number_format($item->provide_debt) }}
                                                 </td>
-                                                <td>
+                                                <td class="border-top-0 border-bottom">
                                                     <div class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                         style="right: 10px; top: 10px;">
                                                         <div class="d-flex w-100">

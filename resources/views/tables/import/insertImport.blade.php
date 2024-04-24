@@ -86,33 +86,33 @@
                         <div class="content-info position-relative text-nowrap order_content">
                             <table id="inputcontent" class="table table-hover bg-white rounded">
                                 <thead>
-                                    <tr style="height:44px;">
-                                        <th class="border-right px-2 p-0" style="width: 17%;padding-left:2rem;">
+                                    <tr style="height:50px;">
+                                        <th class="border-right-0 px-2 p-0" style="width: 17%;padding-left:2rem;">
                                             <input type='checkbox' class='checkall-btn ml-4 mr-1'id="checkall" />
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right px-2 p-0" style="width: 15%;z-index:100;">
+                                        <th class="border-left px-2 p-0" style="width: 15%;z-index:100;">
                                             <span class="text-table text-secondary">Tên sản phẩm</span>
                                         </th>
-                                        <th class="border-right px-2 p-0" style="width: 8%;">
+                                        <th class="border-left px-2 p-0" style="width: 8%;">
                                             <span class="text-table text-secondary">Đơn vị</span>
                                         </th>
-                                        <th class="border-right px-2 p-0 text-right" style="width: 8%;">
+                                        <th class="border-left px-2 p-0 text-right" style="width: 8%;">
                                             <span class="text-table text-secondary">Số lượng</span>
                                         </th>
-                                        <th class="border-right px-2 p-0 text-right" style="width: 10%;">
+                                        <th class="border-left px-2 p-0 text-right" style="width: 10%;">
                                             <span class="text-table text-secondary">Đơn giá</span>
                                         </th>
-                                        <th class="border-right px-2 p-0 text-center" style="width: 8%;">
+                                        <th class="border-left px-2 p-0 text-center" style="width: 8%;">
                                             <span class="text-table text-secondary">Thuế</span>
                                         </th>
-                                        <th class="border-right px-2 p-0 text-right" style="width: 11%;">
+                                        <th class="border-left px-2 p-0 text-right" style="width: 11%;">
                                             <span class="text-table text-secondary">Thành tiền</span>
                                         </th>
-                                        <th class="border-right note px-2 p-0" style="width: 15%;">
+                                        <th class="border-left note px-2 p-0" style="width: 15%;">
                                             <span class="text-table text-secondary">Ghi chú</span>
                                         </th>
-                                        <th class="border-right"></th>
+                                        <th class="border-right-0 border-left"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -338,7 +338,7 @@
                             cấp</p>
                     </div>
                     <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:42px;">
+                        style="height:48px;">
 
                         <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
 
@@ -412,8 +412,8 @@
                     <div class="">
                         <div id="more_info" style="display:none;">
                             <ul class="p-0 m-0">
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative border-top-0"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest nameGuest py-2 px-2"
                                         style="flex:2;" id="represent" readonly placeholder="Chọn thông tin"
@@ -449,8 +449,8 @@
                                     </ul>
                                 </li>
 
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative border-top-0"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
 
                                     <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
@@ -458,16 +458,16 @@
                                         placeholder="Chọn thông tin">
 
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
                                         placeholder="Nhập thông tin"
                                         style="flex:2; background-color:#F0F4FF; border-radius:4px;"
                                         name="reference_number" />
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
                                         name="" placeholder="Chọn thông tin" style="flex:2;" id="datePicker"
@@ -475,8 +475,8 @@
                                     <input type="hidden" name="date_quote" id="hiddenDateInput"
                                         value="{{ date('Y-m-d') }}">
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative border-top-0"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                         name="price_effect" placeholder="Chọn thông tin" style="flex:2;"
@@ -511,8 +511,8 @@
                                         </a>
                                     </ul>
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative border-top-0"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                         name="terms_pay" id="terms_pay" placeholder="Chọn thông tin" style="flex:2;"

@@ -106,12 +106,12 @@
                                 <table id="example2" class="table table-hover">
                                     <thead class="sticky-head">
                                         <tr>
-                                            <th scope="col" style="width:5%;padding-left: 2rem;"
+                                            <th scope="col" class="border-bottom" style="width:5%;padding-left: 2rem;"
                                                 class="height-52">
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="delivery_code" data-sort-type="DESC">
@@ -121,7 +121,7 @@
                                                     <div class="icon" id="icon-delivery_code"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
@@ -131,7 +131,7 @@
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name_display"
@@ -143,7 +143,7 @@
                                                 </span>
                                             </th>
                                             @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                <th scope="col" class="height-52">
+                                                <th scope="col" class="height-52 border-bottom">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="created_at"
                                                             data-sort-type=""><button class="btn-sort text-13"
@@ -153,7 +153,7 @@
                                                     </span>
                                                 </th>
                                             @endif
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="shipping_unit" data-sort-type="DESC"><button
@@ -163,7 +163,7 @@
                                                     <div class="icon" id="icon-shipping_unit"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="delivery_charges" data-sort-type="DESC"><button
@@ -174,7 +174,7 @@
                                                 </span>
                                             </th>
 
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom d-flex justify-content-center">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
@@ -185,7 +185,7 @@
                                                 </span>
                                             </th>
 
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="created_at" data-sort-type="DESC"><button
@@ -195,7 +195,7 @@
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total_tax" data-sort-type="DESC"><button
@@ -211,7 +211,7 @@
                                             <tr class="position-relative receive-info" style="height:44px;"><input
                                                     type="hidden" name="id-receive" class="id-receive"
                                                     id="id-receive" value="{{ $item->id }}">
-                                                <td class="text-13-black">
+                                                <td class="text-13-black border-top-0 border-bottom">
                                                     <span class="margin-Right10">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                             height="10" viewBox="0 0 6 10" fill="none">
@@ -230,71 +230,53 @@
                                                     </span>
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
-                                                <td class=" text-13-black">
+                                                <td class="text-13-black border-top-0 border-bottom">
                                                     <a href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}"
                                                         class="duongdan text-13-blue user_flow" data-type="DNH"
                                                         data-des="Xem đơn nhận hàng">
                                                         {{ $item->delivery_code }}
                                                     </a>
                                                 </td>
-                                                <td class="">
+                                                <td class="text-13-black border-top-0 border-bottom">
                                                     @if ($item->getQuotation)
                                                         {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
                                                     @endif
                                                 </td>
-                                                <td class=" text-13-black">
+                                                <td class="text-13-black border-top-0 border-bottom">
                                                     @if ($item->getQuotation)
                                                         {{ $item->getQuotation->provide_name }}
                                                     @endif
                                                 </td>
                                                 @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                    <td class=" text-13-black">
+                                                    <td class="text-13-black border-top-0 border-bottom">
                                                         @if ($item->getNameUser)
                                                             {{ $item->getNameUser->name }}
                                                         @endif
                                                     </td>
                                                 @endif
 
-                                                <td class=" text-13-black">
+                                                <td class="text-13-black border-top-0 border-bottom">
                                                     {{ $item->shipping_unit }}
                                                 </td>
-                                                <td class=" text-13-black text-right">
+                                                <td class="text-13-black text-right border-top-0 border-bottom">
                                                     {{ number_format($item->delivery_charges) }}
                                                 </td>
-                                                <td class="text-13-black text-center">
+                                                <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($item->status == 1)
                                                         <span style="color: #858585">Chưa nhận</span>
                                                     @else
                                                         <span style="color: #08AA36">Đã nhận</span>
                                                     @endif
                                                 </td>
-                                                <td class=" text-13-black">
+                                                <td class="text-13-black border-top-0 border-bottom">
                                                     {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td>
-                                                <td class="text-13-black text-right">
+                                                <td class="text-13-black text-right border-top-0 border-bottom">
                                                     {{ number_format($item->total_tax) }}
                                                 </td>
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
+                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-top-0 border-bottom"
                                                     style="right: 10px; top: 10%;">
                                                     <div class="d-flex w-100">
-                                                        {{-- <a href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}"
-                                                            class="user_flow" data-type="DNH"
-                                                            data-des="Xem đơn nhận hàng">
-                                                            <div class="m-0 px-2 py-1 mx-2 rounded">
-                                                                <svg width="16" height="16"
-                                                                    viewBox="0 0 16 16" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path opacity="0.985" fill-rule="evenodd"
-                                                                        clip-rule="evenodd"
-                                                                        d="M11.1719 1.04696C11.7535 0.973552 12.2743 1.11418 12.7344 1.46883C13.001 1.72498 13.2562 1.9906 13.5 2.26571C13.9462 3.00226 13.9358 3.73143 13.4688 4.45321C10.9219 7.04174 8.35416 9.60946 5.76563 12.1563C5.61963 12.245 5.46338 12.3075 5.29688 12.3438C4.59413 12.4153 3.891 12.483 3.1875 12.547C2.61265 12.4982 2.32619 12.1857 2.32813 11.6095C2.3716 10.8447 2.44972 10.0843 2.5625 9.32821C2.60666 9.22943 2.65874 9.13568 2.71875 9.04696C5.26563 6.50008 7.8125 3.95321 10.3594 1.40633C10.6073 1.22846 10.8781 1.10867 11.1719 1.04696ZM11.3594 2.04696C11.5998 2.02471 11.8185 2.08201 12.0156 2.21883C12.2188 2.42196 12.4219 2.62508 12.625 2.82821C12.8393 3.14436 12.8497 3.4673 12.6562 3.79696C12.4371 4.02136 12.2131 4.24011 11.9844 4.45321C11.4427 3.93236 10.9115 3.40111 10.3906 2.85946C10.5933 2.64116 10.8016 2.42762 11.0156 2.21883C11.1255 2.14614 11.2401 2.08885 11.3594 2.04696ZM9.60938 3.60946C10.1552 4.13961 10.6968 4.67608 11.2344 5.21883C9.21353 7.23968 7.19272 9.26049 5.17188 11.2813C4.571 11.3686 3.96684 11.4364 3.35938 11.4845C3.41572 10.8909 3.473 10.2971 3.53125 9.70321C5.56359 7.67608 7.58962 5.64483 9.60938 3.60946Z"
-                                                                        fill="#6C6F74"></path>
-                                                                    <path opacity="0.979" fill-rule="evenodd"
-                                                                        clip-rule="evenodd"
-                                                                        d="M1.17188 14.1406C5.71356 14.1354 10.2552 14.1406 14.7969 14.1563C15.0348 14.2355 15.1598 14.4022 15.1719 14.6563C15.147 14.915 15.0116 15.0816 14.7656 15.1563C10.2448 15.1771 5.72397 15.1771 1.20312 15.1563C0.807491 14.9903 0.708531 14.7143 0.90625 14.3281C0.978806 14.2377 1.06735 14.1752 1.17188 14.1406Z"
-                                                                        fill="#6C6F74"></path>
-                                                                </svg>
-                                                            </div>
-                                                        </a> --}}
                                                         <a href="#">
                                                             <div class="m-0 mx-2 rounded">
                                                                 <form

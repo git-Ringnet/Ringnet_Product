@@ -342,7 +342,7 @@ $("#addRowRepesent").on("click", function () {
 function addRowTable(status) {
     var tr =
         '<tr class="bg-white" style="height:80px;">' +
-        '<td class="border-right p-2 text-13-black align-top p-2 border-bottom">' +
+        '<td class="p-2 text-13-black align-top p-2 border-bottom border-top-0 border-right-0">' +
         '<input type="hidden" name="listProduct[]" value="0">' +
         "<span class='mx-2'>" +
         "<svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>" +
@@ -363,17 +363,17 @@ function addRowTable(status) {
         '<ul id="listProductCode" class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 24%; top: 60%;"> ' +
         "</ul>" +
         "</td>" +
-        '<td class="border position-relative text-13-black align-top p-2"> ' +
+        '<td class="position-relative text-13-black align-top p-2 border-left border-bottom border-top-0"> ' +
         '<input autocomplete="off" required type="text" id="searchProductName" class="searchProductName border-0 px-2 py-1 w-100" name="product_name[]">' +
         '<ul id="listProductName" class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 1%; top: 60%;"> ' +
         "</ul>" +
         "</td>" +
-        '<td class="border text-13-black align-top p-2">' +
+        '<td class="border text-13-black align-top p-2 border-top-0 border-right-0">' +
         '<input type="text" required class="border-0 px-2 py-1 w-100 product_unit" name="product_unit[]" ' +
         (status == 2 ? "readonly" : "") +
         " >" +
         "</td>" +
-        '<td class="border text-13-black align-top p-2">' +
+        '<td class="border text-13-black align-top p-2 border-top-0 border-right-0">' +
         '<div class="d-flex"><input type="text" required oninput="validateQtyInput1(this)" class="border-0 px-2 py-1 w-100 quantity-input text-right" name="product_qty[]">';
     if (status == 2) {
         tr +=
@@ -405,13 +405,13 @@ function addRowTable(status) {
         "</div>" +
         "<div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='pl-1 soTonKho' id='soTonKho'>0</span></div>" +
         "</td>" +
-        '<td class="border text-13-black align-top p-2">' +
+        '<td class="border text-13-black align-top p-2 border-top-0 border-right-0">' +
         "<div>" +
         '<input type="text" required class="border-0 px-2 py-1 w-100 price_export text-right" name="price_export[]">' +
         "</div>" +
         "<div class='mt-3 text-13-blue transaction text-right' id='transaction' data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</div>" +
         "</td>" +
-        '<td class="border text-13-black align-top p-2 text-center">';
+        '<td class="border text-13-black align-top p-2 text-center border-top-0 border-right-0">';
 
     if (status == 2) {
         tr +=
@@ -428,15 +428,15 @@ function addRowTable(status) {
     tr +=
         "</td>" +
         '<input type="hidden" class="product_tax1">' +
-        '<td class="border text-13-black align-top p-2">' +
+        '<td class="border text-13-black align-top p-2 border-top-0 border-right-0">' +
         '<input type="text" class="border-0 px-2 py-1 w-100 total_price text-right" readonly name="total_price[]">' +
         "</td>" +
-        '<td class="border text-13-black align-top p-2">' +
+        '<td class="border text-13-black align-top p-2 border-top-0 border-right-0">' +
         '<input type="text" placeholder="Nhập ghi chú" class="border-0 px-2 py-1 w-100" name="product_note[]" ' +
         (status == 2 ? "readonly" : "") +
         " >" +
         "</td>" +
-        '<td class="border deleteRow align-top p-2 user_flow" data-type="DMH" data-des="Xóa sản phẩm">' +
+        '<td class="deleteRow align-top p-2 user_flow border-top-0 border-left border-bottom" data-type="DMH" data-des="Xóa sản phẩm">' +
         '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.3687 6.09375C12.6448 6.09375 12.8687 6.30362 12.8687 6.5625C12.8687 6.59865 12.8642 6.63468 12.8554 6.66986L11.3628 12.617C11.1502 13.4639 10.3441 14.0625 9.41597 14.0625H6.58403C5.65593 14.0625 4.84977 13.4639 4.6372 12.617L3.14459 6.66986C3.08135 6.41786 3.24798 6.16551 3.51678 6.10621C3.55431 6.09793 3.59274 6.09375 3.6313 6.09375H12.3687ZM8.5 0.9375C9.88071 0.9375 11 1.98683 11 3.28125H13C13.5523 3.28125 14 3.70099 14 4.21875V4.6875C14 4.94638 13.7761 5.15625 13.5 5.15625H2.5C2.22386 5.15625 2 4.94638 2 4.6875V4.21875C2 3.70099 2.44772 3.28125 3 3.28125H5C5 1.98683 6.11929 0.9375 7.5 0.9375H8.5ZM8.5 2.34375H7.5C6.94772 2.34375 6.5 2.76349 6.5 3.28125H9.5C9.5 2.76349 9.05228 2.34375 8.5 2.34375Z" fill="#6B6F76"/></svg>' +
         "</td>" +
         "</tr>";

@@ -35,12 +35,9 @@
                     <div class="row m-0">
                         <a href="{{ route('import.index', $workspacename) }}">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
-                                        fill="#6D7075" />
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM5.03033 3.96967C4.73744 3.67678 4.26256 3.67678 3.96967 3.96967C3.67678 4.26256 3.67678 4.73744 3.96967 5.03033L5.93934 7L3.96967 8.96967C3.67678 9.26256 3.67678 9.73744 3.96967 10.0303C4.26256 10.3232 4.73744 10.3232 5.03033 10.0303L7 8.06066L8.96967 10.0303C9.26256 10.3232 9.73744 10.3232 10.0303 10.0303C10.3232 9.73744 10.3232 9.26256 10.0303 8.96967L8.06066 7L10.0303 5.03033C10.3232 4.73744 10.3232 4.26256 10.0303 3.96967C9.73744 3.67678 9.26256 3.67678 8.96967 3.96967L7 5.93934L5.03033 3.96967Z" fill="#6D7075"/>
+                                    </svg>
                                 <span class="text-btnIner-primary ml-2">Hủy</span>
                             </button>
                         </a>
@@ -92,8 +89,8 @@
                                 <div class="content-info text-nowrap">
                                     <table id="inputcontent" class="table table-hover bg-white rounded">
                                         <thead>
-                                            <tr style="height:44px;">
-                                                <th class="border-right px-2 p-0"
+                                            <tr style="height:48px;">
+                                                <th class="border-right-0 px-2 p-0 border-bottom"
                                                     style="width: 15%;padding-left:2rem;">
                                                     <span class="ml-1 mr-0">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="14"
@@ -106,7 +103,7 @@
                                                     <input type='checkbox' class='checkall-btn'id="checkall" />
                                                     <span class="text-table text-secondary">Mã sản phẩm</span>
                                                 </th>
-                                                <th scope="col" class="border">
+                                                <th scope="col" class="border-right-0 border-bottom border-left">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="created_at"
                                                             data-sort-type="">
@@ -116,7 +113,7 @@
                                                         <div class="icon" id="icon-created_at"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border">
+                                                <th scope="col" class="border-right-0 border-bottom border-left">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="created_at"
                                                             data-sort-type=""><button class="btn-sort text-13"
@@ -125,7 +122,7 @@
                                                         <div class="icon" id="icon-created_at"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border">
+                                                <th scope="col" class="border-right-0 border-bottom border-left">
                                                     <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
@@ -134,7 +131,7 @@
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border">
+                                                <th scope="col" class="border-right-0 border-bottom border-left">
                                                     <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
@@ -143,7 +140,7 @@
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border">
+                                                <th scope="col" class="border-right-0 border-bottom border-left">
                                                     <span class="d-flex justify-content-center">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
@@ -152,7 +149,7 @@
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border">
+                                                <th scope="col" class="border-right-0 border-bottom border-left">
                                                     <span class="d-flex justify-content-end">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
@@ -161,7 +158,7 @@
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border">
+                                                <th scope="col" class="border-right-0 border-bottom border-left">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
@@ -170,12 +167,13 @@
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
+                                                <th scope="col" class="border-right-0 border-bottom border-left border-top-0"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($product as $item)
                                                 <tr class="bg-white" style="height:80px;">
-                                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                                    <td class="border-left p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="hidden" readonly value="{{ $item->id }}"
                                                             name="listProduct[]">
                                                         <span class="ml-2 mr-1">
@@ -205,7 +203,7 @@
                                                         </ul>
                                                     </td>
                                                     <td
-                                                        class="border-right p-2 text-13 align-top border-bottom position-relative">
+                                                        class="border-left p-2 text-13 align-top border-bottom border-top-0 position-relative">
                                                         <input id="searchProductName" type="text"
                                                             name="product_name[]"
                                                             class="searchProductName border-0 px-2 py-1 w-100"
@@ -216,13 +214,13 @@
                                                             style="z-index: 99; left: 1%; top: 74%; display: none;">
                                                         </ul>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                                    <td class="border-left p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" name="product_unit[]"
                                                             class="border-0 px-2 py-1 w-100 product_unit"
                                                             value="{{ $item->product_unit }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                                    <td class="border-left p-2 text-13 align-top border-bottom border-top-0">
                                                         <div class="">
                                                             <input {{-- oninput="checkQty(this,{{ $item->product_qty }})" --}} type="text"
                                                                 name="product_qty[]"
@@ -237,7 +235,7 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                                    <td class="border-left p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" name="price_export[]"
                                                             class="border-0 px-2 py-1 w-100 price_export text-right"
                                                             value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
@@ -249,7 +247,7 @@
                                                     </td>
                                                     <input type="hidden" class="product_tax1">
                                                     <td
-                                                        class="border-right pt-0 p-2 text-13 align-top border-bottom text-center">
+                                                        class="border-left pt-0 p-2 text-13 align-top border-top-0 border-bottom text-center">
                                                         <select name="product_tax[]" id=""
                                                             class="border-0 text-center product_tax mt-1">
                                                             @if ($item->product_tax == 0)
@@ -264,20 +262,20 @@
                                                         </select>
                                                     </td>
                                                     <td
-                                                        class="border-right p-2 text-13 align-top border-bottom position-relative">
+                                                        class="border-left p-2 text-13 align-top border-top-0 border-bottom position-relative">
                                                         <input type="text" name="total_price[]"
                                                             class="text-right border-0 px-2 py-1 w-100 total_price"
                                                             readonly
                                                             value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                                    <td class="border-left border-top-0 p-2 text-13 align-top border-bottom">
                                                         <input placeholder="Nhập ghi chú" type="text"
                                                             name="product_note[]" class="border-0 px-2 py-1 w-100"
                                                             value="{{ $item->product_note }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                     </td>
                                                     <td
-                                                        class="border-right p-2 text-13 align-top border-bottom deleteRow">
+                                                        class="border-left border-top-0 p-2 text-13 align-top border-bottom deleteRow">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="15" viewBox="0 0 16 15" fill="none">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -375,7 +373,7 @@
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
                     <div class="bg-filter-search border-top-0 text-center border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG CẤP
                         </p>
                     </div>
                     <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
@@ -455,8 +453,8 @@
                     </div>
                     <div class="">
                         <ul class="p-0 m-0">
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border border-top-0 align-items-center text-left position-relative"
+                                style="height:48px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                 <input readonly class="text-13-black w-50 border-0 bg-input-guest nameGuest py-2 px-2"
                                     style="flex:2;" id="represent" {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}}
@@ -539,8 +537,8 @@
                                     </ul>
                                 @endif
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border border-top-0 align-items-center text-left position-relative"
+                                style="height:48px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
@@ -549,8 +547,8 @@
                                     placeholder="Chọn thông tin" value="{{ $import->quotation_number }}"
                                     @if ($import->status == 2) readonly @endif>
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border border-top-0 align-items-center text-left position-relative"
+                                style="height:48px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 pt-2"
@@ -558,8 +556,8 @@
                                     style="flex:2; background-color:#F0F4FF; border-radius:4px;"
                                     placeholder="Chọn thông tin" value="{{ $import->reference_number }}">
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border border-top-0 align-items-center text-left position-relative"
+                                style="height:48px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
@@ -568,8 +566,8 @@
                                 <input type="hidden" id="hiddenDateInput" name="date_quote"
                                     value="{{ $import->created_at->toDateString() }}">
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border border-top-0 align-items-center text-left position-relative"
+                                style="height:48px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
@@ -652,8 +650,8 @@
                                     </ul>
                                 @endif
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border border-top-0 align-items-center text-left position-relative"
+                                style="height:48px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                     value="{{ $import->terms_pay }}" id="terms_pay" name="terms_pay"
@@ -736,7 +734,7 @@
                                 @endif
                             </li>
                             {{-- <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                style="height:44px;">
+                                style="height:48px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dự án</span>
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest"
