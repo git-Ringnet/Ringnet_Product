@@ -33,6 +33,8 @@ class DashboardController extends Controller
         //Sản phẩm bán chạy nhất
         $productSell = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
             ->whereIn('detailexport.status', [2, 3])
+            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->orderBy('quoteexport.product_qty', 'desc')
             ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
             ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
@@ -40,6 +42,8 @@ class DashboardController extends Controller
             ->get();
         $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
             ->whereIn('detailexport.status', [2, 3])
+            ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->get();
         $sumOfTop5Products = $productSell->sum('product_qty');
         $totalProductQty = $totalProduct->sum('product_qty');
@@ -52,9 +56,11 @@ class DashboardController extends Controller
         $qtyProduct[] = json_encode($sumWithoutTop5);
         $firstDay = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
             ->whereIn('detailexport.status', [2, 3])
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->min(DB::raw('DATE(quoteexport.created_at)'));
         $lastDay = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
             ->whereIn('detailexport.status', [2, 3])
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->max(DB::raw('DATE(quoteexport.created_at)'));
         $firstDay = date('d-m-Y', strtotime($firstDay));
         $lastDay = date('d-m-Y', strtotime($lastDay));
@@ -62,14 +68,17 @@ class DashboardController extends Controller
         $statusCounts = DB::table('detailexport')
             ->select('status', DB::raw('COUNT(*) as count'))
             ->whereIn('status', [1, 2, 3])
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->groupBy('status')
             ->get();
         $firstDayStatus = DB::table('detailexport')
             ->whereIn('status', [1, 2, 3])
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->min(DB::raw('DATE(created_at)'));
 
         $lastDayStatus = DB::table('detailexport')
             ->whereIn('status', [1, 2, 3])
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->max(DB::raw('DATE(created_at)'));
         $tinhTrang = [];
         $soDon = [];
@@ -86,21 +95,45 @@ class DashboardController extends Controller
         $firstDayStatus = date('d-m-Y', strtotime($firstDayStatus));
         $lastDayStatus = date('d-m-Y', strtotime($lastDayStatus));
         //Đơn báo giá đã xác nhận
-        $countDetailExport = DetailExport::whereIn('status', [2, 3])->count();
-        $countDelivery = Delivery::whereIn('status', [2, 3])->count();
-        $countBillsale = BillSale::whereIn('status', [2, 3])->count();
-        $countPayExport = PayExport::where('payment', '>', 0)->count();
+        $countDetailExport = DetailExport::whereIn('status', [2, 3])
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->count();
+        $countDelivery = Delivery::whereIn('status', [2, 3])
+            ->where('delivery.workspace_id', Auth::user()->current_workspace)
+            ->count();
+        $countBillsale = BillSale::whereIn('status', [2, 3])
+            ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
+            ->count();
+        $countPayExport = PayExport::where('payment', '>', 0)
+            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+            ->count();
         $minDate = min([
-            DetailExport::whereIn('status', [2, 3])->min('created_at'),
-            Delivery::whereIn('status', [2, 3])->min('created_at'),
-            BillSale::whereIn('status', [2, 3])->min('created_at'),
-            PayExport::where('payment', '>', 0)->min('created_at')
+            DetailExport::whereIn('status', [2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                ->min('created_at'),
+            Delivery::whereIn('status', [2, 3])
+                ->where('delivery.workspace_id', Auth::user()->current_workspace)
+                ->min('created_at'),
+            BillSale::whereIn('status', [2, 3])
+                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
+                ->min('created_at'),
+            PayExport::where('payment', '>', 0)
+                ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+                ->min('created_at')
         ]);
         $maxDate = max([
-            DetailExport::whereIn('status', [2, 3])->max('created_at'),
-            Delivery::whereIn('status', [2, 3])->max('created_at'),
-            BillSale::whereIn('status', [2, 3])->max('created_at'),
-            PayExport::where('payment', '>', 0)->max('created_at')
+            DetailExport::whereIn('status', [2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                ->max('created_at'),
+            Delivery::whereIn('status', [2, 3])
+                ->where('delivery.workspace_id', Auth::user()->current_workspace)
+                ->max('created_at'),
+            BillSale::whereIn('status', [2, 3])
+                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
+                ->max('created_at'),
+            PayExport::where('payment', '>', 0)
+                ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+                ->max('created_at')
         ]);
         $minDate = date('d-m-Y', strtotime($minDate));
         $maxDate = date('d-m-Y', strtotime($maxDate));
@@ -110,11 +143,14 @@ class DashboardController extends Controller
             ->select('users.name', DB::raw('SUM(bill_sale.price_total) AS price_total_sum'))
             ->groupBy('bill_sale.user_id', 'users.name')
             ->orderByDesc('price_total_sum')
+            ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
             ->get();
         $minDateBillSale = BillSale::where('bill_sale.status', 2)
+            ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
             ->min('created_at');
 
         $maxDateBillSale = BillSale::where('bill_sale.status', 2)
+            ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
             ->max('created_at');
         $minDateBillSale = date('d-m-Y', strtotime($minDateBillSale));
         $maxDateBillSale = date('d-m-Y', strtotime($maxDateBillSale));
@@ -130,15 +166,22 @@ class DashboardController extends Controller
             ->groupBy('year', 'quarter')
             ->orderBy('year')
             ->orderBy('quarter')
+            ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
             ->get();
         //Công nợ
-        $debtExport = DetailExport::where('status', 2)->sum('amount_owed');
+        $debtExport = DetailExport::where('status', 2)
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->sum('amount_owed');
         $debtOrder = Provides::sum('provide_debt');
-        $minDateDetailExport = DetailExport::where('status', 2)->min('created_at');
-        $maxDateDetailExport = DetailExport::where('status', 2)->max('created_at');
+        $minDateDetailExport = DetailExport::where('status', 2)
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->min('created_at');
+        $maxDateDetailExport = DetailExport::where('status', 2)
+            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->max('created_at');
 
-        $minDateProvides = Provides::min('updated_at');
-        $maxDateProvides = Provides::max('updated_at');
+        $minDateProvides = Provides::where('provides.workspace_id', Auth::user()->current_workspace)->min('updated_at');
+        $maxDateProvides = Provides::where('provides.workspace_id', Auth::user()->current_workspace)->max('updated_at');
 
         $minDateDebt = min([$minDateDetailExport == null ? Carbon::now() : $minDateDetailExport, $minDateProvides]);
         $maxDateDebt = max([$maxDateDetailExport, $maxDateProvides]);
@@ -182,11 +225,15 @@ class DashboardController extends Controller
                 ->orderBy('quoteexport.product_qty', 'desc')
                 ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
                 ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
                 ->limit(5)
                 ->get();
 
             $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
                 ->whereIn('detailexport.status', [2, 3])
+                ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->get();
 
             $sumOfTop5Products = $productSell->sum('product_qty');
@@ -203,9 +250,13 @@ class DashboardController extends Controller
 
             $firstDay = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
                 ->whereIn('detailexport.status', [2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
                 ->min(DB::raw('DATE(quoteexport.created_at)'));
             $lastDay = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
                 ->whereIn('detailexport.status', [2, 3])
+                ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->max(DB::raw('DATE(quoteexport.created_at)'));
 
             $firstDay = date('d-m-Y', strtotime($firstDay));
@@ -234,6 +285,8 @@ class DashboardController extends Controller
                 ->orderBy('quoteexport.product_qty', 'desc')
                 ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
                 ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
                 ->limit(5)
                 ->get();
 
@@ -241,6 +294,8 @@ class DashboardController extends Controller
                 ->whereIn('detailexport.status', [2, 3])
                 ->whereDate('quoteexport.created_at', '>=', $firstDayOfMonth)
                 ->whereDate('quoteexport.created_at', '<=', $lastDayOfMonth)
+                ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->get();
 
             $sumOfTop5Products = $productSell->sum('product_qty');
@@ -281,12 +336,16 @@ class DashboardController extends Controller
                 ->orderBy('quoteexport.product_qty', 'desc')
                 ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
                 ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
                 ->limit(5)
                 ->get();
 
             $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
                 ->whereIn('detailexport.status', [2, 3])
                 ->whereBetween('quoteexport.created_at', [$firstDayOfLastMonth, $lastDayOfLastMonth])
+                ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->get();
 
             $sumOfTop5Products = $productSell->sum('product_qty');
@@ -326,11 +385,15 @@ class DashboardController extends Controller
                 ->orderBy('quoteexport.product_qty', 'desc')
                 ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
                 ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
                 ->limit(5)
                 ->get();
 
             $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
                 ->whereIn('detailexport.status', [2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
                 ->whereBetween('quoteexport.created_at', [$firstDayOfThreeMonthsAgo, $lastDayOfThreeMonthsAgo])
                 ->get();
 
@@ -371,12 +434,16 @@ class DashboardController extends Controller
                 ->orderBy('quoteexport.product_qty', 'desc')
                 ->groupBy('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
                 ->select('quoteexport.product_id', 'quoteexport.product_name', 'quoteexport.product_qty')
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
                 ->limit(5)
                 ->get();
 
             // Query for total products within the selected time range
             $totalProduct = QuoteExport::leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
                 ->whereIn('detailexport.status', [2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
                 ->whereBetween('quoteexport.created_at', [$startDate, $endDate])
                 ->get();
 
@@ -416,14 +483,17 @@ class DashboardController extends Controller
             $statusCounts = DB::table('detailexport')
                 ->select('status', DB::raw('COUNT(*) as count'))
                 ->whereIn('status', [1, 2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->groupBy('status')
                 ->get();
             $firstDayStatus = DB::table('detailexport')
                 ->whereIn('status', [1, 2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->min(DB::raw('DATE(created_at)'));
 
             $lastDayStatus = DB::table('detailexport')
                 ->whereIn('status', [1, 2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->max(DB::raw('DATE(created_at)'));
             $tinhTrang = [];
             $soDon = [];
@@ -458,6 +528,7 @@ class DashboardController extends Controller
             $statusCounts = DB::table('detailexport')
                 ->select('status', DB::raw('COUNT(*) as count'))
                 ->whereIn('status', [1, 2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->whereBetween('created_at', [$firstDayOfMonth, $lastDayOfMonth])
                 ->groupBy('status')
                 ->get();
@@ -502,6 +573,7 @@ class DashboardController extends Controller
             $statusCounts = DB::table('detailexport')
                 ->select('status', DB::raw('COUNT(*) as count'))
                 ->whereIn('status', [1, 2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->whereBetween('created_at', [$firstDayOfLastMonth, $lastDayOfLastMonth])
                 ->groupBy('status')
                 ->get();
@@ -509,11 +581,13 @@ class DashboardController extends Controller
             // Lấy ngày cũ nhất và mới nhất trong tháng trước
             $firstDayStatus = DB::table('detailexport')
                 ->whereIn('status', [1, 2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->whereBetween('created_at', [$firstDayOfLastMonth, $lastDayOfLastMonth])
                 ->min(DB::raw('DATE(created_at)'));
 
             $lastDayStatus = DB::table('detailexport')
                 ->whereIn('status', [1, 2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->whereBetween('created_at', [$firstDayOfLastMonth, $lastDayOfLastMonth])
                 ->max(DB::raw('DATE(created_at)'));
 
@@ -556,6 +630,7 @@ class DashboardController extends Controller
             $statusCounts = DB::table('detailexport')
                 ->select('status', DB::raw('COUNT(*) as count'))
                 ->whereIn('status', [1, 2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->whereBetween('created_at', [$firstDayOfThreeMonthsAgo, $lastDayOfThreeMonthsAgo])
                 ->groupBy('status')
                 ->get();
@@ -563,11 +638,13 @@ class DashboardController extends Controller
             // Lấy ngày cũ nhất và mới nhất trong 3 tháng trước
             $firstDayStatus = DB::table('detailexport')
                 ->whereIn('status', [1, 2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->whereBetween('created_at', [$firstDayOfThreeMonthsAgo, $lastDayOfThreeMonthsAgo])
                 ->min(DB::raw('DATE(created_at)'));
 
             $lastDayStatus = DB::table('detailexport')
                 ->whereIn('status', [1, 2, 3])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->whereBetween('created_at', [$firstDayOfThreeMonthsAgo, $lastDayOfThreeMonthsAgo])
                 ->max(DB::raw('DATE(created_at)'));
 
@@ -609,6 +686,7 @@ class DashboardController extends Controller
                 ->select('status', DB::raw('COUNT(*) as count'))
                 ->whereIn('status', [1, 2, 3])
                 ->whereBetween('created_at', [$startDate, $endDate])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->groupBy('status')
                 ->get();
 
@@ -646,16 +724,32 @@ class DashboardController extends Controller
             $countBillsale = BillSale::whereIn('status', [2, 3])->count();
             $countPayExport = PayExport::where('payment', '>', 0)->count();
             $minDate = min([
-                DetailExport::whereIn('status', [2, 3])->min('created_at'),
-                Delivery::whereIn('status', [2, 3])->min('created_at'),
-                BillSale::whereIn('status', [2, 3])->min('created_at'),
-                PayExport::where('payment', '>', 0)->min('created_at')
+                DetailExport::whereIn('status', [2, 3])
+                    ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                    ->min('created_at'),
+                Delivery::whereIn('status', [2, 3])
+                    ->where('delivery.workspace_id', Auth::user()->current_workspace)
+                    ->min('created_at'),
+                BillSale::whereIn('status', [2, 3])
+                    ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
+                    ->min('created_at'),
+                PayExport::where('payment', '>', 0)
+                    ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+                    ->min('created_at')
             ]);
             $maxDate = max([
-                DetailExport::whereIn('status', [2, 3])->max('created_at'),
-                Delivery::whereIn('status', [2, 3])->max('created_at'),
-                BillSale::whereIn('status', [2, 3])->max('created_at'),
-                PayExport::where('payment', '>', 0)->max('created_at')
+                DetailExport::whereIn('status', [2, 3])
+                    ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                    ->max('created_at'),
+                Delivery::whereIn('status', [2, 3])
+                    ->where('delivery.workspace_id', Auth::user()->current_workspace)
+                    ->max('created_at'),
+                BillSale::whereIn('status', [2, 3])
+                    ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
+                    ->max('created_at'),
+                PayExport::where('payment', '>', 0)
+                    ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+                    ->max('created_at')
             ]);
             $minDate = date('d-m-Y', strtotime($minDate));
             $maxDate = date('d-m-Y', strtotime($maxDate));
@@ -678,21 +772,25 @@ class DashboardController extends Controller
             $countDetailExport = DetailExport::whereIn('status', [2, 3])
                 ->whereDate('created_at', '>=', $firstDayOfMonth)
                 ->whereDate('created_at', '<=', $lastDayOfMonth)
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $countDelivery = Delivery::whereIn('status', [2, 3])
                 ->whereDate('created_at', '>=', $firstDayOfMonth)
                 ->whereDate('created_at', '<=', $lastDayOfMonth)
+                ->where('delivery.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $countBillsale = BillSale::whereIn('status', [2, 3])
                 ->whereDate('created_at', '>=', $firstDayOfMonth)
                 ->whereDate('created_at', '<=', $lastDayOfMonth)
+                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $countPayExport = PayExport::where('payment', '>', 0)
                 ->whereDate('created_at', '>=', $firstDayOfMonth)
                 ->whereDate('created_at', '<=', $lastDayOfMonth)
+                ->where('pay_export.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $firstDayAccept = date('d-m-Y', strtotime($firstDayOfMonth));
@@ -720,21 +818,25 @@ class DashboardController extends Controller
             $countDetailExport = DetailExport::whereIn('status', [2, 3])
                 ->whereDate('created_at', '>=', $firstDayOfLastMonth)
                 ->whereDate('created_at', '<=', $lastDayOfLastMonth)
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $countDelivery = Delivery::whereIn('status', [2, 3])
                 ->whereDate('created_at', '>=', $firstDayOfLastMonth)
                 ->whereDate('created_at', '<=', $lastDayOfLastMonth)
+                ->where('delivery.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $countBillsale = BillSale::whereIn('status', [2, 3])
                 ->whereDate('created_at', '>=', $firstDayOfLastMonth)
                 ->whereDate('created_at', '<=', $lastDayOfLastMonth)
+                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $countPayExport = PayExport::where('payment', '>', 0)
                 ->whereDate('created_at', '>=', $firstDayOfLastMonth)
                 ->whereDate('created_at', '<=', $lastDayOfLastMonth)
+                ->where('pay_export.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $firstDayAccept = $firstDayOfLastMonth->format('d-m-Y');
@@ -761,21 +863,25 @@ class DashboardController extends Controller
             $countDetailExport = DetailExport::whereIn('status', [2, 3])
                 ->whereDate('created_at', '>=', $firstDayOfThreeMonthsAgo)
                 ->whereDate('created_at', '<=', $lastDayOfThreeMonthsAgo)
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $countDelivery = Delivery::whereIn('status', [2, 3])
                 ->whereDate('created_at', '>=', $firstDayOfThreeMonthsAgo)
                 ->whereDate('created_at', '<=', $lastDayOfThreeMonthsAgo)
+                ->where('delivery.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $countBillsale = BillSale::whereIn('status', [2, 3])
                 ->whereDate('created_at', '>=', $firstDayOfThreeMonthsAgo)
                 ->whereDate('created_at', '<=', $lastDayOfThreeMonthsAgo)
+                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $countPayExport = PayExport::where('payment', '>', 0)
                 ->whereDate('created_at', '>=', $firstDayOfThreeMonthsAgo)
                 ->whereDate('created_at', '<=', $lastDayOfThreeMonthsAgo)
+                ->where('pay_export.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $firstDayAccept = $firstDayOfThreeMonthsAgo->format('d-m-Y');
@@ -801,18 +907,22 @@ class DashboardController extends Controller
             // Query for product sell within the selected time range
             $countDetailExport = DetailExport::whereIn('status', [2, 3])
                 ->whereBetween('created_at', [$startDate, $endDate])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $countDelivery = Delivery::whereIn('status', [2, 3])
                 ->whereBetween('created_at', [$startDate, $endDate])
+                ->where('delivery.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $countBillsale = BillSale::whereIn('status', [2, 3])
                 ->whereBetween('created_at', [$startDate, $endDate])
+                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $countPayExport = PayExport::where('payment', '>', 0)
                 ->whereBetween('created_at', [$startDate, $endDate])
+                ->where('pay_export.workspace_id', Auth::user()->current_workspace)
                 ->count();
 
             $firstDayAccept = date('d-m-Y', strtotime($startDate));
@@ -842,11 +952,14 @@ class DashboardController extends Controller
                 ->select('users.name', DB::raw('SUM(bill_sale.price_total) AS price_total_sum'))
                 ->groupBy('bill_sale.user_id', 'users.name')
                 ->orderByDesc('price_total_sum')
+                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
                 ->get();
             $minDateBillSale = BillSale::where('bill_sale.status', 2)
+                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
                 ->min('created_at');
 
             $maxDateBillSale = BillSale::where('bill_sale.status', 2)
+                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
                 ->max('created_at');
             $minDateBillSale = date('d-m-Y', strtotime($minDateBillSale));
             $maxDateBillSale = date('d-m-Y', strtotime($maxDateBillSale));
@@ -868,6 +981,7 @@ class DashboardController extends Controller
                 ->whereDate('bill_sale.created_at', '<=', $lastDayOfMonth)
                 ->leftJoin('users', 'users.id', 'bill_sale.user_id')
                 ->select('users.name', DB::raw('SUM(bill_sale.price_total) AS price_total_sum'))
+                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
                 ->groupBy('bill_sale.user_id', 'users.name')
                 ->orderByDesc('price_total_sum')
                 ->get();
@@ -896,6 +1010,7 @@ class DashboardController extends Controller
                 ->whereDate('bill_sale.created_at', '<=', $lastDayOfLastMonth)
                 ->leftJoin('users', 'users.id', 'bill_sale.user_id')
                 ->select('users.name', DB::raw('SUM(bill_sale.price_total) AS price_total_sum'))
+                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
                 ->groupBy('bill_sale.user_id', 'users.name')
                 ->orderByDesc('price_total_sum')
                 ->get();
@@ -921,6 +1036,7 @@ class DashboardController extends Controller
             $sumSales = BillSale::where('bill_sale.status', 2)
                 ->whereDate('bill_sale.created_at', '>=', $firstDayOfThreeMonthsAgo)
                 ->whereDate('bill_sale.created_at', '<=', $lastDayOfThreeMonthsAgo)
+                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
                 ->leftJoin('users', 'users.id', 'bill_sale.user_id')
                 ->select('users.name', DB::raw('SUM(bill_sale.price_total) AS price_total_sum'))
                 ->groupBy('bill_sale.user_id', 'users.name')
@@ -949,6 +1065,7 @@ class DashboardController extends Controller
                 ->whereBetween('bill_sale.created_at', [$startDate, $endDate])
                 ->leftJoin('users', 'users.id', 'bill_sale.user_id')
                 ->select('users.name', DB::raw('SUM(bill_sale.price_total) AS price_total_sum'))
+                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
                 ->groupBy('bill_sale.user_id', 'users.name')
                 ->orderByDesc('price_total_sum')
                 ->get();
@@ -979,6 +1096,7 @@ class DashboardController extends Controller
             )
             ->where('status', 2)
             ->whereYear('created_at', $request['selectedYear'])
+            ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
             ->groupBy('year', 'quarter')
             ->orderBy('year')
             ->orderBy('quarter')
@@ -996,11 +1114,17 @@ class DashboardController extends Controller
         if ($request['selectedValue'] == 1) {
             $debtExport = DetailExport::where('status', 2)->sum('amount_owed');
             $debtOrder = Provides::sum('provide_debt');
-            $minDateDetailExport = DetailExport::where('status', 2)->min('created_at');
-            $maxDateDetailExport = DetailExport::where('status', 2)->max('created_at');
+            $minDateDetailExport = DetailExport::where('status', 2)
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                ->min('created_at');
+            $maxDateDetailExport = DetailExport::where('status', 2)
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                ->max('created_at');
 
-            $minDateProvides = Provides::min('updated_at');
-            $maxDateProvides = Provides::max('updated_at');
+            $minDateProvides = Provides::where('provides.workspace_id', Auth::user()->current_workspace)
+                ->min('updated_at');
+            $maxDateProvides = Provides::where('provides.workspace_id', Auth::user()->current_workspace)
+                ->max('updated_at');
 
             $minDateDebt = min([$minDateDetailExport == null ? Carbon::now() : $minDateDetailExport, $minDateProvides]);
             $maxDateDebt = max([$maxDateDetailExport, $maxDateProvides]);
@@ -1023,10 +1147,12 @@ class DashboardController extends Controller
             $debtExport = DetailExport::where('status', 2)
                 ->whereDate('created_at', '>=', $firstDayOfMonth)
                 ->whereDate('created_at', '<=', $lastDayOfMonth)
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->sum('amount_owed');
 
             $debtOrder = Provides::whereDate('updated_at', '>=', $firstDayOfMonth)
                 ->whereDate('updated_at', '<=', $lastDayOfMonth)
+                ->where('provides.workspace_id', Auth::user()->current_workspace)
                 ->sum('provide_debt');
 
             $firstDayDebt = $firstDayOfMonth->format('d-m-Y');
@@ -1052,10 +1178,12 @@ class DashboardController extends Controller
             $debtExport = DetailExport::where('status', 2)
                 ->whereDate('created_at', '>=', $firstDayOfLastMonth)
                 ->whereDate('created_at', '<=', $lastDayOfLastMonth)
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->sum('amount_owed');
 
             $debtOrder = Provides::whereDate('updated_at', '>=', $firstDayOfLastMonth)
                 ->whereDate('updated_at', '<=', $lastDayOfLastMonth)
+                ->where('provides.workspace_id', Auth::user()->current_workspace)
                 ->sum('provide_debt');
 
             $firstDayDebt = $firstDayOfLastMonth->format('d-m-Y');
@@ -1080,10 +1208,12 @@ class DashboardController extends Controller
             $debtExport = DetailExport::where('status', 2)
                 ->whereDate('created_at', '>=', $firstDayOfThreeMonthsAgo)
                 ->whereDate('created_at', '<=', $lastDayOfThreeMonthsAgo)
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->sum('amount_owed');
 
             $debtOrder = Provides::whereDate('updated_at', '>=', $firstDayOfThreeMonthsAgo)
                 ->whereDate('updated_at', '<=', $lastDayOfThreeMonthsAgo)
+                ->where('provides.workspace_id', Auth::user()->current_workspace)
                 ->sum('provide_debt');
 
             $firstDayDebt = $firstDayOfThreeMonthsAgo->format('d-m-Y');
@@ -1098,10 +1228,8 @@ class DashboardController extends Controller
             ];
 
             return response()->json($response);
-        
         }
-        if(isset($request['startDate']) && isset($request['endDate']))
-        {
+        if (isset($request['startDate']) && isset($request['endDate'])) {
             // Format start date and end date
             $startDate = Carbon::createFromFormat('Y-m-d', $request['startDate'])->startOfDay()->format('Y-m-d');
             $endDate = Carbon::createFromFormat('Y-m-d', $request['endDate'])->endOfDay()->addDay()->format('Y-m-d');
@@ -1109,9 +1237,11 @@ class DashboardController extends Controller
             // Query for product sell within the selected time range
             $debtExport = DetailExport::where('status', 2)
                 ->whereBetween('created_at', [$startDate, $endDate])
+                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                 ->sum('amount_owed');
 
             $debtOrder = Provides::whereBetween('updated_at', [$startDate, $endDate])
+                ->where('provides.workspace_id', Auth::user()->current_workspace)
                 ->sum('provide_debt');
 
             $firstDayDebt = date('d-m-Y', strtotime($startDate));

@@ -236,7 +236,7 @@
                                                 onclick="handleRowClick('checkbox', event);">
                                                 <input type="hidden" name="id-delivery" class="id-delivery"
                                                     id="id-delivery" value="{{ $item_delivery->maGiaoHang }}">
-                                                <td class="text-13-black">
+                                                <td class="text-13-black border-bottom border-top-0">
                                                     <span class="margin-Right10">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                             height="10" viewBox="0 0 6 10" fill="none">
@@ -257,40 +257,39 @@
                                                         name="ids[]" id="checkbox" value=""
                                                         onclick="event.stopPropagation();">
                                                 </td>
-
-                                                <td class="text-13-black text-left">
+                                                <td class="text-13-black text-left border-bottom border-top-0">
                                                     <a href="{{ route('watchDelivery', ['workspace' => $workspacename, 'id' => $item_delivery->maGiaoHang]) }}"
                                                         class="duongDan activity" data-name1="GH"
                                                         data-des="Xem đơn giao hàng">
                                                         {{ $item_delivery->code_delivery }}
                                                     </a>
                                                 </td>
-                                                <td class="text-13-black max-width120 text-left">
+                                                <td class="text-13-black max-width120 text-left border-bottom border-top-0">
                                                     {{ $item_delivery->quotation_number }}
                                                 </td>
-                                                <td class="text-13-black max-width120 text-left">
+                                                <td class="text-13-black max-width120 text-left border-bottom border-top-0">
                                                     {{ $item_delivery->guest_name }}
                                                 </td>
-                                                <td class="text-13-black max-width120 text-left">
+                                                <td class="text-13-black max-width120 text-left border-bottom border-top-0">
                                                     {{ $item_delivery->name }}
                                                 </td>
-                                                <td class="text-13-black text-left">
+                                                <td class="text-13-black text-left border-bottom border-top-0">
                                                     {{ $item_delivery->shipping_unit }}
                                                 </td>
-                                                <td class="text-13-black text-right">
+                                                <td class="text-13-black text-right border-bottom border-top-0">
                                                     {{ number_format($item_delivery->shipping_fee) }}
                                                 </td>
-                                                <td class="text-13-black text-center">
+                                                <td class="text-13-black text-center border-bottom border-top-0">
                                                     @if ($item_delivery->trangThai == 1)
                                                         <span>Chưa giao</span>
                                                     @else
                                                         <span class="text-success">Đã giao</span>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-left">
+                                                <td class="text-13-black text-left border-bottom border-top-0">
                                                     {{ date_format(new DateTime($item_delivery->ngayGiao), 'd/m/Y') }}
                                                 </td>
-                                                <td class="text-13-black text-right">
+                                                <td class="text-13-black text-right border-bottom border-top-0">
                                                     {{ number_format($item_delivery->totalProductVat) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"

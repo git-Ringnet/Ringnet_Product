@@ -626,9 +626,10 @@
     </div>
 </div>
 <div class="menu bg-hover rounded"
-    style="display: none; background: #ffffff; position: absolute; width:16%;  padding: 3px 10px;  box-shadow: 0 0 10px -3px rgba(0, 0, 0, .3);   border: 1px solid #ccc;">
+    style="display: none; background: #ffffff; position: absolute; width:13%;  padding: 3px 10px;  box-shadow: 0 0 10px -3px rgba(0, 0, 0, .3);   border: 1px solid #ccc;">
     <a href="#" class="text-dark">
-        <p class="quickAction p-2 rounded my-1 text-13-black" data-type="receive" data-toggle="modal" data-target="#exampleModal">
+        <p class="quickAction p-2 rounded my-1 text-13-black" data-type="receive" data-toggle="modal"
+            data-target="#exampleModal">
             <span class="mr-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14"
                     fill="none">
@@ -652,7 +653,8 @@
         </p>
     </a>
     <a href="#" class="text-dark">
-        <p class="quickAction p-2 rounded my-1 text-13-black" data-type="reciept" data-toggle="modal" data-target="#exampleModal">
+        <p class="quickAction p-2 rounded my-1 text-13-black" data-type="reciept" data-toggle="modal"
+            data-target="#exampleModal">
             <span class="mr-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                     fill="none">
@@ -791,6 +793,42 @@
             // Chặn click trình duyệt
             e.preventDefault();
             var id = $(this).data('id');
+            // $.ajax({
+            //     url: "{{ route('getListExport') }}",
+            //     type: "get",
+            //     data: {
+            //         id: id,
+            //     },
+            //     success: function(data) {
+            //         if (data.receive) {
+            //             $('.menu').find('p[data-type="receive"]').hide()
+            //         } else {
+            //             $('.menu').find('p[data-type="receive"]').show()
+            //         }
+            //         if (data.reciept) {
+            //             $('.menu').find('p[data-type="reciept"]').hide()
+            //         } else {
+            //             $('.menu').find('p[data-type="reciept"]').show()
+            //         }
+            //         if (data.payment) {
+            //             $('.menu').find('p[data-type="payorder"]').hide()
+            //         } else {
+            //             $('.menu').find('p[data-type="payorder"]').show()
+            //         }
+            //         if (data.title_payment) {
+            //             $('.menu .title_payment').text(data.title_payment)
+            //         } else {
+            //             $('.menu .title_payment').text("Tạo thanh toán mua hàng")
+            //         }
+            //         if (!data.receive || !data.reciept || !data.payment) {
+            //             menu.css({
+            //                 display: 'block',
+            //                 top: e.pageY,
+            //                 left: e.pageX
+            //             });
+            //         }
+            //     }
+            // })
             $(document).off('click', '.quickAction').on('click', '.quickAction', function() {
                 $('#quickAction #exampleModal .modal-content .modal-body')
                     .empty();

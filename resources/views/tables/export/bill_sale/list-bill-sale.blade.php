@@ -216,7 +216,7 @@
                                                 onclick="handleRowClick('checkbox', event);">
                                                 <input type="hidden" name="id-billSale" class="id-billSale"
                                                     id="id-billSale" value="{{ $item_bill->id }}">
-                                                <td class="pr-0 py-2">
+                                                <td class="pr-0 py-2 border-bottom border-top-0">
                                                     <span class="margin-Right10">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                             height="10" viewBox="0 0 6 10" fill="none">
@@ -237,33 +237,33 @@
                                                         name="ids[]" id="checkbox" value=""
                                                         onclick="event.stopPropagation();">
                                                 </td>
-                                                <td class="text-13-black height-52 text-left">
+                                                <td class="text-13-black height-52 text-left border-bottom border-top-0">
                                                     {{ date_format(new DateTime($item_bill->ngayHD), 'd/m/Y') }}
                                                 </td>
-                                                <td class="text-13-black height-52 text-left">
+                                                <td class="text-13-black height-52 text-left border-bottom border-top-0">
                                                     <a class="activity"
                                                         href="{{ route('billSale.edit', ['workspace' => $workspacename, 'billSale' => $item_bill->idHD]) }}"
                                                         data-name1="HDBH" data-des="Xem hóa đơn bán hàng">
                                                         {{ $item_bill->number_bill }}
                                                     </a>
                                                 </td>
-                                                <td class="height-52 text-13-black text-left">
+                                                <td class="height-52 text-13-black text-left border-bottom border-top-0">
                                                     {{ $item_bill->quotation_number }}
                                                 </td>
-                                                <td class="text-13-black height-52 text-left">
+                                                <td class="text-13-black height-52 text-left border-bottom border-top-0">
                                                     {{ $item_bill->guest_name }}
                                                 </td>
-                                                <td class="text-13-black height-52 text-left">
+                                                <td class="text-13-black height-52 text-left border-bottom border-top-0">
                                                     {{ $item_bill->name }}
                                                 </td>
-                                                <td class="text-13-black height-52 text-center">
+                                                <td class="text-13-black height-52 text-center border-bottom border-top-0">
                                                     @if ($item_bill->tinhTrang == 1)
                                                         <span class="text-secondary text-center">Bản nháp</span>
                                                     @else
                                                         <span class="text-success text-center">Chính thức</span>
                                                     @endif
                                                 </td>
-                                                <td class=" text-13-black height-52 text-right">
+                                                <td class=" text-13-black height-52 text-right border-bottom border-top-0">
                                                     {{ number_format($item_bill->price_total) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"

@@ -1073,4 +1073,28 @@ class DetailExportController extends Controller
         }
         return $data;
     }
+    public function getListExport(Request $request)
+    {
+        $data = [];
+        $detailExport = DetailExport::where('id', $request->id)->first();
+        if ($detailExport) {
+            $checkReceive = BillSale::where('detailexport_id', $detailExport->id)->first();
+            $checkReciept = Delivery::where('detailexport_id', $detailExport->id)->first();
+            $checkPayment = PayExport::where('detailexport_id', $detailExport->id)->first();
+            if ($checkReceive) {
+                $data['receive'] = true;
+            }
+            if ($checkReciept) {
+                $data['reciept'] = true;
+            }
+            if ($checkPayment) {
+                if ($checkPayment->debt == 0) {
+                    $data['payment'] = true;
+                } else {
+                    $data['title_payment'] = "Thanh toán mua hàng";
+                }
+            }
+        }
+        return $data;
+    }
 }

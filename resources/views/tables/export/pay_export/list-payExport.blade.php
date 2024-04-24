@@ -227,7 +227,7 @@
                                                 onclick="handleRowClick('checkbox', event);">
                                                 <input type="hidden" name="id-payExport" class="id-payExport"
                                                     id="id-payExport" value="{{ $item_pay->idThanhToan }}">
-                                                <td>
+                                                <td class="border-bottom border-top-0">
                                                     <span class="margin-Right10">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                             height="10" viewBox="0 0 6 10" fill="none">
@@ -248,23 +248,23 @@
                                                         name="ids[]" id="checkbox" value=""
                                                         onclick="event.stopPropagation();">
                                                 </td>
-                                                <td class="text-13-black text-left">
+                                                <td class="text-13-black text-left border-bottom border-top-0">
                                                     <a class="activity" data-name1="TT" data-des="Xem đơn thanh toán"
                                                         href="{{ route('payExport.edit', ['workspace' => $workspacename, 'payExport' => $item_pay->idThanhToan]) }}">
                                                         {{ $item_pay->code_payment }}
                                                     </a>
 
                                                 </td>
-                                                <td class="text-13-black max-width120 text-left">
+                                                <td class="text-13-black max-width120 text-left border-bottom border-top-0">
                                                     {{ $item_pay->quotation_number }}
-                                                </td>
-                                                <td class="text-13-black max-width120 text-left">
+                                                </td> 
+                                                <td class="text-13-black max-width120 text-left border-bottom border-top-0">
                                                     {{ $item_pay->guest_name }}
                                                 </td>
-                                                <td class="text-13-black max-width120 text-left">
+                                                <td class="text-13-black max-width120 text-left border-bottom border-top-0">
                                                     {{ $item_pay->name }}
                                                 </td>
-                                                <td class="text-13-black text-center">
+                                                <td class="text-13-black text-center border-bottom border-top-0">
                                                     @if ($item_pay->status == 1)
                                                         @if ($item_pay->payment > 0)
                                                             <span style="color: #858585">Đặt cọc</span>
@@ -289,16 +289,16 @@
                                                         <span style="color: #E8B600">Đến hạn</span>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-left">
+                                                <td class="text-13-black text-left border-bottom border-top-0">
                                                     {{ date_format(new DateTime($item_pay->payment_date), 'd/m/Y') }}
                                                 </td>
-                                                <td class="text-13-black text-right">
+                                                <td class="text-13-black text-right border-bottom border-top-0">
                                                     {{ number_format($item_pay->tongTienNo) }}
                                                 </td>
-                                                <td class="text-13-black text-right">
+                                                <td class="text-13-black text-right border-bottom border-top-0">
                                                     {{ number_format($item_pay->tongThanhToan) }}
                                                 </td>
-                                                <td class="text-13-black text-right">
+                                                <td class="text-13-black text-right border-bottom border-top-0">
                                                     {{ number_format($item_pay->debt) }}
                                                 </td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"

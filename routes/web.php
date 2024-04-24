@@ -201,6 +201,7 @@ Route::get('/getRecentTransaction', [DetailExportController::class, 'getRecentTr
 Route::get('/checkProductExist', [DetailExportController::class, 'checkProductExist'])->name('checkProductExist');
 //
 Route::get('/getDataExport', [DetailExportController::class, 'getDataExport'])->name('getDataExport');
+Route::get('/getListExport', [DetailExportController::class, 'getListExport'])->name('getListExport');
 
 //Giao hàng
 Route::middleware([CheckLogin::class])->group(function () {

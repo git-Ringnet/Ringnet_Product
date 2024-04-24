@@ -117,11 +117,11 @@
                             <table id="example2" class="table table-hover bg-white rounded">
                                 <thead class="border-custom">
                                     <tr>
-                                        <th class="border-0" style="width:5%;padding-left: 2rem;">
+                                        <th class="border-top-0" style="width:5%;padding-left: 2rem;">
                                             <input type="checkbox" name="all" id="checkall"
                                                 class="checkall-btn">
                                         </th>
-                                        <th class="border-0" scope="col">
+                                        <th class="border-top-0" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_name_display" data-sort-type="DESC">
@@ -132,7 +132,7 @@
                                                 <div class="icon" id="icon-guest_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="border-0" scope="col">
+                                        <th class="border-top-0" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit" data-sort-by=""
                                                     data-sort-type="DESC">
@@ -143,7 +143,7 @@
                                                 <div class="icon" id="icon-"></div>
                                             </span>
                                         </th>
-                                        <th class="border-0" scope="col">
+                                        <th class="border-top-0" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_code" data-sort-type="DESC">
@@ -154,7 +154,7 @@
                                                 <div class="icon" id="icon-guest_code"></div>
                                             </span>
                                         </th>
-                                        {{-- <th class="border-0" scope="col">
+                                        {{-- <th class="border-top-0" scope="col">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link btn-submit" data-sort-by="guest_email"
                                                     data-sort-type="DESC">
@@ -164,7 +164,7 @@
                                                 <div class="icon" id="icon-guest_email"></div>
                                             </span>
                                         </th> --}}
-                                        {{-- <th class="border-0" scope="col">
+                                        {{-- <th class="border-top-0" scope="col">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link btn-submit" data-sort-by="guest_phone"
                                                     data-sort-type="DESC">
@@ -175,7 +175,7 @@
                                                 <div class="icon" id="icon-guest_phone"></div>
                                             </span>
                                         </th> --}}
-                                        <th class="border-0" scope="col">
+                                        <th class="border-top-0" scope="col">
                                             <span class="d-flex justify-content-end">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_debt" data-sort-type="DESC">
@@ -186,7 +186,7 @@
                                                 <div class="icon" id="icon-guest_debt"></div>
                                             </span>
                                         </th>
-                                        <th class="border-0" scope="col"></th>
+                                        <th class="border-top-0" scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody class="tbody-guest">
@@ -194,7 +194,7 @@
                                         <tr class="position-relative guest-info">
                                             <input type="hidden" name="id-guest" class="id-guest" id="id-guest"
                                                 value="{{ $item->id }}">
-                                            <td class="text-13-black">
+                                            <td class="text-13-black border-bottom border-top-0">
                                                 <span class="margin-Right10">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                         height="10" viewBox="0 0 6 10" fill="none">
@@ -213,18 +213,18 @@
                                                 <input type="checkbox" class="cb-element checkall-btn" name="ids[]"
                                                     id="checkbox" value="" onclick="event.stopPropagation();">
                                             </td>
-                                            <td class="text-13-black text-left">
+                                            <td class="text-13-black text-left border-bottom border-top-0">
                                                 <a
                                                     href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
                                             </td>
-                                            <td class="text-13-black">{{ $item->name }}</td>
-                                            <td class="text-13-black">{{ $item->guest_code }}</td>
+                                            <td class="text-13-black border-bottom border-top-0">{{ $item->name }}</td>
+                                            <td class="text-13-black border-bottom border-top-0">{{ $item->guest_code }}</td>
                                             {{-- <td class="text-13-black">{{ $item->guest_email }}</td>
                                             <td class="text-13-black">{{ $item->guest_phone }}</td> --}}
-                                            <td class="text-13-black text-right">
+                                            <td class="text-13-black text-right border-bottom border-top-0">
                                                 {{ number_format($item->sumDebt) }}
                                             </td>
-                                            <td></td>
+                                            <td class="border-bottom border-top-0"></td>
                                             <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                 style="right: 10px; top: 10px;">
                                                 <div class="d-flex w-100">
