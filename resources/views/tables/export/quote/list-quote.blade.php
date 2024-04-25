@@ -284,7 +284,7 @@
                 <div class="row">
                     <div class="col-md-12 p-0 m-0 pl-2">
                         <div class="card">
-                            <div class="outer2 text-nowrap">
+                            <div class="outer text-nowrap">
                                 <table id="example2" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr>
@@ -296,22 +296,22 @@
                                             <th scope="col" class="height-52 border-bottom-0">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="quotation_number" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">Số báo
+                                                            giá#</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-quotation_number"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52 border-bottom-0">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="ngayBG" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">
                                                             Ngày báo giá
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-ngayBG"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52 border-bottom-0">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="quotation_number" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Số báo
-                                                            giá#</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52 border-bottom-0">
@@ -423,14 +423,14 @@
                                                         onclick="event.stopPropagation();">
                                                 </td>
                                                 <td class="text-13-black text-left border-bottom">
-                                                    {{ date_format(new DateTime($value_export->ngayBG), 'd/m/Y') }}</td>
-                                                <td class="text-13-black text-left border-bottom">
                                                     <div class="">
                                                         <a href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $value_export->maBG]) }}"
                                                             class="duongDan activity" data-name1="BG"
                                                             data-des="Xem đơn báo giá">{{ $value_export->quotation_number }}</a>
                                                     </div>
                                                 </td>
+                                                <td class="text-13-black text-left border-bottom">
+                                                    {{ date_format(new DateTime($value_export->ngayBG), 'd/m/Y') }}</td>
                                                 <td class="text-13-black max-width120 text-left border-bottom">
                                                     {{ $value_export->reference_number }}
                                                 </td>

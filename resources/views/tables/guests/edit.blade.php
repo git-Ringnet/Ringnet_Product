@@ -150,7 +150,7 @@
                                             @foreach ($representGuest as $itemRepresent)
                                                 <tr id="dynamic-row-1" class="bg-white addProduct representative-row">
                                                     <td
-                                                        class="border border-top-0 border-bottom-0 border-left-0 padding-left35 px-0">
+                                                        class="border border-top-0 border-left-0 border-right-0 padding-left35 px-0">
                                                         <input type="hidden" value="{{ $itemRepresent->id }}"
                                                             name="represent_id[]">
                                                         <input type="text" autocomplete="off"
@@ -158,25 +158,25 @@
                                                             class="border-0 py-1 w-100 text-13-black represent_name "
                                                             required="" name="represent_name[]">
                                                     </td>
-                                                    <td class="border border-top-0 border-bottom-0">
+                                                    <td class="border border-top-0 border-right-0">
                                                         <input type="number" autocomplete="off"
                                                             value="{{ $itemRepresent->represent_phone }}"
                                                             class="border-0 py-1 w-100 text-13-black represent_phone"
                                                             name="represent_phone[]">
                                                     </td>
-                                                    <td class="border border-top-0 border-bottom-0">
+                                                    <td class="border border-top-0 border-right-0">
                                                         <input type="email" autocomplete="off"
                                                             value="{{ $itemRepresent->represent_email }}"
                                                             class="border-0 py-1 w-100 text-13-black represent_email"
                                                             name="represent_email[]">
                                                     </td>
-                                                    <td class="border border-top-0 border-bottom-0">
+                                                    <td class="border border-top-0 border-right-0">
                                                         <input type="text" autocomplete="off"
                                                             value="{{ $itemRepresent->represent_address }}"
                                                             class="border-0 py-1 w-100 text-13-black represent_address"
                                                             name="represent_address[]">
                                                     </td>
-                                                    <td class="border border-top-0 border-bottom-0 border-right-0 text-left deleteProduct"
+                                                    <td class="border border-top-0 border-right-0 text-left deleteProduct"
                                                         data-id="{{ $itemRepresent->id }}">
                                                         <svg width="24" height="24" viewBox="0 0 24 24"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -468,16 +468,16 @@
             "class": `bg-white addProduct representative-row`,
         });
         const hoTen = $(
-            "<td class='border border-top-0 border-left-0 padding-left35 px-0'><input type='hidden' name='represent_id[]'><input type='text' autocomplete='off' class='border-0 py-1 w-100 text-13-black represent_name' required name='represent_name[]'></td>"
+            "<td class='border border-top-0 border-left-0 padding-left35 px-0 border-right-0'><input type='hidden' name='represent_id[]'><input type='text' autocomplete='off' class='border-0 py-1 w-100 text-13-black represent_name' required name='represent_name[]'></td>"
         );
         const email = $(
-            "<td class='border border-top-0'><input type='email' autocomplete='off' class='border-0 py-1 w-100 text-13-black represent_email' name='represent_email[]'></td>"
+            "<td class='border border-top-0 border-right-0'><input type='email' autocomplete='off' class='border-0 py-1 w-100 text-13-black represent_email' name='represent_email[]'></td>"
         );
         const soDT = $(
-            "<td class='border border-top-0'><input type='number' autocomplete='off' class='border-0 py-1 w-100 text-13-black represent_phone' name='represent_phone[]'></td>"
+            "<td class='border border-top-0 border-right-0'><input type='number' autocomplete='off' class='border-0 py-1 w-100 text-13-black represent_phone' name='represent_phone[]'></td>"
         );
         const diaChi = $(
-            "<td class='border border-top-0'><input type='text' autocomplete='off' class='border-0 py-1 w-100 text-13-black represent_address' name='represent_address[]'></td>"
+            "<td class='border border-top-0 border-right-0'><input type='text' autocomplete='off' class='border-0 py-1 w-100 text-13-black represent_address' name='represent_address[]'></td>"
         );
         const option = $(
             "<td class='border border-top-0 border-right-0 text-left' data-name1='KH' data-des='Xóa người đại diện ở trang sửa'>" +

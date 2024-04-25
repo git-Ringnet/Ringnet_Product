@@ -108,7 +108,7 @@
                                     <th class="border-right px-2 p-0 text-left">
                                         <span class="text-table text-secondary">Đơn vị</span>
                                     </th>
-                                    <th class="border-right px-2 p-0 text-left" style="width: 10%;">
+                                    <th class="border-right px-2 p-0 text-right" style="width: 10%;">
                                         <span class="text-table text-secondary">Số lượng</span>
                                     </th>
                                     <th class="border-right px-2 p-0 text-right" style="width: 13%;">
@@ -1681,10 +1681,10 @@
             const soLuong = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<div>" +
-                "<input type='number' class='text-left border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
+                "<input type='number' class='text-right border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "</div>" +
-                "<div class='mt-3 text-13-blue inventory'>Tồn kho: <span class='pl-1 soTonKho'></span></div>" +
+                "<div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='pl-1 soTonKho'></span></div>" +
                 "</td>"
             );
             const donGia = $(
@@ -1692,7 +1692,7 @@
                 "<div>" +
                 "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
                 "</div>" +
-                "<a href='#'><div class='mt-3 text-13-blue recentModal' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div></a>" +
+                "<a href='#'><div class='mt-3 text-right text-13-blue recentModal' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div></a>" +
                 "</td>"
             );
             const thue = $(

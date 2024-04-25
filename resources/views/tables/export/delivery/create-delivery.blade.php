@@ -131,7 +131,7 @@
                                             phẩm</th>
                                         <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">Đơn vị
                                         </th>
-                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                             Số lượng
                                         </th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
@@ -708,9 +708,9 @@
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<div class='d-flex align-items-center'>" +
                 "<div>" +
-                "<input type='number' value='' data-product-id='' class='border-0 px-2 text-left py-1 w-100 quantity-input' autocomplete='off' required='' name='product_qty[]'>" +
+                "<input type='number' value='' data-product-id='' class='border-0 px-2 text-right py-1 w-100 quantity-input' autocomplete='off' required='' name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
-                "<p class='mt-3 text-13-blue inventory'>Tồn kho: <span class='soTonKho'>0</span></p>" +
+                "<p class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='soTonKho'>0</span></p>" +
                 "</div>" +
                 "<div>" +
                 "<button type='button' class='btn btn-primary open-modal-btn d-none' data-toggle='modal' data-target='#exampleModal0' style='background:transparent; border:none;'>" +
@@ -1956,10 +1956,10 @@
                                     <td class="border-right p-2 text-13 align-top border-bottom">
                                         <div class="d-flex align-items-center">
                                             <div>
-                                        <input type="number" value="${formatNumber(item.soLuongCanGiao)}" data-product-id="${item.maSP}" class="border-0 px-2 text-left py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
+                                        <input type="number" value="${formatNumber(item.soLuongCanGiao)}" data-product-id="${item.maSP}" class="border-0 px-2 text-right py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                         <input type="hidden" class="limit-quantity" value="${formatNumber(item.soLuongCanGiao)}" data-limit-quantity="${formatNumber(item.soLuongCanGiao)}">
                                         <input type="hidden" class="tonkho">
-                                        <p class="mt-3 text-13-blue inventory ${item.type == 2 ? "d-none" : 'd-block'}">Tồn kho: <span class="soTonKho">${formatNumber(item.product_inventory == null ? 0 : item.product_inventory)}</span></p>
+                                        <p class="mt-3 text-13-blue inventory text-right ${item.type == 2 ? "d-none" : 'd-block'}">Tồn kho: <span class="soTonKho">${formatNumber(item.product_inventory == null ? 0 : item.product_inventory)}</span></p>
                                         </div>  
                                         <div>
                                         <button type="button" class="btn btn-primary open-modal-btn" data-toggle="modal" data-target="#exampleModal0" style="background:transparent; border:none;">

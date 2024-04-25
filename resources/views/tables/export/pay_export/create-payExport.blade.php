@@ -165,7 +165,7 @@
                                         </th>
                                         <th class="border-right p-0 px-2 text-13" style="width:15%;">Tên sản phẩm</th>
                                         <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
-                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Số
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Số
                                             lượng</th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Đơn
                                             giá</th>
@@ -245,7 +245,7 @@
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                                     <input type="text" value="{{ $item->product_qty }}" readonly
-                                                        class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off"
+                                                        class="border-0 text-right px-2 py-1 w-100 quantity-input" autocomplete="off"
                                                         required="" name="product_qty[]">
                                                     <input type="hidden" class="tonkho">
                                                     <p class="text-primary text-center position-absolute inventory"
@@ -1061,13 +1061,13 @@
                                 <input type="text" value="${item.product_unit}" readonly autocomplete="off" class="border-0 px-2 py-1 w-100 product_unit" required="" name="product_unit[]">
                             </td>
                             <td class="border-right p-2 text-13 align-top border-bottom">
-                                <input type="text" value="${formatNumber(item.product_qty)}" readonly class="border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
+                                <input type="text" value="${formatNumber(item.product_qty)}" readonly class="text-right border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
                                 <p class="text-primary text-center position-absolute inventory" style="top: 68%; display: none;">Tồn kho: 35</p>
                             </td>
                             <td class="border-right p-2 text-13 align-top border-bottom">
                                 <input type="text" value="${formatCurrency(item.price_export)}" readonly class="border-0 px-2 py-1 w-100 product_price text-right" autocomplete="off" name="product_price[]" required="" readonly="readonly">
-                                <a href='#'><p class="mt-3 text-13-blue transaction recentModal" data-name1="TT" data-des="Xem giao dịch gần đây" data-toggle="modal" data-target="#recentModal">Giao dịch gần đây</p></a>
+                                <a href='#'><p class="mt-3 text-13-blue transaction recentModal text-right" data-name1="TT" data-des="Xem giao dịch gần đây" data-toggle="modal" data-target="#recentModal">Giao dịch gần đây</p></a>
                             </td>
                             <td class="p-2 text-13 align-top border-bottom text-center">
                                 <select name="product_tax[]" class="border-0 text-center product_tax" required="" disabled>

@@ -128,6 +128,7 @@ class DetailExport extends Model
     {
         $quoteExport = QuoteExport::where('detailexport.id', $id)
             ->leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+            ->leftJoin('products', 'quoteexport.product_id', 'products.id')
             ->where('quoteexport.status', 1)
             ->where(function ($query) {
                 $query->where('quoteexport.product_delivery', null)

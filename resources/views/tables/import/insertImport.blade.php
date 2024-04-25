@@ -119,7 +119,7 @@
                                     @isset($dataImport)
                                         @foreach ($dataImport as $item)
                                             <tr class="bg-white">
-                                                <td class="border-right p-2 text-13-black align-top p-2">
+                                                <td class="border-bottom border-top-0 p-2 text-13-black align-top p-2">
                                                     <input type="hidden" readonly value="{{ $item->id }}"
                                                         name="listProduct[]">
                                                     {{-- <div
@@ -177,7 +177,7 @@
                                                         name="product_code[]" autocomplete="off">
                                                 </td>
                                                 <td
-                                                    class="border border-top-0 border-bottom-0 position-relative text-13-black align-top p-2">
+                                                    class="border border-right-0 border-top-0 position-relative text-13-black align-top p-2">
                                                     <input id="searchProductName" type="text" name="product_name[]"
                                                         class="searchProductName border-0 px-2 py-1 w-100"
                                                         value="{{ $item->product_name }}">
@@ -186,12 +186,12 @@
                                                         style="z-index: 99; left: 1%; top: 74%; display: none;">
                                                     </ul>
                                                 </td>
-                                                <td class="border border-bottom-0 text-13-black align-top p-2">
+                                                <td class="border border-right-0 border-top-0 text-13-black align-top p-2">
                                                     <input type="text" name="product_unit[]"
                                                         class="border-0 px-2 py-1 w-100 product_unit"
                                                         value="{{ $item->product_unit }}">
                                                 </td>
-                                                <td class="border border-bottom-0 text-13-black align-top p-2">
+                                                <td class="border border-right-0 border-top-0 text-13-black align-top p-2">
                                                     <div class="d-flex">
                                                         <input type="text" required=""
                                                             oninput="validateQtyInput1(this)"
@@ -201,7 +201,7 @@
                                                     <div class="mt-3 text-13-blue inventory text-right">Tồn kho: <span
                                                             class="pl-1 soTonKho" id="soTonKho">0</span></div>
                                                 </td>
-                                                <td class="border border-bottom-0 text-13-black align-top p-2">
+                                                <td class="border border-right-0 border-top-0 text-13-black align-top p-2">
                                                     <div>
                                                         <input type="text" required=""
                                                             value="{{ number_format($item->product_price_export) }}"
@@ -213,7 +213,7 @@
                                                     </div>
                                                 </td>
                                                 <input type="hidden" class="product_tax1">
-                                                <td class="border border-bottom-0 text-13-black align-top p-2">
+                                                <td class="border border-right-0 text-13-black border-top-0 align-top p-2">
                                                     <select name="product_tax[]" id="" disabled
                                                         class="product_tax border-0 w-100 text-center">
                                                         <option value="0"
@@ -230,17 +230,17 @@
                                                         </option>
                                                     </select>
                                                 </td>
-                                                <td class="border border-bottom-0 text-13-black align-top p-2">
+                                                <td class="border border-right-0 text-13-black border-top-0 align-top p-2">
                                                     <input type="text"
                                                         class="border-0 px-2 py-1 w-100 total_price text-right"
                                                         readonly="" name="total_price[]">
                                                 </td>
-                                                {{-- <td class="border border-bottom-0 p-0 bg-secondary"></td> --}}
-                                                <td class="border border-bottom-0 text-13-black align-top p-2">
+                                                {{-- <td class="border p-0 bg-secondary"></td> --}}
+                                                <td class="border border-right-0 text-13-black border-top-0 align-top p-2">
                                                     <input type="text" class="border-0 px-2 py-1 w-100"
                                                         name="product_note[]" placeholder="Nhập ghi chú">
                                                 </td>
-                                                <td class="border deleteRow align-top p-2 user_flow" data-type="DMH"
+                                                <td class="border border-right-0 deleteRow align-top border-top-0 p-2 user_flow" data-type="DMH"
                                                     data-des="Xóa sản phẩm">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15"
                                                         viewBox="0 0 16 15" fill="none">

@@ -140,21 +140,21 @@
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="ngayHD" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Ngày hóa
-                                                            đơn</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-ngayHD"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="idHD" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Số hóa
                                                             đơn#</button>
                                                     </a>
                                                     <div class="icon" id="icon-idHD"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="ngayHD" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">Ngày hóa
+                                                            đơn</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-ngayHD"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
@@ -238,14 +238,14 @@
                                                         onclick="event.stopPropagation();">
                                                 </td>
                                                 <td class="text-13-black height-52 text-left border-bottom border-top-0">
-                                                    {{ date_format(new DateTime($item_bill->ngayHD), 'd/m/Y') }}
-                                                </td>
-                                                <td class="text-13-black height-52 text-left border-bottom border-top-0">
                                                     <a class="activity"
                                                         href="{{ route('billSale.edit', ['workspace' => $workspacename, 'billSale' => $item_bill->idHD]) }}"
                                                         data-name1="HDBH" data-des="Xem hóa đơn bán hàng">
                                                         {{ $item_bill->number_bill }}
                                                     </a>
+                                                </td>
+                                                <td class="text-13-black height-52 text-left border-bottom border-top-0">
+                                                    {{ date_format(new DateTime($item_bill->ngayHD), 'd/m/Y') }}
                                                 </td>
                                                 <td class="height-52 text-13-black text-left border-bottom border-top-0">
                                                     {{ $item_bill->quotation_number }}

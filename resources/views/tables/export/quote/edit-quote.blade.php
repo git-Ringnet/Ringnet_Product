@@ -155,7 +155,7 @@
                                         </th>
                                         <th class="border-right p-0 px-2 text-13 text-left" style="width:17%;">Tên sản phẩm</th>
                                         <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">Đơn vị</th>
-                                        <th class="border-right p-0 px-2 text-center text-13 text-left" style="width:10%;">
+                                        <th class="border-right p-0 px-2 text-13 text-right" style="width:10%;">
                                             Số lượng
                                         </th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
@@ -266,10 +266,13 @@
                                                     <input type='text' <?php if ($detailExport->tinhTrang != 1) {
                                                         echo 'readonly';
                                                     } ?>
-                                                        class='text-left border-0 px-2 py-1 w-100 quantity-input'
+                                                        class='text-right border-0 px-2 py-1 w-100 quantity-input'
                                                         value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
                                                         autocomplete='off' required name='product_qty[]'>
                                                     <input type='hidden' class='tonkho'>
+                                                    <div class="mt-3 text-13-blue inventory text-right">
+                                                        Tồn kho: <span class="pl-1 soTonKho">3</span>
+                                                    </div>
                                                 </div>
                                             </td>
 
@@ -1978,10 +1981,10 @@
             const soLuong = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<div>" +
-                "<input type='text' class='text-left border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
+                "<input type='text' class='text-right border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "</div>" +
-                "<div class='mt-3 text-13-blue inventory'>Tồn kho: <span class='pl-1 soTonKho'></span></div>" +
+                "<div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='pl-1 soTonKho'></span></div>" +
                 "</td>"
             );
             const donGia = $(

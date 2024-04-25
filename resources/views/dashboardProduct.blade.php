@@ -7,7 +7,7 @@
             </div>
         </div>
     </div>
-    <div class="content margin-top-67 overflow-auto" style="height: 90vh; scrollbar-width: none;">
+    <div class="content margin-top-67 overflow-auto" style="scrollbar-width: none;">
         <section class="content margin-250">
             <div class="container-fluided">
                 {{-- Sản phẩm bán chạy và hoạt động bán hàng --}}

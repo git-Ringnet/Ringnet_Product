@@ -132,7 +132,7 @@
                                         <th class="border-right p-0 px-2 text-13" style="width:15%;">Tên sản phẩm
                                         </th>
                                         <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
-                                        <th class="border-right p-0 px-2 text-left text-13" style="width:10%;">Số
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Số
                                             lượng</th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Đơn
                                             giá</th>
@@ -565,7 +565,7 @@
                                             <td class="border-right p-2 text-13 align-top border-bottom">
                                                     <div>
                                                         <input type='text'  value="${formatNumber(item.soLuongHoaDon)}"
-                                                            class='border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>
+                                                            class='border-0 text-right px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>
                                                         <input type='hidden' class='tonkho'>
                                                         <input type="hidden" class="limit-quantity" value="${formatNumber(item.soLuongHoaDon)}" data-limit-quantity="${formatNumber(item.soLuongHoaDon)}">
                                                     </div>
