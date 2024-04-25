@@ -383,7 +383,8 @@
                                     <table id="inputcontent" class="table table-hover bg-white rounded m-0">
                                         <thead>
                                             <tr style="height:44px;">
-                                                <th scope="col" class="border border-bottom border-right-0" style="padding-left: 2rem;">
+                                                <th scope="col" class="border border-bottom border-right-0"
+                                                    style="padding-left: 2rem;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="id"
                                                             data-sort-type="#">
@@ -536,7 +537,8 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="border-left p-2 text-13 align-top border-bottom border-top-0">
+                                                    <td
+                                                        class="border-left p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" name="price_export[]"
                                                             class="text-right border-0 px-2 py-1 w-100 product_price"
                                                             value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
@@ -570,19 +572,22 @@
                                                             </option>
                                                         </select>
                                                     </td>
-                                                    <td class="border-left p-2 text-13 align-top border-bottom border-top-0">
+                                                    <td
+                                                        class="border-left p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" name="total_price[]"
                                                             class="text-right border-0 px-2 py-1 w-100 total_price"
                                                             readonly
                                                             value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                     </td>
-                                                    <td class="border-left p-2 text-13 align-top border-bottom border-top-0">
+                                                    <td
+                                                        class="border-left p-2 text-13 align-top border-bottom border-top-0">
                                                         <input placeholder="Nhập ghi chú" readonly type="text"
                                                             name="product_note[]" class="border-0 px-2 py-1 w-100"
                                                             value="{{ $item->product_note }}">
                                                     </td>
-                                                    <td class="border-left p-2 text-13 align-top border-bottom border-top-0">
+                                                    <td
+                                                        class="border-left p-2 text-13 align-top border-bottom border-top-0">
                                                         <svg width="17" height="17" viewBox="0 0 17 17"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -610,7 +615,8 @@
                                     <table class="table table-hover bg-white rounded">
                                         <thead>
                                             <tr style="height:44px;">
-                                                <th scope="col" class="border border-bottom border-right-0" style="padding-left: 2rem;">
+                                                <th scope="col" class="border border-bottom border-right-0"
+                                                    style="padding-left: 2rem;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="id"
                                                             data-sort-type="#">
@@ -735,7 +741,8 @@
                                                             class="border-0 px-2 py-1 w-100 text-right" readonly
                                                             value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                                     </td>
-                                                    <td class="border-left p-2 text-13 align-top border-bottom border-top-0">
+                                                    <td
+                                                        class="border-left p-2 text-13 align-top border-bottom border-top-0">
                                                         <input placeholder="Nhập ghi chú" type="text"
                                                             class="border-0 px-2 py-1 w-100" readonly
                                                             value="{{ $item->product_note }}">
@@ -870,6 +877,16 @@
                                     <span class="d-flex">
                                         <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
+                                                Nhà cung cấp
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
                                                 Giá mua
                                             </button>
                                         </a>
@@ -903,9 +920,9 @@
                     </table>
                 </div>
             </div>
-            <div class="modal-footer">
+            {{-- <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
@@ -1199,11 +1216,14 @@
                             element => {
                                 var tr = `
                                             <tr>
-                                                <td>` + element.product_name + `</td>
-                                                <td>` + formatCurrency(element.price_export) + `</td>
-                                                <td>` + (element.product_tax == 99 ? "NOVAT" : element.product_tax +
-                                    "%") + `</td>
-                                                <td>` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
+                                                <td class="border-bottom">` + element.product_name + `</td>
+                                                <td class="border-bottom">` + element.nameProvide + `</td>
+                                                <td class="border-bottom">` + formatCurrency(element.price_export) + `</td>
+                                                <td class="border-bottom">` + (element.product_tax == 99 ? "NOVAT" :
+                                        element.product_tax +
+                                        "%") + `</td>
+                                                <td class="border-bottom">` + new Date(element.created_at)
+                                    .toLocaleDateString('vi-VN'); + `</td>
                                             </tr> `;
                                 $('#recentModal .modal-body tbody')
                                     .append(

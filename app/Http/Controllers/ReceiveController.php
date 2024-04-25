@@ -187,6 +187,7 @@ class ReceiveController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
+            ->join('products', 'quoteimport.product_name', 'products.product_name')
             ->where('products_import.detailimport_id', $receive->detailimport_id)
             ->where('products_import.receive_id', $receive->id)
             ->select(
@@ -202,6 +203,7 @@ class ReceiveController extends Controller
                 'products_import.receive_id',
                 'products_import.quoteImport_id',
                 'products_import.product_guarantee',
+                'products.product_inventory as inventory',
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
             )
             ->with('getSerialNumber')->get();
@@ -340,6 +342,7 @@ class ReceiveController extends Controller
         $list = [];
         $checked = [];
         $value = [];
+        $inventory = [];
         $quote = QuoteImport::where('detailimport_id', $request->id)
             ->where('product_qty', '>', DB::raw('COALESCE(receive_qty,0)'))
             ->where('workspace_id', Auth::user()->current_workspace)
@@ -364,6 +367,7 @@ class ReceiveController extends Controller
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($getProductGuarantee) {
+                array_push($inventory, $getProductGuarantee->product_inventory);
                 array_push($value, $getProductGuarantee->product_guarantee);
             }
             if ($product) {
@@ -377,12 +381,12 @@ class ReceiveController extends Controller
                 array_push($checked, 'endable');
             }
         }
-
         $data = [
             'checked' => $checked,
             'cb' => $list,
             'quoteImport' => $quote,
-            'value' => $value
+            'value' => $value,
+            'inventory' => $inventory
         ];
         return $data;
     }

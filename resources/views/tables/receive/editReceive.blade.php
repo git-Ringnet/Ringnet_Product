@@ -109,7 +109,8 @@
                                 id="listBtnCreateFast">
                                 <ul class="m-0 p-0 scroll-data">
                                     <li class="p-1 align-items-left text-wrap w-100" style="border-radius:4px;">
-                                        <button type="submit" id="delete_receive" class="border-0 w-100 text-left" style="background: none;">
+                                        <button type="submit" id="delete_receive" class="border-0 w-100 text-left"
+                                            style="background: none;">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 viewBox="0 0 16 16" fill="none">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -119,29 +120,11 @@
                                             <span class="text-btnIner-primary ml-2"
                                                 style="font-weight: 600;color: #000; font-size:13px">Xóa</span>
                                         </button>
-                                        {{-- <div id="delete_receive"> --}}
-                                        {{-- </div> --}}
                                     </li>
                                 </ul>
                             </div>
                         </div>
 
-
-                        {{-- <a href="#" id="delete_receive">
-                            <button name="action" value="action_2" type="submit" id="xoaBtn"
-                                class="btn--remove d-flex align-items-center h-100 mx-1"
-                                style="background-color:red;">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none">
-                                        <path
-                                            d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
-                                            fill="white" />
-                                    </svg>
-                                </span>
-                                <span class="text-btnIner-primary ml-2">Xóa</span>
-                            </button>
-                        </a> --}}
 
                         <button id="sideProvide" type="button" class="btn-option border-0 mx-1">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -189,7 +172,8 @@
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr style="height:48px;">
-                                            <th class="border-right border-bottom" style="width: 15%;padding-left:2rem;">
+                                            <th class="border-right border-bottom"
+                                                style="width: 15%;padding-left:2rem;">
                                                 <span class="text-table text-secondary">Mã sản phẩm</span>
                                             </th>
                                             <th scope="col" class="border-right border-bottom">
@@ -260,7 +244,8 @@
                                                         id="" class="border-0 py-1 w-75 searchProduct"
                                                         value="{{ $item->product_code }}">
                                                 </td>
-                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right" style="width:15%">
+                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right"
+                                                    style="width:15%">
                                                     <div class="d-flex align-items-center">
                                                         <input type="text"
                                                             class="searchProductName w-100 border-0 px-2 py-1"
@@ -291,68 +276,56 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
+                                                <td
+                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item->product_unit }}"
                                                         class="border-0 px-2 py-1 w-100 product_unit"
                                                         name="product_unit[]">
                                                 </td>
 
-                                                <td class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
+                                                <td
+                                                    class="bg-white align-top text-13-black border-top-0 border-bottom border-right">
                                                     <div>
                                                         <input @if ($receive->status == 2) readonly @endif
                                                             type="text"
                                                             class="border-0 px-2 py-1 w-100 quantity-input text-right"
                                                             name="product_qty[]" {{-- oninput="checkQty(this,{{ $item->product_qty }})"  --}} readonly
                                                             value="{{ number_format($item->product_qty) }}">
+                                                        <div class="mt-3 text-13-blue inventory text-right"
+                                                            tyle="top: 68%;">Tồn kho:
+                                                            <span class="pl-1 soTonKho">
+                                                                {{ number_format($item->inventory) }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td
+                                                    class="align-top text-center border-top-0 border-bottom border-right">
+                                                    <div style="margin-top: 6px;">
+                                                        <input type="checkbox" name="cbSeri[]" disabled
+                                                            value="{{ $item->cbSN }}" class="mt-1 checkall-btn"
+                                                            @if ($item->cbSN == 1) {{ 'checked' }} @endif>
+
                                                         @if ($item->cbSN == 1)
                                                             <a href="" class="duongdan" data-toggle="modal"
                                                                 data-target="#exampleModal{{ $st }}">
-                                                                <div class='mt-3 text-13-blue inventory text-right'>
-                                                                    Serial Number </div>
+                                                                <div class="sn--modal mt-3">
+                                                                    <span class="border-span--modal">SN</span>
+                                                                </div>
                                                             </a>
-                                                            {{-- <button type="button" class="btn btn-primary"
-                                                                data-toggle="modal"
-                                                                data-target="#exampleModal{{ $st }}"
-                                                                style="background:transparent; border:none;">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="32"
-                                                                    height="32" viewBox="0 0 32 32"
-                                                                    fill="none">
-                                                                    <rect width="32" height="32"
-                                                                        rx="4" fill="white">
-                                                                    </rect>
-                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                        d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z"
-                                                                        fill="#0095F6">
-                                                                    </path>
-                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                        d="M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z"
-                                                                        fill="#0095F6">
-                                                                    </path>
-                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                        d="M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z"
-                                                                        fill="#0095F6">
-                                                                    </path>
-                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                        d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z"
-                                                                        fill="#0095F6">
-                                                                    </path>
-                                                                </svg>
-                                                            </button> --}}
                                                         @endif
                                                     </div>
+
                                                 </td>
-                                                <td class="align-top text-center border-top-0 border-bottom border-right">
-                                                    <input type="checkbox" name="cbSeri[]" disabled
-                                                        value="{{ $item->cbSN }}" class="mt-1 checkall-btn"
-                                                        @if ($item->cbSN == 1) {{ 'checked' }} @endif>
-                                                </td>
-                                                <td class="align-top text-center border-top-0 border-bottom border-right">
+                                                <td
+                                                    class="align-top text-center border-top-0 border-bottom border-right">
                                                     <input class="border-0 px-2 py-1 w-100 price_export"
                                                         type="text" value="{{ $item->product_guarantee }}"
                                                         readonly>
                                                 </td>
-                                                <td class="bg-white align-top text-13-black d-none border-top-0 border-bottom border-right">
+                                                <td
+                                                    class="bg-white align-top text-13-black d-none border-top-0 border-bottom border-right">
                                                     <div>
                                                         <input type="text"
                                                             class="border-0 px-2 py-1 w-100 price_export text-right"
@@ -363,7 +336,8 @@
                                                     <div class='mt-3 text-13-blue transaction text-right'>Giao dịch gần
                                                         đây</div>
                                                 </td>
-                                                <td class="bg-white align-top d-none border-top-0 border-bottom border-right">
+                                                <td
+                                                    class="bg-white align-top d-none border-top-0 border-bottom border-right">
                                                     <input type="text" class="border-0 px-2 py-1 w-100 product_tax"
                                                         name="product_tax[]" value="{{ $item->product_tax }}"
                                                         readonly>
@@ -392,13 +366,14 @@
                                                         value="{{ fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
                                                         readonly>
                                                 </td>
-                                                <td class="text-center bg-white align-top text-13-black border-top-0 border-bottom border-right">
+                                                <td
+                                                    class="text-center bg-white align-top text-13-black border-top-0 border-bottom border-right">
                                                     <input type="text" class="border-0 py-1 w-100" readonly
                                                         name="product_note[]" placeholder='Nhập ghi chú'
                                                         value="{{ $item->product_note }}">
                                                 </td>
                                                 <td
-                                                    class="text-center bg-white align-top text-13-black @if ($receive->status == 3) deleteRow @endif border-top-0 border-bottom border-right" >
+                                                    class="text-center bg-white align-top text-13-black @if ($receive->status == 3) deleteRow @endif border-top-0 border-bottom border-right">
                                                     <svg width="17" height="17" viewBox="0 0 17 17"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -488,7 +463,7 @@
                     <div class="">
                         <div class="">
                             <ul class="p-0 m-0">
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0" 
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Nhà cung cấp</span>
                                     <input type="text"

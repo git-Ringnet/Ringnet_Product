@@ -142,6 +142,7 @@ class PayOrderController extends Controller
                 $nameRepresent = "";
             }
             $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
+                ->join('products', 'quoteimport.product_name', 'products.product_name')
                 ->where('products_import.detailimport_id', $payment->detailimport_id)
                 ->where('products_import.payOrder_id', $payment->id)
                 ->select(
@@ -153,6 +154,7 @@ class PayOrderController extends Controller
                     'quoteimport.product_tax',
                     'quoteimport.product_note',
                     'products_import.product_id',
+                    'products.product_inventory as inventory',
                     DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
                 )
                 ->get();
@@ -218,10 +220,12 @@ class PayOrderController extends Controller
     public function getPaymentOrder(Request $request)
     {
         return QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
+            ->join('products', 'products.product_name', 'quoteimport.product_name')
             ->leftJoin('pay_order', 'detailimport.id', 'pay_order.detailimport_id')
             ->where('quoteimport.detailimport_id', $request->id)
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             // ->where('product_qty', '>', DB::raw('COALESCE(payment_qty,0)'))
+            ->select('detailimport.*', 'pay_order.*', 'quoteimport.*', 'products.product_inventory as inventory')
             ->get();
     }
     public function searchPaymentOrder(Request $request)

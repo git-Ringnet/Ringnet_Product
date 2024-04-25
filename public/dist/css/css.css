@@ -173,7 +173,7 @@ li {
     width: 100%;
     overflow-x: auto;
     scrollbar-width: thin;
-    max-height: calc(100vh - 120px);
+    max-height: calc(100vh - 125px);
 }
 
 .outerImport th {
@@ -996,7 +996,7 @@ td p {
 
 #list_modal .modal-dialog {
     /* max-width: 85% !important; */
-    max-width: 400px !important;
+    max-width: 500px !important;
     max-height: 677px !important;
 }
 

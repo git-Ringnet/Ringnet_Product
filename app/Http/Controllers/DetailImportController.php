@@ -1124,14 +1124,15 @@ class DetailImportController extends Controller
                 ->select('product_name', 'product_unit', 'product_inventory', 'product_tax')
                 ->first();
             $data['product'] = $product;
-            // return $request->all();
         } else {
             $product = Products::where('product_name', $request->product_name)->first();
             if ($product) {
                 $history = QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
+                    ->leftJoin('provides','provides.id','detailimport.provide_id')
                     ->where('quoteimport.product_name', $request->product_name)
                     ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
                     ->where('detailimport.status', 2)
+                    ->select('quoteimport.*','provides.provide_name_display as nameProvide','detailimport.created_at as create')
                     ->get();
                 $data['history'] = $history;
             }

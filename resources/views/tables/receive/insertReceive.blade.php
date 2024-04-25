@@ -352,7 +352,6 @@
                             id: data.id
                         },
                         success: function(product) {
-                            console.log(product);
                             $('#product').html(product)
                             $('#inputcontent tbody').empty();
                             product.quoteImport.forEach((element, index) => {
@@ -397,15 +396,14 @@
                                                                 class="text-right border-0 px-2 py-1 w-100 quantity-input" 
                                                                 value="` + formatCurrency(element.product_qty - element
                                             .receive_qty) + `">
-                                                        <a class="duongdan" data-toggle="modal" 
-                                                            data-target="#exampleModal` + element.id + `" ` + (product
-                                            .checked[index] ==
-                                            'endable' ||
-                                            product.cb[index] == 1 ?
-                                            'style="opacity:1"' :
-                                            'style="opacity:0"') + ` >
-                                                                <div class='mt-3 text-13-blue inventory text-right'>Serial Number </div>
-                                                        </a>
+
+                                                        <div class="mt-3 text-13-blue inventory text-right" tyle="top: 68%;">Tồn kho:
+                                                            <span class="pl-1 soTonKho">
+                                                                ` + (product.inventory[index] == "null" ? 0 :
+                                            formatCurrency(product
+                                                .inventory[index])) + `
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </td>
 
@@ -420,6 +418,18 @@
                                                                 value="` + (product.checked[index] == 'endable' ||
                                             product.cb[index] == 1 ? 1 :
                                             0) + `">
+
+                                            <a class="duongdan" data-toggle="modal" 
+                                                            data-target="#exampleModal` + element.id + `" ` + (product
+                                            .checked[index] ==
+                                            'endable' ||
+                                            product.cb[index] == 1 ?
+                                            'style="opacity:1"' :
+                                            'style="opacity:0"') + ` >
+                                            <div class="sn--modal mt-3">
+                                                    <span class="border-span--modal">SN</span>
+                                                    </div>
+                                                        </a>
                                                     </div>
                                                 </td>
 

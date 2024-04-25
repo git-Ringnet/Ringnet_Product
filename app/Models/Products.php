@@ -339,7 +339,8 @@ class Products extends Model
     public function checkProductName($data)
     {
         $result = [];
-        $check = DB::table($this->table)->where('product_name', $data['name']);
+        $check = DB::table($this->table)->where('product_name', $data['name'])
+        ->where('workspace_id',Auth::user()->current_workspace);
         if (isset($data['action'])) {
             $check->where('id', '!=', $data['id']);
         }

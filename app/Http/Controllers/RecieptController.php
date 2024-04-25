@@ -139,11 +139,6 @@ class RecieptController extends Controller
         $reciept = Reciept::findOrFail($id);
         $title = $reciept->id;
         $detail = DetailImport::where('id', $reciept->detailimport_id)->first();
-        // if ($detail && $detail->getNameRepresent) {
-        //     $nameRepresent = $detail->getNameRepresent->represent_name;
-        // } else {
-        //     $nameRepresent = "";
-        // }
         if ($detail) {
             $nameRepresent = $detail->represent_name;
         } else {
@@ -153,6 +148,7 @@ class RecieptController extends Controller
         $workspacename = $workspacename->workspace_name;
         // $product = QuoteImport::where('receive_id', $reciept->receive_id)->get();
         $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
+        ->join('products', 'quoteimport.product_name', 'products.product_name')
             ->where('products_import.detailimport_id', $reciept->detailimport_id)
             ->where('products_import.reciept_id', $reciept->id)
             ->select(
@@ -164,6 +160,7 @@ class RecieptController extends Controller
                 'quoteimport.product_tax',
                 'quoteimport.product_note',
                 'products_import.product_id',
+                'products.product_inventory as inventory',
                 DB::raw('products_import.product_qty * quoteimport.price_export as product_total')
             )
             ->get();
@@ -235,9 +232,11 @@ class RecieptController extends Controller
 
     public function getProduct_reciept(Request $request)
     {
-        return QuoteImport::where('detailimport_id', $request->id)
-            ->where('product_qty', '>', DB::raw('COALESCE(reciept_qty,0)'))
-            ->where('workspace_id', Auth::user()->current_workspace)
+        return QuoteImport::join('products', 'products.product_name', 'quoteimport.product_name')
+            ->where('quoteimport.detailimport_id', $request->id)
+            ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(reciept_qty,0)'))
+            ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
+            ->select('quoteimport.*','products.product_inventory as inventory')
             ->get();
     }
     public function searchReciept(Request $request)

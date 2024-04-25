@@ -101,7 +101,7 @@
                     if (data.title_payment) {
                         $('.menu .title_payment').text(data.title_payment)
                     } else {
-                        $('.menu .title_payment').text("Tạo thanh toán mua hàng")
+                        $('.menu .title_payment').text("Tạo thanh toán")
                     }
                     if (!data.receive || !data.reciept || !data.payment) {
                         menu.css({

@@ -201,7 +201,8 @@
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr style="height:44px;">
-                                            <th class="border-right border-bottom" style="width: 15%;padding-left:2rem;">
+                                            <th class="border-right border-bottom"
+                                                style="width: 15%;padding-left:2rem;">
                                                 <span class="text-table text-secondary">Mã sản phẩm</span>
                                             </th>
                                             <th scope="col" class="border-right border-bottom">
@@ -279,7 +280,8 @@
                                                         class="border-0 py-1 w-75 searchProduct"
                                                         value="{{ $item->product_code }}">
                                                 </td>
-                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0" style="width:15%">
+                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0"
+                                                    style="width:15%">
                                                     <div class="d-flex align-items-center">
                                                         <input type="text"
                                                             class="searchProductName w-100 border-0 px-2 py-1"
@@ -310,19 +312,25 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0">
+                                                <td
+                                                    class="bg-white align-top text-13-black border-right border-bottom border-top-0">
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item->product_unit }}"
                                                         class="border-0 px-2 py-1 w-100 product_unit">
                                                 </td>
-                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0">
+                                                <td
+                                                    class="bg-white align-top text-13-black border-right border-bottom border-top-0">
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <input type="text"
                                                             class="border-0 px-2 py-1 w-100 quantity-input text-right"
                                                             value="{{ number_format($item->product_qty) }}">
                                                     </div>
+                                                    <div class="mt-3 text-13-blue inventory text-right">Tồn kho: <span
+                                                            class="pl-1 soTonKho">{{ number_format($item->inventory) }}</span>
+                                                    </div>
                                                 </td>
-                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0" style="width:12%">
+                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0"
+                                                    style="width:12%">
                                                     <div>
                                                         <input readonly type="text" name="price_export[]"
                                                             class="border-0 px-2 py-1 w-100 price_export text-right"
@@ -347,7 +355,8 @@
                                                         class="border-0 px-2 py-1 w-100 total_price text-right"
                                                         value="{{ number_format($item->product_total) }}">
                                                 </td>
-                                                <td class="text-center bg-white align-top text-13-black border-right border-bottom border-top-0">
+                                                <td
+                                                    class="text-center bg-white align-top text-13-black border-right border-bottom border-top-0">
                                                     <input readonly type="text" class="border-0 px-2 py-1 w-100"
                                                         value="{{ $item->product_note }}" placeholder='Nhập ghi chú'>
                                                 </td>
@@ -374,13 +383,20 @@
                                         <tr style="height:50px;">
                                             <th class="text-table text-secondary p-2 border-right border-bottom"
                                                 style="padding-left: 2rem !important;">Mã thanh toán</th>
-                                            <th class="text-table text-secondary p-2 border-right border-bottom">Ngày thanh toán</th>
-                                            <th class="text-table text-secondary p-2 border-right border-bottom text-right">Tổng tiền
+                                            <th class="text-table text-secondary p-2 border-right border-bottom">Ngày
+                                                thanh toán</th>
+                                            <th
+                                                class="text-table text-secondary p-2 border-right border-bottom text-right">
+                                                Tổng tiền
                                             </th>
-                                            <th class="text-table text-secondary p-2 border-right border-bottom text-right">Thanh
+                                            <th
+                                                class="text-table text-secondary p-2 border-right border-bottom text-right">
+                                                Thanh
                                                 toán</th>
-                                            <th class="text-table text-secondary p-2 text-right border-bottom">Dư nợ</th>
-                                            <th class="text-table text-secondary p-2 border-left border-bottom">Hình thức</th>
+                                            <th class="text-table text-secondary p-2 text-right border-bottom">Dư nợ
+                                            </th>
+                                            <th class="text-table text-secondary p-2 border-left border-bottom">Hình
+                                                thức</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -392,10 +408,12 @@
                                                 <td class="border-right text-13-black border-bottom border-top-0">
                                                     {{ date_format(new DateTime($htr->created_at), 'd-m-Y H:i:s') }}
                                                 </td>
-                                                <td class="border-right text-13-black border-bottom border-top-0 text-right">
+                                                <td
+                                                    class="border-right text-13-black border-bottom border-top-0 text-right">
                                                     {{ fmod($htr->total, 2) > 0 && fmod($htr->total, 1) > 0 ? number_format($htr->total, 2, '.', ',') : number_format($htr->total) }}
                                                 </td>
-                                                <td class="border-right text-13-black border-bottom border-top-0 text-right">
+                                                <td
+                                                    class="border-right text-13-black border-bottom border-top-0 text-right">
                                                     {{ fmod($htr->payment, 2) > 0 && fmod($htr->payment, 1) > 0 ? number_format($htr->payment, 2, '.', ',') : number_format($htr->payment) }}
                                                 </td>
                                                 <td class="text-13-black border-bottom text-right border-top-0">

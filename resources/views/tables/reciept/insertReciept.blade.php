@@ -251,7 +251,7 @@
                     <table id="example2" class="table table-hover bg-white rounded">
                         <thead>
                             <tr>
-                                <th scope="col" class="height-52">
+                                <th scope="col" class="height-52 text-table text-secondary">
                                     <span class="d-flex">
                                         <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
@@ -261,7 +261,17 @@
                                         <div class="icon" id="icon-id"></div>
                                     </span>
                                 </th>
-                                <th scope="col" class="height-52">
+                                <th scope="col" class="height-52 text-table text-secondary">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Nhà cung cấp
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52 text-table text-secondary">
                                     <span class="d-flex">
                                         <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
@@ -271,7 +281,7 @@
                                         <div class="icon" id="icon-id"></div>
                                     </span>
                                 </th>
-                                <th scope="col" class="height-52">
+                                <th scope="col" class="height-52 text-table text-secondary">
                                     <span class="d-flex">
                                         <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
@@ -281,7 +291,7 @@
                                         <div class="icon" id="icon-id"></div>
                                     </span>
                                 </th>
-                                <th scope="col" class="height-52">
+                                <th scope="col" class="height-52 text-table text-secondary">
                                     <span class="d-flex">
                                         <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
@@ -298,9 +308,9 @@
                     </table>
                 </div>
             </div>
-            <div class="modal-footer">
+            {{-- <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
@@ -317,16 +327,18 @@
                 product_name: nameProduct,
             },
             success: function(data) {
+                console.log(data);
                 $('#recentModal .modal-body tbody').empty()
                 if (data['history']) {
                     data['history'].forEach(
                         element => {
                             var tr = `
                                 <tr>
-                                    <td>` + element.product_name + `</td>
-                                    <td>` + formatCurrency(element.price_export) + `</td>
-                                    <td>` + (element.product_tax == 99 ? "NOVAT" : element.product_tax + "%") + `</td>
-                                    <td>` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
+                                    <td class="text-13-black border-bottom">` + element.product_name + `</td>
+                                    <td class="text-13-black border-bottom">` + element.nameProvide + `</td>
+                                    <td class="text-13-black border-bottom">` + formatCurrency(element.price_export) + `</td>
+                                    <td class="text-13-black border-bottom">` + (element.product_tax == 99 ? "NOVAT" : element.product_tax + "%") + `</td>
+                                    <td class="text-13-black border-bottom">` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
                                 </tr> `;
                             $('#recentModal .modal-body tbody').append(tr);
                         })
@@ -388,6 +400,7 @@
                             id: data.id
                         },
                         success: function(product) {
+                            console.log(product);
                             $('#inputcontent tbody').empty();
                             $('#more_info').show();
                             $('#more_info1').show();
@@ -463,7 +476,15 @@
                                             .reciept_qty) + `"
                                                             class='border-0 px-2 py-1 w-100 quantity-input text-right' autocomplete='off'
                                                             name='product_qty[]'>
-                                                    </div>
+                                                            <div class="mt-3 text-13-blue inventory text-right" tyle="top: 68%;">Tồn kho:
+                                                            <span class="pl-1 soTonKho">
+                                                                ` + (element.inventory == "null" ? 0 :
+                                            formatCurrency(element
+                                                .inventory)) + `
+                                                            </span>
+                                                        </div>
+                                                   
+                                                            </div>
                                             </td>
                                             <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <input type='text' class='text-right border-0 px-2 py-1 w-100 price_export' 

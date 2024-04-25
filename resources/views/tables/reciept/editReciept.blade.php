@@ -192,7 +192,8 @@
                                 <table id="inputcontent" class="table table-hover bg-white rounded">
                                     <thead>
                                         <tr style="height:44px;">
-                                            <th class="border-right border-bottom" style="width: 15%;padding-left:2rem;">
+                                            <th class="border-right border-bottom"
+                                                style="width: 15%;padding-left:2rem;">
                                                 <span class="text-table text-secondary">Mã sản phẩm</span>
                                             </th>
                                             <th scope="col" class="border-right border-bottom">
@@ -270,7 +271,8 @@
                                                         class="border-0 py-1 w-75 searchProduct"
                                                         value="{{ $item->product_code }}">
                                                 </td>
-                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0" style="width:15%">
+                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0"
+                                                    style="width:15%">
                                                     <div class="d-flex align-items-center">
                                                         <input type="text"
                                                             class="searchProductName w-100 border-0 px-2 py-1"
@@ -301,22 +303,25 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0">
+                                                <td
+                                                    class="bg-white align-top text-13-black border-right border-bottom border-top-0">
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item->product_unit }}"
                                                         class="border-0 px-2 py-1 w-100 product_unit">
                                                 </td>
-                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0">
+                                                <td
+                                                    class="bg-white align-top text-13-black border-right border-bottom border-top-0">
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <input type="text"
                                                             class="border-0 px-2 py-1 w-100 quantity-input text-right"
                                                             value="{{ number_format($item->product_qty) }}">
                                                     </div>
-                                                    {{-- <div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span
-                                                            class='pl-1 soTonKho'>35</span>
-                                                    </div> --}}
+                                                    <div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span
+                                                            class='pl-1 soTonKho'>{{ number_format($item->inventory) }}</span>
+                                                    </div>
                                                 </td>
-                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0" style="width:12%">
+                                                <td class="bg-white align-top text-13-black border-right border-bottom border-top-0"
+                                                    style="width:12%">
                                                     <div>
                                                         <input readonly type="text" name="price_export[]"
                                                             class="border-0 px-2 py-1 w-100 price_export text-right"
@@ -335,12 +340,14 @@
                                                 </td>
                                                 <input type="hidden" class="product_tax1">
 
-                                                <td class="bg-white align-top text-13-black text-left border-right border-bottom border-top-0">
+                                                <td
+                                                    class="bg-white align-top text-13-black text-left border-right border-bottom border-top-0">
                                                     <input readonly type="text" name="" id=""
                                                         class="border-0 px-2 py-1 w-100 total_price text-right"
                                                         value="{{ number_format($item->product_total) }}">
                                                 </td>
-                                                <td class="text-center bg-white align-top text-13-black border-right border-bottom border-top-0">
+                                                <td
+                                                    class="text-center bg-white align-top text-13-black border-right border-bottom border-top-0">
                                                     <input readonly type="text" class="border-0 px-2 py-1 w-100"
                                                         value="{{ $item->product_note }}" placeholder='Nhập ghi chú'>
                                                 </td>
@@ -456,7 +463,7 @@
                     <table id="example2" class="table table-hover bg-white rounded">
                         <thead>
                             <tr>
-                                <th scope="col" class="height-52">
+                                <th scope="col" class="height-52 text-table text-secondary">
                                     <span class="d-flex">
                                         <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
@@ -466,7 +473,17 @@
                                         <div class="icon" id="icon-id"></div>
                                     </span>
                                 </th>
-                                <th scope="col" class="height-52">
+                                <th scope="col" class="height-52 text-table text-secondary">
+                                    <span class="d-flex">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13" type="submit">
+                                                Nhà cung cấp
+                                            </button>
+                                        </a>
+                                        <div class="icon" id="icon-id"></div>
+                                    </span>
+                                </th>
+                                <th scope="col" class="height-52 text-table text-secondary">
                                     <span class="d-flex">
                                         <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
@@ -476,7 +493,7 @@
                                         <div class="icon" id="icon-id"></div>
                                     </span>
                                 </th>
-                                <th scope="col" class="height-52">
+                                <th scope="col" class="height-52 text-table text-secondary">
                                     <span class="d-flex">
                                         <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
@@ -486,7 +503,7 @@
                                         <div class="icon" id="icon-id"></div>
                                     </span>
                                 </th>
-                                <th scope="col" class="height-52">
+                                <th scope="col" class="height-52 text-table text-secondary">
                                     <span class="d-flex">
                                         <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
@@ -503,9 +520,9 @@
                     </table>
                 </div>
             </div>
-            <div class="modal-footer">
+            {{-- <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
@@ -575,10 +592,11 @@
                         element => {
                             var tr = `
                                 <tr>
-                                    <td>` + element.product_name + `</td>
-                                    <td>` + formatCurrency(element.price_export) + `</td>
-                                    <td>` + (element.product_tax == 99 ? "NOVAT" : element.product_tax + "%") + `</td>
-                                    <td>` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
+                                    <td class="text-13-black border-bottom">` + element.product_name + `</td>
+                                    <td class="text-13-black border-bottom">` + element.nameProvide + `</td>
+                                    <td class="text-13-black border-bottom">` + formatCurrency(element.price_export) + `</td>
+                                    <td class="text-13-black border-bottom">` + (element.product_tax == 99 ? "NOVAT" : element.product_tax + "%") + `</td>
+                                    <td class="text-13-black border-bottom">` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
                                 </tr> `;
                             $('#recentModal .modal-body tbody').append(tr);
                         })
@@ -637,5 +655,4 @@
     })
 
     toggleList($("#btnCreateFast"), $("#listBtnCreateFast"));
-
 </script>
