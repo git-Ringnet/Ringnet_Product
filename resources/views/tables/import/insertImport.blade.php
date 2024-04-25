@@ -187,7 +187,7 @@
                                                     </ul>
                                                 </td>
                                                 <td class="border border-right-0 border-top-0 text-13-black align-top p-2">
-                                                    <input type="text" name="product_unit[]"
+                                                    <input type="text" name="product_unit[]" required
                                                         class="border-0 px-2 py-1 w-100 product_unit"
                                                         value="{{ $item->product_unit }}">
                                                 </td>
@@ -199,7 +199,7 @@
                                                             name="product_qty[]">
                                                     </div>
                                                     <div class="mt-3 text-13-blue inventory text-right">Tồn kho: <span
-                                                            class="pl-1 soTonKho" id="soTonKho">0</span></div>
+                                                            class="pl-1 soTonKho" id="soTonKho">{{ is_int($item->product_inventory) ? $item->product_inventory : rtrim(rtrim(number_format($item->product_inventory, 4, '.', ''), '0'), '.') }}</span></div>
                                                 </td>
                                                 <td class="border border-right-0 border-top-0 text-13-black align-top p-2">
                                                     <div>

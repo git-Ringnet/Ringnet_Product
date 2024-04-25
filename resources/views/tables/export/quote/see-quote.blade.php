@@ -41,20 +41,20 @@
                             <a href="{{ route('detailExport.index', $workspacename) }}" class="activity" data-name1="BG"
                                 data-des="Hủy xem đơn báo giá">
                                 <button type="button"
-                                    class="btn-save-print rounded mx-1 d-flex align-items-center h-100">
-                                    <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    class="btn-destroy rounded mx-1 d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
                                         <path
                                             d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
                                             fill="#6D7075" />
                                     </svg>
-                                    <span class="text-button">Trở về</span>
+                                    <span class="text-button ml-2">Trở về</span>
                                 </button>
                             </a>
                         </div>
                         <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
-                                class="btn-save-print rounded mx-1 d-flex align-items-center h-100 dropdown-toggle px-2">
+                                class="btn-destroy rounded mx-1 d-flex align-items-center dropdown-toggle px-2">
                                 <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 16 16" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -73,7 +73,7 @@
                                 </a>
                             </div>
                         </div>
-                        <label class="d-flex align-items-center h-100 m-0 mx-1 rounded p-2"
+                        <label class="btn-destroy btn-light d-flex align-items-center h-100 m-0 mx-1"
                             style="border: 2px solid #d6d6d6;">
                             <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -182,16 +182,16 @@
                                     </svg>
                                 </span>
                             </button>
-                            <div class="dropdown-menu mt-1 p-0"
-                                style="z-index: 9999;width:180px!important;">
+                            <div class="dropdown-menu mt-1 p-0" style="z-index: 9999;width:180px!important;">
                                 <ul class="m-0 p-0">
                                     <li class="p-1 w-100" style="border-radius:4px;">
                                         <a href="#">
                                             <button name="action" value="action_5" type="submit"
                                                 onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                                                 class="btn-save-print border-0 p-2 d-flex mx-1 align-items-center h-100 w-100">
-                                                <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <svg class="mr-2" width="16" height="16"
+                                                    viewBox="0 0 16 16" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                         d="M12.3687 6.5C12.6448 6.5 12.8687 6.72386 12.8687 7C12.8687 7.03856 12.8642 7.07699 12.8554 7.11452L11.3628 13.4581C11.1502 14.3615 10.3441 15 9.41597 15H6.58403C5.65593 15 4.84977 14.3615 4.6372 13.4581L3.14459 7.11452C3.08135 6.84572 3.24798 6.57654 3.51678 6.51329C3.55431 6.50446 3.59274 6.5 3.6313 6.5H12.3687ZM8.5 1C9.88071 1 11 2.11929 11 3.5H13C13.5523 3.5 14 3.94772 14 4.5V5C14 5.27614 13.7761 5.5 13.5 5.5H2.5C2.22386 5.5 2 5.27614 2 5V4.5C2 3.94772 2.44772 3.5 3 3.5H5C5 2.11929 6.11929 1 7.5 1H8.5ZM8.5 2.5H7.5C6.94772 2.5 6.5 2.94772 6.5 3.5H9.5C9.5 2.94772 9.05228 2.5 8.5 2.5Z"
                                                         fill="#26273B" fill-opacity="0.8" />
@@ -502,7 +502,7 @@
                                                             <div class="d-flex align-items-center">
                                                                 <input type="text"
                                                                     value="{{ $item_quote->product_name }}"
-                                                                    class="border-0 px-2 py-1 w-100 product_name"
+                                                                    class="border-0 px-1 py-1 w-100 product_name"
                                                                     readonly autocomplete="off" name="product_name[]">
                                                                 <input type="hidden" class="product_id"
                                                                     value="{{ $item_quote->product_id }}"
@@ -547,8 +547,12 @@
                                                                 class="border-0 px-2 py-1 w-100 quantity-input text-right"
                                                                 autocomplete="off" name="product_qty[]">
                                                             <input type="hidden" class="tonkho">
-                                                            <div class="mt-3 text-13-blue inventory text-right">
-                                                                Tồn kho: <span class="pl-1 soTonKho">{{ is_int($item_quote->product_inventory) ? $item_quote->product_inventory : rtrim(rtrim(number_format($item_quote->product_inventory, 4, '.', ''), '0'), '.') }}</span>
+                                                            <div
+                                                                class="mt-3 text-13-blue inventory text-right <?php if ($item_quote->type == 2) {
+                                                                    echo 'd-none';
+                                                                } ?>">
+                                                                Tồn kho: <span
+                                                                    class="pl-1 soTonKho">{{ is_int($item_quote->product_inventory) ? $item_quote->product_inventory : rtrim(rtrim(number_format($item_quote->product_inventory, 4, '.', ''), '0'), '.') }}</span>
                                                             </div>
                                                         </td>
                                                         <td
@@ -998,8 +1002,12 @@
                                                                 autocomplete='off' required>
                                                             <input type='hidden' class='tonkho'>
                                                         </div>
-                                                        <div class="mt-3 text-13-blue inventory text-right">
-                                                            Tồn kho: <span class="pl-1 soTonKho">3</span>
+                                                        <div
+                                                            class="mt-3 text-13-blue inventory text-right <?php if ($item_history->type == 2) {
+                                                                echo 'd-none';
+                                                            } ?>">
+                                                            Tồn kho: <span
+                                                                class="pl-1 soTonKho">{{ is_int($item_history->product_inventory) ? $item_history->product_inventory : rtrim(rtrim(number_format($item_history->product_inventory, 4, '.', ''), '0'), '.') }}</span>
                                                         </div>
                                                     </td>
                                                     <td class="border bg-white align-top text-13-black p-1 text-right"

@@ -153,15 +153,18 @@
                                             </span>
                                             <span class="pl-3 text-left">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:17%;">Tên sản phẩm</th>
-                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">Đơn vị</th>
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:17%;">Tên sản
+                                            phẩm</th>
+                                        <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">Đơn vị
+                                        </th>
                                         <th class="border-right p-0 px-2 text-13 text-right" style="width:10%;">
                                             Số lượng
                                         </th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                             Đơn giá
                                         </th>
-                                        <th class="border-right p-0 px-2 text-center text-13 text-left" style="width:10%;">
+                                        <th class="border-right p-0 px-2 text-center text-13 text-left"
+                                            style="width:10%;">
                                             Thuế
                                         </th>
                                         <th class="border-right p-0 px-2 text-right text-13"style="width:15%;">
@@ -178,7 +181,8 @@
                                 <tbody>
                                     @foreach ($quoteExport as $item_quote)
                                         <tr class="bg-white addProduct" style="height:80px;">
-                                            <td class='border-right p-2 text-13 align-top border-bottom' style="">
+                                            <td class='border-right p-2 text-13 align-top border-bottom'
+                                                style="">
                                                 <span class="ml-1 mr-2">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                         height="10" viewBox="0 0 6 10" fill="none">
@@ -203,7 +207,8 @@
                                                     name="product_code[]">
                                             </td>
 
-                                            <td class='border-right p-2 text-13 align-top position-relative border-bottom'>
+                                            <td
+                                                class='border-right p-2 text-13 align-top position-relative border-bottom'>
                                                 <ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data'
                                                     style='z-index: 99;top: 44%;left: 0%;display: none;'>
                                                     @foreach ($product as $product_value)
@@ -270,8 +275,12 @@
                                                         value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
                                                         autocomplete='off' required name='product_qty[]'>
                                                     <input type='hidden' class='tonkho'>
-                                                    <div class="mt-3 text-13-blue inventory text-right">
-                                                        Tồn kho: <span class="pl-1 soTonKho">3</span>
+                                                    <div
+                                                        class="mt-3 text-13-blue inventory text-right <?php if ($item_quote->type == 2) {
+                                                            echo 'd-none';
+                                                        } ?>">
+                                                        Tồn kho: <span
+                                                            class="pl-1 soTonKho">{{ is_int($item_quote->product_inventory) ? $item_quote->product_inventory : rtrim(rtrim(number_format($item_quote->product_inventory, 4, '.', ''), '0'), '.') }}</span>
                                                     </div>
                                                 </div>
                                             </td>

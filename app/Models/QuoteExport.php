@@ -324,12 +324,13 @@ class QuoteExport extends Model
         $quoteExport = QuoteExport::where('detailexport.id', $id)
             ->where('quoteexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
+            ->leftJoin('products', 'quoteexport.product_id', 'products.id')
             ->where(function ($query) {
                 $query->where('quoteexport.product_delivery', null)
                     ->orWhere('quoteexport.product_delivery', 0);
             })
             ->orderBy('quoteexport.created_at', 'desc')
-            ->select('*', 'quoteexport.created_at as ngayChinhSua')
+            ->select('quoteexport.*', 'quoteexport.created_at as ngayChinhSua','quoteexport.product_unit as product_unit','products.product_inventory')
             ->get();
         return $quoteExport;
     }

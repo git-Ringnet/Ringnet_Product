@@ -130,6 +130,7 @@ class DetailExport extends Model
             ->leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
             ->leftJoin('products', 'quoteexport.product_id', 'products.id')
             ->where('quoteexport.status', 1)
+            ->select('quoteexport.*','quoteexport.product_unit as product_unit','quoteexport.product_code as product_code','products.product_inventory')
             ->where(function ($query) {
                 $query->where('quoteexport.product_delivery', null)
                     ->orWhere('quoteexport.product_delivery', 0);
