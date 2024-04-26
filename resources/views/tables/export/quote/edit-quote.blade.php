@@ -1667,6 +1667,7 @@
         toggleListGuest($("#ProjectInput"), $("#listProject"), $("#companyFilter8"));
     });
 
+    var arrProduct = [];
     $(document).ready(function() {
         $(document).on('click', '.search-date-form', function(e) {
             $('.modal').on('hidden.bs.modal', function() {
@@ -2106,6 +2107,16 @@
                 $(this).closest("tr").remove();
                 fieldCounter--;
                 calculateGrandTotal();
+                var deletedProductId = $(this).closest("tr").find('.product_id').val();
+                // Chuyển đổi deletedProductId thành số nguyên (nếu cần)
+                var deletedProductIdInt = parseInt(deletedProductId);
+
+                // Kiểm tra xem deletedProductIdInt có tồn tại trong mảng arrProduct không
+                var index = arrProduct.indexOf(deletedProductIdInt);
+                if (index !== -1) {
+                    // Xóa product_id khỏi mảng arrProduct
+                    arrProduct.splice(index, 1);
+                }
                 var name = $(this).data('name1'); // Lấy giá trị của thuộc tính data-name1
                 var des = $(this).data('des'); // Lấy giá trị của thuộc tính data-des
                 $.ajax({
@@ -2178,6 +2189,24 @@
             $('.product_name').on("click", function(e) {
                 e.stopPropagation();
                 $(this).closest('tr').find(".list_product").show();
+                var clickedRow = $(this).closest('tr');
+                // Lấy product_id của sản phẩm đang chọn trong hàng này
+                var clickedProductId = clickedRow.find('.product_id').val();
+
+                // Lặp qua danh sách sản phẩm để ẩn những sản phẩm đã được chọn và không thuộc hàng đang click
+                $('.list_product li').each(function() {
+                    var productId = $(this).data('id');
+                    if (arrProduct.indexOf(productId) !== -1 &&
+                        productId !==
+                        clickedProductId) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                    if (clickedProductId == productId) {
+                        $(this).show();
+                    }
+                });
             });
             $(document).on("click", function(e) {
                 if (!$(e.target).is(".product_name")) {
@@ -2220,15 +2249,11 @@
                     var inventory = clickedRow.find('.inventory');
                     var clickedProductId = $(this).parent().data('id');
 
-                    if (clickedProductId !== product_id.val()) {
-                        if (clickedRow.siblings().find('.product_id[value="' +
-                                clickedProductId + '"]').length > 0) {
-                            alert(
-                                'Không thể chọn sản phẩm này. Vui lòng chọn sản phẩm khác.'
-                            );
-                            return;
-                        }
-                    }
+                    arrProduct = [];
+                    $('.product_id').each(function() {
+                        arrProduct.push($(this)
+                            .val()); // Thêm product_id vào mảng arrProduct
+                    });
 
                     $.ajax({
                         url: '{{ route('getProduct') }}',
@@ -2257,6 +2282,16 @@
                             $('.recentModal').show();
                             thue.prop('disabled', true);
                             $(".list_product").hide();
+                            arrProduct = [];
+
+                            // Thêm tất cả product_id hiện có vào mảng arrProduct
+                            $('.product_id').each(function() {
+                                // Lấy giá trị 'value' của phần tử input và chuyển đổi thành số nguyên
+                                var productId = parseInt($(this)
+                                    .val(), 10);
+                                // Thêm giá trị vào mảng arrProduct
+                                arrProduct.push(productId);
+                            });
                         }
                     });
                 });
@@ -3116,13 +3151,50 @@
         $(this).closest("tr").remove();
         calculateTotals();
         calculateGrandTotal();
+        // Lấy product_id của hàng đang được xóa
+        var deletedProductId = $(this).closest("tr").find('.product_id').val();
+        // Chuyển đổi deletedProductId thành số nguyên (nếu cần)
+        var deletedProductIdInt = parseInt(deletedProductId);
+
+        // Kiểm tra xem deletedProductIdInt có tồn tại trong mảng arrProduct không
+        var index = arrProduct.indexOf(deletedProductIdInt);
+        if (index !== -1) {
+            // Xóa product_id khỏi mảng arrProduct
+            arrProduct.splice(index, 1);
+        }
     });
 
     //Hiển thị danh sách tên sản phẩm
-    // $(".list_product").hide();
-    $('.product_name').on("click", function(e) {
-        e.stopPropagation();
-        $(this).closest('tr').find(".list_product").show();
+    $(document).ready(function() {
+        $('.product_id').each(function() {
+            // Lấy giá trị 'value' của phần tử input và chuyển đổi thành số nguyên
+            var productId = parseInt($(this).val(), 10);
+
+            // Thêm giá trị vào mảng arrProduct
+            arrProduct.push(productId);
+        });
+        $('.product_name').on("click", function(e) {
+            e.stopPropagation();
+            $(this).closest('tr').find(".list_product").show();
+            var clickedRow = $(this).closest('tr');
+            // Lấy product_id của sản phẩm đang chọn trong hàng này
+            var clickedProductId = clickedRow.find('.product_id').val();
+
+            // Lặp qua danh sách sản phẩm để ẩn những sản phẩm đã được chọn và không thuộc hàng đang click
+            $('.list_product li').each(function() {
+                var productId = $(this).data('id');
+                if (arrProduct.indexOf(productId) !== -1 &&
+                    productId !==
+                    clickedProductId) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+                if (clickedProductId == productId) {
+                    $(this).show();
+                }
+            });
+        });
     });
     $(document).on("click", function(e) {
         if (!$(e.target).is(".product_name")) {
@@ -3156,15 +3228,11 @@
             var inventory = clickedRow.find('.inventory');
             var clickedProductId = $(this).parent().data('id');
 
-            if (clickedProductId !== product_id.val()) {
-                if (clickedRow.siblings().find('.product_id[value="' +
-                        clickedProductId + '"]').length > 0) {
-                    alert(
-                        'Không thể chọn sản phẩm này. Vui lòng chọn sản phẩm khác.'
-                    );
-                    return;
-                }
-            }
+            arrProduct = [];
+            $('.product_id').each(function() {
+                arrProduct.push($(this)
+                    .val()); // Thêm product_id vào mảng arrProduct
+            });
 
             $.ajax({
                 url: '{{ route('getProduct') }}',
@@ -3189,6 +3257,16 @@
                     }
                     thue.prop('disabled', true);
                     $(".list_product").hide();
+                    arrProduct = [];
+
+                    // Thêm tất cả product_id hiện có vào mảng arrProduct
+                    $('.product_id').each(function() {
+                        // Lấy giá trị 'value' của phần tử input và chuyển đổi thành số nguyên
+                        var productId = parseInt($(this)
+                            .val(), 10);
+                        // Thêm giá trị vào mảng arrProduct
+                        arrProduct.push(productId);
+                    });
                 }
             });
         });

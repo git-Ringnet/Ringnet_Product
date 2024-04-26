@@ -134,6 +134,9 @@
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                             Số lượng
                                         </th>
+                                        <th class="border-right p-0 px-2 text-right text-13">
+                                            Quản lý SN
+                                        </th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                             Đơn giá
                                         </th>
@@ -260,30 +263,56 @@
                     style="display: none;" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header align-items-center">
                                 <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
-                                <button type="button" class="close btnclose" data-dismiss="modal"
-                                    aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
+                                <div class="d-flex align-items-center">
+                                    <button type="button"
+                                        class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 btnclose"
+                                        data-dismiss="modal">
+                                        <span>
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM6.03033 4.96967C5.73744 4.67678 5.26256 4.67678 4.96967 4.96967C4.67678 5.26256 4.67678 5.73744 4.96967 6.03033L6.93934 8L4.96967 9.96967C4.67678 10.2626 4.67678 10.7374 4.96967 11.0303C5.26256 11.3232 5.73744 11.3232 6.03033 11.0303L8 9.06066L9.96967 11.0303C10.2626 11.3232 10.7374 11.3232 11.0303 11.0303C11.3232 10.7374 11.3232 10.2626 11.0303 9.96967L9.06066 8L11.0303 6.03033C11.3232 5.73744 11.3232 5.26256 11.0303 4.96967C10.7374 4.67678 10.2626 4.67678 9.96967 4.96967L8 6.93934L6.03033 4.96967Z"
+                                                    fill="#6D7075" />
+                                            </svg>
+                                        </span>
+                                        <span class="text-btnIner-primary ml-2">Hủy</span>
+                                    </button>
+                                    <button type="button"
+                                        class="custom-btn mx-1 d-flex align-items-center h-100 check-seri"
+                                        data-dismiss="">
+                                        <div class="d-flex align-items-center">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    viewBox="0 0 16 16" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                                        fill="white"></path>
+                                                </svg>
+                                            </span>
+                                            <span class="text-btnIner-primary ml-2">Xác nhận</span>
+                                        </div>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <table id="table_SNS">
+                            <div class="modal-body px-0 pb-4 pt-0 m-0">
+                                <table id="table_SNS" class="w-100">
                                     <thead>
                                         <tr>
-                                            <td style="width:2%"></td>
-                                            <th style="width:5%">STT</th>
-                                            <th style="width:100%">Serial number</th>
-                                            <th style="width:3%"></th>
+                                            <th class="border border-right-0 pl-3 py-1 border-top-0 border-checkbox">
+                                                <input type="checkbox">
+                                            </th>
+                                            <th
+                                                class="border border-right-0 border-top-0 border-left-0 py-1 text-secondary">
+                                                STT</th>
+                                            <th class="border border-left-0 border-top-0 py-1 text-secondary">Serial
+                                                number</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                 </table>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary check-seri"
-                                    data-dismiss="">Lưu</button>
                             </div>
                         </div>
                     </div>
@@ -407,7 +436,7 @@
 
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin" name="quotation_number"
-                                class="border-0 w-100 bg-input-guest py-0 py-2 px-2 numberQute " id="myInput"
+                                class="border-0 w-100 bg-input-guest py-2 px-2 numberQute " id="myInput"
                                 style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
                                 value="@isset($yes) {{ $data['quotation_number'] }} @endisset"
                                 required>
@@ -712,23 +741,21 @@
                 "<input type='hidden' class='tonkho'>" +
                 "<p class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='soTonKho'>0</span></p>" +
                 "</div>" +
-                "<div>" +
-                "<button type='button' class='btn btn-primary open-modal-btn d-none' data-toggle='modal' data-target='#exampleModal0' style='background:transparent; border:none;'>" +
-                "<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' fill='none'>" +
-                "<rect width='32' height='32' rx='4' fill='white'></rect>" +
-                "<path fill-rule='evenodd' clip-rule='evenodd' d='M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z' fill='#0095F6'></path>" +
-                "<path fill-rule='evenodd' clip-rule='evenodd' d='M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z' fill='#0095F6'></path>" +
-                "<path fill-rule='evenodd' clip-rule='evenodd' d='M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z' fill='#0095F6'></path>" +
-                "<path fill-rule='evenodd' clip-rule='evenodd' d='M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z' fill='#0095F6'></path>" +
-                "</svg>" +
-                "</button>" +
-                "</div>" +
                 "</div>" +
                 "</td>" +
                 "</td>" +
                 "<td class='text-center ui-sortable-handle d-none'>" +
                 "<input class='check-add-sn' type='checkbox' name='cbSeri[]' value='1'>" +
                 "</td>"
+            );
+            const quanLySN = $(
+                `<td class="border-right p-2 text-13 align-top border-bottom">
+                    <a class="open-modal-btn text-center d-none" href="#" data-target="#exampleModal0" data-toggle="modal">
+                        <div class="sn--modal pt-2">
+                            <span class="border-span--modal">SN</span>
+                        </div>
+                    </a>
+                </td>`
             );
             const donGia = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
@@ -769,7 +796,8 @@
             );
             // 
             // Gắn các phần tử vào hàng mới
-            newRow.append(maSanPham, tenSanPham, dvTinh, soLuong, donGia, thue, thanhTien, ghiChu,
+            newRow.append(maSanPham, tenSanPham, dvTinh, soLuong, quanLySN, donGia, thue, thanhTien,
+                ghiChu,
                 option);
             $("#dynamic-fields").before(newRow);
             // Tăng giá trị fieldCounter
@@ -1022,11 +1050,11 @@
                                                                     snId
                                                                 );
                                                             var newRow = `<tr style="">
-                                                                <td class="ui-sortable-handle">
+                                                                <td class="border-bottom pl-3 border-checkbox">
                                                                     <input type="checkbox" class="check-item" data-product-id-sn="${sn.product_id}" value="${sn.id}" ${isChecked ? 'checked' : ''}>
                                                                 </td>
-                                                                <td class="ui-sortable-handle">${currentIndex}</td>
-                                                                <td class="ui-sortable-handle">
+                                                                <td class="border-bottom">${currentIndex}</td>
+                                                                <td class="border-bottom">
                                                                     <input readonly class="form-control w-25" type="text" value="${sn.serinumber}">
                                                                 </td>
                                                             </tr>`;
@@ -1961,18 +1989,14 @@
                                         <input type="hidden" class="tonkho">
                                         <p class="mt-3 text-13-blue inventory text-right ${item.type == 2 ? "d-none" : 'd-block'}">Tồn kho: <span class="soTonKho">${formatNumber(item.product_inventory == null ? 0 : item.product_inventory)}</span></p>
                                         </div>  
-                                        <div>
-                                        <button type="button" class="btn btn-primary open-modal-btn" data-toggle="modal" data-target="#exampleModal0" style="background:transparent; border:none;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                                                <rect width="32" height="32" rx="4" fill="white"></rect>
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z" fill="#0095F6"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z" fill="#0095F6"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z" fill="#0095F6"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z" fill="#0095F6"></path>
-                                            </svg>
-                                        </button>
                                         </div>
-                                        </div>
+                                    </td>
+                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                        <a class="open-modal-btn text-center" href="#" data-target="#exampleModal0" data-toggle="modal">
+                                            <div class="sn--modal pt-2">
+                                                <span class="border-span--modal">SN</span>
+                                            </div>
+                                        </a>
                                     </td>
                                     <td class="text-center d-none">
                                         <input class="check-add-sn" data-seri="${item.maSP}" type="checkbox" name="cbSeri[]" value="1" ${(item.check_seri == 1) ? 'checked' : ''}>    
@@ -2962,11 +2986,11 @@
                                                                 );
                                                             var newRow = `
                     <tr style="">
-                        <td class="ui-sortable-handle">
+                        <td class="border-bottom pl-3 border-checkbox">
                             <input type="checkbox" data-product-id-sn="${sn.product_id}" class="check-item" value="${sn.id}" ${isChecked ? 'checked' : ''}>
                         </td>
-                        <td class="ui-sortable-handle">${currentIndex}</td>
-                        <td class="ui-sortable-handle">
+                        <td class="border-bottom">${currentIndex}</td>
+                        <td class="border-bottom">
                             <input readonly class="form-control w-25" type="text" value="${sn.serinumber}">
                         </td>
                     </tr>`;

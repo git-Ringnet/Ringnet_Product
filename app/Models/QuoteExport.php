@@ -315,7 +315,7 @@ class QuoteExport extends Model
         $products = DB::table('quoteexport')
             ->whereIn('product_id', $id)
             ->join('products', 'quoteexport.product_id', '=', 'products.id')
-            ->select('products.*', 'quoteexport.*', 'quoteexport.product_qty')
+            ->select('products.product_inventory', 'quoteexport.*', 'quoteexport.product_qty', 'quoteexport.product_unit')
             ->get();
         return $products;
     }
@@ -330,7 +330,7 @@ class QuoteExport extends Model
                     ->orWhere('quoteexport.product_delivery', 0);
             })
             ->orderBy('quoteexport.created_at', 'desc')
-            ->select('quoteexport.*', 'quoteexport.created_at as ngayChinhSua','quoteexport.product_unit as product_unit','products.product_inventory')
+            ->select('quoteexport.*', 'quoteexport.created_at as ngayChinhSua', 'quoteexport.product_unit as product_unit', 'products.product_inventory')
             ->get();
         return $quoteExport;
     }

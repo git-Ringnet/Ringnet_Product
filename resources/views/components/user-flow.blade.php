@@ -12,7 +12,6 @@
                     des: des,
                 },
                 success: function(data) {
-                    console.log(data);
                 }
             });
         });

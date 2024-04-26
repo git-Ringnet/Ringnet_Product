@@ -263,7 +263,7 @@ class Delivery extends Model
     {
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->leftJoin('products', 'products.id', 'quoteexport.product_id')
-            ->select('*', 'detailexport.id as maXuat', 'quoteexport.product_id as maSP')
+            ->select('quoteexport.*', 'detailexport.id as maXuat', 'quoteexport.product_id as maSP')
             ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) as soLuongCanGiao')
             ->leftJoin('serialnumber', function ($join) {
                 $join->on('serialnumber.product_id', '=', 'products.id');

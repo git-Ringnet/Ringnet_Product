@@ -162,12 +162,14 @@
                                             <th class="border-right p-0 px-2 text-13" style="width:15%;">
                                                 <span class="text-left ml-2">Mã sản phẩm</span>
                                             </th>
-                                            <th class="border-right p-0 px-2 text-13" style="width:17%;">
+                                            <th class="border-right p-0 px-2 text-13" style="width:15%;">
                                                 Tên sản phẩm
                                             </th>
                                             <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
                                             <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                                 Số lượng</th>
+                                            <th class="border-right p-0 px-2 text-center text-13" style="width:8%;">
+                                                Quản lý SN</th>
                                             <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">
                                                 Đơn giá</th>
                                             <th class="border-right p-0 px-2 text-center text-13" style="width:10%;">
@@ -238,36 +240,6 @@
                                                                 autocomplete="off" name="product_qty[]">
                                                             <input type="hidden" class="tonkho">
                                                         </div>
-                                                        <div class="">
-                                                            @if ($item_quote->check_seri == 1)
-                                                                <a href="#" class="btn btn-primary sn1 activity"
-                                                                    data-name1="GH" data-des="Xem S/N sản phẩm"
-                                                                    data-row="row{{ $item_quote->product_id }}"
-                                                                    data-toggle="modal"
-                                                                    data-target="#exampleModal{{ $item_quote->product_id }}"
-                                                                    style="background:transparent; border:none;">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        width="32" height="32"
-                                                                        viewBox="0 0 32 32" fill="none">
-                                                                        <rect width="32" height="32"
-                                                                            rx="4" fill="white">
-                                                                        </rect>
-                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                            d="M11.9062 10.643C11.9062 10.2092 12.258 9.85742 12.6919 9.85742H24.2189C24.6528 9.85742 25.0045 10.2092 25.0045 10.643C25.0045 11.0769 24.6528 11.4286 24.2189 11.4286H12.6919C12.258 11.4286 11.9062 11.0769 11.9062 10.643Z"
-                                                                            fill="#0095F6"></path>
-                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                            d="M11.9062 16.4707C11.9062 16.0368 12.258 15.6851 12.6919 15.6851H24.2189C24.6528 15.6851 25.0045 16.0368 25.0045 16.4707C25.0045 16.9045 24.6528 17.2563 24.2189 17.2563H12.6919C12.258 17.2563 11.9062 16.9045 11.9062 16.4707Z"
-                                                                            fill="#0095F6"></path>
-                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                            d="M11.9062 22.2978C11.9062 21.8639 12.258 21.5122 12.6919 21.5122H24.2189C24.6528 21.5122 25.0045 21.8639 25.0045 22.2978C25.0045 22.7317 24.6528 23.0834 24.2189 23.0834H12.6919C12.258 23.0834 11.9062 22.7317 11.9062 22.2978Z"
-                                                                            fill="#0095F6"></path>
-                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                            d="M6.6665 10.6431C6.6665 9.91981 7.25282 9.3335 7.97607 9.3335C8.69932 9.3335 9.28563 9.91981 9.28563 10.6431C9.28563 11.3663 8.69932 11.9526 7.97607 11.9526C7.25282 11.9526 6.6665 11.3663 6.6665 10.6431ZM6.6665 16.4705C6.6665 15.7473 7.25282 15.161 7.97607 15.161C8.69932 15.161 9.28563 15.7473 9.28563 16.4705C9.28563 17.1938 8.69932 17.7801 7.97607 17.7801C7.25282 17.7801 6.6665 17.1938 6.6665 16.4705ZM7.97607 20.9884C7.25282 20.9884 6.6665 21.5747 6.6665 22.298C6.6665 23.0212 7.25282 23.6075 7.97607 23.6075C8.69932 23.6075 9.28563 23.0212 9.28563 22.298C9.28563 21.5747 8.69932 20.9884 7.97607 20.9884Z"
-                                                                            fill="#0095F6"></path>
-                                                                    </svg>
-                                                                </a>
-                                                            @endif
-                                                        </div>
                                                     </div>
                                                     @if ($item_quote->type != 2)
                                                         <div class='text-13-blue inventory text-right mt-3'>Tồn kho:
@@ -278,19 +250,37 @@
                                                     @endif
                                                 </td>
                                                 <td class="border-right p-2 text-13 align-top border-bottom">
+                                                    <div class="d-flex align-items-center">
+                                                        @if ($item_quote->check_seri == 1)
+                                                            <a href="#" class="btn btn-primary sn1 activity"
+                                                                data-name1="GH" data-des="Xem S/N sản phẩm"
+                                                                data-row="row{{ $item_quote->product_id }}"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal{{ $item_quote->product_id }}"
+                                                                style="background:transparent; border:none;">
+                                                                <div class="sn--modal pt-2">
+                                                                    <span class="border-span--modal">SN</span>
+                                                                </div>
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                                <td class="border-right p-2 text-13 align-top border-bottom">
                                                     <input type="text"
                                                         value="{{ number_format($item_quote->price_export) }}"
                                                         class="text-right border-0 px-2 py-1 w-100 product_price"
                                                         autocomplete="off" name="product_price[]" readonly>
                                                     <a href="#" class="activity" data-name1="GH"
                                                         data-des="Xem giao dịch gần đây">
-                                                        <div class="mt-3 text-13-blue recentModal" data-toggle="modal"
-                                                            data-target="#recentModal" style="">
+                                                        <div class="mt-3 text-13-blue recentModal text-right"
+                                                            data-toggle="modal" data-target="#recentModal"
+                                                            style="">
                                                             Giao dịch gần đây
                                                         </div>
                                                     </a>
                                                 </td>
-                                                <td class="border-right p-2 text-13 align-top text-center border-bottom">
+                                                <td
+                                                    class="border-right p-2 text-13 align-top text-center border-bottom">
                                                     <select name="product_tax[]"
                                                         class="border-0 text-center product_tax" disabled>
                                                         <option value="0" <?php if ($item_quote->product_tax == 0) {
@@ -394,13 +384,17 @@
                             <span aria-hidden="true">×</span>
                         </a>
                     </div>
-                    <div class="modal-body">
-                        <table id="table_SNS">
+                    <div class="modal-body px-0 pb-4 pt-0 m-0">
+                        <table id="table_SNS" class="w-100">
                             <thead>
                                 <tr>
-                                    <td style="width:2%"></td>
-                                    <th style="width:5%">STT</th>
-                                    <th style="width:100%">Serial number</th>
+                                    <th class="border border-right-0 pl-3 py-1 border-top-0 border-checkbox">
+                                        <input type="checkbox">
+                                    </th>
+                                    <th class="border border-right-0 border-top-0 border-left-0 py-1 text-secondary">
+                                        STT</th>
+                                    <th class="border border-left-0 border-top-0 py-1 text-secondary">Serial
+                                        number</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -410,15 +404,15 @@
                                 @foreach ($serinumber as $item_seri)
                                     @if ($item->product_id == $item_seri->product_id)
                                         <tr>
-                                            <td>
+                                            <td class="border-bottom pl-3 border-checkbox">
                                                 <input name="id_seri[]"
                                                     {{ $item_seri->detailexport_id == $delivery->detailexport_id ? 'checked' : '' }}
                                                     type="checkbox" class="check-item" disabled
                                                     data-product-id={{ $item_seri->product_id }}
                                                     value="{{ $item_seri->idSeri }}">
                                             </td>
-                                            <td class="text-center">{{ $stt++ }}</td>
-                                            <td>
+                                            <td class="border-bottom">{{ $stt++ }}</td>
+                                            <td class="border-bottom">
                                                 <input readonly class="form-control w-100" type="text"
                                                     value="{{ $item_seri->serinumber }}">
                                             </td>

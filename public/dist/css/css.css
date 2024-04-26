@@ -1663,6 +1663,17 @@ input[type="checkbox"] {
     margin-right: -20px;
 }
 
+#table_SNS .form-control[readonly] {
+    background-color: transparent;
+    opacity: 1;
+    border: none;
+}
+
+.border-checkbox input[type="checkbox"]{
+    accent-color: #6772CC;
+    outline: #6772CC;
+}
+
 @media (max-width: 768px) {
     #table_SNS tbody input {
         width: 100% !important;

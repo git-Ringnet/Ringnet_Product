@@ -753,28 +753,56 @@
             style="display: none;" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header align-items-center">
                         <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
-                        <button type="button" class="close btnclose" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
+                        <div class="d-flex align-items-center">
+                            <button type="button"
+                                class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 btnclose"
+                                data-dismiss="modal">
+                                <span>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM6.03033 4.96967C5.73744 4.67678 5.26256 4.67678 4.96967 4.96967C4.67678 5.26256 4.67678 5.73744 4.96967 6.03033L6.93934 8L4.96967 9.96967C4.67678 10.2626 4.67678 10.7374 4.96967 11.0303C5.26256 11.3232 5.73744 11.3232 6.03033 11.0303L8 9.06066L9.96967 11.0303C10.2626 11.3232 10.7374 11.3232 11.0303 11.0303C11.3232 10.7374 11.3232 10.2626 11.0303 9.96967L9.06066 8L11.0303 6.03033C11.3232 5.73744 11.3232 5.26256 11.0303 4.96967C10.7374 4.67678 10.2626 4.67678 9.96967 4.96967L8 6.93934L6.03033 4.96967Z"
+                                            fill="#6D7075" />
+                                    </svg>
+                                </span>
+                                <span class="text-btnIner-primary ml-2">Hủy</span>
+                            </button>
+                            <button type="button"
+                                class="custom-btn mx-1 d-flex align-items-center h-100 check-seri"
+                                data-dismiss="">
+                                <div class="d-flex align-items-center">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 16 16" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
+                                                fill="white"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="text-btnIner-primary ml-2">Xác nhận</span>
+                                </div>
+                            </button>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <table id="table_SNS">
+                    <div class="modal-body px-0 pb-4 pt-0 m-0">
+                        <table id="table_SNS" class="w-100">
                             <thead>
                                 <tr>
-                                    <td style="width:2%"></td>
-                                    <th style="width:5%">STT</th>
-                                    <th style="width:100%">Serial number</th>
-                                    <th style="width:3%"></th>
+                                    <th class="border border-right-0 pl-3 py-1 border-top-0 border-checkbox">
+                                        <input type="checkbox">
+                                    </th>
+                                    <th
+                                        class="border border-right-0 border-top-0 border-left-0 py-1 text-secondary">
+                                        STT</th>
+                                    <th class="border border-left-0 border-top-0 py-1 text-secondary">Serial
+                                        number</th>
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary check-seri" data-dismiss="">Lưu</button>
                     </div>
                 </div>
             </div>
@@ -1121,11 +1149,11 @@
                                                                                 snId
                                                                             );
                                                                         var newRow = `<tr style="">
-                                                                <td class="ui-sortable-handle">
+                                                                <td class="border-bottom pl-3 border-checkbox">
                                                                     <input type="checkbox" class="check-item" data-product-id-sn="${sn.product_id}" value="${sn.id}" ${isChecked ? 'checked' : ''}>
                                                                 </td>
-                                                                <td class="ui-sortable-handle">${currentIndex}</td>
-                                                                <td class="ui-sortable-handle">
+                                                                <td class="border-bottom ">${currentIndex}</td>
+                                                                <td class="border-bottom ">
                                                                     <input readonly class="form-control w-25" type="text" value="${sn.serinumber}">
                                                                 </td>
                                                             </tr>`;

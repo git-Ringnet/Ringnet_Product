@@ -1616,6 +1616,7 @@
         });
 
         let fieldCounter = 1;
+        var arrProduct = [];
         $("#add-field-btn").click(function() {
             let nextSoTT = $(".soTT").length + 1;
             // Tạo các phần tử HTML mới
@@ -1746,13 +1747,24 @@
             });
             //Xóa sản phẩm
             option.click(function() {
+                // Lấy product_id của hàng đang được xóa
+                var deletedProductId = $(this).closest("tr").find('.product_id').val();
+
+                // Xóa hàng
                 $(this).closest("tr").remove();
                 fieldCounter--;
                 calculateTotalAmount();
                 calculateGrandTotal();
-            });
-            //Lưu thao tác chức năng
-            option.click(function() {
+
+                // Chuyển đổi deletedProductId thành số nguyên (nếu cần)
+                var deletedProductIdInt = parseInt(deletedProductId);
+
+                // Kiểm tra xem deletedProductIdInt có tồn tại trong mảng arrProduct không
+                var index = arrProduct.indexOf(deletedProductIdInt);
+                if (index !== -1) {
+                    // Xóa product_id khỏi mảng arrProduct
+                    arrProduct.splice(index, 1);
+                }
                 var name = $(this).data('name1'); // Lấy giá trị của thuộc tính data-name1
                 var des = $(this).data('des'); // Lấy giá trị của thuộc tính data-des
                 $.ajax({
@@ -1805,20 +1817,6 @@
             //         $(".list_code").hide();
             //     }
             // });
-            //Hiển thị danh sách tên sản phẩm
-            $(".list_product").hide();
-            $('.product_name').on("click", function(e) {
-                e.stopPropagation();
-                $(".list_product").hide();
-
-                var listProduct = $(this).closest('tr').find(".list_product");
-                listProduct.toggle();
-            });
-            $(document).on("click", function(e) {
-                if (!$(e.target).is(".product_name")) {
-                    $(".list_product").hide();
-                }
-            });
             //search mã sản phẩm
             // $(".product_code").on("keyup", function() {
             //     var value = $(this).val().toUpperCase();
@@ -1839,6 +1837,39 @@
             });
             //lấy thông tin sản phẩm
             $(document).ready(function() {
+                //Hiển thị danh sách tên sản phẩm
+                $(".list_product").hide();
+                $('.product_name').on("click", function(e) {
+                    e.stopPropagation();
+                    $(".list_product").hide();
+
+                    var clickedRow = $(this).closest('tr');
+                    var listProduct = clickedRow.find(".list_product");
+                    listProduct.toggle();
+
+                    // Lấy product_id của sản phẩm đang chọn trong hàng này
+                    var clickedProductId = clickedRow.find('.product_id').val();
+
+                    // Lặp qua danh sách sản phẩm để ẩn những sản phẩm đã được chọn và không thuộc hàng đang click
+                    $('.list_product li').each(function() {
+                        var productId = $(this).data('id');
+                        if (arrProduct.indexOf(productId) !== -1 &&
+                            productId !==
+                            clickedProductId) {
+                            $(this).hide();
+                        } else {
+                            $(this).show();
+                        }
+                        if (clickedProductId == productId) {
+                            $(this).show();
+                        }
+                    });
+                });
+                $(document).on("click", function(e) {
+                    if (!$(e.target).is(".product_name")) {
+                        $(".list_product").hide();
+                    }
+                });
                 $('.idProduct').off('click').on('click', function(event) {
                     event.stopPropagation();
 
@@ -1856,15 +1887,11 @@
                     var inventory = clickedRow.find('.inventory');
                     var clickedProductId = $(this).parent().data('id');
 
-                    if (clickedProductId !== product_id.val()) {
-                        if (clickedRow.siblings().find('.product_id[value="' +
-                                clickedProductId + '"]').length > 0) {
-                            alert(
-                                'Không thể chọn sản phẩm này. Vui lòng chọn sản phẩm khác.'
-                            );
-                            return;
-                        }
-                    }
+                    arrProduct = [];
+                    $('.product_id').each(function() {
+                        arrProduct.push($(this)
+                            .val()); // Thêm product_id vào mảng arrProduct
+                    });
 
                     $.ajax({
                         url: '{{ route('getProduct') }}',
@@ -1897,6 +1924,16 @@
                             }
                             thue.prop('disabled', true);
                             $(".list_product").hide();
+                            arrProduct = [];
+
+                            // Thêm tất cả product_id hiện có vào mảng arrProduct
+                            $('.product_id').each(function() {
+                                // Lấy giá trị 'value' của phần tử input và chuyển đổi thành số nguyên
+                                var productId = parseInt($(this)
+                                    .val(), 10);
+                                // Thêm giá trị vào mảng arrProduct
+                                arrProduct.push(productId);
+                            });
                         }
                     });
                 });
@@ -1941,7 +1978,6 @@
                         idProduct: idProduct
                     },
                     success: function(data) {
-                        console.log(data);
                         if (Array.isArray(data) && data.length > 0) {
                             $('#recentModal .modal-body tbody').empty();
                             data.forEach(function(productData) {
