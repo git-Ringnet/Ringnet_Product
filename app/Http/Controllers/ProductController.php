@@ -208,7 +208,6 @@ class ProductController extends Controller
         $request->validate([
             'file' => 'required|mimes:xlsx,xls'
         ]);
-        // dd($request->file('file'));
         Excel::import(new ImportDB(), $request->file('file'));
 
         return redirect()->back()->with('success', 'Dữ liệu đã được import thành công.');

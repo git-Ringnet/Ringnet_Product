@@ -109,7 +109,7 @@
                                                 disabled>
                                             <label for="html" class="m-0">Hàng hóa</label>
                                             <input type="radio" id="dichvu" name="type_product" value="2"
-                                                class="py-2 ml-4" @if ($product->type == 2) checked @endif
+                                                class="py-2 ml-5" @if ($product->type == 2) checked @endif
                                                 disabled>
                                             <label for="html" class="m-0">Dịch vụ</label>
                                         </div>

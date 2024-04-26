@@ -60,7 +60,6 @@ class RecieptController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
-            // ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
             ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.reciept_qty,0)'))
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->distinct()
@@ -79,7 +78,6 @@ class RecieptController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         if (isset($request->id_import)) {
             $id = $request->id_import;
         } else {
@@ -146,7 +144,6 @@ class RecieptController extends Controller
         }
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        // $product = QuoteImport::where('receive_id', $reciept->receive_id)->get();
         $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
         ->join('products', 'quoteimport.product_name', 'products.product_name')
             ->where('products_import.detailimport_id', $reciept->detailimport_id)
@@ -218,7 +215,6 @@ class RecieptController extends Controller
     public function show_reciept(Request $request)
     {
         $data = [];
-        // $detail = Receive_bill::FindOrFail($request->detail_id);
         $detail = DetailImport::where('id', $request->detail_id)
             ->where('workspace_id', Auth::user()->current_workspace)->first();
         $name =  $detail->getNameProvide->provide_name_display;

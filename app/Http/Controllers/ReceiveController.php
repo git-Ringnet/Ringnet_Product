@@ -57,7 +57,6 @@ class ReceiveController extends Controller
         $receive->select('receive_bill.*');
         $receive = $receive->get();
 
-        // dd($receive);
         // ->paginate($perPage);
         return view('tables.receive.receive', compact('receive', 'title', 'workspacename'));
     }
@@ -72,7 +71,6 @@ class ReceiveController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $listDetail = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
-            // ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
             ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(quoteimport.receive_qty,0)'))
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->select('detailimport.quotation_number', 'detailimport.id')
@@ -90,7 +88,6 @@ class ReceiveController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         // Quick Action

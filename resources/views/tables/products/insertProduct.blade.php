@@ -68,7 +68,7 @@
                                         class="py-2" checked>
                                     <label for="html" class="m-0">Hàng hóa</label>
                                     <input type="radio" id="dichvu" name="type_product" value="2"
-                                        class="py-2 ml-4">
+                                        class="py-2 ml-5">
                                     <label for="html" class="m-0">Dịch vụ</label>
                                 </div>
                             </div>

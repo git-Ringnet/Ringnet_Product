@@ -48,7 +48,6 @@ class PayOrderController extends Controller
         $payment = $payment->get();
         // ->paginate($perPage);
         $today = Carbon::now();
-        // dd($payment[0]->formatDate($payment[0]->payment_date)->diffInDays($today));
         return view('tables.paymentOrder.paymentOrder', compact('title', 'payment', 'today', 'workspacename'));
     }
 
@@ -73,7 +72,6 @@ class PayOrderController extends Controller
 
         $reciept->select('detailimport.quotation_number', 'detailimport.id');
         $reciept = $reciept->get();
-        // $reciept = Reciept::where('status', '=', 1)->get();
         return view('tables.paymentOrder.insertPaymentOrder', compact('title', 'reciept', 'workspacename'));
     }
 
@@ -224,7 +222,6 @@ class PayOrderController extends Controller
             ->leftJoin('pay_order', 'detailimport.id', 'pay_order.detailimport_id')
             ->where('quoteimport.detailimport_id', $request->id)
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
-            // ->where('product_qty', '>', DB::raw('COALESCE(payment_qty,0)'))
             ->select('detailimport.*', 'pay_order.*', 'quoteimport.*', 'products.product_inventory as inventory')
             ->get();
     }

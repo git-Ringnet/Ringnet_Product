@@ -40,7 +40,8 @@ class Kernel extends ConsoleKernel
                     } elseif ($daysDiff < 0) {
                         $status = 4;
                     } else {
-                        $status = 1;
+                        // $status = 1;
+                        $status = $pay->status;
                     }
                     $dataUpdate = [
                         'status' => $status,

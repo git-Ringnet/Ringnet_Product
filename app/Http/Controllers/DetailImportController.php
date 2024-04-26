@@ -79,7 +79,6 @@ class DetailImportController extends Controller
         // ->paginate($perPage);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        // $import = $this->import->getAllImport();
         return view('tables.import.import', compact('title', 'import', 'workspacename'));
     }
 
@@ -89,12 +88,10 @@ class DetailImportController extends Controller
     public function create()
     {
         $title = "Tạo đơn mua hàng";
-        // $provides = Provides::all();
         $provides = Provides::where('workspace_id', Auth::user()->current_workspace)->get();
         $project = Project::all();
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        // $products = Products::all();
         return view('tables.import.insertImport', compact('title', 'provides', 'project', 'workspacename'));
     }
 
@@ -124,7 +121,6 @@ class DetailImportController extends Controller
      */
     public function show(string $workspace, string $id)
     {
-        // $import = DetailImport::findOrFail($id);
         $import = DetailImport::where('id', $id);
         if (Auth::check()) {
             if (Auth::user()->getRoleUser->roleid == 4) {
@@ -155,7 +151,6 @@ class DetailImportController extends Controller
      */
     public function edit(string $workspace, string $id)
     {
-        // $import = DetailImport::findOrFail($id);
         $import = DetailImport::where('id', $id);
         if (Auth::check()) {
             if (Auth::user()->getRoleUser->roleid == 4) {
@@ -246,7 +241,6 @@ class DetailImportController extends Controller
                     ->distinct()
                     ->select('detailimport.quotation_number', 'detailimport.id')
                     ->get();
-                // dd($show_receive);
                 $yes = true;
                 return view('tables.reciept.insertReciept', compact('yes', 'title', 'reciept', 'recieptProduct', 'show_receive', 'workspacename'));
             }
@@ -349,7 +343,6 @@ class DetailImportController extends Controller
         $data = $request->all();
         if (isset($data['quotetion_number'])) {
             $checkQuotetion = DetailImport::where('quotation_number', $data['quotetion_number'])
-                // ->where('provide_id', $data['provide_id'])
                 ->where('workspace_id', Auth::user()->current_workspace);
             if (isset($data['detail_id'])) {
                 $checkQuotetion->where('id', '!=', $data['detail_id']);
@@ -1128,11 +1121,11 @@ class DetailImportController extends Controller
             $product = Products::where('product_name', $request->product_name)->first();
             if ($product) {
                 $history = QuoteImport::leftJoin('detailimport', 'detailimport.id', 'quoteimport.detailimport_id')
-                    ->leftJoin('provides','provides.id','detailimport.provide_id')
+                    ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
                     ->where('quoteimport.product_name', $request->product_name)
                     ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
                     ->where('detailimport.status', 2)
-                    ->select('quoteimport.*','provides.provide_name_display as nameProvide','detailimport.created_at as create')
+                    ->select('quoteimport.*', 'provides.provide_name_display as nameProvide', 'detailimport.created_at as create')
                     ->get();
                 $data['history'] = $history;
             }
@@ -1238,7 +1231,6 @@ class DetailImportController extends Controller
                         }
                         $data['total'] = $detailImport->total_tax;
                         $data['status'] = true;
-                        // return $request->all();
                     }
                 }
                 if ($product) {
@@ -1272,17 +1264,6 @@ class DetailImportController extends Controller
                     $data['title_payment'] = "Thanh toán mua hàng";
                 }
             }
-
-            // $quoteImport = QuoteImport::where('detailimport_id',$detailImport->id)->get();
-            // if($quoteImport){
-            //     foreach($quoteImport as $value){
-            //         if($value->receive_qty != 0){
-            //             $data['receive'] = false;
-            //             break;
-            //         }
-            //     }
-            // }
-            // return $detailImport;
         }
         return $data;
     }

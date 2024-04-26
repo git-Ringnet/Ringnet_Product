@@ -117,17 +117,17 @@
                                 <div class="content-info">
 
                                     <div class="d-flex align-items-center height-60-mobile">
-                                        <div class="title-info py-2 border border-left-0 height-100">
+                                        <div class="title-info py-2 border border-left-0 height-100 border-bottom-0">
                                             <p class="p-0 m-0 text-danger margin-left32 text-13">Danh mục sản phẩm</p>
                                         </div>
                                         <div
-                                            class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black d-flex">
+                                            class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black d-flex border-bottom-0">
                                             <input type="radio" id="hanghoa" name="type_product" value="1"
                                                 class="py-2" @if ($product->type == 1) checked @endif
                                                 disabled>
                                             <label for="html" class="m-0">Hàng hóa</label>
                                             <input type="radio" id="dichvu" name="type_product" value="2"
-                                                class="py-2 ml-4" @if ($product->type == 2) checked @endif
+                                                class="py-2 ml-5" @if ($product->type == 2) checked @endif
                                                 disabled>
                                             <label for="html" class="m-0">Dịch vụ</label>
                                         </div>
@@ -452,7 +452,7 @@
                                             fill='#6B6F76' />
                                     </svg>
                                 </th>
-                                <th scope="col" class="text-13 text-nowrap">
+                                {{-- <th scope="col" class="text-13 text-nowrap">
                                     <span>Chiết khấu</span>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
                                         viewBox='0 0 16 16' fill='none'>
@@ -460,7 +460,7 @@
                                             d='M4.51988 5.6738C4.20167 5.939 4.15868 6.41191 4.42385 6.73012C4.68903 7.04833 5.16195 7.09132 5.48016 6.82615L7.25 5.3513V12.25C7.25 12.6642 7.58579 13 8 13C8.41421 13 8.75 12.6642 8.75 12.25V5.3512L10.5199 6.82615C10.8381 7.09132 11.311 7.04833 11.5762 6.73012C11.8414 6.41191 11.7984 5.939 11.4802 5.6738L8.48016 3.1738C8.20202 2.942 7.79802 2.942 7.51988 3.1738L4.51988 5.6738Z'
                                             fill='#6B6F76' />
                                     </svg>
-                                </th>
+                                </th> --}}
                                 <th scope="col" class="text-13 text-nowrap text-right">
                                     <span>Tiền thuế</span>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
@@ -505,42 +505,42 @@
                                     @endphp
                                 @endif
                                 <tr class="bg-white">
-                                    <td class="padding-left35 text-13-black">
+                                    <td class="padding-left35 text-13-black border-top-0 border-bottom">
                                         {{ date_format(new DateTime($htr->created_at), 'd/m/Y') }}
                                     </td>
-                                    <td class="text-13-black">
+                                    <td class="text-13-black border-top-0 border-bottom">
                                         @if ($htr->getQuotetion)
                                             {{ $htr->getQuotetion->quotation_number }}
                                         @endif
                                     </td>
-                                    <td class="text-13-black">
+                                    <td class="text-13-black border-top-0 border-bottom">
                                         @if ($htr->getQuotetion)
                                             {{ $htr->getQuotetion->provide_name }}
                                         @endif
                                     </td>
-                                    <td class="text-13-black text-right">
+                                    <td class="text-13-black text-right border-top-0 border-bottom">
                                         {{ number_format($htr->product_qty) }}
                                     </td>
-                                    <td class="text-13-black text-right">
+                                    <td class="text-13-black text-right border-top-0 border-bottom">
                                         @if ($htr->getQuoteImport)
                                             {{ number_format($htr->getQuoteImport->price_export) }}
                                         @endif
                                     </td>
-                                    <td class="text-13-black text-right">
+                                    <td class="text-13-black text-right border-top-0 border-bottom">
                                         @if ($htr->getQuoteImport)
                                             {{ number_format($totalPrice) }}
                                         @endif
                                     </td>
-                                    <td class="text-13-black">Chiết khấu</td>
-                                    <td class="text-13-black text-right">
+                                    {{-- <td class="text-13-black">Chiết khấu</td> --}}
+                                    <td class="text-13-black text-right border-top-0 border-bottom">
                                         @if ($htr->getQuoteImport)
                                             {{ number_format($totalTax) }}
                                         @endif
                                     </td>
-                                    <td class="text-13-black text-right">
+                                    <td class="text-13-black text-right border-top-0 border-bottom">
                                         {{ number_format($totalPrice + $totalTax) }}
                                     </td>
-                                    <td class="text-13-black text-center">
+                                    <td class="text-13-black text-center border-top-0 border-bottom">
                                         @if (
                                             $htr->getQuotetion->status_receive == 2 &&
                                                 $htr->getQuotetion->status_reciept == 2 &&
@@ -651,9 +651,9 @@
                                     @foreach ($item->getSerialNumber as $sn)
                                         @if ($item->product_id == $sn->product_id)
                                             <tr class="bg-white">
-                                                <td class="text-14-black padding-left35 text-left"
+                                                <td class="text-14-black padding-left35 text-left border-top-0 border-bottom"
                                                     style="width: 33.34%;"> {{ $sn->serinumber }} </td>
-                                                <td class= "text-14-blue text-left" style="width: 33.34%;">
+                                                <td class= "text-14-blue text-left border-top-0 border-bottom" style="width: 33.34%;">
                                                     <span style="display:block;" class="text-14-blue">
                                                         <a
                                                             href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->getReceive->id]) }}">
@@ -664,7 +664,7 @@
                                                         {{ date_format(new DateTime($sn->created_at), 'd-m-Y') }}
                                                     </span>
                                                 </td>
-                                                <td class="text-14-blue text-left"style="width: 33.34%;">
+                                                <td class="text-14-blue text-left border-top-0 border-bottom"style="width: 33.34%;">
                                                     @if ($sn->getQuotation)
                                                         <span style="display:block;" class="text-14-blue">
                                                             <a

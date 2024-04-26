@@ -127,7 +127,7 @@
                         <table id="example2" class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col" class="border-bottom" style="width:5%;padding-left: 2rem;"
+                                    <th scope="col" class="border-bottom border-top-0" style="width:5%;padding-left: 2rem;"
                                         class="border-top-0 bg-white">
                                         <input type="checkbox" name="all" id="checkall" class="checkall-btn">
 

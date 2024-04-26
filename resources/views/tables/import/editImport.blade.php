@@ -208,7 +208,7 @@
                                                             name="product_name[]"
                                                             class="searchProductName border-0 px-2 py-1 w-100"
                                                             value="{{ $item->product_name }}"
-                                                            @if ($import->status == 2) echo readonly @endif>
+                                                            @if ($import->status == 2) echo readonly @endif required>
                                                         <ul id="listProductName"
                                                             class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
                                                             style="z-index: 99; left: 1%; top: 74%; display: none;">
@@ -218,7 +218,7 @@
                                                         <input type="text" name="product_unit[]"
                                                             class="border-0 px-2 py-1 w-100 product_unit"
                                                             value="{{ $item->product_unit }}"
-                                                            @if ($import->status == 2) echo readonly @endif>
+                                                            @if ($import->status == 2) echo readonly @endif required>
                                                     </td>
                                                     <td class="border-left p-2 text-13 align-top border-bottom border-top-0">
                                                         <div class="">
