@@ -121,7 +121,7 @@ class Receive_bill extends Model
             // Cập nhật trạng thái đơn hàng
             if (isset($data['action']) && $data['action'] == 'action_2') {
                 $dataDetail = [
-                    'status' => 2
+                    'status' => 0
                 ];
                 // $detail->status = 2;
             }
@@ -155,12 +155,6 @@ class Receive_bill extends Model
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->update($dataUpdate);
 
-            // Cập nhập dư nợ
-            $detail = DetailImport::findOrFail($receive->detailimport_id);
-            if ($detail && $detail->status == 1) {
-                $detail->status = 2;
-                $detail->save();
-            }
             // Lấy tổng tiền hóa đơn nhập
             $product = ProductImport::where('receive_id', $receive->id)
                 ->where('workspace_id', Auth::user()->current_workspace)
@@ -183,8 +177,17 @@ class Receive_bill extends Model
             }
             $sum =  round($total) + round($total_tax);
 
+            // Cập nhập dư nợ
+            $detail = DetailImport::findOrFail($receive->detailimport_id);
+
+            if ($detail && $detail->status == 1) {
+                $detail->status = 0;
+                $detail->save();
+            }
+
             // Cập nhật trạng thái nhận hàng
             $this->updateStatus($detail->id, Receive_bill::class, 'receive_qty', 'status_receive');
+
 
             $result = true;
         } else {
@@ -241,6 +244,9 @@ class Receive_bill extends Model
         $dataUpdate = [
             $columStatus => $status
         ];
+        if($status == 2 && $detail->status_reciept == 2 && $detail->status_pay == 2){
+            $dataUpdate['status'] = 2;
+        }
         DB::table('detailimport')->where('id', $detail->id)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->update($dataUpdate);
@@ -342,7 +348,7 @@ class Receive_bill extends Model
                         $st = 0;
                     }
                     if ($checkReceive || $checkReciept || $checkPayment) {
-                        $stDetail = 2;
+                        $stDetail = 0;
                         $stDebt = 1;
                     } else {
                         $stDetail = 1;

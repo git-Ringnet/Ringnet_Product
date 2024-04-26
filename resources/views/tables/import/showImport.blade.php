@@ -150,8 +150,8 @@
 
 
                         <div class="dropdown">
-                            <button type="button" class="btn-destroy btn-light d-flex align-items-center h-100 mx-1"
-                                id="btnCreateFast1" style="background: #F0F3F9">
+                            <button type="button" class="btn-destroy btn-light d-flex align-items-center h-100 mx-1 bg-click"
+                                id="btnCreateFast1">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="4"
                                         viewBox="0 0 18 4" fill="none">

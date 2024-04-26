@@ -619,7 +619,7 @@
                                         .product_qty) + `)"
                                                             value="` + formatCurrency(element.product_qty) + `"
                                                             class='border-0 px-2 py-1 w-100 quantity-input text-right' autocomplete='off'
-                                                            name='product_qty[]'>
+                                                            name='product_qty[]' readonly>
                                                         <input type='hidden' class='tonkho'>
                                                         <div class="mt-3 text-13-blue inventory text-right" tyle="top: 68%;">Tồn kho:
                                                             <span class="pl-1 soTonKho">
@@ -630,7 +630,7 @@
                                                     </div>
                                             </td>
                                             <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
-                                                    <input type='text' class='text-right border-0 px-2 py-1 w-100 price_export' 
+                                                    <input type='text' readonly class='text-right border-0 px-2 py-1 w-100 price_export' 
                                                         value="` + formatCurrency(element.price_export) + `"
                                                         autocomplete='off' name="price_export[]" required>
                                                         <div class="mt-3 text-13-blue text-right transaction" id="transaction" data-toggle="modal" data-target="#recentModal">Giao dịch

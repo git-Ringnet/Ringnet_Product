@@ -86,8 +86,9 @@
                         @endif
 
                         <div class="dropdown">
-                            <button type="button" class="btn-destroy btn-light d-flex align-items-center h-100 mx-1"
-                                id="btnCreateFast" style="background: #F0F3F9">
+                            <button type="button"
+                                class="btn-destroy btn-light d-flex align-items-center h-100 mx-1 bg-click"
+                                id="btnCreateFast">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="4"
                                         viewBox="0 0 18 4" fill="none">
@@ -314,7 +315,7 @@
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <input type="text"
                                                             class="border-0 px-2 py-1 w-100 quantity-input text-right"
-                                                            value="{{ number_format($item->product_qty) }}">
+                                                            value="{{ number_format($item->product_qty) }}" readonly>
                                                     </div>
                                                     <div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span
                                                             class='pl-1 soTonKho'>{{ number_format($item->inventory) }}</span>
@@ -595,8 +596,10 @@
                                     <td class="text-13-black border-bottom">` + element.product_name + `</td>
                                     <td class="text-13-black border-bottom">` + element.nameProvide + `</td>
                                     <td class="text-13-black border-bottom">` + formatCurrency(element.price_export) + `</td>
-                                    <td class="text-13-black border-bottom">` + (element.product_tax == 99 ? "NOVAT" : element.product_tax + "%") + `</td>
-                                    <td class="text-13-black border-bottom">` + new Date(element.created_at).toLocaleDateString('vi-VN'); + `</td>
+                                    <td class="text-13-black border-bottom">` + (element.product_tax == 99 ? "NOVAT" :
+                                    element.product_tax + "%") + `</td>
+                                    <td class="text-13-black border-bottom">` + new Date(element.created_at)
+                                .toLocaleDateString('vi-VN'); + `</td>
                                 </tr> `;
                             $('#recentModal .modal-body tbody').append(tr);
                         })

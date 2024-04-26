@@ -101,7 +101,7 @@ class Reciept extends Model
         }
         if (isset($data['action']) && $data['action'] == "action_2") {
             $dataDetail = [
-                'status' => 2,
+                'status' => 0,
             ];
         }
 
@@ -150,7 +150,7 @@ class Reciept extends Model
             // Cập nhật lại trạng thái đơn hàng
             $detail = DetailImport::where('id', $reciept->detailimport_id)->first();
             if ($detail && $detail->status == 1) {
-                $detail->status = 2;
+                $detail->status = 0;
                 $detail->save();
             }
 
@@ -196,6 +196,9 @@ class Reciept extends Model
         $dataUpdate = [
             $columStatus => $status
         ];
+        if ($status == 2 && $detail->status_receive == 2 && $detail->status_pay == 2) {
+            $dataUpdate['status'] = 2;
+        }
         DB::table('detailimport')->where('id', $detail->id)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->update($dataUpdate);
@@ -253,7 +256,7 @@ class Reciept extends Model
                 $st = 0;
             }
             if ($checkReceive || $checkReciept || $checkPayment) {
-                $stDetail = 2;
+                $stDetail = 0;
                 $stDebt = 1;
             } else {
                 $stDetail = 1;

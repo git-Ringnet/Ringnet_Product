@@ -327,13 +327,20 @@
                                                     </td>
                                                 @endif
                                                 <td class="text-center py-2 border-bottom border-top-0">
-                                                    @if ($item->status_receive == 2 && $item->status_reciept == 2 && $item->status_pay == 2)
+                                                    @if ($item->status == 1)
+                                                        <span style="color: #858585">Draft</span>
+                                                    @elseif($item->status == 0)
+                                                        <span style="color: #E8B600">Approved</span>
+                                                    @else
+                                                        <span style="color: #08AA36">Close</span>
+                                                    @endif
+                                                    {{-- @if ($item->status_receive == 2 && $item->status_reciept == 2 && $item->status_pay == 2)
                                                         <span style="color: #08AA36">Close</span>
                                                     @elseif($item->status == 1)
                                                         <span style="color: #858585">Draft</span>
                                                     @else
                                                         <span style="color: #E8B600">Approved</span>
-                                                    @endif
+                                                    @endif --}}
                                                 </td>
                                                 <td class="text-center py-2 border-bottom border-top-0">
                                                     @if ($item->status_receive == 0)

@@ -215,7 +215,7 @@ class PayOder extends Model
             // Cập nhật trạng thái đơn hàng
             // tính dư nợ nhà cung cấp
             if ($detail->status == 1) {
-                $detail->status = 2;
+                $detail->status = 0;
                 $detail->save();
             }
 
@@ -224,7 +224,6 @@ class PayOder extends Model
                 $detail->status_debt = 1;
                 $detail->save();
             }
-
 
             // Cập nhật trạng thái
             $this->updateStatus($detail->id, PayOder::class, 'payment_qty', 'status_pay');
@@ -260,6 +259,7 @@ class PayOder extends Model
         } else {
             $status = 2;
         }
+        
         // Chỉnh trạng thái đơn mua hàng
         $payorder = PayOder::where('detailimport_id', $id)->first();
         if ($payorder) {
@@ -271,6 +271,10 @@ class PayOder extends Model
         $dataUpdate = [
             $columStatus => $status
         ];
+
+        if ($status == 2 && $detail->status_receive == 2 && $detail->status_reciept == 2) {
+            $dataUpdate['status'] = 2;
+        }
         DB::table('detailimport')->where('id', $detail->id)
             ->where('workspace_id', Auth::user()->current_workspace)
             ->update($dataUpdate);
@@ -435,7 +439,7 @@ class PayOder extends Model
                 ->where('workspace_id', Auth::user()->current_workspace)
                 ->first();
             if ($checkReceive || $checkReciept || $checkPayment) {
-                $stDetail = 2;
+                $stDetail = 0;
                 $stDebt = 1;
             } else {
                 $stDetail = 1;
