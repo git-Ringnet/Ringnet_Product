@@ -238,7 +238,7 @@
                 </div>
             </div>
         </div>
-        <div class="row m-auto filter p-0 border-custom height-52 position-relative"
+        <div class="row m-auto filter p-0 border-custom height-52 position-relative d-none"
             style="border-bottom: none !important;">
             <div class="w-100">
                 <div class="row mr-0 mt-1 padding-left32">
@@ -278,7 +278,7 @@
             </div>
         </div>
     </div>
-    <div class="content margin-top-10">
+    <div class="content margin-top-107">
         <section class="content margin-250">
             <div class="container-fluided">
                 <div class="row">
