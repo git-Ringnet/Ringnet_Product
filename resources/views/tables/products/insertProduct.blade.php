@@ -102,7 +102,7 @@
                                         class="form-control text-13-black border-0 p-0" style="width: 5%;">
                                         <option value="0">0%</option>
                                         <option value="8">8%</option>
-                                        <option value="10">10%</option>
+                                        <option value="10" selected>10%</option>
                                         <option value="99">NOVAT</option>
                                     </select>
                                 </div>
@@ -309,11 +309,11 @@
 <script>
     $(document).on('click', '#dichvu', function() {
         $('.option-radio').attr('style', 'display:none !important;');
-        // $('select[name="product_tax"]').val(8).attr('disabled', 'disabled')
+        $('select[name="product_tax"]').val(8)
     })
     $(document).on('click', '#hanghoa', function() {
         $('.option-radio').removeAttr('style');
-        // $('select[name="product_tax"]').val(0).removeAttr('disabled')
+        $('select[name="product_tax"]').val(10)
     })
 
     $('form').on('submit', function(e) {
