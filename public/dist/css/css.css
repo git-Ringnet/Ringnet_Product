@@ -1224,9 +1224,9 @@ input[type="number"] {
     margin-left: 35% !important;
 }
 .text-btnIner-primary {
-    background-color: #6E79D6;
+    /* background-color: #6E79D6;
     padding: 7px 8px 7px 8px;
-    gap: 6px;
+    gap: 6px; */
     border-radius: 4px;
     font-size: 13px;
     color: white;
