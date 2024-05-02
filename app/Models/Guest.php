@@ -78,6 +78,24 @@ class Guest extends Model
 
         return $guests;
     }
+    public function getUserInGuests()
+    {
+        $guests = DB::table($this->table)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('users', 'guest.user_id', '=', 'users.id')
+            ->orderBy('guest.id', 'DESC')
+            ->select('guest.*', 'users.name as name', 'users.*')->get();
+        return $guests;
+    }
+    public function guestNameById($data)
+    {
+        $guests = DB::table($this->table);
+        if (isset($data)) {
+            $guests = $guests->whereIn('id', $data);
+        }
+        $guests = $guests->pluck('guest_name')->all();
+        return $guests;
+    }
     public function ajax($data)
     {
         $guests =  DB::table($this->table);
@@ -85,19 +103,14 @@ class Guest extends Model
             $guests = $guests->where(function ($query) use ($data) {
                 $query->orWhere('guest_name', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('guest_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('guest_code', 'like', '%' . $data['search'] . '%');
             });
         }
-        if (isset($data['idName'])) {
-            $guests = $guests->whereIn('guest.id', $data['idName']);
+        if (isset($data['guest_code'])) {
+            $guests = $guests->where('guest_code', 'like', '%' . $data['guest_code'] . '%');
         }
-        if (isset($data['idCompany'])) {
-            $guests = $guests->whereIn('guest.id', $data['idCompany']);
-        }
-        if (isset($data['email'])) {
-            $guests = $guests->where('guest_email', 'like', '%' . $data['email'] . '%');
-        }
-        if (isset($data['phone'])) {
-            $guests = $guests->where('guest_phone', 'like', '%' . $data['phone'] . '%');
+        if (isset($data['guests'])) {
+            $guests = $guests->whereIn('guest.id', $data['guests']);
         }
         if (isset($data['debt'][0]) && isset($data['debt'][1])) {
             $guests = $guests->where('guest_debt', $data['debt'][0], $data['debt'][1]);

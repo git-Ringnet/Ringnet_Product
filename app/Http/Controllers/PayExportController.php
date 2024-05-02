@@ -13,6 +13,7 @@ use App\Models\productPay;
 use App\Models\Products;
 use App\Models\QuoteExport;
 use App\Models\Serialnumber;
+use App\Models\User;
 use App\Models\userFlow;
 use App\Models\Workspace;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -32,6 +33,7 @@ class PayExportController extends Controller
     private $workspaces;
     private $attachment;
     private $userFlow;
+    private $users;
 
     public function __construct()
     {
@@ -42,6 +44,7 @@ class PayExportController extends Controller
         $this->workspaces = new Workspace();
         $this->attachment = new Attachment();
         $this->userFlow = new userFlow();
+        $this->users = new User();
     }
     public function index()
     {
@@ -49,6 +52,7 @@ class PayExportController extends Controller
             $title = "Thanh toán bán hàng";
             $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
             $workspacename = $workspacename->workspace_name;
+            $users = $this->payExport->getUserInPayEx();
             $payExport = PayExport::leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
                 ->leftJoin('history_payment_export', 'pay_export.id', 'history_payment_export.pay_id')
                 ->leftJoin('users', 'users.id', 'pay_export.user_id')
@@ -59,7 +63,7 @@ class PayExportController extends Controller
                     'detailexport.guest_name',
                     'pay_export.payment_date',
                     'pay_export.total',
-                    'pay_export.id as idThanhToan',
+                    'pay_export.id as id',
                     'pay_export.debt',
                     'pay_export.status',
                     'pay_export.payment',
@@ -83,7 +87,7 @@ class PayExportController extends Controller
                     'users.name',
                 )
                 ->get();
-            return view('tables.export.pay_export.list-payExport', compact('title', 'payExport', 'workspacename'));
+            return view('tables.export.pay_export.list-payExport', compact('title', 'users', 'payExport', 'workspacename'));
         } else {
             return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
         }
@@ -428,6 +432,52 @@ class PayExportController extends Controller
     {
         $data = $request->all();
         $filters = [];
+        if (isset($data['quotenumber']) && $data['quotenumber'] !== null) {
+            $filters[] = ['value' => 'Số báo giá: ' . $data['quotenumber'], 'name' => 'quotenumber'];
+        }
+        if (isset($data['guests']) && $data['guests'] !== null) {
+            $filters[] = ['value' => 'Khách hàng: ' . $data['guests'], 'name' => 'guests'];
+        }
+        if (isset($data['code_payment']) && $data['code_payment'] !== null) {
+            $payExport = $this->payExport->code_paymentById($data['code_payment']);
+            $payExportString = implode(', ', $payExport);
+            $filters[] = ['value' => 'Số hoá đơn: ' . $payExportString, 'name' => 'code_payment'];
+        }
+        if (isset($data['users']) && $data['users'] !== null) {
+            $users = $this->users->getNameUser($data['users']);
+            $userstring = implode(', ', $users);
+            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+        }
+        $statusText = '';
+        if (isset($data['status']) && $data['status'] !== null) {
+            $statusValues = [];
+            if (in_array(1, $data['status'])) {
+                $statusValues[] = 'Chưa thanh toán';
+            }
+            if (in_array(2, $data['status'])) {
+                $statusValues[] = 'Thanh toán đủ';
+            }
+            if (in_array(3, $data['status'])) {
+                $statusValues[] = 'Trước hạn';
+            }
+            if (in_array(4, $data['status'])) {
+                $statusValues[] = 'Quá hạn';
+            }
+            if (in_array(5, $data['status'])) {
+                $statusValues[] = 'Thanh toán 1 phần';
+            }
+            $statusText = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
+        }
+        if (isset($data['total']) && $data['total'][1] !== null) {
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
+        }
+        if (isset($data['payment']) && $data['payment'][1] !== null) {
+            $filters[] = ['value' => 'Đã nhận: ' . $data['payment'][0] . $data['payment'][1], 'name' => 'payment'];
+        }
+        if (isset($data['debt']) && $data['debt'][1] !== null) {
+            $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt'];
+        }
         if ($request->ajax()) {
             $payExport = $this->payExport->ajaxdas($data);
             return response()->json([

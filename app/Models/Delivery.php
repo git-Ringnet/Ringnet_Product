@@ -704,24 +704,93 @@ class Delivery extends Model
             }
         }
     }
-    public function ajax($data)
+    public function getUserInDelivery()
     {
         $delivery = Delivery::leftJoin('delivered', 'delivered.delivery_id', 'delivery.id')
             ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
+            ->leftJoin('users', 'users.id', 'delivery.user_id')->distinct('guest.id')
             ->select(
                 'delivery.id as maGiaoHang',
                 'delivery.created_at as ngayGiao',
                 'delivery.code_delivery as code_delivery',
                 'delivery.*',
-            )->distinct()
-            ->where('delivery.workspace_id', Auth::user()->current_workspace);
+                'users.*'
+            )->get();
+        return $delivery;
+    }
+    public function code_deliveryById($data)
+    {
+        $delivery = DB::table($this->table);
+        if (isset($data)) {
+            $delivery = $delivery->whereIn('id', $data);
+        }
+        $delivery = $delivery->pluck('code_delivery')->all();
+        return $delivery;
+    }
+    public function ajax($data)
+    {
+        $delivery = Delivery::leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
+            ->select(
+                'delivery.id',
+                'delivery.guest_id',
+                'delivery.quotation_number',
+                'delivery.code_delivery',
+                'delivery.shipping_unit',
+                'delivery.shipping_fee',
+                'delivery.id as maGiaoHang',
+                'delivery.created_at as ngayGiao',
+                'delivery.status as trangThai',
+                'users.name',
+                'detailexport.guest_name',
+                DB::raw('SUM(delivered.product_total_vat) as totalProductVat')
+            )
+            ->leftJoin('users', 'users.id', 'delivery.user_id')
+            ->leftJoin('delivered', 'delivered.delivery_id', 'delivery.id')
+            ->where('delivery.workspace_id', Auth::user()->current_workspace)
+            ->groupBy(
+                'delivery.id',
+                'delivery.guest_id',
+                'delivery.quotation_number',
+                'delivery.code_delivery',
+                'delivery.shipping_unit',
+                'delivery.shipping_fee',
+                'users.name',
+                'delivery.created_at',
+                'delivery.status',
+                'detailexport.guest_name',
+            );
         if (isset($data['search'])) {
             $delivery = $delivery->where(function ($query) use ($data) {
                 $query->orWhere('code_delivery', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('guest_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('delivery.quotation_number', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('detailexport.guest_name', 'like', '%' . $data['search'] . '%');
             });
         }
+        if (isset($data['quotenumber'])) {
+            $delivery = $delivery->where('delivery.quotation_number', 'like', '%' . $data['quotenumber'] . '%');
+        }
+        if (isset($data['guests'])) {
+            $delivery = $delivery->where('detailexport.guest_name', 'like', '%' . $data['guests'] . '%');
+        }
+        if (isset($data['shipping_unit'])) {
+            $delivery = $delivery->where('delivery.shipping_unit', 'like', '%' . $data['shipping_unit'] . '%');
+        }
+        if (isset($data['code_delivery'])) {
+            $delivery = $delivery->whereIn('delivery.id', $data['code_delivery']);
+        }
+        if (isset($data['users'])) {
+            $delivery = $delivery->whereIn('delivery.user_id', $data['users']);
+        }
+        if (isset($data['status'])) {
+            $delivery = $delivery->whereIn('delivery.status', $data['status']);
+        }
+        if (isset($data['shipping_fee'][0]) && isset($data['shipping_fee'][1])) {
+            $delivery = $delivery->where('delivery.shipping_fee', $data['shipping_fee'][0], $data['shipping_fee'][1]);
+        }
+        // if (isset($data['total'][0]) && isset($data['total'][1])) {
+        //     $delivery = $delivery->where('delivery.total_price', $data['total'][0], $data['total'][1]);
+        // }
+
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $delivery = $delivery->orderBy($data['sort'][0], $data['sort'][1]);
         }

@@ -48,6 +48,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="content-filter-all">
         <div class="bg-filter-search pl-4 border-bottom-0">
             <div class="content-wrapper1 py-2">
                 <div class="row m-auto filter p-0">
@@ -66,8 +68,8 @@
                                             style="display: none;" />
                                     </div>
                                 </form>
-                                <div class="dropdown mx-2 d-none">
-                                    <button class="btn-filter_searh" data-toggle="dropdown">
+                                <div class="dropdown mx-2">
+                                    <button class="btn-filter_search" data-toggle="dropdown">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 16 16" fill="none">
                                             <path
@@ -91,7 +93,8 @@
                                                 fill="#6B6F76" />
                                         </svg>
                                     </button>
-                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                        style="z-index:">
                                         <div class="search-container px-2">
                                             <input type="text" placeholder="Tìm kiếm" id="myInput" class="text-13"
                                                 onkeyup="filterFunction()" style="outline: none;">
@@ -100,20 +103,51 @@
                                             </span>
                                         </div>
                                         <div class="scrollbar">
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-code"
-                                                data-button="code" type="button">Mã hàng hóa
+                                            <button class="dropdown-item btndropdown text-13-black"
+                                                id="btn-code_delivery" data-button="code_delivery" type="button">Mã
+                                                giao hàng
                                             </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-name"
-                                                data-button="name" type="button">Tên hàng hóa
+                                            <button class="dropdown-item btndropdown text-13-black"
+                                                id="btn-quotenumber" data-button="quotenumber" type="button">Số báo
+                                                giá
                                             </button>
-                                            <button class="dropdown-item btndropdown text-13-black" id="btn-inventory"
-                                                data-button="inventory" type="button">
-                                                Số lượng tồn
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-guests"
+                                                data-button="guests" type="button">Khách hàng
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-users"
+                                                data-button="users" type="button">Người tạo
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black"
+                                                id="btn-shipping_unit" data-button="shipping_unit" type="button">Đơn
+                                                vị vận chuyển
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black"
+                                                id="btn-shipping_fee" data-button="shipping_fee" type="button">
+                                                Phí giao hàng
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-status"
+                                                data-button="status" type="button">Trạng thái
+                                            </button>
+                                            {{-- <button class="dropdown-item btndropdown text-13-black" id="btn-reciept"
+                                                data-button="reciept" type="button">Ngày giao hàng
+                                            </button> --}}
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-total"
+                                                data-button="total" type="button">
+                                                Tổng tiền
                                             </button>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="result-filter-delivery d-flex">
+                                    <x-filter-text name="quotenumber" title="Số báo giá" />
+                                    <x-filter-checkbox :dataa='$deliveries' name="code_delivery" title="Mã giao hàng"
+                                        namedisplay="code_delivery" />
+                                    <x-filter-text name="guests" title="Khách hàng" />
+                                    <x-filter-text name="shipping_unit" title="Đơn vị vận chuyển" />
+                                    <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
+                                        namedisplay="name" />
+                                    <x-filter-status name="status" key1="1" value1="Chưa giao" key2="2"
+                                        value2="Đã giao" title="Trạng thái" />
+                                    <x-filter-compare name="total" title="Tổng tiền" />
+                                    <x-filter-compare name="shipping_fee" title="Phí giao hàng" />
                                 </div>
                             </div>
                         </div>
@@ -122,9 +156,11 @@
             </div>
         </div>
     </div>
-    <div class="content margin-top-67">
+    <div class="content margin-top-75">
         <section class="content margin-250">
             <div class="container-fluided">
+                <div class="row result-filter-delivery margin-left30 my-1">
+                </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -160,12 +196,11 @@
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="guest_name_display"
-                                                        data-sort-type="DESC"><button class="btn-sort text-13"
-                                                            type="submit">Khách
+                                                        data-sort-by="guest_name" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Khách
                                                             hàng</button>
                                                     </a>
-                                                    <div class="icon" id="icon-guest_name_display"></div>
+                                                    <div class="icon" id="icon-guest_name"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
@@ -202,11 +237,11 @@
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="status" data-sort-type="DESC"><button
+                                                        data-sort-by="trangThai" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Trạng
                                                             thái</button>
                                                     </a>
-                                                    <div class="icon" id="icon-status"></div>
+                                                    <div class="icon" id="icon-trangThai"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
@@ -264,13 +299,16 @@
                                                         {{ $item_delivery->code_delivery }}
                                                     </a>
                                                 </td>
-                                                <td class="text-13-black max-width120 text-left border-bottom border-top-0">
+                                                <td
+                                                    class="text-13-black max-width120 text-left border-bottom border-top-0">
                                                     {{ $item_delivery->quotation_number }}
                                                 </td>
-                                                <td class="text-13-black max-width120 text-left border-bottom border-top-0">
+                                                <td
+                                                    class="text-13-black max-width120 text-left border-bottom border-top-0">
                                                     {{ $item_delivery->guest_name }}
                                                 </td>
-                                                <td class="text-13-black max-width120 text-left border-bottom border-top-0">
+                                                <td
+                                                    class="text-13-black max-width120 text-left border-bottom border-top-0">
                                                     {{ $item_delivery->name }}
                                                 </td>
                                                 <td class="text-13-black text-left border-bottom border-top-0">
@@ -353,108 +391,215 @@
     var svgbot =
         "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 5C11.6332 5 11.7604 5.05268 11.8542 5.14645C11.948 5.24021 12.0006 5.36739 12.0006 5.5V17.293L15.1466 14.146C15.2405 14.0521 15.3679 13.9994 15.5006 13.9994C15.6334 13.9994 15.7607 14.0521 15.8546 14.146C15.9485 14.2399 16.0013 14.3672 16.0013 14.5C16.0013 14.6328 15.9485 14.7601 15.8546 14.854L11.8546 18.854C11.8082 18.9006 11.753 18.9375 11.6923 18.9627C11.6315 18.9879 11.5664 19.0009 11.5006 19.0009C11.4349 19.0009 11.3697 18.9879 11.309 18.9627C11.2483 18.9375 11.1931 18.9006 11.1466 18.854L7.14663 14.854C7.05274 14.7601 7 14.6328 7 14.5C7 14.3672 7.05274 14.2399 7.14663 14.146C7.24052 14.0521 7.36786 13.9994 7.50063 13.9994C7.63341 13.9994 7.76075 14.0521 7.85463 14.146L11.0006 17.293V5.5C11.0006 5.36739 11.0533 5.24021 11.1471 5.14645C11.2408 5.05268 11.368 5 11.5006 5Z' fill='#555555'/></svg>"
 
-    $(document).ready(function() {
-        // get id check box name
-        $('.btn-submit').click(function(event) {
-            event.preventDefault();
+    var code_delivery = [];
+    var users = [];
+    var statusDe = [];
 
-            var buttonName = $(this).data('button');
-            var btn_submit = $(this).data('button-name');
-            var search = $('#search').val();
-            var sort_by = '';
-            if (typeof $(this).data('sort-by') !== 'undefined') {
-                sort_by = $(this).data('sort-by');
+    function filterstatus() {
+        filterButtons("myInput-status", "ks-cboxtags-status");
+    }
+
+    function filterusers() {
+        filterButtons("myInput-users", "ks-cboxtags-users");
+    }
+
+    function filtercode_delivery() {
+        filterButtons("myInput-code_delivery", "ks-cboxtags-code_delivery");
+    }
+
+    // get id check box name
+    $(document).on('click', '.btn-submit', function(e) {
+        e.preventDefault();
+        var buttonName = $(this).data('button');
+        var btn_submit = $(this).data('button-name');
+        var search = $('#search').val();
+        var quotenumber = $('#quotenumber').val();
+        var guests = $('#guests').val();
+        var shipping_unit = $('#shipping_unit').val();
+        var operator_total = $('.total-operator').val();
+        var val_total = $('.total-quantity').val();
+        var total = [operator_total, val_total];
+        var operator_shipping_fee = $('.shipping_fee-operator').val();
+        var val_shipping_fee = $('.shipping_fee-quantity').val();
+        var shipping_fee = [operator_shipping_fee, val_shipping_fee];
+        if ($(this).data('button-name') === 'status') {
+            $('.ks-cboxtags-status input[type="checkbox"]').each(function() {
+                const value = $(this).val();
+                if ($(this).is(':checked')) {
+                    if (status.indexOf(value) === -1 && statusDe.indexOf(value) === -1) {
+                        statusDe.push(value);
+                    }
+                } else {
+                    const index = statusDe.indexOf(value);
+                    if (index !== -1) {
+                        statusDe.splice(index, 1);
+                    }
+                }
+            });
+        }
+        if ($(this).data('button-name') === 'code_delivery') {
+            $('.ks-cboxtags-code_delivery input[type="checkbox"]').each(function() {
+                const value = $(this).val();
+                if ($(this).is(':checked') && code_delivery.indexOf(value) === -1) {
+                    code_delivery.push(value);
+                } else if (!$(this).is(':checked')) {
+                    const index = code_delivery.indexOf(value);
+                    if (index !== -1) {
+                        code_delivery.splice(index, 1);
+                    }
+                }
+            });
+        }
+        if ($(this).data('button-name') === 'users') {
+            $('.ks-cboxtags-users input[type="checkbox"]').each(function() {
+                const value = $(this).val();
+                if ($(this).is(':checked') && users.indexOf(value) === -1) {
+                    users.push(value);
+                } else if (!$(this).is(':checked')) {
+                    const index = users.indexOf(value);
+                    if (index !== -1) {
+                        users.splice(index, 1);
+                    }
+                }
+            });
+        }
+        var sort_by = '';
+        if (typeof $(this).data('sort-by') !== 'undefined') {
+            sort_by = $(this).data('sort-by');
+        }
+        var sort_type = $(this).data('sort-type');
+        sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
+        $(this).data('sort-type', sort_type);
+        $('.icon').text('');
+        var iconId = 'icon-' + sort_by;
+        var iconDiv = $('#' + iconId);
+        iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
+        sort = [
+            sort_by, sort_type
+        ];
+        // $('#' + btn_submit + '-options').hide();
+        $(".btn-filter_search").prop("disabled", false);
+
+        if ($(this).data('delete') === 'quotenumber') {
+            quotenumber = null;
+            $('#quotenumber').val('');
+        }
+        if ($(this).data('delete') === 'shipping_unit') {
+            shipping_unit = null;
+            $('#shipping_unit').val('');
+        }
+        if ($(this).data('delete') === 'code_delivery') {
+            code_delivery = [];
+            $('.deselect-all-code_delivery').click();
+        }
+        if ($(this).data('delete') === 'guests') {
+            guests = null;
+            $('#guests').val('');
+        }
+        if ($(this).data('delete') === 'users') {
+            users = [];
+            $('.deselect-all-users').click();
+        }
+        if ($(this).data('delete') === 'status') {
+            statusDe = [];
+            $('.deselect-all-status').click();
+        }
+        if ($(this).data('delete') === 'total') {
+            total = null;
+            $('.total-quantity').val('');
+        }
+        if ($(this).data('delete') === 'shipping_fee') {
+            shipping_fee = null;
+            $('.shipping_fee-quantity').val('');
+        }
+        $.ajax({
+            type: 'get',
+            url: "{{ route('searchDelivery') }}",
+            data: {
+                search: search,
+                quotenumber: quotenumber,
+                shipping_unit: shipping_unit,
+                shipping_fee: shipping_fee,
+                users: users,
+                guests: guests,
+                code_delivery: code_delivery,
+                status: statusDe,
+                total: total,
+                sort: sort,
+            },
+            success: function(data) {
+                // Hiển thị label dữ liệu tìm kiếm ...
+                var existingNames = [];
+                data.filters.forEach(function(item) {
+                    // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
+                    if (filters.indexOf(item.name) === -1) {
+                        filters.push(item.name);
+                    }
+                    existingNames.push(item.name);
+                });
+
+                filters = filters.filter(function(name) {
+                    return existingNames.includes(name);
+                });
+                $('.result-filter-delivery').empty();
+                // Lặp qua mảng filters để tạo và render các phần tử
+                data.filters.forEach(function(item) {
+                    var index = filters.indexOf(item.name);
+                    // Tạo thẻ item-filter
+                    var itemFilter = $('<div>').addClass(
+                        'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
+                    );
+                    itemFilter.css('order', index);
+                    // Thêm nội dung và thuộc tính data vào thẻ item-filter
+                    itemFilter.append(
+                        '<span class="text text-13-black m-0" style="flex:2;">' +
+                        item.value +
+                        '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
+                        item.name + '" data-button="' + buttonName +
+                        '"></i>');
+                    // Thêm thẻ item-filter vào 
+                    $('.result-filter-delivery').append(itemFilter);
+                });
+
+                // Ẩn hiện dữ liệu khi đã filters
+                var deliveryIds = [];
+                // Lặp qua mảng provides và thu thập các deleveryIds
+                data.data.forEach(function(item) {
+                    var deleveryId = item.maGiaoHang;
+                    deliveryIds.push(deleveryId);
+                });
+                // Ẩn tất cả các phần tử .delivery-info
+                // $('.delivery-info').hide();
+                // Lặp qua từng phần tử .delivery-info để hiển thị và cập nhật data-position
+                $('.delivery-info').each(function() {
+                    var value = parseInt($(this).find('.id-delivery')
+                        .val());
+                    var index = deliveryIds.indexOf(value);
+                    if (index !== -1) {
+                        $(this).show();
+                        // Cập nhật data-position
+                        $(this).attr('data-position', index + 1);
+                    } else {
+                        $(this).hide();
+                    }
+                });
+                // Tạo một bản sao của mảng phần tử .delivery-info
+                var clonedElements = $('.delivery-info').clone();
+                // Sắp xếp các phần tử trong bản sao theo data-position
+                var sortedElements = clonedElements.sort(function(a, b) {
+                    return $(a).data('position') - $(b).data('position');
+                });
+                // Thay thế các phần tử trong .tbody-delivery bằng các phần tử đã sắp xếp
+                $('.tbody-delivery').empty().append(sortedElements);
             }
-            var sort_type = $(this).data('sort-type');
-            sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
-            $(this).data('sort-type', sort_type);
-            $('.icon').text('');
-            var iconId = 'icon-' + sort_by;
-            var iconDiv = $('#' + iconId);
-            iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
-            sort = [
-                sort_by, sort_type
-            ];
-            $('#' + btn_submit + '-options').hide();
-            $(".text-btnIner").prop("disabled", false);
-            $.ajax({
-                type: 'get',
-                url: "{{ route('searchDelivery') }}",
-                data: {
-                    search: search,
-                    sort: sort,
-                },
-                success: function(data) {
-                    // Hiển thị label dữ liệu tìm kiếm ...
-                    var existingNames = [];
-                    data.filters.forEach(function(item) {
-                        // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
-                        if (filters.indexOf(item.name) === -1) {
-                            filters.push(item.name);
-                        }
-                        existingNames.push(item.name);
-                    });
-
-                    filters = filters.filter(function(name) {
-                        return existingNames.includes(name);
-                    });
-                    $('.result-filter-delivery').empty();
-                    // Lặp qua mảng filters để tạo và render các phần tử
-                    data.filters.forEach(function(item) {
-                        var index = filters.indexOf(item.name);
-                        // Tạo thẻ item-filter
-                        var itemFilter = $('<div>').addClass(
-                            'item-filter span d-flex justify-content-center align-items-baseline'
-                        );
-                        itemFilter.css('order', index);
-                        // Thêm nội dung và thuộc tính data vào thẻ item-filter
-                        itemFilter.append('<p class="text">' + item.value +
-                            '</p><i class="fa-solid fa-xmark btn-submit" data-delete="' +
-                            item.name + '" data-button="' + buttonname +
-                            '"></i>');
-                        // Thêm thẻ item-filter vào resultfilters
-                        $('.result-filter-delivery').append(itemFilter);
-                    });
-
-                    // Ẩn hiện dữ liệu khi đã filters
-                    var deliveryIds = [];
-                    // Lặp qua mảng provides và thu thập các deleveryIds
-                    data.data.forEach(function(item) {
-                        var deleveryId = item.maGiaoHang;
-                        deliveryIds.push(deleveryId);
-                    });
-                    // Ẩn tất cả các phần tử .delivery-info
-                    // $('.delivery-info').hide();
-                    // Lặp qua từng phần tử .delivery-info để hiển thị và cập nhật data-position
-                    $('.delivery-info').each(function() {
-                        var value = parseInt($(this).find('.id-delivery')
-                            .val());
-                        var index = deliveryIds.indexOf(value);
-                        if (index !== -1) {
-                            $(this).show();
-                            // Cập nhật data-position
-                            $(this).attr('data-position', index + 1);
-                        } else {
-                            $(this).hide();
-                        }
-                    });
-                    // Tạo một bản sao của mảng phần tử .delivery-info
-                    var clonedElements = $('.delivery-info').clone();
-                    // Sắp xếp các phần tử trong bản sao theo data-position
-                    var sortedElements = clonedElements.sort(function(a, b) {
-                        return $(a).data('position') - $(b).data('position');
-                    });
-                    // Thay thế các phần tử trong .tbody-delivery bằng các phần tử đã sắp xếp
-                    $('.tbody-delivery').empty().append(sortedElements);
-                }
-            });
-            $.ajaxSetup({
-                headers: {
-                    'csrftoken': '{{ csrf_token() }}'
-                }
-            });
+        });
+        $.ajaxSetup({
+            headers: {
+                'csrftoken': '{{ csrf_token() }}'
+            }
         });
     });
+
     @php
         $pdfSession = session('pdf_info');
     @endphp

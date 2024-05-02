@@ -13,6 +13,7 @@ use App\Models\productPay;
 use App\Models\Products;
 use App\Models\QuoteExport;
 use App\Models\Serialnumber;
+use App\Models\User;
 use App\Models\userFlow;
 use App\Models\Workspace;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -33,6 +34,7 @@ class BillSaleController extends Controller
     private $attachment;
     private $userFlow;
     private $history;
+    private $users;
 
     public function __construct()
     {
@@ -44,6 +46,7 @@ class BillSaleController extends Controller
         $this->attachment = new Attachment();
         $this->userFlow = new userFlow();
         $this->history = new History();
+        $this->users = new User();
     }
     public function index()
     {
@@ -52,7 +55,8 @@ class BillSaleController extends Controller
             $workspacename = $workspacename->workspace_name;
             $title = "Hóa đơn bán hàng";
             $billSale = $this->billSale->getBillSale();
-            return view('tables.export.bill_sale.list-bill-sale', compact('title', 'billSale', 'workspacename'));
+            $users = $this->billSale->getUserInBillSale();
+            return view('tables.export.bill_sale.list-bill-sale', compact('title', 'billSale', 'users', 'workspacename'));
         } else {
             return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
         }
@@ -396,6 +400,37 @@ class BillSaleController extends Controller
     {
         $data = $request->all();
         $filters = [];
+        if (isset($data['quotenumber']) && $data['quotenumber'] !== null) {
+            $filters[] = ['value' => 'Số báo giá: ' . $data['quotenumber'], 'name' => 'quotenumber'];
+        }
+        if (isset($data['guests']) && $data['guests'] !== null) {
+            $filters[] = ['value' => 'Khách hàng: ' . $data['guests'], 'name' => 'guests'];
+        }
+        if (isset($data['number_bill']) && $data['number_bill'] !== null) {
+            $billSale = $this->billSale->number_billById($data['number_bill']);
+            $billSaleString = implode(', ', $billSale);
+            $filters[] = ['value' => 'Số hoá đơn: ' . $billSaleString, 'name' => 'number_bill'];
+        }
+        if (isset($data['users']) && $data['users'] !== null) {
+            $users = $this->users->getNameUser($data['users']);
+            $userstring = implode(', ', $users);
+            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+        }
+        $statusText = '';
+        if (isset($data['status']) && $data['status'] !== null) {
+            $statusValues = [];
+            if (in_array(1, $data['status'])) {
+                $statusValues[] = 'Bản nháp';
+            }
+            if (in_array(2, $data['status'])) {
+                $statusValues[] = 'Chính thức';
+            }
+            $statusText = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
+        }
+        if (isset($data['total']) && $data['total'][1] !== null) {
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
+        }
         if ($request->ajax()) {
             $billSale = $this->billSale->ajax($data);
             return response()->json([

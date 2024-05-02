@@ -9,116 +9,7 @@
                 <span>Lịch sử giao dịch</span>
             </div>
         </div>
-        <div class="bg-filter-search pl-4">
-            <div class="content-wrapper1 py-2">
-                <div class="row m-auto filter p-0">
-                    <div class="w-100">
-                        <div class="row mr-0">
-                            <div class="col-md-5 d-flex align-items-center">
-                                <form action="" method="get" id="search-filter" class="p-0 m-0">
-                                    <div class="position-relative ml-1">
-                                        <input type="text" placeholder="Tìm kiếm" name="keywords" id="search-history"
-                                            style="outline: none;" class="pr-4 w-100 input-search text-13"
-                                            value="{{ request()->keywords }}">
-                                        <span id="search-icon" class="search-icon btn-submit" data-button="history"><i
-                                                class="fas fa-search" aria-hidden="true"></i></span>
-                                        <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
-                                            style="display: none;">
-                                    </div>
-                                </form>
-                                <div class="dropdown mx-2 d-none">
-                                    <button class="btn-filter_searh" data-toggle="dropdown">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 0 16 16" fill="none">
-                                            <path
-                                                d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
-                                                fill="#6D7075" />
-                                            <path
-                                                d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
-                                                fill="#6D7075" />
-                                            <path
-                                                d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
-                                                fill="#6D7075" />
-                                            <path
-                                                d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
-                                                fill="#6D7075" />
-                                        </svg>
-                                        <span class="text-btnIner">Bộ lọc</span>
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
-                                                fill="#6B6F76" />
-                                        </svg>
-                                    </button>
-                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <div class="search-container px-2">
-                                            <input type="text" placeholder="Tìm kiếm" id="myInput" class="text-13"
-                                                onkeyup="filterFunction()" style="outline: none;">
-                                            <span class="search-icon mr-2">
-                                                <i class="fas fa-search"></i>
-                                            </span>
-                                        </div>
-                                        <div class="scrollbar">
-                                            <button class="dropdown-item btndropdown" id="btn-code" data-button="code"
-                                                type="button">Thời gian</button>
-                                            <button class="dropdown-item btndropdown" id="btn-provides"
-                                                data-button="provides" type="button">Nhà cung cấp
-                                            </button>
-                                            <button class="dropdown-item btndropdown" id="btn-tensp" data-button="tensp"
-                                                type="button">Mặt hàng</button>
-                                            <button class="dropdown-item btndropdown" id="btn-product_qty"
-                                                data-button="product_qty" type="button">Số lượng nhập</button>
-                                            <button class="dropdown-item btndropdown" id="btn-price_import"
-                                                data-button="price_import" type="button">Giá nhập</button>
-                                            <button class="dropdown-item btndropdown" id="btn-total_import"
-                                                data-button="total_import" type="button">Thành tiền nhập</button>
-                                            <button class="dropdown-item btndropdown" id="btn-hdvao" data-button="hdvao"
-                                                type="button">Hoá đơn vào</button>
-                                            <button class="dropdown-item btndropdown" id="btn-hdra" data-button="hdra"
-                                                type="button">Hoá đơn ra</button>
-                                            <button class="dropdown-item btndropdown" id="btn-guests"
-                                                data-button="guests" type="button">Khách hàng</button>
-                                            <button class="dropdown-item btndropdown" id="btn-slxuat"
-                                                data-button="slxuat" type="button">Số lượng xuất</button>
-                                            <button class="dropdown-item btndropdown" id="btn-product_unit"
-                                                data-button="product_unit" type="button">Đơn vị tính</button>
-                                            <button class="dropdown-item btndropdown" id="btn-price_export"
-                                                data-button="price_export" type="button">Giá xuất</button>
-                                            <button class="dropdown-item btndropdown" id="btn-total_export"
-                                                data-button="total_export" type="button">Thành tiền xuất</button>
-                                            <button class="dropdown-item btndropdown" id="btn-shipping_fee"
-                                                data-button="shipping_fee" type="button">Chi phí vận chuyển</button>
-                                        </div>
-                                    </div>
 
-                                    <x-filter-checkbox :dataa='$provides' name="provides" button="history"
-                                        title="Nhà cung cấp" namedisplay="provide_name_display" />
-                                    <x-filter-checkbox :dataa='$guests' name="guests" button="history"
-                                        title="Khách hàng" namedisplay="guest_name_display" />
-                                    <x-filter-text name="tensp" button="history" title="Mặt hàng" />
-                                    <x-filter-text name="hdvao" button="history" title="Hoá đơn vào" />
-                                    <x-filter-text name="hdra" button="history" title="Hoá đơn ra" />
-                                    <x-filter-compare name="product_qty" button="history" title="Số lượng nhập" />
-                                    <x-filter-compare name="price_import" button="history" title="Giá nhập" />
-                                    <x-filter-compare name="total_import" button="history" title="Thành tiền nhập" />
-                                    <x-filter-compare name="slxuat" button="history" title="Số lượng xuất" />
-                                    <x-filter-compare name="price_export" button="history" title="Giá bán" />
-                                    <x-filter-compare name="total_export" button="history" title="Thành tiền xuất" />
-                                    <x-filter-compare name="inventory" button="history" title="Số lượng tồn" />
-                                    <x-filter-checkbox :dataa='$products' name="product_unit" button="history"
-                                        title="Đơn vị tính" namedisplay="product_unit" />
-                                    <x-filter-compare name="shipping_fee" button="history"
-                                        title="Chi phí vận chuyển" />
-                                </div>
-                                <div class="result-filter-history d-flex">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         {{-- <div class="row m-auto filter p-0 border-custom height-52">
             <div class="w-100">
                 <div class="row mr-0 mt-1 padding-left32">
@@ -197,15 +88,157 @@
             </div>
         </div> -->
     </div>
-    <div class="content margin-top-68">
+    <div class="content-filter-all">
+        <div class="bg-filter-search pl-4">
+            <div class="content-wrapper1 py-2">
+                <div class="row m-auto filter p-0">
+                    <div class="w-100">
+                        <div class="row mr-0">
+                            <div class="col-md-5 d-flex align-items-center">
+                                <form action="" method="get" id="search-filter" class="p-0 m-0">
+                                    <div class="position-relative ml-1">
+                                        <input type="text" placeholder="Tìm kiếm" name="keywords" id="search-history"
+                                            style="outline: none;" class="pr-4 w-100 input-search text-13"
+                                            value="{{ request()->keywords }}">
+                                        <span id="search-icon" class="search-icon btn-submit" data-button="history"><i
+                                                class="fas fa-search" aria-hidden="true"></i></span>
+                                        <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
+                                            style="display: none;">
+                                    </div>
+                                </form>
+                                <div class="dropdown mx-2">
+                                    <button class="btn-filter_search" data-toggle="dropdown">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 16 16" fill="none">
+                                            <path
+                                                d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
+                                                fill="#6D7075" />
+                                            <path
+                                                d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
+                                                fill="#6D7075" />
+                                            <path
+                                                d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
+                                                fill="#6D7075" />
+                                            <path
+                                                d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
+                                                fill="#6D7075" />
+                                        </svg>
+                                        <span class="text-btnIner">Bộ lọc</span>
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
+                                                fill="#6B6F76" />
+                                        </svg>
+                                    </button>
+                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <div class="search-container px-2">
+                                            <input type="text" placeholder="Tìm kiếm" id="myInput" class="text-13"
+                                                onkeyup="filterFunction()" style="outline: none;">
+                                            <span class="search-icon mr-2">
+                                                <i class="fas fa-search"></i>
+                                            </span>
+                                        </div>
+                                        <div class="scrollbar">
+                                            <button class="dropdown-item btndropdown" id="btn-provides"
+                                                data-button="provides" type="button">Nhà cung cấp
+                                            </button>
+                                            <button class="dropdown-item btndropdown" id="btn-POnhap"
+                                                data-button="POnhap" type="button">Số PO nhập
+                                            </button>
+                                            <button class="dropdown-item btndropdown" id="btn-tensp"
+                                                data-button="tensp" type="button">Mặt hàng</button>
+                                            {{-- <button class="dropdown-item btndropdown" id="btn-hdvao"
+                                                data-button="hdvao" type="button">Hoá đơn vào</button> --}}
+                                            <button class="dropdown-item btndropdown" id="btn-datequote"
+                                                data-button="datequote" type="button">Ngày hoá đơn</button>
+                                            <button class="dropdown-item btndropdown" id="btn-BH" data-button="BH"
+                                                type="button">Bảo hành</button>
+                                            <button class="dropdown-item btndropdown" id="btn-slnhap"
+                                                data-button="slnhap" type="button">Số lượng nhập</button>
+                                            <button class="dropdown-item btndropdown" id="btn-trcVATN"
+                                                data-button="trcVATN" type="button">Trước VAT</button>
+                                            <button class="dropdown-item btndropdown" id="btn-VATN"
+                                                data-button="VATN" type="button">VAT</button>
+                                            <button class="dropdown-item btndropdown" id="btn-sauVATN"
+                                                data-button="sauVATN" type="button">Sau VAT</button>
+                                            <button class="dropdown-item btndropdown" id="btn-TTN"
+                                                data-button="TTN" type="button">Thanh toán</button>
+                                            <button class="dropdown-item btndropdown" id="btn-ngayTTN"
+                                                data-button="ngayTTN" type="button">Ngày thanh toán</button>
+                                            <button class="dropdown-item btndropdown" id="btn-HTTTN"
+                                                data-button="HTTTN" type="button">Hình thức thanh
+                                                toán</button>
+                                            <button class="dropdown-item btndropdown" id="btn-guests"
+                                                data-button="guests" type="button">Khách hàng</button>
+                                            <button class="dropdown-item btndropdown" id="btn-POxuat"
+                                                data-button="POxuat" type="button">Số PO xuất</button>
+                                            <button class="dropdown-item btndropdown" id="btn-slxuat"
+                                                data-button="slxuat" type="button">Số lượng xuất</button>
+                                            <button class="dropdown-item btndropdown" id="btn-trcVATX"
+                                                data-button="trcVATX" type="button">Trước VAT</button>
+                                            <button class="dropdown-item btndropdown" id="btn-VATX"
+                                                data-button="VATX" type="button">VAT xuất</button>
+                                            <button class="dropdown-item btndropdown" id="btn-sauVATX"
+                                                data-button="sauVATX" type="button">Sau VAT</button>
+                                            <button class="dropdown-item btndropdown" id="btn-hdra"
+                                                data-button="hdra" type="button">Hoá đơn ra</button>
+                                            <button class="dropdown-item btndropdown" id="btn-datequoteX"
+                                                data-button="datequoteX" type="button">Ngày hoá đơn</button>
+                                            <button class="dropdown-item btndropdown" id="btn-TTX"
+                                                data-button="TTX" type="button">Đã trả</button>
+                                            <button class="dropdown-item btndropdown" id="btn-ngayTTX"
+                                                data-button="ngayTTX" type="button">Ngày thanh toán</button>
+                                            <button class="dropdown-item btndropdown" id="btn-HTTTX"
+                                                data-button="HTTTX" type="button">Hình thức</button>
+                                        </div>
+                                    </div>
+                                    <x-filter-text name="provides" button="history" title="Nhà cung cấp" />
+                                    <x-filter-text name="guests" button="history" title="Khách hàng" />
+                                    <x-filter-text name="tensp" button="history" title="Mặt hàng" />
+                                    <x-filter-text name="hdvao" button="history" title="Hoá đơn vào" />
+                                    <x-filter-text name="hdra" button="history" title="Hoá đơn ra" />
+                                    <x-filter-text name="BH" button="history" title="Bảo hành" />
+                                    <x-filter-text name="POnhap" button="history" title="Số PO nhập" />
+                                    <x-filter-text name="POxuat" button="history" title="Số PO xuất" />
+                                    <x-filter-text name="HTTTX" button="history"
+                                        title="Hình thức thanh toán xuất" />
+                                    <x-filter-text name="HTTTN" button="history"
+                                        title="Hình thức thanh toán nhập" />
+                                    <x-filter-compare name="slxuat" button="history" title="Số lượng xuất" />
+                                    <x-filter-compare name="slnhap" button="history" title="Số lượng nhập" />
+                                    <x-filter-compare name="trcVATN" button="history" title="Số lượng nhập" />
+                                    <x-filter-compare name="VATN" button="history" title="Giá nhập" />
+                                    <x-filter-compare name="sauVATN" button="history" title="Thành tiền nhập" />
+                                    <x-filter-compare name="trcVATX" button="history" title="Số lượng xuất" />
+                                    <x-filter-compare name="VATX" button="history" title="Giá xuất" />
+                                    <x-filter-compare name="sauVATX" button="history" title="Thành tiền xuất" />
+                                    <x-filter-status name="TTX" key1="1" value1="Chưa thanh toán"
+                                        key2="2" value2="Thanh toán đủ" key3="3" value3="Một phần"
+                                        title="Đã trả" />
+                                    <x-filter-status name="TTN" key1="0" value1="Chưa thanh toán"
+                                        key2="2" value2="Thanh toán đủ" key3="1" value3="Một phần"
+                                        title="Thanh toán nhập" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content margin-top-75">
         <!-- Main content -->
         <section class="content margin-250">
             <div class="container-fluided">
+                <div class="row result-filter-history margin-left30 my-1">
+                </div>
                 <div class="row p-0 m-0">
                     <div class="col-md-12 p-0 m-0">
                         <div class="card">
                             <!-- /.card-header -->
-                            <div class="outer text-nowrap">
+                            <div class="outer2 text-nowrap">
                                 <table id="example2" class="table table-hover">
                                     <thead class="sticky-head">
                                         {{-- SortType --}}
@@ -373,7 +406,7 @@
                                                 <span class="d-flex justify-content-start align-items-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="POxuat" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">SỐ PO/ HƠP
+                                                            class="btn-sort text-13" type="submit">SỐ PO/ HỢP
                                                             ĐỒNG</button></a>
                                                     <div class="icon" id="icon-POxuat"></div>
                                                 </span>
@@ -702,48 +735,88 @@
         // Khai báo biến
         var sort = [];
         var filterHistory = [];
-        var idProvides = [];
-        var idGuests = [];
         var product_unit = [];
         var svgtop =
             "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 19.0009C11.6332 19.0009 11.7604 18.9482 11.8542 18.8544C11.9480 18.7607 12.0006 18.6335 12.0006 18.5009V6.70789L15.1466 9.85489C15.2405 9.94878 15.3679 10.0015 15.5006 10.0015C15.6334 10.0015 15.7607 9.94878 15.8546 9.85489C15.9485 9.76101 16.0013 9.63367 16.0013 9.50089C16.0013 9.36812 15.9485 9.24078 15.8546 9.14689L11.8546 5.14689C11.8082 5.10033 11.7530 5.06339 11.6923 5.03818C11.6315 5.01297 11.5664 5 11.5006 5C11.4349 5 11.3697 5.01297 11.3090 5.03818C11.2483 5.06339 11.1931 5.10033 11.1466 5.14689L7.14663 9.14689C7.10014 9.19338 7.06327 9.24857 7.03811 9.30931C7.01295 9.37005 7 9.43515 7 9.50089C7 9.63367 7.05274 9.76101 7.14663 9.85489C7.24052 9.94878 7.36786 10.0015 7.50063 10.0015C7.63341 10.0015 7.76075 9.94878 7.85463 9.85489L11.0006 6.70789V18.5009C11.0006 18.6335 11.0533 18.7607 11.1471 18.8544C11.2408 18.9482 11.3680 19.0009 11.5006 19.0009Z' fill='#555555'/></svg>";
         var svgbot =
             "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 5C11.6332 5 11.7604 5.05268 11.8542 5.14645C11.948 5.24021 12.0006 5.36739 12.0006 5.5V17.293L15.1466 14.146C15.2405 14.0521 15.3679 13.9994 15.5006 13.9994C15.6334 13.9994 15.7607 14.0521 15.8546 14.146C15.9485 14.2399 16.0013 14.3672 16.0013 14.5C16.0013 14.6328 15.9485 14.7601 15.8546 14.854L11.8546 18.854C11.8082 18.9006 11.753 18.9375 11.6923 18.9627C11.6315 18.9879 11.5664 19.0009 11.5006 19.0009C11.4349 19.0009 11.3697 18.9879 11.309 18.9627C11.2483 18.9375 11.1931 18.9006 11.1466 18.854L7.14663 14.854C7.05274 14.7601 7 14.6328 7 14.5C7 14.3672 7.05274 14.2399 7.14663 14.146C7.24052 14.0521 7.36786 13.9994 7.50063 13.9994C7.63341 13.9994 7.76075 14.0521 7.85463 14.146L11.0006 17.293V5.5C11.0006 5.36739 11.0533 5.24021 11.1471 5.14645C11.2408 5.05268 11.368 5 11.5006 5Z' fill='#555555'/></svg>"
 
+        var TTX = [];
+        var TTN = [];
+
         // Filter ajxx
         $(document).on('click', '.btn-submit', function(e) {
             e.preventDefault();
             var buttonname = $(this).data('button') || 'history';
             var tensp = $('#tensp').val();
+            var BH = $('#BH').val();
+            var POnhap = $('#POnhap').val();
+            var POxuat = $('#POxuat').val();
+            var guests = $('#guests').val();
+            var provides = $('#provides').val();
             var hdvao = $('#hdvao').val();
             var hdra = $('#hdra').val();
-            var operator_product_qty = $('.product_qty-operator').val();
-            var val_product_qty = $('.product_qty-quantity').val();
-            var product_qty = [operator_product_qty, val_product_qty];
+            var HTTTN = $('#HTTTN').val();
+            var HTTTX = $('#HTTTX').val();
 
-            var operator_total_import = $('.total_import-operator').val();
-            var val_total_import = $('.total_import-quantity').val();
-            var total_import = [operator_total_import, val_total_import];
+            var operator_trcVATN = $('.trcVATN-operator').val();
+            var val_trcVATN = $('.trcVATN-quantity').val();
+            var trcVATN = [operator_trcVATN, val_trcVATN];
+
+            var operator_VATN = $('.VATN-operator').val();
+            var val_VATN = $('.VATN-quantity').val();
+            var VATN = [operator_VATN, val_VATN];
+
+            var operator_sauVATN = $('.sauVATN-operator').val();
+            var val_sauVATN = $('.sauVATN-quantity').val();
+            var sauVATN = [operator_sauVATN, val_sauVATN];
+
+            var operator_trcVATX = $('.trcVATX-operator').val();
+            var val_trcVATX = $('.trcVATX-quantity').val();
+            var trcVATX = [operator_trcVATX, val_trcVATX];
+
+            var operator_VATX = $('.VATX-operator').val();
+            var val_VATX = $('.VATX-quantity').val();
+            var VATX = [operator_VATX, val_VATX];
+
+            var operator_sauVATX = $('.sauVATX-operator').val();
+            var val_sauVATX = $('.sauVATX-quantity').val();
+            var sauVATX = [operator_sauVATX, val_sauVATX];
 
             var operator_slxuat = $('.slxuat-operator').val();
             var val_slxuat = $('.slxuat-quantity').val();
             var slxuat = [operator_slxuat, val_slxuat];
+            var operator_slnhap = $('.slnhap-operator').val();
+            var val_slnhap = $('.slnhap-quantity').val();
+            var slnhap = [operator_slnhap, val_slnhap];
 
-            var operator_price_export = $('.price_export-operator').val();
-            var val_price_export = $('.price_export-quantity').val();
-            var price_export = [operator_price_export, val_price_export];
+            if ($(this).data('button-name') === 'TTN') {
+                $('.ks-cboxtags-TTN input[type="checkbox"]').each(function() {
+                    const value = $(this).val();
+                    if ($(this).is(':checked') && TTN.indexOf(value) === -1) {
+                        TTN.push(value);
+                    } else if (!$(this).is(':checked')) {
+                        const index = TTN.indexOf(value);
+                        if (index !== -1) {
+                            TTN.splice(index, 1);
+                        }
+                    }
+                });
+            }
+            if ($(this).data('button-name') === 'TTX') {
+                $('.ks-cboxtags-TTX input[type="checkbox"]').each(function() {
+                    const value = $(this).val();
+                    if ($(this).is(':checked') && TTX.indexOf(value) === -1) {
+                        TTX.push(value);
+                    } else if (!$(this).is(':checked')) {
+                        const index = TTX.indexOf(value);
+                        if (index !== -1) {
+                            TTX.splice(index, 1);
+                        }
+                    }
+                });
+            }
 
-            var operator_total_export = $('.total_export-operator').val();
-            var val_total_export = $('.total_export-quantity').val();
-            var total_export = [operator_total_export, val_total_export];
-
-            var operator_price_import = $('.price_import-operator').val();
-            var val_price_import = $('.price_import-quantity').val();
-            var price_import = [operator_price_import, val_price_import];
-
-            var operator_shipping_fee = $('.shipping_fee-operator').val();
-            var val_shipping_fee = $('.shipping_fee-quantity').val();
-            var shipping_fee = [operator_shipping_fee, val_shipping_fee];
             var search = $('#search-' + buttonname).val();
             // Sort
             var sort_by = '';
@@ -763,105 +836,89 @@
 
             var btn_submit = $(this).data('button-name');
             $('#' + btn_submit + '-options').hide();
-            $(".text-btnIner").prop("disabled", false);
+            $(".btn-filter_search").prop("disabled", false);
+            if ($(this).data('delete') === 'TTN') {
+                TTN = [];
+                $('.deselect-all-TTN').click();
+            }
+            if ($(this).data('delete') === 'TTX') {
+                TTX = [];
+                $('.deselect-all-TTX').click();
+            }
+            if ($(this).data('delete') === 'provides') {
+                provides = null;
+                $('#provides').val('');
+            }
+            if ($(this).data('delete') === 'guests') {
+                guests = null;
+                $('#guests').val('');
+            }
+            if ($(this).data('delete') === 'BH') {
+                BH = null;
+                $('#BH').val('');
+            }
+            if ($(this).data('delete') === 'HTTTX') {
+                HTTTX = null;
+                $('#HTTTX').val('');
+            }
+            if ($(this).data('delete') === 'HTTTN') {
+                HTTTN = null;
+                $('#HTTTN').val('');
+            }
+            if ($(this).data('delete') === 'POnhap') {
+                POnhap = null;
+                $('#POnhap').val('');
+            }
+            if ($(this).data('delete') === 'hdra') {
+                hdra = null;
+                $('#hdra').val('');
+            }
+            if ($(this).data('delete') === 'hdvao') {
+                hdvao = null;
+                $('#hdvao').val('');
+            }
+            if ($(this).data('delete') === 'POxuat') {
+                POxuat = null;
+                $('#POxuat').val('');
+            }
+            if ($(this).data('delete') === 'tensp') {
+                tensp = null;
+                $('#tensp').val('');
+            }
+            if ($(this).data('delete') === 'trcVATN') {
+                trcVATN = null;
+                $('.trcVATN-quantity').val('');
+            }
+            if ($(this).data('delete') === 'VATN') {
+                VATN = null;
+                $('.VATN-quantity').val('');
+            }
+            if ($(this).data('delete') === 'sauVATN') {
+                sauVATN = null;
+                $('.sauVATN-quantity').val('');
+            }
+            if ($(this).data('delete') === 'trcVATX') {
+                trcVATX = null;
+                $('.trcVATX-quantity').val('');
+            }
+            if ($(this).data('delete') === 'VATX') {
+                VATX = null;
+                $('.VATX-quantity').val('');
+            }
+            if ($(this).data('delete') === 'sauVATX') {
+                sauVATX = null;
+                $('.sauVATX-quantity').val('');
+            }
+            if ($(this).data('delete') === 'slnhap') {
+                slnhap = null;
+                $('.slnhap-quantity').val('');
+            }
+            if ($(this).data('delete') === 'slxuat') {
+                slxuat = null;
+                $('.slxuat-quantity').val('');
+            }
             // Xử lí dữ liệu
             if (buttonname === 'history') {
-                console.log(buttonname);
-                if ($(this).data('button-name') === 'provides') {
-                    $('.ks-cboxtags-provides input[type="checkbox"]').each(function() {
-                        const value = $(this).val();
-                        if ($(this).is(':checked') && idProvides.indexOf(value) === -1) {
-                            idProvides.push(value);
-                        } else if (!$(this).is(':checked')) {
-                            const index = idProvides.indexOf(value);
-                            if (index !== -1) {
-                                idProvides.splice(index, 1);
-                            }
-                        }
-                    });
-                }
-                if ($(this).data('button-name') === 'guests') {
-                    $('.ks-cboxtags-guests input[type="checkbox"]').each(function() {
-                        const value = $(this).val();
-                        if ($(this).is(':checked') && idGuests.indexOf(value) === -1) {
-                            idGuests.push(value);
-                        } else if (!$(this).is(':checked')) {
-                            const index = idGuests.indexOf(value);
-                            if (index !== -1) {
-                                idGuests.splice(index, 1);
-                            }
-                        }
-                    });
-                }
-                if ($(this).data('button-name') === 'product_unit') {
-                    $('.ks-cboxtags-product_unit input[type="checkbox"]').each(function() {
-                        const value = $(this).val();
-                        if ($(this).is(':checked') && product_unit.indexOf(value) === -1) {
-                            product_unit.push(value);
-                        } else if (!$(this).is(':checked')) {
-                            const index = product_unit.indexOf(value);
-                            if (index !== -1) {
-                                product_unit.splice(index, 1);
-                            }
-                        }
-                    });
-                }
-                if ($(this).data('delete') === 'tensp') {
-                    tensp = null;
-                    $('#tensp').val('');
-                }
-                if ($(this).data('delete') === 'hdvao') {
-                    hdvao = null;
-                    $('#hdvao').val('');
-                }
-                if ($(this).data('delete') === 'hdra') {
-                    hdra = null;
-                    $('#hdra').val('');
-                }
-                if ($(this).data('delete') === 'provides') {
-                    idProvides = [];
-                    $('.deselect-all-provides').click();
-                }
-                if ($(this).data('delete') === 'guests') {
-                    idGuests = [];
-                    $('.deselect-all-guests').click();
-                }
-                if ($(this).data('delete') === 'product_unit') {
-                    product_unit = [];
-                    $('.deselect-all-product_unit').click();
-                }
-                if ($(this).data('delete') === 'product_qty') {
-                    product_qty = null;
-                    $('.product_qty-quantity').val('');
-                }
-                if ($(this).data('delete') === 'price_import') {
-                    price_import = null;
-                    $('.price_import-quantity').val('');
-                }
-                if ($(this).data('delete') === 'price_import') {
-                    price_import = null;
-                    $('.price_import-quantity').val('');
-                }
-                if ($(this).data('delete') === 'total_import') {
-                    total_import = null;
-                    $('.total_import-quantity').val('');
-                }
-                if ($(this).data('delete') === 'slxuat') {
-                    slxuat = null;
-                    $('.slxuat-quantity').val('');
-                }
-                if ($(this).data('delete') === 'total_export') {
-                    total_export = null;
-                    $('.total_export-quantity').val('');
-                }
-                if ($(this).data('delete') === 'total_export') {
-                    total_export = null;
-                    $('.total_export-quantity').val('');
-                }
-                if ($(this).data('delete') === 'shipping_fee') {
-                    shipping_fee = null;
-                    $('.shipping_fee-quantity').val('');
-                }
                 $.ajax({
                     url: "{{ route('searchHistory') }}",
                     type: "get",
@@ -870,17 +927,25 @@
                         tensp: tensp,
                         hdvao: hdvao,
                         hdra: hdra,
+                        POnhap: POnhap,
+                        POxuat: POxuat,
+                        hdra: hdra,
                         tensp: tensp,
-                        idProvides: idProvides,
-                        idGuests: idGuests,
-                        product_qty: product_qty,
-                        price_import: price_import,
-                        total_import: total_import,
+                        BH: BH,
+                        provides: provides,
+                        guests: guests,
+                        trcVATN: trcVATN,
+                        VATN: VATN,
+                        sauVATN: sauVATN,
+                        trcVATX: trcVATX,
+                        VATX: VATX,
+                        TTN: TTN,
+                        TTX: TTX,
+                        HTTTX: HTTTX,
+                        HTTTN: HTTTN,
+                        sauVATX: sauVATX,
                         slxuat: slxuat,
-                        total_export: total_export,
-                        price_export: price_export,
-                        product_unit: product_unit,
-                        shipping_fee: shipping_fee,
+                        slnhap: slnhap,
                         sort: sort,
                     },
                     success: function(data) {
@@ -904,15 +969,17 @@
                             var index = filterHistory.indexOf(item.name);
                             // Tạo thẻ item-filter
                             var itemFilter = $('<div>').addClass(
-                                'item-filter span d-flex justify-content-center align-items-baseline'
+                                'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
                             );
                             itemFilter.css('order', index);
                             // Thêm nội dung và thuộc tính data vào thẻ item-filter
-                            itemFilter.append('<p class="text">' + item.value +
-                                '</p><i class="fa-solid fa-xmark btn-submit" data-delete="' +
+                            itemFilter.append(
+                                '<span class="text text-13-black m-0" style="flex:2;">' +
+                                item.value +
+                                '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
                                 item.name + '" data-button="' + buttonname +
                                 '"></i>');
-                            // Thêm thẻ item-filter vào resultFilterhistory
+                            // Thêm thẻ item-filter vào 
                             $('.result-filter-history').append(itemFilter);
                         });
 

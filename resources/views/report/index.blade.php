@@ -50,7 +50,8 @@
         </div>
         <section class="content-header--options p-0 border-custom">
             <div class="width-18">
-                <ul class="header-options--nav nav nav-tabs margin-left32 border-bottom-0" style="width: 320px !important;">
+                <ul class="header-options--nav nav nav-tabs margin-left32 border-bottom-0"
+                    style="width: 320px !important;">
                     <li class="active">
                         <a class="text-secondary pl-3 active text-15" data-toggle="tab" href="#dashboard">Tổng quan</a>
                     </li>
@@ -83,8 +84,8 @@
                                                 name="hidden-submit" style="display: none;">
                                         </div>
                                     </form>
-                                    <div class="dropdown mx-2 d-none">
-                                        <button class="btn-filter_searh" data-toggle="dropdown">
+                                    <div class="dropdown mx-2">
+                                        <button class="btn-filter_search" data-toggle="dropdown">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 viewBox="0 0 16 16" fill="none">
                                                 <path
@@ -176,8 +177,8 @@
                                                 name="hidden-submit" style="display: none;">
                                         </div>
                                     </form>
-                                    <div class="dropdown mx-2 d-none">
-                                        <button class="btn-filter_searh" data-toggle="dropdown">
+                                    <div class="dropdown mx-2">
+                                        <button class="btn-filter_search" data-toggle="dropdown">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 viewBox="0 0 16 16" fill="none">
                                                 <path
@@ -801,7 +802,7 @@
 
         var btn_submit = $(this).data('button-name');
         $('#' + btn_submit + '-options').hide();
-        $(".text-btnIner").prop("disabled", false);
+        $(".btn-filter_search").prop("disabled", false);
         // Xử lí dữ liệu
         if (buttonname == 'import') {
             // console.log('import');

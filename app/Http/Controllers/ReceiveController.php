@@ -11,6 +11,7 @@ use App\Models\QuoteImport;
 use App\Models\Receive_bill;
 use App\Models\Reciept;
 use App\Models\Serialnumber;
+use App\Models\User;
 use App\Models\Workspace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -28,6 +29,7 @@ class ReceiveController extends Controller
     private $sn;
     private $workspaces;
     private $attachment;
+    private $users;
     public function __construct()
     {
         $this->receive = new Receive_bill();
@@ -39,6 +41,7 @@ class ReceiveController extends Controller
         $this->sn = new Serialnumber();
         $this->workspaces = new Workspace();
         $this->attachment = new Attachment();
+        $this->users = new User();
     }
     /**
      * Display a listing of the resource.
@@ -56,9 +59,10 @@ class ReceiveController extends Controller
         }
         $receive->select('receive_bill.*');
         $receive = $receive->get();
+        $users = $this->receive->getUserInReceive();
 
         // ->paginate($perPage);
-        return view('tables.receive.receive', compact('receive', 'title', 'workspacename'));
+        return view('tables.receive.receive', compact('receive', 'users', 'title', 'workspacename'));
     }
 
     /**
@@ -391,6 +395,43 @@ class ReceiveController extends Controller
     {
         $data = $request->all();
         $filters = [];
+        if (isset($data['quotenumber']) && $data['quotenumber'] !== null) {
+            $filters[] = ['value' => 'Số báo giá: ' . $data['quotenumber'], 'name' => 'quotenumber'];
+        }
+        if (isset($data['provides']) && $data['provides'] !== null) {
+            $filters[] = ['value' => 'Nhà cung cấp: ' . $data['provides'], 'name' => 'provides'];
+        }
+        if (isset($data['shipping_unit']) && $data['shipping_unit'] !== null) {
+            $filters[] = ['value' => 'Đơn vị vận chuyển: ' . $data['shipping_unit'], 'name' => 'shipping_unit'];
+        }
+        if (isset($data['delivery_code']) && $data['delivery_code'] !== null) {
+            $receive_bill = $this->receive->receive_bill_codeById($data['delivery_code']);
+            $receive_billString = implode(', ', $receive_bill);
+            $filters[] = ['value' => 'Mã giao hàng: ' . $receive_billString, 'name' => 'delivery_code'];
+        }
+        if (isset($data['users']) && $data['users'] !== null) {
+            $users = $this->users->getNameUser($data['users']);
+            $userstring = implode(', ', $users);
+            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+        }
+        $statusText = '';
+        if (isset($data['status']) && $data['status'] !== null) {
+            $statusValues = [];
+            if (in_array(1, $data['status'])) {
+                $statusValues[] = 'Chưa nhận';
+            }
+            if (in_array(2, $data['status'])) {
+                $statusValues[] = 'Đã nhận';
+            }
+            $statusText = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
+        }
+        if (isset($data['shipping_fee']) && $data['shipping_fee'][1] !== null) {
+            $filters[] = ['value' => 'Phí vận chuyển: ' . $data['shipping_fee'][0] . $data['shipping_fee'][1], 'name' => 'shipping_fee'];
+        }
+        if (isset($data['total']) && $data['total'][1] !== null) {
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
+        }
         if ($request->ajax()) {
             $receive = $this->receive->ajax($data);
             return response()->json([

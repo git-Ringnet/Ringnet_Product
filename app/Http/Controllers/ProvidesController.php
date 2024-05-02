@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DetailImport;
 use App\Models\ProvideRepesent;
 use App\Models\Provides;
+use App\Models\User;
 use App\Models\Workspace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,11 +17,13 @@ class ProvidesController extends Controller
     private $provides;
     private $repesent;
     private $workspaces;
+    private $users;
     public function __construct()
     {
         $this->provides = new Provides();
         $this->repesent = new ProvideRepesent();
         $this->workspaces = new Workspace();
+        $this->users = new User();
     }
     /**
      * Display a listing of the resource.
@@ -32,7 +35,8 @@ class ProvidesController extends Controller
         $dataa = $this->provides->getAllProvide();
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.provides.provides', compact('title', 'provides', 'dataa', 'workspacename'));
+        $users = $this->provides->getUserInProvides();
+        return view('tables.provides.provides', compact('title', 'users', 'provides', 'dataa', 'workspacename'));
     }
 
     /**
@@ -162,6 +166,22 @@ class ProvidesController extends Controller
     {
         $data = $request->all();
         $filters = [];
+        if (isset($data['provide_code']) && $data['provide_code'] !== null) {
+            $filters[] = ['value' => 'Mã số thuế: ' . $data['provide_code'], 'name' => 'provide_code'];
+        }
+        if (isset($data['provides']) && $data['provides'] !== null) {
+            $provide = $this->provides->provideName($data['provides']);
+            $provideString = implode(', ', $provide);
+            $filters[] = ['value' => 'Tên hiển thị: ' . $provideString, 'name' => 'provides'];
+        }
+        if (isset($data['users']) && $data['users'] !== null) {
+            $users = $this->users->getNameUser($data['users']);
+            $userstring = implode(', ', $users);
+            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+        }
+        if (isset($data['debt']) && $data['debt'][1] !== null) {
+            $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt'];
+        }
         if ($request->ajax()) {
             $provide = $this->provides->ajax($data);
             return response()->json([

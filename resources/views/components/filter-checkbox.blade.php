@@ -16,12 +16,25 @@
         </div>
         <div class="outer3-srcoll">
             <ul class="ks-cboxtags-{{ $name }} p-0 mb-1 px-2">
+                @php
+                    $usedValues = [];
+                @endphp
                 @foreach ($dataa as $item)
-                    <li>
-                        <input type="checkbox" id="{{ $name }}" name="{{ $name }}[]"
-                            value="{{ $item->id }}">
-                        <label for="">{{ $item->{$namedisplay} }}</label>
-                    </li>
+                    @php
+                        $value = $item->id;
+                        $display = $item->{$namedisplay};
+                    @endphp
+
+                    @if (!in_array($value, $usedValues))
+                        <li>
+                            <input type="checkbox" id="{{ $name }}_{{ $value }}"
+                                name="{{ $name }}[]" value="{{ $value }}">
+                            <label for="">{{ $display }}</label>
+                        </li>
+                        @php
+                            $usedValues[] = $value;
+                        @endphp
+                    @endif
                 @endforeach
             </ul>
         </div>
@@ -47,7 +60,8 @@
         });
 
 
-        $('.ks-cboxtags-{{ $name }} li').on('click', function(event) {
+        $('.ks-cboxtags-{{ $name }} li, .ks-cboxtags-{{ $name }} label').on('click', function(
+            event) {
             if (event.target.tagName !== 'INPUT') {
                 var checkbox = $(this).find('input[type="checkbox"]');
                 checkbox.prop('checked', !checkbox.prop('checked')); // Đảo ngược trạng thái checked

@@ -60,7 +60,6 @@ class History extends Model
                     WHEN products.product_tax = 99 THEN delivered.price_export * delivered.deliver_qty 
                     ELSE (products.product_tax * delivered.price_export * delivered.deliver_qty) / 100 
                 END as thanhtienxuat'),
-
                 DB::raw('history_import.product_qty * history.price_import as tienThue'),
                 DB::raw('CASE 
                     WHEN products.product_tax = 99 THEN history.price_import * history_import.product_qty 
@@ -180,8 +179,6 @@ class History extends Model
         }
         return $history;
     }
-
-
     public function ajax($data)
     {
         $history = History::leftJoin('delivered', 'history.delivered_id', 'delivered.id')
@@ -201,7 +198,7 @@ class History extends Model
             ->select(
                 'delivered.*',
                 'delivery.*',
-                'delivered.price_export as giaban',
+                // 'delivered.price_export as giaban',
                 'delivered.created_at as time',
                 'delivered.deliver_qty as slXuat',
                 'products.product_name as tensp',
@@ -267,6 +264,12 @@ class History extends Model
                 $query->orWhereIn('delivered.id', $product);
             });
         }
+        if (isset($data['provides'])) {
+            $history = $history->where('provides.provide_name_display', 'like', '%' . $data['provides'] . '%');
+        }
+        if (isset($data['guests'])) {
+            $history = $history->where('guest.guest_name_display', 'like', '%' . $data['guests'] . '%');
+        }
         if (isset($data['tensp'])) {
             $history = $history->where('products.product_name', 'like', '%' . $data['tensp'] . '%');
         }
@@ -276,38 +279,54 @@ class History extends Model
         if (isset($data['hdra'])) {
             $history = $history->having('hdra', 'like', '%' . $data['hdra'] . '%');
         }
+        if (isset($data['BH'])) {
+            $history = $history->where('products.product_guarantee', 'like', '%' . $data['BH'] . '%');
+        }
         // Nhập
-        if (isset($data['product_qty'][0]) && isset($data['product_qty'][1])) {
-            $history = $history->where('history_import.product_qty', $data['product_qty'][0], $data['product_qty'][1]);
+        if (isset($data['POnhap'])) {
+            $history = $history->where('detailimport.reference_number', 'like', '%' . $data['POnhap'] . '%');
         }
-        if (isset($data['price_import'][0]) && isset($data['price_import'][1])) {
-            $history = $history->where('history_import.price_export', $data['price_import'][0], $data['price_import'][1]);
+        if (isset($data['HTTTN'])) {
+            $history = $history->where('pay_order.payment_type', 'like', '%' . $data['HTTTN'] . '%');
         }
-        if (isset($data['total_import'][0]) && isset($data['total_import'][1])) {
-            $history = $history->where('history.total_import', $data['total_import'][0], $data['total_import'][1]);
+        if (isset($data['slnhap'][0]) && isset($data['slnhap'][1])) {
+            $history = $history->where('history_import.product_qty', $data['slnhap'][0], $data['slnhap'][1]);
+        }
+        if (isset($data['trcVATN'][0]) && isset($data['trcVATN'][1])) {
+            $history = $history->having('tienThue', $data['trcVATN'][0], $data['trcVATN'][1]);
+        }
+        if (isset($data['VATN'][0]) && isset($data['VATN'][1])) {
+            $history = $history->having('thueNhapCalculated', $data['VATN'][0], $data['VATN'][1]);
+        }
+        if (isset($data['sauVATN'][0]) && isset($data['sauVATN'][1])) {
+            $history = $history->having('thanhtiennhap', $data['sauVATN'][0], $data['sauVATN'][1]);
+        }
+        if (isset($data['TTN'])) {
+            $history = $history->whereIn('detailimport.status_pay', $data['TTN']);
         }
         // Xuất
+        if (isset($data['POxuat'])) {
+            $history = $history->where('detailexport.reference_number', 'like', '%' . $data['POxuat'] . '%');
+        }
+        if (isset($data['HTTTX'])) {
+            $history = $history->where('pay_export.payment_type', 'like', '%' . $data['HTTTX'] . '%');
+        }
         if (isset($data['slxuat'][0]) && isset($data['slxuat'][1])) {
             $history = $history->where('delivered.deliver_qty', $data['slxuat'][0], $data['slxuat'][1]);
         }
-        if (isset($data['total_export'][0]) && isset($data['total_export'][1])) {
-            $history = $history->whereRaw('delivered.deliver_qty * delivered.price_export ' . $data['total_export'][0] . '?', [$data['total_export'][1]]);
+        if (isset($data['trcVATX'][0]) && isset($data['trcVATX'][1])) {
+            $history = $history->having('giaban', $data['trcVATX'][0], $data['trcVATX'][1]);
         }
-        if (isset($data['price_export'][0]) && isset($data['price_export'][1])) {
-            $history = $history->where('delivered.price_export', $data['price_export'][0], $data['price_export'][1]);
+        if (isset($data['VATX'][0]) && isset($data['VATX'][1])) {
+            $history = $history->having('thueXuatCalculated', $data['VATX'][0], $data['VATX'][1]);
         }
-        if (isset($data['shipping_fee'][0]) && isset($data['shipping_fee'][1])) {
-            $history = $history->where('delivery.shipping_fee', $data['shipping_fee'][0], $data['shipping_fee'][1]);
+        if (isset($data['sauVATX'][0]) && isset($data['sauVATX'][1])) {
+            $history = $history->having('thanhtienxuat', $data['sauVATX'][0], $data['sauVATX'][1]);
         }
-        if (isset($data['product_unit'])) {
-            $history = $history->whereIn('delivered.product_id', $data['product_unit']);
+        if (isset($data['TTX'])) {
+            $history = $history->whereIn('detailexport.status_pay', $data['TTX']);
         }
-        if (isset($data['idGuests'])) {
-            $history = $history->whereIn('guest.id', $data['idGuests']);
-        }
-        if (isset($data['idProvides'])) {
-            $history = $history->whereIn('provides.id', $data['idProvides']);
-        }
+
         // dd($data);
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $history = $history->orderBy($data['sort'][0], $data['sort'][1]);

@@ -102,7 +102,7 @@ class Provides extends Model
     public function updateProvide($data, $id)
     {
         $exist = false;
-    
+
         $check = DB::table($this->table)
             ->where('id', '!=', $id)
             ->where(function ($query) use ($data) {
@@ -185,17 +185,11 @@ class Provides extends Model
                 $query->orWhere('provide_name_display', 'like', '%' . $data['search'] . '%');
             });
         }
-        if (isset($data['idName'])) {
-            $provides = $provides->whereIn('provides.id', $data['idName']);
+        if (isset($data['provide_code'])) {
+            $provides = $provides->where('provide_code', 'like', '%' . $data['provide_code'] . '%');
         }
-        if (isset($data['idCode'])) {
-            $provides = $provides->whereIn('provides.id', $data['idCode']);
-        }
-        if (isset($data['email'])) {
-            $provides = $provides->where('provide_email', 'like', '%' . $data['email'] . '%');
-        }
-        if (isset($data['phone'])) {
-            $provides = $provides->where('provide_phone', 'like', '%' . $data['phone'] . '%');
+        if (isset($data['provides'])) {
+            $provides = $provides->whereIn('provides.id', $data['provides']);
         }
         if (isset($data['debt'][0]) && isset($data['debt'][1])) {
             $provides = $provides->where('provide_debt', $data['debt'][0], $data['debt'][1]);
@@ -220,6 +214,15 @@ class Provides extends Model
             $provides = $provides->whereIn('provides.id', $data);
         }
         $provides = $provides->pluck('provide_name_display')->all();
+        return $provides;
+    }
+    public function getUserInProvides()
+    {
+        $provides = DB::table($this->table)
+            ->where('workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('users', 'provides.user_id', '=', 'users.id')
+            ->orderBy('provides.id', 'DESC')
+            ->select('provides.*', 'users.name as name', 'users.*')->get();
         return $provides;
     }
 }

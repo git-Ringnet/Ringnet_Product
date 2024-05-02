@@ -29,7 +29,7 @@ class BillSale extends Model
     {
         $bill_sale = BillSale::leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
             ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
-            ->select('*', 'bill_sale.status as tinhTrang', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD')
+            ->select('*', 'bill_sale.status as tinhTrang', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD', 'bill_sale.*')
             ->leftJoin('users', 'bill_sale.user_id', 'users.id')
             ->orderBy('bill_sale.id', 'DESC')
             ->get();
@@ -427,18 +427,55 @@ class BillSale extends Model
         }
         return $bill_sale;
     }
+
+    public function getUserInBillSale()
+    {
+        $bill_sale = BillSale::leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
+            ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('users', 'bill_sale.user_id', 'users.id')->distinct('guest.id')
+            ->select('*', 'bill_sale.status as tinhTrang', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD', 'users.*')
+            ->get();
+        return $bill_sale;
+    }
+    public function number_billById($data)
+    {
+        $bill_sale = DB::table($this->table);
+        if (isset($data)) {
+            $bill_sale = $bill_sale->whereIn('id', $data);
+        }
+        $bill_sale = $bill_sale->pluck('number_bill')->all();
+        return $bill_sale;
+    }
     public function ajax($data)
     {
         $bill_sale = BillSale::leftJoin('detailexport', 'bill_sale.detailexport_id', 'detailexport.id')
-            ->leftJoin('guest', 'bill_sale.guest_id', 'guest.id')
             ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
-            ->select('bill_sale.status as tinhTrang', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD', 'guest.guest_name_display as guest_name_display', 'bill_sale.*')->distinct();
+            ->select('*', 'bill_sale.status as tinhTrang', 'bill_sale.id as idHD', 'bill_sale.created_at as ngayHD')
+            ->leftJoin('users', 'bill_sale.user_id', 'users.id');
         if (isset($data['search'])) {
             $bill_sale = $bill_sale->where(function ($query) use ($data) {
                 $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('number_bill', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('guest_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('detailexport.guest_name', 'like', '%' . $data['search'] . '%');
             });
+        }
+        if (isset($data['quotenumber'])) {
+            $bill_sale = $bill_sale->where('quotation_number', 'like', '%' . $data['quotenumber'] . '%');
+        }
+        if (isset($data['guests'])) {
+            $bill_sale = $bill_sale->where('detailexport.guest_name', 'like', '%' . $data['guests'] . '%');
+        }
+        if (isset($data['number_bill'])) {
+            $bill_sale = $bill_sale->whereIn('bill_sale.id', $data['number_bill']);
+        }
+        if (isset($data['users'])) {
+            $bill_sale = $bill_sale->whereIn('bill_sale.user_id', $data['users']);
+        }
+        if (isset($data['status'])) {
+            $bill_sale = $bill_sale->whereIn('bill_sale.status', $data['status']);
+        }
+        if (isset($data['total'][0]) && isset($data['total'][1])) {
+            $bill_sale = $bill_sale->where('bill_sale.price_total', $data['total'][0], $data['total'][1]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $bill_sale = $bill_sale->orderBy($data['sort'][0], $data['sort'][1]);

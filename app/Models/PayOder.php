@@ -566,6 +566,24 @@ class PayOder extends Model
         $report_provide = $report_provide->get();
         return $report_provide;
     }
+    public function getUserInPayOrder()
+    {
+        $pay_order = PayOder::leftJoin('detailimport', 'pay_order.detailimport_id', 'detailimport.id')
+            ->where('pay_order.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('users', 'pay_order.user_id', 'users.id')->distinct('guest.id')
+            ->select('*', 'users.*')
+            ->get();
+        return $pay_order;
+    }
+    public function code_paymentById($data)
+    {
+        $pay_order = DB::table($this->table);
+        if (isset($data)) {
+            $pay_order = $pay_order->whereIn('id', $data);
+        }
+        $pay_order = $pay_order->pluck('payment_code')->all();
+        return $pay_order;
+    }
     public function ajax1($data)
     {
         $payment = DB::table($this->table)
@@ -580,6 +598,33 @@ class PayOder extends Model
                 $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('provide_name_display', 'like', '%' . $data['search'] . '%');
             });
+        }
+        if (isset($data['quotenumber'])) {
+            $payment = $payment->where('quotation_number', 'like', '%' . $data['quotenumber'] . '%');
+        }
+        if (isset($data['provides'])) {
+            $payment = $payment->where('detailimport.provide_name', 'like', '%' . $data['provides'] . '%');
+        }
+        if (isset($data['payment_code'])) {
+            $payment = $payment->whereIn('pay_order.id', $data['payment_code']);
+        }
+        if (isset($data['users'])) {
+            $payment = $payment->whereIn('pay_order.user_id', $data['users']);
+        }
+        if (isset($data['status'])) {
+            $payment = $payment->whereIn('pay_order.status', $data['status']);
+        }
+        if (isset($data['payment'][0]) && isset($data['payment'][1])) {
+            $payment = $payment->where('pay_order.payment', $data['payment'][0], $data['payment'][1]);
+        }
+        if (isset($data['debt'][0]) && isset($data['debt'][1])) {
+            $payment = $payment->where('pay_order.debt', $data['debt'][0], $data['debt'][1]);
+        }
+        if (isset($data['total'][0]) && isset($data['total'][1])) {
+            $payment = $payment->where('pay_order.total', $data['total'][0], $data['total'][1]);
+        }
+        if (isset($data['sort']) && isset($data['sort'][0])) {
+            $payment = $payment->orderBy($data['sort'][0], $data['sort'][1]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $payment = $payment->orderBy($data['sort'][0], $data['sort'][1]);

@@ -276,24 +276,77 @@ class DetailImport extends Model
             ->get();
         return $data;
     }
+    public function getProvideInDetail()
+    {
+        $import = DetailImport::leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->select('provides.provide_name_display as provide_name_display', 'detailimport.*', 'provides.*')
+            ->where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->get();
+        return $import;
+    }
+    public function getUserInDetail()
+    {
+        $import = DetailImport::leftJoin('provides', 'provides.id', 'detailimport.provide_id')
+            ->leftJoin('users', 'users.id', 'detailimport.user_id')->distinct('guest.id')
+            ->where('detailimport.workspace_id', Auth::user()->current_workspace)
+            ->select('provides.provide_name_display as provide_name_display', 'detailimport.*', 'users.*')
+            ->get();
+        return $import;
+    }
     public function ajax($data)
     {
         $import = DetailImport::leftJoin('provides', 'provides.id', 'detailimport.provide_id')
-            ->select('detailimport.*', 'provides.provide_name_display as provide_name_display')
+            ->select('provides.provide_name_display as provide_name_display', 'detailimport.*')
             ->where('detailimport.workspace_id', Auth::user()->current_workspace);
 
         if (isset($data['search'])) {
             $import = $import->where(function ($query) use ($data) {
                 $query->orWhere('detailimport.quotation_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('detailimport.reference_number', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('provide_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('detailimport.provide_name', 'like', '%' . $data['search'] . '%');
             });
+        }
+        if (isset($data['quotenumber'])) {
+            $import = $import->where('quotation_number', 'like', '%' . $data['quotenumber'] . '%');
+        }
+        if (isset($data['provides'])) {
+            $import = $import->where('detailimport.provide_name', 'like', '%' . $data['provides'] . '%');
+        }
+        if (isset($data['reference_number'])) {
+            $import = $import->whereIn('detailimport.id', $data['reference_number']);
+        }
+        if (isset($data['users'])) {
+            $import = $import->whereIn('detailimport.user_id', $data['users']);
+        }
+        if (isset($data['status'])) {
+            $import = $import->whereIn('detailimport.status', $data['status']);
+        }
+        if (isset($data['receive'])) {
+            $import = $import->whereIn('detailimport.status_receive', $data['receive']);
+        }
+        if (isset($data['reciept'])) {
+            $import = $import->whereIn('detailimport.status_reciept', $data['reciept']);
+        }
+        if (isset($data['pay'])) {
+            $import = $import->whereIn('detailimport.status_pay', $data['pay']);
+        }
+        if (isset($data['total'][0]) && isset($data['total'][1])) {
+            $import = $import->where('detailimport.total_tax', $data['total'][0], $data['total'][1]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $import = $import->orderBy($data['sort'][0], $data['sort'][1]);
         }
         $import = $import->get();
         return $import;
+    }
+    public function reference_numberById($data)
+    {
+        $detailImport = DB::table($this->table);
+        if (isset($data)) {
+            $detailImport = $detailImport->whereIn('id', $data);
+        }
+        $detailImport = $detailImport->pluck('reference_number')->all();
+        return $detailImport;
     }
     public function checkStatus($id)
     {

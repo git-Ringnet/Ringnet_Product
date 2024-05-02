@@ -356,7 +356,7 @@
                                                     <i class="fas fa-search" aria-hidden="true"></i>
                                                 </span>
                                             </div>
-                                            <button class="btn-filter_searh mx-2 d-none" type="button"
+                                            <button class="btn-filter_search mx-2 d-none" type="button"
                                                 id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <span>
@@ -577,7 +577,7 @@
                                                     <i class="fas fa-search" aria-hidden="true"></i>
                                                 </span>
                                             </div>
-                                            <button class="btn-filter_searh mx-2 d-none" type="button"
+                                            <button class="btn-filter_search mx-2 d-none" type="button"
                                                 id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <span>
@@ -653,7 +653,8 @@
                                             <tr class="bg-white">
                                                 <td class="text-14-black padding-left35 text-left border-top-0 border-bottom"
                                                     style="width: 33.34%;"> {{ $sn->serinumber }} </td>
-                                                <td class= "text-14-blue text-left border-top-0 border-bottom" style="width: 33.34%;">
+                                                <td class= "text-14-blue text-left border-top-0 border-bottom"
+                                                    style="width: 33.34%;">
                                                     <span style="display:block;" class="text-14-blue">
                                                         <a
                                                             href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->getReceive->id]) }}">
@@ -664,7 +665,8 @@
                                                         {{ date_format(new DateTime($sn->created_at), 'd-m-Y') }}
                                                     </span>
                                                 </td>
-                                                <td class="text-14-blue text-left border-top-0 border-bottom"style="width: 33.34%;">
+                                                <td
+                                                    class="text-14-blue text-left border-top-0 border-bottom"style="width: 33.34%;">
                                                     @if ($sn->getQuotation)
                                                         <span style="display:block;" class="text-14-blue">
                                                             <a

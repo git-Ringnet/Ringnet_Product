@@ -78,41 +78,81 @@ class HistoryController extends Controller
         if (isset($data['hdra']) && $data['hdra'] !== null) {
             $filters[] = ['value' => 'Hoá đơn ra: ' . $data['hdra'], 'name' => 'hdra'];
         }
-        if (isset($data['idProvides']) && $data['idProvides'] !== null) {
-            $provides = $this->provides->provideName($data['idProvides']);
-            $providesString = implode(', ', $provides);
-            $filters[] = ['value' => 'Nhà cung cấp: ' . $providesString, 'name' => 'provides'];
+        if (isset($data['provides']) && $data['provides'] !== null) {
+            $filters[] = ['value' => 'Nhà cung cấp: ' . $data['provides'], 'name' => 'provides'];
         }
-        if (isset($data['idGuests']) && $data['idGuests'] !== null) {
-            $guests = $this->guests->guestName($data['idGuests']);
-            $guestsString = implode(', ', $guests);
-            $filters[] = ['value' => 'Khách hàng: ' . $guestsString, 'name' => 'guests'];
+        if (isset($data['guests']) && $data['guests'] !== null) {
+            $filters[] = ['value' => 'Khách hàng: ' . $data['guests'], 'name' => 'guests'];
         }
-        if (isset($data['product_unit']) && $data['product_unit'] !== null) {
-            $product_unit = $this->products->getProductUnit($data['product_unit']);
-            $product_unitString = implode(', ', $product_unit);
-            $filters[] = ['value' => 'Đơn vị tính: ' . $product_unitString, 'name' => 'product_unit'];
+        if (isset($data['POnhap']) && $data['POnhap'] !== null) {
+            $filters[] = ['value' => 'PO nhập: ' . $data['POnhap'], 'name' => 'POnhap'];
         }
-        if (isset($data['product_qty']) && $data['product_qty'][1] !== null) {
-            $filters[] = ['value' => 'Số lượng nhập: ' . $data['product_qty'][0] . $data['product_qty'][1], 'name' => 'product_qty'];
+        if (isset($data['POxuat']) && $data['POxuat'] !== null) {
+            $filters[] = ['value' => 'PO xuất: ' . $data['POxuat'], 'name' => 'POxuat'];
         }
-        if (isset($data['price_import']) && $data['price_import'][1] !== null) {
-            $filters[] = ['value' => 'Giá nhập: ' . $data['price_import'][0] . $data['price_import'][1], 'name' => 'price_import'];
+        if (isset($data['BH']) && $data['BH'] !== null) {
+            $filters[] = ['value' => 'Bảo hành: ' . $data['BH'], 'name' => 'BH'];
         }
-        if (isset($data['total_import']) && $data['total_import'][1] !== null) {
-            $filters[] = ['value' => 'Tổng nhập: ' . $data['total_import'][0] . $data['total_import'][1], 'name' => 'total_import'];
+        if (isset($data['HTTTN']) && $data['HTTTN'] !== null) {
+            $filters[] = ['value' => 'Hình thức thanh toán nhập: ' . $data['HTTTN'], 'name' => 'HTTTN'];
+        }
+        if (isset($data['HTTTX']) && $data['HTTTX'] !== null) {
+            $filters[] = ['value' => 'Hình thức thanh toán xuất: ' . $data['HTTTX'], 'name' => 'HTTTX'];
         }
         if (isset($data['slxuat']) && $data['slxuat'][1] !== null) {
             $filters[] = ['value' => 'Số lượng xuất: ' . $data['slxuat'][0] . $data['slxuat'][1], 'name' => 'slxuat'];
         }
-        if (isset($data['total_export']) && $data['total_export'][1] !== null) {
-            $filters[] = ['value' => 'Tổng giá bán: ' . $data['total_export'][0] . $data['total_export'][1], 'name' => 'total_export'];
+        if (isset($data['slnhap']) && $data['slnhap'][1] !== null) {
+            $filters[] = ['value' => 'Số lượng nhập: ' . $data['slnhap'][0] . $data['slnhap'][1], 'name' => 'slnhap'];
         }
-        if (isset($data['price_export']) && $data['price_export'][1] !== null) {
-            $filters[] = ['value' => 'Giá bán: ' . $data['price_export'][0] . $data['price_export'][1], 'name' => 'price_export'];
+        if (isset($data['trcVATN']) && $data['trcVATN'][1] !== null) {
+            $filters[] = ['value' => 'Trước VAT nhập: ' . $data['trcVATN'][0] . $data['trcVATN'][1], 'name' => 'trcVATN'];
         }
-        if (isset($data['shipping_fee']) && $data['shipping_fee'][1] !== null) {
-            $filters[] = ['value' => 'Chi phí vận chuyển: ' . $data['shipping_fee'][0] . $data['shipping_fee'][1], 'name' => 'shipping_fee'];
+        if (isset($data['VATN']) && $data['VATN'][1] !== null) {
+            $filters[] = ['value' => 'VAT nhập: ' . $data['VATN'][0] . $data['VATN'][1], 'name' => 'VATN'];
+        }
+        if (isset($data['sauVATN']) && $data['sauVATN'][1] !== null) {
+            $filters[] = ['value' => 'Sau VAT nhập: ' . $data['sauVATN'][0] . $data['sauVATN'][1], 'name' => 'sauVATN'];
+        }
+
+        if (isset($data['trcVATX']) && $data['trcVATX'][1] !== null) {
+            $filters[] = ['value' => 'Trước VAT xuất: ' . $data['trcVATX'][0] . $data['trcVATX'][1], 'name' => 'trcVATX'];
+        }
+        if (isset($data['VATX']) && $data['VATX'][1] !== null) {
+            $filters[] = ['value' => 'VAT xuất: ' . $data['VATX'][0] . $data['VATX'][1], 'name' => 'VATX'];
+        }
+        if (isset($data['sauVATX']) && $data['sauVATX'][1] !== null) {
+            $filters[] = ['value' => 'Sau VAT xuất: ' . $data['sauVATX'][0] . $data['sauVATX'][1], 'name' => 'sauVATX'];
+        }
+        $statusTextTTN = '';
+        if (isset($data['TTN']) && $data['TTN'] !== null) {
+            $statusValues = [];
+            if (in_array(0, $data['TTN'])) {
+                $statusValues[] = 'Chưa thanh toán';
+            }
+            if (in_array(2, $data['TTN'])) {
+                $statusValues[] = 'Thanh toán đủ';
+            }
+            if (in_array(1, $data['TTN'])) {
+                $statusValues[] = 'Một phần';
+            }
+            $statusTextTTN = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Thanh toán nhập: ' . $statusTextTTN, 'name' => 'TTN'];
+        }
+        $statusTextTTX = '';
+        if (isset($data['TTX']) && $data['TTX'] !== null) {
+            $statusValues = [];
+            if (in_array(1, $data['TTX'])) {
+                $statusValues[] = 'Chưa thanh toán';
+            }
+            if (in_array(2, $data['TTX'])) {
+                $statusValues[] = 'Thanh toán đủ';
+            }
+            if (in_array(3, $data['TTX'])) {
+                $statusValues[] = 'Một phần';
+            }
+            $statusTextTTX = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Đã trả: ' . $statusTextTTX, 'name' => 'TTX'];
         }
         if ($request->ajax()) {
             $history = $this->history->ajax($data);

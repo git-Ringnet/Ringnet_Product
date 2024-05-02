@@ -65,13 +65,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    protected $table = "users";
     public function roles()
     {
         return $this->belongsToMany(Role::class);
     }
     public function getRoleUser()
     {
-        return $this->hasOne(UserWorkspaces::class,'user_id','id');
+        return $this->hasOne(UserWorkspaces::class, 'user_id', 'id');
     }
 
     public function workspaces()
@@ -109,6 +110,16 @@ class User extends Authenticatable
             $users = $users->orderBy($data['sort_by'], $data['sort_type']);
         }
         $users = $users->get();
+        return $users;
+    }
+    // Get Name User by ID
+    public function getNameUser($data)
+    {
+        $users = DB::table($this->table);
+        if (isset($data)) {
+            $users = $users->whereIn('users.id', $data);
+        }
+        $users = $users->pluck('users.name')->all();
         return $users;
     }
 }

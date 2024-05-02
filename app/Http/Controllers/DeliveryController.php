@@ -12,6 +12,7 @@ use App\Models\productPay;
 use App\Models\Products;
 use App\Models\QuoteExport;
 use App\Models\Serialnumber;
+use App\Models\User;
 use App\Models\userFlow;
 use App\Models\Workspace;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -25,6 +26,7 @@ class DeliveryController extends Controller
      * Display a listing of the resource.
      */
     private $delivery;
+    private $users;
     private $product;
     private $delivered;
     private $detailExport;
@@ -43,6 +45,7 @@ class DeliveryController extends Controller
         $this->history = new History();
         $this->attachment = new Attachment();
         $this->userFlow = new userFlow();
+        $this->users = new User();
     }
     public function index()
     {
@@ -50,21 +53,40 @@ class DeliveryController extends Controller
             $title = 'Giao hàng';
             $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
             $workspacename = $workspacename->workspace_name;
+            $users = $this->delivery->getUserInDelivery();
             $deliveries = Delivery::leftJoin('detailexport', 'detailexport.id', 'delivery.detailexport_id')
-                ->select('*', 'delivery.id as maGiaoHang', 'delivery.created_at as ngayGiao', 'delivery.status as trangThai')
-                ->where('delivery.workspace_id', Auth::user()->current_workspace)
+                ->select(
+                    'delivery.id',
+                    'delivery.guest_id',
+                    'delivery.quotation_number',
+                    'delivery.code_delivery',
+                    'delivery.shipping_unit',
+                    'delivery.shipping_fee',
+                    'delivery.id as maGiaoHang',
+                    'delivery.created_at as ngayGiao',
+                    'delivery.status as trangThai',
+                    'users.name',
+                    'detailexport.guest_name',
+                    DB::raw('SUM(delivered.product_total_vat) as totalProductVat')
+                )
                 ->leftJoin('users', 'users.id', 'delivery.user_id')
+                ->leftJoin('delivered', 'delivered.delivery_id', 'delivery.id')
+                ->where('delivery.workspace_id', Auth::user()->current_workspace)
+                ->groupBy(
+                    'delivery.id',
+                    'delivery.guest_id',
+                    'delivery.quotation_number',
+                    'delivery.code_delivery',
+                    'delivery.shipping_unit',
+                    'delivery.shipping_fee',
+                    'users.name',
+                    'delivery.created_at',
+                    'delivery.status',
+                    'detailexport.guest_name',
+                )
                 ->orderBy('delivery.id', 'desc')
                 ->get();
-
-            foreach ($deliveries as $delivery) {
-                $totalProductVat = Delivered::where('delivery_id', $delivery->maGiaoHang)
-                    ->where('delivered.workspace_id', Auth::user()->current_workspace)
-                    ->sum('product_total_vat');
-
-                $delivery->totalProductVat = $totalProductVat;
-            }
-            return view('tables.export.delivery.list-delivery', compact('title', 'deliveries', 'workspacename'));
+            return view('tables.export.delivery.list-delivery', compact('title', 'deliveries', 'users', 'workspacename'));
         } else {
             return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
         }
@@ -396,6 +418,43 @@ class DeliveryController extends Controller
     {
         $data = $request->all();
         $filters = [];
+        if (isset($data['quotenumber']) && $data['quotenumber'] !== null) {
+            $filters[] = ['value' => 'Số báo giá: ' . $data['quotenumber'], 'name' => 'quotenumber'];
+        }
+        if (isset($data['guests']) && $data['guests'] !== null) {
+            $filters[] = ['value' => 'Khách hàng: ' . $data['guests'], 'name' => 'guests'];
+        }
+        if (isset($data['shipping_unit']) && $data['shipping_unit'] !== null) {
+            $filters[] = ['value' => 'Đơn vị vận chuyển: ' . $data['shipping_unit'], 'name' => 'shipping_unit'];
+        }
+        if (isset($data['code_delivery']) && $data['code_delivery'] !== null) {
+            $delivery = $this->delivery->code_deliveryById($data['code_delivery']);
+            $deliveryString = implode(', ', $delivery);
+            $filters[] = ['value' => 'Mã giao hàng: ' . $deliveryString, 'name' => 'code_delivery'];
+        }
+        if (isset($data['users']) && $data['users'] !== null) {
+            $users = $this->users->getNameUser($data['users']);
+            $userstring = implode(', ', $users);
+            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+        }
+        $statusText = '';
+        if (isset($data['status']) && $data['status'] !== null) {
+            $statusValues = [];
+            if (in_array(1, $data['status'])) {
+                $statusValues[] = 'Chưa giao';
+            }
+            if (in_array(2, $data['status'])) {
+                $statusValues[] = 'Đã giao';
+            }
+            $statusText = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
+        }
+        if (isset($data['shipping_fee']) && $data['shipping_fee'][1] !== null) {
+            $filters[] = ['value' => 'Phí vận chuyển: ' . $data['shipping_fee'][0] . $data['shipping_fee'][1], 'name' => 'shipping_fee'];
+        }
+        if (isset($data['total']) && $data['total'][1] !== null) {
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
+        }
         if ($request->ajax()) {
             $delivery = $this->delivery->ajax($data);
             return response()->json([

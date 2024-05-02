@@ -271,8 +271,8 @@ class Products extends Model
         if (isset($data['idName'])) {
             $products = $products->whereIn('products.id', $data['idName']);
         }
-        if (isset($data['idCode'])) {
-            $products = $products->whereIn('products.id', $data['idCode']);
+        if (isset($data['code'])) {
+            $products = $products->where('product_code', 'like', '%' . $data['code'] . '%');
         }
         if (isset($data['inventory'][0]) && isset($data['inventory'][1])) {
             $products = $products->where('product_inventory', $data['inventory'][0], $data['inventory'][1]);
@@ -286,8 +286,8 @@ class Products extends Model
     public function getProductsbyCode($data)
     {
         $products = DB::table($this->table);
-        if (isset($data['idCode'])) {
-            $products = $products->whereIn('products.id', $data['idCode']);
+        if (isset($data)) {
+            $products = $products->whereIn('products.id', $data);
         }
         $products = $products->pluck('product_code')->all();
         return $products;
@@ -295,8 +295,8 @@ class Products extends Model
     public function getProductsbyName($data)
     {
         $products = DB::table($this->table);
-        if (isset($data['idName'])) {
-            $products = $products->whereIn('products.id', $data['idName']);
+        if (isset($data)) {
+            $products = $products->whereIn('products.id', $data);
         }
         $products = $products->pluck('product_name')->all();
         return $products;

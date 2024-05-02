@@ -316,12 +316,30 @@ class Reciept extends Model
         ];
         return $data;
     }
+    public function getUserInReceipt()
+    {
+        $reciept = Reciept::leftJoin('detailimport', 'reciept.detailimport_id', 'detailimport.id')
+            ->where('reciept.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('users', 'reciept.user_id', 'users.id')
+            ->select('users.*')
+            ->get();
+        return $reciept;
+    }
+    public function number_billById($data)
+    {
+        $reciept = DB::table($this->table);
+        if (isset($data)) {
+            $reciept = $reciept->whereIn('id', $data);
+        }
+        $reciept = $reciept->pluck('number_bill')->all();
+        return $reciept;
+    }
     public function ajax($data)
     {
         $reciept = DB::table($this->table)
             ->leftJoin('detailimport', 'reciept.detailimport_id', 'detailimport.id')
             ->leftJoin('provides', 'provides.id', 'detailimport.provide_id')
-            ->select('reciept.*', 'provides.provide_name_display as provide_name_display', 'detailimport.quotation_number as quotation_number')
+            ->select('reciept.*', 'provides.provide_name_display as provide_name_display', 'detailimport.quotation_number as quotation_number', 'detailimport.provide_name as provide_name')
             ->where('reciept.workspace_id', Auth::user()->current_workspace);
 
         if (isset($data['search'])) {
@@ -329,7 +347,26 @@ class Reciept extends Model
                 $query->orWhere('reciept.number_bill', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('provide_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('detailimport.provide_name', 'like', '%' . $data['search'] . '%');
             });
+        }
+        if (isset($data['quotenumber'])) {
+            $reciept = $reciept->where('quotation_number', 'like', '%' . $data['quotenumber'] . '%');
+        }
+        if (isset($data['provides'])) {
+            $reciept = $reciept->where('detailimport.provide_name', 'like', '%' . $data['provides'] . '%');
+        }
+        if (isset($data['number_bill'])) {
+            $reciept = $reciept->whereIn('reciept.id', $data['number_bill']);
+        }
+        if (isset($data['users'])) {
+            $reciept = $reciept->whereIn('reciept.user_id', $data['users']);
+        }
+        if (isset($data['status'])) {
+            $reciept = $reciept->whereIn('reciept.status', $data['status']);
+        }
+        if (isset($data['total'][0]) && isset($data['total'][1])) {
+            $reciept = $reciept->where('reciept.price_total', $data['total'][0], $data['total'][1]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $reciept = $reciept->orderBy($data['sort'][0], $data['sort'][1]);

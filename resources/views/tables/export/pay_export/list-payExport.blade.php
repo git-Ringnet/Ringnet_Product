@@ -48,6 +48,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="content-filter-all">
         <div class="bg-filter-search pl-4 border-bottom-0">
             <div class="content-wrapper1 py-2">
                 <div class="row m-auto filter p-0">
@@ -66,38 +68,88 @@
                                             style="display: none;" />
                                     </div>
                                 </form>
-                                <div class="dropdown mx-2 d-none">
-                                    <button class="btn-filter_searh" data-toggle="dropdown" aria-expanded="false">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                <div class="dropdown mx-2">
+                                    <button class="btn-filter_search" data-toggle="dropdown">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 16 16" fill="none">
                                             <path
                                                 d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
-                                                fill="#6D7075"></path>
+                                                fill="#6D7075" />
                                             <path
                                                 d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
-                                                fill="#6D7075"></path>
+                                                fill="#6D7075" />
                                             <path
                                                 d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
-                                                fill="#6D7075"></path>
+                                                fill="#6D7075" />
                                             <path
                                                 d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
-                                                fill="#6D7075"></path>
+                                                fill="#6D7075" />
                                         </svg>
-                                        <span class="text-btnIner text-filter"> Bộ lọc</span>
-                                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                        <span class="text-btnIner">Bộ lọc</span>
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                 d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
-                                                fill="#6D7075"></path>
+                                                fill="#6B6F76" />
                                         </svg>
                                     </button>
-                                    <div class="dropdown-menu" style="">
-                                        <a class="dropdown-item text-13-black" href="#">Action</a>
-                                        <a class="dropdown-item text-13-black" href="#">Another action</a>
-                                        <a class="dropdown-item text-13-black" href="#">Something else here</a>
+                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                        style="z-index:">
+                                        <div class="search-container px-2">
+                                            <input type="text" placeholder="Tìm kiếm" id="myInput" class="text-13"
+                                                onkeyup="filterFunction()" style="outline: none;">
+                                            <span class="search-icon mr-2">
+                                                <i class="fas fa-search"></i>
+                                            </span>
+                                        </div>
+                                        <div class="scrollbar">
+                                            <button class="dropdown-item btndropdown text-13-black"
+                                                id="btn-code_payment" data-button="code_payment" type="button">Mã
+                                                thanh toán
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black"
+                                                id="btn-quotenumber" data-button="quotenumber" type="button">Số báo
+                                                giá
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-guests"
+                                                data-button="guests" type="button">Khách hàng
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-users"
+                                                data-button="users" type="button">Người tạo
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-status"
+                                                data-button="status" type="button">Trạng thái
+                                            </button>
+                                            {{-- <button class="dropdown-item btndropdown text-13-black" id="btn-reciept"
+                                                data-button="reciept" type="button">Ngày giao hàng
+                                            </button> --}}
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-total"
+                                                data-button="total" type="button">
+                                                Tổng tiền
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-payment"
+                                                data-button="payment" type="button">
+                                                Đã nhận
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-debt"
+                                                data-button="debt" type="button">
+                                                Dư nợ
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="result-filter-payExport d-flex">
+                                    <x-filter-text name="quotenumber" title="Số báo giá" />
+                                    <x-filter-checkbox :dataa='$payExport' name="code_payment" title="Mã thanh toán"
+                                        namedisplay="code_payment" />
+                                    <x-filter-text name="guests" title="Khách hàng" />
+                                    <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
+                                        namedisplay="name" />
+                                    <x-filter-status name="status" key1="1" value1="Chưa thanh toán"
+                                        key2="2" value2="Thanh toán đủ" key3="3" value3="Trước hạn"
+                                        key4="4" value4="Quá hạn" key5="5" value5="Thanh toán một phần"
+                                        title="Trạng thái" />
+                                    <x-filter-compare name="total" title="Tổng tiền" />
+                                    <x-filter-compare name="payment" title="Đã nhận" />
+                                    <x-filter-compare name="debt" title="Dư nợ" />
                                 </div>
                             </div>
                         </div>
@@ -106,9 +158,11 @@
             </div>
         </div>
     </div>
-    <div class="content margin-top-67">
+    <div class="content margin-top-75">
         <section class="content margin-250">
             <div class="container-fluided">
+                <div class="row result-filter-payExport margin-left30 my-1">
+                </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -155,8 +209,8 @@
                                             </th>
                                             <th scope="col" class="my-0 py-2">
                                                 <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="" data-sort-type="DESC">
+                                                    <a href="#" class="sort-link btn-submit" data-sort-by=""
+                                                        data-sort-type="DESC">
                                                         <button class="btn-sort" type="submit">
                                                             <span class="text-13">Người tạo</span>
                                                         </button>
@@ -226,7 +280,7 @@
                                             <tr class="position-relative payExport-info"
                                                 onclick="handleRowClick('checkbox', event);">
                                                 <input type="hidden" name="id-payExport" class="id-payExport"
-                                                    id="id-payExport" value="{{ $item_pay->idThanhToan }}">
+                                                    id="id-payExport" value="{{ $item_pay->id }}">
                                                 <td class="border-bottom border-top-0">
                                                     <span class="margin-Right10">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="6"
@@ -250,18 +304,21 @@
                                                 </td>
                                                 <td class="text-13-black text-left border-bottom border-top-0">
                                                     <a class="activity" data-name1="TT" data-des="Xem đơn thanh toán"
-                                                        href="{{ route('payExport.edit', ['workspace' => $workspacename, 'payExport' => $item_pay->idThanhToan]) }}">
+                                                        href="{{ route('payExport.edit', ['workspace' => $workspacename, 'payExport' => $item_pay->id]) }}">
                                                         {{ $item_pay->code_payment }}
                                                     </a>
 
                                                 </td>
-                                                <td class="text-13-black max-width120 text-left border-bottom border-top-0">
+                                                <td
+                                                    class="text-13-black max-width120 text-left border-bottom border-top-0">
                                                     {{ $item_pay->quotation_number }}
-                                                </td> 
-                                                <td class="text-13-black max-width120 text-left border-bottom border-top-0">
+                                                </td>
+                                                <td
+                                                    class="text-13-black max-width120 text-left border-bottom border-top-0">
                                                     {{ $item_pay->guest_name }}
                                                 </td>
-                                                <td class="text-13-black max-width120 text-left border-bottom border-top-0">
+                                                <td
+                                                    class="text-13-black max-width120 text-left border-bottom border-top-0">
                                                     {{ $item_pay->name }}
                                                 </td>
                                                 <td class="text-13-black text-center border-bottom border-top-0">
@@ -308,7 +365,7 @@
                                                             <div class="m-0 mx-2 rounded">
                                                                 <form
                                                                     onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                                                                    action="{{ route('payExport.destroy', ['workspace' => $workspacename, 'payExport' => $item_pay->idThanhToan]) }}"
+                                                                    action="{{ route('payExport.destroy', ['workspace' => $workspacename, 'payExport' => $item_pay->id]) }}"
                                                                     method="POST" class="d-inline">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -362,108 +419,215 @@
     var svgbot =
         "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 5C11.6332 5 11.7604 5.05268 11.8542 5.14645C11.948 5.24021 12.0006 5.36739 12.0006 5.5V17.293L15.1466 14.146C15.2405 14.0521 15.3679 13.9994 15.5006 13.9994C15.6334 13.9994 15.7607 14.0521 15.8546 14.146C15.9485 14.2399 16.0013 14.3672 16.0013 14.5C16.0013 14.6328 15.9485 14.7601 15.8546 14.854L11.8546 18.854C11.8082 18.9006 11.753 18.9375 11.6923 18.9627C11.6315 18.9879 11.5664 19.0009 11.5006 19.0009C11.4349 19.0009 11.3697 18.9879 11.309 18.9627C11.2483 18.9375 11.1931 18.9006 11.1466 18.854L7.14663 14.854C7.05274 14.7601 7 14.6328 7 14.5C7 14.3672 7.05274 14.2399 7.14663 14.146C7.24052 14.0521 7.36786 13.9994 7.50063 13.9994C7.63341 13.9994 7.76075 14.0521 7.85463 14.146L11.0006 17.293V5.5C11.0006 5.36739 11.0533 5.24021 11.1471 5.14645C11.2408 5.05268 11.368 5 11.5006 5Z' fill='#555555'/></svg>"
 
-    $(document).ready(function() {
-        // get id check box name
-        $('.btn-submit').click(function(event) {
-            event.preventDefault();
-            var buttonName = $(this).data('button');
-            var btn_submit = $(this).data('button-name');
-            var search = $('#search').val();
-            var sort_by = '';
-            if (typeof $(this).data('sort-by') !== 'undefined') {
-                sort_by = $(this).data('sort-by');
+    var code_payment = [];
+    var users = [];
+    var statusDe = [];
+
+    function filterstatus() {
+        filterButtons("myInput-status", "ks-cboxtags-status");
+    }
+
+    function filterusers() {
+        filterButtons("myInput-users", "ks-cboxtags-users");
+    }
+
+    function filtercode_payment() {
+        filterButtons("myInput-code_payment", "ks-cboxtags-code_payment");
+    }
+    // get id check box name
+    $(document).on('click', '.btn-submit', function(e) {
+        e.preventDefault();
+        var buttonName = $(this).data('button');
+        var btn_submit = $(this).data('button-name');
+        var search = $('#search').val();
+        var quotenumber = $('#quotenumber').val();
+        var guests = $('#guests').val();
+        var operator_total = $('.total-operator').val();
+        var val_total = $('.total-quantity').val();
+        var total = [operator_total, val_total];
+        var operator_debt = $('.debt-operator').val();
+        var val_debt = $('.debt-quantity').val();
+        var debt = [operator_debt, val_debt];
+        var operator_payment = $('.payment-operator').val();
+        var val_payment = $('.payment-quantity').val();
+        var payment = [operator_payment, val_payment];
+        if ($(this).data('button-name') === 'status') {
+            $('.ks-cboxtags-status input[type="checkbox"]').each(function() {
+                const value = $(this).val();
+                if ($(this).is(':checked')) {
+                    if (status.indexOf(value) === -1 && statusDe.indexOf(value) === -1) {
+                        statusDe.push(value);
+                    }
+                } else {
+                    const index = statusDe.indexOf(value);
+                    if (index !== -1) {
+                        statusDe.splice(index, 1);
+                    }
+                }
+            });
+        }
+        if ($(this).data('button-name') === 'code_payment') {
+            $('.ks-cboxtags-code_payment input[type="checkbox"]').each(function() {
+                const value = $(this).val();
+                if ($(this).is(':checked') && code_payment.indexOf(value) === -1) {
+                    code_payment.push(value);
+                } else if (!$(this).is(':checked')) {
+                    const index = code_payment.indexOf(value);
+                    if (index !== -1) {
+                        code_payment.splice(index, 1);
+                    }
+                }
+            });
+        }
+        if ($(this).data('button-name') === 'users') {
+            $('.ks-cboxtags-users input[type="checkbox"]').each(function() {
+                const value = $(this).val();
+                if ($(this).is(':checked') && users.indexOf(value) === -1) {
+                    users.push(value);
+                } else if (!$(this).is(':checked')) {
+                    const index = users.indexOf(value);
+                    if (index !== -1) {
+                        users.splice(index, 1);
+                    }
+                }
+            });
+        }
+        var sort_by = '';
+        if (typeof $(this).data('sort-by') !== 'undefined') {
+            sort_by = $(this).data('sort-by');
+        }
+        var sort_type = $(this).data('sort-type');
+        sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
+        $(this).data('sort-type', sort_type);
+        $('.icon').text('');
+        var iconId = 'icon-' + sort_by;
+        var iconDiv = $('#' + iconId);
+        iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
+        sort = [
+            sort_by, sort_type
+        ];
+        $('#' + btn_submit + '-options').hide();
+        $(".btn-filter_search").prop("disabled", false);
+        if ($(this).data('delete') === 'quotenumber') {
+            quotenumber = null;
+            $('#quotenumber').val('');
+        }
+        if ($(this).data('delete') === 'code_payment') {
+            code_payment = [];
+            $('.deselect-all-code_payment').click();
+        }
+        if ($(this).data('delete') === 'guests') {
+            guests = null;
+            $('#guests').val('');
+        }
+        if ($(this).data('delete') === 'users') {
+            users = [];
+            $('.deselect-all-users').click();
+        }
+        if ($(this).data('delete') === 'status') {
+            statusDe = [];
+            $('.deselect-all-status').click();
+        }
+        if ($(this).data('delete') === 'total') {
+            total = null;
+            $('.total-quantity').val('');
+        }
+        if ($(this).data('delete') === 'debt') {
+            debt = null;
+            $('.debt-quantity').val('');
+        }
+        if ($(this).data('delete') === 'payment') {
+            payment = null;
+            $('.payment-quantity').val('');
+        }
+        $.ajax({
+            type: 'get',
+            url: "{{ route('searchPayExport') }}",
+            data: {
+                search: search,
+                quotenumber: quotenumber,
+                payment: payment,
+                debt: debt,
+                users: users,
+                guests: guests,
+                code_payment: code_payment,
+                status: statusDe,
+                total: total,
+                sort: sort,
+            },
+            success: function(data) {
+                // Hiển thị label dữ liệu tìm kiếm ...
+                var existingNames = [];
+                data.filters.forEach(function(item) {
+                    // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
+                    if (filters.indexOf(item.name) === -1) {
+                        filters.push(item.name);
+                    }
+                    existingNames.push(item.name);
+                });
+
+                filters = filters.filter(function(name) {
+                    return existingNames.includes(name);
+                });
+                $('.result-filter-payExport').empty();
+                // Lặp qua mảng filters để tạo và render các phần tử
+                data.filters.forEach(function(item) {
+                    var index = filters.indexOf(item.name);
+                    // Tạo thẻ item-filter
+                    var itemFilter = $('<div>').addClass(
+                        'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
+                    );
+                    itemFilter.css('order', index);
+                    // Thêm nội dung và thuộc tính data vào thẻ item-filter
+                    itemFilter.append(
+                        '<span class="text text-13-black m-0" style="flex:2;">' +
+                        item.value +
+                        '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
+                        item.name + '" data-button="' + buttonName +
+                        '"></i>');
+                    // Thêm thẻ item-filter vào 
+                    $('.result-filter-payExport').append(itemFilter);
+                });
+
+                // Ẩn hiện dữ liệu khi đã filters
+                var payExportIds = [];
+                // Lặp qua mảng provides và thu thập các deleveryIds
+                data.data.forEach(function(item) {
+                    var payExportId = item.id;
+                    payExportIds.push(payExportId);
+                });
+                // Ẩn tất cả các phần tử .detailExport-info
+                // $('.detailExport-info').hide();
+                // Lặp qua từng phần tử .detailExport-info để hiển thị và cập nhật data-position
+                $('.payExport-info').each(function() {
+                    var value = parseInt($(this).find('.id-payExport')
+                        .val());
+                    var index = payExportIds.indexOf(value);
+                    if (index !== -1) {
+                        $(this).show();
+                        // Cập nhật data-position
+                        $(this).attr('data-position', index + 1);
+                    } else {
+                        $(this).hide();
+                    }
+                });
+                // Tạo một bản sao của mảng phần tử .payExport-info
+                var clonedElements = $('.payExport-info').clone();
+                // Sắp xếp các phần tử trong bản sao theo data-position
+                var sortedElements = clonedElements.sort(function(a, b) {
+                    return $(a).data('position') - $(b).data('position');
+                });
+                // Thay thế các phần tử trong .tbody-payExport bằng các phần tử đã sắp xếp
+                $('.tbody-payExport').empty().append(sortedElements);
             }
-            var sort_type = $(this).data('sort-type');
-            sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
-            $(this).data('sort-type', sort_type);
-            $('.icon').text('');
-            var iconId = 'icon-' + sort_by;
-            var iconDiv = $('#' + iconId);
-            iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
-            sort = [
-                sort_by, sort_type
-            ];
-            $('#' + btn_submit + '-options').hide();
-            $(".text-btnIner").prop("disabled", false);
-            $.ajax({
-                type: 'get',
-                url: "{{ route('searchPayExport') }}",
-                data: {
-                    search: search,
-                    sort: sort,
-                },
-                success: function(data) {
-                    // Hiển thị label dữ liệu tìm kiếm ...
-                    var existingNames = [];
-                    data.filters.forEach(function(item) {
-                        // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
-                        if (filters.indexOf(item.name) === -1) {
-                            filters.push(item.name);
-                        }
-                        existingNames.push(item.name);
-                    });
-
-                    filters = filters.filter(function(name) {
-                        return existingNames.includes(name);
-                    });
-                    $('.result-filter-payExport').empty();
-                    // Lặp qua mảng filters để tạo và render các phần tử
-                    data.filters.forEach(function(item) {
-                        var index = filters.indexOf(item.name);
-                        // Tạo thẻ item-filter
-                        var itemFilter = $('<div>').addClass(
-                            'item-filter span d-flex justify-content-center align-items-baseline'
-                        );
-                        itemFilter.css('order', index);
-                        // Thêm nội dung và thuộc tính data vào thẻ item-filter
-                        itemFilter.append('<p class="text">' + item.value +
-                            '</p><i class="fa-solid fa-xmark btn-submit" data-delete="' +
-                            item.name + '" data-button="' + buttonname +
-                            '"></i>');
-                        // Thêm thẻ item-filter vào resultfilters
-                        $('.result-filter-payExport').append(itemFilter);
-                    });
-
-                    // Ẩn hiện dữ liệu khi đã filters
-                    var payExportIds = [];
-                    // Lặp qua mảng provides và thu thập các deleveryIds
-                    data.data.forEach(function(item) {
-                        var payExportId = item.idThanhToan;
-                        payExportIds.push(payExportId);
-                    });
-                    console.log(payExportIds);
-                    // Ẩn tất cả các phần tử .detailExport-info
-                    // $('.detailExport-info').hide();
-                    // Lặp qua từng phần tử .detailExport-info để hiển thị và cập nhật data-position
-                    $('.payExport-info').each(function() {
-                        var value = parseInt($(this).find('.id-payExport')
-                            .val());
-                        var index = payExportIds.indexOf(value);
-                        if (index !== -1) {
-                            $(this).show();
-                            // Cập nhật data-position
-                            $(this).attr('data-position', index + 1);
-                        } else {
-                            $(this).hide();
-                        }
-                    });
-                    // Tạo một bản sao của mảng phần tử .payExport-info
-                    var clonedElements = $('.payExport-info').clone();
-                    // Sắp xếp các phần tử trong bản sao theo data-position
-                    var sortedElements = clonedElements.sort(function(a, b) {
-                        return $(a).data('position') - $(b).data('position');
-                    });
-                    // Thay thế các phần tử trong .tbody-payExport bằng các phần tử đã sắp xếp
-                    $('.tbody-payExport').empty().append(sortedElements);
-                }
-            });
-            $.ajaxSetup({
-                headers: {
-                    'csrftoken': '{{ csrf_token() }}'
-                }
-            });
+        });
+        $.ajaxSetup({
+            headers: {
+                'csrftoken': '{{ csrf_token() }}'
+            }
         });
     });
+
     @php
         $pdfSession = session('pdf_info');
     @endphp

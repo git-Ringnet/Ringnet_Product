@@ -38,71 +38,131 @@
                 </div>
             </div>
         </div>
-        <div class="row m-auto filter pt-2 pb-4 height-50 border-custom">
-            <div class="w-100">
-                <div class="row mr-0">
-                    <div class="col-md-5 d-flex align-items-center">
-                        <form action="" method="get" id='search-filter' class="p-0 m-0">
-                            <div class="position-relative ml-1">
-                                <input type="text" placeholder="Tìm kiếm" id="search" name="keywords"
-                                    style="outline: none;" class="pr-4 w-100 input-search text-13"
-                                    value="{{ request()->keywords }}" />
-                                <span id="search-icon" class="search-icon">
-                                    <i class="fas fa-search btn-submit"></i>
-                                </span>
-                                <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
-                                    style="display: none;" />
+    </div>
+    <div class="content-filter-all">
+        <div class="bg-filter-search pl-4 border-bottom-0 border-top-0">
+            <div class="content-wrapper1 py-2">
+                <div class="row m-auto filter p-0">
+                    <div class="w-100">
+                        <div class="row mr-0">
+                            <div class="col-md-5 d-flex align-items-center">
+                                <form action="" method="get" id="search-filter" class="p-0 m-0">
+                                    <div class="position-relative ml-1">
+                                        <input type="text" placeholder="Tìm kiếm" id="search" name="keywords"
+                                            style="outline: none;" class="pr-4 w-100 input-search text-13"
+                                            value="{{ request()->keywords }}" />
+                                        <span id="search-icon" class="search-icon">
+                                            <i class="fas fa-search btn-submit"></i>
+                                        </span>
+                                        <input class="btn-submit" type="submit" id="hidden-submit" name="hidden-submit"
+                                            style="display: none;" />
+                                    </div>
+                                </form>
+                                <div class="dropdown mx-2">
+                                    <button class="btn-filter_search" data-toggle="dropdown">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 16 16" fill="none">
+                                            <path
+                                                d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
+                                                fill="#6D7075" />
+                                            <path
+                                                d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
+                                                fill="#6D7075" />
+                                            <path
+                                                d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
+                                                fill="#6D7075" />
+                                            <path
+                                                d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
+                                                fill="#6D7075" />
+                                        </svg>
+                                        <span class="text-btnIner">Bộ lọc</span>
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
+                                                fill="#6B6F76" />
+                                        </svg>
+                                    </button>
+                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                        style="z-index:">
+                                        <div class="search-container px-2">
+                                            <input type="text" placeholder="Tìm kiếm" id="myInput" class="text-13"
+                                                onkeyup="filterFunction()" style="outline: none;">
+                                            <span class="search-icon mr-2">
+                                                <i class="fas fa-search"></i>
+                                            </span>
+                                        </div>
+                                        <div class="scrollbar">
+                                            {{-- <button class="dropdown-item btndropdown text-13-black" id="btn-code"
+                                                data-button="code" type="button">Ngày báo giá
+                                            </button> --}}
+                                            <button class="dropdown-item btndropdown text-13-black"
+                                                id="btn-quotenumber" data-button="quotenumber" type="button">Số báo
+                                                giá
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black"
+                                                id="btn-reference_number" data-button="reference_number"
+                                                type="button">Số tham chiếu
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-provides"
+                                                data-button="provides" type="button">Nhà cung cấp
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-users"
+                                                data-button="users" type="button">Người tạo
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-status"
+                                                data-button="status" type="button">Trạng thái
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-receive"
+                                                data-button="receive" type="button">Giao hàng
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-reciept"
+                                                data-button="reciept" type="button">Hoá đơn
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-pay"
+                                                data-button="pay" type="button">Thanh toán
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-total"
+                                                data-button="total" type="button">
+                                                Tổng tiền
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <x-filter-text name="quotenumber" title="Đơn mua hàng" />
+                                    <x-filter-checkbox :dataa='$import' name="reference_number" title="Số tham chiếu"
+                                        namedisplay="reference_number" />
+                                    <x-filter-text name="provides" title="Nhà cung cấp" />
+                                    <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
+                                        namedisplay="name" />
+                                    <x-filter-status name="status" key1="1" value1="Draft" key2="0"
+                                        value2="Approved" key3="2" value3="Close" title="Trạng thái" />
+                                    <x-filter-status name="receive" key1="0" value1="Chưa giao" key2="2"
+                                        value2="Đã giao" key3="1" value3="Một phần" title="Giao hàng" />
+                                    <x-filter-status name="reciept" key1="0" value1="Nháp" key2="2"
+                                        value2="Chính thức" key3="1" value3="Một phần" title="Hoá đơn" />
+                                    <x-filter-status name="pay" key1="0" value1="Chưa thanh toán"
+                                        key2="2" value2="Thanh toán đủ" key3="1" value3="Một phần"
+                                        title="Thanh toán" />
+                                    <x-filter-compare name="total" title="Tổng tiền" />
+                                </div>
                             </div>
-                        </form>
-                        <div class="dropdown mx-2 d-none">
-                            <button class="btn-filter_searh" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 0 16 16" fill="none">
-                                    <path
-                                        d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
-                                        fill="#6D7075" />
-                                    <path
-                                        d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
-                                        fill="#6D7075" />
-                                    <path
-                                        d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
-                                        fill="#6D7075" />
-                                    <path
-                                        d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
-                                        fill="#6D7075" />
-                                </svg>
-                                <span class="text-btnIner">Bộ lọc</span>
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
-                                        fill="#6B6F76" />
-                                </svg>
-                                </span>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item text-13-black" href="#">Action</a>
-                                <a class="dropdown-item text-13-black" href="#">Another action</a>
-                                <a class="dropdown-item text-13-black" href="#">Something else here</a>
-                            </div>
-                        </div>
-                        <div class="result-filter-import d-flex">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="content margin-top-68">
+    <div class="content margin-top-75">
         {{-- Content --}}
         <section class="content margin-250">
             <div class="container-fluided">
+                <div class="row result-filter-import margin-left30 my-1">
+                </div>
                 <div class="row p-0 m-0">
                     <div class="col-12 p-0">
                         <div class="card">
                             <!-- /.card-header -->
-                            <div class="outerImport text-nowrap">
+                            <div class="outer2 text-nowrap">
                                 <table id="example2" class="table table-hover">
                                     <thead class="sticky-head">
                                         <tr>
@@ -770,108 +830,275 @@
     $(document).on('click', '.btn-destroy.btn-light.mx-2.d-flex.align-items-center.h-100', function() {
         $('#list_modal').empty()
     })
-    $(document).ready(function() {
-        // get id check box name
-        $('.btn-submit').click(function(event) {
-            event.preventDefault();
-            var buttonName = $(this).data('button');
-            var btn_submit = $(this).data('button-name');
-            var search = $('#search').val();
-            var sort_by = '';
-            if (typeof $(this).data('sort-by') !== 'undefined') {
-                sort_by = $(this).data('sort-by');
+    var reference_number = [];
+    var users = [];
+    var statusDe = [];
+    var receive = [];
+    var reciept = [];
+    var pay = [];
+
+    function filterreference_number() {
+        filterButtons("myInput-reference_number", "ks-cboxtags-reference_number");
+    }
+
+    function filterprovides() {
+        filterButtons("myInput-provides", "ks-cboxtags-provides");
+    }
+
+    function filterstatus() {
+        filterButtons("myInput-status", "ks-cboxtags-status");
+    }
+
+    function filterreceive() {
+        filterButtons("myInput-receive", "ks-cboxtags-receive");
+    }
+
+    function filterreciept() {
+        filterButtons("myInput-reciept", "ks-cboxtags-reciept");
+    }
+
+    function filterpay() {
+        filterButtons("myInput-pay", "ks-cboxtags-pay");
+    }
+
+    function filterusers() {
+        filterButtons("myInput-users", "ks-cboxtags-users");
+    }
+
+    $(document).on('click', '.btn-submit', function(e) {
+        e.preventDefault();
+        var buttonName = $(this).data('button');
+        var btn_submit = $(this).data('button-name');
+        var search = $('#search').val();
+        var quotenumber = $('#quotenumber').val();
+        var provides = $('#provides').val();
+        var operator_total = $('.total-operator').val();
+        var val_total = $('.total-quantity').val();
+        var total = [operator_total, val_total];
+        if ($(this).data('button-name') === 'reference_number') {
+            $('.ks-cboxtags-reference_number input[type="checkbox"]').each(function() {
+                const value = $(this).val();
+                if ($(this).is(':checked') && reference_number.indexOf(value) === -1) {
+                    reference_number.push(value);
+                } else if (!$(this).is(':checked')) {
+                    const index = reference_number.indexOf(value);
+                    if (index !== -1) {
+                        reference_number.splice(index, 1);
+                    }
+                }
+            });
+        }
+        if ($(this).data('button-name') === 'users') {
+            $('.ks-cboxtags-users input[type="checkbox"]').each(function() {
+                const value = $(this).val();
+                if ($(this).is(':checked') && users.indexOf(value) === -1) {
+                    users.push(value);
+                } else if (!$(this).is(':checked')) {
+                    const index = users.indexOf(value);
+                    if (index !== -1) {
+                        users.splice(index, 1);
+                    }
+                }
+            });
+        }
+        if ($(this).data('button-name') === 'status') {
+            $('.ks-cboxtags-status input[type="checkbox"]').each(function() {
+                const value = $(this).val();
+                if ($(this).is(':checked')) {
+                    if (status.indexOf(value) === -1 && statusDe.indexOf(value) === -1) {
+                        statusDe.push(value);
+                    }
+                } else {
+                    const index = statusDe.indexOf(value);
+                    if (index !== -1) {
+                        statusDe.splice(index, 1);
+                    }
+                }
+            });
+        }
+
+        if ($(this).data('button-name') === 'receive') {
+            $('.ks-cboxtags-receive input[type="checkbox"]').each(function() {
+                const value = $(this).val();
+                if ($(this).is(':checked') && receive.indexOf(value) === -1) {
+                    receive.push(value);
+                } else if (!$(this).is(':checked')) {
+                    const index = receive.indexOf(value);
+                    if (index !== -1) {
+                        receive.splice(index, 1);
+                    }
+                }
+            });
+        }
+        if ($(this).data('button-name') === 'reciept') {
+            $('.ks-cboxtags-reciept input[type="checkbox"]').each(function() {
+                const value = $(this).val();
+                if ($(this).is(':checked') && reciept.indexOf(value) === -1) {
+                    reciept.push(value);
+                } else if (!$(this).is(':checked')) {
+                    const index = reciept.indexOf(value);
+                    if (index !== -1) {
+                        reciept.splice(index, 1);
+                    }
+                }
+            });
+        }
+        if ($(this).data('button-name') === 'pay') {
+            $('.ks-cboxtags-pay input[type="checkbox"]').each(function() {
+                const value = $(this).val();
+                if ($(this).is(':checked') && pay.indexOf(value) === -1) {
+                    pay.push(value);
+                } else if (!$(this).is(':checked')) {
+                    const index = pay.indexOf(value);
+                    if (index !== -1) {
+                        pay.splice(index, 1);
+                    }
+                }
+            });
+        }
+        var sort_by = '';
+        if (typeof $(this).data('sort-by') !== 'undefined') {
+            sort_by = $(this).data('sort-by');
+        }
+        var sort_type = $(this).data('sort-type');
+        sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
+        $(this).data('sort-type', sort_type);
+        $('.icon').text('');
+        var iconId = 'icon-' + sort_by;
+        var iconDiv = $('#' + iconId);
+        iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
+        sort = [
+            sort_by, sort_type
+        ];
+        $('#' + btn_submit + '-options').hide();
+        $(".btn-filter_search").prop("disabled", false);
+        // Xoá phần tử trong mảng filters
+        if ($(this).data('delete') === 'quotenumber') {
+            quotenumber = null;
+            $('#quotenumber').val('');
+        }
+        if ($(this).data('delete') === 'reference_number') {
+            reference_number = [];
+            $('.deselect-all-reference_number').click();
+        }
+        if ($(this).data('delete') === 'provides') {
+            provides = null;
+            $('#provides').val('');
+        }
+        if ($(this).data('delete') === 'users') {
+            users = [];
+            $('.deselect-all-users').click();
+        }
+        if ($(this).data('delete') === 'status') {
+            statusDe = [];
+            $('.deselect-all-status').click();
+        }
+        if ($(this).data('delete') === 'receive') {
+            receive = [];
+            $('.deselect-all-receive').click();
+        }
+        if ($(this).data('delete') === 'reciept') {
+            reciept = [];
+            $('.deselect-all-reciept').click();
+        }
+        if ($(this).data('delete') === 'pay') {
+            pay = [];
+            $('.deselect-all-pay').click();
+        }
+        if ($(this).data('delete') === 'total') {
+            total = null;
+            $('.total-quantity').val('');
+        }
+        $.ajax({
+            type: 'get',
+            url: "{{ route('searchImport') }}",
+            data: {
+                search: search,
+                quotenumber: quotenumber,
+                reference_number: reference_number,
+                provides: provides,
+                users: users,
+                status: statusDe,
+                receive: receive,
+                reciept: reciept,
+                total: total,
+                pay: pay,
+                sort: sort,
+            },
+            success: function(data) {
+                // Hiển thị label dữ liệu tìm kiếm ...
+                var existingNames = [];
+                data.filters.forEach(function(item) {
+                    // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
+                    if (filters.indexOf(item.name) === -1) {
+                        filters.push(item.name);
+                    }
+                    existingNames.push(item.name);
+                });
+
+                filters = filters.filter(function(name) {
+                    return existingNames.includes(name);
+                });
+                $('.result-filter-import').empty();
+                // Lặp qua mảng filters để tạo và render các phần tử
+                data.filters.forEach(function(item) {
+                    var index = filters.indexOf(item.name);
+                    // Tạo thẻ item-filter
+                    var itemFilter = $('<div>').addClass(
+                        'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
+                    );
+                    itemFilter.css('order', index);
+                    // Thêm nội dung và thuộc tính data vào thẻ item-filter
+                    itemFilter.append(
+                        '<span class="text text-13-black m-0" style="flex:2;">' +
+                        item.value +
+                        '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
+                        item.name + '" data-button="' + buttonName +
+                        '"></i>');
+                    // Thêm thẻ item-filter vào 
+                    $('.result-filter-import').append(itemFilter);
+                });
+
+                // Ẩn hiện dữ liệu khi đã filters
+                var importIds = [];
+                // Lặp qua mảng provides và thu thập các deleveryIds
+                data.data.forEach(function(item) {
+                    var deleveryId = item.id;
+                    importIds.push(deleveryId);
+                });
+                // Ẩn tất cả các phần tử .detailExport-info
+                // $('.detailExport-info').hide();
+                // Lặp qua từng phần tử .detailExport-info để hiển thị và cập nhật data-position
+                $('.import-info').each(function() {
+                    var value = parseInt($(this).find('.id-import')
+                        .val());
+                    var index = importIds.indexOf(value);
+                    if (index !== -1) {
+                        $(this).show();
+                        // Cập nhật data-position
+                        $(this).attr('data-position', index + 1);
+                    } else {
+                        $(this).hide();
+                    }
+                });
+                // Tạo một bản sao của mảng phần tử .import-info
+                var clonedElements = $('.import-info').clone();
+                // Sắp xếp các phần tử trong bản sao theo data-position
+                var sortedElements = clonedElements.sort(function(a, b) {
+                    return $(a).data('position') - $(b).data('position');
+                });
+                // Thay thế các phần tử trong .tbody-import bằng các phần tử đã sắp xếp
+                $('.tbody-import').empty().append(sortedElements);
+
             }
-            var sort_type = $(this).data('sort-type');
-            sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
-            $(this).data('sort-type', sort_type);
-            $('.icon').text('');
-            var iconId = 'icon-' + sort_by;
-            var iconDiv = $('#' + iconId);
-            iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
-            sort = [
-                sort_by, sort_type
-            ];
-            $('#' + btn_submit + '-options').hide();
-            $(".text-btnIner").prop("disabled", false);
-            $.ajax({
-                type: 'get',
-                url: "{{ route('searchImport') }}",
-                data: {
-                    search: search,
-                    sort: sort,
-                },
-                success: function(data) {
-                    // Hiển thị label dữ liệu tìm kiếm ...
-                    var existingNames = [];
-                    data.filters.forEach(function(item) {
-                        // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
-                        if (filters.indexOf(item.name) === -1) {
-                            filters.push(item.name);
-                        }
-                        existingNames.push(item.name);
-                    });
-
-                    filters = filters.filter(function(name) {
-                        return existingNames.includes(name);
-                    });
-                    $('.result-filter-import').empty();
-                    // Lặp qua mảng filters để tạo và render các phần tử
-                    data.filters.forEach(function(item) {
-                        var index = filters.indexOf(item.name);
-                        // Tạo thẻ item-filter
-                        var itemFilter = $('<div>').addClass(
-                            'item-filter span d-flex justify-content-center align-items-baseline'
-                        );
-                        itemFilter.css('order', index);
-                        // Thêm nội dung và thuộc tính data vào thẻ item-filter
-                        itemFilter.append('<p class="text">' + item.value +
-                            '</p><i class="fa-solid fa-xmark btn-submit" data-delete="' +
-                            item.name + '" data-button="' + buttonname +
-                            '"></i>');
-                        // Thêm thẻ item-filter vào resultfilters
-                        $('.result-filter-import').append(itemFilter);
-                    });
-
-                    // Ẩn hiện dữ liệu khi đã filters
-                    var importIds = [];
-                    // Lặp qua mảng provides và thu thập các deleveryIds
-                    data.data.forEach(function(item) {
-                        var deleveryId = item.id;
-                        importIds.push(deleveryId);
-                    });
-                    // Ẩn tất cả các phần tử .detailExport-info
-                    // $('.detailExport-info').hide();
-                    // Lặp qua từng phần tử .detailExport-info để hiển thị và cập nhật data-position
-                    $('.import-info').each(function() {
-                        var value = parseInt($(this).find('.id-import')
-                            .val());
-                        var index = importIds.indexOf(value);
-                        if (index !== -1) {
-                            $(this).show();
-                            // Cập nhật data-position
-                            $(this).attr('data-position', index + 1);
-                        } else {
-                            $(this).hide();
-                        }
-                    });
-                    // Tạo một bản sao của mảng phần tử .import-info
-                    var clonedElements = $('.import-info').clone();
-                    // Sắp xếp các phần tử trong bản sao theo data-position
-                    var sortedElements = clonedElements.sort(function(a, b) {
-                        return $(a).data('position') - $(b).data('position');
-                    });
-                    // Thay thế các phần tử trong .tbody-import bằng các phần tử đã sắp xếp
-                    $('.tbody-import').empty().append(sortedElements);
-
-                }
-            });
-            $.ajaxSetup({
-                headers: {
-                    'csrftoken': '{{ csrf_token() }}'
-                }
-            });
+        });
+        $.ajaxSetup({
+            headers: {
+                'csrftoken': '{{ csrf_token() }}'
+            }
         });
     });
+
 
     $(document).on('click', '.user_flow', function(e) {
         var type = $(this).attr('data-type')

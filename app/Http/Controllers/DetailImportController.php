@@ -19,6 +19,7 @@ use App\Models\QuoteImport;
 use App\Models\Receive_bill;
 use App\Models\Reciept;
 use App\Models\Serialnumber;
+use App\Models\User;
 use App\Models\userFlow;
 use App\Models\Workspace;
 use Carbon\Carbon;
@@ -44,6 +45,8 @@ class DetailImportController extends Controller
     private $attachment;
     private $workspaces;
     private $userFlow;
+    private $provides;
+    private $users;
     public function __construct()
     {
         $this->detailImport = new DetailImport();
@@ -60,6 +63,8 @@ class DetailImportController extends Controller
         $this->attachment = new Attachment();
         $this->workspaces = new Workspace();
         $this->userFlow = new userFlow();
+        $this->provides = new Provides();
+        $this->users = new User();
     }
     /**
      * Display a listing of the resource.
@@ -79,7 +84,10 @@ class DetailImportController extends Controller
         // ->paginate($perPage);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.import.import', compact('title', 'import', 'workspacename'));
+        $provides = $this->detailImport->getProvideInDetail();
+        $users = $this->detailImport->getUserInDetail();
+        // $import = $this->import->getAllImport();
+        return view('tables.import.import', compact('title', 'import', 'users', 'provides', 'workspacename'));
     }
 
     /**
@@ -1139,6 +1147,85 @@ class DetailImportController extends Controller
     {
         $data = $request->all();
         $filters = [];
+        if (isset($data['quotenumber']) && $data['quotenumber'] !== null) {
+            $filters[] = ['value' => 'Đơn mua hàng: ' . $data['quotenumber'], 'name' => 'quotenumber'];
+        }
+        if (isset($data['provides']) && $data['provides'] !== null) {
+            $filters[] = ['value' => 'Nhà cung cấp: ' . $data['provides'], 'name' => 'provides'];
+        }
+        if (isset($data['reference_number']) && $data['reference_number'] !== null) {
+            $detailImport = $this->detailImport->reference_numberById($data['reference_number']);
+            $detailImportString = implode(', ', $detailImport);
+            $filters[] = ['value' => 'Số tham chiếu: ' . $detailImportString, 'name' => 'reference_number'];
+        }
+        if (isset($data['users']) && $data['users'] !== null) {
+            $users = $this->users->getNameUser($data['users']);
+            $userstring = implode(', ', $users);
+            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+        }
+        $statusText = '';
+        if (isset($data['status']) && $data['status'] !== null) {
+            $statusValues = [];
+            if (in_array(1, $data['status'])) {
+                $statusValues[] = 'Draft';
+            }
+            if (in_array(2, $data['status'])) {
+                $statusValues[] = 'Close';
+            }
+            if (in_array(0, $data['status'])) {
+                $statusValues[] = 'Approved';
+            }
+            $statusText = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
+        }
+        $statusTextReceive = '';
+        if (isset($data['receive']) && $data['receive'] !== null) {
+            $statusValues = [];
+            if (in_array(0, $data['receive'])) {
+                $statusValues[] = 'Chưa giao';
+            }
+            if (in_array(2, $data['receive'])) {
+                $statusValues[] = 'Đã giao';
+            }
+            if (in_array(1, $data['receive'])) {
+                $statusValues[] = 'Một phần';
+            }
+            $statusTextReceive = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Giao hàng: ' . $statusTextReceive, 'name' => 'receive'];
+        }
+        $statusTextReceipt = '';
+        if (isset($data['reciept']) && $data['reciept'] !== null) {
+            $statusValues = [];
+            if (in_array(0, $data['reciept'])) {
+                $statusValues[] = 'Nháp';
+            }
+            if (in_array(2, $data['reciept'])) {
+                $statusValues[] = 'Chính thức';
+            }
+            if (in_array(1, $data['reciept'])) {
+                $statusValues[] = 'Một phần';
+            }
+            $statusTextReceipt = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Hoá đơn: ' . $statusTextReceipt, 'name' => 'reciept'];
+        }
+        $statusTextPay = '';
+        if (isset($data['pay']) && $data['pay'] !== null) {
+            $statusValues = [];
+            if (in_array(0, $data['pay'])) {
+                $statusValues[] = 'Chưa thanh toán';
+            }
+            if (in_array(2, $data['pay'])) {
+                $statusValues[] = 'Thanh toán đủ';
+            }
+            if (in_array(1, $data['pay'])) {
+                $statusValues[] = 'Một phần';
+            }
+            $statusTextPay = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Thanh toán: ' . $statusTextPay, 'name' => 'pay'];
+        }
+        if (isset($data['total']) && $data['total'][1] !== null) {
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
+        }
         if ($request->ajax()) {
             $import = $this->detailImport->ajax($data);
             return response()->json([

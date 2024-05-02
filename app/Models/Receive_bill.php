@@ -448,11 +448,29 @@ class Receive_bill extends Model
         ];
         return $data;
     }
+    public function getUserInReceive()
+    {
+        $receive = Receive_bill::leftJoin('users', 'users.id', 'receive_bill.user_id')
+            ->select(
+                'receive_bill.*',
+                'users.*'
+            )->get();
+        return $receive;
+    }
+    public function receive_bill_codeById($data)
+    {
+        $receive_bill = DB::table($this->table);
+        if (isset($data)) {
+            $receive_bill = $receive_bill->whereIn('id', $data);
+        }
+        $receive_bill = $receive_bill->pluck('delivery_code')->all();
+        return $receive_bill;
+    }
     public function ajax($data)
     {
         $receive = Receive_bill::leftJoin('provides', 'provides.id', 'receive_bill.provide_id')
             ->leftJoin('detailimport', 'detailimport.id', 'receive_bill.detailimport_id')
-            ->select('receive_bill.*', 'provides.provide_name_display', 'detailimport.quotation_number as quotation_number')
+            ->select('detailimport.provide_name as provide_name', 'provides.provide_name_display', 'detailimport.quotation_number as quotation_number', 'receive_bill.status as status', 'receive_bill.*')
             ->where('receive_bill.workspace_id', Auth::user()->current_workspace);
 
         if (isset($data['search'])) {
@@ -460,7 +478,32 @@ class Receive_bill extends Model
                 $query->orWhere('receive_bill.delivery_code', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('provide_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('provide_name', 'like', '%' . $data['search'] . '%');
             });
+        }
+        if (isset($data['quotenumber'])) {
+            $receive = $receive->where('quotation_number', 'like', '%' . $data['quotenumber'] . '%');
+        }
+        if (isset($data['provides'])) {
+            $receive = $receive->where('detailimport.provide_name', 'like', '%' . $data['provides'] . '%');
+        }
+        if (isset($data['shipping_unit'])) {
+            $receive = $receive->where('receive_bill.shipping_unit', 'like', '%' . $data['shipping_unit'] . '%');
+        }
+        if (isset($data['delivery_code'])) {
+            $receive = $receive->whereIn('receive_bill.id', $data['delivery_code']);
+        }
+        if (isset($data['users'])) {
+            $receive = $receive->whereIn('receive_bill.user_id', $data['users']);
+        }
+        if (isset($data['status'])) {
+            $receive = $receive->whereIn('receive_bill.status', $data['status']);
+        }
+        if (isset($data['shipping_fee'][0]) && isset($data['shipping_fee'][1])) {
+            $receive = $receive->where('receive_bill.delivery_charges', $data['shipping_fee'][0], $data['shipping_fee'][1]);
+        }
+        if (isset($data['total'][0]) && isset($data['total'][1])) {
+            $receive = $receive->where('receive_bill.total_tax', $data['total'][0], $data['total'][1]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $receive = $receive->orderBy($data['sort'][0], $data['sort'][1]);

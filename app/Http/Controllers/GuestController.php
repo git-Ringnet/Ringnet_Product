@@ -6,6 +6,7 @@ use App\Models\DetailExport;
 use App\Models\Guest;
 use App\Models\PayExport;
 use App\Models\representGuest;
+use App\Models\User;
 use App\Models\userFlow;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class GuestController extends Controller
     private $payExport;
     private $workspaces;
     private $userFlow;
+    private $users;
     public function __construct()
     {
         $this->guests = new Guest();
@@ -31,6 +33,7 @@ class GuestController extends Controller
         $this->payExport = new PayExport();
         $this->workspaces = new Workspace();
         $this->userFlow = new userFlow();
+        $this->users = new User();
     }
     public function index(Request $request)
     {
@@ -38,6 +41,7 @@ class GuestController extends Controller
             $title = "Khách hàng";
             $guests = $this->guests->getAllGuest();
             $dataa = $this->guests->getAllGuest();
+            $users = $this->guests->getUserInGuests();
             //Dư nợ
             $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
             $workspacename = $workspacename->workspace_name;
@@ -45,7 +49,7 @@ class GuestController extends Controller
                 $sumDebt = DetailExport::where('guest_id', $guest->id)->where('status', 2)->sum('amount_owed');
                 $guest->sumDebt = $sumDebt;
             }
-            return view('tables.guests.index', compact('title', 'guests', 'dataa', 'workspacename'));
+            return view('tables.guests.index', compact('title', 'guests', 'users', 'dataa', 'workspacename'));
         } else {
             return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');
         }
@@ -200,6 +204,22 @@ class GuestController extends Controller
     {
         $data = $request->all();
         $filters = [];
+        if (isset($data['guest_code']) && $data['guest_code'] !== null) {
+            $filters[] = ['value' => 'Mã số thuế: ' . $data['guest_code'], 'name' => 'guest_code'];
+        }
+        if (isset($data['guests']) && $data['guests'] !== null) {
+            $guest = $this->guests->guestNameById($data['guests']);
+            $guestString = implode(', ', $guest);
+            $filters[] = ['value' => 'Công ty: ' . $guestString, 'name' => 'guests'];
+        }
+        if (isset($data['users']) && $data['users'] !== null) {
+            $users = $this->users->getNameUser($data['users']);
+            $userstring = implode(', ', $users);
+            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+        }
+        if (isset($data['debt']) && $data['debt'][1] !== null) {
+            $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt'];
+        }
         if ($request->ajax()) {
             $guests = $this->guests->ajax($data);
             return response()->json([

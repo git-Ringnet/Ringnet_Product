@@ -8,6 +8,7 @@ use App\Models\HistoryPaymentOrder;
 use App\Models\PayOder;
 use App\Models\ProductImport;
 use App\Models\QuoteImport;
+use App\Models\User;
 use App\Models\Workspace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,6 +22,8 @@ class PayOrderController extends Controller
     private $historyPayment;
     private $workspaces;
     private $attachment;
+    private $users;
+
     public function __construct()
     {
         $this->payment = new PayOder();
@@ -28,6 +31,7 @@ class PayOrderController extends Controller
         $this->historyPayment = new HistoryPaymentOrder();
         $this->workspaces = new Workspace();
         $this->attachment = new Attachment();
+        $this->users = new User();
     }
     /**
      * Display a listing of the resource.
@@ -47,8 +51,9 @@ class PayOrderController extends Controller
 
         $payment = $payment->get();
         // ->paginate($perPage);
+        $users = $this->payment->getUserInPayOrder();
         $today = Carbon::now();
-        return view('tables.paymentOrder.paymentOrder', compact('title', 'payment', 'today', 'workspacename'));
+        return view('tables.paymentOrder.paymentOrder', compact('title', 'payment', 'users', 'today', 'workspacename'));
     }
 
     /**
@@ -229,6 +234,52 @@ class PayOrderController extends Controller
     {
         $data = $request->all();
         $filters = [];
+        if (isset($data['quotenumber']) && $data['quotenumber'] !== null) {
+            $filters[] = ['value' => 'Đơn mua hàng: ' . $data['quotenumber'], 'name' => 'quotenumber'];
+        }
+        if (isset($data['provides']) && $data['provides'] !== null) {
+            $filters[] = ['value' => 'Nhà cung cấp: ' . $data['provides'], 'name' => 'provides'];
+        }
+        if (isset($data['payment_code']) && $data['payment_code'] !== null) {
+            $payOrder = $this->payment->code_paymentById($data['payment_code']);
+            $payOrderString = implode(', ', $payOrder);
+            $filters[] = ['value' => 'Mã thanh toán: ' . $payOrderString, 'name' => 'payment_code'];
+        }
+        if (isset($data['users']) && $data['users'] !== null) {
+            $users = $this->users->getNameUser($data['users']);
+            $userstring = implode(', ', $users);
+            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+        }
+        $statusText = '';
+        if (isset($data['status']) && $data['status'] !== null) {
+            $statusValues = [];
+            if (in_array(1, $data['status'])) {
+                $statusValues[] = 'Chưa thanh toán';
+            }
+            if (in_array(2, $data['status'])) {
+                $statusValues[] = 'Thanh toán đủ';
+            }
+            if (in_array(3, $data['status'])) {
+                $statusValues[] = 'Trước hạn';
+            }
+            if (in_array(4, $data['status'])) {
+                $statusValues[] = 'Quá hạn';
+            }
+            if (in_array(5, $data['status'])) {
+                $statusValues[] = 'Thanh toán 1 phần';
+            }
+            $statusText = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
+        }
+        if (isset($data['total']) && $data['total'][1] !== null) {
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
+        }
+        if (isset($data['payment']) && $data['payment'][1] !== null) {
+            $filters[] = ['value' => 'Đã nhận: ' . $data['payment'][0] . $data['payment'][1], 'name' => 'payment'];
+        }
+        if (isset($data['debt']) && $data['debt'][1] !== null) {
+            $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt'];
+        }
         if ($request->ajax()) {
             $payment = $this->payment->ajax1($data);
             return response()->json([

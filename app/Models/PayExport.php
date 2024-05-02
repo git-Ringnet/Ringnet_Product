@@ -455,6 +455,24 @@ class PayExport extends Model
         $report_guest = $report_guest->get();
         return $report_guest;
     }
+    public function getUserInPayEx()
+    {
+        $pay_export = PayExport::leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
+            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('users', 'pay_export.user_id', 'users.id')->distinct('guest.id')
+            ->select('*', 'users.*')
+            ->get();
+        return $pay_export;
+    }
+    public function code_paymentById($data)
+    {
+        $pay_export = DB::table($this->table);
+        if (isset($data)) {
+            $pay_export = $pay_export->whereIn('id', $data);
+        }
+        $pay_export = $pay_export->pluck('code_payment')->all();
+        return $pay_export;
+    }
     public function ajaxdas($data)
     {
         $payExport = PayExport::leftJoin('detailexport', 'pay_export.detailexport_id', 'detailexport.id')
@@ -466,7 +484,7 @@ class PayExport extends Model
                 'guest.guest_name_display',
                 'pay_export.payment_date',
                 'pay_export.total',
-                'pay_export.id as idThanhToan',
+                'pay_export.id as id',
                 'pay_export.debt',
                 'pay_export.status',
                 'pay_export.payment',
@@ -480,6 +498,30 @@ class PayExport extends Model
                 $query->orWhere('pay_export.code_payment', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('guest.guest_name_display', 'like', '%' . $data['search'] . '%');
             });
+        }
+        if (isset($data['quotenumber'])) {
+            $payExport = $payExport->where('quotation_number', 'like', '%' . $data['quotenumber'] . '%');
+        }
+        if (isset($data['guests'])) {
+            $payExport = $payExport->where('detailexport.guest_name', 'like', '%' . $data['guests'] . '%');
+        }
+        if (isset($data['code_payment'])) {
+            $payExport = $payExport->whereIn('pay_export.id', $data['code_payment']);
+        }
+        if (isset($data['users'])) {
+            $payExport = $payExport->whereIn('pay_export.user_id', $data['users']);
+        }
+        if (isset($data['status'])) {
+            $payExport = $payExport->whereIn('pay_export.status', $data['status']);
+        }
+        if (isset($data['payment'][0]) && isset($data['payment'][1])) {
+            $payExport = $payExport->where('pay_export.payment', $data['payment'][0], $data['payment'][1]);
+        }
+        if (isset($data['debt'][0]) && isset($data['debt'][1])) {
+            $payExport = $payExport->where('pay_export.debt', $data['debt'][0], $data['debt'][1]);
+        }
+        if (isset($data['total'][0]) && isset($data['total'][1])) {
+            $payExport = $payExport->where('pay_export.total', $data['total'][0], $data['total'][1]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $payExport = $payExport->orderBy($data['sort'][0], $data['sort'][1]);

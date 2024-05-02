@@ -9,6 +9,7 @@ use App\Models\ProductImport;
 use App\Models\QuoteImport;
 use App\Models\Receive_bill;
 use App\Models\Reciept;
+use App\Models\User;
 use App\Models\Workspace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class RecieptController extends Controller
     private $workspaces;
     private $attachment;
     private $history;
+    private $users;
     public function __construct()
     {
         $this->reciept = new Reciept();
@@ -29,6 +31,7 @@ class RecieptController extends Controller
         $this->workspaces = new Workspace();
         $this->attachment = new Attachment();
         $this->history = new History();
+        $this->users = new User();
     }
     /**
      * Display a listing of the resource.
@@ -45,10 +48,11 @@ class RecieptController extends Controller
         }
         $reciept->select('reciept.*');
         $reciept = $reciept->get();
+        $users = $this->reciept->getUserInReceipt();
         // ->paginate($perPage);
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
-        return view('tables.reciept.reciept', compact('title', 'reciept', 'workspacename'));
+        return view('tables.reciept.reciept', compact('title', 'reciept', 'users', 'workspacename'));
     }
 
     /**
@@ -145,7 +149,7 @@ class RecieptController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $product = ProductImport::join('quoteimport', 'quoteimport.id', 'products_import.quoteImport_id')
-        ->join('products', 'quoteimport.product_name', 'products.product_name')
+            ->join('products', 'quoteimport.product_name', 'products.product_name')
             ->where('products_import.detailimport_id', $reciept->detailimport_id)
             ->where('products_import.reciept_id', $reciept->id)
             ->select(
@@ -232,13 +236,44 @@ class RecieptController extends Controller
             ->where('quoteimport.detailimport_id', $request->id)
             ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(reciept_qty,0)'))
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
-            ->select('quoteimport.*','products.product_inventory as inventory')
+            ->select('quoteimport.*', 'products.product_inventory as inventory')
             ->get();
     }
     public function searchReciept(Request $request)
     {
         $data = $request->all();
         $filters = [];
+        if (isset($data['quotenumber']) && $data['quotenumber'] !== null) {
+            $filters[] = ['value' => 'Đơn mua hàng: ' . $data['quotenumber'], 'name' => 'quotenumber'];
+        }
+        if (isset($data['provides']) && $data['provides'] !== null) {
+            $filters[] = ['value' => 'Nhà cung cấp: ' . $data['provides'], 'name' => 'provides'];
+        }
+        if (isset($data['number_bill']) && $data['number_bill'] !== null) {
+            $reciept = $this->reciept->number_billById($data['number_bill']);
+            $recieptString = implode(', ', $reciept);
+            $filters[] = ['value' => 'Số hoá đơn: ' . $recieptString, 'name' => 'number_bill'];
+        }
+        if (isset($data['users']) && $data['users'] !== null) {
+            $users = $this->users->getNameUser($data['users']);
+            $userstring = implode(', ', $users);
+            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+        }
+        $statusText = '';
+        if (isset($data['status']) && $data['status'] !== null) {
+            $statusValues = [];
+            if (in_array(1, $data['status'])) {
+                $statusValues[] = 'Bản nháp';
+            }
+            if (in_array(2, $data['status'])) {
+                $statusValues[] = 'Chính thức';
+            }
+            $statusText = implode(', ', $statusValues);
+            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
+        }
+        if (isset($data['total']) && $data['total'][1] !== null) {
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
+        }
         if ($request->ajax()) {
             $reciept = $this->reciept->ajax($data);
             return response()->json([

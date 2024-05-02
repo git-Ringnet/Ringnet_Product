@@ -48,6 +48,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="content-filter-all">
         <div class="bg-filter-search pl-4 border-bottom-0">
             <div class="content-wrapper1 py-2">
                 <div class="row m-auto filter p-0">
@@ -67,38 +69,62 @@
                                     </div>
                                 </form>
                                 <div class="dropdown mx-2">
-                                    <button class="filter-btn ml-2 align-items-center d-flex border mb-0"
-                                        data-toggle="dropdown">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                    <button class="btn-filter_search" data-toggle="dropdown">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 16 16" fill="none">
                                             <path
                                                 d="M12.9548 3H10.0457C9.74445 3 9.50024 3.24421 9.50024 3.54545V6.45455C9.50024 6.75579 9.74445 7 10.0457 7H12.9548C13.256 7 13.5002 6.75579 13.5002 6.45455V3.54545C13.5002 3.24421 13.256 3 12.9548 3Z"
-                                                fill="#6D7075"></path>
+                                                fill="#6D7075" />
                                             <path
                                                 d="M6.45455 3H3.54545C3.24421 3 3 3.24421 3 3.54545V6.45455C3 6.75579 3.24421 7 3.54545 7H6.45455C6.75579 7 7 6.75579 7 6.45455V3.54545C7 3.24421 6.75579 3 6.45455 3Z"
-                                                fill="#6D7075"></path>
+                                                fill="#6D7075" />
                                             <path
                                                 d="M6.45455 9.50024H3.54545C3.24421 9.50024 3 9.74445 3 10.0457V12.9548C3 13.256 3.24421 13.5002 3.54545 13.5002H6.45455C6.75579 13.5002 7 13.256 7 12.9548V10.0457C7 9.74445 6.75579 9.50024 6.45455 9.50024Z"
-                                                fill="#6D7075"></path>
+                                                fill="#6D7075" />
                                             <path
                                                 d="M12.9548 9.50024H10.0457C9.74445 9.50024 9.50024 9.74445 9.50024 10.0457V12.9548C9.50024 13.256 9.74445 13.5002 10.0457 13.5002H12.9548C13.256 13.5002 13.5002 13.256 13.5002 12.9548V10.0457C13.5002 9.74445 13.256 9.50024 12.9548 9.50024Z"
-                                                fill="#6D7075"></path>
+                                                fill="#6D7075" />
                                         </svg>
-                                        <span class="text-btnIner mx-1">Bộ lọc</span>
-                                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                        <span class="text-btnIner">Bộ lọc</span>
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                 d="M5.42342 6.92342C5.65466 6.69219 6.02956 6.69219 6.26079 6.92342L9 9.66264L11.7392 6.92342C11.9704 6.69219 12.3453 6.69219 12.5766 6.92342C12.8078 7.15466 12.8078 7.52956 12.5766 7.76079L9.41868 10.9187C9.18745 11.1499 8.81255 11.1499 8.58132 10.9187L5.42342 7.76079C5.19219 7.52956 5.19219 7.15466 5.42342 6.92342Z"
-                                                fill="#6D7075"></path>
+                                                fill="#6B6F76" />
                                         </svg>
                                     </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item text-13-black" href="#">Action</a>
-                                        <a class="dropdown-item text-13-black" href="#">Another action</a>
-                                        <a class="dropdown-item text-13-black" href="#">Something else here</a>
+                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                        style="z-index:">
+                                        <div class="search-container px-2">
+                                            <input type="text" placeholder="Tìm kiếm" id="myInput" class="text-13"
+                                                onkeyup="filterFunction()" style="outline: none;">
+                                            <span class="search-icon mr-2">
+                                                <i class="fas fa-search"></i>
+                                            </span>
+                                        </div>
+                                        <div class="scrollbar">
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-guests"
+                                                data-button="guests" type="button">Công ty
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-users"
+                                                data-button="users" type="button">Người tạo
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black"
+                                                id="btn-guest_code" data-button="guest_code" type="button">Mã số
+                                                thuế
+                                            </button>
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-debt"
+                                                data-button="debt" type="button">
+                                                Dư nợ
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="result-filter-guest d-flex">
+                                    <x-filter-text name="guest_code" title="Mã số thuế" />
+                                    <x-filter-checkbox :dataa='$guests' name="guests" title="Công ty"
+                                        namedisplay="guest_name_display" />
+                                    <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
+                                        namedisplay="name" />
+                                    <x-filter-compare name="debt" title="Dư nợ" />
                                 </div>
                             </div>
                         </div>
@@ -107,9 +133,11 @@
             </div>
         </div>
     </div>
-    <div class="content margin-top-68">
+    <div class="content margin-top-75">
         <section class="content margin-250">
             <div class="container-fluided">
+                <div class="row result-filter-guest margin-left30 my-1">
+                </div>
                 <div class="col-12 p-0 m-0">
                     <div class="card">
                         <!-- /.card-header -->
@@ -117,11 +145,11 @@
                             <table id="example2" class="table table-hover bg-white rounded">
                                 <thead class="border-custom">
                                     <tr>
-                                        <th class="border-top-0" style="width:5%;padding-left: 2rem;">
+                                        <th class="" style="width:5%;padding-left: 2rem;">
                                             <input type="checkbox" name="all" id="checkall"
                                                 class="checkall-btn">
                                         </th>
-                                        <th class="border-top-0" scope="col">
+                                        <th class="" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_name_display" data-sort-type="DESC">
@@ -132,18 +160,18 @@
                                                 <div class="icon" id="icon-guest_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="border-top-0" scope="col">
+                                        <th class="" scope="col">
                                             <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit" data-sort-by=""
+                                                <a href="#" class="sort-link btn-submit" data-sort-by="name"
                                                     data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
                                                         <span class="text-13">Người tạo</span>
                                                     </button>
                                                 </a>
-                                                <div class="icon" id="icon-"></div>
+                                                <div class="icon" id="icon-name"></div>
                                             </span>
                                         </th>
-                                        <th class="border-top-0" scope="col">
+                                        <th class="" scope="col">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_code" data-sort-type="DESC">
@@ -154,7 +182,7 @@
                                                 <div class="icon" id="icon-guest_code"></div>
                                             </span>
                                         </th>
-                                        {{-- <th class="border-top-0" scope="col">
+                                        {{-- <th class="" scope="col">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link btn-submit" data-sort-by="guest_email"
                                                     data-sort-type="DESC">
@@ -164,7 +192,7 @@
                                                 <div class="icon" id="icon-guest_email"></div>
                                             </span>
                                         </th> --}}
-                                        {{-- <th class="border-top-0" scope="col">
+                                        {{-- <th class="" scope="col">
                                             <span class="d-flex">
                                                 <a href="#" class="sort-link btn-submit" data-sort-by="guest_phone"
                                                     data-sort-type="DESC">
@@ -175,10 +203,10 @@
                                                 <div class="icon" id="icon-guest_phone"></div>
                                             </span>
                                         </th> --}}
-                                        <th class="border-top-0" scope="col">
+                                        <th class="" scope="col">
                                             <span class="d-flex justify-content-end">
-                                                <a href="#" class="sort-link btn-submit"
-                                                    data-sort-by="guest_debt" data-sort-type="DESC">
+                                                <a href="#" class="sort-link btn-submit" data-sort-by="sumDebt"
+                                                    data-sort-type="DESC">
                                                     <button class="btn-sort" type="submit">
                                                         <span class="text-13">Dư nợ</span>
                                                     </button>
@@ -186,7 +214,7 @@
                                                 <div class="icon" id="icon-guest_debt"></div>
                                             </span>
                                         </th>
-                                        <th class="border-top-0" scope="col"></th>
+                                        <th class="" scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody class="tbody-guest">
@@ -217,8 +245,10 @@
                                                 <a
                                                     href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
                                             </td>
-                                            <td class="text-13-black border-bottom border-top-0">{{ $item->name }}</td>
-                                            <td class="text-13-black border-bottom border-top-0">{{ $item->guest_code }}</td>
+                                            <td class="text-13-black border-bottom border-top-0">{{ $item->name }}
+                                            </td>
+                                            <td class="text-13-black border-bottom border-top-0">
+                                                {{ $item->guest_code }}</td>
                                             {{-- <td class="text-13-black">{{ $item->guest_email }}</td>
                                             <td class="text-13-black">{{ $item->guest_phone }}</td> --}}
                                             <td class="text-13-black text-right border-bottom border-top-0">
@@ -295,13 +325,16 @@
 <script src="{{ asset('/dist/js/filter.js') }}"></script>
 
 <script type="text/javascript">
-    function filtername() {
-        filterButtons("myInput-name", "ks-cboxtags-name");
+    function filterusers() {
+        filterButtons("myInput-users", "ks-cboxtags-users");
     }
 
-    function filtercompany() {
-        filterButtons("myInput-company", "ks-cboxtags-company");
+    function filterguests() {
+        filterButtons("myInput-guests", "ks-cboxtags-guests");
     }
+    var guests = [];
+    var users = [];
+
     var filters = [];
     var sort = [];
     var svgtop =
@@ -309,106 +342,157 @@
     var svgbot =
         "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 5C11.6332 5 11.7604 5.05268 11.8542 5.14645C11.948 5.24021 12.0006 5.36739 12.0006 5.5V17.293L15.1466 14.146C15.2405 14.0521 15.3679 13.9994 15.5006 13.9994C15.6334 13.9994 15.7607 14.0521 15.8546 14.146C15.9485 14.2399 16.0013 14.3672 16.0013 14.5C16.0013 14.6328 15.9485 14.7601 15.8546 14.854L11.8546 18.854C11.8082 18.9006 11.753 18.9375 11.6923 18.9627C11.6315 18.9879 11.5664 19.0009 11.5006 19.0009C11.4349 19.0009 11.3697 18.9879 11.309 18.9627C11.2483 18.9375 11.1931 18.9006 11.1466 18.854L7.14663 14.854C7.05274 14.7601 7 14.6328 7 14.5C7 14.3672 7.05274 14.2399 7.14663 14.146C7.24052 14.0521 7.36786 13.9994 7.50063 13.9994C7.63341 13.9994 7.76075 14.0521 7.85463 14.146L11.0006 17.293V5.5C11.0006 5.36739 11.0533 5.24021 11.1471 5.14645C11.2408 5.05268 11.368 5 11.5006 5Z' fill='#555555'/></svg>"
 
-    $(document).ready(function() {
-        // get id check box name
-        $('.btn-submit').click(function(event) {
-            event.preventDefault();
-            var buttonName = $(this).data('button');
-            var btn_submit = $(this).data('button-name');
-            var search = $('#search').val();
-            var sort_by = '';
-            if (typeof $(this).data('sort-by') !== 'undefined') {
-                sort_by = $(this).data('sort-by');
+    // get id check box name
+    $(document).on('click', '.btn-submit', function(e) {
+        e.preventDefault();
+        var buttonName = $(this).data('button');
+        var btn_submit = $(this).data('button-name');
+        var search = $('#search').val();
+        var guest_code = $('#guest_code').val();
+        var operator_debt = $('.debt-operator').val();
+        var val_debt = $('.debt-quantity').val();
+        var debt = [operator_debt, val_debt];
+
+        if ($(this).data('button-name') === 'guests') {
+            $('.ks-cboxtags-guests input[type="checkbox"]').each(function() {
+                const value = $(this).val();
+                if ($(this).is(':checked') && guests.indexOf(value) === -1) {
+                    guests.push(value);
+                } else if (!$(this).is(':checked')) {
+                    const index = guests.indexOf(value);
+                    if (index !== -1) {
+                        guests.splice(index, 1);
+                    }
+                }
+            });
+        }
+        if ($(this).data('button-name') === 'users') {
+            $('.ks-cboxtags-users input[type="checkbox"]').each(function() {
+                const value = $(this).val();
+                if ($(this).is(':checked') && users.indexOf(value) === -1) {
+                    users.push(value);
+                } else if (!$(this).is(':checked')) {
+                    const index = users.indexOf(value);
+                    if (index !== -1) {
+                        users.splice(index, 1);
+                    }
+                }
+            });
+        }
+        var sort_by = '';
+        if (typeof $(this).data('sort-by') !== 'undefined') {
+            sort_by = $(this).data('sort-by');
+        }
+        var sort_type = $(this).data('sort-type');
+        sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
+        $(this).data('sort-type', sort_type);
+        $('.icon').text('');
+        var iconId = 'icon-' + sort_by;
+        var iconDiv = $('#' + iconId);
+        iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
+        sort = [
+            sort_by, sort_type
+        ];
+        $('#' + btn_submit + '-options').hide();
+        $(".btn-filter_search").prop("disabled", false);
+        if ($(this).data('delete') === 'guests') {
+            guests = [];
+            $('.deselect-all-guests').click();
+        }
+        if ($(this).data('delete') === 'guest_code') {
+            guest_code = null;
+            $('#guest_code').val('');
+        }
+        if ($(this).data('delete') === 'users') {
+            users = [];
+            $('.deselect-all-users').click();
+        }
+        if ($(this).data('delete') === 'debt') {
+            debt = null;
+            $('.debt-quantity').val('');
+        }
+        $.ajax({
+            type: 'get',
+            url: "{{ route('searchGuest') }}",
+            data: {
+                search: search,
+                users: users,
+                guests: guests,
+                guest_code: guest_code,
+                debt: debt,
+                sort: sort,
+            },
+            success: function(data) {
+                // Hiển thị label dữ liệu tìm kiếm ...
+                var existingNames = [];
+                data.filters.forEach(function(item) {
+                    // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
+                    if (filters.indexOf(item.name) === -1) {
+                        filters.push(item.name);
+                    }
+                    existingNames.push(item.name);
+                });
+
+                filters = filters.filter(function(name) {
+                    return existingNames.includes(name);
+                });
+                $('.result-filter-guest').empty();
+                // Lặp qua mảng filters để tạo và render các phần tử
+                data.filters.forEach(function(item) {
+                    var index = filters.indexOf(item.name);
+                    // Tạo thẻ item-filter
+                    var itemFilter = $('<div>').addClass(
+                        'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
+                    );
+                    itemFilter.css('order', index);
+                    // Thêm nội dung và thuộc tính data vào thẻ item-filter
+                    itemFilter.append(
+                        '<span class="text text-13-black m-0" style="flex:2;">' +
+                        item.value +
+                        '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
+                        item.name + '" data-button="' + buttonName +
+                        '"></i>');
+                    // Thêm thẻ item-filter vào 
+                    $('.result-filter-guest').append(itemFilter);
+                });
+
+                // Ẩn hiện dữ liệu khi đã filters
+                var guestIds = [];
+                // Lặp qua mảng provides và thu thập các deleveryIds
+                data.data.forEach(function(item) {
+                    var deleveryId = item.id;
+                    guestIds.push(deleveryId);
+                });
+                // Ẩn tất cả các phần tử .detailExport-info
+                // $('.detailExport-info').hide();
+                // Lặp qua từng phần tử .detailExport-info để hiển thị và cập nhật data-position
+                $('.guest-info').each(function() {
+                    var value = parseInt($(this).find('.id-guest')
+                        .val());
+                    var index = guestIds.indexOf(value);
+                    if (index !== -1) {
+                        $(this).show();
+                        // Cập nhật data-position
+                        $(this).attr('data-position', index + 1);
+                    } else {
+                        $(this).hide();
+                    }
+                });
+                // Tạo một bản sao của mảng phần tử .guest-info
+                var clonedElements = $('.guest-info').clone();
+                // Sắp xếp các phần tử trong bản sao theo data-position
+                var sortedElements = clonedElements.sort(function(a, b) {
+                    return $(a).data('position') - $(b).data('position');
+                });
+                // Thay thế các phần tử trong .tbody-guest bằng các phần tử đã sắp xếp
+                $('.tbody-guest').empty().append(sortedElements);
+
             }
-            var sort_type = $(this).data('sort-type');
-            sort_type = (sort_type === 'ASC') ? 'DESC' : 'ASC';
-            $(this).data('sort-type', sort_type);
-            $('.icon').text('');
-            var iconId = 'icon-' + sort_by;
-            var iconDiv = $('#' + iconId);
-            iconDiv.html((sort_type === 'ASC') ? svgtop : svgbot);
-            sort = [
-                sort_by, sort_type
-            ];
-            $('#' + btn_submit + '-options').hide();
-            $(".text-btnIner").prop("disabled", false);
-            $.ajax({
-                type: 'get',
-                url: "{{ route('searchGuest') }}",
-                data: {
-                    search: search,
-                    sort: sort,
-                },
-                success: function(data) {
-                    // Hiển thị label dữ liệu tìm kiếm ...
-                    var existingNames = [];
-                    data.filters.forEach(function(item) {
-                        // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
-                        if (filters.indexOf(item.name) === -1) {
-                            filters.push(item.name);
-                        }
-                        existingNames.push(item.name);
-                    });
-
-                    filters = filters.filter(function(name) {
-                        return existingNames.includes(name);
-                    });
-                    $('.result-filter-guest').empty();
-                    // Lặp qua mảng filters để tạo và render các phần tử
-                    data.filters.forEach(function(item) {
-                        var index = filters.indexOf(item.name);
-                        // Tạo thẻ item-filter
-                        var itemFilter = $('<div>').addClass(
-                            'item-filter span d-flex justify-content-center align-items-baseline'
-                        );
-                        itemFilter.css('order', index);
-                        // Thêm nội dung và thuộc tính data vào thẻ item-filter
-                        itemFilter.append('<p class="text">' + item.value +
-                            '</p><i class="fa-solid fa-xmark btn-submit" data-delete="' +
-                            item.name + '" data-button="' + buttonname +
-                            '"></i>');
-                        // Thêm thẻ item-filter vào resultfilters
-                        $('.result-filter-guest').append(itemFilter);
-                    });
-
-                    // Ẩn hiện dữ liệu khi đã filters
-                    var guestIds = [];
-                    // Lặp qua mảng provides và thu thập các deleveryIds
-                    data.data.forEach(function(item) {
-                        var deleveryId = item.id;
-                        guestIds.push(deleveryId);
-                    });
-                    // Ẩn tất cả các phần tử .detailExport-info
-                    // $('.detailExport-info').hide();
-                    // Lặp qua từng phần tử .detailExport-info để hiển thị và cập nhật data-position
-                    $('.guest-info').each(function() {
-                        var value = parseInt($(this).find('.id-guest')
-                            .val());
-                        var index = guestIds.indexOf(value);
-                        if (index !== -1) {
-                            $(this).show();
-                            // Cập nhật data-position
-                            $(this).attr('data-position', index + 1);
-                        } else {
-                            $(this).hide();
-                        }
-                    });
-                    // Tạo một bản sao của mảng phần tử .guest-info
-                    var clonedElements = $('.guest-info').clone();
-                    // Sắp xếp các phần tử trong bản sao theo data-position
-                    var sortedElements = clonedElements.sort(function(a, b) {
-                        return $(a).data('position') - $(b).data('position');
-                    });
-                    // Thay thế các phần tử trong .tbody-guest bằng các phần tử đã sắp xếp
-                    $('.tbody-guest').empty().append(sortedElements);
-
-                }
-            });
-            $.ajaxSetup({
-                headers: {
-                    'csrftoken': '{{ csrf_token() }}'
-                }
-            });
+        });
+        $.ajaxSetup({
+            headers: {
+                'csrftoken': '{{ csrf_token() }}'
+            }
         });
     });
 </script>

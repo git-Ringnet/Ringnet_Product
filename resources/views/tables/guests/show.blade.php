@@ -237,11 +237,11 @@
                                                     style="width: 18%;">Tổng số đơn đã bán</th>
                                                 <th class="border-right text-13 px-0 py-2 padding-left35 height-52 text-right"
                                                     style="width: 20%;">
-                                                   <span class="mr-2">Tổng số tiền đã bán</span>
+                                                    <span class="mr-2">Tổng số tiền đã bán</span>
                                                 </th>
                                                 <th class="border-right text-13 px-0 py-2 padding-left35 height-52 text-right"
                                                     style="width: 20%;">
-                                                    <span class="mr-2">Tổng số tiền thanh toán</span> 
+                                                    <span class="mr-2">Tổng số tiền thanh toán</span>
                                                 </th>
                                                 <th class="border-right text-13 px-0 py-2 padding-left35 height-52 text-right"
                                                     style="width: 20%;">
@@ -300,7 +300,7 @@
                                         </div>
                                     </form>
                                     <div class="dropdown mx-2 d-none">
-                                        <button class="btn-filter_searh" type="button" id="dropdownMenuButton"
+                                        <button class="btn-filter_search" type="button" id="dropdownMenuButton"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 viewBox="0 0 16 16" fill="none">

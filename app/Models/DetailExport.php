@@ -44,7 +44,7 @@ class DetailExport extends Model
     public function getAllDetailExport()
     {
         $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG','detailexport.status as tinhTrang')
+            ->select('*', 'detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.status as tinhTrang', 'detailexport.*')
             ->leftJoin('users', 'users.id', 'detailexport.user_id')
             ->orderBy('detailexport.id', 'desc')->get();
         return $detailExport;
@@ -222,22 +222,80 @@ class DetailExport extends Model
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)->get();
         return $historyGuest;
     }
+    // Get Guest in detailExport
+    public function getGuestInDetail()
+    {
+        $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->select('detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.*', 'guest.*')
+            ->leftJoin('users', 'users.id', 'detailexport.user_id')->distinct('guest.id')
+            ->get();
+        return $detailExport;
+    }
+    public function getUserInDetail()
+    {
+        $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)
+            ->leftJoin('guest', 'guest.id', 'detailexport.guest_id')
+            ->leftJoin('users', 'users.id', 'detailexport.user_id')->distinct('guest.id')
+            ->select('detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'detailexport.*', 'users.*')
+            ->get();
+        return $detailExport;
+    }
     public function ajax($data)
     {
         $detailExport = DetailExport::leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->select('detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'guest.guest_name_display as guest_name_display', 'detailexport.*');
+            ->select('detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'guest.guest_name_display as guest_name_display', 'guest.*', 'detailexport.*');
         if (isset($data['search'])) {
             $detailExport = $detailExport->where(function ($query) use ($data) {
                 $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('reference_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('guest_name_display', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('detailexport.guest_name', 'like', '%' . $data['search'] . '%');
             });
+        }
+        if (isset($data['quotenumber'])) {
+            $detailExport = $detailExport->where('quotation_number', 'like', '%' . $data['quotenumber'] . '%');
+        }
+        if (isset($data['guests'])) {
+            $detailExport = $detailExport->where('detailexport.guest_name', 'like', '%' . $data['guests'] . '%');
+        }
+        if (isset($data['reference_number'])) {
+            $detailExport = $detailExport->whereIn('detailexport.id', $data['reference_number']);
+        }
+        if (isset($data['users'])) {
+            $detailExport = $detailExport->whereIn('detailexport.user_id', $data['users']);
+        }
+        if (isset($data['status'])) {
+            $detailExport = $detailExport->whereIn('detailexport.status', $data['status']);
+        }
+        if (isset($data['receive'])) {
+            $detailExport = $detailExport->whereIn('detailexport.status_receive', $data['receive']);
+        }
+        if (isset($data['reciept'])) {
+            $detailExport = $detailExport->whereIn('detailexport.status_reciept', $data['reciept']);
+        }
+        if (isset($data['pay'])) {
+            $detailExport = $detailExport->whereIn('detailexport.status_pay', $data['pay']);
+        }
+        if (isset($data['total'][0]) && isset($data['total'][1])) {
+            $detailExport = $detailExport->where('detailexport.total_price', $data['total'][0], $data['total'][1]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $detailExport = $detailExport->orderBy($data['sort'][0], $data['sort'][1]);
         }
         $detailExport = $detailExport->get();
+        // dd($detailExport);
         return $detailExport;
+    }
+    // Get reference number by data
+    public function reference_numberById($data)
+    {
+        $detaiExport = DB::table($this->table);
+        if (isset($data)) {
+            $detaiExport = $detaiExport->whereIn('id', $data);
+        }
+        $detaiExport = $detaiExport->pluck('reference_number')->all();
+        return $detaiExport;
     }
 }

@@ -2,7 +2,7 @@
 function handleFilterClick(btn, options, input) {
     btn.click(function (event) {
         event.preventDefault();
-        $(".filter-btn").prop("disabled", true);
+        $(".btn-filter_search").prop("disabled", true);
         if (input) {
             input.val("");
         }
@@ -13,13 +13,19 @@ function handleFilterClick(btn, options, input) {
 function handleCancelClick(cancelBtn, input, options) {
     cancelBtn.click(function (event) {
         event.preventDefault();
-        $(".filter-btn").prop("disabled", false);
+        $(".btn-filter_search").prop("disabled", false);
         if (input) {
             input.val("");
         }
         options.hide();
     });
 }
+$(document).on("click", function (event) {
+    if (!$(event.target).closest(".dropdown-menu,.block-options").length) {
+        $(".block-options").hide();
+        $(".btn-filter_search").prop("disabled", false);
+    }
+});
 
 // Xử lý click
 handleFilterClick($("#btn-email"), $("#email-options"), $(".email-input"));
@@ -28,12 +34,111 @@ handleFilterClick($("#btn-name"), $("#name-options"), $(".name-input"));
 handleFilterClick($("#btn-tensp"), $("#tensp-options"), $(".tensp-input"));
 handleFilterClick($("#btn-hdvao"), $("#hdvao-options"), $(".hdvao-input"));
 handleFilterClick($("#btn-hdra"), $("#hdra-options"), $(".hdra-input"));
-handleFilterClick($("#btn-slxuat"), $("#slxuat-options"), $(".slxuat-input"));
+handleFilterClick($("#btn-users"), $("#users-options"), $(".users-input"));
+handleFilterClick($("#btn-status"), $("#status-options"), $(".status-input"));
+handleFilterClick($("#btn-pay"), $("#pay-options"), $(".pay-input"));
+handleFilterClick($("#btn-total"), $("#total-options"), $(".total-input"));
+handleFilterClick($("#btn-POnhap"), $("#POnhap-options"), $(".POnhap-input"));
+handleFilterClick($("#btn-BH"), $("#BH-options"), $(".BH-input"));
+handleFilterClick($("#btn-VATN"), $("#VATN-options"), $(".VATN-input"));
+handleFilterClick($("#btn-slnhap"), $("#slnhap-options"), $(".slnhap-input"));
+handleFilterClick($("#btn-POxuat"), $("#POxuat-options"), $(".POxuat-input"));
+handleFilterClick($("#btn-TTN"), $("#TTN-options"), $(".TTN-input"));
+handleFilterClick($("#btn-TTX"), $("#TTX-options"), $(".TTX-input"));
+handleFilterClick($("#btn-HTTTX"), $("#HTTTX-options"), $(".HTTTX-input"));
+handleFilterClick($("#btn-HTTTN"), $("#HTTTN-options"), $(".HTTTN-input"));
+handleFilterClick(
+    $("#btn-provide_code"),
+    $("#provide_code-options"),
+    $(".provide_code-input")
+);
+handleFilterClick(
+    $("#btn-trcVATX"),
+    $("#trcVATX-options"),
+    $(".trcVATX-input")
+);
+handleFilterClick($("#btn-VATX"), $("#VATX-options"), $(".VATX-input"));
+handleFilterClick(
+    $("#btn-sauVATX"),
+    $("#sauVATX-options"),
+    $(".sauVATX-input")
+);
+handleFilterClick(
+    $("#btn-sauVATN"),
+    $("#sauVATN-options"),
+    $(".sauVATN-input")
+);
+handleFilterClick(
+    $("#btn-trcVATN"),
+    $("#trcVATN-options"),
+    $(".trcVATN-input")
+);
+handleFilterClick(
+    $("#btn-payment_code"),
+    $("#payment_code-options"),
+    $(".payment_code-input")
+);
+handleFilterClick(
+    $("#btn-delivery_code"),
+    $("#delivery_code-options"),
+    $(".delivery_code-input")
+);
+handleFilterClick(
+    $("#btn-guest_code"),
+    $("#guest_code-options"),
+    $(".guest_code-input")
+);
+handleFilterClick(
+    $("#btn-code_payment"),
+    $("#code_payment-options"),
+    $(".code_payment-input")
+);
+handleFilterClick(
+    $("#btn-payment"),
+    $("#payment-options"),
+    $(".payment-input")
+);
+handleFilterClick(
+    $("#btn-number_bill"),
+    $("#number_bill-options"),
+    $(".number_bill-input")
+);
 handleFilterClick(
     $("#btn-shipping_fee"),
     $("#shipping_fee-options"),
     $(".shipping_fee-input")
 );
+handleFilterClick(
+    $("#btn-shipping_unit"),
+    $("#shipping_unit-options"),
+    $(".shipping_unit-input")
+);
+handleFilterClick(
+    $("#btn-code_delivery"),
+    $("#code_delivery-options"),
+    $(".code_delivery-input")
+);
+handleFilterClick(
+    $("#btn-reciept"),
+    $("#reciept-options"),
+    $(".reciept-input")
+);
+handleFilterClick(
+    $("#btn-receive"),
+    $("#receive-options"),
+    $(".receive-input")
+);
+handleFilterClick(
+    $("#btn-reference_number"),
+    $("#reference_number-options"),
+    $(".reference_number-input")
+);
+handleFilterClick(
+    $("#btn-quotenumber"),
+    $("#quotenumber-options"),
+    $(".quotenumber-input")
+);
+handleFilterClick($("#btn-slxuat"), $("#slxuat-options"), $(".slxuat-input"));
 handleFilterClick(
     $("#btn-product_unit"),
     $("#product_unit-options"),
@@ -134,10 +239,124 @@ handleCancelClick($("#cancel-phone"), $(".phone-input"), $("#phone-options"));
 handleCancelClick($("#cancel-code"), $(".code-input"), $("#code-options"));
 handleCancelClick($("#cancel-hdvao"), $(".hdvao-input"), $("#hdvao-options"));
 handleCancelClick($("#cancel-hdra"), $(".hdra-input"), $("#hdra-options"));
+handleCancelClick($("#cancel-users"), $(".users-input"), $("#users-options"));
+handleCancelClick($("#cancel-pay"), $(".pay-input"), $("#pay-options"));
+handleCancelClick($("#cancel-TTN"), $(".TTN-input"), $("#TTN-options"));
+handleCancelClick($("#cancel-TTX"), $(".TTX-input"), $("#TTX-options"));
+handleCancelClick($("#cancel-HTTTX"), $(".HTTTX-input"), $("#HTTTX-options"));
+handleCancelClick($("#cancel-HTTTN"), $(".HTTTN-input"), $("#HTTTN-options"));
+handleCancelClick(
+    $("#cancel-provide_code"),
+    $(".provide_code-input"),
+    $("#provide_code-options")
+);
+handleCancelClick(
+    $("#cancel-sauVATN"),
+    $(".sauVATN-input"),
+    $("#sauVATN-options")
+);
+handleCancelClick(
+    $("#cancel-slnhap"),
+    $(".slnhap-input"),
+    $("#slnhap-options")
+);
+handleCancelClick(
+    $("#cancel-trcVATX"),
+    $(".trcVATX-input"),
+    $("#trcVATX-options")
+);
+handleCancelClick($("#cancel-VATX"), $(".VATX-input"), $("#VATX-options"));
+handleCancelClick(
+    $("#cancel-sauVATX"),
+    $(".sauVATX-input"),
+    $("#sauVATX-options")
+);
+handleCancelClick(
+    $("#cancel-POnhap"),
+    $(".POnhap-input"),
+    $("#POnhap-options")
+);
+handleCancelClick(
+    $("#cancel-POxuat"),
+    $(".POxuat-input"),
+    $("#POxuat-options")
+);
+handleCancelClick($("#cancel-BH"), $(".BH-input"), $("#BH-options"));
+handleCancelClick(
+    $("#cancel-trcVATN"),
+    $(".trcVATN-input"),
+    $("#trcVATN-options")
+);
+handleCancelClick($("#cancel-VATN"), $(".VATN-input"), $("#VATN-options"));
+handleCancelClick(
+    $("#cancel-payment_code"),
+    $(".payment_code-input"),
+    $("#payment_code-options")
+);
+handleCancelClick(
+    $("#cancel-delivery_code"),
+    $(".delivery_code-input"),
+    $("#delivery_code-options")
+);
+handleCancelClick(
+    $("#cancel-guest_code"),
+    $(".guest_code-input"),
+    $("#guest_code-options")
+);
+handleCancelClick(
+    $("#cancel-code_payment"),
+    $(".code_payment-input"),
+    $("#code_payment-options")
+);
+handleCancelClick(
+    $("#cancel-payment"),
+    $(".payment-input"),
+    $("#payment-options")
+);
+handleCancelClick(
+    $("#cancel-number_bill"),
+    $(".number_bill-input"),
+    $("#number_bill-options")
+);
 handleCancelClick(
     $("#cancel-shipping_fee"),
     $(".shipping_fee-input"),
     $("#shipping_fee-options")
+);
+handleCancelClick(
+    $("#cancel-shipping_unit"),
+    $(".shipping_unit-input"),
+    $("#shipping_unit-options")
+);
+handleCancelClick(
+    $("#cancel-code_delivery"),
+    $(".code_delivery-input"),
+    $("#code_delivery-options")
+);
+handleCancelClick(
+    $("#cancel-reciept"),
+    $(".reciept-input"),
+    $("#reciept-options")
+);
+handleCancelClick(
+    $("#cancel-receive"),
+    $(".receive-input"),
+    $("#receive-options")
+);
+handleCancelClick(
+    $("#cancel-status"),
+    $(".status-input"),
+    $("#status-options")
+);
+handleCancelClick(
+    $("#cancel-reference_number"),
+    $(".reference_number-input"),
+    $("#reference_number-options")
+);
+handleCancelClick(
+    $("#cancel-quotenumber"),
+    $(".quotenumber-input"),
+    $("#quotenumber-options")
 );
 handleCancelClick(
     $("#cancel-product_unit"),
