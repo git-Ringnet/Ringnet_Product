@@ -17,7 +17,7 @@
                  </div>
                  <div class="form-group">
                      <label for="message-text" class="col-form-label">Nội dung</label>
-                     <textarea style="height: auto !important;" rows="4" cols="50" class="form-control"
+                     <textarea style="height: auto !important;" rows="4" cols="50" class="form-control-1 w-100"
                          id="form-desc-{{ $name }}" name="form-desc-{{ $name }}" required></textarea>
                  </div>
              </div>

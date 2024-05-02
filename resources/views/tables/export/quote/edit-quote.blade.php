@@ -38,10 +38,10 @@
                         <a href="{{ route('detailExport.index', $workspacename) }}" class="activity" data-name1="BG"
                             data-des="Hủy ">
                             <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100">
-                                <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM6.03033 4.96967C5.73744 4.67678 5.26256 4.67678 4.96967 4.96967C4.67678 5.26256 4.67678 5.73744 4.96967 6.03033L6.93934 8L4.96967 9.96967C4.67678 10.2626 4.67678 10.7374 4.96967 11.0303C5.26256 11.3232 5.73744 11.3232 6.03033 11.0303L8 9.06066L9.96967 11.0303C10.2626 11.3232 10.7374 11.3232 11.0303 11.0303C11.3232 10.7374 11.3232 10.2626 11.0303 9.96967L9.06066 8L11.0303 6.03033C11.3232 5.73744 11.3232 5.26256 11.0303 4.96967C10.7374 4.67678 10.2626 4.67678 9.96967 4.96967L8 6.93934L6.03033 4.96967Z"
                                         fill="#6D7075" />
                                 </svg>
                                 <span class="text-btnIner-primary ml-2">Hủy</span>
@@ -163,7 +163,7 @@
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                             Đơn giá
                                         </th>
-                                        <th class="border-right p-0 px-2 text-center text-13 text-left"
+                                        <th class="border-right p-0 px-2 text-center text-13"
                                             style="width:10%;">
                                             Thuế
                                         </th>
@@ -470,7 +470,7 @@
                                     <?php if ($detailExport->tinhTrang != 1) {
                                         echo 'disabled';
                                     } ?> value="{{ $detailExport->export_guest_name }}"
-                                    class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest" id="myInput"
+                                    class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
                                     style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required>
                                 <input type="hidden" class="idGuest" autocomplete="off"
                                     value="{{ $detailExport->maKH }}" name="guest_id">

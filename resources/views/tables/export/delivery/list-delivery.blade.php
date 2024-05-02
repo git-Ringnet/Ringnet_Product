@@ -28,7 +28,7 @@
                                     d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
                                     fill="white" />
                             </svg>
-                            <span class="text-btnIner-primary ml-1">Tạo mới</span>
+                            <span class="ml-1">Tạo mới</span>
                         </button>
                     </a>
                     {{-- <button class="btn-option">
@@ -173,7 +173,7 @@
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52" style="width: 14%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="code_delivery" data-sort-type="DESC">
@@ -183,7 +183,7 @@
                                                     <div class="icon" id="icon-code_delivery"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
@@ -193,7 +193,7 @@
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52" style="width: 14%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="guest_name" data-sort-type="DESC"><button
@@ -203,7 +203,7 @@
                                                     <div class="icon" id="icon-guest_name"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit" data-sort-by=""
                                                         data-sort-type="DESC">
@@ -214,7 +214,7 @@
                                                     <div class="icon" id=""></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="shipping_unit" data-sort-type="DESC"><button
@@ -224,7 +224,7 @@
                                                     <div class="icon" id="icon-shipping_unit"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52" style="width: 10%;">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="shipping_fee" data-sort-type="DESC"><button
@@ -234,7 +234,7 @@
                                                     <div class="icon" id="icon-shipping_fee"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="trangThai" data-sort-type="DESC"><button
@@ -244,7 +244,7 @@
                                                     <div class="icon" id="icon-trangThai"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52">
+                                            <th scope="col" class="height-52" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="ngayGiao" data-sort-type="DESC"><button

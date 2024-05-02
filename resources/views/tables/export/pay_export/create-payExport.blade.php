@@ -37,10 +37,10 @@
                                 data-des="Hủy">
                                 <button type="button"
                                     class="btn-destroy btn-light mx-1 rounded d-flex align-items-center h-100">
-                                    <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM6.03033 4.96967C5.73744 4.67678 5.26256 4.67678 4.96967 4.96967C4.67678 5.26256 4.67678 5.73744 4.96967 6.03033L6.93934 8L4.96967 9.96967C4.67678 10.2626 4.67678 10.7374 4.96967 11.0303C5.26256 11.3232 5.73744 11.3232 6.03033 11.0303L8 9.06066L9.96967 11.0303C10.2626 11.3232 10.7374 11.3232 11.0303 11.0303C11.3232 10.7374 11.3232 10.2626 11.0303 9.96967L9.06066 8L11.0303 6.03033C11.3232 5.73744 11.3232 5.26256 11.0303 4.96967C10.7374 4.67678 10.2626 4.67678 9.96967 4.96967L8 6.93934L6.03033 4.96967Z"
                                             fill="#6D7075" />
                                     </svg>
                                     <span class="text-btnIner-primary ml-2">Hủy</span>
@@ -63,10 +63,10 @@
                             </div>
                         </div>
                         <button type="submit" class="custom-btn mx-1 d-flex align-items-center h-100" id="luuNhap">
-                            <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
+                                    d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
                                     fill="white" />
                             </svg>
                             <span class="text-btnIner-primary ml-2">Xác nhận</span>
@@ -245,8 +245,8 @@
                                                 </td>
                                                 <td class="border border-top-0 border-bottom-0 position-relative">
                                                     <input type="text" value="{{ $item->product_qty }}" readonly
-                                                        class="border-0 text-right px-2 py-1 w-100 quantity-input" autocomplete="off"
-                                                        required="" name="product_qty[]">
+                                                        class="border-0 text-right px-2 py-1 w-100 quantity-input"
+                                                        autocomplete="off" required="" name="product_qty[]">
                                                     <input type="hidden" class="tonkho">
                                                     <p class="text-primary text-center position-absolute inventory"
                                                         style="top: 68%; display: none;">Tồn kho: 35</p>
@@ -445,7 +445,7 @@
 
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin" name="quotation_number"
-                                class="border-0 w-100 bg-input-guest py-0 py-2 px-2 numberQute" id="myInput"
+                                class="border-0 w-100 bg-input-guest py-2 px-2 numberQute" id="myInput"
                                 style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off"
                                 value="@isset($yes) {{ $data['quotation_number'] }} @endisset"
                                 required>
@@ -537,7 +537,7 @@
                             <li class="d-flex justify-content-between py-2 px-3 border text-13 align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh toán</span>
-                                <input class="border-0 w-100 bg-input-guest py-0 py-2 px-2"
+                                <input class="border-0 w-100 bg-input-guest py-2 px-2"
                                     placeholder="Nhập thông tin" name="code_payment"
                                     style="flex:2;outline:none;background-color:#F0F4FF; border-radius:4px;" />
                             </li>
@@ -587,7 +587,7 @@
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-2" style="flex: 1.5;">Thanh toán trước</span>
                                 <input id="prepayment" type="text" placeholder="Nhập thông tin" name="payment"
-                                    class="border-0 w-100 bg-input-guest py-0 py-2 px-2 payment_input"
+                                    class="border-0 w-100 bg-input-guest py-2 px-2 payment_input"
                                     style="flex:2;background-color:#F0F4FF; border-radius:4px;" />
                             </li>
                             <li class="d-flex justify-content-between text-13 py-2 px-3 border align-items-center text-left"

@@ -1175,7 +1175,7 @@ class DetailExportController extends Controller
                 if ($checkPayment->debt == 0) {
                     $data['payment'] = true;
                 } else {
-                    $data['title_payment'] = "Thanh toán mua hàng";
+                    $data['title_payment'] = "Thanh toán bán hàng";
                 }
             }
         }

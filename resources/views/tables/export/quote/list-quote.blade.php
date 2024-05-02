@@ -28,7 +28,7 @@
                                     d="M18 9C18 9.58187 17.5283 10.0536 16.9464 10.0536H1.05356C0.471694 10.0536 -2.07219e-07 9.58187 0 9C-7.69672e-07 8.41814 0.471695 7.94644 1.05356 7.94644H16.9464C17.5283 7.94644 18 8.41814 18 9Z"
                                     fill="white" />
                             </svg>
-                            <span class="text-btnIner-primary ml-1">Tạo mới</span>
+                            <span class="ml-1">Tạo mới</span>
                         </button>
                     </a>
                     {{-- <button type="button" class="btn-option bg-white border-0">
@@ -182,17 +182,18 @@
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0">
+                                            <th scope="col" class="height-52 border-bottom-0" style="width: 14%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Số báo
-                                                            giá#</button>
+                                                        <button class="btn-sort text-13" type="submit">
+                                                            Số báo giá#
+                                                        </button>
                                                     </a>
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0">
+                                            <th scope="col" class="height-52 border-bottom-0" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="ngayBG" data-sort-type="DESC">
@@ -203,7 +204,7 @@
                                                     <div class="icon" id="icon-ngayBG"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0">
+                                            <th scope="col" class="height-52 border-bottom-0" style="width: 12%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="reference_number" data-sort-type="DESC"><button
@@ -213,7 +214,7 @@
                                                     <div class="icon" id="icon-reference_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0">
+                                            <th scope="col" class="height-52 border-bottom-0" style="width: 14%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="guest_name_display"
@@ -224,7 +225,7 @@
                                                     <div class="icon" id="icon-guest_name_display"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0">
+                                            <th scope="col" class="height-52 border-bottom-0" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit" data-sort-by=""
                                                         data-sort-type="DESC">
@@ -235,7 +236,7 @@
                                                     <div class="icon" id=""></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0">
+                                            <th scope="col" class="height-52 border-bottom-0" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
@@ -245,7 +246,7 @@
                                                     <div class="icon" id="icon-status"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0">
+                                            <th scope="col" class="height-52 border-bottom-0" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_receive" data-sort-type="DESC"><button
@@ -254,7 +255,7 @@
                                                     <div class="icon" id="icon-status_receive"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0">
+                                            <th scope="col" class="height-52 border-bottom-0" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_reciept" data-sort-type="DESC"><button
@@ -263,7 +264,7 @@
                                                     <div class="icon" id="icon-status_reciept"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0">
+                                            <th scope="col" class="height-52 border-bottom-0" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_pay" data-sort-type="DESC"><button
@@ -656,7 +657,7 @@
                                             fill="#6D7075" />
                                     </svg>
                                 </span>
-                                <span class="text-btnIner-primary ml-2">Hủy</span>
+                                <span class="ml-2">Hủy</span>
                             </button>
                             <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100 check-seri"
                                 data-dismiss="">
@@ -669,7 +670,7 @@
                                                 fill="white"></path>
                                         </svg>
                                     </span>
-                                    <span class="text-btnIner-primary ml-2">Xác nhận</span>
+                                    <span class="ml-2">Xác nhận</span>
                                 </div>
                             </button>
                         </div>
@@ -708,42 +709,42 @@
             // Chặn click trình duyệt
             e.preventDefault();
             var id = $(this).data('id');
-            // $.ajax({
-            //     url: "{{ route('getListExport') }}",
-            //     type: "get",
-            //     data: {
-            //         id: id,
-            //     },
-            //     success: function(data) {
-            //         if (data.receive) {
-            //             $('.menu').find('p[data-type="receive"]').hide()
-            //         } else {
-            //             $('.menu').find('p[data-type="receive"]').show()
-            //         }
-            //         if (data.reciept) {
-            //             $('.menu').find('p[data-type="reciept"]').hide()
-            //         } else {
-            //             $('.menu').find('p[data-type="reciept"]').show()
-            //         }
-            //         if (data.payment) {
-            //             $('.menu').find('p[data-type="payorder"]').hide()
-            //         } else {
-            //             $('.menu').find('p[data-type="payorder"]').show()
-            //         }
-            //         if (data.title_payment) {
-            //             $('.menu .title_payment').text(data.title_payment)
-            //         } else {
-            //             $('.menu .title_payment').text("Tạo thanh toán mua hàng")
-            //         }
-            //         if (!data.receive || !data.reciept || !data.payment) {
-            //             menu.css({
-            //                 display: 'block',
-            //                 top: e.pageY,
-            //                 left: e.pageX
-            //             });
-            //         }
-            //     }
-            // })
+            $.ajax({
+                url: "{{ route('getListExport') }}",
+                type: "get",
+                data: {
+                    id: id,
+                },
+                success: function(data) {
+                    if (data.receive) {
+                        $('.menu').find('p[data-type="receive"]').hide()
+                    } else {
+                        $('.menu').find('p[data-type="receive"]').show()
+                    }
+                    if (data.reciept) {
+                        $('.menu').find('p[data-type="reciept"]').hide()
+                    } else {
+                        $('.menu').find('p[data-type="reciept"]').show()
+                    }
+                    if (data.payment) {
+                        $('.menu').find('p[data-type="payorder"]').hide()
+                    } else {
+                        $('.menu').find('p[data-type="payorder"]').show()
+                    }
+                    if (data.title_payment) {
+                        $('.menu .title_payment').text(data.title_payment)
+                    } else {
+                        $('.menu .title_payment').text("Tạo thanh toán")
+                    }
+                    if (!data.receive || !data.reciept || !data.payment) {
+                        menu.css({
+                            display: 'block',
+                            top: e.pageY,
+                            left: e.pageX
+                        });
+                    }
+                }
+            })
             $(document).off('click', '.quickAction').on('click', '.quickAction', function() {
                 $('#quickAction #exampleModal .modal-content .modal-body')
                     .empty();
@@ -776,7 +777,7 @@
                                                             d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
                                                             fill="#6D7075"></path>
                                                     </svg>
-                                                    <span class="text-btnIner-primary ml-2">Hủy</span>
+                                                    <span class="ml-2">Hủy</span>
                                                 </button>
                                             </a>
 
@@ -789,7 +790,7 @@
                                                             d="M4.75 0V5.75C4.75 6.5297 5.34489 7.17045 6.10554 7.24313L6.25 7.25H12V12C12 13.1046 11.1046 14 10 14H2C0.89543 14 0 13.1046 0 12V2C0 0.89543 0.89543 0 2 0H4.75ZM6 0L12 6.03022H7C6.44772 6.03022 6 5.5825 6 5.03022V0Z"
                                                             fill="white"></path>
                                                     </svg>
-                                                    <span class="text-btnIner-primary ml-2">Lưu nháp</span>
+                                                    <span class="ml-2">Lưu nháp</span>
                                                 </button>
                                             </a>
 
@@ -802,7 +803,7 @@
                                                             d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
                                                             fill="white"></path>
                                                     </svg>
-                                                    <span class="text-btnIner-primary ml-2">Xác nhận</span>
+                                                    <span class="ml-2">Xác nhận</span>
                                                 </button>
                                             </a>
                                         </div>
@@ -1849,7 +1850,7 @@
                                                             d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
                                                             fill="#6D7075"></path>
                                                     </svg>
-                                                    <span class="text-btnIner-primary ml-2">Hủy</span>
+                                                    <span class="ml-2">Hủy</span>
                                                 </button>
                                             </a>
 
@@ -1862,7 +1863,7 @@
                                                             d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
                                                             fill="white"></path>
                                                     </svg>
-                                                    <span class="text-btnIner-primary ml-2">Xác nhận</span>
+                                                    <span class="ml-2">Xác nhận</span>
                                                 </button>
                                             </a>
                                         </div>
@@ -1989,7 +1990,7 @@
                                                     d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
                                                     fill="#6D7075"></path>
                                             </svg>
-                                            <span class="text-btnIner-primary ml-2">Hủy</span>
+                                            <span class="ml-2">Hủy</span>
                                         </button>
                                     </a>
 
@@ -2002,7 +2003,7 @@
                                                     d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM10.7836 5.42901C11.0858 5.08709 11.0695 4.55006 10.7472 4.22952C10.4248 3.90897 9.9186 3.9263 9.6164 4.26821L6.14921 8.19122L4.3315 6.4773C4.00127 6.16593 3.49561 6.19748 3.20208 6.54777C2.90855 6.89806 2.93829 7.43445 3.26852 7.74581L5.28032 9.6427C5.82041 10.152 6.64463 10.1122 7.13886 9.553L10.7836 5.42901Z"
                                                     fill="white"></path>
                                             </svg>
-                                            <span class="text-btnIner-primary ml-2">Xác nhận</span>
+                                            <span class="ml-2">Xác nhận</span>
                                         </button>
                                     </a>
                                     </div>
@@ -2175,11 +2176,6 @@
                     }
                 }
             })
-            menu.css({
-                display: 'block',
-                top: e.pageY,
-                left: e.pageX
-            });
         });
         $(document).click(function() {
             menu.css({

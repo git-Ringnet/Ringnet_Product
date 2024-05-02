@@ -168,7 +168,7 @@ class Guest extends Model
                 'guest_code' => $data['guest_code'],
                 'guest_phone' => isset($data['guest_phone']) ? $data['guest_phone'] : null,
                 'guest_email' => isset($data['guest_email']) ? $data['guest_email'] : null,
-                'key' => $nameKey,
+                'key' => $nameKey == null ? $data['key'] : $nameKey,
                 'user_id' => Auth::user()->id,
                 'guest_receiver' => isset($data['guest_receiver']) ? $data['guest_receiver'] : null,
                 'guest_email_personal' => isset($data['guest_email_personal']) ? $data['guest_email_personal'] : null,

@@ -149,7 +149,7 @@
                                             <input type="checkbox" name="all" id="checkall"
                                                 class="checkall-btn">
                                         </th>
-                                        <th class="" scope="col">
+                                        <th class="" scope="col" style="width: 30%;">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_name_display" data-sort-type="DESC">
@@ -160,7 +160,7 @@
                                                 <div class="icon" id="icon-guest_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="" scope="col">
+                                        <th class="" scope="col" style="width: 20%;">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit" data-sort-by="name"
                                                     data-sort-type="DESC">
@@ -171,7 +171,7 @@
                                                 <div class="icon" id="icon-name"></div>
                                             </span>
                                         </th>
-                                        <th class="" scope="col">
+                                        <th class="" scope="col" style="width: 25%;">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
                                                     data-sort-by="guest_code" data-sort-type="DESC">
@@ -214,7 +214,6 @@
                                                 <div class="icon" id="icon-guest_debt"></div>
                                             </span>
                                         </th>
-                                        <th class="" scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody class="tbody-guest">
@@ -254,7 +253,6 @@
                                             <td class="text-13-black text-right border-bottom border-top-0">
                                                 {{ number_format($item->sumDebt) }}
                                             </td>
-                                            <td class="border-bottom border-top-0"></td>
                                             <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
                                                 style="right: 10px; top: 10px;">
                                                 <div class="d-flex w-100">

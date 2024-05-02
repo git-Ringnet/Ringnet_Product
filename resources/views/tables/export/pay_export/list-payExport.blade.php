@@ -174,7 +174,7 @@
                                                 <input type="checkbox" class="checkall-btn" name="all"
                                                     id="checkall">
                                             </th>
-                                            <th scope="col" class="my-0 py-2">
+                                            <th scope="col" class="my-0 py-2" style="width: 14%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="code_payment" data-sort-type="DESC">
@@ -185,7 +185,7 @@
                                                     <div class="icon" id="icon-code_payment"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2">
+                                            <th scope="col" class="my-0 py-2" style="width: 14%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
@@ -196,7 +196,7 @@
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2">
+                                            <th scope="col" class="my-0 py-2" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="guest_name_display" data-sort-type="DESC">
@@ -207,7 +207,7 @@
                                                     <div class="icon" id="icon-guest_name_display"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2">
+                                            <th scope="col" class="my-0 py-2" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit" data-sort-by=""
                                                         data-sort-type="DESC">
@@ -218,7 +218,7 @@
                                                     <div class="icon" id=""></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2">
+                                            <th scope="col" class="my-0 py-2" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC">
@@ -229,7 +229,7 @@
                                                     <div class="icon" id="icon-status"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2">
+                                            <th scope="col" class="my-0 py-2" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="payment_date" data-sort-type="DESC">
@@ -240,7 +240,7 @@
                                                     <div class="icon" id="icon-payment_date"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2">
+                                            <th scope="col" class="my-0 py-2" style="width: 10%;">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="tongTienNo" data-sort-type="DESC">
@@ -251,7 +251,7 @@
                                                     <div class="icon" id="icon-tongTienNo"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2">
+                                            <th scope="col" class="my-0 py-2" style="width: 10%;">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="tongThanhToan" data-sort-type="DESC">

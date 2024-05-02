@@ -73,19 +73,6 @@
                                 <span class="text-btnIner-primary ml-1">Trở về</span>
                             </button>
                         </a>
-
-                        <label class="custom-btn d-flex align-items-center h-100 m-0 mx-1 ">
-                            <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                viewBox="0 0 14 14" fill="none">
-                                <path
-                                    d="M8.30541 9.20586C8.57207 9.47246 8.5943 9.89106 8.37208 10.183L8.30541 10.2593L5.84734 12.7174C4.58675 13.978 2.54294 13.978 1.28235 12.7174C0.0652319 11.5003 0.0232719 9.55296 1.15644 8.2855L1.28235 8.15237L3.74042 5.69429C4.03133 5.40339 4.50298 5.40339 4.79388 5.69429C5.06054 5.96096 5.08277 6.37949 4.86055 6.67147L4.79388 6.74775L2.33581 9.20586C1.65703 9.88456 1.65703 10.9852 2.33581 11.6639C2.98065 12.3088 4.00611 12.341 4.68901 11.7607L4.79388 11.6639L7.25195 9.20586C7.54286 8.91492 8.01451 8.91492 8.30541 9.20586ZM8.82965 5.17005C9.12053 5.46095 9.12053 5.9326 8.82965 6.22351L6.34904 8.70413C6.05813 8.99504 5.58648 8.99504 5.29558 8.70413C5.00467 8.41323 5.00467 7.94158 5.29558 7.65067L7.7762 5.17005C8.0671 4.87914 8.53875 4.87914 8.82965 5.17005ZM12.7173 1.28236C13.9344 2.49948 13.9764 4.44674 12.8432 5.71422L12.7173 5.84735L10.2592 8.30543C9.96833 8.59633 9.49673 8.59633 9.20583 8.30543C8.93914 8.03877 8.91692 7.62023 9.13913 7.32825L9.20583 7.25197L11.6638 4.79389C12.3426 4.11511 12.3426 3.0146 11.6638 2.33582C11.019 1.69098 9.99363 1.65874 9.31073 2.23909L9.20583 2.33582L6.74774 4.79389C6.45683 5.0848 5.98518 5.0848 5.69428 4.79389C5.42762 4.52723 5.40539 4.10869 5.62761 3.81672L5.69428 3.74043L8.15235 1.28236C9.41293 0.0217665 11.4567 0.0217665 12.7173 1.28236Z"
-                                    fill="white">
-                                </path>
-                            </svg>
-                            <span>Đính kèm file</span>
-                            <input type="file" style="display: none;" id="file_restore" accept="*"
-                                name="file">
-                        </label>
                         <div class="dropdown">
                             <button type="button" data-toggle="dropdown"
                                 class="btn-destroy btn-light mx-1 d-flex align-items-center h-100 dropdown-toggle rounded">
@@ -104,29 +91,71 @@
                                 </a>
                             </div>
                         </div>
+                        <label class="btn-destroy btn-light d-flex align-items-center h-100 m-0 mx-1">
+                            <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 14 14" fill="none">
+                                <path
+                                    d="M8.30541 9.20586C8.57207 9.47246 8.5943 9.89106 8.37208 10.183L8.30541 10.2593L5.84734 12.7174C4.58675 13.978 2.54294 13.978 1.28235 12.7174C0.0652319 11.5003 0.0232719 9.55296 1.15644 8.2855L1.28235 8.15237L3.74042 5.69429C4.03133 5.40339 4.50298 5.40339 4.79388 5.69429C5.06054 5.96096 5.08277 6.37949 4.86055 6.67147L4.79388 6.74775L2.33581 9.20586C1.65703 9.88456 1.65703 10.9852 2.33581 11.6639C2.98065 12.3088 4.00611 12.341 4.68901 11.7607L4.79388 11.6639L7.25195 9.20586C7.54286 8.91492 8.01451 8.91492 8.30541 9.20586ZM8.82965 5.17005C9.12053 5.46095 9.12053 5.9326 8.82965 6.22351L6.34904 8.70413C6.05813 8.99504 5.58648 8.99504 5.29558 8.70413C5.00467 8.41323 5.00467 7.94158 5.29558 7.65067L7.7762 5.17005C8.0671 4.87914 8.53875 4.87914 8.82965 5.17005ZM12.7173 1.28236C13.9344 2.49948 13.9764 4.44674 12.8432 5.71422L12.7173 5.84735L10.2592 8.30543C9.96833 8.59633 9.49673 8.59633 9.20583 8.30543C8.93914 8.03877 8.91692 7.62023 9.13913 7.32825L9.20583 7.25197L11.6638 4.79389C12.3426 4.11511 12.3426 3.0146 11.6638 2.33582C11.019 1.69098 9.99363 1.65874 9.31073 2.23909L9.20583 2.33582L6.74774 4.79389C6.45683 5.0848 5.98518 5.0848 5.69428 4.79389C5.42762 4.52723 5.40539 4.10869 5.62761 3.81672L5.69428 3.74043L8.15235 1.28236C9.41293 0.0217665 11.4567 0.0217665 12.7173 1.28236Z"
+                                    fill="#6D7075">
+                                </path>
+                            </svg>
+                            <span>Đính kèm</span>
+                            <input type="file" style="display: none;" id="file_restore" accept="*"
+                                name="file">
+                        </label>
                         <div class="dropdown">
                             <button type="submit" name="action" value="action_1" id="btnXacNhan"
-                                class="btn-destroy btn-light rounded mx-1 d-flex align-items-center h-100">
+                                class="custom-btn btn-light rounded mx-1 d-flex align-items-center h-100">
                                 <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 16 16" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM11.7836 6.42901C12.0858 6.08709 12.0695 5.55006 11.7472 5.22952C11.4248 4.90897 10.9186 4.9263 10.6164 5.26821L7.14921 9.19122L5.3315 7.4773C5.00127 7.16593 4.49561 7.19748 4.20208 7.54777C3.90855 7.89806 3.93829 8.43445 4.26852 8.74581L6.28032 10.6427C6.82041 11.152 7.64463 11.1122 8.13886 10.553L11.7836 6.42901Z"
-                                        fill="#6D7075" />
+                                        fill="white" />
                                 </svg>
-                                <span class="text-btnIner-primary ml-1 text-dark">Xác nhận</span>
+                                <span class="text-btnIner-primary ml-1 text-white">Xác nhận</span>
                             </button>
                         </div>
-                        <button name="action" value="action_2" type="submit" id="btnThanhToan"
-                            onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
-                            class="btn--remove d-flex mx-1 align-items-center h-100" style="background-color:red;">
-                            <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
-                                    fill="white" />
-                            </svg>
-                            <span class="text-btnIner-primary ml-1">Xóa</span>
-                        </button>
+                        <div class="dropdown">
+                            <button type="button" data-toggle="dropdown"
+                                class="btn-save-print border-0 rounded d-flex align-items-center h-100 dropdown-toggle px-2 bg-click">
+                                <span class="text-button">
+                                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M24 15C24 13.8954 23.1046 13 22 13C20.8954 13 20 13.8954 20 15C20 16.1046 20.8954 17 22 17C23.1046 17 24 16.1046 24 15Z"
+                                            fill="#26273B" fill-opacity="0.8"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M17 15C17 13.8954 16.1046 13 15 13C13.8954 13 13 13.8954 13 15C13 16.1046 13.8954 17 15 17C16.1046 17 17 16.1046 17 15Z"
+                                            fill="#26273B" fill-opacity="0.8"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M10 15C10 13.8954 9.10457 13 8 13C6.89543 13 6 13.8954 6 15C6 16.1046 6.89543 17 8 17C9.10457 17 10 16.1046 10 15Z"
+                                            fill="#26273B" fill-opacity="0.8"></path>
+                                    </svg>
+                                </span>
+                            </button>
+                            <div class="dropdown-menu mt-1 p-0" style="z-index: 9999;width:180px!important;">
+                                <ul class="m-0 p-0">
+                                    <li class="p-1 w-100" style="border-radius:4px;">
+                                        <a href="#">
+                                            <button name="action" value="action_2" type="submit"
+                                                onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
+                                                class="btn-save-print border-0 p-2 d-flex mx-1 align-items-center h-100 w-100">
+                                                <svg class="mr-2" width="16" height="16"
+                                                    viewBox="0 0 16 16" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M12.3687 6.5C12.6448 6.5 12.8687 6.72386 12.8687 7C12.8687 7.03856 12.8642 7.07699 12.8554 7.11452L11.3628 13.4581C11.1502 14.3615 10.3441 15 9.41597 15H6.58403C5.65593 15 4.84977 14.3615 4.6372 13.4581L3.14459 7.11452C3.08135 6.84572 3.24798 6.57654 3.51678 6.51329C3.55431 6.50446 3.59274 6.5 3.6313 6.5H12.3687ZM8.5 1C9.88071 1 11 2.11929 11 3.5H13C13.5523 3.5 14 3.94772 14 4.5V5C14 5.27614 13.7761 5.5 13.5 5.5H2.5C2.22386 5.5 2 5.27614 2 5V4.5C2 3.94772 2.44772 3.5 3 3.5H5C5 2.11929 6.11929 1 7.5 1H8.5ZM8.5 2.5H7.5C6.94772 2.5 6.5 2.94772 6.5 3.5H9.5C9.5 2.94772 9.05228 2.5 8.5 2.5Z"
+                                                        fill="#26273B" fill-opacity="0.8"></path>
+                                                </svg>
+                                                <span style="color: #282A30; font-size:14px">
+                                                    Xóa
+                                                </span>
+                                            </button>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                         <button type="button" id="sideGuest" class="btn-option border-0">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -326,13 +355,15 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                    <td
+                                                        class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" autocomplete="off" readonly
                                                             value="{{ $item_quote->product_unit }}"
                                                             class="border-0 px-2 py-1 w-100 text-left product_unit"
                                                             name="product_unit[]">
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                    <td
+                                                        class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" readonly
                                                             value="{{ is_int($item_quote->pay_qty) ? $item_quote->pay_qty : rtrim(rtrim(number_format($item_quote->pay_qty, 4, '.', ''), '0'), '.') }}"
                                                             class="border-0 px-2 py-1 w-100 quantity-input text-right"
@@ -343,7 +374,8 @@
                                                             <span class="soTonKho">35</span>
                                                         </p>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                    <td
+                                                        class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text"
                                                             value="{{ number_format($item_quote->price_export) }}"
                                                             class="border-0 px-2 py-1 w-100 text-right product_price"
@@ -374,12 +406,14 @@
                                                             </option>
                                                         </select>
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                    <td
+                                                        class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" readonly=""
                                                             value="{{ number_format($item_quote->product_total) }}"
                                                             class="border-0 px-2 py-1 w-100 text-right total-amount">
                                                     </td>
-                                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                    <td
+                                                        class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" class="border-0 py-1 w-100" readonly
                                                             name="product_note[]"
                                                             value="{{ $item_quote->product_note }}">
@@ -585,8 +619,8 @@
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh
                                                 toán</span>
-                                            <input id="prepayment" type="text" class="text-13-black w-50 border-0 payment"
-                                                oninput="validateInput();"
+                                            <input id="prepayment" type="text"
+                                                class="text-13-black w-50 border-0 payment" oninput="validateInput();"
                                                 @if ($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif
                                                 name="payment" style="flex:2; outline:none;" name="payment" />
                                         </li>

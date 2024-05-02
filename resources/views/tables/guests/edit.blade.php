@@ -487,7 +487,7 @@
             "</td>"
         );
         // Gắn các phần tử vào hàng mới
-        newRow.append(hoTen, email, soDT, diaChi, option);
+        newRow.append(hoTen, soDT, email, diaChi, option);
         $("#dynamic-fields").before(newRow);
         // Tăng giá trị fieldCounter
         fieldCounter++;
