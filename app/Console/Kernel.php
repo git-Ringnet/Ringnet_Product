@@ -79,6 +79,18 @@ class Kernel extends ConsoleKernel
                     DB::table('pay_export')->where('id', $pay->id)->update($dataUpdate);
                 }
             }
+            //cập nhật trạng thái thanh toán
+            $debtPayExport = PayExport::all();
+            if ($debtPayExport) {
+                foreach ($debtPayExport as $payExport) {
+                    if ($payExport->debt == 0) {
+                        $dataUpdate = [
+                            'status' => 2,
+                        ];
+                        DB::table('pay_export')->where('id', $payExport->id)->update($dataUpdate);
+                    }
+                }
+            }
         })->everyMinute();
     }
 
