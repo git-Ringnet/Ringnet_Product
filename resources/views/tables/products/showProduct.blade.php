@@ -124,11 +124,11 @@
                                             class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black d-flex border-bottom-0">
                                             <input type="radio" id="hanghoa" name="type_product" value="1"
                                                 class="py-2" @if ($product->type == 1) checked @endif
-                                                disabled>
+                                                disabled style="margin-right:10px;">
                                             <label for="html" class="m-0">Hàng hóa</label>
                                             <input type="radio" id="dichvu" name="type_product" value="2"
-                                                class="py-2 ml-5" @if ($product->type == 2) checked @endif
-                                                disabled>
+                                                class="py-2" @if ($product->type == 2) checked @endif
+                                                disabled style="margin-left:40px; margin-right:10px;">
                                             <label for="html" class="m-0">Dịch vụ</label>
                                         </div>
                                     </div>

@@ -186,7 +186,7 @@
                                                     </span>
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
-                                                <td class="text-13-black height-52 border-top-0 border-bottom">
+                                                <td class="text-13-black height-52 border-top-0 border-bottom text-wrap">
                                                     <a href="{{ route('provides.show', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
                                                         class="user_flow" data-type="NCC"
                                                         data-des="Xem nhà cung cấp">
@@ -207,8 +207,8 @@
                                                     {{ number_format($item->provide_debt) }}
                                                 </td>
                                                 <td class="border-top-0 border-bottom">
-                                                    <div class="position-absolute m-0 p-0 border-0 bg-hover-icon"
-                                                        style="right: 10px; top: 10px;">
+                                                    <div class="position-absolute m-0 p-0 border-0 bg-hover-icon align-items-center"
+                                                        style="right: 10px; top: 10px; bottom:0;">
                                                         <div class="d-flex w-100">
                                                             <a href="{{ route('provides.edit', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
                                                                 class="user_flow" data-type="NCC"

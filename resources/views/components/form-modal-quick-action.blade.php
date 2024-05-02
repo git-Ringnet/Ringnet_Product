@@ -131,15 +131,9 @@
                                 id: id
                             },
                             success: function(data) {
-                                console.log(data);
                                 if (data.status) {
                                     $('#id_import').val(id)
                                     $('#listProduct tbody').empty();
-                                    $("input[name='quotation_number']").val(data
-                                        .quotation_number)
-                                    $("input[name='provides_name']").val(data
-                                        .provide_name)
-
                                     var header = `
                                     <div class="modal-header d-flex align-items-center">
                                         <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;">Xác nhận nhận hàng</h5>
@@ -184,18 +178,18 @@
                                     var body = `
                                     <div class="d-flex">
                                         <div class="content-left" style="width:70%;">
-                                            <p class="font-weight-bold text-uppercase info-chung--modal text-center">THÔNG TIN SẢN
+                                            <p class="font-weight-bold text-uppercase info-chung--modal text-center border-right">THÔNG TIN SẢN
                                                 PHẨM</p>
 
                                         <table id="listProduct" class="table table-hover bg-white rounded">
-                                            <thead>
-                                                <th class="border-bottom border-right">
+                                            <thead style="height:50px;">
+                                                <th class="border-bottom border-right border-top">
                                                     <span class="text-table">Tên sản phẩm</span>
                                                 </th>
-                                                <th class="border-bottom border-right text-right" style="width: 25%;">
+                                                <th class="border-bottom border-right text-right border-top" style="width: 25%;">
                                                     <span class="text-table">Số lượng</span>
                                                 </th>
-                                                <th class="border-bottom border-right" style="width: 20%;">
+                                                <th class="border-bottom border-right border-top" style="width: 20%;">
                                                     <span class="text-table">Quản lý SN</span>
                                                 </th>
                                             </thead>
@@ -204,12 +198,11 @@
                                         </table>
                                     </div>
                                         <div class="content right" style="width:30%;">
-                                            <p class="font-weight-bold text-uppercase info-chung--modal text-center border-left">THÔNG
+                                            <p class="font-weight-bold text-uppercase info-chung--modal text-center border-left-0">THÔNG
                                                 TIN NHÀ
                                                 CUNG CẤP</p>
-                                            <div class="d-flex justify-content-between py-1 px-1 border align-items-center text-left text-nowrap position-relative"
+                                            <div class="d-flex justify-content-between py-1 px-3 border align-items-center text-left text-nowrap position-relative border-left-0"
                                                 style="height:50px;">
-
                                                 <span class="text-13 btn-click" style="flex: 1.5;">Đơn mua hàng</span>
 
                                                 <span class="mx-1 text-13" style="flex: 2;">
@@ -220,7 +213,7 @@
                                                 </span>
                                             </div>
 
-                                            <div class="d-flex justify-content-between py-1 px-1 border border-top-0 align-items-center text-left text-nowrap position-relative"
+                                            <div class="d-flex justify-content-between py-1 px-3 border border-top-0 align-items-center text-left text-nowrap position-relative border-left-0"
                                                 style="height:50px;">
 
                                                 <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
@@ -233,12 +226,12 @@
                                                 </span>
                                             </div>
 
-                                            <div class="d-flex justify-content-between py-1 px-1 border border-top-0 align-items-center text-left text-nowrap position-relative"
+                                            <div class="d-flex justify-content-between py-1 px-3 border border-top-0 align-items-center text-left text-nowrap position-relative border-left-0"
                                                 style="height:50px;">
 
                                                 <span class="text-13 btn-click" style="flex: 1.5;">Ngày nhận hàng</span>
                                                     <input type="text" placeholder="Nhập thông tin"
-                                                        class="text-13-black w-100 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
+                                                        class="ml-2 text-13-black w-100 border-0 bg-input-guest nameGuest px-2 py-2 flatpickr-input"
                                                         style="flex:2;" value="{{ date('Y-m-d') }}" id="datePicker" readonly="readonly">
                                                     <input id="hiddenDateInput" type="hidden" value="{{ date('Y-m-d') }}"
                                                         name="received_date">
@@ -247,7 +240,10 @@
                                     </div>`;
                                     $('#quickAction .modal-content .modal-body')
                                         .append(body);
-
+                                    $("input[name='quotation_number']").val(data
+                                        .quotation_number)
+                                    $("input[name='provides_name']").val(data
+                                        .provide_name)
                                     data.product.forEach((element, index) => {
                                         var tr = `
                                             <tr class="bg-white">
@@ -269,14 +265,15 @@
                                             formatCurrency(element
                                                 .product_qty) + `" readonly>
                                                     </div>
-                                                    <div>
-                                                        Tồn kho :<span class="inventory">` + (data.inventory ?
+                                                    <div class="text-13-blue">
+                                                        Tồn kho : <span class="inventory">` + (data.inventory ?
                                                 formatCurrency(data
                                                     .inventory) : 0) + `</span>
                                                     </div>
                                                 </td>
                                                 <td class="text-center bg-white align-top text-13-black border-top-0 border-bottom border-right">
-                                                    <input ` + (data.checked[index] == 'endable' ||
+                                                    <input style="margin-top:6px;" ` + (data.checked[index] ==
+                                                'endable' ||
                                                 data.cb[index] == 1 ?
                                                 'checked' : '') + ` ` + (
                                                 data.checked[index]) + ` type="checkbox" name="cbSeri[]" onclick="getDataCheckbox(this)"
@@ -296,7 +293,7 @@
                                                 data.cb[index] == 1 ?
                                                 'style="opacity:1;"' :
                                                 'style="opacity:0;"') + `>
-                                                    <div class="sn--modal pt-2">
+                                                    <div class="sn--modal pt-1">
                                                     <span class="border-span--modal">SN</span>
                                                     </div>
                                                 </a>
@@ -342,8 +339,8 @@
                                                 <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100"
                                                     style="margin-right:10px" data-dismiss="modal" aria-label="Close">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM5.03033 3.96967C4.73744 3.67678 4.26256 3.67678 3.96967 3.96967C3.67678 4.26256 3.67678 4.73744 3.96967 5.03033L5.93934 7L3.96967 8.96967C3.67678 9.26256 3.67678 9.73744 3.96967 10.0303C4.26256 10.3232 4.73744 10.3232 5.03033 10.0303L7 8.06066L8.96967 10.0303C9.26256 10.3232 9.73744 10.3232 10.0303 10.0303C10.3232 9.73744 10.3232 9.26256 10.0303 8.96967L8.06066 7L10.0303 5.03033C10.3232 4.73744 10.3232 4.26256 10.0303 3.96967C9.73744 3.67678 9.26256 3.67678 8.96967 3.96967L7 5.93934L5.03033 3.96967Z" fill="#6D7075"/>
-</svg>
+                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM5.03033 3.96967C4.73744 3.67678 4.26256 3.67678 3.96967 3.96967C3.67678 4.26256 3.67678 4.73744 3.96967 5.03033L5.93934 7L3.96967 8.96967C3.67678 9.26256 3.67678 9.73744 3.96967 10.0303C4.26256 10.3232 4.73744 10.3232 5.03033 10.0303L7 8.06066L8.96967 10.0303C9.26256 10.3232 9.73744 10.3232 10.0303 10.0303C10.3232 9.73744 10.3232 9.26256 10.0303 8.96967L8.06066 7L10.0303 5.03033C10.3232 4.73744 10.3232 4.26256 10.0303 3.96967C9.73744 3.67678 9.26256 3.67678 8.96967 3.96967L7 5.93934L5.03033 3.96967Z" fill="#6D7075"/>
+                                                    </svg>
                                                     <span class="text-btnIner-primary ml-2">Hủy</span>
                                                 </button>
                                             </a>
@@ -446,7 +443,6 @@
                             },
                             success: function(data) {
                                 $('#id_import').val(id)
-                                console.log(data);
                                 var header = `
                                     <div class="modal-header d-flex align-items-center">
                                         <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;">Xác nhận thanh toán
@@ -457,8 +453,8 @@
                                             class="btn-destroy btn-light mx-1 d-flex align-items-center h-100"
                                             style="margin-right:10px" data-dismiss="modal" aria-label="Close">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM5.03033 3.96967C4.73744 3.67678 4.26256 3.67678 3.96967 3.96967C3.67678 4.26256 3.67678 4.73744 3.96967 5.03033L5.93934 7L3.96967 8.96967C3.67678 9.26256 3.67678 9.73744 3.96967 10.0303C4.26256 10.3232 4.73744 10.3232 5.03033 10.0303L7 8.06066L8.96967 10.0303C9.26256 10.3232 9.73744 10.3232 10.0303 10.0303C10.3232 9.73744 10.3232 9.26256 10.0303 8.96967L8.06066 7L10.0303 5.03033C10.3232 4.73744 10.3232 4.26256 10.0303 3.96967C9.73744 3.67678 9.26256 3.67678 8.96967 3.96967L7 5.93934L5.03033 3.96967Z" fill="#6D7075"/>
-</svg>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM5.03033 3.96967C4.73744 3.67678 4.26256 3.67678 3.96967 3.96967C3.67678 4.26256 3.67678 4.73744 3.96967 5.03033L5.93934 7L3.96967 8.96967C3.67678 9.26256 3.67678 9.73744 3.96967 10.0303C4.26256 10.3232 4.73744 10.3232 5.03033 10.0303L7 8.06066L8.96967 10.0303C9.26256 10.3232 9.73744 10.3232 10.0303 10.0303C10.3232 9.73744 10.3232 9.26256 10.0303 8.96967L8.06066 7L10.0303 5.03033C10.3232 4.73744 10.3232 4.26256 10.0303 3.96967C9.73744 3.67678 9.26256 3.67678 8.96967 3.96967L7 5.93934L5.03033 3.96967Z" fill="#6D7075"/>
+                                            </svg>
                                             <span class="text-btnIner-primary ml-2">Hủy</span>
                                         </button>
                                     </a>

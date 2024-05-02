@@ -22,31 +22,33 @@ class Kernel extends ConsoleKernel
             $payOrder = PayOder::all();
             if ($payOrder) {
                 foreach ($payOrder as $pay) {
-                    $startDate = Carbon::now()->startOfDay();
-                    $endDate = Carbon::parse($pay->payment_date);
-                    $daysDiffss = $startDate->diffInDays($endDate);
-
-                    if ($endDate < $startDate) {
-                        $daysDiff = -$daysDiffss;
-                    } else {
-                        $daysDiff = $daysDiffss;
+                    if($pay->debt > 0){
+                        $startDate = Carbon::now()->startOfDay();
+                        $endDate = Carbon::parse($pay->payment_date);
+                        $daysDiffss = $startDate->diffInDays($endDate);
+    
+                        if ($endDate < $startDate) {
+                            $daysDiff = -$daysDiffss;
+                        } else {
+                            $daysDiff = $daysDiffss;
+                        }
+    
+                        // Cập nhật lại tình trạng đơn hàng
+                        if ($daysDiff <= 3 && $daysDiff > 0) {
+                            $status = 3;
+                        } elseif ($daysDiff == 0) {
+                            $status = 5;
+                        } elseif ($daysDiff < 0) {
+                            $status = 4;
+                        } else {
+                            // $status = 1;
+                            $status = $pay->status;
+                        }
+                        $dataUpdate = [
+                            'status' => $status,
+                        ];
+                        DB::table('pay_order')->where('id', $pay->id)->update($dataUpdate);
                     }
-
-                    // Cập nhật lại tình trạng đơn hàng
-                    if ($daysDiff <= 3 && $daysDiff > 0) {
-                        $status = 3;
-                    } elseif ($daysDiff == 0) {
-                        $status = 5;
-                    } elseif ($daysDiff < 0) {
-                        $status = 4;
-                    } else {
-                        // $status = 1;
-                        $status = $pay->status;
-                    }
-                    $dataUpdate = [
-                        'status' => $status,
-                    ];
-                    DB::table('pay_order')->where('id', $pay->id)->update($dataUpdate);
                 }
             }
             //

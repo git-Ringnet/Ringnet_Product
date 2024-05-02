@@ -106,8 +106,8 @@
                                 <table id="example2" class="table table-hover">
                                     <thead class="sticky-head">
                                         <tr>
-                                            <th scope="col" class="border-bottom" style="width:5%;padding-left: 2rem;"
-                                                class="height-52">
+                                            <th scope="col" class="border-bottom"
+                                                style="width:5%;padding-left: 2rem;" class="height-52">
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
@@ -131,6 +131,18 @@
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
+
+                                            <th scope="col" class="height-52 border-bottom">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="created_at" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Ngày nhận
+                                                            hàng</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-created_at"></div>
+                                                </span>
+                                            </th>
+
                                             <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
@@ -174,7 +186,8 @@
                                                 </span>
                                             </th>
 
-                                            <th scope="col" class="height-52 border-bottom d-flex justify-content-center">
+                                            <th scope="col"
+                                                class="height-52 border-bottom d-flex justify-content-center">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
@@ -185,16 +198,6 @@
                                                 </span>
                                             </th>
 
-                                            <th scope="col" class="height-52 border-bottom">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="created_at" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Ngày nhận
-                                                            hàng</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-created_at"></div>
-                                                </span>
-                                            </th>
                                             <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
@@ -230,19 +233,24 @@
                                                     </span>
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
-                                                <td class="text-13-black border-top-0 border-bottom">
+                                                <td class="text-13-black border-top-0 border-bottom text-wrap">
                                                     <a href="{{ route('receive.edit', ['workspace' => $workspacename, 'receive' => $item->id]) }}"
                                                         class="duongdan text-13-blue user_flow" data-type="DNH"
                                                         data-des="Xem đơn nhận hàng">
                                                         {{ $item->delivery_code }}
                                                     </a>
                                                 </td>
-                                                <td class="text-13-black border-top-0 border-bottom">
+                                                <td class="text-13-black border-top-0 border-bottom text-wrap">
                                                     @if ($item->getQuotation)
                                                         {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
                                                     @endif
                                                 </td>
+
                                                 <td class="text-13-black border-top-0 border-bottom">
+                                                    {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
+                                                </td>
+
+                                                <td class="text-13-black border-top-0 border-bottom text-wrap">
                                                     @if ($item->getQuotation)
                                                         {{ $item->getQuotation->provide_name }}
                                                     @endif
@@ -255,7 +263,7 @@
                                                     </td>
                                                 @endif
 
-                                                <td class="text-13-black border-top-0 border-bottom">
+                                                <td class="text-13-black border-top-0 border-bottom text-wrap">
                                                     {{ $item->shipping_unit }}
                                                 </td>
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
@@ -268,14 +276,11 @@
                                                         <span style="color: #08AA36">Đã nhận</span>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black border-top-0 border-bottom">
-                                                    {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
-                                                </td>
                                                 <td class="text-13-black text-right border-top-0 border-bottom">
                                                     {{ number_format($item->total_tax) }}
                                                 </td>
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-top-0 border-bottom"
-                                                    style="right: 10px; top: 10%;">
+                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-top-0 border-bottom align-items-center"
+                                                    style="right: 10px; top: 10%; bottom:0;">
                                                     <div class="d-flex w-100">
                                                         <a href="#">
                                                             <div class="m-0 mx-2 rounded">

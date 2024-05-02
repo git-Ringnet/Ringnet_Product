@@ -47,7 +47,6 @@ function updateProductSN() {
 
 // Kiểm tra số lượng
 function checkQty(value, odlQty) {
-    console.log(odlQty);
     if (
         $(value)
             .val()
@@ -489,7 +488,6 @@ function cbPayment(element) {
     var isChecked = $(element).is(':checked');
     var total = $('.payment_all').text().trim()
     if (isChecked) {
-        console.log(123);
         $('#prepayment').val(total)
         $('#prepayment').attr('readonly', true)
     } else {

@@ -124,21 +124,21 @@
                                             <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="created_at" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Ngày báo
-                                                            giá</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-created_at"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52 border-bottom">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="reference_number" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Số tham
                                                             chiều</button>
                                                     </a>
                                                     <div class="icon" id="icon-reference_number"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52 border-bottom">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="created_at" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">Ngày báo
+                                                            giá</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
                                             <th></th>
@@ -238,7 +238,7 @@
                                                     <input type="checkbox" id="{{ $item->id }}"
                                                         class="cb-element checkall-btn">
                                                 </td>
-                                                <td class="text-13-black border-bottom border-top-0">
+                                                <td class="text-13-black border-bottom border-top-0 text-wrap">
                                                     <div class="user_flow" data-type="DMH"
                                                         data-des="Xem đơn mua hàng">
                                                         <a href="{{ route('import.show', ['workspace' => $workspacename, 'import' => $item->id]) }}"
@@ -247,11 +247,11 @@
                                                         </a>
                                                     </div>
                                                 </td>
-                                                <td class="text-13-black border-bottom border-top-0">
-                                                    {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
+                                                <td class="text-13-black border-bottom border-top-0 text-wrap">
+                                                    {{ $item->reference_number }}
                                                 </td>
                                                 <td class="text-13-black border-bottom border-top-0">
-                                                    {{ $item->reference_number }}
+                                                    {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td>
                                                 <td class="border-bottom border-top-0">
                                                     <div class="bg-white position-absolute rounded shadow p-2 z-index-block"
@@ -316,7 +316,7 @@
                                                         </ul>
                                                     </div>
                                                 </td>
-                                                <td class="text-13-black border-bottom border-top-0">
+                                                <td class="text-13-black border-bottom border-top-0 text-wrap">
                                                     {{ $item->provide_name }}
                                                 </td>
                                                 @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
@@ -425,8 +425,8 @@
                                                 </td>
                                                 <td class="text-13-black text-right border-bottom border-top-0">
                                                     {{ number_format($item->total_tax) }}</td>
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0"
-                                                    style="right: 10px; top: 7px;">
+                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0 align-items-center"
+                                                    style="right: 10px; top: 7px; bottom:0;">
                                                     <div class="d-flex w-100">
                                                         <a class="user_flow" data-type="DMH"
                                                             data-des="Xem đơn mua hàng"

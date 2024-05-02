@@ -226,17 +226,17 @@
                                                     </span>
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
-                                                <td class="py-2 text-13-black border-top-0 border-bottom">
+                                                <td class="py-2 text-13-black border-top-0 border-bottom text-wrap">
                                                     <a href="{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => $item->id]) }}"
                                                         class="user_flow" data-type="TTMH"
                                                         data-des="Xem thanh toán mua hàng">
                                                         {{ $item->payment_code }}
                                                     </a>
                                                 </td>
-                                                <td class="py-2 text-13-black border-top-0 border-bottom">
+                                                <td class="py-2 text-13-black border-top-0 border-bottom text-wrap">
                                                     {{ $item->getQuotation->quotation_number }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-top-0 border-bottom">
+                                                <td class="py-2 text-13-black border-top-0 border-bottom text-wrap">
                                                     @if ($item->getQuotation)
                                                         {{ $item->getQuotation->provide_name }}
                                                     @endif
@@ -291,8 +291,8 @@
                                                 <td class="py-2 text-13-black text-right">
                                                     {{ fmod($item->debt, 2) > 0 && fmod($item->debt, 1) > 0 ? number_format($item->debt, 2, '.', ',') : number_format($item->debt) }}
                                                 </td> --}}
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-top-0 border-bottom"
-                                                    style="right: 10px; top: 6px;">
+                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-top-0 border-bottom align-items-center"
+                                                    style="right: 10px; top: 6px; bottom:0;">
                                                     <div class="d-flex align-items-center">
                                                         <a href="#">
                                                             <div class="m-0 mx-2 rounded">

@@ -59,39 +59,39 @@
                         <p class="font-weight-bold text-uppercase info-chung--heading border-custom">Thông tin chung</p>
                         <div class="content-info">
                             <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-left-0 height-100">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                     <p class="p-0 m-0 text-danger margin-left32 text-13">Danh mục sản phẩm</p>
                                 </div>
                                 <div
-                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black d-flex">
+                                    class="border-bottom height-100 w-100 py-2 px-3 text-13-black d-flex">
                                     <input type="radio" id="hanghoa" name="type_product" value="1"
-                                        class="py-2" checked>
+                                        class="py-2" checked style="margin-right:10px;">
                                     <label for="html" class="m-0">Hàng hóa</label>
                                     <input type="radio" id="dichvu" name="type_product" value="2"
-                                        class="py-2 ml-5">
+                                        class="py-2" style="margin-left:40px; margin-right:10px;">
                                     <label for="html" class="m-0">Dịch vụ</label>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-left-0 height-100">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                     <p class="p-0 m-0 required-label text-danger margin-left32 text-13">Tên sản phẩm</p>
                                 </div>
                                 <input type="text" required placeholder="Nhập thông tin" name="product_name"
-                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-left-0">
+                                <div class="title-info py-2 border border-left-0 border-top-0">
                                     <p class="p-0 m-0 margin-left32 text-13">Mã sản phẩm</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="product_code"
-                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile">
-                                <div class="title-info py-2 border border-left-0 height-100">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Đơn vị tính</p>
                                 </div>
                                 <input type="text" required="" placeholder="Nhập thông tin" name="product_unit"
-                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                             </div>
                             <div class="d-flex align-items-center">
                                 <div class="title-info py-2 border border-top-0 border-left-0">
@@ -108,39 +108,39 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-center height-60-mobile option-radio">
-                                <div class="title-info py-2 border border-left-0 height-100">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Loại sản phẩm</p>
                                 </div>
                                 <input type="text" placeholder="Nhập thông tin" name="product_type"
-                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile option-radio">
-                                <div class="title-info py-2 border border-left-0 height-100">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Hãng</p>
                                 </div>
                                 <input type="number" placeholder="Nhập thông tin" name="product_manufacturer"
-                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile option-radio">
-                                <div class="title-info py-2 border border-left-0 height-100">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Xuất xứ</p>
                                 </div>
                                 <input type="number" placeholder="Nhập thông tin" name="product_origin"
-                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile option-radio">
-                                <div class="title-info py-2 border border-left-0 height-100">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Bảo hành</p>
                                 </div>
                                 <input type="number" placeholder="Nhập thông tin" name="product_guarantee"
-                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                             </div>
                             <div class="d-flex align-items-center height-60-mobile option-radio">
-                                <div class="title-info py-2 border border-left-0 height-100">
+                                <div class="title-info py-2 border border-left-0 border-top-0 height-100">
                                     <p class="p-0 m-0 margin-left32 text-13">Quản lý Serial Number</p>
                                 </div>
                                 <div
-                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 px-3 text-13-black">
+                                    class="border height-100 w-100 py-2 border-left-0 border-right-0 border-top-0 px-3 text-13-black">
                                     <input type="checkbox" placeholder="Nhập thông tin" name="check_seri"
                                         class="" checked>
                                 </div>

@@ -124,21 +124,21 @@
                                             <th scope="col" class="height-52 border-bottom">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="date_bill" data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">Ngày hóa
-                                                            đơn</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-date_bill"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52 border-bottom">
-                                                <span class="d-flex">
-                                                    <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Đơn mua
                                                             hàng</button>
                                                     </a>
                                                     <div class="icon" id="icon-quotation_number"></div>
+                                                </span>
+                                            </th>
+                                            <th scope="col" class="height-52 border-bottom">
+                                                <span class="d-flex">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="date_bill" data-sort-type="DESC">
+                                                        <button class="btn-sort text-13" type="submit">Ngày hóa
+                                                            đơn</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-date_bill"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52 border-bottom">
@@ -163,11 +163,13 @@
                                                     </span>
                                                 </th>
                                             @endif
-                                            <th scope="col" class="height-52 border-bottom d-flex justify-content-center">
+                                            <th scope="col"
+                                                class="height-52 border-bottom d-flex justify-content-center">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Trạng thái</button>
+                                                            class="btn-sort text-13" type="submit">Trạng
+                                                            thái</button>
                                                     </a>
                                                     <div class="icon" id="icon-status"></div>
                                                 </span>
@@ -208,22 +210,22 @@
                                                     </span>
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border-top-0">
+                                                <td class="py-2 text-13-black border-bottom border-top-0 text-wrap">
                                                     <a href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $item->id]) }}"
                                                         class="duongdan user_flow" data-type="HDMH"
                                                         data-des="Xem hóa đơn mua hàng">
                                                         {{ $item->number_bill }}
                                                     </a>
                                                 </td>
-                                                <td class="py-2 text-13-black border-bottom border-top-0">
-                                                    {{ date_format(new DateTime($item->date_bill), 'd/m/Y') }}
-                                                </td>
-                                                <td class="py-2 text-13-black border-bottom border-top-0">
+                                                <td class="py-2 text-13-black border-bottom border-top-0 text-wrap">
                                                     @if ($item->getQuotation)
                                                         {{ $item->getQuotation->quotation_number == null ? $item->getQuotation->id : $item->getQuotation->quotation_number }}
                                                     @endif
                                                 </td>
                                                 <td class="py-2 text-13-black border-bottom border-top-0">
+                                                    {{ date_format(new DateTime($item->date_bill), 'd/m/Y') }}
+                                                </td>
+                                                <td class="py-2 text-13-black border-bottom border-top-0 text-wrap">
                                                     @if ($item->getQuotation)
                                                         {{ $item->getQuotation->provide_name }}
                                                     @endif
@@ -245,8 +247,8 @@
                                                 <td class="py-2 text-13-black text-right border-bottom border-top-0">
                                                     {{ number_format($item->price_total) }}
                                                 </td>
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0"
-                                                    style="right: 10px; top: 3px;">
+                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0 align-items-center"
+                                                    style="right: 10px; top: 3px; bottom:0;">
                                                     <div class="d-flex align-items-center">
                                                         <a href="#">
                                                             <div class="m-0 mx-2 rounded">
