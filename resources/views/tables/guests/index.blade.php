@@ -220,7 +220,7 @@
                                 </thead>
                                 <tbody class="tbody-guest">
                                     @foreach ($guests as $item)
-                                        <tr class="position-relative guest-info">
+                                        <tr class="position-relative guest-info height-52">
                                             <input type="hidden" name="id-guest" class="id-guest" id="id-guest"
                                                 value="{{ $item->id }}">
                                             <td class="text-13-black border-bottom border-top-0">

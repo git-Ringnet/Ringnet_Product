@@ -316,7 +316,7 @@
                                                                 type="checkbox">
                                                             <input type="text" autocomplete="off" readonly
                                                                 value="{{ $item_quote->product_code }}"
-                                                                class="border-0 px-2 py-1 w-75 product_code w-100 text-13-black "
+                                                                class="height-32 border-0 px-2 py-1 w-75 product_code w-100 text-13-black "
                                                                 name="product_code[]">
                                                     </td>
                                                     <td
@@ -324,7 +324,7 @@
                                                         <div class="d-flex align-items-center">
                                                             <input type="text"
                                                                 value="{{ $item_quote->product_name }}"
-                                                                class="border-0 px-2 py-1 w-100 product_name" readonly
+                                                                class="height-32 border-0 px-2 py-1 w-100 product_name" readonly
                                                                 autocomplete="off" name="product_name[]">
                                                             <input type="hidden" class="product_id"
                                                                 value="{{ $item_quote->product_id }}"
@@ -359,14 +359,14 @@
                                                         class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" autocomplete="off" readonly
                                                             value="{{ $item_quote->product_unit }}"
-                                                            class="border-0 px-2 py-1 w-100 text-left product_unit"
+                                                            class="height-32 border-0 px-2 py-1 w-100 text-left product_unit"
                                                             name="product_unit[]">
                                                     </td>
                                                     <td
                                                         class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" readonly
                                                             value="{{ is_int($item_quote->pay_qty) ? $item_quote->pay_qty : rtrim(rtrim(number_format($item_quote->pay_qty, 4, '.', ''), '0'), '.') }}"
-                                                            class="border-0 px-2 py-1 w-100 quantity-input text-right"
+                                                            class="height-32 border-0 px-2 py-1 w-100 quantity-input text-right"
                                                             autocomplete="off" name="product_qty[]">
                                                         <input type="hidden" class="tonkho">
                                                         <p class="text-primary text-center position-absolute inventory"
@@ -378,7 +378,7 @@
                                                         class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text"
                                                             value="{{ number_format($item_quote->price_export) }}"
-                                                            class="border-0 px-2 py-1 w-100 text-right product_price"
+                                                            class="height-32 border-0 px-2 py-1 w-100 text-right product_price"
                                                             autocomplete="off" name="product_price[]" readonly>
                                                         <a href="#">
                                                             <p class="mt-3 text-13-blue recentModal"
@@ -390,7 +390,7 @@
                                                     <td
                                                         class="border-right p-2 text-13 text-center align-top border-bottom border-top-0">
                                                         <select name="product_tax[]"
-                                                            class="border-0 mt-1 text-center product_tax" disabled>
+                                                            class="height-32 border-0 py-1 text-center product_tax" disabled>
                                                             <option value="0" <?php if ($item_quote->product_tax == 0) {
                                                                 echo 'selected';
                                                             } ?>>0%</option>
@@ -410,12 +410,12 @@
                                                         class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" readonly=""
                                                             value="{{ number_format($item_quote->product_total) }}"
-                                                            class="border-0 px-2 py-1 w-100 text-right total-amount">
+                                                            class="height-32 border-0 px-2 py-1 w-100 text-right total-amount">
                                                     </td>
                                                     <td
                                                         class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" class="border-0 py-1 w-100" readonly
-                                                            name="product_note[]"
+                                                            name="height-32 product_note[]"
                                                             value="{{ $item_quote->product_note }}">
                                                     </td>
                                                     <td style="display:none;" class="">

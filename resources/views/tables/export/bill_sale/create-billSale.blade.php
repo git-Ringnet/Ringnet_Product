@@ -532,12 +532,12 @@
                                                     </svg>
                                                 </span>
                                                     <input type='checkbox' class='cb-element checkall-btn ml-2 mr-1'>
-                                                    <input type="text" value="${item.product_code == null ? '' : item.product_code}" readonly autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
+                                                    <input type="text" value="${item.product_code == null ? '' : item.product_code}" readonly autocomplete="off" class="border-0 px-2 py-1 w-75 product_code height-32" name="product_code[]">
                                                 </div>
                                             </td>
                                             <td class="border-right p-2 text-13 align-top border-bottom">
                                                 <div class='d-flex align-items-center'>
-                                                    <input type='text' class='border-0 px-2 py-1 w-100 product_name'
+                                                    <input type='text' class='border-0 px-2 py-1 w-100 product_name height-32'
                                                             value="${item.product_name}" readonly
                                                             autocomplete='off' required name='product_name[]'>
                                                     <input type='hidden' value="${item.product_id}"
@@ -560,12 +560,12 @@
                                             </td>
                                             <td class="border-right p-2 text-13 align-top border-bottom">
                                                 <input type="text" value="${item.product_unit}" readonly autocomplete="off" 
-                                                    class="border-0 px-2 py-1 w-100 product_unit" required="" name="product_unit[]">
+                                                    class="border-0 px-2 py-1 w-100 product_unit height-32" required="" name="product_unit[]">
                                             </td>
                                             <td class="border-right p-2 text-13 align-top border-bottom">
                                                     <div>
-                                                        <input type='text'  value="${formatNumber(item.soLuongHoaDon)}"
-                                                            class='border-0 text-right px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>
+                                                        <input type='text' value="${formatNumber(item.soLuongHoaDon)}"
+                                                            class='border-0 height-32 text-right px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>
                                                         <input type='hidden' class='tonkho'>
                                                         <input type="hidden" class="limit-quantity" value="${formatNumber(item.soLuongHoaDon)}" data-limit-quantity="${formatNumber(item.soLuongHoaDon)}">
                                                     </div>
@@ -573,14 +573,14 @@
                                             </td>
                                             <td class="border-right p-2 text-13 align-top border-bottom">
                                                 <div>
-                                                    <input type='text' class='text-right border-0 px-2 py-1 w-100 product_price' 
+                                                    <input type='text' class='text-right border-0 px-2 py-1 height-32 w-100 product_price' 
                                                         value="${formatCurrency(item.price_export)}"
                                                         autocomplete='off' name='product_price[]' required>
                                                 </div>
                                                 <a href='#'><div class='mt-3 text-13-blue transaction recentModal' data-name1='HDBH' data-des="Xem giao dịch gần đây" data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</div></a>
                                             </td>
                                             <td class="border-right p-2 text-13 align-top border-bottom text-center">
-                                                <select class="border-0 text-center product_tax" required="" disabled>
+                                                <select class="border-0 text-center product_tax height-32" required="" disabled>
                                                     <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                                     <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
                                                     <option value="10" ${(item.product_tax == 10) ? 'selected' : ''}>10%</option>
@@ -591,12 +591,12 @@
                                             <td class="border-right p-2 text-13 align-top border-bottom">
                                                 <input type='text'
                                                         value="${formatCurrency(item.product_total)}" readonly 
-                                                        class="border-0 px-2 py-1 w-100 total-amount text-right">
+                                                        class="border-0 px-2 py-1 w-100 total-amount text-right height-32">
                                             </td>                             
                                             <td class="border-right p-2 text-13 align-top border-bottom">
                                                 <input type="text"
                                                         readonly value="${(item.product_note == null) ? '' : item.product_note}" 
-                                                        class="border-0 py-1 w-100" name="product_note[]">
+                                                        class="border-0 py-1 w-100 height-32" name="product_note[]">
                                             </td>
                                             <td class="border-right border-bottom p-2 text-13 align-top deleteProduct" data-name1="HDBH" data-des="Xóa sản phẩm">
                                                 <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">

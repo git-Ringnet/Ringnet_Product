@@ -290,7 +290,7 @@
                                     </thead>
                                     <tbody class="tbody-detailExport">
                                         @foreach ($quoteExport as $value_export)
-                                            <tr class="position-relative detailExport-info"
+                                            <tr class="position-relative detailExport-info height-52"
                                                 data-id="{{ $value_export->maBG }}">
                                                 <input type="hidden" name="id-detailExport" class="id-detailExport"
                                                     id="id-detailExport" value="{{ $value_export->maBG }}">
@@ -452,8 +452,7 @@
                                                 <td class="text-13-black text-right border-bottom">
                                                     {{ number_format($value_export->total_price + $value_export->total_tax) }}
                                                 </td>
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
-                                                    style="right: 4px; top: 15%;">
+                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                                     <div class="d-flex w-100">
                                                         <a
                                                             href="{{ route('detailExport.edit', ['workspace' => $workspacename, 'detailExport' => $value_export->maBG]) }}">

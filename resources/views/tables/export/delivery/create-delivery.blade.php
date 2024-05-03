@@ -696,7 +696,7 @@
                 `</svg>` +
                 `</span>` +
                 `<input type='checkbox' class='cb-element checkall-btn ml-1 mr-1'>` +
-                `<input type='text' autocomplete='off' class='border-0 pl-1 pr-2 py-1 w-50 product_code' name='product_code[]'>` +
+                `<input type='text' autocomplete='off' class='border-0 pl-1 pr-2 py-1 w-50 product_code height-32' name='product_code[]'>` +
                 `</td>`
             );
             const tenSanPham = $(
@@ -711,7 +711,7 @@
                 `@endforeach` +
                 `</a></ul>` +
                 `<div class='d-flex align-items-center'>` +
-                `<input type='text' class='border-0 px-2 py-1 w-100 product_name' autocomplete='off' required name='product_name[]'>` +
+                `<input type='text' class='border-0 px-2 py-1 w-100 product_name height-32' autocomplete='off' required name='product_name[]'>` +
                 `<input type='hidden' class='product_id' autocomplete='off' name='product_id[]'>` +
                 `<div class='info-product' data-toggle='modal' data-target='#productModal'>` +
                 `<svg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'>` +
@@ -730,14 +730,14 @@
             );
             const dvTinh = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
-                "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit' required name='product_unit[]'>" +
+                "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit height-32' required name='product_unit[]'>" +
                 "</td>"
             );
             const soLuong = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<div class='d-flex align-items-center'>" +
                 "<div>" +
-                "<input type='number' value='' data-product-id='' class='border-0 px-2 text-right py-1 w-100 quantity-input' autocomplete='off' required='' name='product_qty[]'>" +
+                "<input type='number' value='' data-product-id='' class='border-0 px-2 text-right py-1 w-100 quantity-input height-32' autocomplete='off' required='' name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "<p class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='soTonKho'>0</span></p>" +
                 "</div>" +
@@ -760,14 +760,14 @@
             const donGia = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<div>" +
-                "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
+                "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price height-32' autocomplete='off' name='product_price[]' required>" +
                 "</div>" +
                 "<a href='#'><div class='mt-3 text-13-blue recentModal text-right' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div></a>" +
                 "</td>"
             );
             const thue = $(
-                "<td class='border-right p-1 text-13 align-top border-bottom'>" +
-                "<select name='product_tax[]' class='border-0 py-1 w-100 text-center product_tax' required>" +
+                "<td class='border-right p-2 text-13 align-top border-bottom'>" +
+                "<select name='product_tax[]' class='border-0 py-1 w-100 text-center product_tax height-32' required>" +
                 "<option value='0'>0%</option>" +
                 "<option value='8'>8%</option>" +
                 "<option value='10'>10%</option>" +
@@ -777,12 +777,12 @@
             );
             const thanhTien = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
-                "<input type='text' readonly class='text-right border-0 px-2 py-1 w-100 total-amount'>" +
+                "<input type='text' readonly class='text-right border-0 px-2 py-1 w-100 total-amount height-32'>" +
                 "</td>"
             );
             const ghiChu = $(
-                "<td class='border border-bottom position-relative note p-1 align-top'>" +
-                "<input type='text' class='border-0 py-1 w-100' placeholder='Nhập ghi chú' name='product_note[]'>" +
+                "<td class='border-right p-2 text-13 align-top border-bottom'>" +
+                "<input type='text' class='border-0 py-1 w-100 height-32' placeholder='Nhập ghi chú' name='product_note[]'>" +
                 "</td>"
             );
             const option = $(
@@ -960,6 +960,8 @@
                                 }
                                 type.val(productData.type);
                                 thue.prop('disabled', true);
+                                productCode.prop('readonly', true);
+                                productUnit.prop('readonly', true);
                                 $('.list_product').hide();
                                 $('.recentModal').show();
                                 // Cập nhật ID của hàng (row)
@@ -1963,12 +1965,12 @@
                                                 </svg>
                                             </span>
                                             <input type="checkbox" class="cb-element">
-                                            <input type="text" value="${item.maCode == null ? '' : item.maCode}" readonly autocomplete="off" class="border-0 px-2 py-1 w-75 product_code" name="product_code[]">
+                                            <input type="text" value="${item.maCode == null ? '' : item.maCode}" readonly autocomplete="off" class="border-0 px-2 py-1 w-75 product_code height-32" name="product_code[]">
                                         </div>
                                     </td>
                                     <td class="border-right p-2 text-13 align-top border-bottom">
                                         <div class="d-flex align-items-center">
-                                            <input type="text" value="${item.tenSP}" readonly class="border-0 px-2 py-1 w-100 product_name" autocomplete="off" required="" name="product_name[]">
+                                            <input type="text" value="${item.tenSP}" readonly class="border-0 px-2 py-1 w-100 product_name height-32" autocomplete="off" required="" name="product_name[]">
                                             <input type="hidden" class="product_id" value="${item.maSP}" autocomplete="off" name="product_id[]">
                                             <div class="info-product" data-toggle="modal" data-target="#productModal">
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1979,12 +1981,12 @@
                                         </div>
                                     </td>
                                     <td class="border-right p-2 text-13 align-top border-bottom">
-                                        <input type="text" value="${item.product_unit}" readonly autocomplete="off" class="border-0 px-2 py-1 w-100 product_unit" required="" name="product_unit[]">
+                                        <input type="text" value="${item.product_unit}" readonly autocomplete="off" class="height-32 border-0 px-2 py-1 w-100 product_unit" required="" name="product_unit[]">
                                     </td>
                                     <td class="border-right p-2 text-13 align-top border-bottom">
                                         <div class="d-flex align-items-center">
                                             <div>
-                                        <input type="number" value="${formatNumber(item.soLuongCanGiao)}" data-product-id="${item.maSP}" class="border-0 px-2 text-right py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
+                                        <input type="number" value="${formatNumber(item.soLuongCanGiao)}" data-product-id="${item.maSP}" class="height-32 border-0 px-2 text-right py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                         <input type="hidden" class="limit-quantity" value="${formatNumber(item.soLuongCanGiao)}" data-limit-quantity="${formatNumber(item.soLuongCanGiao)}">
                                         <input type="hidden" class="tonkho">
                                         <p class="mt-3 text-13-blue inventory text-right ${item.type == 2 ? "d-none" : 'd-block'}">Tồn kho: <span class="soTonKho">${formatNumber(item.product_inventory == null ? 0 : item.product_inventory)}</span></p>
@@ -2003,11 +2005,11 @@
                                     </td>
                                     <td class="border-right p-2 text-13 align-top border-bottom">
                                         <input type="text" value="${formatCurrency(item.price_export)}" readonly 
-                                            class="border-0 px-2 py-1 w-100 text-right product_price" autocomplete="off" name="product_price[]" required="" readonly="readonly">
+                                            class="border-0 px-2 py-1 w-100 text-right product_price height-32" autocomplete="off" name="product_price[]" required="" readonly="readonly">
                                             <a href='#'><p class="mt-3 text-13-blue recentModal" data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</p></a>
                                     </td>
-                                    <td class="border-right p-1 text-13 align-top border-bottom">
-                                        <select class="border-0 py-1 w-100 text-center product_tax" required="" disabled>
+                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                        <select class="border-0 py-1 w-100 text-center product_tax height-32" required="" disabled>
                                             <option value="0" ${(item.thueSP == 0) ? 'selected' : ''}>0%</option>
                                             <option value="8" ${(item.thueSP == 8) ? 'selected' : ''}>8%</option>
                                             <option value="10" ${(item.thueSP == 10) ? 'selected' : ''}>10%</option>
@@ -2017,7 +2019,7 @@
                                     </td>
                                     <td class="border-right p-2 text-13 align-top border-bottom">
                                         <input type="text" value="${formatCurrency(item.product_total)}" readonly 
-                                            class="border-0 px-2 text-right py-1 w-100 total-amount">
+                                            class="border-0 px-2 text-right py-1 w-100 total-amount height-32">
                                     </td>
                                     <td class="border-top border-secondary p-0 bg-secondary Daydu d-none" style="width:1%;"></td>
                                     <td class="border border-bottom-0 position-relative product_ratio d-none">
@@ -2027,7 +2029,7 @@
                                         <input type="text" value="${formatCurrency(item.price_import)}" readonly class="border-0 px-2 py-1 w-100 giaNhap" autocomplete="off" required="required" name="price_import[]">
                                     </td>
                                     <td class="border-right p-2 text-13 align-top note p-1 border-bottom">
-                                        <input type="text" readonly value="${(item.product_note == null) ? '' : item.product_note}" class="border-0 py-1 w-100" name="product_note[]">
+                                        <input type="text" readonly value="${(item.product_note == null) ? '' : item.product_note}" class="border-0 py-1 w-100 height-32" name="product_note[]">
                                     </td>
                                     <td class="border border-bottom border-right-0 text-right deleteProduct" data-name1='GH' data-des='Xóa sản phẩm'>
                                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z" fill="#6B6F76"></path></svg>

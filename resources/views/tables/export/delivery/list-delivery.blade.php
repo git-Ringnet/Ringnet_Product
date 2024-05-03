@@ -269,7 +269,7 @@
                                     </thead>
                                     <tbody class="tbody-delivery">
                                         @foreach ($deliveries as $item_delivery)
-                                            <tr class="position-relative delivery-info"
+                                            <tr class="position-relative delivery-info height-52"
                                                 onclick="handleRowClick('checkbox', event);">
                                                 <input type="hidden" name="id-delivery" class="id-delivery"
                                                     id="id-delivery" value="{{ $item_delivery->maGiaoHang }}">
@@ -334,8 +334,7 @@
                                                 <td class="text-13-black text-right border-bottom border-top-0">
                                                     {{ number_format($item_delivery->totalProductVat) }}
                                                 </td>
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
-                                                    style="right: 10px; top: 8px;">
+                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                                     <div class="d-flex w-100">
                                                         <a href="#">
                                                             <div class="m-0 mx-2 rounded">

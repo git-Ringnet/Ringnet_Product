@@ -199,14 +199,11 @@
                                                     </svg>
                                                 </span>
                                                 <input type="checkbox" class="cb-element checkall-btn">
-                                                <input type="text" autocomplete="off" <?php if ($detailExport->tinhTrang != 1) {
-                                                    echo 'readonly';
-                                                } ?>
+                                                <input type="text" autocomplete="off" readonly
                                                     value="{{ $item_quote->product_code }}"
-                                                    class="border-0 px-2  py-1 w-75 product_code"
+                                                    class="border-0 px-2 py-1 w-75 product_code height-32"
                                                     name="product_code[]">
                                             </td>
-
                                             <td
                                                 class='border-right p-2 text-13 align-top position-relative border-bottom'>
                                                 <ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data'
@@ -226,7 +223,7 @@
                                                     <input type='text' <?php if ($detailExport->tinhTrang != 1) {
                                                         echo 'disabled';
                                                     } ?>
-                                                        class='border-0 px-2 py-1 w-100 product_name'
+                                                        class='border-0 px-2 py-1 w-100 product_name height-32'
                                                         autocomplete='off' required name='product_name[]'
                                                         value="{{ $item_quote->product_name }}">
 
@@ -262,7 +259,7 @@
                                             <td class='border-right p-2 text-13 align-top border-bottom'>
                                                 <input type='text' autocomplete='off'
                                                     value="{{ $item_quote->product_unit }}"
-                                                    class='border-0 px-2 py-1 w-100 product_unit' readonly
+                                                    class='border-0 px-2 py-1 w-100 product_unit height-32' readonly
                                                     name='product_unit[]'>
                                             </td>
 
@@ -271,7 +268,7 @@
                                                     <input type='text' <?php if ($detailExport->tinhTrang != 1) {
                                                         echo 'readonly';
                                                     } ?>
-                                                        class='text-right border-0 px-2 py-1 w-100 quantity-input'
+                                                        class='text-right border-0 px-2 py-1 w-100 quantity-input height-32'
                                                         value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
                                                         autocomplete='off' required name='product_qty[]'>
                                                     <input type='hidden' class='tonkho'>
@@ -290,7 +287,7 @@
                                                     <input type='text' <?php if ($detailExport->tinhTrang != 1) {
                                                         echo 'readonly';
                                                     } ?>
-                                                        class='text-right border-0 px-2 py-1 w-100 product_price'
+                                                        class='text-right border-0 px-2 py-1 w-100 product_price height-32'
                                                         autocomplete='off' name='product_price[]' required
                                                         value="{{ number_format($item_quote->price_export) }}">
                                                 </div>
@@ -304,7 +301,7 @@
 
                                             <td class='border-right p-2 text-13 align-top border-bottom'>
                                                 <select name='product_tax[]' disabled
-                                                    class='border-0 px-2 py-1 w-100 text-left product_tax'
+                                                    class='border-0 py-1 w-100 text-center product_tax height-32'
                                                     required="">
                                                     <option value="0" <?php if ($item_quote->product_tax == 0) {
                                                         echo 'selected';
@@ -324,7 +321,7 @@
                                             <td class='border-right p-2 text-13 align-top border-bottom'>
                                                 <input type='text' readonly
                                                     value="{{ number_format($item_quote->product_total) }}"
-                                                    class='text-right border-0 px-2 py-1 w-100 total-amount'>
+                                                    class='text-right border-0 px-2 py-1 w-100 total-amount height-32'>
                                             </td>
 
                                             <td class='border-right p-2 note text-13 align-top border-bottom'>
@@ -332,7 +329,7 @@
                                                     echo 'readonly';
                                                 } ?>
                                                     value="{{ $item_quote->product_note }}"
-                                                    class='border-0 py-1 w-100' placeholder='Nhập ghi chú'>
+                                                    class='border-0 py-1 w-100 height-32' placeholder='Nhập ghi chú'>
                                             </td>
                                             @if ($detailExport->tinhTrang == 1)
                                                 <td class='border-right p-2 align-top border-bottom'>
@@ -1949,7 +1946,7 @@
                 `</svg>` +
                 `</span>` +
                 `<input type='checkbox' class='cb-element checkall-btn ml-1 mr-1'>` +
-                `<input type='text' autocomplete='off' class='border-0 pl-1 pr-2 py-1 w-50 product_code' name='product_code[]'>` +
+                `<input type='text' autocomplete='off' class='border-0 pl-1 pr-2 py-1 w-50 product_code height-32' name='product_code[]'>` +
                 `</td>`
             );
             const tenSanPham = $(
@@ -1964,7 +1961,7 @@
                 `@endforeach` +
                 `</ul>` +
                 `<div class='d-flex align-items-center'>` +
-                `<input type='text' class='border-0 px-2 py-1 w-100 product_name' autocomplete='off' required name='product_name[]'>` +
+                `<input type='text' class='border-0 px-2 py-1 w-100 product_name height-32' autocomplete='off' required name='product_name[]'>` +
                 `<input type='hidden' class='product_id' autocomplete='off' name='product_id[]'>` +
                 `<div class='info-product' style='display: none;' data-toggle='modal' data-target='#productModal'>` +
                 `<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'>` +
@@ -1985,13 +1982,13 @@
             );
             const dvTinh = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
-                "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit' required name='product_unit[]'>" +
+                "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit height-32' required name='product_unit[]'>" +
                 "</td>"
             );
             const soLuong = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<div>" +
-                "<input type='text' class='text-right border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
+                "<input type='text' class='text-right border-0 px-2 py-1 w-100 quantity-input height-32' autocomplete='off' required name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "</div>" +
                 "<div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='pl-1 soTonKho'></span></div>" +
@@ -2000,14 +1997,14 @@
             const donGia = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<div>" +
-                "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
+                "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price height-32' autocomplete='off' name='product_price[]' required>" +
                 "</div>" +
                 "<a href='#' class='activity1' data-name1='BG' data-des='Xem giao dịch gần đây ở trang chỉnh sửa'><div class='mt-3 text-13-blue recentModal' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div></a>" +
                 "</td>"
             );
             const thue = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
-                "<select name='product_tax[]' class='border-0 px-2 py-1 w-100 text-left product_tax' required>" +
+                "<select name='product_tax[]' class='border-0 py-1 w-100 text-center product_tax height-32' required>" +
                 "<option value='0'>0%</option>" +
                 "<option value='8'>8%</option>" +
                 "<option value='10'>10%</option>" +
@@ -2017,12 +2014,12 @@
             );
             const thanhTien = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
-                "<input type='text' readonly class='text-right border-0 px-2 py-1 w-100 total-amount'>" +
+                "<input type='text' readonly class='text-right border-0 px-2 py-1 w-100 total-amount height-32'>" +
                 "</td>"
             );
             const ghiChu = $(
-                "<td class='border border-bottom position-relative note p-1 align-top'>" +
-                "<input type='text' class='border-0 py-1 w-100' placeholder='Nhập ghi chú' name='product_note[]'>" +
+                "<td class='border-right p-2 text-13 align-top border-bottom note'>" +
+                "<input type='text' class='border-0 py-1 w-100 height-32' placeholder='Nhập ghi chú' name='product_note[]'>" +
                 "</td>"
             );
             const option = $(
@@ -2281,6 +2278,8 @@
                             infoProduct.show();
                             $('.recentModal').show();
                             thue.prop('disabled', true);
+                            productCode.prop('readonly', true);
+                            productUnit.prop('readonly', true);
                             $(".list_product").hide();
                             arrProduct = [];
 

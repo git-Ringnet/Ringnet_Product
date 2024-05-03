@@ -493,16 +493,15 @@
                                                             style="padding-left: 2rem !important;">
                                                             <input type="text" autocomplete="off" readonly
                                                                 value="{{ $item_quote->product_code }}"
-                                                                class="border-0 py-1 w-100 product_code"
+                                                                class="border-0 py-1 w-100 product_code height-32"
                                                                 name="product_code[]">
                                                         </td>
-
                                                         <td
                                                             class="border bg-white align-top text-13-black position-relative text-left">
                                                             <div class="d-flex align-items-center">
                                                                 <input type="text"
                                                                     value="{{ $item_quote->product_name }}"
-                                                                    class="border-0 px-1 py-1 w-100 product_name"
+                                                                    class="border-0 px-1 py-1 w-100 product_name height-32"
                                                                     readonly autocomplete="off" name="product_name[]">
                                                                 <input type="hidden" class="product_id"
                                                                     value="{{ $item_quote->product_id }}"
@@ -533,18 +532,17 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-
                                                         <td class="border bg-white align-top text-13-black text-left">
                                                             <input type="text" autocomplete="off" readonly
                                                                 value="{{ $item_quote->product_unit }}"
-                                                                class="border-0 px-2 py-1 w-100 product_unit"
+                                                                class="border-0 px-2 py-1 w-100 product_unit height-32"
                                                                 name="product_unit[]">
                                                         </td>
                                                         <td
                                                             class="border bg-white align-top text-13-black position-relative">
                                                             <input type="text" readonly
                                                                 value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
-                                                                class="border-0 px-2 py-1 w-100 quantity-input text-right"
+                                                                class="border-0 px-2 py-1 w-100 quantity-input text-right height-32"
                                                                 autocomplete="off" name="product_qty[]">
                                                             <input type="hidden" class="tonkho">
                                                             <div
@@ -559,7 +557,7 @@
                                                             class="border bg-white align-top text-13-black position-relative text-right">
                                                             <input type="text"
                                                                 value="{{ number_format($item_quote->price_export) }}"
-                                                                class="border-0 px-2 py-1 w-100 product_price text-right"
+                                                                class="border-0 px-2 py-1 w-100 product_price text-right height-32"
                                                                 autocomplete="off" name="product_price[]" readonly>
                                                             <a href="#" class="activity" data-name1="BG"
                                                                 data-des="Xem giao dịch gần đây">
@@ -571,7 +569,7 @@
                                                             </a>
                                                         </td>
                                                         <td class="border bg-white align-top text-13-black px-4">
-                                                            <select class="border-0 text-center product_tax" disabled>
+                                                            <select class="border-0 text-center product_tax height-32" disabled>
                                                                 <option value="0" <?php if ($item_quote->product_tax == 0) {
                                                                     echo 'selected';
                                                                 } ?>>0%</option>
@@ -593,12 +591,12 @@
                                                         <td class="border bg-white align-top text-13-black text-right">
                                                             <input type="text" readonly=""
                                                                 value="{{ number_format($item_quote->product_total) }}"
-                                                                class="border-0 px-2 py-1 w-100 total-amount text-right">
+                                                                class="border-0 px-2 py-1 w-100 total-amount text-right height-32">
                                                         </td>
                                                         <td
                                                             class="text-center border bg-white align-top text-13-black">
                                                             <input type="text"
-                                                                class="border-0 py-1 w-100 text-left" readonly
+                                                                class="border-0 py-1 w-100 text-left height-32" readonly
                                                                 name="product_note[]"
                                                                 value="{{ $item_quote->product_note }}">
                                                         </td>
@@ -948,14 +946,14 @@
                                                         style="padding-left: 2rem !important;">
                                                         <input type="text" autocomplete="off" readonly
                                                             value="{{ $item_history->product_code }}"
-                                                            class="border-0 py-1 w-75 product_code text-left"
+                                                            class="border-0 py-1 w-75 product_code text-left height-32"
                                                             name="product_code[]">
                                                     </td>
                                                     <td class="border bg-white align-top text-13-black p-1">
                                                         <div class="d-flex align-items-center">
                                                             <input type="text"
                                                                 value="{{ $item_history->product_name }}"
-                                                                class="border-0 px-2 py-1 w-100 product_name text-left"
+                                                                class="border-0 px-2 py-1 w-100 product_name text-left height-32"
                                                                 readonly autocomplete="off" name="product_name[]">
                                                             <input type="hidden" class="product_id"
                                                                 value="{{ $item_history->product_id }}"
@@ -990,7 +988,7 @@
                                                         style="width:8%">
                                                         <input type="text" autocomplete="off" readonly
                                                             value="{{ $item_history->product_unit }}"
-                                                            class="border-0 px-2 py-1 w-100 product_unit text-left"
+                                                            class="border-0 px-2 py-1 w-100 product_unit text-left height-32"
                                                             name="product_unit[]">
                                                     </td>
                                                     <td class="border bg-white align-top text-13-black p-1 text-right"
@@ -998,7 +996,7 @@
                                                         <div>
                                                             <input type='text'
                                                                 value="{{ is_int($item_history->product_qty) ? $item_history->product_qty : rtrim(rtrim(number_format($item_history->product_qty, 4, '.', ''), '0'), '.') }}"
-                                                                class='border-0 px-2 py-1 w-100 text-right' readonly
+                                                                class='border-0 px-2 py-1 w-100 text-right height-32' readonly
                                                                 autocomplete='off' required>
                                                             <input type='hidden' class='tonkho'>
                                                         </div>
@@ -1015,7 +1013,7 @@
                                                         <div>
                                                             <input type="text"
                                                                 value="{{ number_format($item_history->price_export) }}"
-                                                                class="border-0 px-2 py-1 w-100 text-right"
+                                                                class="border-0 px-2 py-1 w-100 text-right height-32"
                                                                 autocomplete="off" readonly>
                                                             <a href="#" class="activity" data-name1="BG"
                                                                 data-des="Xem giao dịch gần đây">
@@ -1027,8 +1025,8 @@
                                                             </a>
                                                         </div>
                                                     </td>
-                                                    <td class="border bg-white align-top p-2">
-                                                        <select name="product_tax[]" class="border-0 text-center"
+                                                    <td class="border bg-white align-top text-13-black p-1 text-center">
+                                                        <select name="product_tax[]" class="border-0 text-center height-32"
                                                             disabled>
                                                             <option value="0" <?php if ($item_history->product_tax == 0) {
                                                                 echo 'selected';
@@ -1048,18 +1046,18 @@
                                                     <td class="border bg-white align-top text-13-black text-left p-1">
                                                         <input type="text" readonly=""
                                                             value="{{ number_format($item_history->product_total) }}"
-                                                            class="border-0 px-2 py-1 w-100 text-right">
+                                                            class="border-0 px-2 py-1 w-100 text-right height-32">
                                                     </td>
                                                     <td
                                                         class="text-center border bg-white align-top text-13-black p-1">
-                                                        <input type="text" class="border-0 py-1 w-100 text-left"
+                                                        <input type="text" class="border-0 py-1 w-100 text-left height-32"
                                                             readonly name="product_note[]"
                                                             value="{{ $item_history->product_note }}">
                                                     </td>
                                                     <td style="display:none;" class="">
                                                         <input type="text" class="product_tax1">
                                                     </td>
-                                                    <td class="border bg-white align-top text-13-black text-left p-1">
+                                                    <td class="border bg-white align-top text-13-black text-left p-1 height-32">
                                                         {{ date_format(new DateTime($item_history->ngayChinhSua), 'd-m-Y H:i:s') }}
                                                     </td>
                                                 </tr>
@@ -1093,7 +1091,7 @@
                 <span class="text-13 btn-click" style="flex: 1.5;"> Khách hàng
                 </span>
                 <span class="mx-1 text-13" style="flex: 2;">
-                    <input type="text" class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest"
+                    <input type="text" class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest"
                         id="myInput" style="background-color:#F0F4FF; border-radius:4px;" readonly
                         autocomplete="off" required value="{{ $detailExport->export_guest_name }}">
                     <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"

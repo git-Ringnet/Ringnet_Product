@@ -1639,7 +1639,7 @@
                 "</svg>" +
                 "</span>" +
                 "<input type='checkbox' class='cb-element checkall-btn ml-1 mr-1'>" +
-                "<input type='text' autocomplete='off' class='border-0 pl-1 pr-2 py-1 w-50 product_code' name='product_code[]'>" +
+                "<input type='text' autocomplete='off' class='border-0 pl-1 pr-2 py-1 w-50 product_code height-32' name='product_code[]'>" +
                 "</td>"
             );
             const tenSanPham = $(
@@ -1654,7 +1654,7 @@
                 `@endforeach` +
                 `</ul>` +
                 `<div class='d-flex align-items-center'>` +
-                `<input type='text' class='border-0 px-2 py-1 w-100 product_name' autocomplete='off' required name='product_name[]'>` +
+                `<input type='text' class='border-0 px-2 py-1 w-100 product_name height-32' autocomplete='off' required name='product_name[]'>` +
                 `<input type='hidden' class='product_id' autocomplete='off' name='product_id[]'>` +
                 `<div class='info-product' style='display: none;' data-toggle='modal' data-target='#productModal'>` +
                 `<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'>` +
@@ -1675,13 +1675,13 @@
             );
             const dvTinh = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
-                "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit' required name='product_unit[]'>" +
+                "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit height-32' required name='product_unit[]'>" +
                 "</td>"
             );
             const soLuong = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<div>" +
-                "<input type='number' class='text-right border-0 px-2 py-1 w-100 quantity-input' autocomplete='off' required name='product_qty[]'>" +
+                "<input type='number' class='text-right border-0 px-2 py-1 w-100 quantity-input height-32' autocomplete='off' required name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
                 "</div>" +
                 "<div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='pl-1 soTonKho'></span></div>" +
@@ -1690,14 +1690,14 @@
             const donGia = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
                 "<div>" +
-                "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price' autocomplete='off' name='product_price[]' required>" +
+                "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price height-32' autocomplete='off' name='product_price[]' required>" +
                 "</div>" +
                 "<a href='#'><div class='mt-3 text-right text-13-blue recentModal' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div></a>" +
                 "</td>"
             );
             const thue = $(
-                "<td class='border-right p-1 text-13 align-top border-bottom'>" +
-                "<select name='product_tax[]' class='border-0 py-1 w-100 text-center product_tax' required>" +
+                "<td class='border-right p-2 text-13 align-top border-bottom'>" +
+                "<select name='product_tax[]' class='border-0 py-1 w-100 text-center product_tax height-32' required>" +
                 "<option value='0'>0%</option>" +
                 "<option value='8'>8%</option>" +
                 "<option value='10'>10%</option>" +
@@ -1707,12 +1707,12 @@
             );
             const thanhTien = $(
                 "<td class='border-right p-2 text-13 align-top border-bottom'>" +
-                "<input type='text' readonly class='text-right border-0 px-2 py-1 w-100 total-amount'>" +
+                "<input type='text' readonly class='text-right border-0 px-2 py-1 w-100 total-amount height-32'>" +
                 "</td>"
             );
             const ghiChu = $(
                 "<td class='border-right note p-2 align-top border-bottom'>" +
-                "<input type='text' class='text-13-black border-0 py-1 w-100' placeholder='Nhập ghi chú' name='product_note[]'>" +
+                "<input type='text' class='text-13-black border-0 py-1 w-100 height-32' placeholder='Nhập ghi chú' name='product_note[]'>" +
                 "</td>"
             );
             const option = $(

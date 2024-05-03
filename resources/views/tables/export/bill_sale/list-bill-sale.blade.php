@@ -303,8 +303,7 @@
                                                     class=" text-13-black height-52 text-right border-bottom border-top-0">
                                                     {{ number_format($item_bill->price_total) }}
                                                 </td>
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
-                                                    style="right: 40px; top: 10px;">
+                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                                     <div class="d-flex w-100">
                                                         <a href="#">
                                                             <div class="m-0 mx-2 rounded">

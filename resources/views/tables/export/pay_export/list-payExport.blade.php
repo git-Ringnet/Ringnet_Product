@@ -279,7 +279,7 @@
                                     </thead>
                                     <tbody class="tbody-payExport">
                                         @foreach ($payExport as $item_pay)
-                                            <tr class="position-relative payExport-info"
+                                            <tr class="position-relative payExport-info height-52"
                                                 onclick="handleRowClick('checkbox', event);">
                                                 <input type="hidden" name="id-payExport" class="id-payExport"
                                                     id="id-payExport" value="{{ $item_pay->id }}">
@@ -362,8 +362,7 @@
                                                 <td class="text-13-black text-right border-bottom border-top-0">
                                                     {{ number_format($item_pay->debt) }}
                                                 </td>
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon"
-                                                    style="right: 10px; top: 10px;">
+                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                                     <div class="d-flex w-100">
                                                         <a href="#">
                                                             <div class="m-0 mx-2 rounded">
