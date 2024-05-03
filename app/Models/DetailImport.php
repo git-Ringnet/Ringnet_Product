@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -332,6 +333,11 @@ class DetailImport extends Model
         }
         if (isset($data['total'][0]) && isset($data['total'][1])) {
             $import = $import->where('detailimport.total_tax', $data['total'][0], $data['total'][1]);
+        }
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1]);
+            $import = $import->whereBetween('detailimport.created_at', [$dateStart, $dateEnd]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $import = $import->orderBy($data['sort'][0], $data['sort'][1]);

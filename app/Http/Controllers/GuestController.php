@@ -210,12 +210,12 @@ class GuestController extends Controller
         if (isset($data['guests']) && $data['guests'] !== null) {
             $guest = $this->guests->guestNameById($data['guests']);
             $guestString = implode(', ', $guest);
-            $filters[] = ['value' => 'Công ty: ' . $guestString, 'name' => 'guests'];
+            $filters[] = ['value' => 'Công ty: ' . count($data['guests']) . ' công ty', 'name' => 'guests'];
         }
         if (isset($data['users']) && $data['users'] !== null) {
             $users = $this->users->getNameUser($data['users']);
             $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users'];
         }
         if (isset($data['debt']) && $data['debt'][1] !== null) {
             $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt'];

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -304,6 +305,16 @@ class History extends Model
         if (isset($data['TTN'])) {
             $history = $history->whereIn('detailimport.status_pay', $data['TTN']);
         }
+        if (!empty($data['dateHDN'][0]) && !empty($data['dateHDN'][1])) {
+            $dateStart = Carbon::parse($data['dateHDN'][0]);
+            $dateEnd = Carbon::parse($data['dateHDN'][1]);
+            $history = $history->whereBetween('detailimport.created_at', [$dateStart, $dateEnd]);
+        }
+        if (!empty($data['dateTTN'][0]) && !empty($data['dateTTN'][1])) {
+            $dateStart = Carbon::parse($data['dateTTN'][0]);
+            $dateEnd = Carbon::parse($data['dateTTN'][1]);
+            $history = $history->whereBetween('pay_order.payment_day', [$dateStart, $dateEnd]);
+        }
         // Xuất
         if (isset($data['POxuat'])) {
             $history = $history->where('detailexport.reference_number', 'like', '%' . $data['POxuat'] . '%');
@@ -325,6 +336,16 @@ class History extends Model
         }
         if (isset($data['TTX'])) {
             $history = $history->whereIn('detailexport.status_pay', $data['TTX']);
+        }
+        if (!empty($data['dateHDX'][0]) && !empty($data['dateHDX'][1])) {
+            $dateStart = Carbon::parse($data['dateHDX'][0]);
+            $dateEnd = Carbon::parse($data['dateHDX'][1]);
+            $history = $history->whereBetween('detailexport.created_at', [$dateStart, $dateEnd]);
+        }
+        if (!empty($data['dateTTX'][0]) && !empty($data['dateTTX'][1])) {
+            $dateStart = Carbon::parse($data['dateTTX'][0]);
+            $dateEnd = Carbon::parse($data['dateTTX'][1]);
+            $history = $history->whereBetween('pay_export.payment_day', [$dateStart, $dateEnd]);
         }
 
         // dd($data);

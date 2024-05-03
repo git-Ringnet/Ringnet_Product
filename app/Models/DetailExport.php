@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -130,7 +131,7 @@ class DetailExport extends Model
             ->leftJoin('detailexport', 'detailexport.id', 'quoteexport.detailexport_id')
             ->leftJoin('products', 'quoteexport.product_id', 'products.id')
             ->where('quoteexport.status', 1)
-            ->select('quoteexport.*','quoteexport.product_unit as product_unit','quoteexport.product_code as product_code','products.product_inventory')
+            ->select('quoteexport.*', 'quoteexport.product_unit as product_unit', 'quoteexport.product_code as product_code', 'products.product_inventory')
             ->where(function ($query) {
                 $query->where('quoteexport.product_delivery', null)
                     ->orWhere('quoteexport.product_delivery', 0);
@@ -277,6 +278,12 @@ class DetailExport extends Model
         }
         if (isset($data['pay'])) {
             $detailExport = $detailExport->whereIn('detailexport.status_pay', $data['pay']);
+        }
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1]);
+
+            $detailExport = $detailExport->whereBetween('detailexport.created_at', [$dateStart, $dateEnd]);
         }
         if (isset($data['total'][0]) && isset($data['total'][1])) {
             $detailExport = $detailExport->where('detailexport.total_price', $data['total'][0], $data['total'][1]);

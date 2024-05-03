@@ -407,21 +407,21 @@ class ReceiveController extends Controller
         if (isset($data['delivery_code']) && $data['delivery_code'] !== null) {
             $receive_bill = $this->receive->receive_bill_codeById($data['delivery_code']);
             $receive_billString = implode(', ', $receive_bill);
-            $filters[] = ['value' => 'Mã giao hàng: ' . $receive_billString, 'name' => 'delivery_code'];
+            $filters[] = ['value' => 'Mã nhận hàng: ' . count($data['delivery_code']) . ' mã nhận hàng', 'name' => 'delivery_code'];
         }
         if (isset($data['users']) && $data['users'] !== null) {
             $users = $this->users->getNameUser($data['users']);
             $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users'];
         }
         $statusText = '';
         if (isset($data['status']) && $data['status'] !== null) {
             $statusValues = [];
             if (in_array(1, $data['status'])) {
-                $statusValues[] = 'Chưa nhận';
+                $statusValues[] = '<span style="color: #858585;">Chưa nhận</span>';
             }
             if (in_array(2, $data['status'])) {
-                $statusValues[] = 'Đã nhận';
+                $statusValues[] = '<span style="color: #08AA36BF;">Đã nhận</span>';
             }
             $statusText = implode(', ', $statusValues);
             $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
@@ -431,6 +431,11 @@ class ReceiveController extends Controller
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
             $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
+        }
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày nhận hàng: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
         if ($request->ajax()) {
             $receive = $this->receive->ajax($data);

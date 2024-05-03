@@ -259,7 +259,7 @@ class PayOder extends Model
         } else {
             $status = 2;
         }
-        
+
         // Chỉnh trạng thái đơn mua hàng
         $payorder = PayOder::where('detailimport_id', $id)->first();
         if ($payorder) {
@@ -623,8 +623,10 @@ class PayOder extends Model
         if (isset($data['total'][0]) && isset($data['total'][1])) {
             $payment = $payment->where('pay_order.total', $data['total'][0], $data['total'][1]);
         }
-        if (isset($data['sort']) && isset($data['sort'][0])) {
-            $payment = $payment->orderBy($data['sort'][0], $data['sort'][1]);
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1]);
+            $payment = $payment->whereBetween('pay_order.payment_day', [$dateStart, $dateEnd]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $payment = $payment->orderBy($data['sort'][0], $data['sort'][1]);

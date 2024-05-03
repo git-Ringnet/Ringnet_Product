@@ -243,30 +243,35 @@ class PayOrderController extends Controller
         if (isset($data['payment_code']) && $data['payment_code'] !== null) {
             $payOrder = $this->payment->code_paymentById($data['payment_code']);
             $payOrderString = implode(', ', $payOrder);
-            $filters[] = ['value' => 'Mã thanh toán: ' . $payOrderString, 'name' => 'payment_code'];
+            $filters[] = ['value' => 'Mã thanh toán: ' . count($data['payment_code']) . ' mã thanh toán', 'name' => 'payment_code'];
         }
         if (isset($data['users']) && $data['users'] !== null) {
             $users = $this->users->getNameUser($data['users']);
             $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users'];
+        }
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Hạn thanh toán: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
         $statusText = '';
         if (isset($data['status']) && $data['status'] !== null) {
             $statusValues = [];
             if (in_array(1, $data['status'])) {
-                $statusValues[] = 'Chưa thanh toán';
+                $statusValues[] = '<span style="color: #858585;">Chưa thanh toán</span>';
             }
             if (in_array(2, $data['status'])) {
-                $statusValues[] = 'Thanh toán đủ';
+                $statusValues[] = '<span style="color: #08AA36BF;">Thanh toán đủ</span>';
             }
             if (in_array(3, $data['status'])) {
-                $statusValues[] = 'Trước hạn';
+                $statusValues[] = '<span style="color: #0052CC;">Đến hạn</span>';
             }
             if (in_array(4, $data['status'])) {
-                $statusValues[] = 'Quá hạn';
+                $statusValues[] = '<span style="color: #EC212D;">Quá hạn</span>';
             }
-            if (in_array(5, $data['status'])) {
-                $statusValues[] = 'Thanh toán 1 phần';
+            if (in_array(6, $data['status'])) {
+                $statusValues[] = '<span style="color: #08AA36BF;">Đặt cọc</span>';
             }
             $statusText = implode(', ', $statusValues);
             $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];

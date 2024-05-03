@@ -150,8 +150,8 @@
                                                 data-button="tensp" type="button">Mặt hàng</button>
                                             {{-- <button class="dropdown-item btndropdown" id="btn-hdvao"
                                                 data-button="hdvao" type="button">Hoá đơn vào</button> --}}
-                                            <button class="dropdown-item btndropdown" id="btn-datequote"
-                                                data-button="datequote" type="button">Ngày hoá đơn</button>
+                                            <button class="dropdown-item btndropdown" id="btn-dateHDN"
+                                                data-button="dateHDN" type="button">Ngày hoá đơn</button>
                                             <button class="dropdown-item btndropdown" id="btn-BH" data-button="BH"
                                                 type="button">Bảo hành</button>
                                             <button class="dropdown-item btndropdown" id="btn-slnhap"
@@ -164,7 +164,7 @@
                                                 data-button="sauVATN" type="button">Sau VAT</button>
                                             <button class="dropdown-item btndropdown" id="btn-TTN"
                                                 data-button="TTN" type="button">Thanh toán</button>
-                                            <button class="dropdown-item btndropdown" id="btn-ngayTTN"
+                                            <button class="dropdown-item btndropdown" id="btn-dateTTN"
                                                 data-button="ngayTTN" type="button">Ngày thanh toán</button>
                                             <button class="dropdown-item btndropdown" id="btn-HTTTN"
                                                 data-button="HTTTN" type="button">Hình thức thanh
@@ -183,11 +183,11 @@
                                                 data-button="sauVATX" type="button">Sau VAT</button>
                                             <button class="dropdown-item btndropdown" id="btn-hdra"
                                                 data-button="hdra" type="button">Hoá đơn ra</button>
-                                            <button class="dropdown-item btndropdown" id="btn-datequoteX"
+                                            <button class="dropdown-item btndropdown" id="btn-dateHDX"
                                                 data-button="datequoteX" type="button">Ngày hoá đơn</button>
                                             <button class="dropdown-item btndropdown" id="btn-TTX"
                                                 data-button="TTX" type="button">Đã trả</button>
-                                            <button class="dropdown-item btndropdown" id="btn-ngayTTX"
+                                            <button class="dropdown-item btndropdown" id="btn-dateTTX"
                                                 data-button="ngayTTX" type="button">Ngày thanh toán</button>
                                             <button class="dropdown-item btndropdown" id="btn-HTTTX"
                                                 data-button="HTTTX" type="button">Hình thức</button>
@@ -219,8 +219,11 @@
                                     <x-filter-status name="TTN" key1="0" value1="Chưa thanh toán"
                                         key2="2" value2="Thanh toán đủ" key3="1" value3="Một phần"
                                         title="Thanh toán nhập" />
+                                    <x-filter-date-time name="dateTTN" title="Ngày thanh toán nhập" />
+                                    <x-filter-date-time name="dateHDN" title="Ngày hoá đơn nhập" />
+                                    <x-filter-date-time name="dateTTX" title="Ngày thanh toán xuất" />
+                                    <x-filter-date-time name="dateHDX" title="Ngày hoá đơn xuất" />
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -790,6 +793,22 @@
             var val_slnhap = $('.slnhap-quantity').val();
             var slnhap = [operator_slnhap, val_slnhap];
 
+            var date_startHDN = $('#date_start_dateHDN').val();
+            var date_endHDN = $('#date_end_dateHDN').val();
+            var dateHDN = [date_startHDN, date_endHDN];
+
+            var date_startHDX = $('#date_start_dateHDX').val();
+            var date_endHDX = $('#date_end_dateHDX').val();
+            var dateHDX = [date_startHDX, date_endHDX];
+
+            var date_startTTN = $('#date_start_dateTTN').val();
+            var date_endTTN = $('#date_end_dateTTN').val();
+            var dateTTN = [date_startTTN, date_endTTN];
+
+            var date_startTTX = $('#date_start_dateTTX').val();
+            var date_endTTX = $('#date_end_dateTTX').val();
+            var dateTTX = [date_startTTX, date_endTTX];
+
             if ($(this).data('button-name') === 'TTN') {
                 $('.ks-cboxtags-TTN input[type="checkbox"]').each(function() {
                     const value = $(this).val();
@@ -835,15 +854,17 @@
             ];
 
             var btn_submit = $(this).data('button-name');
-            $('#' + btn_submit + '-options').hide();
+            //$('#' + btn_submit + '-options').hide();
             $(".btn-filter_search").prop("disabled", false);
             if ($(this).data('delete') === 'TTN') {
                 TTN = [];
-                $('.deselect-all-TTN').click();
+                // $('.deselect-all-TTN').click();
+                $('.ks-cboxtags-TTN input[type="checkbox"]').prop('checked', false);
             }
             if ($(this).data('delete') === 'TTX') {
                 TTX = [];
-                $('.deselect-all-TTX').click();
+                // $('.deselect-all-TTX').click();
+                $('.ks-cboxtags-TTX input[type="checkbox"]').prop('checked', false);
             }
             if ($(this).data('delete') === 'provides') {
                 provides = null;
@@ -917,6 +938,26 @@
                 slxuat = null;
                 $('.slxuat-quantity').val('');
             }
+            if ($(this).data('delete') === 'dateHDN') {
+                dateHDN = null;
+                $('#date_start_dateHDN').val('');
+                $('#date_end_dateHDN').val('');
+            }
+            if ($(this).data('delete') === 'dateHDX') {
+                dateHDX = null;
+                $('#date_start_dateHDX').val('');
+                $('#date_end_dateHDX').val('');
+            }
+            if ($(this).data('delete') === 'dateTTN') {
+                dateTTN = null;
+                $('#date_start_dateTTN').val('');
+                $('#date_end_dateTTN').val('');
+            }
+            if ($(this).data('delete') === 'dateTTX') {
+                dateTTX = null;
+                $('#date_start_dateTTX').val('');
+                $('#date_end_dateTTX').val('');
+            }
             // Xử lí dữ liệu
             if (buttonname === 'history') {
                 $.ajax({
@@ -944,6 +985,10 @@
                         HTTTX: HTTTX,
                         HTTTN: HTTTN,
                         sauVATX: sauVATX,
+                        dateHDN: dateHDN,
+                        dateHDX: dateHDX,
+                        dateTTN: dateTTN,
+                        dateTTX: dateTTX,
                         slxuat: slxuat,
                         slnhap: slnhap,
                         sort: sort,
@@ -970,7 +1015,7 @@
                             // Tạo thẻ item-filter
                             var itemFilter = $('<div>').addClass(
                                 'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
-                            );
+                            ).attr('data-icon', item.icon);
                             itemFilter.css('order', index);
                             // Thêm nội dung và thuộc tính data vào thẻ item-filter
                             itemFilter.append(

@@ -84,7 +84,7 @@
                                         <div class="search-container px-2">
                                             <input type="text" placeholder="Tìm kiếm" id="myInput"
                                                 onkeyup="filterFunction()" class="text-13">
-                                            <span class="search-icon">
+                                            <span class="search-icon mr-2">
                                                 <i class="fas fa-search"></i>
                                             </span>
                                         </div>
@@ -309,7 +309,7 @@
         sort = [
             sort_by, sort_type
         ];
-        $('#' + btn_submit + '-options').hide();
+        //$('#' + btn_submit + '-options').hide();
         $(".btn-filter_search").prop("disabled", false);
 
         if ($(this).data('delete') === 'code') {
@@ -318,7 +318,8 @@
         }
         if ($(this).data('delete') === 'idName') {
             idName = [];
-            $('.deselect-all-idName').click();
+            // $('.deselect-all-idName').click();
+            $('.ks-cboxtags-name input[type="checkbox"]').prop('checked', false);
         }
         if ($(this).data('delete') === 'inventory') {
             inventory = null;
@@ -355,7 +356,7 @@
                     // Tạo thẻ item-filter
                     var itemFilter = $('<div>').addClass(
                         'item-filter span input-search d-flex justify-content-center align-items-center mr-2'
-                    );
+                    ).attr('data-icon', item.icon);
                     itemFilter.css('order', index);
                     // Thêm nội dung và thuộc tính data vào thẻ item-filter
                     itemFilter.append(

@@ -368,6 +368,11 @@ class Reciept extends Model
         if (isset($data['total'][0]) && isset($data['total'][1])) {
             $reciept = $reciept->where('reciept.price_total', $data['total'][0], $data['total'][1]);
         }
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1]);
+            $reciept = $reciept->whereBetween('reciept.date_bill', [$dateStart, $dateEnd]);
+        }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $reciept = $reciept->orderBy($data['sort'][0], $data['sort'][1]);
         }

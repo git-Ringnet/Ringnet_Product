@@ -441,30 +441,30 @@ class PayExportController extends Controller
         if (isset($data['code_payment']) && $data['code_payment'] !== null) {
             $payExport = $this->payExport->code_paymentById($data['code_payment']);
             $payExportString = implode(', ', $payExport);
-            $filters[] = ['value' => 'Số hoá đơn: ' . $payExportString, 'name' => 'code_payment'];
+            $filters[] = ['value' => 'Số hoá đơn: ' . count($data['code_payment']) . ' hoá đơn', 'name' => 'code_payment'];
         }
         if (isset($data['users']) && $data['users'] !== null) {
             $users = $this->users->getNameUser($data['users']);
             $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users'];
         }
         $statusText = '';
         if (isset($data['status']) && $data['status'] !== null) {
             $statusValues = [];
             if (in_array(1, $data['status'])) {
-                $statusValues[] = 'Chưa thanh toán';
+                $statusValues[] = '<span style="color: #858585;">Chưa thanh toán</span>';
             }
             if (in_array(2, $data['status'])) {
-                $statusValues[] = 'Thanh toán đủ';
+                $statusValues[] = '<span style="color: #08AA36BF;">Thanh toán đủ</span>';
             }
-            if (in_array(3, $data['status'])) {
-                $statusValues[] = 'Trước hạn';
+            if (in_array(6, $data['status'])) {
+                $statusValues[] = '<span style="color: #E8B600;">Đến hạn</span>';
             }
             if (in_array(4, $data['status'])) {
-                $statusValues[] = 'Quá hạn';
+                $statusValues[] = '<span style="color: #EC212D;">Quá hạn</span>';
             }
             if (in_array(5, $data['status'])) {
-                $statusValues[] = 'Thanh toán 1 phần';
+                $statusValues[] = '<span style="color: #0052CC;">Thanh toán 1 phần</span>';
             }
             $statusText = implode(', ', $statusValues);
             $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
@@ -477,6 +477,11 @@ class PayExportController extends Controller
         }
         if (isset($data['debt']) && $data['debt'][1] !== null) {
             $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt'];
+        }
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Hạn thanh toán: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
         if ($request->ajax()) {
             $payExport = $this->payExport->ajaxdas($data);

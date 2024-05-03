@@ -244,7 +244,7 @@ class Receive_bill extends Model
         $dataUpdate = [
             $columStatus => $status
         ];
-        if($status == 2 && $detail->status_reciept == 2 && $detail->status_pay == 2){
+        if ($status == 2 && $detail->status_reciept == 2 && $detail->status_pay == 2) {
             $dataUpdate['status'] = 2;
         }
         DB::table('detailimport')->where('id', $detail->id)
@@ -504,6 +504,11 @@ class Receive_bill extends Model
         }
         if (isset($data['total'][0]) && isset($data['total'][1])) {
             $receive = $receive->where('receive_bill.total_tax', $data['total'][0], $data['total'][1]);
+        }
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1]);
+            $receive = $receive->whereBetween('receive_bill.created_at', [$dateStart, $dateEnd]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $receive = $receive->orderBy($data['sort'][0], $data['sort'][1]);

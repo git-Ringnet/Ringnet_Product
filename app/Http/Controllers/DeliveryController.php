@@ -129,11 +129,9 @@ class DeliveryController extends Controller
                 // Sau khi lưu xong tất cả thông tin, set session export_id
                 $request->session()->put('pdf_info.delivery_id', $delivery_id);
             }
-            if($request->redirect == "delivery")
-            {
+            if ($request->redirect == "delivery") {
                 return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', ' Tạo mới đơn giao hàng thành công !');
-            }
-            else{
+            } else {
                 return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', ' Tạo mới đơn giao hàng thành công !');
             }
         }
@@ -144,10 +142,9 @@ class DeliveryController extends Controller
                 'des' => 'Giao hàng'
             ];
             $this->userFlow->addUserFlow($arrLuuNhap);
-            if($request->redirect == "delivery"){
+            if ($request->redirect == "delivery") {
                 return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
-            }
-            else{
+            } else {
                 return redirect()->route('delivery.index', ['workspace' => $workspace])->with('msg', 'Xác nhận đơn giao hàng thành công!');
             }
         }
@@ -341,7 +338,7 @@ class DeliveryController extends Controller
         $delivery = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->leftJoin('products', 'products.id', 'quoteexport.product_id')
-            ->select('*', 'detailexport.id as maXuat', 'quoteexport.product_id as maSP', 'quoteexport.product_code as maCode', 'quoteexport.product_name as tenSP', 'quoteexport.product_tax as thueSP','quoteexport.product_unit as product_unit')
+            ->select('*', 'detailexport.id as maXuat', 'quoteexport.product_id as maSP', 'quoteexport.product_code as maCode', 'quoteexport.product_name as tenSP', 'quoteexport.product_tax as thueSP', 'quoteexport.product_unit as product_unit')
             ->selectRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) as soLuongCanGiao')
             ->leftJoin('serialnumber', function ($join) {
                 $join->on('serialnumber.product_id', '=', 'products.id');
@@ -430,27 +427,33 @@ class DeliveryController extends Controller
         if (isset($data['code_delivery']) && $data['code_delivery'] !== null) {
             $delivery = $this->delivery->code_deliveryById($data['code_delivery']);
             $deliveryString = implode(', ', $delivery);
-            $filters[] = ['value' => 'Mã giao hàng: ' . $deliveryString, 'name' => 'code_delivery'];
+            $filters[] = ['value' => 'Mã giao hàng: ' . count($data['code_delivery']) . ' mã giao hàng', 'name' => 'code_delivery'];
         }
         if (isset($data['users']) && $data['users'] !== null) {
             $users = $this->users->getNameUser($data['users']);
             $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users'];
         }
         $statusText = '';
+        $statusColor = '';
         if (isset($data['status']) && $data['status'] !== null) {
             $statusValues = [];
             if (in_array(1, $data['status'])) {
-                $statusValues[] = 'Chưa giao';
+                $statusValues[] = '<span style="color: #858585;">Chưa giao</span>';
             }
             if (in_array(2, $data['status'])) {
-                $statusValues[] = 'Đã giao';
+                $statusValues[] = '<span style="color: #08AA36BF;">Đã giao</span>';
             }
             $statusText = implode(', ', $statusValues);
             $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
         }
         if (isset($data['shipping_fee']) && $data['shipping_fee'][1] !== null) {
             $filters[] = ['value' => 'Phí vận chuyển: ' . $data['shipping_fee'][0] . $data['shipping_fee'][1], 'name' => 'shipping_fee'];
+        }
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày giao hàng: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
             $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];

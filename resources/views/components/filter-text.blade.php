@@ -17,7 +17,7 @@
             class="btn mx-1 btn-block text-13-black btn-cancel-filter">
             Hủy
         </button>
-        <button type="submit" class="btn mx-1 btn-block btn-submit text-btnIner-primary"
+        <button type="submit" class="btn mx-1 btn-block btn-submit text-btnIner-filter"
             data-title="{{ $title }}" data-button-name="{{ $name }}"
             data-button="{{ $button }}">Xác Nhận</button>
     </div>

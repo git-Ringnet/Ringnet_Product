@@ -951,24 +951,29 @@ class DetailExportController extends Controller
         if (isset($data['reference_number']) && $data['reference_number'] !== null) {
             $detailExport = $this->detailExport->reference_numberById($data['reference_number']);
             $detailExportString = implode(', ', $detailExport);
-            $filters[] = ['value' => 'Số tham chiếu: ' . $detailExportString, 'name' => 'reference_number'];
+            $filters[] = ['value' => 'Số tham chiếu: ' . count($data['reference_number']) . ' số tham chiếu', 'name' => 'reference_number'];
         }
         if (isset($data['users']) && $data['users'] !== null) {
             $users = $this->users->getNameUser($data['users']);
             $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users'];
+        }
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày báo giá: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
         $statusText = '';
         if (isset($data['status']) && $data['status'] !== null) {
             $statusValues = [];
             if (in_array(1, $data['status'])) {
-                $statusValues[] = 'Draft';
+                $statusValues[] = '<span style="color: #858585;">Draft</span>';
             }
             if (in_array(2, $data['status'])) {
-                $statusValues[] = 'Approve';
+                $statusValues[] = '<span style="color: #E8B600;">Approve</span>';
             }
             if (in_array(3, $data['status'])) {
-                $statusValues[] = 'Close';
+                $statusValues[] = '<span style="color: #08AA36BF;">Close</span>';
             }
             $statusText = implode(', ', $statusValues);
             $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
@@ -977,13 +982,13 @@ class DetailExportController extends Controller
         if (isset($data['receive']) && $data['receive'] !== null) {
             $statusValues = [];
             if (in_array(1, $data['receive'])) {
-                $statusValues[] = 'Chưa giao';
+                $statusValues[] = '<span style="color: #858585;">Chưa giao</span>';
             }
             if (in_array(2, $data['receive'])) {
-                $statusValues[] = 'Đã giao';
+                $statusValues[] = '<span style="color: #08AA36BF;">Đã giao</span>';
             }
             if (in_array(3, $data['receive'])) {
-                $statusValues[] = 'Một phần';
+                $statusValues[] = '<span style="color: #E8B600;">Một phần</span>';
             }
             $statusTextReceive = implode(', ', $statusValues);
             $filters[] = ['value' => 'Giao hàng: ' . $statusTextReceive, 'name' => 'receive'];
@@ -992,13 +997,13 @@ class DetailExportController extends Controller
         if (isset($data['reciept']) && $data['reciept'] !== null) {
             $statusValues = [];
             if (in_array(1, $data['reciept'])) {
-                $statusValues[] = 'Nháp';
+                $statusValues[] = '<span style="color: #858585;">Bản nháp</span>';
             }
             if (in_array(2, $data['reciept'])) {
-                $statusValues[] = 'Chính thức';
+                $statusValues[] = '<span style="color: #08AA36BF;">Chính thức</span>';
             }
             if (in_array(3, $data['reciept'])) {
-                $statusValues[] = 'Một phần';
+                $statusValues[] = '<span style="color: #E8B600;">Một phần</span>';
             }
             $statusTextReceipt = implode(', ', $statusValues);
             $filters[] = ['value' => 'Hoá đơn: ' . $statusTextReceipt, 'name' => 'reciept'];
@@ -1007,13 +1012,13 @@ class DetailExportController extends Controller
         if (isset($data['pay']) && $data['pay'] !== null) {
             $statusValues = [];
             if (in_array(1, $data['pay'])) {
-                $statusValues[] = 'Chưa thanh toán';
+                $statusValues[] = '<span style="color: #858585;">Chưa thanh toán</span>';
             }
             if (in_array(2, $data['pay'])) {
-                $statusValues[] = 'Thanh toán đủ';
+                $statusValues[] = '<span style="color: #08AA36BF;">Thanh toán đủ</span>';
             }
             if (in_array(3, $data['pay'])) {
-                $statusValues[] = 'Một phần';
+                $statusValues[] = '<span style="color: #E8B600;">Một phần</span>';
             }
             $statusTextPay = implode(', ', $statusValues);
             $filters[] = ['value' => 'Thanh toán: ' . $statusTextPay, 'name' => 'pay'];

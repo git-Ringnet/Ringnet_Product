@@ -48,6 +48,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="content-filter-all">
         <section class="content-header--options p-0 border-custom">
             <div class="width-18">
                 <ul class="header-options--nav nav nav-tabs margin-left32 border-bottom-0"
@@ -148,7 +150,6 @@
                                             title="Tổng thanh toán" />
                                         <x-filter-compare name="debt-import" button="import" title="Công nợ" />
                                     </div>
-                                    <div class="result-filter-import w-50"></div>
                                 </div>
                             </div>
                         </div>
@@ -241,8 +242,6 @@
                                             title="Tổng doanh số" />
                                         <x-filter-compare name="debt-export" button="export" title="Công nợ" />
                                     </div>
-                                    <div class="result-filter-export w-50">
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -301,20 +300,21 @@
                 <!-- Main content -->
                 <section class="content margin-250">
                     <div class="container-fluided">
+                        <div class="row result-filter-import margin-left30 my-1">
+                        </div>
                         <div class="row">
                             <div class="col-md-12 p-0 m-0 pl-2">
                                 <div class="card">
                                     <!-- /.card-header -->
-                                    <div class="outer text-nowrap">
+                                    <div class="outer2 text-nowrap">
                                         <table id="example2" class="table table-hover">
                                             <thead class="sticky-head">
-                                                <tr>
-                                                    <th scope="col" style="padding-left: 2rem;"
-                                                        class="border-top-0 bg-white">
+                                                <tr class="border-custom">
+                                                    <th scope="col" style="padding-left: 2rem;" class="bg-white">
                                                         <input type="checkbox" name="all" id="checkall"
                                                             class="checkall-btn">
                                                     </th>
-                                                    <th scope="col" class="border-top-0 bg-white pl-0">
+                                                    <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="import" data-sort-by="provide_code"
@@ -326,7 +326,7 @@
                                                             <div class="icon" id="icon-import-provide_code"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border-top-0 bg-white pl-0">
+                                                    <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="import" data-sort-by="provide_name"
@@ -338,7 +338,7 @@
                                                             <div class="icon" id="icon-import-provide_name"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border-top-0 bg-white pl-0">
+                                                    <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="import" data-sort-by="sumSell"
@@ -350,7 +350,7 @@
                                                             <div class="icon" id="icon-import-sumSell"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border-top-0 bg-white pl-0">
+                                                    <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="import" data-sort-by="sumAmountOwed"
@@ -426,20 +426,21 @@
                 <!-- Main content -->
                 <section class="content margin-250">
                     <div class="container-fluided">
+                        <div class="row result-filter-export margin-left30 my-1">
+                        </div>
                         <div class="row">
                             <div class="col-md-12 p-0 m-0 pl-2">
                                 <div class="card">
                                     <!-- /.card-header -->
-                                    <div class="outer text-nowrap">
+                                    <div class="outer2 text-nowrap">
                                         <table id="example2" class="table table-hover">
                                             <thead class="sticky-head">
                                                 <tr>
-                                                    <th scope="col" style="padding-left: 2rem;"
-                                                        class="border-top-0 bg-white">
+                                                    <th scope="col" style="padding-left: 2rem;" class="bg-white">
                                                         <input type="checkbox" name="all" id="checkall"
                                                             class="checkall-btn">
                                                     </th>
-                                                    <th scope="col" class="border-top-0 bg-white pl-0">
+                                                    <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="export" data-sort-by="guest_code"
@@ -451,7 +452,7 @@
                                                             <div class="icon" id="icon-export-guest_code"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border-top-0 bg-white pl-0">
+                                                    <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="export" data-sort-by="guest_name"
@@ -463,7 +464,7 @@
                                                             <div class="icon" id="icon-export-guest_name"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border-top-0 bg-white pl-0">
+                                                    <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="export" data-sort-by="sumSell"
@@ -475,7 +476,7 @@
                                                             <div class="icon" id="icon-export-sumSell"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border-top-0 bg-white pl-0">
+                                                    <th scope="col" class="bg-white pl-0">
                                                         <span class="d-flex">
                                                             <a href="#" class="sort-link btn-submit"
                                                                 data-button="export" data-sort-by="sumAmountOwed"
@@ -801,7 +802,7 @@
         ];
 
         var btn_submit = $(this).data('button-name');
-        $('#' + btn_submit + '-options').hide();
+        //$('#' + btn_submit + '-options').hide();
         $(".btn-filter_search").prop("disabled", false);
         // Xử lí dữ liệu
         if (buttonname == 'import') {
@@ -825,7 +826,8 @@
             }
             if ($(this).data('delete') === 'name') {
                 idProvides = [];
-                $('.deselect-all-name-import').click();
+                // $('.deselect-all-name-import').click();
+                $('.ks-cboxtags-name-import input[type="checkbox"]').prop('checked', false);
             }
             if ($(this).data('delete') === 'total') {
                 total = null;
@@ -867,8 +869,8 @@
                         var index = filtersProvides.indexOf(item.name);
                         // Tạo thẻ item-filter
                         var itemFilter = $('<div>').addClass(
-                            'item-filter span input-search d-flex justify-content-center align-items-center'
-                        );
+                            'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
+                        ).attr('data-icon', item.icon);
                         itemFilter.css('order', index);
                         // Thêm nội dung và thuộc tính data vào thẻ item-filter
                         itemFilter.append(
@@ -934,7 +936,8 @@
             }
             if ($(this).data('delete') === 'name') {
                 idGuests = [];
-                $('.deselect-all-name-export').click();
+                // $('.deselect-all-name-export').click();
+                $('.ks-cboxtags-name-export input[type="checkbox"]').prop('checked', false);
             }
             if ($(this).data('delete') === 'total') {
                 total = null;
@@ -975,8 +978,8 @@
                         var index = filters.indexOf(item.name);
                         // Tạo thẻ item-filter
                         var itemFilter = $('<div>').addClass(
-                            'item-filter span input-search d-flex justify-content-center align-items-center'
-                        );
+                            'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
+                        ).attr('data-icon', item.icon);
                         itemFilter.css('order', index);
                         // Thêm nội dung và thuộc tính data vào thẻ item-filter
                         itemFilter.append(

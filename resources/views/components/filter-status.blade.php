@@ -7,7 +7,7 @@
         {{-- <div class="search-container px-2 mt-2">
             <input type="text" placeholder="Tìm kiếm" id="myInput-{{ $name }}" class="pr-4 w-100 input-search"
                 onkeyup="filter{{ $name }}()">
-            <span class="search-icon"><i class="fas fa-search"></i></span>
+            <span class="search-icon mr-2"><i class="fas fa-search"></i></span>
         </div>
         <div class="select-checkbox d-flex justify-contents-center align-items-baseline pb-2 px-2">
             <a class="cursor select-all-{{ $name }} mr-auto" data-button-name="{{ $name }}">Chọn tất
@@ -21,7 +21,7 @@
                         data-button="{{ isset($button) ? $button : '' }}">
                         <input type="checkbox" id="{{ $name }}_{{ $key1 }}" name="{{ $name }}[]"
                             value="{{ $key1 }}">
-                        <label for="">{{ $value1 }}</label>
+                        <label style="color: {{ $color1 }}" for="">{{ $value1 }}</label>
                     </li>
                 @endif
                 @if (isset($key2) && isset($value2))
@@ -29,7 +29,7 @@
                         data-button="{{ isset($button) ? $button : '' }}">
                         <input type="checkbox" id="{{ $name }}_{{ $key2 }}"
                             name="{{ $name }}[]" value="{{ $key2 }}">
-                        <label for="">{{ $value2 }}</label>
+                        <label style="color: {{ $color2 }}"for="">{{ $value2 }}</label>
                     </li>
                 @endif
                 @if (isset($key3) && isset($value3))
@@ -37,7 +37,7 @@
                         data-button="{{ isset($button) ? $button : '' }}">
                         <input type="checkbox" id="{{ $name }}_{{ $key3 }}"
                             name="{{ $name }}[]" value="{{ $key3 }}">
-                        <label for="">{{ $value3 }}</label>
+                        <label style="color: {{ $color3 }}"for="">{{ $value3 }}</label>
                     </li>
                 @endif
                 @if (isset($key4) && isset($value4))
@@ -45,7 +45,7 @@
                         data-button="{{ isset($button) ? $button : '' }}">
                         <input type="checkbox" id="{{ $name }}_{{ $key4 }}"
                             name="{{ $name }}[]" value="{{ $key4 }}">
-                        <label for="">{{ $value4 }}</label>
+                        <label style="color: {{ $color4 }}"for="">{{ $value4 }}</label>
                     </li>
                 @endif
                 @if (isset($key5) && isset($value5))
@@ -53,7 +53,7 @@
                         data-button="{{ isset($button) ? $button : '' }}">
                         <input type="checkbox" id="{{ $name }}_{{ $key5 }}"
                             name="{{ $name }}[]" value="{{ $key5 }}">
-                        <label for="">{{ $value5 }}</label>
+                        <label style="color: {{ $color5 }}"for="">{{ $value5 }}</label>
                     </li>
                 @endif
             </ul>

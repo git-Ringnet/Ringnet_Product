@@ -109,9 +109,9 @@
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-status"
                                                 data-button="status" type="button">Trạng thái
                                             </button>
-                                            {{-- <button class="dropdown-item btndropdown text-13-black" id="btn-reciept"
-                                                data-button="reciept" type="button">Ngày giao hàng
-                                            </button> --}}
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
+                                                data-button="date" type="button">Hạn thanh toán
+                                            </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-total"
                                                 data-button="total" type="button">
                                                 Tổng tiền
@@ -133,12 +133,14 @@
                                     <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
                                         namedisplay="name" />
                                     <x-filter-status name="status" key1="1" value1="Chưa thanh toán"
-                                        key2="2" value2="Thanh toán đủ" key3="3" value3="Trước hạn"
-                                        key4="4" value4="Quá hạn" key5="5" value5="Thanh toán một phần"
-                                        title="Trạng thái" />
+                                        key2="2" value2="Thanh toán đủ" key3="3" value3="Đến hạn"
+                                        key4="4" value4="Quá hạn" key5="6" value5="Đặt cọc"
+                                        color1="#858585" color2="#08AA36BF" color3="#0052CC" color4="#EC212D"
+                                        color5="#08AA36BF" title="Trạng thái" />
                                     <x-filter-compare name="total" title="Tổng tiền" />
                                     <x-filter-compare name="payment" title="Đã nhận" />
                                     <x-filter-compare name="debt" title="Dư nợ" />
+                                    <x-filter-date-time name="date" title="Hạn thanh toán" />
                                 </div>
                             </div>
                         </div>
@@ -450,6 +452,9 @@
         var operator_payment = $('.payment-operator').val();
         var val_payment = $('.payment-quantity').val();
         var payment = [operator_payment, val_payment];
+        var date_start = $('#date_start_date').val();
+        var date_end = $('#date_end_date').val();
+        var date = [date_start, date_end];
         if ($(this).data('button-name') === 'status') {
             $('.ks-cboxtags-status input[type="checkbox"]').each(function() {
                 const value = $(this).val();
@@ -505,7 +510,7 @@
         sort = [
             sort_by, sort_type
         ];
-        $('#' + btn_submit + '-options').hide();
+        //$('#' + btn_submit + '-options').hide();
         $(".btn-filter_search").prop("disabled", false);
         if ($(this).data('delete') === 'quotenumber') {
             quotenumber = null;
@@ -513,7 +518,8 @@
         }
         if ($(this).data('delete') === 'payment_code') {
             payment_code = [];
-            $('.deselect-all-payment_code').click();
+            // $('.deselect-all-payment_code').click();
+            $('.ks-cboxtags-payment_code input[type="checkbox"]').prop('checked', false);
         }
         if ($(this).data('delete') === 'provides') {
             provides = null;
@@ -521,11 +527,12 @@
         }
         if ($(this).data('delete') === 'users') {
             users = [];
-            $('.deselect-all-users').click();
+            $('.ks-cboxtags-users input[type="checkbox"]').prop('checked', false);
+
         }
         if ($(this).data('delete') === 'status') {
             statusDe = [];
-            $('.deselect-all-status').click();
+            $('.ks-cboxtags-status input[type="checkbox"]').prop('checked', false);
         }
         if ($(this).data('delete') === 'total') {
             total = null;
@@ -538,6 +545,11 @@
         if ($(this).data('delete') === 'payment') {
             payment = null;
             $('.payment-quantity').val('');
+        }
+        if ($(this).data('delete') === 'date') {
+            date = null;
+            $('#date_start_date').val('');
+            $('#date_end_date').val('');
         }
         $.ajax({
             type: 'get',
@@ -552,6 +564,7 @@
                 payment_code: payment_code,
                 status: statusDe,
                 total: total,
+                date: date,
                 sort: sort,
             },
             success: function(data) {
@@ -575,7 +588,7 @@
                     // Tạo thẻ item-filter
                     var itemFilter = $('<div>').addClass(
                         'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
-                    );
+                    ).attr('data-icon', item.icon);
                     itemFilter.css('order', index);
                     // Thêm nội dung và thuộc tính data vào thẻ item-filter
                     itemFilter.append(

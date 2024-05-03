@@ -217,7 +217,8 @@
                                                     </span>
                                                     <input type="checkbox" class="cb-element checkall-btn">
                                                 </td>
-                                                <td class="text-13-black height-52 border-top-0 border-bottom text-wrap">
+                                                <td
+                                                    class="text-13-black height-52 border-top-0 border-bottom text-wrap">
                                                     <a href="{{ route('provides.show', ['workspace' => $workspacename, 'provide' => $item->id]) }}"
                                                         class="user_flow" data-type="NCC"
                                                         data-des="Xem nhà cung cấp">
@@ -388,11 +389,12 @@
         sort = [
             sort_by, sort_type
         ];
-        $('#' + btn_submit + '-options').hide();
+        //$('#' + btn_submit + '-options').hide();
         $(".btn-filter_search").prop("disabled", false);
         if ($(this).data('delete') === 'provides') {
             provides = [];
-            $('.deselect-all-provides').click();
+            // $('.deselect-all-provides').click();
+            $('.ks-cboxtags-provides input[type="checkbox"]').prop('checked', false);
         }
         if ($(this).data('delete') === 'provide_code') {
             provide_code = null;
@@ -400,7 +402,8 @@
         }
         if ($(this).data('delete') === 'users') {
             users = [];
-            $('.deselect-all-users').click();
+            $('.ks-cboxtags-users input[type="checkbox"]').prop('checked', false);
+
         }
         if ($(this).data('delete') === 'debt') {
             debt = null;
@@ -438,7 +441,7 @@
                     // Tạo thẻ item-filter
                     var itemFilter = $('<div>').addClass(
                         'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
-                    );
+                    ).attr('data-icon', item.icon);
                     itemFilter.css('order', index);
                     // Thêm nội dung và thuộc tính data vào thẻ item-filter
                     itemFilter.append(

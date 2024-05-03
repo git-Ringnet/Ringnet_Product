@@ -295,9 +295,9 @@ li {
 }
 
 .block-options .input-group input {
-    border-radius: 8px;
-    border-top-left-radius: 8px !important;
-    border-bottom-left-radius: 8px !important;
+    border-radius: 4px;
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
 }
 
 .scrollbar,
@@ -1062,16 +1062,29 @@ td p {
 }
 
 .wrap .cursor {
+    font-size: 12px;
     font-weight: 500;
-    font-size: 14px;
-    color: #000000;
+    color: #858585;
 }
 
 .wrap label {
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 500 !important;
+    font-size: 14px !important;
 }
-
+.input-groups input[type=date]{
+    border: 1px solid #D8D8D8;
+    box-shadow: 0px 6px 10px 0px #00000033;
+    text-align: center;
+}
+.item-icon{
+    padding-right: 8px;
+}
+.item-filter{
+    position: relative;
+}
+.item-filter span{
+    padding-top: 3px;
+}
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -1147,8 +1160,9 @@ input[type="number"] {
 
 .checkbox-options ul label,
 .block-options-admin label {
-    font-weight: 400 !important;
-    color: #555555;
+    font-weight: 500 !important;
+    font-size: 14px;
+    color: #282A30;
     margin: 0;
     padding-left: 5px;
     user-select: none;
@@ -1227,6 +1241,20 @@ input[type="number"] {
     margin-left: 35% !important;
 }
 .text-btnIner-primary {
+    background-color: #6E79D6;
+    border-radius: 4px;
+    font-size: 13px;
+    color: white;
+}
+.btn-filter_search:disabled{
+    cursor: no-drop;
+}
+.fa-solid.fa-xmark{
+    margin-top: 4px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+.text-btnIner-filter{
     /* background-color: #6E79D6;
     padding: 7px 8px 7px 8px;
     gap: 6px; */
@@ -1467,6 +1495,7 @@ input[type="number"] {
 }
 
 .input-search {
+    height: 30px;
     padding: 5px 12px;
     border: 1px solid #d6d6d6;
     border-radius: 5px;
@@ -1485,7 +1514,8 @@ input[type="search"] {
 
 /*Checkbox*/
 input[type="checkbox"] {
-    accent-color: #555555;
+    accent-color: #6E79D6;
+    outline: #6E79D6;
 }
 
 .labelform {
@@ -2537,7 +2567,7 @@ input[type="checkbox"] {
 }
 
 .margin-top-fixed10 {
-    margin-top: 10.5rem;
+    margin-top: 11.3rem;
 }
 
 .margin-top-fixed11 {

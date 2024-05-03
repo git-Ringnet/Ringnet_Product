@@ -784,6 +784,11 @@ class Delivery extends Model
         if (isset($data['status'])) {
             $delivery = $delivery->whereIn('delivery.status', $data['status']);
         }
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1]);
+            $delivery = $delivery->whereBetween('delivery.created_at', [$dateStart, $dateEnd]);
+        }
         if (isset($data['shipping_fee'][0]) && isset($data['shipping_fee'][1])) {
             $delivery = $delivery->where('delivery.shipping_fee', $data['shipping_fee'][0], $data['shipping_fee'][1]);
         }

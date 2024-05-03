@@ -172,12 +172,12 @@ class ProvidesController extends Controller
         if (isset($data['provides']) && $data['provides'] !== null) {
             $provide = $this->provides->provideName($data['provides']);
             $provideString = implode(', ', $provide);
-            $filters[] = ['value' => 'Tên hiển thị: ' . $provideString, 'name' => 'provides'];
+            $filters[] = ['value' => 'Tên hiển thị: ' . count($data['provides']) . ' nhà cung cấp', 'name' => 'provides'];
         }
         if (isset($data['users']) && $data['users'] !== null) {
             $users = $this->users->getNameUser($data['users']);
             $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users'];
         }
         if (isset($data['debt']) && $data['debt'][1] !== null) {
             $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt'];

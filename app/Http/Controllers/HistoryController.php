@@ -124,17 +124,38 @@ class HistoryController extends Controller
         if (isset($data['sauVATX']) && $data['sauVATX'][1] !== null) {
             $filters[] = ['value' => 'Sau VAT xuất: ' . $data['sauVATX'][0] . $data['sauVATX'][1], 'name' => 'sauVATX'];
         }
+        if (isset($data['dateHDN']) && $data['dateHDN'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['dateHDN'][0]));
+            $date_end = date("d/m/Y", strtotime($data['dateHDN'][1]));
+            $filters[] = ['value' => 'Ngày hoá đơn nhập: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'dateHDN', 'icon' => 'date'];
+        }
+        if (isset($data['dateHDX']) && $data['dateHDX'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['dateHDX'][0]));
+            $date_end = date("d/m/Y", strtotime($data['dateHDX'][1]));
+            $filters[] = ['value' => 'Ngày hoá đơn xuất: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'dateHDX', 'icon' => 'date'];
+        }
+        if (isset($data['dateTTN']) && $data['dateTTN'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['dateTTN'][0]));
+            $date_end = date("d/m/Y", strtotime($data['dateTTN'][1]));
+            $filters[] = ['value' => 'Ngày thanh toán nhập: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'dateTTN', 'icon' => 'date'];
+        }
+        if (isset($data['dateTTX']) && $data['dateTTX'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['dateTTX'][0]));
+            $date_end = date("d/m/Y", strtotime($data['dateTTX'][1]));
+            $filters[] = ['value' => 'Ngày thanh toán xuất: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'dateTTX', 'icon' => 'date'];
+        }
+
         $statusTextTTN = '';
         if (isset($data['TTN']) && $data['TTN'] !== null) {
             $statusValues = [];
             if (in_array(0, $data['TTN'])) {
-                $statusValues[] = 'Chưa thanh toán';
+                $statusValues[] = '<span style="color: #858585;">Chưa thanh toán</span>';
             }
             if (in_array(2, $data['TTN'])) {
-                $statusValues[] = 'Thanh toán đủ';
+                $statusValues[] = '<span style="color: #08AA36BF;">Thanh toán đủ</span>';
             }
             if (in_array(1, $data['TTN'])) {
-                $statusValues[] = 'Một phần';
+                $statusValues[] = '<span style="color: #E8B600;">Một phần</span>';
             }
             $statusTextTTN = implode(', ', $statusValues);
             $filters[] = ['value' => 'Thanh toán nhập: ' . $statusTextTTN, 'name' => 'TTN'];
@@ -143,13 +164,13 @@ class HistoryController extends Controller
         if (isset($data['TTX']) && $data['TTX'] !== null) {
             $statusValues = [];
             if (in_array(1, $data['TTX'])) {
-                $statusValues[] = 'Chưa thanh toán';
+                $statusValues[] = '<span style="color: #858585;">Chưa thanh toán</span>';
             }
             if (in_array(2, $data['TTX'])) {
-                $statusValues[] = 'Thanh toán đủ';
+                $statusValues[] = '<span style="color: #08AA36BF;">Thanh toán đủ</span>';
             }
             if (in_array(3, $data['TTX'])) {
-                $statusValues[] = 'Một phần';
+                $statusValues[] = '<span style="color: #E8B600;">Một phần</span>';
             }
             $statusTextTTX = implode(', ', $statusValues);
             $filters[] = ['value' => 'Đã trả: ' . $statusTextTTX, 'name' => 'TTX'];

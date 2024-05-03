@@ -396,11 +396,12 @@
         sort = [
             sort_by, sort_type
         ];
-        $('#' + btn_submit + '-options').hide();
+        //$('#' + btn_submit + '-options').hide();
         $(".btn-filter_search").prop("disabled", false);
         if ($(this).data('delete') === 'guests') {
             guests = [];
-            $('.deselect-all-guests').click();
+            // $('.deselect-all-guests').click();
+            $('.ks-cboxtags-guests input[type="checkbox"]').prop('checked', false);
         }
         if ($(this).data('delete') === 'guest_code') {
             guest_code = null;
@@ -408,7 +409,8 @@
         }
         if ($(this).data('delete') === 'users') {
             users = [];
-            $('.deselect-all-users').click();
+            $('.ks-cboxtags-users input[type="checkbox"]').prop('checked', false);
+
         }
         if ($(this).data('delete') === 'debt') {
             debt = null;
@@ -446,7 +448,7 @@
                     // Tạo thẻ item-filter
                     var itemFilter = $('<div>').addClass(
                         'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
-                    );
+                    ).attr('data-icon', item.icon);
                     itemFilter.css('order', index);
                     // Thêm nội dung và thuộc tính data vào thẻ item-filter
                     itemFilter.append(

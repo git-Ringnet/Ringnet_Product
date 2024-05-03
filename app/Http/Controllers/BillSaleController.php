@@ -409,27 +409,32 @@ class BillSaleController extends Controller
         if (isset($data['number_bill']) && $data['number_bill'] !== null) {
             $billSale = $this->billSale->number_billById($data['number_bill']);
             $billSaleString = implode(', ', $billSale);
-            $filters[] = ['value' => 'Số hoá đơn: ' . $billSaleString, 'name' => 'number_bill'];
+            $filters[] = ['value' => 'Số hoá đơn: ' . count($data['number_bill']) . ' hoá đơn', 'name' => 'number_bill'];
         }
         if (isset($data['users']) && $data['users'] !== null) {
             $users = $this->users->getNameUser($data['users']);
             $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . $userstring, 'name' => 'users'];
+            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users'];
         }
         $statusText = '';
         if (isset($data['status']) && $data['status'] !== null) {
             $statusValues = [];
             if (in_array(1, $data['status'])) {
-                $statusValues[] = 'Bản nháp';
+                $statusValues[] = '<span style="color: #858585;">Bản nháp</span>';
             }
             if (in_array(2, $data['status'])) {
-                $statusValues[] = 'Chính thức';
+                $statusValues[] = '<span style="color: #08AA36BF;">Chính thức</span>';
             }
             $statusText = implode(', ', $statusValues);
             $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
             $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
+        }
+        if (isset($data['date']) && $data['date'][1] !== null) {
+            $date_start = date("d/m/Y", strtotime($data['date'][0]));
+            $date_end = date("d/m/Y", strtotime($data['date'][1]));
+            $filters[] = ['value' => 'Ngày hoá đơn: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
         if ($request->ajax()) {
             $billSale = $this->billSale->ajax($data);

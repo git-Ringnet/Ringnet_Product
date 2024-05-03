@@ -477,6 +477,11 @@ class BillSale extends Model
         if (isset($data['total'][0]) && isset($data['total'][1])) {
             $bill_sale = $bill_sale->where('bill_sale.price_total', $data['total'][0], $data['total'][1]);
         }
+        if (!empty($data['date'][0]) && !empty($data['date'][1])) {
+            $dateStart = Carbon::parse($data['date'][0]);
+            $dateEnd = Carbon::parse($data['date'][1]);
+            $bill_sale = $bill_sale->whereBetween('bill_sale.created_at', [$dateStart, $dateEnd]);
+        }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $bill_sale = $bill_sale->orderBy($data['sort'][0], $data['sort'][1]);
         }

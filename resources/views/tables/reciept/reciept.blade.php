@@ -110,9 +110,9 @@
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-status"
                                                 data-button="status" type="button">Trạng thái
                                             </button>
-                                            {{-- <button class="dropdown-item btndropdown text-13-black" id="btn-reciept"
-                                                data-button="reciept" type="button">Ngày giao hàng
-                                            </button> --}}
+                                            <button class="dropdown-item btndropdown text-13-black" id="btn-date"
+                                                data-button="date" type="button">Ngày hoá đơn
+                                            </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-total"
                                                 data-button="total" type="button">
                                                 Tổng tiền
@@ -126,8 +126,10 @@
                                     <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
                                         namedisplay="name" />
                                     <x-filter-status name="status" key1="1" value1="Bản nháp" key2="2"
-                                        value2="Chính thức" title="Trạng thái" />
+                                        value2="Chính thức" color1="#858585" color2="#08AA36BF"
+                                        title="Trạng thái" />
                                     <x-filter-compare name="total" title="Tổng tiền" />
+                                    <x-filter-date-time name="date" title="Ngày hoá đơn" />
                                 </div>
                             </div>
                         </div>
@@ -386,6 +388,9 @@
         var operator_total = $('.total-operator').val();
         var val_total = $('.total-quantity').val();
         var total = [operator_total, val_total];
+        var date_start = $('#date_start_date').val();
+        var date_end = $('#date_end_date').val();
+        var date = [date_start, date_end];
         if ($(this).data('button-name') === 'status') {
             $('.ks-cboxtags-status input[type="checkbox"]').each(function() {
                 const value = $(this).val();
@@ -442,7 +447,7 @@
         sort = [
             sort_by, sort_type
         ];
-        $('#' + btn_submit + '-options').hide();
+        //$('#' + btn_submit + '-options').hide();
         $(".btn-filter_search").prop("disabled", false);
         if ($(this).data('delete') === 'quotenumber') {
             quotenumber = null;
@@ -450,7 +455,8 @@
         }
         if ($(this).data('delete') === 'number_bill') {
             number_bill = [];
-            $('.deselect-all-number_bill').click();
+            // $('.deselect-all-number_bill').click();
+            $('.ks-cboxtags-number_bill input[type="checkbox"]').prop('checked', false);
         }
         if ($(this).data('delete') === 'provides') {
             provides = null;
@@ -458,15 +464,22 @@
         }
         if ($(this).data('delete') === 'users') {
             users = [];
-            $('.deselect-all-users').click();
+            $('.ks-cboxtags-users input[type="checkbox"]').prop('checked', false);
+
         }
         if ($(this).data('delete') === 'status') {
             statusDe = [];
-            $('.deselect-all-status').click();
+            $('.ks-cboxtags-status input[type="checkbox"]').prop('checked', false);
+
         }
         if ($(this).data('delete') === 'total') {
             total = null;
             $('.total-quantity').val('');
+        }
+        if ($(this).data('delete') === 'date') {
+            date = null;
+            $('#date_start_date').val('');
+            $('#date_end_date').val('');
         }
         $.ajax({
             type: 'get',
@@ -479,6 +492,7 @@
                 number_bill: number_bill,
                 status: statusDe,
                 total: total,
+                date: date,
                 sort: sort,
             },
             success: function(data) {
@@ -502,7 +516,7 @@
                     // Tạo thẻ item-filter
                     var itemFilter = $('<div>').addClass(
                         'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
-                    );
+                    ).attr('data-icon', item.icon);
                     itemFilter.css('order', index);
                     // Thêm nội dung và thuộc tính data vào thẻ item-filter
                     itemFilter.append(

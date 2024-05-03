@@ -174,7 +174,7 @@ class ReportController extends Controller
         if (isset($data['name']) && $data['name'] !== null) {
             $guests = $this->guest->guestName($data['name']);
             $guestsString = implode(', ', $guests);
-            $filters[] = ['value' => 'Công ty: ' . $guestsString, 'name' => 'name'];
+            $filters[] = ['value' => 'Công ty: ' . count($data['name']) . ' công ty', 'name' => 'name'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
             $filters[] = ['value' => 'Tổng doanh số: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
@@ -201,7 +201,7 @@ class ReportController extends Controller
         if (isset($data['name']) && $data['name'] !== null) {
             $provides = $this->provide->provideName($data['name']);
             $providesString = implode(', ', $provides);
-            $filters[] = ['value' => 'Công ty: ' . $providesString, 'name' => 'name'];
+            $filters[] = ['value' => 'Công ty: ' . count($data['name']) . ' công ty', 'name' => 'name'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
             $filters[] = ['value' => 'Tổng thanh toán: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
