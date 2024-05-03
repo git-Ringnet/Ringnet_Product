@@ -93,8 +93,8 @@
                                         </div>
                                         <div class="scrollbar">
                                             <button class="dropdown-item btndropdown text-13-black"
-                                                id="btn-quotenumber" data-button="quotenumber" type="button">Số báo
-                                                giá
+                                                id="btn-quotenumber" data-button="quotenumber" type="button">Đơn mua
+                                                hàng
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black"
                                                 id="btn-reference_number" data-button="reference_number"
@@ -127,9 +127,9 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <x-filter-text name="quotenumber" title="Đơn mua hàng" />
-                                    <x-filter-checkbox :dataa='$import' name="reference_number" title="Số tham chiếu"
-                                        namedisplay="reference_number" />
+                                    <x-filter-text name="reference_number" title="Số tham chiếu" />
+                                    <x-filter-checkbox :dataa='$import' name="quotenumber" title="Đơn mua hàng"
+                                        namedisplay="quotation_number" />
                                     <x-filter-text name="provides" title="Nhà cung cấp" />
                                     <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
                                         namedisplay="name" />
@@ -809,15 +809,15 @@
     $(document).on('click', '.btn-destroy.btn-light.mx-2.d-flex.align-items-center.h-100', function() {
         $('#list_modal').empty()
     })
-    var reference_number = [];
+    var quotenumber = [];
     var users = [];
     var statusDe = [];
     var receive = [];
     var reciept = [];
     var pay = [];
 
-    function filterreference_number() {
-        filterButtons("myInput-reference_number", "ks-cboxtags-reference_number");
+    function filterquotenumber() {
+        filterButtons("myInput-quotenumber", "ks-cboxtags-quotenumber");
     }
 
     function filterprovides() {
@@ -845,11 +845,13 @@
     }
 
     $(document).on('click', '.btn-submit', function(e) {
-        e.preventDefault();
+        if (!$(e.target).is('input[type="checkbox"]')) {
+            e.preventDefault();
+        }
         var buttonName = $(this).data('button');
         var btn_submit = $(this).data('button-name');
         var search = $('#search').val();
-        var quotenumber = $('#quotenumber').val();
+        var reference_number = $('#reference_number').val();
         var provides = $('#provides').val();
         var operator_total = $('.total-operator').val();
         var val_total = $('.total-quantity').val();
@@ -857,15 +859,15 @@
         var date_start = $('#date_start_date').val();
         var date_end = $('#date_end_date').val();
         var date = [date_start, date_end];
-        if ($(this).data('button-name') === 'reference_number') {
-            $('.ks-cboxtags-reference_number input[type="checkbox"]').each(function() {
+        if ($(this).data('button-name') === 'quotenumber') {
+            $('.ks-cboxtags-quotenumber input[type="checkbox"]').each(function() {
                 const value = $(this).val();
-                if ($(this).is(':checked') && reference_number.indexOf(value) === -1) {
-                    reference_number.push(value);
+                if ($(this).is(':checked') && quotenumber.indexOf(value) === -1) {
+                    quotenumber.push(value);
                 } else if (!$(this).is(':checked')) {
-                    const index = reference_number.indexOf(value);
+                    const index = quotenumber.indexOf(value);
                     if (index !== -1) {
-                        reference_number.splice(index, 1);
+                        quotenumber.splice(index, 1);
                     }
                 }
             });
@@ -952,17 +954,19 @@
         sort = [
             sort_by, sort_type
         ];
-        //$('#' + btn_submit + '-options').hide();
+        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
+            $('#' + btn_submit + '-options').hide();
+        }
         $(".btn-filter_search").prop("disabled", false);
         // Xoá phần tử trong mảng filters
-        if ($(this).data('delete') === 'quotenumber') {
-            quotenumber = null;
-            $('#quotenumber').val('');
-        }
         if ($(this).data('delete') === 'reference_number') {
-            reference_number = [];
-            // $('.deselect-all-reference_number').click();
-            $('.ks-cboxtags-reference_number input[type="checkbox"]').prop('checked', false);
+            reference_number = null;
+            $('#reference_number').val('');
+        }
+        if ($(this).data('delete') === 'quotenumber') {
+            quotenumber = [];
+            // $('.deselect-all-quotenumber').click();
+            $('.ks-cboxtags-quotenumber input[type="checkbox"]').prop('checked', false);
         }
         if ($(this).data('delete') === 'provides') {
             provides = null;

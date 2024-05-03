@@ -1240,12 +1240,6 @@ input[type="number"] {
     flex: 1;
     margin-left: 35% !important;
 }
-.text-btnIner-primary {
-    background-color: #6E79D6;
-    border-radius: 4px;
-    font-size: 13px;
-    color: white;
-}
 .btn-filter_search:disabled{
     cursor: no-drop;
 }
@@ -1515,7 +1509,7 @@ input[type="search"] {
 /*Checkbox*/
 input[type="checkbox"] {
     accent-color: #6E79D6;
-    outline: #6E79D6;
+    /* outline: #6E79D6; */
 }
 
 .labelform {

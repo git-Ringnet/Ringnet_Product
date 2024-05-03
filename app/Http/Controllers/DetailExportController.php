@@ -943,20 +943,18 @@ class DetailExportController extends Controller
         $data = $request->all();
         $filters = [];
         if (isset($data['quotenumber']) && $data['quotenumber'] !== null) {
-            $filters[] = ['value' => 'Số báo giá: ' . $data['quotenumber'], 'name' => 'quotenumber'];
+            $filters[] = ['value' => 'Số báo giá: ' . count($data['quotenumber']) . ' số báo giá', 'name' => 'quotenumber', 'icon' => 'po'];
         }
         if (isset($data['guests']) && $data['guests'] !== null) {
-            $filters[] = ['value' => 'Khách hàng: ' . $data['guests'], 'name' => 'guests'];
+            $filters[] = ['value' => 'Khách hàng: ' . $data['guests'], 'name' => 'guests', 'icon' => 'user'];
         }
         if (isset($data['reference_number']) && $data['reference_number'] !== null) {
-            $detailExport = $this->detailExport->reference_numberById($data['reference_number']);
-            $detailExportString = implode(', ', $detailExport);
-            $filters[] = ['value' => 'Số tham chiếu: ' . count($data['reference_number']) . ' số tham chiếu', 'name' => 'reference_number'];
+            $filters[] = ['value' => 'Số tham chiếu: ' . $data['reference_number'], 'name' => 'reference_number', 'icon' => 'po'];
         }
         if (isset($data['users']) && $data['users'] !== null) {
             $users = $this->users->getNameUser($data['users']);
             $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users'];
+            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users', 'icon' => 'user'];
         }
         if (isset($data['date']) && $data['date'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['date'][0]));
@@ -976,7 +974,7 @@ class DetailExportController extends Controller
                 $statusValues[] = '<span style="color: #08AA36BF;">Close</span>';
             }
             $statusText = implode(', ', $statusValues);
-            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
+            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status', 'icon' => 'status'];
         }
         $statusTextReceive = '';
         if (isset($data['receive']) && $data['receive'] !== null) {
@@ -991,7 +989,7 @@ class DetailExportController extends Controller
                 $statusValues[] = '<span style="color: #E8B600;">Một phần</span>';
             }
             $statusTextReceive = implode(', ', $statusValues);
-            $filters[] = ['value' => 'Giao hàng: ' . $statusTextReceive, 'name' => 'receive'];
+            $filters[] = ['value' => 'Giao hàng: ' . $statusTextReceive, 'name' => 'receive', 'icon' => 'status'];
         }
         $statusTextReceipt = '';
         if (isset($data['reciept']) && $data['reciept'] !== null) {
@@ -1006,7 +1004,7 @@ class DetailExportController extends Controller
                 $statusValues[] = '<span style="color: #E8B600;">Một phần</span>';
             }
             $statusTextReceipt = implode(', ', $statusValues);
-            $filters[] = ['value' => 'Hoá đơn: ' . $statusTextReceipt, 'name' => 'reciept'];
+            $filters[] = ['value' => 'Hoá đơn: ' . $statusTextReceipt, 'name' => 'reciept', 'icon' => 'status'];
         }
         $statusTextPay = '';
         if (isset($data['pay']) && $data['pay'] !== null) {
@@ -1024,7 +1022,7 @@ class DetailExportController extends Controller
             $filters[] = ['value' => 'Thanh toán: ' . $statusTextPay, 'name' => 'pay'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
-            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
         }
         if ($request->ajax()) {
             $detailExport = $this->detailExport->ajax($data);

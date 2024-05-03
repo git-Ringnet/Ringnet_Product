@@ -55,13 +55,10 @@
         $('.select-all-{{ $name }}').click(function() {
             $('.ks-cboxtags-{{ $name }} input[type="checkbox"]:visible').prop('checked', true);
         });
-
         // Hủy chọn tất cả
         $('.deselect-all-{{ $name }}').click(function() {
             $('.ks-cboxtags-{{ $name }} input[type="checkbox"]').prop('checked', false);
         });
-
-
         $('.ks-cboxtags-{{ $name }} li, .ks-cboxtags-{{ $name }} label').on('click', function(
             event) {
             if (event.target.tagName !== 'INPUT') {

@@ -255,14 +255,14 @@ class DetailExport extends Model
                 $query->orWhere('detailexport.guest_name', 'like', '%' . $data['search'] . '%');
             });
         }
-        if (isset($data['quotenumber'])) {
-            $detailExport = $detailExport->where('quotation_number', 'like', '%' . $data['quotenumber'] . '%');
+        if (isset($data['reference_number'])) {
+            $detailExport = $detailExport->where('reference_number', 'like', '%' . $data['reference_number'] . '%');
         }
         if (isset($data['guests'])) {
             $detailExport = $detailExport->where('detailexport.guest_name', 'like', '%' . $data['guests'] . '%');
         }
-        if (isset($data['reference_number'])) {
-            $detailExport = $detailExport->whereIn('detailexport.id', $data['reference_number']);
+        if (isset($data['quotenumber'])) {
+            $detailExport = $detailExport->whereIn('detailexport.id', $data['quotenumber']);
         }
         if (isset($data['users'])) {
             $detailExport = $detailExport->whereIn('detailexport.user_id', $data['users']);

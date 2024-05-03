@@ -227,7 +227,7 @@
                                                         data-sort-by="payment_date" data-sort-type="DESC"><button
                                                             class="btn-sort" type="submit">
                                                             <span class="text-13">Hạn thanh toán </span>
-                                                            </button>
+                                                        </button>
                                                     </a>
                                                     <div class="icon" id="icon-payment_date"></div>
                                                 </span>
@@ -236,7 +236,8 @@
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total" data-sort-type="DESC"><button
-                                                            class="btn-sort" type="submit"><span class="text-13">Tổng tiền</span></button>
+                                                            class="btn-sort" type="submit"><span
+                                                                class="text-13">Tổng tiền</span></button>
                                                     </a>
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
@@ -245,7 +246,8 @@
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="payment" data-sort-type="DESC"><button
-                                                            class="btn-sort" type="submit"><span class="text-13">Đã nhận</span></button>
+                                                            class="btn-sort" type="submit"><span class="text-13">Đã
+                                                                nhận</span></button>
                                                     </a>
                                                     <div class="icon" id="icon-payment"></div>
                                                 </span>
@@ -254,7 +256,8 @@
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="debt" data-sort-type="DESC"><button
-                                                            class="btn-sort" type="submit"><span class="text-13">Dư nợ</span></button>
+                                                            class="btn-sort" type="submit"><span class="text-13">Dư
+                                                                nợ</span></button>
                                                     </a>
                                                     <div class="icon" id="icon-debt"></div>
                                                 </span>
@@ -460,7 +463,9 @@
 
     // get id check box name
     $(document).on('click', '.btn-submit', function(e) {
-        e.preventDefault();
+        if (!$(e.target).is('input[type="checkbox"]')) {
+            e.preventDefault();
+        }
         var buttonName = $(this).data('button');
         var btn_submit = $(this).data('button-name');
         var search = $('#search').val();
@@ -533,7 +538,9 @@
         sort = [
             sort_by, sort_type
         ];
-        //$('#' + btn_submit + '-options').hide();
+        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
+            $('#' + btn_submit + '-options').hide();
+        }
         $(".btn-filter_search").prop("disabled", false);
         if ($(this).data('delete') === 'quotenumber') {
             quotenumber = null;

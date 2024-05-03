@@ -244,20 +244,20 @@ class RecieptController extends Controller
         $data = $request->all();
         $filters = [];
         if (isset($data['quotenumber']) && $data['quotenumber'] !== null) {
-            $filters[] = ['value' => 'Đơn mua hàng: ' . $data['quotenumber'], 'name' => 'quotenumber'];
+            $filters[] = ['value' => 'Đơn mua hàng: ' . $data['quotenumber'], 'name' => 'quotenumber', 'icon' => 'po'];
         }
         if (isset($data['provides']) && $data['provides'] !== null) {
-            $filters[] = ['value' => 'Nhà cung cấp: ' . $data['provides'], 'name' => 'provides'];
+            $filters[] = ['value' => 'Nhà cung cấp: ' . $data['provides'], 'name' => 'provides', 'icon' => 'user'];
         }
         if (isset($data['number_bill']) && $data['number_bill'] !== null) {
             $reciept = $this->reciept->number_billById($data['number_bill']);
             $recieptString = implode(', ', $reciept);
-            $filters[] = ['value' => 'Số hoá đơn: ' . count($data['number_bill']) . ' số hoá đơn', 'name' => 'number_bill'];
+            $filters[] = ['value' => 'Số hoá đơn: ' . count($data['number_bill']) . ' số hoá đơn', 'name' => 'number_bill', 'icon' => 'po'];
         }
         if (isset($data['users']) && $data['users'] !== null) {
             $users = $this->users->getNameUser($data['users']);
             $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users'];
+            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users', 'icon' => 'user'];
         }
         if (isset($data['date']) && $data['date'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['date'][0]));
@@ -277,7 +277,7 @@ class RecieptController extends Controller
             $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
-            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
         }
         if ($request->ajax()) {
             $reciept = $this->reciept->ajax($data);

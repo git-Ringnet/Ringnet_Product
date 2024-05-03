@@ -773,7 +773,9 @@
 
 
     $(document).on('click', '.btn-submit', function(e) {
-        e.preventDefault();
+        if (!$(e.target).is('input[type="checkbox"]')) {
+            e.preventDefault();
+        }
         var buttonname = $(this).data('button') || 'import';
         var code = $('#code-' + buttonname).val();
         var name = $('#name-' + buttonname).val();
@@ -802,7 +804,9 @@
         ];
 
         var btn_submit = $(this).data('button-name');
-        //$('#' + btn_submit + '-options').hide();
+        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
+            $('#' + btn_submit + '-options').hide();
+        }
         $(".btn-filter_search").prop("disabled", false);
         // Xử lí dữ liệu
         if (buttonname == 'import') {

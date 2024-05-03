@@ -205,20 +205,20 @@ class GuestController extends Controller
         $data = $request->all();
         $filters = [];
         if (isset($data['guest_code']) && $data['guest_code'] !== null) {
-            $filters[] = ['value' => 'Mã số thuế: ' . $data['guest_code'], 'name' => 'guest_code'];
+            $filters[] = ['value' => 'Mã số thuế: ' . $data['guest_code'], 'name' => 'guest_code', 'icon' => 'po'];
         }
         if (isset($data['guests']) && $data['guests'] !== null) {
             $guest = $this->guests->guestNameById($data['guests']);
             $guestString = implode(', ', $guest);
-            $filters[] = ['value' => 'Công ty: ' . count($data['guests']) . ' công ty', 'name' => 'guests'];
+            $filters[] = ['value' => 'Công ty: ' . count($data['guests']) . ' công ty', 'name' => 'guests', 'icon' => 'user'];
         }
         if (isset($data['users']) && $data['users'] !== null) {
             $users = $this->users->getNameUser($data['users']);
             $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users'];
+            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users', 'icon' => 'user'];
         }
         if (isset($data['debt']) && $data['debt'][1] !== null) {
-            $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt'];
+            $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt', 'icon' => 'money'];
         }
         if ($request->ajax()) {
             $guests = $this->guests->ajax($data);

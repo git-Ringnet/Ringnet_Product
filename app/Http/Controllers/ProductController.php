@@ -165,7 +165,7 @@ class ProductController extends Controller
             $filters[] = ['value' => 'Mã hàng hoá: ' . $data['code'], 'name' => 'code', 'icon' => 'status'];
         }
         if (isset($data['inventory']) && $data['inventory'][1] !== null) {
-            $filters[] = ['value' => 'Số lượng tồn: ' . $data['inventory'][0] . $data['inventory'][1], 'name' => 'inventory'];
+            $filters[] = ['value' => 'Số lượng tồn: ' . $data['inventory'][0] . $data['inventory'][1], 'name' => 'inventory', 'icon' => 'sl'];
         }
         if ($request->ajax()) {
             $products = $this->products->ajax($data);

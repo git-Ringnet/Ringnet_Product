@@ -396,23 +396,23 @@ class ReceiveController extends Controller
         $data = $request->all();
         $filters = [];
         if (isset($data['quotenumber']) && $data['quotenumber'] !== null) {
-            $filters[] = ['value' => 'Số báo giá: ' . $data['quotenumber'], 'name' => 'quotenumber'];
+            $filters[] = ['value' => 'Số báo giá: ' . $data['quotenumber'], 'name' => 'quotenumber', 'icon' => 'po'];
         }
         if (isset($data['provides']) && $data['provides'] !== null) {
-            $filters[] = ['value' => 'Nhà cung cấp: ' . $data['provides'], 'name' => 'provides'];
+            $filters[] = ['value' => 'Nhà cung cấp: ' . $data['provides'], 'name' => 'provides', 'icon' => 'user'];
         }
         if (isset($data['shipping_unit']) && $data['shipping_unit'] !== null) {
-            $filters[] = ['value' => 'Đơn vị vận chuyển: ' . $data['shipping_unit'], 'name' => 'shipping_unit'];
+            $filters[] = ['value' => 'Đơn vị vận chuyển: ' . $data['shipping_unit'], 'name' => 'shipping_unit', 'icon' => 'po'];
         }
         if (isset($data['delivery_code']) && $data['delivery_code'] !== null) {
             $receive_bill = $this->receive->receive_bill_codeById($data['delivery_code']);
             $receive_billString = implode(', ', $receive_bill);
-            $filters[] = ['value' => 'Mã nhận hàng: ' . count($data['delivery_code']) . ' mã nhận hàng', 'name' => 'delivery_code'];
+            $filters[] = ['value' => 'Mã nhận hàng: ' . count($data['delivery_code']) . ' mã nhận hàng', 'name' => 'delivery_code', 'icon' => 'po'];
         }
         if (isset($data['users']) && $data['users'] !== null) {
             $users = $this->users->getNameUser($data['users']);
             $userstring = implode(', ', $users);
-            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users'];
+            $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users', 'icon' => 'user'];
         }
         $statusText = '';
         if (isset($data['status']) && $data['status'] !== null) {
@@ -424,13 +424,13 @@ class ReceiveController extends Controller
                 $statusValues[] = '<span style="color: #08AA36BF;">Đã nhận</span>';
             }
             $statusText = implode(', ', $statusValues);
-            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
+            $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status', 'icon' => 'status'];
         }
         if (isset($data['shipping_fee']) && $data['shipping_fee'][1] !== null) {
-            $filters[] = ['value' => 'Phí vận chuyển: ' . $data['shipping_fee'][0] . $data['shipping_fee'][1], 'name' => 'shipping_fee'];
+            $filters[] = ['value' => 'Phí vận chuyển: ' . $data['shipping_fee'][0] . $data['shipping_fee'][1], 'name' => 'shipping_fee', 'icon' => 'money'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
-            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
         }
         if (isset($data['date']) && $data['date'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['date'][0]));

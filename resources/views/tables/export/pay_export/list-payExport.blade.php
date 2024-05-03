@@ -364,7 +364,8 @@
                                                 <td class="text-13-black text-right border-bottom border-top-0">
                                                     {{ number_format($item_pay->debt) }}
                                                 </td>
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
+                                                <td
+                                                    class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                                     <div class="d-flex w-100">
                                                         <a href="#">
                                                             <div class="m-0 mx-2 rounded">
@@ -441,7 +442,9 @@
     }
     // get id check box name
     $(document).on('click', '.btn-submit', function(e) {
-        e.preventDefault();
+        if (!$(e.target).is('input[type="checkbox"]')) {
+            e.preventDefault();
+        }
         var buttonName = $(this).data('button');
         var btn_submit = $(this).data('button-name');
         var search = $('#search').val();
@@ -514,7 +517,9 @@
         sort = [
             sort_by, sort_type
         ];
-        //$('#' + btn_submit + '-options').hide();
+        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
+            $('#' + btn_submit + '-options').hide();
+        }
         $(".btn-filter_search").prop("disabled", false);
         if ($(this).data('delete') === 'quotenumber') {
             quotenumber = null;

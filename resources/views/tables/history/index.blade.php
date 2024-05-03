@@ -749,7 +749,9 @@
 
         // Filter ajxx
         $(document).on('click', '.btn-submit', function(e) {
-            e.preventDefault();
+            if (!$(e.target).is('input[type="checkbox"]')) {
+                e.preventDefault();
+            }
             var buttonname = $(this).data('button') || 'history';
             var tensp = $('#tensp').val();
             var BH = $('#BH').val();
@@ -854,7 +856,9 @@
             ];
 
             var btn_submit = $(this).data('button-name');
-            //$('#' + btn_submit + '-options').hide();
+            if (!$(e.target).is('input[type="checkbox"]')) {
+                $('#' + btn_submit + '-options').hide();
+            }
             $(".btn-filter_search").prop("disabled", false);
             if ($(this).data('delete') === 'TTN') {
                 TTN = [];

@@ -332,7 +332,9 @@
     var provides = [];
     // get id check box name
     $(document).on('click', '.btn-submit', function(e) {
-        e.preventDefault();
+        if (!$(e.target).is('input[type="checkbox"]')) {
+            e.preventDefault();
+        }
         var buttonName = $(this).data('button');
         var btn_submit = $(this).data('button-name');
         var search = $('#search').val();
@@ -382,7 +384,9 @@
         sort = [
             sort_by, sort_type
         ];
-        //$('#' + btn_submit + '-options').hide();
+        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
+            $('#' + btn_submit + '-options').hide();
+        }
         $(".btn-filter_search").prop("disabled", false);
         if ($(this).data('delete') === 'provides') {
             provides = [];

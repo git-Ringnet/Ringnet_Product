@@ -169,18 +169,18 @@ class ReportController extends Controller
         $data = $request->all();
         $filters = [];
         if (isset($data['code']) && $data['code'] !== null) {
-            $filters[] = ['value' => 'Mã khách hàng: ' . $data['code'], 'name' => 'code'];
+            $filters[] = ['value' => 'Mã khách hàng: ' . $data['code'], 'name' => 'code', 'icon' => 'po'];
         }
         if (isset($data['name']) && $data['name'] !== null) {
             $guests = $this->guest->guestName($data['name']);
             $guestsString = implode(', ', $guests);
-            $filters[] = ['value' => 'Công ty: ' . count($data['name']) . ' công ty', 'name' => 'name'];
+            $filters[] = ['value' => 'Công ty: ' . count($data['name']) . ' công ty', 'name' => 'name', 'icon' => 'user'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
-            $filters[] = ['value' => 'Tổng doanh số: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
+            $filters[] = ['value' => 'Tổng doanh số: ' . $data['total'][0] . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
         }
         if (isset($data['debt']) && $data['debt'][1] !== null) {
-            $filters[] = ['value' => 'Công nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt'];
+            $filters[] = ['value' => 'Công nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt', 'icon' => 'money'];
         }
         if ($request->ajax()) {
             $guests = $this->payExport->ajax($data);
@@ -196,18 +196,18 @@ class ReportController extends Controller
         $data = $request->all();
         $filters = [];
         if (isset($data['code']) && $data['code'] !== null) {
-            $filters[] = ['value' => 'Mã nhà cung cấp: ' . $data['code'], 'name' => 'code'];
+            $filters[] = ['value' => 'Mã nhà cung cấp: ' . $data['code'], 'name' => 'code', 'icon' => 'po'];
         }
         if (isset($data['name']) && $data['name'] !== null) {
             $provides = $this->provide->provideName($data['name']);
             $providesString = implode(', ', $provides);
-            $filters[] = ['value' => 'Công ty: ' . count($data['name']) . ' công ty', 'name' => 'name'];
+            $filters[] = ['value' => 'Công ty: ' . count($data['name']) . ' công ty', 'name' => 'name', 'icon' => 'user'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
-            $filters[] = ['value' => 'Tổng thanh toán: ' . $data['total'][0] . $data['total'][1], 'name' => 'total'];
+            $filters[] = ['value' => 'Tổng thanh toán: ' . $data['total'][0] . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
         }
         if (isset($data['debt']) && $data['debt'][1] !== null) {
-            $filters[] = ['value' => 'Công nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt'];
+            $filters[] = ['value' => 'Công nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt', 'icon' => 'money'];
         }
         if ($request->ajax()) {
             $provides = $this->payOrder->ajax($data);

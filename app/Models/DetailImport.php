@@ -307,14 +307,14 @@ class DetailImport extends Model
                 $query->orWhere('detailimport.provide_name', 'like', '%' . $data['search'] . '%');
             });
         }
-        if (isset($data['quotenumber'])) {
-            $import = $import->where('quotation_number', 'like', '%' . $data['quotenumber'] . '%');
+        if (isset($data['reference_number'])) {
+            $import = $import->where('detailimport.reference_number', 'like', '%' . $data['reference_number'] . '%');
         }
         if (isset($data['provides'])) {
             $import = $import->where('detailimport.provide_name', 'like', '%' . $data['provides'] . '%');
         }
-        if (isset($data['reference_number'])) {
-            $import = $import->whereIn('detailimport.id', $data['reference_number']);
+        if (isset($data['quotenumber'])) {
+            $import = $import->whereIn('detailimport.id', $data['quotenumber']);
         }
         if (isset($data['users'])) {
             $import = $import->whereIn('detailimport.user_id', $data['users']);

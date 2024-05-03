@@ -70,59 +70,59 @@ class HistoryController extends Controller
         $data = $request->all();
         $filters = [];
         if (isset($data['tensp']) && $data['tensp'] !== null) {
-            $filters[] = ['value' => 'Mặt hàng: ' . $data['tensp'], 'name' => 'tensp'];
+            $filters[] = ['value' => 'Mặt hàng: ' . $data['tensp'], 'name' => 'tensp', 'icon' => 'product'];
         }
         if (isset($data['hdvao']) && $data['hdvao'] !== null) {
-            $filters[] = ['value' => 'Hoá đơn vào: ' . $data['hdvao'], 'name' => 'hdvao'];
+            $filters[] = ['value' => 'Hoá đơn vào: ' . $data['hdvao'], 'name' => 'hdvao', 'icon' => 'po'];
         }
         if (isset($data['hdra']) && $data['hdra'] !== null) {
-            $filters[] = ['value' => 'Hoá đơn ra: ' . $data['hdra'], 'name' => 'hdra'];
+            $filters[] = ['value' => 'Hoá đơn ra: ' . $data['hdra'], 'name' => 'hdra', 'icon' => 'po'];
         }
         if (isset($data['provides']) && $data['provides'] !== null) {
-            $filters[] = ['value' => 'Nhà cung cấp: ' . $data['provides'], 'name' => 'provides'];
+            $filters[] = ['value' => 'Nhà cung cấp: ' . $data['provides'], 'name' => 'provides', 'icon' => 'user'];
         }
         if (isset($data['guests']) && $data['guests'] !== null) {
-            $filters[] = ['value' => 'Khách hàng: ' . $data['guests'], 'name' => 'guests'];
+            $filters[] = ['value' => 'Khách hàng: ' . $data['guests'], 'name' => 'guests', 'icon' => 'user'];
         }
         if (isset($data['POnhap']) && $data['POnhap'] !== null) {
-            $filters[] = ['value' => 'PO nhập: ' . $data['POnhap'], 'name' => 'POnhap'];
+            $filters[] = ['value' => 'PO nhập: ' . $data['POnhap'], 'name' => 'POnhap', 'icon' => 'po'];
         }
         if (isset($data['POxuat']) && $data['POxuat'] !== null) {
-            $filters[] = ['value' => 'PO xuất: ' . $data['POxuat'], 'name' => 'POxuat'];
+            $filters[] = ['value' => 'PO xuất: ' . $data['POxuat'], 'name' => 'POxuat', 'icon' => 'po'];
         }
         if (isset($data['BH']) && $data['BH'] !== null) {
-            $filters[] = ['value' => 'Bảo hành: ' . $data['BH'], 'name' => 'BH'];
+            $filters[] = ['value' => 'Bảo hành: ' . $data['BH'], 'name' => 'BH', 'icon' => 'bh'];
         }
         if (isset($data['HTTTN']) && $data['HTTTN'] !== null) {
-            $filters[] = ['value' => 'Hình thức thanh toán nhập: ' . $data['HTTTN'], 'name' => 'HTTTN'];
+            $filters[] = ['value' => 'Hình thức thanh toán nhập: ' . $data['HTTTN'], 'name' => 'HTTTN', 'icon' => 'po'];
         }
         if (isset($data['HTTTX']) && $data['HTTTX'] !== null) {
-            $filters[] = ['value' => 'Hình thức thanh toán xuất: ' . $data['HTTTX'], 'name' => 'HTTTX'];
+            $filters[] = ['value' => 'Hình thức thanh toán xuất: ' . $data['HTTTX'], 'name' => 'HTTTX', 'icon' => 'po'];
         }
         if (isset($data['slxuat']) && $data['slxuat'][1] !== null) {
-            $filters[] = ['value' => 'Số lượng xuất: ' . $data['slxuat'][0] . $data['slxuat'][1], 'name' => 'slxuat'];
+            $filters[] = ['value' => 'Số lượng xuất: ' . $data['slxuat'][0] . $data['slxuat'][1], 'name' => 'slxuat', 'icon' => 'sl'];
         }
         if (isset($data['slnhap']) && $data['slnhap'][1] !== null) {
-            $filters[] = ['value' => 'Số lượng nhập: ' . $data['slnhap'][0] . $data['slnhap'][1], 'name' => 'slnhap'];
+            $filters[] = ['value' => 'Số lượng nhập: ' . $data['slnhap'][0] . $data['slnhap'][1], 'name' => 'slnhap', 'icon' => 'sl'];
         }
         if (isset($data['trcVATN']) && $data['trcVATN'][1] !== null) {
-            $filters[] = ['value' => 'Trước VAT nhập: ' . $data['trcVATN'][0] . $data['trcVATN'][1], 'name' => 'trcVATN'];
+            $filters[] = ['value' => 'Trước VAT nhập: ' . $data['trcVATN'][0] . $data['trcVATN'][1], 'name' => 'trcVATN', 'icon' => 'money'];
         }
         if (isset($data['VATN']) && $data['VATN'][1] !== null) {
-            $filters[] = ['value' => 'VAT nhập: ' . $data['VATN'][0] . $data['VATN'][1], 'name' => 'VATN'];
+            $filters[] = ['value' => 'VAT nhập: ' . $data['VATN'][0] . $data['VATN'][1], 'name' => 'VATN', 'icon' => 'money'];
         }
         if (isset($data['sauVATN']) && $data['sauVATN'][1] !== null) {
-            $filters[] = ['value' => 'Sau VAT nhập: ' . $data['sauVATN'][0] . $data['sauVATN'][1], 'name' => 'sauVATN'];
+            $filters[] = ['value' => 'Sau VAT nhập: ' . $data['sauVATN'][0] . $data['sauVATN'][1], 'name' => 'sauVATN', 'icon' => 'money'];
         }
 
         if (isset($data['trcVATX']) && $data['trcVATX'][1] !== null) {
-            $filters[] = ['value' => 'Trước VAT xuất: ' . $data['trcVATX'][0] . $data['trcVATX'][1], 'name' => 'trcVATX'];
+            $filters[] = ['value' => 'Trước VAT xuất: ' . $data['trcVATX'][0] . $data['trcVATX'][1], 'name' => 'trcVATX', 'icon' => 'money'];
         }
         if (isset($data['VATX']) && $data['VATX'][1] !== null) {
-            $filters[] = ['value' => 'VAT xuất: ' . $data['VATX'][0] . $data['VATX'][1], 'name' => 'VATX'];
+            $filters[] = ['value' => 'VAT xuất: ' . $data['VATX'][0] . $data['VATX'][1], 'name' => 'VATX', 'icon' => 'money'];
         }
         if (isset($data['sauVATX']) && $data['sauVATX'][1] !== null) {
-            $filters[] = ['value' => 'Sau VAT xuất: ' . $data['sauVATX'][0] . $data['sauVATX'][1], 'name' => 'sauVATX'];
+            $filters[] = ['value' => 'Sau VAT xuất: ' . $data['sauVATX'][0] . $data['sauVATX'][1], 'name' => 'sauVATX', 'icon' => 'money'];
         }
         if (isset($data['dateHDN']) && $data['dateHDN'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['dateHDN'][0]));
@@ -158,7 +158,7 @@ class HistoryController extends Controller
                 $statusValues[] = '<span style="color: #E8B600;">Một phần</span>';
             }
             $statusTextTTN = implode(', ', $statusValues);
-            $filters[] = ['value' => 'Thanh toán nhập: ' . $statusTextTTN, 'name' => 'TTN'];
+            $filters[] = ['value' => 'Thanh toán nhập: ' . $statusTextTTN, 'name' => 'TTN', 'icon' => 'status'];
         }
         $statusTextTTX = '';
         if (isset($data['TTX']) && $data['TTX'] !== null) {
@@ -173,7 +173,7 @@ class HistoryController extends Controller
                 $statusValues[] = '<span style="color: #E8B600;">Một phần</span>';
             }
             $statusTextTTX = implode(', ', $statusValues);
-            $filters[] = ['value' => 'Đã trả: ' . $statusTextTTX, 'name' => 'TTX'];
+            $filters[] = ['value' => 'Đã trả: ' . $statusTextTTX, 'name' => 'TTX', 'icon' => 'status'];
         }
         if ($request->ajax()) {
             $history = $this->history->ajax($data);

@@ -554,7 +554,9 @@
 
         });
         $(document).on('click', '.btn-submit', function(e) {
-            e.preventDefault();
+            if (!$(e.target).is('input[type="checkbox"]')) {
+                e.preventDefault();
+            }
             var search = $('#search').val();
             $.ajax({
                 url: "{{ route('searchUserWorkspace') }}",

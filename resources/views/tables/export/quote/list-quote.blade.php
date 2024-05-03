@@ -138,13 +138,14 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <x-filter-text name="quotenumber" title="Số báo giá" />
-                                    <x-filter-checkbox :dataa='$quoteExport' name="reference_number" title="Số tham chiếu"
-                                        namedisplay="reference_number" />
+                                    <x-filter-text name="reference_number" title="Số tham chiếu" />
+                                    {{-- <x-filter-checkbox :dataa='$quoteExport' name="reference_number" title="Số tham chiếu"
+                                        namedisplay="reference_number" /> --}}
+                                    <x-filter-checkbox :dataa='$quoteExport' name="quotenumber" title="Số báo giá"
+                                        namedisplay="quotation_number" />
                                     {{-- <x-filter-checkbox :dataa='$guests' name="guests" title="Khách hàng"
                                         namedisplay="guest_name_display" /> --}}
                                     <x-filter-text name="guests" title="Khách hàng" />
-
                                     <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
                                         namedisplay="name" />
                                     <x-filter-status name="status" key1="1" value1="Draft" color1="#858585"
@@ -457,7 +458,8 @@
                                                 <td class="text-13-black text-right border-bottom">
                                                     {{ number_format($value_export->total_price + $value_export->total_tax) }}
                                                 </td>
-                                                <td class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
+                                                <td
+                                                    class="position-absolute m-0 p-0 border-0 bg-hover-icon icon-center">
                                                     <div class="d-flex w-100">
                                                         <a
                                                             href="{{ route('detailExport.edit', ['workspace' => $workspacename, 'detailExport' => $value_export->maBG]) }}">
@@ -2288,7 +2290,7 @@
     //
     var filters = [];
     var sort = [];
-    var reference_number = [];
+    var quotenumber = [];
     var users = [];
     var statusDe = [];
     var receive = [];
@@ -2299,8 +2301,8 @@
     var svgbot =
         "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M11.5006 5C11.6332 5 11.7604 5.05268 11.8542 5.14645C11.948 5.24021 12.0006 5.36739 12.0006 5.5V17.293L15.1466 14.146C15.2405 14.0521 15.3679 13.9994 15.5006 13.9994C15.6334 13.9994 15.7607 14.0521 15.8546 14.146C15.9485 14.2399 16.0013 14.3672 16.0013 14.5C16.0013 14.6328 15.9485 14.7601 15.8546 14.854L11.8546 18.854C11.8082 18.9006 11.753 18.9375 11.6923 18.9627C11.6315 18.9879 11.5664 19.0009 11.5006 19.0009C11.4349 19.0009 11.3697 18.9879 11.309 18.9627C11.2483 18.9375 11.1931 18.9006 11.1466 18.854L7.14663 14.854C7.05274 14.7601 7 14.6328 7 14.5C7 14.3672 7.05274 14.2399 7.14663 14.146C7.24052 14.0521 7.36786 13.9994 7.50063 13.9994C7.63341 13.9994 7.76075 14.0521 7.85463 14.146L11.0006 17.293V5.5C11.0006 5.36739 11.0533 5.24021 11.1471 5.14645C11.2408 5.05268 11.368 5 11.5006 5Z' fill='#555555'/></svg>"
 
-    function filterreference_number() {
-        filterButtons("myInput-reference_number", "ks-cboxtags-reference_number");
+    function filterquotenumber() {
+        filterButtons("myInput-quotenumber", "ks-cboxtags-quotenumber");
     }
 
     function filterguests() {
@@ -2329,11 +2331,13 @@
 
     // get id check box name
     $(document).on('click', '.btn-submit', function(e) {
-        e.preventDefault();
+        if (!$(e.target).is('input[type="checkbox"]')) {
+            e.preventDefault();
+        }
         var buttonName = $(this).data('button');
         var btn_submit = $(this).data('button-name');
         var search = $('#search').val();
-        var quotenumber = $('#quotenumber').val();
+        var reference_number = $('#reference_number').val();
         var guests = $('#guests').val();
         var operator_total = $('.total-operator').val();
         var val_total = $('.total-quantity').val();
@@ -2341,15 +2345,15 @@
         var date_start = $('#date_start_date').val();
         var date_end = $('#date_end_date').val();
         var date = [date_start, date_end];
-        if ($(this).data('button-name') === 'reference_number') {
-            $('.ks-cboxtags-reference_number input[type="checkbox"]').each(function() {
+        if ($(this).data('button-name') === 'quotenumber') {
+            $('.ks-cboxtags-quotenumber input[type="checkbox"]').each(function() {
                 const value = $(this).val();
-                if ($(this).is(':checked') && reference_number.indexOf(value) === -1) {
-                    reference_number.push(value);
+                if ($(this).is(':checked') && quotenumber.indexOf(value) === -1) {
+                    quotenumber.push(value);
                 } else if (!$(this).is(':checked')) {
-                    const index = reference_number.indexOf(value);
+                    const index = quotenumber.indexOf(value);
                     if (index !== -1) {
-                        reference_number.splice(index, 1);
+                        quotenumber.splice(index, 1);
                     }
                 }
             });
@@ -2436,18 +2440,20 @@
         sort = [
             sort_by, sort_type
         ];
-        //$('#' + btn_submit + '-options').hide();
+        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
+            $('#' + btn_submit + '-options').hide();
+        }
         $(".btn-filter_search").prop("disabled", false);
 
         // Xoá phần tử trong mảng filters
-        if ($(this).data('delete') === 'quotenumber') {
-            quotenumber = null;
-            $('#quotenumber').val('');
-        }
         if ($(this).data('delete') === 'reference_number') {
-            reference_number = [];
-            // $('.deselect-all-reference_number').click();
-            $('.ks-cboxtags-reference_number input[type="checkbox"]').prop('checked', false);
+            reference_number = null;
+            $('#reference_number').val('');
+        }
+        if ($(this).data('delete') === 'quotenumber') {
+            quotenumber = [];
+            // $('.deselect-all-quotenumber').click();
+            $('.ks-cboxtags-quotenumber input[type="checkbox"]').prop('checked', false);
         }
         if ($(this).data('delete') === 'guests') {
             guests = null;
