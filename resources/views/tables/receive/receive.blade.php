@@ -18,10 +18,9 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('receive.create', $workspacename) }}" class="user_flow" data-type="DNH"
+                    <a href="{{ route('receive.create', $workspacename) }}" class="user_flow mr-3" data-type="DNH"
                         data-des="Tạo mới">
-                        <button type="button" class="custom-btn d-flex align-items-center h-100"
-                            style="margin-right:10px">
+                        <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -159,35 +158,35 @@
                             <!-- /.card-header -->
                             <div class="content-info position-relative outer2 text-nowrap">
                                 <table id="example2" class="table table-hover">
-                                    <thead class="sticky-head">
-                                        <tr>
+                                    <thead>
+                                        <tr class="height-52 border-custom">
                                             <th scope="col" class="border-bottom"
-                                                style="width:5%;padding-left: 2rem;" class="height-52">
+                                                style="width: 5%; padding-left: 2rem;">
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
-                                                <span class="d-flex">
+                                            <th scope="col" class="border-bottom" style="width: 16%;">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="delivery_code" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Mã nhận
-                                                            hàng</button>
+                                                            hàng#</button>
                                                     </a>
                                                     <div class="icon" id="icon-delivery_code"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
+                                            <th scope="col" class="border-bottom" style="width: 10%;">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Đơn mua
-                                                            hàng</button>
+                                                            hàng#</button>
                                                     </a>
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
 
-                                            <th scope="col" class="height-52 border-bottom">
+                                            <th scope="col" class="border-bottom" style="width: 10%;">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="created_at" data-sort-type="DESC"><button
@@ -198,7 +197,7 @@
                                                 </span>
                                             </th>
 
-                                            <th scope="col" class="height-52 border-bottom">
+                                            <th scope="col" class="border-bottom" style="width: 14%;">
                                                 <span class="d-flex">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name_display"
@@ -210,7 +209,7 @@
                                                 </span>
                                             </th>
                                             @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                <th scope="col" class="height-52 border-bottom">
+                                                <th scope="col" class="border-bottom" style="width: 10%;">
                                                     <span class="d-flex">
                                                         <a href="#" class="sort-link" data-sort-by="users"
                                                             data-sort-type=""><button class="btn-sort text-13"
@@ -220,7 +219,7 @@
                                                     </span>
                                                 </th>
                                             @endif
-                                            <th scope="col" class="height-52 border-bottom">
+                                            <th scope="col" class="border-bottom" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="shipping_unit" data-sort-type="DESC"><button
@@ -230,7 +229,7 @@
                                                     <div class="icon" id="icon-shipping_unit"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
+                                            <th scope="col" class="border-bottom" style="width: 10%;">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="delivery_charges" data-sort-type="DESC"><button
@@ -240,10 +239,8 @@
                                                     <div class="icon" id="icon-delivery_charges"></div>
                                                 </span>
                                             </th>
-
-                                            <th scope="col"
-                                                class="height-52 border-bottom d-flex justify-content-center">
-                                                <span class="d-flex">
+                                            <th scope="col" class="border-bottom" style="width: 8%;">
+                                                <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Trạng
@@ -253,7 +250,7 @@
                                                 </span>
                                             </th>
 
-                                            <th scope="col" class="height-52 border-bottom">
+                                            <th scope="col" class="border-bottom">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total_tax" data-sort-type="DESC"><button
@@ -266,8 +263,8 @@
                                     </thead>
                                     <tbody class="tbody-receive">
                                         @foreach ($receive as $item)
-                                            <tr class="position-relative receive-info" style="height:44px;"><input
-                                                    type="hidden" name="id-receive" class="id-receive"
+                                            <tr class="position-relative receive-info height-52">
+                                                <input type="hidden" name="id-receive" class="id-receive"
                                                     id="id-receive" value="{{ $item->id }}">
                                                 <td class="text-13-black border-top-0 border-bottom">
                                                     <span class="margin-Right10">

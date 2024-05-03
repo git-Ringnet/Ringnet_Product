@@ -36,29 +36,27 @@
                             <button type="button"
                                 class="btn-destroy btn-light d-flex align-items-center h-100 user_flow mx-1"
                                 data-type="DMH" data-des="Hủy đơn mua hàng">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none">
-                                        <path
-                                            d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L8 6.939L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L9.061 8L13.0303 11.9697C13.2966 12.2359 13.3208 12.6526 13.1029 12.9462L13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L8 9.061L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L6.939 8L2.96967 4.03033C2.7034 3.76406 2.6792 3.3474 2.89705 3.05379L2.96967 2.96967Z"
-                                            fill="#6D7075" />
-                                    </svg>
-                                </span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM6.03033 4.96967C5.73744 4.67678 5.26256 4.67678 4.96967 4.96967C4.67678 5.26256 4.67678 5.73744 4.96967 6.03033L6.93934 8L4.96967 9.96967C4.67678 10.2626 4.67678 10.7374 4.96967 11.0303C5.26256 11.3232 5.73744 11.3232 6.03033 11.0303L8 9.06066L9.96967 11.0303C10.2626 11.3232 10.7374 11.3232 11.0303 11.0303C11.3232 10.7374 11.3232 10.2626 11.0303 9.96967L9.06066 8L11.0303 6.03033C11.3232 5.73744 11.3232 5.26256 11.0303 4.96967C10.7374 4.67678 10.2626 4.67678 9.96967 4.96967L8 6.93934L6.03033 4.96967Z"
+                                        fill="#6D7075"></path>
+                                </svg>
                                 <span class="text-btnIner-primary ml-2">Hủy</span>
                             </button>
                         </a>
 
-                        <a href="#">
-                            <button type="submit" class="custom-btn d-flex align-items-center h-100 mx-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14"
-                                    viewBox="0 0 12 14" fill="none">
+                        <button type="submit" class="custom-btn d-flex align-items-center h-100 mx-1">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 16 16" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M4.75 0V5.75C4.75 6.5297 5.34489 7.17045 6.10554 7.24313L6.25 7.25H12V12C12 13.1046 11.1046 14 10 14H2C0.89543 14 0 13.1046 0 12V2C0 0.89543 0.89543 0 2 0H4.75ZM6 0L12 6.03022H7C6.44772 6.03022 6 5.5825 6 5.03022V0Z"
-                                        fill="white" />
+                                        d="M6.75 1V6.75C6.75 7.5297 7.34489 8.17045 8.10554 8.24313L8.25 8.25H14V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V3C2 1.89543 2.89543 1 4 1H6.75ZM8 1L14 7.03022H9C8.44772 7.03022 8 6.5825 8 6.03022V1Z"
+                                        fill="white"></path>
                                 </svg>
-                                <span class="text-btnIner-primary ml-2">Lưu nháp</span>
-                            </button>
-                        </a>
+                            </span>
+                            <span class="text-btnIner-primary ml-2">Lưu nháp</span>
+                        </button>
 
                         <button id="sideGuest" type="button" class="btn-option border-0 mx-1">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -86,21 +84,21 @@
                         <div class="content-info position-relative text-nowrap order_content">
                             <table id="inputcontent" class="table table-hover bg-white rounded">
                                 <thead>
-                                    <tr style="height:50px;">
-                                        <th class="border-right-0 px-2 p-0" style="width: 17%;padding-left:2rem;">
+                                    <tr style="height:44px;">
+                                        <th class="border-right-0 px-2 p-0" style="width: 16%;padding-left:2rem;">
                                             <input type='checkbox' class='checkall-btn ml-4 mr-1'id="checkall" />
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
                                         <th class="border-left px-2 p-0" style="width: 15%;z-index:100;">
                                             <span class="text-table text-secondary">Tên sản phẩm</span>
                                         </th>
-                                        <th class="border-left px-2 p-0" style="width: 8%;">
+                                        <th class="border-left px-2 p-0">
                                             <span class="text-table text-secondary">Đơn vị</span>
                                         </th>
-                                        <th class="border-left px-2 p-0 text-right" style="width: 8%;">
+                                        <th class="border-left px-2 p-0 text-right" style="width: 10%;">
                                             <span class="text-table text-secondary">Số lượng</span>
                                         </th>
-                                        <th class="border-left px-2 p-0 text-right" style="width: 10%;">
+                                        <th class="border-left px-2 p-0 text-right" style="width: 13%;">
                                             <span class="text-table text-secondary">Đơn giá</span>
                                         </th>
                                         <th class="border-left px-2 p-0 text-center" style="width: 8%;">
@@ -199,7 +197,9 @@
                                                             name="product_qty[]">
                                                     </div>
                                                     <div class="mt-3 text-13-blue inventory text-right">Tồn kho: <span
-                                                            class="pl-1 soTonKho" id="soTonKho">{{ is_int($item->product_inventory) ? $item->product_inventory : rtrim(rtrim(number_format($item->product_inventory, 4, '.', ''), '0'), '.') }}</span></div>
+                                                            class="pl-1 soTonKho"
+                                                            id="soTonKho">{{ is_int($item->product_inventory) ? $item->product_inventory : rtrim(rtrim(number_format($item->product_inventory, 4, '.', ''), '0'), '.') }}</span>
+                                                    </div>
                                                 </td>
                                                 <td class="border border-right-0 border-top-0 text-13-black align-top p-2">
                                                     <div>
@@ -240,8 +240,8 @@
                                                     <input type="text" class="border-0 px-2 py-1 w-100"
                                                         name="product_note[]" placeholder="Nhập ghi chú">
                                                 </td>
-                                                <td class="border border-right-0 deleteRow align-top border-top-0 p-2 user_flow" data-type="DMH"
-                                                    data-des="Xóa sản phẩm">
+                                                <td class="border border-right-0 deleteRow align-top border-top-0 p-2 user_flow"
+                                                    data-type="DMH" data-des="Xóa sản phẩm">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15"
                                                         viewBox="0 0 16 15" fill="none">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -278,7 +278,7 @@
                                         <span class="text-table">Thêm sản phẩm</span>
                                     </button>
 
-                                    <button type="button" data-toggle="dropdown"
+                                    {{-- <button type="button" data-toggle="dropdown"
                                         class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                         id="" style="margin-right:10px">
                                         <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
@@ -291,9 +291,9 @@
                                                 fill="#42526E"></path>
                                         </svg>
                                         <span class="text-table">Thêm đầu mục</span>
-                                    </button>
+                                    </button> --}}
 
-                                    <button type="button" data-toggle="dropdown"
+                                    {{-- <button type="button" data-toggle="dropdown"
                                         class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                         id="" style="margin-right:10px">
                                         <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12"
@@ -306,9 +306,9 @@
                                                 fill="#42526E"></path>
                                         </svg>
                                         <span class="text-table">Thêm hàng loạt</span>
-                                    </button>
+                                    </button> --}}
 
-                                    <button type="button" class="btn-option py-1 px-2 bg-white border-0">
+                                    {{-- <button type="button" class="btn-option py-1 px-2 bg-white border-0">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -321,24 +321,24 @@
                                                 d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
                                                 fill="#42526E"></path>
                                         </svg>
-                                    </button>
+                                    </button> --}}
                                 </div>
                             </div>
                         </section>
                     </span>
                 </div>
+                <x-formsynthetic :import="''"></x-formsynthetic>
             </section>
-            <x-formsynthetic :import="''"></x-formsynthetic>
         </div>
         <div class="content-wrapper2 margin-top-fixed4">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
-                    <div class="bg-filter-search border-top-0 text-center border-custom">
+                    <div class="bg-filter-search border-top-0 text-center">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN nhà cung
                             cấp</p>
                     </div>
                     <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:48px;">
+                        style="height:43px;">
 
                         <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
 

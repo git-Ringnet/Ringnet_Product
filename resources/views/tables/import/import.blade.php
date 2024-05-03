@@ -18,11 +18,10 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('import.create', $workspacename) }}" class="user_flow" data-type="DMH"
+                    <a href="{{ route('import.create', $workspacename) }}" class="user_flow mr-3" data-type="DMH"
                         data-des="Tạo mới">
                         {{-- <a href="#" class="user_flow" data-type="DMH" data-des="Tạo mới"> --}}
-                        <button type="button" class="custom-btn d-flex align-items-center h-100"
-                            style="margin-right:10px">
+                        <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -168,15 +167,15 @@
                             <!-- /.card-header -->
                             <div class="outer2 text-nowrap">
                                 <table id="example2" class="table table-hover">
-                                    <thead class="sticky-head">
-                                        <tr>
-                                            <th scope="col" class="border-bottom"
-                                                style="width:5%;padding-left: 2rem;" class="height-52">
+                                    <thead>
+                                        <tr class="height-52">
+                                            <th scope="col" style="width:5%;padding-left: 2rem;"
+                                                class="height-52 border-bottom">
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
-                                                <span class="d-flex">
+                                            <th scope="col" class="border-bottom" style="width: 14.1%;">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Đơn mua
@@ -185,8 +184,8 @@
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
-                                                <span class="d-flex">
+                                            <th scope="col" class="border-bottom" style="width: 12%;">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="reference_number" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Số tham
@@ -195,8 +194,8 @@
                                                     <div class="icon" id="icon-reference_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
-                                                <span class="d-flex">
+                                            <th scope="col" class="border-bottom" style="width: 10%;">
+                                                <span class="justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="created_at" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Ngày báo
@@ -205,8 +204,7 @@
                                                     <div class="icon" id="icon-created_at"></div>
                                                 </span>
                                             </th>
-                                            <th></th>
-                                            <th scope="col" class="height-52 border-bottom">
+                                            <th scope="col" class="border-bottom" style="width: 14%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name" data-sort-type="DESC"><button
@@ -217,8 +215,8 @@
                                                 </span>
                                             </th>
                                             @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                <th scope="col" class="height-52 border-bottom">
-                                                    <span class="d-flex">
+                                                <th scope="col" class="border-bottom" style="width: 10%;">
+                                                    <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link" data-sort-by="total"
                                                             data-sort-type=""><button class="btn-sort text-13"
                                                                 type="submit">Người tạo</button>
@@ -227,7 +225,7 @@
                                                     </span>
                                                 </th>
                                             @endif
-                                            <th scope="col" class="height-52 border-bottom">
+                                            <th scope="col" class="border-bottom" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
@@ -237,7 +235,7 @@
                                                     <div class="icon" id="icon-status"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
+                                            <th scope="col" class="border-bottom" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_receive" data-sort-type="DESC"><button
@@ -246,7 +244,7 @@
                                                     <div class="icon" id="icon-status_receive"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
+                                            <th scope="col" class="border-bottom" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_reciept" data-sort-type="DESC"><button
@@ -255,7 +253,7 @@
                                                     <div class="icon" id="icon-status_reciept"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
+                                            <th scope="col" class="border-bottom" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_pay" data-sort-type="DESC"><button
@@ -265,7 +263,7 @@
                                                     <div class="icon" id="icon-status_pay"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
+                                            <th scope="col" class="border-bottom">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total_tax" data-sort-type="DESC"><button
@@ -278,7 +276,7 @@
                                     </thead>
                                     <tbody class="tbody-import">
                                         @foreach ($import as $item)
-                                            <tr class="position-relative import-info" style="height:44px;"
+                                            <tr class="position-relative import-info height-52"
                                                 data-id="{{ $item->id }}">
                                                 <input type="hidden" name="id-import" class="id-import"
                                                     id="id-import" value="{{ $item->id }}">
@@ -289,18 +287,19 @@
                                                             <g clip-path="url(#clip0_1710_10941)">
                                                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                                                     d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
-                                                                    fill="#282A30" />
+                                                                    fill="#282A30"></path>
                                                             </g>
                                                             <defs>
                                                                 <clipPath id="clip0_1710_10941">
                                                                     <rect width="6" height="10"
-                                                                        fill="white" />
+                                                                        fill="white"></rect>
                                                                 </clipPath>
                                                             </defs>
                                                         </svg>
                                                     </span>
-                                                    <input type="checkbox" id="{{ $item->id }}"
-                                                        class="cb-element checkall-btn">
+                                                    <input type="checkbox" class="checkall-btn p-0 m-0"
+                                                        name="ids[]" id="checkbox" value=""
+                                                        onclick="event.stopPropagation();">
                                                 </td>
                                                 <td class="text-13-black border-bottom border-top-0 text-wrap">
                                                     <div class="user_flow" data-type="DMH"
@@ -317,69 +316,8 @@
                                                 <td class="text-13-black border-bottom border-top-0">
                                                     {{ date_format(new DateTime($item->created_at), 'd/m/Y') }}
                                                 </td>
-                                                <td class="border-bottom border-top-0">
-                                                    <div class="bg-white position-absolute rounded shadow p-2 z-index-block"
-                                                        style="z-index: 99; width: 165px; top: 20px; right: 88px; display:none;"
-                                                        id="listBtnCreateFast">
-                                                        <ul class="m-0 p-0 scroll-data">
-                                                            <li class="p-2 align-items-left text-wrap user_flow"
-                                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;"
-                                                                data-type="DMH" data-des="Tạo nhanh đơn nhận hàng">
-                                                                <a href="#" style="flex:2;"
-                                                                    onclick="getAction(this)" name="search-info"
-                                                                    class="search-info">
-                                                                    <button
-                                                                        class="align-items-left h-100 border-0 w-100 rounded"
-                                                                        style="background-color: transparent;"
-                                                                        name="action" value="action_2"
-                                                                        type="submit">
-                                                                        <span
-                                                                            style="font-weight: 600;color: #000; font-size:13px">Thêm
-                                                                            nhận
-                                                                            hàng</span>
-                                                                    </button>
-                                                                </a>
-                                                            </li>
-                                                            <li class="p-2 align-items-left text-wrap user_flow"
-                                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;"
-                                                                data-type="DMH" data-des="Tạo nhanh hóa đơn mua hàng">
-                                                                <a href="#" style="flex:2;"
-                                                                    onclick="getAction(this)" name="search-info"
-                                                                    class="search-info">
-                                                                    <button
-                                                                        class="align-items-left h-100 border-0 w-100 rounded "
-                                                                        style="background-color: transparent;"
-                                                                        name="action" value="action_3"
-                                                                        type="submit">
-                                                                        <span
-                                                                            style="font-weight: 600;color: #000; font-size:13px">Thêm
-                                                                            mua
-                                                                            hàng</span>
-                                                                    </button>
-                                                                </a>
-                                                            </li>
-                                                            <li class="p-2 align-items-left text-wrap user_flow"
-                                                                style="border-radius:4px;border-bottom: 1px solid #d6d6d6;"
-                                                                data-type="DMH"
-                                                                data-des="Tạo nhanh thanh toán mua hàng">
-                                                                <a href="#" style="flex:2;"
-                                                                    onclick="getAction(this)" name="search-info"
-                                                                    class="search-info">
-                                                                    <button
-                                                                        class="align-items-left h-100 border-0 w-100 rounded"
-                                                                        style="background-color: transparent;"
-                                                                        name="action" value="action_4"
-                                                                        type="submit">
-                                                                        <span
-                                                                            style="font-weight: 600;color: #000; font-size:13px">Thêm
-                                                                            thanh
-                                                                            toán</span>
-                                                                    </button>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
+                                                {{-- <td class="border-bottom border-top-0">
+                                                </td> --}}
                                                 <td class="text-13-black border-bottom border-top-0 text-wrap">
                                                     {{ $item->provide_name }}
                                                 </td>
@@ -398,13 +336,6 @@
                                                     @else
                                                         <span style="color: #08AA36">Close</span>
                                                     @endif
-                                                    {{-- @if ($item->status_receive == 2 && $item->status_reciept == 2 && $item->status_pay == 2)
-                                                        <span style="color: #08AA36">Close</span>
-                                                    @elseif($item->status == 1)
-                                                        <span style="color: #858585">Draft</span>
-                                                    @else
-                                                        <span style="color: #E8B600">Approved</span>
-                                                    @endif --}}
                                                 </td>
                                                 <td class="text-center py-2 border-bottom border-top-0">
                                                     @if ($item->status_receive == 0)
@@ -490,7 +421,7 @@
                                                 <td class="text-13-black text-right border-bottom border-top-0">
                                                     {{ number_format($item->total_tax) }}</td>
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-bottom border-top-0 align-items-center"
-                                                    style="right: 10px; top: 7px; bottom:0;">
+                                                    style="right: 10px; top: 0px; bottom:0;">
                                                     <div class="d-flex w-100">
                                                         <a class="user_flow" data-type="DMH"
                                                             data-des="Xem đơn mua hàng"
@@ -557,6 +488,50 @@
         </section>
     </div>
 </div>
+<div class="bg-white position-absolute rounded shadow p-2 z-index-block"
+    style="z-index: 99; width: 165px; top: 20px; right: 88px; display:none;" id="listBtnCreateFast">
+    <ul class="m-0 p-0 scroll-data">
+        <li class="p-2 align-items-left text-wrap user_flow"
+            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-type="DMH"
+            data-des="Tạo nhanh đơn nhận hàng">
+            <a href="#" style="flex:2;" onclick="getAction(this)" name="search-info" class="search-info">
+                <button class="align-items-left h-100 border-0 w-100 rounded" style="background-color: transparent;"
+                    name="action" value="action_2" type="submit">
+                    <span style="font-weight: 600;color: #000; font-size:13px">Thêm
+                        nhận
+                        hàng</span>
+                </button>
+            </a>
+        </li>
+        <li class="p-2 align-items-left text-wrap user_flow"
+            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-type="DMH"
+            data-des="Tạo nhanh hóa đơn mua hàng">
+            <a href="#" style="flex:2;" onclick="getAction(this)" name="search-info" class="search-info">
+                <button class="align-items-left h-100 border-0 w-100 rounded " style="background-color: transparent;"
+                    name="action" value="action_3" type="submit">
+                    <span style="font-weight: 600;color: #000; font-size:13px">Thêm
+                        mua
+                        hàng</span>
+                </button>
+            </a>
+        </li>
+        <li class="p-2 align-items-left text-wrap user_flow"
+            style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-type="DMH"
+            data-des="Tạo nhanh thanh toán mua hàng">
+            <a href="#" style="flex:2;" onclick="getAction(this)" name="search-info" class="search-info">
+                <button class="align-items-left h-100 border-0 w-100 rounded" style="background-color: transparent;"
+                    name="action" value="action_4" type="submit">
+                    <span style="font-weight: 600;color: #000; font-size:13px">Thêm
+                        thanh
+                        toán</span>
+                </button>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+
 <div class="menu bg-hover rounded"
     style="display: none; background: #ffffff; position: absolute; width:14%;  padding: 3px 10px;  box-shadow: 0 0 10px -3px rgba(0, 0, 0, .3);   border: 1px solid #ccc;">
     <a href="#" class="text-dark">

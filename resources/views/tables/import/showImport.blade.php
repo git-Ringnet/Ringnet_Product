@@ -42,83 +42,76 @@
                     <div class="row m-0">
                         <a href="{{ route('import.index', $workspacename) }}" class="user_flow" data-type="DMH"
                             data-des="Trở về">
-                            <button class="btn-destroy btn-light d-flex align-items-center h-100 mx-1" type="button">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none">
-                                        <path
-                                            d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
-                                            fill="#6D7075" />
-                                    </svg>
-                                </span>
-                                <span class="text-btnIner-primary ml-2">Trở về</span>
+                            <button class="btn-destroy rounded mx-1 d-flex align-items-center" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 16 16" fill="none">
+                                    <path
+                                        d="M5.6738 11.4801C5.939 11.7983 6.41191 11.8413 6.73012 11.5761C7.04833 11.311 7.09132 10.838 6.82615 10.5198L5.3513 8.75H12.25C12.6642 8.75 13 8.41421 13 8C13 7.58579 12.6642 7.25 12.25 7.25L5.3512 7.25L6.82615 5.4801C7.09132 5.1619 7.04833 4.689 6.73012 4.4238C6.41191 4.1586 5.939 4.2016 5.6738 4.5198L3.1738 7.51984C2.942 7.79798 2.942 8.20198 3.1738 8.48012L5.6738 11.4801Z"
+                                        fill="#6D7075" />
+                                </svg>
+                                <span class="text-button ml-2">Trở về</span>
                             </button>
                         </a>
 
                         <label class="btn-destroy btn-light d-flex align-items-center h-100 m-0 mx-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                fill="none">
+                            <svg class="mx-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path
-                                    d="M9.30639 10.2059C9.57305 10.4725 9.59528 10.8911 9.37306 11.183L9.30639 11.2593L6.84832 13.7174C5.58773 14.978 3.54392 14.978 2.28333 13.7174C1.06621 12.5003 1.02425 10.553 2.15742 9.2855L2.28333 9.15237L4.7414 6.69429C5.03231 6.40339 5.50396 6.40339 5.79486 6.69429C6.06152 6.96096 6.08375 7.37949 5.86153 7.67147L5.79486 7.74775L3.33679 10.2059C2.65801 10.8846 2.65801 11.9852 3.33679 12.6639C3.98163 13.3088 5.00709 13.341 5.68999 12.7607L5.79486 12.6639L8.25293 10.2059C8.54384 9.91492 9.01549 9.91492 9.30639 10.2059ZM9.83063 6.17005C10.1215 6.46095 10.1215 6.9326 9.83063 7.22351L7.35002 9.70413C7.05911 9.99504 6.58746 9.99504 6.29656 9.70413C6.00565 9.41323 6.00565 8.94158 6.29656 8.65067L8.77718 6.17005C9.06808 5.87914 9.53973 5.87914 9.83063 6.17005ZM13.7183 2.28236C14.9354 3.49948 14.9774 5.44674 13.8442 6.71422L13.7183 6.84735L11.2602 9.30543C10.9693 9.59633 10.4977 9.59633 10.2068 9.30543C9.94012 9.03877 9.9179 8.62023 10.1401 8.32825L10.2068 8.25197L12.6648 5.79389C13.3436 5.11511 13.3436 4.0146 12.6648 3.33582C12.02 2.69098 10.9946 2.65874 10.3117 3.23909L10.2068 3.33582L7.74872 5.79389C7.45781 6.0848 6.98616 6.0848 6.69526 5.79389C6.4286 5.52723 6.40637 5.10869 6.62859 4.81672L6.69526 4.74043L9.15333 2.28236C10.4139 1.02177 12.4577 1.02177 13.7183 2.28236Z"
-                                    fill="#6D7075" />
+                                    d="M9.30639 10.2061C9.57305 10.4727 9.59528 10.8913 9.37306 11.1832L9.30639 11.2595L6.84832 13.7176C5.58773 14.9782 3.54392 14.9782 2.28333 13.7176C1.06621 12.5005 1.02425 10.5532 2.15742 9.28574L2.28333 9.15261L4.7414 6.69453C5.03231 6.40363 5.50396 6.40363 5.79486 6.69453C6.06152 6.9612 6.08375 7.37973 5.86153 7.67171L5.79486 7.74799L3.33679 10.2061C2.65801 10.8848 2.65801 11.9854 3.33679 12.6641C3.98163 13.309 5.00709 13.3412 5.68999 12.7609L5.79486 12.6641L8.25293 10.2061C8.54384 9.91516 9.01549 9.91516 9.30639 10.2061ZM9.83063 6.17029C10.1215 6.46119 10.1215 6.93284 9.83063 7.22375L7.35002 9.70437C7.05911 9.99528 6.58746 9.99528 6.29656 9.70437C6.00565 9.41347 6.00565 8.94182 6.29656 8.65091L8.77718 6.17029C9.06808 5.87938 9.53973 5.87938 9.83063 6.17029ZM13.7183 2.2826C14.9354 3.49972 14.9774 5.44698 13.8442 6.71446L13.7183 6.84759L11.2602 9.30567C10.9693 9.59657 10.4977 9.59657 10.2068 9.30567C9.94012 9.03901 9.9179 8.62047 10.1401 8.32849L10.2068 8.25221L12.6648 5.79413C13.3436 5.11535 13.3436 4.01484 12.6648 3.33606C12.02 2.69122 10.9946 2.65898 10.3117 3.23933L10.2068 3.33606L7.74872 5.79413C7.45781 6.08504 6.98616 6.08504 6.69526 5.79413C6.4286 5.52747 6.40637 5.10893 6.62859 4.81696L6.69526 4.74067L9.15333 2.2826C10.4139 1.02201 12.4577 1.02201 13.7183 2.2826Z"
+                                    fill="#6D7075"></path>
                             </svg>
-                            <span class="text-btnIner-primary ml-2">Đính kèm</span>
+                            <span class="text-button text-secondary">Đính kèm</span>
                             <input type="file" style="display: none;" id="file_restore" accept="*"
                                 name="file">
                         </label>
 
                         <div class="dropdown">
-                            <button type="button" class="btn-destroy btn-light d-flex align-items-center h-100 mx-1"
+                            <button type="button"
+                                class="btn-save-print rounded d-flex mx-1 align-items-center h-100 dropdown-toggle px-2"
                                 id="btnCreateFast">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M4.82017 6.15415C5.02571 5.94862 5.35895 5.94862 5.56449 6.15415L7.99935 8.58901L10.4342 6.15415C10.6397 5.94862 10.973 5.94862 11.1785 6.15415C11.3841 6.35969 11.3841 6.69294 11.1785 6.89848L8.37151 9.70549C8.16597 9.91103 7.83273 9.91103 7.62719 9.70549L4.82017 6.89848C4.61463 6.69294 4.61463 6.35969 4.82017 6.15415Z"
-                                            fill="#6D7075" />
-                                    </svg>
-                                </span>
-                                <span class="text-btnIner-primary ml-2">Chuyển đổi</span>
+                                <svg class="mr-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M4.82017 6.15415C5.02571 5.94862 5.35895 5.94862 5.56449 6.15415L7.99935 8.58901L10.4342 6.15415C10.6397 5.94862 10.973 5.94862 11.1785 6.15415C11.3841 6.35969 11.3841 6.69294 11.1785 6.89848L8.37151 9.70549C8.16597 9.91103 7.83273 9.91103 7.62719 9.70549L4.82017 6.89848C4.61463 6.69294 4.61463 6.35969 4.82017 6.15415Z"
+                                        fill="#6D7075"></path>
+                                </svg>
+                                <span class="text-button">Chuyển đổi</span>
                             </button>
-                            <div class="bg-white position-absolute rounded shadow p-2 z-index-block"
-                                style="z-index:99;width: 260px;top: 20px;right: 88px; display:none;"
+                            <div class="dropdown-menu" style="z-index: 9999; width: 250px !important;right:-140px;"
                                 id="listBtnCreateFast">
                                 <ul class="m-0 p-0 scroll-data">
-                                    <li class="p-2 align-items-left text-wrap user_flow"
-                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-type="DMH"
-                                        data-des="Tạo nhanh đơn nhận hàng">
-                                        <a href="#" style="flex:2;" onclick="getAction(this)" name="search-info"
-                                            class="search-info">
+                                    <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
+                                        data-type="DMH" data-des="Tạo nhanh đơn nhận hàng">
+                                        <a href="#" style="flex:2;" onclick="getAction(this)"
+                                            name="search-info" class="search-info">
                                             <button class="align-items-left h-100 border-0 w-100 rounded"
                                                 style="background-color: transparent;" name="action"
                                                 value="action_2" type="submit">
-                                                <span style="font-weight: 600;color: #000; font-size:13px">Chuyển đổi
+                                                <span style="color: #282A30; font-size:14px">Chuyển đổi
                                                     thành đơn nhận hàng</span>
                                             </button>
                                         </a>
                                     </li>
-                                    <li class="p-2 align-items-left text-wrap user_flow"
-                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-type="DMH"
-                                        data-des="Tạo nhanh hóa đơn mua hàng">
+                                    <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
+                                        data-type="DMH" data-des="Tạo nhanh hóa đơn mua hàng">
                                         <a href="#" style="flex:2;" onclick="getAction(this)"
                                             name="search-info" class="search-info">
                                             <button class="align-items-left h-100 border-0 w-100 rounded "
                                                 style="background-color: transparent;" name="action"
                                                 value="action_3" type="submit">
-                                                <span style="font-weight: 600;color: #000; font-size:13px">Chuyển đổi
+                                                <span style="color: #282A30; font-size:14px">Chuyển đổi
                                                     thành hóa đơn</span>
                                             </button>
                                         </a>
                                     </li>
-                                    <li class="p-2 align-items-left text-wrap user_flow"
-                                        style="border-radius:4px;border-bottom: 1px solid #d6d6d6;" data-type="DMH"
-                                        data-des="Tạo nhanh thanh toán mua hàng">
+                                    <li class="p-1 align-items-left text-wrap user_flow" style="border-radius:4px;"
+                                        data-type="DMH" data-des="Tạo nhanh thanh toán mua hàng">
                                         <a href="#" style="flex:2;" onclick="getAction(this)"
                                             name="search-info" class="search-info">
                                             <button class="align-items-left h-100 border-0 w-100 rounded"
                                                 style="background-color: transparent;" name="action"
                                                 value="action_4" type="submit">
-                                                <span style="font-weight: 600;color: #000; font-size:13px">Chuyển đổi
+                                                <span style="color: #282A30; font-size:14px">Chuyển đổi
                                                     thành thanh
                                                     toán</span>
                                             </button>
@@ -136,21 +129,22 @@
                                     viewBox="0 0 16 16" fill="none">
                                     <path
                                         d="M4.75 2.00007C2.67893 2.00007 1 3.679 1 5.75007V11.25C1 13.3211 2.67893 15 4.75 15H10.2501C12.3212 15 14.0001 13.3211 14.0001 11.25V8.00007C14.0001 7.58586 13.6643 7.25007 13.2501 7.25007C12.8359 7.25007 12.5001 7.58586 12.5001 8.00007V11.25C12.5001 12.4927 11.4927 13.5 10.2501 13.5H4.75C3.50736 13.5 2.5 12.4927 2.5 11.25V5.75007C2.5 4.50743 3.50736 3.50007 4.75 3.50007H7C7.41421 3.50007 7.75 3.16428 7.75 2.75007C7.75 2.33586 7.41421 2.00007 7 2.00007H4.75Z"
-                                        fill="white" />
+                                        fill="white"></path>
                                     <path
                                         d="M12.1339 5.19461L10.7197 3.7804L6.52812 7.97196C5.77185 8.72823 5.25635 9.69144 5.0466 10.7402C5.03144 10.816 5.09828 10.8828 5.17409 10.8677C6.22285 10.6579 7.18606 10.1424 7.94233 9.38618L12.1339 5.19461Z"
-                                        fill="white" />
+                                        fill="white"></path>
                                     <path
                                         d="M13.4559 1.45679C13.2663 1.39356 13.0571 1.44293 12.9158 1.58431L11.7803 2.71974L13.1945 4.13395L14.33 2.99852C14.4714 2.85714 14.5207 2.64802 14.4575 2.45834C14.2999 1.98547 13.9288 1.61441 13.4559 1.45679Z"
-                                        fill="white" />
+                                        fill="white"></path>
                                 </svg>
-                                <span class="text-btnIner-primary ml-2">Sửa</span>
+                                <span class="text-btnIner-primary ml-1">Sửa</span>
                             </button>
                         </a>
 
 
                         <div class="dropdown">
-                            <button type="button" class="btn-destroy btn-light d-flex align-items-center h-100 mx-1 bg-click"
+                            <button type="button"
+                                class="btn-save-print border-0 rounded d-flex align-items-center h-100 dropdown-toggle px-2 bg-click"
                                 id="btnCreateFast1">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="4"
@@ -600,8 +594,8 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <x-formsynthetic :import="''"></x-formsynthetic>
                             </section>
-                            <x-formsynthetic :import="''"></x-formsynthetic>
                         </div>
 
                         <div id="history" class="tab-pane fade">

@@ -18,10 +18,9 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('paymentOrder.create', $workspacename) }}" class="user_flow" data-type="TTMH"
+                    <a href="{{ route('paymentOrder.create', $workspacename) }}" class="user_flow mr-3" data-type="TTMH"
                         data-des="Tạo mới">
-                        <button type="button" class="custom-btn d-flex align-items-center h-100"
-                            style="margin-right:10px">
+                        <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -168,8 +167,8 @@
                                                 <input type="checkbox" name="all" id="checkall"
                                                     class="checkall-btn">
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
-                                                <span class="d-flex">
+                                            <th scope="col" class="my-0 py-2" style="width: 14%;">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="payment_code" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Mã thanh
@@ -178,18 +177,18 @@
                                                     <div class="icon" id="icon-payment_code"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
-                                                <span class="d-flex">
+                                            <th scope="col" class="my-0 py-2" style="width: 14%;">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
                                                         <button class="btn-sort text-13" type="submit">Đơn mua
-                                                            hàng</button>
+                                                            hàng#</button>
                                                     </a>
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
-                                                <span class="d-flex">
+                                            <th scope="col" class="my-0 py-2" style="width: 10%;">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="provide_name_display"
                                                         data-sort-type="DESC"><button class="btn-sort text-13"
@@ -200,72 +199,96 @@
                                                 </span>
                                             </th>
                                             @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                <th scope="col" class="height-52 border-bottom">
-                                                    <span class="d-flex">
+                                                <th scope="col" class="my-0 py-2" style="width: 10%;">
+                                                    <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link" data-sort-by="created_at"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Người tạo</button>
+                                                            data-sort-type=""><button class="btn-sort "
+                                                                type="submit">
+                                                                <span class="text-13">Người tạo</span></button>
                                                         </a>
                                                         <div class="icon" id="icon-created_at"></div>
                                                     </span>
                                                 </th>
                                             @endif
-                                            <th scope="col"
-                                                class="height-52 d-flex justify-content-center border-bottom">
-                                                <span class="">
+                                            <th scope="col" class="my-0 py-2 border-bottom" style="width: 8%;">
+                                                <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="status" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Trạng
-                                                            thái</button>
+                                                        data-sort-by="status" data-sort-type="DESC">
+                                                        <button class="btn-sort" type="submit">
+                                                            <span class="text-13">Trạng thái</span>
+                                                        </button>
                                                     </a>
                                                     <div class="icon" id="icon-status"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
-                                                <span class="d-flex">
+                                            <th scope="col" class="my-0 py-2 border-bottom" style="width: 10%;">
+                                                <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="payment_date" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Hạn thanh
-                                                            toán</button>
+                                                            class="btn-sort" type="submit">
+                                                            <span class="text-13">Hạn thanh toán </span>
+                                                            </button>
                                                     </a>
                                                     <div class="icon" id="icon-payment_date"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
+                                            <th scope="col" class="my-0 py-2 border-bottom" style="width: 10%;">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Tổng tiền</button>
+                                                            class="btn-sort" type="submit"><span class="text-13">Tổng tiền</span></button>
                                                     </a>
                                                     <div class="icon" id="icon-total"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
+                                            <th scope="col" class="my-0 py-2 border-bottom" style="width: 10%;">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="payment" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Đã nhận</button>
+                                                            class="btn-sort" type="submit"><span class="text-13">Đã nhận</span></button>
                                                     </a>
                                                     <div class="icon" id="icon-payment"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom">
+                                            <th scope="col" class="my-0 py-2 border-bottom">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="debt" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Dư nợ</button>
+                                                            class="btn-sort" type="submit"><span class="text-13">Dư nợ</span></button>
                                                     </a>
                                                     <div class="icon" id="icon-debt"></div>
                                                 </span>
                                             </th>
+                                            {{-- <th style="width: 0%;"></th> --}}
                                         </tr>
                                     </thead>
                                     <tbody class="tbody-payment">
                                         @foreach ($payment as $item)
-                                            <tr class="position-relative payment-info" style="height: 44px;"><input
-                                                    type="hidden" name="id-payment" class="id-payment"
+                                            <tr class="position-relative payment-info height-52">
+                                                <input type="hidden" name="id-payment" class="id-payment"
                                                     id="id-payment" value="{{ $item->id }}">
-                                                <td class="pr-0 py-2 border-top-0 border-bottom">
+                                                <td class="border-bottom border-top-0">
+                                                    <span class="margin-Right10">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="6"
+                                                            height="10" viewBox="0 0 6 10" fill="none">
+                                                            <g clip-path="url(#clip0_1710_10941)">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z"
+                                                                    fill="#282A30"></path>
+                                                            </g>
+                                                            <defs>
+                                                                <clipPath id="clip0_1710_10941">
+                                                                    <rect width="6" height="10"
+                                                                        fill="white"></rect>
+                                                                </clipPath>
+                                                            </defs>
+                                                        </svg>
+                                                    </span>
+                                                    <input type="checkbox" class="cb-element checkall-btn"
+                                                        name="ids[]" id="checkbox" value=""
+                                                        onclick="event.stopPropagation();">
+                                                </td>
+                                                {{-- <td class="pr-0 py-2 border-top-0 border-bottom">
                                                     <span class="margin-Right10">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                             height="10" viewBox="0 0 6 10" fill="none">
@@ -283,30 +306,30 @@
                                                         </svg>
                                                     </span>
                                                     <input type="checkbox" class="cb-element checkall-btn">
-                                                </td>
-                                                <td class="py-2 text-13-black border-top-0 border-bottom text-wrap">
+                                                </td> --}}
+                                                <td class="text-13-black border-top-0 border-bottom max-width120">
                                                     <a href="{{ route('paymentOrder.edit', ['workspace' => $workspacename, 'paymentOrder' => $item->id]) }}"
                                                         class="user_flow" data-type="TTMH"
                                                         data-des="Xem thanh toán mua hàng">
                                                         {{ $item->payment_code }}
                                                     </a>
                                                 </td>
-                                                <td class="py-2 text-13-black border-top-0 border-bottom text-wrap">
+                                                <td class="text-13-black border-top-0 border-bottom max-width120">
                                                     {{ $item->getQuotation->quotation_number }}
                                                 </td>
-                                                <td class="py-2 text-13-black border-top-0 border-bottom text-wrap">
+                                                <td class="text-13-black border-top-0 border-bottom max-width120">
                                                     @if ($item->getQuotation)
                                                         {{ $item->getQuotation->provide_name }}
                                                     @endif
                                                 </td>
                                                 @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                    <td class="py-2 text-13-black border-top-0 border-bottom">
+                                                    <td class="text-13-black border-top-0 border-bottom">
                                                         @if ($item->getNameUser)
                                                             {{ $item->getNameUser->name }}
                                                         @endif
                                                     </td>
                                                 @endif
-                                                <td class="py-2 text-13-black text-center border-top-0 border-bottom">
+                                                <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($item->status == 1)
                                                         @if ($item->payment > 0)
                                                             <span style="color: #858585">Thanh toán một phần</span>
@@ -320,7 +343,7 @@
                                                             {{ $item->formatDate($item->payment_date)->diffInDays($today) + 1 }}
                                                             ngày</span>
                                                     @elseif($item->status == 4)
-                                                        <span style="color:#EC212D">Quá hạn trong
+                                                        <span style="color:#EC212D">Quá hạn
                                                             {{ $item->formatDate($item->payment_date)->diffInDays($today) }}
                                                             ngày</span>
                                                     @elseif($item->status == 5)
@@ -329,15 +352,15 @@
                                                         <span style="color: #0052CC">Đặt cọc</span>
                                                     @endif
                                                 </td>
-                                                <td class="py-2 text-13-black border-top-0 border-bottom">
+                                                <td class="text-13-black border-top-0 border-bottom">
                                                     {{ date_format(new DateTime($item->payment_date), 'd/m/Y') }}</td>
 
-                                                <td class="py-2 text-13-black text-right border-top-0 border-bottom">
+                                                <td class="text-13-black text-right border-top-0 border-bottom">
                                                     {{ number_format($item->total) }}</td>
-                                                <td class="py-2 text-13-black text-right border-top-0 border-bottom">
+                                                <td class="text-13-black text-right border-top-0 border-bottom">
                                                     {{ number_format($item->payment) }}
                                                 </td>
-                                                <td class="py-2 text-13-black text-right border-top-0 border-bottom">
+                                                <td class="text-13-black text-right border-top-0 border-bottom">
                                                     {{ number_format($item->debt) }}
                                                 </td>
 
@@ -350,7 +373,7 @@
                                                     {{ fmod($item->debt, 2) > 0 && fmod($item->debt, 1) > 0 ? number_format($item->debt, 2, '.', ',') : number_format($item->debt) }}
                                                 </td> --}}
                                                 <td class="position-absolute m-0 p-0 border-0 bg-hover-icon border-top-0 border-bottom align-items-center"
-                                                    style="right: 10px; top: 6px; bottom:0;">
+                                                    style="right: 10px; top: 0; bottom:0;">
                                                     <div class="d-flex align-items-center">
                                                         <a href="#">
                                                             <div class="m-0 mx-2 rounded">
