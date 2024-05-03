@@ -207,17 +207,19 @@
                                                     <div class="icon" id="icon-guest_name_display"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="my-0 py-2" style="width: 10%;">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit" data-sort-by=""
-                                                        data-sort-type="DESC">
-                                                        <button class="btn-sort" type="submit">
-                                                            <span class="text-13">Người tạo</span>
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon" id=""></div>
-                                                </span>
-                                            </th>
+                                            @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                <th scope="col" class="my-0 py-2" style="width: 10%;">
+                                                    <span class="d-flex justify-content-start">
+                                                        <a href="#" class="sort-link btn-submit"
+                                                            data-sort-by="" data-sort-type="DESC">
+                                                            <button class="btn-sort" type="submit">
+                                                                <span class="text-13">Người tạo</span>
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id=""></div>
+                                                    </span>
+                                                </th>
+                                            @endif
                                             <th scope="col" class="my-0 py-2" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -317,10 +319,12 @@
                                                     class="text-13-black max-width120 text-left border-bottom border-top-0">
                                                     {{ $item_pay->guest_name }}
                                                 </td>
-                                                <td
-                                                    class="text-13-black max-width120 text-left border-bottom border-top-0">
-                                                    {{ $item_pay->name }}
-                                                </td>
+                                                @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                    <td
+                                                        class="text-13-black max-width120 text-left border-bottom border-top-0">
+                                                        {{ $item_pay->name }}
+                                                    </td>
+                                                @endif
                                                 <td class="text-13-black text-center border-bottom border-top-0">
                                                     @if ($item_pay->status == 1)
                                                         @if ($item_pay->payment > 0)

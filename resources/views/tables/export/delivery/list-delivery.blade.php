@@ -193,6 +193,16 @@
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
+                                            <th scope="col" class="height-52" style="width: 10%;">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="ngayGiao" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Ngày giao
+                                                            hàng</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-ngayGiao"></div>
+                                                </span>
+                                            </th>
                                             <th scope="col" class="height-52" style="width: 14%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
@@ -203,17 +213,19 @@
                                                     <div class="icon" id="icon-guest_name"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 10%;">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit" data-sort-by=""
-                                                        data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">
-                                                            Người tạo
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon" id=""></div>
-                                                </span>
-                                            </th>
+                                            @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                <th scope="col" class="height-52" style="width: 10%;">
+                                                    <span class="d-flex justify-content-start">
+                                                        <a href="#" class="sort-link btn-submit"
+                                                            data-sort-by="" data-sort-type="DESC">
+                                                            <button class="btn-sort text-13" type="submit">
+                                                                Người tạo
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id=""></div>
+                                                    </span>
+                                                </th>
+                                            @endif
                                             <th scope="col" class="height-52" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
@@ -242,16 +254,6 @@
                                                             thái</button>
                                                     </a>
                                                     <div class="icon" id="icon-trangThai"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52" style="width: 10%;">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="ngayGiao" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Ngày giao
-                                                            hàng</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-ngayGiao"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52">
@@ -303,14 +305,19 @@
                                                     class="text-13-black max-width120 text-left border-bottom border-top-0">
                                                     {{ $item_delivery->quotation_number }}
                                                 </td>
+                                                <td class="text-13-black text-left border-bottom border-top-0">
+                                                    {{ date_format(new DateTime($item_delivery->ngayGiao), 'd/m/Y') }}
+                                                </td>
                                                 <td
                                                     class="text-13-black max-width120 text-left border-bottom border-top-0">
                                                     {{ $item_delivery->guest_name }}
                                                 </td>
-                                                <td
-                                                    class="text-13-black max-width120 text-left border-bottom border-top-0">
-                                                    {{ $item_delivery->name }}
-                                                </td>
+                                                @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                    <td
+                                                        class="text-13-black max-width120 text-left border-bottom border-top-0">
+                                                        {{ $item_delivery->name }}
+                                                    </td>
+                                                @endif
                                                 <td class="text-13-black text-left border-bottom border-top-0">
                                                     {{ $item_delivery->shipping_unit }}
                                                 </td>
@@ -323,9 +330,6 @@
                                                     @else
                                                         <span class="text-success">Đã giao</span>
                                                     @endif
-                                                </td>
-                                                <td class="text-13-black text-left border-bottom border-top-0">
-                                                    {{ date_format(new DateTime($item_delivery->ngayGiao), 'd/m/Y') }}
                                                 </td>
                                                 <td class="text-13-black text-right border-bottom border-top-0">
                                                     {{ number_format($item_delivery->totalProductVat) }}

@@ -223,7 +223,7 @@
                                 </svg>
                                 <span class="text-table">Thêm sản phẩm</span>
                             </button>
-                            <button type="button" data-toggle="dropdown"
+                            {{-- <button type="button" data-toggle="dropdown"
                                 class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                 style="margin-right:10px">
                                 <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
@@ -264,7 +264,7 @@
                                         d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
                                         fill="#42526E"></path>
                                 </svg>
-                            </button>
+                            </button> --}}
                         </div>
                     </div>
                 </section>
@@ -1644,7 +1644,7 @@
             );
             const tenSanPham = $(
                 `<td class='border-right p-2 text-13 align-top position-relative border-bottom'>` +
-                `<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 44%;left: 0%;'>` +
+                `<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 44%;left: 0%;display: none;'>` +
                 `@foreach ($product as $product_value)` +
                 `<li data-id='{{ $product_value->id }}'>` +
                 `<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 idProduct w-100' id='{{ $product_value->id }}' name='idProduct'>` +
@@ -1697,7 +1697,7 @@
             );
             const thue = $(
                 "<td class='border-right p-1 text-13 align-top border-bottom'>" +
-                "<select name='product_tax[]' class='border-0 py-1 w-100 text-left product_tax' required>" +
+                "<select name='product_tax[]' class='border-0 py-1 w-100 text-center product_tax' required>" +
                 "<option value='0'>0%</option>" +
                 "<option value='8'>8%</option>" +
                 "<option value='10'>10%</option>" +
@@ -1837,7 +1837,6 @@
             //lấy thông tin sản phẩm
             $(document).ready(function() {
                 //Hiển thị danh sách tên sản phẩm
-                $(".list_product").hide();
                 $('.product_name').on("click", function(e) {
                     e.stopPropagation();
                     $(".list_product").hide();
@@ -1922,6 +1921,8 @@
                                 inventory.show();
                             }
                             thue.prop('disabled', true);
+                            productCode.prop('readonly', true);
+                            productUnit.prop('readonly', true);
                             $(".list_product").hide();
                             arrProduct = [];
 

@@ -173,6 +173,16 @@
                                                     <div class="icon" id="icon-idHD"></div>
                                                 </span>
                                             </th>
+                                            <th scope="col" class="height-52" style="width: 18%">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="quotation_number" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Số báo
+                                                            giá</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-quotation_number"></div>
+                                                </span>
+                                            </th>
                                             <th scope="col" class="height-52" style="width: 10%">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
@@ -186,16 +196,6 @@
                                             <th scope="col" class="height-52" style="width: 18%">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="quotation_number" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Số báo
-                                                            giá</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-quotation_number"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52" style="width: 18%">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="guest_name" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Khách
                                                             hàng</button>
@@ -203,17 +203,19 @@
                                                     <div class="icon" id="icon-guest_name"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52" style="width: 10%">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit" data-sort-by=""
-                                                        data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">
-                                                            Người tạo
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon" id=""></div>
-                                                </span>
-                                            </th>
+                                            @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                <th scope="col" class="height-52" style="width: 10%">
+                                                    <span class="d-flex justify-content-start">
+                                                        <a href="#" class="sort-link btn-submit"
+                                                            data-sort-by="" data-sort-type="DESC">
+                                                            <button class="btn-sort text-13" type="submit">
+                                                                Người tạo
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id=""></div>
+                                                    </span>
+                                                </th>
+                                            @endif
                                             <th scope="col" class="height-52" style="width: 8%">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -241,7 +243,8 @@
                                                 onclick="handleRowClick('checkbox', event);">
                                                 <input type="hidden" name="id-billSale" class="id-billSale"
                                                     id="id-billSale" value="{{ $item_bill->idHD }}">
-                                                <td class="pr-0 py-2">
+                                                <td
+                                                    class="text-13-black height-52 text-left border-bottom border-top-0">
                                                     <span class="margin-Right10">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                             height="10" viewBox="0 0 6 10" fill="none">
@@ -271,21 +274,23 @@
                                                     </a>
                                                 </td>
                                                 <td
-                                                    class="text-13-black height-52 text-left border-bottom border-top-0">
-                                                    {{ date_format(new DateTime($item_bill->ngayHD), 'd/m/Y') }}
-                                                </td>
-                                                <td
                                                     class="height-52 text-13-black text-left border-bottom border-top-0">
                                                     {{ $item_bill->quotation_number }}
                                                 </td>
                                                 <td
                                                     class="text-13-black height-52 text-left border-bottom border-top-0">
-                                                    {{ $item_bill->guest_name }}
+                                                    {{ date_format(new DateTime($item_bill->ngayHD), 'd/m/Y') }}
                                                 </td>
                                                 <td
                                                     class="text-13-black height-52 text-left border-bottom border-top-0">
-                                                    {{ $item_bill->name }}
+                                                    {{ $item_bill->guest_name }}
                                                 </td>
+                                                @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                    <td
+                                                        class="text-13-black height-52 text-left border-bottom border-top-0">
+                                                        {{ $item_bill->name }}
+                                                    </td>
+                                                @endif
                                                 <td
                                                     class="text-13-black height-52 text-center border-bottom border-top-0">
                                                     @if ($item_bill->tinhTrang == 1)

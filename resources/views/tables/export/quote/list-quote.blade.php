@@ -193,6 +193,16 @@
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
+                                            <th scope="col" class="height-52 border-bottom-0" style="width: 12%;">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="reference_number" data-sort-type="DESC"><button
+                                                            class="btn-sort text-13" type="submit">Số tham
+                                                            chiếu</button>
+                                                    </a>
+                                                    <div class="icon" id="icon-reference_number"></div>
+                                                </span>
+                                            </th>
                                             <th scope="col" class="height-52 border-bottom-0" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
@@ -202,16 +212,6 @@
                                                         </button>
                                                     </a>
                                                     <div class="icon" id="icon-ngayBG"></div>
-                                                </span>
-                                            </th>
-                                            <th scope="col" class="height-52 border-bottom-0" style="width: 12%;">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="reference_number" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Số tham
-                                                            chiếu</button>
-                                                    </a>
-                                                    <div class="icon" id="icon-reference_number"></div>
                                                 </span>
                                             </th>
                                             <th scope="col" class="height-52 border-bottom-0" style="width: 14%;">
@@ -225,17 +225,20 @@
                                                     <div class="icon" id="icon-guest_name_display"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0" style="width: 10%;">
-                                                <span class="d-flex justify-content-start">
-                                                    <a href="#" class="sort-link btn-submit" data-sort-by=""
-                                                        data-sort-type="DESC">
-                                                        <button class="btn-sort text-13" type="submit">
-                                                            Người tạo
-                                                        </button>
-                                                    </a>
-                                                    <div class="icon" id=""></div>
-                                                </span>
-                                            </th>
+                                            @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                <th scope="col" class="height-52 border-bottom-0"
+                                                    style="width: 10%;">
+                                                    <span class="d-flex justify-content-start">
+                                                        <a href="#" class="sort-link btn-submit"
+                                                            data-sort-by="" data-sort-type="DESC">
+                                                            <button class="btn-sort text-13" type="submit">
+                                                                Người tạo
+                                                            </button>
+                                                        </a>
+                                                        <div class="icon" id=""></div>
+                                                    </span>
+                                                </th>
+                                            @endif
                                             <th scope="col" class="height-52 border-bottom-0" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -319,17 +322,19 @@
                                                             data-des="Xem đơn báo giá">{{ $value_export->quotation_number }}</a>
                                                     </div>
                                                 </td>
-                                                <td class="text-13-black text-left border-bottom">
-                                                    {{ date_format(new DateTime($value_export->ngayBG), 'd/m/Y') }}</td>
                                                 <td class="text-13-black max-width120 text-left border-bottom">
                                                     {{ $value_export->reference_number }}
                                                 </td>
+                                                <td class="text-13-black text-left border-bottom">
+                                                    {{ date_format(new DateTime($value_export->ngayBG), 'd/m/Y') }}</td>
                                                 <td class="text-13-black max-width180 text-left border-bottom">
                                                     {{ $value_export->guest_name }}
                                                 </td>
-                                                <td class="text-13-black max-width180 text-left border-bottom">
-                                                    {{ $value_export->name }}
-                                                </td>
+                                                @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                    <td class="text-13-black max-width180 text-left border-bottom">
+                                                        {{ $value_export->name }}
+                                                    </td>
+                                                @endif
                                                 <td class="text-13-black text-center border-bottom">
                                                     @if ($value_export->tinhTrang === 1)
                                                         <span class="text-secondary">Draft</span>

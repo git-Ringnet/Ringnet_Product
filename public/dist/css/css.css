@@ -161,7 +161,7 @@ li {
     width: 100%;
     overflow-x: auto;
     scrollbar-width: thin;
-    max-height: calc(100vh - 180px);
+    max-height: calc(100vh - 140px);
 }
 
 .outer2 th {

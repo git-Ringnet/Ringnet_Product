@@ -173,7 +173,7 @@
                                     </svg>
                                     <span class="text-table">Thêm sản phẩm</span>
                                 </button>
-                                <button type="button" data-toggle="dropdown"
+                                {{-- <button type="button" data-toggle="dropdown"
                                     class="btn-save-print d-flex align-items-center h-100 py-1 px-2 rounded"
                                     style="margin-right:10px">
                                     <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="14"
@@ -214,7 +214,7 @@
                                             d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
                                             fill="#42526E"></path>
                                     </svg>
-                                </button>
+                                </button> --}}
                             </div>
                         </div>
                     </section>

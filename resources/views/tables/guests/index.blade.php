@@ -160,17 +160,19 @@
                                                 <div class="icon" id="icon-guest_name_display"></div>
                                             </span>
                                         </th>
-                                        <th class="" scope="col" style="width: 20%;">
-                                            <span class="d-flex justify-content-start">
-                                                <a href="#" class="sort-link btn-submit" data-sort-by="name"
-                                                    data-sort-type="DESC">
-                                                    <button class="btn-sort" type="submit">
-                                                        <span class="text-13">Người tạo</span>
-                                                    </button>
-                                                </a>
-                                                <div class="icon" id="icon-name"></div>
-                                            </span>
-                                        </th>
+                                        @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                            <th class="" scope="col" style="width: 20%;">
+                                                <span class="d-flex justify-content-start">
+                                                    <a href="#" class="sort-link btn-submit"
+                                                        data-sort-by="name" data-sort-type="DESC">
+                                                        <button class="btn-sort" type="submit">
+                                                            <span class="text-13">Người tạo</span>
+                                                        </button>
+                                                    </a>
+                                                    <div class="icon" id="icon-name"></div>
+                                                </span>
+                                            </th>
+                                        @endif
                                         <th class="" scope="col" style="width: 25%;">
                                             <span class="d-flex justify-content-start">
                                                 <a href="#" class="sort-link btn-submit"
@@ -244,8 +246,11 @@
                                                 <a
                                                     href="{{ route('guests.show', ['workspace' => $workspacename, 'guest' => $item->id]) }}">{{ $item->guest_name_display }}</a>
                                             </td>
-                                            <td class="text-13-black border-bottom border-top-0">{{ $item->name }}
-                                            </td>
+                                            @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
+                                                <td class="text-13-black border-bottom border-top-0">
+                                                    {{ $item->name }}
+                                                </td>
+                                            @endif
                                             <td class="text-13-black border-bottom border-top-0">
                                                 {{ $item->guest_code }}</td>
                                             {{-- <td class="text-13-black">{{ $item->guest_email }}</td>
