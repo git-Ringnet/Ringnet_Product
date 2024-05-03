@@ -19,6 +19,6 @@
         </button>
         <button type="submit" class="btn mx-1 btn-block btn-submit text-btnIner-filter"
             data-title="{{ $title }}" data-button-name="{{ $name }}"
-            data-button="{{ $button }}">Xác Nhận</button>
+            data-button="{{ isset($button) ? $button : '' }}">Xác Nhận</button>
     </div>
 </div>
