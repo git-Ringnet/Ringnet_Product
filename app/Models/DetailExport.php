@@ -281,7 +281,7 @@ class DetailExport extends Model
         }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
-            $dateEnd = Carbon::parse($data['date'][1]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
 
             $detailExport = $detailExport->whereBetween('detailexport.created_at', [$dateStart, $dateEnd]);
         }

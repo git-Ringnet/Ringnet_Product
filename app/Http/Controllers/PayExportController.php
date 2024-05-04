@@ -466,6 +466,12 @@ class PayExportController extends Controller
             if (in_array(5, $data['status'])) {
                 $statusValues[] = '<span style="color: #0052CC;">Thanh toán 1 phần</span>';
             }
+            if (in_array(3, $data['status'])) {
+                $statusValues[] = '<span style="color: #0052CC;">Gần đến hạn</span>';
+            }
+            if (in_array(7, $data['status'])) {
+                $statusValues[] = '<span style="color: #0052CC;">Đặt cọc</span>';
+            }
             $statusText = implode(', ', $statusValues);
             $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status', 'icon' => 'status'];
         }

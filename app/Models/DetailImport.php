@@ -336,7 +336,7 @@ class DetailImport extends Model
         }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
-            $dateEnd = Carbon::parse($data['date'][1]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
             $import = $import->whereBetween('detailimport.created_at', [$dateStart, $dateEnd]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {

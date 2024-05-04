@@ -512,7 +512,12 @@ class PayExport extends Model
             $payExport = $payExport->whereIn('pay_export.user_id', $data['users']);
         }
         if (isset($data['status'])) {
-            $payExport = $payExport->whereIn('pay_export.status', $data['status']);
+            if (in_array(7, $data['status'])) {
+                $payExport = $payExport->where('pay_export.payment', '>', 0);
+                $payExport = $payExport->where('pay_export.status', 1);
+            } else {
+                $payExport = $payExport->whereIn('pay_export.status', $data['status']);
+            }
         }
         if (isset($data['payment'][0]) && isset($data['payment'][1])) {
             $payExport = $payExport->where('pay_export.payment', $data['payment'][0], $data['payment'][1]);
@@ -525,7 +530,7 @@ class PayExport extends Model
         }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
-            $dateEnd = Carbon::parse($data['date'][1]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
             $payExport = $payExport->whereBetween('pay_export.payment_date', [$dateStart, $dateEnd]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {

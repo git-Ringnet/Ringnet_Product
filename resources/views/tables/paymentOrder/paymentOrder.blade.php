@@ -134,8 +134,9 @@
                                     <x-filter-status name="status" key1="1" value1="Chưa thanh toán"
                                         key2="2" value2="Thanh toán đủ" key3="3" value3="Gần đến hạn"
                                         key4="4" value4="Quá hạn" key5="6" value5="Đặt cọc"
-                                        key6="5" value6="Đến hạn" color1="#858585" color2="#08AA36BF"
-                                        color3="#0052CC" color4="#EC212D" color5="#08AA36BF" title="Trạng thái" />
+                                        key6="5" value6="Đến hạn" key7="7" value7="Thanh toán 1 phần"
+                                        color1="#858585" color2="#08AA36BF" color3="#0052CC" color4="#EC212D"
+                                        color5="#08AA36BF" title="Trạng thái" />
                                     <x-filter-compare name="total" title="Tổng tiền" />
                                     <x-filter-compare name="payment" title="Đã nhận" />
                                     <x-filter-compare name="debt" title="Dư nợ" />

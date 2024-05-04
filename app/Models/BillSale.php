@@ -479,7 +479,7 @@ class BillSale extends Model
         }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
-            $dateEnd = Carbon::parse($data['date'][1]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
             $bill_sale = $bill_sale->whereBetween('bill_sale.created_at', [$dateStart, $dateEnd]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {

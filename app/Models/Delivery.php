@@ -787,7 +787,7 @@ class Delivery extends Model
         }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
-            $dateEnd = Carbon::parse($data['date'][1]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
             $delivery = $delivery->whereBetween('delivery.created_at', [$dateStart, $dateEnd]);
         }
         if (isset($data['shipping_fee'][0]) && isset($data['shipping_fee'][1])) {

@@ -995,7 +995,7 @@ class DetailExportController extends Controller
         if (isset($data['reciept']) && $data['reciept'] !== null) {
             $statusValues = [];
             if (in_array(1, $data['reciept'])) {
-                $statusValues[] = '<span style="color: #858585;">Bản nháp</span>';
+                $statusValues[] = '<span style="color: #858585;">Chưa tạo</span>';
             }
             if (in_array(2, $data['reciept'])) {
                 $statusValues[] = '<span style="color: #08AA36BF;">Chính thức</span>';

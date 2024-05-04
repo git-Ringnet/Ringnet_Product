@@ -137,7 +137,9 @@ $(document).ready(function () {
                     endDate.getMonth() === startDate.getMonth() &&
                     endDate.getDate() < startDate.getDate())
             ) {
-                alert("Ngày kết thúc không được nhỏ hơn ngày bắt đầu!");
+                alert(
+                    "Ngày kết thúc không được nhỏ hơn hoặc bằng ngày bắt đầu!"
+                );
                 $(this).val("");
             }
         }

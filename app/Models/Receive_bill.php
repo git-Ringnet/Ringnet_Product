@@ -479,7 +479,7 @@ class Receive_bill extends Model
                 $query->orWhere('receive_bill.delivery_code', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
                 $query->orWhere('provide_name_display', 'like', '%' . $data['search'] . '%');
-                $query->orWhere('provide_name', 'like', '%' . $data['search'] . '%');
+                $query->orWhere('detailimport.provide_name', 'like', '%' . $data['search'] . '%');
             });
         }
         if (isset($data['quotenumber'])) {
@@ -508,7 +508,7 @@ class Receive_bill extends Model
         }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
-            $dateEnd = Carbon::parse($data['date'][1]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
             $receive = $receive->whereBetween('receive_bill.created_at', [$dateStart, $dateEnd]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {

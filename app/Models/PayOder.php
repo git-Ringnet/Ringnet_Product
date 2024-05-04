@@ -612,7 +612,12 @@ class PayOder extends Model
             $payment = $payment->whereIn('pay_order.user_id', $data['users']);
         }
         if (isset($data['status'])) {
-            $payment = $payment->whereIn('pay_order.status', $data['status']);
+            if (in_array(7, $data['status'])) {
+                $payment = $payment->where('pay_order.payment', '>', 0);
+                $payment = $payment->where('pay_order.status', 1);
+            } else {
+                $payment = $payment->whereIn('pay_order.status', $data['status']);
+            }
         }
         if (isset($data['payment'][0]) && isset($data['payment'][1])) {
             $payment = $payment->where('pay_order.payment', $data['payment'][0], $data['payment'][1]);
@@ -625,7 +630,7 @@ class PayOder extends Model
         }
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
-            $dateEnd = Carbon::parse($data['date'][1]);
+            $dateEnd = Carbon::parse($data['date'][1])->endOfDay();
             $payment = $payment->whereBetween('pay_order.payment_date', [$dateStart, $dateEnd]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {

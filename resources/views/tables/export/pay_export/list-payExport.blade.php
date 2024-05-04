@@ -144,8 +144,9 @@
                                     <x-filter-checkbox :dataa='$users' name="users" title="Người tạo"
                                         namedisplay="name" />
                                     <x-filter-status name="status" key1="1" value1="Chưa thanh toán"
-                                        key2="2" value2="Thanh toán đủ" key3="6" value3="Đến hạn"
+                                        key2="2" value2="Thanh toán đủ" key3="3" value3="Gần đến hạn"
                                         key4="4" value4="Quá hạn" key5="5" value5="Thanh toán một phần"
+                                        key6="6" value6="Đến hạn" key7="7" value7="Đặt cọc"
                                         color1="#858585" color2="#08AA36BF" color3="#E8B600" color4="#EC212D"
                                         color5="#0052CC" title="Trạng thái" />
                                     <x-filter-compare name="total" title="Tổng tiền" />
