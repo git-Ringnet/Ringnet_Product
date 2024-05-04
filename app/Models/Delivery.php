@@ -57,7 +57,7 @@ class Delivery extends Model
                 $shipping_fee = str_replace(',', '', $shipping_fee);
             }
         } else {
-            $shipping_fee = null;
+            $shipping_fee = 0;
         }
         if (isset($data['shipping_unit'])) {
             $shipping_unit = $data['shipping_unit'];
@@ -162,7 +162,7 @@ class Delivery extends Model
                 $shipping_fee = str_replace(',', '', $shipping_fee);
             }
         } else {
-            $shipping_fee = null;
+            $shipping_fee = 0;
         }
         if (isset($data['shipping_unit'])) {
             $shipping_unit = $data['shipping_unit'];
@@ -477,7 +477,7 @@ class Delivery extends Model
                 $shipping_fee = str_replace(',', '', $shipping_fee);
             }
         } else {
-            $shipping_fee = null;
+            $shipping_fee = 0;
         }
         if (isset($data['shipping_unit'])) {
             $shipping_unit = $data['shipping_unit'];
@@ -709,6 +709,7 @@ class Delivery extends Model
         $delivery = Delivery::leftJoin('delivered', 'delivered.delivery_id', 'delivery.id')
             ->leftJoin('guest', 'guest.id', 'delivery.guest_id')
             ->leftJoin('users', 'users.id', 'delivery.user_id')->distinct('guest.id')
+            ->where('delivery.workspace_id', Auth::user()->current_workspace)
             ->select(
                 'delivery.id as maGiaoHang',
                 'delivery.created_at as ngayGiao',

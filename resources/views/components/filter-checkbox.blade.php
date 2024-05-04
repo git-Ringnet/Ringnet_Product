@@ -26,7 +26,7 @@
                         $display = $item->{$namedisplay};
                     @endphp
 
-                    @if (!in_array($value, $usedValues))
+                    @if ($item && $display && !in_array($value, $usedValues))
                         <li class="btn-submit" data-button-name="{{ $name }}"
                             data-button="{{ isset($button) ? $button : '' }}">
                             <input type="checkbox" id="{{ $name }}_{{ $value }}"

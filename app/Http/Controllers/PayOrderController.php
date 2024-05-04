@@ -265,13 +265,16 @@ class PayOrderController extends Controller
                 $statusValues[] = '<span style="color: #08AA36BF;">Thanh toán đủ</span>';
             }
             if (in_array(3, $data['status'])) {
-                $statusValues[] = '<span style="color: #0052CC;">Đến hạn</span>';
+                $statusValues[] = '<span style="color: #0052CC;">Gần đến hạn</span>';
             }
             if (in_array(4, $data['status'])) {
                 $statusValues[] = '<span style="color: #EC212D;">Quá hạn</span>';
             }
             if (in_array(6, $data['status'])) {
                 $statusValues[] = '<span style="color: #08AA36BF;">Đặt cọc</span>';
+            }
+            if (in_array(5, $data['status'])) {
+                $statusValues[] = '<span style="color: #08AA36BF;">Đến hạn</span>';
             }
             $statusText = implode(', ', $statusValues);
             $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status', 'icon' => 'status'];

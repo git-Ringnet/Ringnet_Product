@@ -111,7 +111,7 @@
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black"
                                                 id="btn-shipping_fee" data-button="shipping_fee" type="button">
-                                                Phí giao hàng
+                                                Phí vận chuyển
                                             </button>
                                             <button class="dropdown-item btndropdown text-13-black" id="btn-status"
                                                 data-button="status" type="button">Trạng thái
@@ -135,7 +135,7 @@
                                     <x-filter-status name="status" key1="1" value1="Chưa giao" key2="2"
                                         value2="Đã nhận" color1="#858585" color2="#08AA36BF" title="Trạng thái" />
                                     <x-filter-compare name="total" title="Tổng tiền" />
-                                    <x-filter-compare name="shipping_fee" title="Phí giao hàng" />
+                                    <x-filter-compare name="shipping_fee" title="Phí vận chuyển" />
                                     <x-filter-date-time name="date" title="Ngày nhận hàng" />
                                 </div>
                             </div>

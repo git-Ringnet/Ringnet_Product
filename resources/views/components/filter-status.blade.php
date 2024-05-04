@@ -56,6 +56,14 @@
                         <label style="color: {{ $color5 }}"for="">{{ $value5 }}</label>
                     </li>
                 @endif
+                @if (isset($key6) && isset($value6))
+                    <li class="btn-submit" data-button-name="{{ $name }}"
+                        data-button="{{ isset($button) ? $button : '' }}">
+                        <input type="checkbox" id="{{ $name }}_{{ $key6 }}"
+                            name="{{ $name }}[]" value="{{ $key6 }}">
+                        <label style="color: {{ $color6 }}"for="">{{ $value6 }}</label>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>

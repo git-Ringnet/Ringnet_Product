@@ -139,7 +139,7 @@
                                     <x-filter-status name="receive" key1="0" value1="Chưa giao" key2="2"
                                         value2="Đã nhận" key3="1" value3="Một phần" color1="#858585"
                                         color2="#08AA36BF" color3="#E8B600" title="Nhận hàng hàng" />
-                                    <x-filter-status name="reciept" key1="0" value1="Nháp" key2="2"
+                                    <x-filter-status name="reciept" key1="0" value1="Chưa tạo" key2="2"
                                         value2="Chính thức" key3="1" value3="Một phần" color1="#858585"
                                         color2="#08AA36BF" color3="#E8B600" title="Hoá đơn" />
                                     <x-filter-status name="pay" key1="0" value1="Chưa thanh toán"

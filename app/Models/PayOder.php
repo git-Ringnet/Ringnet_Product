@@ -626,7 +626,7 @@ class PayOder extends Model
         if (!empty($data['date'][0]) && !empty($data['date'][1])) {
             $dateStart = Carbon::parse($data['date'][0]);
             $dateEnd = Carbon::parse($data['date'][1]);
-            $payment = $payment->whereBetween('pay_order.payment_day', [$dateStart, $dateEnd]);
+            $payment = $payment->whereBetween('pay_order.payment_date', [$dateStart, $dateEnd]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $payment = $payment->orderBy($data['sort'][0], $data['sort'][1]);

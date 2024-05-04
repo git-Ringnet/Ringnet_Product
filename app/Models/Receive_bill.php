@@ -451,6 +451,7 @@ class Receive_bill extends Model
     public function getUserInReceive()
     {
         $receive = Receive_bill::leftJoin('users', 'users.id', 'receive_bill.user_id')
+            ->where('receive_bill.workspace_id', Auth::user()->current_workspace)
             ->select(
                 'receive_bill.*',
                 'users.*'

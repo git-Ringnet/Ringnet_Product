@@ -19,16 +19,19 @@ class FilterStatus extends Component
     public $key3;
     public $key4;
     public $key5;
+    public $key6;
     public $value1;
     public $value2;
     public $value3;
     public $value4;
     public $value5;
+    public $value6;
     public $color1;
     public $color2;
     public $color3;
     public $color4;
     public $color5;
+    public $color6;
     public function __construct(
         $name = null,
         $title = null,
@@ -38,16 +41,19 @@ class FilterStatus extends Component
         $key3 = null,
         $key4 = null,
         $key5 = null,
+        $key6 = null,
         $value1 = null,
         $value2 = null,
         $value3 = null,
         $value4 = null,
         $value5 = null,
+        $value6 = null,
         $color1 = null,
         $color2 = null,
         $color3 = null,
         $color4 = null,
-        $color5 = null
+        $color5 = null,
+        $color6 = null
     ) {
         $this->name = $name;
         $this->key1 = $key1;
@@ -55,16 +61,19 @@ class FilterStatus extends Component
         $this->key3 = $key3;
         $this->key4 = $key4;
         $this->key5 = $key5;
+        $this->key6 = $key6;
         $this->value1 = $value1;
         $this->value2 = $value2;
         $this->value3 = $value3;
         $this->value4 = $value4;
         $this->value5 = $value5;
+        $this->value6 = $value6;
         $this->color1 = $color1;
         $this->color2 = $color2;
         $this->color3 = $color3;
         $this->color4 = $color4;
         $this->color5 = $color5;
+        $this->color6 = $color6;
         $this->title = $title;
         $this->button = $button;
     }
