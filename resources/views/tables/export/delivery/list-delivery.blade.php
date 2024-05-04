@@ -487,140 +487,141 @@
         sort = [
             sort_by, sort_type
         ];
-        // if (!$(e.target).is('input[type="checkbox"]')) {
-        $('#' + btn_submit + '-options').hide();
-    }
-    $(".btn-filter_search").prop("disabled", false);
+        if (!$(e.target).closest('li, input[type="checkbox"]').length) {
+            $('#' + btn_submit + '-options').hide();
+        }
+        $(".btn-filter_search").prop("disabled", false);
 
-    if ($(this).data('delete') === 'quotenumber') {
-        quotenumber = null;
-        $('#quotenumber').val('');
-    }
-    if ($(this).data('delete') === 'shipping_unit') {
-        shipping_unit = null;
-        $('#shipping_unit').val('');
-    }
-    if ($(this).data('delete') === 'code_delivery') {
-        code_delivery = [];
-        // $('.deselect-all-code_delivery').click();
-        $('.ks-cboxtags-code_delivery input[type="checkbox"]').prop('checked', false);
+        if ($(this).data('delete') === 'quotenumber') {
+            quotenumber = null;
+            $('#quotenumber').val('');
+        }
+        if ($(this).data('delete') === 'shipping_unit') {
+            shipping_unit = null;
+            $('#shipping_unit').val('');
+        }
+        if ($(this).data('delete') === 'code_delivery') {
+            code_delivery = [];
+            // $('.deselect-all-code_delivery').click();
+            $('.ks-cboxtags-code_delivery input[type="checkbox"]').prop('checked', false);
 
-    }
-    if ($(this).data('delete') === 'guests') {
-        guests = null;
-        $('#guests').val('');
-    }
-    if ($(this).data('delete') === 'users') {
-        users = [];
-        $('.ks-cboxtags-users input[type="checkbox"]').prop('checked', false);
+        }
+        if ($(this).data('delete') === 'guests') {
+            guests = null;
+            $('#guests').val('');
+        }
+        if ($(this).data('delete') === 'users') {
+            users = [];
+            $('.ks-cboxtags-users input[type="checkbox"]').prop('checked', false);
 
-    }
-    if ($(this).data('delete') === 'status') {
-        statusDe = [];
-        $('.ks-cboxtags-status input[type="checkbox"]').prop('checked', false);
-    }
-    if ($(this).data('delete') === 'total') {
-        total = null;
-        $('.total-quantity').val('');
-    }
-    if ($(this).data('delete') === 'shipping_fee') {
-        shipping_fee = null;
-        $('.shipping_fee-quantity').val('');
-    }
-    if ($(this).data('delete') === 'date') {
-        date = null;
-        $('#date_start_date').val('');
-        $('#date_end_date').val('');
-    }
-    $.ajax({
-        type: 'get',
-        url: "{{ route('searchDelivery') }}",
-        data: {
-            search: search,
-            quotenumber: quotenumber,
-            shipping_unit: shipping_unit,
-            shipping_fee: shipping_fee,
-            users: users,
-            guests: guests,
-            code_delivery: code_delivery,
-            status: statusDe,
-            date: date,
-            total: total,
-            sort: sort,
-        },
-        success: function(data) {
-            // Hiển thị label dữ liệu tìm kiếm ...
-            var existingNames = [];
-            data.filters.forEach(function(item) {
-                // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
-                if (filters.indexOf(item.name) === -1) {
-                    filters.push(item.name);
-                }
-                existingNames.push(item.name);
-            });
-
-            filters = filters.filter(function(name) {
-                return existingNames.includes(name);
-            });
-            $('.result-filter-delivery').empty();
-            // Lặp qua mảng filters để tạo và render các phần tử
-            data.filters.forEach(function(item) {
-                var index = filters.indexOf(item.name);
-                // Tạo thẻ item-filter
-                var itemFilter = $('<div>').addClass(
-                    'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
-                ).attr({
-                    'data-icon': item.icon,
-                    'data-button': item.name
+        }
+        if ($(this).data('delete') === 'status') {
+            statusDe = [];
+            $('.ks-cboxtags-status input[type="checkbox"]').prop('checked', false);
+        }
+        if ($(this).data('delete') === 'total') {
+            total = null;
+            $('.total-quantity').val('');
+        }
+        if ($(this).data('delete') === 'shipping_fee') {
+            shipping_fee = null;
+            $('.shipping_fee-quantity').val('');
+        }
+        if ($(this).data('delete') === 'date') {
+            date = null;
+            $('#date_start_date').val('');
+            $('#date_end_date').val('');
+        }
+        $.ajax({
+            type: 'get',
+            url: "{{ route('searchDelivery') }}",
+            data: {
+                search: search,
+                quotenumber: quotenumber,
+                shipping_unit: shipping_unit,
+                shipping_fee: shipping_fee,
+                users: users,
+                guests: guests,
+                code_delivery: code_delivery,
+                status: statusDe,
+                date: date,
+                total: total,
+                sort: sort,
+            },
+            success: function(data) {
+                // Hiển thị label dữ liệu tìm kiếm ...
+                var existingNames = [];
+                data.filters.forEach(function(item) {
+                    // Kiểm tra xem item.name đã tồn tại trong mảng filters chưa
+                    if (filters.indexOf(item.name) === -1) {
+                        filters.push(item.name);
+                    }
+                    existingNames.push(item.name);
                 });
-                itemFilter.css('order', index);
-                // Thêm nội dung và thuộc tính data vào thẻ item-filter
-                itemFilter.append(
-                    '<span class="text text-13-black m-0" style="flex:2;">' +
-                    item.value +
-                    '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
-                    item.name + '" data-button="' + buttonName +
-                    '"></i>');
-                // Thêm thẻ item-filter vào 
-                $('.result-filter-delivery').append(itemFilter);
-            });
 
-            // Ẩn hiện dữ liệu khi đã filters
-            var deliveryIds = [];
-            // Lặp qua mảng provides và thu thập các deleveryIds
-            data.data.forEach(function(item) {
-                var deleveryId = item.maGiaoHang;
-                deliveryIds.push(deleveryId);
-            });
-            // Ẩn tất cả các phần tử .delivery-info
-            // $('.delivery-info').hide();
-            // Lặp qua từng phần tử .delivery-info để hiển thị và cập nhật data-position
-            $('.delivery-info').each(function() {
-                var value = parseInt($(this).find('.id-delivery')
-                    .val());
-                var index = deliveryIds.indexOf(value);
-                if (index !== -1) {
-                    $(this).show();
-                    // Cập nhật data-position
-                    $(this).attr('data-position', index + 1);
-                } else {
-                    $(this).hide();
-                }
-            });
-            // Tạo một bản sao của mảng phần tử .delivery-info
-            var clonedElements = $('.delivery-info').clone();
-            // Sắp xếp các phần tử trong bản sao theo data-position
-            var sortedElements = clonedElements.sort(function(a, b) {
-                return $(a).data('position') - $(b).data('position');
-            });
-            // Thay thế các phần tử trong .tbody-delivery bằng các phần tử đã sắp xếp
-            $('.tbody-delivery').empty().append(sortedElements);
-        }
-    }); $.ajaxSetup({
-        headers: {
-            'csrftoken': '{{ csrf_token() }}'
-        }
-    });
+                filters = filters.filter(function(name) {
+                    return existingNames.includes(name);
+                });
+                $('.result-filter-delivery').empty();
+                // Lặp qua mảng filters để tạo và render các phần tử
+                data.filters.forEach(function(item) {
+                    var index = filters.indexOf(item.name);
+                    // Tạo thẻ item-filter
+                    var itemFilter = $('<div>').addClass(
+                        'item-filter span input-search d-flex justify-content-center align-items-center mb-2 mr-2'
+                    ).attr({
+                        'data-icon': item.icon,
+                        'data-button': item.name
+                    });
+                    itemFilter.css('order', index);
+                    // Thêm nội dung và thuộc tính data vào thẻ item-filter
+                    itemFilter.append(
+                        '<span class="text text-13-black m-0" style="flex:2;">' +
+                        item.value +
+                        '</span><i class="fa-solid fa-xmark btn-submit" data-delete="' +
+                        item.name + '" data-button="' + buttonName +
+                        '"></i>');
+                    // Thêm thẻ item-filter vào 
+                    $('.result-filter-delivery').append(itemFilter);
+                });
+
+                // Ẩn hiện dữ liệu khi đã filters
+                var deliveryIds = [];
+                // Lặp qua mảng provides và thu thập các deleveryIds
+                data.data.forEach(function(item) {
+                    var deleveryId = item.maGiaoHang;
+                    deliveryIds.push(deleveryId);
+                });
+                // Ẩn tất cả các phần tử .delivery-info
+                // $('.delivery-info').hide();
+                // Lặp qua từng phần tử .delivery-info để hiển thị và cập nhật data-position
+                $('.delivery-info').each(function() {
+                    var value = parseInt($(this).find('.id-delivery')
+                        .val());
+                    var index = deliveryIds.indexOf(value);
+                    if (index !== -1) {
+                        $(this).show();
+                        // Cập nhật data-position
+                        $(this).attr('data-position', index + 1);
+                    } else {
+                        $(this).hide();
+                    }
+                });
+                // Tạo một bản sao của mảng phần tử .delivery-info
+                var clonedElements = $('.delivery-info').clone();
+                // Sắp xếp các phần tử trong bản sao theo data-position
+                var sortedElements = clonedElements.sort(function(a, b) {
+                    return $(a).data('position') - $(b).data('position');
+                });
+                // Thay thế các phần tử trong .tbody-delivery bằng các phần tử đã sắp xếp
+                $('.tbody-delivery').empty().append(sortedElements);
+            }
+        })
+        $.ajaxSetup({
+            headers: {
+                'csrftoken': '{{ csrf_token() }}'
+            }
+        });
     });
 
     @php

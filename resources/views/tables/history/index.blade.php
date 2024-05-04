@@ -856,7 +856,7 @@
             ];
 
             var btn_submit = $(this).data('button-name');
-            if (!$(e.target).is('input[type="checkbox"]')) {
+            if (!$(e.target).closest('li, input[type="checkbox"]').length) {
                 $('#' + btn_submit + '-options').hide();
             }
             $(".btn-filter_search").prop("disabled", false);
@@ -1062,7 +1062,6 @@
                         });
                         // Thay thế các phần tử trong .tbody-history bằng các phần tử đã sắp xếp
                         $('.tbody-history').empty().append(sortedElements);
-
                     }
                 })
             }
@@ -1071,7 +1070,6 @@
                     'csrftoken': '{{ csrf_token() }}'
                 }
             });
-
         });
 
         // Load SN cho từng sản phẩm
