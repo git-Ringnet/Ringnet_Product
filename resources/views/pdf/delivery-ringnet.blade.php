@@ -195,7 +195,7 @@
                         <span>Mã số thuế:<br>Đại diện</span><b>:</b>
                     </p>
                 </td>
-                <td style="width:431px">
+                <td style="width:431px;padding-top:3px">
                     <p class="s6" style="padding-left: 45px;text-indent: 0px;text-align: left;height:19px;">
                         {{ $data['delivery']->guest_name }}
                     </p>
@@ -209,7 +209,8 @@
                         {{ $data['delivery']->guest_code }}
                     </p>
                     <p style="text-indent: 0px;text-align: left;"><br></p>
-                    <p class="s5" style="width:120%;padding-left: 45px;text-indent: 0px;text-align: left;">
+                    <p class="s5"
+                        style="padding-top:15px;width:120%;padding-left: 45px;text-indent: 0px;text-align: left;">
                         …………………………………………… HP:…………………………………….</p>
                 </td>
             </tr>
@@ -226,7 +227,7 @@
                         <span>Mã số thuế:<br>Đại diện</span><b>:</b>
                     </p>
                 </td>
-                <td style="width:500px">
+                <td style="width:500px;padding-top:3px">
                     <p class="s4"
                         style="padding-top: 6px;padding-left: 45px;text-indent: 0px;text-align: left;height:19px;">
                         CÔNG TY CỔ PHẦN THƯƠNG MẠI DỊCH VỤ RINGNET</p>
