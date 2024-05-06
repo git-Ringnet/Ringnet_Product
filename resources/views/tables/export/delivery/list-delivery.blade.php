@@ -260,10 +260,10 @@
                                             <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
-                                                        data-sort-by="product_total_vat" data-sort-type="DESC"><button
+                                                        data-sort-by="totalProductVat" data-sort-type="DESC"><button
                                                             class="btn-sort text-13" type="submit">Tổng tiền</button>
                                                     </a>
-                                                    <div class="icon" id="icon-product_total_vat"></div>
+                                                    <div class="icon" id="icon-totalProductVat"></div>
                                                 </span>
                                             </th>
                                         </tr>

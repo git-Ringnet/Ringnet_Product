@@ -213,7 +213,7 @@
                                                         <span class="text-13">Dư nợ</span>
                                                     </button>
                                                 </a>
-                                                <div class="icon" id="icon-guest_debt"></div>
+                                                <div class="icon" id="icon-sumDebt"></div>
                                             </span>
                                         </th>
                                     </tr>

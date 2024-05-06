@@ -743,10 +743,9 @@ class Delivery extends Model
                 'delivery.status as trangThai',
                 'users.name',
                 'detailexport.guest_name',
-                DB::raw('SUM(delivered.product_total_vat) as totalProductVat')
+                DB::raw('(SELECT COALESCE(SUM(product_total_vat), 0) FROM delivered WHERE delivery_id = delivery.id) as totalProductVat')
             )
             ->leftJoin('users', 'users.id', 'delivery.user_id')
-            ->leftJoin('delivered', 'delivered.delivery_id', 'delivery.id')
             ->where('delivery.workspace_id', Auth::user()->current_workspace)
             ->groupBy(
                 'delivery.id',
@@ -758,7 +757,7 @@ class Delivery extends Model
                 'users.name',
                 'delivery.created_at',
                 'delivery.status',
-                'detailexport.guest_name',
+                'detailexport.guest_name'
             );
         if (isset($data['search'])) {
             $delivery = $delivery->where(function ($query) use ($data) {
@@ -793,9 +792,9 @@ class Delivery extends Model
         if (isset($data['shipping_fee'][0]) && isset($data['shipping_fee'][1])) {
             $delivery = $delivery->where('delivery.shipping_fee', $data['shipping_fee'][0], $data['shipping_fee'][1]);
         }
-        // if (isset($data['total'][0]) && isset($data['total'][1])) {
-        //     $delivery = $delivery->where('delivery.total_price', $data['total'][0], $data['total'][1]);
-        // }
+        if (isset($data['total'][0]) && isset($data['total'][1])) {
+            $delivery = $delivery->having('totalProductVat', $data['total'][0], $data['total'][1]);
+        }
 
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $delivery = $delivery->orderBy($data['sort'][0], $data['sort'][1]);

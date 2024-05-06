@@ -31,12 +31,18 @@ class Guest extends Model
 
     public function getAllGuest()
     {
-        return DB::table($this->table)
-            ->where('workspace_id', Auth::user()->current_workspace)
+        $guests = DB::table($this->table)
             ->leftJoin('users', 'guest.user_id', '=', 'users.id')
+            ->where('guest.workspace_id', Auth::user()->current_workspace)
             ->orderBy('guest.id', 'DESC')
-            ->select('guest.*', 'users.name as name')
+            ->select(
+                'guest.*',
+                'users.name as name',
+                DB::raw('COALESCE((SELECT SUM(amount_owed) FROM detailexport WHERE guest_id = guest.id AND status = 2), 0) as sumDebt')
+            )
             ->get();
+        // dd($guests);
+        return $guests;
     }
     public function getGuestbyCompany($data)
     {
@@ -98,7 +104,14 @@ class Guest extends Model
     }
     public function ajax($data)
     {
-        $guests =  DB::table($this->table);
+        $guests = DB::table($this->table)
+            ->leftJoin('users', 'guest.user_id', '=', 'users.id')
+            ->where('guest.workspace_id', Auth::user()->current_workspace)
+            ->select(
+                'guest.*',
+                'users.name as name',
+                DB::raw('COALESCE((SELECT SUM(amount_owed) FROM detailexport WHERE guest_id = guest.id AND status = 2), 0) as sumDebt')
+            );
         if (isset($data['search'])) {
             $guests = $guests->where(function ($query) use ($data) {
                 $query->orWhere('guest_name', 'like', '%' . $data['search'] . '%');
@@ -113,7 +126,7 @@ class Guest extends Model
             $guests = $guests->whereIn('guest.id', $data['guests']);
         }
         if (isset($data['debt'][0]) && isset($data['debt'][1])) {
-            $guests = $guests->where('guest_debt', $data['debt'][0], $data['debt'][1]);
+            $guests = $guests->having('sumDebt', $data['debt'][0], $data['debt'][1]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $guests = $guests->orderBy($data['sort'][0], $data['sort'][1]);

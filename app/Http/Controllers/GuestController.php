@@ -45,10 +45,12 @@ class GuestController extends Controller
             //Dư nợ
             $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
             $workspacename = $workspacename->workspace_name;
-            foreach ($guests as $guest) {
-                $sumDebt = DetailExport::where('guest_id', $guest->id)->where('status', 2)->sum('amount_owed');
-                $guest->sumDebt = $sumDebt;
-            }
+            // foreach ($guests as $guest) {
+            //     $sumDebt = DetailExport::where('guest_id', $guest->id)->where('status', 2)->sum('amount_owed');
+            //     $guest->sumDebt = $sumDebt;
+            // }
+
+
             return view('tables.guests.index', compact('title', 'guests', 'users', 'dataa', 'workspacename'));
         } else {
             return redirect()->back()->with('warning', 'Vui lòng đăng nhập!');

@@ -67,10 +67,9 @@ class DeliveryController extends Controller
                     'delivery.status as trangThai',
                     'users.name',
                     'detailexport.guest_name',
-                    DB::raw('SUM(delivered.product_total_vat) as totalProductVat')
+                    DB::raw('(SELECT COALESCE(SUM(product_total_vat), 0) FROM delivered WHERE delivery_id = delivery.id) as totalProductVat')
                 )
                 ->leftJoin('users', 'users.id', 'delivery.user_id')
-                ->leftJoin('delivered', 'delivered.delivery_id', 'delivery.id')
                 ->where('delivery.workspace_id', Auth::user()->current_workspace)
                 ->groupBy(
                     'delivery.id',
@@ -82,7 +81,7 @@ class DeliveryController extends Controller
                     'users.name',
                     'delivery.created_at',
                     'delivery.status',
-                    'detailexport.guest_name',
+                    'detailexport.guest_name'
                 )
                 ->orderBy('delivery.id', 'desc')
                 ->get();
