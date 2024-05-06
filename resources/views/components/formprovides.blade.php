@@ -81,8 +81,8 @@
                         </div>
                     </div>
                     <div class="modal-footer border-top-0 py-1 px-1">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearDataProvide(this)">Trở về</button>
-                        <button type="button" class="btn btn-primary" id="addProvide">Thêm nhà cung cấp</button>
+                        <button type="button" class="btn-save-print rounded h-100 text-table py-1" data-dismiss="modal" onclick="clearDataProvide(this)">Trở về</button>
+                        <button type="button" class="custom-btn align-items-center h-100 py-1 px-2 text-table" id="addProvide">Thêm nhà cung cấp</button>
                     </div>
                 </div>
             </div>

@@ -89,12 +89,6 @@ class BillSale extends Model
         ];
         $bill_sale = new BillSale($dataBill);
         $bill_sale->save();
-        $detaiExport = DetailExport::where('id', $data['detailexport_id'])->first();
-        if ($detaiExport) {
-            $detaiExport->update([
-                'status' => 2,
-            ]);
-        }
         return $bill_sale->id;
     }
 
@@ -131,6 +125,9 @@ class BillSale extends Model
         $detailExport = DetailExport::where('id', $detailexport_id)->first();
 
         if ($detailExport) {
+            $detailExport->update([
+                'status' => 2,
+            ]);
             if ($hasNonZeroDifference) {
                 $detailExport->update([
                     'status_reciept' => 3,

@@ -40,8 +40,7 @@
                         <div class="dropdown">
                             <a href="{{ route('detailExport.index', $workspacename) }}" class="activity" data-name1="BG"
                                 data-des="Hủy xem đơn báo giá">
-                                <button type="button"
-                                    class="btn-destroy rounded mx-1 d-flex align-items-center">
+                                <button type="button" class="btn-destroy rounded mx-1 d-flex align-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         viewBox="0 0 16 16" fill="none">
                                         <path
@@ -487,8 +486,8 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($quoteExport as $item_quote)
-                                                    <tr class="bg-white" style="height:80px;">
-
+                                                    <tr id="dynamic-row-1" class="bg-white addProduct"
+                                                        style="height:80px">
                                                         <td class="border bg-white align-top text-13-black text-left"
                                                             style="padding-left: 2rem !important;">
                                                             <input type="text" autocomplete="off" readonly
@@ -538,38 +537,37 @@
                                                                 class="border-0 px-2 py-1 w-100 product_unit height-32"
                                                                 name="product_unit[]">
                                                         </td>
-                                                        <td
-                                                            class="border bg-white align-top text-13-black position-relative">
-                                                            <input type="text" readonly
-                                                                value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
-                                                                class="border-0 px-2 py-1 w-100 quantity-input text-right height-32"
-                                                                autocomplete="off" name="product_qty[]">
-                                                            <input type="hidden" class="tonkho">
-                                                            <div
-                                                                class="mt-3 text-13-blue inventory text-right <?php if ($item_quote->type == 2) {
-                                                                    echo 'd-none';
-                                                                } ?>">
-                                                                Tồn kho: <span
+                                                        <td class="border-right p-2 text-13 align-top border-bottom">
+                                                            <div><input type="number"
+                                                                    class="text-right border-0 px-2 py-1 w-100 quantity-input height-32"
+                                                                    readonly autocomplete="off"
+                                                                    value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
+                                                                    name="product_qty[]"><input type="hidden"
+                                                                    class="tonkho" value=""></div>
+                                                            <div class="mt-3 text-13-blue inventory text-right">
+                                                                Tồn kho:
+                                                                <span
                                                                     class="pl-1 soTonKho">{{ is_int($item_quote->product_inventory) ? $item_quote->product_inventory : rtrim(rtrim(number_format($item_quote->product_inventory, 4, '.', ''), '0'), '.') }}</span>
                                                             </div>
                                                         </td>
-                                                        <td
-                                                            class="border bg-white align-top text-13-black position-relative text-right">
-                                                            <input type="text"
-                                                                value="{{ number_format($item_quote->price_export) }}"
-                                                                class="border-0 px-2 py-1 w-100 product_price text-right height-32"
-                                                                autocomplete="off" name="product_price[]" readonly>
-                                                            <a href="#" class="activity" data-name1="BG"
-                                                                data-des="Xem giao dịch gần đây">
-                                                                <p class="mt-3 text-13-blue recentModal"
-                                                                    data-toggle="modal" data-target="#recentModal"
-                                                                    style="top: 68%; right: 5%;">Giao dịch
-                                                                    gần đây
-                                                                </p>
+                                                        <td class="border-right p-2 text-13 align-top border-bottom">
+                                                            <div>
+                                                                <input type="text"
+                                                                    value="{{ number_format($item_quote->price_export) }}"
+                                                                    readonly
+                                                                    class="text-right border-0 px-2 py-1 w-100 product_price height-32"
+                                                                    autocomplete="off" name="product_price[]">
+                                                            </div>
+                                                            <a href="#">
+                                                                <div class="mt-3 text-right text-13-blue recentModal"
+                                                                    data-toggle="modal" data-target="#recentModal">
+                                                                    Giao dịch gần đây
+                                                                </div>
                                                             </a>
                                                         </td>
                                                         <td class="border bg-white align-top text-13-black px-4">
-                                                            <select class="border-0 text-center product_tax height-32" disabled>
+                                                            <select class="border-0 text-center product_tax height-32"
+                                                                disabled>
                                                                 <option value="0" <?php if ($item_quote->product_tax == 0) {
                                                                     echo 'selected';
                                                                 } ?>>0%</option>
@@ -596,8 +594,8 @@
                                                         <td
                                                             class="text-center border bg-white align-top text-13-black">
                                                             <input type="text"
-                                                                class="border-0 py-1 w-100 text-left height-32" readonly
-                                                                name="product_note[]"
+                                                                class="border-0 py-1 w-100 text-left height-32"
+                                                                readonly name="product_note[]"
                                                                 value="{{ $item_quote->product_note }}">
                                                         </td>
                                                         <td style="display:none;" class="">
@@ -610,207 +608,6 @@
                                     </div>
                                 </section>
                             </div>
-                            {{-- <div class="content">
-                                <p
-                                    class="font-weight-bold text-uppercase info-chung--heading text-left  border-custom">
-                                    Hệ thống ACCESS POINT</p>
-                                <section class="card scroll-custom mb-0">
-                                    <div class="table-responsive text-nowrap order_content">
-                                        <table class="table table-hover bg-white rounded m-0">
-                                            <thead>
-                                                <tr style="height:44px;">
-                                                    <th scope="col" class="border" style="padding-left: 2rem;">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="id"
-                                                                data-sort-type="#">
-                                                                <button class="btn-sort text-13" type="submit">Mã sản
-                                                                    phẩm</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-id"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link"
-                                                                data-sort-by="created_at" data-sort-type="">
-                                                                <button class="btn-sort text-13" type="submit">Tên
-                                                                    sản phẩm</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-created_at"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link"
-                                                                data-sort-by="created_at" data-sort-type=""><button
-                                                                    class="btn-sort text-13" type="submit">Đơn
-                                                                    vị</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-created_at"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex justify-content-start">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13"
-                                                                    type="submit">Số lượng</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13"
-                                                                    type="submit">Đơn giá</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13"
-                                                                    type="submit">Thuế</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13"
-                                                                    type="submit">Thành tiền</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13"
-                                                                    type="submit">Ghi chú sản phẩm</button>
-                                                            </a>
-                                                            <div class="icon" id="icon-total"></div>
-                                                        </span>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($quoteExport as $item_quote)
-                                                    <tr class="bg-white" style="height:80px;">
-                                                        <td class="border bg-white align-top text-13-black"
-                                                            style="padding-left: 2rem !important;">
-                                                            <input type="text" autocomplete="off" readonly
-                                                                value="{{ $item_quote->product_code }}"
-                                                                class="border-0 py-1 w-75 product_code"
-                                                                name="product_code[]">
-                                                        </td>
-                                                        <td
-                                                            class="border bg-white align-top text-13-black position-relative">
-                                                            <div class="d-flex align-items-center">
-                                                                <input type="text"
-                                                                    value="{{ $item_quote->product_name }}"
-                                                                    class="border-0 px-2 py-1 w-100 product_name"
-                                                                    readonly autocomplete="off" name="product_name[]">
-                                                                <input type="hidden" class="product_id"
-                                                                    value="{{ $item_quote->product_id }}"
-                                                                    autocomplete="off" name="product_id[]">
-                                                                <div class="info-product" data-toggle="modal"
-                                                                    data-target="#productModal">
-                                                                    <svg width="16" height="16"
-                                                                        viewBox="0 0 16 16" fill="none"
-                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                        <g clip-path="url(#clip0_1704_35239)">
-                                                                            <path
-                                                                                d="M7.99996 1.69596C6.32803 1.69596 4.72458 2.36012 3.54235 3.54235C2.36012 4.72458 1.69596 6.32803 1.69596 7.99996C1.69596 9.67188 2.36012 11.2753 3.54235 12.4576C4.72458 13.6398 6.32803 14.304 7.99996 14.304C9.67188 14.304 11.2753 13.6398 12.4576 12.4576C13.6398 11.2753 14.304 9.67188 14.304 7.99996C14.304 6.32803 13.6398 4.72458 12.4576 3.54235C11.2753 2.36012 9.67188 1.69596 7.99996 1.69596ZM0.303955 7.99996C0.303955 5.95885 1.11478 4.00134 2.55806 2.55806C4.00134 1.11478 5.95885 0.303955 7.99996 0.303955C10.0411 0.303955 11.9986 1.11478 13.4418 2.55806C14.8851 4.00134 15.696 5.95885 15.696 7.99996C15.696 10.0411 14.8851 11.9986 13.4418 13.4418C11.9986 14.8851 10.0411 15.696 7.99996 15.696C5.95885 15.696 4.00134 14.8851 2.55806 13.4418C1.11478 11.9986 0.303955 10.0411 0.303955 7.99996Z"
-                                                                                fill="#282A30" />
-                                                                            <path
-                                                                                d="M8.08001 4.96596C7.91994 4.95499 7.75932 4.97706 7.60814 5.0308C7.45696 5.08454 7.31845 5.1688 7.20121 5.27834C7.08398 5.38788 6.99053 5.52037 6.92667 5.66756C6.86281 5.81475 6.82991 5.97351 6.83001 6.13396C6.83001 6.31868 6.75663 6.49584 6.62601 6.62646C6.49539 6.75708 6.31824 6.83046 6.13351 6.83046C5.94879 6.83046 5.77163 6.75708 5.64101 6.62646C5.51039 6.49584 5.43701 6.31868 5.43701 6.13396C5.43691 5.66404 5.56601 5.20314 5.81019 4.80164C6.05436 4.40014 6.40422 4.0735 6.82152 3.85743C7.23881 3.64136 7.70748 3.54417 8.17629 3.57649C8.64509 3.60881 9.09599 3.76939 9.47968 4.04069C9.86338 4.31198 10.1651 4.68354 10.3519 5.11475C10.5386 5.54595 10.6033 6.02021 10.5387 6.48567C10.4741 6.95113 10.2828 7.38987 9.98568 7.75394C9.68857 8.11801 9.29708 8.39338 8.85401 8.54996C8.8079 8.56649 8.76805 8.59691 8.73993 8.63702C8.71182 8.67713 8.69682 8.72497 8.69701 8.77396V9.39996C8.69701 9.58468 8.62363 9.76184 8.49301 9.89246C8.36239 10.0231 8.18524 10.0965 8.00051 10.0965C7.81579 10.0965 7.63863 10.0231 7.50801 9.89246C7.37739 9.76184 7.30401 9.58468 7.30401 9.39996V8.77396C7.30392 8.43693 7.4083 8.10815 7.60279 7.83289C7.79727 7.55764 8.0723 7.34944 8.39001 7.23696C8.64354 7.14711 8.85837 6.97265 8.99832 6.74296C9.13828 6.51326 9.19482 6.24235 9.15843 5.97585C9.12203 5.70935 8.99492 5.46352 8.7985 5.27977C8.60208 5.09601 8.34835 4.98454 8.08001 4.96596Z"
-                                                                                fill="#282A30" />
-                                                                            <path
-                                                                                d="M8.05005 11.571C8.00257 11.571 7.95705 11.5898 7.92348 11.6234C7.88991 11.657 7.87105 11.7025 7.87105 11.75C7.87105 11.7974 7.88991 11.843 7.92348 11.8765C7.95705 11.9101 8.00257 11.929 8.05005 11.929C8.09752 11.929 8.14305 11.9101 8.17662 11.8765C8.21019 11.843 8.22905 11.7974 8.22905 11.75C8.22905 11.7025 8.21019 11.657 8.17662 11.6234C8.14305 11.5898 8.09752 11.571 8.05005 11.571ZM8.05005 12.5C8.14854 12.5 8.24607 12.4806 8.33706 12.4429C8.42805 12.4052 8.51073 12.3499 8.58038 12.2803C8.65002 12.2106 8.70527 12.128 8.74296 12.037C8.78065 11.946 8.80005 11.8484 8.80005 11.75C8.80005 11.6515 8.78065 11.5539 8.74296 11.4629C8.70527 11.3719 8.65002 11.2893 8.58038 11.2196C8.51073 11.15 8.42805 11.0947 8.33706 11.057C8.24607 11.0194 8.14854 11 8.05005 11C7.85114 11 7.66037 11.079 7.51972 11.2196C7.37907 11.3603 7.30005 11.551 7.30005 11.75C7.30005 11.9489 7.37907 12.1396 7.51972 12.2803C7.66037 12.4209 7.85114 12.5 8.05005 12.5Z"
-                                                                                fill="#282A30" />
-                                                                        </g>
-                                                                        <defs>
-                                                                            <clipPath id="clip0_1704_35239">
-                                                                                <rect width="16" height="16"
-                                                                                    fill="white" />
-                                                                            </clipPath>
-                                                                        </defs>
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td class="border bg-white align-top text-13-black">
-                                                            <input type="text" autocomplete="off" readonly
-                                                                value="{{ $item_quote->product_unit }}"
-                                                                class="border-0 px-2 py-1 w-100 product_unit"
-                                                                name="product_unit[]">
-                                                        </td>
-                                                        <td
-                                                            class="border bg-white align-top text-13-black position-relative">
-                                                            <input type="text" readonly
-                                                                value="{{ is_int($item_quote->product_qty) ? $item_quote->product_qty : rtrim(rtrim(number_format($item_quote->product_qty, 4, '.', ''), '0'), '.') }}"
-                                                                class="border-0 px-2 py-1 w-100 quantity-input"
-                                                                autocomplete="off" name="product_qty[]">
-                                                            <input type="hidden" class="tonkho">
-                                                            <p class="text-primary text-center position-absolute inventory"
-                                                                style="top: 68%; display: none;">Tồn kho:
-                                                                <span class="soTonKho">35</span>
-                                                            </p>
-                                                        </td>
-                                                        <td
-                                                            class="border bg-white align-top text-13-black position-relative">
-                                                            <input type="text"
-                                                                value="{{ number_format($item_quote->price_export) }}"
-                                                                class="border-0 px-2 py-1 w-100 product_price"
-                                                                autocomplete="off" name="product_price[]" readonly>
-                                                            <p class="text-primary text-right position-absolute transaction"
-                                                                style="top: 68%; right: 5%; display: none;">Giao dịch
-                                                                gần đây
-                                                            </p>
-                                                        </td>
-                                                        <td class="border bg-white align-top text-13-black px-4">
-                                                            <select name="product_tax[]"
-                                                                class="border-0 text-center product_tax" disabled>
-                                                                <option value="0" <?php if ($item_quote->product_tax == 0) {
-                                                                    echo 'selected';
-                                                                } ?>>0%</option>
-                                                                <option value="8" <?php if ($item_quote->product_tax == 8) {
-                                                                    echo 'selected';
-                                                                } ?>>8%</option>
-                                                                <option value="10" <?php if ($item_quote->product_tax == 10) {
-                                                                    echo 'selected';
-                                                                } ?>>10%</option>
-                                                                <option value="99" <?php if ($item_quote->product_tax == 99) {
-                                                                    echo 'selected';
-                                                                } ?>>NOVAT
-                                                                </option>
-                                                            </select>
-                                                        </td>
-                                                        <td class="border bg-white align-top text-13-black">
-                                                            <input type="text" readonly=""
-                                                                value="{{ number_format($item_quote->product_total) }}"
-                                                                class="border-0 px-2 py-1 w-100 total-amount">
-                                                        </td>
-                                                        <td
-                                                            class="text-center border bg-white align-top text-13-black">
-                                                            <input type="text" class="border-0 py-1 w-100" readonly
-                                                                name="product_note[]"
-                                                                placeholder="Nhập ghi chú sản phẩm"
-                                                                value="{{ $item_quote->product_note }}">
-                                                        </td>
-                                                        <td style="display:none;" class="">
-                                                            <input type="text" class="product_tax1">
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </section>
-                            </div> --}}
                             <div class="content">
                                 <div class="row " style="width:95%;">
                                     <div class="position-relative col-lg-4 px-0"></div>
@@ -988,17 +785,16 @@
                                                         style="width:8%">
                                                         <input type="text" autocomplete="off" readonly
                                                             value="{{ $item_history->product_unit }}"
-                                                            class="border-0 px-2 py-1 w-100 product_unit text-left height-32"
-                                                            name="product_unit[]">
+                                                            class="border-0 px-2 py-1 w-100 product_unit text-left height-32">
                                                     </td>
-                                                    <td class="border bg-white align-top text-13-black p-1 text-right"
+                                                    <td class="border bg-white align-top text-13-black p-1"
                                                         style="width:11%">
                                                         <div>
-                                                            <input type='text'
-                                                                value="{{ is_int($item_history->product_qty) ? $item_history->product_qty : rtrim(rtrim(number_format($item_history->product_qty, 4, '.', ''), '0'), '.') }}"
-                                                                class='border-0 px-2 py-1 w-100 text-right height-32' readonly
-                                                                autocomplete='off' required>
-                                                            <input type='hidden' class='tonkho'>
+                                                            <input type="number"
+                                                                class="text-right border-0 px-2 py-1 w-100 height-32"
+                                                                readonly="" autocomplete="off"
+                                                                value="{{ is_int($item_history->product_qty) ? $item_history->product_qty : rtrim(rtrim(number_format($item_history->product_qty, 4, '.', ''), '0'), '.') }}">
+                                                            <input type="hidden" class="tonkho" value="">
                                                         </div>
                                                         <div
                                                             class="mt-3 text-13-blue inventory text-right <?php if ($item_history->type == 2) {
@@ -1008,26 +804,25 @@
                                                                 class="pl-1 soTonKho">{{ is_int($item_history->product_inventory) ? $item_history->product_inventory : rtrim(rtrim(number_format($item_history->product_inventory, 4, '.', ''), '0'), '.') }}</span>
                                                         </div>
                                                     </td>
-                                                    <td class="border bg-white align-top text-13-black p-1 text-right"
-                                                        style="width:12%">
+                                                    <td class="border bg-white align-top text-13-black p-1">
                                                         <div>
                                                             <input type="text"
                                                                 value="{{ number_format($item_history->price_export) }}"
-                                                                class="border-0 px-2 py-1 w-100 text-right height-32"
-                                                                autocomplete="off" readonly>
-                                                            <a href="#" class="activity" data-name1="BG"
-                                                                data-des="Xem giao dịch gần đây">
-                                                                <p class="mt-3 text-13-blue recentModal"
-                                                                    data-toggle="modal" data-target="#recentModal"
-                                                                    style="top: 68%; right: 5%;">Giao dịch
-                                                                    gần đây
-                                                                </p>
-                                                            </a>
+                                                                readonly=""
+                                                                class="text-right border-0 px-2 py-1 w-100 height-32"
+                                                                autocomplete="off">
                                                         </div>
+                                                        <a href="#">
+                                                            <div class="mt-3 text-right text-13-blue recentModal"
+                                                                data-toggle="modal" data-target="#recentModal">
+                                                                Giao dịch gần đây
+                                                            </div>
+                                                        </a>
                                                     </td>
-                                                    <td class="border bg-white align-top text-13-black p-1 text-center">
-                                                        <select name="product_tax[]" class="border-0 text-center height-32"
-                                                            disabled>
+                                                    <td
+                                                        class="border bg-white align-top text-13-black p-1 text-center">
+                                                        <select name="product_tax[]"
+                                                            class="border-0 text-center height-32" disabled>
                                                             <option value="0" <?php if ($item_history->product_tax == 0) {
                                                                 echo 'selected';
                                                             } ?>>0%</option>
@@ -1050,14 +845,16 @@
                                                     </td>
                                                     <td
                                                         class="text-center border bg-white align-top text-13-black p-1">
-                                                        <input type="text" class="border-0 py-1 w-100 text-left height-32"
-                                                            readonly name="product_note[]"
+                                                        <input type="text"
+                                                            class="border-0 py-1 w-100 text-left height-32" readonly
+                                                            name="product_note[]"
                                                             value="{{ $item_history->product_note }}">
                                                     </td>
                                                     <td style="display:none;" class="">
                                                         <input type="text" class="product_tax1">
                                                     </td>
-                                                    <td class="border bg-white align-top text-13-black text-left p-1 height-32">
+                                                    <td
+                                                        class="border bg-white align-top text-13-black text-left p-1 height-32">
                                                         {{ date_format(new DateTime($item_history->ngayChinhSua), 'd-m-Y H:i:s') }}
                                                     </td>
                                                 </tr>
@@ -1091,9 +888,9 @@
                 <span class="text-13 btn-click" style="flex: 1.5;"> Khách hàng
                 </span>
                 <span class="mx-1 text-13" style="flex: 2;">
-                    <input type="text" class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest"
-                        id="myInput" style="background-color:#F0F4FF; border-radius:4px;" readonly
-                        autocomplete="off" required value="{{ $detailExport->export_guest_name }}">
+                    <input type="text" class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
+                        style="background-color:#F0F4FF; border-radius:4px;" readonly autocomplete="off" required
+                        value="{{ $detailExport->export_guest_name }}">
                     <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
                         value="{{ $detailExport->maKH }}">
                 </span>
@@ -1276,8 +1073,7 @@
                                 </th>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id"
-                                            data-sort-type="#">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
                                             <button class="btn-sort text-13" type="submit">
                                                 Khách hàng
                                             </button>

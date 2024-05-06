@@ -1123,16 +1123,16 @@ class DetailExportController extends Controller
                                 ->where('detailexport.workspace_id', Auth::user()->current_workspace)
                                 ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
                                 ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
-                                ->leftJoin('history_payment_export', 'history_payment_export.pay_id', 'pay_export.id')
                                 ->select(
+                                    'detailexport.id',
                                     'detailexport.guest_id',
                                     'detailexport.guest_name',
                                     'detailexport.quotation_number',
                                     'detailexport.represent_name',
                                     DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
-                                    DB::raw('SUM(history_payment_export.payment) as tongThanhToan')
                                 )
                                 ->groupBy(
+                                    'detailexport.id',
                                     'detailexport.guest_id',
                                     'detailexport.guest_name',
                                     'detailexport.total_price',
@@ -1141,13 +1141,20 @@ class DetailExportController extends Controller
                                     'detailexport.represent_name',
                                 )
                                 ->first();
+                            $tongThanhToan = PayExport::where('detailexport_id', $payExport->id)
+                                ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+                                ->first();
                             $lastPayExportId = DB::table('pay_export')
                                 ->where('pay_export.workspace_id', Auth::user()->current_workspace)
                                 ->max(DB::raw('CAST(SUBSTRING_INDEX(code_payment, "-", -1) AS UNSIGNED)'));
                             $idLast =  $lastPayExportId;
                             $data['status'] = true;
                             $data['tongTienNo'] = $payExport->tongTienNo;
-                            $data['tongThanhToan'] = $payExport->tongThanhToan;
+                            if ($tongThanhToan) {
+                                $data['tongThanhToan'] = $tongThanhToan->payment;
+                            } else {
+                                $data['tongThanhToan'] = 0;
+                            }
                         }
                     }
                 }
@@ -1165,9 +1172,15 @@ class DetailExportController extends Controller
         $data = [];
         $detailExport = DetailExport::where('id', $request->id)->first();
         if ($detailExport) {
-            $checkReceive = BillSale::where('detailexport_id', $detailExport->id)->first();
-            $checkReciept = Delivery::where('detailexport_id', $detailExport->id)->first();
-            $checkPayment = PayExport::where('detailexport_id', $detailExport->id)->first();
+            $checkReciept = BillSale::where('detailexport_id', $detailExport->id)
+                ->where('bill_sale.workspace_id', Auth::user()->current_workspace)
+                ->first();
+            $checkReceive = Delivery::where('detailexport_id', $detailExport->id)
+                ->where('delivery.workspace_id', Auth::user()->current_workspace)
+                ->first();
+            $checkPayment = PayExport::where('detailexport_id', $detailExport->id)
+                ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+                ->first();
             if ($checkReceive) {
                 $data['receive'] = true;
             }
@@ -1175,11 +1188,7 @@ class DetailExportController extends Controller
                 $data['reciept'] = true;
             }
             if ($checkPayment) {
-                if ($checkPayment->debt == 0) {
-                    $data['payment'] = true;
-                } else {
-                    $data['title_payment'] = "Thanh toán bán hàng";
-                }
+                $data['payment'] = true;
             }
         }
         return $data;

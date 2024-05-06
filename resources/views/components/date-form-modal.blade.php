@@ -22,10 +22,10 @@
                  </div>
              </div>
              <div class="modal-footer">
-                 <button type="button" class="btn btn-primary btn-submit btn-submit{{ $name }}"
+                 <button type="button" class="custom-btn align-items-center h-100 py-2 px-3 text-table btn-submit{{ $name }}"
                      id="btn-submit{{ $name }}" data-button-name="{{ $name }}" data-action="insert"
                      data-id="">Lưu</button>
-                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                 <button type="button" class="btn-save-print rounded h-100 text-table py-2 px-3 closeModal" data-dismiss="modal">Hủy</button>
              </div>
          </div>
      </div>

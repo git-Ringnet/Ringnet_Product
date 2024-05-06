@@ -81,12 +81,6 @@ class Delivery extends Model
             'created_at' => $date_deliver == null ? now() : $date_deliver,
             'user_id' => Auth::user()->id,
         ];
-        $detaiExport = DetailExport::where('id', $data['detailexport_id'])->first();
-        if ($detaiExport) {
-            $detaiExport->update([
-                'status' => 2,
-            ]);
-        }
         $delivery = new Delivery($dataDelivery);
         $delivery->save();
 
@@ -209,6 +203,9 @@ class Delivery extends Model
         $detailExport = DetailExport::where('id', $detailexport_id)->first();
 
         if ($detailExport) {
+            $detailExport->update([
+                'status' => 2,
+            ]);
             if ($hasNonZeroDifference) {
                 $detailExport->update([
                     'status_receive' => 3,

@@ -154,9 +154,9 @@
                                     <x-filter-status name="receive" key1="1" value1="Chưa giao"
                                         color1="#858585" key2="2" value2="Đã giao" color2="#08AA36BF"
                                         key3="3" value3="Một phần" color3="#E8B600" title="Giao hàng" />
-                                    <x-filter-status name="reciept" key1="1" value1="Chưa tạo" color1="#858585"
-                                        key2="2" value2="Chính thức" color2="#08AA36BF" key3="3"
-                                        color3="#E8B600" value3="Một phần" title="Hoá đơn" />
+                                    <x-filter-status name="reciept" key1="1" value1="Chưa tạo"
+                                        color1="#858585" key2="2" value2="Chính thức" color2="#08AA36BF"
+                                        key3="3" color3="#E8B600" value3="Một phần" title="Hoá đơn" />
                                     <x-filter-status name="pay" key1="1" value1="Chưa thanh toán"
                                         color1="#858585" color2="#08AA36BF" color3="#E8B600" key2="2"
                                         value2="Thanh toán đủ" key3="3" value3="Một phần"
@@ -184,11 +184,10 @@
                                     <thead>
                                         <tr>
                                             <th scope="col" style="width:5%;padding-left: 2rem;"
-                                                class="height-52 border-bottom-0">
-                                                <input type="checkbox" name="all" id="checkall"
-                                                    class="checkall-btn">
+                                                class="height-52">
+                                                <input type="checkbox" name="all" id="checkall">
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0" style="width: 14%;">
+                                            <th scope="col" class="height-52" style="width: 14%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="quotation_number" data-sort-type="DESC">
@@ -199,7 +198,7 @@
                                                     <div class="icon" id="icon-quotation_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0" style="width: 12%;">
+                                            <th scope="col" class="height-52" style="width: 12%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="reference_number" data-sort-type="DESC"><button
@@ -209,7 +208,7 @@
                                                     <div class="icon" id="icon-reference_number"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0" style="width: 10%;">
+                                            <th scope="col" class="height-52" style="width: 10%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="ngayBG" data-sort-type="DESC">
@@ -220,7 +219,7 @@
                                                     <div class="icon" id="icon-ngayBG"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0" style="width: 14%;">
+                                            <th scope="col" class="height-52" style="width: 14%;">
                                                 <span class="d-flex justify-content-start">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="guest_name_display"
@@ -232,8 +231,7 @@
                                                 </span>
                                             </th>
                                             @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                <th scope="col" class="height-52 border-bottom-0"
-                                                    style="width: 10%;">
+                                                <th scope="col" class="height-52" style="width: 10%;">
                                                     <span class="d-flex justify-content-start">
                                                         <a href="#" class="sort-link btn-submit"
                                                             data-sort-by="" data-sort-type="DESC">
@@ -245,7 +243,7 @@
                                                     </span>
                                                 </th>
                                             @endif
-                                            <th scope="col" class="height-52 border-bottom-0" style="width: 8%;">
+                                            <th scope="col" class="height-52" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status" data-sort-type="DESC"><button
@@ -255,7 +253,7 @@
                                                     <div class="icon" id="icon-status"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0" style="width: 8%;">
+                                            <th scope="col" class="height-52" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_receive" data-sort-type="DESC"><button
@@ -264,7 +262,7 @@
                                                     <div class="icon" id="icon-status_receive"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0" style="width: 8%;">
+                                            <th scope="col" class="height-52" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_reciept" data-sort-type="DESC"><button
@@ -273,7 +271,7 @@
                                                     <div class="icon" id="icon-status_reciept"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0" style="width: 8%;">
+                                            <th scope="col" class="height-52" style="width: 8%;">
                                                 <span class="d-flex justify-content-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_pay" data-sort-type="DESC"><button
@@ -283,7 +281,7 @@
                                                     <div class="icon" id="icon-status_pay"></div>
                                                 </span>
                                             </th>
-                                            <th scope="col" class="height-52 border-bottom-0">
+                                            <th scope="col" class="height-52">
                                                 <span class="d-flex justify-content-end">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="total_price" data-sort-type="DESC"><button
@@ -300,7 +298,7 @@
                                                 data-id="{{ $value_export->maBG }}">
                                                 <input type="hidden" name="id-detailExport" class="id-detailExport"
                                                     id="id-detailExport" value="{{ $value_export->maBG }}">
-                                                <td class="text-13-black border-bottom">
+                                                <td class="text-13-black border-top-0 border-bottom">
                                                     <span class="margin-Right10">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="6"
                                                             height="10" viewBox="0 0 6 10" fill="none">
@@ -321,27 +319,30 @@
                                                         name="ids[]" id="checkbox" value=""
                                                         onclick="event.stopPropagation();">
                                                 </td>
-                                                <td class="text-13-black text-left border-bottom">
+                                                <td class="text-13-black text-left border-top-0 border-bottom">
                                                     <div class="">
                                                         <a href="{{ route('seeInfo', ['workspace' => $workspacename, 'id' => $value_export->maBG]) }}"
                                                             class="duongDan activity" data-name1="BG"
                                                             data-des="Xem đơn báo giá">{{ $value_export->quotation_number }}</a>
                                                     </div>
                                                 </td>
-                                                <td class="text-13-black max-width120 text-left border-bottom">
+                                                <td
+                                                    class="text-13-black max-width120 text-left border-top-0 border-bottom">
                                                     {{ $value_export->reference_number }}
                                                 </td>
-                                                <td class="text-13-black text-left border-bottom">
+                                                <td class="text-13-black text-left border-top-0 border-bottom">
                                                     {{ date_format(new DateTime($value_export->ngayBG), 'd/m/Y') }}</td>
-                                                <td class="text-13-black max-width180 text-left border-bottom">
+                                                <td
+                                                    class="text-13-black max-width180 text-left border-top-0 border-bottom">
                                                     {{ $value_export->guest_name }}
                                                 </td>
                                                 @if (Auth::check() && Auth::user()->getRoleUser->roleid == 2)
-                                                    <td class="text-13-black max-width180 text-left border-bottom">
+                                                    <td
+                                                        class="text-13-black max-width180 text-left border-top-0 border-bottom">
                                                         {{ $value_export->name }}
                                                     </td>
                                                 @endif
-                                                <td class="text-13-black text-center border-bottom">
+                                                <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($value_export->tinhTrang === 1)
                                                         <span class="text-secondary">Draft</span>
                                                     @elseif($value_export->tinhTrang === 2)
@@ -350,7 +351,7 @@
                                                         <span class="text-success">Close</span>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-center border-bottom">
+                                                <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($value_export->status_receive === 1)
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -385,7 +386,7 @@
                                                         </svg>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-center border-bottom">
+                                                <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($value_export->status_reciept === 1)
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -420,7 +421,7 @@
                                                         </svg>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-center border-bottom">
+                                                <td class="text-13-black text-center border-top-0 border-bottom">
                                                     @if ($value_export->status_pay === 1)
                                                         <svg width="16" height="16" viewBox="0 0 16 16"
                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -455,7 +456,7 @@
                                                         </svg>
                                                     @endif
                                                 </td>
-                                                <td class="text-13-black text-right border-bottom">
+                                                <td class="text-13-black text-right border-top-0 border-bottom">
                                                     {{ number_format($value_export->total_price + $value_export->total_tax) }}
                                                 </td>
                                                 <td
@@ -729,29 +730,28 @@
                 success: function(data) {
                     if (data.receive) {
                         $('.menu').find('p[data-type="receive"]').hide()
-                    } else {
+                    } else if (!data.receive) {
                         $('.menu').find('p[data-type="receive"]').show()
                     }
                     if (data.reciept) {
                         $('.menu').find('p[data-type="reciept"]').hide()
-                    } else {
+                    } else if (!data.reciept){
                         $('.menu').find('p[data-type="reciept"]').show()
                     }
                     if (data.payment) {
                         $('.menu').find('p[data-type="payorder"]').hide()
-                    } else {
+                    } else if (!data.payment){
                         $('.menu').find('p[data-type="payorder"]').show()
-                    }
-                    if (data.title_payment) {
-                        $('.menu .title_payment').text(data.title_payment)
-                    } else {
-                        $('.menu .title_payment').text("Tạo thanh toán")
                     }
                     if (!data.receive || !data.reciept || !data.payment) {
                         menu.css({
                             display: 'block',
                             top: e.pageY,
                             left: e.pageX
+                        });
+                    } else {
+                        menu.css({
+                            display: 'none',
                         });
                     }
                 }
@@ -2056,7 +2056,7 @@
                                             <span class="text-13 btn-click" style="flex: 1.5;">Tổng tiền</span>
                                             <span class="mx-1 text-13" style="flex: 2;">
                                                 <input type="text" placeholder="Chọn thông tin" readonly
-                                                    class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest"
+                                                    class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest" id="total"
                                                     style="border-radius:4px;" autocomplete="off" name="total">
                                             </span>
                                         </div>
@@ -2170,8 +2170,8 @@
                                         data
                                         .lastDeliveryId +
                                         1))
-                                    $("input[name='total']").val(formatCurrency(Math
-                                        .round(data.tongTienNo)))
+                                    $("#total").val(formatCurrency(Math.round(
+                                        parseFloat(data.tongTienNo))));
                                     $(".daThanhToan").val(formatCurrency(Math.round(
                                         data
                                         .tongThanhToan)))

@@ -342,9 +342,9 @@ $("#addRowRepesent").on("click", function () {
 function addRowTable(status) {
     var tr =
         '<tr class="bg-white" style="height:80px;">' +
-        '<td class="p-2 text-13-black align-top p-2 border-bottom border-top-0 border-right-0">' +
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
         '<input type="hidden" name="listProduct[]" value="0">' +
-        "<span class='mx-2'>" +
+        "<span class='ml-1 mr-2'>" +
         "<svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>" +
         "<g clip-path='url(#clip0_1710_10941)'>" +
         "<path fill-rule='evenodd' clip-rule='evenodd' d='M1 8C1.55228 8 2 8.44772 2 9C2 9.55228 1.55228 10 1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447715 8 1 8ZM5 8C5.55228 8 6 8.44772 6 9C6 9.55228 5.55228 10 5 10C4.44772 10 4 9.55228 4 9C4 8.44772 4.44772 8 5 8ZM1 4C1.55228 4 2 4.44772 2 5C2 5.55228 1.55228 6 1 6C0.447715 6 0 5.55228 0 5C0 4.44772 0.447715 4 1 4ZM5 4C5.55228 4 6 4.44772 6 5C6 5.55228 5.55228 6 5 6C4.44772 6 4 5.55228 4 5C4 4.44772 4.44772 4 5 4ZM1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0ZM5 0C5.55228 0 6 0.447715 6 1C6 1.55228 5.55228 2 5 2C4.44772 2 4 1.55228 4 1C4 0.447715 4.44772 0 5 0Z' fill='#282A30'/>" +
@@ -357,24 +357,24 @@ function addRowTable(status) {
         "</svg>" +
         "</span>" +
         '<input type="checkbox" class="cb-element checkall-btn ml-1 mr-1">' +
-        '<input type="text" id="searchProduct" class="border-0 pl-1 pr-2 py-1 w-50 searchProduct" name="product_code[]" autocomplete="off" ' +
+        '<input type="text" id="searchProduct" class="border-0 pl-1 pr-2 py-1 w-50 height-32 searchProduct" name="product_code[]" autocomplete="off" ' +
         (status == 2 ? "readonly" : "") +
         " >" +
         '<ul id="listProductCode" class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 24%; top: 60%;"> ' +
         "</ul>" +
         "</td>" +
-        '<td class="position-relative text-13-black align-top p-2 border-left border-bottom border-top-0"> ' +
-        '<input autocomplete="off" required type="text" id="searchProductName" class="searchProductName border-0 px-2 py-1 w-100" name="product_name[]">' +
-        '<ul id="listProductName" class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 1%; top: 60%;"> ' +
+        '<td class="border-right p-2 text-13 align-top position-relative border-bottom border-top-0"> ' +
+        '<input autocomplete="off" required type="text" id="searchProductName" class="searchProductName border-0 px-2 py-1 w-100 height-32" name="product_name[]">' +
+        '<ul id="listProductName" class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data" style="z-index: 99; left: 0%; top: 44%;"> ' +
         "</ul>" +
         "</td>" +
-        '<td class="border text-13-black align-top p-2 border-top-0 border-right-0">' +
-        '<input type="text" required class="border-0 px-2 py-1 w-100 product_unit" name="product_unit[]" ' +
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
+        '<input type="text" required class="border-0 px-2 py-1 w-100 product_unit height-32" name="product_unit[]" ' +
         (status == 2 ? "readonly" : "") +
         " >" +
         "</td>" +
-        '<td class="border text-13-black align-top p-2 border-top-0 border-right-0">' +
-        '<div class="d-flex"><input type="text" required oninput="validateQtyInput1(this)" class="border-0 px-2 py-1 w-100 quantity-input text-right" name="product_qty[]">';
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
+        '<div class="d-flex"><input type="text" required oninput="validateQtyInput1(this)" class="border-0 px-2 py-1 w-100 quantity-input text-right height-32" name="product_qty[]">';
     if (status == 2) {
         tr +=
             '<button type="button" class="btn btn-primary" data-toggle="modal" ' +
@@ -405,20 +405,20 @@ function addRowTable(status) {
         "</div>" +
         "<div class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='pl-1 soTonKho' id='soTonKho'>0</span></div>" +
         "</td>" +
-        '<td class="border text-13-black align-top p-2 border-top-0 border-right-0">' +
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
         "<div>" +
-        '<input type="text" required class="border-0 px-2 py-1 w-100 price_export text-right" name="price_export[]">' +
+        '<input type="text" required class="border-0 px-2 py-1 w-100 price_export text-right height-32" name="price_export[]">' +
         "</div>" +
         "<div class='mt-3 text-13-blue transaction text-right' id='transaction' data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</div>" +
         "</td>" +
-        '<td class="border text-13-black align-top p-2 text-center border-top-0 border-right-0">';
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">';
 
     if (status == 2) {
         tr +=
             '<input type="text" class="border-0 px-2 py-1 w-100 product_tax" name="product_tax[]" readonly >';
     } else {
         tr +=
-            '<select class="product_tax border-0 text-center" name="product_tax[]"> ' +
+            '<select class="product_tax border-0 w-100 text-center height-32" name="product_tax[]"> ' +
             '<option value="0">0%</option>' +
             '<option value="8">8%</option>' +
             '<option value="10">10%</option>' +
@@ -428,16 +428,16 @@ function addRowTable(status) {
     tr +=
         "</td>" +
         '<input type="hidden" class="product_tax1">' +
-        '<td class="border text-13-black align-top p-2 border-top-0 border-right-0">' +
-        '<input type="text" class="border-0 px-2 py-1 w-100 total_price text-right" readonly name="total_price[]">' +
+        '<td class="border-right p-2 text-13 align-top border-bottom border-top-0">' +
+        '<input type="text" class="border-0 px-2 py-1 w-100 total_price text-right height-32" readonly name="total_price[]">' +
         "</td>" +
-        '<td class="border text-13-black align-top p-2 border-top-0 border-right-0">' +
-        '<input type="text" placeholder="Nhập ghi chú" class="border-0 px-2 py-1 w-100" name="product_note[]" ' +
+        '<td class="border-right note p-2 align-top border-bottom border-top-0">' +
+        '<input type="text" placeholder="Nhập ghi chú" class="border-0 py-1 w-100 height-32 text-13-black" name="product_note[]" ' +
         (status == 2 ? "readonly" : "") +
         " >" +
         "</td>" +
-        '<td class="deleteRow align-top p-2 user_flow border-top-0 border-left border-bottom" data-type="DMH" data-des="Xóa sản phẩm">' +
-        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.3687 6.09375C12.6448 6.09375 12.8687 6.30362 12.8687 6.5625C12.8687 6.59865 12.8642 6.63468 12.8554 6.66986L11.3628 12.617C11.1502 13.4639 10.3441 14.0625 9.41597 14.0625H6.58403C5.65593 14.0625 4.84977 13.4639 4.6372 12.617L3.14459 6.66986C3.08135 6.41786 3.24798 6.16551 3.51678 6.10621C3.55431 6.09793 3.59274 6.09375 3.6313 6.09375H12.3687ZM8.5 0.9375C9.88071 0.9375 11 1.98683 11 3.28125H13C13.5523 3.28125 14 3.70099 14 4.21875V4.6875C14 4.94638 13.7761 5.15625 13.5 5.15625H2.5C2.22386 5.15625 2 4.94638 2 4.6875V4.21875C2 3.70099 2.44772 3.28125 3 3.28125H5C5 1.98683 6.11929 0.9375 7.5 0.9375H8.5ZM8.5 2.34375H7.5C6.94772 2.34375 6.5 2.76349 6.5 3.28125H9.5C9.5 2.76349 9.05228 2.34375 8.5 2.34375Z" fill="#6B6F76"/></svg>' +
+        '<td class="deleteRow align-top p-2 user_flow border-top-0 border-bottom" data-type="DMH" data-des="Xóa sản phẩm">' +
+        '<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z" fill="#6B6F76"></path></svg>' +
         "</td>" +
         "</tr>";
     $("#inputcontent tbody").append(tr);

@@ -1547,9 +1547,12 @@
                                                     //     )
                                                     //     .submit();
                                                 } else {
-                                                    console.log(
-                                                        'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
-                                                    );
+                                                    showAutoToast
+                                                        (
+                                                            'warning',
+                                                            'Vui lòng điền đủ thông tin sản phẩm'
+                                                        );
+                                                    e.preventDefault();
                                                 }
                                             }
                                         }
@@ -1780,9 +1783,12 @@
                                                     //     )
                                                     //     .submit();
                                                 } else {
-                                                    console.log(
-                                                        'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
-                                                    );
+                                                    showAutoToast
+                                                        (
+                                                            'warning',
+                                                            'Vui lòng điền đủ thông tin sản phẩm'
+                                                        );
+                                                    e.preventDefault();
                                                 }
                                             }
                                         }
@@ -2413,9 +2419,13 @@
                                                     //     )
                                                     //     .submit();
                                                 } else {
-                                                    console.log(
-                                                        'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
-                                                    );
+                                                    showAutoToast
+                                                        (
+                                                            'warning',
+                                                            'Vui lòng điền đủ thông tin sản phẩm'
+                                                        );
+                                                    e
+                                                .preventDefault();
                                                 }
                                             }
                                         }
@@ -2661,9 +2671,13 @@
                                                     //     )
                                                     //     .submit();
                                                 } else {
-                                                    console.log(
-                                                        'Vui lòng điền đầy đủ thông tin cho mỗi sản phẩm.'
-                                                    );
+                                                    showAutoToast
+                                                        (
+                                                            'warning',
+                                                            'Vui lòng điền đủ thông tin sản phẩm'
+                                                        );
+                                                    e
+                                                .preventDefault();
                                                 }
                                             }
                                         }

@@ -161,8 +161,8 @@
             <div class="container-fluided">
                 <div class="row result-filter-import margin-left30 my-1">
                 </div>
-                <div class="row p-0 m-0">
-                    <div class="col-12 p-0">
+                <div class="row">
+                    <div class="col-md-12 p-0 m-0 pl-2">
                         <div class="card">
                             <!-- /.card-header -->
                             <div class="outer2 text-nowrap">

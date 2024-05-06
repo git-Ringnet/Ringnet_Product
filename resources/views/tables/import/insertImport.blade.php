@@ -7,7 +7,7 @@
         <input type="hidden" id="provides_id" name="provides_id">
         <input type="hidden" id="project_id" name="project_id">
         <input type="hidden" id="represent_id" name="represent_id">
-        <div class="content-header-fixed p-0 margin-250">
+        <div class="content-header-fixed p-0 margin-250 border-bottom-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Mua hàng</span>
@@ -75,8 +75,7 @@
         {{-- Thông tin sản phẩm --}}
         <div class="content" id="main" style="margin-top:3.8rem;">
             <section class="content margin-250">
-                <div id="title--fixed"
-                    class="content-title--fixed bg-filter-search border-top-0 text-center border-custom">
+                <div id="title--fixed" class="content-title--fixed bg-filter-search border-0 text-center border-custom">
                     <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN PHẨM</p>
                 </div>
                 <div class="container-fluided margin-top-72">
@@ -85,39 +84,40 @@
                             <table id="inputcontent" class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">
-                                        <th class="border-right-0 px-2 p-0" style="width: 16%;padding-left:2rem;">
-                                            <input type='checkbox' class='checkall-btn ml-4 mr-1'id="checkall" />
+                                        <th class="border-right px-2 p-0" style="width: 16%">
+                                            <input type='checkbox'
+                                                class='checkall-btn ml-4 mr-1 text-left'id="checkall" />
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
-                                        <th class="border-left px-2 p-0" style="width: 15%;z-index:100;">
+                                        <th class="border-right px-2 p-0 text-left" style="width: 15%;z-index:99;">
                                             <span class="text-table text-secondary">Tên sản phẩm</span>
                                         </th>
-                                        <th class="border-left px-2 p-0">
+                                        <th class="border-right px-2 p-0 text-left" style="width: 8%;">
                                             <span class="text-table text-secondary">Đơn vị</span>
                                         </th>
-                                        <th class="border-left px-2 p-0 text-right" style="width: 10%;">
+                                        <th class="border-right px-2 p-0 text-right" style="width: 10%;">
                                             <span class="text-table text-secondary">Số lượng</span>
                                         </th>
-                                        <th class="border-left px-2 p-0 text-right" style="width: 13%;">
+                                        <th class="border-right px-2 p-0 text-right" style="width: 13%;">
                                             <span class="text-table text-secondary">Đơn giá</span>
                                         </th>
-                                        <th class="border-left px-2 p-0 text-center" style="width: 8%;">
+                                        <th class="border-right px-2 p-0 text-center" style="width: 8%;">
                                             <span class="text-table text-secondary">Thuế</span>
                                         </th>
-                                        <th class="border-left px-2 p-0 text-right" style="width: 11%;">
+                                        <th class="border-right px-2 p-0 text-right" style="width: 11%;">
                                             <span class="text-table text-secondary">Thành tiền</span>
                                         </th>
-                                        <th class="border-left note px-2 p-0" style="width: 15%;">
+                                        <th class="border-right note px-2 p-0 text-left" style="width: 15%;">
                                             <span class="text-table text-secondary">Ghi chú</span>
                                         </th>
-                                        <th class="border-right-0 border-left"></th>
+                                        <th class=""></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @isset($dataImport)
                                         @foreach ($dataImport as $item)
                                             <tr class="bg-white">
-                                                <td class="border-bottom border-top-0 p-2 text-13-black align-top p-2">
+                                                <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <input type="hidden" readonly value="{{ $item->id }}"
                                                         name="listProduct[]">
                                                     {{-- <div
@@ -153,7 +153,7 @@
                                                         </ul>
                                                     </div> --}}
 
-                                                    <span class="mx-2"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    <span class="ml-1 mr-2"><svg xmlns="http://www.w3.org/2000/svg"
                                                             width="6" height="10" viewBox="0 0 6 10"
                                                             fill="none">
                                                             <g clip-path="url(#clip0_1710_10941)">
@@ -171,29 +171,29 @@
                                                     </span>
                                                     <input type="checkbox" class="cb-element checkall-btn ml-1 mr-1">
                                                     <input type="text" id="searchProduct"
-                                                        class="border-0 pl-1 pr-2 py-1 w-50 searchProduct"
+                                                        class="border-0 pl-1 pr-2 py-1 w-50 height-32 searchProduct"
                                                         name="product_code[]" autocomplete="off">
                                                 </td>
                                                 <td
-                                                    class="border border-right-0 border-top-0 position-relative text-13-black align-top p-2">
+                                                    class="border-right p-2 text-13 align-top position-relative border-bottom border-top-0">
                                                     <input id="searchProductName" type="text" name="product_name[]"
-                                                        class="searchProductName border-0 px-2 py-1 w-100"
+                                                        class="searchProductName border-0 px-2 py-1 w-100 height-32"
                                                         value="{{ $item->product_name }}">
                                                     <ul id="listProductName"
                                                         class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
                                                         style="z-index: 99; left: 1%; top: 74%; display: none;">
                                                     </ul>
                                                 </td>
-                                                <td class="border border-right-0 border-top-0 text-13-black align-top p-2">
+                                                <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <input type="text" name="product_unit[]" required
-                                                        class="border-0 px-2 py-1 w-100 product_unit"
+                                                        class="border-0 px-2 py-1 w-100 product_unit height-32"
                                                         value="{{ $item->product_unit }}">
                                                 </td>
-                                                <td class="border border-right-0 border-top-0 text-13-black align-top p-2">
+                                                <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <div class="d-flex">
                                                         <input type="text" required=""
                                                             oninput="validateQtyInput1(this)"
-                                                            class="border-0 px-2 py-1 w-100 quantity-input text-right"
+                                                            class="border-0 px-2 py-1 w-100 quantity-input text-right height-32"
                                                             name="product_qty[]">
                                                     </div>
                                                     <div class="mt-3 text-13-blue inventory text-right">Tồn kho: <span
@@ -201,11 +201,11 @@
                                                             id="soTonKho">{{ is_int($item->product_inventory) ? $item->product_inventory : rtrim(rtrim(number_format($item->product_inventory, 4, '.', ''), '0'), '.') }}</span>
                                                     </div>
                                                 </td>
-                                                <td class="border border-right-0 border-top-0 text-13-black align-top p-2">
+                                                <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <div>
                                                         <input type="text" required=""
                                                             value="{{ number_format($item->product_price_export) }}"
-                                                            class="border-0 px-2 py-1 w-100 price_export text-right"
+                                                            class="border-0 px-2 py-1 w-100 price_export text-right height-32"
                                                             name="price_export[]">
                                                     </div>
                                                     <div class="mt-3 text-13-blue transaction text-right" id="transaction"
@@ -213,9 +213,9 @@
                                                     </div>
                                                 </td>
                                                 <input type="hidden" class="product_tax1">
-                                                <td class="border border-right-0 text-13-black border-top-0 align-top p-2">
+                                                <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <select name="product_tax[]" id="" disabled
-                                                        class="product_tax border-0 w-100 text-center">
+                                                        class="product_tax border-0 w-100 text-center height-32">
                                                         <option value="0"
                                                             @if ($item->product_tax == 0) selected @endif>0%
                                                         </option>
@@ -230,17 +230,17 @@
                                                         </option>
                                                     </select>
                                                 </td>
-                                                <td class="border border-right-0 text-13-black border-top-0 align-top p-2">
+                                                <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <input type="text"
-                                                        class="border-0 px-2 py-1 w-100 total_price text-right"
+                                                        class="border-0 px-2 py-1 w-100 total_price text-right height-32"
                                                         readonly="" name="total_price[]">
                                                 </td>
                                                 {{-- <td class="border p-0 bg-secondary"></td> --}}
-                                                <td class="border border-right-0 text-13-black border-top-0 align-top p-2">
-                                                    <input type="text" class="border-0 px-2 py-1 w-100"
+                                                <td class="border-right note p-2 align-top border-bottom border-top-0">
+                                                    <input type="text" class="border-0 py-1 w-100 height-32 text-13-black"
                                                         name="product_note[]" placeholder="Nhập ghi chú">
                                                 </td>
-                                                <td class="border border-right-0 deleteRow align-top border-top-0 p-2 user_flow"
+                                                <td class="p-2 align-top border-bottom border-top-0 user_flow"
                                                     data-type="DMH" data-des="Xóa sản phẩm">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15"
                                                         viewBox="0 0 16 15" fill="none">
@@ -333,18 +333,16 @@
         <div class="content-wrapper2 margin-top-fixed4">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
-                    <div class="bg-filter-search border-top-0 text-center">
+                    <div class="bg-filter-search border-0 text-center">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN nhà cung
                             cấp</p>
                     </div>
-                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
+                    <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
                         style="height:43px;">
-
                         <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
-
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin"
-                                class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest" id="myInput"
+                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
                                 style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" readonly
                                 name="provides_name">
                         </span>
@@ -412,7 +410,7 @@
                     <div class="">
                         <div id="more_info" style="display:none;">
                             <ul class="p-0 m-0">
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative border-top-0"
+                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative border-top-0 border-left-0"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest nameGuest py-2 px-2"
@@ -448,17 +446,16 @@
                                         </a>
                                     </ul>
                                 </li>
-
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative border-top-0"
+                                <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left position-relative border-top-0"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
 
                                     <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
-                                        name="quotation_number" style="flex:2; background-color:#F0F4FF;"
+                                        name="quotation_number" style="flex:2; background-color:#F0F4FF;border-radius:4px;"
                                         placeholder="Chọn thông tin">
 
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                                <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
@@ -466,7 +463,7 @@
                                         style="flex:2; background-color:#F0F4FF; border-radius:4px;"
                                         name="reference_number" />
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-top-0"
+                                <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
@@ -475,7 +472,7 @@
                                     <input type="hidden" name="date_quote" id="hiddenDateInput"
                                         value="{{ date('Y-m-d') }}">
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative border-top-0"
+                                <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left position-relative border-top-0"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
@@ -511,7 +508,7 @@
                                         </a>
                                     </ul>
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative border-top-0"
+                                <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left position-relative border-top-0"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
@@ -738,16 +735,16 @@
                         data['price_effect'].forEach(function(element) {
                             var li =
                                 `
-                            <li class="border" id="` + element.id + `">
+                            <li class="p-2 align-items-center text-wrap border-top border-bottom rounded" id="` + element.id + `">
                                 <a href="javascript:void(0)"
                                     class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect"
                                     id="` + element.id + `" name="search-price-effect">
-                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_name + `</span>
+                                    <span class="w-100 text-13-black overflow-hidden">` + element.form_name + `</span>
                                 </a>
 
                                 <div class="dropdown">
                                     <button type="button" data-toggle="dropdown"
-                                        class="btn-save-print d-flex align-items-center h-100"
+                                        class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
                                         style="margin-right:10px">
                                         <i class="fa-solid fa-ellipsis"></i>
                                     </button>
@@ -778,16 +775,16 @@
                         data['terms_pay'].forEach(function(element) {
                             var li =
                                 `
-                            <li class="border" id="` + element.id + `">
+                            <li class="p-2 align-items-center text-wrap border-top border-bottom" id="` + element.id + `">
                                 <a href="javascript:void(0)"
                                     class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay"
                                     id="` + element.id + `" name="search-term-pay">
-                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_name + `</span>
+                                    <span class="w-100 text-13-black overflow-hidden">` + element.form_name + `</span>
                                 </a>
 
                                 <div class="dropdown">
                                     <button type="button" data-toggle="dropdown"
-                                        class="btn-save-print d-flex align-items-center h-100"
+                                        class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent"
                                         style="margin-right:10px">
                                         <i class="fa-solid fa-ellipsis"></i>
                                     </button>
@@ -1163,16 +1160,16 @@
                         if (data.price_effect) {
                             data.price_effect.forEach(function(element) {
                                 var li = `
-                            <li class="border" id="` +
+                            <li class="p-2 align-items-center text-wrap border-top border-bottom rounded" id="` +
                                     element.id +
                                     `">
                                 <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="` +
                                     element.id + `" name="search-price-effect">
-                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_name +
+                                    <span class="w-100 text-13-black overflow-hidden">` + element.form_name +
                                     `</span>
                                 </a>
                                 <div class="dropdown">
-                                    <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                    <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">
                                         <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
                                     </button>
                                     <div class="dropdown-menu date-form-setting" style="z-index: 100;">
@@ -1200,15 +1197,15 @@
                         if (data.terms_pay) {
                             data.terms_pay.forEach(function(element) {
                                 var li = `
-                                <li class="border" id="` + element.id +
+                                <li class="p-2 align-items-center text-wrap border-top border-bottom" id="` + element.id +
                                     `">
                                 <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay" id="` +
                                     element.id + `" name="search-term-pay">
-                                    <span class="w-100 text-nav text-dark overflow-hidden">` + element.form_name +
+                                    <span class="w-100 text-13-black overflow-hidden">` + element.form_name +
                                     `</span>
                                 </a>
                                 <div class="dropdown">
-                                    <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                    <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">
                                         <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
                                     </button>
                                     <div class="dropdown-menu date-form-setting" style="z-index: 100;">
@@ -1239,7 +1236,7 @@
                                 `">
                                     <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent" id="` +
                                 data.id_represent + `" name="search-represent">
-                                        <span class="w-100 text-nav text-dark overflow-hidden">` + data
+                                        <span class="w-100 text-13-black overflow-hidden">` + data
                                 .represent_name +
                                 `</span>
                                     </a>
@@ -1347,7 +1344,7 @@
                                         `">
                                     <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-represent" id="` +
                                         data.id + `" name="search-represent">
-                                        <span class="w-100 text-nav text-dark overflow-hidden">` + data.data +
+                                        <span class="w-100 text-13-black overflow-hidden">` + data.data +
                                         `</span>
                                     </a>
 
@@ -1405,17 +1402,17 @@
                                         'data-id', data.id);
                                     if (id == "import") {
                                         var price_effect = `
-                                        <li class="border" id="` + data.id +
+                                        <li class="p-2 align-items-center text-wrap border-top border-bottom rounded" id="` + data.id +
                                             `">
                                             <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-price-effect" id="` +
                                             data.id + `" name="search-price-effect">
-                                                <span class="w-100 text-nav text-dark overflow-hidden">` + data
+                                                <span class="w-100 text-13-black overflow-hidden">` + data
                                             .inputName +
                                             `</span>
                                             </a>
 
                                             <div class="dropdown">
-                                                <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                                <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">
                                                     <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
                                                 </button>
                                                 <div class="dropdown-menu date-form-setting" style="z-index: 100;">
@@ -1434,17 +1431,17 @@
                                         `
                                     } else {
                                         var term_pay = `
-                                        <li class="border" id="` + data.id +
+                                        <li class="p-2 align-items-center text-wrap border-top border-bottom" id="` + data.id +
                                             `">
                                             <a href="javascript:void(0)" class="text-dark d-flex justify-content-between p-2 search-info w-100 search-term-pay" id="` +
                                             data.id + `" name="search-term-pay">
-                                                <span class="w-100 text-nav text-dark overflow-hidden">` + data
+                                                <span class="w-100 text-13-black overflow-hidden">` + data
                                             .inputName +
                                             `</span>
                                             </a>
 
                                             <div class="dropdown">
-                                                <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100" style="margin-right:10px">
+                                                <button type="button" data-toggle="dropdown" class="btn-save-print d-flex align-items-center h-100 border-0 bg-transparent" style="margin-right:10px">
                                                     <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
                                                 </button>
                                                 <div class="dropdown-menu date-form-setting" style="z-index: 100;">
@@ -1617,7 +1614,7 @@
                             '" data-tax="' + element
                             .product_tax +
                             '" name="search-product">' +
-                            '<span class="w-100" data-id="' +
+                            '<span class="w-100 text-13-black" data-id="' +
                             element.id + '">' + element
                             .product_name + '</span>' +
                             '</a>' +
