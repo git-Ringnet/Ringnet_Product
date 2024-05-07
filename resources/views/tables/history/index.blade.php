@@ -664,7 +664,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($item->getDetailImport->getPayOrder)
+                                                    @if ($item->getDetailImport->getPayOrder && $item->getDetailImport)
                                                         {{ date_format(new DateTime($item->getDetailImport->getPayOrder->payment_day), 'd/m/Y') }}
                                                     @endif
                                                 </td>
