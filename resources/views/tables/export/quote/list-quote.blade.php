@@ -2549,6 +2549,11 @@
                     return existingNames.includes(name);
                 });
                 $('.result-filter-detailExport').empty();
+                if (data.filters.length > 0) {
+                    $('.result-filter-detailExport').addClass('has-filters');
+                } else {
+                    $('.result-filter-detailExport').removeClass('has-filters');
+                }
                 // Lặp qua mảng filters để tạo và render các phần tử
                 data.filters.forEach(function(item) {
                     var index = filters.indexOf(item.name);

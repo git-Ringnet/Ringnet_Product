@@ -868,6 +868,11 @@
                         return existingNames.includes(name);
                     });
                     $('.result-filter-import').empty();
+                    if (data.filtersProvides.length > 0) {
+                        $('.result-filter-import').addClass('has-filters');
+                    } else {
+                        $('.result-filter-import').removeClass('has-filters');
+                    }
                     // Lặp qua mảng filtersProvides để tạo và render các phần tử
                     data.filtersProvides.forEach(function(item) {
                         var index = filtersProvides.indexOf(item.name);
@@ -977,6 +982,11 @@
                         return existingNames.includes(name);
                     });
                     $('.result-filter-export').empty();
+                    if (data.filters.length > 0) {
+                        $('.result-filter-export').addClass('has-filters');
+                    } else {
+                        $('.result-filter-export').removeClass('has-filters');
+                    }
                     // Lặp qua mảng filters để tạo và render các phần tử
                     data.filters.forEach(function(item) {
                         var index = filters.indexOf(item.name);

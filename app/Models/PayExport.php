@@ -511,10 +511,16 @@ class PayExport extends Model
         if (isset($data['users'])) {
             $payExport = $payExport->whereIn('pay_export.user_id', $data['users']);
         }
-        if (isset($data['status'])) {
+        if (isset($data['status']) && is_array($data['status'])) {
             if (in_array(7, $data['status'])) {
-                $payExport = $payExport->where('pay_export.payment', '>', 0);
-                $payExport = $payExport->where('pay_export.status', 1);
+                $payExport = $payExport->where(function ($query) {
+                    $query->where('pay_export.status', 1)
+                        ->where('pay_export.payment', '>', 0);
+                });
+                $payExport = $payExport->orWhere(function ($query) use ($data) {
+                    $dataWithout7 = array_diff($data['status'], [7]);
+                    $query->orWhereIn('pay_export.status', $dataWithout7);
+                });
             } else {
                 $payExport = $payExport->whereIn('pay_export.status', $data['status']);
             }

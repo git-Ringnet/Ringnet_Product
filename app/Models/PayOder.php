@@ -611,10 +611,16 @@ class PayOder extends Model
         if (isset($data['users'])) {
             $payment = $payment->whereIn('pay_order.user_id', $data['users']);
         }
-        if (isset($data['status'])) {
+        if (isset($data['status']) && is_array($data['status'])) {
             if (in_array(7, $data['status'])) {
-                $payment = $payment->where('pay_order.payment', '>', 0);
-                $payment = $payment->where('pay_order.status', 1);
+                $payment = $payment->where(function ($query) {
+                    $query->where('pay_order.status', 1)
+                        ->where('pay_order.payment', '>', 0);
+                });
+                $payment = $payment->orWhere(function ($query) use ($data) {
+                    $dataWithout7 = array_diff($data['status'], [7]);
+                    $query->orWhereIn('pay_order.status', $dataWithout7);
+                });
             } else {
                 $payment = $payment->whereIn('pay_order.status', $data['status']);
             }

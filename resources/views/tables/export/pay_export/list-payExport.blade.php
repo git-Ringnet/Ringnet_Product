@@ -593,6 +593,11 @@
                 });
                 $('.result-filter-payExport').empty();
                 // Lặp qua mảng filters để tạo và render các phần tử
+                if (data.filters.length > 0) {
+                    $('.result-filter-payExport').addClass('has-filters');
+                } else {
+                    $('.result-filter-payExport').removeClass('has-filters');
+                }
                 data.filters.forEach(function(item) {
                     var index = filters.indexOf(item.name);
                     // Tạo thẻ item-filter

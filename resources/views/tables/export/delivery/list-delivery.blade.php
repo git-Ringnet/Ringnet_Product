@@ -563,6 +563,11 @@
                     return existingNames.includes(name);
                 });
                 $('.result-filter-delivery').empty();
+                if (data.filters.length > 0) {
+                    $('.result-filter-delivery').addClass('has-filters');
+                } else {
+                    $('.result-filter-delivery').removeClass('has-filters');
+                }
                 // Lặp qua mảng filters để tạo và render các phần tử
                 data.filters.forEach(function(item) {
                     var index = filters.indexOf(item.name);

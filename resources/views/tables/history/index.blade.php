@@ -1070,6 +1070,11 @@
                             return existingNames.includes(name);
                         });
                         $('.result-filter-history').empty();
+                        if (data.filterHistory.length > 0) {
+                            $('.result-filter-history').addClass('has-filters');
+                        } else {
+                            $('.result-filter-history').removeClass('has-filters');
+                        }
                         // Lặp qua mảng filterHistory để tạo và render các phần tử
                         data.filterHistory.forEach(function(item) {
                             var index = filterHistory.indexOf(item.name);

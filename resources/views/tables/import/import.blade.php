@@ -1037,6 +1037,11 @@
                     return existingNames.includes(name);
                 });
                 $('.result-filter-import').empty();
+                if (data.filters.length > 0) {
+                    $('.result-filter-import').addClass('has-filters');
+                } else {
+                    $('.result-filter-import').removeClass('has-filters');
+                }
                 // Lặp qua mảng filters để tạo và render các phần tử
                 data.filters.forEach(function(item) {
                     var index = filters.indexOf(item.name);
