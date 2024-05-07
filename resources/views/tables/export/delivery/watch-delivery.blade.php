@@ -275,7 +275,7 @@
                                                     @endif
                                                 </td>
                                                 <td class="border-right p-2 text-13 align-top border-bottom">
-                                                    <div class="d-flex align-items-center">
+                                                    <div class="d-flex align-items-center justify-content-center">
                                                         @if ($item_quote->check_seri == 1)
                                                             <a href="#" class="btn btn-primary sn1 activity"
                                                                 data-name1="GH" data-des="Xem S/N sản phẩm"
