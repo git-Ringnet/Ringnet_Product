@@ -668,12 +668,12 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($item->getDetailImport->getPayOrder && $item->getDetailImport)
+                                                    @if ($item->getDetailImport && isset($item->getDetailImport->getPayOrder))
                                                         {{ date_format(new DateTime($item->getDetailImport->getPayOrder->payment_day), 'd/m/Y') }}
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($item->getDetailImport->getPayOrder && $item->getDetailImport)
+                                                    @if (isset($item->getDetailImport->getPayOrder) && $item->getDetailImport)
                                                         <span>{{ $item->getDetailImport->getPayOrder->payment_type }}</span>
                                                     @endif
                                                 </td>

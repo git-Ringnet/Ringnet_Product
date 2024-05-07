@@ -59,6 +59,7 @@ class DetailImport extends Model
     {
         return $this->hasOne(PayOder::class, 'detailimport_id', 'id');
     }
+
     public function getNameUser()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
