@@ -394,7 +394,7 @@
             {{-- Modal người đại diện --}}
             <div class="modal fade" id="representModal" tabindex="-1" role="dialog"
                 aria-labelledby="productModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document" style="margin-top: 10%;">
+                <div class="modal-dialog" role="document" style="margin-top: 10%;max-width: 20%;">
                     <div class="modal-content">
                         <div class="modal-body pb-0 px-2 pt-0">
                             <div class="content-info">
@@ -573,7 +573,7 @@
                         </p>
                     </div>
                     <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:43px;">
+                        style="height:45px;">
                         <span class="text-13 btn-click" style="flex: 1.5;"> Khách hàng </span>
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin" name="guestName"

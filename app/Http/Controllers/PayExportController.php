@@ -345,7 +345,11 @@ class PayExportController extends Controller
                     'des' => 'Xác nhận ở trang chi tiết'
                 ];
                 $this->userFlow->addUserFlow($arrCapNhatKH);
-                return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', 'Xác nhận thanh toán thành công!');
+                if ($request->redirect == 'payExport') {
+                    return redirect()->route('detailExport.index', ['workspace' => $workspace])->with('msg', 'Xác nhận thanh toán thành công!');
+                } else {
+                    return redirect()->route('payExport.index', ['workspace' => $workspace])->with('msg', 'Xác nhận thanh toán thành công!');
+                }
             }
         }
         if ($request->action == "action_2") {

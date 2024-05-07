@@ -338,7 +338,7 @@
                             cấp</p>
                     </div>
                     <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:43px;">
+                        style="height:45px;">
                         <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin"
@@ -411,7 +411,7 @@
                         <div id="more_info" style="display:none;">
                             <ul class="p-0 m-0">
                                 <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative border-top-0 border-left-0"
-                                    style="height:48px;">
+                                    style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest nameGuest py-2 px-2"
                                         style="flex:2;" id="represent" readonly placeholder="Chọn thông tin"
@@ -447,7 +447,7 @@
                                     </ul>
                                 </li>
                                 <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left position-relative border-top-0"
-                                    style="height:48px;">
+                                    style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
 
                                     <input tye="text" class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
@@ -456,7 +456,7 @@
 
                                 </li>
                                 <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"
-                                    style="height:48px;">
+                                    style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
                                         placeholder="Nhập thông tin"
@@ -464,7 +464,7 @@
                                         name="reference_number" />
                                 </li>
                                 <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left border-top-0"
-                                    style="height:48px;">
+                                    style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest flatpickr-input py-2 px-2"
                                         name="" placeholder="Chọn thông tin" style="flex:2;" id="datePicker"
@@ -473,7 +473,7 @@
                                         value="{{ date('Y-m-d') }}">
                                 </li>
                                 <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left position-relative border-top-0"
-                                    style="height:48px;">
+                                    style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                         name="price_effect" placeholder="Chọn thông tin" style="flex:2;"
@@ -509,7 +509,7 @@
                                     </ul>
                                 </li>
                                 <li class="d-flex justify-content-between border-left-0 py-2 px-3 border align-items-center text-left position-relative border-top-0"
-                                    style="height:48px;">
+                                    style="height:44px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                         name="terms_pay" id="terms_pay" placeholder="Chọn thông tin" style="flex:2;"

@@ -217,7 +217,7 @@
                     </div>
                 </div>
             </div>
-            <section class="border-custom" style="height:50px">
+            <section class="border-top" style="height:50px">
                 <div class="d-flex justify-content-between align-items-center h-100">
                     <div class="content-header--options p-0 border-0">
                         <ul class="header-options--nav nav nav-tabs margin-left32">
@@ -395,9 +395,8 @@
                 <div class="container-fluided">
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active ">
-                            <div id="title--fixed" class="content-title--fixed top-109">
-                                <p
-                                    class="font-weight-bold text-uppercase info-chung--heading text-center border-custom">
+                            <div id="title--fixed" class="content-title--fixed top-111 border-0">
+                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">
                                     THÔNG TIN SẢN PHẨM
                                 </p>
                             </div>
@@ -407,78 +406,58 @@
                                         <table class="table table-hover bg-white rounded m-0">
                                             <thead>
                                                 <tr style="height:44px;">
-                                                    <th scope="col" class="border" style="padding-left: 2rem;">
-                                                        <span class="d-flex justify-content-start">
-                                                            <a href="#" class="sort-link" data-sort-by="id"
-                                                                data-sort-type="#">
-                                                                <button class="btn-sort text-13" type="submit">Mã sản
-                                                                    phẩm</button>
-                                                            </a>
+                                                    <th scope="col" class="border border-right-0"
+                                                        style="width:15%;padding-left: 2rem;">
+                                                        <span class="d-flex justify-content-start text-13">
+                                                            Mã sản phẩm
                                                             <div class="icon" id="icon-id"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex justify-content-start">
-                                                            <a href="#" class="sort-link"
-                                                                data-sort-by="created_at" data-sort-type="">
-                                                                <button class="btn-sort text-13" type="submit">Tên
-                                                                    sản phẩm</button>
-                                                            </a>
+                                                    <th scope="col" class="border border-right-0"
+                                                        style="width:15%;">
+                                                        <span class="d-flex justify-content-start text-13">
+                                                            Tên sản phẩm
                                                             <div class="icon" id="icon-created_at"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex justify-content-start">
-                                                            <a href="#" class="sort-link"
-                                                                data-sort-by="created_at" data-sort-type=""><button
-                                                                    class="btn-sort text-13" type="submit">Đơn
-                                                                    vị</button>
-                                                            </a>
+                                                    <th scope="col" class="border border-right-0"
+                                                        style="width:10%;">
+                                                        <span class="d-flex justify-content-start text-13">
+                                                            Đơn vị
                                                             <div class="icon" id="icon-created_at"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex justify-content-end">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13"
-                                                                    type="submit">Số lượng</button>
-                                                            </a>
+                                                    <th scope="col" class="border border-right-0"
+                                                        style="width:10%;">
+                                                        <span class="d-flex justify-content-end text-13">
+                                                            Số lượng
                                                             <div class="icon" id="icon-total"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex justify-content-end">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13"
-                                                                    type="submit">Đơn giá</button>
-                                                            </a>
+                                                    <th scope="col" class="border border-right-0"
+                                                        style="width:15%;">
+                                                        <span class="d-flex justify-content-end text-13">
+                                                            Đơn giá
                                                             <div class="icon" id="icon-total"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex justify-content-center">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13"
-                                                                    type="submit">Thuế</button>
-                                                            </a>
+                                                    <th scope="col" class="border border-right-0"
+                                                        style="width:5%;">
+                                                        <span class="d-flex justify-content-center text-13">
+                                                            Thuế
                                                             <div class="icon" id="icon-total"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex justify-content-end">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13"
-                                                                    type="submit">Thành tiền</button>
-                                                            </a>
+                                                    <th scope="col" class="border border-right-0"
+                                                        style="width:15%;">
+                                                        <span class="d-flex justify-content-end text-13">
+                                                            Thành tiền
                                                             <div class="icon" id="icon-total"></div>
                                                         </span>
                                                     </th>
-                                                    <th scope="col" class="border">
-                                                        <span class="d-flex justify-content-start">
-                                                            <a href="#" class="sort-link" data-sort-by="total"
-                                                                data-sort-type=""><button class="btn-sort text-13"
-                                                                    type="submit">Ghi chú sản phẩm</button>
-                                                            </a>
+                                                    <th scope="col" class="border border-right-0">
+                                                        <span class="d-flex justify-content-start text-13">
+                                                            Ghi chú sản phẩm
                                                             <div class="icon" id="icon-total"></div>
                                                         </span>
                                                     </th>
@@ -488,7 +467,7 @@
                                                 @foreach ($quoteExport as $item_quote)
                                                     <tr id="dynamic-row-1" class="bg-white addProduct"
                                                         style="height:80px">
-                                                        <td class="border bg-white align-top text-13-black text-left"
+                                                        <td class="border-left p-2 text-13 align-top border-bottom border-top-0"
                                                             style="padding-left: 2rem !important;">
                                                             <input type="text" autocomplete="off" readonly
                                                                 value="{{ $item_quote->product_code }}"
@@ -496,7 +475,7 @@
                                                                 name="product_code[]">
                                                         </td>
                                                         <td
-                                                            class="border bg-white align-top text-13-black position-relative text-left">
+                                                            class="border-left p-2 text-13 align-top border-bottom border-top-0 position-relative">
                                                             <div class="d-flex align-items-center">
                                                                 <input type="text"
                                                                     value="{{ $item_quote->product_name }}"
@@ -531,13 +510,15 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td class="border bg-white align-top text-13-black text-left">
+                                                        <td
+                                                            class="border-left p-2 text-13 align-top border-bottom border-top-0 position-relative">
                                                             <input type="text" autocomplete="off" readonly
                                                                 value="{{ $item_quote->product_unit }}"
                                                                 class="border-0 px-2 py-1 w-100 product_unit height-32"
                                                                 name="product_unit[]">
                                                         </td>
-                                                        <td class="border-right p-2 text-13 align-top border-bottom">
+                                                        <td
+                                                            class="border-left p-2 text-13 align-top border-bottom border-top-0 position-relative">
                                                             <div><input type="number"
                                                                     class="text-right border-0 px-2 py-1 w-100 quantity-input height-32"
                                                                     readonly autocomplete="off"
@@ -550,7 +531,8 @@
                                                                     class="pl-1 soTonKho">{{ is_int($item_quote->product_inventory) ? $item_quote->product_inventory : rtrim(rtrim(number_format($item_quote->product_inventory, 4, '.', ''), '0'), '.') }}</span>
                                                             </div>
                                                         </td>
-                                                        <td class="border-right p-2 text-13 align-top border-bottom">
+                                                        <td
+                                                            class="border-left p-2 text-13 align-top border-bottom border-top-0 position-relative">
                                                             <div>
                                                                 <input type="text"
                                                                     value="{{ number_format($item_quote->price_export) }}"
@@ -565,7 +547,8 @@
                                                                 </div>
                                                             </a>
                                                         </td>
-                                                        <td class="border bg-white align-top text-13-black px-4">
+                                                        <td
+                                                            class="border-left p-2 text-13 align-top border-bottom border-top-0 position-relative">
                                                             <select class="border-0 text-center product_tax height-32"
                                                                 disabled>
                                                                 <option value="0" <?php if ($item_quote->product_tax == 0) {
@@ -586,13 +569,14 @@
                                                                 value="{{ $item_quote->product_tax }}"
                                                                 name="product_tax[]">
                                                         </td>
-                                                        <td class="border bg-white align-top text-13-black text-right">
+                                                        <td
+                                                            class="border-left p-2 text-13 align-top border-bottom border-top-0 position-relative">
                                                             <input type="text" readonly=""
                                                                 value="{{ number_format($item_quote->product_total) }}"
                                                                 class="border-0 px-2 py-1 w-100 total-amount text-right height-32">
                                                         </td>
                                                         <td
-                                                            class="text-center border bg-white align-top text-13-black">
+                                                            class="border-left p-2 text-13 align-top border-bottom border-top-0 position-relative">
                                                             <input type="text"
                                                                 class="border-0 py-1 w-100 text-left height-32"
                                                                 readonly name="product_note[]"
@@ -640,10 +624,9 @@
                             </div>
                         </div>
                         <div id="history" class="tab-pane fade">
-                            <div id="title--fixed" class="content-title--fixed top-109 ">
-                                <p
-                                    class="font-weight-bold text-uppercase info-chung--heading text-center  border-custom">
-                                    Lịch sử chỉnh sửa
+                            <div id="title--fixed" class="content-title--fixed top-111">
+                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                                    Lịch sử chỉnh sửa sản phẩm
                                 </p>
                             </div>
                             <section class="content margin-top-103">
@@ -651,86 +634,57 @@
                                     <table class="table table-hover bg-white rounded">
                                         <thead>
                                             <tr style="height:44px;">
-                                                <th scope="col" class="border" style="padding-left: 2rem;">
-                                                    <span class="d-flex justify-content-start">
-                                                        <a href="#" class="sort-link" data-sort-by="id"
-                                                            data-sort-type="#">
-                                                            <button class="btn-sort text-13" type="submit">Mã sản
-                                                                phẩm</button>
-                                                        </a>
+                                                <th scope="col" class="border-bottom-0 border-right" style="padding-left: 2rem;">
+                                                    <span class="d-flex justify-content-start text-13">
+                                                        Mã sản phẩm
                                                         <div class="icon" id="icon-id"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border">
-                                                    <span class="d-flex justify-content-start">
-                                                        <a href="#" class="sort-link" data-sort-by="created_at"
-                                                            data-sort-type="">
-                                                            <button class="btn-sort text-13" type="submit">Tên sản
-                                                                phẩm</button>
-                                                        </a>
+                                                <th scope="col" class="border-bottom-0 border-right">
+                                                    <span class="d-flex justify-content-start text-13">
+                                                        Tên sản phẩm
                                                         <div class="icon" id="icon-created_at"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border">
-                                                    <span class="d-flex justify-content-start">
-                                                        <a href="#" class="sort-link" data-sort-by="created_at"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Đơn vị</button>
-                                                        </a>
+                                                <th scope="col" class="border-bottom-0 border-right">
+                                                    <span class="d-flex justify-content-start text-13">
+                                                        Đơn vị
                                                         <div class="icon" id="icon-created_at"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border">
-                                                    <span class="d-flex justify-content-end">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Số lượng</button>
-                                                        </a>
+                                                <th scope="col" class="border-bottom-0 border-right">
+                                                    <span class="d-flex justify-content-end text-13">
+                                                        Số lượng
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border">
-                                                    <span class="d-flex justify-content-end">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Đơn giá</button>
-                                                        </a>
+                                                <th scope="col" class="border-bottom-0 border-right">
+                                                    <span class="d-flex justify-content-end text-13">
+                                                        Đơn giá
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border">
-                                                    <span class="d-flex justify-content-center">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Thuế</button>
-                                                        </a>
+                                                <th scope="col" class="border-bottom-0 border-right">
+                                                    <span class="d-flex justify-content-center text-13">
+                                                        Thuế
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border">
-                                                    <span class="d-flex justify-content-end">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Thành tiền</button>
-                                                        </a>
+                                                <th scope="col" class="border-bottom-0 border-right">
+                                                    <span class="d-flex justify-content-end text-13">
+                                                        Thành tiền
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border p-1">
-                                                    <span class="d-flex justify-content-start">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Ghi chú sản phẩm</button>
-                                                        </a>
+                                                <th scope="col" class="border-bottom-0 border-right">
+                                                    <span class="d-flex justify-content-start text-13">
+                                                        Ghi chú sản phẩm
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border">
-                                                    <span class="d-flex justify-content-start">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Thời gian chỉnh sửa</button>
-                                                        </a>
+                                                <th scope="col" class="border-bottom-0">
+                                                    <span class="d-flex justify-content-start text-13">
+                                                        Thời gian chỉnh sửa
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
@@ -739,14 +693,14 @@
                                         <tbody>
                                             @foreach ($history as $item_history)
                                                 <tr style="height:80px;">
-                                                    <td class="border bg-white align-top text-13-black p-1"
+                                                    <td class="border-bottom border-right bg-white align-top text-13-black p-1"
                                                         style="padding-left: 2rem !important;">
                                                         <input type="text" autocomplete="off" readonly
                                                             value="{{ $item_history->product_code }}"
                                                             class="border-0 py-1 w-75 product_code text-left height-32"
                                                             name="product_code[]">
                                                     </td>
-                                                    <td class="border bg-white align-top text-13-black p-1">
+                                                    <td class="border-bottom border-right bg-white align-top text-13-black p-1">
                                                         <div class="d-flex align-items-center">
                                                             <input type="text"
                                                                 value="{{ $item_history->product_name }}"
@@ -781,13 +735,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="border bg-white align-top text-13-black p-1"
+                                                    <td class="border-bottom border-right bg-white align-top text-13-black p-1"
                                                         style="width:8%">
                                                         <input type="text" autocomplete="off" readonly
                                                             value="{{ $item_history->product_unit }}"
                                                             class="border-0 px-2 py-1 w-100 product_unit text-left height-32">
                                                     </td>
-                                                    <td class="border bg-white align-top text-13-black p-1"
+                                                    <td class="border-bottom border-right bg-white align-top text-13-black p-1"
                                                         style="width:11%">
                                                         <div>
                                                             <input type="number"
@@ -804,7 +758,7 @@
                                                                 class="pl-1 soTonKho">{{ is_int($item_history->product_inventory) ? $item_history->product_inventory : rtrim(rtrim(number_format($item_history->product_inventory, 4, '.', ''), '0'), '.') }}</span>
                                                         </div>
                                                     </td>
-                                                    <td class="border bg-white align-top text-13-black p-1">
+                                                    <td class="border-bottom border-right bg-white align-top text-13-black p-1">
                                                         <div>
                                                             <input type="text"
                                                                 value="{{ number_format($item_history->price_export) }}"
@@ -819,8 +773,7 @@
                                                             </div>
                                                         </a>
                                                     </td>
-                                                    <td
-                                                        class="border bg-white align-top text-13-black p-1 text-center">
+                                                    <td class="border-bottom border-right bg-white align-top text-13-black p-1 text-center">
                                                         <select name="product_tax[]"
                                                             class="border-0 text-center height-32" disabled>
                                                             <option value="0" <?php if ($item_history->product_tax == 0) {
@@ -838,13 +791,12 @@
                                                             </option>
                                                         </select>
                                                     </td>
-                                                    <td class="border bg-white align-top text-13-black text-left p-1">
+                                                    <td class="border-bottom border-right bg-white align-top text-13-black text-left p-1">
                                                         <input type="text" readonly=""
                                                             value="{{ number_format($item_history->product_total) }}"
                                                             class="border-0 px-2 py-1 w-100 text-right height-32">
                                                     </td>
-                                                    <td
-                                                        class="text-center border bg-white align-top text-13-black p-1">
+                                                    <td class="text-center border-bottom border-right bg-white align-top text-13-black p-1">
                                                         <input type="text"
                                                             class="border-0 py-1 w-100 text-left height-32" readonly
                                                             name="product_note[]"
@@ -853,8 +805,7 @@
                                                     <td style="display:none;" class="">
                                                         <input type="text" class="product_tax1">
                                                     </td>
-                                                    <td
-                                                        class="border bg-white align-top text-13-black text-left p-1 height-32">
+                                                    <td class="border-bottom bg-white align-top text-13-black text-left p-1 height-32">
                                                         {{ date_format(new DateTime($item_history->ngayChinhSua), 'd-m-Y H:i:s') }}
                                                     </td>
                                                 </tr>
@@ -866,7 +817,7 @@
                         </div>
 </form>
 <div id="files" class="tab-pane fade">
-    <div id="title--fixed" class="content-title--fixed top-109 bg-filter-search border-top-0 text-center">
+    <div id="title--fixed" class="content-title--fixed top-111">
         <p class="font-weight-bold text-uppercase info-chung--heading text-center">File đính kèm</p>
     </div>
     <x-form-attachment :value="$detailExport" name="BG"></x-form-attachment>
@@ -883,8 +834,8 @@
                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH HÀNG
                 </p>
             </div>
-            <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
-                style="height:44px;" style="height:44px;">
+            <div class="d-flex justify-content-between py-2 px-3 border-0 align-items-center text-left text-nowrap"
+                style="height:43px;">
                 <span class="text-13 btn-click" style="flex: 1.5;"> Khách hàng
                 </span>
                 <span class="mx-1 text-13" style="flex: 2;">
@@ -950,7 +901,7 @@
                 </div>
                 <div class="content-info--common" id="show-info-guest">
                     <ul class="p-0 m-0">
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
                             style="height:44px;">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest" readonly
@@ -959,26 +910,26 @@
                             <input type="hidden" class="represent_guest_id" name="represent_guest_id"
                                 autocomplete="off">
                         </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
                             style="height:44px;">
                             <span class="text-13 text-nowrap mr-3"style="flex: 1.5;">Số báo giá</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
                                 name="quotation_number" value="{{ $detailExport->quotation_number }}" />
                         </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
                             style="height:44px;">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
                                 name="reference_number" value="{{ $detailExport->reference_number }}" />
                         </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
                             style="height:44px;">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest " id="customDateInput"
                                 name="date_quote" style="flex:2;" readonly
                                 value="{{ date_format(new DateTime($detailExport->ngayBG), 'd/m/Y') }}" />
                         </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
                             style="height:44px;">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo
                                 giá</span>
@@ -986,7 +937,7 @@
                                 id="myInput" style="flex:2;" value="{{ $detailExport->price_effect }}" />
 
                         </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
                             style="height:44px;">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest" id="myInput" style="flex:2;"
@@ -999,20 +950,20 @@
                                 id="ProjectInput" value="{{ $detailExport->project_name }}" />
 
                         </li> --}}
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
                             style="height:44px;">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hàng hóa</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" id="myInput"
                                 readonly name="goods" value="{{ $detailExport->goods }}" />
 
                         </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0 border-left-0"
                             style="height:44px;">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Giao hàng</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;" readonly
                                 name="delivery" id="myInput" value="{{ $detailExport->delivery }}" />
                         </li>
-                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-left-0"
                             style="height:44px;">
                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Địa điểm</span>
                             <input class="text-13-black w-50 border-0 bg-input-guest " style="flex:2;" readonly
@@ -1064,7 +1015,7 @@
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
                                         <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
-                                            <button class="btn-sort text-13" type="submit">
+                                            <button class="btn-sort text-13">
                                                 Tên sản phẩm
                                             </button>
                                         </a>
@@ -1074,7 +1025,7 @@
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
                                         <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
-                                            <button class="btn-sort text-13" type="submit">
+                                            <button class="btn-sort text-13">
                                                 Khách hàng
                                             </button>
                                         </a>
@@ -1083,9 +1034,8 @@
                                 </th>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id"
-                                            data-sort-type="#">
-                                            <button class="btn-sort text-13" type="submit">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13">
                                                 Giá bán
                                             </button>
                                         </a>
@@ -1094,9 +1044,8 @@
                                 </th>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id"
-                                            data-sort-type="#">
-                                            <button class="btn-sort text-13" type="submit">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13">
                                                 Thuế
                                             </button>
                                         </a>
@@ -1105,9 +1054,8 @@
                                 </th>
                                 <th scope="col" class="height-52">
                                     <span class="d-flex">
-                                        <a href="#" class="sort-link" data-sort-by="id"
-                                            data-sort-type="#">
-                                            <button class="btn-sort text-13" type="submit">
+                                        <a href="#" class="sort-link" data-sort-by="id" data-sort-type="#">
+                                            <button class="btn-sort text-13">
                                                 Ngày bán
                                             </button>
                                         </a>

@@ -1115,47 +1115,47 @@ class DetailExportController extends Controller
                         }
                     } else if ($request->type == "payorder") {
                         if ($qt->qty_payment != 0) {
-                            $data['status'] = false;
-                            $data['msg'] = "Đơn thanh toán đã được tạo";
-                            break;
-                        } else {
-                            $payExport = DetailExport::where('detailexport.id', $request->id)
-                                ->where('detailexport.workspace_id', Auth::user()->current_workspace)
-                                ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
-                                ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
-                                ->select(
-                                    'detailexport.id',
-                                    'detailexport.guest_id',
-                                    'detailexport.guest_name',
-                                    'detailexport.quotation_number',
-                                    'detailexport.represent_name',
-                                    DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
-                                )
-                                ->groupBy(
-                                    'detailexport.id',
-                                    'detailexport.guest_id',
-                                    'detailexport.guest_name',
-                                    'detailexport.total_price',
-                                    'detailexport.total_tax',
-                                    'detailexport.quotation_number',
-                                    'detailexport.represent_name',
-                                )
-                                ->first();
-                            $tongThanhToan = PayExport::where('detailexport_id', $payExport->id)
-                                ->where('pay_export.workspace_id', Auth::user()->current_workspace)
-                                ->first();
-                            $lastPayExportId = DB::table('pay_export')
-                                ->where('pay_export.workspace_id', Auth::user()->current_workspace)
-                                ->max(DB::raw('CAST(SUBSTRING_INDEX(code_payment, "-", -1) AS UNSIGNED)'));
-                            $idLast =  $lastPayExportId;
-                            $data['status'] = true;
-                            $data['tongTienNo'] = $payExport->tongTienNo;
-                            if ($tongThanhToan) {
-                                $data['tongThanhToan'] = $tongThanhToan->payment;
-                            } else {
-                                $data['tongThanhToan'] = 0;
-                            }
+                            $data['thanhToan'] = 1;
                         }
+                        $payExport = DetailExport::where('detailexport.id', $request->id)
+                            ->where('detailexport.workspace_id', Auth::user()->current_workspace)
+                            ->leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
+                            ->leftJoin('pay_export', 'pay_export.detailexport_id', 'detailexport.id')
+                            ->select(
+                                'detailexport.id',
+                                'detailexport.guest_id',
+                                'detailexport.guest_name',
+                                'detailexport.quotation_number',
+                                'detailexport.represent_name',
+                                'pay_export.id as payTT',
+                                DB::raw('(COALESCE(detailexport.total_price, 0) + COALESCE(detailexport.total_tax, 0)) as tongTienNo'),
+                            )
+                            ->groupBy(
+                                'detailexport.id',
+                                'detailexport.guest_id',
+                                'detailexport.guest_name',
+                                'detailexport.total_price',
+                                'detailexport.total_tax',
+                                'detailexport.quotation_number',
+                                'detailexport.represent_name',
+                                'pay_export.id',
+                            )
+                            ->first();
+                        $tongThanhToan = PayExport::where('detailexport_id', $payExport->id)
+                            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+                            ->first();
+                        $lastPayExportId = DB::table('pay_export')
+                            ->where('pay_export.workspace_id', Auth::user()->current_workspace)
+                            ->max(DB::raw('CAST(SUBSTRING_INDEX(code_payment, "-", -1) AS UNSIGNED)'));
+                        $idLast =  $lastPayExportId;
+                        $data['status'] = true;
+                        $data['tongTienNo'] = $payExport->tongTienNo;
+                        if ($tongThanhToan) {
+                            $data['tongThanhToan'] = $tongThanhToan->payment;
+                        } else {
+                            $data['tongThanhToan'] = 0;
+                        }
+                        $data['payTT'] = $payExport->payTT;
                     }
                 }
                 $data['product'] = $quoteExport;
@@ -1188,7 +1188,11 @@ class DetailExportController extends Controller
                 $data['reciept'] = true;
             }
             if ($checkPayment) {
-                $data['payment'] = true;
+                if ($checkPayment->debt == 0) {
+                    $data['payment'] = true;
+                } else {
+                    $data['title_payment'] = "Thanh toán bán hàng";
+                }
             }
         }
         return $data;

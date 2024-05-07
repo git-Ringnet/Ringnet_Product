@@ -1,8 +1,8 @@
 <div>
     @if ($name == 'provide')
         <section>
-            <div class="modal fade" id="{{$idModal}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="{{ $idModal }}" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document" style="margin-top:9%; max-width:350px; max-height:677px;">
                     <div class="modal-content">
                         <div class="modal-body pb-0 px-2 pt-0">
@@ -50,8 +50,10 @@
                             </div>
                         </div>
                         <div class="modal-footer border-top-0 py-1 px-1">
-                            <button type="button" class="btn-save-print rounded h-100 text-table py-1" data-dismiss="modal" onclick="clearDataProvide(this)">Trở về</button>
-                            <button type="button" class="custom-btn align-items-center h-100 py-1 px-2 text-table" id="editProvide">Sửa nhà cung cấp</button>
+                            <button type="button" class="btn-save-print rounded h-100 text-table py-1"
+                                data-dismiss="modal" onclick="clearDataProvide(this)">Trở về</button>
+                            <button type="button" class="custom-btn align-items-center h-100 py-1 px-2 text-table"
+                                id="editProvide">Sửa nhà cung cấp</button>
                         </div>
                     </div>
                 </div>
@@ -61,10 +63,10 @@
         <section>
             <div class="modal fade" id="{{ $idModal }}" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document" style="max-width: 20%; margin-top:10%;">
+                <div class="modal-dialog" role="document"
+                    @if ($name == 'provide' || $name == 'addRepresent') style="max-width: 20%; margin-top:10%;" @endif>
                     <div class="modal-content">
                         <div class="modal-body pb-0 px-2 pt-0">
-
                             @if ($name == 'addRepresent')
                                 <div class="mt-2">
                                     <p class="p-0 m-0 px-2 text-nav">
@@ -117,7 +119,7 @@
                                     value="">
                             </div> --}}
                             @else
-                                <div class="mt-2">
+                                {{-- <div class="mt-2">
                                     <p class="p-0 m-0 px-2 text-nav">
                                         Tên biểu mẫu
                                     </p>
@@ -127,24 +129,21 @@
                                         autocomplete="off">
                                 </div>
                                 <div class="mt-2">
-                                    <p class="p-0 m-0 px-2 text-nav">
-                                        Nội dung
-                                    </p>
-                                    <input id="form-desc-{{ $name }}" name="form-desc-{{ $name }}"
-                                        type="text" placeholder="Nhập thông tin"
-                                        class="border w-100 py-1 border-left-0 border-right-0 px-2 border-top-0 text-nav"
-                                        autocomplete="off">
+                                    <label for="message-text" class="col-form-label">Nội dung</label>
+                                    <textarea style="height: auto !important;" autocomplete="off" rows="4" cols="50"
+                                        class="form-control-1 w-100" id="form-desc-{{ $name }}" name="form-desc-{{ $name }}" required>
+                                    </textarea>
+                                </div> --}}
+                                <div class="form-group">
+                                    <label for="form-name" class="col-form-label">Tên biểu mẫu</label>
+                                    <input type="text" class="form-control" id="form-name-{{ $name }}"
+                                        name="form-name-{{ $name }}" value="">
                                 </div>
-
-                                {{-- <div class="form-group">
-                                <label for="form-name" class="col-form-label">Tên biểu mẫu</label>
-                                <input type="text" class="form-control" id="form-name-{{ $name }}"
-                                    name="form-name-{{ $name }}" value="">
-                            </div>
-                            <div class="form-group">
-                                <label for="message-text" class="col-form-label">Nội dung</label>
-                                <textarea class="form-control" id="form-desc-{{ $name }}" name="form-desc-{{ $name }}"></textarea>
-                            </div> --}}
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Nội dung</label>
+                                    <textarea style="height: auto !important;" rows="4" cols="50" class="form-control-1 w-100"
+                                        id="form-desc-{{ $name }}" name="form-desc-{{ $name }}"></textarea>
+                                </div>
                                 <input type="hidden" id="form_field">
                             @endif
                         </div>

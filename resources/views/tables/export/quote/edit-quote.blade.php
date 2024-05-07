@@ -1161,7 +1161,7 @@
         {{-- Modal khách hàng --}}
         <div class="modal fade" id="guestModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog" role="document" style="margin-top: 10%;">
+            <div class="modal-dialog" role="document" style="margin-top: 5%;">
                 <div class="modal-content">
                     <div class="modal-body pb-0 px-2 pt-0">
                         <div class="content-info">
@@ -1257,7 +1257,7 @@
         {{-- Modal người đại diện --}}
         <div class="modal fade" id="representModal" tabindex="-1" role="dialog"
             aria-labelledby="productModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document" style="margin-top: 10%;">
+            <div class="modal-dialog" role="document" style="margin-top: 10%;max-width: 20%;">
                 <div class="modal-content">
                     <div class="modal-body pb-0 px-2 pt-0">
                         <div class="content-info">

@@ -120,8 +120,6 @@
                                 </ul>
                             </div>
                         </div>
-
-
                         <a href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $import->id]) }}"
                             class="user_flow" data-type="DMH" data-des="Sửa đơn mua hàng">
                             <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
@@ -140,48 +138,45 @@
                                 <span class="text-btnIner-primary ml-1">Sửa</span>
                             </button>
                         </a>
-
-
                         <div class="dropdown">
-                            <button type="button"
-                                class="btn-save-print border-0 rounded d-flex align-items-center h-100 dropdown-toggle px-2 bg-click"
-                                id="btnCreateFast1">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="4"
-                                        viewBox="0 0 18 4" fill="none">
+                            <button type="button" data-toggle="dropdown"
+                                class="btn-save-print border-0 rounded d-flex align-items-center h-100 dropdown-toggle px-2 bg-click">
+                                <span class="text-button">
+                                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18 2C18 0.89543 17.1046 0 16 0C14.8954 0 14 0.89543 14 2C14 3.10457 14.8954 4 16 4C17.1046 4 18 3.10457 18 2Z"
+                                            d="M24 15C24 13.8954 23.1046 13 22 13C20.8954 13 20 13.8954 20 15C20 16.1046 20.8954 17 22 17C23.1046 17 24 16.1046 24 15Z"
                                             fill="#26273B" fill-opacity="0.8" />
                                         <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M11 2C11 0.89543 10.1046 0 9 0C7.89543 0 7 0.89543 7 2C7 3.10457 7.89543 4 9 4C10.1046 4 11 3.10457 11 2Z"
+                                            d="M17 15C17 13.8954 16.1046 13 15 13C13.8954 13 13 13.8954 13 15C13 16.1046 13.8954 17 15 17C16.1046 17 17 16.1046 17 15Z"
                                             fill="#26273B" fill-opacity="0.8" />
                                         <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M4 2C4 0.89543 3.10457 0 2 0C0.895431 0 0 0.89543 0 2C0 3.10457 0.895431 4 2 4C3.10457 4 4 3.10457 4 2Z"
+                                            d="M10 15C10 13.8954 9.10457 13 8 13C6.89543 13 6 13.8954 6 15C6 16.1046 6.89543 17 8 17C9.10457 17 10 16.1046 10 15Z"
                                             fill="#26273B" fill-opacity="0.8" />
                                     </svg>
                                 </span>
                             </button>
-                            <div class="bg-white position-absolute rounded shadow p-2 z-index-block"
-                                style="z-index:99;width: 160px;top: 20px;right: 4px; display:none;"
-                                id="listBtnCreateFast1">
-                                <ul class="m-0 p-0 scroll-data">
-                                    <li class="p-1 align-items-left text-wrap" style="border-radius:4px;">
-                                        <button id="delete_import" type="submit" class="border-0 w-100 text-left"
-                                            style="background: none;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                viewBox="0 0 16 16" fill="none">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M12.3687 6.5C12.6448 6.5 12.8687 6.72386 12.8687 7C12.8687 7.03856 12.8642 7.07699 12.8554 7.11452L11.3628 13.4581C11.1502 14.3615 10.3441 15 9.41597 15H6.58403C5.65593 15 4.84977 14.3615 4.6372 13.4581L3.14459 7.11452C3.08135 6.84572 3.24798 6.57654 3.51678 6.51329C3.55431 6.50446 3.59274 6.5 3.6313 6.5H12.3687ZM8.5 1C9.88071 1 11 2.11929 11 3.5H13C13.5523 3.5 14 3.94772 14 4.5V5C14 5.27614 13.7761 5.5 13.5 5.5H2.5C2.22386 5.5 2 5.27614 2 5V4.5C2 3.94772 2.44772 3.5 3 3.5H5C5 2.11929 6.11929 1 7.5 1H8.5ZM8.5 2.5H7.5C6.94772 2.5 6.5 2.94772 6.5 3.5H9.5C9.5 2.94772 9.05228 2.5 8.5 2.5Z"
-                                                    fill="#26273B" fill-opacity="0.8" />
-                                            </svg>
-                                            <span class="text-btnIner-primary ml-2"
-                                                style="font-weight: 600;color: #000; font-size:13px">Xóa</span>
-                                        </button>
+                            <div class="dropdown-menu mt-1 p-0" style="z-index: 9999;width:180px!important;">
+                                <ul class="m-0 p-0">
+                                    <li class="p-1 w-100" style="border-radius:4px;">
+                                        <a href="#">
+                                            <button id="delete_import" type="submit"
+                                                class="btn-save-print border-0 p-2 d-flex mx-1 align-items-center h-100 w-100">
+                                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="16"
+                                                    height="16" viewBox="0 0 16 16" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M12.3687 6.5C12.6448 6.5 12.8687 6.72386 12.8687 7C12.8687 7.03856 12.8642 7.07699 12.8554 7.11452L11.3628 13.4581C11.1502 14.3615 10.3441 15 9.41597 15H6.58403C5.65593 15 4.84977 14.3615 4.6372 13.4581L3.14459 7.11452C3.08135 6.84572 3.24798 6.57654 3.51678 6.51329C3.55431 6.50446 3.59274 6.5 3.6313 6.5H12.3687ZM8.5 1C9.88071 1 11 2.11929 11 3.5H13C13.5523 3.5 14 3.94772 14 4.5V5C14 5.27614 13.7761 5.5 13.5 5.5H2.5C2.22386 5.5 2 5.27614 2 5V4.5C2 3.94772 2.44772 3.5 3 3.5H5C5 2.11929 6.11929 1 7.5 1H8.5ZM8.5 2.5H7.5C6.94772 2.5 6.5 2.94772 6.5 3.5H9.5C9.5 2.94772 9.05228 2.5 8.5 2.5Z"
+                                                        fill="#26273B" fill-opacity="0.8" />
+                                                </svg>
+                                                <span style="color: #282A30; font-size:14px">
+                                                    Xóa
+                                                </span>
+                                            </button>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-
                         <button id="sideProvide" type="button" class="btn-option border-0 mx-1">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -196,7 +191,7 @@
                     </div>
                 </div>
             </div>
-            <section class="border-custom" style="height:50px">
+            <section class="border-top" style="height:50px">
                 <div class="d-flex justify-content-between align-items-center h-100">
                     <div class="content-header--options p-0 border-0">
                         <ul class="header-options--nav nav nav-tabs margin-left32">
@@ -367,92 +362,65 @@
                 <div class="container-fluided">
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active">
-                            <div id="title--fixed"
-                                class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
-                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN
-                                    SẢN PHẨM</p>
+                            <div id="title--fixed" class="content-title--fixed top-111 border-0">
+                                <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                                    THÔNG TIN SẢN PHẨM
+                                </p>
                             </div>
                             <section class="content margin-top-103">
                                 <div class="table-responsive text-nowrap order_content">
                                     <table id="inputcontent" class="table table-hover bg-white rounded m-0">
                                         <thead>
                                             <tr style="height:44px;">
-                                                <th scope="col" class="border border-bottom border-right-0"
-                                                    style="padding-left: 2rem;">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link" data-sort-by="id"
-                                                            data-sort-type="#">
-                                                            <button class="btn-sort text-13" type="submit">Mã sản
-                                                                phẩm</button>
-                                                        </a>
+                                                <th scope="col" class="border border-right-0"
+                                                    style="width:15%;padding-left: 2rem;">
+                                                    <span class="d-flex justify-content-start text-13">
+                                                        Mã sản phẩm
                                                         <div class="icon" id="icon-id"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border border-bottom border-right-0">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link" data-sort-by="created_at"
-                                                            data-sort-type="">
-                                                            <button class="btn-sort text-13" type="submit">Tên sản
-                                                                phẩm</button>
-                                                        </a>
+                                                <th scope="col" class="border border-right-0" style="width:15%;">
+                                                    <span class="d-flex justify-content-start text-13">
+                                                        Tên sản phẩm
                                                         <div class="icon" id="icon-created_at"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border border-bottom border-right-0">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link" data-sort-by="created_at"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Đơn vị</button>
-                                                        </a>
+                                                <th scope="col" class="border border-right-0" style="width:10%;">
+                                                    <span class="d-flex justify-content-start text-13">
+                                                        Đơn vị
                                                         <div class="icon" id="icon-created_at"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border border-bottom border-right-0">
-                                                    <span class="d-flex justify-content-end">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Số lượng</button>
-                                                        </a>
+                                                <th scope="col" class="border border-right-0" style="width:10%;">
+                                                    <span class="d-flex justify-content-end text-13">
+                                                        Số lượng
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border border-bottom border-right-0">
-                                                    <span class="d-flex justify-content-end">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Đơn giá</button>
-                                                        </a>
+                                                <th scope="col" class="border border-right-0" style="width:15%;">
+                                                    <span class="d-flex justify-content-end text-13">
+                                                        Đơn giá
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border border-bottom border-right-0">
-                                                    <span class="d-flex justify-content-center">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Thuế</button>
-                                                        </a>
+                                                <th scope="col" class="border border-right-0" style="width:5%;">
+                                                    <span class="d-flex justify-content-center text-13">
+                                                        Thuế
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border border-bottom border-right-0">
-                                                    <span class="d-flex justify-content-end">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Thành tiền</button>
-                                                        </a>
+                                                <th scope="col" class="border border-right-0" style="width:15%;">
+                                                    <span class="d-flex justify-content-end text-13">
+                                                        Thành tiền
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border border-bottom border-right-0">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Ghi chú sản phẩm</button>
-                                                        </a>
+                                                <th scope="col" class="border border-right-0">
+                                                    <span class="d-flex justify-content-start text-13">
+                                                        Ghi chú sản phẩm
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
-                                                <th scope="col" class="border-bottom border-left"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -476,7 +444,7 @@
                                                         <div class="d-flex align-items-center">
                                                             <input readonly id="searchProductName" type="text"
                                                                 name="product_name[]"
-                                                                class="searchProductName border-0  py-1 w-100"
+                                                                class="searchProductName border-0  py-1 w-100 height-32"
                                                                 value="{{ $item->product_name }}"
                                                                 @if ($import->status == 2) echo readonly @endif>
                                                             <ul id="listProductName"
@@ -512,7 +480,7 @@
                                                     <td
                                                         class='border-left p-2 text-13 align-top border-bottom border-top-0 position-relative'>
                                                         <input type="text" name="product_unit[]"
-                                                            class="border-0 px-2 py-1 w-100 product_unit"
+                                                            class="border-0 px-2 py-1 w-100 product_unit height-32"
                                                             value="{{ $item->product_unit }}" readonly>
                                                     </td>
                                                     <td
@@ -521,7 +489,7 @@
                                                             <input readonly
                                                                 oninput="checkQty(this,{{ $item->product_qty }})"
                                                                 type="text" name="product_qty[]"
-                                                                class="border-0 px-2 py-1 w-100 quantity-input text-right"
+                                                                class="border-0 px-2 py-1 w-100 quantity-input text-right height-32"
                                                                 value="{{ number_format($item->product_qty) }}">
                                                             <div class='mt-3 text-13-blue inventory text-right'
                                                                 tyle="top: 68%;">Tồn kho:
@@ -534,7 +502,7 @@
                                                     <td
                                                         class="border-left p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" name="price_export[]"
-                                                            class="text-right border-0 px-2 py-1 w-100 product_price"
+                                                            class="text-right border-0 px-2 py-1 w-100 product_price height-32"
                                                             value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
                                                             readonly>
                                                         <div class='mt-3 text-13-blue text-right transaction'
@@ -547,7 +515,8 @@
                                                     <td
                                                         class="border-left p-2 text-13 align-top border-bottom border-top-0 text-center">
                                                         <select name="product_tax[]" id="product_tax"
-                                                            class="border-0 text-center product_tax" disabled>
+                                                            class="border-0 text-center product_tax height-32"
+                                                            disabled>
                                                             <option value="0"
                                                                 @if ($item->product_tax == 0) selected @endif>
                                                                 0%
@@ -569,7 +538,7 @@
                                                     <td
                                                         class="border-left p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" name="total_price[]"
-                                                            class="text-right border-0 px-2 py-1 w-100 total_price"
+                                                            class="text-right border-0 px-2 py-1 w-100 total_price height-32"
                                                             readonly
                                                             value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}"
                                                             @if ($import->status == 2) echo readonly @endif>
@@ -577,17 +546,9 @@
                                                     <td
                                                         class="border-left p-2 text-13 align-top border-bottom border-top-0">
                                                         <input placeholder="Nhập ghi chú" readonly type="text"
-                                                            name="product_note[]" class="border-0 px-2 py-1 w-100"
+                                                            name="product_note[]"
+                                                            class="border-0 px-2 py-1 w-100 height-32"
                                                             value="{{ $item->product_note }}">
-                                                    </td>
-                                                    <td
-                                                        class="border-left p-2 text-13 align-top border-bottom border-top-0">
-                                                        <svg width="17" height="17" viewBox="0 0 17 17"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z"
-                                                                fill="#6B6F76"></path>
-                                                        </svg>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -600,7 +561,7 @@
 
                         <div id="history" class="tab-pane fade">
                             <div id="title--fixed"
-                                class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                                class="content-title--fixed top-111">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">LỊCH SỬ
                                     CHỈNH SỬA SẢN PHẨM</p>
                             </div>
@@ -611,76 +572,50 @@
                                             <tr style="height:44px;">
                                                 <th scope="col" class="border border-bottom border-right-0"
                                                     style="padding-left: 2rem;">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link" data-sort-by="id"
-                                                            data-sort-type="#">
-                                                            <button class="btn-sort text-13" type="submit">Mã sản
-                                                                phẩm</button>
-                                                        </a>
+                                                    <span class="d-flex text-13">
+                                                        Mã sản phẩm
                                                         <div class="icon" id="icon-id"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border border-bottom border-right-0">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link" data-sort-by="created_at"
-                                                            data-sort-type="">
-                                                            <button class="btn-sort text-13" type="submit">Tên sản
-                                                                phẩm</button>
-                                                        </a>
+                                                    <span class="d-flex text-13">
+                                                        Tên sản phẩm
                                                         <div class="icon" id="icon-created_at"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border border-bottom border-right-0">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link" data-sort-by="created_at"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Đơn vị</button>
-                                                        </a>
+                                                    <span class="d-flex text-13">
+                                                        Đơn vị
                                                         <div class="icon" id="icon-created_at"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border border-bottom border-right-0">
-                                                    <span class="d-flex justify-content-end">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Số lượng</button>
-                                                        </a>
+                                                    <span class="d-flex text-13 justify-content-end">
+                                                        Số lượng
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border border-bottom border-right-0">
-                                                    <span class="d-flex justify-content-end">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Đơn giá</button>
-                                                        </a>
+                                                    <span class="d-flex text-13 justify-content-end">
+                                                        Đơn giá
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border border-bottom border-right-0">
-                                                    <span class="d-flex justify-content-center">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Thuế</button>
-                                                        </a>
+                                                    <span class="d-flex text-13 justify-content-center">
+                                                        Thuế
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border border-bottom border-right-0">
-                                                    <span class="d-flex justify-content-end">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Thành tiền</button>
-                                                        </a>
+                                                    <span class="d-flex text-13 justify-content-end">
+                                                        Thành tiền
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
                                                 <th scope="col" class="border-bottom border-left">
-                                                    <span class="d-flex">
-                                                        <a href="#" class="sort-link" data-sort-by="total"
-                                                            data-sort-type=""><button class="btn-sort text-13"
-                                                                type="submit">Ghi chú sản phẩm</button>
-                                                        </a>
+                                                    <span class="d-flex text-13">
+                                                        Ghi chú sản phẩm
                                                         <div class="icon" id="icon-total"></div>
                                                     </span>
                                                 </th>
@@ -751,10 +686,9 @@
                                 </div>
                             </section>
                         </div>
-
                         <div id="files" class="tab-pane fade">
                             <div id="title--fixed"
-                                class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                                class="content-title--fixed top-111">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">File đính
                                     kèm</p>
                             </div>
@@ -767,18 +701,19 @@
         <div class="content">
             <div id="mySidenav" class="sidenav border" style="top:109px !important;">
                 <div id="show_info_Guest">
-                    <div class="bg-filter-search border-top-0 text-center border-custom">
-                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG
-                            CẤP</p>
+                    <div class="bg-filter-search border-0 text-center border-custom">
+                        <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                            THÔNG TIN NHÀ CUNG CẤP
+                        </p>
                     </div>
                     <div class="content-info">
-                        <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap border-bottom-0"
-                            style="height:48px;">
+                        <div class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left text-nowrap"
+                            style="height:44px;">
                             <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
                             <span class="mx-1 text-13" style="flex: 2;">
                                 <input type="text" placeholder="Chọn thông tin" readonly {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}
                                     value="{{ $import->provide_name }}"
-                                    class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest"
+                                    class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest"
                                     style="background-color:#F0F4FF; border-radius:4px;" id="myInput"
                                     autocomplete="off">
                             </span>
@@ -786,42 +721,42 @@
                     </div>
                     <div>
                         <ul class="p-0 m-0 ">
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                 <input class="text-13-black w-50 border-0 bg-input-guest py-2 px-2"
                                     {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}} value="{{ $import->represent_name }}" style="flex:2;"
                                     id="represent" readonly>
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
                                 <input class="text-13-black w-50 border-0 py-2 px-2" style="flex:2;"
                                     placeholder="Nhập thông tin" name="quotation_number"
                                     value="{{ $import->quotation_number }}" readonly />
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
                                 <input class="text-13-black w-50 border-0 py-2 px-2" style="flex:2;"
                                     placeholder="Nhập thông tin" name="reference_number"readonly
                                     value="{{ $import->reference_number }}" />
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
                                 <input type="text" class="text-13-black w-50 border-0 px-2 py-2"
                                     placeholder="Nhập thông tin" id="datePicker" name="date_quote" style="flex:2;"
                                     value="{{ date_format(new DateTime($import->created_at), 'd/m/Y') }}" />
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left border-bottom-0"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
                                 <input type="text" class="text-13-black w-50 border-0 px-2 py-2" style="flex:2;"
                                     name="price_effect" placeholder="Nhập thông tin"
                                     value="{{ $import->price_effect }}" readonly />
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                 style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
                                 <input type="text" readonly class="text-13-black w-50 border-0 px-2 py-2"

@@ -551,7 +551,8 @@
                         d="M13.8477 6.74219C13.6602 6.84375 13.6523 6.91016 13.6484 8.00781V9.03906L13.7812 9.17188L13.9141 9.30469H15.043C16.082 9.30469 16.1758 9.29688 16.2891 9.23047C16.3633 9.18359 16.4336 9.09766 16.457 9.01953C16.5 8.89453 16.4766 8.81641 16.1875 7.99609C16.0117 7.50391 15.8242 7.04688 15.7734 6.97656C15.582 6.72656 15.4297 6.6875 14.6406 6.6875C14.1367 6.69141 13.9141 6.70312 13.8477 6.74219ZM15.2969 7.9375C15.3789 8.16406 15.457 8.37891 15.4687 8.41406C15.4883 8.48047 15.4492 8.48438 14.9805 8.48438H14.4687V7.99609V7.50391L14.8086 7.51562L15.1523 7.52734L15.2969 7.9375Z"
                         fill="black" />
                 </svg>
-            </span> Xác nhận giao hàng
+            </span>
+            <span class="title_delivery">Tạo đơn giao hàng</span>
         </p>
     </a>
     <a href="#" class="text-dark">
@@ -591,7 +592,7 @@
                         fill="#26273B" fill-opacity="0.8" />
                 </svg>
             </span>
-            Xác nhận hóa đơn
+            <span class="title_billsale">Tạo hóa đơn</span>
         </p>
     </a>
     <a href="#" class="text-dark">
@@ -627,7 +628,7 @@
                     </defs>
                 </svg>
             </span>
-            Xác nhận thanh toán
+            <span class="title_payment">Tạo đơn thanh toán</span>
         </p>
     </a>
 </div>
@@ -637,6 +638,7 @@
     <input type="hidden" id="id_export" name="detailexport_id">
     <input type="hidden" name="action" id="getAction">
     <input type="hidden" name="redirect">
+    <input type="hidden" name="_method" value="">
     <div id="selectedSerialNumbersContainer"></div>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -735,13 +737,18 @@
                     }
                     if (data.reciept) {
                         $('.menu').find('p[data-type="reciept"]').hide()
-                    } else if (!data.reciept){
+                    } else if (!data.reciept) {
                         $('.menu').find('p[data-type="reciept"]').show()
                     }
                     if (data.payment) {
                         $('.menu').find('p[data-type="payorder"]').hide()
-                    } else if (!data.payment){
+                    } else if (!data.payment) {
                         $('.menu').find('p[data-type="payorder"]').show()
+                    }
+                    if (data.title_payment) {
+                        $('.menu .title_payment').text(data.title_payment)
+                    } else {
+                        $('.menu .title_payment').text("Tạo thanh toán")
                     }
                     if (!data.receive || !data.reciept || !data.payment) {
                         menu.css({
@@ -2004,9 +2011,8 @@
                                             <span class="ml-2">Hủy</span>
                                         </button>
                                     </a>
-
-                                    <a href="#" data-type="payorder" onclick="getActionForm(this)">
-                                        <button name="action" value="action_2" type="submit"
+                                    <a href="#" data-id="${data.payTT}" data-type="${data.thanhToan == 1 ? 'thanhToan' : 'payorder'}" onclick="getActionForm(this)">
+                                        <button name="action" value="${data.thanhToan == 1 ? 'action_1' : 'action_2'}" type="submit"
                                             class="custom-btn d-flex align-items-center h-100">
                                             <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="14"
                                                 height="14" viewBox="0 0 14 14" fill="none">
@@ -2103,7 +2109,7 @@
                                             style="height:50px;">
                                             <span class="text-13 btn-click" style="flex: 1.5;">Đã thanh toán</span>
                                             <span class="mx-1 text-13" style="flex: 2;">
-                                                <input readonly="" type="text" placeholder="Chọn thông tin"
+                                                <input readonly="" type="text" placeholder="Chọn thông tin" name="daThanhToan"
                                                     class="text-13-black w-50 border-0 bg-input-guest nameGuest px-2 py-2 daThanhToan"
                                                     style="flex:2;" value="">
                                             </span>
@@ -2176,8 +2182,7 @@
                                         data
                                         .tongThanhToan)))
                                     $("#debt").val(formatCurrency(debt))
-                                    $(".payment_all").text(formatCurrency(Math
-                                        .round(data.tongTienNo)))
+                                    $(".payment_all").text(formatCurrency(debt))
                                     $('#prepayment').on('input', function() {
                                         checkQty(this, debt)
                                     })
@@ -2230,6 +2235,15 @@
         } else if (type == "payorder") {
             $("input[name='redirect']").val('payExport');
             var actionUrl = "{{ route('payExport.store', $workspacename) }}";
+            $('#quickAction').attr('action', actionUrl);
+        } else if (type == "thanhToan") {
+            $("input[name='redirect']").val('payExport');
+            $("input[name='_method']").val('PUT');
+            var workspace = "{{ $workspacename }}";
+            var payExportId = $(e).data('id');
+            var actionUrl =
+                "{{ route('payExport.update', ['workspace' => $workspacename, 'payExport' => ':payExportId']) }}";
+            actionUrl = actionUrl.replace(':payExportId', payExportId);
             $('#quickAction').attr('action', actionUrl);
         }
 
