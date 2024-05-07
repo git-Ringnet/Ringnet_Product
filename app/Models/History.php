@@ -91,7 +91,8 @@ class History extends Model
         //     )->distinct()->get();
         // // dd($history);
 
-        $history = History::all();
+        $history = History::where('workspace_id',Auth::user()->current_workspace)
+        ->orderBy('id','desc')->get();
         // ->groupBy('detailexport_id');
         return $history;
     }

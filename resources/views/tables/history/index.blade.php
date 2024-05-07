@@ -622,8 +622,8 @@
                                         @foreach ($history as $item)
                                             <tr>
                                                 <td>
-                                                    @if ($item->getProvideName)
-                                                        {{ $item->getProvideName->provide_name }}
+                                                    @if ($item->getDetailImport)
+                                                        {{ $item->getDetailImport->provide_name }}
                                                     @endif
                                                 </td>
                                                 <td>
@@ -631,7 +631,11 @@
                                                         {{ $item->getDetailImport->reference_number }}
                                                     @endif
                                                 </td>
-                                                <td>Nội dung</td>
+                                                <td>
+                                                    @if($item->getQtyImport)
+                                                        {{$item->getQtyImport->product_name}}
+                                                    @endif
+                                                </td>
                                                 <td>Ngày hóa đơn</td>
                                                 <td>Bảo hành</td>
                                                 <td>
