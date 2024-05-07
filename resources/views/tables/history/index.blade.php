@@ -621,23 +621,46 @@
                                         @endisset --}}
                                         @foreach ($history as $item)
                                             <tr>
-                                                <td>{{ $item->getProvideName->provide_name_display }}</td>
-                                                <td>{{ $item->getDetailImport->reference_number }}</td>
+                                                <td>
+                                                    @if ($item->getProvideName)
+                                                        {{ $item->getProvideName->provide_name }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->getDetailImport)
+                                                        {{ $item->getDetailImport->reference_number }}
+                                                    @endif
+                                                </td>
                                                 <td>Nội dung</td>
                                                 <td>Ngày hóa đơn</td>
                                                 <td>Bảo hành</td>
                                                 <td>
-                                                    {{$item->getQtyImport->product_qty}}
+                                                    @if ($item->getQtyImport)
+                                                        {{ $item->getQtyImport->product_qty }}
+                                                    @endif
                                                 </td>
-                                                <td>{{ number_format($item->getDetailImport->total_price) }}</td>
-                                                <td>{{ number_format($item->getDetailImport->total_tax - $item->getDetailImport->total_price) }}
-                                                </td>
-                                                <td>{{ number_format($item->getDetailImport->total_tax) }}</td>
                                                 <td>
-                                                    @if ($item->getDetailImport->status_pay != 2)
-                                                        <span>Chưa thanh toán</span>
-                                                    @else
-                                                        <span>Đã thanh toán</span>
+                                                    @if ($item->getDetailImport)
+                                                        {{ number_format($item->getDetailImport->total_price) }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->getDetailImport)
+                                                        {{ number_format($item->getDetailImport->total_tax - $item->getDetailImport->total_price) }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->getDetailImport)
+                                                        {{ number_format($item->getDetailImport->total_tax) }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->getDetailImport)
+                                                        @if ($item->getDetailImport->status_pay != 2)
+                                                            <span>Chưa thanh toán</span>
+                                                        @else
+                                                            <span>Đã thanh toán</span>
+                                                        @endif
                                                     @endif
                                                 </td>
                                                 <td>
@@ -646,7 +669,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($item->getDetailImport->getPayOrder)
+                                                    @if ($item->getDetailImport->getPayOrder && $item->getDetailImport)
                                                         <span>{{ $item->getDetailImport->getPayOrder->payment_type }}</span>
                                                     @endif
                                                 </td>
@@ -662,11 +685,19 @@
                                                 </td>
                                                 <td>{{ number_format($item->qty_export) }}</td>
                                                 <td>
-                                                    {{ number_format($item->getDetailExport->total_price) }}
+                                                    @if ($item->getDetailExport)
+                                                        {{ number_format($item->getDetailExport->total_price) }}
+                                                    @endif
                                                 </td>
-                                                <td> {{ number_format($item->getDetailExport->total_tax) }}</td>
                                                 <td>
-                                                    {{ number_format($item->getDetailExport->total_tax + $item->getDetailExport->total_price) }}
+                                                    @if ($item->getDetailExport)
+                                                        {{ number_format($item->getDetailExport->total_tax) }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->getDetailExport)
+                                                        {{ number_format($item->getDetailExport->total_tax + $item->getDetailExport->total_price) }}
+                                                    @endif
                                                 </td>
                                                 <td>Số hóa đơn</td>
                                                 <td>Ngày hóa đơn</td>
