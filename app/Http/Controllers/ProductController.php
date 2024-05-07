@@ -159,7 +159,7 @@ class ProductController extends Controller
         if (isset($data['idName']) && $data['idName'] !== null) {
             $products = $this->products->getProductsbyName($data['idName']);
             $productsString = implode(', ', $products);
-            $filters[] = ['value' => 'Tên sản phẩm: ' . count($data['idName']) . ' được chọn', 'name' => 'idName', 'icon' => 'money'];
+            $filters[] = ['value' => 'Tên sản phẩm: ' . count($data['idName']) . ' được chọn', 'name' => 'idName', 'icon' => 'po'];
         }
         if (isset($data['code']) && $data['code'] !== null) {
             $filters[] = ['value' => 'Mã hàng hoá: ' . $data['code'], 'name' => 'code', 'icon' => 'status'];

@@ -106,23 +106,23 @@ class HistoryController extends Controller
             $filters[] = ['value' => 'Số lượng nhập: ' . $data['slnhap'][0] . $data['slnhap'][1], 'name' => 'slnhap', 'icon' => 'sl'];
         }
         if (isset($data['trcVATN']) && $data['trcVATN'][1] !== null) {
-            $filters[] = ['value' => 'Trước VAT nhập: ' . $data['trcVATN'][0] . $data['trcVATN'][1], 'name' => 'trcVATN', 'icon' => 'money'];
+            $filters[] = ['value' => 'Trước VAT nhập: ' . $data['trcVATN'][0] . ' ' . $data['trcVATN'][1], 'name' => 'trcVATN', 'icon' => 'money'];
         }
         if (isset($data['VATN']) && $data['VATN'][1] !== null) {
-            $filters[] = ['value' => 'VAT nhập: ' . $data['VATN'][0] . $data['VATN'][1], 'name' => 'VATN', 'icon' => 'money'];
+            $filters[] = ['value' => 'VAT nhập: ' . $data['VATN'][0] . ' ' . $data['VATN'][1], 'name' => 'VATN', 'icon' => 'money'];
         }
         if (isset($data['sauVATN']) && $data['sauVATN'][1] !== null) {
-            $filters[] = ['value' => 'Sau VAT nhập: ' . $data['sauVATN'][0] . $data['sauVATN'][1], 'name' => 'sauVATN', 'icon' => 'money'];
+            $filters[] = ['value' => 'Sau VAT nhập: ' . $data['sauVATN'][0] . ' ' . $data['sauVATN'][1], 'name' => 'sauVATN', 'icon' => 'money'];
         }
 
         if (isset($data['trcVATX']) && $data['trcVATX'][1] !== null) {
-            $filters[] = ['value' => 'Trước VAT xuất: ' . $data['trcVATX'][0] . $data['trcVATX'][1], 'name' => 'trcVATX', 'icon' => 'money'];
+            $filters[] = ['value' => 'Trước VAT xuất: ' . $data['trcVATX'][0] . ' ' . $data['trcVATX'][1], 'name' => 'trcVATX', 'icon' => 'money'];
         }
         if (isset($data['VATX']) && $data['VATX'][1] !== null) {
-            $filters[] = ['value' => 'VAT xuất: ' . $data['VATX'][0] . $data['VATX'][1], 'name' => 'VATX', 'icon' => 'money'];
+            $filters[] = ['value' => 'VAT xuất: ' . $data['VATX'][0] . ' ' . $data['VATX'][1], 'name' => 'VATX', 'icon' => 'money'];
         }
         if (isset($data['sauVATX']) && $data['sauVATX'][1] !== null) {
-            $filters[] = ['value' => 'Sau VAT xuất: ' . $data['sauVATX'][0] . $data['sauVATX'][1], 'name' => 'sauVATX', 'icon' => 'money'];
+            $filters[] = ['value' => 'Sau VAT xuất: ' . $data['sauVATX'][0] . ' ' . $data['sauVATX'][1], 'name' => 'sauVATX', 'icon' => 'money'];
         }
         if (isset($data['dateHDN']) && $data['dateHDN'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['dateHDN'][0]));

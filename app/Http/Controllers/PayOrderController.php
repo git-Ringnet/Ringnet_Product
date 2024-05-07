@@ -283,13 +283,13 @@ class PayOrderController extends Controller
             $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status', 'icon' => 'status'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
-            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . ' ' . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
         }
         if (isset($data['payment']) && $data['payment'][1] !== null) {
-            $filters[] = ['value' => 'Đã nhận: ' . $data['payment'][0] . $data['payment'][1], 'name' => 'payment', 'icon' => 'money'];
+            $filters[] = ['value' => 'Đã nhận: ' . $data['payment'][0] . ' ' . $data['payment'][1], 'name' => 'payment', 'icon' => 'money'];
         }
         if (isset($data['debt']) && $data['debt'][1] !== null) {
-            $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt', 'icon' => 'money'];
+            $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . ' ' . $data['debt'][1], 'name' => 'debt', 'icon' => 'money'];
         }
         if ($request->ajax()) {
             $payment = $this->payment->ajax1($data);

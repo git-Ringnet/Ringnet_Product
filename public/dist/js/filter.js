@@ -17,6 +17,7 @@ function handleCancelClick(cancelBtn, input, options) {
         if (input) {
             input.val("");
         }
+        console.log(input);
         options.hide();
     });
 }
@@ -30,14 +31,20 @@ $(document).on("click", function (event) {
     }
 });
 
-// $(document).on("click", ".item-filter", function (e) {
-//     e.preventDefault();
-//     var buttonName = $(this).data("button");
-//     var absoluteItem = $("#" + buttonName + "-options");
-//     absoluteItem.appendTo($(this));
-//     $("#" + buttonName + "-options").toggle();
-//     console.log("cas");
-// });
+$(document).on("click", ".item-filter", function (e) {
+    e.preventDefault();
+    var buttonName = $(this).data("button");
+    var absoluteItem = $("#" + buttonName + "-options");
+    absoluteItem.appendTo($(this));
+    if (
+        !$(e.target).closest(
+            "#cancel-" + buttonName + ",.block-options," + "#" + buttonName
+        ).length
+    ) {
+        console.log("dsad213");
+        $("#" + buttonName + "-options").toggle();
+    }
+});
 
 $(".btn-filter_search").click(function () {
     $(".block-options").hide();

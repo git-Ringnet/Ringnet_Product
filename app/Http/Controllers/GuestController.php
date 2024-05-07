@@ -220,7 +220,7 @@ class GuestController extends Controller
             $filters[] = ['value' => 'Người tạo: ' . count($data['users']) . ' người tạo', 'name' => 'users', 'icon' => 'user'];
         }
         if (isset($data['debt']) && $data['debt'][1] !== null) {
-            $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . $data['debt'][1], 'name' => 'debt', 'icon' => 'money'];
+            $filters[] = ['value' => 'Dư nợ: ' . $data['debt'][0] . ' ' . $data['debt'][1], 'name' => 'debt', 'icon' => 'money'];
         }
         if ($request->ajax()) {
             $guests = $this->guests->ajax($data);

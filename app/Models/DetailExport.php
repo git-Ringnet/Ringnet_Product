@@ -246,7 +246,14 @@ class DetailExport extends Model
     {
         $detailExport = DetailExport::leftJoin('guest', 'guest.id', 'detailexport.guest_id')
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
-            ->select('detailexport.id as maBG', 'detailexport.created_at as ngayBG', 'guest.guest_name_display as guest_name_display', 'guest.*', 'detailexport.*');
+            ->select(
+                'detailexport.id as maBG',
+                'detailexport.created_at as ngayBG',
+                'guest.guest_name_display as guest_name_display',
+                'guest.*',
+                'detailexport.*',
+                DB::raw('detailexport.total_price + detailexport.total_tax as totaltong'),
+            );
         if (isset($data['search'])) {
             $detailExport = $detailExport->where(function ($query) use ($data) {
                 $query->orWhere('quotation_number', 'like', '%' . $data['search'] . '%');
@@ -286,7 +293,7 @@ class DetailExport extends Model
             $detailExport = $detailExport->whereBetween('detailexport.created_at', [$dateStart, $dateEnd]);
         }
         if (isset($data['total'][0]) && isset($data['total'][1])) {
-            $detailExport = $detailExport->where('detailexport.total_price', $data['total'][0], $data['total'][1]);
+            $detailExport = $detailExport->having('totaltong', $data['total'][0], $data['total'][1]);
         }
         if (isset($data['sort']) && isset($data['sort'][0])) {
             $detailExport = $detailExport->orderBy($data['sort'][0], $data['sort'][1]);

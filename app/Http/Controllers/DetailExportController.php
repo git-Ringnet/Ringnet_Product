@@ -1022,7 +1022,7 @@ class DetailExportController extends Controller
             $filters[] = ['value' => 'Thanh toán: ' . $statusTextPay, 'name' => 'pay'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
-            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . ' ' . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
         }
         if ($request->ajax()) {
             $detailExport = $this->detailExport->ajax($data);

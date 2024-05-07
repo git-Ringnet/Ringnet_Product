@@ -447,7 +447,7 @@ class DeliveryController extends Controller
             $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status', 'icon' => 'status'];
         }
         if (isset($data['shipping_fee']) && $data['shipping_fee'][1] !== null) {
-            $filters[] = ['value' => 'Phí vận chuyển: ' . $data['shipping_fee'][0] . $data['shipping_fee'][1], 'name' => 'shipping_fee', 'icon' => 'money'];
+            $filters[] = ['value' => 'Phí vận chuyển: ' . $data['shipping_fee'][0] . ' ' . $data['shipping_fee'][1], 'name' => 'shipping_fee', 'icon' => 'money'];
         }
         if (isset($data['date']) && $data['date'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['date'][0]));
@@ -455,7 +455,7 @@ class DeliveryController extends Controller
             $filters[] = ['value' => 'Ngày giao hàng: từ ' . $date_start . ' đến ' . $date_end, 'name' => 'date', 'icon' => 'date'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
-            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . ' ' . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
         }
         if ($request->ajax()) {
             $delivery = $this->delivery->ajax($data);

@@ -4,11 +4,12 @@
         <div class="heading-title title-wrap">
             <h5>{{ $title }}</h5>
         </div>
-        <div class="input-group p-2">
+        <div class="input-group p-2 border-filter">
             {{-- <label class="title mr-1 text-13-black" for="">Chứa kí tự</label> --}}
             <input type="text" name="{{ $name }}" id="{{ $name }}"
                 @if ($name == 'phone') oninput="this.value = this.value.replace(/[^0-9]/g, '')" @endif
-                class="form-control text-13-black" value="" placeholder="Nhập thông tin..">
+                class="form-control text-13-black {{ $name }}-input" value=""
+                placeholder="Nhập thông tin.." autocomplete="off">
         </div>
     </div>
     <div></div>

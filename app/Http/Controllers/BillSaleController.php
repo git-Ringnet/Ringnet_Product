@@ -429,7 +429,7 @@ class BillSaleController extends Controller
             $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status', 'icon' => 'status'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
-            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . ' ' . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
         }
         if (isset($data['date']) && $data['date'][1] !== null) {
             $date_start = date("d/m/Y", strtotime($data['date'][0]));

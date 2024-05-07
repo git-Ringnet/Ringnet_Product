@@ -145,6 +145,10 @@ li {
     transition: 0.5s;
 }
 
+.border-filter{
+    border-bottom: 1px solid #cfcbcb;
+}
+
 /* Table Scroll */
 .outer {
     width: 100%;
@@ -165,7 +169,7 @@ li {
     width: 100%;
     overflow-x: auto;
     scrollbar-width: thin;
-    max-height: calc(100vh - 140px);
+    max-height: calc(100vh - 180px);
 }
 
 .outer2 th {

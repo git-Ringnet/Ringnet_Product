@@ -151,7 +151,7 @@
                                         <div
                                             class="border border-top-0 w-100 border-left-0 border-right-0 px-3 height-100 pt-2 pb-1">
                                             <select name="product_tax" id="" class="text-13-black border-0"
-                                                style="background-color:white; width:5%;">
+                                                style="background-color:white; width:10%;">
                                                 <option value="0"
                                                     @if ($product->product_tax == 0) selected @endif>0%
                                                 </option>
@@ -204,7 +204,8 @@
                                         @if ($product->getSerialNumber)
                                             @if (count($product->getSerialNumber) == 0 && $product->product_inventory == 0)
                                                 <div class="d-flex align-items-center height-60-mobile">
-                                                    <div class="title-info py-2 border border-left-0 border-top-0 height-100">
+                                                    <div
+                                                        class="title-info py-2 border border-left-0 border-top-0 height-100">
                                                         <p class="p-0 m-0 margin-left32 text-13">Quản lý Serial Number
                                                         </p>
                                                     </div>

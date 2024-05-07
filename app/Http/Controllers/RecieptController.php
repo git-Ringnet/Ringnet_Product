@@ -277,7 +277,7 @@ class RecieptController extends Controller
             $filters[] = ['value' => 'Trạng thái: ' . $statusText, 'name' => 'status'];
         }
         if (isset($data['total']) && $data['total'][1] !== null) {
-            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
+            $filters[] = ['value' => 'Tổng tiền: ' . $data['total'][0] . ' ' . $data['total'][1], 'name' => 'total', 'icon' => 'money'];
         }
         if ($request->ajax()) {
             $reciept = $this->reciept->ajax($data);

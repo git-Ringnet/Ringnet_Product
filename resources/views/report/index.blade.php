@@ -49,7 +49,7 @@
             </div>
         </div>
     </div>
-    <div class="content-filter-all">
+    <div class="content-filter-all bg-white">
         <section class="content-header--options p-0 border-custom">
             <div class="width-18">
                 <ul class="header-options--nav nav nav-tabs margin-left32 border-bottom-0"
