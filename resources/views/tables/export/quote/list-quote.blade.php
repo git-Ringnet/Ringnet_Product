@@ -2208,16 +2208,27 @@
             locale: "vn",
             dateFormat: "d/m/Y",
             defaultDate: new Date(),
-            onChange: function(selectedDates,
-                dateStr, instance) {
-                document.getElementById(
-                        "hiddenDateInput" + number)
-                    .value = instance
-                    .formatDate(selectedDates[
-                            0],
-                        "Y-m-d");
-            }
+            onChange: function(selectedDates, dateStr, instance) {
+                // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+                updateHiddenInput(selectedDates[0], instance, "hiddenDateInput" + number);
+            },
+            onReady: function(selectedDates, dateStr, instance) {
+                updateHiddenInput(selectedDates[0], instance, "hiddenDateInput" + number);
+            },
         });
+    }
+
+    function updateHiddenInput(selectedDate, instance, hiddenInputId) {
+        // Lấy thời gian hiện tại
+        var currentTime = new Date();
+
+        // Cập nhật giá trị của trường ẩn với thời gian hiện tại và ngày đã chọn
+        var selectedDateTime = new Date(selectedDate);
+        selectedDateTime.setHours(currentTime.getHours());
+        selectedDateTime.setMinutes(currentTime.getMinutes());
+        selectedDateTime.setSeconds(currentTime.getSeconds());
+
+        document.getElementById(hiddenInputId).value = instance.formatDate(selectedDateTime, "Y-m-d H:i:S");
     }
 
     function getActionForm(e) {

@@ -351,7 +351,7 @@
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin" {{-- value="{{ $import->getProvideName->provide_name_display }}" --}}
                                 value="{{ $import->provide_name }}"
-                                class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest" id="myInput"
+                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest" id="myInput"
                                 style="background-color:#F0F4FF; border-radius:4px;" autocomplete="off" required
                                 name="provides_name" readonly>
                         </span>

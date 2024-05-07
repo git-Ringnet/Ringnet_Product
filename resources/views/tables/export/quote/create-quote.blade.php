@@ -2909,6 +2909,7 @@
         var rows = document.querySelectorAll('tr');
         var hasProducts = false;
         var previousProductNames = [];
+        var invalidProductNames = [];
 
         function normalizeProductName(name) {
             var lowercaseName = name.toLowerCase();
@@ -2999,8 +3000,24 @@
                         }
                     }
 
+                    var inputQty = rows[i].querySelector('input[name="product_qty[]"]');
+                    var value = parseFloat(inputQty.value);
+                    if (isNaN(value) || value <= 0) {
+                        // Nếu số lượng không hợp lệ, thêm tên sản phẩm vào mảng invalidProductNames
+                        invalidProductNames.push(productName);
+                        $('#excel_export').val(0);
+                        $('#pdf_export').val(0);
+                    }
+
                     hasProducts = true;
                 }
+            }
+
+            if (invalidProductNames.length > 0) {
+                var errorMessage = 'Các sản phẩm sau có số lượng không hợp lệ: ' + invalidProductNames.join(
+                    ', ');
+                showAutoToast('warning', errorMessage);
+                return;
             }
 
             // Tiếp tục với các kiểm tra khác và xử lý submit nếu cần
