@@ -39,6 +39,7 @@ class HistoryController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $history = $this->history->getAllHistory();
+        // dd($history);
         $guests = $this->guests->getAllGuest();
         $provides = $this->provides->getAllProvide();
         $products = $this->products->getAllProducts();

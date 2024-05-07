@@ -500,18 +500,14 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbody-history">
-                                        @isset($history)
+                                        {{-- @isset($history)
                                             @foreach ($history as $index => $item)
                                                 <tr class="position-relative history-info height-52 {{ $item->id }}">
                                                     <input type="hidden" name="id-history" class="id-history"
                                                         id="id-history" value="{{ $item->id }}">
-                                                    {{-- <td class="text-13-black" style="width:5%;padding-left: 2rem;">
-                                                        {{ $index + 1 }}</td> --}}
-                                                    {{-- <td>{{ $item->user_id }}</td> --}}
                                                     <td class="text-13-black">{{ $item->tenNCC }}</td>
                                                     <td class="text-13-black min-width180">{{ $item->POnhap }}</td>
                                                     <td class="text-13-black min-width180">{{ $item->tensp }}</td>
-                                                    {{-- <td class="text-13-black">{{ $item->hdvao }}</td> --}}
                                                     <td class="text-13-black">
                                                         {{ date('d/m/Y', strtotime($item->ngayHDnhap)) }}
                                                     </td>
@@ -524,25 +520,8 @@
                                                     </td>
                                                     <td class="text-13-black text-right">
                                                         {{ number_format($item->thueNhapCalculated) }}
-                                                        {{-- @php
-                                                            $thueXuat = 0;
-                                                        @endphp
-                                                        @if ($item->thueXuat == 99)
-                                                            @php
-                                                                $thueXuat = $item->trcVat * $item->slNhap;
-                                                            @endphp
-                                                        @else
-                                                            @php
-                                                                $thueXuat =
-                                                                    ($item->thueXuat *
-                                                                        ($item->trcVat * $item->slNhap)) /
-                                                                    100;
-                                                            @endphp
-                                                            {{ number_format($thueXuat) }}
-                                                        @endif --}}
                                                     </td>
                                                     <td class="text-13-black text-right">
-                                                        {{-- {{ number_format($item->trcVat * $item->slNhap + $thueXuat) }} --}}
                                                         {{ number_format($item->thanhtiennhap) }}
                                                     </td>
                                                     <td class="text-13-black min-width180 text-center">
@@ -585,26 +564,9 @@
                                                     <td class="text-13-black text-right">
                                                         {{ number_format($item->giaban) }}</td>
                                                     <td class="text-13-black text-right">
-                                                        {{-- @php
-                                                            $total = 0;
-                                                        @endphp
-                                                        @if ($item->thueXuat == 99)
-                                                            @php
-                                                                $total = $item->giaban * $item->slXuat;
-                                                            @endphp
-                                                        @else
-                                                            @php
-                                                                $total =
-                                                                    ($item->thueXuat *
-                                                                        ($item->giaban * $item->slXuat)) /
-                                                                    100;
-                                                            @endphp
-                                                            {{ number_format($total) }}
-                                                        @endif --}}
                                                         {{ number_format($item->thueXuatCalculated) }}
                                                     </td>
                                                     <td class="text-13-black text-right">
-                                                        {{-- {{ number_format($total + $item->giaban * $item->slXuat) }} --}}
                                                         {{ number_format($item->thanhtienxuat) }}
                                                     </td>
                                                     <td class="text-13-black">{{ $item->hdr }}</td>
@@ -656,7 +618,67 @@
                                                             src="../../dist/img/icon/list.png"></td>
                                                 </tr>
                                             @endforeach
-                                        @endisset
+                                        @endisset --}}
+                                        @foreach ($history as $item)
+                                            <tr>
+                                                <td>{{ $item->getProvideName->provide_name_display }}</td>
+                                                <td>{{ $item->getDetailImport->reference_number }}</td>
+                                                <td>Nội dung</td>
+                                                <td>Ngày hóa đơn</td>
+                                                <td>Bảo hành</td>
+                                                <td>
+                                                    {{$item->getQtyImport->product_qty}}
+                                                </td>
+                                                <td>{{ number_format($item->getDetailImport->total_price) }}</td>
+                                                <td>{{ number_format($item->getDetailImport->total_tax - $item->getDetailImport->total_price) }}
+                                                </td>
+                                                <td>{{ number_format($item->getDetailImport->total_tax) }}</td>
+                                                <td>
+                                                    @if ($item->getDetailImport->status_pay != 2)
+                                                        <span>Chưa thanh toán</span>
+                                                    @else
+                                                        <span>Đã thanh toán</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->getDetailImport->getPayOrder)
+                                                        {{ date_format(new DateTime($item->getDetailImport->getPayOrder->payment_day), 'd/m/Y') }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->getDetailImport->getPayOrder)
+                                                        <span>{{ $item->getDetailImport->getPayOrder->payment_type }}</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->getDetailExport)
+                                                        {{ $item->getDetailExport->guest_name }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->getDetailExport)
+                                                        {{ $item->getDetailExport->reference_number }}
+                                                    @endif
+                                                </td>
+                                                <td>{{ number_format($item->qty_export) }}</td>
+                                                <td>
+                                                    {{ number_format($item->getDetailExport->total_price) }}
+                                                </td>
+                                                <td> {{ number_format($item->getDetailExport->total_tax) }}</td>
+                                                <td>
+                                                    {{ number_format($item->getDetailExport->total_tax + $item->getDetailExport->total_price) }}
+                                                </td>
+                                                <td>Số hóa đơn</td>
+                                                <td>Ngày hóa đơn</td>
+                                                <td>Đã trả</td>
+                                                <td>Ngày thanh toán</td>
+                                                <td>Hình thức</td>
+                                                <td data-toggle="modal" data-target="#snModal"
+                                                    data-delivery-id="{{ $item->delivery_id }}"
+                                                    data-product-id="{{ $item->product_id }}" class="sn"><img
+                                                        src="../../dist/img/icon/list.png"></td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 <div class="modal fade" id="snModal" tabindex="-1" role="dialog"
