@@ -109,7 +109,18 @@ class History extends Model
     public function getQtyImport(){
         return $this->hasOne(HistoryImport::class, 'id', 'history_import');
     }
-
+    public function getProduct(){
+        return $this->hasOne(Products::class, 'id', 'product_id');
+    }
+    public function getReciept(){
+        return $this->hasMany(Reciept::class, 'detailimport_id', 'detailimport_id');
+    }
+    public function getBillSale(){
+        return $this->hasMany(BillSale::class, 'detailexport_id', 'detailexport_id');
+    }
+    public function getProductImport(){
+        return $this->hasOne(ProductImport::class, 'detailimport_id', 'detailimport_id');
+    }
     public function getProductToId($id_delivery, $idproduct)
     {
         $product = Delivery::join('quoteexport', 'delivery.detailexport_id', '=', 'quoteexport.detailexport_id')

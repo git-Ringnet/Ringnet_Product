@@ -42,6 +42,11 @@ class DetailExport extends Model
     ];
     protected $table = 'detailexport';
 
+    public function getPayExport()
+    {
+        return $this->hasOne(PayExport::class, 'detailexport_id', 'id');
+    }
+
     public function getAllDetailExport()
     {
         $detailExport = DetailExport::where('detailexport.workspace_id', Auth::user()->current_workspace)

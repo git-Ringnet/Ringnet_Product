@@ -301,7 +301,7 @@
                                                     <div class="icon" id="icon-tensp"></div>
                                                 </span>
                                             </th>
-                                            {{-- <th scope="col" class="text-left text-13">
+                                            <th scope="col" class="text-left text-13">
                                                 <span class="d-flex justify-content-start align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="hdvao" data-sort-type="DESC"><button
@@ -309,7 +309,7 @@
                                                             đơn</button></a>
                                                     <div class="icon" id="icon-hdvao"></div>
                                                 </span>
-                                            </th> --}}
+                                            </th>
                                             <th scope="col" class="text-13">
                                                 <span class="d-flex justify-center-start align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
@@ -632,30 +632,51 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if($item->getQtyImport)
-                                                        {{$item->getQtyImport->product_name}}
+                                                    @if ($item->getQtyImport)
+                                                        {{ $item->getQtyImport->product_name }}
                                                     @endif
                                                 </td>
-                                                <td>Ngày hóa đơn</td>
-                                                <td>Bảo hành</td>
+                                                <td>
+                                                    @if ($item->getReciept)
+                                                        @foreach ($item->getReciept as $value)
+                                                            <a
+                                                                href="{{ route('reciept.edit', ['workspace' => $workspacename, 'reciept' => $value->id]) }}">
+                                                                <p>{{ $value->number_bill }}</p>
+                                                            </a>
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->getReciept)
+                                                        @foreach ($item->getReciept as $value)
+                                                            <p>{{ date_format(new DateTime($value->created_at), 'd/m/Y') }}
+                                                            </p>
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->getProductImport)
+                                                        {{ $item->getProductImport->product_guarantee }}
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     @if ($item->getQtyImport)
-                                                        {{ $item->getQtyImport->product_qty }}
+                                                        {{ number_format($item->getQtyImport->product_qty) }}
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($item->getDetailImport)
-                                                        {{ number_format($item->getDetailImport->total_price) }}
+                                                    @if ($item->getQtyImport)
+                                                        {{ number_format($item->getQtyImport->product_total) }}
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($item->getDetailImport)
-                                                        {{ number_format($item->getDetailImport->total_tax - $item->getDetailImport->total_price) }}
+                                                    @if ($item->getQtyImport)
+                                                        {{ number_format(($item->getQtyImport->product_total * $item->getQtyImport->product_qty * $item->getQtyImport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($item->getDetailImport)
-                                                        {{ number_format($item->getDetailImport->total_tax) }}
+                                                    @if ($item->getQtyImport)
+                                                        {{ number_format($item->getQtyImport->product_total + ($item->getQtyImport->product_total * $item->getQtyImport->product_qty * $item->getQtyImport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
                                                 <td>
@@ -703,11 +724,38 @@
                                                         {{ number_format($item->getDetailExport->total_tax + $item->getDetailExport->total_price) }}
                                                     @endif
                                                 </td>
-                                                <td>Số hóa đơn</td>
-                                                <td>Ngày hóa đơn</td>
-                                                <td>Đã trả</td>
-                                                <td>Ngày thanh toán</td>
-                                                <td>Hình thức</td>
+                                                <td>
+                                                    @if ($item->getBillSale)
+                                                        @foreach ($item->getBillSale as $value)
+                                                            <a href="#">
+                                                                <p>{{ $value->number_bill }}</p>
+                                                            </a>
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->getBillSale)
+                                                    @foreach ($item->getBillSale as $value)
+                                                            <p>{{date_format(new DateTime($value->created_at), 'd/m/Y')}}</p>
+                                                    @endforeach
+                                                @endif
+
+                                                </td>
+                                                <td>
+                                                    @if (isset($item->getDetailExport->getPayExport) && $item->getDetailExport)
+                                                        {{ number_format($item->getDetailExport->getPayExport->payment) }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if (isset($item->getDetailExport->getPayExport) && $item->getDetailExport)
+                                                        {{ date_format(new DateTime($item->getDetailExport->getPayExport->payment_day), 'd/m/Y') }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if (isset($item->getDetailExport->getPayExport) && $item->getDetailExport)
+                                                        {{ $item->getDetailExport->getPayExport->payment_type }}
+                                                    @endif
+                                                </td>
                                                 <td data-toggle="modal" data-target="#snModal"
                                                     data-delivery-id="{{ $item->delivery_id }}"
                                                     data-product-id="{{ $item->product_id }}" class="sn"><img
