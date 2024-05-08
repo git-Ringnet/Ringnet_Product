@@ -28,6 +28,14 @@ class Serialnumber extends Model
     {
         return $this->hasOne(Delivery::class, 'id', 'delivery_id');
     }
+    public function getDetailImport(){
+        return $this->hasOne(DetailImport::class, 'id', 'detailimport_id');
+    }
+    public function getHistoryImport(){
+        return $this->hasOne(HistoryImport::class, 'detailimport_id', 'detailImport_id')
+        ->where('product_id','product_id')
+        ->where('user_id',Auth::user()->id);
+    }
 
     public function addSN($data, $receive_id, $detail_id)
     {

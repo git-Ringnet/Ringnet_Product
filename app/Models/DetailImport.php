@@ -239,6 +239,7 @@ class DetailImport extends Model
         } else {
             $detail = DetailImport::where('id', $id)->first();
             if ($detail) {
+                HistoryImport::where('detailImport_id',$detail->id)->delete();
                 $quote = QuoteImport::where('detailimport_id', $detail->id)->get();
                 if ($quote) {
                     foreach ($quote as $qt) {

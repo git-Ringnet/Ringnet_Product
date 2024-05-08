@@ -698,7 +698,7 @@
                                                         <span>{{ $item->getDetailImport->getPayOrder->payment_type }}</span>
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="border-left">
                                                     @if ($item->getDetailExport)
                                                         {{ $item->getDetailExport->guest_name }}
                                                     @endif
@@ -757,7 +757,7 @@
                                                     @endif
                                                 </td>
                                                 <td data-toggle="modal" data-target="#snModal"
-                                                    data-delivery-id="{{ $item->delivery_id }}"
+                                                    data-delivery-id="{{ $item->delivered_id }}"
                                                     data-product-id="{{ $item->product_id }}" class="sn"><img
                                                         src="../../dist/img/icon/list.png"></td>
                                             </tr>
