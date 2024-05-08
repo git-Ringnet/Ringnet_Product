@@ -232,7 +232,6 @@ class Delivery extends Model
                 }
             }
             if ($product && $product->check_seri == 0) {
-                dd(1);
                 $history_import = HistoryImport::where('product_id', $data['product_id'][$i])->first();
                 // Add lịch sử giao dịch
                 $htrImport = HistoryImport::where('product_id', $data['product_id'][$i])
