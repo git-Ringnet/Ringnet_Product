@@ -115,17 +115,8 @@
                             <table class="table table-hover bg-white rounded">
                                 <thead>
                                     <tr style="height:44px;">
-                                        <th class="border-right p-0 px-2 text-13" style="width:15%;z-index:100;">
-                                            <span class="mx-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                    viewBox="0 0 14 14" fill="none">
-                                                    <path
-                                                        d="M6.37 7.63C6.49289 7.75305 6.56192 7.91984 6.56192 8.09375C6.56192 8.26766 6.49289 8.43445 6.37 8.5575L4.375 10.5L5.46875 11.5938C5.46875 11.7678 5.39961 11.9347 5.27654 12.0578C5.15347 12.1809 4.98655 12.25 4.8125 12.25H2.40625C2.2322 12.25 2.06528 12.1809 1.94221 12.0578C1.81914 11.9347 1.75 11.7678 1.75 11.5938V9.1875C1.75 9.01345 1.81914 8.84653 1.94221 8.72346C2.06528 8.60039 2.2322 8.53125 2.40625 8.53125L3.5 9.625L5.4425 7.63C5.56555 7.50711 5.73234 7.43808 5.90625 7.43808C6.08016 7.43808 6.24695 7.50711 6.37 7.63ZM7.63 6.37C7.50711 6.24695 7.43808 6.08016 7.43808 5.90625C7.43808 5.73234 7.50711 5.56555 7.63 5.4425L9.625 3.5L8.53125 2.40625C8.53125 2.2322 8.60039 2.06528 8.72346 1.94221C8.84653 1.81914 9.01345 1.75 9.1875 1.75H11.5938C11.7678 1.75 11.9347 1.81914 12.0578 1.94221C12.1809 2.06528 12.25 2.2322 12.25 2.40625V4.8125C12.25 4.98655 12.1809 5.15347 12.0578 5.27654C11.9347 5.39961 11.7678 5.46875 11.5938 5.46875L10.5 4.375L8.5575 6.37C8.43445 6.49289 8.26766 6.56192 8.09375 6.56192C7.91984 6.56192 7.75305 6.49289 7.63 6.37Z"
-                                                        fill="#26273B" fill-opacity="0.8"></path>
-                                                </svg>
-                                            </span>
-                                            <input class="checkall-btn mx-1" id="checkall" type="checkbox">
-                                            <span class="text-table text-secondary text-left">Mã sản phẩm</span>
+                                        <th class="border-bottom border-right" style="width: 15%;padding-left:2rem;">
+                                            <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
                                         <th class="border-right p-0 px-2 text-13 text-left" style="width:15%;">Tên sản
                                             phẩm</th>
@@ -134,7 +125,7 @@
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                             Số lượng
                                         </th>
-                                        <th class="border-right p-0 px-2 text-right text-13">
+                                        <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
                                             Quản lý SN
                                         </th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">
@@ -219,7 +210,7 @@
                         </div>
                     </section>
                     <div class="content">
-                        <div class="row footer-total" style="width:95%;">
+                        <div class="row" style="width:95%;">
                             <div class="position-relative col-lg-4 px-0"></div>
                             <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
                                 <div class="m-3 ">
@@ -431,7 +422,7 @@
                         </p>
                     </div>
                     <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:44px;" style="height:44px;">
+                        style="height:49px;">
                         <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
 
                         <span class="mx-1 text-13" style="flex: 2;">
@@ -507,8 +498,8 @@
                     <div class="">
                         <div class="content-info--common" id="show-info-guest">
                             <ul class="p-0 m-0">
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest nameGuest"
                                         style="flex:2;" readonly
@@ -517,8 +508,8 @@
                                     <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
                                         value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset">
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left position-relative"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left position-relative"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
 
                                     <input tye="text"
@@ -557,27 +548,26 @@
                                                     <span class="text-13-black pl-3 pt-1" style="font-weight: 600 !important;">Thêm người đại diện</span>
                                                 </a>
                                             </div> -->
-                                </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã Giao Hàng</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest" required
-                                        placeholder="Chọn thông tin" style="flex:2;" name="code_delivery" />
+                                    <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2" required
+                                        placeholder="Nhập thông tin" style="flex:2;" name="code_delivery" />
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
-                                    <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn vị vận chuyển</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest unit_ship "
-                                        name="shipping_unit" placeholder="Chọn thông tin" style="flex:2;" />
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                    style="height:48px;">
+                                    <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận chuyển</span>
+                                    <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 unit_ship"
+                                        name="shipping_unit" placeholder="Nhập thông tin" style="flex:2;" />
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí giao hàng</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest fee_ship"
-                                        name="shipping_fee" placeholder="Chọn thông tin" style="flex:2;" />
+                                    <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 fee_ship"
+                                        name="shipping_fee" placeholder="Nhập thông tin" style="flex:2;" />
                                 </li>
-                                <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                    style="height:44px;">
+                                <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                    style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao hàng</span>
                                     <input class="text-13-black w-50 border-0 bg-input-guest " id="datePicker"
                                         required placeholder="Chọn thông tin" style="flex:2;" />
@@ -682,7 +672,7 @@
                 "style": `height:80px`
             });
             const maSanPham = $(
-                `<td class='border-right p-2 text-13 text-left align-top border-bottom'>` +
+                `<td class='border-right p-2 text-13 text-left align-top border-bottom border-top-0'>` +
                 `<span class='ml-1 mr-2'>` +
                 `<svg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10' fill='none'>` +
                 `<g clip-path='url(#clip0_1710_10941)'>` +
@@ -700,11 +690,11 @@
                 `</td>`
             );
             const tenSanPham = $(
-                `<td class='border-right p-2 text-13 text-left align-top position-relative border-bottom'>` +
+                `<td class='border-right p-2 text-13 text-left align-top position-relative border-bottom border-top-0'>` +
                 `<ul class='list_product bg-white position-absolute w-100 rounded shadow p-0 scroll-data' style='z-index: 99;top: 44%;left: 0%;'>` +
                 `@foreach ($product as $product_value)` +
                 `<li data-id='{{ $product_value->id }}'>` +
-                `<a href='javascript:void(0);' class='text-dark d-flex justify-content-between p-2 idProduct w-100' id='{{ $product_value->id }}' name='idProduct'>` +
+                `<a href='javascript:void(0);' class='text-13-black d-flex justify-content-between p-2 idProduct w-100' id='{{ $product_value->id }}' name='idProduct'>` +
                 `<span class='w-50'>{{ $product_value->product_name }}</span>` +
                 `</a>` +
                 `</li>` +
@@ -729,17 +719,17 @@
                 `</div></div></td>`
             );
             const dvTinh = $(
-                "<td class='border-right p-2 text-13 align-top border-bottom'>" +
+                "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
                 "<input type='text' autocomplete='off' class='border-0 px-2 py-1 w-100 product_unit height-32' required name='product_unit[]'>" +
                 "</td>"
             );
             const soLuong = $(
-                "<td class='border-right p-2 text-13 align-top border-bottom'>" +
+                "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
                 "<div class='d-flex align-items-center'>" +
                 "<div>" +
                 "<input type='number' value='' data-product-id='' class='border-0 px-2 text-right py-1 w-100 quantity-input height-32' autocomplete='off' required='' name='product_qty[]'>" +
                 "<input type='hidden' class='tonkho'>" +
-                "<p class='mt-3 text-13-blue inventory text-right'>Tồn kho: <span class='soTonKho'>0</span></p>" +
+                "<p class='mt-3 text-13-blue inventory text-right mb-0'>Tồn kho: <span class='soTonKho'>0</span></p>" +
                 "</div>" +
                 "</div>" +
                 "</td>" +
@@ -749,7 +739,7 @@
                 "</td>"
             );
             const quanLySN = $(
-                `<td class="border-right p-2 text-13 align-top border-bottom">
+                `<td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                     <a class="open-modal-btn text-center d-none" href="#" data-target="#exampleModal0" data-toggle="modal">
                         <div class="sn--modal pt-2">
                             <span class="border-span--modal">SN</span>
@@ -758,15 +748,15 @@
                 </td>`
             );
             const donGia = $(
-                "<td class='border-right p-2 text-13 align-top border-bottom'>" +
+                "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
                 "<div>" +
                 "<input type='text' class='text-right border-0 px-2 py-1 w-100 product_price height-32' autocomplete='off' name='product_price[]' required>" +
                 "</div>" +
-                "<a href='#'><div class='mt-3 text-13-blue recentModal text-right' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div></a>" +
+                "<a href='#'><div class='mt-3 text-13-blue recentModal mb-0 text-right' data-toggle='modal' data-target='#recentModal' style='display:none;'>Giao dịch gần đây</div></a>" +
                 "</td>"
             );
             const thue = $(
-                "<td class='border-right p-2 text-13 align-top border-bottom'>" +
+                "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
                 "<select name='product_tax[]' class='border-0 py-1 w-100 text-center product_tax height-32' required>" +
                 "<option value='0'>0%</option>" +
                 "<option value='8'>8%</option>" +
@@ -776,17 +766,17 @@
                 "</td>"
             );
             const thanhTien = $(
-                "<td class='border-right p-2 text-13 align-top border-bottom'>" +
+                "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
                 "<input type='text' readonly class='text-right border-0 px-2 py-1 w-100 total-amount height-32'>" +
                 "</td>"
             );
             const ghiChu = $(
-                "<td class='border-right p-2 text-13 align-top border-bottom'>" +
+                "<td class='border-right p-2 text-13 align-top border-bottom border-top-0'>" +
                 "<input type='text' class='border-0 py-1 w-100 height-32' placeholder='Nhập ghi chú' name='product_note[]'>" +
                 "</td>"
             );
             const option = $(
-                "<td class='border border-bottom border-right-0 text-right deleteProduct' data-name1='BG' data-des='Xóa sản phẩm'>" +
+                "<td class='border-bottom text-right deleteProduct border-top-0' data-name1='BG' data-des='Xóa sản phẩm'>" +
                 "<svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
                 "<path fill-rule='evenodd' clip-rule='evenodd' d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z' fill='#6B6F76'/>" +
                 "</svg>" +
@@ -1956,7 +1946,7 @@
                                     0 : item.transfer_fee));
                                 var newRow = `
                                 <tr id="dynamic-row-${item.maSP}" class="bg-white addProduct">
-                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                         <div class="d-flex w-100 justify-content-between align-items-center">
                                             <span class='mx-2'>
                                                 <svg xmlns='http://www.w3.org/2000/svg' width='10' height='13' viewBox='0 0 10 13' fill='none'>
@@ -1974,7 +1964,7 @@
                                             <input type="text" value="${item.maCode == null ? '' : item.maCode}" readonly autocomplete="off" class="border-0 px-2 py-1 w-75 product_code height-32" name="product_code[]">
                                         </div>
                                     </td>
-                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                         <div class="d-flex align-items-center">
                                             <input type="text" value="${item.tenSP}" readonly class="border-0 px-2 py-1 w-100 product_name height-32" autocomplete="off" required="" name="product_name[]">
                                             <input type="hidden" class="product_id" value="${item.maSP}" autocomplete="off" name="product_id[]">
@@ -1986,35 +1976,35 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                         <input type="text" value="${item.product_unit}" readonly autocomplete="off" class="height-32 border-0 px-2 py-1 w-100 product_unit" required="" name="product_unit[]">
                                     </td>
-                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                         <div class="d-flex align-items-center">
                                             <div>
                                         <input type="number" value="${formatNumber(item.soLuongCanGiao)}" data-product-id="${item.maSP}" class="height-32 border-0 px-2 text-right py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                         <input type="hidden" class="limit-quantity" value="${formatNumber(item.soLuongCanGiao)}" data-limit-quantity="${formatNumber(item.soLuongCanGiao)}">
                                         <input type="hidden" class="tonkho">
-                                        <p class="mt-3 text-13-blue inventory text-right ${item.type == 2 ? "d-none" : 'd-block'}">Tồn kho: <span class="soTonKho">${formatNumber(item.product_inventory == null ? 0 : item.product_inventory)}</span></p>
+                                        <p class="mt-3 text-13-blue inventory text-right mb-0 ${item.type == 2 ? "d-none" : 'd-block'}">Tồn kho: <span class="soTonKho">${formatNumber(item.product_inventory == null ? 0 : item.product_inventory)}</span></p>
                                         </div>  
                                         </div>
                                     </td>
-                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                         <a class="open-modal-btn text-center" href="#" data-target="#exampleModal0" data-toggle="modal">
                                             <div class="sn--modal pt-2">
                                                 <span class="border-span--modal">SN</span>
                                             </div>
                                         </a>
                                     </td>
-                                    <td class="text-center d-none">
+                                    <td class="text-center d-none border-top-0">
                                         <input class="check-add-sn" data-seri="${item.maSP}" type="checkbox" name="cbSeri[]" value="1" ${(item.check_seri == 1) ? 'checked' : ''}>    
                                     </td>
-                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                         <input type="text" value="${formatCurrency(item.price_export)}" readonly 
                                             class="border-0 px-2 py-1 w-100 text-right product_price height-32" autocomplete="off" name="product_price[]" required="" readonly="readonly">
-                                            <a href='#'><p class="mt-3 text-13-blue recentModal" data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</p></a>
+                                            <a href='#'><p class="mt-3 text-13-blue recentModal mb-0" data-toggle='modal' data-target='#recentModal'>Giao dịch gần đây</p></a>
                                     </td>
-                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                         <select class="border-0 py-1 w-100 text-center product_tax height-32" required="" disabled>
                                             <option value="0" ${(item.thueSP == 0) ? 'selected' : ''}>0%</option>
                                             <option value="8" ${(item.thueSP == 8) ? 'selected' : ''}>8%</option>
@@ -2023,21 +2013,21 @@
                                         </select>
                                         <input type="hidden" class="product_tax" value="${(item.thueSP)}" name="product_tax[]">
                                     </td>
-                                    <td class="border-right p-2 text-13 align-top border-bottom">
+                                    <td class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                         <input type="text" value="${formatCurrency(item.product_total)}" readonly 
                                             class="border-0 px-2 text-right py-1 w-100 total-amount height-32">
                                     </td>
-                                    <td class="border-top border-secondary p-0 bg-secondary Daydu d-none" style="width:1%;"></td>
-                                    <td class="border border-bottom-0 position-relative product_ratio d-none">
+                                    <td class="border-top border-secondary p-0 bg-secondary Daydu d-none border-top-0" style="width:1%;"></td>
+                                    <td class="border border-bottom-0 position-relative product_ratio d-none border-top-0">
                                         <input type="text" value="${item.product_ratio}" readonly class="border-0 px-2 py-1 w-100 heSoNhan" autocomplete="off" required="required" name="product_ratio[]">
                                     </td>
-                                    <td class="border border-bottom-0 position-relative price_import d-none">
+                                    <td class="border border-bottom-0 position-relative price_import d-none border-top-0">
                                         <input type="text" value="${formatCurrency(item.price_import)}" readonly class="border-0 px-2 py-1 w-100 giaNhap" autocomplete="off" required="required" name="price_import[]">
                                     </td>
-                                    <td class="border-right p-2 text-13 align-top note p-1 border-bottom">
+                                    <td class="border-right p-2 text-13 align-top note p-1 border-bottom border-top-0">
                                         <input type="text" readonly value="${(item.product_note == null) ? '' : item.product_note}" class="border-0 py-1 w-100 height-32" name="product_note[]">
                                     </td>
-                                    <td class="border border-bottom border-right-0 text-right deleteProduct" data-name1='GH' data-des='Xóa sản phẩm'>
+                                    <td class="border-bottom text-right deleteProduct border-top-0" data-name1='GH' data-des='Xóa sản phẩm'>
                                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z" fill="#6B6F76"></path></svg>
                                     </td>
                                     <td style="display:none;"><input type="text" class="product_tax1" value="${tax}"></td>
@@ -2425,7 +2415,7 @@
                                                             'Vui lòng điền đủ thông tin sản phẩm'
                                                         );
                                                     e
-                                                .preventDefault();
+                                                        .preventDefault();
                                                 }
                                             }
                                         }
@@ -2677,7 +2667,7 @@
                                                             'Vui lòng điền đủ thông tin sản phẩm'
                                                         );
                                                     e
-                                                .preventDefault();
+                                                        .preventDefault();
                                                 }
                                             }
                                         }

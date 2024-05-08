@@ -101,7 +101,7 @@
                         <div class="content-info position-relative text-nowrap order_content">
                             <table id="inputcontent" class="table table-hover bg-white rounded">
                                 <thead>
-                                    <tr style="height:50px;">
+                                    <tr style="height:44px;">
                                         <th class="border-right border-bottom px-2 p-0"
                                             style="width: 15%;padding-left:2rem;">
                                             <input type='checkbox' class='checkall-btn ml-4 mr-1'id="checkall" />
@@ -157,7 +157,7 @@
                         </span>
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin" id="myInput"
-                                class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest search_quotation"
+                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest search_quotation"
                                 style="background-color:#F0F4FF; border-radius:4px;" name="quotation_number"
                                 autocomplete="off" readonly>
                             <input type="hidden" name="detail_id" id="detail_id"

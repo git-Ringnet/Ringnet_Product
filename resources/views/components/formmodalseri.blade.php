@@ -11,7 +11,7 @@
                             <h5 class="modal-title" id="exampleModalLabel">Thông tin Serial Number</h5>
 
                             <div>
-                                <button type="button" class="btn-destroy btn-light mx-1" data-dismiss="modal" style="padding: 4px 8px;">
+                                <button type="button" class="btn-destroy btn-light mx-1 d-flex align-items-center h-100" data-dismiss="modal">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                             viewBox="0 0 14 14" fill="none">
@@ -22,7 +22,7 @@
                                     </span>
                                     <span class="text-btnIner-primary ml-2">Hủy</span>
                                 </button>
-                                <button type="button" class="custom-btn" data-dismiss="modal" style="padding: 4px 8px;">
+                                <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100" data-dismiss="modal">
                                     <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                             viewBox="0 0 14 14" fill="none">
                                             <path fill-rule="evenodd" clip-rule="evenodd"

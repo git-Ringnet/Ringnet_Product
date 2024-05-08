@@ -8,7 +8,7 @@
         <input type="hidden" id="provides_id" name="provides_id" value="{{ $import->provide_id }}">
         <input type="hidden" id="project_id" name="project_id" value="{{ $import->project_id }}">
         <input type="hidden" id="represent_id" name="represent_id" value="{{ $import->represent_id }}">
-        <div class="content-header-fixed p-0 margin-250">
+        <div class="content-header-fixed p-0 margin-250 border-bottom-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Mua hàng</span>
@@ -98,62 +98,52 @@
                                     <table id="inputcontent" class="table table-hover bg-white rounded">
                                         <thead>
                                             <tr style="height:44px;">
-                                                <th class="border-right-0 px-2 p-0 border-bottom text-13"
-                                                    style="width: 15%;">
+                                                <th class="border-right p-0 px-2 text-13 text-left"
+                                                    style="width:15%;">
                                                     <span class="mx-1 mr-2">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="14"
                                                             height="14" viewBox="0 0 14 14" fill="none">
                                                             <path
                                                                 d="M6.37 7.63C6.49289 7.75305 6.56192 7.91984 6.56192 8.09375C6.56192 8.26766 6.49289 8.43445 6.37 8.5575L4.375 10.5L5.46875 11.5938C5.46875 11.7678 5.39961 11.9347 5.27654 12.0578C5.15347 12.1809 4.98655 12.25 4.8125 12.25H2.40625C2.2322 12.25 2.06528 12.1809 1.94221 12.0578C1.81914 11.9347 1.75 11.7678 1.75 11.5938V9.1875C1.75 9.01345 1.81914 8.84653 1.94221 8.72346C2.06528 8.60039 2.2322 8.53125 2.40625 8.53125L3.5 9.625L5.4425 7.63C5.56555 7.50711 5.73234 7.43808 5.90625 7.43808C6.08016 7.43808 6.24695 7.50711 6.37 7.63ZM7.63 6.37C7.50711 6.24695 7.43808 6.08016 7.43808 5.90625C7.43808 5.73234 7.50711 5.56555 7.63 5.4425L9.625 3.5L8.53125 2.40625C8.53125 2.2322 8.60039 2.06528 8.72346 1.94221C8.84653 1.81914 9.01345 1.75 9.1875 1.75H11.5938C11.7678 1.75 11.9347 1.81914 12.0578 1.94221C12.1809 2.06528 12.25 2.2322 12.25 2.40625V4.8125C12.25 4.98655 12.1809 5.15347 12.0578 5.27654C11.9347 5.39961 11.7678 5.46875 11.5938 5.46875L10.5 4.375L8.5575 6.37C8.43445 6.49289 8.26766 6.56192 8.09375 6.56192C7.91984 6.56192 7.75305 6.49289 7.63 6.37Z"
-                                                                fill="#26273B" fill-opacity="0.8"></path>
+                                                                fill="#26273B" fill-opacity="0.8" />
                                                         </svg>
                                                     </span>
-                                                    {{-- <input type='checkbox' class='checkall-btn'id="checkall" /> --}}
                                                     <span class="pl-3 text-left">Mã sản phẩm</span>
                                                 </th>
-                                                <th scope="col"
-                                                    class="border-right-0 border-bottom border-left text-13 p-0 px-2"
-                                                    style="width:17%;">
-                                                    Tên sản phẩm
-                                                </th>
-                                                <th scope="col"
-                                                    class="border-right-0 border-bottom border-left p-0 px-2 text-13"
-                                                    style="width:7%;">
+                                                <th class="border-right p-0 px-2 text-13 text-left"
+                                                    style="width:17%;">Tên sản
+                                                    phẩm</th>
+                                                <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">
                                                     Đơn vị
                                                 </th>
-                                                <th scope="col"
-                                                    class="border-right-0 border-bottom border-left p-o px-2 text-13 text-right"
+                                                <th class="border-right p-0 px-2 text-13 text-right"
                                                     style="width:10%;">
                                                     Số lượng
                                                 </th>
-                                                <th scope="col"
-                                                    class="border-right-0 border-bottom border-left p-0 px-2 text-13 text-right"
+                                                <th class="border-right p-0 px-2 text-right text-13"
                                                     style="width:10%;">
                                                     Đơn giá
                                                 </th>
-                                                <th scope="col"
-                                                    class="border-right-0 border-bottom border-left p-0 px-2 text-13 text-center"
+                                                <th class="border-right p-0 px-2 text-center text-13"
                                                     style="width:10%;">
                                                     Thuế
                                                 </th>
-                                                <th scope="col"
-                                                    class="border-right-0 border-bottom border-left p-0 px-2 text-13 text-right"
-                                                    style="width:15%;">
+                                                <th class="border-right p-0 px-2 text-right text-13"style="width:15%;">
                                                     Thành tiền
                                                 </th>
-                                                <th scope="col"
-                                                    class="border-right-0 border-bottom border-left p-0 px-2 text-13">
+                                                <th class="border-right p-0 px-2 text-left note text-13"
+                                                    style="width:15%;">
                                                     Ghi chú sản phẩm
                                                 </th>
-                                                <th scope="col"
-                                                    class="border-right-0 p-0 px-2 text-center note text-13 border-left"></th>
+                                                <th scope="col" class="p-0 px-2 text-left note text-13">
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($product as $item)
                                                 <tr class="bg-white" style="height:80px;">
                                                     <td
-                                                        class="border-left p-2 text-13 align-top border-bottom border-top-0">
+                                                        class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="hidden" readonly value="{{ $item->id }}"
                                                             name="listProduct[]">
                                                         <span class="ml-1 mr-2">
@@ -174,7 +164,7 @@
                                                         </span>
                                                         <input type="checkbox" class="cb-element checkall-btn">
                                                         <input type="text" name="product_code[]"
-                                                            class="border-0 w-75 px-2 py-1 w-75 searchProduct"
+                                                            class="border-0 w-75 px-2 py-1 w-75 searchProduct height-32"
                                                             value="{{ $item->product_code }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                         <ul id="listProductCode"
@@ -183,11 +173,11 @@
                                                         </ul>
                                                     </td>
                                                     <td
-                                                        class="border-left p-2 text-13 align-top border-bottom border-top-0 position-relative">
+                                                        class="border-right p-2 text-13 align-top position-relative border-bottom border-top-0">
                                                         <div class="d-flex align-items-center">
                                                             <input id="searchProductName" type="text"
                                                                 name="product_name[]"
-                                                                class="searchProductName border-0 px-2 py-1 w-100"
+                                                                class="searchProductName border-0 px-2 py-1 w-100 height-32"
                                                                 value="{{ $item->product_name }}"
                                                                 @if ($import->status == 2) echo readonly @endif
                                                                 required>
@@ -222,19 +212,19 @@
                                                         </ul>
                                                     </td>
                                                     <td
-                                                        class="border-left p-2 text-13 align-top border-bottom border-top-0">
+                                                        class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" name="product_unit[]"
-                                                            class="border-0 px-2 py-1 w-100 product_unit"
+                                                            class="border-0 px-2 py-1 w-100 product_unit height-32"
                                                             value="{{ $item->product_unit }}"
                                                             @if ($import->status == 2) echo readonly @endif
                                                             required>
                                                     </td>
                                                     <td
-                                                        class="border-left p-2 text-13 align-top border-bottom border-top-0">
+                                                        class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                         <div class="">
                                                             <input {{-- oninput="checkQty(this,{{ $item->product_qty }})" --}} type="text"
                                                                 name="product_qty[]"
-                                                                class="border-0 px-2 py-1 w-100 quantity-input text-right"
+                                                                class="border-0 px-2 py-1 w-100 quantity-input text-right height-32"
                                                                 value="{{ number_format($item->product_qty) }}"
                                                                 @if ($import->status == 2) echo readonly @endif>
                                                             <div class='mt-3 text-13-blue inventory text-right'
@@ -246,9 +236,9 @@
                                                         </div>
                                                     </td>
                                                     <td
-                                                        class="border-left p-2 text-13 align-top border-bottom border-top-0">
+                                                        class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" name="price_export[]"
-                                                            class="border-0 px-2 py-1 w-100 price_export text-right"
+                                                            class="border-0 px-2 py-1 w-100 price_export text-right height-32"
                                                             value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                         <div class='mt-3 text-13-blue text-right transaction'
@@ -258,9 +248,9 @@
                                                     </td>
                                                     <input type="hidden" class="product_tax1">
                                                     <td
-                                                        class="border-left pt-0 p-2 text-13 align-top border-top-0 border-bottom text-center">
+                                                        class="border-right pt-0 p-2 text-13 align-top border-top-0 border-bottom text-center">
                                                         <select name="product_tax[]" id=""
-                                                            class="border-0 text-center product_tax mt-1">
+                                                            class="border-0 py-1 w-100 text-center product_tax height-32">
                                                             @if ($item->product_tax == 0)
                                                                 <option value="0">0%</option>
                                                             @elseif($item->product_tax == 8)
@@ -273,26 +263,27 @@
                                                         </select>
                                                     </td>
                                                     <td
-                                                        class="border-left p-2 text-13 align-top border-top-0 border-bottom position-relative">
+                                                        class="border-right p-2 text-13 align-top border-top-0 border-bottom position-relative">
                                                         <input type="text" name="total_price[]"
-                                                            class="text-right border-0 px-2 py-1 w-100 total_price"
+                                                            class="text-right border-0 px-2 py-1 w-100 total_price height-32"
                                                             readonly
                                                             value="{{ fmod($item->product_total, 2) > 0 && fmod($item->product_total, 1) > 0 ? number_format($item->product_total, 2, '.', ',') : number_format($item->product_total) }}">
                                                     </td>
                                                     <td
-                                                        class="border-left border-top-0 p-2 text-13 align-top border-bottom">
+                                                        class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                                         <input placeholder="Nhập ghi chú" type="text"
-                                                            name="product_note[]" class="border-0 px-2 py-1 w-100"
+                                                            name="product_note[]"
+                                                            class="border-0 py-1 w-100 height-32"
                                                             value="{{ $item->product_note }}"
                                                             @if ($import->status == 2) echo readonly @endif>
                                                     </td>
                                                     <td
-                                                        class="border-left border-top-0 p-2 text-13 align-top border-bottom deleteRow">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="15" viewBox="0 0 16 15" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M12.3687 6.09375C12.6448 6.09375 12.8687 6.30362 12.8687 6.5625C12.8687 6.59865 12.8642 6.63468 12.8554 6.66986L11.3628 12.617C11.1502 13.4639 10.3441 14.0625 9.41597 14.0625H6.58403C5.65593 14.0625 4.84977 13.4639 4.6372 12.617L3.14459 6.66986C3.08135 6.41786 3.24798 6.16551 3.51678 6.10621C3.55431 6.09793 3.59274 6.09375 3.6313 6.09375H12.3687ZM8.5 0.9375C9.88071 0.9375 11 1.98683 11 3.28125H13C13.5523 3.28125 14 3.70099 14 4.21875V4.6875C14 4.94638 13.7761 5.15625 13.5 5.15625H2.5C2.22386 5.15625 2 4.94638 2 4.6875V4.21875C2 3.70099 2.44772 3.28125 3 3.28125H5C5 1.98683 6.11929 0.9375 7.5 0.9375H8.5ZM8.5 2.34375H7.5C6.94772 2.34375 6.5 2.76349 6.5 3.28125H9.5C9.5 2.76349 9.05228 2.34375 8.5 2.34375Z"
-                                                                fill="#6B6F76"></path>
+                                                        class="p-2 align-top border-bottom border-top-0 deleteRow">
+                                                        <svg width='17' height='17' viewBox='0 0 17 17'
+                                                            fill='none' xmlns='http://www.w3.org/2000/svg'>
+                                                            <path fill-rule='evenodd' clip-rule='evenodd'
+                                                                d='M13.1417 6.90625C13.4351 6.90625 13.673 7.1441 13.673 7.4375C13.673 7.47847 13.6682 7.5193 13.6589 7.55918L12.073 14.2992C11.8471 15.2591 10.9906 15.9375 10.0045 15.9375H6.99553C6.00943 15.9375 5.15288 15.2591 4.92702 14.2992L3.34113 7.55918C3.27393 7.27358 3.45098 6.98757 3.73658 6.92037C3.77645 6.91099 3.81729 6.90625 3.85826 6.90625H13.1417ZM9.03125 1.0625C10.4983 1.0625 11.6875 2.25175 11.6875 3.71875H13.8125C14.3993 3.71875 14.875 4.19445 14.875 4.78125V5.3125C14.875 5.6059 14.6371 5.84375 14.3438 5.84375H2.65625C2.36285 5.84375 2.125 5.6059 2.125 5.3125V4.78125C2.125 4.19445 2.6007 3.71875 3.1875 3.71875H5.3125C5.3125 2.25175 6.50175 1.0625 7.96875 1.0625H9.03125ZM9.03125 2.65625H7.96875C7.38195 2.65625 6.90625 3.13195 6.90625 3.71875H10.0938C10.0938 3.13195 9.61805 2.65625 9.03125 2.65625Z'
+                                                                fill='#6B6F76' />
                                                         </svg>
                                                     </td>
                                                 </tr>
@@ -323,7 +314,6 @@
                                                     </svg>
                                                     <span class="text-table">Thêm sản phẩm</span>
                                                 </button>
-
                                             @endif
                                         </div>
                                     </div>
@@ -338,13 +328,13 @@
         <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
-                    <div class="bg-filter-search border-top-0 text-center border-custom">
+                    <div class="bg-filter-search border-top-0 border-bottom-0 text-center">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN NHÀ CUNG
                             CẤP
                         </p>
                     </div>
-                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:48px;">
+                    <div class="d-flex justify-content-between py-2 px-3 border-bottom border-top align-items-center text-left text-nowrap position-relative"
+                        style="height:44px;">
                         <span class="text-13 btn-click" style="flex: 1.5;">
                             Nhà cung cấp
                         </span>
@@ -420,8 +410,8 @@
                     </div>
                     <div class="">
                         <ul class="p-0 m-0">
-                            <li class="d-flex justify-content-between py-2 px-3 border border-top-0 align-items-center text-left position-relative"
-                                style="height:48px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left position-relative"
+                                style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                 <input readonly class="text-13-black w-50 border-0 bg-input-guest nameGuest py-2 px-2"
                                     style="flex:2;" id="represent" {{-- value="@if ($import->getNameRepresent) {{ $import->getNameRepresent->represent_name }} @endif" --}}
@@ -504,8 +494,8 @@
                                     </ul>
                                 @endif
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border border-top-0 align-items-center text-left position-relative"
-                                style="height:48px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left position-relative"
+                                style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn mua hàng</span>
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
@@ -514,17 +504,17 @@
                                     placeholder="Chọn thông tin" value="{{ $import->quotation_number }}"
                                     @if ($import->status == 2) readonly @endif>
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border border-top-0 align-items-center text-left position-relative"
-                                style="height:48px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left position-relative"
+                                style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số tham chiếu</span>
 
-                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 pt-2"
+                                <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                     name="reference_number"
                                     style="flex:2; background-color:#F0F4FF; border-radius:4px;"
                                     placeholder="Chọn thông tin" value="{{ $import->reference_number }}">
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border border-top-0 align-items-center text-left position-relative"
-                                style="height:48px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left position-relative"
+                                style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày báo giá</span>
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
@@ -533,8 +523,8 @@
                                 <input type="hidden" id="hiddenDateInput" name="date_quote"
                                     value="{{ $import->created_at->toDateString() }}">
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border border-top-0 align-items-center text-left position-relative"
-                                style="height:48px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left position-relative"
+                                style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hiệu lực báo giá</span>
 
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
@@ -617,8 +607,8 @@
                                     </ul>
                                 @endif
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border border-top-0 align-items-center text-left position-relative"
-                                style="height:48px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left position-relative"
+                                style="height:44px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Điều khoản</span>
                                 <input tye="text" class="text-13-black w-50 border-0 bg-input-guest px-2 py-2"
                                     value="{{ $import->terms_pay }}" id="terms_pay" name="terms_pay"

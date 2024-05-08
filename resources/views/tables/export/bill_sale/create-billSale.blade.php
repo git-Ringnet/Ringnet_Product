@@ -8,7 +8,7 @@
     <input type="hidden" name="pdf_export" id="pdf_export">
     <input type="hidden" name="delivery_id" id="delivery_id">
     <div class="content-wrapper--2Column m-0">
-        <div class="content-header-fixed p-0 margin-250">
+        <div class="content-header-fixed p-0 margin-250 border-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span>Bán hàng</span>
@@ -118,14 +118,6 @@
                                 <thead>
                                     <tr style="height:44px;">
                                         <th class="border-right p-0 px-2 text-13 text-left" style="width:10%;">
-                                            <span class="mx-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                    viewBox="0 0 14 14" fill="none">
-                                                    <path
-                                                        d="M6.37 7.63C6.49289 7.75305 6.56192 7.91984 6.56192 8.09375C6.56192 8.26766 6.49289 8.43445 6.37 8.5575L4.375 10.5L5.46875 11.5938C5.46875 11.7678 5.39961 11.9347 5.27654 12.0578C5.15347 12.1809 4.98655 12.25 4.8125 12.25H2.40625C2.2322 12.25 2.06528 12.1809 1.94221 12.0578C1.81914 11.9347 1.75 11.7678 1.75 11.5938V9.1875C1.75 9.01345 1.81914 8.84653 1.94221 8.72346C2.06528 8.60039 2.2322 8.53125 2.40625 8.53125L3.5 9.625L5.4425 7.63C5.56555 7.50711 5.73234 7.43808 5.90625 7.43808C6.08016 7.43808 6.24695 7.50711 6.37 7.63ZM7.63 6.37C7.50711 6.24695 7.43808 6.08016 7.43808 5.90625C7.43808 5.73234 7.50711 5.56555 7.63 5.4425L9.625 3.5L8.53125 2.40625C8.53125 2.2322 8.60039 2.06528 8.72346 1.94221C8.84653 1.81914 9.01345 1.75 9.1875 1.75H11.5938C11.7678 1.75 11.9347 1.81914 12.0578 1.94221C12.1809 2.06528 12.25 2.2322 12.25 2.40625V4.8125C12.25 4.98655 12.1809 5.15347 12.0578 5.27654C11.9347 5.39961 11.7678 5.46875 11.5938 5.46875L10.5 4.375L8.5575 6.37C8.43445 6.49289 8.26766 6.56192 8.09375 6.56192C7.91984 6.56192 7.75305 6.49289 7.63 6.37Z"
-                                                        fill="#26273B" fill-opacity="0.8" />
-                                                </svg>
-                                            </span>
                                             <input type='checkbox' class='checkall-btn mx-1' id="checkall">
                                             <span>Mã sản phẩm</span>
                                         </th>
@@ -140,7 +132,7 @@
                                         </th>
                                         <th class="border-right p-0 px-1 text-right text-13" style="width:10%;">Thành
                                             tiền</th>
-                                        <th class="border-right p-0 px-2 text-left note text-13">Ghi chú sản phẩm
+                                        <th class="border-right p-0 px-2 text-left note text-13">Ghi chú
                                         </th>
                                         <th class="border-right p-0 px-2"></th>
                                     </tr>
@@ -204,7 +196,7 @@
         <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border">
                 <div id="show_info_Guest">
-                    <div class="bg-filter-search border-0 text-center border-custom">
+                    <div class="bg-filter-search border-0 text-center">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH HÀNG
                         </p>
                     </div>

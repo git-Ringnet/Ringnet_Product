@@ -416,7 +416,7 @@
                         </span>
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin"
-                                class="border-0 w-100 bg-input-guest py-0 py-2 px-2 nameGuest " id="search_quotation"
+                                class="border-0 w-100 bg-input-guest py-2 px-2 nameGuest " id="search_quotation"
                                 style="background-color:#F0F4FF; border-radius:4px;" name="quotation_number"
                                 autocomplete="off" required
                                 value="@if ($receive->getQuotation) {{ $receive->getQuotation->quotation_number }}@else{{ $receive->id }} @endif">

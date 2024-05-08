@@ -149,7 +149,7 @@
                     </div>
                 </div>
             </div>
-            <section class="border-custom" style="height:50px">
+            <section class="border-top" style="height:50px">
                 <div class="d-flex justify-content-between align-items-center h-100">
                     <div class="content-header--options p-0 border-0">
                         <ul class="header-options--nav-1 nav nav-tabs margin-left32">
@@ -173,8 +173,7 @@
             <div class="container-fluided margin-250">
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
-                        <div id="title--fixed"
-                            class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                        <div id="title--fixed" class="content-title--fixed top-111 border-0">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">
                                 THÔNG TIN SẢN PHẨM
                             </p>
@@ -201,14 +200,14 @@
                                                 Thuế</th>
                                             <th class="border-right p-0 px-1 text-center text-13"style="width:10%;">
                                                 Thành tiền</th>
-                                            <th class="border-right p-0 px-2 text-center note text-13">Ghi chú sản phẩm
+                                            <th class="p-0 px-2 text-center note text-13">Ghi chú sản phẩm
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($product as $item_quote)
                                             <tr class="bg-white addProduct" style="height:80px;">
-                                                <td class='border-right p-2 text-13 align-top border-bottom'
+                                                <td class='border-right p-2 text-13 align-top border-bottom border-top-0'
                                                     style="padding-left: 2rem !important;">
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item_quote->product_code }}"
@@ -216,11 +215,11 @@
                                                         name="product_code[]">
                                                 </td>
                                                 <td
-                                                    class='border-right p-2 text-13 align-top position-relative border-bottom'>
+                                                    class='border-right p-2 text-13 align-top position-relative border-bottom border-top-0'>
                                                     <div class="d-flex align-items-center">
                                                         <input type="text" value="{{ $item_quote->product_name }}"
-                                                            class='border-0 pl-0 pr-2 py-1 w-100 product_name height-32' readonly
-                                                            autocomplete="off" name="product_name[]">
+                                                            class='border-0 pl-0 pr-2 py-1 w-100 product_name height-32'
+                                                            readonly autocomplete="off" name="product_name[]">
                                                         <input type="hidden" class="product_id"
                                                             value="{{ $item_quote->product_id }}" autocomplete="off"
                                                             name="product_id[]">
@@ -249,13 +248,15 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class='border-right p-2 text-13 align-top border-bottom'>
+                                                <td
+                                                    class='border-right p-2 text-13 align-top border-bottom border-top-0'>
                                                     <input type="text" autocomplete="off" readonly
                                                         value="{{ $item_quote->product_unit }}"
                                                         class="border-0 px-2 py-1 w-100 product_unit height-32"
                                                         name="product_unit[]">
                                                 </td>
-                                                <td class="border-right p-2 text-13 align-top border-bottom">
+                                                <td
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <div class="d-flex align-items-center">
                                                         <div class="">
                                                             <input type="text" readonly
@@ -274,7 +275,8 @@
                                                         </div>
                                                     @endif
                                                 </td>
-                                                <td class="border-right p-2 text-13 align-top border-bottom">
+                                                <td
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <div class="d-flex align-items-center justify-content-center">
                                                         @if ($item_quote->check_seri == 1)
                                                             <a href="#" class="btn btn-primary sn1 activity"
@@ -290,7 +292,8 @@
                                                         @endif
                                                     </div>
                                                 </td>
-                                                <td class="border-right p-2 text-13 align-top border-bottom">
+                                                <td
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <input type="text"
                                                         value="{{ number_format($item_quote->price_export) }}"
                                                         class="text-right border-0 px-2 py-1 w-100 product_price height-32"
@@ -305,7 +308,7 @@
                                                     </a>
                                                 </td>
                                                 <td
-                                                    class="border-right p-2 text-13 align-top text-center border-bottom">
+                                                    class="border-right p-2 text-13 align-top text-center border-bottom border-top-0">
                                                     <select name="product_tax[]"
                                                         class="border-0 text-center product_tax height-32" disabled>
                                                         <option value="0" <?php if ($item_quote->product_tax == 0) {
@@ -323,7 +326,8 @@
                                                         </option>
                                                     </select>
                                                 </td>
-                                                <td class="border-right p-2 text-13 align-top border-bottom">
+                                                <td
+                                                    class="border-right p-2 text-13 align-top border-bottom border-top-0">
                                                     <input type="text" readonly=""
                                                         value="{{ number_format($item_quote->product_total) }}"
                                                         class='text-right border-0 px-2 py-1 w-100 total-amount height-32'>
@@ -344,9 +348,10 @@
                                                         name="price_import[]"
                                                         value="{{ number_format($item_quote->price_import) }}">
                                                 </td> -->
-                                                <td class="border-right p-2 note text-13 align-top border-bottom">
-                                                    <input type="text" class='border-0 py-1 w-100 height-32' readonly
-                                                        name="product_note[]"
+                                                <td
+                                                    class="border-right p-2 note text-13 align-top border-bottom border-top-0">
+                                                    <input type="text" class='border-0 py-1 w-100 height-32'
+                                                        readonly name="product_note[]"
                                                         value="{{ $item_quote->product_note }}">
                                                 </td>
                                                 <td style="display:none;" class="">
@@ -463,13 +468,16 @@
 </div>
 </div>
 {{-- Thông tin khách hàng --}}
-<div class="content-wrapper2 px-0 py-0">
+<div class="content">
     <div id="mySidenav" class="sidenav border top-109">
         <div id="show_info_Guest">
-            <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin khách hàng
-            </p>
+            <div class="bg-filter-search border-0 text-center" style="height: 55px">
+                <p class="font-weight-bold text-uppercase info-chung--heading text-center">
+                    THÔNG TIN KHÁCH HÀNG
+                </p>
+            </div>
             <div class="content-info">
-                <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
+                <div class="d-flex justify-content-between py-2 px-3 border-bottom border-top align-items-center text-left text-nowrap"
                     style="height:44px;" style="height:44px;">
                     <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
                     <span class="mx-1 text-13" style="flex: 2;">
@@ -483,26 +491,26 @@
             </div>
             <div class="content-info--common" id="show-info-guest">
                 <ul class="p-0 m-0 ">
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                    <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
                         <input readonly class="text-13-black w-50 border-0 bg-input-guest"
                             value="{{ $delivery->guest_name }}" style="flex:2;" id="myInput">
                         <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
                     </li>
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                    <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                         <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
                             value="{{ $delivery->represent_name }}" readonly />
                     </li>
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                    <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã giao hàng</span>
                         <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
                             placeholder="Nhập thông tin" value="{{ $delivery->code_delivery }}" readonly />
                     </li>
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                    <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đơn vị vận chuyển</span>
                         <input type="text" class="text-13-black w-50 border-0 bg-input-guest" <?php if ($delivery->tinhTrang == 2) {
@@ -511,14 +519,14 @@
                             placeholder="Nhập thông tin" name="shipping_unit" style="flex:2;"
                             value="{{ $delivery->shipping_unit }}" />
                     </li>
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                    <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí giao hàng</span>
                         <input type="text" class="text-13-black w-50 border-0 shipping_fee bg-input-guest"
                             style="flex:2;" placeholder="Nhập thông tin" name="shipping_fee"
                             placeholder="Nhập thông tin" value="{{ number_format($delivery->shipping_fee) }}" />
                     </li>
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                    <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                         style="height:44px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày giao hàng</span>
                         <input type="text" readonly class="text-13-black w-50 border-0 bg-input-guest"
