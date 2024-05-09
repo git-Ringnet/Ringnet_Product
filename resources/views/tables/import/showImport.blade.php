@@ -87,7 +87,7 @@
                                             <button class="align-items-left h-100 border-0 w-100 rounded"
                                                 style="background-color: transparent;" name="action"
                                                 value="action_2" type="submit">
-                                                <span style="color: #282A30; font-size:14px">Chuyển đổi
+                                                <span class="text-left" style="color: #282A30; font-size:14px">Chuyển đổi
                                                     thành đơn nhận hàng</span>
                                             </button>
                                         </a>
@@ -99,7 +99,7 @@
                                             <button class="align-items-left h-100 border-0 w-100 rounded "
                                                 style="background-color: transparent;" name="action"
                                                 value="action_3" type="submit">
-                                                <span style="color: #282A30; font-size:14px">Chuyển đổi
+                                                <span class="text-left" style="color: #282A30; font-size:14px">Chuyển đổi
                                                     thành hóa đơn</span>
                                             </button>
                                         </a>

@@ -7,7 +7,7 @@
     <input type="hidden" name="billSale_id" id="billSale_id">
     <input type="hidden" name="pdf_export" id="pdf_export">
     <div class="content-wrapper--2Column m-0">
-        <div class="content-header-fixed p-0 margin-250">
+        <div class="content-header-fixed p-0 margin-250 border-0">
             <div class="content__header--inner margin-left32">
                 <div class="content__heading--left">
                     <span class="">Bán hàng</span>
@@ -150,21 +150,13 @@
                             </section> --}}
                             <table class="table table-hover bg-white rounded">
                                 <thead>
-                                    <tr style="height:44px;">
-                                        <th class="border-right p-0 px-2 text-13" style="width:13%;">
-                                            <span class="mx-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                    viewBox="0 0 14 14" fill="none">
-                                                    <path
-                                                        d="M6.37 7.63C6.49289 7.75305 6.56192 7.91984 6.56192 8.09375C6.56192 8.26766 6.49289 8.43445 6.37 8.5575L4.375 10.5L5.46875 11.5938C5.46875 11.7678 5.39961 11.9347 5.27654 12.0578C5.15347 12.1809 4.98655 12.25 4.8125 12.25H2.40625C2.2322 12.25 2.06528 12.1809 1.94221 12.0578C1.81914 11.9347 1.75 11.7678 1.75 11.5938V9.1875C1.75 9.01345 1.81914 8.84653 1.94221 8.72346C2.06528 8.60039 2.2322 8.53125 2.40625 8.53125L3.5 9.625L5.4425 7.63C5.56555 7.50711 5.73234 7.43808 5.90625 7.43808C6.08016 7.43808 6.24695 7.50711 6.37 7.63ZM7.63 6.37C7.50711 6.24695 7.43808 6.08016 7.43808 5.90625C7.43808 5.73234 7.50711 5.56555 7.63 5.4425L9.625 3.5L8.53125 2.40625C8.53125 2.2322 8.60039 2.06528 8.72346 1.94221C8.84653 1.81914 9.01345 1.75 9.1875 1.75H11.5938C11.7678 1.75 11.9347 1.81914 12.0578 1.94221C12.1809 2.06528 12.25 2.2322 12.25 2.40625V4.8125C12.25 4.98655 12.1809 5.15347 12.0578 5.27654C11.9347 5.39961 11.7678 5.46875 11.5938 5.46875L10.5 4.375L8.5575 6.37C8.43445 6.49289 8.26766 6.56192 8.09375 6.56192C7.91984 6.56192 7.75305 6.49289 7.63 6.37Z"
-                                                        fill="#26273B" fill-opacity="0.8" />
-                                                </svg>
-                                            </span>
-                                            <input class="checkall-btn mx-1" id="checkall" type="checkbox">
+                                    <tr style="height:50px;">
+                                        <th class="border-right p-0 px-2 text-13" style="width:15%;">
+                                            <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox">
                                             <span class="text-table text-secondary">Mã sản phẩm</span>
                                         </th>
                                         <th class="border-right p-0 px-2 text-13" style="width:15%;">Tên sản phẩm</th>
-                                        <th class="border-right p-0 px-2 text-13" style="width:7%;">Đơn vị</th>
+                                        <th class="border-right p-0 px-2 text-13" style="width:8%;">Đơn vị</th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:10%;">Số
                                             lượng</th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Đơn
@@ -173,12 +165,11 @@
                                         </th>
                                         <th class="border-right p-0 px-2 text-right text-13" style="width:15%;">Thành
                                             tiền</th>
-                                        <th class="border-right p-0 px-2 note text-13">Ghi chú sản phẩm</th>
+                                        <th class="p-0 px-2 note text-13">Ghi chú sản phẩm</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @isset($quoteExport)
-                                        {{-- @dd($quoteExport); --}}
                                         @foreach ($quoteExport as $item)
                                             <tr id="dynamic-row" class="bg-white sanPhamGiao">
                                                 <td
@@ -307,11 +298,11 @@
                                 <div class="m-3">
                                     <div class="d-flex justify-content-between">
                                         <span class="text-13-black">Giá trị trước thuế: </span>
-                                        <span id="total-amount-sum">0đ</span>
+                                        <span id="total-amount-sum" class="text-table">0đ</span>
                                     </div>
                                     <div class="d-flex justify-content-between mt-2">
                                         <span class="text-13-black">Thuế VAT: </span>
-                                        <span id="product-tax">0đ</span>
+                                        <span id="product-tax" class="text-table">0đ</span>
                                     </div>
                                     <div class="d-flex justify-content-between mt-2">
                                         <span class="text-13-bold text-lg font-weight-bold">Tổng cộng: </span>
@@ -435,12 +426,12 @@
         <div class="content-wrapper2 px-0 py-0">
             <div id="mySidenav" class="sidenav border">
                 <div>
-                    <div class="bg-filter-search border-0 text-center border-custom">
+                    <div class="bg-filter-search border-0 text-center">
                         <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN KHÁCH HÀNG
                         </p>
                     </div>
-                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:44px;" style="height:44px;">
+                    <div class="d-flex justify-content-between py-2 px-3 border-top border-bottom align-items-center text-left text-nowrap position-relative"
+                        style="height:50px;">
                         <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
 
                         <span class="mx-1 text-13" style="flex: 2;">
@@ -514,8 +505,8 @@
                     </div>
                     <div class="content-info--common" id="show-info-guest">
                         <ul class="p-0 m-0 ">
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                style="height:49px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
 
                                 <input class="text-13-black w-50 border-0 nameGuest bg-input-guest" readonly
@@ -525,8 +516,8 @@
                                 <input type="hidden" class="idGuest" autocomplete="off" name="guest_id"
                                     value="@isset($yes){{ $getGuestbyId[0]->id }}@endisset">
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                style="height:49px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại diện</span>
                                 <input class="text-13-black w-50 border-0 represent_name"
                                     style="flex:2; outline:none;"
@@ -534,29 +525,29 @@
                                 <input type="hidden" class="idRepresent" autocomplete="off"
                                     value="{{ $getRepresentbyId[0]->id ?? '' }}">
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border text-13 align-items-center text-left"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom text-13 align-items-center text-left"
+                                style="height:49px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh toán</span>
-                                <input class="border-0 w-100 bg-input-guest py-2 px-2"
-                                    placeholder="Nhập thông tin" name="code_payment"
+                                <input class="border-0 w-100 bg-input-guest py-2 px-2" placeholder="Nhập thông tin"
+                                    name="code_payment"
                                     style="flex:2;outline:none;background-color:#F0F4FF; border-radius:4px;" />
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                style="height:49px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hạn thanh toán</span>
                                 <input class="text-13-black w-50 border-0 bg-input-guest" id="dayPicker"
                                     style="flex:2;outline:none;" />
                                 <input type="hidden" id="hiddenDayInput" value="" name="date_pay">
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                style="height:49px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày thanh toán</span>
                                 <input class="text-13-black w-50 border-0 bg-input-guest" id="datePicker"
                                     style="flex:2;outline:none;" />
                                 <input type="hidden" id="hiddenDateInput" value="" name="payment_day">
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                style="height:49px;">
                                 <span class="text-13 text-nowrap">Hình thức t.toán</span>
                                 <select name="payment_type" style="width: 55%"
                                     class="text-13-black border-0 bg-input-guest">
@@ -564,34 +555,34 @@
                                     <option value="UNC">UNC</option>
                                 </select>
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                style="height:49px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
                                 <input class="text-13-black w-50 border-0 bg-input-guest tongTien" name="total"
                                     readonly style="flex:2;outline:none;" value="" />
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                style="height:49px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đã thanh toán</span>
 
                                 <input type="text" class="text-13-black w-50 border-0 bg-input-guest daThanhToan"
                                     value="" readonly style="flex:2;" />
                             </li>
-                            <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                                style="height:49px;">
                                 <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
                                 <input type="text" value="" readonly
                                     class="text-13-black w-50 border-0 duNo bg-input-guest" style="flex:2;" />
                             </li>
-                            <li class="d-flex justify-content-between text-13 py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between text-13 py-2 px-3 border-bottom align-items-center text-left"
+                                style="height:49px;">
                                 <span class="text-13 text-nowrap mr-2" style="flex: 1.5;">Thanh toán trước</span>
                                 <input id="prepayment" type="text" placeholder="Nhập thông tin" name="payment"
                                     class="border-0 w-100 bg-input-guest py-2 px-2 payment_input"
                                     style="flex:2;background-color:#F0F4FF; border-radius:4px;" />
                             </li>
-                            <li class="d-flex justify-content-between text-13 py-2 px-3 border align-items-center text-left"
-                                style="height:44px;">
+                            <li class="d-flex justify-content-between text-13 py-2 px-3 border-bottom align-items-center text-left"
+                                style="height:49px;">
                                 <span class="mx-1 text-13 d-flex align-items-center" style="flex: 2;">
                                     <input type="checkbox" name="payment_all" onclick="cbPayment(this)">
                                     <span class="text-13 btn-click ml-2">Thanh toán đủ : <span
@@ -699,10 +690,15 @@
                 `<input type='text' class='border-0 px-2 py-1 w-100 product_name' autocomplete='off' required name='product_name[]'>` +
                 `<input type='hidden' class='product_id' autocomplete='off' name='product_id[]'>` +
                 `<div class='info-product' data-toggle='modal' data-target='#productModal'>` +
-                `<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'>` +
-                `<path d='M8.99998 4.5C8.45998 4.5 8.09998 4.86 8.09998 5.4C8.09998 5.94 8.45998 6.3 8.99998 6.3C9.53998 6.3 9.89998 5.94 9.89998 5.4C9.89998 4.86 9.53998 4.5 8.99998 4.5Z' fill='#42526E'/>` +
-                `<path d='M9 0C4.05 0 0 4.05 0 9C0 13.95 4.05 18 9 18C13.95 18 18 13.95 18 9C18 4.05 13.95 0 9 0ZM9 16.2C5.04 16.2 1.8 12.96 1.8 9C1.8 5.04 5.04 1.8 9 1.8C12.96 1.8 16.2 5.04 16.2 9C16.2 12.96 12.96 16.2 9 16.2Z' fill='#42526E'/>` +
-                `<path d='M8.99998 7.2002C8.45998 7.2002 8.09998 7.5602 8.09998 8.10019V12.6002C8.09998 13.1402 8.45998 13.5002 8.99998 13.5002C9.53998 13.5002 9.89998 13.1402 9.89998 12.6002V8.10019C9.89998 7.5602 9.53998 7.2002 8.99998 7.2002Z' fill='#42526E'/>` +
+                `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">` +
+                `<g clip-path="url(#clip0_2559_39956)">` +
+                `<path d="M6.99999 1.48362C5.53706 1.48362 4.13404 2.06477 3.09959 3.09922C2.06514 4.13367 1.48399 5.53669 1.48399 6.99963C1.48399 8.46256 2.06514 9.86558 3.09959 10.9C4.13404 11.9345 5.53706 12.5156 6.99999 12.5156C8.46292 12.5156 9.86594 11.9345 10.9004 10.9C11.9348 9.86558 12.516 8.46256 12.516 6.99963C12.516 5.53669 11.9348 4.13367 10.9004 3.09922C9.86594 2.06477 8.46292 1.48362 6.99999 1.48362ZM0.265991 6.99963C0.265991 5.21366 0.975464 3.50084 2.23833 2.23797C3.5012 0.975098 5.21402 0.265625 6.99999 0.265625C8.78596 0.265625 10.4988 0.975098 11.7616 2.23797C13.0245 3.50084 13.734 5.21366 13.734 6.99963C13.734 8.78559 13.0245 10.4984 11.7616 11.7613C10.4988 13.0242 8.78596 13.7336 6.99999 13.7336C5.21402 13.7336 3.5012 13.0242 2.23833 11.7613C0.975464 10.4984 0.265991 8.78559 0.265991 6.99963Z" fill="#282A30"></path>` +
+                `<path d="M7.07004 4.34488C6.92998 4.33528 6.78944 4.35459 6.65715 4.40161C6.52487 4.44863 6.40367 4.52236 6.30109 4.61821C6.19851 4.71406 6.11674 4.82999 6.06087 4.95878C6.00499 5.08757 5.9762 5.22648 5.97629 5.36688C5.97629 5.52851 5.91208 5.68352 5.79779 5.79781C5.6835 5.91211 5.52849 5.97631 5.36685 5.97631C5.20522 5.97631 5.05021 5.91211 4.93592 5.79781C4.82162 5.68352 4.75742 5.52851 4.75742 5.36688C4.75733 4.9557 4.87029 4.55241 5.08394 4.2011C5.2976 3.84979 5.60373 3.56398 5.96886 3.37492C6.33399 3.18585 6.74408 3.10081 7.15428 3.12909C7.56449 3.15737 7.95902 3.29788 8.29475 3.53526C8.63049 3.77265 8.8945 4.09776 9.05792 4.47507C9.22135 4.85237 9.2779 5.26735 9.22139 5.67462C9.16487 6.0819 8.99748 6.4658 8.7375 6.78436C8.47753 7.10292 8.13497 7.34387 7.74729 7.48088C7.70694 7.49534 7.67207 7.52196 7.64747 7.55706C7.62287 7.59216 7.60975 7.63402 7.60992 7.67688V8.22463C7.60992 8.38626 7.54571 8.54127 7.43142 8.65557C7.31712 8.76986 7.16211 8.83407 7.00048 8.83407C6.83885 8.83407 6.68383 8.76986 6.56954 8.65557C6.45525 8.54127 6.39104 8.38626 6.39104 8.22463V7.67688C6.39096 7.38197 6.48229 7.0943 6.65247 6.85345C6.82265 6.6126 7.0633 6.43042 7.34129 6.332C7.56313 6.25339 7.7511 6.10073 7.87356 5.89975C7.99603 5.69877 8.0455 5.46172 8.01366 5.22853C7.98181 4.99534 7.87059 4.78025 7.69872 4.61946C7.52685 4.45867 7.30483 4.36114 7.07004 4.34488Z" fill="#282A30"></path>` +
+                `<path d="M7.04382 10.1242C7.00228 10.1242 6.96245 10.1408 6.93307 10.1701C6.9037 10.1995 6.8872 10.2393 6.8872 10.2809C6.8872 10.3224 6.9037 10.3623 6.93307 10.3916C6.96245 10.421 7.00228 10.4375 7.04382 10.4375C7.08536 10.4375 7.1252 10.421 7.15457 10.3916C7.18395 10.3623 7.20045 10.3224 7.20045 10.2809C7.20045 10.2393 7.18395 10.1995 7.15457 10.1701C7.1252 10.1408 7.08536 10.1242 7.04382 10.1242ZM7.04382 10.9371C7.13 10.9371 7.21534 10.9201 7.29496 10.8872C7.37458 10.8542 7.44692 10.8059 7.50786 10.7449C7.5688 10.684 7.61714 10.6116 7.65012 10.532C7.6831 10.4524 7.70007 10.3671 7.70007 10.2809C7.70007 10.1947 7.6831 10.1094 7.65012 10.0297C7.61714 9.95012 7.5688 9.87777 7.50786 9.81684C7.44692 9.7559 7.37458 9.70756 7.29496 9.67458C7.21534 9.6416 7.13 9.62462 7.04382 9.62462C6.86977 9.62462 6.70286 9.69376 6.57978 9.81684C6.45671 9.93991 6.38757 10.1068 6.38757 10.2809C6.38757 10.4549 6.45671 10.6218 6.57978 10.7449C6.70286 10.868 6.86977 10.9371 7.04382 10.9371Z" fill="#282A30"></path>` +
+                `</g><defs>` +
+                `<clipPath id="clip0_2559_39956">` +
+                `<rect width="14" height="14" fill="white"></rect>` +
+                `</clipPath></defs>` +
                 `</svg></div></div></td>`
             );
             const dvTinh = $(
@@ -842,7 +838,7 @@
             //lấy thông tin sản phẩm
             $(document).ready(function() {
                 $('.inventory').hide();
-                $('.info-product').hide();
+                // $('.info-product').hide();
                 $('.idProduct').click(function() {
                     var productName = $(this).closest('tr').find('.product_name');
                     var productUnit = $(this).closest('tr').find('.product_unit');
@@ -1026,7 +1022,7 @@
                                 $(".idGuest").val(item.guest_id);
                                 var newRow = `
                                 <tr id="dynamic-row-${item.id}" class="bg-white sanPhamGiao height-80">
-                            <td class="border border-left-0 border-top-0 border-right-0 align-top position-relative">
+                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                 <div class="d-flex w-100 justify-content-between align-items-center">
                                     <span class='mx-2'>
                                         <svg xmlns='http://www.w3.org/2000/svg' width='10' height='13' viewBox='0 0 10 13' fill='none'>
@@ -1044,32 +1040,39 @@
                                     <input type="text" value="${item.product_code == null ? '' : item.product_code}" readonly autocomplete="off" class="border-0 text-13-black px-2 py-1 w-75 product_code height-32" name="product_code[]">
                                 </div>
                             </td>
-                            <td class="border border-top-0 position-relative align-top">
+                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                 <div class="d-flex align-items-center">
                                     <input type="text" readonly value="${item.product_name}" class="border-0 text-13-black px-2 py-1 w-100 product_name height-32" autocomplete="off" required="" name="product_name[]">
                                     <input type="hidden" class="product_id" value="${item.product_id}" autocomplete="off" name="product_id[]">
-                                    <div class="info-product" data-toggle="modal" data-target="#productModal" style="display: none;">
-                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8.99998 4.5C8.45998 4.5 8.09998 4.86 8.09998 5.4C8.09998 5.94 8.45998 6.3 8.99998 6.3C9.53998 6.3 9.89998 5.94 9.89998 5.4C9.89998 4.86 9.53998 4.5 8.99998 4.5Z" fill="#42526E"></path>
-                                        <path d="M9 0C4.05 0 0 4.05 0 9C0 13.95 4.05 18 9 18C13.95 18 18 13.95 18 9C18 4.05 13.95 0 9 0ZM9 16.2C5.04 16.2 1.8 12.96 1.8 9C1.8 5.04 5.04 1.8 9 1.8C12.96 1.8 16.2 5.04 16.2 9C16.2 12.96 12.96 16.2 9 16.2Z" fill="#42526E"></path>
-                                        <path d="M8.99998 7.2002C8.45998 7.2002 8.09998 7.5602 8.09998 8.10019V12.6002C8.09998 13.1402 8.45998 13.5002 8.99998 13.5002C9.53998 13.5002 9.89998 13.1402 9.89998 12.6002V8.10019C9.89998 7.5602 9.53998 7.2002 8.99998 7.2002Z" fill="#42526E"></path>
-                                    </svg>
+                                    <div class="info-product" data-toggle="modal" data-target="#productModal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                            <g clip-path="url(#clip0_2559_39956)">
+                                                <path d="M6.99999 1.48362C5.53706 1.48362 4.13404 2.06477 3.09959 3.09922C2.06514 4.13367 1.48399 5.53669 1.48399 6.99963C1.48399 8.46256 2.06514 9.86558 3.09959 10.9C4.13404 11.9345 5.53706 12.5156 6.99999 12.5156C8.46292 12.5156 9.86594 11.9345 10.9004 10.9C11.9348 9.86558 12.516 8.46256 12.516 6.99963C12.516 5.53669 11.9348 4.13367 10.9004 3.09922C9.86594 2.06477 8.46292 1.48362 6.99999 1.48362ZM0.265991 6.99963C0.265991 5.21366 0.975464 3.50084 2.23833 2.23797C3.5012 0.975098 5.21402 0.265625 6.99999 0.265625C8.78596 0.265625 10.4988 0.975098 11.7616 2.23797C13.0245 3.50084 13.734 5.21366 13.734 6.99963C13.734 8.78559 13.0245 10.4984 11.7616 11.7613C10.4988 13.0242 8.78596 13.7336 6.99999 13.7336C5.21402 13.7336 3.5012 13.0242 2.23833 11.7613C0.975464 10.4984 0.265991 8.78559 0.265991 6.99963Z" fill="#282A30"></path>
+                                                <path d="M7.07004 4.34488C6.92998 4.33528 6.78944 4.35459 6.65715 4.40161C6.52487 4.44863 6.40367 4.52236 6.30109 4.61821C6.19851 4.71406 6.11674 4.82999 6.06087 4.95878C6.00499 5.08757 5.9762 5.22648 5.97629 5.36688C5.97629 5.52851 5.91208 5.68352 5.79779 5.79781C5.6835 5.91211 5.52849 5.97631 5.36685 5.97631C5.20522 5.97631 5.05021 5.91211 4.93592 5.79781C4.82162 5.68352 4.75742 5.52851 4.75742 5.36688C4.75733 4.9557 4.87029 4.55241 5.08394 4.2011C5.2976 3.84979 5.60373 3.56398 5.96886 3.37492C6.33399 3.18585 6.74408 3.10081 7.15428 3.12909C7.56449 3.15737 7.95902 3.29788 8.29475 3.53526C8.63049 3.77265 8.8945 4.09776 9.05792 4.47507C9.22135 4.85237 9.2779 5.26735 9.22139 5.67462C9.16487 6.0819 8.99748 6.4658 8.7375 6.78436C8.47753 7.10292 8.13497 7.34387 7.74729 7.48088C7.70694 7.49534 7.67207 7.52196 7.64747 7.55706C7.62287 7.59216 7.60975 7.63402 7.60992 7.67688V8.22463C7.60992 8.38626 7.54571 8.54127 7.43142 8.65557C7.31712 8.76986 7.16211 8.83407 7.00048 8.83407C6.83885 8.83407 6.68383 8.76986 6.56954 8.65557C6.45525 8.54127 6.39104 8.38626 6.39104 8.22463V7.67688C6.39096 7.38197 6.48229 7.0943 6.65247 6.85345C6.82265 6.6126 7.0633 6.43042 7.34129 6.332C7.56313 6.25339 7.7511 6.10073 7.87356 5.89975C7.99603 5.69877 8.0455 5.46172 8.01366 5.22853C7.98181 4.99534 7.87059 4.78025 7.69872 4.61946C7.52685 4.45867 7.30483 4.36114 7.07004 4.34488Z" fill="#282A30"></path>
+                                                    <path d="M7.04382 10.1242C7.00228 10.1242 6.96245 10.1408 6.93307 10.1701C6.9037 10.1995 6.8872 10.2393 6.8872 10.2809C6.8872 10.3224 6.9037 10.3623 6.93307 10.3916C6.96245 10.421 7.00228 10.4375 7.04382 10.4375C7.08536 10.4375 7.1252 10.421 7.15457 10.3916C7.18395 10.3623 7.20045 10.3224 7.20045 10.2809C7.20045 10.2393 7.18395 10.1995 7.15457 10.1701C7.1252 10.1408 7.08536 10.1242 7.04382 10.1242ZM7.04382 10.9371C7.13 10.9371 7.21534 10.9201 7.29496 10.8872C7.37458 10.8542 7.44692 10.8059 7.50786 10.7449C7.5688 10.684 7.61714 10.6116 7.65012 10.532C7.6831 10.4524 7.70007 10.3671 7.70007 10.2809C7.70007 10.1947 7.6831 10.1094 7.65012 10.0297C7.61714 9.95012 7.5688 9.87777 7.50786 9.81684C7.44692 9.7559 7.37458 9.70756 7.29496 9.67458C7.21534 9.6416 7.13 9.62462 7.04382 9.62462C6.86977 9.62462 6.70286 9.69376 6.57978 9.81684C6.45671 9.93991 6.38757 10.1068 6.38757 10.2809C6.38757 10.4549 6.45671 10.6218 6.57978 10.7449C6.70286 10.868 6.86977 10.9371 7.04382 10.9371Z" fill="#282A30"></path>
+                                            </g>
+                                            <defs>
+                                            <clipPath id="clip0_2559_39956">
+                                                <rect width="14" height="14" fill="white"></rect>
+                                            </clipPath>
+                                            </defs>
+                                        </svg>
                                     </div>
                                 </div>
                             </td>
-                            <td class="border-right p-2 text-13 align-top border-bottom">
+                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                 <input type="text" value="${item.product_unit}" readonly autocomplete="off" class="height-32 border-0 px-2 py-1 w-100 product_unit" required="" name="product_unit[]">
                             </td>
-                            <td class="border-right p-2 text-13 align-top border-bottom">
+                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                 <input type="text" value="${formatNumber(item.product_qty)}" readonly class="height-32 text-right border-0 px-2 py-1 w-100 quantity-input" autocomplete="off" required="" name="product_qty[]">
                                 <input type="hidden" class="tonkho">
                                 <p class="text-primary text-center position-absolute inventory" style="top: 68%; display: none;">Tồn kho: 35</p>
                             </td>
-                            <td class="border-right p-2 text-13 align-top border-bottom">
+                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                 <input type="text" value="${formatCurrency(item.price_export)}" readonly class="height-32 border-0 px-2 py-1 w-100 product_price text-right" autocomplete="off" name="product_price[]" required="" readonly="readonly">
-                                <a href='#'><p class="mt-3 text-13-blue transaction recentModal text-right" data-name1="TT" data-des="Xem giao dịch gần đây" data-toggle="modal" data-target="#recentModal">Giao dịch gần đây</p></a>
+                                <a href='#'><p class="mt-3 text-13-blue transaction recentModal text-right mb-0" data-name1="TT" data-des="Xem giao dịch gần đây" data-toggle="modal" data-target="#recentModal">Giao dịch gần đây</p></a>
                             </td>
-                            <td class="p-2 text-13 align-top border-bottom text-center">
+                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom text-center">
                                 <select name="product_tax[]" class="border-0 text-center product_tax height-32" required="" disabled>
                                     <option value="0" ${(item.product_tax == 0) ? 'selected' : ''}>0%</option>
                                     <option value="8" ${(item.product_tax == 8) ? 'selected' : ''}>8%</option>
@@ -1077,10 +1080,10 @@
                                     <option value="99" ${(item.product_tax == 99) ? 'selected' : ''}>NOVAT</option>
                                 </select>
                             </td>
-                            <td class="border border-top-0 border-right-0 align-top">
+                            <td class="border-right border-top-0 p-2 text-13 align-top border-bottom">
                                 <input type="text" value="${formatCurrency(Math.round(item.product_total))}" readonly="" class="height-32 text-13-black text-right border-0 px-2 py-1 w-100 total-amount">
                             </td>
-                            <td class="border border-top-0 border-right-0 position-relative note align-top">
+                            <td class="border-top-0 p-2 text-13 align-top border-bottom">
                                 <input type="text" readonly
                                     value="${(item.product_note == null) ? '' : item.product_note}" class="height-32 text-13-black border-0 py-1 w-100 text-left" name="product_note[]">
                             </td>
@@ -1350,7 +1353,7 @@
                                 //lấy thông tin sản phẩm
                                 $(document).ready(function() {
                                     $('.inventory').hide();
-                                    $('.info-product').hide();
+                                    // $('.info-product').hide();
                                     $('.idProduct').click(
                                         function() {
                                             var productName =

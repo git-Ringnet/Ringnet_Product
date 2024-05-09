@@ -2,7 +2,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper m-0 min-height--none">
     <!-- Content Header (Page header) -->
-    <div class="content-header-fixed p-0 margin-250">
+    <div class="content-header-fixed p-0 margin-250 border-0">
         <div class="content__header--inner margin-left32">
             <div class="content__heading--left">
                 <span>Mua hàng</span>
@@ -18,10 +18,9 @@
             </div>
             <div class="d-flex content__heading--right">
                 <div class="row m-0">
-                    <a href="{{ route('provides.create', $workspacename) }}" class="user_flow" data-type="NCC"
+                    <a href="{{ route('provides.create', $workspacename) }}" class="user_flow mr-3" data-type="NCC"
                         data-des="Tạo mới">
-                        <button type="button" class="custom-btn d-flex align-items-center h-100"
-                            style="margin-right:10px">
+                        <button type="button" class="custom-btn mx-1 d-flex align-items-center h-100">
                             <svg class="mr-1" width="12" height="12" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -194,7 +193,7 @@
                                     </thead>
                                     <tbody class="tbody-provide">
                                         @foreach ($provides as $item)
-                                            <tr class="position-relative provide-info">
+                                            <tr class="position-relative provide-info height-52">
                                                 <input type="hidden" name="id-provide" class="id-provide"
                                                     id="id-provide" value="{{ $item->id }}">
                                                 <td class="border-top-0 border-bottom">

@@ -1070,7 +1070,7 @@ class DetailExportController extends Controller
                                 ->where('detailexport.id', $request->id)
                                 ->where('quoteexport.status', 1)
                                 ->whereRaw('COALESCE(quoteexport.product_qty, 0) - COALESCE(quoteexport.qty_delivery, 0) > 0')
-                                ->get();
+                                ->get();    
 
                             // Group dữ liệu theo ID sản phẩm để có danh sách seri cho mỗi sản phẩm
                             $groupedDelivery = $delivery->groupBy('maSP');

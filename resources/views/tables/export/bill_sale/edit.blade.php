@@ -151,7 +151,7 @@
                     </div>
                 </div>
             </div>
-            <section class="border-custom" style="height:50px">
+            <section class="border-top" style="height:50px">
                 <div class="d-flex justify-content-between align-items-center h-100">
                     <div class="content-header--options p-0 border-0">
                         <ul class="header-options--nav-1 nav nav-tabs margin-left32">
@@ -177,8 +177,7 @@
                 <div class="container-fluided">
                     <div class="tab-content">
                         <div id="info" class="content tab-pane in active">
-                            <div id="title--fixed"
-                                class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                            <div id="title--fixed" class="content-title--fixed top-111">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN
                                     SẢN PHẨM
                                 </p>
@@ -243,26 +242,74 @@
                                     <table class="table table-hover bg-white rounded">
                                         <thead>
                                             <tr style="height:44px;">
-                                                <th class="border-right p-0 px-2 text-13 text-left"
-                                                    style="width:15%;">
-                                                    <span class="ml-2">Mã sản phẩm</span>
+                                                <th class="border-right border-bottom"
+                                                    style="width: 15%;padding-left:2rem;">
+                                                    <span class="text-table text-secondary">Mã sản phẩm</span>
                                                 </th>
-                                                <th class="border-right p-0 px-2 text-13 text-left"
-                                                    style="width:17%;">Tên sản
-                                                    phẩm</th>
-                                                <th class="border-right p-0 px-2 text-13 text-left" style="width:7%;">
-                                                    Đơn vị
+                                                <th scope="col" class="border-right border-bottom">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="created_at"
+                                                            data-sort-type="">
+                                                            <button class="btn-sort text-13" type="submit">Tên sản
+                                                                phẩm</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-created_at"></div>
+                                                    </span>
                                                 </th>
-                                                <th class="border-right p-0 px-2 text-right text-13"
-                                                    style="width:10%;">Số lượng</th>
-                                                <th class="border-right p-0 px-2 text-right text-13"
-                                                    style="width:10%;">Đơn giá</th>
-                                                <th class="border-right p-0 px-2 text-center text-13"
-                                                    style="width:10%;">Thuế</th>
-                                                <th class="border-right p-0 px-1 text-right text-13"style="width:15%;">
-                                                    Thành tiền</th>
-                                                <th class="border-right p-0 px-2 text-left note text-13">Ghi chú sản
-                                                    phẩm</th>
+                                                <th scope="col" class="border-right border-bottom">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="created_at"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Đơn vị</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-created_at"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom">
+                                                    <span class="d-flex justify-content-end">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Số lượng</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom">
+                                                    <span class="d-flex justify-content-end">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Đơn giá</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom">
+                                                    <span class="d-flex justify-content-center">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Thuế</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-right border-bottom">
+                                                    <span class="d-flex justify-content-end">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Thành tiền</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="border-bottom">
+                                                    <span class="d-flex">
+                                                        <a href="#" class="sort-link" data-sort-by="total"
+                                                            data-sort-type=""><button class="btn-sort text-13"
+                                                                type="submit">Ghi chú sản phẩm</button>
+                                                        </a>
+                                                        <div class="icon" id="icon-total"></div>
+                                                    </span>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -336,7 +383,7 @@
                                                             class="border-0 px-2 py-1 w-100 product_price text-right height-32"
                                                             autocomplete="off" name="product_price[]" readonly="">
                                                         <a href="#">
-                                                            <div class="mt-3 text-13-blue transaction recentModal activity"
+                                                            <div class="mt-3 text-13-blue transaction recentModal activity text-right"
                                                                 data-name1="HDBH"
                                                                 data-des="Xem giao dịch gần đầy ở trang xem chi tiết"
                                                                 data-toggle="modal" data-target="#recentModal">
@@ -347,7 +394,8 @@
                                                     <td
                                                         class='border-right border-top-0 p-2 border-bottom text-13 align-top text-center'>
                                                         <select name="product_tax[]"
-                                                            class="border-0 text-center product_tax height-32" disabled="">
+                                                            class="border-0 text-center product_tax height-32"
+                                                            disabled="">
                                                             <option value="0" <?php if ($item->product_tax == 0) {
                                                                 echo 'selected';
                                                             } ?>>0%</option>
@@ -378,9 +426,9 @@
                                                             readonly="" autocomplete="off" required="required"
                                                             name="price_import[]" value="{{ $item->price_import }}">
                                                     </td> -->
-                                                    <td
-                                                        class='border-right border-top-0 border-bottom p-2 text-13 align-top'>
-                                                        <input type="text" class="border-0 py-1 w-100 text-left height-32"
+                                                    <td class='border-top-0 border-bottom p-2 text-13 align-top'>
+                                                        <input type="text"
+                                                            class="border-0 py-1 w-100 text-left height-32"
                                                             readonly="" value="{{ $item->product_note }}"
                                                             name="product_note[]">
                                                     </td>
@@ -397,12 +445,12 @@
                                 <div class="row" style="width:95%;">
                                     <div class="position-relative col-lg-4 px-0"></div>
                                     <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
-                                        <div class="m-3">
+                                        <div class="m-3 ">
                                             <div class="d-flex justify-content-between">
                                                 <span class="text-13-black">Giá trị trước thuế: </span>
                                                 <span id="total-amount-sum">0đ</span>
                                             </div>
-                                            <div class="d-flex justify-content-between mt-2">
+                                            <div class="d-flex justify-content-between mt-2 align-items-center">
                                                 <span class="text-13-black">Thuế VAT: </span>
                                                 <span id="product-tax">0đ</span>
                                             </div>
@@ -432,14 +480,14 @@
 </div>
 {{-- Thông tin khách hàng --}}
 <div class="content-wrapper2 px-0 py-0">
-    <div id="mySidenav" class="sidenav border top-109">
+    <div id="mySidenav" class="sidenav border-left top-111">
         <div id="show_info_Guest">
             <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin khách
                 hàng
             </p>
             <div class="content-info">
-                <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
-                    style="height:44px;" style="height:44px;">
+                <div class="d-flex justify-content-between py-2 px-3 border-bottom border-top align-items-center text-left text-nowrap"
+                    style="height:49px;">
                     <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
                     <span class="mx-1 text-13" style="flex: 2;">
                         <input type="text" placeholder="Chọn thông tin" readonly
@@ -452,33 +500,35 @@
             </div>
             <div class="content-info--common" id="show-info-guest">
                 <ul class="p-0 m-0 ">
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                        style="height:44px;">
+                    <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                        style="height:49px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách hàng</span>
                         <input class="text-13-black w-50 border-0 bg-input-guest" readonly
                             value="{{ $billSale->guest_name_display }}" style="flex:2;" id="myInput">
                         <input type="hidden" class="idGuest" autocomplete="off" name="guest_id">
                     </li>
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                        style="height:44px;">
+                    <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                        style="height:48px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
                             diện</span>
                         <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
                             value="{{ $billSale->represent_name }}" readonly />
                     </li>
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                        style="height:44px;">
+                    <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                        style="height:48px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Số hóa đơn</span>
-                        <input class="text-13-black w-50 border-0 bg-input-guest" style="flex:2;"
-                            placeholder="Nhập thông tin" name="number_bill" value="{{ $billSale->number_bill }}"
-                            readonly />
+                        <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue py-2 px-2"
+                            style="flex:2;" placeholder="Nhập thông tin" name="number_bill"
+                            value="{{ $billSale->number_bill }}" readonly />
                     </li>
-                    <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
-                        style="height:44px;">
+                    <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
+                        style="height:48px;">
                         <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Ngày hóa đơn</span>
-                        <input type="text" class="text-13-black w-50 border-0 bg-input-guest"
-                            placeholder="Nhập thông tin" style="flex:2;" name="date_bill" readonly
+                        <input type="text" class="text-13-black w-50 border-0 bg-input-guest" id="dayPicker"
+                            placeholder="Nhập thông tin" style="flex:2;" readonly
                             value="{{ date_format(new DateTime($billSale->ngayHD), 'd/m/Y') }}" />
+                        <input type="hidden" id="hiddenDayInput" name="date_bill"
+                            value="{{ date_format(new DateTime($billSale->ngayHD), 'Y-m-d') }}">
                     </li>
                 </ul>
             </div>
@@ -591,6 +641,31 @@
 </div>
 <x-user-flow></x-user-flow>
 <script>
+    flatpickr("#dayPicker", {
+        locale: "vn",
+        dateFormat: "d/m/Y",
+        onChange: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
+            updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
+        },
+        onOpen: function(selectedDates, dateStr, instance) {
+            // Cập nhật giá trị của trường ẩn khi mở date picker
+            updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
+        }
+    });
+
+    function updateHiddenInput(selectedDate, instance, hiddenInputId) {
+        // Lấy thời gian hiện tại
+        var currentTime = new Date();
+
+        // Cập nhật giá trị của trường ẩn với thời gian hiện tại và ngày đã chọn
+        var selectedDateTime = new Date(selectedDate);
+        selectedDateTime.setHours(currentTime.getHours());
+        selectedDateTime.setMinutes(currentTime.getMinutes());
+        selectedDateTime.setSeconds(currentTime.getSeconds());
+
+        document.getElementById(hiddenInputId).value = instance.formatDate(selectedDateTime, "Y-m-d H:i:S");
+    }
     //Xem giao dịch gần đây
     $('.recentModal').click(function() {
         var idProduct = $(this)

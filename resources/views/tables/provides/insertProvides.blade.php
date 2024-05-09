@@ -1,7 +1,7 @@
 <x-navbar :title="$title" activeGroup="buy" activeName="provide"></x-navbar>
 <form action="{{ route('provides.store', $workspacename) }}" method="POST">
     @csrf
-    <div class="content-wrapper m-0">
+    <div class="content-wrapper m-0 min-height--none">
         <!-- Content Header (Page header) -->
         <div class="content-header-fixed p-0 margin-250">
             <div class="content__header--inner margin-left32">
@@ -45,7 +45,8 @@
                             </button>
                         </a>
 
-                        <button type="submit" class="custom-btn d-flex mx-1 align-items-center h-100">
+                        <button type="submit" class="custom-btn d-flex align-items-center h-100"
+                            style="margin-right:10px">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                                 fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -55,7 +56,7 @@
                             <span class="text-btnIner-primary ml-2">Lưu nhà cung cấp</span>
                         </button>
 
-                        <button class="btn-option">
+                        {{-- <button class="btn-option">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -68,12 +69,12 @@
                                     d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
                                     fill="#42526E" />
                             </svg>
-                        </button>
+                        </button> --}}
                     </div>
                 </div>
             </div>
         </div>
-        <div class="content margin-top-38">
+        <div class="content" style="margin-top:3.8rem;">
             <section class="content margin-250">
                 <div class="container-fluided">
                     <div class="bg-filter-search border-top-0 text-left border-custom">
@@ -123,31 +124,34 @@
                         <p class="font-weight-bold text-uppercase info-chung--heading">THÔNG TIN NGƯỜI ĐẠI DIỆN</p>
                     </div>
                     <div class="info-chung">
-                        <div class="container-fluided order_content">
+                        <div class="outer container-fluided order_content">
                             <table class="table table-hover bg-white rounded" id="listrepesent">
                                 <thead>
                                     <tr>
-                                        <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
-                                            style="width: 23%;">Người đại diện</th>
-                                        <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
-                                            style="width: 20%;">Số điện thoại</th>
-                                        <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
-                                            style="width: 20%;">Email</th>
-                                        <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
-                                            style="width: 20%;">Địa chỉ nhận</th>
-                                        <th class="border-right text-13 px-0 py-2 padding-left35 height-52"
-                                            style="width: 20%;"></th>
+                                        <th class="border-right height-52 padding-left35 text-13" style="width: 23%;">
+                                            Người đại diện
+                                        </th>
+                                        <th class="border-right height-52 padding-left35 text-13" style="width: 23%;">
+                                            Số điện thoại
+                                        </th>
+                                        <th class="border-right height-52 padding-left35 text-13" style="width: 23%;">
+                                            Email
+                                        </th>
+                                        <th class="border-right height-52 padding-left35 text-13" style="width: 23%;">
+                                            Địa chỉ nhận
+                                        </th>
+                                        <th class="border-top-0" style="width: 8%;"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
                             </table>
                         </div>
-                        <section class="content margin-left32">
+                        <section class="content">
                             <div class="container-fluided">
                                 <div class="d-flex">
                                     <button type="button" data-toggle="dropdown"
-                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2 user_flow"
+                                        class="btn-save-print d-flex align-items-center h-100 py-1 px-2 ml-4 rounded user_flow"
                                         data-type="NCC" data-des="Thêm người đại diện" id="addRowRepesent"
                                         style="margin-right:10px; border-radius:4px;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -158,7 +162,7 @@
                                         </svg>
                                         <span class="text-13 pl-2">Thêm người đại diện</span>
                                     </button>
-                                    <button class="btn-option py-1 px-2">
+                                    {{-- <button class="btn-option py-1 px-2">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -174,7 +178,7 @@
                                                 fill="#42526E">
                                             </path>
                                         </svg>
-                                    </button>
+                                    </button> --}}
                                 </div>
                             </div>
                         </section>

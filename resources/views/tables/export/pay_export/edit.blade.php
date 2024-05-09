@@ -169,7 +169,7 @@
                     </div>
                 </div>
             </div>
-            <section class="border-custom" style="height:50px">
+            <section class="border-top" style="height:50px">
                 <div class="d-flex justify-content-between align-items-center h-100">
                     <div class="content-header--options p-0 border-0">
                         <ul class="header-options--nav nav nav-tabs margin-left32">
@@ -199,7 +199,7 @@
                 <div class="tab-content">
                     <div id="info" class="content tab-pane in active">
                         <div id="title--fixed"
-                            class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                            class="content-title--fixed top-111 text-center">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">THÔNG TIN SẢN
                                 PHẨM
                             </p>
@@ -276,10 +276,9 @@
                                     </div>
                                     <table class="table table-hover bg-white rounded">
                                         <thead>
-                                            <tr class="height-52">
-                                                <th class="border-right p-2" style="width: 16%;">
-                                                    <input class="checkall-btn ml-4 mr-1" id="checkall"
-                                                        type="checkbox">
+                                            <tr style="height:44px;">
+                                                <th class="border-right p-2" style="width: 15%;">
+                                                    <input class="checkall-btn ml-4 mr-1" id="checkall" type="checkbox">
                                                     <span class="text-13 "> Mã sản phẩm</span>
                                                 </th>
                                                 <th class="border-right p-2" style="width: 16%;">
@@ -291,13 +290,13 @@
                                                 <th class="border-right p-2 text-right" style="width: 10%;">
                                                     <span class="text-13"> Số lượng</span>
                                                 </th>
-                                                <th class="border-right p-2 text-right">
+                                                <th class="border-right p-2 text-right" style="width: 15%;">
                                                     <span class="text-13">Đơn giá</span>
                                                 </th>
-                                                <th class="border-right p-2 text-center">
+                                                <th class="border-right p-2 text-center" style="width: 10%;">
                                                     <span class="text-13">Thuế</span>
                                                 </th>
-                                                <th class="border-right p-2 text-right">
+                                                <th class="border-right p-2 text-right" style="width: 12%;">
                                                     <span class="text-13">Thành tiền</span>
                                                 </th>
                                                 <th class="note p-2">
@@ -307,7 +306,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($product as $item_quote)
-                                                <tr class="bg-white height-52">
+                                                <tr class="bg-white" style="height:80px;">
                                                     <td
                                                         class="border border-left-0 border-top-0 p-2 align-top position-relative">
                                                         <div
@@ -381,7 +380,7 @@
                                                             class="height-32 border-0 px-2 py-1 w-100 text-right product_price"
                                                             autocomplete="off" name="product_price[]" readonly>
                                                         <a href="#">
-                                                            <p class="mt-3 text-13-blue recentModal"
+                                                            <p class="mt-3 text-13-blue recentModal text-right mb-0"
                                                                 data-toggle="modal" data-target="#recentModal">
                                                                 Giao dịch gần đây
                                                             </p>
@@ -413,7 +412,7 @@
                                                             class="height-32 border-0 px-2 py-1 w-100 text-right total-amount">
                                                     </td>
                                                     <td
-                                                        class="border-right p-2 text-13 align-top border-bottom border-top-0">
+                                                        class="p-2 text-13 align-top border-bottom border-top-0">
                                                         <input type="text" class="border-0 py-1 w-100" readonly
                                                             name="height-32 product_note[]"
                                                             value="{{ $item_quote->product_note }}">
@@ -437,15 +436,15 @@
                                         <div class="m-3">
                                             <div class="d-flex justify-content-between">
                                                 <span class="text-13-black">Giá trị trước thuế: </span>
-                                                <span id="total-amount-sum">0đ</span>
+                                                <span id="total-amount-sum" class="text-table">0đ</span>
                                             </div>
                                             <div class="d-flex justify-content-between mt-2">
                                                 <span class="text-13-black">Thuế VAT: </span>
-                                                <span id="product-tax">0đ</span>
+                                                <span id="product-tax" class="text-table">0đ</span>
                                             </div>
                                             <div class="d-flex justify-content-between mt-2">
                                                 <span class="text-13-bold text-lg font-weight-bold">Tổng cộng: </span>
-                                                <span class="text-13-bold text-lg font-weight-bold text-right"
+                                                <span class="text-13-bold text-lg font-weight-bold text-right text-table"
                                                     id="grand-total" data-value="0">0đ</span>
                                                 <input type="text" hidden="" name="totalValue"
                                                     value="0" id="total">
@@ -511,13 +510,13 @@
                     </div>
                     {{-- Thông tin khách hàng --}}
                     <div class="content-wrapper2 px-0 py-0">
-                        <div id="mySidenav" class="sidenav border top-109">
+                        <div id="mySidenav" class="sidenav border-left top-111">
                             <div id="show_info_Guest">
                                 <p class="font-weight-bold text-uppercase info-chung--heading text-center">Thông tin
                                     khách hàng</p>
                                 <div class="content-info">
-                                    <div class="d-flex justify-content-between py-2 px-3 border align-items-center text-left text-nowrap"
-                                        style="height:44px;" style="height:44px;">
+                                    <div class="d-flex justify-content-between py-2 px-3 border-bottom border-top align-items-center text-left text-nowrap"
+                                        style="height:44px;">
                                         <span class="text-13 btn-click" style="flex: 1.5;">Số báo giá</span>
                                         <span class="mx-1 text-13" style="flex: 2;">
                                             <input type="text" placeholder="Chọn thông tin" readonly
@@ -530,7 +529,7 @@
                                 </div>
                                 <div class="content-info--common" id="show-info-guest">
                                     <ul class="p-0 m-0 ">
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Khách
                                                 hàng</span>
@@ -540,7 +539,7 @@
                                             <input type="hidden" class="idGuest" value="{{ $payExport->guest_id }}"
                                                 autocomplete="off" name="guest_id">
                                         </li>
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Người đại
                                                 diện</span>
@@ -548,7 +547,7 @@
                                                 style="flex:2;outline:none;" readonly
                                                 value="{{ $payExport->represent_name }}" />
                                         </li>
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã thanh
                                                 toán</span>
@@ -556,7 +555,7 @@
                                                 style="flex:2;outline:none;background-color:#F0F4FF; border-radius:4px;"
                                                 value="{{ $payExport->code_payment }}" readonly />
                                         </li>
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hạn thanh
                                                 toán</span>
@@ -567,7 +566,7 @@
                                             <input type="hidden" id="hiddenDateInput" name="date_pay"
                                                 value="{{ date_format(new DateTime($payExport->payment_date), 'Y-m-d') }}">
                                         </li>
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">
                                                 Ngày thanh toán
@@ -579,7 +578,7 @@
                                             <input type="hidden" id="hiddenDayInput" name="payment_day"
                                                 value="{{ date_format(new DateTime($payExport->payment_day), 'Y-m-d') }}">
                                         </li>
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Hình thức
                                                 t.toán</span>
@@ -593,14 +592,14 @@
                                                 } ?>>UNC</option>
                                             </select>
                                         </li>
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Tổng tiền</span>
                                             <input class="text-13-black w-50 border-0 tongTien" name="total"
                                                 style="flex:2;outline:none;"
                                                 value="{{ number_format($payExport->tongTienNo) }}" readonly />
                                         </li>
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Đã thanh
                                                 toán</span>
@@ -608,23 +607,23 @@
                                                 style="flex:2; outline:none;" readonly name="daThanhToan"
                                                 value="{{ number_format($thanhToan->tongThanhToan) }}" />
                                         </li>
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Dư nợ</span>
                                             <input class="text-13-black w-50 border-0 duNo"
                                                 style="flex:2; outline:none;" name="number_bill"
                                                 value="{{ number_format($noConLaiValue) }}" readonly />
                                         </li>
-                                        <li class="d-flex justify-content-between py-2 px-3 border align-items-center text-left"
+                                        <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                             style="height:44px;">
                                             <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Thanh
                                                 toán</span>
                                             <input id="prepayment" type="text"
-                                                class="text-13-black w-50 border-0 payment" oninput="validateInput();"
+                                                class="text-13-black w-50 border-0 payment bg-input-guest-blue py-2 px-2" oninput="validateInput();"
                                                 @if ($payExport->trangThai != 2) placeholder="Nhập thông tin" @else readonly @endif
                                                 name="payment" style="flex:2; outline:none;" name="payment" />
                                         </li>
-                                        <li class="d-flex justify-content-between text-13 py-2 px-3 border align-items-center text-left"
+                                        <li class="d-flex justify-content-between text-13 py-2 px-3 border-bottom align-items-center text-left"
                                             style="height:44px;">
                                             <span class="mx-1 text-13 d-flex align-items-center" style="flex: 2;">
                                                 <input type="checkbox" name="payment_all" onclick="cbPayment(this)">

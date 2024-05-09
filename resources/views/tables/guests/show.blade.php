@@ -62,10 +62,9 @@
                         </label>
                         <a class="activity" data-name1="KH" data-des="Xem trang sửa"
                             href="{{ route('guests.edit', ['workspace' => $workspacename, 'guest' => $guest->id]) }}">
-                            <button type="button" class="custom-btn d-flex align-items-center h-100"
-                                style="margin-right:10px">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 0 16 16" class="mx-1" fill="none">
+                            <button type="button" class="custom-btn d-flex align-items-center h-100 mx-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none">
                                     <path
                                         d="M4.75 2.00007C2.67893 2.00007 1 3.679 1 5.75007V11.25C1 13.3211 2.67893 15 4.75 15H10.2501C12.3212 15 14.0001 13.3211 14.0001 11.25V8.00007C14.0001 7.58586 13.6643 7.25007 13.2501 7.25007C12.8359 7.25007 12.5001 7.58586 12.5001 8.00007V11.25C12.5001 12.4927 11.4927 13.5 10.2501 13.5H4.75C3.50736 13.5 2.5 12.4927 2.5 11.25V5.75007C2.5 4.50743 3.50736 3.50007 4.75 3.50007H7C7.41421 3.50007 7.75 3.16428 7.75 2.75007C7.75 2.33586 7.41421 2.00007 7 2.00007H4.75Z"
                                         fill="white" />
@@ -76,10 +75,10 @@
                                         d="M13.4559 1.45679C13.2663 1.39356 13.0571 1.44293 12.9158 1.58431L11.7803 2.71974L13.1945 4.13395L14.33 2.99852C14.4714 2.85714 14.5207 2.64802 14.4575 2.45834C14.2999 1.98547 13.9288 1.61441 13.4559 1.45679Z"
                                         fill="white" />
                                 </svg>
-                                <span>Sửa</span>
+                                <span class="text-btnIner-primary ml-2">Sửa</span>
                             </button>
                         </a>
-                        <div>
+                        {{-- <div>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -92,7 +91,7 @@
                                     d="M7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14C6.10457 14 7 13.1046 7 12Z"
                                     fill="#42526E"></path>
                             </svg>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -251,25 +250,25 @@
                                         </thead>
                                         <tbody>
                                             <tr id="dynamic-row-1" class="bg-white addProduct">
-                                                <td class="border-right text-13-black px-0 border-bottom py-2 padding-left35"
+                                                <td class="border-right text-13-black px-0 py-2 padding-left35 height-52 border-bottom"
                                                     style="width: 18%;">
                                                     <input type="text" autocomplete="off"
                                                         value="{{ $countDetail }}" readonly
                                                         class="border-0 px-2 py-1 w-100 text-13-black">
                                                 </td>
-                                                <td class="border-right text-13-black border-bottom px-0 py-2 padding-left35"
+                                                <td class="border-right text-13-black px-0 py-2 padding-left35 height-52 border-bottom"
                                                     style="width: 20%;">
                                                     <input type="text" autocomplete="off"
                                                         value="{{ number_format($sumSell) }}" readonly
                                                         class="border-0 px-2 py-1 w-100 text-13-black text-right">
                                                 </td>
-                                                <td class="border-right text-13-black border-bottom px-0 py-2 padding-left35"
+                                                <td class="border-right text-13-black px-0 py-2 padding-left35 height-52 border-bottom"
                                                     style="width: 20%;">
                                                     <input type="text" autocomplete="off"
                                                         value="{{ number_format($sumPay) }}" readonly
                                                         class="border-0 px-2 py-1 w-100 text-13-black text-right">
                                                 </td>
-                                                <td class="border-right text-13-black border-bottom px-0 py-2 padding-left35"
+                                                <td class="border-right text-13-black px-0 py-2 padding-left35 height-52 border-bottom"
                                                     style="width: 20%;">
                                                     <input type="text" autocomplete="off"
                                                         value="{{ number_format($sumDebt) }}" readonly

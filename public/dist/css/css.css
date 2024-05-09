@@ -2752,3 +2752,6 @@ input[type="checkbox"]:checked {
     border: 1px solid #0052ccbf;
     padding: 2px 6px;
 }
+.flatpickr-current-month{
+    font-size: initial !important;
+}
