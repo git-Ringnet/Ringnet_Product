@@ -260,6 +260,7 @@ class Delivery extends Model
                         $qty = 0;
                         $count = 0;
                         $temp = 0;
+                        $count_export = 0;
                         if ($htrImport) {
                             $check = false;
                             foreach ($htrImport as $va) {
