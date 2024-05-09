@@ -551,19 +551,22 @@
                                 <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Mã Giao Hàng</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2" required
-                                        placeholder="Nhập thông tin" style="flex:2;" name="code_delivery" />
+                                    <input
+                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2"
+                                        required placeholder="Nhập thông tin" style="flex:2;" name="code_delivery" />
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-1" style="flex: 1.5;">Đơn vị vận chuyển</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 unit_ship"
+                                    <input
+                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 unit_ship"
                                         name="shipping_unit" placeholder="Nhập thông tin" style="flex:2;" />
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
                                     style="height:48px;">
                                     <span class="text-13 text-nowrap mr-3" style="flex: 1.5;">Phí giao hàng</span>
-                                    <input class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 fee_ship"
+                                    <input
+                                        class="text-13-black w-50 border-0 bg-input-guest bg-input-guest-blue px-2 py-2 fee_ship"
                                         name="shipping_fee" placeholder="Nhập thông tin" style="flex:2;" />
                                 </li>
                                 <li class="d-flex justify-content-between py-2 px-3 border-bottom align-items-center text-left"
@@ -1057,6 +1060,42 @@
                                                                 );
                                                         }
                                                     );
+                                                $("#exampleModal0 .modal-body tbody tr")
+                                                    .click(
+                                                        function(
+                                                            event
+                                                            ) {
+                                                            // Kiểm tra xem phần tử được click có phải là checkbox hay không
+                                                            var checkbox =
+                                                                $(
+                                                                    this)
+                                                                .find(
+                                                                    ".check-item"
+                                                                    );
+                                                            if (!
+                                                                $(event
+                                                                    .target
+                                                                    )
+                                                                .is(
+                                                                    checkbox)
+                                                                ) {
+                                                                // Đảo ngược trạng thái checked của checkbox
+                                                                checkbox
+                                                                    .prop(
+                                                                        "checked",
+                                                                        !
+                                                                        checkbox
+                                                                        .prop(
+                                                                            "checked"
+                                                                            )
+                                                                        );
+                                                                // Trigger sự kiện change cho checkbox
+                                                                checkbox
+                                                                    .trigger(
+                                                                        "change"
+                                                                        );
+                                                            }
+                                                        });
                                                 //Thay đổi số lượng thì xóa s/n đã check
                                                 $(".quantity-input")
                                                     .on("change",
@@ -3084,6 +3123,46 @@
                                                                         )
                                                                         .remove();
                                                                 }
+                                                            }
+                                                        }
+                                                    );
+                                                //Checked theo hàng
+                                                $("#exampleModal0 .modal-body tbody tr")
+                                                    .click(
+                                                        function(
+                                                            event
+                                                        ) {
+                                                            // Kiểm tra xem phần tử được click có phải là checkbox hay không
+                                                            var checkbox =
+                                                                $(
+                                                                    this
+                                                                    )
+                                                                .find(
+                                                                    ".check-item"
+                                                                );
+                                                            if (!
+                                                                $(event
+                                                                    .target
+                                                                )
+                                                                .is(
+                                                                    checkbox
+                                                                    )
+                                                            ) {
+                                                                // Đảo ngược trạng thái checked của checkbox
+                                                                checkbox
+                                                                    .prop(
+                                                                        "checked",
+                                                                        !
+                                                                        checkbox
+                                                                        .prop(
+                                                                            "checked"
+                                                                        )
+                                                                    );
+                                                                // Trigger sự kiện change cho checkbox
+                                                                checkbox
+                                                                    .trigger(
+                                                                        "change"
+                                                                    );
                                                             }
                                                         }
                                                     );

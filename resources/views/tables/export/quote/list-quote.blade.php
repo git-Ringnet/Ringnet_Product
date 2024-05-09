@@ -1070,6 +1070,45 @@
                                                                             );
                                                                     }
                                                                 );
+                                                            $("#exampleModal0 .modal-body tbody tr")
+                                                                .click(
+                                                                    function(
+                                                                        event
+                                                                    ) {
+                                                                        // Kiểm tra xem phần tử được click có phải là checkbox hay không
+                                                                        var checkbox =
+                                                                            $(
+                                                                                this
+                                                                                )
+                                                                            .find(
+                                                                                ".check-item"
+                                                                            );
+                                                                        if (!
+                                                                            $(event
+                                                                                .target
+                                                                            )
+                                                                            .is(
+                                                                                checkbox
+                                                                                )
+                                                                        ) {
+                                                                            // Đảo ngược trạng thái checked của checkbox
+                                                                            checkbox
+                                                                                .prop(
+                                                                                    "checked",
+                                                                                    !
+                                                                                    checkbox
+                                                                                    .prop(
+                                                                                        "checked"
+                                                                                    )
+                                                                                );
+                                                                            // Trigger sự kiện change cho checkbox
+                                                                            checkbox
+                                                                                .trigger(
+                                                                                    "change"
+                                                                                );
+                                                                        }
+                                                                    }
+                                                                    );
                                                             //Thay đổi số lượng thì xóa s/n đã check
                                                             $(".quantity-input")
                                                                 .on("change",
