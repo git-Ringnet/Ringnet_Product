@@ -32,7 +32,7 @@ class Provides extends Model
     public function getAllDetailByID()
     {
         return $this->hasMany(DetailImport::class, 'provide_id', 'id')
-            ->where('detailimport.status', 2);
+            ->whereIn('detailimport.status', [2, 0]);
     }
 
     public function getPayment()

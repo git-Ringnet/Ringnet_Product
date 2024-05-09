@@ -195,13 +195,13 @@ class DetailExport extends Model
     }
     public function countDetail($id)
     {
-        $countDetail = DetailExport::where('guest_id', $id)->where('status', 2)
+        $countDetail = DetailExport::where('guest_id', $id)->whereIn('status', [2, 3])
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)->count();
         return $countDetail;
     }
     public function sumDebt($id)
     {
-        $sumDebt = DetailExport::where('guest_id', $id)->where('status', 2)
+        $sumDebt = DetailExport::where('guest_id', $id)->whereIn('status', [2, 3])
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)->sum('amount_owed');
         return $sumDebt;
     }

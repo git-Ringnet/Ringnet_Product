@@ -282,7 +282,7 @@
                                                             @if ($provide->getAllDetailByID)
                                                                 {{-- @dd($provide->getAllDetail) --}}
                                                                 <span class="px-1">
-                                                                    {{ number_format($provide->getAllDetailByID->where('status', 2)->sum('total_tax')) }}
+                                                                    {{ number_format($provide->getAllDetailByID->whereIn('status', [2, 0])->sum('total_tax')) }}
                                                                 </span>
                                                             @endif
                                                         </td>
