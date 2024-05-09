@@ -179,7 +179,7 @@
                                                                 name="product_name[]"
                                                                 class="searchProductName border-0 px-2 py-1 w-100 height-32"
                                                                 value="{{ $item->product_name }}"
-                                                                @if ($import->status == 2) echo readonly @endif
+                                                                @if ($import->status != 1) echo readonly @endif
                                                                 required>
                                                             <div class="info-product" data-toggle="modal"
                                                                 data-target="#productModal">
@@ -216,7 +216,7 @@
                                                         <input type="text" name="product_unit[]"
                                                             class="border-0 px-2 py-1 w-100 product_unit height-32"
                                                             value="{{ $item->product_unit }}"
-                                                            @if ($import->status == 2) echo readonly @endif
+                                                            @if ($import->status != 1) echo readonly @endif
                                                             required>
                                                     </td>
                                                     <td
@@ -226,7 +226,7 @@
                                                                 name="product_qty[]"
                                                                 class="border-0 px-2 py-1 w-100 quantity-input text-right height-32"
                                                                 value="{{ number_format($item->product_qty) }}"
-                                                                @if ($import->status == 2) echo readonly @endif>
+                                                                @if ($import->status != 1) echo readonly @endif>
                                                             <div class='mt-3 text-13-blue inventory text-right'
                                                                 tyle="top: 68%;">Tồn kho:
                                                                 <span class='pl-1 soTonKho'>
@@ -240,7 +240,7 @@
                                                         <input type="text" name="price_export[]"
                                                             class="border-0 px-2 py-1 w-100 price_export text-right height-32"
                                                             value="{{ fmod($item->price_export, 2) > 0 && fmod($item->price_export, 1) > 0 ? number_format($item->price_export, 2, '.', ',') : number_format($item->price_export) }}"
-                                                            @if ($import->status == 2) echo readonly @endif>
+                                                            @if ($import->status != 1) echo readonly @endif>
                                                         <div class='mt-3 text-13-blue text-right transaction'
                                                             id="transaction" data-toggle="modal"
                                                             data-target="#recentModal">Giao dịch gần đây
@@ -275,7 +275,7 @@
                                                             name="product_note[]"
                                                             class="border-0 py-1 w-100 height-32"
                                                             value="{{ $item->product_note }}"
-                                                            @if ($import->status == 2) echo readonly @endif>
+                                                            @if ($import->status != 1) echo readonly @endif>
                                                     </td>
                                                     <td
                                                         class="p-2 align-top border-bottom border-top-0 deleteRow">

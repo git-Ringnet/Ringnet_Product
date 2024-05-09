@@ -433,7 +433,7 @@
                                                         <input readonly type="text" name="product_code[]"
                                                             class='border-0 pl-0 pr-2 py-1 w-100 product_code searchProduct'
                                                             value="{{ $item->product_code }}"
-                                                            @if ($import->status == 2) echo readonly @endif>
+                                                            readonly>
                                                         <ul id="listProductCode"
                                                             class="listProductCode bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
                                                             style="z-index: 99; left: 24%; top: 75%;">
@@ -446,7 +446,7 @@
                                                                 name="product_name[]"
                                                                 class="searchProductName border-0  py-1 w-100 height-32"
                                                                 value="{{ $item->product_name }}"
-                                                                @if ($import->status == 2) echo readonly @endif>
+                                                                readonly>
                                                             <ul id="listProductName"
                                                                 class="listProductName bg-white position-absolute w-100 rounded shadow p-0 scroll-data"
                                                                 style="z-index: 99; left: 1%; top: 74%; display: none;">

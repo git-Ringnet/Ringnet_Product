@@ -362,7 +362,7 @@ class DetailImport extends Model
             ->where('workspace_id', Auth::user()->current_workspace)
             ->first();
         if ($detail) {
-            return $detail->status;
+            return true;
         } else {
             return false;
         }

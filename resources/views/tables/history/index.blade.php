@@ -744,36 +744,38 @@
                                                         <span>{{ $item->getDetailImport->getPayOrder->payment_type }}</span>
                                                     @endif
                                                 </td>
+                                                
                                                 {{-- Khách hàng --}}
-                                                <td class="border-left">
+                                                <td class="border-left"
+                                                    @if ($key + 1 < count($history) && $item->detailexport_id == $history[$key + 1]->detailexport_id) rowspan="2" @endif>
                                                     @if ($item->getDetailExport)
                                                         {{ $item->getDetailExport->guest_name }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td @if ($key + 1 < count($history) && $item->detailexport_id == $history[$key + 1]->detailexport_id) rowspan="2" @endif>
                                                     @if ($item->getDetailExport)
                                                         {{ $item->getDetailExport->reference_number }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td @if ($key + 1 < count($history) && $item->detailexport_id == $history[$key + 1]->detailexport_id) rowspan="2" @endif>
                                                     {{ number_format($item->qty_export) }}
                                                 </td>
-                                                <td>
+                                                <td @if ($key + 1 < count($history) && $item->detailexport_id == $history[$key + 1]->detailexport_id) rowspan="2" @endif>
                                                     @if ($item->getQuoteExport)
                                                         {{ number_format($item->getQuoteExport->price_export) }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td @if ($key + 1 < count($history) && $item->detailexport_id == $history[$key + 1]->detailexport_id) rowspan="2" @endif>
                                                     @if ($item->getQuoteExport)
                                                         {{ number_format(($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td @if ($key + 1 < count($history) && $item->detailexport_id == $history[$key + 1]->detailexport_id) rowspan="2" @endif>
                                                     @if ($item->getQuoteExport)
                                                         {{ number_format($item->getQuoteExport->price_export * $item->qty_export + ($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td @if ($key + 1 < count($history) && $item->detailexport_id == $history[$key + 1]->detailexport_id) rowspan="2" @endif>
                                                     @if ($item->getBillSale)
                                                         @foreach ($item->getBillSale as $value)
                                                             <a
@@ -783,7 +785,7 @@
                                                         @endforeach
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td @if ($key + 1 < count($history) && $item->detailexport_id == $history[$key + 1]->detailexport_id) rowspan="2" @endif>
                                                     @if ($item->getBillSale)
                                                         @foreach ($item->getBillSale as $value)
                                                             <p>{{ date_format(new DateTime($value->created_at), 'd/m/Y') }}
@@ -791,7 +793,7 @@
                                                         @endforeach
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td @if ($key + 1 < count($history) && $item->detailexport_id == $history[$key + 1]->detailexport_id) rowspan="2" @endif>
                                                     @if (isset($item->getDetailExport))
                                                         @if ($item->getDetailExport->status_pay == 1)
                                                             <span>
@@ -834,21 +836,22 @@
                                                         @endif
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td @if ($key + 1 < count($history) && $item->detailexport_id == $history[$key + 1]->detailexport_id) rowspan="2" @endif>
                                                     @if (isset($item->getDetailExport->getPayExport) &&
                                                             $item->getDetailExport &&
                                                             isset($item->getDetailExport->getPayExport->getHistoryPay))
                                                         {{ date_format(new DateTime($item->getDetailExport->getPayExport->getHistoryPay->created_at), 'd/m/Y') }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td @if ($key + 1 < count($history) && $item->detailexport_id == $history[$key + 1]->detailexport_id) rowspan="2" @endif>
                                                     @if (isset($item->getDetailExport->getPayExport) && $item->getDetailExport)
                                                         {{ $item->getDetailExport->getPayExport->payment_type }}
                                                     @endif
                                                 </td>
                                                 <td data-toggle="modal" data-target="#snModal"
                                                     data-delivery-id="{{ $item->delivered_id }}"
-                                                    data-product-id="{{ $item->product_id }}" class="sn"><img
+                                                    data-product-id="{{ $item->product_id }}" class="sn"
+                                                    @if ($key + 1 < count($history) && $item->detailexport_id == $history[$key + 1]->detailexport_id) rowspan="2" @endif><img
                                                         src="../../dist/img/icon/list.png">
                                                 </td>
                                             </tr>
