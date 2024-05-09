@@ -250,7 +250,7 @@
                                         <input type="hidden" id="sortByInput" name="sort-by" value="">
                                         <input type="hidden" id="sortTypeInput" name="sort-type">
                                         <tr class="height-52">
-                                            <th colspan="12" scope="col" class="text-left text-13 border-right">
+                                            <th colspan="13" scope="col" class="text-left text-13 border-right">
                                                 <span class="d-flex justify-content-center align-items-center">
                                                     <a href="#" class="sort-link" data-sort-by="#"
                                                         data-sort-type="DESC"><button class="btn-sort text-13"
@@ -473,8 +473,8 @@
                                                 <span class="d-flex justify-content-center align-items-center">
                                                     <a href="#" class="sort-link btn-submit"
                                                         data-sort-by="status_pay" data-sort-type="DESC"><button
-                                                            class="btn-sort text-13" type="submit">Đã
-                                                            trả</button></a>
+                                                            class="btn-sort text-13" type="submit">Thanh
+                                                            toán</button></a>
                                                     <div class="icon" id="icon-status_pay"></div>
                                                 </span>
                                             </th>
@@ -619,7 +619,7 @@
                                                 </tr>
                                             @endforeach
                                         @endisset --}}
-                                        @foreach ($history as $item)
+                                        @foreach ($history as $key => $item)
                                             <tr>
                                                 <td>
                                                     @if ($item->getDetailImport)
@@ -677,12 +677,12 @@
                                                 </td>
                                                 <td>
                                                     @if ($item->getQtyImport)
-                                                        {{ number_format(($item->getQtyImport->product_total * $item->getQtyImport->product_qty * $item->getQtyImport->product_tax) / 100) }}
+                                                        {{ number_format(($item->getQtyImport->price_export * $item->getQtyImport->product_qty * $item->getQtyImport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
                                                 <td>
                                                     @if ($item->getQtyImport)
-                                                        {{ number_format($item->getQtyImport->product_total + ($item->getQtyImport->product_total * $item->getQtyImport->product_qty * $item->getQtyImport->product_tax) / 100) }}
+                                                        {{ number_format($item->getQtyImport->product_total + ($item->getQtyImport->price_export * $item->getQtyImport->product_qty * $item->getQtyImport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
                                                 <td>
@@ -697,7 +697,7 @@
                                                                         fill="#858585" />
                                                                 </svg>
                                                             </span>
-                                                        @elseif($item->getDetailImport->status_pay == 3)
+                                                        @elseif($item->getDetailImport->status_pay == 1)
                                                             <span>
                                                                 <svg width="16" height="16"
                                                                     viewBox="0 0 16 16" fill="none"
@@ -732,8 +732,11 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($item->getDetailImport && isset($item->getDetailImport->getPayOrder))
-                                                        {{ date_format(new DateTime($item->getDetailImport->getPayOrder->payment_day), 'd/m/Y') }}
+                                                    @if (
+                                                        $item->getDetailImport &&
+                                                            isset($item->getDetailImport->getPayOrder) &&
+                                                            isset($item->getDetailImport->getPayOrder->getHistoryPay))
+                                                        {{ date_format(new DateTime($item->getDetailImport->getPayOrder->getHistoryPay->created_at), 'd/m/Y') }}
                                                     @endif
                                                 </td>
                                                 <td>
@@ -741,6 +744,7 @@
                                                         <span>{{ $item->getDetailImport->getPayOrder->payment_type }}</span>
                                                     @endif
                                                 </td>
+                                                {{-- Khách hàng --}}
                                                 <td class="border-left">
                                                     @if ($item->getDetailExport)
                                                         {{ $item->getDetailExport->guest_name }}
@@ -751,20 +755,22 @@
                                                         {{ $item->getDetailExport->reference_number }}
                                                     @endif
                                                 </td>
-                                                <td>{{ number_format($item->qty_export) }}</td>
                                                 <td>
-                                                    @if ($item->getDetailExport)
-                                                        {{ number_format($item->getDetailExport->total_price) }}
+                                                    {{ number_format($item->qty_export) }}
+                                                </td>
+                                                <td>
+                                                    @if ($item->getQuoteExport)
+                                                        {{ number_format($item->getQuoteExport->price_export) }}
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($item->getDetailExport)
-                                                        {{ number_format($item->getDetailExport->total_tax) }}
+                                                    @if ($item->getQuoteExport)
+                                                        {{ number_format(($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($item->getDetailExport)
-                                                        {{ number_format($item->getDetailExport->total_tax + $item->getDetailExport->total_price) }}
+                                                    @if ($item->getQuoteExport)
+                                                        {{ number_format($item->getQuoteExport->price_export * $item->qty_export + ($item->getQuoteExport->price_export * $item->qty_export * $item->getQuoteExport->product_tax) / 100) }}
                                                     @endif
                                                 </td>
                                                 <td>
@@ -829,8 +835,10 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if (isset($item->getDetailExport->getPayExport) && $item->getDetailExport)
-                                                        {{ date_format(new DateTime($item->getDetailExport->getPayExport->payment_day), 'd/m/Y') }}
+                                                    @if (isset($item->getDetailExport->getPayExport) &&
+                                                            $item->getDetailExport &&
+                                                            isset($item->getDetailExport->getPayExport->getHistoryPay))
+                                                        {{ date_format(new DateTime($item->getDetailExport->getPayExport->getHistoryPay->created_at), 'd/m/Y') }}
                                                     @endif
                                                 </td>
                                                 <td>

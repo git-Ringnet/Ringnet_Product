@@ -121,6 +121,10 @@ class History extends Model
     public function getProductImport(){
         return $this->hasOne(ProductImport::class, 'detailimport_id', 'detailimport_id');
     }
+    public function getQuoteExport(){
+        return $this->hasOne(QuoteExport::class, 'deliver_id', 'delivered_id');
+        // ->where('detailexport_id','detailexport_id')->first();
+    }
     public function getProductToId($id_delivery, $idproduct)
     {
         $product = Delivery::join('quoteexport', 'delivery.detailexport_id', '=', 'quoteexport.detailexport_id')

@@ -50,6 +50,11 @@ class PayOder extends Model
         return $this->hasMany(HistoryPaymentOrder::class, 'payment_id', 'id');
     }
 
+    public function getHistoryPay()
+    {
+        return $this->hasOne(HistoryPaymentOrder::class, 'payment_id', 'id')->latest();
+    }
+    
     public function updatePayment($data, $id)
     {
         $result = true;

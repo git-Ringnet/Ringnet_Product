@@ -30,7 +30,10 @@ class PayExport extends Model
     ];
     protected $table = 'pay_export';
 
-
+    public function getHistoryPay()
+    {
+        return $this->hasOne(history_Pay_Export::class, 'pay_id', 'id')->latest();
+    }
     public function checkSL($data)
     {
         $payExport = DetailExport::leftJoin('quoteexport', 'quoteexport.detailexport_id', 'detailexport.id')
