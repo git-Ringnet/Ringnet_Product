@@ -761,7 +761,7 @@
                                                 </td>
                                                 <td>
                                                     @if ($item->getQuoteExport)
-                                                        {{ number_format($item->getQuoteExport->price_export) }}
+                                                        {{ number_format($item->getQuoteExport->price_export * $item->qty_export) }}
                                                     @endif
                                                 </td>
                                                 <td>
@@ -849,8 +849,7 @@
                                                 </td>
                                                 <td data-toggle="modal" data-target="#snModal"
                                                     data-delivery-id="{{ $item->delivered_id }}"
-                                                    data-product-id="{{ $item->product_id }}" class="sn"
-                                                    @if ($key + 1 < count($history) && $item->detailexport_id == $history[$key + 1]->detailexport_id) rowspan="2" @endif><img
+                                                    data-product-id="{{ $item->product_id }}" class="sn"><img
                                                         src="../../dist/img/icon/list.png">
                                                 </td>
                                             </tr>
