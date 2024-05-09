@@ -152,6 +152,7 @@ class RecieptController extends Controller
             ->join('products', 'quoteimport.product_name', 'products.product_name')
             ->where('products_import.detailimport_id', $reciept->detailimport_id)
             ->where('products_import.reciept_id', $reciept->id)
+            ->where('products.workspace_id', Auth::user()->current_workspace)
             ->select(
                 'quoteimport.product_code',
                 'quoteimport.product_name',
@@ -236,6 +237,7 @@ class RecieptController extends Controller
             ->where('quoteimport.detailimport_id', $request->id)
             ->where('quoteimport.product_qty', '>', DB::raw('COALESCE(reciept_qty,0)'))
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
+            ->where('products.workspace_id', Auth::user()->current_workspace)
             ->select('quoteimport.*', 'products.product_inventory as inventory')
             ->get();
     }

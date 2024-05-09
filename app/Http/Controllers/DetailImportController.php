@@ -144,6 +144,7 @@ class DetailImportController extends Controller
             $product = QuoteImport::leftjoin('products', 'products.product_name', 'quoteimport.product_name')
                 ->where('detailimport_id', $import->id)
                 ->select('quoteimport.*', 'products.product_inventory')
+                ->where('products.workspace_id', Auth::user()->current_workspace)
                 ->get();
             $project = Project::all();
             $history = HistoryImport::where('detailImport_id', $id)->get();

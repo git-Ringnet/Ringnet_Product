@@ -315,7 +315,9 @@ class Products extends Model
     {
         $result = [];
         for ($i = 0; $i < count($data['listName']); $i++) {
-            $checkProduct = DB::table($this->table)->where('product_name', $data['listName'][$i])->first();
+            $checkProduct = DB::table($this->table)->where('product_name', $data['listName'][$i])
+                ->where('workspace_id', Auth::user()->current_workspace)
+                ->first();
             if ($checkProduct) {
                 if ($checkProduct->product_tax != $data['listTax'][$i]) {
                     if ($checkProduct->type == 2) {
@@ -340,7 +342,7 @@ class Products extends Model
     {
         $result = [];
         $check = DB::table($this->table)->where('product_name', $data['name'])
-        ->where('workspace_id',Auth::user()->current_workspace);
+            ->where('workspace_id', Auth::user()->current_workspace);
         if (isset($data['action'])) {
             $check->where('id', '!=', $data['id']);
         }

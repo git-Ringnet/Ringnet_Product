@@ -215,7 +215,7 @@ class DetailExport extends Model
     public function sumSell($id)
     {
         $sumSell = DetailExport::where('guest_id', $id)
-            ->where('status', 2)
+            ->whereIn('status', [2, 3])
             ->where('detailexport.workspace_id', Auth::user()->current_workspace)
             ->selectRaw('SUM(total_price + total_tax) as sumSell')
             ->value('sumSell');

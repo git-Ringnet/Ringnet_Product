@@ -168,7 +168,9 @@ class ReceiveController extends Controller
     {
         $receive = Receive_bill::findOrFail($id);
         $title = $receive->quotation_number;
-        $product = QuoteImport::where('detailimport_id', $receive->detailimport_id)->get();
+        $product = QuoteImport::where('detailimport_id', $receive->detailimport_id)
+            ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
+            ->get();
         return view('tables.receive.showReceive', compact('receive', 'title', 'product', 'history'));
     }
 
@@ -191,6 +193,7 @@ class ReceiveController extends Controller
             ->join('products', 'quoteimport.product_name', 'products.product_name')
             ->where('products_import.detailimport_id', $receive->detailimport_id)
             ->where('products_import.receive_id', $receive->id)
+            ->where('products.workspace_id', Auth::user()->current_workspace)
             ->select(
                 'quoteimport.product_code',
                 'quoteimport.product_name',
