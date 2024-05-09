@@ -65,7 +65,8 @@ class PayOrderController extends Controller
         $workspacename = $this->workspaces->getNameWorkspace(Auth::user()->current_workspace);
         $workspacename = $workspacename->workspace_name;
         $reciept = DetailImport::leftJoin('quoteimport', 'detailimport.id', '=', 'quoteimport.detailimport_id')
-            ->where('quoteimport.product_qty', '>', 'quoteimport.receive_qty')
+            // ->where('quoteimport.product_qty', '>', 'quoteimport.payment_qty')
+            ->where('quoteimport.product_qty','>',DB::raw('COALESCE(quoteimport.payment_qty,0)'))
             ->where('quoteimport.workspace_id', Auth::user()->current_workspace)
             ->where('detailimport.status_pay', '=', 0)
             ->distinct()

@@ -628,7 +628,10 @@
                                                 </td>
                                                 <td>
                                                     @if ($item->getDetailImport)
-                                                        {{ $item->getDetailImport->reference_number }}
+                                                        <a
+                                                            href="{{ route('import.edit', ['workspace' => $workspacename, 'import' => $item->getDetailImport->id]) }}">
+                                                            {{ $item->getDetailImport->reference_number }}
+                                                        </a>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -753,7 +756,10 @@
                                                 </td>
                                                 <td>
                                                     @if ($item->getDetailExport)
-                                                        {{ $item->getDetailExport->reference_number }}
+                                                        <a
+                                                            href="{{ route('detailExport.edit', ['workspace' => $workspacename, 'detailExport' => $item->getDetailExport->id]) }}">
+                                                            {{ $item->getDetailExport->reference_number }}
+                                                        </a>
                                                     @endif
                                                 </td>
                                                 <td>
