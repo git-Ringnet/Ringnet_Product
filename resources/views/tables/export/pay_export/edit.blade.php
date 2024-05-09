@@ -755,7 +755,7 @@
             // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
             updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
         },
-        onOpen: function(selectedDates, dateStr, instance) {
+        onReady: function(selectedDates, dateStr, instance) {
             // Cập nhật giá trị của trường ẩn khi mở date picker
             updateHiddenInput(selectedDates[0], instance, "hiddenDateInput");
         }
@@ -767,7 +767,7 @@
             // Cập nhật giá trị của trường ẩn khi người dùng chọn ngày
             updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
         },
-        onOpen: function(selectedDates, dateStr, instance) {
+        onReady: function(selectedDates, dateStr, instance) {
             // Cập nhật giá trị của trường ẩn khi mở date picker
             updateHiddenInput(selectedDates[0], instance, "hiddenDayInput");
         }
