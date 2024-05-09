@@ -338,7 +338,7 @@
                             cấp</p>
                     </div>
                     <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:45px;">
+                        style="height:43px;">
                         <span class="text-13 btn-click" style="flex: 1.5;">Nhà cung cấp</span>
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin"

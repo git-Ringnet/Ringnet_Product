@@ -270,7 +270,7 @@
                     </div>
                 </section>
                 <div class="content">
-                    <div class="row footer-total" style="width:95%;">
+                    <div class="row" style="width:95%;">
                         <div class="position-relative col-lg-4 px-0"></div>
                         <div class="position-relative col-lg-5 col-md-7 col-sm-12 margin-left180">
                             <div class="m-3 ">
@@ -573,7 +573,7 @@
                         </p>
                     </div>
                     <div class="d-flex border-left-0 justify-content-between py-2 px-3 border align-items-center text-left text-nowrap position-relative"
-                        style="height:45px;">
+                        style="height:43px;">
                         <span class="text-13 btn-click" style="flex: 1.5;"> Khách hàng </span>
                         <span class="mx-1 text-13" style="flex: 2;">
                             <input type="text" placeholder="Chọn thông tin" name="guestName"

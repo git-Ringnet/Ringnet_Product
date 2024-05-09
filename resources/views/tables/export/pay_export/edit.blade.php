@@ -458,7 +458,7 @@
                     </div>
                     <div id="history" class="tab-pane fade">
                         <div id="title--fixed"
-                            class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+                            class="content-title--fixed top-111">
                             <p class="font-weight-bold text-uppercase info-chung--heading text-center">
                                 Lịch sử thanh toán
                             </p>
@@ -638,7 +638,7 @@
                     </div>
 </form>
 <div id="files" class="tab-pane fade">
-    <div class="content-title--fixed top-109 bg-filter-search border-top-0 text-center border-custom">
+    <div class="content-title--fixed top-111">
         <p class="font-weight-bold text-uppercase info-chung--heading text-center">FILE ĐÍNH KÈM</p>
     </div>
     <x-form-attachment :value="$payExport" name="TT"></x-form-attachment>
