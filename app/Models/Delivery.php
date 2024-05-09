@@ -938,7 +938,7 @@ class Delivery extends Model
                 }
             }
 
-            dd(1);
+            // dd(1);
 
             //thêm sản phẩm từ đơn giao hàng
             $checkProduct = Products::where('product_name', $data['product_name'][$i])->first();
